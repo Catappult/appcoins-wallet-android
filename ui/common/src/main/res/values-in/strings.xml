@@ -255,8 +255,8 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Hadiah e-Skills</string>
-  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
-  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
+  <string name="transaction_type_eskills">Tiket Masuk e-Skills</string>
+  <string name="transaction_type_eskills_ticke_refund">Pengembalian Tiket e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher untuk %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus yang Dikembalikan</string>
@@ -290,26 +290,26 @@
   <string name="transaction_type_purchase_bonus">Bonus Pembelian</string>
   <string name="transaction_type_promo_code_bonus">Bonus Kode Promo</string>
   <string name="transaction_type_extra_bonus">Bonus Ekstra</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_type_topup">Isi Ulang</string>
+  <string name="transaction_type_reverted_purchase_bonus">Bonus Pembelian yang Dikembalikan</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Bonus Kode Promo yang Dikembalikan</string>
+  <string name="transaction_type_reverted_extra_bonus">Bonus Ekstra yang Dikembalikan</string>
+  <string name="transaction_type_reverted_topup">Isi Ulang Dikembalikan</string>
+  <string name="transaction_type_rejected_topup">Isi Ulang Ditolak</string>
+  <string name="transaction_type_rejected_subscription_purchase">Pembelian Langganan Ditolak</string>
+  <string name="transaction_type_rejected_purchase">Pembelian Ditolak</string>
+  <string name="transaction_type_rejected_eskills_ticket">Tiket e-Skills Ditolak</string>
+  <string name="transaction_type_refund_subscription">Pengembalian Langganan</string>
+  <string name="transaction_type_subscription_payment">Pembayaran Langganan</string>
+  <string name="transaction_type_funds_sent">Dana Dikirim</string>
+  <string name="transaction_type_funds_received">Dana Diterima</string>
+  <string name="transaction_type_gift_card">Kartu Hadiah</string>
+  <string name="transaction_date_label">Tanggal</string>
+  <string name="transaction_more_details_label">Rincian Lainnya</string>
+  <string name="transaction_rejected_body">Pembelian ini ditolak.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
+  <string name="transaction_reverted_body">Pembelian ini dikembalikan.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
+  <string name="transaction_status_rejected">Ditolak</string>
+  <string name="transaction_details_header">Rincian transaksi</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
   <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
   <string name="activity_airdrop_hint">Ketik kata di gambar itu</string>
@@ -406,7 +406,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Isi Ulang</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s Kredit AppCoins</string>
   <string name="topup_bonus_header">Anda mendapatkan Bonus!</string>
   <string name="topup_bonus_message">%s Kredit AppCoins akan dimasukkan ke dompet Anda.</string>
   <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">Verifikasi kartu baru</string>
   <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
@@ -483,14 +483,14 @@
   <string name="skip_button">Lewati untuk saat ini</string>
   <string name="understand_button">Saya mengerti</string>
   <string name="install_button">Instal</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">Ambil</string>
+  <string name="see_all_button">Lihat semuanya</string>
   <string name="transfer_button">Transfer</string>
   <string name="top_up_button">Isi Ulang</string>
   <string name="back_up_button">Cadangkan dompet</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
+  <string name="play_button">Main</string>
+  <string name="manage_wallet_button">Kelola dompet</string>
+  <string name="log_out_button">Keluar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -500,7 +500,7 @@
   <string name="get_started">Mulai</string>
   <string name="existent_wallet">Saya sudah punya dompet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Lakukan pembelian di game favorit Anda, nanti kami akan menangani semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Nomor telepon ini sudah digunakan untuk menerima hadiah ini 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Nomor sudah digunakan.</string>
   <string name="verification_insert_code_error_common">Ups, ada kesalahan. Coba lagi!</string>
-  <string name="verification_settings_unverified_title">Verify Payment Method</string>
+  <string name="verification_settings_unverified_title">Verifikasi Metode Pembayaran</string>
   <string name="verification_settings_unverified_body">Dapatkan hadiah dan undang teman</string>
   <string name="verification_settings_verified_title">Dompet Terverifikasi</string>
-  <string name="verification_settings_verifying_title">Verifying…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">Memverifikasi…</string>
+  <string name="verification_verified_paypal_description">Dana Anda akan segera dikembalikan. Metode pembayaran Anda akan segera diverifikasi.</string>
   <string name="verification_verify_paypal_description">Transaksi minimal sebesar %s akan dilakukan untuk mengonfirmasi akun Anda. Dana tersebut akan segera dikembalikan.</string>
   <string name="verification_verify_paypal_button">Verifikasi Sekarang</string>
   <string name="verification_settings_card_verified_title">Kartu Terverifikasi</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan Anda sudah diproses atau sedang dijalankan. Mohon tunggu.</string>
   <string name="purchase_error_payment_rejected">Transaksi ditolak. Silakan coba dengan kartu atau metode pembayaran lain.</string>
-  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
+  <string name="purchase_error_verify_wallet">Verifikasi metode pembayaran Anda untuk menyelesaikan pembelian ini.</string>
+  <string name="purchase_error_verify_card">Verifikasi kartu Anda untuk menyelesaikan pembelian ini.</string>
+  <string name="purachse_error_verify_card_button">VERIFIKASI KARTU</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="purchase_paytmupi_install_disclaimer">Anda harus menginstal aplikasi Paytm UPI.</string>
   <string name="purchase_app_needed_body">Anda membutuhkan aplikasi berikut untuk menyelesaikan pembelian.</string>
@@ -609,10 +609,10 @@
   <string name="purchase_error_wrong_pin_body">Ada masalah dengan pin Anda. Silakan coba lagi.</string>
   <string name="purchase_error_3d_body">Ada masalah dengan autentikasi 3D Anda. Silakan coba lagi.</string>
   <string name="purchase_error_generic_contact_us_body">Ups, ada kesalahan. Silakan coba lagi atau hubungi kami.</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
-  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
-  <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="error_blocked_wallet_title">Dompet Diblokir</string>
+  <string name="error_blocked_wallet_body">Demi alasan keamanan, dompet Anda sudah diblokir. Silakan hubungi kami untuk informasi lebih lanjut.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Mungkin akan dikenakan biaya tambahan.</string>
+  <string name="purchase_error_paypal">Terjadi masalah dengan pembayaran PayPal Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Anda dan teman bisa mendapatkan penghasilan hingga %s dengan Program Referral kami!</string>
   <string name="referral_onboarding_body_no_connection">Anda dan teman bisa mendapatkan Kredit AppCoins dengan Program Referensi kami!</string>
   <string name="referral_onboarding_redeem_button">Saya sudah diundang</string>
-  <string name="referral_verification_title">Verify Payment Method</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_title">Verifikasi Metode Pembayaran</string>
+  <string name="referral_verification_body">Anda harus memverifikasi metode pembayaran Anda untuk ikut serta di Program Referensi. Kami akan mengirimi Anda kode verifikasi melalui SMS.</string>
   <string name="referral_verification_confirmation_title">Undangan Anda sudah divalidasi!</string>
   <string name="referral_verification_confirmation_body">Anda akan mendapatkan Kredit AppCoins senilai %1$s di pembelian in-app pertama. Pembelian pertama Anda nilainya harus lebih dari %2$s dengan metode pembayaran selain Kredit AppCoins.</string>
   <string name="referral_verification_not_invited_title">Sepertinya nomor ini tidak diundang&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Bagikan tautan undangan</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Bagikan tautan undangan melalui:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins senilai %s untuk setiap teman. Anda harus memverifikasi metode pembayaran Anda terlebih dahulu.</string>
+  <string name="referral_view_verify_button">Verifikasi metode pembayaran</string>
   <string name="referral_view_i_have_been_invited_button">Saya sudah diundang</string>
   <string name="referral_view_dropup_menu_friends_invited">Teman sudah diundang</string>
   <string name="referral_view_dropup_menu_earned">Dihasilkan</string>
@@ -922,7 +922,7 @@
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
-  <string name="promotion_ends_short_title">Promotion ends in</string>
+  <string name="promotion_ends_short_title">Promosi akan berakhir dalam</string>
   <plurals name="promotion_ends">
     <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">Ingin membantu kami?</string>
   <string name="rate_us_back_body">Beri nilai Dompet AppCoins di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
+  <string name="card_verification_body">Verifikasi kartu kredit/debit Anda untuk melakukan pembayaran.</string>
   <string name="card_verification_charde_disclaimer">Kami akan membebankan biaya %s ke kartu Anda, dan akan kami kembalikan setelah Anda mengonfirmasi kode. Tergantung bank yang Anda gunakan, proses ini bisa memakan waktu hitungan menit sampai beberapa hari.</string>
   <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
   <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
@@ -999,7 +999,7 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Coba dengan kartu lain</string>
   <string name="card_verification_code_wrong_error">Kode salah</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">Satu langkah lagi untuk memverifikasi</string>
   <string name="card_verification_wallets_one_step_body">Masukkan kode yang muncul dalam rincian transaksi.</string>
   <string name="card_verification_wallets_insert_bode_button">Masukkan kode</string>
   <string name="card_verification_no_attempts_title">Ups, Anda terlalu banyak memasukkan kode yang salah, jadi dana sebesar %1$s akan dikembalikan ke kartu Anda.</string>
@@ -1008,8 +1008,8 @@
   <string name="verify_card_title">Verifikasi Kartu</string>
   <string name="verify_card_button">Verifikasi kartu bank</string>
   <string name="verify_paypal_button">Verifikasi akun PayPal</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="card_verification_body_new">%s akan dibebankan ke kartu Anda dan segera dikembalikan. Cari kode validasi di keterangan kartu Anda, lalu masukkan kode itu di sini.</string>
+  <string name="card_verification_disclaimer_body">Harap diperhatikan bahwa kode konfirmasi mungkin akan muncul dalam pemberitahuan pengembalian dana.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Beli voucher ini dan dapatkan</string>
   <string name="voucher_card_body_2"> bonus hingga %s%%.</string>
@@ -1189,20 +1189,20 @@
   </plurals>
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan sampai dana Anda hilang!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
+  <string name="intro_backup_card_body">Cadangkan dompet Anda dan jaga keamanannya setiap saat.</string>
+  <string name="rewards_spend_to_next_level_body">Habiskan %1$s%2$s lagi untuk mencapai level berikutnya!</string>
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
   <string name="rewards_eskills_card_title">Raih Uang!</string>
   <string name="rewards_eskills_card_body">Kalahkan pemain lain dengan e-Skills</string>
   <string name="rewards_promo_code_card_title">Kode Promo</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_promo_code_card_body">Gunakan kode promo untuk mendapatkan penawaran khusus!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Kedaluwarsa</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">Dompet AppCoins sekarang mendukung NFT</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">Lakukan pembelian pertama di game yang kompatibel dengan AppCoins dan dapatkan bonus di setiap pembelian.</string>
+  <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% di setiap pembelian</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Dompet sudah berubah</string>
   <string name="manage_wallet_change_active_wallet_title">Apakah Anda ingin memilih dompet ini?</string>
