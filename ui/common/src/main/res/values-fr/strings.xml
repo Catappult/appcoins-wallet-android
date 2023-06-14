@@ -1213,6 +1213,7 @@
   <string name="rewards_promo_code_status_active">Activer</string>
   <string name="rewards_promo_code_status_expired">Expiré</string>
   <string name="home_nft_title">Le portefeuille AppCoins prend désormais en charge les NFTs</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effectuez votre premier achat dans un jeu compatible avec les AppCoins et débloquez un bonus à chaque achat.</string>
   <string name="rewards_bonus_every_purchase_title">Bénéficiez d\'un bonus de %s%% à chaque achat</string>
