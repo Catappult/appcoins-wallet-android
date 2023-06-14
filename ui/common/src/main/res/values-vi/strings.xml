@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">Đã kích hoạt</string>
   <string name="rewards_promo_code_status_expired">Đã hết hạn</string>
   <string name="home_nft_title">Ví AppCoins hiện có hỗ trợ NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
   <string name="rewards_bonus_every_purchase_title">Tận hưởng %s%% tiền thưởng trong mỗi lần mua</string>
