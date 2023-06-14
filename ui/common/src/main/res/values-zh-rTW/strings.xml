@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">訂閱項目</string>
   <string name="rewards_promo_code_status_expired">已到期</string>
   <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
