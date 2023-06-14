@@ -1215,15 +1215,15 @@
     <item quantity="other">ЧАСОВ</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">MINUTE</item>
-    <item quantity="few">MINUTES</item>
-    <item quantity="many">MINUTES</item>
+    <item quantity="one">МИНУТА</item>
+    <item quantity="few">МИНУТЫ</item>
+    <item quantity="many">МИНУТ</item>
     <item quantity="other">МИНУТ</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">SECOND</item>
-    <item quantity="few">SECONDS</item>
-    <item quantity="many">SECONDS</item>
+    <item quantity="one">СЕКУНДА</item>
+    <item quantity="few">СЕКУНДЫ</item>
+    <item quantity="many">СЕКУНД</item>
     <item quantity="other">СЕКУНД</item>
   </plurals>
   <string name="intro_transactions_header">Транзакции</string>
