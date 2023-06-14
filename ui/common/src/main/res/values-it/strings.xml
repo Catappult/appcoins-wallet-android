@@ -1213,6 +1213,7 @@
   <string name="rewards_promo_code_status_active">Attiva</string>
   <string name="rewards_promo_code_status_expired">Scaduto</string>
   <string name="home_nft_title">L\'AppCoins Wallet supporta NFT!</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effettua il tuo primo acquisto su un gioco compatibile con AppCoins e sblocca un bonus su ogni acquisto.</string>
   <string name="rewards_bonus_every_purchase_title">Sfrutta %s%% di bonus su ogni acquisto</string>
