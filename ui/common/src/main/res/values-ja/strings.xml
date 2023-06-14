@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">有効</string>
   <string name="rewards_promo_code_status_expired">期限切れ</string>
   <string name="home_nft_title">AppCoinsウォレットがNFTに対応しました。</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
   <string name="rewards_bonus_every_purchase_title">購入のたびに%s%% ボーナスをゲット</string>
