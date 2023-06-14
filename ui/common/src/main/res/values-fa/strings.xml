@@ -1213,6 +1213,7 @@
   <string name="rewards_promo_code_status_active">فعال</string>
   <string name="rewards_promo_code_status_expired">منقضی</string>
   <string name="home_nft_title">کیف پول AppCoins اکنون NFTها را پشتیبانی می کند</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">اولین خرید خود را در یک بازی سازگار با AppCoins انجام دهید و در هر خرید یک پاداش فعال کنید.</string>
   <string name="rewards_bonus_every_purchase_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
