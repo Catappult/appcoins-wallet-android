@@ -1226,6 +1226,7 @@
   <string name="rewards_promo_code_status_active">Activ</string>
   <string name="rewards_promo_code_status_expired">Expirat</string>
   <string name="home_nft_title">AppCoins Wallet este compatibil acum și cu NFT-uri</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Fă prima achiziție într-un joc compatibil AppCoins și deblochează un bonus la fiecare achiziție.</string>
   <string name="rewards_bonus_every_purchase_title">Bucură-te de un bonus de %s%% la fiecare achiziție</string>
