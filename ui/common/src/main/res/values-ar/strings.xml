@@ -1266,6 +1266,7 @@
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
   <string name="home_nft_title">محفظة AppCoins Wallet الآن تدعم NFTs</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
   <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
