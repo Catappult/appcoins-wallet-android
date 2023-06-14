@@ -301,8 +301,8 @@
   <string name="transaction_type_rejected_eskills_ticket">Reddedilen e-Skills Bileti</string>
   <string name="transaction_type_refund_subscription">Abonelik İadesi</string>
   <string name="transaction_type_subscription_payment">Abonelik Ödemesi</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
+  <string name="transaction_type_funds_sent">Para Gönderildi</string>
+  <string name="transaction_type_funds_received">Para Alındı</string>
   <string name="transaction_type_gift_card">Hediye Kartı</string>
   <string name="transaction_date_label">Tarih</string>
   <string name="transaction_more_details_label">Daha Fazla Ayrıntı</string>
