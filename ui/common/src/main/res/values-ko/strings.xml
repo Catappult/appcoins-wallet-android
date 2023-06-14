@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">활성</string>
   <string name="rewards_promo_code_status_expired">만료됨</string>
   <string name="home_nft_title">이제 AppCoins 지갑이 NFT를 지원합니다</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins 호환 게임에서 첫 구매를 하고 모든 구매 시 보너스 잠금을 해제합니다.</string>
   <string name="rewards_bonus_every_purchase_title">모든 구매에서 %s%% 보너스를 받으세요</string>
