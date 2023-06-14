@@ -1239,6 +1239,7 @@
   <string name="rewards_promo_code_status_active">Активен</string>
   <string name="rewards_promo_code_status_expired">Истёк</string>
   <string name="home_nft_title">Кошелек AppCoins теперь поддерживает NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Наслаждайтесь бонусом в %s%% при каждой покупке</string>
