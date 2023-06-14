@@ -1226,6 +1226,7 @@
   <string name="rewards_promo_code_status_active">Aktivne</string>
   <string name="rewards_promo_code_status_expired">Istekao</string>
   <string name="home_nft_title">AppCoins Wallet sada podržava NFT-jeve</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
   <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
