@@ -1214,6 +1214,7 @@ Wallets</item>
   <string name="rewards_promo_code_status_active">Ενεργές</string>
   <string name="rewards_promo_code_status_expired">Έληξε</string>
   <string name="home_nft_title">Το AppCoins Wallet τώρα υποστηρίζει NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα παιχνίδι που είναι συμβατό με AppCoins και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>
   <string name="rewards_bonus_every_purchase_title">Απολαύστε ένα %s%% bonus σε κάθε αγορά</string>
