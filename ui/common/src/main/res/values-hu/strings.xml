@@ -1213,6 +1213,7 @@
   <string name="rewards_promo_code_status_active">Aktív</string>
   <string name="rewards_promo_code_status_expired">Lejárt</string>
   <string name="home_nft_title">Az AppCoins Wallet mostantól NFT-ket is támogat</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Végezd el az első vásárlásod egy AppCoins kompatibilis játékban és szerezz bónuszt minden vásárlásért cserébe.</string>
   <string name="rewards_bonus_every_purchase_title">Élvezd ki a %s%% bónuszt minden vásárlás után</string>
