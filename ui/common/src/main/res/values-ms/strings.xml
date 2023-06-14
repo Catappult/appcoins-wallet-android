@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Luput</string>
   <string name="home_nft_title">Dompet AppCoins kini menyokong NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
   <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% bagi setiap pembelian</string>
