@@ -1203,15 +1203,15 @@
   <string name="intro_home_button">Главная</string>
   <string name="intro_rewards_button">Награды</string>
   <plurals name="days">
-    <item quantity="one">DAY</item>
-    <item quantity="few">DAYS</item>
-    <item quantity="many">DAYS</item>
+    <item quantity="one">ДЕНЬ</item>
+    <item quantity="few">ДНЯ</item>
+    <item quantity="many">ДНЕЙ</item>
     <item quantity="other">ДНЕЙ</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">HOUR</item>
-    <item quantity="few">HOURS</item>
-    <item quantity="many">HOURS</item>
+    <item quantity="one">ЧАС</item>
+    <item quantity="few">ЧАСА</item>
+    <item quantity="many">ЧАСОВ</item>
     <item quantity="other">ЧАСОВ</item>
   </plurals>
   <plurals name="minutes">
