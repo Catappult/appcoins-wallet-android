@@ -1241,6 +1241,7 @@
   <string name="rewards_promo_code_status_active">Активний</string>
   <string name="rewards_promo_code_status_expired">Термін дії закінчився</string>
   <string name="home_nft_title">AppCoins Wallet тепер підтримує NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Отримуйте бонус %s%% до кожної покупки</string>
