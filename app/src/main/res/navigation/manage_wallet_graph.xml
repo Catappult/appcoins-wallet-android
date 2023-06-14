@@ -26,6 +26,9 @@
     <action
         android:id="@+id/action_navigate_to_remove_wallet"
         app:destination="@id/remove_wallet_graph" />
+    <action
+        android:id="@+id/action_navigate_to_receive_funds"
+        app:destination="@id/receive_funds_fragment" />
   </fragment>
 
   <activity
@@ -74,4 +77,11 @@
         app:argType="boolean" />
   </activity>
 
+  <fragment
+      android:id="@+id/receive_funds_fragment"
+      android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
+    <argument
+        android:name="entry_screen_selected"
+        app:argType="string" />
+  </fragment>
 </navigation>

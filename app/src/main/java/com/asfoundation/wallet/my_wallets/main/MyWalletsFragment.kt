@@ -20,7 +20,6 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
@@ -31,7 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -168,7 +167,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
     views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
     views.myWalletsContent.receiveButton.setOnClickListener {
-      navigator.navigateToReceive(Wallet(wallet))
+      //navigator.navigateToReceive(Wallet(wallet))
     }
 
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE

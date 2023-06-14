@@ -262,7 +262,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         VectorIconButton(
           painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
-          onClick = {})
+          onClick = { myWalletsNavigator.navigateToReceive(navController()) })
         VectorIconButton(
           imageVector = Icons.Default.Share,
           contentDescription = R.string.wallet_view_share_button,
