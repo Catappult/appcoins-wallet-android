@@ -1239,6 +1239,7 @@
   <string name="rewards_promo_code_status_active">Aktywny</string>
   <string name="rewards_promo_code_status_expired">Wygasł</string>
   <string name="home_nft_title">Portfel AppCoins obsługuje teraz NFT</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Dokonaj pierwszego zakupu w grze kompatybilnej z AppCoins i odblokuj bonus przy każdym zakupie.</string>
   <string name="rewards_bonus_every_purchase_title">Ciesz się %s%% Bonusu przy każdym zakupie</string>
