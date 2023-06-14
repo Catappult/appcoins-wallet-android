@@ -1212,19 +1212,19 @@
     <item quantity="one">GODZINA</item>
     <item quantity="few">GODZIN</item>
     <item quantity="many">GODZINY</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="other">GODZIN</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">MINUTA</item>
     <item quantity="few">MINUTY</item>
     <item quantity="many">MINUT</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">MINUT</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">SEKUNDA</item>
     <item quantity="few">SEKUNDY</item>
     <item quantity="many">SEKUND</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">SEKUND</item>
   </plurals>
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
