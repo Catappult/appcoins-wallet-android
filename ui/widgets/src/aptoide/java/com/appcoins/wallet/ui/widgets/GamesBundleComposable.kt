@@ -33,6 +33,13 @@ fun GamesBundle(
 ) {
   fetchFromApiCallback()
   if (items.isNotEmpty()) {
+    Text(
+      text = stringResource(id = R.string.intro_active_promotions_header),
+      fontSize = 14.sp,
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_dark_grey,
+      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+    )
     LazyRow(
       modifier = Modifier.padding(
         top = 16.dp
