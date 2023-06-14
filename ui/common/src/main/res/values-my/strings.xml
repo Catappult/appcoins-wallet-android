@@ -1200,6 +1200,7 @@
   <string name="rewards_promo_code_status_active">သုံးႏိုင္ေသာ</string>
   <string name="rewards_promo_code_status_expired">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="home_nft_title">AppCoins Wallet သည္ ယခုအခါ NFTs မ်ားကို ပံ့ပိုးမႈေပးပါသည္</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ပထမဆုံးဝယ္ယူမႈကို ျပဳလုပ္ကာ ဝယ္ယူမႈတိုင္းတြင္ ေဘာနပ္စ္တစ္ခုကို ပြင့္ေစလိုက္ပါ။</string>
   <string name="rewards_bonus_every_purchase_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္တစ္ခုကို ခံစားလိုက္ပါ</string>
