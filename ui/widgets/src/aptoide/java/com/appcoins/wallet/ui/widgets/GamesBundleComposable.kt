@@ -34,7 +34,7 @@ fun GamesBundle(
   fetchFromApiCallback()
   if (items.isNotEmpty()) {
     Text(
-      text = stringResource(id = R.string.intro_active_promotions_header),
+      text = stringResource(id = R.string.home_appcoins_compatible_games_title),
       fontSize = 14.sp,
       fontWeight = FontWeight.Bold,
       color = WalletColors.styleguide_dark_grey,
@@ -66,7 +66,7 @@ private fun CardItem(
     shape = RoundedCornerShape(8.dp),
     onClick = { openGame(gameCardData.gamePackage, context) },
     modifier = Modifier
-      .width(300.dp)
+      .width(332.dp)
       .height(150.dp)
   ) {
 
