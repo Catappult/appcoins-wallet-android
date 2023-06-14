@@ -1234,6 +1234,7 @@
   <string name="rewards_promo_code_status_active">सक्रिय</string>
   <string name="rewards_promo_code_status_expired">कालबाह्य</string>
   <string name="home_nft_title">आता अॅपकॉइन्स वॉलेट एनएफटीला समर्थन देते</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
   <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%% बोनस मिळवा</string>
