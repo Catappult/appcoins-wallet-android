@@ -40,7 +40,6 @@ fun NftCard(
       Row(
         modifier = Modifier
           .weight(1f),
-//          .fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
       ) {
         Image(

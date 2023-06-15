@@ -163,6 +163,7 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onStateChanged(state: NavBarState) {
     setPromotionBadge(state.showPromotionsBadge)
     setVipCallout(false)
+    // to activate the vip callout notification, change to this line:
 //    setVipCallout(state.shouldShowVipCallout)
   }
 

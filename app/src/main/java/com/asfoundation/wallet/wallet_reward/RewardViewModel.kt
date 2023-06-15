@@ -54,10 +54,6 @@ class RewardViewModel @Inject constructor(
     }
   }
 
-//  init {
-//    fetchPromotions()
-//  }
-
   fun onSettingsClick() {
     sendSideEffect { RewardSideEffect.NavigateToSettings() }
   }
