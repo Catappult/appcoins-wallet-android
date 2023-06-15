@@ -39,10 +39,16 @@ class GetPaymentInfoModelUseCase @Inject constructor(
   }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
-    if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GIROPAY.name -> {
+        AdyenPaymentRepository.Methods.GIROPAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
 }
 
