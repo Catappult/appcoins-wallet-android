@@ -82,6 +82,6 @@
       android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
     <argument
         android:name="entry_screen_selected"
-        app:argType="string" />
+        app:argType="integer" />
   </fragment>
 </navigation>

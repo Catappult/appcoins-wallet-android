@@ -3,6 +3,8 @@ package com.asfoundation.wallet.transfers
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.main.nav_bar.CurrencyNavigationItem
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TransferFundsViewModel @Inject
 constructor(
-  private val displayChatUseCase: DisplayChatUseCase
+  private val displayChatUseCase: DisplayChatUseCase,
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase
 ) : ViewModel() {
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
@@ -25,6 +28,16 @@ constructor(
   val clickedTransferItem: MutableState<Int> = mutableStateOf(TransferDestinations.SEND.ordinal)
   val clickedCurrencyItem: MutableState<Int> = mutableStateOf(CurrencyDestinations.APPC_C.ordinal)
 
+  init {
+    getWalletInfo()
+  }
+
+  private fun getWalletInfo() {
+    observeWalletInfoUseCase(null, update = true, updateFiat = true)
+      .firstOrError()
+      .doOnSuccess { _uiState.value = UiState.Success(it) }
+      .subscribe()
+  }
 
   fun displayChat() = displayChatUseCase()
 
@@ -36,7 +49,7 @@ constructor(
     ),
     TransferNavigationItem(
       destination = TransferDestinations.RECEIVE,
-      label = R.string.intro_rewards_button,
+      label = R.string.title_my_address,
       selected = false
     )
   )
@@ -62,6 +75,6 @@ constructor(
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
-    object Success : UiState()
+    data class Success(val walletInfo: WalletInfo) : UiState()
   }
 }

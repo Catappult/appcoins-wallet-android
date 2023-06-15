@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.main
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -10,6 +11,8 @@ import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
+import com.asfoundation.wallet.transfers.TransferFundsFragment
+import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
@@ -70,8 +73,10 @@ class MyWalletsNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToReceive(navController: NavController) {
-    navController.navigate(R.id.action_navigate_to_receive_funds)
+  fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
+    val bundle = Bundle()
+    bundle.putInt(TransferFundsFragment.TRANSFER_KEY, transferDestinations.ordinal)
+    navController.navigate(R.id.action_navigate_to_receive_funds, bundle)
   }
 
   fun navigateToNfts() {
