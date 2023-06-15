@@ -54,9 +54,9 @@ class RewardViewModel @Inject constructor(
     }
   }
 
-  init {
-    fetchPromotions()
-  }
+//  init {
+//    fetchPromotions()
+//  }
 
   fun onSettingsClick() {
     sendSideEffect { RewardSideEffect.NavigateToSettings() }
@@ -70,7 +70,7 @@ class RewardViewModel @Inject constructor(
     }
   }
 
-  private fun fetchPromotions() {
+  fun fetchPromotions() {
     getPromotionsUseCase()
       .subscribeOn(rxSchedulers.io)
       .asAsyncToState(RewardState::promotionsModelAsync) {

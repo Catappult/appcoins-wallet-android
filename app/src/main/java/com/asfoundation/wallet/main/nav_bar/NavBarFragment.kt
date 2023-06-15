@@ -162,7 +162,8 @@ class NavBarFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: NavBarState) {
     setPromotionBadge(state.showPromotionsBadge)
-    setVipCallout(state.shouldShowVipCallout)
+    setVipCallout(false)
+//    setVipCallout(state.shouldShowVipCallout)
   }
 
   override fun onSideEffect(sideEffect: NavBarSideEffect) {
