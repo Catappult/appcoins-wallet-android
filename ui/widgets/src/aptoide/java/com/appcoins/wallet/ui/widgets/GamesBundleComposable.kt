@@ -126,9 +126,10 @@ private fun CardItem(
           lineHeight = 24.sp,
           modifier = Modifier
             .align(Alignment.Bottom)
+            .weight(1f)
             .padding(bottom = 6.dp, start = 20.dp, end = 20.dp)
         )
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(0.1f))
         Text(
           text = stringResource(id = R.string.get_button),
           color = WalletColors.styleguide_pink,
