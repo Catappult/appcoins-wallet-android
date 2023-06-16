@@ -46,6 +46,9 @@ class GetPaymentInfoModelUseCase @Inject constructor(
       PaymentType.GIROPAY.name -> {
         AdyenPaymentRepository.Methods.GIROPAY
       }
+      PaymentType.KAKAOPAY.name -> {
+        AdyenPaymentRepository.Methods.KAKAOPAY
+      }
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }

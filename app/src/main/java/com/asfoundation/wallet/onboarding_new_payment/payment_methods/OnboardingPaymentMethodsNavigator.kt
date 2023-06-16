@@ -99,10 +99,29 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
     )
   }
 
+  fun navigateToKakaoAdyen(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
+        transactionBuilder,
+        PaymentType.KAKAOPAY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
+
   fun navigateToPaypalDirect() = Unit
 
-  fun navigateToLocalPayment(transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
-                             currency: String
+  fun navigateToLocalPayment(
+    transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
+    currency: String
   ) {
     navigate(
       fragment.findNavController(),

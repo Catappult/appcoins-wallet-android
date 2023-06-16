@@ -609,6 +609,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
           PaymentTypeInfo(PaymentType.PAYPALV2, data.id, data.label, data.iconUrl)
         PaymentType.GIROPAY.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.GIROPAY, data.id, data.label, data.iconUrl)
+        PaymentType.KAKAOPAY.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.KAKAOPAY, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,

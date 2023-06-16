@@ -86,6 +86,12 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                     args.currency,
                     args.forecastBonus
                 )
+                is PaymentMethodClick.KakaoPayAdyenClick -> navigator.navigateToKakaoAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
                 is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
                     args.transactionBuilder,
                     args.amount,

@@ -21,7 +21,7 @@ interface AdyenApi {
     @Body payment: PaymentDetails
   ): Single<AdyenTransactionResponse>
 
-  @GET("8.20230501/gateways/adyen_v2/payment-methods")
+  @GET("8.20230609/gateways/adyen_v2/payment-methods")
   fun loadPaymentInfo(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,

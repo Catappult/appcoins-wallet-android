@@ -15,6 +15,7 @@ class PaymentMethodsMapper @Inject constructor(
       "paypal" -> SelectedPaymentMethod.PAYPAL
       "paypal_v2" -> SelectedPaymentMethod.PAYPAL_V2
       "giropay" -> SelectedPaymentMethod.GIROPAY
+      "kakaopay" -> SelectedPaymentMethod.KAKAOPAY
       "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
@@ -39,6 +40,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.CARRIER_BILLING -> "carrier_billing"
       SelectedPaymentMethod.GIROPAY -> "giropay"
+      SelectedPaymentMethod.KAKAOPAY -> "kakaopay"
       SelectedPaymentMethod.ERROR -> ""
     }
   }

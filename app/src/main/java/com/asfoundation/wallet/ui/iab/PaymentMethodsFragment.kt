@@ -514,6 +514,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showKakaoPay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.KAKAOPAY,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showPaypalV2(
     gamificationLevel: Int,
     fiatValue: FiatValue,

@@ -180,6 +180,9 @@ class AdyenTopUpPresenter(
             PaymentType.GIROPAY.name -> {
               launchPaypal(it.paymentMethod!!)
             }
+            PaymentType.KAKAOPAY.name -> {
+              launchPaypal(it.paymentMethod!!)
+            }
             PaymentType.PAYPAL.name -> {
               launchPaypal(it.paymentMethod!!)
             }
@@ -550,6 +553,9 @@ class AdyenTopUpPresenter(
       }
       PaymentType.GIROPAY.name -> {
         AdyenPaymentRepository.Methods.GIROPAY
+      }
+      PaymentType.KAKAOPAY.name -> {
+        AdyenPaymentRepository.Methods.KAKAOPAY
       }
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL

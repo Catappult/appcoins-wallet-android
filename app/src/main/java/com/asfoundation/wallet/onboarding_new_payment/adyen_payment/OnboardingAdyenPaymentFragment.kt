@@ -120,6 +120,9 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
             PaymentType.GIROPAY -> {
               viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
             }
+            PaymentType.KAKAOPAY -> {
+              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+            }
             else -> Unit
           }
         }

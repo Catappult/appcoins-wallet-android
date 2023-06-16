@@ -444,6 +444,7 @@ class TopUpFragmentPresenter(
     if (paymentMethod.paymentType == PaymentType.CARD
       || paymentMethod.paymentType == PaymentType.PAYPAL
       || paymentMethod.paymentType == PaymentType.GIROPAY
+      || paymentMethod.paymentType == PaymentType.KAKAOPAY
     ) {
       activity?.navigateToAdyenPayment(
         paymentType = paymentMethod.paymentType,

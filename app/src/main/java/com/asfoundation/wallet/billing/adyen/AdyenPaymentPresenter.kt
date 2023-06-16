@@ -163,6 +163,9 @@ class AdyenPaymentPresenter(
             PaymentType.GIROPAY.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
+            PaymentType.KAKAOPAY.name -> {
+              launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+            }
             PaymentType.PAYPAL.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
@@ -695,6 +698,8 @@ class AdyenPaymentPresenter(
       PaymentMethodsAnalytics.PAYMENT_METHOD_CC
     } else if (paymentType == PaymentType.GIROPAY.name) {
       PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
+    } else if (paymentType == PaymentType.KAKAOPAY.name) {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_KAKAOPAY
     } else {
       PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
@@ -706,6 +711,9 @@ class AdyenPaymentPresenter(
       }
       PaymentType.GIROPAY.name -> {
         AdyenPaymentRepository.Methods.GIROPAY
+      }
+      PaymentType.KAKAOPAY.name -> {
+        AdyenPaymentRepository.Methods.KAKAOPAY
       }
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
@@ -866,10 +874,14 @@ class AdyenPaymentPresenter(
       error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
       error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
       error.errorInfo?.errorType == ErrorType.INVALID_COUNTRY_CODE -> view.showSpecificError(R.string.unknown_error)
-      error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> view.showSpecificError(R.string.purchase_error_payment_rejected)
+      error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> view.showSpecificError(
+        R.string.purchase_error_payment_rejected
+      )
       error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> view.showSpecificError(R.string.purchase_card_error_general_1)
       error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> view.showCvvError()
-      error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(R.string.purchase_card_error_no_funds)
+      error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(
+        R.string.purchase_card_error_no_funds
+      )
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
         if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
@@ -887,6 +899,7 @@ class AdyenPaymentPresenter(
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
       PaymentType.GIROPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
+      PaymentType.KAKAOPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_KAKAOPAY
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)
