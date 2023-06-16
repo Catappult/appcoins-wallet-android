@@ -1249,4 +1249,6 @@
   <string name="manage_wallet_wallet_changed_title">Гаманець змінено</string>
   <string name="manage_wallet_change_active_wallet_title">Хочете обрати цей гаманець?</string>
   <string name="manage_wallet_change_wallet_name_title">Змінити назву гаманця</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>
