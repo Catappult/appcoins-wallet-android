@@ -341,7 +341,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.turnOnFingerprint
       )
 
-      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress, navController())
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(

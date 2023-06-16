@@ -8,6 +8,7 @@ android {
 
 dependencies {
   implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:backup:ui"))
   implementation(project(":core:arch"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:utils:android-common"))
