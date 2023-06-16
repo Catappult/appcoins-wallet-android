@@ -1221,4 +1221,6 @@
   <string name="manage_wallet_wallet_changed_title">Wallet gewijzigd</string>
   <string name="manage_wallet_change_active_wallet_title">Wil je deze wallet selecteren?</string>
   <string name="manage_wallet_change_wallet_name_title">Naam van wallet wijzigen</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>
