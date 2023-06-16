@@ -1247,4 +1247,6 @@
   <string name="manage_wallet_wallet_changed_title">Zmieniono portfel</string>
   <string name="manage_wallet_change_active_wallet_title">Chcesz wybrać ten portfel?</string>
   <string name="manage_wallet_change_wallet_name_title">Zmień nazwę portfela</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>
