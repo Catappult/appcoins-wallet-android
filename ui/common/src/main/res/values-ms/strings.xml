@@ -1208,4 +1208,6 @@
   <string name="manage_wallet_wallet_changed_title">Dompet diubah</string>
   <string name="manage_wallet_change_active_wallet_title">Anda mahu pilih dompet ini?</string>
   <string name="manage_wallet_change_wallet_name_title">Tukar nama dompet</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>
