@@ -112,7 +112,11 @@
 
   <action
       android:id="@+id/action_navigate_to_change_fiat_currency"
-      app:destination="@id/change_fiat_currency_fragment"/>
+      app:destination="@id/change_fiat_currency_fragment" />
+
+  <action
+      android:id="@+id/action_navigate_to_send_funds"
+      app:destination="@id/transfer_funds_fragment" />
 
   <action
       android:id="@+id/action_navigate_to_transaction_details"
@@ -129,5 +133,13 @@
   <fragment
       android:id="@+id/change_fiat_currency_fragment"
       android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment" />
+
+  <fragment
+      android:id="@+id/transfer_funds_fragment"
+      android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
+    <argument
+        android:name="entry_screen_selected"
+        app:argType="integer" />
+  </fragment>
 
 </navigation>

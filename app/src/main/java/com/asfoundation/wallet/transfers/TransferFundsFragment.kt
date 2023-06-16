@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -65,18 +66,36 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletFragment
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Error
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidAmountError
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidWalletAddressError
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Loading
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenAppcConfirmationView
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenAppcCreditsConfirmation
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenEthConfirmationView
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToWalletBlocked
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NoNetworkError
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoughFundsError
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
+import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations.APPC
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations.ETHEREUM
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
+import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigDecimal
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TransferFundsFragment : BasePageViewFragment() {
+  @Inject
+  lateinit var transferNavigator: TransferFragmentNavigator
+
   private val viewModel: TransferFundsViewModel by viewModels()
 
   override fun onCreateView(
@@ -143,8 +162,10 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun CenterContent() {
-    when (val uiState = viewModel.uiState.collectAsState().value) {
-      is TransferFundsViewModel.UiState.Success -> {
+    val uiState = viewModel.uiState.collectAsState().value
+    println("giovanni teste " + uiState)
+    when (uiState) {
+      is Success -> {
         Column(
           modifier = Modifier
             .fillMaxHeight()
@@ -169,16 +190,48 @@ class TransferFundsFragment : BasePageViewFragment() {
         }
       }
 
-      else -> {
-        Column(
-          modifier = Modifier.fillMaxHeight(), horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-          CircularProgressIndicator()
-        }
-      }
+      is NavigateToOpenAppcConfirmationView -> transferNavigator.openAppcConfirmationView(
+        uiState.walletAddress,
+        uiState.toWalletAddress,
+        uiState.amount
+      )
+
+      is NavigateToOpenAppcCreditsConfirmation -> transferNavigator.openAppcCreditsConfirmationView(
+        uiState.walletAddress,
+        uiState.amount,
+        uiState.currency
+      )
+
+      is NavigateToOpenEthConfirmationView -> transferNavigator.openEthConfirmationView(
+        uiState.walletAddress,
+        uiState.toWalletAddress,
+        uiState.amount
+      )
+
+      NavigateToWalletBlocked -> transferNavigator.showWalletBlocked()
+
+      Loading -> Loading()
+
+      Error, InvalidAmountError, InvalidWalletAddressError, NoNetworkError, NotEnoughFundsError, UnknownError ->
+        Toast.makeText(
+          context,
+          stringResource(R.string.unknown_error),
+          Toast.LENGTH_SHORT
+        ).show()
+
+      else -> {}
     }
+  }
 
-
+  @Composable
+  fun Loading() {
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
+    ) {
+      CircularProgressIndicator()
+    }
   }
 
   @Composable
@@ -318,7 +371,16 @@ class TransferFundsFragment : BasePageViewFragment() {
     Column(Modifier.padding(bottom = 32.dp)) {
       ButtonWithText(
         stringResource(R.string.transfer_send_button),
-        {},
+        {
+          viewModel.onClickSend( //TODO do verifications and send correct data
+            TransferFundsViewModel.TransferData(
+              "0xd21e10a8bd5917fa57776de4654284dcc8434f23",
+              TransferFundsViewModel.Currency.APPC_C,
+              BigDecimal.TEN,
+            ),
+            requireContext().packageName
+          )
+        },
         styleguide_pink,
         styleguide_light_grey,
         buttonType = ButtonType.LARGE

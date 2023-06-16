@@ -3,12 +3,13 @@ package com.asfoundation.wallet.ui.transact
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.jvm_common.C
+import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.transfers.TransferConfirmationActivity
+import com.asfoundation.wallet.transfers.TransferFundsViewModel
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
@@ -55,15 +56,47 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
     return Completable.fromAction {
       val currencyName = when (currency) {
         TransferFragmentView.Currency.APPC_C -> fragment.getString(
-            R.string.p2p_send_currency_appc_c)
+          R.string.p2p_send_currency_appc_c
+        )
+
         TransferFragmentView.Currency.APPC -> fragment.getString(R.string.p2p_send_currency_appc)
         TransferFragmentView.Currency.ETH -> fragment.getString(R.string.p2p_send_currency_eth)
       }
       fragmentManager.beginTransaction()
-          .replace(R.id.fragment_container,
-              AppcoinsCreditsTransferSuccessFragment.newInstance(amount, currencyName,
-                  walletAddress))
-          .commit()
+        .replace(
+          R.id.fragment_container,
+          AppcoinsCreditsTransferSuccessFragment.newInstance(
+            amount, currencyName,
+            walletAddress
+          )
+        )
+        .commit()
+    }
+  }
+
+  fun openAppcCreditsConfirmationView(
+    walletAddress: String,
+    amount: BigDecimal,
+    currency: TransferFundsViewModel.Currency
+  ): Completable {
+    return Completable.fromAction {
+      val currencyName = when (currency) {
+        TransferFundsViewModel.Currency.APPC_C -> fragment.getString(
+          R.string.p2p_send_currency_appc_c
+        )
+
+        TransferFundsViewModel.Currency.APPC -> fragment.getString(R.string.p2p_send_currency_appc)
+        TransferFundsViewModel.Currency.ETH -> fragment.getString(R.string.p2p_send_currency_eth)
+      }
+      fragmentManager.beginTransaction()
+        .replace(
+          R.id.fragment_container,
+          AppcoinsCreditsTransferSuccessFragment.newInstance(
+            amount, currencyName,
+            walletAddress
+          )
+        )
+        .commit()
     }
   }
 
