@@ -1,6 +1,6 @@
 plugins{
   id("appcoins.android.library")
-
+  id("appcoins.android.library.compose")
 }
 
 android{
@@ -32,6 +32,8 @@ dependencies{
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.google.material)
+  implementation(libs.bundles.androidx.compose)
+  implementation(libs.bundles.coil)
   implementation(libs.google.gson)
 
 }

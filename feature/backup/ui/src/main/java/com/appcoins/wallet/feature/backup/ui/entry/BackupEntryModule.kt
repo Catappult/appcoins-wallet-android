@@ -18,11 +18,9 @@ class BackupEntryModule {
   fun providesBackupEntryViewModelFactory(
       getWalletInfoUseCase: GetWalletInfoUseCase,
       currencyFormatUtils: CurrencyFormatUtils,
-      data: BackupEntryData,
       dispatchers: Dispatchers,
   ): BackupEntryViewModelFactory {
     return BackupEntryViewModelFactory(
-        data,
         getWalletInfoUseCase,
         currencyFormatUtils,
         dispatchers
