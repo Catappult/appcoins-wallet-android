@@ -759,6 +759,11 @@ class AdyenPaymentPresenter(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.GIROPAY.id
       )
+    } else if (paymentType == PaymentType.KAKAOPAY.name) {
+      bundle.putString(
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.KAKAOPAY.id
+      )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }

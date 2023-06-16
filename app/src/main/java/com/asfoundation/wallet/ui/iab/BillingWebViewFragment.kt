@@ -54,6 +54,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
     const val CARRIER_BILLING_ONE_BIP_SCHEMA = "https://pay.onebip.com/"
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
+//    private const val KAKAO_PAYMENT_SCHEMA = "alipays://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
     private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
@@ -142,6 +143,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
+//          clickUrl.contains(KAKAO_PAYMENT_SCHEMA) -> {  // TODO check in prod, this bypasses the Alipay app redirect.
+//            currentUrl = clickUrl
+//            finishWithValidations(clickUrl)
+//          }
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
