@@ -595,7 +595,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     Column(verticalArrangement = Arrangement.Center) {
       Text(
         modifier = Modifier.padding(bottom = 24.dp),
-        text = "Set a name for your wallet",
+        text = stringResource(R.string.manage_wallet_set_a_name_button),
         color = styleguide_light_grey,
         style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.Bold
