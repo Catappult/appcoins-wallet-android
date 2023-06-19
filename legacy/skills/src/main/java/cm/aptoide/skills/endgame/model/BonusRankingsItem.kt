@@ -1,6 +1,7 @@
 package cm.aptoide.skills.endgame.model
 
-import com.appcoins.eskills2048.R
+import cm.aptoide.skills.R
+
 
 class BonusRankingsItem(
   val userName: String,

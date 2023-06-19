@@ -1,14 +1,14 @@
-package cm.aptoide.skills.endgame.model
+package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class BonusHistory {
+class BonusHistory(
   @SerializedName("date")
   @Expose
-  val date: String? = null
+  val date: String,
 
   @SerializedName("users")
   @Expose
-  val users: List<BonusUser>? = null
-}
+  val users: List<BonusUser>
+)

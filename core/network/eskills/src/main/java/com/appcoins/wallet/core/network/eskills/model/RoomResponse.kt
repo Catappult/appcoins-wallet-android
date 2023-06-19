@@ -2,7 +2,7 @@ package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.SerializedName
 
-class RoomResponse(
+data class RoomResponse(
   @SerializedName("room_id")
   var roomId: String,
 
@@ -19,5 +19,8 @@ class RoomResponse(
   var status: RoomStatus,
 
   @SerializedName("users")
-  var users: List<User>
+  var users: List<User>,
+
+  var statusCode: RoomStatusCode
 )
+

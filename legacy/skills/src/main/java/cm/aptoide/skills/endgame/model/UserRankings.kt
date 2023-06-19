@@ -2,17 +2,16 @@ package cm.aptoide.skills.endgame.model
 
 import com.google.gson.annotations.SerializedName
 
-class UserRankings {
+data class UserRankings(
   @SerializedName("username")
-  val rankingUsername: String? = null
-    get() = field ?: rankingWalletAddress
+  val rankingUsername: String,
 
   @SerializedName("rank_position")
-  val rankPosition = 0
+  val rankPosition: Int,
 
   @SerializedName("wallet_address")
-  val rankingWalletAddress: String? = null
+  val rankingWalletAddress: String,
 
   @SerializedName("score")
-  val rankingScore = 0
-}
+  val rankingScore: Int
+)

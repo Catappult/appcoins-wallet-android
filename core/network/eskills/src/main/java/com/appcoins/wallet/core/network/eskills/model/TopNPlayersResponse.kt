@@ -1,9 +1,9 @@
-package cm.aptoide.skills.model
+package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class TopNPlayersResponse (
+class TopNPlayersResponse(
   @SerializedName("current_user")
   @Expose
   val currentUser: TopRankings? = null,

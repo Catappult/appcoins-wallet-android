@@ -1,22 +1,22 @@
-package cm.aptoide.skills.endgame.model
+package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class BonusUser {
+data class BonusUser(
   @SerializedName("rank")
   @Expose
-  val rank: Long = 0
+  val rank: Long,
 
   @SerializedName("bonus_amount")
   @Expose
-  val bonusAmount = 0f
+  val bonusAmount: Float,
 
   @SerializedName("user_name")
   @Expose
-  val userName: String? = null
+  val userName: String,
 
   @SerializedName("score")
   @Expose
-  val score = 0.0
-}
+  val score: Double,
+)

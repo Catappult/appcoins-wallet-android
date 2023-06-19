@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cm.aptoide.skills.R
 import cm.aptoide.skills.model.TimeFrame
+import org.jetbrains.annotations.NotNull
 import java.security.InvalidParameterException
 
 internal class RankingsPagerAdapter(
@@ -11,9 +12,7 @@ internal class RankingsPagerAdapter(
   private val walletAddress: String,
   private val sku: String
 ) : FragmentStateAdapter(fragment) {
-  override fun getItemCount(): Int {
-    TODO("Not yet implemented")
-  }
+  override fun getItemCount(): Int = 3
 
   override fun createFragment(position: Int): Fragment {
     return RankingsContentFragment.newInstance(
@@ -31,15 +30,11 @@ internal class RankingsPagerAdapter(
     }
   }
 
-  val itemCount: Int
-    get() = 3
-
   fun getFragmentTitle(position: Int): Int {
     return when (getTimeFrame(position)) {
       TimeFrame.TODAY -> R.string.rankings_today
       TimeFrame.WEEK -> R.string.rankings_week
       TimeFrame.ALL_TIME -> R.string.rankings_all_time
-      else -> throw InvalidParameterException("Invalid position $position")
     }
   }
 }
