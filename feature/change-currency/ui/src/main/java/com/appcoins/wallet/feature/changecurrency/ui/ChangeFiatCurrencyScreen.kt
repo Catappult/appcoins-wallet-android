@@ -4,9 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -82,7 +80,7 @@ private fun ChangeFiatCurrencyList(
 ) {
   val selectedItem =
     model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
-  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
   LazyColumn(
     modifier = Modifier
