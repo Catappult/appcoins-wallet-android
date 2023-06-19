@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.api
 
-import com.appcoins.eskills2048.model.TopNPlayersResponse
+import com.appcoins.wallet.core.network.eskills.model.TopNPlayersResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -11,7 +11,8 @@ interface GeneralPlayerStats {
   @GET("room/statistics/v2/top_n_players")
   fun getTopNPlayers(
     @Query("package_name") packageName: String?,
-    @Query("wallet_address") wallet_address: String?, @Query("time_frame") timeframe: String?,
+    @Query("wallet_address") wallet_address: String?,
+    @Query("time_frame") timeframe: String?,
     @Query("limit") limit: Int
-  ): Single<TopNPlayersResponse?>?
+  ): Single<TopNPlayersResponse>
 }
