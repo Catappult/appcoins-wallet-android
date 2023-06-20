@@ -18,5 +18,5 @@ class TopRankings(
 
   @SerializedName("score")
   @Expose
-  val score: Int
+  val score: Double
 )

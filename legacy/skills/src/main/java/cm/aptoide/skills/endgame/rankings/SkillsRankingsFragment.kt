@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
+import cm.aptoide.skills.R
 import cm.aptoide.skills.SkillsViewModel
 import cm.aptoide.skills.databinding.FragmentRankingsBinding
 import cm.aptoide.skills.util.EskillsUriParser
@@ -28,27 +29,19 @@ class SkillsRankingsFragment : Fragment() {
       val args = Bundle()
       args.putString(WALLET_ADDRESS_KEY, userWalletAddress)
       args.putString(SKU_KEY, sku)
-      val fragment: SkillsRankingsFragment = SkillsRankingsFragment()
+      val fragment = SkillsRankingsFragment()
       fragment.arguments = args
       return fragment
     }
 
 
-
   }
-
-  private val viewModel: SkillsViewModel by viewModels()  // TODO check if it is better to use a different view model
 
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser
 
-  private lateinit var disposable: CompositeDisposable
-
-  private val views by viewBinding(FragmentRankingsBinding::bind)
-
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View = FragmentRankingsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,11 +49,10 @@ class SkillsRankingsFragment : Fragment() {
     var walletAddress: String? = null
     var sku: String? = null
     if (arguments != null) {
-      walletAddress =
-        requireArguments().getString(WALLET_ADDRESS_KEY)
-      sku = requireArguments().getString(SKU_KEY)
+      walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY)
+      sku = requireArguments().getString(SKU_KEY).toString()
     }
-    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress, sku)
+    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress!!, sku!!)
     val viewPager = view.findViewById<ViewPager2>(R.id.pager)
     viewPager.adapter = rankingsPagerAdapter
     val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
@@ -79,12 +71,12 @@ class SkillsRankingsFragment : Fragment() {
   }
 
 
-
-  private fun getCachedValue(key: String): Boolean{
+  private fun getCachedValue(key: String): Boolean {
     val sharedPreferences = requireContext().getSharedPreferences(key, 0)
     return sharedPreferences.getBoolean(key, true)
   }
-  private fun cacheValue(key: String,value: Boolean ){
+
+  private fun cacheValue(key: String, value: Boolean) {
     val sharedPreferences = requireContext().getSharedPreferences(key, 0)
     sharedPreferences.edit().putBoolean(key, value).apply()
   }

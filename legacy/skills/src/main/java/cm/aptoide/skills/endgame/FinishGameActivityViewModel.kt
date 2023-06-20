@@ -36,28 +36,30 @@ class FinishGameActivityViewModel(
   fun getRoom(): Single<RoomResponse> = getRoomUseCase.getRoom(session)
 
   fun getRoomResult(): Single<RoomResponse> =
-    getRoomUseCase.getRoom(session).flatMap { roomResponse ->
-        if (roomResponse.currentUser.status !== UserStatus.PLAYING) {
-          return@flatMap Single.just(roomResponse)
+    getRoomUseCase.getRoom(session).flatMap { roomResponse: RoomResponse ->
+        if (roomResponse is RoomResponse.SuccessfulRoomResponse && roomResponse.currentUser.status !== UserStatus.PLAYING) {
+          return@flatMap Single.just(roomResponse as RoomResponse)
         }
         setFinalScore.setFinalScore(session, userScore)
-          .doOnError { throwable -> throwable.printStackTrace() }.onErrorReturnItem(roomResponse)
+          .doOnError { throwable -> throwable.printStackTrace() }.onErrorReturnItem(roomResponse as RoomResponse.SuccessfulRoomResponse?)
       }.toObservable().repeatWhen { objectFlowable -> objectFlowable.delay(3, TimeUnit.SECONDS) }
-      .skipWhile { roomResponse: RoomResponse -> isInProgress(roomResponse) }.take(1)
+      .skipWhile { roomResponse: RoomResponse -> isInProgress(roomResponse as? RoomResponse.SuccessfulRoomResponse) }.take(1)
       .singleOrError()
 
   fun isWinner(roomResult: RoomResult): Boolean {
     return roomResult.winner.walletAddress.equals(walletAddress, ignoreCase = true)
   }
 
-  fun isTimeUp(roomResponse: RoomResponse): Boolean {
+  fun isTimeUp(roomResponse: RoomResponse.SuccessfulRoomResponse): Boolean {
     return roomResponse.currentUser.status == UserStatus.TIME_UP
   }
 
-  private fun isInProgress(roomResponse: RoomResponse): Boolean {
-    val completed = roomResponse.status == RoomStatus.COMPLETED
-    for (user in roomResponse.users) {
-      check(!(user.status === UserStatus.PLAYING && completed)) { "Match Completed but some players are still playing!" }
+  private fun isInProgress(roomResponse: RoomResponse.SuccessfulRoomResponse?): Boolean {
+    val completed = roomResponse?.status == RoomStatus.COMPLETED
+    if (roomResponse != null) {
+      for (user in roomResponse.users) {
+        check(!(user.status === UserStatus.PLAYING && completed)) { "Match Completed but some players are still playing!" }
+      }
     }
     return !completed
   }

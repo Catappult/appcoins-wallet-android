@@ -21,6 +21,6 @@ class RoomRepository @Inject constructor(
   }
 
   fun getRoom(session: String): Single<RoomResponse> {
-    return roomApi.getRoom(BEARER_ + session)
+    return roomApiMapper.map(roomApi.getRoom(BEARER_ + session))
   }
 }
