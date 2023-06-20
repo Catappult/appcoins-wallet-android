@@ -78,21 +78,32 @@ constructor(
   }
 
   fun changeActiveWallet(wallet: String) {
-    walletDetailsInteractor
-      .setActiveWallet(wallet)
+    walletDetailsInteractor.setActiveWallet(wallet)
+      .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete { getWallets(walletChanged = true) }
       .subscribe()
   }
 
   fun setName(wallet: String, name: String) {
-    updateWalletNameUseCase(wallet, name).doOnComplete { getWallets() }.subscribe()
+    updateWalletNameUseCase(wallet, name)
+      .doOnSubscribe { _uiState.value = UiState.Loading }
+      .doOnComplete { getWallets() }
+      .subscribe()
   }
 
   fun deleteWallet(wallet: String) {
     deleteWalletInteract.delete(wallet)
+      .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete {
         _uiState.value = UiState.WalletDeleted
       }
+      .subscribe()
+  }
+
+  fun createWallet(name: String) {
+    walletsInteract.createWallet(name)
+      .doOnSubscribe { _uiState.value = UiState.Loading }
+      .doOnComplete { getWallets() }
       .subscribe()
   }
 }
