@@ -4,42 +4,38 @@ import com.appcoins.wallet.core.network.eskills.model.RoomResponse
 import com.appcoins.wallet.core.network.eskills.model.RoomStatusCode
 import com.google.gson.Gson
 import io.reactivex.Single
+import retrofit2.HttpException
 
 class RoomApiMapper(private val gson: Gson) {
-  private inner class Response {
-    var detail: Detail? = null
-  }
+  private data class Response(
+    var detail: Detail
+  )
 
-  private class Detail {
-    var code: String? = null
-  }
+  private data class Detail(
+    var code: String
+  )
 
-  fun map(roomResponse: Single<RoomResponse>): Single<RoomResponse> {
-    return roomResponse
-      .flatMap { response: RoomResponse ->
-        response.statusCode = RoomStatusCode.SUCCESSFUL_RESPONSE
+  fun map(roomResponse: Single<RoomResponse.SuccessfulRoomResponse>): Single<RoomResponse> {
+    return roomResponse.flatMap { response: RoomResponse ->
         Single.just(response)
-      }
-    //.onErrorReturn { throwable: Throwable -> mapException(throwable) }
+      }.onErrorReturn { throwable: Throwable -> mapException(throwable) }
   }
 
-  /*private fun mapException(throwable: Throwable): RoomResponse {
+  private fun mapException(throwable: Throwable): RoomResponse {
     var status: RoomStatusCode = RoomStatusCode.GENERIC_ERROR
     if (throwable is HttpException) {
       val errorResponse = throwable.response()
       try {
-        if (errorResponse != null && errorResponse.errorBody() != null) {
+        if (errorResponse?.errorBody() != null) {
           val gsonResponse = gson.fromJson(
             errorResponse.errorBody()!!.charStream(), Response::class.java
           )
-          status = RoomStatusCode.valueOf(gsonResponse.detail!!.code!!)
+          status = RoomStatusCode.valueOf(gsonResponse.detail.code)
         }
       } catch (e: Exception) {
         e.printStackTrace()
       }
     }
-    val roomResponse = RoomResponse()
-    roomResponse.statusCode = status
-    return roomResponse
-  }*/
+    return RoomResponse.FailedRoomResponse(statusCode = status)
+  }
 }
