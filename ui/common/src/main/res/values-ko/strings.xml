@@ -803,7 +803,7 @@
   <string name="subscriptions_per_several_year">매 %2$s 년 마다 %1$s</string>
   <string name="subscriptions_error_already_subscribed">이 서비스에 이미 가입되어 있습니다! 언제든 연락 주세요.</string>
   <!--New Gamification-->
-  <string name="gamif_title">최대 %% 보너스!</string>
+  <string name="gamif_title">최대 %s%% 보너스!</string>
   <string name="gamif_bonus_received">받은 보너스</string>
   <string name="gamif_spent">이 단계에 도달하기 위해 사용한 금액</string>
   <string name="gamif_show_previous">이전 달성기록 표시</string>
