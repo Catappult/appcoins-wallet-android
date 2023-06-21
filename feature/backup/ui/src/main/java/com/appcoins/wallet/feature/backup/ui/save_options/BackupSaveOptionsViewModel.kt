@@ -4,6 +4,8 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
+import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
   data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
@@ -14,10 +16,10 @@ object BackupSaveOptionsState : ViewState
 
 
 class BackupSaveOptionsViewModel(
-    private val data: BackupSaveOptionsData,
-    private val sendBackupToEmailUseCase: com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase,
-    private val backupSuccessLogUseCase: com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase,
-    private val logger: Logger,
+  private val data: BackupSaveOptionsData,
+  private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
+  private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(
     initialState()
 ) {

@@ -165,7 +165,7 @@ class BackupEntryFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: BackupEntryState) {
-    views.walletBackupInfo.backupWalletAddress.text = state.walletAddress
+    views.walletBackupInfo.backupWalletAddress.text = "" //a confirmar
     handleBalanceAsync(state.balanceAsync)
   }
 
