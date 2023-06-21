@@ -1,6 +1,6 @@
 package cm.aptoide.skills.endgame
 
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import cm.aptoide.skills.R
 import cm.aptoide.skills.databinding.EndgameFragmentSkillsBinding
-import cm.aptoide.skills.endgame.model.MatchDetails
 import cm.aptoide.skills.endgame.model.PlayerRankingAdapter
 import cm.aptoide.skills.endgame.rankings.SkillsRankingsFragment
 import cm.aptoide.skills.util.EmojiUtils
+import cm.aptoide.skills.util.parseEndgame
+import com.appcoins.wallet.core.network.eskills.model.EskillsEndgameData
 import com.appcoins.wallet.core.network.eskills.model.RoomResponse
 import com.appcoins.wallet.core.network.eskills.model.RoomResult
 import com.appcoins.wallet.core.network.eskills.model.RoomStatus
@@ -28,16 +29,29 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-// TODO !!!!!!!!!!!!!!!!!!!!!
 @AndroidEntryPoint
 class SkillsEndgameFragment : Fragment() {
 
   companion object {
-    fun newInstance() = SkillsEndgameFragment()
+    fun newInstance(endgameUri: String): SkillsEndgameFragment {
+      val uri: Uri = Uri.parse(endgameUri)
+      val endgameData: EskillsEndgameData = uri.parseEndgame()
+      return SkillsEndgameFragment().apply {
+        arguments = Bundle().apply {
+          putString(WALLET_ADDRESS, endgameData.walletAddress)
+          putString(SESSION, endgameData.session)
+          putString(PACKAGE_NAME, endgameData.packageName)
+          putString(PRODUCT, endgameData.product)
+          putLong(SCORE, endgameData.userScore)
+        }
+      }
+    }
+
     const val SESSION = "SESSION"
-    const val MATCH_ENVIRONMENT = "MATCH_ENVIRONMENT"
+    const val PACKAGE_NAME = "MATCH_ENVIRONMENT"
     const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    const val USER_SCORE = "USER_SCORE"
+    const val PRODUCT = "PRODUCT"
+    const val SCORE = "SCORE"
   }
 
   private val viewModel: FinishGameActivityViewModel by viewModels()  // TODO
@@ -51,34 +65,26 @@ class SkillsEndgameFragment : Fragment() {
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-  ): View {
-    super.onCreateView(inflater, container, savedInstanceState)
-    buildRecyclerView()
+  ) = EndgameFragmentSkillsBinding.inflate(inflater).root
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    buildRecyclerView()
     disposables = CompositeDisposable()
-    val intent: Intent = requireActivity().intent
-    val session = intent.getStringExtra(SESSION)
-    val walletAddress = intent.getStringExtra(WALLET_ADDRESS)
-    val matchEnvironment: MatchDetails.Environment =
-      intent.getSerializableExtra(MATCH_ENVIRONMENT) as MatchDetails.Environment
-    val userScore = intent.getLongExtra(USER_SCORE, -1)
+    val walletAddress = requireArguments().getString(WALLET_ADDRESS)
+    val packageName = requireArguments().getString(PACKAGE_NAME)
 
     disposables.add(Observable.interval(
       0, 3L, TimeUnit.SECONDS
-    ).flatMapSingle<Any> {
+    ).flatMapSingle {
       viewModel.getRoom().observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess { roomResponse: RoomResponse ->
           updateRecyclerView(
             roomResponse
           )
-        }.doOnError(Throwable::printStackTrace)
-        .onErrorReturnItem(RoomResponse.FailedRoomResponse())
-    }.takeUntil { roomResponse: RoomResponse -> roomResponse.status === RoomStatus.COMPLETED } as ((Any) -> Boolean)?  // TODO
+        }.doOnError(Throwable::printStackTrace).onErrorReturnItem(RoomResponse.FailedRoomResponse())
+    }.takeUntil { roomResponse: RoomResponse -> roomResponse.status === RoomStatus.COMPLETED }
       .subscribe())
-
-    views.restartButton.setOnClickListener { view ->
-      TODO()
-    }
 
 
     views.retryButton.setOnClickListener {
@@ -90,23 +96,21 @@ class SkillsEndgameFragment : Fragment() {
     }
     disposables.add(viewModel.getRoomResult().subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnSuccess { room-> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
+      .doOnSuccess { room -> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
       .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
     )
     views.rankingsButton.setOnClickListener {
       requireActivity().supportFragmentManager.beginTransaction().replace(
-        R.id.rankings_fragment_container,
-        SkillsRankingsFragment.newInstance(walletAddress!!, "APTOIDE_GLOBAL_LEADERBOARD_SKU")
+        R.id.rankings_fragment_container, SkillsRankingsFragment.newInstance(
+          walletAddress!!, packageName!!, "APTOIDE_GLOBAL_LEADERBOARD_SKU"
+        )
       ) // TODO
         .commit(
         )
     }
-    return EndgameFragmentSkillsBinding.inflate(inflater).root
-  }  // TODO move most of this logic to onViewCreated or somewhere else
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    disposables = CompositeDisposable()
+    views.restartButton.setOnClickListener {
+      TODO()
+    }
   }
 
   private fun buildRecyclerView() {
