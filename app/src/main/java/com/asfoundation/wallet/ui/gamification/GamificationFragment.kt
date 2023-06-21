@@ -80,7 +80,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
           override fun onSlide(bottomSheet: View, slideOffset: Float) {
             if (slideOffset == 0f) binding.bottomsheetCoordinatorContainer.visibility = View.GONE
-            binding.bottomsheetCoordinatorContainer.background.alpha = (255 * slideOffset).toInt()
+            binding.bottomsheetCoordinatorContainer.background?.alpha = (255 * slideOffset).toInt()
           }
         })
     binding.gamificationRecyclerView.visibility = View.INVISIBLE
@@ -151,7 +151,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     } else {
       detailsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
       binding.bottomsheetCoordinatorContainer.visibility = View.VISIBLE
-      binding.bottomsheetCoordinatorContainer.background.alpha = 255
+      binding.bottomsheetCoordinatorContainer.background?.alpha = 255
       setBackListener(binding.bottomsheetCoordinatorContainer)
     }
   }

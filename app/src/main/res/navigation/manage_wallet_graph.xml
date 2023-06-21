@@ -25,7 +25,7 @@
         app:destination="@id/recover_wallet_activity" />
     <action
         android:id="@+id/action_navigate_to_remove_wallet"
-        app:destination="@id/remove_wallet_activity" />
+        app:destination="@id/remove_wallet_graph" />
   </fragment>
 
   <activity
@@ -51,26 +51,9 @@
         app:argType="string" />
   </activity>
 
-  <activity
-      android:id="@+id/remove_wallet_activity"
-      android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
-      tools:layout="@layout/remove_wallet_activity_layout">
-    <argument
-        android:name="wallet_address"
-        app:argType="string" />
-    <argument
-        android:name="fiat_balance"
-        app:argType="string" />
-    <argument
-        android:name="appc_balance"
-        app:argType="string" />
-    <argument
-        android:name="credits_balance"
-        app:argType="string" />
-    <argument
-        android:name="ethereum_balance"
-        app:argType="string" />
-  </activity>
+  <include
+      android:id="@+id/remove_wallet_graph"
+      app:graph="@navigation/remove_wallet_graph" />
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"

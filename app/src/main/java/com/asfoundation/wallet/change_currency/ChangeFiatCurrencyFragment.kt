@@ -9,8 +9,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
+import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +48,13 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
   }
 
   private fun handleBackPress() {
-    parentFragmentManager.popBackStack()
+    navController().popBackStack()
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 }

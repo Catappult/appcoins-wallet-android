@@ -8,6 +8,10 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -57,19 +61,19 @@ class AdyenPaymentInteractorTest {
   lateinit var walletService: WalletService
 
   @Mock
-  lateinit var supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
+  lateinit var supportInteractor: SupportInteractor
 
   @Mock
   lateinit var walletBlockedInteractor: WalletBlockedInteract
 
   @Mock
-  lateinit var walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
+  lateinit var walletVerificationInteractor: WalletVerificationInteractor
 
   @Mock
   lateinit var billingAddressRepository: BillingAddressRepository
 
   @Mock
-  lateinit var getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+  lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   private lateinit var interactor: AdyenPaymentInteractor
   private val fakeSchedulers = FakeSchedulers()
@@ -177,8 +181,7 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(partnerAddressService.getAttributionEntity("package"))
         .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(getCurrentPromoCodeUseCase())
-        .thenReturn(Single.just(
-            com.appcoins.wallet.feature.promocode.data.repository.PromoCode(null, null, null, null)))
+        .thenReturn(Single.just(PromoCode(null, null, null, null)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,

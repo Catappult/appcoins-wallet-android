@@ -11,7 +11,6 @@ import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
@@ -144,7 +143,7 @@ class SettingsPresenter(
     settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
   private fun setCurrencyPreference() {
-    disposables.add(rxSingle(Dispatchers.IO) { getChangeFiatCurrencyModelUseCase() }
+    disposables.add(rxSingle { getChangeFiatCurrencyModelUseCase() }
       .observeOn(viewScheduler)
       .doOnSuccess { result ->
         result.get()?.let {

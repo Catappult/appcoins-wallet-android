@@ -26,10 +26,10 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
           android:layout_marginTop="27dp"
+          android:text="@string/card_verification_body"
           app:layout_constraintEnd_toStartOf="@id/guideline_mid"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="@string/card_verification_body_new"
           />
 
       <RelativeLayout
@@ -78,12 +78,12 @@
           android:paddingTop="13dp"
           android:paddingEnd="@dimen/big_margin"
           android:paddingBottom="@dimen/normal_margin"
-          android:text="@string/card_verification_disclaimer_body"
           app:layout_constraintBottom_toBottomOf="@id/cc_container"
           app:layout_constraintEnd_toStartOf="@id/guideline_mid"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/title"
           app:layout_constraintVertical_bias="0.15"
+          tools:text="@string/card_verification_charde_disclaimer"
           />
 
       <View

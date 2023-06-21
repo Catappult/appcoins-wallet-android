@@ -4,8 +4,9 @@ import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
-import com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType
-import com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletCreatorInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.observers.TestObserver
@@ -27,15 +28,15 @@ class AccountWalletServiceTest {
   lateinit var passwordStore: PasswordStore
 
   @Mock
-  lateinit var walletCreatorInteract: com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
+  lateinit var walletCreatorInteract: WalletCreatorInteract
 
   @Mock
-  lateinit var walletRepository: com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType
+  lateinit var walletRepository: WalletRepositoryType
 
   @Mock
   lateinit var syncScheduler: ExecutorScheduler
 
-  private lateinit var accountWalletService: com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
+  private lateinit var accountWalletService: AccountWalletService
 
   companion object {
     const val KEYSTORE =
@@ -51,8 +52,7 @@ class AccountWalletServiceTest {
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
 
-    accountWalletService =
-        com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService(accountKeyService,
+    accountWalletService = AccountWalletService(accountKeyService,
             passwordStore, walletCreatorInteract,
             walletRepository, syncScheduler)
   }
