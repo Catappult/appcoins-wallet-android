@@ -1,13 +1,13 @@
 package cm.aptoide.skills.repository
 
 import cm.aptoide.skills.model.TimeFrame
-import com.appcoins.wallet.core.network.eskills.api.GeneralPlayerStats
+import com.appcoins.wallet.core.network.eskills.api.GeneralPlayerStatsApi
 import com.appcoins.wallet.core.network.eskills.model.TopNPlayersResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
 class StatisticsRepository @Inject constructor(
-  private val api: GeneralPlayerStats
+  private val api: GeneralPlayerStatsApi
 ) {
 
   fun getTopNPlayers(

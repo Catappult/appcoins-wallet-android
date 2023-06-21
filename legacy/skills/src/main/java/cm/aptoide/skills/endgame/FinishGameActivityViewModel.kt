@@ -1,6 +1,7 @@
 package cm.aptoide.skills.endgame
 
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.usecase.GetRoomUseCase
 import cm.aptoide.skills.usecase.SetFinalScoreUseCase
@@ -10,14 +11,13 @@ import com.appcoins.wallet.core.network.eskills.model.RoomStatus
 import com.appcoins.wallet.core.network.eskills.model.UserStatus
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 // TODO !!!!!!!!
-class FinishGameActivityViewModel(
+class FinishGameActivityViewModel @Inject constructor(
   getRoomUseCase: GetRoomUseCase,
   setFinalScore: SetFinalScoreUseCase,
-  session: String,
-  walletAddress: String,
-  userScore: Long
+  savedStateHandle: SavedStateHandle
 ) : ViewModel() {
   private val getRoomUseCase: GetRoomUseCase
   private val setFinalScore: SetFinalScoreUseCase
@@ -28,9 +28,9 @@ class FinishGameActivityViewModel(
   init {
     this.getRoomUseCase = getRoomUseCase
     this.setFinalScore = setFinalScore
-    this.session = session
-    this.walletAddress = walletAddress
-    this.userScore = userScore
+    this.session = savedStateHandle.get<String>("SESSION")!!
+    this.walletAddress = savedStateHandle.get<String>("WALLET_ADDRESS")!!
+    this.userScore = savedStateHandle.get<Long>("SCORE")!!
   }
 
   fun getRoom(): Single<RoomResponse> = getRoomUseCase.getRoom(session)

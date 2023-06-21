@@ -4,19 +4,19 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import cm.aptoide.skills.R
 import cm.aptoide.skills.model.TimeFrame
-import org.jetbrains.annotations.NotNull
 import java.security.InvalidParameterException
 
 internal class RankingsPagerAdapter(
   fragment: Fragment,
   private val walletAddress: String,
+  private val packageName: String,
   private val sku: String
 ) : FragmentStateAdapter(fragment) {
   override fun getItemCount(): Int = 3
 
   override fun createFragment(position: Int): Fragment {
     return RankingsContentFragment.newInstance(
-      walletAddress, sku,
+      walletAddress, packageName, sku,
       getTimeFrame(position)
     )
   }

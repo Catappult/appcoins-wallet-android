@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface GeneralPlayerStats {
+interface GeneralPlayerStatsApi {
   @Headers("accept: application/json")
   @GET("room/statistics/v2/top_n_players")
   fun getTopNPlayers(

@@ -34,6 +34,7 @@ import javax.inject.Inject
 class RankingsContentFragment : Fragment() {
   private lateinit var timeFrame: TimeFrame
   private lateinit var walletAddress: String
+  private lateinit var packageName: String
   private lateinit var sku: String
   private lateinit var adapter: RankingsAdapter
   private var disposables = CompositeDisposable()
@@ -54,12 +55,12 @@ class RankingsContentFragment : Fragment() {
   lateinit var getNextBonusScheduleUseCase: GetNextBonusScheduleUseCase
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val arguments = arguments
-    if (arguments != null) {
-      timeFrame = arguments.getSerializable(TIME_FRAME_KEY) as TimeFrame
-      walletAddress = arguments.getString(WALLET_ADDRESS_KEY)!!  // TODO
-      sku = arguments.getString(SKU_KEY)!!
-    }
+
+    timeFrame = requireArguments().getSerializable(TIME_FRAME_KEY) as TimeFrame
+    walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY)!!
+    packageName = requireArguments().getString(PACKAGE_NAME_KEY)!!
+    sku = requireArguments().getString(SKU_KEY)!!
+
   }
 
   override fun onCreateView(
@@ -95,7 +96,7 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun showRankings() {
-    disposables.add(getUserStatisticsUseCase.invoke("TODO", walletAddress, timeFrame)  // TODO
+    disposables.add(getUserStatisticsUseCase.invoke(packageName, walletAddress, timeFrame)
       .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoadingView() }
       .doOnSuccess { showRecyclerView() }.subscribe({ topRankings ->
         updateCurrentRanking(topRankings.currentUser)
@@ -107,7 +108,7 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun showLastBonusWinners() {
-    disposables.add(getBonusHistoryUseCase.invoke("TODO", sku, timeFrame) // TODO
+    disposables.add(getBonusHistoryUseCase.invoke(packageName, sku, timeFrame)
       .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoadingView() }
       .doOnSuccess { showRecyclerView() }.subscribe({ response ->
         updateLastBonusWinners(
@@ -164,11 +165,12 @@ class RankingsContentFragment : Fragment() {
     if (timeFrame == TimeFrame.TODAY) {
       countdownBinding.countdownDaysContainer.visibility = View.GONE
     }
-    disposables.add(getNextBonusScheduleUseCase.invoke(timeFrame)
-      .observeOn(AndroidSchedulers.mainThread()).doOnSuccess { nextSchedule ->
-        val timeLeftMillis: Long = nextSchedule.nextSchedule * 1000 - System.currentTimeMillis()
-        startCountDownTimer(timeLeftMillis)
-      }.subscribe()
+    disposables.add(
+      getNextBonusScheduleUseCase.invoke(timeFrame).observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess { nextSchedule ->
+          val timeLeftMillis: Long = nextSchedule.nextSchedule * 1000 - System.currentTimeMillis()
+          startCountDownTimer(timeLeftMillis)
+        }.subscribe()
     )
   }
 
@@ -277,20 +279,22 @@ class RankingsContentFragment : Fragment() {
   companion object {
     private const val WALLET_ADDRESS_KEY = "WALLET_ADDRESS_KEY"
     private const val TIME_FRAME_KEY = "TIME_FRAME_KEY"
+    private const val PACKAGE_NAME_KEY = "PACKAGE_NAME_KEY"
     private const val SKU_KEY = "SKU_KEY"
     private const val COUNTDOWN_INTERVAL: Long = 1000
 
     @JvmStatic
     fun newInstance(
-      walletAddress: String, sku: String, timeFrame: TimeFrame
+      walletAddress: String, packageName: String, sku: String, timeFrame: TimeFrame
     ): RankingsContentFragment {
-      val args = Bundle()
-      args.putString(WALLET_ADDRESS_KEY, walletAddress)
-      args.putSerializable(TIME_FRAME_KEY, timeFrame)
-      args.putSerializable(SKU_KEY, sku)
-      val fragment = RankingsContentFragment()
-      fragment.arguments = args
-      return fragment
+      return RankingsContentFragment().apply {
+        arguments = Bundle().apply {
+          putString(WALLET_ADDRESS_KEY, walletAddress)
+          putString(PACKAGE_NAME_KEY, packageName)
+          putString(SKU_KEY, sku)
+          putSerializable(TIME_FRAME_KEY, timeFrame)
+        }
+      }
     }
   }
 }

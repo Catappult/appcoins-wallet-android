@@ -14,7 +14,7 @@ class SkillsActivity : AppCompatActivity() {
     intent.getStringExtra("ESKILLS_URI")?.let { uri ->
       if (uri.contains("endgame", true)) {
         supportFragmentManager.beginTransaction()
-          .add(R.id.fragment_container, SkillsEndgameFragment.newInstance())
+          .add(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
           .commit()
       } else {
         if (savedInstanceState == null) {

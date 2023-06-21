@@ -5,8 +5,9 @@ import com.appcoins.wallet.core.network.eskills.model.RoomStatusCode
 import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class RoomApiMapper(private val gson: Gson) {
+class RoomApiMapper@Inject constructor(private val gson: Gson) {
   private data class Response(
     var detail: Detail
   )
