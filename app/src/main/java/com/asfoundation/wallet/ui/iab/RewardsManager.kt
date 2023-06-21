@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class RewardsManager @Inject constructor(private val appcoinsRewards: AppcoinsRewards,
                                          private val billing: Billing,
-                                         private val partnerAddressService: com.appcoins.wallet.core.utils.partners.AddressService
+                                         private val partnerAddressService: AddressService
 ) {
 
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
