@@ -1,7 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/AppTheme"
+    android:background="@color/styleguide_white"
+    >
 
   <com.google.android.material.tabs.TabLayout
       android:id="@+id/tab_layout"

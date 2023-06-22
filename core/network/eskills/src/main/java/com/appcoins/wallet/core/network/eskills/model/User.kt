@@ -13,5 +13,5 @@ class User(
   val status: UserStatus,
 
   @SerializedName("score")
-  var score: Int
+  var score: Long
 )
