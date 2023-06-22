@@ -13,7 +13,6 @@ import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
-import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
@@ -67,11 +66,11 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToSend() {
-    val intent = TransferActivity.newIntent(fragment.requireContext())
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
-  }
+//  fun navigateToSend() {
+//    val intent = TransferActivity.newIntent(fragment.requireContext())
+//    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+//    openIntent(intent)
+//  }
 
   fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
     val bundle = Bundle()

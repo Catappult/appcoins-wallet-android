@@ -165,7 +165,7 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToQrCode(views.myWalletsContent.qrImage)
     }
 
-    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
+//    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
     views.myWalletsContent.receiveButton.setOnClickListener {
       //navigator.navigateToReceive(Wallet(wallet))
     }
