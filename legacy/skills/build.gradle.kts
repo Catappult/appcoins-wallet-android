@@ -10,10 +10,12 @@ android {
 }
 
 dependencies {
+  compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:analytics"))
+  implementation(project(":core:analytics"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
