@@ -43,13 +43,10 @@ fun Uri.parseEndgame(): EskillsEndgameData {
       this[key] = getQueryParameter(key)
     }
   }
-  val walletAddress = parameters[EskillsParameters.WALLET_ADDRESS]
-  val session = parameters[EskillsParameters.SESSION]
+  val session = parameters[EskillsParameters.SESSION]!!
   val domain = parameters[EskillsParameters.DOMAIN]!!
-  val product = parameters[EskillsParameters.PRODUCT]
-  val userScore = parameters[EskillsParameters.USER_SCORE]?.toLong()
   return EskillsEndgameData(
-    scheme!!, host!!, path!!, parameters, walletAddress!!, domain, product!!, session!!, userScore!!)
+    scheme!!, host!!, path!!, parameters, domain, session)
 }
 
   private fun getMetadata(parameters: MutableMap<String, String?>): Map<String, String> {

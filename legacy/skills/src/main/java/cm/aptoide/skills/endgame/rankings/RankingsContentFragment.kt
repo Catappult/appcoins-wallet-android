@@ -150,10 +150,11 @@ class RankingsContentFragment : Fragment() {
       populateTop3row(
         player3, thirdRowLayoutBinding.rankingUsername, thirdRowLayoutBinding.rankingScore
       )
+      return players_score.copyOfRange(3, players_score.size)
     } else {
       showNotAttributed(thirdRowLayoutBinding.rankingUsername)
     }
-    return players_score.copyOfRange(3, players_score.size)
+    return emptyArray()
   }
 
   private fun populateTop3row(player: TopRankings, username: TextView, score: TextView) {

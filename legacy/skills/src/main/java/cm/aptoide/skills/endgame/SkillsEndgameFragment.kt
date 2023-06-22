@@ -38,20 +38,15 @@ class SkillsEndgameFragment : Fragment() {
       val endgameData: EskillsEndgameData = uri.parseEndgame()
       return SkillsEndgameFragment().apply {
         arguments = Bundle().apply {
-          putString(WALLET_ADDRESS, endgameData.walletAddress)
           putString(SESSION, endgameData.session)
           putString(PACKAGE_NAME, endgameData.packageName)
-          putString(PRODUCT, endgameData.product)
-          putLong(SCORE, endgameData.userScore)
         }
       }
     }
 
     const val SESSION = "SESSION"
-    const val PACKAGE_NAME = "MATCH_ENVIRONMENT"
-    const val WALLET_ADDRESS = "WALLET_ADDRESS"
-    const val PRODUCT = "PRODUCT"
-    const val SCORE = "SCORE"
+    const val PACKAGE_NAME = "DOMAIN"
+    const val GLOBAL_LEADERBOARD_SKU = "APTOIDE_GLOBAL_LEADERBOARD_SKU"
   }
 
   private val viewModel: FinishGameActivityViewModel by viewModels()  // TODO
@@ -71,8 +66,6 @@ class SkillsEndgameFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     buildRecyclerView()
     disposables = CompositeDisposable()
-    val walletAddress = requireArguments().getString(WALLET_ADDRESS)
-    val packageName = requireArguments().getString(PACKAGE_NAME)
 
     disposables.add(Observable.interval(
       0, 3L, TimeUnit.SECONDS
@@ -100,13 +93,17 @@ class SkillsEndgameFragment : Fragment() {
       .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
     )
     views.rankingsButton.setOnClickListener {
-      requireActivity().supportFragmentManager.beginTransaction().replace(
-        R.id.rankings_fragment_container, SkillsRankingsFragment.newInstance(
-          walletAddress!!, packageName!!, "APTOIDE_GLOBAL_LEADERBOARD_SKU"
-        )
-      ) // TODO
-        .commit(
-        )
+      disposables.add(
+        viewModel.getWalletAddress().subscribeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess { walletAddress ->
+            requireActivity().supportFragmentManager.beginTransaction().replace(
+              R.id.fragment_container, SkillsRankingsFragment.newInstance(
+                walletAddress, requireArguments().getString(PACKAGE_NAME)!!, GLOBAL_LEADERBOARD_SKU
+              )
+            ).commit(
+            )
+          }.subscribe()
+      )
     }
     views.restartButton.setOnClickListener {
       TODO()
@@ -140,11 +137,18 @@ class SkillsEndgameFragment : Fragment() {
     recyclerView.visibility = View.GONE
     views.lottieAnimation.setAnimation(R.raw.transact_credits_successful)
     views.lottieAnimation.playAnimation()
-    if (viewModel.isWinner(room.roomResult)) {
-      handleRoomWinnerBehaviour(room.roomResult)
-    } else {
-      handleRoomLoserBehaviour(room)
-    }
+    disposables.add(
+      viewModel.isWinner(room.roomResult).observeOn(AndroidSchedulers.mainThread())
+        .doAfterSuccess { isWinner: Boolean ->
+          if (isWinner) {
+            handleRoomWinnerBehaviour(room.roomResult)
+          } else {
+            handleRoomLoserBehaviour(room)
+          }
+        }
+        .doOnError { showErrorMessage() }
+        .subscribe()
+    )
     views.restartButton.isEnabled = true
     views.restartButton.visibility = View.VISIBLE
     views.retryButton.visibility = View.GONE
@@ -174,11 +178,6 @@ class SkillsEndgameFragment : Fragment() {
     )
     views.secondaryMessage.text = opponentDetails
     views.secondaryMessage.visibility = View.VISIBLE
-  }
-
-  private fun showErrorMessage(throwable: Throwable) {
-    showErrorMessage()
-    throwable.printStackTrace()
   }
 
   private fun showErrorMessage() {
