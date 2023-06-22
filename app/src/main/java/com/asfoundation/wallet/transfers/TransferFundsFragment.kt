@@ -50,6 +50,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -71,15 +73,13 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidA
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.InvalidWalletAddressError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Loading
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenAppcConfirmationView
-import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenAppcCreditsConfirmation
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToOpenEthConfirmationView
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NavigateToWalletBlocked
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NoNetworkError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoughFundsError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
-import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations.APPC
-import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations.ETHEREUM
+import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
@@ -163,7 +163,6 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Composable
   fun CenterContent() {
     val uiState = viewModel.uiState.collectAsState().value
-    println("giovanni teste " + uiState)
     when (uiState) {
       is Success -> {
         Column(
@@ -190,16 +189,20 @@ class TransferFundsFragment : BasePageViewFragment() {
         }
       }
 
+      is TransferFundsViewModel.UiState.SuccessAppcCreditsTransfer -> {
+        println("success appc transfer" + uiState)
+        transferNavigator.openSuccessView(
+          walletAddress = uiState.walletAddress,
+          amount = uiState.amount,
+          currency = uiState.currency,
+          mainNavController = navController()
+        )
+      }
+
       is NavigateToOpenAppcConfirmationView -> transferNavigator.openAppcConfirmationView(
         uiState.walletAddress,
         uiState.toWalletAddress,
         uiState.amount
-      )
-
-      is NavigateToOpenAppcCreditsConfirmation -> transferNavigator.openAppcCreditsConfirmationView(
-        uiState.walletAddress,
-        uiState.amount,
-        uiState.currency
       )
 
       is NavigateToOpenEthConfirmationView -> transferNavigator.openEthConfirmationView(
@@ -258,8 +261,9 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Composable
   fun CurrentBalance(walletBalance: WalletBalance) {
     val balance = when (viewModel.clickedCurrencyItem.value) {
-      APPC.ordinal -> walletBalance.appcBalance.token
-      ETHEREUM.ordinal -> walletBalance.ethBalance.token
+      CurrencyDestinations.APPC.ordinal -> walletBalance.appcBalance.token
+      CurrencyDestinations.ETHEREUM.ordinal -> walletBalance.ethBalance.token
+      CurrencyDestinations.APPC_C.ordinal -> walletBalance.creditsBalance.token
       else -> walletBalance.creditsBalance.token
     }
     Text(
@@ -280,8 +284,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun AddressTextField() {
-    var name by rememberSaveable { mutableStateOf("") }
-
+    var address by rememberSaveable { mutableStateOf("") }
     Text(
       modifier = Modifier.padding(horizontal = 8.dp),
       text = stringResource(R.string.p2p_send_body),
@@ -289,10 +292,11 @@ class TransferFundsFragment : BasePageViewFragment() {
       color = styleguide_light_grey
     )
     Row {
-      WalletTextField(name,
-        stringResource(R.string.hint_recipient_address),
+      WalletTextField(
+        value = address,
+        placeHolder = stringResource(R.string.hint_recipient_address),
         backgroundColor = styleguide_blue_secondary,
-        {
+        trailingIcon = {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
             contentDescription = R.string.scan_qr,
@@ -300,8 +304,9 @@ class TransferFundsFragment : BasePageViewFragment() {
             paddingIcon = 4.dp,
             background = styleguide_blue_secondary
           )
-        }) { newName ->
-        name = newName
+        }) { newAddress ->
+        address = newAddress
+        viewModel.currentAddedAddress = newAddress
       }
     }
   }
@@ -309,15 +314,15 @@ class TransferFundsFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun AmountTextField() {
-    var name by rememberSaveable { mutableStateOf("") }
-
+    var amount by rememberSaveable { mutableStateOf("") }
     WalletTextField(
-      name,
+      amount,
       stringResource(R.string.hint_amount),
       backgroundColor = styleguide_blue_secondary,
       keyboardType = KeyboardType.Decimal
-    ) { newName ->
-      name = newName
+    ) { newAmount ->
+      amount = newAmount
+      viewModel.currentAddedAmount = newAmount
     }
   }
 
@@ -370,19 +375,30 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun SendButton() {
     Column(Modifier.padding(bottom = 32.dp)) {
       ButtonWithText(
-        stringResource(R.string.transfer_send_button),
-        {
-          viewModel.onClickSend( //TODO do verifications and send correct data
-            TransferFundsViewModel.TransferData(
-              "0xd21e10a8bd5917fa57776de4654284dcc8434f23",
-              TransferFundsViewModel.Currency.APPC_C,
-              BigDecimal.TEN,
-            ),
-            requireContext().packageName
-          )
+        label = stringResource(R.string.transfer_send_button),
+        onClick = {
+          if (
+            viewModel.currentAddedAmount.isNotEmpty() &&
+            viewModel.currentAddedAddress.isNotEmpty()
+          ) {
+            val currency = when (viewModel.clickedCurrencyItem.value) {
+              CurrencyDestinations.APPC.ordinal -> TransferFundsViewModel.Currency.APPC
+              CurrencyDestinations.ETHEREUM.ordinal -> TransferFundsViewModel.Currency.ETH
+              CurrencyDestinations.APPC_C.ordinal -> TransferFundsViewModel.Currency.APPC_C
+              else -> TransferFundsViewModel.Currency.APPC_C
+            }
+            viewModel.onClickSend(
+              TransferFundsViewModel.TransferData(
+                walletAddress = viewModel.currentAddedAddress,
+                currency = currency,
+                amount = viewModel.currentAddedAmount.toBigDecimal(),
+              ),
+              requireContext().packageName
+            )
+          }
         },
-        styleguide_pink,
-        styleguide_light_grey,
+        backgroundColor = styleguide_pink,
+        labelColor = styleguide_light_grey,
         buttonType = ButtonType.LARGE
       )
     }
@@ -406,6 +422,13 @@ class TransferFundsFragment : BasePageViewFragment() {
       Toast.makeText(context, getString(R.string.error_fail_generate_qr), Toast.LENGTH_SHORT).show()
       null
     }
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 
   companion object {

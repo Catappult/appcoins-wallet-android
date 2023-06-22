@@ -45,6 +45,9 @@ constructor(
   val clickedTransferItem: MutableState<Int> = mutableStateOf(TransferDestinations.SEND.ordinal)
   val clickedCurrencyItem: MutableState<Int> = mutableStateOf(CurrencyDestinations.APPC_C.ordinal)
 
+  var currentAddedAddress: String = ""
+  var currentAddedAmount: String = ""
+
   init {
     getWalletInfo()
   }
@@ -69,9 +72,9 @@ constructor(
   fun onClickSend(data: TransferData, packageName: String) {
     shouldBlockTransfer(data.currency)
       .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess {
-        if (it) {
-          Completable.fromAction { _uiState.value = UiState.NavigateToWalletBlocked }.subscribe()
+      .flatMapCompletable { shouldBlock ->
+        if (shouldBlock) {
+          Completable.fromAction { _uiState.value = UiState.NavigateToWalletBlocked }
         } else {
           makeTransaction(data, packageName)
             .doOnSuccess { status ->
@@ -80,7 +83,9 @@ constructor(
             .doOnError { error ->
               handleError(error)
             }
-            .subscribe()
+            .flatMapCompletable {
+              Completable.fromAction{}
+            }
         }
       }
       .subscribe()
@@ -108,7 +113,7 @@ constructor(
     when (currency) {
       Currency.APPC_C ->
         _uiState.value =
-          UiState.NavigateToOpenAppcCreditsConfirmation(walletAddress, amount, currency)
+          UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
 
       Currency.APPC ->
         transferInteractor
@@ -207,7 +212,7 @@ constructor(
     object NoNetworkError : UiState()
     object NavigateToWalletBlocked : UiState()
     data class Success(val walletInfo: WalletInfo) : UiState()
-    data class NavigateToOpenAppcCreditsConfirmation(
+    data class SuccessAppcCreditsTransfer(
       val walletAddress: String,
       val amount: BigDecimal,
       val currency: Currency
@@ -232,9 +237,9 @@ constructor(
     val amount: BigDecimal
   ) : Serializable
 
-  enum class Currency {
-    APPC_C,
-    APPC,
-    ETH
+  enum class Currency(val token: String) {
+    APPC_C("APPC-C"),
+    APPC("APPC"),
+    ETH("ETH")
   }
 }
