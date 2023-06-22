@@ -52,7 +52,7 @@ constructor(
     getWalletInfo()
   }
 
-  private fun getWalletInfo() {
+  fun getWalletInfo() {
     observeWalletInfoUseCase(null, update = true, updateFiat = true)
       .firstOrError()
       .doOnSuccess { _uiState.value = UiState.Success(it) }
@@ -84,7 +84,7 @@ constructor(
               handleError(error)
             }
             .flatMapCompletable {
-              Completable.fromAction{}
+              Completable.fromAction {}
             }
         }
       }

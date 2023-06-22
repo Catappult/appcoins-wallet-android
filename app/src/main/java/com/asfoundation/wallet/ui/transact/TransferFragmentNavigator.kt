@@ -30,27 +30,24 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
   }
 
   fun openAppcConfirmationView(walletAddress: String, toWalletAddress: String,
-                               amount: BigDecimal): Completable {
-    return defaultTokenProvider.defaultToken.doOnSuccess {
+                               amount: BigDecimal) {
+    defaultTokenProvider.defaultToken.doOnSuccess {
       with(TransactionBuilder(it)) {
         amount(amount)
         toAddress(toWalletAddress)
         fromAddress(walletAddress)
         openConfirmation(this)
       }
-    }
-        .ignoreElement()
+    }.subscribe()
   }
 
   fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
-                              amount: BigDecimal): Completable {
-    return Completable.fromAction {
+                              amount: BigDecimal) {
       val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18))
       transaction.amount(amount)
       transaction.toAddress(toWalletAddress)
       transaction.fromAddress(walletAddress)
       openConfirmation(transaction)
-    }
   }
 
   fun openAppcCreditsConfirmationView(walletAddress: String,
@@ -91,24 +88,6 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
       resId = R.id.action_navigate_to_success_transfer,
       args = bundle
     )
-
-//    val currencyName = when (currency) {
-//      TransferFundsViewModel.Currency.APPC_C -> fragment.getString(
-//        R.string.p2p_send_currency_appc_c
-//      )
-//
-//      TransferFundsViewModel.Currency.APPC -> fragment.getString(R.string.p2p_send_currency_appc)
-//      TransferFundsViewModel.Currency.ETH -> fragment.getString(R.string.p2p_send_currency_eth)
-//    }
-//    fragmentManager.beginTransaction()
-//      .replace(
-//        R.id.fragment_container,
-//        AppcoinsCreditsTransferSuccessFragment.newInstance(
-//          amount, currencyName,
-//          walletAddress
-//        )
-//      )
-//      .commit()
   }
 
   private fun openConfirmation(transactionBuilder: TransactionBuilder) {

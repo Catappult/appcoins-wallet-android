@@ -189,38 +189,89 @@ class TransferFundsFragment : BasePageViewFragment() {
         }
       }
 
-      is TransferFundsViewModel.UiState.SuccessAppcCreditsTransfer -> {
-        println("success appc transfer" + uiState)
-        transferNavigator.openSuccessView(
+      is TransferFundsViewModel.UiState.SuccessAppcCreditsTransfer -> transferNavigator.openSuccessView(
+        walletAddress = uiState.walletAddress,
+        amount = uiState.amount,
+        currency = uiState.currency,
+        mainNavController = navController()
+      )
+
+      is NavigateToOpenAppcConfirmationView -> {
+        transferNavigator.openAppcConfirmationView(
           walletAddress = uiState.walletAddress,
-          amount = uiState.amount,
-          currency = uiState.currency,
-          mainNavController = navController()
+          toWalletAddress = uiState.toWalletAddress,
+          amount = uiState.amount
         )
+        navController().popBackStack()
       }
 
-      is NavigateToOpenAppcConfirmationView -> transferNavigator.openAppcConfirmationView(
-        uiState.walletAddress,
-        uiState.toWalletAddress,
-        uiState.amount
-      )
-
-      is NavigateToOpenEthConfirmationView -> transferNavigator.openEthConfirmationView(
-        uiState.walletAddress,
-        uiState.toWalletAddress,
-        uiState.amount
-      )
+      is NavigateToOpenEthConfirmationView -> {
+        transferNavigator.openEthConfirmationView(
+          walletAddress = uiState.walletAddress,
+          toWalletAddress = uiState.toWalletAddress,
+          amount = uiState.amount
+        )
+        navController().popBackStack()
+      }
 
       NavigateToWalletBlocked -> transferNavigator.showWalletBlocked()
 
       Loading -> Loading()
 
-      Error, InvalidAmountError, InvalidWalletAddressError, NoNetworkError, NotEnoughFundsError, UnknownError ->
+      Error -> {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),
           Toast.LENGTH_SHORT
         ).show()
+        viewModel.getWalletInfo()
+      }
+
+      InvalidAmountError -> {
+        Toast.makeText(
+          context,
+          stringResource(R.string.error_invalid_amount),
+          Toast.LENGTH_SHORT
+        ).show()
+        viewModel.getWalletInfo()
+      }
+
+      InvalidWalletAddressError -> {
+        Toast.makeText(
+          context,
+          stringResource(R.string.error_invalid_address),
+          Toast.LENGTH_SHORT
+        ).show()
+        viewModel.getWalletInfo()
+      }
+
+      NoNetworkError -> {
+        Toast.makeText(
+          context,
+          stringResource(R.string.activity_iab_no_network_message),
+          Toast.LENGTH_SHORT
+        ).show()
+        viewModel.getWalletInfo()
+      }
+
+      NotEnoughFundsError -> {
+        Toast.makeText(
+          context,
+          stringResource(R.string.p2p_send_error_not_enough_funds),
+          Toast.LENGTH_SHORT
+        ).show()
+        viewModel.getWalletInfo()
+      }
+
+      UnknownError -> {
+        Toast.makeText(
+          context,
+          stringResource(R.string.unknown_error),
+          Toast.LENGTH_SHORT
+        ).show()
+        viewModel.getWalletInfo()
+      }
+
 
       else -> {}
     }
