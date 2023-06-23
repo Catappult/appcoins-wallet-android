@@ -15,7 +15,7 @@
   <string name="refunded">Dein Geld wurde dir wieder gutgeschrieben.</string>
   <string name="connection_error_body">Es scheint, als wärst du nicht mit dem Internet verbunden. Überprüfe deine Verbindung und versuche es erneut!</string>
   <string name="playing_game_notification_title">Aktuell spielende e-Skills</string>
-  <string name="playing_game_notification_body">Spieleinfo erhalten…</string>
+  <string name="playing_game_notification_body">Spieleinfo wird abgerufen…</string>
   <string name="finish_game_notification_title">Dein e-Skills Spiel wurde beendet</string>
   <string name="won_game_notification_body">Du hast gewonnen! Dein Walletguthaben ist um %1$.2f$ angewachsen!</string>
   <string name="lost_game_notification_body">Du hast verloren... Viel Glück beim nächsten Mal!</string>
@@ -31,7 +31,7 @@
   <string name="processing_payment_title">Verarbeitung deiner Zahlung</string>
   <string name="purchase_error_title">Upps, etwas ist schiefgelaufen.</string>
   <string name="purchase_eskills_sku">Eintrittskarte</string>
-  <string name="shared_room_waiting">Warten auf Gegenspieler die %s beitreten</string>
+  <string name="shared_room_waiting">Warten auf Gegenspieler, die %s beitreten</string>
   <string name="update_wallet">Update wallet</string>
   <!-- Update wallet -->
   <string name="update_not_supported_title">Wallet-Version nicht unterstützt!</string>
