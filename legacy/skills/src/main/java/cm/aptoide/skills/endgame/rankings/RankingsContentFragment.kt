@@ -177,20 +177,20 @@ class RankingsContentFragment : Fragment() {
 
   private fun updateLastBonusWinners(users: List<BonusUser>) {
     if (users.size >= 1) {
-      binding.lastWinnersContainer.secondUsername.text = users[0].userName
-      binding.lastWinnersContainer.secondWinnings.text = java.lang.String.format(
+      binding.lastWinnersContainer.firstUsername.text = users[0].userName
+      binding.lastWinnersContainer.firstWinnings.text = java.lang.String.format(
         Locale.getDefault(), "%.2f$", users[0].bonusAmount
       )
     } else {
-      showNotAttributed(binding.lastWinnersContainer.secondUsername)
+      showNotAttributed(binding.lastWinnersContainer.firstUsername)
     }
     if (users.size >= 2) {
-      binding.lastWinnersContainer.firstUsername.text = users[1].userName
-      binding.lastWinnersContainer.firstWinnings.text = java.lang.String.format(
+      binding.lastWinnersContainer.secondUsername.text = users[1].userName
+      binding.lastWinnersContainer.secondWinnings.text = java.lang.String.format(
         Locale.getDefault(), "%.2f$", users[1].bonusAmount
       )
     } else {
-      showNotAttributed(binding.lastWinnersContainer.firstUsername)
+      showNotAttributed(binding.lastWinnersContainer.secondUsername)
     }
     if (users.size >= 3) {
       binding.lastWinnersContainer.thirdUsername.text = users[2].userName
@@ -264,7 +264,8 @@ class RankingsContentFragment : Fragment() {
     for (player in players) {
       playersList.add(
         UserRankingsItem(
-          player.username, player.score, player.rankPosition.toLong(), false   // TODO
+          player.username, player.score, player.rankPosition.toLong(),
+          player.walletAddress == walletAddress
         )
       )
     }

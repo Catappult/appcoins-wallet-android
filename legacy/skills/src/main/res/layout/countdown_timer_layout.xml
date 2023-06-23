@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/countdown_timer_spacing"
         android:layout_weight="1"
-        android:background="@color/white"
         android:orientation="horizontal"
+        app:cardBackgroundColor="@color/styleguide_white"
         app:cardCornerRadius="8dp"
         android:id="@+id/countdown_days_container">
     <LinearLayout
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/countdown_timer_spacing"
         android:layout_weight="1"
-        android:background="@color/background"
+        app:cardBackgroundColor="@color/styleguide_white"
         android:orientation="horizontal"
         app:cardCornerRadius="8dp"
         >
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
         android:layout_weight="1"
-        android:background="@color/background"
+        app:cardBackgroundColor="@color/styleguide_white"
         android:orientation="horizontal"
         app:cardCornerRadius="8dp"
         >
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginStart="6dp"
-        android:background="@color/background"
+        app:cardBackgroundColor="@color/styleguide_white"
         android:orientation="horizontal"
         app:cardCornerRadius="8dp"
         >
