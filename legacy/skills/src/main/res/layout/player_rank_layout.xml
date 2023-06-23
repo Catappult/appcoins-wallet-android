@@ -5,6 +5,7 @@
     android:layout_height="56dp"
     android:layout_marginHorizontal="@dimen/big_margin"
     android:layout_marginVertical="@dimen/small_margin"
+    app:cardBackgroundColor="@color/styleguide_white"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
     >

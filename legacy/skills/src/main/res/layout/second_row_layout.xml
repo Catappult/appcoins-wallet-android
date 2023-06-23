@@ -8,7 +8,7 @@
     android:layout_marginBottom="5dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    android:background="@color/background"
+    app:cardBackgroundColor="@color/styleguide_white"
     android:orientation="horizontal"
     app:cardCornerRadius="8dp">
 
@@ -24,6 +24,7 @@
             android:id="@+id/gold_medal"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginVertical="2dp"
             android:src="@drawable/silver_medal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
