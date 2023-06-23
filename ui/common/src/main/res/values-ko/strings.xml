@@ -1117,7 +1117,7 @@
   <string name="vip_program_promotions_list_title">당신을 위한 특별 프로모션</string>
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
-  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%의 보너스</b>를 한 달 동안 받게 됩니다!</string>
+  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%% 의 보너스</b>를 한 달 동안 받게 됩니다!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
