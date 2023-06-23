@@ -804,7 +804,7 @@
   <string name="subscriptions_per_several_year">%2$s yılda bir %1$s</string>
   <string name="subscriptions_error_already_subscribed">Hay aksi, bu hizmete zaten abonesiniz! Bizimle iletişime geçmekten çekinmeyin.</string>
   <!--New Gamification-->
-  <string name="gamif_title">%%%s oranına varan Bonus!</string>
+  <string name="gamif_title">%s%% oranına varan Bonus!</string>
   <string name="gamif_bonus_received">Alınan bonus</string>
   <string name="gamif_spent">Bu seviyeye ulaşmak için harcanan miktar</string>
   <string name="gamif_show_previous">Geçmiş başarıları göster</string>
