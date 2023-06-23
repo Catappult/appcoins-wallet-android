@@ -72,6 +72,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   override fun onResume() {
     super.onResume()
+    viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
   }
 
