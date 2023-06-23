@@ -145,19 +145,15 @@ class PayPalV2Repository @Inject constructor(
     uid: String, walletAddress: String,
     signedWalletAddress: String
   ): Single<PaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerBdsApi.getAppcoinsTransaction(
-          uId = uid,
-          walletAddress = walletAddress,
-          walletSignature = signedWalletAddress,
-          authorization = ewt
-        )
-          .map { adyenResponseMapper.map(it) }
-          .onErrorReturn {
-            logger.log("AdyenPaymentRepository", it)
-            adyenResponseMapper.mapPaymentModelError(it)
-          }
+    return brokerBdsApi.getAppcoinsTransaction(
+      uId = uid,
+      walletAddress = walletAddress,
+      walletSignature = signedWalletAddress
+    )
+      .map { adyenResponseMapper.map(it) }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        adyenResponseMapper.mapPaymentModelError(it)
       }
   }
 

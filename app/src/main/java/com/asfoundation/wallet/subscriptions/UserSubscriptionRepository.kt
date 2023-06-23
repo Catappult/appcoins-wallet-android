@@ -19,10 +19,12 @@ class UserSubscriptionRepository @Inject constructor(
   private val subscriptionsMapper: UserSubscriptionsMapper,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
-    ) {
+) {
 
-  fun getUserSubscriptions(walletAddress: String,
-                           freshReload: Boolean): Observable<SubscriptionModel> {
+  fun getUserSubscriptions(
+    walletAddress: String,
+    freshReload: Boolean
+  ): Observable<SubscriptionModel> {
     val apiCall = getApiUserSubscriptions(walletAddress)
     return if (freshReload) apiCall
     else {
@@ -34,50 +36,50 @@ class UserSubscriptionRepository @Inject constructor(
 
   private fun getDbUserSubscriptions(walletAddress: String): Observable<SubscriptionModel> {
     return Observable.zip(local.getSubscriptions(walletAddress),
-        local.getSubscriptions(walletAddress, EXPIRED, EXPIRED_SUBS_LIMIT),
-        BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
-          subscriptionsMapper.mapToSubscriptionModel(active, expired, true)
-        })
-        .onErrorReturn {
-          it.printStackTrace()
-          subscriptionsMapper.mapError(it, true)
-        }
+      local.getSubscriptions(walletAddress, EXPIRED, EXPIRED_SUBS_LIMIT),
+      BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
+        subscriptionsMapper.mapToSubscriptionModel(active, expired, true)
+      })
+      .onErrorReturn {
+        it.printStackTrace()
+        subscriptionsMapper.mapError(it, true)
+      }
   }
 
   private fun getApiUserSubscriptions(walletAddress: String): Observable<SubscriptionModel> {
     return walletService.signContent(walletAddress)
-        .flatMapObservable {
-          val languageTag = Locale.getDefault()
-              .toLanguageTag()
-          Observable.zip(getUserSubscriptionAndSave(languageTag, walletAddress, it),
-              getUserSubscriptionAndSave(languageTag, walletAddress, it, EXPIRED,
-                  EXPIRED_SUBS_LIMIT),
-              BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
-                subscriptionsMapper.mapToSubscriptionModel(active, expired)
-              })
-        }
-        .onErrorReturn {
-          it.printStackTrace()
-          subscriptionsMapper.mapError(it, false)
-        }
+      .flatMapObservable {
+        val languageTag = Locale.getDefault()
+          .toLanguageTag()
+        Observable.zip(getUserSubscriptionAndSave(languageTag, walletAddress, it),
+          getUserSubscriptionAndSave(
+            languageTag, walletAddress, it, EXPIRED,
+            EXPIRED_SUBS_LIMIT
+          ),
+          BiFunction { active: UserSubscriptionsListResponse, expired: UserSubscriptionsListResponse ->
+            subscriptionsMapper.mapToSubscriptionModel(active, expired)
+          })
+      }
+      .onErrorReturn {
+        it.printStackTrace()
+        subscriptionsMapper.mapError(it, false)
+      }
   }
 
-  private fun getUserSubscriptionAndSave(languageTag: String, walletAddress: String,
-                                         signature: String, status: SubscriptionSubStatus? = null,
-                                         limit: Int? = null): Observable<UserSubscriptionsListResponse> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMapObservable { ewt ->
-        subscriptionApi.getUserSubscriptions(
-          language = languageTag,
-          walletAddress = walletAddress,
-          walletSignature = signature,
-          authorization = ewt,
-          subStatus = status?.name,
-          limit = limit
-        )
-          .doOnSuccess { local.insertSubscriptions(it.items, walletAddress) }
-          .toObservable()
-      }
+  private fun getUserSubscriptionAndSave(
+    languageTag: String, walletAddress: String,
+    signature: String, status: SubscriptionSubStatus? = null,
+    limit: Int? = null
+  ): Observable<UserSubscriptionsListResponse> {
+    return subscriptionApi.getUserSubscriptions(
+      language = languageTag,
+      walletAddress = walletAddress,
+      walletSignature = signature,
+      subStatus = status?.name,
+      limit = limit
+    )
+      .doOnSuccess { local.insertSubscriptions(it.items, walletAddress) }
+      .toObservable()
   }
 
   private companion object {

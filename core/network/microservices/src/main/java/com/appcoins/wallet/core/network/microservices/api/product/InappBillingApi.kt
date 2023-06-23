@@ -15,7 +15,6 @@ interface InappBillingApi {
                       @Path("uid") uid: String,
                       @Query("wallet.address") walletAddress: String,
                       @Query("wallet.signature") walletSignature: String,
-                      @Header("authorization") authorization: String,
                       @Query("payload") payload: String? = null): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
@@ -23,7 +22,6 @@ interface InappBillingApi {
                           @Path("uid") uid: String,
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature") walletSignature: String,
-                          @Header("authorization") authorization: String,
                           @Query("payload") payload: String? = null): Completable
 
 
@@ -38,7 +36,6 @@ interface InappBillingApi {
     @Path("packageName") packageName: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
-    @Header("authorization") authorization: String,
     @Query("type") type: String,
     @Query("state") state: String = "PENDING",
     @Query("sku") sku: String? = null,

@@ -10,7 +10,6 @@ interface BrokerBdsApi {
   fun getSkuTransaction(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
-    @Header("authorization") authorization: String,
     @Query("cursor") cursor: Long,
     @Query("type") type: BillingSupportedType,
     @Query("limit") limit: Long,
@@ -24,8 +23,7 @@ interface BrokerBdsApi {
   fun getAppcoinsTransaction(
     @Path("uId") uId: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
-    @Header("authorization") authorization: String
+    @Query("wallet.signature") walletSignature: String
   ): Single<Transaction>
 
   /**

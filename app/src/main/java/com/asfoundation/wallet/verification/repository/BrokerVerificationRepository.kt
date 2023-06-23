@@ -29,10 +29,7 @@ class BrokerVerificationRepository @Inject constructor(
     walletAddress: String,
     signedWalletAddress: String
   ): Single<VerificationInfoResponse> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerVerificationApi.getVerificationInfo(walletAddress, signedWalletAddress, ewt)
-      }
+    return brokerVerificationApi.getVerificationInfo(walletAddress, signedWalletAddress)
   }
 
   fun makeCreditCardVerificationPayment(
@@ -40,92 +37,86 @@ class BrokerVerificationRepository @Inject constructor(
     returnUrl: String, walletAddress: String,
     walletSignature: String
   ): Single<VerificationPaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerVerificationApi.makeCreditCardVerificationPayment(
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
-          authorization = ewt,
-          verificationPayment = VerificationPayment(
-            adyenPaymentMethod, shouldStoreMethod,
-            returnUrl
-          )
-        )
-          .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
-          .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
-      }
+    return brokerVerificationApi.makeCreditCardVerificationPayment(
+      walletAddress = walletAddress,
+      walletSignature = walletSignature,
+      verificationPayment = VerificationPayment(
+        adyenPaymentMethod, shouldStoreMethod,
+        returnUrl
+      )
+    )
+      .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
+      .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
-  fun makePaypalVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
-                                    returnUrl: String, walletAddress: String,
-                                    walletSignature: String): Single<VerificationPaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerVerificationApi.makePaypalVerificationPayment(
-          walletAddress = walletAddress, walletSignature = walletSignature, authorization = ewt,
-          verificationPayment = VerificationPayment(
-            adyenPaymentMethod, shouldStoreMethod,
-            returnUrl
-          )
-        )
-          .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
-          .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
-      }
+  fun makePaypalVerificationPayment(
+    adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
+    returnUrl: String, walletAddress: String,
+    walletSignature: String
+  ): Single<VerificationPaymentModel> {
+    return brokerVerificationApi.makePaypalVerificationPayment(
+      walletAddress = walletAddress,
+      walletSignature = walletSignature,
+      verificationPayment = VerificationPayment(
+        adyenPaymentMethod, shouldStoreMethod,
+        returnUrl
+      )
+    )
+      .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
+      .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
 
-  fun validateCode(code: String, walletAddress: String,
-                   walletSignature: String): Single<VerificationCodeResult> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerVerificationApi.validateCode(
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
-          authorization = ewt,
-          code = code
-        )
-          .toSingle { VerificationCodeResult(true) }
-          .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
-      }
+  fun validateCode(
+    code: String, walletAddress: String,
+    walletSignature: String
+  ): Single<VerificationCodeResult> {
+    return brokerVerificationApi.validateCode(
+      walletAddress = walletAddress,
+      walletSignature = walletSignature,
+      code = code
+    )
+      .toSingle { VerificationCodeResult(true) }
+      .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
   }
 
-  fun getVerificationStatus(walletAddress: String,
-                            walletSignature: String): Single<VerificationStatus> {
+  fun getVerificationStatus(
+    walletAddress: String,
+    walletSignature: String
+  ): Single<VerificationStatus> {
     return walletInfoRepository.getLatestWalletInfo(walletAddress, updateFiatValues = false)
-        .subscribeOn(Schedulers.io())
-        .flatMap { walletInfo ->
-          if (walletInfo.verified) {
-            return@flatMap Single.just(VerificationStatus.VERIFIED)
-          } else {
-            if (getCachedValidationStatus(walletAddress) == VerificationStatus.VERIFYING) {
-              return@flatMap Single.just(VerificationStatus.VERIFYING)
-            }
-            return@flatMap getCardVerificationState(walletAddress, walletSignature)
+      .subscribeOn(Schedulers.io())
+      .flatMap { walletInfo ->
+        if (walletInfo.verified) {
+          return@flatMap Single.just(VerificationStatus.VERIFIED)
+        } else {
+          if (getCachedValidationStatus(walletAddress) == VerificationStatus.VERIFYING) {
+            return@flatMap Single.just(VerificationStatus.VERIFYING)
           }
+          return@flatMap getCardVerificationState(walletAddress, walletSignature)
         }
-        .doOnSuccess { status -> saveVerificationStatus(walletAddress, status) }
-        .onErrorReturn {
-          if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
-          else VerificationStatus.ERROR
-        }
+      }
+      .doOnSuccess { status -> saveVerificationStatus(walletAddress, status) }
+      .onErrorReturn {
+        if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
+        else VerificationStatus.ERROR
+      }
   }
 
-  fun getCardVerificationState(walletAddress: String,
-                               walletSignature: String): Single<VerificationStatus> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerVerificationApi.getVerificationState(
-          wallet = walletAddress,
-          walletSignature = walletSignature,
-          authorization = ewt
-        )
-          .map { verificationState ->
-            if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
-            else VerificationStatus.UNVERIFIED
-          }
-          .onErrorReturn {
-            if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
-            else VerificationStatus.ERROR
-          }
+  fun getCardVerificationState(
+    walletAddress: String,
+    walletSignature: String
+  ): Single<VerificationStatus> {
+    return brokerVerificationApi.getVerificationState(
+      wallet = walletAddress,
+      walletSignature = walletSignature
+    )
+      .map { verificationState ->
+        if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
+        else VerificationStatus.UNVERIFIED
+      }
+      .onErrorReturn {
+        if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
+        else VerificationStatus.ERROR
       }
   }
 

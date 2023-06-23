@@ -30,35 +30,44 @@ class AdyenPaymentRepository @Inject constructor(
     walletSignature: String,
     ewt: String
   ): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, ewt, value, currency, methods.transactionType)
-        .map {
-          adyenResponseMapper.map(it, methods)
-        }
-        .onErrorReturn {
-          logger.log("AdyenPaymentRepository", it)
-          adyenResponseMapper.mapInfoModelError(it)
-        }
+    return adyenApi.loadPaymentInfo(
+      walletAddress,
+      walletSignature,
+      ewt,
+      value,
+      currency,
+      methods.transactionType
+    )
+      .map {
+        adyenResponseMapper.map(it, methods)
+      }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        adyenResponseMapper.mapInfoModelError(it)
+      }
   }
 
-  fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
-                  supportedShopperInteractions: List<String>, returnUrl: String, value: String,
-                  currency: String, reference: String?, paymentType: String, walletAddress: String,
-                  origin: String?, packageName: String?, metadata: String?, sku: String?,
-                  callbackUrl: String?, transactionType: String, developerWallet: String?,
-                  entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
-                  userWallet: String?,
-                  walletSignature: String,
-                  billingAddress: AdyenBillingAddress?,
-                  referrerUrl: String?): Single<PaymentModel> {
+  fun makePayment(
+    adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
+    supportedShopperInteractions: List<String>, returnUrl: String, value: String,
+    currency: String, reference: String?, paymentType: String, walletAddress: String,
+    origin: String?, packageName: String?, metadata: String?, sku: String?,
+    callbackUrl: String?, transactionType: String, developerWallet: String?,
+    entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
+    userWallet: String?,
+    walletSignature: String,
+    billingAddress: AdyenBillingAddress?,
+    referrerUrl: String?
+  ): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
     } else "Ecommerce"
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-        .flatMap { ewt ->
+        .flatMap { ewt ->  // TODO keep both for this one
           subscriptionsApi.getSkuSubscriptionToken(
             domain = packageName!!, sku = sku!!, currency = currency, walletAddress = walletAddress,
-            walletSignature = walletSignature, authorization = ewt
+            walletSignature = walletSignature
           )
             .map {
               TokenPayment(
@@ -68,12 +77,14 @@ class AdyenPaymentRepository @Inject constructor(
                 referrerUrl, it
               )
             }
-            .flatMap { adyenApi.makeTokenPayment(
-              walletAddress = walletAddress,
-              walletSignature = walletSignature,
-              authorization = ewt,
-              payment = it
-            ) }
+            .flatMap {
+              adyenApi.makeTokenPayment(
+                walletAddress = walletAddress,
+                walletSignature = walletSignature,
+                authorization = ewt,
+                payment = it
+              )
+            }
             .map { adyenResponseMapper.map(it) }
             .onErrorReturn {
               logger.log("AdyenPaymentRepository", it)
@@ -118,8 +129,10 @@ class AdyenPaymentRepository @Inject constructor(
     }
   }
 
-  fun submitRedirect(uid: String, walletAddress: String, walletSignature: String,
-                     details: JsonObject, paymentData: String?): Single<PaymentModel> {
+  fun submitRedirect(
+    uid: String, walletAddress: String, walletSignature: String,
+    details: JsonObject, paymentData: String?
+  ): Single<PaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         adyenApi.submitRedirect(
@@ -136,28 +149,26 @@ class AdyenPaymentRepository @Inject constructor(
 
   fun disablePayments(walletAddress: String): Single<Boolean> {
     return adyenApi.disablePayments(DisableWallet(walletAddress))
-        .toSingleDefault(true)
-        .doOnError { it.printStackTrace() }
-        .onErrorReturn {
-          false
-        }
+      .toSingleDefault(true)
+      .doOnError { it.printStackTrace() }
+      .onErrorReturn {
+        false
+      }
   }
 
-  fun getTransaction(uid: String, walletAddress: String,
-                     signedWalletAddress: String): Single<PaymentModel> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        brokerBdsApi.getAppcoinsTransaction(
-          uId = uid,
-          walletAddress = walletAddress,
-          walletSignature = signedWalletAddress,
-          authorization = ewt
-        )
-          .map { adyenResponseMapper.map(it) }
-          .onErrorReturn {
-            logger.log("AdyenPaymentRepository", it)
-            adyenResponseMapper.mapPaymentModelError(it)
-          }
+  fun getTransaction(
+    uid: String, walletAddress: String,
+    signedWalletAddress: String
+  ): Single<PaymentModel> {
+    return brokerBdsApi.getAppcoinsTransaction(
+      uId = uid,
+      walletAddress = walletAddress,
+      walletSignature = signedWalletAddress
+    )
+      .map { adyenResponseMapper.map(it) }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        adyenResponseMapper.mapPaymentModelError(it)
       }
   }
 

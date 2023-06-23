@@ -47,17 +47,15 @@ class BackupRepository @Inject constructor(
   private fun getDefaultBackupFileExtension() = ".bck"
 
   fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMapCompletable { ewt ->
-        walletService.getAndSignSpecificWalletAddress(walletAddress)
-          .flatMapCompletable {
-            backupEmailApi.sendBackupEmail(
-              walletAddress = it.address, walletSignature = it.signedAddress, authorization = ewt,
-              emailBody = EmailBody(email, keystore.convertToBase64())
-            )
-          }
-          .subscribeOn(rxSchedulers.io)
+    return walletService.getAndSignSpecificWalletAddress(walletAddress)
+      .flatMapCompletable {
+        backupEmailApi.sendBackupEmail(
+          walletAddress = it.address,
+          walletSignature = it.signedAddress,
+          emailBody = EmailBody(email, keystore.convertToBase64())
+        )
       }
+      .subscribeOn(rxSchedulers.io)
   }
 
   fun logBackupSuccess(ewt: String): Completable {
