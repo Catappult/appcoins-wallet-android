@@ -12,16 +12,6 @@
         <action android:name="android.intent.action.VIEW" />
       </intent-filter>
     </activity>
-    
-    <activity android:name="cm.aptoide.skills.endgame.SkillsEndgameActivity"
-        android:exported="true"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills"
-        android:label="eskills Endgame">
-      <intent-filter>
-        <action android:name="com.aptoide.skills.ENDGAME" />
-      </intent-filter>
-    </activity>
-
     <service
         android:name="cm.aptoide.skills.games.BackgroundGameService"
         android:exported="false" />

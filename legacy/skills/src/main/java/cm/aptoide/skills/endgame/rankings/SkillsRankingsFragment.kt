@@ -58,19 +58,5 @@ class SkillsRankingsFragment : Fragment() {
     }.attach()
   }
 
-  override fun onResume() {
-    super.onResume()
-    // TODO
-  }
 
-
-  private fun getCachedValue(key: String): Boolean {
-    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
-    return sharedPreferences.getBoolean(key, true)
-  }
-
-  private fun cacheValue(key: String, value: Boolean) {
-    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
-    sharedPreferences.edit().putBoolean(key, value).apply()
-  }
 }

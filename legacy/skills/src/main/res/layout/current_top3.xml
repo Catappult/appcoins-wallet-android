@@ -4,8 +4,7 @@
     android:layout_height="304dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_current_top3"
-    android:layout_marginHorizontal="@dimen/small_margin"
-    android:layout_marginVertical="@dimen/big_margin"
+
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/next_reward_container"
@@ -13,8 +12,8 @@
       android:layout_height="wrap_content"
       app:layout_constraintTop_toTopOf="parent"
       android:paddingTop="16dp"
-      android:paddingBottom="14dp"
-      android:paddingHorizontal="14dp"
+      android:paddingBottom="16dp"
+      android:paddingHorizontal="16dp"
     >
     <TextView
         android:id="@+id/next_reward_title"
@@ -34,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/next_reward_title"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="16dp"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
@@ -53,7 +52,7 @@
       app:layout_constraintStart_toStartOf="parent"
       android:text="@string/current_top_3"
       android:paddingHorizontal="@dimen/big_padding"
-      android:paddingVertical="12dp"
+      android:paddingVertical="8dp"
       style="@style/NextReward.Title"/>
 
   <LinearLayout
@@ -91,7 +90,4 @@
       android:layout_marginTop="4dp"
       android:layout_marginBottom="@dimen/small_margin"/>
   </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

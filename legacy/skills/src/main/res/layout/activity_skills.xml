@@ -14,17 +14,19 @@
       app:layout_constraintBottom_toTopOf="@id/fragment_container"
       app:layout_constraintEnd_toEndOf="@id/fragment_container"
       app:layout_constraintStart_toStartOf="@id/fragment_container"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
       />
 
   <FrameLayout
       android:id="@+id/fragment_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="?attr/actionBarSize"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/background_card_bottom_rounded"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/appcoins_header"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
