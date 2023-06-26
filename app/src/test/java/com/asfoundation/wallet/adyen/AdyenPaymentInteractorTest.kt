@@ -161,9 +161,9 @@ class AdyenPaymentInteractorTest {
   fun loadPaymentInfoTest() {
     val testObserver = TestObserver<PaymentInfoModel>()
     val expectedModel = PaymentInfoModel(null, false, BigDecimal(2), TEST_FIAT_CURRENCY)
-    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
+    Mockito.`when`(walletService.getWalletAddress())
         .thenReturn(
-          Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+          Single.just(TEST_WALLET_ADDRESS)
         )
     Mockito.`when`(ewtObtainer.getEwtAuthentication())
       .thenReturn(
@@ -235,7 +235,7 @@ class AdyenPaymentInteractorTest {
         PaymentModel(null, null, null, null, null, "", "uid", null, null, null, emptyList(),
             PaymentModel.Status.COMPLETED, null, null)
     Mockito.`when`(walletService.getWalletAddress())
-        .thenReturn(Single.just(TEST_WALLET_SIGNATURE))
+        .thenReturn(Single.just(TEST_WALLET_ADDRESS))
     Mockito.`when`(
         repository.submitRedirect("uid", TEST_WALLET_ADDRESS, json, null))
         .thenReturn(Single.just(expectedModel))
