@@ -80,23 +80,27 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Purchase> =
-    inappApi.getPurchases(
-      packageName = packageName,
-      walletAddress = walletAddress,
-      walletSignature = walletSignature,
-      type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
-      sku = skuId
-    )
-      .map {
-        if (it.items.isEmpty()) {
-          throw HttpException(
-            Response.error<GetPurchasesResponse>(
-              404,
-              ResponseBody.create("application/json".toMediaType(), "{}")
-            )
-          )
-        }
-        responseMapper.map(packageName, it)[0]
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.getPurchases(
+          packageName = packageName,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
+          sku = skuId
+        )
+          .map {
+            if (it.items.isEmpty()) {
+              throw HttpException(
+                Response.error<GetPurchasesResponse>(
+                  404,
+                  ResponseBody.create("application/json".toMediaType(), "{}")
+                )
+              )
+            }
+            responseMapper.map(packageName, it)[0]
+          }
       }
 
   internal fun getSkuPurchaseSubs(
@@ -137,13 +141,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<List<Purchase>> =
-    inappApi.getPurchases(
-      packageName = packageName,
-      walletAddress = walletAddress,
-      walletSignature = walletSignature,
-      type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
-    )
-      .map { responseMapper.map(packageName, it) }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.getPurchases(
+          packageName = packageName,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
+        )
+          .map { responseMapper.map(packageName, it) }
+      }
 
   internal fun getPurchasesSubs(
     packageName: String,
@@ -163,13 +171,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Boolean> =
-    inappApi.acknowledgePurchase(
-      domain = packageName,
-      uid = purchaseToken,
-      walletAddress = walletAddress,
-      walletSignature = walletSignature
-    )
-      .toSingle { true }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.acknowledgePurchase(
+          domain = packageName,
+          uid = purchaseToken,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .toSingle { true }
+      }
 
   internal fun consumePurchase(
     packageName: String,
@@ -177,13 +189,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Boolean> =
-    inappApi.consumePurchase(
-      domain = packageName,
-      uid = purchaseToken,
-      walletAddress = walletAddress,
-      walletSignature = walletSignature
-    )
-      .toSingle { true }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.consumePurchase(
+          domain = packageName,
+          uid = purchaseToken,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .toSingle { true }
+      }
 
   internal fun getSubscriptionToken(
     domain: String,

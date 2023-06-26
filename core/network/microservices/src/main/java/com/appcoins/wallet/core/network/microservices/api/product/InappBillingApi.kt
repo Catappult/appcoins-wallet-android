@@ -11,18 +11,24 @@ interface InappBillingApi {
   fun getPackage(@Path("domain") packageName: String): Single<Boolean>
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/consume")
-  fun consumePurchase(@Path("domain") domain: String,
-                      @Path("uid") uid: String,
-                      @Query("wallet.address") walletAddress: String,
-                      @Query("wallet.signature") walletSignature: String,
-                      @Query("payload") payload: String? = null): Completable
+  fun consumePurchase(
+    @Path("domain") domain: String,
+    @Path("uid") uid: String,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
+    @Query("payload") payload: String? = null
+  ): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
-  fun acknowledgePurchase(@Path("domain") domain: String,
-                          @Path("uid") uid: String,
-                          @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Query("payload") payload: String? = null): Completable
+  fun acknowledgePurchase(
+    @Path("domain") domain: String,
+    @Path("uid") uid: String,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
+    @Query("payload") payload: String? = null
+  ): Completable
 
 
   @GET("8.20200701/applications/{packageName}/inapp/consumables")
@@ -36,6 +42,7 @@ interface InappBillingApi {
     @Path("packageName") packageName: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Query("type") type: String,
     @Query("state") state: String = "PENDING",
     @Query("sku") sku: String? = null,
