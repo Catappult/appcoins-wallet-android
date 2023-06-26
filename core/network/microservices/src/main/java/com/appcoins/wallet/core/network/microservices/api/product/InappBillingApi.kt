@@ -14,8 +14,6 @@ interface InappBillingApi {
   fun consumePurchase(
     @Path("domain") domain: String,
     @Path("uid") uid: String,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Query("payload") payload: String? = null
   ): Completable
@@ -24,8 +22,6 @@ interface InappBillingApi {
   fun acknowledgePurchase(
     @Path("domain") domain: String,
     @Path("uid") uid: String,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Query("payload") payload: String? = null
   ): Completable
@@ -40,8 +36,6 @@ interface InappBillingApi {
   @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")
   fun getPurchases(
     @Path("packageName") packageName: String,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Query("type") type: String,
     @Query("state") state: String = "PENDING",

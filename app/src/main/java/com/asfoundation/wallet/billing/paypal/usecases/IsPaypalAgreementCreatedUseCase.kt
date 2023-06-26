@@ -11,11 +11,10 @@ class IsPaypalAgreementCreatedUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Single<Boolean> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         payPalV2Repository.getCurrentBillingAgreement(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress
+          walletAddress = address
         )
       }
   }

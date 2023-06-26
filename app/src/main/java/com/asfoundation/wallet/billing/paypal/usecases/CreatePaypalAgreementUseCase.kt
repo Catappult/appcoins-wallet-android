@@ -12,11 +12,10 @@ class CreatePaypalAgreementUseCase @Inject constructor(
 ) {
 
   operator fun invoke(token: String): Single<PaypalCreateAgreement> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         payPalV2Repository.createBillingAgreement(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           token = token
         )
       }

@@ -76,16 +76,12 @@ class RemoteRepository(
 
   internal fun getSkuPurchase(
     packageName: String,
-    skuId: String?,
-    walletAddress: String,
-    walletSignature: String
+    skuId: String?
   ): Single<Purchase> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         inappApi.getPurchases(
           packageName = packageName,
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
           sku = skuId
@@ -138,15 +134,11 @@ class RemoteRepository(
 
   internal fun getPurchases(
     packageName: String,
-    walletAddress: String,
-    walletSignature: String
   ): Single<List<Purchase>> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         inappApi.getPurchases(
           packageName = packageName,
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
         )
@@ -168,16 +160,12 @@ class RemoteRepository(
   @Suppress("unused")
   internal fun acknowledgePurchase(
     packageName: String, purchaseToken: String,
-    walletAddress: String,
-    walletSignature: String
   ): Single<Boolean> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         inappApi.acknowledgePurchase(
           domain = packageName,
           uid = purchaseToken,
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
           .toSingle { true }
@@ -186,16 +174,12 @@ class RemoteRepository(
   internal fun consumePurchase(
     packageName: String,
     purchaseToken: String,
-    walletAddress: String,
-    walletSignature: String
   ): Single<Boolean> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         inappApi.consumePurchase(
           domain = packageName,
           uid = purchaseToken,
-          walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
           .toSingle { true }
@@ -223,7 +207,6 @@ class RemoteRepository(
     id: String?,
     gateway: String,
     walletAddress: String,
-    walletSignature: String,
     productName: String?,
     packageName: String,
     priceValue: BigDecimal,
@@ -249,7 +232,6 @@ class RemoteRepository(
       type = type,
       gateway = gateway,
       walletAddress = walletAddress,
-      signature = walletSignature,
       packageName = packageName,
       amount = priceValue.toPlainString(),
       currency = "APPC",
@@ -260,7 +242,6 @@ class RemoteRepository(
     paymentId: String,
     paymentType: String,
     walletAddress: String,
-    walletSignature: String,
     paymentProof: String
   ): Completable =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
@@ -269,7 +250,6 @@ class RemoteRepository(
           gateway = paymentType,
           uid = paymentId,
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           paykey = paymentProof
         )
@@ -342,7 +322,6 @@ class RemoteRepository(
       type = type,
       gateway = gateway,
       walletAddress = walletAddress,
-      signature = signature,
       packageName = packageName,
       amount = amount.toPlainString(),
       currency = "APPC",
@@ -365,8 +344,7 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -388,7 +366,6 @@ class RemoteRepository(
           orderReference = orderReference,
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
       }
@@ -434,7 +411,6 @@ class RemoteRepository(
     type: String,
     gateway: String,
     walletAddress: String,
-    signature: String,
     packageName: String,
     amount: String?,
     @Suppress("SameParameterValue") currency: String,
@@ -446,7 +422,6 @@ class RemoteRepository(
           brokerBdsApi.createTransaction(
             gateway = gateway,
             walletAddress = walletAddress,
-            walletSignature = signature,
             authorization = ewt,
             creditsPurchaseBody = CreditsPurchaseBody(callback, productToken)
           )
@@ -470,7 +445,6 @@ class RemoteRepository(
             orderReference = orderReference,
             referrerUrl = referrerUrl,
             walletAddress = walletAddress,
-            walletSignature = signature,
             authorization = ewt
           )
         }

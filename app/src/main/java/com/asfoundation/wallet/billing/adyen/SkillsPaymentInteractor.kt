@@ -14,10 +14,9 @@ class SkillsPaymentInteractor @Inject constructor(
                         encryptedCardNumber: String?, encryptedExpiryMonth: String?,
                         encryptedExpiryYear: String?, encryptedSecurityCode: String
   ): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
         .flatMap { address ->
-          skillsPaymentRepository.makeSkillsPayment(returnUrl, address.address,
-              address.signedAddress, productToken, encryptedCardNumber, encryptedExpiryMonth,
+          skillsPaymentRepository.makeSkillsPayment(returnUrl, address, productToken, encryptedCardNumber, encryptedExpiryMonth,
               encryptedExpiryYear, encryptedSecurityCode
           )
         }

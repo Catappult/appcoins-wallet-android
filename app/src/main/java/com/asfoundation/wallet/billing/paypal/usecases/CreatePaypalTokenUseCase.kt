@@ -14,13 +14,12 @@ class CreatePaypalTokenUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Single<PaypalCreateToken> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         val returnUrl = "${PaypalReturnSchemas.RETURN.schema}${BuildConfig.APPLICATION_ID}"
         val cancelUrl = "${PaypalReturnSchemas.CANCEL.schema}${BuildConfig.APPLICATION_ID}"
         payPalV2Repository.createToken(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           returnUrl = returnUrl,
           cancelUrl = cancelUrl
         )

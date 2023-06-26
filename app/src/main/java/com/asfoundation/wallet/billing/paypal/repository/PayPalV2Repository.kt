@@ -34,7 +34,6 @@ class PayPalV2Repository @Inject constructor(
     callbackUrl: String?, transactionType: String, developerWallet: String?,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
-    walletSignature: String,
     referrerUrl: String?
   ): Single<PaypalTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
@@ -43,7 +42,6 @@ class PayPalV2Repository @Inject constructor(
           // uncomment for testing errors in dev
           //HeaderPaypalMock(MockCodes.INSTRUMENT_DECLINED .name).toJson(),
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           paypalPayment = PaypalPayment(
             callbackUrl = callbackUrl,
@@ -82,7 +80,6 @@ class PayPalV2Repository @Inject constructor(
 
   fun createToken(
     walletAddress: String,
-    walletSignature: String,
     returnUrl: String,
     cancelUrl: String
   ): Single<PaypalCreateToken> {
@@ -90,7 +87,6 @@ class PayPalV2Repository @Inject constructor(
       .flatMap { ewt ->
         paypalV2Api.createToken(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           createTokenRequest = CreateTokenRequest(
             Urls(
@@ -107,14 +103,12 @@ class PayPalV2Repository @Inject constructor(
 
   fun createBillingAgreement(
     walletAddress: String,
-    walletSignature: String,
     token: String
   ): Single<PaypalCreateAgreement> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         paypalV2Api.createBillingAgreement(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           token = token
         )
@@ -126,14 +120,12 @@ class PayPalV2Repository @Inject constructor(
 
   fun cancelToken(
     walletAddress: String,
-    walletSignature: String,
     token: String
   ): Completable {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMapCompletable { ewt ->
         paypalV2Api.cancelToken(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           token = token
         )
@@ -159,13 +151,11 @@ class PayPalV2Repository @Inject constructor(
 
   fun getCurrentBillingAgreement(
     walletAddress: String,
-    walletSignature: String
   ): Single<Boolean> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         paypalV2Api.getCurrentBillingAgreement(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
           .map { response: PaypalV2GetAgreementResponse ->
@@ -176,14 +166,12 @@ class PayPalV2Repository @Inject constructor(
   }
 
   fun removeBillingAgreement(
-    walletAddress: String,
-    walletSignature: String
+    walletAddress: String
   ): Completable {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMapCompletable { ewt ->
         paypalV2Api.removeBillingAgreement(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
           .ignoreElement()

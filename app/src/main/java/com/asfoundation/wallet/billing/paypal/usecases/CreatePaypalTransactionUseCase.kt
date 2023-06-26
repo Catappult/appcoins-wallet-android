@@ -15,23 +15,25 @@ class CreatePaypalTransactionUseCase @Inject constructor(
   private val payPalV2Repository: PayPalV2Repository,
 ) {
 
-  operator fun invoke(value: String, currency: String, reference: String?,
-                  origin: String?, packageName: String, metadata: String?,
-                  sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?,
-                  referrerUrl: String?): Single<PaypalTransaction> {
-    return Single.zip(walletService.getAndSignCurrentWalletAddress(),
+  operator fun invoke(
+    value: String, currency: String, reference: String?,
+    origin: String?, packageName: String, metadata: String?,
+    sku: String?, callbackUrl: String?, transactionType: String,
+    developerWallet: String?,
+    referrerUrl: String?
+  ): Single<PaypalTransaction> {
+    return Single.zip(walletService.getWalletAddress(),
       partnerAddressService.getAttributionEntity(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
-        val addressModel = pair.first
+        val address = pair.first
         val attrEntity = pair.second
         getCurrentPromoCodeUseCase().flatMap { promoCode ->
           payPalV2Repository.createTransaction(
             value = value,
             currency = currency,
             reference = reference,
-            walletAddress = addressModel.address,
+            walletAddress = address,
             origin = origin,
             packageName = packageName,
             metadata = metadata,
@@ -42,8 +44,7 @@ class CreatePaypalTransactionUseCase @Inject constructor(
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
-            userWallet = addressModel.address,
-            walletSignature = addressModel.signedAddress,
+            userWallet = address,
             referrerUrl = referrerUrl
           )
         }

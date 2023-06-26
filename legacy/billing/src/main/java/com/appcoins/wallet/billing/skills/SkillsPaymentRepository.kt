@@ -22,7 +22,6 @@ class SkillsPaymentRepository @Inject constructor(
   fun makeSkillsPayment(
     returnUrl: String,
     walletAddress: String,
-    walletSignature: String,
     productToken: String, encryptedCardNumber: String?,
     encryptedExpiryMonth: String?,
     encryptedExpiryYear: String?,
@@ -31,7 +30,7 @@ class SkillsPaymentRepository @Inject constructor(
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         adyenApi.makeAdyenBodyPayment(
-          walletAddress = walletAddress, walletSignature = walletSignature, authorization = ewt,
+          walletAddress = walletAddress, authorization = ewt,
           payment = PaymentRequest(
             Payment(
               Method(

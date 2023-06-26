@@ -106,7 +106,6 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
             TEST_EWT,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
@@ -122,7 +121,6 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE,
         TEST_EWT
     )
         .subscribe(testObserver)
@@ -138,7 +136,6 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
             TEST_EWT,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
@@ -155,7 +152,6 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE,
         TEST_EWT
     )
         .subscribe(testObserver)

@@ -39,7 +39,6 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     id,
     paymentType,
     walletAddress,
-    walletSignature,
     productName,
     packageName,
     priceValue,
@@ -61,7 +60,6 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     paymentId,
     paymentType,
     walletAddress,
-    signedData,
     paymentProof
   )
 
@@ -88,7 +86,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     type: BillingSupportedType
   ): Single<Purchase> =
     if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
-      remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+      remoteRepository.getSkuPurchase(packageName, skuId)
     } else {
       remoteRepository.getSkuPurchaseSubs(
         packageName,
@@ -125,7 +123,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     type: BillingSupportedType
   ): Single<List<Purchase>> =
     if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
-      remoteRepository.getPurchases(packageName, walletAddress, walletSignature)
+      remoteRepository.getPurchases(packageName)
     } else {
       remoteRepository.getPurchasesSubs(packageName, walletAddress, walletSignature)
     }
@@ -133,15 +131,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun consumePurchases(
     packageName: String,
     purchaseToken: String,
-    walletAddress: String,
-    walletSignature: String,
     type: BillingSupportedType?
   ): Single<Boolean> {
     return remoteRepository.consumePurchase(
       packageName,
-      purchaseToken,
-      walletAddress,
-      walletSignature
+      purchaseToken
     )
   }
 

@@ -14,13 +14,12 @@ class CancelPaypalTokenUseCase @Inject constructor(
 ) {
 
   operator fun invoke(token: String): Completable {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
       .subscribeOn(rxSchedulers.io)
-      .flatMapCompletable { addressModel ->
+      .flatMapCompletable { address ->
         Log.d(this.toString(), "Canceling token")
         payPalV2Repository.cancelToken(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           token = token
         )
       }

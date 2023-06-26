@@ -15,7 +15,6 @@ interface PaypalV2Api {
     // uncomment for testing errors in dev (don't push it uncommented):
     // @Header("PayPal-Mock-Response") mockHeader: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Body paypalPayment: PaypalPayment
   ): Single<PaypalV2StartResponse>
@@ -23,7 +22,6 @@ interface PaypalV2Api {
   @POST("8.20230522/gateways/paypal/billing-agreement/token/create")
   fun createToken(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Body createTokenRequest: CreateTokenRequest
   ): Single<PaypalV2CreateTokenResponse>
@@ -31,7 +29,6 @@ interface PaypalV2Api {
   @POST("8.20230522/gateways/paypal/billing-agreement/create")
   fun createBillingAgreement(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Body token: String
   ): Single<PaypalV2CreateAgreementResponse>
@@ -39,7 +36,6 @@ interface PaypalV2Api {
   @POST("8.20230522/gateways/paypal/billing-agreement/token/cancel")
   fun cancelToken(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
     @Body token: String
   ): Single<String?>
@@ -47,14 +43,12 @@ interface PaypalV2Api {
   @GET("8.20230522/gateways/paypal/billing-agreement")
   fun getCurrentBillingAgreement(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String,
   ): Single<PaypalV2GetAgreementResponse>
 
   @POST("8.20230522/gateways/paypal/billing-agreement/cancel")
   fun removeBillingAgreement(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
     @Header("authorization") authorization: String
   ): Single<Result<String?>>
 

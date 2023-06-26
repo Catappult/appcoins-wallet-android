@@ -234,10 +234,10 @@ class AdyenPaymentInteractorTest {
     val expectedModel =
         PaymentModel(null, null, null, null, null, "", "uid", null, null, null, emptyList(),
             PaymentModel.Status.COMPLETED, null, null)
-    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+    Mockito.`when`(walletService.getWalletAddress())
+        .thenReturn(Single.just(TEST_WALLET_SIGNATURE))
     Mockito.`when`(
-        repository.submitRedirect("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE, json, null))
+        repository.submitRedirect("uid", TEST_WALLET_ADDRESS, json, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.submitRedirect("uid", json, null)

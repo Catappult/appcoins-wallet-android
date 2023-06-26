@@ -16,13 +16,13 @@ class CreatePaypalTransactionTopupUseCase @Inject constructor(
     value: String,
     currency: String,
   ): Single<PaypalTransaction> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         payPalV2Repository.createTransaction(
           value = value,
           currency = currency,
           reference = null,
-          walletAddress = addressModel.address,
+          walletAddress = address,
           origin = null,
           packageName = BuildConfig.APPLICATION_ID,
           metadata = null,
@@ -34,7 +34,6 @@ class CreatePaypalTransactionTopupUseCase @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          walletSignature = addressModel.signedAddress,
           referrerUrl = null
         )
       }

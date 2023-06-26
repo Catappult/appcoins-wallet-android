@@ -14,16 +14,15 @@ class RemovePaypalBillingAgreementUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Completable {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
       .subscribeOn(rxSchedulers.io)
-      .flatMapCompletable { addressModel ->
+      .flatMapCompletable { address ->
         Log.d(this.toString(), "Removing Agreement")
         payPalV2Repository.removeBillingAgreement(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress
+          walletAddress = address
         )
       }
-      .onErrorComplete {// TODO log error
+      .onErrorComplete {
         Log.d(this.toString(), it.message ?: "")
         true
       }

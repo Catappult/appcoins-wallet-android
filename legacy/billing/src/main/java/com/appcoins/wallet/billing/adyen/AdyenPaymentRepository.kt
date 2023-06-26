@@ -27,12 +27,10 @@ class AdyenPaymentRepository @Inject constructor(
     value: String,
     currency: String,
     walletAddress: String,
-    walletSignature: String,
     ewt: String
   ): Single<PaymentInfoModel> {
     return adyenApi.loadPaymentInfo(
       walletAddress,
-      walletSignature,
       ewt,
       value,
       currency,
@@ -64,7 +62,7 @@ class AdyenPaymentRepository @Inject constructor(
     } else "Ecommerce"
     return if (transactionType == BillingSupportedType.INAPP_SUBSCRIPTION.name) {
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-        .flatMap { ewt ->  // TODO keep both for this one
+        .flatMap { ewt ->  // keep both auths for this one
           subscriptionsApi.getSkuSubscriptionToken(
             domain = packageName!!, sku = sku!!, currency = currency, walletAddress = walletAddress,
             walletSignature = walletSignature
@@ -80,7 +78,6 @@ class AdyenPaymentRepository @Inject constructor(
             .flatMap {
               adyenApi.makeTokenPayment(
                 walletAddress = walletAddress,
-                walletSignature = walletSignature,
                 authorization = ewt,
                 payment = it
               )
@@ -95,7 +92,7 @@ class AdyenPaymentRepository @Inject constructor(
       return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
         .flatMap { ewt ->
           adyenApi.makeAdyenPayment(
-            walletAddress, walletSignature, ewt,
+            walletAddress, ewt,
             PaymentDetails(
               adyenPaymentMethod = adyenPaymentMethod,
               shouldStoreMethod = shouldStoreMethod,
@@ -130,13 +127,13 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun submitRedirect(
-    uid: String, walletAddress: String, walletSignature: String,
+    uid: String, walletAddress: String,
     details: JsonObject, paymentData: String?
   ): Single<PaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         adyenApi.submitRedirect(
-          uid = uid, address = walletAddress, signature = walletSignature, authorization = ewt,
+          uid = uid, address = walletAddress, authorization = ewt,
           payment = AdyenPayment(details, paymentData)
         )
           .map { adyenResponseMapper.map(it) }

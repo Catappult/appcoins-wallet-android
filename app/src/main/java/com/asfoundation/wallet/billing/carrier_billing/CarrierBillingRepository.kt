@@ -13,12 +13,13 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
-                                                   private val preferences: CarrierBillingPreferencesRepository,
-                                                   private val mapper: CarrierResponseMapper,
-                                                   private val logger: Logger,
-                                                   private val ewtObtainer: EwtAuthenticatorService,
-                                                   private val rxSchedulers: RxSchedulers,
+class CarrierBillingRepository @Inject constructor(
+  private val api: CarrierBillingApi,
+  private val preferences: CarrierBillingPreferencesRepository,
+  private val mapper: CarrierResponseMapper,
+  private val logger: Logger,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers,
 ) {
 
   companion object {
@@ -27,18 +28,19 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
 
   private val RETURN_URL = "https://${BuildConfig.APPLICATION_ID}/return/carrier_billing"
 
-  fun makePayment(walletAddress: String, walletSignature: String,
-                  phoneNumber: String, packageName: String, origin: String?, sku: String?,
-                  reference: String?, transactionType: String, currency: String,
-                  value: String, developerWallet: String?, entityOemId: String?,
-                  entityDomain: String?, entityPromoCode: String?,
-                  userWallet: String?, referrerUrl: String?, developerPayload: String?,
-                  callbackUrl: String?): Single<CarrierPaymentModel> {
+  fun makePayment(
+    walletAddress: String,
+    phoneNumber: String, packageName: String, origin: String?, sku: String?,
+    reference: String?, transactionType: String, currency: String,
+    value: String, developerWallet: String?, entityOemId: String?,
+    entityDomain: String?, entityPromoCode: String?,
+    userWallet: String?, referrerUrl: String?, developerPayload: String?,
+    callbackUrl: String?
+  ): Single<CarrierPaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
         api.makePayment(
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt,
           carrierTransactionBody = CarrierTransactionBody(
             phoneNumber = phoneNumber,
@@ -69,14 +71,14 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
       }
   }
 
-  fun getPayment(uid: String, walletAddress: String,
-                 walletSignature: String): Observable<CarrierPaymentModel> {
+  fun getPayment(
+    uid: String, walletAddress: String,
+  ): Observable<CarrierPaymentModel> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMapObservable { ewt ->
         api.getPayment(
           uid = uid,
           walletAddress = walletAddress,
-          walletSignature = walletSignature,
           authorization = ewt
         )
           .map { response -> mapper.mapPayment(response) }
@@ -89,8 +91,8 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
 
   fun retrieveAvailableCountryList(): Single<AvailableCountryListModel> {
     return api.getAvailableCountryList()
-        .map { mapper.mapList(it) }
-        .onErrorReturn { AvailableCountryListModel() }
+      .map { mapper.mapList(it) }
+      .onErrorReturn { AvailableCountryListModel() }
   }
 
   fun savePhoneNumber(phoneNumber: String) = preferences.savePhoneNumber(phoneNumber)

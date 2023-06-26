@@ -24,8 +24,8 @@ public class CreditsRemoteRepository
       @Nullable String callback, @Nullable String orderReference, @Nullable String referrerUrl,
       @Nullable String productToken) {
     return remoteRepository.registerAuthorizationProof(origin, type, entityOemId, entityDomain,
-        null, "appcoins_credits", walletAddress, signature, sku, packageName, amount,
-        developerAddress, payload, callback, orderReference, referrerUrl, productToken);
+        null, "appcoins_credits", walletAddress, sku, packageName, amount, developerAddress,
+        payload, callback, orderReference, referrerUrl, productToken);
   }
 
   @NotNull @Override

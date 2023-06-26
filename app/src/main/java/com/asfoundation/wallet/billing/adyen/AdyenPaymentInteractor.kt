@@ -63,21 +63,20 @@ class AdyenPaymentInteractor @Inject constructor(
     currency: String
   ): Single<PaymentInfoModel> {
     return Single.zip(
-      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
+      walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
     ) { walletModel, ewt ->
       Pair(walletModel, ewt)
     }
       .flatMap { pair ->
-        val walletModel = pair.first
+        val wallet = pair.first
         val ewt = pair.second
         adyenPaymentRepository
           .loadPaymentInfo(
             methods,
             value,
             currency,
-            walletModel.address,
-            walletModel.signedAddress,
+            wallet,
             ewt
           )
       }
@@ -136,10 +135,10 @@ class AdyenPaymentInteractor @Inject constructor(
     uid: String, details: JsonObject,
     paymentData: String?
   ): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
       .flatMap {
         adyenPaymentRepository.submitRedirect(
-          uid, it.address, it.signedAddress, details,
+          uid, it, details,
           paymentData
         )
       }

@@ -24,17 +24,16 @@ class GetPaymentInfoModelUseCase @Inject constructor(
     currency: String
   ): Single<PaymentInfoModel> {
     return Single.zip(
-      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
+      walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
       ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
     ) { walletModel, ewt ->
       Pair(walletModel, ewt)
     }
       .flatMap { pair ->
-        val walletModel = pair.first
+        val wallet = pair.first
         val ewt = pair.second
         adyenApi.loadPaymentInfo(
-          walletModel.address,
-          walletModel.signedAddress,
+          wallet,
           ewt,
           value,
           currency,
