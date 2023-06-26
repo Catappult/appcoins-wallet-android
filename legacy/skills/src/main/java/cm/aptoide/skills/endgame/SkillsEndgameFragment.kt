@@ -1,5 +1,6 @@
 package cm.aptoide.skills.endgame
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -43,13 +44,13 @@ class SkillsEndgameFragment : Fragment() {
         }
       }
     }
-
     const val SESSION = "SESSION"
     const val PACKAGE_NAME = "DOMAIN"
     const val GLOBAL_LEADERBOARD_SKU = "APTOIDE_GLOBAL_LEADERBOARD_SKU"
+
   }
 
-  private val viewModel: FinishGameActivityViewModel by viewModels()  // TODO
+  private val viewModel: SkillsEndgameViewModel by viewModels()  // TODO
 
   private lateinit var disposables: CompositeDisposable
 
@@ -92,6 +93,18 @@ class SkillsEndgameFragment : Fragment() {
       .doOnSuccess { room -> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
       .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
     )
+    setupRankingsButton()
+    setupRestartButton()
+  }
+
+  private fun setupRestartButton() {
+    views.restartButton.setOnClickListener {
+      requireActivity().setResult(SkillsEndgameViewModel.RESULT_OK, Intent())
+      requireActivity().finish()
+    }
+  }
+
+  private fun setupRankingsButton() {
     views.rankingsButton.setOnClickListener {
       disposables.add(
         viewModel.getWalletAddress().subscribeOn(AndroidSchedulers.mainThread())
@@ -100,16 +113,11 @@ class SkillsEndgameFragment : Fragment() {
               R.id.fragment_container, SkillsRankingsFragment.newInstance(
                 walletAddress, requireArguments().getString(PACKAGE_NAME)!!, GLOBAL_LEADERBOARD_SKU
               )
-            ).commit(
-            )
+            ).commit()
           }.subscribe()
       )
     }
-    views.restartButton.setOnClickListener {
-      TODO()
-    }
   }
-
   private fun buildRecyclerView() {
     recyclerView = views.rankingRecyclerView
     recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -121,7 +129,6 @@ class SkillsEndgameFragment : Fragment() {
     views.lottieAnimation.setAnimation(R.raw.transact_loading_animation)
     views.lottieAnimation.playAnimation()
     views.animationDescriptionText.setText(R.string.waiting_for_opponents_to_finish)
-    views.restartButton.isEnabled = false
     views.restartButton.visibility = View.VISIBLE
     views.retryButton.visibility = View.GONE
   }
@@ -149,7 +156,6 @@ class SkillsEndgameFragment : Fragment() {
         .doOnError { showErrorMessage() }
         .subscribe()
     )
-    views.restartButton.isEnabled = true
     views.restartButton.visibility = View.VISIBLE
     views.retryButton.visibility = View.GONE
   }

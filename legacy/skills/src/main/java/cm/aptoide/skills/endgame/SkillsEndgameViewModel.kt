@@ -17,12 +17,22 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class FinishGameActivityViewModel @Inject constructor(
+class SkillsEndgameViewModel @Inject constructor(
   private val walletAddressObtainer: WalletAddressObtainer,
   private val getRoomUseCase: GetRoomUseCase,
   private val setFinalScore: SetFinalScoreUseCase,
   savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+
+  companion object {
+      const val RESULT_OK = 0
+      const val RESULT_RESTART = 1
+      const val RESULT_SERVICE_UNAVAILABLE = 2
+      const val RESULT_ERROR = 3
+      const val RESULT_INVALID_URL = 4
+  }
+
   private val session: String
   init {
     this.session = savedStateHandle["SESSION"]!!

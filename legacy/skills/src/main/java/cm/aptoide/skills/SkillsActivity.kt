@@ -7,19 +7,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SkillsActivity : AppCompatActivity() {
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_skills)
     intent.getStringExtra("ESKILLS_URI")?.let { uri ->
       if (uri.contains("endgame", true)) {
         supportFragmentManager.beginTransaction()
-          .add(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
+          .replace(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
           .commit()
       } else {
         if (savedInstanceState == null) {
           supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, SkillsFragment.newInstance())
+            .replace(R.id.fragment_container, SkillsFragment.newInstance())
             .commit()
         } else {
           null
