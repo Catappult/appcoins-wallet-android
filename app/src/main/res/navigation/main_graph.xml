@@ -140,6 +140,33 @@
 
   <fragment
       android:id="@+id/backup_wallet_fragment"
-      android:name="com.asfoundation.wallet.backup.BackupWalletEntryFragment" />
+      android:name="com.asfoundation.wallet.backup.BackupWalletEntryFragment">
+  <action
+      android:id="@+id/action_backup_entry_to_screen_options"
+      app:destination="@id/backup_wallet_screen_options" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/backup_wallet_screen_options"
+      android:name="com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragment">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="password"
+        app:argType="string" />
+    <action
+        android:id="@+id/action_backup_options_to_success_screen"
+        app:destination="@id/backup_wallet_success_screen" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/backup_wallet_success_screen"
+      android:name="com.asfoundation.wallet.backup.BackupSuccessComposeFragment">
+
+    <action
+        android:id="@+id/action_success_screen_back_to_manage_wallets"
+        app:destination="@id/action_navigate_to_manage_wallet" />
+  </fragment>
 
 </navigation>

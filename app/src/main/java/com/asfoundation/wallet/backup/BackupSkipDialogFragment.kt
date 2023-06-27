@@ -13,6 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsScreen
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
@@ -23,23 +25,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupWalletEntryFragment : BasePageViewFragment() {
+class BackupSkipDialogFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
 
   companion object {
-    fun newInstance() = BackupWalletEntryFragment()
-    const val WALLET_ADDRESS_KEY = "wallet_address"
+    fun newInstance() = BackupSkipDialogFragment()
   }
-
-  private val viewModel: BackupEntryViewModel by viewModels()
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    viewModel.walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY) ?: "" // aq
-    viewModel.showBalance(viewModel.walletAddress)
-  }
+  
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -49,10 +43,11 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
-            BackupEntryRoute(
+            BackupSaveOptionsRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
-              onNextClick = {navigateToBackupWalletEntry(navController())}
+              onSendEmailClick = {}
+
             )
           }
         }
@@ -70,13 +65,5 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
     ) as NavHostFragment
     return navHostFragment.navController
   }
-
-  private fun navigateToBackupWalletEntry(
-    mainNavController: NavController
-  ) {
-    mainNavController.navigate(R.id.action_backup_entry_to_screen_options)
-  }
-
-
 
 }

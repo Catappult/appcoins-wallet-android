@@ -264,7 +264,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     ) {
       ButtonWithText(
         label = stringResource(id = R.string.my_wallets_action_backup_wallet),
-        onClick = { myWalletsNavigator.navigateToBackupWallet(address) },
+        onClick = { myWalletsNavigator.navigateToBackup(address) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
         buttonType = ButtonType.LARGE

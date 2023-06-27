@@ -36,7 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogNavigator
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsNavigator
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -44,14 +48,18 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-
+import com.appcoins.wallet.ui.widgets.component.WalletTextField
+import javax.inject.Inject
 
 @Composable
 fun BackupEntryRoute(
   onExitClick: () -> Unit,
   onChatClick: () -> Unit,
+  onNextClick: () -> Unit,
   viewModel: BackupEntryViewModel = hiltViewModel(),
+
 ) {
+
   val backupEntryState by viewModel.stateFlow.collectAsState()
   Scaffold(
     topBar = {
@@ -65,6 +73,7 @@ fun BackupEntryRoute(
       backupEntryState = backupEntryState,
       scaffoldPadding = padding,
       onExitClick = onExitClick,
+      onNextClick = onNextClick,
       walletAddress = viewModel.walletAddress
     )
   }
@@ -75,9 +84,9 @@ fun BackupEntryScreen(
   scaffoldPadding: PaddingValues,
   backupEntryState: BackupEntryState,
   onExitClick: () -> Unit,
+  onNextClick: () -> Unit,
   walletAddress: String
 ) {
-
     when (val balanceInfo = backupEntryState.balanceAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -96,19 +105,21 @@ fun BackupEntryScreen(
             modifier = Modifier.padding(
               top = 10.dp,
               bottom = 20.dp,
+              start = 27.dp
             )
           )
           Text(
             text = stringResource(id = R.string.backup_body),
             modifier = Modifier.padding(
               bottom = 45.dp,
+              start = 27.dp
             ),
             style = WalletTypography.medium.sp14,
             color = WalletColors.styleguide_light_grey,
 
           )
           BalanceCard("${balanceInfo.value?.amount} ${balanceInfo.value?.symbol}", walletAddress) //melhorar
-          BackupEntryButton()
+          BackupEntryButton(onNextClick)
         }
 
 
@@ -155,12 +166,13 @@ fun BalanceCard(balance : String, walletAddress: String) {
 
 
 
-@Preview
 @Composable
-fun BackupEntryButton() {
+fun BackupEntryButton(
+  onNextClick: () -> Unit
+) {
   ButtonWithText(
     label = stringResource(id = R.string.backup_wallet_button),
-    onClick = {},
+    onClick = { onNextClick() },
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_light_grey,
     buttonType = ButtonType.LARGE,
@@ -230,19 +242,11 @@ private fun switchModeTrue() {
       modifier = Modifier
         .fillMaxWidth()
     ) {
-      TextField( //WalletTextfield esperar
-        value = defaultPassword,
-        modifier = Modifier.padding(bottom = 12.dp),
-        onValueChange = {
-          defaultPassword = it
-        }
-
+      WalletTextField(value = defaultPassword,
+        onValueChange = { defaultPassword = it }
       )
-      TextField(
-        value = defaultPassword2,
-        onValueChange = {
-          defaultPassword2 = it
-        }
+      WalletTextField(value = defaultPassword2,
+        onValueChange = { defaultPassword2 = it }
       )
       Row(
         verticalAlignment = Alignment.CenterVertically

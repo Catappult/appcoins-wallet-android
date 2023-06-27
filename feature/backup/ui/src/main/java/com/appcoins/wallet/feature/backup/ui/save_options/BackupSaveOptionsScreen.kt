@@ -12,16 +12,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,6 +40,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryScreen
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryState
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
+import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogRoute
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -42,12 +48,15 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.appcoins.wallet.ui.widgets.component.WalletTextField
+import kotlinx.coroutines.launch
 import kotlin.math.round
 
 @Composable
 fun BackupSaveOptionsRoute(
   onExitClick: () -> Unit,
   onChatClick: () -> Unit,
+  onSendEmailClick: () ->Unit,
   viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
 ) {
   val backupSaveOptionsState by viewModel.stateFlow.collectAsState()
@@ -63,18 +72,21 @@ fun BackupSaveOptionsRoute(
       backupSaveOptionsState = backupSaveOptionsState,
       scaffoldPadding = padding,
       onExitClick = onExitClick,
+      onSendEmailClick = onSendEmailClick
     )
   }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
   backupSaveOptionsState: BackupSaveOptionsState,
   onExitClick: () -> Unit,
+  onSendEmailClick: () ->Unit,
+
 ) {
   Column(
-    modifier = Modifier.padding(16.dp)
+    modifier = Modifier.padding(scaffoldPadding)
   ) {
     Column(
       modifier = Modifier.padding(11.dp),
@@ -100,7 +112,10 @@ fun BackupSaveOptionsScreen(
         )
     }
     SaveOnDeviceCardDefault()
-    SaveOnDeviceOptions()
+    SaveOnDeviceOptions(
+      onExitClick = onExitClick,
+    )
+
 
   }
 }
@@ -123,7 +138,7 @@ fun SaveOnDeviceCardDefault(){
     ) {
       WalletImage(
         Modifier
-          .size(40.dp),
+          .size(63.dp),
         data = R.drawable.ic_lock_appc
       )
       Text(
@@ -136,11 +151,13 @@ fun SaveOnDeviceCardDefault(){
     }
   }
 }
-
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SaveOnDeviceOptions() {
+fun SaveOnDeviceOptions(
+  onExitClick: () -> Unit,
+) {
   var defaultPassword by rememberSaveable { mutableStateOf("Your email here...") }
+
   Column(
     Modifier.fillMaxWidth()
   ) {
@@ -172,7 +189,8 @@ fun SaveOnDeviceOptions() {
       )
       ButtonWithText(
         label = stringResource(id = R.string.backup_ready_email_button),
-        onClick = {},
+        onClick = {
+        },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_light_grey,
         buttonType = ButtonType.LARGE,
@@ -203,13 +221,123 @@ fun SaveOnDeviceOptions() {
       }
     ButtonWithText(
       label = "SEND BACKUP", // -> problema com as strings trocar padding???
-      onClick = {},
+      onClick = {
+      },
       labelColor = WalletColors.styleguide_white,
       buttonType = ButtonType.LARGE,
       outlineColor = WalletColors.styleguide_light_grey
     )
       }
 }
+@Preview
+@Composable
+fun BackupSaveOptionsScreenPreview(
+
+  ) {
+  //val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+  Column(
+  ) {
+    Column(
+      modifier = Modifier.padding(11.dp),
+      horizontalAlignment = Alignment.Start
+    ) {
+      Text(
+        style = WalletTypography.bold.sp22,
+        color = WalletColors.styleguide_light_grey,
+        text = stringResource(id = R.string.backup_title),
+        modifier = Modifier.padding(
+          top = 10.dp,
+          bottom = 20.dp,
+        )
+      )
+      Text(
+        text = stringResource(id = R.string.backup_body),
+        modifier = Modifier.padding(
+          bottom = 45.dp,
+        ),
+        style = WalletTypography.medium.sp14,
+        color = WalletColors.styleguide_light_grey,
+
+        )
+    }
+    SaveOnDeviceCardDefault()
+    SaveOnDeviceOptionsPreview()
+
+
+  }
+}
+
+  @Composable
+  fun SaveOnDeviceOptionsPreview(
+
+  ) {
+    var defaultEmail by rememberSaveable { mutableStateOf("Your email here...") }
+
+    Column(
+      Modifier.fillMaxWidth()
+    ) {
+      Column(
+        Modifier.padding(8.dp),
+        horizontalAlignment = Alignment.Start
+      ) {
+        Text(
+          text = stringResource(id = R.string.backup_ready_save_on_email),
+          Modifier.padding(bottom = 17.75.dp),
+          style = WalletTypography.medium.sp14,
+          color = WalletColors.styleguide_light_grey
+        )
+        WalletTextField(value = defaultEmail,
+          onValueChange = {
+            defaultEmail = it
+        },
+          )
+        ButtonWithText(
+          label = stringResource(id = R.string.backup_ready_email_button),
+          onClick = {
+
+          },
+          backgroundColor = WalletColors.styleguide_pink,
+          labelColor = WalletColors.styleguide_light_grey,
+          buttonType = ButtonType.LARGE,
+        )
+      }
+      Row( //why not full screen?
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+          .padding(top = 14.25.dp, bottom = 17.75.dp)
+      ) {
+        Divider(
+          modifier = Modifier
+            .weight(1f)
+            .height(1.dp),
+          color = Color(0xFF707070)
+        )
+        Text(
+          text = stringResource(R.string.common_or),
+          color = Color(0xFF707070), style = WalletTypography.regular.sp12,
+          modifier = Modifier.padding(horizontal = 8.dp)
+        )
+        Divider(
+          modifier = Modifier
+            .weight(1f)
+            .height(1.dp),
+          color = Color(0xFF707070)
+        )
+      }
+      ButtonWithText(
+        label = "SEND BACKUP", // -> problema com as strings trocar padding???
+        onClick = {
+        },
+        labelColor = WalletColors.styleguide_white,
+        buttonType = ButtonType.LARGE,
+        outlineColor = WalletColors.styleguide_light_grey
+      )
+    }
+
+  }
+
+/*
 @Preview
 @Composable
 fun BackupSaveOptionsScreen(){
@@ -244,6 +372,8 @@ fun BackupSaveOptionsScreen(){
     SaveOnDeviceOptions()
 
   }
+  }
+ */
 
-}
+
 

@@ -39,36 +39,35 @@ import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
-
+// a trocar
 @Composable
 fun BackupSaveOnDeviceDialogRoute(
-  onExitClick: () -> Unit,
-  onChatClick: () -> Unit,
+
   viewModel: BackupSaveOnDeviceDialogViewModel = hiltViewModel(),
 ) {
-  val backupSaveOnDeviceDialogState by viewModel.stateFlow.collectAsState()
-  Scaffold(
-    topBar = {
-      Surface {
-        TopBar(isMainBar = false, onClickSupport = { onChatClick() })
-      }
-    },
-    modifier = Modifier
-  ) { padding ->
     BackupSaveOnDeviceScreen(
-      backupSaveOnDeviceDialogState = backupSaveOnDeviceDialogState,
-      scaffoldPadding = padding,
-      onExitClick = onExitClick,
     )
+
+  val backupSaveOnDeviceDialogState by viewModel.stateFlow.collectAsState()
+  when (backupSaveOnDeviceDialogState.fileName) {
+    Async.Uninitialized,
+    is Async.Loading -> {
+      //TODO add wallet animation loading and change it to png or xml
+      //WalletImage(data = R.drawable.ic_loadingWalletInside)
+    }
+    is Async.Success -> {
+    }
+
+    is Async.Fail -> Unit
   }
-}
+
+
+  }
+
 
 
 @Composable
 fun BackupSaveOnDeviceScreen(
-  scaffoldPadding: PaddingValues,
-  backupSaveOnDeviceDialogState: BackupSaveOnDeviceDialogState,
-  onExitClick: () -> Unit,
 ) {
   var defaultBackup by rememberSaveable { mutableStateOf("BackupFile") }
   Column(
@@ -90,6 +89,7 @@ fun BackupSaveOnDeviceScreen(
       color = WalletColors.styleguide_pink,
       modifier = Modifier.padding(top = 3.dp, bottom = 6.dp)
     )
+
     TextField( //WalletTextfield esperar
       modifier = Modifier
         .fillMaxWidth()
@@ -104,19 +104,7 @@ fun BackupSaveOnDeviceScreen(
         focusedLabelColor = Color.Red //-> ? cor?
       )
     )
-    when (val saveOnDeviceDialogInfo = backupSaveOnDeviceDialogState.fileName) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        //TODO add wallet animation loading and change it to png or xml
-        //WalletImage(data = R.drawable.ic_loadingWalletInside)
-      }
-
-      is Async.Success -> {
-        BackupSaveOnDeviceButton()
-      }
-
-      is Async.Fail -> Unit
-    }
+    BackupSaveOnDeviceButton()
   }
 }
 
@@ -162,12 +150,13 @@ fun BackupSaveOnDeviceDialogView() {
 }
 
 
-@Preview
+
 @Composable
 fun BackupSaveOnDeviceButton(){
   ButtonWithText(
     label = stringResource(id = R.string.action_save),
     onClick = {
+
     },
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = MaterialTheme.colorScheme.primaryContainer,

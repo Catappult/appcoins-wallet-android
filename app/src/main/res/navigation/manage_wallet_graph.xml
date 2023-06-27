@@ -15,8 +15,8 @@
         android:id="@+id/action_navigate_to_verify_paypal"
         app:destination="@id/verify_paypal_wallet_activity" />
     <action
-        android:id="@+id/action_navigate_to_backup_wallet"
-        app:destination="@id/backup_wallet_activity" />
+        android:id="@+id/action_navigate_to_backup_entry_wallet"
+        app:destination="@id/backup_wallet_fragment" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment" />
@@ -42,14 +42,29 @@
         app:argType="boolean" />
   </activity>
 
-  <activity
-      android:id="@+id/backup_wallet_activity"
-      android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
-      tools:layout="@layout/activity_backup">
+  <fragment
+      android:id="@+id/backup_wallet_fragment"
+      android:name="com.asfoundation.wallet.backup.BackupWalletEntryFragment">
     <argument
         android:name="wallet_address"
         app:argType="string" />
-  </activity>
+
+    <action
+        android:id="@+id/action_backup_entry_to_screen_options"
+        app:destination="@id/backup_wallet_screen_options" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/backup_wallet_screen_options"
+      android:name="com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragment">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="password"
+        app:argType="string" />
+  </fragment>
+
 
   <include
       android:id="@+id/remove_wallet_graph"

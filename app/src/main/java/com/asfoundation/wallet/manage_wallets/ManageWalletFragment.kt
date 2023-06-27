@@ -200,7 +200,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           Spacer(modifier = Modifier.height(24.dp))
           BackupAlertCard(
             onClickButton = {
-              myWalletsNavigator.navigateToBackupWallet(walletInfo.wallet)
+              myWalletsNavigator.navigateToBackup(walletInfo.wallet)
             },
             hasBackup = walletInfo.hasBackup,
             backupDate = walletInfo.backupDate
