@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.arch
+package com.appcoins.wallet.ui.arch.data
 
 /**
  * General specification of common errors used throughout the architecture stack.

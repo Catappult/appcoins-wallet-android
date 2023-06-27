@@ -13,6 +13,7 @@ import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.C.Key.TRANSACTION
@@ -23,6 +24,9 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -35,15 +39,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.payment_methods_header.*
-import kotlinx.android.synthetic.main.payment_methods_layout.*
-import kotlinx.android.synthetic.main.payment_methods_layout.error_message
-import kotlinx.android.synthetic.main.selected_payment_method.*
-import kotlinx.android.synthetic.main.support_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -98,13 +93,19 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
+  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
+
+  @Inject
   lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
 
   @Inject
-  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
+  lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
+
+  @Inject
+  lateinit var logger: Logger
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -119,6 +120,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   private var itemAlreadyOwnedError = false
   private var bonusMessageValue = ""
   private var bonusValue: BigDecimal? = null
+
+  private val binding by viewBinding(PaymentMethodsLayoutBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -153,6 +156,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       paymentMethodsMapper = paymentMethodsMapper,
       formatter = formatter,
       getWalletInfoUseCase = getWalletInfoUseCase,
+      removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
+      isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
       logger = logger,
       interactor = paymentMethodsInteractor,
       paymentMethodsData = paymentMethodsData
@@ -169,7 +174,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    buy_button?.isEnabled = false
+    binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
 
     setupAppNameAndIcon()
 
@@ -181,9 +186,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.payment_methods_layout, container, false)
-  }
+  ): View = PaymentMethodsLayoutBinding.inflate(inflater).root
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
@@ -205,10 +208,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    showLogoutPaypal: Boolean
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
-    setupPaymentMethods(paymentMethods, paymentMethodId)
+    setupPaymentMethods(paymentMethods, paymentMethodId, showLogoutPaypal)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
     }
@@ -223,20 +227,33 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
-    paymentMethodId: String
+    paymentMethodId: String,
+    showLogoutPaypal: Boolean
   ) {
     if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
-      buy_button.tag = !paymentMethods[0].showTopup
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethods[0].showTopup
     } else {
-      buy_button.tag = null
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = null
     }
     isPreSelected = false
-    pre_selected_payment_method_group.visibility = View.GONE
-    mid_separator?.visibility = View.VISIBLE
+    binding.preSelectedPaymentMethodGroup.visibility = View.GONE
+    binding.midSeparator?.visibility = View.VISIBLE
     if (paymentMethods.isNotEmpty()) {
       paymentMethodsAdapter =
-        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick, topupClick)
-      payment_methods_radio_list.adapter = paymentMethodsAdapter
+        PaymentMethodsAdapter(
+          paymentMethods = paymentMethods,
+          paymentMethodId = paymentMethodId,
+          paymentMethodClick = paymentMethodClick,
+          topupClick = topupClick,
+          showPaypalLogout = showLogoutPaypal,
+          wasLoggedOut = { presenter.wasLoggedOut },
+          logoutCallback = {
+            presenter.removePaypalBillingAgreement()
+            presenter.wasLoggedOut = true
+            showProgressBarLoading()
+          }
+        )
+      binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)
       paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
@@ -258,12 +275,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         ?.let { fiatPrice = it }
       appcPrice = "~$appcPrice"
     }
-    appc_price.text = appcPrice
-    fiat_price.text = fiatPrice
-    fiat_price_skeleton.visibility = View.GONE
-    appc_price_skeleton.visibility = View.GONE
-    appc_price.visibility = View.VISIBLE
-    fiat_price.visibility = View.VISIBLE
+    binding.paymentMethodsHeader.appcPrice.text = appcPrice
+    binding.paymentMethodsHeader.fiatPrice.text = fiatPrice
+    binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = View.GONE
+    binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = View.GONE
+    binding.paymentMethodsHeader.appcPrice.visibility = View.VISIBLE
+    binding.paymentMethodsHeader.fiatPrice.visibility = View.VISIBLE
   }
 
   private fun getPaymentMethodLabel(paymentMethod: PaymentMethod): String {
@@ -296,43 +313,43 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   ) {
 
     if (paymentMethod.showTopup) {
-      buy_button.tag = !paymentMethod.showTopup
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethod.showTopup
     } else {
-      buy_button.tag = null
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = null
     }
 
     isPreSelected = true
-    mid_separator?.visibility = View.INVISIBLE
-    payment_method_description.visibility = View.VISIBLE
-    payment_method_description.text = getPaymentMethodLabel(paymentMethod)
-    payment_method_description_single.visibility = View.GONE
+    binding.midSeparator?.visibility = View.INVISIBLE
+    binding.layoutPreSelected.paymentMethodDescription.visibility = View.VISIBLE
+    binding.layoutPreSelected.paymentMethodDescription.text = getPaymentMethodLabel(paymentMethod)
+    binding.layoutPreSelected.paymentMethodDescriptionSingle.visibility = View.GONE
     if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
-      payment_method_secondary.visibility = View.VISIBLE
+      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
       if (isBonusActive) hideBonus()
     } else {
-      payment_method_secondary.visibility = View.GONE
+      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
       if (isBonusActive) {
         if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
         else showBonus(R.string.gamification_purchase_body)
       }
     }
     setupFee(paymentMethod.fee)
-    loadIcons(paymentMethod, payment_method_ic)
+    loadIcons(paymentMethod, binding.layoutPreSelected.paymentMethodIc)
   }
 
   @SuppressLint("SetTextI18n")
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
-      payment_method_fee.visibility = View.VISIBLE
+      binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
-      payment_method_fee_value.text = "$formattedValue ${fee.currency}"
+      binding.layoutPreSelected.paymentMethodFeeValue.text = "$formattedValue ${fee.currency}"
 
-      payment_method_fee_value.apply {
+      binding.layoutPreSelected.paymentMethodFeeValue.apply {
         this.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
         this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
       }
     } else {
-      payment_method_fee.visibility = View.GONE
+      binding.layoutPreSelected.paymentMethodFee.visibility = View.GONE
     }
   }
 
@@ -352,67 +369,67 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun showError(message: Int) {
-    payment_method_main_view.visibility = View.GONE
-    error_message.error_dismiss.setText(getString(R.string.ok))
-    error_message.visibility = View.VISIBLE
-    error_message.generic_error_layout.error_message.setText(message)
+    binding.paymentMethodMainView.visibility = View.GONE
+    binding.errorMessage.errorDismiss.setText(getString(R.string.ok))
+    binding.errorMessage.root.visibility = View.VISIBLE
+    binding.errorMessage.genericErrorLayout.errorMessage.setText(message)
   }
 
   override fun showItemAlreadyOwnedError() {
-    payment_method_main_view.visibility = View.GONE
+    binding.paymentMethodMainView.visibility = View.GONE
     iabView.disableBack()
-    error_dismiss.setText(getString(R.string.ok))
-    error_message.visibility = View.VISIBLE
-    generic_error_layout.error_message.setText(R.string.purchase_error_incomplete_transaction_body)
-    layout_support_icn.visibility = View.GONE
-    layout_support_logo.visibility = View.GONE
-    contact_us.visibility = View.GONE
+    binding.errorMessage.errorDismiss.setText(getString(R.string.ok))
+    binding.errorMessage.root.visibility = View.VISIBLE
+    binding.errorMessage.genericErrorLayout.errorMessage.setText(R.string.purchase_error_incomplete_transaction_body)
+    binding.errorMessage.genericErrorLayout.layoutSupportIcn.visibility = View.GONE
+    binding.errorMessage.genericErrorLayout.layoutSupportLogo.visibility = View.GONE
+    binding.errorMessage.genericErrorLayout.contactUs.visibility = View.GONE
   }
 
   override fun finish(bundle: Bundle) = iabView.finish(bundle)
 
   override fun showPaymentsSkeletonLoading() {
-    buy_button.isEnabled = false
-    pre_selected_payment_method_group.visibility = View.GONE
-    payment_methods_list_group.visibility = View.INVISIBLE
-    mid_separator?.visibility = View.VISIBLE
-    payments_skeleton.visibility = View.VISIBLE
+    binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+    binding.preSelectedPaymentMethodGroup.visibility = View.GONE
+    binding.paymentMethodsListGroup.visibility = View.INVISIBLE
+    binding.midSeparator?.visibility = View.VISIBLE
+    binding.paymentsSkeleton.visibility = View.VISIBLE
   }
 
   override fun showSkeletonLoading() {
     showPaymentsSkeletonLoading()
-    bonus_view.visibility = View.VISIBLE
-    bonus_view.showSkeleton()
   }
 
   override fun showProgressBarLoading() {
-    payment_methods.visibility = View.INVISIBLE
-    loading_view.visibility = View.VISIBLE
+    binding.paymentMethods.visibility = View.INVISIBLE
+    binding.loadingView.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    if (processing_loading.visibility != View.VISIBLE) {
-      payment_methods.visibility = View.VISIBLE
+    if (binding.processingLoading.visibility != View.VISIBLE) {
+      binding.paymentMethods.visibility = View.VISIBLE
       removeSkeletons()
-      if (buy_button.tag != null && buy_button.tag is Boolean) {
-        buy_button.isEnabled = buy_button.tag as Boolean
+      if (binding.dialogBuyButtonsPaymentMethods.buyButton.tag != null && binding.dialogBuyButtonsPaymentMethods.buyButton.tag is Boolean) {
+        binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled =
+          binding.dialogBuyButtonsPaymentMethods.buyButton.tag as Boolean
       } else {
-        buy_button.isEnabled = true
+        binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
       }
       if (isPreSelected) {
-        pre_selected_payment_method_group.visibility = View.VISIBLE
-        payment_methods_list_group.visibility = View.GONE
-        bottom_separator?.visibility = View.INVISIBLE
-        layout_pre_selected.visibility = View.VISIBLE
+        binding.preSelectedPaymentMethodGroup.visibility = View.VISIBLE
+        binding.paymentMethodsListGroup.visibility = View.GONE
+        binding.bottomSeparator?.visibility = View.INVISIBLE
+        binding.layoutPreSelected.root.visibility = View.VISIBLE
       } else {
-        payment_methods_list_group.visibility = View.VISIBLE
-        pre_selected_payment_method_group.visibility = View.GONE
+        binding.paymentMethodsListGroup.visibility = View.VISIBLE
+        binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
-      loading_view.visibility = View.GONE
+      binding.loadingView.visibility = View.GONE
     }
   }
 
-  override fun getCancelClick(): Observable<Any> = RxView.clicks(cancel_button)
+  override fun getCancelClick(): Observable<Any> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
 
   override fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod {
     if (!isPreSelected && ::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
@@ -428,28 +445,31 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun updateProductName() {
-    app_sku_description.text = transactionBuilder?.productName
+    binding.paymentMethodsHeader.appSkuDescription.text = transactionBuilder?.productName
   }
 
   override fun close(bundle: Bundle) = iabView.close(bundle)
 
-  override fun errorDismisses(): Observable<Any> = RxView.clicks(error_dismiss)
+  override fun errorDismisses(): Observable<Any> = RxView.clicks(binding.errorMessage.errorDismiss)
     .map { itemAlreadyOwnedError }
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClicks() =
+    RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClicks() =
+    RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportIcn)
 
   override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
   override fun setupUiCompleted() = setupSubject!!
 
   override fun showProcessingLoadingDialog() {
-    payment_methods.visibility = View.INVISIBLE
-    processing_loading.visibility = View.VISIBLE
+    binding.paymentMethods.visibility = View.INVISIBLE
+    binding.processingLoading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<Any> = RxView.clicks(buy_button)
+  override fun getBuyClick(): Observable<Any> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
@@ -556,7 +576,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
 
   override fun showSubscribe() {
-    buy_button.setText(getString(R.string.subscriptions_subscribe_button))
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.subscriptions_subscribe_button))
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
@@ -581,7 +601,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       preSelectedPaymentMethod!!.map(PaymentMethod::id)
     )
 
-  override fun getMorePaymentMethodsClicks(): Observable<Any> = RxView.clicks(more_payment_methods)
+  override fun getMorePaymentMethodsClicks(): Observable<Any> =
+    RxView.clicks(binding.morePaymentMethods)
 
   override fun showLocalPayment(
     selectedPaymentMethod: String,
@@ -623,20 +644,21 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
-    bonus_view.setPurchaseBonusHeaderValue(bonus, currency)
+    binding.bonusLayout.bonusValue.text = context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
   override fun onBackPressed(): Observable<Any> =
     iabView.backButtonPress().map { itemAlreadyOwnedError }
 
-  override fun showNext() = buy_button.setText(getString(R.string.action_next))
+  override fun showNext() =
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.action_next))
 
   override fun showBuy() = setBuyButtonText()
 
   private fun setBuyButtonText() {
     val buyButtonText =
       if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
-    buy_button.setText(buyButtonText)
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(buyButtonText)
   }
 
   override fun showMergedAppcoins(
@@ -667,42 +689,39 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   )
 
   override fun showBonus(@StringRes bonusText: Int) {
-    bonus_view.visibility = View.VISIBLE
-    bonus_view.setPurchaseBonusDescription(R.string.gamification_purchase_body)
-    bonus_view.showPurchaseBonusHeader()
-    bonus_view.setPurchaseBonusDescription(bonusText)
-    bottom_separator?.visibility = View.VISIBLE
-    bonus_view.hideSkeleton()
+    changeBonusVisibility(View.VISIBLE)
+    binding.bonusMsg.text = context?.getString(bonusText)
   }
 
   override fun removeBonus() {
-    bonusMessageValue = ""
+   bonusMessageValue = ""
     bonusValue = null
-    bonus_view.visibility = View.GONE
-    bottom_separator?.visibility = View.GONE
-    bonus_view.hideSkeleton()
+    changeBonusVisibility(View.GONE)
+  }
+
+  private fun changeBonusVisibility(visibility: Int) {
+    binding.bonusLayout.root.visibility = visibility
+    binding.bottomSeparator?.visibility = visibility
+    binding.bonusMsg.visibility = visibility
   }
 
   override fun hideBonus() {
-    bonus_view.visibility = View.INVISIBLE
-    bottom_separator?.visibility = View.INVISIBLE
-    bonus_view.hideSkeleton()
+    changeBonusVisibility(View.INVISIBLE)
   }
 
   override fun replaceBonus() {
-    bonus_view.visibility = View.INVISIBLE
-    bottom_separator?.visibility = View.VISIBLE
-    bonus_view.setPurchaseBonusDescription(R.string.purchase_poa_body)
-    bonus_view.hidePurchaseBonusHeader()
-    bonus_view.hideSkeleton()
+    changeBonusVisibility(View.INVISIBLE)
+    binding.bonusMsg.text = context?.getString(R.string.purchase_poa_body)
+    binding.bonusMsg.visibility = View.VISIBLE
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()
 
   private fun setupAppNameAndIcon() {
     if (isDonation) {
-      app_sku_description.text = resources.getString(R.string.item_donation)
-      app_name.text = resources.getString(R.string.item_donation)
+      binding.paymentMethodsHeader.appSkuDescription.text =
+        resources.getString(R.string.item_donation)
+      binding.paymentMethodsHeader.appName.text = resources.getString(R.string.item_donation)
     } else {
       compositeDisposable.add(Single.defer { Single.just(appPackage) }
         .observeOn(Schedulers.io())
@@ -718,9 +737,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   private fun setHeaderInfo(appName: String, appIcon: Drawable) {
-    app_name?.text = appName
-    app_icon?.setImageDrawable(appIcon)
-    app_sku_description.text = transactionBuilder?.productName
+    binding.paymentMethodsHeader.appName.text = appName
+    binding.paymentMethodsHeader.appIcon.setImageDrawable(appIcon)
+    binding.paymentMethodsHeader.appSkuDescription.text = transactionBuilder?.productName
   }
 
   private fun getApplicationName(packageName: String): String {
@@ -779,9 +798,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   private fun removeSkeletons() {
-    fiat_price_skeleton.visibility = View.GONE
-    appc_price_skeleton.visibility = View.GONE
-    payments_skeleton.visibility = View.GONE
+    binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = View.GONE
+    binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = View.GONE
+    binding.paymentsSkeleton.visibility = View.GONE
   }
 
   private fun getIsSubscription(): Boolean {

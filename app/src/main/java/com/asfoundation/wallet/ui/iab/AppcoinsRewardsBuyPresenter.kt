@@ -109,7 +109,7 @@ class AppcoinsRewardsBuyPresenter(
   ): Completable {
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
-      Status.PROCESSING -> Completable.fromAction { view.showLoading() }
+      Status.PROCESSING -> Completable.fromAction { view.showLoading() }.subscribeOn(viewScheduler)
       Status.COMPLETED -> {
         if (isBds && isManagedPaymentType(transactionBuilder.type)) {
           val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type)
@@ -117,7 +117,7 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { purchase ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
                 .andThen(Completable.fromAction { appcoinsRewardsBuyInteract.removeAsyncLocalPayment() })
                 .andThen(Completable.fromAction {
                   view.finish(purchase, transaction.orderReference)
@@ -136,7 +136,7 @@ class AppcoinsRewardsBuyPresenter(
             .map(Transaction::txId).flatMapCompletable { transactionId ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
                 .andThen(Completable.fromAction { view.finish(transactionId) })
             }
         }

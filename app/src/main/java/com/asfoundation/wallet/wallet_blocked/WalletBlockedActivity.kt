@@ -4,14 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.LayoutWalletBlockedBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.layout_wallet_blocked.*
 
 @AndroidEntryPoint
 class WalletBlockedActivity : BaseActivity(),
@@ -25,6 +26,8 @@ class WalletBlockedActivity : BaseActivity(),
       return Intent(context, WalletBlockedActivity::class.java)
     }
   }
+
+  private val views by viewBinding(LayoutWalletBlockedBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -42,11 +45,11 @@ class WalletBlockedActivity : BaseActivity(),
   }
 
   override fun getDismissCLicks(): Observable<Any> {
-    return RxView.clicks(dismiss_button)
+    return RxView.clicks(views.dismissButton)
   }
 
   override fun getEmailClicks(): Observable<Any> {
-    return RxView.clicks(blocked_email)
+    return RxView.clicks(views.blockedEmail)
   }
 
   override fun openEmail() {

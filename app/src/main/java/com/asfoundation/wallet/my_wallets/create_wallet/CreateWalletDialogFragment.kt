@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,7 +39,7 @@ class CreateWalletDialogFragment : DialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_create_wallet_dialog_layout, container, false)
+  ): View = FragmentCreateWalletDialogLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -79,10 +79,10 @@ class CreateWalletDialogFragment : DialogFragment(),
           navigator.navigateBack()
         } else {
           views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) = Unit
-            override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
-            override fun onAnimationCancel(animation: Animator?) = Unit
-            override fun onAnimationStart(animation: Animator?) = Unit
+            override fun onAnimationRepeat(animation: Animator) = Unit
+            override fun onAnimationEnd(animation: Animator) = navigator.navigateBack()
+            override fun onAnimationCancel(animation: Animator) = Unit
+            override fun onAnimationStart(animation: Animator) = Unit
           })
         }
         views.createWalletLoading.repeatCount = 0

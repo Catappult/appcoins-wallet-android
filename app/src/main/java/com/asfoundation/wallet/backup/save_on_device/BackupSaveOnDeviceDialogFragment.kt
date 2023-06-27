@@ -81,7 +81,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
+  ): View = BackupSaveOnDeviceDialogFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

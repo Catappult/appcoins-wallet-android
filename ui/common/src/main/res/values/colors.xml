@@ -16,6 +16,7 @@
   <color name="styleguide_red">#E02D3E</color>
   <color name="styleguide_vip_yellow">#EFA226</color>
   <color name="styleguide_orange">#f86d00</color>
+  <color name="styleguide_info_blue">#243566</color>
 
   <!-- Transparent style guide variants -->
   <color name="transparent">#00000000</color>

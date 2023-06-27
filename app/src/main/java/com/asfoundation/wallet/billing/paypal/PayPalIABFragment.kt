@@ -27,10 +27,7 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -139,12 +136,15 @@ class PayPalIABFragment() : BasePageViewFragment() {
     views.paypalErrorButtons.errorCancel.setOnClickListener {
       close()
     }
-    views.successContainer.iabActivityTransactionCompleted.lottie_transaction_success
+    views.paypalErrorButtons.errorTryAgain.setOnClickListener {
+      close()
+    }
+    views.successContainer.lottieTransactionSuccess
       .addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator?) = Unit
-        override fun onAnimationEnd(animation: Animator?) = concludeWithSuccess()
-        override fun onAnimationCancel(animation: Animator?) = Unit
-        override fun onAnimationStart(animation: Animator?) = Unit
+        override fun onAnimationRepeat(animation: Animator) = Unit
+        override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+        override fun onAnimationCancel(animation: Animator) = Unit
+        override fun onAnimationStart(animation: Animator) = Unit
       })
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)

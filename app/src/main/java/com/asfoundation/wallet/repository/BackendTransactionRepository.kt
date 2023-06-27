@@ -38,7 +38,7 @@ class BackendTransactionRepository @Inject constructor(
   ) {
 
   private lateinit var disposable: Disposable
-  override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
+  override fun fetchTransactions(wallet: String): Observable<List<Transaction>> {
     if (!::disposable.isInitialized || disposable.isDisposed) {
       disposable = getLastProcessedTime(wallet)
         .subscribeOn(rxSchedulers.io)

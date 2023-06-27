@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentIabErrorBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.fragment_iab_error.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,12 +20,12 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   @Inject
   lateinit var presenter: IabErrorPresenter
 
+  private val binding by viewBinding(FragmentIabErrorBinding::bind)
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_iab_error, container, false)
-  }
+  ): View = FragmentIabErrorBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -39,20 +39,20 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   }
 
   private fun setupUi() {
-    buy_button.setText(getString(R.string.back_button))
-    cancel_button.setText(getString(R.string.button_cancel))
+    binding.dialogBuyButtons.buyButton.setText(getString(R.string.back_button))
+    binding.dialogBuyButtons.cancelButton.setText(getString(R.string.button_cancel))
   }
 
-  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(cancel_button)
+  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.cancelButton)
 
-  override fun backClickEvent(): Observable<Any> = RxView.clicks(buy_button)
+  override fun backClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.buyButton)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClicks() = RxView.clicks(binding.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClicks() = RxView.clicks(binding.layoutSupportIcn)
 
   override fun setErrorMessage(errorMessage: String) {
-    error_message.text = errorMessage
+    binding.errorMessage.text = errorMessage
   }
 
   companion object {

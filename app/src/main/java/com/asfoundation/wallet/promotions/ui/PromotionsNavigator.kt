@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.Navigator
-import com.appcoins.wallet.ui.arch.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
@@ -39,15 +39,9 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) :
     bonus: String,
     code: String,
     totalEarned: String,
-    numberReferrals: String,
-    mainNavController: NavController
+    numberReferrals: String
   ) {
-    val bundle = Bundle()
-    bundle.putString(PromotionsVipReferralFragment.BONUS_PERCENT, bonus)
-    bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
-    bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
-    bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
-    mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
+    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToVipReferral(bonus, code, totalEarned, numberReferrals))
   }
 
   fun handleShare(link: String) {

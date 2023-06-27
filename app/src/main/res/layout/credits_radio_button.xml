@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-  <androidx.appcompat.widget.AppCompatRadioButton
+  <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/credits_radio_button"
       style="@style/PaymentMethodsRadioButtonNoPadding"
       android:layout_width="wrap_content"

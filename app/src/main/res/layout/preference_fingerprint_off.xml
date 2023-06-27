@@ -41,7 +41,7 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/pref_authentication_switch_off"
-        android:theme="@style/SwitchCompactStyle"
+        style="@style/SwitchCompactStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"

@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
@@ -21,9 +23,6 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
-import kotlinx.android.synthetic.main.layout_subscription_info.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +34,7 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   @Inject
   lateinit var presenter: SubscriptionCancelPresenter
 
+  private val binding by viewBinding(FragmentSubscriptionCancelBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -42,48 +42,46 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
   }
 
-  override fun getBackClicks() = RxView.clicks(back_button)
+  override fun getBackClicks() = RxView.clicks(binding.backButton)
 
-  override fun getCancelClicks() = RxView.clicks(cancel_subscription)
+  override fun getCancelClicks() = RxView.clicks(binding.cancelSubscription)
 
   override fun showLoading() {
-    error.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.GONE
-    layout_content.visibility = View.GONE
-    loading_animation.visibility = View.VISIBLE
+    binding.error.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.layoutContent.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.VISIBLE
   }
 
   override fun showCancelError() {
-    no_network_retry_only_layout.visibility = View.GONE
-    loading_animation.visibility = View.GONE
-    layout_content.visibility = View.VISIBLE
-    error.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.GONE
+    binding.layoutContent.visibility = View.VISIBLE
+    binding.error.visibility = View.VISIBLE
   }
 
   override fun showSubscriptionDetails(subscriptionItem: SubscriptionItem) {
-    no_network_retry_only_layout.visibility = View.GONE
-    error.visibility = View.GONE
-    loading_animation.visibility = View.INVISIBLE
-    layout_content.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.error.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.INVISIBLE
+    binding.layoutContent.visibility = View.VISIBLE
 
     loadImage(subscriptionItem.appIcon)
 
-    app_name.text = subscriptionItem.appName
-    sku_name.text = subscriptionItem.itemName
+    binding.layoutSubscriptionInfo.appName.text = subscriptionItem.appName
+    binding.layoutSubscriptionInfo.skuName.text = subscriptionItem.itemName
 
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    total_value.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
+    binding.layoutSubscriptionInfo.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
         getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    total_value_appc.text = String.format("~%s / APPC",
+    binding.layoutSubscriptionInfo.totalValueAppc.text = String.format("~%s / APPC",
         currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
@@ -91,14 +89,14 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     val target = object : Target<Bitmap> {
 
       override fun onLoadStarted(placeholder: Drawable?) {
-        app_icon.visibility = View.INVISIBLE
-        app_icon_skeleton.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
       }
 
       override fun onLoadFailed(errorDrawable: Drawable?) {
         startPostponedEnterTransition()
-        app_icon.visibility = View.INVISIBLE
-        app_icon_skeleton.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
       }
 
       override fun getSize(cb: SizeReadyCallback) {
@@ -107,9 +105,9 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         startPostponedEnterTransition()
-        app_icon?.visibility = View.VISIBLE
-        app_icon_skeleton?.visibility = View.INVISIBLE
-        app_icon?.setImageBitmap(resource)
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIcon.setImageBitmap(resource)
       }
 
       override fun getRequest(): Request? = null
@@ -132,23 +130,23 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   }
 
   override fun showNoNetworkError() {
-    retry_animation.visibility = View.GONE
-    layout_content.visibility = View.GONE
-    error.visibility = View.GONE
-    retry_button.visibility = View.VISIBLE
-    loading_animation.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
+    binding.layoutContent.visibility = View.GONE
+    binding.error.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
+    binding.loadingAnimation.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.VISIBLE
   }
 
-  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
+  override fun getRetryNetworkClicks() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
   override fun showNoNetworkRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.VISIBLE
   }
 
   override fun setTransitionName(transitionName: String) {
-    app_icon.transitionName = transitionName
+    binding.layoutSubscriptionInfo.appIcon.transitionName = transitionName
   }
 
   override fun onDestroyView() {

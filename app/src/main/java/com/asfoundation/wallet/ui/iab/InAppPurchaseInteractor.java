@@ -14,12 +14,12 @@ import com.appcoins.wallet.core.network.microservices.model.Gateway;
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.properties.MiscProperties;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.backup.use_cases.ShouldShowSystemNotificationUseCase;
 import com.asfoundation.wallet.backup.use_cases.UpdateWalletPurchasesCountUseCase;
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
+import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase;
@@ -274,7 +274,8 @@ public class InAppPurchaseInteractor {
             transaction.getType(), transaction.getDomain())
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
                 availablePaymentMethods -> Observable.fromIterable(paymentMethods)
-                    .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                    .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods,
+                        currency))
                     .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
                     .toList())
             .map(this::removePaymentMethods))
@@ -303,7 +304,7 @@ public class InAppPurchaseInteractor {
         new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
-            appcPaymentMethod.getDisabledReason(), true));
+            appcPaymentMethod.getDisabledReason(), true, false, false));
     return paymentMethods;
   }
 
@@ -504,19 +505,32 @@ public class InAppPurchaseInteractor {
   }
 
   private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
-      List<PaymentMethodEntity> availablePaymentMethods) {
+      List<PaymentMethodEntity> availablePaymentMethods, String currency) {
     for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false);
+            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
+        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
+  }
+
+  private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {
+    return paymentMethod.getId()
+        .equals(PaymentMethodsView.PaymentMethodId.PAYPAL_V2.getId());
+  }
+
+  private Boolean hasExtraFees(PaymentMethodEntity paymentMethod, String currency) {
+    return (paymentMethod.getId()
+        .equals(PaymentMethodsView.PaymentMethodId.PAYPAL_V2.getId())
+        && !PaypalSupportedCurrencies.Companion.getCurrencies()
+        .contains(currency));
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

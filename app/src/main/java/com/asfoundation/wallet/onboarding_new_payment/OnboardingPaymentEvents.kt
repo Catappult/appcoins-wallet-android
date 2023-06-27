@@ -8,6 +8,7 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetAnalyticsRevenueValueUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class OnboardingPaymentEvents @Inject constructor(
@@ -196,6 +197,26 @@ class OnboardingPaymentEvents @Inject constructor(
       WALLET
     )
   }
+
+  fun sendLocalNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
+                                     paymentId: String) {
+    billingAnalytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
+    billingAnalytics.sendPaymentConfirmationEvent(packageName, skuId, amount, paymentId, type, "buy")
+  }
+
+  fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
+                                  type: String, paymentId: String) {
+    billingAnalytics.sendPaymentEvent(packageName, skuId, amount.toString(), paymentId, type)
+    billingAnalytics.sendPaymentSuccessEvent(packageName, skuId, amount.toString(), paymentId, type)
+  }
+
+  fun sendPendingPaymentEvents(packageName: String, skuId: String?, amount: String, type: String,
+                               paymentId: String) {
+    billingAnalytics.sendPaymentEvent(packageName, skuId, amount, paymentId, type)
+    billingAnalytics.sendPaymentPendingEvent(packageName, skuId, amount, paymentId, type)
+  }
+
+  fun sendRevenueEvent(fiatAmount: String) = billingAnalytics.sendRevenueEvent(fiatAmount)
 
   companion object {
     const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION = "wallet_payment_conclusion_navigation"

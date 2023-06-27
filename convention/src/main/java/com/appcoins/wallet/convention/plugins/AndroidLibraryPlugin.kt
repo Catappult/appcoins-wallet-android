@@ -19,6 +19,7 @@ class AndroidLibraryPlugin : Plugin<Project> {
         apply("kotlin-android")
         apply("kotlin-kapt")
         apply<HiltPlugin>()
+        apply<JacocoLibraryPlugin>()
       }
 
       extensions.configure<LibraryExtension> {
@@ -31,6 +32,17 @@ class AndroidLibraryPlugin : Plugin<Project> {
             initWith(getByName("release"))
           }
         }
+
+        flavorDimensions.add(Config.distributionFlavorDimension)
+        productFlavors {
+          create(Config.googlePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+          create(Config.aptoidePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+        }
+
       }
 
       dependencies {
