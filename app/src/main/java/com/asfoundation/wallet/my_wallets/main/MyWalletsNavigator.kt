@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.main
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -9,11 +10,9 @@ import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.appcoins.wallet.core.utils.jvm_common.C
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.transact.TransferActivity
+import com.asfoundation.wallet.transfers.TransferFundsFragment
+import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
@@ -67,17 +66,16 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToSend() {
-    val intent = TransferActivity.newIntent(fragment.requireContext())
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
-  }
+//  fun navigateToSend() {
+//    val intent = TransferActivity.newIntent(fragment.requireContext())
+//    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+//    openIntent(intent)
+//  }
 
-  fun navigateToReceive(wallet: Wallet) {
-    val intent = Intent(fragment.requireContext(), MyAddressActivity::class.java)
-    intent.putExtra(C.Key.WALLET, wallet)
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
+  fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
+    val bundle = Bundle()
+    bundle.putInt(TransferFundsFragment.TRANSFER_KEY, transferDestinations.ordinal)
+    navController.navigate(R.id.action_navigate_to_receive_funds, bundle)
   }
 
   fun navigateToNfts() {

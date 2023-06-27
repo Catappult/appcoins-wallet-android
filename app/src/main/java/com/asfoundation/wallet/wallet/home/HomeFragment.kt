@@ -353,7 +353,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
-      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
+      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
       HomeSideEffect.NavigateToTransactionsList -> transactionsNavigator.navigateToTransactionsList(
         navController()
       )

@@ -185,9 +185,6 @@
         tools:ignore="LockedOrientationActivity" />
     <activity android:name="com.asfoundation.wallet.ui.gamification.GamificationActivity" />
     <activity
-        android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
-        android:label="@string/title_activity_send" />
-    <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
         android:label="@string/topup_title"

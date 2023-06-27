@@ -74,6 +74,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
 import com.appcoins.wallet.ui.widgets.BalanceItem
+import com.appcoins.wallet.ui.widgets.R.*
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TotalBalance
 import com.appcoins.wallet.ui.widgets.VectorIconButton
@@ -90,6 +91,7 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Wall
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletDeleted
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
+import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -262,7 +264,12 @@ class ManageWalletFragment : BasePageViewFragment() {
         VectorIconButton(
           painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
-          onClick = {})
+          onClick = {
+            myWalletsNavigator.navigateToReceive(
+              navController(),
+              TransferDestinations.RECEIVE
+            )
+          })
         VectorIconButton(
           imageVector = Icons.Default.Share,
           contentDescription = R.string.wallet_view_share_button,
@@ -566,7 +573,15 @@ class ManageWalletFragment : BasePageViewFragment() {
           )
         }
 
-        item { WalletTextField(name) { newName -> name = newName } }
+        item {
+          WalletTextField(
+            name,
+            stringResource(string.mywallet_choose_name_field)
+          ) { newName ->
+            name = newName
+          }
+          Spacer(Modifier.height(24.dp))
+        }
 
         item {
           ButtonWithText(
@@ -601,7 +616,14 @@ class ManageWalletFragment : BasePageViewFragment() {
         fontWeight = FontWeight.Bold
       )
 
-      WalletTextField(name) { newName -> name = newName }
+      WalletTextField(
+        name,
+        stringResource(string.mywallet_choose_name_field)
+      ) { newName ->
+        name = newName
+      }
+
+      Spacer(Modifier.height(24.dp))
 
       ButtonWithText(
         label = stringResource(R.string.action_save),
