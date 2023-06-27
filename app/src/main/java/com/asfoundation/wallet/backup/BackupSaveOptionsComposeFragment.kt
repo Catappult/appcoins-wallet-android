@@ -11,34 +11,32 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupWalletEntryFragment : BasePageViewFragment() {
-
+class BackupSaveOptionsComposeFragment : BasePageViewFragment() {
   @Inject
   lateinit var displayChat: DisplayChatUseCase
 
   companion object {
-    fun newInstance() = BackupWalletEntryFragment()
-    const val WALLET_ADDRESS_KEY = "wallet_address"
-  }
+    fun newInstance() = BackupSaveOptionsComposeFragment()
+      const val PASSWORD_KEY = "password"
+      const val WALLET_ADDRESS_KEY = "wallet_address"
 
-  private val viewModel: BackupEntryViewModel by viewModels()
+  }
+  private val viewModel: BackupSaveOptionsViewModel by viewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY) ?: "" // aq
-    viewModel.showBalance(viewModel.walletAddress)
+    viewModel.walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, PASSWORD_KEY) ?: ""
   }
 
   override fun onCreateView(
@@ -49,10 +47,10 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
-            BackupEntryRoute(
+            BackupSaveOptionsRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
-              onNextClick = {navigateToBackupWalletEntry(navController())}
+              onSendEmailClick = {navigateToBackupWalletSuccess(navController())}
             )
           }
         }
@@ -61,7 +59,7 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
   }
 
   private fun handleBackPress() {
-    parentFragmentManager.popBackStack()
+    navController().popBackStack()
   }
 
   private fun navController(): NavController {
@@ -71,12 +69,13 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
     return navHostFragment.navController
   }
 
-  private fun navigateToBackupWalletEntry(
+  private fun navigateToBackupWalletSuccess(
     mainNavController: NavController
   ) {
-    mainNavController.navigate(R.id.action_backup_entry_to_screen_options)
+    mainNavController.navigate(R.id.backup_wallet_success_screen)
   }
 
 
 
 }
+

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.main
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -12,6 +13,7 @@ import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
@@ -92,8 +94,12 @@ class MyWalletsNavigator @Inject constructor(
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyCreditCard(false))
   }
 
-  fun navigateToBackupWallet(walletAddress: String) {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToBackupWallet(walletAddress))
+  fun navigateToBackup(
+    walletAddress: String,
+  ) {
+    val bundle = Bundle()
+    bundle.putString(BackupWalletEntryFragment.WALLET_ADDRESS_KEY, walletAddress)
+    navController.navigate(R.id.action_navigate_to_backup_entry_wallet, args = bundle)
   }
 
   fun navigateToQrCode(qrCodeView: View) {
