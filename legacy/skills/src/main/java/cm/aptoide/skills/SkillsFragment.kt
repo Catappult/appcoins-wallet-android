@@ -175,8 +175,8 @@ class SkillsFragment : Fragment(), PaymentView {
         getString(R.string.start_button)
       views.onboardingLayout.referralDisplay.tooltip.referralCode.text =
         String.format(getString(R.string.refer_a_friend_first_time_tooltip), BONUS_VALUE)
-      val tooltip_btn = views.onboardingLayout.referralDisplay.actionButtonTooltipReferral
-      tooltip_btn.setOnClickListener {
+      val tooltipBtn = views.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+      tooltipBtn.setOnClickListener {
           if (views.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE) {
             views.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
           } else {
@@ -189,7 +189,7 @@ class SkillsFragment : Fragment(), PaymentView {
       views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
         views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
         val referralCode = views.onboardingLayout.referralDisplay.referralCode.text.toString()
-        if (!referralCode.isEmpty()) {
+        if (referralCode.isNotEmpty()) {
           when (viewModel.useReferralCode(referralCode)) {
             is FailedReferral.GenericError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
@@ -266,8 +266,8 @@ class SkillsFragment : Fragment(), PaymentView {
       }
     }
     disposable.add(Single.zip(viewModel.getCreditsBalance(),
-      viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
-      { balance, appcAmount -> Pair(balance, appcAmount) })
+      viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
+    ) { balance, appcAmount -> Pair(balance, appcAmount) }
       .observeOn(AndroidSchedulers.mainThread()).map {
         if (it.first < it.second.amount) { // Not enough funds
           showNoFundsWarning()
@@ -419,9 +419,9 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun hidePaymentRelatedText() {
-    views.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon?.visibility = View.GONE
-    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle?.visibility = View.GONE
-    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody?.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody.visibility = View.GONE
     views.payTicketLayout.payTicketPaymentMethodsDetails.fiatPrice.visibility = View.GONE
     views.payTicketLayout.payTicketPaymentMethodsDetails.appcPrice.visibility = View.GONE
     views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
