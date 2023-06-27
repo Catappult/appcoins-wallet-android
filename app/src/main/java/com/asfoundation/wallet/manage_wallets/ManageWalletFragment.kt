@@ -84,6 +84,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletCreated
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletChanged
@@ -120,6 +121,11 @@ class ManageWalletFragment : BasePageViewFragment() {
     setFragmentResultListener(MANAGE_WALLET_REQUEST_KEY) { _, _ -> viewModel.updateWallets() }
   }
 
+  override fun onResume() {
+    super.onResume()
+    viewModel.getWallets()
+  }
+
   @Composable
   fun ManageWalletView() {
     Scaffold(
@@ -129,13 +135,19 @@ class ManageWalletFragment : BasePageViewFragment() {
       containerColor = styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is Success ->
+        is Success -> {
           ManageWalletContent(
             padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets
           )
+        }
 
         WalletChanged -> {
           Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
+            .show()
+        }
+
+        WalletCreated -> {
+          Toast.makeText(context, R.string.manage_wallet_wallet_created_title, Toast.LENGTH_SHORT)
             .show()
         }
 
@@ -196,7 +208,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
         ) {
           BalanceBottomSheet(walletInfo)
-          ActiveWalletOptions(walletInfo.wallet)
+          ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
           Spacer(modifier = Modifier.height(24.dp))
           BackupAlertCard(
             onClickButton = {
@@ -239,7 +251,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletOptions(wallet: String) {
+  fun ActiveWalletOptions(wallet: String, walletName: String) {
     Row(
       modifier = Modifier.fillMaxWidth(),
       verticalAlignment = CenterVertically,
@@ -258,7 +270,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         )
       }
       Row {
-        EditNameBottomSheet(wallet)
+        EditNameBottomSheet(wallet, walletName)
         VectorIconButton(
           painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
@@ -543,7 +555,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun EditNameBottomSheet(wallet: String) {
+  fun EditNameBottomSheet(wallet: String, walletName: String) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(false)
@@ -565,7 +577,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             fontWeight = FontWeight.Bold
           )
         }
-
+        name = walletName
         item { WalletTextField(name) { newName -> name = newName } }
 
         item {
@@ -634,7 +646,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun PreviewActiveWalletOptions() {
-    ActiveWalletOptions("a24863cb-e586-472f-9e8a-622834c20c52")
+    ActiveWalletOptions("a24863cb-e586-472f-9e8a-622834c20c52", "Wallet test")
   }
 
   @Preview
