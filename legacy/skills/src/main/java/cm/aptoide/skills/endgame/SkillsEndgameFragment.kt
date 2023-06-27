@@ -47,13 +47,10 @@ class SkillsEndgameFragment : Fragment() {
     const val SESSION = "SESSION"
     const val PACKAGE_NAME = "DOMAIN"
     const val GLOBAL_LEADERBOARD_SKU = "APTOIDE_GLOBAL_LEADERBOARD_SKU"
-
   }
 
-  private val viewModel: SkillsEndgameViewModel by viewModels()  // TODO
-
+  private val viewModel: SkillsEndgameViewModel by viewModels()
   private lateinit var disposables: CompositeDisposable
-
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: PlayerRankingAdapter
 
@@ -67,7 +64,14 @@ class SkillsEndgameFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     buildRecyclerView()
     disposables = CompositeDisposable()
+    setupOpponentScoreListener()
+    setupRetryButton()
+    handleRoomResult()
+    setupRankingsButton()
+    setupRestartButton()
+  }
 
+  private fun setupOpponentScoreListener() {
     disposables.add(Observable.interval(
       0, 3L, TimeUnit.SECONDS
     ).flatMapSingle {
@@ -79,22 +83,20 @@ class SkillsEndgameFragment : Fragment() {
         }.doOnError(Throwable::printStackTrace).onErrorReturnItem(RoomResponse.FailedRoomResponse())
     }.takeUntil { roomResponse: RoomResponse -> roomResponse.status === RoomStatus.COMPLETED }
       .subscribe())
+  }
 
-
-    views.retryButton.setOnClickListener {
-      disposables.add(viewModel.getRoomResult().subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoading() }
-        .doOnSuccess { room -> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
-        .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
-      )
-    }
+  private fun handleRoomResult() {
     disposables.add(viewModel.getRoomResult().subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
+      .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoading() }
       .doOnSuccess { room -> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
       .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
     )
-    setupRankingsButton()
-    setupRestartButton()
+  }
+
+  private fun setupRetryButton() {
+    views.retryButton.setOnClickListener {
+      handleRoomResult()
+    }
   }
 
   private fun setupRestartButton() {
@@ -118,6 +120,7 @@ class SkillsEndgameFragment : Fragment() {
       )
     }
   }
+
   private fun buildRecyclerView() {
     recyclerView = views.rankingRecyclerView
     recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -144,17 +147,14 @@ class SkillsEndgameFragment : Fragment() {
     recyclerView.visibility = View.GONE
     views.lottieAnimation.setAnimation(R.raw.transact_credits_successful)
     views.lottieAnimation.playAnimation()
-    disposables.add(
-      viewModel.isWinner(room.roomResult).observeOn(AndroidSchedulers.mainThread())
-        .doAfterSuccess { isWinner: Boolean ->
-          if (isWinner) {
-            handleRoomWinnerBehaviour(room.roomResult)
-          } else {
-            handleRoomLoserBehaviour(room)
-          }
+    disposables.add(viewModel.isWinner(room.roomResult).observeOn(AndroidSchedulers.mainThread())
+      .doAfterSuccess { isWinner: Boolean ->
+        if (isWinner) {
+          handleRoomWinnerBehaviour(room.roomResult)
+        } else {
+          handleRoomLoserBehaviour(room)
         }
-        .doOnError { showErrorMessage() }
-        .subscribe()
+      }.doOnError { showErrorMessage() }.subscribe()
     )
     views.restartButton.visibility = View.VISIBLE
     views.retryButton.visibility = View.GONE

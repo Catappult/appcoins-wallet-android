@@ -10,12 +10,14 @@
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginVertical="40dp"
-      android:layout_marginHorizontal="@dimen/small_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:paddingHorizontal="@dimen/small_margin"
+      android:paddingVertical="40dp"
+      android:clipToPadding="false"
+      android:clipChildren="false"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
