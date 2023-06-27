@@ -1213,7 +1213,7 @@
   <string name="rewards_promo_code_status_active">Activa</string>
   <string name="rewards_promo_code_status_expired">Caducada</string>
   <string name="home_nft_title">La AppCoins Wallet ahora soporta NFTs</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Juegos Compatibles con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
   <string name="rewards_bonus_every_purchase_title">Disfruta de un bonus del %s%% en todas las compras</string>
@@ -1221,6 +1221,6 @@
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Cambiar nombre de la wallet</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">Elige un nombre para tu wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">Dirección de la wallet</string>
 </resources>
