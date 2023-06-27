@@ -3,9 +3,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/AppTheme"
-    android:background="@drawable/background_card_bottom_rounded"
+    android:background="@drawable/background_card"
     >
-
+  <include
+      android:id="@+id/appcoins_header"
+      layout="@layout/appcoins_header"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      />
   <com.google.android.material.tabs.TabLayout
       android:id="@+id/tab_layout"
       android:layout_width="match_parent"
@@ -14,6 +19,7 @@
   <androidx.viewpager2.widget.ViewPager2
       android:id="@+id/pager"
       android:layout_width="match_parent"
-      android:layout_height="500dp"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       />
 </LinearLayout>
