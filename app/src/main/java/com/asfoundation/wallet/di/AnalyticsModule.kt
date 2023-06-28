@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
+import cm.aptoide.skills.SkillsAnalytics
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.analytics.analytics.*
 import com.appcoins.wallet.core.analytics.analytics.BackendEventLogger
@@ -108,7 +109,18 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
       OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
-      OnboardingPaymentEvents.ONBOARDING_PAYMENT
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
+      SkillsAnalytics.WALLET_PAGE_VIEW,
+      SkillsAnalytics.ESKILLS_PAYMENT_CONCLUSION,
+      SkillsAnalytics.ESKILLS_ONBOARDING_CONCLUSION,
+      SkillsAnalytics.ESKILLS_PAYMENT_QUEUE_ID_INPUT,
+      SkillsAnalytics.ESKILLS_PAYMENT_TOPUP_ERROR,
+      SkillsAnalytics.ESKILLS_PAYMENT_NOT_SUPPORTED_ERROR,
+      SkillsAnalytics.ESKILLS_PAYMENT_NO_FUNDS_ERROR,
+      SkillsAnalytics.ESKILLS_PAYMENT_BUY_CLICK,
+      SkillsAnalytics.ESKILLS_PAYMENT_CONCLUSION,
+      SkillsAnalytics.ESKILLS_MATCHMAKING_CONCLUSION,
+      SkillsAnalytics.ESKILLS_REFERRAL_SHARE_CLICK
     )
 
   @Singleton
