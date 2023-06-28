@@ -104,22 +104,40 @@
           app:layout_constraintTop_toBottomOf="@id/ranking_recycler_view"
           />
 
-      <Button
-          android:id="@+id/rankings_button"
-          style="@style/ButtonStyle"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/leaderboard_constraint"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
           android:layout_marginStart="32dp"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="32dp"
           android:layout_marginBottom="16dp"
-          android:text="@string/rankings_btn_text"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/restart_button"
-          app:layout_constraintVertical_bias="0"
-          />
+          app:layout_constraintTop_toBottomOf="@id/restart_button">
+
+        <!-- Your button -->
+        <Button
+            android:id="@+id/rankings_button"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/leaderboard_btn_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0" />
+        <ImageView
+            android:id="@+id/sticker_image"
+            android:layout_width="54dp"
+            android:layout_height="50dp"
+            android:elevation="100dp"
+            android:src="@drawable/new_sticker"
+            app:layout_constraintBottom_toBottomOf="@id/rankings_button"
+            app:layout_constraintEnd_toEndOf="@id/rankings_button"
+            />
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <Button
           android:id="@+id/retry_button"
