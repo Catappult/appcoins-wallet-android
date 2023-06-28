@@ -40,7 +40,7 @@
   <string name="buy_button">ACQUISTA</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALLA IL WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Installa</string>
+  <string name="install_button">Avvia l\'installazione</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Errore</string>
   <string name="purchase_error_item_owned">Hai già questo articolo!</string>

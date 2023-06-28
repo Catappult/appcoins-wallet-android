@@ -133,8 +133,6 @@
   <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
   <string name="intro_agree_terms_and_conditions_body">Door de AppCoins Wallet te openen, ga je akkoord met het %1$s en de %2$s.</string>
   <string name="intro_skip_button">OVERSLAAN</string>
-  <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
-  <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die AppCoins ondersteunt.</string>
   <string name="intro_welcome_header_2">Tot %s%% bonus!</string>
   <string name="intro_welcome_body_2">Bonussen kunnen in elke app of game worden gebruikt.</string>
   <string name="intro_already_have_wallet_button">Ik heb al een wallet</string>
@@ -256,8 +254,9 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">Aankoop voor e-Skills</string>
+  <string name="transaction_type_eskills_reward">Beloning voor e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills toegangsticket</string>
+  <string name="transaction_type_eskills_ticke_refund">Terugbetaling e-Skills tickets</string>
   <string name="transaction_type_voucher">E-voucher</string>
   <string name="transaction_type_voucher_title">Voucher voor %s</string>
   <string name="transaction_type_reverted_bonus_title">Teruggedraaide bonus</string>
@@ -288,6 +287,29 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Creditcard/betaalkaart</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
+  <string name="transaction_type_purchase_bonus">Bonus voor aankoop</string>
+  <string name="transaction_type_promo_code_bonus">Bonus voor actiecode</string>
+  <string name="transaction_type_extra_bonus">Extra bonus</string>
+  <string name="transaction_type_topup">Opwaarderen</string>
+  <string name="transaction_type_reverted_purchase_bonus">Teruggedraaide bonus voor aankoop</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Teruggedraaide bonus voor actiecode</string>
+  <string name="transaction_type_reverted_extra_bonus">Teruggedraaide extra bonus</string>
+  <string name="transaction_type_reverted_topup">Teruggedraaide opwaardering</string>
+  <string name="transaction_type_rejected_topup">Geweigerde opwaardering</string>
+  <string name="transaction_type_rejected_subscription_purchase">Geweigerde aankoop van abonnement</string>
+  <string name="transaction_type_rejected_purchase">Geweigerde aankoop</string>
+  <string name="transaction_type_rejected_eskills_ticket">Geweigerd e-Skills ticket</string>
+  <string name="transaction_type_refund_subscription">Terugbetaling voor abonnement</string>
+  <string name="transaction_type_subscription_payment">Betaling voor abonnement</string>
+  <string name="transaction_type_funds_sent">Saldo verzonden</string>
+  <string name="transaction_type_funds_received">Saldo ontvangen</string>
+  <string name="transaction_type_gift_card">Cadeaubon</string>
+  <string name="transaction_date_label">Datum</string>
+  <string name="transaction_more_details_label">Meer informatie</string>
+  <string name="transaction_rejected_body">Deze aankoop is geweigerd.\nNeem contact op met de klantenservice voor meer informatie.</string>
+  <string name="transaction_reverted_body">Deze aankoop is teruggedraaid.\nNeem contact op met de klantenservice voor meer informatie.</string>
+  <string name="transaction_status_rejected">Geweigerd</string>
+  <string name="transaction_details_header">Transactiegegevens</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
   <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
@@ -383,7 +405,6 @@
   <string name="provide_wallet_status">Toestemming voor toegang tot wallet-adres geven</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Opwaarderen</string>
   <string name="topup_title">Opwaarderen</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Je hebt een bonus!</string>
@@ -462,6 +483,14 @@
   <string name="skip_button">Voorlopig overslaan</string>
   <string name="understand_button">Begrepen</string>
   <string name="install_button">Installeren</string>
+  <string name="get_button">Nemen</string>
+  <string name="see_all_button">Alles bekijken</string>
+  <string name="transfer_button">Overschrijven</string>
+  <string name="top_up_button">Opwaarderen</string>
+  <string name="back_up_button">Back-up van wallet maken</string>
+  <string name="play_button">Spelen</string>
+  <string name="manage_wallet_button">Wallet beheren</string>
+  <string name="log_out_button">Uitloggen</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -505,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Dit telefoonnummer is al gebruikt om deze beloning te ontvangen 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Telefoonnummer is al in gebruik.</string>
   <string name="verification_insert_code_error_common">Oeps! Er is iets fout gegaan. Probeer het opnieuw!</string>
-  <string name="verification_settings_unverified_title">Wallet verifiëren</string>
+  <string name="verification_settings_unverified_title">Betaalmethode verifiëren</string>
   <string name="verification_settings_unverified_body">Ontvang beloningen en nodig vrienden uit</string>
   <string name="verification_settings_verified_title">Wallet is geverifieerd</string>
-  <string name="verification_settings_verifying_title">Wallet verifiëren…</string>
-  <string name="verification_verified_paypal_description">Je ontvangt meteen een terugbetaling. Je wallet wordt binnenkort geverifieerd.</string>
+  <string name="verification_settings_verifying_title">Verifiëren…</string>
+  <string name="verification_verified_paypal_description">Het bedrag wordt meteen terugbetaald. Je betaalmethode wordt binnenkort geverifieerd.</string>
   <string name="verification_verify_paypal_description">Er wordt een minimale transactie van %s uitgevoerd om je account te verifiëren. Dit bedrag wordt meteen terugbetaald.</string>
   <string name="verification_verify_paypal_button">Nu verifiëren</string>
   <string name="verification_settings_card_verified_title">Kaart is geverifieerd</string>
@@ -580,6 +609,10 @@
   <string name="purchase_error_wrong_pin_body">Er is een probleem met je pincode opgetreden. Probeer het opnieuw.</string>
   <string name="purchase_error_3d_body">Er is een probleem met je 3D-verificatie opgetreden. Probeer het opnieuw.</string>
   <string name="purchase_error_generic_contact_us_body">Oeps! Er is iets fout gegaan. Probeer het opnieuw of neem contact met ons op.</string>
+  <string name="error_blocked_wallet_title">Geblokkeerde wallet</string>
+  <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
+  <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -602,8 +635,8 @@
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
   <string name="referral_onboarding_body_no_connection">Jij en je vrienden kunnen met ons verwijzingsprogramma AppCoins Credits verdienen!</string>
   <string name="referral_onboarding_redeem_button">Ik ben uitgenodigd</string>
-  <string name="referral_verification_title">Verifieer je wallet</string>
-  <string name="referral_verification_body">Je dient je wallet te verifiëren om aan het verwijzingsprogramma deel te nemen. We zullen je via sms een verificatiecode sturen.</string>
+  <string name="referral_verification_title">Betaalmethode verifiëren</string>
+  <string name="referral_verification_body">Je moet je betaalmethode verifiëren om aan het verwijzingsprogramma deel te nemen. We zullen je via sms een verificatiecode sturen.</string>
   <string name="referral_verification_confirmation_title">Je uitnodiging is goedgekeurd!</string>
   <string name="referral_verification_confirmation_body">Je krijgt %1$s aan AppCoins Credits bij je eerste in-app aankoop. Je dient een eerste aankoop voor een bedrag hoger dan %2$s te doen en je dient een andere betaalmethode dan AppCoins Credits te gebruiken.</string>
   <string name="referral_verification_not_invited_title">Het lijkt erop dat dit nummer niet is uitgenodigd&#8230;</string>
@@ -616,8 +649,8 @@
   <string name="referral_view_share_link_button">Uitnodigingslink delen</string>
   <string name="referral_view_notifications_title">Meldingen</string>
   <string name="referral_share_sheet_title">Deel de link met de uitnodiging via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">Wallet verifiëren</string>
+  <string name="referral_view_unverified_body">Ontvang %s aan AppCoins Credits voor elke vriend. Je moet eerst je betaalmethode verifiëren.</string>
+  <string name="referral_view_verify_button">Betaalmethode verifiëren</string>
   <string name="referral_view_i_have_been_invited_button">Ik ben uitgenodigd</string>
   <string name="referral_view_dropup_menu_friends_invited">Vrienden uitgenodigd</string>
   <string name="referral_view_dropup_menu_earned">Verdiend</string>
@@ -890,6 +923,7 @@
   <string name="perks_gamif_subtitle">Hoe meer je in je favoriete apps besteedt, hoe groter de bonus!</string>
   <string name="perks_title">Acties</string>
   <string name="perks_body">Blijf ons volgen! We hebben speciale acties voor je.</string>
+  <string name="promotion_ends_short_title">Actie eindigt over</string>
   <plurals name="promotion_ends">
     <item quantity="one">De actie eindigt over %s dag.</item>
     <item quantity="other">De actie eindigt over %s dagen.</item>
@@ -954,7 +988,7 @@
   <string name="rate_us_back_title">Wil je ons helpen?</string>
   <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Gebruik je creditcard/betaalkaart om je wallet te verifiëren.</string>
+  <string name="card_verification_body">Verifieer je creditcard/betaalkaart om betalingen uit te voeren.</string>
   <string name="card_verification_charde_disclaimer">We brengen via je kaart %s in rekening en betalen het bedrag terug zodra je de code bevestigt. Afhankelijk van je bank kan dit enkele minuten tot enkele dagen duren.</string>
   <string name="card_verification_code_title">Controleer de code via de transactiegegevens</string>
   <string name="card_verification_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
@@ -974,13 +1008,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Probeer het met een andere kaart</string>
   <string name="card_verification_code_wrong_error">Onjuiste code</string>
-  <string name="card_verification_wallets_one_step_title">Nog één stap om te valideren</string>
+  <string name="card_verification_wallets_one_step_title">Nog één stap om te verifiëren</string>
   <string name="card_verification_wallets_one_step_body">Voer de code in die in de transactiegegevens wordt getoond.</string>
   <string name="card_verification_wallets_insert_bode_button">Code invoeren</string>
   <string name="card_verification_no_attempts_title">Oeps. Je hebt te vaak een verkeerde code ingevoerd. Daarom wordt er %1$s op je kaart teruggestort.</string>
   <string name="card_verification_no_attempts_body">Start het verificatieproces opnieuw.</string>
   <string name="wallet_verify_header">Verifieer minimaal één betaalmethode</string>
   <string name="verify_card_title">Kaart verifiëren</string>
+  <string name="verify_card_button">Bankpas verifiëren</string>
+  <string name="verify_paypal_button">PayPal-account verifiëren</string>
+  <string name="card_verification_body_new">Er wordt %s van je kaart afgeschreven en meteen terugbetaald. Controleer de verificatiecode op het afschrift van je kaart en voer deze hier in.</string>
+  <string name="card_verification_disclaimer_body">Houd er rekening mee dat de bevestigingscode in de melding van de terugbetaling kan worden getoond.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Koop deze voucher en krijg</string>
   <string name="voucher_card_body_2"> tot %s%% bonus.</string>
@@ -1089,8 +1127,8 @@
   <string name="gift_card_error_new_users_title">Deze code is alleen voor nieuwe gebruikers!</string>
   <string name="gift_card_error_try_with_different_body">Probeer het opnieuw met een andere code.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Ongeverifieerde wallet</string>
-  <string name="mywallet_unverified_body">Verifieer een betaalmethode om blokkades te voorkomen.</string>
+  <string name="mywallet_unverified_title">Verifieer een betaalmethode</string>
+  <string name="mywallet_unverified_body">Bevestig een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
   <string name="mywallet_backup_again_button">Opnieuw een back-up maken</string>
   <string name="mywallet_verify_payment_method_button">Nieuwe kaart verifiëren</string>
@@ -1137,4 +1175,52 @@
   <string name="vip_program_max_bonus_short">%s%% bonus bij elke aankoop.</string>
   <string name="vip_program_referral_notification_title">VIP-verwijzingscode beschikbaar!</string>
   <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen AppCoins kan verdienen!</string>
+  <string name="vip_program_title_vip_offer">VIP-aanbieding</string>
+  <!-- Refactor Home -->
+  <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
+  <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die AppCoins ondersteunt.</string>
+  <string name="intro_appcoins_games_header">Ontdek games met AppCoins</string>
+  <string name="intro_active_promotions_header">Huidige acties</string>
+  <string name="topup_home_button">Opwaarderen</string>
+  <string name="intro_home_button">Start</string>
+  <string name="intro_rewards_button">Beloningen</string>
+  <plurals name="days">
+    <item quantity="one">DAG</item>
+    <item quantity="other">DAGEN</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">UUR</item>
+    <item quantity="other">UUR</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">MINUUT</item>
+    <item quantity="other">MINUTEN</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">SECONDE</item>
+    <item quantity="other">SECONDEN</item>
+  </plurals>
+  <string name="intro_transactions_header">Transacties</string>
+  <string name="intro_backup_card_title">Verlies je saldo niet!</string>
+  <string name="intro_backup_card_body">Maak een back-up van je wallet om deze altijd veilig te bewaren.</string>
+  <string name="rewards_spend_to_next_level_body">Besteed meer %1$s%2$s om het volgende niveau te bereiken!</string>
+  <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
+  <string name="rewards_eskills_card_title">Verdien geld!</string>
+  <string name="rewards_eskills_card_body">Versla andere spelers met e-Skills</string>
+  <string name="rewards_promo_code_card_title">Actiecodes</string>
+  <string name="rewards_promo_code_card_body">Gebruik een actiecode om speciale aanbiedingen te krijgen!</string>
+  <string name="rewards_promo_code_status">Status:</string>
+  <string name="rewards_promo_code_status_active">Actief</string>
+  <string name="rewards_promo_code_status_expired">Verlopen</string>
+  <string name="home_nft_title">De AppCoins Wallet ondersteunt nu NFT\'s</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <!-- Rewards Home -->
+  <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die AppCoins ondersteunt en krijg een bonus bij elke aankoop.</string>
+  <string name="rewards_bonus_every_purchase_title">Geniet van een bonus van %s%% bij elke aankoop</string>
+  <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_wallet_changed_title">Wallet gewijzigd</string>
+  <string name="manage_wallet_change_active_wallet_title">Wil je deze wallet selecteren?</string>
+  <string name="manage_wallet_change_wallet_name_title">Naam van wallet wijzigen</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>

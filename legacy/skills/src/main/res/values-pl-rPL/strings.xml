@@ -32,21 +32,26 @@
   <string name="purchase_error_title">Ojej, coś poszło nie tak.</string>
   <string name="purchase_eskills_sku">Bilet wstępu</string>
   <string name="shared_room_waiting">Oczekiwanie na przeciwników w %s</string>
-  <string name="rooted_device_blocked_body">Niestety nie możesz korzystać z e-Skills na zakorzenionym urządzeniu</string>
-  <string name="top_up_needed_body">Ze względów bezpieczeństwa musisz uzupełnić portfel przynajmnije raz, by grać w gry e-Skills.</string>
-  <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
-  <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Ta wersja portfela nie jest obsługiwana!</string>
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
   <string name="update_button">Aktualizuj</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Ty i zaproszeni znajomi otrzymacie bonus $%s. Możesz zaprosić do 5 znajomych, którzy muszą być nowymi użytkownikami. Bonus zostanie zaksięgowany w portfelu, gdy użyją kodu zaproszenia w pierwszej grze e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">Gotów pokazać, co potrafisz?</string>
+  <string name="refer_a_friend_first_time_body">Pokonaj innych graczy i wygraj prawdziwe pieniądze! Zaczynamy od bezpłatnej gry treningowej.</string>
+  <string name="refer_a_friend_error_unavailable_body">Ta opcja jest obecnie niedostępna.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Nieprawidłowy kod!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Tylko dla nowych użytkowników!</string>
+  <string name="refer_a_friend_first_time_tooltip">Dzięki naszemu Programowi Poleceń otrzymasz bonus $%s przy użyciu kodu znajomych. Otrzymają taką samą kwotę jak Twój bonus – do wykorzystania w zakupach w aplikacji lub biletu e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Zaproś Znajomego!</string>
+  <string name="refer_a_friend_waiting_from_body">Otrzymaj bonus za każdego zaproszonego znajomego.</string>
+  <string name="refer_a_friend_invitation_message">Zostałeś zaproszony do gry %1$s! Użyj kodu zaproszenia %2$s po pobraniu go z %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">W gry e-Skills nie można grać z aktywną siecią VPN. Wyłącz VPN i spróbuj ponownie!</string>
+  <string name="top_up_needed_body">Ze względów bezpieczeństwa musisz uzupełnić portfel przynajmnije raz, by grać w gry e-Skills.</string>
+  <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
+  <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
+  <string name="rooted_device_blocked_body">Niestety nie można grać w gry e-Skills za pomocą zrootowanego urządzenia.</string>
 </resources>
