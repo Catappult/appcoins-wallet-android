@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="232dp"
+    android:layout_marginHorizontal="@dimen/small_margin"
+    android:layout_marginVertical="@dimen/big_margin"
+    android:background="@drawable/background_last_winners"
+    >
+
+  <TextView
+      android:id="@+id/last_winners_title"
+      style="@style/LastWinners.Text.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="13dp"
+      android:layout_marginBottom="@dimen/small_margin"
+      android:text="@string/last_winners_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/gold_medal"
+      android:layout_width="97dp"
+      android:layout_height="97dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:src="@drawable/gold_medal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/last_winners_title"
+      />
+
+  <TextView
+      android:id="@+id/first_username"
+      style="@style/LastWinners.Text.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="15dp"
+      android:layout_marginBottom="@dimen/small_margin"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="@id/gold_medal"
+      app:layout_constraintStart_toStartOf="@id/gold_medal"
+      app:layout_constraintTop_toBottomOf="@id/gold_medal"
+      tools:text="Username1"
+      />
+
+  <TextView
+      android:id="@+id/first_winnings"
+      style="@style/LastWinners.Text.winnings"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/small_margin"
+      app:layout_constraintEnd_toEndOf="@id/gold_medal"
+      app:layout_constraintStart_toStartOf="@id/gold_medal"
+      app:layout_constraintTop_toBottomOf="@id/first_username"
+      tools:text="5.00$"
+      />
+
+  <ImageView
+      android:id="@+id/silver_medal"
+      android:layout_width="78dp"
+      android:layout_height="78dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:src="@drawable/silver_medal"
+      app:layout_constraintBottom_toTopOf="@id/first_username"
+      app:layout_constraintEnd_toStartOf="@id/gold_medal"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/second_username"
+      style="@style/LastWinners.Text.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:layout_marginBottom="@dimen/small_margin"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="@id/silver_medal"
+      app:layout_constraintStart_toStartOf="@id/silver_medal"
+      app:layout_constraintTop_toBottomOf="@id/silver_medal"
+      tools:text="Username2"
+      />
+
+  <TextView
+      android:id="@+id/second_winnings"
+      style="@style/LastWinners.Text.winnings"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/small_margin"
+      app:layout_constraintEnd_toEndOf="@id/silver_medal"
+      app:layout_constraintStart_toStartOf="@id/silver_medal"
+      app:layout_constraintTop_toBottomOf="@id/second_username"
+      tools:text="3.00$"
+      />
+
+  <ImageView
+      android:id="@+id/bronze_medal"
+      android:layout_width="78dp"
+      android:layout_height="78dp"
+      android:layout_marginTop="@dimen/big_margin"
+      android:src="@drawable/bronze_medal"
+      app:layout_constraintBottom_toTopOf="@id/first_username"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/gold_medal"
+      />
+
+  <TextView
+      android:id="@+id/third_username"
+      style="@style/LastWinners.Text.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:layout_marginBottom="@dimen/small_margin"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="@id/bronze_medal"
+      app:layout_constraintStart_toStartOf="@id/bronze_medal"
+      app:layout_constraintTop_toBottomOf="@id/bronze_medal"
+      tools:text="Username3"
+      />
+  <TextView
+      android:id="@+id/third_winnings"
+      style="@style/LastWinners.Text.winnings"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/small_margin"
+      app:layout_constraintEnd_toEndOf="@id/bronze_medal"
+      app:layout_constraintStart_toStartOf="@id/bronze_medal"
+      app:layout_constraintTop_toBottomOf="@id/third_username"
+      tools:text="1.00$"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

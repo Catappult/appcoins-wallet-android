@@ -47,6 +47,14 @@
   <color name="onboarding_font_color">#001727</color>
 
   <color name="referral_share_color">#19061A</color>
-  <color name="referral_popup_balloon_bg">#001727</color> s
+  <color name="referral_popup_balloon_bg">#001727</color>
+
+  <!-- Endgame colors -->
+  <color name="background_brown">#d6cdc4</color>
+  <color name="icon_background">#e8ba2e</color>
+  <color name="rankings_text_color">#808080</color>
+  <color name="background">#FAF8EF</color>
+  <color name="ranking_grey">#C7C7C7</color>
+
 
 </resources>

@@ -2,22 +2,36 @@ package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.SerializedName
 
-class RoomResponse(
-  @SerializedName("room_id")
-  var roomId: String,
 
-  @SerializedName("room_result")
-  var roomResult: RoomResult,
+sealed class RoomResponse {
+  abstract val status: RoomStatus
+  abstract val statusCode: RoomStatusCode
 
-  @SerializedName("current_user")
-  var currentUser: User,
+  data class SuccessfulRoomResponse(
+    @SerializedName("room_id")
+    var roomId: String,
 
-  @SerializedName("package_name")
-  var packageName: String,
+    @SerializedName("room_result")
+    var roomResult: RoomResult,
 
-  @SerializedName("status")
-  var status: RoomStatus,
+    @SerializedName("current_user")
+    var currentUser: User,
 
-  @SerializedName("users")
-  var users: List<User>
-)
+    @SerializedName("package_name")
+    var packageName: String,
+
+    @SerializedName("status")
+    override var status: RoomStatus,
+
+    @SerializedName("users")
+    var users: List<User>,
+
+    override var statusCode: RoomStatusCode = RoomStatusCode.SUCCESSFUL_RESPONSE
+  ) : RoomResponse()
+
+  data class FailedRoomResponse(
+    override var status: RoomStatus = RoomStatus.COMPLETED,
+    override var statusCode: RoomStatusCode = RoomStatusCode.GENERIC_ERROR
+  ) : RoomResponse()
+}
+
