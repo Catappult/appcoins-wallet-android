@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +45,7 @@ class SkillsEndgameFragment : Fragment() {
         }
       }
     }
+
     const val SESSION = "SESSION"
     const val PACKAGE_NAME = "DOMAIN"
     const val GLOBAL_LEADERBOARD_SKU = "APTOIDE_GLOBAL_LEADERBOARD_SKU"
@@ -54,7 +56,24 @@ class SkillsEndgameFragment : Fragment() {
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: PlayerRankingAdapter
 
+  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+    override fun handleOnBackPressed() {
+      requireActivity().setResult(SkillsEndgameViewModel.RESULT_OK)
+      requireActivity().finish()
+    }
+  }
+
   private val views by viewBinding(EndgameFragmentSkillsBinding::bind)
+
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    handleBackPress()
+  }
+
+  private fun handleBackPress() {
+    requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -115,7 +134,9 @@ class SkillsEndgameFragment : Fragment() {
               R.id.fragment_container, SkillsRankingsFragment.newInstance(
                 walletAddress, requireArguments().getString(PACKAGE_NAME)!!, GLOBAL_LEADERBOARD_SKU
               )
-            ).commit()
+            )
+              .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
+              .commit()
           }.subscribe()
       )
     }

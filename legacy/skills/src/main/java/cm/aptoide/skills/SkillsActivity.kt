@@ -14,6 +14,7 @@ class SkillsActivity : AppCompatActivity() {
       if (uri.contains("endgame", true)) {
         supportFragmentManager.beginTransaction()
           .replace(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
+          .addToBackStack(SkillsEndgameFragment::class.java.simpleName)
           .commit()
       } else {
         if (savedInstanceState == null) {
