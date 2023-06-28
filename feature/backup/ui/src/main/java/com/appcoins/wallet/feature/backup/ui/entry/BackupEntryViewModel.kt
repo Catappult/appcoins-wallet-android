@@ -31,6 +31,7 @@ class BackupEntryViewModel @Inject constructor(
   BackupEntryState()
 ) {
    lateinit var walletAddress: String
+   var password : String = ""
 
    fun showBalance(walletAddress: String) {
     viewModelScope.launch {

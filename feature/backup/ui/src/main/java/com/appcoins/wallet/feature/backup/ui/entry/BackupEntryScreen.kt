@@ -74,7 +74,10 @@ fun BackupEntryRoute(
       scaffoldPadding = padding,
       onExitClick = onExitClick,
       onNextClick = onNextClick,
-      walletAddress = viewModel.walletAddress
+      walletAddress = viewModel.walletAddress,
+      onPasswordChange = {password ->
+        viewModel.password = password
+      }
     )
   }
 }
@@ -85,6 +88,7 @@ fun BackupEntryScreen(
   backupEntryState: BackupEntryState,
   onExitClick: () -> Unit,
   onNextClick: () -> Unit,
+  onPasswordChange : (password : String) -> Unit,
   walletAddress: String
 ) {
     when (val balanceInfo = backupEntryState.balanceAsync) {
@@ -118,7 +122,7 @@ fun BackupEntryScreen(
             color = WalletColors.styleguide_light_grey,
 
           )
-          BalanceCard("${balanceInfo.value?.amount} ${balanceInfo.value?.symbol}", walletAddress) //melhorar
+          BalanceCard("${balanceInfo.value?.amount} ${balanceInfo.value?.symbol}", walletAddress, onPasswordChange = onPasswordChange) //melhorar
           BackupEntryButton(onNextClick)
         }
 
@@ -129,7 +133,7 @@ fun BackupEntryScreen(
   }
 
 @Composable
-fun BalanceCard(balance : String, walletAddress: String) {
+fun BalanceCard(balance : String, walletAddress: String, onPasswordChange: (password : String) -> Unit) {
   Card(
     elevation = CardDefaults.cardElevation(8.dp),
     shape = RoundedCornerShape(14.dp),
@@ -159,7 +163,7 @@ fun BalanceCard(balance : String, walletAddress: String) {
 
       )
     }
-    BackupEntryPassword()
+    BackupEntryPassword(onPasswordChange = onPasswordChange)
       }
   }
 
@@ -179,9 +183,8 @@ fun BackupEntryButton(
   )
 }
 
-@Preview
 @Composable
-fun BackupEntryPassword() {
+fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit) {
   var switchON by rememberSaveable { mutableStateOf(true) }
     Column(
       modifier = Modifier
@@ -206,7 +209,7 @@ fun BackupEntryPassword() {
               modifier = Modifier.padding(bottom = 21.dp)
             )
           }
-          Switch(
+          Switch( // a false
             modifier = Modifier.padding(end = 3.dp),
             checked = switchON,
             onCheckedChange = { changedSwitch -> switchON = changedSwitch },
@@ -223,14 +226,14 @@ fun BackupEntryPassword() {
           )
         }
       if(switchON){
-        switchModeTrue()
+        switchModeTrue(onPasswordChange = onPasswordChange)
       }
     }
   }
 
 
 @Composable
-private fun switchModeTrue() {
+private fun switchModeTrue(onPasswordChange: (password : String) -> Unit) {
   var defaultPassword by rememberSaveable { mutableStateOf("Password") }
   var defaultPassword2 by rememberSaveable { mutableStateOf("Repeat Password") }
   AnimatedVisibility(
@@ -243,7 +246,9 @@ private fun switchModeTrue() {
         .fillMaxWidth()
     ) {
       WalletTextField(value = defaultPassword,
-        onValueChange = { defaultPassword = it }
+        onValueChange = {  defaultPassword = it
+        onPasswordChange(it)
+        }
       )
       WalletTextField(value = defaultPassword2,
         onValueChange = { defaultPassword2 = it }
@@ -281,7 +286,7 @@ private fun switchModeTrue() {
 @Preview("screen")
 @Composable
 private fun BackupEntryScreenPreview() {
-  BalanceCard(balance = "sdf", walletAddress = "asd")
+  BalanceCard(balance = "sdf", walletAddress = "asd", onPasswordChange = {"password"})
 }
 
 

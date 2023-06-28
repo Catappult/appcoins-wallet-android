@@ -1,12 +1,16 @@
 package com.appcoins.wallet.feature.backup.ui.save_options
 
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
@@ -14,7 +18,7 @@ sealed class BackupSaveOptionsSideEffect : SideEffect {
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
-object BackupSaveOptionsState : ViewState
+data class BackupSaveOptionsState(var saveOptionAsync: Async<Boolean> = Async.Uninitialized) : ViewState
 
 @HiltViewModel
 class BackupSaveOptionsViewModel @Inject constructor(
@@ -25,30 +29,39 @@ class BackupSaveOptionsViewModel @Inject constructor(
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(
     initialState()
 ) {
+
   lateinit var walletAddress: String
-  lateinit var password: String
+  lateinit var email : String
+  var password : String = ""
 
   companion object {
     private val TAG = BackupSaveOptionsViewModel::class.java.name
 
     fun initialState(): BackupSaveOptionsState {
-      return BackupSaveOptionsState
+      return BackupSaveOptionsState()
     }
   }
 
-  suspend fun sendBackupToEmail(text: String) {
-    runCatching {
-      sendBackupToEmailUseCase(walletAddress, password, text)
-    }.onSuccess {
-      backupSuccessLogUseCase(walletAddress).let {}
-    }.onFailure {
-      showError(it)
-    }
-    try {
-      backupSuccessLogUseCase(walletAddress).let {}
-      sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
-    } catch (e: Exception) {
-      showError(e)
+  fun sendBackupToEmail(text: String) {
+    viewModelScope.launch {
+      runCatching {
+        sendBackupToEmailUseCase(walletAddress, password, text)
+      }.onSuccess {
+        backupSuccessLogUseCase(walletAddress).let {}
+          setState {  copy(saveOptionAsync = Async.Success(true))}
+      }.onFailure {
+        setState {  copy(saveOptionAsync = Async.Fail(Error.UnknownError(Throwable(""))))}
+
+      }
+      /*
+      try {
+        backupSuccessLogUseCase(walletAddress).let {}
+        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
+      } catch (e: Exception) {
+        showError(e)
+      }
+
+       */
     }
   }
 

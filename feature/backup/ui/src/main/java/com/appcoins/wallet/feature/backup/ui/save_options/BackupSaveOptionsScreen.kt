@@ -72,7 +72,7 @@ fun BackupSaveOptionsRoute(
       backupSaveOptionsState = backupSaveOptionsState,
       scaffoldPadding = padding,
       onExitClick = onExitClick,
-      onSendEmailClick = onSendEmailClick
+      onSendEmailClick = { viewModel.sendBackupToEmail("asdasf@gmail.com") },
     )
   }
 }
@@ -113,6 +113,7 @@ fun BackupSaveOptionsScreen(
     }
     SaveOnDeviceCardDefault()
     SaveOnDeviceOptions(
+      onSendEmailClick,
       onExitClick = onExitClick,
     )
 
@@ -154,9 +155,10 @@ fun SaveOnDeviceCardDefault(){
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveOnDeviceOptions(
+  onSendEmailClick: () -> Unit,
   onExitClick: () -> Unit,
 ) {
-  var defaultPassword by rememberSaveable { mutableStateOf("Your email here...") }
+  var defaultEmail by rememberSaveable { mutableStateOf("Your email here...") }
 
   Column(
     Modifier.fillMaxWidth()
@@ -171,25 +173,13 @@ fun SaveOnDeviceOptions(
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey
       )
-      TextField( //WalletTextfield esperar
-        shape = RoundedCornerShape(10.dp),
-        colors = TextFieldDefaults.colors(
-          unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
-          focusedContainerColor = WalletColors.styleguide_blue_secondary,
-         disabledLabelColor = WalletColors.styleguide_dark_grey,
-          focusedLabelColor = WalletColors.styleguide_dark_grey
-        ),
-        value = defaultPassword,
-        modifier = Modifier
-          .padding(bottom = 28.63.dp)
-          .fillMaxWidth(),
-        onValueChange = {
-          defaultPassword = it
-        }
+      WalletTextField(value = defaultEmail,
+        onValueChange = { defaultEmail = it }
       )
       ButtonWithText(
         label = stringResource(id = R.string.backup_ready_email_button),
         onClick = {
+                  onSendEmailClick()
         },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_light_grey,
@@ -260,6 +250,7 @@ fun BackupSaveOptionsScreenPreview(
         color = WalletColors.styleguide_light_grey,
 
         )
+
     }
     SaveOnDeviceCardDefault()
     SaveOnDeviceOptionsPreview()
