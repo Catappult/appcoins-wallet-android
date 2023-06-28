@@ -67,7 +67,6 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private lateinit var disposable: CompositeDisposable
 
-
   @Inject
   lateinit var analytics: SkillsAnalytics
 
@@ -212,7 +211,6 @@ class SkillsFragment : Fragment(), PaymentView {
                 getString(R.string.refer_a_friend_error_unavailable_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
-
             is FailedReferral.NotEligibleError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
                 Color.RED
@@ -222,7 +220,6 @@ class SkillsFragment : Fragment(), PaymentView {
                 getString(R.string.refer_a_friend_error_user_not_eligible_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
-
             is FailedReferral.NotFoundError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
                 Color.RED
@@ -232,7 +229,6 @@ class SkillsFragment : Fragment(), PaymentView {
                 getString(R.string.refer_a_friend_error_invalid_code_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
-
             is SuccessfulReferral -> {
               views.onboardingLayout.root.visibility = View.GONE
               createAndPayTicket(eSkillsPaymentData, true)
@@ -326,7 +322,6 @@ class SkillsFragment : Fragment(), PaymentView {
                 createAndPayTicket(eSkillsPaymentData)
               }
             }
-
             Status.NO_TOPUP -> {
               showNeedsTopUpWarning()
               analytics.sendPaymentTopUpErrorEvent(eSkillsPaymentData)
@@ -336,7 +331,6 @@ class SkillsFragment : Fragment(), PaymentView {
                 sendUserToTopUpFlow()
               }
             }
-
             Status.PAYMENT_METHOD_NOT_SUPPORTED -> {
               showPaymentMethodNotSupported()
               analytics.sendPaymentNotSupportedErrorEvent(eSkillsPaymentData)
@@ -400,16 +394,18 @@ class SkillsFragment : Fragment(), PaymentView {
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
              }
         .doOnError{analytics.sendPaymentFailEvent(eskillsPaymentData)}
-        .doOnComplete{if(onboarding){
+        .doOnComplete{
+          if(onboarding){
           cacheValue(ESKILLS_ONBOARDING_KEY,false)
-        }
+          }
         analytics.sendPaymentSuccessEvent(eskillsPaymentData)}
         .subscribe()
     )
   }
 
   private fun handleTicketCreationResult(
-    eskillsUri: EskillsPaymentData, ticket: Ticket
+    eskillsUri: EskillsPaymentData,
+    ticket: Ticket
   ): Completable {
     return when (ticket) {
       is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
