@@ -20,7 +20,11 @@ class SkillsRankingsFragment : Fragment() {
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val SKU_KEY = "SKU_KEY"
     const val PACKAGE_NAME = "PACKAGE_NAME"
-    fun newInstance(userWalletAddress: String, packageName: String, sku: String): SkillsRankingsFragment {
+    fun newInstance(
+      userWalletAddress: String,
+      packageName: String,
+      sku: String
+    ): SkillsRankingsFragment {
       return SkillsRankingsFragment().apply {
         arguments = Bundle().apply {
           putString(WALLET_ADDRESS_KEY, userWalletAddress)
@@ -57,6 +61,4 @@ class SkillsRankingsFragment : Fragment() {
       )
     }.attach()
   }
-
-
 }
