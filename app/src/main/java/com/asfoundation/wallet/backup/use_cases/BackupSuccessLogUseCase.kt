@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.backup.use_cases
 
 import com.asfoundation.wallet.backup.repository.BackupRepository
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
