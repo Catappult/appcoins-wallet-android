@@ -11,8 +11,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryData
+import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryFragment
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
+import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
@@ -31,6 +34,7 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
   companion object {
     fun newInstance() = BackupWalletEntryFragment()
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val PASSWORD_KEY = "password"
   }
 
   private val viewModel: BackupEntryViewModel by viewModels()
@@ -43,7 +47,7 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    savedInstanceState: Bundle?,
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
@@ -52,7 +56,7 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
             BackupEntryRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
-              onNextClick = {navigateToBackupWalletEntry(navController())}
+              onNextClick = {navigateToBackupWalletEntry(viewModel.walletAddress, navController(), viewModel.password)}
             )
           }
         }
@@ -72,9 +76,15 @@ class BackupWalletEntryFragment : BasePageViewFragment() {
   }
 
   private fun navigateToBackupWalletEntry(
-    mainNavController: NavController
+    walletAddress: String,
+    mainNavController: NavController,
+    password: String
+
   ) {
-    mainNavController.navigate(R.id.action_backup_entry_to_screen_options)
+    val bundle = Bundle()
+    bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
+    bundle.putString(PASSWORD_KEY, password)
+    mainNavController.navigate(R.id.action_backup_entry_to_screen_options, args = bundle)
   }
 
 

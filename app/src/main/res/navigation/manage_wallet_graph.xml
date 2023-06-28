@@ -51,7 +51,14 @@
 
     <action
         android:id="@+id/action_backup_entry_to_screen_options"
-        app:destination="@id/backup_wallet_screen_options" />
+        app:destination="@id/backup_wallet_screen_options">
+        <argument
+            android:name="wallet_address"
+            app:argType="string" />
+      <argument
+          android:name="password"
+          app:argType="string" />
+    </action>
   </fragment>
 
   <fragment
