@@ -121,7 +121,7 @@ class RankingsContentFragment : Fragment() {
   }
 
   // process top 3 and return the original list minus that 3 players
-  private fun processTop3(players_score: Array<TopRankings>): Array<TopRankings> {
+  private fun processTop3(players_score: List<TopRankings>): List<TopRankings> {
     if (timeFrame === TimeFrame.ALL_TIME) {
       return players_score
     }
@@ -150,11 +150,11 @@ class RankingsContentFragment : Fragment() {
       populateTop3row(
         player3, thirdRowLayoutBinding.rankingUsername, thirdRowLayoutBinding.rankingScore
       )
-      return players_score.copyOfRange(3, players_score.size)
+      return players_score.subList(3, players_score.size)
     } else {
       showNotAttributed(thirdRowLayoutBinding.rankingUsername)
     }
-    return emptyArray()
+    return emptyList()
   }
 
   private fun populateTop3row(player: TopRankings, username: TextView, score: TextView) {
@@ -254,12 +254,12 @@ class RankingsContentFragment : Fragment() {
     recyclerView.visibility = View.GONE
   }
 
-  private fun updateRankingsList(rankings: Array<TopRankings>) {
+  private fun updateRankingsList(rankings: List<TopRankings>) {
     val items: List<RankingsItem> = ArrayList<RankingsItem>(mapPlayers(rankings))
     adapter.setRankings(items)
   }
 
-  private fun mapPlayers(players: Array<TopRankings>): List<UserRankingsItem> {
+  private fun mapPlayers(players: List<TopRankings>): List<UserRankingsItem> {
     val playersList: ArrayList<UserRankingsItem> = ArrayList()
     for (player in players) {
       playersList.add(

@@ -71,7 +71,6 @@
   <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
   <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
   <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
   <string name="restart_btn_text">Restart</string>
   <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
   <string name="opponent_details">(%1$s did %2$d points)</string>
