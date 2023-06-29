@@ -1,5 +1,6 @@
 package com.appcoins.wallet.feature.backup.ui.entry
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.NewBaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
@@ -32,6 +33,7 @@ class BackupEntryViewModel @Inject constructor(
 ) {
    lateinit var walletAddress: String
    var password : String = ""
+   val correctInputPassword = mutableStateOf(true)
 
    fun showBalance(walletAddress: String) {
     viewModelScope.launch {

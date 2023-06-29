@@ -566,7 +566,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           )
         }
 
-        item { WalletTextField(name) { newName -> name = newName } }
+        item { WalletTextField(name) { newName -> name = newName  } }
 
         item {
           ButtonWithText(

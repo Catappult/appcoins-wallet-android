@@ -3,14 +3,19 @@ package com.appcoins.wallet.feature.backup.ui.entry
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -39,8 +44,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogNavigator
-import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsNavigator
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -49,7 +52,10 @@ import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextField
+import com.appcoins.wallet.ui.widgets.component.WalletTextFieldPassword
 import javax.inject.Inject
+
+
 
 @Composable
 fun BackupEntryRoute(
@@ -77,7 +83,8 @@ fun BackupEntryRoute(
       walletAddress = viewModel.walletAddress,
       onPasswordChange = {password ->
         viewModel.password = password
-      }
+      },
+      viewModel = viewModel
     )
   }
 }
@@ -89,9 +96,10 @@ fun BackupEntryScreen(
   onExitClick: () -> Unit,
   onNextClick: () -> Unit,
   onPasswordChange : (password : String) -> Unit,
-  walletAddress: String
+  walletAddress: String,
+  viewModel: BackupEntryViewModel
 ) {
-    when (val balanceInfo = backupEntryState.balanceAsync) {
+   when (val balanceInfo = backupEntryState.balanceAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
         //TODO add wallet animation loading and change it to png or xml
@@ -99,14 +107,19 @@ fun BackupEntryScreen(
       }
       is Async.Success -> {
         Column (
-          Modifier.padding(scaffoldPadding),
-          horizontalAlignment = Alignment.Start
+          modifier = Modifier
+            .fillMaxSize(1f)
+            .padding(scaffoldPadding)
+            .verticalScroll(rememberScrollState()),
+          horizontalAlignment = Alignment.Start,
+
             ){
           Text(
             style = WalletTypography.bold.sp22,
             color = WalletColors.styleguide_light_grey,
             text = stringResource(id = R.string.backup_title),
-            modifier = Modifier.padding(
+            modifier = Modifier
+              .padding(
               top = 10.dp,
               bottom = 20.dp,
               start = 27.dp
@@ -115,16 +128,22 @@ fun BackupEntryScreen(
           Text(
             text = stringResource(id = R.string.backup_body),
             modifier = Modifier.padding(
-              bottom = 45.dp,
+              bottom = 30.dp,
               start = 27.dp
             ),
             style = WalletTypography.medium.sp14,
             color = WalletColors.styleguide_light_grey,
 
           )
-          BalanceCard("${balanceInfo.value?.amount} ${balanceInfo.value?.symbol}", walletAddress, onPasswordChange = onPasswordChange) //melhorar
-          BackupEntryButton(onNextClick)
-        }
+          BalanceCard(
+            "${balanceInfo.value?.amount}${balanceInfo.value?.symbol}",
+            walletAddress,
+            onPasswordChange = onPasswordChange,
+            viewModel = viewModel
+          )
+          Spacer(modifier = Modifier.weight(10f))
+          BackupEntryButtonPasswordsCorrect(onNextClick, viewModel = viewModel)
+          }
 
 
       }
@@ -133,12 +152,12 @@ fun BackupEntryScreen(
   }
 
 @Composable
-fun BalanceCard(balance : String, walletAddress: String, onPasswordChange: (password : String) -> Unit) {
+fun BalanceCard(balance : String, walletAddress: String, onPasswordChange: (password : String) -> Unit, viewModel: BackupEntryViewModel) {
   Card(
     elevation = CardDefaults.cardElevation(8.dp),
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier
-      .padding(8.dp)
+      .padding(16.dp)
       .fillMaxWidth(),
     colors = CardDefaults.cardColors(containerColor = Color(0xFF242333))
   ) {
@@ -163,7 +182,7 @@ fun BalanceCard(balance : String, walletAddress: String, onPasswordChange: (pass
 
       )
     }
-    BackupEntryPassword(onPasswordChange = onPasswordChange)
+    BackupEntryPassword(onPasswordChange = onPasswordChange, viewModel = viewModel)
       }
   }
 
@@ -171,21 +190,31 @@ fun BalanceCard(balance : String, walletAddress: String, onPasswordChange: (pass
 
 
 @Composable
-fun BackupEntryButton(
-  onNextClick: () -> Unit
+fun BackupEntryButtonPasswordsCorrect( // why it do not refresh?
+  onNextClick: () -> Unit,
+  viewModel: BackupEntryViewModel
+) {
+Column(
+  Modifier.padding(
+    start = 24.dp, end = 24.dp, bottom = 28.dp
+  )
 ) {
   ButtonWithText(
     label = stringResource(id = R.string.backup_wallet_button),
-    onClick = { onNextClick() },
-    backgroundColor = WalletColors.styleguide_pink,
+    onClick = {
+      if (viewModel.correctInputPassword.value) onNextClick() else {
+      }
+    },
+    backgroundColor = if (viewModel.correctInputPassword.value) WalletColors.styleguide_pink else WalletColors.styleguide_dark_grey,
     labelColor = WalletColors.styleguide_light_grey,
     buttonType = ButtonType.LARGE,
   )
 }
+}
 
 @Composable
-fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit) {
-  var switchON by rememberSaveable { mutableStateOf(true) }
+fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit, viewModel: BackupEntryViewModel) {
+  var switchON by rememberSaveable { mutableStateOf(false) }
     Column(
       modifier = Modifier
         .padding(18.dp)
@@ -206,13 +235,18 @@ fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit) {
             Text(
               text = stringResource(R.string.backup_additional_security_body),
               style = WalletTypography.regular.sp14,
-              modifier = Modifier.padding(bottom = 21.dp)
+              modifier = Modifier.padding(bottom = 21.dp),
+              color = WalletColors.styleguide_dark_grey,
             )
           }
-          Switch( // a false
-            modifier = Modifier.padding(end = 3.dp),
+
+          Switch(
+            modifier = Modifier.padding(end = 8.dp),
             checked = switchON,
-            onCheckedChange = { changedSwitch -> switchON = changedSwitch },
+            onCheckedChange = {
+                changedSwitch -> switchON = changedSwitch
+                viewModel.correctInputPassword.value = true
+                              },
             colors = SwitchDefaults.colors(
               checkedThumbColor = WalletColors.styleguide_pink,
               checkedTrackColor = WalletColors.styleguide_medium_grey,
@@ -226,16 +260,17 @@ fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit) {
           )
         }
       if(switchON){
-        switchModeTrue(onPasswordChange = onPasswordChange)
+        switchModeTrue(onPasswordChange = onPasswordChange, viewModel = viewModel)
       }
     }
   }
 
 
 @Composable
-private fun switchModeTrue(onPasswordChange: (password : String) -> Unit) {
-  var defaultPassword by rememberSaveable { mutableStateOf("Password") }
-  var defaultPassword2 by rememberSaveable { mutableStateOf("Repeat Password") }
+private fun switchModeTrue(onPasswordChange: (password : String) -> Unit, viewModel: BackupEntryViewModel) {
+  var defaultPassword by rememberSaveable { mutableStateOf("") }
+  var defaultPassword2 by rememberSaveable { mutableStateOf("") }
+
   AnimatedVisibility(
     visible = true,
     enter = fadeIn(),
@@ -245,14 +280,26 @@ private fun switchModeTrue(onPasswordChange: (password : String) -> Unit) {
       modifier = Modifier
         .fillMaxWidth()
     ) {
-      WalletTextField(value = defaultPassword,
+      WalletTextFieldPassword(value = defaultPassword,
         onValueChange = {  defaultPassword = it
         onPasswordChange(it)
-        }
+        },
+        hintText = R.string.password
       )
-      WalletTextField(value = defaultPassword2,
-        onValueChange = { defaultPassword2 = it }
+      WalletTextFieldPassword(value = defaultPassword2,
+        onValueChange = { defaultPassword2 = it },
+        hintText = R.string.repeat_password
       )
+      if (defaultPassword.isEmpty() || defaultPassword2.isEmpty()){
+        showPasswordError(false)
+        viewModel.correctInputPassword.value = false
+      }else if (defaultPassword.isNotEmpty() && defaultPassword != defaultPassword2){
+        showPasswordError(true)
+        viewModel.correctInputPassword.value = false
+      } else{
+        showPasswordError(false)
+        viewModel.correctInputPassword.value = true
+      }
       Row(
         verticalAlignment = Alignment.CenterVertically
       ) {
@@ -283,10 +330,21 @@ private fun switchModeTrue(onPasswordChange: (password : String) -> Unit) {
   }
 }
 
+@Composable
+private fun showPasswordError(shouldShow: Boolean) {
+
+  if (shouldShow) {
+    Text(text = stringResource(id = R.string.backup_additional_security_password_not_march),
+    style = WalletTypography.regular.sp12,
+    color = WalletColors.styleguide_red)
+  }
+}
+
 @Preview("screen")
 @Composable
 private fun BackupEntryScreenPreview() {
-  BalanceCard(balance = "sdf", walletAddress = "asd", onPasswordChange = {"password"})
+  //BalanceCard(balance = "sdf", walletAddress = "asd", onPasswordChange = {"password"}, viewModel = viewModel
+  //))
 }
 
 
