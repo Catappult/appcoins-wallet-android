@@ -1214,7 +1214,7 @@ Wallets</item>
   <string name="rewards_promo_code_status_active">Ενεργές</string>
   <string name="rewards_promo_code_status_expired">Έληξε</string>
   <string name="home_nft_title">Το AppCoins Wallet τώρα υποστηρίζει NFT</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Παιχνίδια Συμβατά με AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα παιχνίδι που είναι συμβατό με AppCoins και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>
   <string name="rewards_bonus_every_purchase_title">Απολαύστε ένα %s%% bonus σε κάθε αγορά</string>
@@ -1222,6 +1222,6 @@ Wallets</item>
   <string name="manage_wallet_wallet_changed_title">Wallet αλλάχθηκε</string>
   <string name="manage_wallet_change_active_wallet_title">Θέλετε να επιλέξετε αυτό το wallet;</string>
   <string name="manage_wallet_change_wallet_name_title">Αλλαγή ονόματος wallet</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">Επιλέξτε ένα όνομα για το wallet σας</string>
+  <string name="manage_wallet_my_wallet_address_title">Η Διεύθυνση Wallet Μου</string>
 </resources>
