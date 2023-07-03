@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
