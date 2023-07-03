@@ -68,6 +68,7 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoug
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
+import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
@@ -94,7 +95,8 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.clickedTransferItem.value = requireArguments().getInt(TRANSFER_KEY, SEND.ordinal)
+    if (viewModel.clickedTransferItem.value == null)
+      viewModel.clickedTransferItem.value = requireArguments().getInt(TRANSFER_KEY, SEND.ordinal)
   }
 
   @Composable
@@ -159,7 +161,7 @@ class TransferFundsFragment : BasePageViewFragment() {
             .fillMaxHeight(),
           verticalArrangement = Arrangement.SpaceBetween,
         ) {
-          when (viewModel.clickedTransferItem.value) {
+          when (viewModel.clickedTransferItem.value ?: TransferDestinations.SEND.ordinal) {
             SEND.ordinal -> {
               Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 NavigationCurrencies()
