@@ -9,22 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -121,6 +109,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         modifier = Modifier
           .padding(padding)
           .padding(horizontal = 16.dp)
+          .verticalScroll(rememberScrollState())
           .fillMaxHeight(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
@@ -167,8 +156,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       is Success -> {
         Column(
           modifier = Modifier
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState()),
+            .fillMaxHeight(),
           verticalArrangement = Arrangement.SpaceBetween,
         ) {
           when (viewModel.clickedTransferItem.value) {
@@ -294,17 +282,26 @@ class TransferFundsFragment : BasePageViewFragment() {
       modifier = Modifier
         .background(shape = CircleShape, color = styleguide_blue_secondary)
         .fillMaxWidth()
-        .padding(horizontal = 4.dp), horizontalArrangement = Arrangement.SpaceBetween
+        .padding(horizontal = 4.dp),
+      horizontalArrangement = Arrangement.SpaceEvenly
     ) {
       viewModel.currencyNavigationItems().forEach { item ->
-        val selected = viewModel.clickedCurrencyItem.value == item.destination.ordinal
-        ButtonWithText(
-          label = stringResource(item.label),
-          backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
-          labelColor = if (selected) styleguide_white else styleguide_medium_grey,
-          onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
-          textStyle = MaterialTheme.typography.bodySmall
-        )
+        Box(
+          modifier = Modifier
+            .weight(1f)
+            .fillMaxWidth()
+            .clickable { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
+          contentAlignment = Alignment.Center
+        ) {
+          val selected = viewModel.clickedCurrencyItem.value == item.destination.ordinal
+          ButtonWithText(
+            label = stringResource(item.label),
+            backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
+            labelColor = if (selected) styleguide_white else styleguide_medium_grey,
+            onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
+            textStyle = MaterialTheme.typography.bodySmall
+          )
+        }
       }
     }
   }
@@ -424,7 +421,7 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun SendButton() {
-    Column(Modifier.padding(bottom = 32.dp)) {
+    Column(Modifier.padding(vertical = 32.dp)) {
       ButtonWithText(
         label = stringResource(R.string.transfer_send_button),
         onClick = {
