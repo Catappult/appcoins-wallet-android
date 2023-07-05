@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@style/MaterialAppTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_dialog"
+    android:background="@drawable/rounded_dialog_dark"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
@@ -13,41 +14,50 @@
     >
 
   <ImageView
+      android:id="@+id/giftcard_image"
+      android:layout_width="56dp"
+      android:layout_height="43dp"
+      android:layout_marginTop="16dp"
+      android:src="@drawable/ic_giftcard"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/draggable_bar"
+      />
+
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_title"
+      style="@style/RedeemGiftBarText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="22dp"
+      android:text="@string/title_redeem"
+      android:textColor="@color/styleguide_white"
+      app:layout_constraintBottom_toBottomOf="@+id/giftcard_image"
+      app:layout_constraintStart_toEndOf="@+id/giftcard_image"
+      app:layout_constraintTop_toTopOf="@+id/giftcard_image"
+      />
+
+
+  <ImageView
       android:id="@+id/draggable_bar"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       android:src="@drawable/pull_up_home_bar"
-      />
-
-  <!--  Insert gift code: -->
-  <TextView
-      android:id="@+id/redeem_gift_bottom_sheet_title"
-      style="@style/RedeemGiftTitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/gift_card_title"
-      android:layout_marginTop="@dimen/big_margin"
-
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/redeem_gift_bottom_sheet_text_rectangle"
       android:layout_width="match_parent"
       android:layout_height="49dp"
-      android:layout_marginTop="14dp"
+      android:layout_marginTop="26dp"
       android:background="@drawable/rectangle_text_default_promo_code"
       android:paddingHorizontal="16dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_title"
+      app:layout_constraintTop_toBottomOf="@id/giftcard_image"
       >
 
     <EditText
@@ -62,6 +72,8 @@
         android:maxLines="1"
         android:maxLength="16"
         android:paddingEnd="@dimen/large_margin"
+        android:textColor="@color/styleguide_white"
+        android:textColorHint="@color/styleguide_dark_grey"
         app:layout_constraintBottom_toBottomOf="@id/redeem_gift_bottom_sheet_text_rectangle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/redeem_gift_bottom_sheet_text_rectangle"
@@ -74,7 +86,7 @@
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginTop="35dp"
-      app:buttonText="@string/action_next"
+      app:buttonText="@string/submit_button"
       app:buttonType="filled"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_text_rectangle"
       app:layout_constraintEnd_toEndOf="parent"
@@ -94,20 +106,21 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-
   <!--  Success messages: -->
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/redeem_gift_bottom_sheet_success_animation"
+  <ImageView
+      android:id="@+id/redeem_gift_bottom_sheet_success_image"
       android:layout_width="80dp"
       android:layout_height="80dp"
       android:layout_centerInParent="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/fade_in_create_wallet"
+      android:src="@drawable/ic_success"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.33333"
+      tools:visibility="visible"
       />
 
   <TextView
@@ -116,12 +129,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="12dp"
-      android:text="@string/gift_card_done_title"
+      android:text="@string/transaction_status_success"
       android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_success_subtitle"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_animation"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_image"
+      tools:visibility="visible"
       />
 
   <TextView
@@ -133,10 +147,12 @@
       android:text="@string/gift_card_done_body"
       android:textAlignment="center"
       android:visibility="gone"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_success_got_it_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
+      tools:visibility="visible"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -151,22 +167,42 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_subtitle"
+      tools:visibility="visible"
       />
 
-
-  <!--  Error messages: -->
+  <!--  Loading: -->
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/redeem_gift_bottom_sheet_error_animation"
-      android:layout_width="80dp"
-      android:layout_height="80dp"
+      android:id="@+id/redeem_gift_bottom_sheet_loading_animation"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
       android:layout_centerInParent="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/fade_in_create_wallet"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
       app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="48dp"
+      android:layout_marginBottom="32dp"
+      android:visibility="gone"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_autoPlay="true"
+      app:lottie_rawRes="@raw/loading_wallet"
+      tools:visibility="visible"
+      />
+
+  <!-- Error -->
+  <ImageView
+      android:id="@+id/redeem_gift_bottom_sheet_error_image"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_centerInParent="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="42dp"
+      android:visibility="gone"
+      android:src="@drawable/ic_error_pink"
       />
 
   <TextView
@@ -177,10 +213,12 @@
       android:layout_marginTop="12dp"
       android:text="@string/error_general"
       android:visibility="gone"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_error_subtitle"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_animation"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_image"
+      tools:visibility="visible"
       />
 
   <TextView
@@ -192,10 +230,12 @@
       android:text="@string/gift_card_error_general_body"
       android:textAlignment="center"
       android:visibility="gone"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_error_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
+      tools:visibility="visible"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -210,7 +250,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_subtitle"
+      tools:visibility="visible"
       />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
