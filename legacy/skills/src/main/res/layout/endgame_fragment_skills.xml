@@ -28,7 +28,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card"
-        android:layout_width="304dp"
+        android:layout_width="800dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_card_bottom_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,12 +37,19 @@
         app:layout_constraintTop_toBottomOf="@id/appcoins_header"
         >
 
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.4"
+          />
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/lottie_animation"
           android:layout_width="0dp"
           android:layout_height="152dp"
           android:layout_margin="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:lottie_autoPlay="true"
@@ -59,7 +66,7 @@
           android:layout_marginTop="@dimen/big_margin"
           android:maxLines="1"
           android:text="@string/waiting_for_opponents_to_finish"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toEndOf="@id/lottie_animation"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/lottie_animation"
           />
@@ -80,65 +87,80 @@
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/ranking_recycler_view"
-          android:layout_width="280dp"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
           android:background="@drawable/background_card"
           android:backgroundTint="@color/background_brown"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/secondary_message"
+          app:layout_constraintStart_toEndOf="@id/guideline"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/buttons_container"
           />
-
-      <Button
-          android:id="@+id/restart_button"
-          style="@style/ButtonStyle"
-          android:layout_width="match_parent"
-          android:layout_height="36dp"
-          android:layout_marginStart="32dp"
-          android:layout_marginTop="@dimen/big_margin"
-          android:layout_marginEnd="32dp"
-          android:text="@string/restart_btn_text"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/ranking_recycler_view"
-          />
-
       <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/leaderboard_constraint"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="32dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="32dp"
-          android:layout_marginBottom="16dp"
-          app:layout_constraintBottom_toBottomOf="parent"
+          android:id="@+id/buttons_container"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/big_margin"
+          android:layout_marginTop="@dimen/small_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          app:layout_constraintStart_toEndOf="@id/guideline"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/restart_button">
+          app:layout_constraintBottom_toBottomOf="parent"
+          >
 
-        <!-- Your button -->
         <Button
-            android:id="@+id/rankings_button"
+            android:id="@+id/restart_button"
             style="@style/ButtonStyle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginVertical="@dimen/big_margin"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:text="@string/restart_btn_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/leaderboard_constraint"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leaderboard_constraint"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/leaderboard_btn_text"
+            android:layout_marginVertical="@dimen/big_margin"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0" />
-        <ImageView
-            android:id="@+id/sticker_image"
-            android:layout_width="54dp"
-            android:layout_height="50dp"
-            android:elevation="100dp"
-            android:src="@drawable/new_sticker"
-            app:layout_constraintBottom_toBottomOf="@id/rankings_button"
-            app:layout_constraintEnd_toEndOf="@id/rankings_button"
-            />
-      </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@id/restart_button"
+            >
 
+
+          <!-- Your button -->
+          <Button
+              android:id="@+id/rankings_button"
+              style="@style/ButtonStyle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/leaderboard_btn_text"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintVertical_bias="0"
+              />
+          <ImageView
+              android:id="@+id/sticker_image"
+              android:layout_width="54dp"
+              android:layout_height="50dp"
+              android:elevation="100dp"
+              android:layout_marginBottom="@dimen/big_margin"
+              android:src="@drawable/new_sticker"
+              app:layout_constraintBottom_toBottomOf="@id/rankings_button"
+              app:layout_constraintEnd_toEndOf="@id/rankings_button"
+              />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <Button
           android:id="@+id/retry_button"
           style="@style/ButtonStyle"
