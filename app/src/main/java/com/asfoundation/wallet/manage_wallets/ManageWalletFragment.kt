@@ -147,7 +147,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         }
 
         WalletCreated -> {
-          Toast.makeText(context, R.string.manage_wallet_wallet_created_title, Toast.LENGTH_SHORT)
+          Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT)
             .show()
         }
 
@@ -345,21 +345,12 @@ class ManageWalletFragment : BasePageViewFragment() {
         ManagementOptionsContent(
           inactiveWalletsQuantity,
           { bottomSheetContent = NEW_WALLET_CONTENT_ID }) {
-          scope
-            .launch { bottomSheetState.hide() }
-            .invokeOnCompletion {
-              openBottomSheet = !openBottomSheet
-            }
+          scope.launch { bottomSheetState.hide() }
+          myWalletsNavigator.navigateToManageWalletNameBottomSheet(navController = navController())
         }
       } else {
-        CreateWalletContent {
-          scope
-            .launch { bottomSheetState.hide() }
-            .invokeOnCompletion {
-              bottomSheetContent = OPTIONS_CONTENT_ID
-              openBottomSheet = !openBottomSheet
-            }
-        }
+        openBottomSheet = !openBottomSheet
+        myWalletsNavigator.navigateToManageWalletNameBottomSheet(navController = navController())
       }
     }
   }
@@ -600,7 +591,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
-  @Composable
+ /* @Composable
   fun CreateWalletContent(onClickButton: () -> Unit) {
     var name by remember { mutableStateOf("") }
 
@@ -626,7 +617,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         buttonType = ButtonType.LARGE
       )
     }
-  }
+  }*/
 
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =

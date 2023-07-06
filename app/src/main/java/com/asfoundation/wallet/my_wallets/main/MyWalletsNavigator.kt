@@ -40,6 +40,11 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
+
+  fun navigateToManageWalletNameBottomSheet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_manage_name_wallet_bottom_sheet)
+  }
+
   fun navigateToName(
     walletAddress: String,
     walletName: String,
