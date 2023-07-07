@@ -32,31 +32,16 @@
       android:letterSpacing="0.01"
       android:lineSpacingExtra="6sp"
       android:text="@string/backup_save_dialogue_title"
-      android:textColor="@color/styleguide_blue"
+      android:textColor="@color/white"
       android:textSize="18sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/draggable_bar"
       />
-  <TextView
-      android:id="@+id/dialog_subtitle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/big_margin"
-      android:layout_marginTop="@dimen/small_margin"
-      android:ellipsize="end"
-      android:fontFamily="sans-serif"
-      android:letterSpacing="0.01"
-      android:lineSpacingExtra="6sp"
-      android:text="@string/backup_save_dialogue_body"
-      android:textColor="@color/styleguide_dark_grey"
-      android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/dialog_title"
-      />
+
+  <!-- string issue on both textview -->
+
 
   <TextView
       android:id="@+id/store_path"
@@ -74,7 +59,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/dialog_subtitle"
+      app:layout_constraintTop_toBottomOf="@id/dialog_title"
       tools:text="/storage/downloads/backup"
       tools:visibility="visible"
       />
@@ -85,6 +70,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="12dp"
+      app:textFieldColor="@color/light_gray"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/store_path"
@@ -92,32 +78,17 @@
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
-      android:id="@+id/backup_cancel"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
-      android:layout_marginHorizontal="@dimen/big_margin"
-      app:buttonText="@string/cancel_button"
-      app:buttonType="text"
-      app:layout_constraintBottom_toBottomOf="@+id/backup_save"
-      app:layout_constraintEnd_toStartOf="@+id/backup_save"
-      app:layout_constraintHorizontal_bias="1.0"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/backup_save"
-      />
-
-  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/backup_save"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="@dimen/small_button_height"
-      android:layout_marginTop="22dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginStart="24dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_margin"
       app:buttonText="@string/action_save"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/backup_cancel"
       app:layout_constraintTop_toBottomOf="@+id/file_name_input"
       />
 

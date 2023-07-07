@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.feature.backup.ui.R
-import com.appcoins.wallet.feature.backup.ui.databinding.BackupSaveOnDeviceDialogFragmentBinding
+//import com.appcoins.wallet.feature.backup.ui.databinding.BackupSaveOnDeviceDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +35,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
   private val viewModel: BackupSaveOnDeviceDialogViewModel by viewModels()
-  private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
+ // private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
@@ -67,7 +67,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
         data.data?.let {
           val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
           lifecycleScope.launch {
-            viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+         //   viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
           }
         }
       }
@@ -77,16 +77,18 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     ) { isGranted ->
       if (isGranted) {
         lifecycleScope.launch {
-          viewModel.saveBackupFile(views.fileNameInput.getText())
+       //   viewModel.saveBackupFile(views.fileNameInput.getText())
         }
       }
     }
   }
-
+/*
   override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
   ): View = BackupSaveOnDeviceDialogFragmentBinding.inflate(layoutInflater).root
+
+
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -107,6 +109,8 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
+ */
+
   override fun onStart() {
     val behavior = BottomSheetBehavior.from(requireView().parent as View)
     behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -116,12 +120,12 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
-    state.fileName()?.also { setFileName(it) }
-    setFilePath(state.downloadsPath)
+   // state.fileName()?.also { setFileName(it) }
+  //  setFilePath(state.downloadsPath)
   }
 
-  private fun setFileName(fileName: String) = views.fileNameInput.setText(fileName)
-
+  //private fun setFileName(fileName: String) = views.fileNameInput.setText(fileName)
+/*
   private fun setFilePath(downloadsPath: String?) {
     if (downloadsPath != null) {
       views.storePath.text = downloadsPath
@@ -130,6 +134,8 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
       views.storePath.visibility = View.GONE
     }
   }
+
+ */
 
   override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) =
       when (sideEffect) {

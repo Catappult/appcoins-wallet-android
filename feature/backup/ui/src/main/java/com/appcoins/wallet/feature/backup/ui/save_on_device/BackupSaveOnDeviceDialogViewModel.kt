@@ -43,12 +43,9 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
 ) {
 
   companion object {
-    private val downloadsPath = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-      @Suppress("DEPRECATION")
+    private val downloadsPath =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-    } else {
-      null
-    }
+
 
     fun initialState(savedStateHandle: SavedStateHandle) =
       savedStateHandle.run {
@@ -83,7 +80,6 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
       viewModelScope.launch {
         saveBackupFileUseCase(state.walletAddress, state.walletPassword, fileName, filePath)
         backupSuccessLogUseCase(state.walletAddress)
-        sendSideEffect { BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess(state.walletAddress) }
       }
     } catch (e: Exception) {
       showError(e)

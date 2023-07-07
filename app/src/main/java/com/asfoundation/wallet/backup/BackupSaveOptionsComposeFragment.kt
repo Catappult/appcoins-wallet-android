@@ -15,6 +15,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsSideEffect
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsState
@@ -26,14 +28,21 @@ import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetState
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
+import com.asfoundation.wallet.wallet_reward.RewardFragmentDirections
+import com.asfoundation.wallet.wallet_reward.RewardNavigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
+class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect>,
+Navigator{
+
   @Inject
   lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
+  lateinit var navigator: BackupSaveOptionsNavigator
 
   companion object {
     fun newInstance() = BackupSaveOptionsComposeFragment()
@@ -58,15 +67,13 @@ class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFrag
 
       }
       is Async.Fail -> {
-       // showErrorMessage(FailedRedeem.GenericError(""))
+       // showErrorMessage()
       }
       is Async.Success -> {
         state.saveOptionAsync.value?.let { successRequest ->
           if (successRequest)
-            navigateToBackupWalletSuccess(navController())
-         // else
-            //showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
-        }
+            navigator.showWalletSuccessScreen()
+       }
       }
     }
   }
@@ -80,9 +87,10 @@ class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFrag
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSaveOptionsRoute(
-              onExitClick = { handleBackPress() },
+              onExitClick = { navigator.handleBackPress() },
               onChatClick = { displayChat() },
-              onSendEmailClick = {navigateToBackupWalletSuccess(navController())}
+              onSendEmailClick = {navigator.showWalletSuccessScreen()},
+              onSaveOnDevice = { navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password, navController()) }
             )
           }
         }
@@ -90,21 +98,11 @@ class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFrag
     }
   }
 
-  private fun handleBackPress() {
-    navController().popBackStack()
-  }
-
   private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
       R.id.main_host_container
     ) as NavHostFragment
     return navHostFragment.navController
-  }
-
-  private fun navigateToBackupWalletSuccess(
-    mainNavController: NavController
-  ) {
-    mainNavController.navigate(R.id.backup_wallet_success_screen)
   }
 
   override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) {

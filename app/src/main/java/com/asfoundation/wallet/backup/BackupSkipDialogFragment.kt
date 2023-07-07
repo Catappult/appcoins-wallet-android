@@ -46,7 +46,8 @@ class BackupSkipDialogFragment : BasePageViewFragment() {
             BackupSaveOptionsRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
-              onSendEmailClick = {}
+              onSendEmailClick = {},
+              onSaveOnDevice = {}
 
             )
           }

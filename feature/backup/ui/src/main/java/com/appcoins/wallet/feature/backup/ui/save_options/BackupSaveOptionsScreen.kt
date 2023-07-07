@@ -44,6 +44,7 @@ import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryScreen
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryState
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
 import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogRoute
+import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogViewModel
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -61,6 +62,7 @@ fun BackupSaveOptionsRoute(
   onExitClick: () -> Unit,
   onChatClick: () -> Unit,
   onSendEmailClick: () ->Unit,
+  onSaveOnDevice: () -> Unit,
   viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
 ) {
   val backupSaveOptionsState by viewModel.stateFlow.collectAsState()
@@ -77,6 +79,7 @@ fun BackupSaveOptionsRoute(
       scaffoldPadding = padding,
       onExitClick = onExitClick,
       onSendEmailClick = { viewModel.sendBackupToEmail(passwordInput) },
+      onSaveOnDevice = onSaveOnDevice
     )
   }
 }
@@ -85,6 +88,7 @@ fun BackupSaveOptionsRoute(
 fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
   backupSaveOptionsState: BackupSaveOptionsState,
+  onSaveOnDevice: () -> Unit,
   onExitClick: () -> Unit,
   onSendEmailClick: () ->Unit,
 
@@ -122,6 +126,7 @@ fun BackupSaveOptionsScreen(
     SaveOnDeviceOptions(
       onSendEmailClick,
       onExitClick = onExitClick,
+      onSaveOnDevice = onSaveOnDevice,
     )
 
 
@@ -163,6 +168,7 @@ fun SaveOnDeviceCardDefault(){
 @Composable
 fun SaveOnDeviceOptions(
   onSendEmailClick: () -> Unit,
+  onSaveOnDevice: () -> Unit,
   onExitClick: () -> Unit,
 ) {
   var defaultEmail by rememberSaveable { mutableStateOf("") }
@@ -232,6 +238,7 @@ fun SaveOnDeviceOptions(
       ButtonWithText(
         label = "SEND BACKUP", // -> problema com as strings trocar padding???
         onClick = {
+          onSaveOnDevice()
         },
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.LARGE,

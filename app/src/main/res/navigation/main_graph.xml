@@ -158,6 +158,9 @@
     <action
         android:id="@+id/action_backup_options_to_success_screen"
         app:destination="@id/backup_wallet_success_screen" />
+    <action
+        android:id="@+id/action_backup_options_to_save_on_device"
+        app:destination="@id/backup_save_on_device" />
   </fragment>
 
   <fragment
@@ -168,5 +171,20 @@
         android:id="@+id/action_success_screen_back_to_manage_wallets"
         app:destination="@id/action_navigate_to_manage_wallet" />
   </fragment>
+  <dialog
+      android:id="@+id/backup_save_on_device"
+      android:name="com.asfoundation.wallet.backup.BottomSheet.BackupSaveOnDeviceBottomSheetFragment"
+      tools:layout="@layout/backup_save_on_device_dialog_fragment">
+
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+
+    <argument
+        android:name="password"
+        app:argType="string" />
+
+
+  </dialog>
 
 </navigation>

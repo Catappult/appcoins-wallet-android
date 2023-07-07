@@ -18,17 +18,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -44,6 +49,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.backup.ui.BackupDialogCardAlertBottomSheet
+
+import com.appcoins.wallet.feature.backup.ui.BackupErrorScreen
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -56,7 +64,7 @@ import com.appcoins.wallet.ui.widgets.component.WalletTextFieldPassword
 import javax.inject.Inject
 
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupEntryRoute(
   onExitClick: () -> Unit,
@@ -65,7 +73,7 @@ fun BackupEntryRoute(
   viewModel: BackupEntryViewModel = hiltViewModel(),
 
 ) {
-
+  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
   val backupEntryState by viewModel.stateFlow.collectAsState()
   Scaffold(
     topBar = {
@@ -84,11 +92,12 @@ fun BackupEntryRoute(
       onPasswordChange = {password ->
         viewModel.password = password
       },
-      viewModel = viewModel
+      viewModel = viewModel,
+      bottomSheetState = bottomSheetState
     )
   }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupEntryScreen(
   scaffoldPadding: PaddingValues,
@@ -97,8 +106,23 @@ fun BackupEntryScreen(
   onNextClick: () -> Unit,
   onPasswordChange : (password : String) -> Unit,
   walletAddress: String,
-  viewModel: BackupEntryViewModel
+  viewModel: BackupEntryViewModel,
+  bottomSheetState: SheetState
 ) {
+  var openBottomSheet by rememberSaveable{ mutableStateOf(true) }
+  if(openBottomSheet) {
+    ModalBottomSheet(
+      onDismissRequest = {
+        openBottomSheet = false
+      },
+      sheetState = bottomSheetState,
+      containerColor = WalletColors.styleguide_blue
+    ) {
+      BackupDialogCardAlertBottomSheet(
+        onExitClick = {openBottomSheet = false}
+      )
+    }
+  }
    when (val balanceInfo = backupEntryState.balanceAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
