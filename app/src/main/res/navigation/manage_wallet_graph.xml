@@ -29,6 +29,9 @@
     <action
         android:id="@+id/action_navigate_to_manage_name_wallet_bottom_sheet"
         app:destination="@id/manage_wallet_name_bottom_sheet" />
+    <action
+        android:id="@+id/action_navigate_to_receive_funds"
+        app:destination="@id/receive_funds_fragment" />
   </fragment>
 
   <dialog
@@ -83,4 +86,11 @@
         app:argType="boolean" />
   </activity>
 
+  <fragment
+      android:id="@+id/receive_funds_fragment"
+      android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
+    <argument
+        android:name="entry_screen_selected"
+        app:argType="integer" />
+  </fragment>
 </navigation>

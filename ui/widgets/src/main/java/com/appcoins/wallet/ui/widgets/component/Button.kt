@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -74,20 +75,20 @@ fun ButtonWithText(
   backgroundColor: Color = Color.Transparent,
   labelColor: Color,
   outlineColor: Color? = null,
-  buttonType: ButtonType = DEFAULT
+  buttonType: ButtonType = DEFAULT,
+  textStyle: TextStyle = MaterialTheme.typography.bodyMedium
 ) {
   val modifier = if (buttonType == LARGE) Modifier.fillMaxWidth() else Modifier
   Button(
     onClick = { onClick.invoke() },
-    modifier = modifier
-      .defaultMinSize(minHeight = 40.dp),
+    modifier = modifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
     Text(
       text = label,
-      style = MaterialTheme.typography.bodyMedium,
+      style = textStyle,
       color = labelColor,
       fontWeight = FontWeight.Bold
     )
