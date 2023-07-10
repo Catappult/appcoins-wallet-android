@@ -112,6 +112,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     } else {
       requireActivity().finish()
     }
+    viewModel.fetchPromotions()
   }
 
   override fun onPause() {

@@ -351,7 +351,7 @@ class TransferFundsFragment : BasePageViewFragment() {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
             contentDescription = R.string.scan_qr,
-            onClick = {},
+            onClick = { transferNavigator.showQrCodeScreen() },
             paddingIcon = 4.dp,
             background = styleguide_blue_secondary
           )
