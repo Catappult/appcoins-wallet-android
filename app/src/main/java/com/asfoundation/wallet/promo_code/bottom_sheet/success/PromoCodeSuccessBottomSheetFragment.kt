@@ -34,7 +34,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     private const val PROMO_CODE = "promo_code"
 
     @JvmStatic
-    fun newInstance(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode): PromoCodeSuccessBottomSheetFragment {
+    fun newInstance(promoCode: PromoCode): PromoCodeSuccessBottomSheetFragment {
       return PromoCodeSuccessBottomSheetFragment()
         .apply {
           arguments = Bundle().apply {
@@ -52,7 +52,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    showSuccess(requireArguments().getSerializable(PROMO_CODE) as com.appcoins.wallet.feature.promocode.data.repository.PromoCode)
+    showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
     views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener { navigator.navigateBack() }
   }
 
@@ -71,21 +71,21 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onSideEffect(sideEffect: SideEffect) = Unit
 
   @SuppressLint("StringFormatMatches")
-  private fun showSuccess(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode) {
-    views.promoCodeBottomSheetSuccessAnimation.visibility = View.VISIBLE
-    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
-    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
-    views.promoCodeBottomSheetSuccessAnimation.repeatCount = 0
-    views.promoCodeBottomSheetSuccessAnimation.playAnimation()
+  private fun showSuccess(promoCode: PromoCode) {
+    views.promoCodeBottomSheetSuccessImage.visibility = View.VISIBLE
     if (promoCode.appName != null) {
       views.promoCodeBottomSheetSuccessSubtitle.text =
         this.getString(
-          R.string.promo_code_success_body_specific_app, promoCode.bonus.toString(),
+          R.string.promo_code_success_body_specific_app,
+          promoCode.bonus?.toInt().toString(),
           promoCode.appName
         )
     } else {
       views.promoCodeBottomSheetSuccessSubtitle.text =
-        this.getString(R.string.promo_code_success_body, promoCode.bonus.toString())
+        this.getString(
+          R.string.promo_code_success_body,
+          promoCode.bonus?.toInt().toString()
+        )
     }
   }
 }
