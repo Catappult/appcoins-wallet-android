@@ -30,6 +30,7 @@
   <color name="styleguide_white_transparent_80">#CCFFFFFF</color>
   <color name="styleguide_white_transparent_20">#33FFFFFF</color>
   <color name="styleguide_white_transparent_10">#1AFFFFFF</color>
+  <color name="styleguide_medium_grey_transparent_50">#88DDDDDD</color>
   <color name="styleguide_red_transparent_40">#66E02D3E</color>
 
   <!-- Default Android colors -->
