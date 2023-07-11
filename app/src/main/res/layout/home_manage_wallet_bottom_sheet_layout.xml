@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_manage_wallet_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_black"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+     android:id="@+id/manage_wallet_img"
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      android:layout_gravity="center_vertical"
+      android:src="@drawable/ic_manage_wallet"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginHorizontal="22dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/manage_wallet_button"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/manage_wallet_img"
+      app:layout_constraintStart_toEndOf="@id/manage_wallet_img"
+      app:layout_constraintTop_toTopOf="@id/manage_wallet_img"
+      />
+
+
+  <ImageView
+      android:id="@+id/recover_wallet_icon"
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="24dp"
+      android:src="@drawable/ic_recover_wallet"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/manage_wallet_img"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginHorizontal="22dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/my_wallets_action_recover_wallet"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/recover_wallet_icon"
+      app:layout_constraintStart_toEndOf="@id/recover_wallet_icon"
+      app:layout_constraintTop_toTopOf="@id/recover_wallet_icon"
+      />
+
+  <ImageView
+      android:id="@+id/backup_wallet_icon"
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="24dp"
+      android:src="@drawable/ic_backup_white"
+      android:backgroundTint="@color/styleguide_pink"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/recover_wallet_icon"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginHorizontal="22dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/my_wallets_action_backup_wallet"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/backup_wallet_icon"
+      app:layout_constraintStart_toEndOf="@id/backup_wallet_icon"
+      app:layout_constraintTop_toTopOf="@id/backup_wallet_icon"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
