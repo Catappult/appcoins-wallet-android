@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="visible"
+    android:animateLayoutChanges="true"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/container_referral"
       android:layout_width="match_parent"
       android:layout_height="160dp"
-      android:animateLayoutChanges="true"
       android:background="@drawable/background_referral"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -22,10 +22,10 @@
       android:id="@+id/referral_title"
       style="@style/TextAppearance.AppCompat.Title"
       android:textColor="@color/black"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/refer_a_friend_waiting_room_title"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/friends_icon"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/container_referral"
       android:layout_marginStart="@dimen/big_margin"
@@ -36,13 +36,15 @@
       android:id="@+id/referral_body"
       style="@style/BlackTextStyle"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
       android:text="@string/refer_a_friend_waiting_from_body"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toStartOf="@id/friends_icon"
       app:layout_constraintTop_toBottomOf="@id/referral_title"
+      app:layout_constraintBottom_toTopOf="@id/code_background"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginTop="@dimen/small_margin"
+      android:layout_marginBottom="@dimen/small_margin"
       />
   <ImageView
       android:id="@+id/friends_icon"
@@ -53,6 +55,7 @@
       android:contentDescription="@null"
       android:src="@mipmap/ic_referral_image_foreground"
       app:layout_constraintBottom_toBottomOf="@id/code_background"
+      app:layout_constraintStart_toEndOf="@id/referral_body"
       app:layout_constraintEnd_toEndOf="@id/code_background"
       />
   <androidx.constraintlayout.widget.ConstraintLayout
