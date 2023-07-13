@@ -23,6 +23,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asfoundation.wallet.billing.gameshub.GamesHubBroadcastService
 import com.asfoundation.wallet.ui.iab.*
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -293,7 +294,7 @@ class AdyenPaymentPresenter(
         .flatMapCompletable {
           when {
             it.status == COMPLETED -> {
-              sendPaymentSuccessEvent()
+              sendPaymentSuccessEvent(it.uid)
               createBundle(it.hash, it.orderReference, it.purchaseUid)
                 .doOnSuccess {
                   sendPaymentEvent()
@@ -644,16 +645,18 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun sendPaymentSuccessEvent() {
+  private fun sendPaymentSuccessEvent(txId: String) {
     disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         analytics.sendPaymentSuccessEvent(
-          transactionBuilder.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          mapPaymentToAnalytics(paymentType),
-          transaction.type
+          packageName = transactionBuilder.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = mapPaymentToAnalytics(paymentType),
+          transactionType = transaction.type,
+          txId = txId,
+          valueUsd = transaction.amountUsd.toString()
         )
       }
       .subscribe({}, { it.printStackTrace() })

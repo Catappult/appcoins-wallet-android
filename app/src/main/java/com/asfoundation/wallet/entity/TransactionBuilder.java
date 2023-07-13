@@ -7,6 +7,7 @@ import com.asfoundation.wallet.repository.TokenRepository;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
 
@@ -481,5 +482,13 @@ public class TransactionBuilder implements Parcelable {
 
   public void setTrialPeriod(String trialPeriod) {
     this.trialPeriod = trialPeriod;
+  }
+
+  public BigDecimal getAmountUsd() {
+    return convertAppcToUsd(this.amount);
+  }
+
+  public static BigDecimal convertAppcToUsd(BigDecimal amount) {
+    return amount.divide(new BigDecimal(100), RoundingMode.HALF_UP);
   }
 }

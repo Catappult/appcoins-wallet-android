@@ -1,11 +1,17 @@
 package com.asfoundation.wallet.billing.analytics
 
+import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
+import com.asfoundation.wallet.billing.gameshub.GamesHubBroadcastService
+import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 @BoundTo(supertype = EventSender::class)
-class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManager) : EventSender {
+class BillingAnalytics @Inject constructor(
+  private val analytics: AnalyticsManager,
+  @ApplicationContext private val context: Context
+  ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
     skuDetails: String?,
@@ -175,11 +181,19 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
 
   override fun sendPaymentSuccessEvent(
     packageName: String, skuDetails: String?, value: String,
-    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
+    purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
+    txId: String, valueUsd: String  // TODO remove the "" and implement on other payment methods
   ) {
     val eventData: Map<String, Any?> = createConclusionRakamEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_SUCCESS, isOnboardingPayment
+    )
+    GamesHubBroadcastService.sendSuccessPaymentBroadcast(
+      context,
+      txId = txId,
+      packageName = packageName,
+      usdAmount = valueUsd,
+      appcAmount = value
     )
     analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }

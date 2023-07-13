@@ -223,7 +223,7 @@ class PayPalIABViewModel @Inject constructor(
     purchaseUid: String?,
     transactionBuilder: TransactionBuilder
   ) {
-    sendPaymentSuccessEvent(transactionBuilder)
+    sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
     createSuccessBundleUseCase(
       transactionBuilder.type,
       transactionBuilder.domain,
@@ -285,16 +285,18 @@ class PayPalIABViewModel @Inject constructor(
     )
   }
 
-  private fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder) {
+  private fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder, txId: String) {
     compositeDisposable.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         analytics.sendPaymentSuccessEvent(
-          transactionBuilder.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
-          transaction.type
+          packageName = transactionBuilder.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          transactionType = transaction.type,
+          txId = txId,
+          valueUsd = transaction.amountUsd.toString()
         )
       }
       .subscribe({}, { it.printStackTrace() })

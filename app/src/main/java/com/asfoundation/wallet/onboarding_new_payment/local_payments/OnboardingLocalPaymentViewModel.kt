@@ -131,11 +131,13 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.COMPLETED -> {
                         stopTransactionStatusTimer()
                         events.sendPaymentConclusionEvents(
-                            BuildConfig.APPLICATION_ID,
-                            args.transactionBuilder.skuId,
-                            args.transactionBuilder.amount(),
-                            args.transactionBuilder.type,
-                            args.transactionBuilder.chainId.toString()
+                            packageName = BuildConfig.APPLICATION_ID,
+                            skuId = args.transactionBuilder.skuId,
+                            amount = args.transactionBuilder.amount(),
+                            type = args.transactionBuilder.type,
+                            paymentId = args.transactionBuilder.chainId.toString(),
+                            txId = uid,
+                            amountUsd = args.transactionBuilder.amountUsd
                         )
                         sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
                     }
