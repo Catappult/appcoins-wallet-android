@@ -62,7 +62,7 @@ class IndicativeAnalytics @Inject constructor(
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
     superProperties.put(
       AnalyticsLabels.APTOIDE_PACKAGE,
-      packageInfo.versionName
+      packageInfo.packageName
     )
     superProperties.put(AnalyticsLabels.VERSION_CODE, packageInfo.versionCode)
     superProperties.put(
