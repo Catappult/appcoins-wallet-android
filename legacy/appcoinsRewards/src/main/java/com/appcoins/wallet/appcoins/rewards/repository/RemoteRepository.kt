@@ -13,5 +13,5 @@ interface RemoteRepository {
 
   fun sendCredits(toWallet: String, walletAddress: String, signature: String, amount: BigDecimal,
                   origin: String,
-                  type: String, packageName: String): Completable
+                  type: String, packageName: String): Single<Transaction>
 }

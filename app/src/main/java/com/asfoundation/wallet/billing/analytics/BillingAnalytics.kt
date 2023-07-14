@@ -182,7 +182,7 @@ class BillingAnalytics @Inject constructor(
   override fun sendPaymentSuccessEvent(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
-    txId: String, valueUsd: String  // TODO remove the "" and implement on other payment methods
+    txId: String, valueUsd: String
   ) {
     val eventData: Map<String, Any?> = createConclusionRakamEventMap(
       packageName, skuDetails, value, purchaseDetails,

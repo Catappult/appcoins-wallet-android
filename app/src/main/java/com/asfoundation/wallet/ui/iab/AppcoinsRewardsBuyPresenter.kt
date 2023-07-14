@@ -133,11 +133,11 @@ class AppcoinsRewardsBuyPresenter(
             }
         } else {
           rewardsManager.getTransaction(packageName, sku, amount).firstOrError()
-            .map(Transaction::txId).flatMapCompletable { transactionId ->
+            .flatMapCompletable { transactionModel ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-                .andThen(Completable.fromAction { view.finish(transactionId) })
+                .andThen(Completable.fromAction { view.finish(transactionModel.txId, transactionModel.txId ?: "") })
             }
         }
       }
