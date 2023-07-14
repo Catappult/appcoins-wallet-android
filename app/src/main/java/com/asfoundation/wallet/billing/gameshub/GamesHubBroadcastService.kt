@@ -25,7 +25,7 @@ class GamesHubBroadcastService {
     ) {
       Log.d(
         GAMES_HUB_BROADCAST,
-        "$KEY_TXID = $txId, $KEY_PACKAGE_NAME = $packageName, $KEY_USD_AMOUNT = $usdAmount, $KEY_APPC_AMOUNT = $appcAmount"
+        "$KEY_TXID = $txId, $KEY_PACKAGE_NAME = $packageName, $KEY_USD_AMOUNT = $usdAmount"
       )
       val intent = Intent(
         "${MiscProperties.GAMESHUB_PACKAGE}.${MiscProperties.GAMESHUB_BROADCAST_IAP_ACTION}"
@@ -34,7 +34,7 @@ class GamesHubBroadcastService {
       intent.putExtra(KEY_TXID, txId)
       intent.putExtra(KEY_PACKAGE_NAME, packageName)
       intent.putExtra(KEY_USD_AMOUNT, usdAmount)
-      intent.putExtra(KEY_APPC_AMOUNT, appcAmount)
+//      intent.putExtra(KEY_APPC_AMOUNT, appcAmount)
       context.sendBroadcast(intent)
     }
   }
