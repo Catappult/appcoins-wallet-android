@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wallet_name_bottom_sheet_layout"
+    android:theme="@style/MaterialAppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_black"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
+  <TextView
+      android:id="@+id/manage_wallet_bottom_sheet_title"
+      style="@style/PromoCodeTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:textColor="@color/styleguide_light_grey"
+      android:textStyle="bold"
+      android:text="@string/manage_wallet_set_a_name_button"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+    <com.appcoins.wallet.ui.widgets.WalletTextFieldView
+        android:id="@+id/text_wallet_name_bottom_sheet_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:maxLines="1"
+        android:maxLength="16"
+        android:background="@color/styleguide_blue_secondary"
+        app:textFieldColor="@color/white"
+        app:textFieldHint="@string/mywallet_choose_name_field"
+        app:textFieldType="outlined"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manage_wallet_bottom_sheet_title"
+        />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/manage_wallet_bottom_sheet_submit_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/carrier_billing_submit_button"
+      app:buttonType="filled"
+      app:layout_constraintTop_toBottomOf="@id/text_wallet_name_bottom_sheet_string"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+  <com.appcoins.wallet.ui.widgets.SystemView
+      android:id="@+id/manage_wallet_bottom_sheet_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/styleguide_white"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
