@@ -19,7 +19,6 @@ class MyWalletsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navController: NavController
 ) : Navigator {
-
   fun navigateToMore(
     walletAddress: String,
     totalFiatBalance: String,
