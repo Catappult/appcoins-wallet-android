@@ -31,6 +31,8 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
   private val views by viewBinding(ManageWalletNameBottomSheetLayoutBinding::bind)
 
   companion object {
+    const val WALLET_NAME = "wallet_name"
+    const val WALLET_ADDRESS = "wallet_address"
     @JvmStatic
     fun newInstance(): ManageWalletNameBottomSheetFragment {
       return ManageWalletNameBottomSheetFragment()
@@ -45,7 +47,12 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    setListeners()
+    val walletAddress = arguments?.getString(WALLET_ADDRESS)
+    val walletName = arguments?.getString(WALLET_NAME)
+    if (!walletName.isNullOrEmpty()) {
+      views.textWalletNameBottomSheetString.setText(walletName)
+    }
+    setListeners(walletAddress)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -59,9 +66,14 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeDraggable
   }
 
-  private fun setListeners() {
+  private fun setListeners(walletAddress: String?) {
     views.manageWalletBottomSheetSubmitButton.setOnClickListener {
-      viewModel.createWallet(views.textWalletNameBottomSheetString.getText().trim())
+      if (walletAddress.isNullOrEmpty()) {
+        viewModel.createWallet(views.textWalletNameBottomSheetString.getText().trim())
+      } else {
+        showLoading()
+        viewModel.setWalletName(walletAddress, views.textWalletNameBottomSheetString.getText().trim())
+      }
     }
 
     views.textWalletNameBottomSheetString.addTextChangedListener(object : TextWatcher {
@@ -99,8 +111,15 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
 
 
   private fun showLoading() {
+    hideAll()
     views.manageWalletBottomSheetSystemView.visibility = View.VISIBLE
     views.manageWalletBottomSheetSystemView.showProgress(true)
+  }
+
+  private fun hideAll() {
+    views.textWalletNameBottomSheetString.visibility = View.GONE
+    views.manageWalletBottomSheetTitle.visibility = View.GONE
+    views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
   }
 
 

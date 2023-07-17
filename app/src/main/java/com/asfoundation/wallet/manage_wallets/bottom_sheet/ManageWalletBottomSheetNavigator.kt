@@ -1,29 +1,35 @@
-package com.asfoundation.wallet.wallet.home.bottom_sheet
+package com.asfoundation.wallet.manage_wallets.bottom_sheet
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.asf.wallet.R
+import com.asfoundation.wallet.my_wallets.more.MoreDialogFragmentDirections
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class HomeManageWalletBottomSheetNavigator @Inject constructor(
+class ManageWalletBottomSheetNavigator @Inject constructor(
   val fragment: Fragment,
-  val fragmentManager: FragmentManager
-) {
+  val fragmentManager: FragmentManager,
+  private val navController: NavController
+): Navigator {
 
   fun navigateBack() {
     (fragment as BottomSheetDialogFragment).dismiss()
   }
 
-  fun navigateToBackup(walletAddress: String) {
-    val intent =
-      BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
-    openIntent(intent)
+  fun navigateToManageNameWallet() {
+      val bottomSheet = ManageWalletNameBottomSheetFragment.newInstance()
+      bottomSheet.show(fragment.parentFragmentManager, "ManageWalletName")
+  }
+
+  fun navigateToRemoveWallet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_remove_wallet)
   }
 
   fun navigateToRecoverWallet() {
@@ -32,12 +38,6 @@ class HomeManageWalletBottomSheetNavigator @Inject constructor(
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
       }
     openIntent(intent)
-  }
-
-  fun navigateToManageWallet(
-    mainNavController: NavController
-  ) {
-    mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
   private fun openIntent(intent: Intent) = fragment.requireContext()

@@ -73,11 +73,12 @@
       android:id="@+id/manage_wallet_bottom_sheet_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/styleguide_white"
+      android:background="@color/styleguide_blue"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:layout_margin="26dp"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

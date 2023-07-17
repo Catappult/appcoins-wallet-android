@@ -17,6 +17,8 @@ import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
+import com.asfoundation.wallet.wallet.home.bottom_sheet.HomeManageWalletBottomSheetFragment
 import javax.inject.Inject
 
 class HomeNavigator
@@ -84,6 +86,11 @@ constructor(
     mainNavController: NavController
   ) {
     mainNavController.navigate(R.id.action_navigate_to_change_fiat_currency)
+  }
+
+  fun navigateToManageBottomSheet() {
+    val bottomSheet = HomeManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.show(fragment.parentFragmentManager, "HomeManageWallet")
   }
 
   fun navigateToTransfer(mainNavController: NavController) {

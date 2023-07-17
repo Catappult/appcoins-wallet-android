@@ -149,10 +149,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   internal fun HomeScreenContent(
     padding: PaddingValues
   ) {
-    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(false)
-
     Column(
       modifier = Modifier
         .verticalScroll(rememberScrollState())
@@ -168,7 +164,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           onClickTransfer = { viewModel.onTransferClick() },
           onClickBackup = { viewModel.onBackupClick() },
           onClickTopUp = { viewModel.onTopUpClick() },
-          onClickMenuOptions = { openBottomSheet = !openBottomSheet }
+          onClickMenuOptions = { navigator.navigateToManageBottomSheet() }
         )
       }
       PromotionsList()
@@ -176,32 +172,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
-
-      WalletBottomSheet(openBottomSheet, { openBottomSheet = false }, bottomSheetState) {
-        WalletOptionsBottomSheetContent(
-          onManageWalletClick = {
-            scope.launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                openBottomSheet = !openBottomSheet
-                navigateToManageWallet()
-              }
-          },
-          onRecoverWalletClick = {
-            scope.launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                openBottomSheet = !openBottomSheet
-                viewModel.onRecoverClick()
-              }
-          },
-          onBackupWalletClick = {
-            scope.launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                openBottomSheet = !openBottomSheet
-                viewModel.onBackupClick()
-              }
-          },
-        )
-      }
     }
   }
 
@@ -291,31 +261,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           style = MaterialTheme.typography.bodyMedium,
         )
       }
-    }
-  }
-
-  @Composable
-  fun WalletOptionsBottomSheetContent(
-    onManageWalletClick: () -> Unit,
-    onRecoverWalletClick: () -> Unit,
-    onBackupWalletClick: () -> Unit
-  ) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
-      BottomSheetButton(
-        R.drawable.ic_manage_wallet,
-        R.string.manage_wallet_button,
-        onClick = onManageWalletClick
-      )
-      BottomSheetButton(
-        R.drawable.ic_recover_wallet,
-        R.string.my_wallets_action_recover_wallet,
-        onClick = onRecoverWalletClick
-      )
-      BottomSheetButton(
-        R.drawable.ic_backup_white,
-        R.string.my_wallets_action_backup_wallet,
-        onClick = onBackupWalletClick
-      )
     }
   }
 
