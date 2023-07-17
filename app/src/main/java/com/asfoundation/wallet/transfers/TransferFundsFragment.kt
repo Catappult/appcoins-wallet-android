@@ -337,6 +337,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       maxLines = 1,
       overflow = TextOverflow.Ellipsis
     )
+
   }
 
   @Preview
