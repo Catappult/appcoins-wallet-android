@@ -1224,8 +1224,15 @@
   </style>
 
   <style name="PromoCodeTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black</item>
-    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/styleguide_white</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="PromoCodeSubTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/styleguide_white</item>
+    <item name="android:textSize">16sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
@@ -1258,8 +1265,15 @@
 
 
   <style name="RedeemGiftTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="RedeemGiftBarText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/styleguide_white</item>
+    <item name="android:textSize">18sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
@@ -1271,14 +1285,14 @@
   </style>
 
   <style name="RedeemGiftSuccessTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="RedeemGiftSuccessSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">16sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>

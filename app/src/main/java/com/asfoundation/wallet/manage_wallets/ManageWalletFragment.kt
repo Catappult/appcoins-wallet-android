@@ -221,7 +221,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           )
           Separator()
           VerifyWalletAlertCard(
-            onClickButton = { myWalletsNavigator.navigateToVerifyCreditCard() },
+            onClickButton = { myWalletsNavigator.navigateToVerifyPicker() },
             verified = walletInfo.verified
           )
         }
