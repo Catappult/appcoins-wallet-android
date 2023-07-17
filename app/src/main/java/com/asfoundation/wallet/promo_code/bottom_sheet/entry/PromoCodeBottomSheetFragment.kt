@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +23,7 @@ import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
+import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +39,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   private val viewModel: PromoCodeBottomSheetViewModel by viewModels()
   private val views by viewBinding(SettingsPromoCodeBottomSheetLayoutBinding::bind)
+
+  private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
   companion object {
     @JvmStatic
@@ -73,7 +78,10 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     views.promoCodeBottomSheetReplaceButton.setOnClickListener {
       viewModel.replaceClick()
     }
-    views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
+    views.promoCodeBottomSheetDeleteButton.setOnClickListener {
+      rewardSharedViewModel.onBottomSheetDismissed()
+      viewModel.deleteClick()
+    }
 
     views.promoCodeBottomSheetString.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
