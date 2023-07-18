@@ -45,8 +45,10 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.wallet.appcoins.core.legacy_base.BaseActivity;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
 
+@AndroidEntryPoint
 public final class BarcodeCaptureActivity extends BaseActivity
     implements BarcodeTracker.BarcodeGraphicTrackerCallback, CameraResultListener {
 

@@ -3,12 +3,14 @@ package com.asfoundation.wallet.transfers
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -26,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -67,11 +70,15 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NoNetwor
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoughFundsError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
+import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
+import com.asfoundation.wallet.util.QRUri
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.vision.barcode.Barcode
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -86,6 +93,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   lateinit var transferNavigator: TransferFragmentNavigator
 
   private val viewModel: TransferFundsViewModel by viewModels()
+  private var addressTextValue: MutableState<String> = mutableStateOf("")
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -329,12 +337,13 @@ class TransferFundsFragment : BasePageViewFragment() {
       maxLines = 1,
       overflow = TextOverflow.Ellipsis
     )
+
   }
 
   @Preview
   @Composable
   fun AddressTextField() {
-    var address by rememberSaveable { mutableStateOf("") }
+    var address by rememberSaveable { addressTextValue }
     Text(
       modifier = Modifier.padding(horizontal = 8.dp),
       text = stringResource(R.string.p2p_send_body),
@@ -350,7 +359,7 @@ class TransferFundsFragment : BasePageViewFragment() {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
             contentDescription = R.string.scan_qr,
-            onClick = {},
+            onClick = { transferNavigator.showQrCodeScreen() },
             paddingIcon = 4.dp,
             background = styleguide_blue_secondary
           )
@@ -471,6 +480,26 @@ class TransferFundsFragment : BasePageViewFragment() {
     } catch (e: Exception) {
       Toast.makeText(context, getString(R.string.error_fail_generate_qr), Toast.LENGTH_SHORT).show()
       null
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == TransferFragmentNavigator.TRANSACTION_CONFIRMATION_REQUEST_CODE) {
+      transferNavigator.navigateBack()
+    } else if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferFragmentNavigator.BARCODE_READER_REQUEST_CODE) {
+      data?.let { data ->
+        val barcode = data.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
+        QRUri.parse(barcode?.displayValue).let {
+          if (it.address != BarcodeCaptureActivity.ERROR_CODE) {
+            addressTextValue.value = it.address
+            viewModel.currentAddedAddress = it.address
+          } else {
+            Toast.makeText(context, R.string.toast_qr_code_no_address, LENGTH_SHORT)
+              .show()
+          }
+        }
+      }
     }
   }
 
