@@ -11,8 +11,12 @@ import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
 import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
@@ -39,8 +43,23 @@ class MyWalletsNavigator @Inject constructor(
   }
 
 
-  fun navigateToManageWalletNameBottomSheet(navController: NavController) {
-    navController.navigate(R.id.action_navigate_to_manage_name_wallet_bottom_sheet)
+  fun navigateToManageWalletNameBottomSheet(walletAddress: String, walletName: String) {
+    val bundle = Bundle()
+    bundle.putString(ManageWalletNameBottomSheetFragment.WALLET_NAME, walletName)
+    bundle.putString(ManageWalletNameBottomSheetFragment.WALLET_ADDRESS, walletAddress)
+    val bottomSheet = ManageWalletNameBottomSheetFragment.newInstance()
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWalletName")
+  }
+
+
+  fun navigateToManageWalletBalanceBottomSheet() {
+    val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
+  }
+  fun navigateToManageWalletBottomSheet() {
+    val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 
   fun navigateToName(

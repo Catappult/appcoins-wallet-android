@@ -5,6 +5,8 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +20,8 @@ data class ManageWalletNameBottomSheetState(
 
 @HiltViewModel
 class ManageWalletNameBottomSheetViewModel @Inject constructor(
-  private val walletsInteract: WalletsInteract
+  private val walletsInteract: WalletsInteract,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase
 ) :
   BaseViewModel<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect>(initialState()) {
 
@@ -31,6 +34,12 @@ class ManageWalletNameBottomSheetViewModel @Inject constructor(
   fun createWallet(name: String) {
     walletsInteract.createWallet(name)
       .asAsyncToState { copy(walletNameAsync = it) }
+      .scopedSubscribe()
+  }
+
+  fun setWalletName(wallet: String, name: String) {
+    updateWalletNameUseCase(wallet, name)
+      .doOnComplete { sendSideEffect { ManageWalletNameBottomSheetSideEffect.NavigateBack } }
       .scopedSubscribe()
   }
 
