@@ -76,7 +76,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     viewModel.fetchGamificationStats()
   }
 
-
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun RewardScreen(
@@ -173,10 +172,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           { navigator.showPromoCodeFragment() },
           { navigator.showGiftCardFragment() }
         )
+        viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         PromotionsList()
         Spacer(modifier = Modifier.padding(32.dp))
       }
-      viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
     }
   }
 

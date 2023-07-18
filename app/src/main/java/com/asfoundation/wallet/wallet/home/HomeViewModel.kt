@@ -492,7 +492,7 @@ constructor(
         backupTriggerPreferences.getTriggerSource(walletAddress), TriggerSource::class.java
       )
 
-  private fun fetchPromotions() {
+  fun fetchPromotions() {
     getPromotionsUseCase()
       .subscribeOn(rxSchedulers.io)
       .asAsyncToState(HomeState::promotionsModelAsync) { copy(promotionsModelAsync = it) }
