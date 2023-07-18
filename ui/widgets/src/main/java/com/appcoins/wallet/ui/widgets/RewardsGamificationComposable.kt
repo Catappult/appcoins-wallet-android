@@ -132,16 +132,17 @@ fun GamificationHeader(
                   color = if (isVip) styleguide_vip_yellow else indicatorColor,
                   trackColor = styleguide_grey_blue,
                 )
+
+                Text(
+                  text = "$currentProgress / $maxProgress",
+                  style = MaterialTheme.typography.bodyMedium,
+                  color = WalletColors.styleguide_dark_grey,
+                  modifier = Modifier
+                    .align(alignment = Alignment.End)
+                )
               }
-              Text(
-                text = "$currentProgress / $maxProgress",
-                style = MaterialTheme.typography.bodyMedium,
-                color = WalletColors.styleguide_dark_grey,
-                modifier = Modifier
-                  .align(alignment = Alignment.End)
-              )
             }
-        }
+          }
         }
         Box(
           modifier = Modifier
