@@ -122,7 +122,7 @@ fun GamificationHeader(
                 .padding(top = 8.dp),
               verticalArrangement = Arrangement.SpaceEvenly,
             ) {
-              if (currentProgress > 0 && maxProgress > 0) {
+              if (currentProgress >= 0 && maxProgress > 0) {
                 LinearProgressIndicator(
                   progress = currentProgress.toFloat() / maxProgress.toFloat(),
                   modifier = Modifier
