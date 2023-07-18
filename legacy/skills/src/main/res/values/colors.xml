@@ -55,6 +55,7 @@
   <color name="rankings_text_color">#808080</color>
   <color name="background">#FAF8EF</color>
   <color name="ranking_grey">#C7C7C7</color>
+  <color name="countdown_timer_text_color">#F9753F</color>
 
 
 </resources>
