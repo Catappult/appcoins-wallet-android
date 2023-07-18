@@ -171,8 +171,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           onClickMenuOptions = { openBottomSheet = !openBottomSheet }
         )
       }
-      TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       PromotionsList()
+      TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
@@ -210,12 +210,14 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (transactionsState) {
       is Success -> {
         if (transactionsState.transactions.isNotEmpty())
-          Column(modifier = Modifier
-            .heightIn(0.dp, 400.dp)
-            .padding(horizontal = 16.dp)) {
+          Column(
+            modifier = Modifier
+              .heightIn(0.dp, 400.dp)
+              .padding(horizontal = 16.dp)
+          ) {
             Text(
               text = stringResource(R.string.intro_transactions_header),
-              modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+              modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
               style = MaterialTheme.typography.bodyMedium,
               fontWeight = FontWeight.Bold,
               color = WalletColors.styleguide_dark_grey
@@ -241,7 +243,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       )
     }
     LazyRow(
-      modifier = Modifier.padding(vertical = 8.dp),
       contentPadding = PaddingValues(horizontal = 16.dp),
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -352,7 +353,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
-      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
+      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
       HomeSideEffect.NavigateToTransactionsList -> transactionsNavigator.navigateToTransactionsList(
         navController()
       )
@@ -421,7 +422,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               hasFuturePromotion = false,
               hasVerticalList = false,
-              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.activePromotions.add(cardItem)
           }

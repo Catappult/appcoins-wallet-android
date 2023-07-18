@@ -112,7 +112,7 @@
 
   <action
       android:id="@+id/action_navigate_to_change_fiat_currency"
-      app:destination="@id/change_fiat_currency_fragment"/>
+      app:destination="@id/change_fiat_currency_fragment" />
 
   <action
       android:id="@+id/action_navigate_to_backup_entry_wallet"
@@ -125,6 +125,10 @@
         android:name="wallet_name"
         app:argType="string" />
   </action>
+
+  <action
+      android:id="@+id/action_navigate_to_send_funds"
+      app:destination="@id/transfer_funds_fragment" />
 
   <action
       android:id="@+id/action_navigate_to_transaction_details"
@@ -229,5 +233,35 @@
 
 
   </dialog>
+
+  <fragment
+      android:id="@+id/transfer_funds_fragment"
+      android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
+    <argument
+        android:name="entry_screen_selected"
+        app:argType="integer" />
+    <action
+        android:id="@+id/action_navigate_to_success_transfer"
+        app:destination="@id/transfer_funds_success_fragment"
+        app:enterAnim="@anim/fragment_fade_in_animation"
+        app:exitAnim="@anim/fragment_fade_out_animation"
+        app:popUpTo="@+id/transfer_funds_fragment"
+        app:popUpToInclusive="true">
+      <argument
+          android:name="amount_sent"
+          app:argType="integer" />
+      <argument
+          android:name="currency_key"
+          app:argType="string" />
+      <argument
+          android:name="to_address"
+          app:argType="string" />
+    </action>
+  </fragment>
+
+  <fragment
+      android:id="@+id/transfer_funds_success_fragment"
+      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment">
+  </fragment>
 
 </navigation>

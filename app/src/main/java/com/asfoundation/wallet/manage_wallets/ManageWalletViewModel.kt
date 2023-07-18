@@ -46,7 +46,6 @@ constructor(
 
   fun updateWallets() = getWallets()
 
-
   private fun getWallets(walletChanged: Boolean = false) {
     walletsInteract
       .observeWalletsModel()
@@ -64,17 +63,6 @@ constructor(
       .firstOrError()
       .doOnSuccess { _uiState.value = UiState.Success(it, wallets.inactiveWallets()) }
       .subscribe()
-  }
-
-  sealed class UiState {
-    object Idle : UiState()
-    object Loading : UiState()
-    object WalletChanged : UiState()
-    object WalletDeleted : UiState()
-    data class Success(
-      val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletInfoSimple>
-    ) : UiState()
   }
 
   fun changeActiveWallet(wallet: String) {
@@ -105,5 +93,16 @@ constructor(
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete { getWallets() }
       .subscribe()
+  }
+
+  sealed class UiState {
+    object Idle : UiState()
+    object Loading : UiState()
+    object WalletChanged : UiState()
+    object WalletDeleted : UiState()
+    data class Success(
+      val activeWalletInfo: WalletInfo,
+      val inactiveWallets: List<WalletInfoSimple>
+    ) : UiState()
   }
 }

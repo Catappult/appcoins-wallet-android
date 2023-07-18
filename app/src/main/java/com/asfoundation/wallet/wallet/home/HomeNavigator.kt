@@ -7,10 +7,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
@@ -21,7 +21,6 @@ import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
-import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
 class HomeNavigator
@@ -101,11 +100,8 @@ constructor(
     mainNavController.navigate(R.id.action_navigate_to_change_fiat_currency)
   }
 
-
-  fun navigateToTransfer() {
-    val intent = TransferActivity.newIntent(fragment.requireContext())
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
+  fun navigateToTransfer(mainNavController: NavController) {
+    mainNavController.navigate(R.id.action_navigate_to_send_funds)
   }
 
   fun navigateToNfts(mainNavController: NavController) {

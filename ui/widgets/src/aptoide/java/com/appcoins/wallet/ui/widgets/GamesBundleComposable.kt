@@ -33,6 +33,13 @@ fun GamesBundle(
 ) {
   fetchFromApiCallback()
   if (items.isNotEmpty()) {
+    Text(
+      text = stringResource(id = R.string.home_appcoins_compatible_games_title),
+      fontSize = 14.sp,
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_dark_grey,
+      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+    )
     LazyRow(
       modifier = Modifier.padding(
         top = 16.dp
@@ -59,7 +66,7 @@ private fun CardItem(
     shape = RoundedCornerShape(8.dp),
     onClick = { openGame(gameCardData.gamePackage, context) },
     modifier = Modifier
-      .width(300.dp)
+      .width(332.dp)
       .height(150.dp)
   ) {
 
@@ -119,9 +126,10 @@ private fun CardItem(
           lineHeight = 24.sp,
           modifier = Modifier
             .align(Alignment.Bottom)
+            .weight(1f)
             .padding(bottom = 6.dp, start = 20.dp, end = 20.dp)
         )
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.weight(0.1f))
         Text(
           text = stringResource(id = R.string.get_button),
           color = WalletColors.styleguide_pink,

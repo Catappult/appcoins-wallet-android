@@ -35,27 +35,33 @@ fun NftCard(
       modifier = Modifier
         .fillMaxWidth()
         .padding(20.dp),
-      horizontalArrangement = Arrangement.Start,
+      horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-      Image(
-        painter = painterResource(R.drawable.ic_nft),
-        "NFT",
+      Row(
         modifier = Modifier
-          .height(64.dp)
-          .width(64.dp)
-          .align(Alignment.CenterVertically)
-      )
-      Text(
-        text = stringResource(id = R.string.home_nft_title),
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        color = WalletColors.styleguide_light_grey,
-        lineHeight = 24.sp,
-        modifier = Modifier
-          .align(Alignment.CenterVertically)
-          .padding(horizontal = 20.dp)
-          .weight(1f, fill = false)
-      )
+          .weight(1f),
+        horizontalArrangement = Arrangement.Start,
+      ) {
+        Image(
+          painter = painterResource(R.drawable.ic_nft),
+          "NFT",
+          modifier = Modifier
+            .height(64.dp)
+            .width(64.dp)
+            .align(Alignment.CenterVertically)
+        )
+        Text(
+          text = stringResource(id = R.string.home_nft_title),
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_light_grey,
+          lineHeight = 24.sp,
+          modifier = Modifier
+            .align(Alignment.CenterVertically)
+            .padding(horizontal = 20.dp)
+            .weight(1f, fill = false)
+        )
+      }
       Image(
         painter = painterResource(R.drawable.ic_arrow_right),
         "Arrow",
@@ -71,6 +77,14 @@ fun NftCard(
 @Preview
 @Composable
 fun PreviewNftCard() {
+  NftCard(
+    onClick = {}
+  )
+}
+
+@Preview(widthDp = 800, heightDp = 200, showBackground = true)
+@Composable
+fun PreviewNftCardLong() {
   NftCard(
     onClick = {}
   )
