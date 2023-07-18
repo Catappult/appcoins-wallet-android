@@ -43,7 +43,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
   fun sendOnboardingLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
   ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"OnboardingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsOnboardingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendOnboardingCancelEvent(
@@ -74,7 +74,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
   fun sendPaymentLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
   ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"PaymentFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsPaymentFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendPaymentQueueIdInputEvent(
@@ -191,7 +191,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
   fun sendMatchmakingLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
   ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"MatchmakingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsMatchmakingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendMatchmakingCancelEvent(
