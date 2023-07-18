@@ -7,13 +7,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.asf.wallet.databinding.ManageWalletNameBottomSheetLayoutBinding
+import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,9 +34,12 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
   private val viewModel: ManageWalletNameBottomSheetViewModel by viewModels()
   private val views by viewBinding(ManageWalletNameBottomSheetLayoutBinding::bind)
 
+  private val manageWalletSharedViewModel: ManageWalletSharedViewModel by activityViewModels()
+
   companion object {
     const val WALLET_NAME = "wallet_name"
     const val WALLET_ADDRESS = "wallet_address"
+
     @JvmStatic
     fun newInstance(): ManageWalletNameBottomSheetFragment {
       return ManageWalletNameBottomSheetFragment()
@@ -46,6 +53,14 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    views.textWalletNameBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
+    views.textWalletNameBottomSheetString.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.styleguide_blue
+      )
+    )
 
     val walletAddress = arguments?.getString(WALLET_ADDRESS)
     val walletName = arguments?.getString(WALLET_NAME)
@@ -72,7 +87,10 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
         viewModel.createWallet(views.textWalletNameBottomSheetString.getText().trim())
       } else {
         showLoading()
-        viewModel.setWalletName(walletAddress, views.textWalletNameBottomSheetString.getText().trim())
+        viewModel.setWalletName(
+          walletAddress,
+          views.textWalletNameBottomSheetString.getText().trim()
+        )
       }
     }
 
@@ -97,6 +115,7 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
         navigator.navigateBack()
       }
       is Async.Success -> {
+        manageWalletSharedViewModel.onBottomSheetDismissed()
         navigator.navigateBack()
       }
       Async.Uninitialized -> {}
@@ -105,7 +124,10 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: ManageWalletNameBottomSheetSideEffect) {
     when (sideEffect) {
-      is ManageWalletNameBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
+      is ManageWalletNameBottomSheetSideEffect.NavigateBack -> {
+        manageWalletSharedViewModel.onBottomSheetDismissed()
+        navigator.navigateBack()
+      }
     }
   }
 
