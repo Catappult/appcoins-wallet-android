@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
