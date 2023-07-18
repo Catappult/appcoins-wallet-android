@@ -10,6 +10,8 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.backup.data.Balance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,6 +34,7 @@ class BackupEntryViewModel @Inject constructor(
   BackupEntryState()
 ) {
    lateinit var walletAddress: String
+   lateinit var walletName: String
    var password : String = ""
    val correctInputPassword = mutableStateOf(true)
 

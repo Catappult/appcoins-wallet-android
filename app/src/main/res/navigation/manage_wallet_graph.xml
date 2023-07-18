@@ -16,7 +16,11 @@
         app:destination="@id/verify_paypal_wallet_activity" />
     <action
         android:id="@+id/action_navigate_to_backup_entry_wallet"
-        app:destination="@id/backup_wallet_fragment" />
+        app:destination="@id/backup_wallet_fragment">
+    <argument
+        android:name="wallet_name"
+        app:argType="string" />
+    </action>
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment" />
@@ -49,6 +53,7 @@
         android:name="wallet_address"
         app:argType="string" />
 
+
     <action
         android:id="@+id/action_backup_entry_to_screen_options"
         app:destination="@id/backup_wallet_screen_options">
@@ -59,7 +64,25 @@
           android:name="password"
           app:argType="string" />
     </action>
+
+    <action
+        android:id="@+id/action_backup_entry_to_choose_wallet"
+        app:destination="@id/backup_wallet_choose_wallet" />
+
   </fragment>
+
+  <dialog
+      android:id="@+id/backup_wallet_choose_wallet"
+      android:name="com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletBottomSheetFragment"
+      tools:layout="@layout/settings_wallet_bottom_sheet_layout">
+
+    <action
+        android:id="@+id/action_back_to_entry"
+        app:destination="@id/backup_wallet_fragment"
+        app:popUpTo="@id/backup_wallet_fragment"
+        app:popUpToInclusive="true"
+        />
+  </dialog>
 
   <fragment
       android:id="@+id/backup_wallet_screen_options"
@@ -74,9 +97,20 @@
     <action
         android:id="@+id/action_backup_options_to_success_screen"
         app:destination="@id/backup_wallet_success_screen" />
+
+    <action
+        android:id="@+id/action_backup_options_to_error_screen"
+        app:destination="@id/backup_wallet_error_screen" />
+
     <action
         android:id="@+id/action_backup_options_to_save_on_device"
         app:destination="@id/backup_save_on_device" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/backup_wallet_error_screen"
+      android:name="com.asfoundation.wallet.backup.BackupErrorScreenFragment">
+
   </fragment>
 
   <dialog

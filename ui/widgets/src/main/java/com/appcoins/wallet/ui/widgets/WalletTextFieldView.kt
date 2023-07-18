@@ -20,7 +20,7 @@ class WalletTextFieldView : FrameLayout {
 
   private var type = Type.FILLED
 
-  private var color = ContextCompat.getColor(this.context, R.color.gamification_red)
+  private var color = ContextCompat.getColor(this.context, R.color.styleguide_dark_grey)
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -75,7 +75,7 @@ class WalletTextFieldView : FrameLayout {
       Type.FILLED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor = color
-        views.textInputLayout.boxStrokeColor =
+        views.textInputLayout.boxStrokeColor = 
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.endIconMode = END_ICON_NONE

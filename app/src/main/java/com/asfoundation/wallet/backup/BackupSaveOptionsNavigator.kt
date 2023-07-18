@@ -32,6 +32,12 @@ class BackupSaveOptionsNavigator @Inject constructor(
     )
 
   }
+  fun showErrorScreen(){
+    navigate(
+      navController,
+      BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToErrorScreen()
+    )
+  }
 
   fun showSaveOnDeviceFragment(
     walletAddress : String,

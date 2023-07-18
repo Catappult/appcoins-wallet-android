@@ -15,48 +15,36 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryScreen
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryState
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogRoute
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogViewModel
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.ui.widgets.component.WalletTextField
-import kotlinx.coroutines.launch
-import kotlin.math.round
+import com.appcoins.wallet.ui.widgets.component.WalletTextFieldCustom
 
 lateinit var passwordInput: String
+
 @Composable
 fun BackupSaveOptionsRoute(
   onExitClick: () -> Unit,
@@ -83,7 +71,6 @@ fun BackupSaveOptionsRoute(
     )
   }
 }
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
@@ -115,7 +102,7 @@ fun BackupSaveOptionsScreen(
       Text(
         text = stringResource(id = R.string.backup_body),
         modifier = Modifier.padding(
-          bottom = 45.dp,
+          bottom = 4.dp, end = 27.dp
         ),
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey,
@@ -141,8 +128,8 @@ fun SaveOnDeviceCardDefault(){
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier
       .fillMaxWidth()
-      .padding(bottom = 62.62.dp, top = 45.dp, start = 16.dp, end = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = Color(0xFF242333))
+      .padding(bottom = 40.dp, top = 40.dp, start = 16.dp, end = 16.dp),
+    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -155,16 +142,15 @@ fun SaveOnDeviceCardDefault(){
         data = R.drawable.ic_lock_appc
       )
       Text(
-        text = stringResource(id = R.string.backup_ready_title), // trocar problema com string
+        text = stringResource(id = R.string.backup_ready_title),
         color = WalletColors.styleguide_light_grey,
         style = WalletTypography.bold.sp22,
         textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 16.dp, bottom = 51.dp)
+        modifier = Modifier.padding(top = 16.dp, bottom = 12.dp)
       )
     }
   }
 }
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveOnDeviceOptions(
   onSendEmailClick: () -> Unit,
@@ -178,17 +164,17 @@ fun SaveOnDeviceOptions(
     Modifier.fillMaxWidth()
   ) {
     Column(
-      Modifier.padding(24.dp),
+      Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp),
       horizontalAlignment = Alignment.Start
     ) {
       Text(
         text = stringResource(id = R.string.backup_ready_save_on_email),
-        Modifier.padding(bottom = 17.75.dp),
+        Modifier.padding(bottom = 8.dp),
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey
       )
-      WalletTextField(
-        value = defaultEmail, //mudar cor de background
+      WalletTextFieldCustom(
+        value = defaultEmail,
         onValueChange = {
           defaultEmail = it
           passwordInput = defaultEmail
@@ -204,39 +190,39 @@ fun SaveOnDeviceOptions(
         onClick = {
           if(validEmail) onSendEmailClick() else {}
         },
-        backgroundColor = if (validEmail) WalletColors.styleguide_pink else WalletColors.styleguide_dark_grey,
+        backgroundColor = if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
         labelColor = WalletColors.styleguide_light_grey,
         buttonType = ButtonType.LARGE,
       )
     }
-    Row( //why not full screen?
+    Row(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier
-        .padding(top = 14.25.dp, bottom = 17.75.dp)
+        .padding(top = 1.25.dp, bottom = 8.75.dp)
     ) {
       Divider(
         modifier = Modifier
           .weight(1f)
           .height(1.dp),
-        color = Color(0xFF707070)
+        color = styleguide_dark_grey
       )
       Text(
         text = stringResource(R.string.common_or),
-        color = Color(0xFF707070), style = WalletTypography.regular.sp12,
+        color = styleguide_dark_grey, style = WalletTypography.regular.sp12,
         modifier = Modifier.padding(horizontal = 8.dp)
       )
       Divider(
         modifier = Modifier
           .weight(1f)
           .height(1.dp),
-        color = Color(0xFF707070)
+        color = styleguide_dark_grey
       )
     }
     Column(
       modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)
     ) {
       ButtonWithText(
-        label = "SEND BACKUP", // -> problema com as strings trocar padding???
+        label = "SEND BACKUP", // String ??
         onClick = {
           onSaveOnDevice()
         },
@@ -252,7 +238,6 @@ fun SaveOnDeviceOptions(
 fun BackupSaveOptionsScreenPreview(
 
   ) {
-  //val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
   Column(
   ) {
@@ -306,7 +291,7 @@ fun BackupSaveOptionsScreenPreview(
           style = WalletTypography.medium.sp14,
           color = WalletColors.styleguide_light_grey
         )
-        WalletTextField(value = defaultEmail,
+        WalletTextFieldCustom(value = defaultEmail,
           onValueChange = {
             defaultEmail = it
         },
@@ -331,22 +316,22 @@ fun BackupSaveOptionsScreenPreview(
           modifier = Modifier
             .weight(1f)
             .height(1.dp),
-          color = Color(0xFF707070)
+          color = styleguide_dark_grey
         )
         Text(
           text = stringResource(R.string.common_or),
-          color = Color(0xFF707070), style = WalletTypography.regular.sp12,
+          color = styleguide_dark_grey, style = WalletTypography.regular.sp12,
           modifier = Modifier.padding(horizontal = 8.dp)
         )
         Divider(
           modifier = Modifier
             .weight(1f)
             .height(1.dp),
-          color = Color(0xFF707070)
+          color = styleguide_dark_grey
         )
       }
       ButtonWithText(
-        label = "SEND BACKUP", // -> problema com as strings trocar padding???
+        label = "SEND BACKUP", // String ??
         onClick = {
         },
         labelColor = WalletColors.styleguide_white,
@@ -356,45 +341,5 @@ fun BackupSaveOptionsScreenPreview(
     }
 
   }
-
-
-/*
-@Preview
-@Composable
-fun BackupSaveOptionsScreen(){
-
-  Column(
-    modifier = Modifier.padding(16.dp)
-  ) {
-    Column(
-      modifier = Modifier.padding(11.dp),
-      horizontalAlignment = Alignment.Start
-    ) {
-      Text(
-        style = WalletTypography.bold.sp22,
-        color = WalletColors.styleguide_light_grey,
-        text = stringResource(id = R.string.backup_title),
-        modifier = Modifier.padding(
-          top = 10.dp,
-          bottom = 20.dp,
-        )
-      )
-      Text(
-        text = stringResource(id = R.string.backup_body),
-        modifier = Modifier.padding(
-          bottom = 45.dp,
-        ),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey,
-
-        )
-    }
-    SaveOnDeviceCardDefault()
-    SaveOnDeviceOptions()
-
-  }
-  }
- */
-
 
 

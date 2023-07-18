@@ -22,7 +22,6 @@ data class BackupSaveOptionsState(var saveOptionAsync: Async<Boolean> = Async.Un
 
 @HiltViewModel
 class BackupSaveOptionsViewModel @Inject constructor(
-  //private val data: BackupSaveOptionsData,
   private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   private val logger: Logger,
@@ -31,7 +30,6 @@ class BackupSaveOptionsViewModel @Inject constructor(
 ) {
 
   lateinit var walletAddress: String
-  lateinit var email : String
   var password : String = ""
 
   companion object {
@@ -53,15 +51,6 @@ class BackupSaveOptionsViewModel @Inject constructor(
         setState {  copy(saveOptionAsync = Async.Fail(Error.UnknownError(Throwable(""))))}
 
       }
-      /*
-      try {
-        backupSuccessLogUseCase(walletAddress).let {}
-        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
-      } catch (e: Exception) {
-        showError(e)
-      }
-
-       */
     }
   }
 

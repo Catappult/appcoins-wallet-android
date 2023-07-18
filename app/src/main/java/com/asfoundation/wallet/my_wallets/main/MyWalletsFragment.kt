@@ -255,7 +255,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.backupButton.setText(getString(buttonTextRes))
     views.myWalletsContent.backupButton.setColor(ContextCompat.getColor(requireContext(), colorRes))
     views.myWalletsContent.backupButton.setOnClickListener {
-      navigator.navigateToBackup(wallet)
+      navigator.navigateToBackup(wallet, name)
       walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
     }
   }

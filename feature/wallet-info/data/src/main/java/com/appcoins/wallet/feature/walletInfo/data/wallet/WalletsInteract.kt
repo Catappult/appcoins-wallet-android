@@ -42,7 +42,8 @@ class WalletsInteract @Inject constructor(
             it.wallet,
             it.walletBalance.creditsOnlyFiat,
             preferencesRepository.getCurrentWalletAddress() == it.wallet,
-            it.backupDate
+            it.backupDate,
+            false
           )
         )
       }
@@ -67,7 +68,8 @@ class WalletsInteract @Inject constructor(
         it.wallet,
         it.walletBalance.creditsOnlyFiat,
         preferencesRepository.getCurrentWalletAddress() == it.wallet,
-        it.backupDate
+        it.backupDate,
+        false
       )
     }
     .doOnError { logger.log("WalletsInteract", it) }

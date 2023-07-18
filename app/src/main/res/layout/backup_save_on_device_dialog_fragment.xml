@@ -63,18 +63,17 @@
       tools:text="/storage/downloads/backup"
       tools:visibility="visible"
       />
-
+<!-- Text color and textfield color?? -->
   <com.appcoins.wallet.ui.widgets.WalletTextFieldView
       android:id="@+id/file_name_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="12dp"
-      app:textFieldColor="@color/light_gray"
+      app:textFieldType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/store_path"
-      app:textFieldType="outlined"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView

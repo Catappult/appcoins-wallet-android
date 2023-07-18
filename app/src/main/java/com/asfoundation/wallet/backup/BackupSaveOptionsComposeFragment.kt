@@ -17,6 +17,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.feature.backup.ui.BackupErrorScreen
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsSideEffect
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsState
@@ -67,7 +68,7 @@ Navigator{
 
       }
       is Async.Fail -> {
-       // showErrorMessage()
+       navigator.showErrorScreen()
       }
       is Async.Success -> {
         state.saveOptionAsync.value?.let { successRequest ->

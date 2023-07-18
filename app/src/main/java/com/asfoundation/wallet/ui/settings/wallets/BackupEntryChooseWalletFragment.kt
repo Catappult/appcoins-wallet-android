@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsWalletsLayoutBinding
-import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
+import com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletView
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
+class BackupEntryChooseWalletFragment : Fragment(), BackupEntryChooseWalletView {
 
   @Inject
   lateinit var presenter: SettingsWalletsPresenter
@@ -29,8 +29,8 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
     private const val WALLET_MODEL_KEY = "wallet_model"
 
     @JvmStatic
-    fun newInstance(walletsModel: WalletsModel): SettingsWalletsFragment {
-      return SettingsWalletsFragment().apply {
+    fun newInstance(walletsModel: WalletsModel): BackupEntryChooseWalletFragment {
+      return BackupEntryChooseWalletFragment().apply {
         arguments = Bundle().apply {
           putSerializable(WALLET_MODEL_KEY, walletsModel)
         }
@@ -40,13 +40,17 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    /*
     childFragmentManager.beginTransaction()
         .setCustomAnimations(R.anim.fragment_slide_up, R.anim.fragment_slide_down,
             R.anim.fragment_slide_up, R.anim.fragment_slide_down)
         .replace(R.id.bottom_sheet_fragment_container,
             SettingsWalletsBottomSheetFragment.newInstance(walletsModel))
         .commit()
+
+     */
     return SettingsWalletsLayoutBinding.inflate(layoutInflater).root
+
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

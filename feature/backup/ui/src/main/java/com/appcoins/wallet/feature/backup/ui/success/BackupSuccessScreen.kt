@@ -31,6 +31,7 @@ import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsState
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
@@ -81,6 +82,7 @@ fun BackupSaveOptionsScreen(
         modifier = Modifier.padding(
           top = 10.dp,
           bottom = 20.dp,
+          end = 27.dp
         )
       )
       Text(
@@ -103,14 +105,14 @@ fun BackupSaveOptionsScreen(
 fun BackupSuccessScreenCard() {
   Card(
     shape = RoundedCornerShape(14.dp),
-    modifier = Modifier.padding(bottom = 112.dp, start= 16.dp, end = 16.dp, top = 45.dp),
-    colors = CardDefaults.cardColors(containerColor = Color(0xFF242333))
+    modifier = Modifier.padding(bottom = 48.dp, start= 16.dp, end = 16.dp),
+    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
         .fillMaxWidth()
-        .padding(top = 36.6.dp, bottom = 57.dp)
+        .padding(top = 36.6.dp, bottom = 28.dp)
     ) {
       WalletImage(
         Modifier

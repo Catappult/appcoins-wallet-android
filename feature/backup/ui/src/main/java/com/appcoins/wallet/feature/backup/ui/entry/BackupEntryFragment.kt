@@ -40,13 +40,15 @@ class BackupEntryFragment : BasePageViewFragment(),
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val WALLET_NAME = "wallet_name"
 
     @JvmStatic
-    fun newInstance(walletAddress: String): BackupEntryFragment {
+    fun newInstance(walletAddress: String, walletName: String): BackupEntryFragment {
       return BackupEntryFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
+            putString(WALLET_NAME, walletName)
           }
         }
     }

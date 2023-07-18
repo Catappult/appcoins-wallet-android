@@ -76,7 +76,7 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
   data class NavigateToRateUs(val shouldNavigate: Boolean) : HomeSideEffect()
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
-  data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
+  data class NavigateToBackup(val walletAddress: String, val walletName: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
   data class ShowBackupTrigger(val walletAddress: String, val triggerSource: TriggerSource) :
     HomeSideEffect()
@@ -142,6 +142,7 @@ constructor(
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
+  var walletName : String = ""
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -417,7 +418,7 @@ constructor(
       state.transactionsModelAsync.value?.transactionsWalletModel
     if (model != null) {
       val wallet = model.wallet
-      sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
+      sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address, walletName) }
       walletsEventSender.sendCreateBackupEvent(
         WalletsAnalytics.ACTION_CREATE,
         WalletsAnalytics.CONTEXT_CARD,
@@ -455,6 +456,7 @@ constructor(
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .flatMap { walletInfo ->
+        walletName = walletInfo.name
         rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
           setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&

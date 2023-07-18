@@ -37,7 +37,7 @@ class BackupActivity : BaseActivity() {
         findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
         toolbar()
       }
-      intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
+      //intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
     }
   }
 

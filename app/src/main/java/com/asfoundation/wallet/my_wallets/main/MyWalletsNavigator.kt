@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
@@ -96,9 +97,11 @@ class MyWalletsNavigator @Inject constructor(
 
   fun navigateToBackup(
     walletAddress: String,
+    walletName: String
   ) {
     val bundle = Bundle()
     bundle.putString(BackupWalletEntryFragment.WALLET_ADDRESS_KEY, walletAddress)
+    bundle.putString(WALLET_NAME, walletName)
     navController.navigate(R.id.action_navigate_to_backup_entry_wallet, args = bundle)
   }
 

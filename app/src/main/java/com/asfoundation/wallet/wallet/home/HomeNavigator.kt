@@ -13,6 +13,7 @@ import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_ADDRESS_KEY
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
@@ -60,10 +61,12 @@ constructor(
 
   fun navigateToBackup(
     walletAddress: String,
+    walletName:String,
     mainNavController: NavController
   ) {
     val bundle = Bundle()
     bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
+    bundle.putString(WALLET_NAME, walletName)
     mainNavController.navigate(R.id.action_navigate_to_backup_entry_wallet, args = bundle)
   }
 

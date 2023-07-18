@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class BackupActivityNavigator @Inject constructor(private val fragmentManager: FragmentManager) {
 
-  fun showBackupScreen(walletAddress: String) {
+  fun showBackupScreen(walletAddress: String, walletName: String) {
     fragmentManager.commit {
       replace(
         R.id.fragment_container,
-        BackupEntryFragment.newInstance(walletAddress)
+        BackupEntryFragment.newInstance(walletAddress, walletName)
       )
     }
   }

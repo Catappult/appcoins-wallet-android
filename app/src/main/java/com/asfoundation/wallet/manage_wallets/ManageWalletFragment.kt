@@ -200,7 +200,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           Spacer(modifier = Modifier.height(24.dp))
           BackupAlertCard(
             onClickButton = {
-              myWalletsNavigator.navigateToBackup(walletInfo.wallet)
+              myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
             },
             hasBackup = walletInfo.hasBackup,
             backupDate = walletInfo.backupDate
@@ -667,7 +667,8 @@ class ManageWalletFragment : BasePageViewFragment() {
         "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
         balance = fiatValue,
         isActiveWallet = true,
-        backupDate = 987654L
+        backupDate = 987654L,
+        backupWalletActive = false
       )
     )
   }

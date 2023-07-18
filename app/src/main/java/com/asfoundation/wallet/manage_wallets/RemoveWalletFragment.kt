@@ -115,7 +115,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { AlertCard() }
 
-      item { ActionButtons(walletInfo.wallet) }
+      item { ActionButtons(walletInfo.wallet, walletInfo.name) }
     }
   }
 
@@ -255,7 +255,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActionButtons(address: String) {
+  fun ActionButtons(address: String, name: String) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),
       modifier = Modifier
@@ -264,7 +264,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     ) {
       ButtonWithText(
         label = stringResource(id = R.string.my_wallets_action_backup_wallet),
-        onClick = { myWalletsNavigator.navigateToBackup(address) },
+        onClick = { myWalletsNavigator.navigateToBackup(address, name) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
         buttonType = ButtonType.LARGE

@@ -2,14 +2,20 @@ package com.appcoins.wallet.feature.backup.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,21 +25,49 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.feature.backup.ui.success.BackupSaveOptionsScreen
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletTypography
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
-@Preview
 @Composable
-fun BackupErrorScreen(){
+fun BackupErrorRoute(
+  onExitClick: () -> Unit,
+  onChatClick: () -> Unit,
+) {
+  Scaffold(
+    topBar = {
+      Surface {
+        TopBar(isMainBar = false, onClickSupport = { onChatClick() })
+      }
+    },
+    modifier = Modifier
+  ) { padding ->
+    BackupErrorScreen(
+      scaffoldPadding = padding,
+      onExitClick = onExitClick,
+    )
+  }
+}
+
+@Composable
+fun BackupErrorScreen(
+  scaffoldPadding: PaddingValues,
+  onExitClick: () -> Unit,
+){
   Column(
-    modifier = Modifier.padding(16.dp)
+    modifier = Modifier
+      .fillMaxSize(1f)
+      .padding(scaffoldPadding)
+      .verticalScroll(rememberScrollState()),
   ) {
     Column(
-      modifier = Modifier.padding(11.dp),
+      modifier = Modifier.padding(start = 27.dp, bottom = 45.dp),
       horizontalAlignment = Alignment.Start
     ) {
       Text(
@@ -43,29 +77,29 @@ fun BackupErrorScreen(){
         modifier = Modifier.padding(
           top = 10.dp,
           bottom = 20.dp,
+          end = 27.dp
         )
       )
       Text(
         text = stringResource(id = R.string.backup_body),
-        modifier = Modifier.padding(
-          bottom = 45.dp,
-        ),
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey,
 
         )
     }
-    BackupDialogCard()
+    BackupDialogCard(onExitClick = onExitClick)
   }
 }
 
-@Preview
+
 @Composable
-fun BackupDialogCard() {
+fun BackupDialogCard(
+  onExitClick: () -> Unit,
+) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier.fillMaxWidth(),
-    colors = CardDefaults.cardColors(containerColor = Color(0xFF242333))
+    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -100,6 +134,7 @@ fun BackupDialogCard() {
       ButtonWithText(
         label = stringResource(id = R.string.cancel_button),
         onClick = {
+          onExitClick
         },
         backgroundColor = Color.Transparent,
         labelColor = MaterialTheme.colorScheme.primaryContainer,

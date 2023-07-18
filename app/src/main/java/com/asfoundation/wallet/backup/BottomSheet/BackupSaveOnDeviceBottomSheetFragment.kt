@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.backup.BottomSheet
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -88,6 +89,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
+  @SuppressLint("ResourceAsColor")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     views.backupSave.setOnClickListener {
