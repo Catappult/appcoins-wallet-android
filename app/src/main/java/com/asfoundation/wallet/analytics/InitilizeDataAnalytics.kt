@@ -2,6 +2,7 @@ package com.asfoundation.wallet.analytics
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Configuration
 
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
@@ -27,8 +28,9 @@ import io.sentry.android.AndroidSentryClientFactory
 import io.sentry.event.User
 import javax.inject.Inject
 
-class initilizeDataAnalytics @Inject constructor(
-    @ApplicationContext private val context: Context, private val idsRepository: IdsRepository,
+class InitilizeDataAnalytics @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val idsRepository: IdsRepository,
     private val logger: Logger,
     private val promotionsRepository: PromotionsRepository,
     private val rakamAnalytics: RakamAnalytics,
