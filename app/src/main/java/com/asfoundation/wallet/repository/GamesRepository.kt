@@ -2,13 +2,17 @@ package com.asfoundation.wallet.repository
 
 import android.util.Log
 import com.appcoins.wallet.core.network.backend.api.GamesApi
+import com.appcoins.wallet.core.network.eskills.api.AppDataApi
 import com.appcoins.wallet.ui.widgets.GameData
+import com.appcoins.wallet.ui.widgets.GameDetailsData
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 @BoundTo(supertype = GamesRepositoryType::class)
-class GamesRepository @Inject constructor(private val gamesApi: GamesApi) :
+class GamesRepository @Inject constructor(
+  private val gamesApi: GamesApi,
+  private val appDataApi: AppDataApi) :
   GamesRepositoryType {
 
   private val defaultBackground = "https://image.winudf.com/v2/image1/Y29tLm5hdGhuZXR3b3JrLnVsdHJhcHJvX3NjcmVlbl8xXzE2MzE3MzE3MTlfMDQ5/screen-1.webp?fakeurl=1&type=.webp"
@@ -29,6 +33,23 @@ class GamesRepository @Inject constructor(private val gamesApi: GamesApi) :
 
       }
 
+      }
+  }
+
+  override fun getGameDetails(packageName:String): Single<GameDetailsData> {
+    return appDataApi.getMeta(packageName)
+      .map { it ->
+        GameDetailsData(
+          title = it.data.name,
+          gameIcon = it.data.appIcon,
+          gameBackground = it.data.background,
+          gamePackage = it.data.packageName,
+          description = it.data.media.description,
+          screenshots = it.data.media.screenshots
+            .map {
+              it.imageUrl
+            }
+        )
       }
   }
 
