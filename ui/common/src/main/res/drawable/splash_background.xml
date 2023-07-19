@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:drawable="@color/styleguide_blue_secondary"/>
+<item android:drawable="@color/styleguide_blue"/>
 <item
     android:drawable="@drawable/ic_app_logo_icon"
     android:gravity="center"/>

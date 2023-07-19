@@ -37,7 +37,7 @@ fun VerifyWalletAlertCard(onClickButton: () -> Unit, verified: Boolean) {
     onClickButton = onClickButton,
     title = if (verified) R.string.verification_settings_verified_title else R.string.referral_verification_title,
     message = stringResource(R.string.mywallet_unverified_body),
-    buttonLabel = if (verified) R.string.mywallet_verify_payment_method_button else R.string.referral_verification_title,
+    buttonLabel = R.string.referral_verification_title,
     icon = if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
   )
 }

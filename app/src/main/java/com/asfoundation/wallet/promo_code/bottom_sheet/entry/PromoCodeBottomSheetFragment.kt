@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
 
+import android.app.Dialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +23,7 @@ import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavig
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -86,14 +89,17 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
-      is Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+      is Async.Uninitialized -> initializePromoCode(
+        state.storedPromoCodeAsync,
+        state.shouldShowDefault
+      )
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
       is Async.Fail -> {
-        handleErrorState(com.appcoins.wallet.feature.promocode.data.FailedPromoCode.InvalidCode(clickAsync.error.throwable))
+        handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
@@ -108,8 +114,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   fun initializePromoCode(
-      storedPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult>,
-      shouldShowDefault: Boolean
+    storedPromoCodeAsync: Async<PromoCodeResult>,
+    shouldShowDefault: Boolean
   ) {
     when (storedPromoCodeAsync) {
       is Async.Uninitialized,
@@ -118,7 +124,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       }
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
-          handleErrorState(com.appcoins.wallet.feature.promocode.data.FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
+          handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
       is Async.Success -> {
@@ -127,9 +133,9 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleClickSuccessState(promoCode: com.appcoins.wallet.feature.promocode.data.PromoCodeResult?) {
+  private fun handleClickSuccessState(promoCode: PromoCodeResult?) {
     when (promoCode) {
-      is com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode -> {
+      is SuccessfulPromoCode -> {
         promoCode.promoCode.code?.let {
           if (viewModel.isFirstSuccess) {
             KeyboardUtils.hideKeyboard(view)
@@ -143,11 +149,11 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun handlePromoCodeSuccessState(
-      promoCodeResult: com.appcoins.wallet.feature.promocode.data.PromoCodeResult,
-      shouldShowDefault: Boolean
+    promoCodeResult: PromoCodeResult,
+    shouldShowDefault: Boolean
   ) {
     when (promoCodeResult) {
-      is com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode -> {
+      is SuccessfulPromoCode -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
@@ -158,17 +164,17 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleErrorState(promoCodeResult: com.appcoins.wallet.feature.promocode.data.PromoCodeResult?) {
+  private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
     showDefaultScreen()
     views.promoCodeBottomSheetSubmitButton.isEnabled = false
     when (promoCodeResult) {
-      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.InvalidCode -> {
+      is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
-      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.ExpiredCode -> {
+      is FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_not_available))
       }
-      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.GenericError -> {
+      is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }
       else -> return
@@ -178,14 +184,24 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   private fun showLoading() {
     hideAll()
     views.promoCodeBottomSheetSystemView.visibility = View.VISIBLE
+    views.promocodeImage.visibility = View.VISIBLE
+    views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetSystemView.showProgress(true)
   }
 
   private fun showDefaultScreen() {
     hideAll()
-    views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.OUTLINED)
+    views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
+    views.promoCodeBottomSheetString.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.styleguide_blue
+      )
+    )
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
+    views.promocodeImage.visibility = View.VISIBLE
+    views.promoCodeBottomSheetSubtitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetActiveCheckmark.visibility = View.GONE
     views.promoCodeBottomSheetSubmitButton.visibility = View.VISIBLE
     views.promoCodeBottomSheetDeleteButton.visibility = View.GONE
@@ -200,6 +216,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       Editable.Factory.getInstance().newEditable(promoCodeString)
     )
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
+    views.promocodeImage.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
     views.promoCodeBottomSheetActiveCheckmark.visibility = View.VISIBLE
     views.promoCodeBottomSheetSubmitButton.visibility = View.GONE
@@ -217,6 +234,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     views.promoCodeBottomSheetTitle.visibility = View.GONE
     views.promoCodeBottomSheetActiveCheckmark.visibility = View.GONE
     views.promoCodeBottomSheetString.visibility = View.GONE
+    views.promoCodeBottomSheetSubtitle.visibility = View.GONE
+    views.promocodeImage.visibility = View.GONE
   }
 
   private fun hideButtons() {

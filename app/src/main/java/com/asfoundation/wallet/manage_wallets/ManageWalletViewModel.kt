@@ -40,13 +40,11 @@ constructor(
     displayChatUseCase()
   }
 
-  init {
-    getWallets()
-  }
 
   fun updateWallets() = getWallets()
 
-  private fun getWallets(walletChanged: Boolean = false) {
+
+  fun getWallets(walletChanged: Boolean = false) {
     walletsInteract
       .observeWalletsModel()
       .firstOrError()
@@ -63,6 +61,18 @@ constructor(
       .firstOrError()
       .doOnSuccess { _uiState.value = UiState.Success(it, wallets.inactiveWallets()) }
       .subscribe()
+  }
+
+  sealed class UiState {
+    object Idle : UiState()
+    object Loading : UiState()
+    object WalletChanged : UiState()
+    object WalletCreated : UiState()
+    object WalletDeleted : UiState()
+    data class Success(
+      val activeWalletInfo: WalletInfo,
+      val inactiveWallets: List<WalletInfoSimple>
+    ) : UiState()
   }
 
   fun changeActiveWallet(wallet: String) {
@@ -91,18 +101,10 @@ constructor(
   fun createWallet(name: String) {
     walletsInteract.createWallet(name)
       .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnComplete { getWallets() }
+      .doOnComplete {
+        getWallets()
+        _uiState.value = UiState.WalletCreated
+      }
       .subscribe()
-  }
-
-  sealed class UiState {
-    object Idle : UiState()
-    object Loading : UiState()
-    object WalletChanged : UiState()
-    object WalletDeleted : UiState()
-    data class Success(
-      val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletInfoSimple>
-    ) : UiState()
   }
 }

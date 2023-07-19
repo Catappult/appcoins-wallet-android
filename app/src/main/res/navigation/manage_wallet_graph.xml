@@ -15,12 +15,11 @@
         android:id="@+id/action_navigate_to_verify_paypal"
         app:destination="@id/verify_paypal_wallet_activity" />
     <action
-        android:id="@+id/action_navigate_to_backup_entry_wallet"
-        app:destination="@id/backup_wallet_fragment">
-    <argument
-        android:name="wallet_name"
-        app:argType="string" />
-    </action>
+        android:id="@+id/action_navigate_to_verify_picker"
+        app:destination="@id/verify_picker_dialog_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_backup_wallet"
+        app:destination="@id/backup_wallet_activity" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment" />
@@ -31,9 +30,18 @@
         android:id="@+id/action_navigate_to_remove_wallet"
         app:destination="@id/remove_wallet_graph" />
     <action
+        android:id="@+id/action_navigate_to_manage_name_wallet_bottom_sheet"
+        app:destination="@id/manage_wallet_name_bottom_sheet" />
+    <action
         android:id="@+id/action_navigate_to_receive_funds"
         app:destination="@id/receive_funds_fragment" />
   </fragment>
+
+  <dialog
+      android:id="@+id/manage_wallet_name_bottom_sheet"
+      android:name="com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment"
+      tools:layout="@layout/manage_wallet_name_bottom_sheet_layout">
+  </dialog>
 
   <activity
       android:id="@+id/verify_paypal_wallet_activity"
@@ -49,88 +57,28 @@
         app:argType="boolean" />
   </activity>
 
-  <fragment
-      android:id="@+id/backup_wallet_fragment"
-      android:name="com.asfoundation.wallet.backup.BackupWalletEntryFragment">
-    <argument
-        android:name="wallet_address"
-        app:argType="string" />
-
-
-    <action
-        android:id="@+id/action_backup_entry_to_screen_options"
-        app:destination="@id/backup_wallet_screen_options">
-        <argument
-            android:name="wallet_address"
-            app:argType="string" />
-      <argument
-          android:name="password"
-          app:argType="string" />
-    </action>
-
-    <action
-        android:id="@+id/action_backup_entry_to_choose_wallet"
-        app:destination="@id/backup_wallet_choose_wallet" />
-
-  </fragment>
-
   <dialog
-      android:id="@+id/backup_wallet_choose_wallet"
-      android:name="com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletBottomSheetFragment"
-      tools:layout="@layout/settings_wallet_bottom_sheet_layout">
-
+      android:id="@+id/verify_picker_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.verify_picker.VerifyPickerDialogFragment"
+      tools:layout="@layout/fragment_verify_picker">
     <action
-        android:id="@+id/action_back_to_entry"
-        app:destination="@id/backup_wallet_fragment"
-        app:popUpTo="@id/backup_wallet_fragment"
-        app:popUpToInclusive="true"
-        />
+        android:id="@+id/action_navigate_to_verify_card"
+        app:destination="@id/verify_credit_card_wallet_activity"
+        app:popUpTo="@id/my_wallets_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_verify_paypal"
+        app:destination="@id/verify_paypal_wallet_activity"
+        app:popUpTo="@id/my_wallets_fragment" />
   </dialog>
 
-  <fragment
-      android:id="@+id/backup_wallet_screen_options"
-      android:name="com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragment">
+  <activity
+      android:id="@+id/backup_wallet_activity"
+      android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
+      tools:layout="@layout/activity_backup">
     <argument
         android:name="wallet_address"
         app:argType="string" />
-    <argument
-        android:name="password"
-        app:argType="string" />
-
-    <action
-        android:id="@+id/action_backup_options_to_success_screen"
-        app:destination="@id/backup_wallet_success_screen" />
-
-    <action
-        android:id="@+id/action_backup_options_to_error_screen"
-        app:destination="@id/backup_wallet_error_screen" />
-
-    <action
-        android:id="@+id/action_backup_options_to_save_on_device"
-        app:destination="@id/backup_save_on_device" />
-  </fragment>
-
-  <fragment
-      android:id="@+id/backup_wallet_error_screen"
-      android:name="com.asfoundation.wallet.backup.BackupErrorScreenFragment">
-
-  </fragment>
-
-  <dialog
-      android:id="@+id/backup_save_on_device"
-      android:name="com.asfoundation.wallet.backup.BottomSheet.BackupSaveOnDeviceBottomSheetFragment"
-      tools:layout="@layout/backup_save_on_device_dialog_fragment">
-
-    <argument
-        android:name="wallet_address"
-        app:argType="string" />
-
-    <argument
-        android:name="password"
-        app:argType="string" />
-
-  </dialog>
-
+  </activity>
 
   <include
       android:id="@+id/remove_wallet_graph"
@@ -161,5 +109,29 @@
     <argument
         android:name="entry_screen_selected"
         app:argType="integer" />
+    <action
+        android:id="@+id/action_navigate_to_success_transfer"
+        app:destination="@id/transfer_funds_success_fragment"
+        app:enterAnim="@anim/fragment_fade_in_animation"
+        app:exitAnim="@anim/fragment_fade_out_animation"
+        app:popUpTo="@+id/receive_funds_fragment"
+        app:popUpToInclusive="true">
+      <argument
+          android:name="amount_sent"
+          app:argType="integer" />
+      <argument
+          android:name="currency_key"
+          app:argType="string" />
+      <argument
+          android:name="to_address"
+          app:argType="string" />
+    </action>
+
   </fragment>
+
+  <fragment
+      android:id="@+id/transfer_funds_success_fragment"
+      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment">
+  </fragment>
+
 </navigation>

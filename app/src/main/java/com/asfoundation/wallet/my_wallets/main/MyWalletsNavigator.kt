@@ -22,7 +22,6 @@ class MyWalletsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navController: NavController
 ) : Navigator {
-
   fun navigateToMore(
     walletAddress: String,
     totalFiatBalance: String,
@@ -40,6 +39,11 @@ class MyWalletsNavigator @Inject constructor(
         ethereumBalance
       )
     )
+  }
+
+
+  fun navigateToManageWalletNameBottomSheet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_manage_name_wallet_bottom_sheet)
   }
 
   fun navigateToName(

@@ -42,7 +42,7 @@ constructor(
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
 
-  val clickedTransferItem: MutableState<Int> = mutableStateOf(TransferDestinations.SEND.ordinal)
+  val clickedTransferItem: MutableState<Int?> = mutableStateOf(null)
   val clickedCurrencyItem: MutableState<Int> = mutableStateOf(CurrencyDestinations.APPC_C.ordinal)
 
   var currentAddedAddress: String = ""
