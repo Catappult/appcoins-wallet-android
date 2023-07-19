@@ -3,7 +3,6 @@ package com.asfoundation.wallet.backup
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R

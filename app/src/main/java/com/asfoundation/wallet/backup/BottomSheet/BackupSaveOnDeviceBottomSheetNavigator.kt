@@ -1,11 +1,8 @@
 package com.asfoundation.wallet.backup.BottomSheet
-
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 

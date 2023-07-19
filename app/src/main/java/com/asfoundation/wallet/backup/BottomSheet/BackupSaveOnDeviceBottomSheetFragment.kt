@@ -19,7 +19,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogFragment
 import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogSideEffect
 import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogState
@@ -28,7 +27,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

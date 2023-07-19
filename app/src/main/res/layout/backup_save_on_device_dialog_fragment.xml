@@ -5,10 +5,11 @@
     android:id="@+id/backup_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_dialog"
+    android:background="@drawable/rounded_dialog_dark"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
+    android:theme="@style/MaterialAppTheme"
     >
 
   <ImageView
@@ -72,6 +73,7 @@
       android:layout_marginTop="12dp"
       app:textFieldType="filled"
       app:layout_constraintEnd_toEndOf="parent"
+      app:textFieldColor="@color/styleguide_blue"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/store_path"
       />
