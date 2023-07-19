@@ -14,7 +14,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
 import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.transact.TransferActivity
 import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import javax.inject.Inject
