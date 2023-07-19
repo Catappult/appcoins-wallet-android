@@ -122,24 +122,27 @@ fun GamificationHeader(
                 .padding(top = 8.dp),
               verticalArrangement = Arrangement.SpaceEvenly,
             ) {
-              LinearProgressIndicator(
-                progress = currentProgress.toFloat() / maxProgress.toFloat(),
-                modifier = Modifier
-                  .background(Color.Transparent)
-                  .clip(CircleShape)
-                  .height(8.dp),
-                color = if (isVip) styleguide_vip_yellow else indicatorColor,
-                trackColor = styleguide_grey_blue,
-              )
-              Text(
-                text = "$currentProgress / $maxProgress",
-                style = MaterialTheme.typography.bodyMedium,
-                color = WalletColors.styleguide_dark_grey,
-                modifier = Modifier
-                  .align(alignment = Alignment.End)
-              )
+              if (currentProgress >= 0 && maxProgress > 0) {
+                LinearProgressIndicator(
+                  progress = currentProgress.toFloat() / maxProgress.toFloat(),
+                  modifier = Modifier
+                    .background(Color.Transparent)
+                    .clip(CircleShape)
+                    .height(8.dp),
+                  color = if (isVip) styleguide_vip_yellow else indicatorColor,
+                  trackColor = styleguide_grey_blue,
+                )
+
+                Text(
+                  text = "$currentProgress / $maxProgress",
+                  style = MaterialTheme.typography.bodyMedium,
+                  color = WalletColors.styleguide_dark_grey,
+                  modifier = Modifier
+                    .align(alignment = Alignment.End)
+                )
+              }
             }
-        }
+          }
         }
         Box(
           modifier = Modifier
