@@ -19,13 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.R
 
 @Composable
 fun WalletTextFieldCustom(value: String,hintText: Int? = null, onValueChange: (String) -> Unit) {
@@ -81,8 +81,6 @@ fun WalletTextField(
     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default, keyboardType = keyboardType),
     placeholder = {
       Text(
-        text = stringResource(R.string.action_add_wallet),
-        color = WalletColors.styleguide_dark_grey
         text = placeHolder, color = WalletColors.styleguide_dark_grey
       )
     },
