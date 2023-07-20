@@ -74,6 +74,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun RemoveWalletView() {
+    viewModel.getWallets(false)
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
