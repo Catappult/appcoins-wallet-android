@@ -58,7 +58,7 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
     views.textWalletNameBottomSheetString.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.styleguide_blue
+        R.color.styleguide_blue_secondary
       )
     )
 
