@@ -51,7 +51,7 @@ class BackupRepository @Inject constructor(
       val signedAddress = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
       val address = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
       backupEmailApi.sendBackupEmail(address.address, signedAddress.signedAddress,
-          EmailBody(email, keystore.convertToBase64()))
+          EmailBody(email, keystore.convertToBase64())).subscribe({},{})
     }
   }
 
