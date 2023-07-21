@@ -1,9 +1,5 @@
 package com.appcoins.wallet.ui.widgets
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -21,7 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
@@ -64,7 +59,11 @@ private fun CardItem(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, context) },
+    //onClick = { openGame(gameCardData.gamePackage, context) },
+    onClick = {
+      val dialog = AppViewFragment()
+      dialog.show(dialog.childFragmentManager, dialog.tag)
+    },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
