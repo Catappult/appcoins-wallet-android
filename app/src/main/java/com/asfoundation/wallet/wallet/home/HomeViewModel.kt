@@ -38,6 +38,7 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
+import com.appcoins.wallet.ui.widgets.GameDetailsData
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
@@ -115,6 +116,7 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
+  private val getGameDetailsUseCase: GetGameDetailsUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -141,6 +143,7 @@ constructor(
   val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
+  val gameDetails = mutableStateOf(GameDetailsData("","","","","", listOf()))
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
@@ -336,6 +339,17 @@ constructor(
       .subscribeOn(rxSchedulers.io)
       .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
   }
+
+/*
+  fun fetchGameDetails(packageName: String) {
+    getGameDetailsUseCase(packageName)
+      .subscribeOn(rxSchedulers.io)
+      .scopedSubscribe({ gameDetails.value})
+  }
+
+
+ */
+
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()

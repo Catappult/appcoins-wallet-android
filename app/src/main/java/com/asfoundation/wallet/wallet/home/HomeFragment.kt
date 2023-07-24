@@ -58,6 +58,7 @@ import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.wallet.home.app_view.AppViewFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -173,7 +174,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
+      GamesBundle(
+        items = viewModel.gamesList.value,
+        dialog = { launchAppViewFragment() },
+      ) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
 
@@ -450,4 +454,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     ) as NavHostFragment
     return navHostFragment.navController
   }
+
+  fun launchAppViewFragment() {
+    Log.d("AppViewFragment","Entra no launch fragment")
+    val dialog = AppViewFragment()
+    dialog.show(childFragmentManager, dialog.tag)
+  }
 }
+
