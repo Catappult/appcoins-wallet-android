@@ -42,9 +42,10 @@ class RewardNavigator @Inject constructor(
   }
 
   fun navigateToWithdrawScreen() {
-    val intent = WithdrawActivity.newIntent(fragment.requireContext())
-      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
-    fragment.requireContext().startActivity(intent)
+    navigate(
+      navController,
+      RewardFragmentDirections.actionNavigateEskillsWithdraw()
+    )
   }
 
   fun navigateToGamification(cachedBonus: Double) {
