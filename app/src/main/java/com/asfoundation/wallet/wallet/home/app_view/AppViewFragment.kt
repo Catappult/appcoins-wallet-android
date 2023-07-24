@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.widgets
+package com.asfoundation.wallet.wallet.home.app_view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
+import com.appcoins.wallet.ui.widgets.R
 
 class AppViewFragment : DialogFragment() {
 

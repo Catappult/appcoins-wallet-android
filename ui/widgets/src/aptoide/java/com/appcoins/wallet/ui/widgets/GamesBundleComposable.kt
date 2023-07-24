@@ -24,6 +24,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Composable
 fun GamesBundle(
   items: List<GameData>,
+  dialog: () -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
@@ -43,7 +44,8 @@ fun GamesBundle(
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
       items(items) { item ->
-        CardItem(gameCardData = item)
+        CardItem(gameCardData = item,
+        dialogFragment = dialog)
       }
     }
   }
@@ -52,7 +54,8 @@ fun GamesBundle(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameData
+  gameCardData: GameData,
+  dialogFragment: () -> Unit
 ) {
   val context = LocalContext.current
   Card(
@@ -60,10 +63,7 @@ private fun CardItem(
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
     //onClick = { openGame(gameCardData.gamePackage, context) },
-    onClick = {
-      val dialog = AppViewFragment()
-      dialog.show(dialog.childFragmentManager, dialog.tag)
-    },
+    onClick = dialogFragment,
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
@@ -168,6 +168,7 @@ fun PreviewGamesBundle() {
         gamePackage = "com.igg.android.lordsmobile",
       )
     ),
+    {},
     {}
   )
 }
