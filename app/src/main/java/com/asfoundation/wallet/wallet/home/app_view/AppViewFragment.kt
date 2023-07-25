@@ -19,7 +19,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
@@ -27,8 +26,9 @@ import androidx.fragment.app.viewModels
 import com.appcoins.wallet.ui.widgets.GameDetailsData
 import com.appcoins.wallet.ui.widgets.R
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
 
