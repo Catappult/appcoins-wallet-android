@@ -12,7 +12,7 @@ import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import io.reactivex.Single
-import io.reactivex.functions.Function4
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
@@ -34,21 +34,20 @@ class OneStepTransactionParser @Inject constructor(
       Single.just(cache.getSync(oneStepUri.toString()))
     } else {
       val completedOneStepUri = completeUri(oneStepUri)
-      Single.zip(getToken(), getIabContract(), getWallet(oneStepUri), getTokenContract(),
-        Function4 { token: Token, iabContract: String, walletAddress: String,
-                    tokenContract: String ->
+      Single.zip(getToken(), getWallet(oneStepUri),
+        BiFunction { token: Token, walletAddress: String ->
           val paymentType = if (isSkills(oneStepUri)) {
             Parameters.ESKILLS
           } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
           TransactionBuilder(
             token.tokenInfo.symbol,
-            tokenContract,
+            "",
             getChainId(completedOneStepUri),
             walletAddress,
             getAppcAmount(completedOneStepUri),
             getSkuId(completedOneStepUri),
             token.tokenInfo.decimals,
-            iabContract,
+            "",
             paymentType,
             null,
             getDomain(completedOneStepUri),

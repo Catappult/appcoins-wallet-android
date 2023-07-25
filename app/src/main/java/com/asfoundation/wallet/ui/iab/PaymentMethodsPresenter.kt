@@ -420,7 +420,8 @@ class PaymentMethodsPresenter(
       if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
     }
       .andThen(
-        getWalletInfoUseCase(null, cached = false, updateFiat = true)
+        // updating fiat values is not necessary at this stage, the app only needs to know whether appcBalance > skuAppcPrice is true
+        getWalletInfoUseCase(null, cached = false, updateFiat = false)
           .subscribeOn(networkThread)
           .map { "" }
           .onErrorReturnItem("")

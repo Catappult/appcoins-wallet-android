@@ -131,7 +131,7 @@ class BdsPromotionsRepository @Inject constructor(
 
   private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus =
     if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
-      ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus)
+      ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus, bonusResponse.level)
     } else {
       ForecastBonus(ForecastBonus.Status.INACTIVE)
     }

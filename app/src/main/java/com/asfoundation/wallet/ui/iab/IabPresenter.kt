@@ -57,7 +57,7 @@ class IabPresenter(
 
   fun onResume() {
     handleAutoUpdate()
-    handleUserRegistration()
+    //handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
   }

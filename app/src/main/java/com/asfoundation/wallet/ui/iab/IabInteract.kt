@@ -18,7 +18,7 @@ class IabInteract @Inject constructor(private val inAppPurchaseInteractor: InApp
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
   }
 
-  fun showSupport() = supportInteractor.displayChatScreen()
+  fun showSupport() = supportInteractor.showSupport()
 
   fun hasPreSelectedPaymentMethod() = inAppPurchaseInteractor.hasPreSelectedPaymentMethod()
 

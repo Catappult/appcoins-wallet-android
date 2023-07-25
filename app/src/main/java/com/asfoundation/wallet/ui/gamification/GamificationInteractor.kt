@@ -53,35 +53,29 @@ class GamificationInteractor @Inject constructor(
     packageName: String, amount: BigDecimal,
     promoCodeString: String?, currency: String?
   ): Single<ForecastBonusAndLevel> {
-    return getCurrentPromoCodeUseCase()
-      .flatMap { promoCode ->
-        defaultWallet.find()
-          .flatMap { wallet: Wallet ->
-            gamification.getEarningBonus(
-              wallet.address, packageName, amount,
-              promoCodeString, currency
-            ).flatMap { appcBonusValue: ForecastBonus ->
-              Single.zip(
-                conversionService.getAppcToLocalFiat(appcBonusValue.amount.toString(), 18),
-                gamification.getUserBonusAndLevel(wallet.address, promoCode.code)
-              ) { localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
-                map(appcBonusValue, localCurrency, userBonusAndLevel)
-              }
-            }
+    return defaultWallet.find()
+      .flatMap { wallet: Wallet ->
+        gamification.getEarningBonus(
+          wallet.address, packageName, amount,
+          promoCodeString, currency
+        ).flatMap { appcBonusValue ->
+          conversionService.getAppcToLocalFiat(appcBonusValue.amount.toString(), 18).flatMap { fiatValue ->
+            Single.just(map(appcBonusValue, fiatValue, null))
           }
-          .doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
-      }
+        }
+      }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
   }
 
 
   private fun map(
     forecastBonus: ForecastBonus, fiatValue: FiatValue,
-    forecastBonusAndLevel: ForecastBonusAndLevel
+    forecastBonusAndLevel: ForecastBonusAndLevel?
   ): ForecastBonusAndLevel {
-    val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
+    //val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
     return ForecastBonusAndLevel(
-      status, fiatValue.amount, fiatValue.symbol,
-      level = forecastBonusAndLevel.level
+      forecastBonus.status, fiatValue.amount, fiatValue.symbol
+      , level = forecastBonus.level.toInt()
+      // , level = forecastBonusAndLevel.level
     )
   }
 
