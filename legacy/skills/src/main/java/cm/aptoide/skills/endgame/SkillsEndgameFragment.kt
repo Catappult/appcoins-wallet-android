@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.network.eskills.model.User
 import com.appcoins.wallet.core.network.eskills.model.UserStatus
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -128,18 +129,29 @@ class SkillsEndgameFragment : Fragment() {
   private fun setupRankingsButton() {
     views.rankingsButton.setOnClickListener {
       disposables.add(
-        viewModel.getWalletAddress().subscribeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess { walletAddress ->
-            requireActivity().supportFragmentManager.beginTransaction().replace(
-              R.id.fragment_container, SkillsRankingsFragment.newInstance(
-                walletAddress, requireArguments().getString(PACKAGE_NAME)!!, GLOBAL_LEADERBOARD_SKU
-              )
-            )
-              .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
-              .commit()
-          }.subscribe()
+        Single.zip(viewModel.getWalletAddress(),viewModel.getRewardsPackages()
+        ) { walletAddress, rewardsPackages ->
+          launchRankingsFragment(walletAddress, rewardsPackages)
+        }
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSubscribe { showLoading() }
+          .subscribe()
       )
     }
+  }
+
+
+  private fun launchRankingsFragment(walletAddress: String, rewardsPackages: List<String>) {
+    val packageName = requireArguments().getString(PACKAGE_NAME)!!
+    requireActivity().supportFragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container, SkillsRankingsFragment.newInstance(
+          walletAddress,
+          packageName, GLOBAL_LEADERBOARD_SKU, rewardsPackages.contains(packageName)
+        )
+      )
+      .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
+      .commit()
   }
 
   private fun buildRecyclerView() {

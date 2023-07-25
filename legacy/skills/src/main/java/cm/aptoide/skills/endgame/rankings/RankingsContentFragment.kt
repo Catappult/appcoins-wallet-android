@@ -36,6 +36,7 @@ class RankingsContentFragment : Fragment() {
   private lateinit var walletAddress: String
   private lateinit var packageName: String
   private lateinit var sku: String
+  private var supportsRewards: Boolean = false
   private lateinit var adapter: RankingsAdapter
   private var disposables = CompositeDisposable()
   private lateinit var loadingView: View
@@ -60,7 +61,7 @@ class RankingsContentFragment : Fragment() {
     walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY)!!
     packageName = requireArguments().getString(PACKAGE_NAME_KEY)!!
     sku = requireArguments().getString(SKU_KEY)!!
-
+    supportsRewards = requireArguments().getBoolean(SUPPORTS_REWARDS_KEY)
   }
 
   override fun onCreateView(
@@ -80,13 +81,6 @@ class RankingsContentFragment : Fragment() {
     loadingView = binding.loading
     errorView = binding.errorView
     showRankings()
-    if (timeFrame === TimeFrame.ALL_TIME) {
-      binding.lastWinnersContainer.root.visibility = View.GONE
-      binding.currentTop3Container.root.visibility = View.GONE
-    } else {
-      showLastBonusWinners()
-      showCountdownTimer()
-    }
     binding.retryButton.setOnClickListener { showRankings() }
   }
 
@@ -96,15 +90,30 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun showRankings() {
+    handleLayout()
     disposables.add(getUserStatisticsUseCase.invoke(packageName, walletAddress, timeFrame)
       .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoadingView() }
       .doOnSuccess { showRecyclerView() }.subscribe({ topRankings ->
         updateCurrentRanking(topRankings.currentUser)
-        updateRankingsList(processTop3(topRankings.userList))
+        updateRankingsList(
+           if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards)
+             topRankings.userList
+           else processTop3(topRankings.userList)
+        )
       }) { throwable ->
         throwable.printStackTrace()
         showErrorView()
       })
+  }
+
+  private fun handleLayout() {
+    if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards) {
+      binding.lastWinnersContainer.root.visibility = View.GONE
+      binding.currentTop3Container.root.visibility = View.GONE
+    } else {
+      showLastBonusWinners()
+      showCountdownTimer()
+    }
   }
 
   private fun showLastBonusWinners() {
@@ -122,9 +131,6 @@ class RankingsContentFragment : Fragment() {
 
   // process top 3 and return the original list minus that 3 players
   private fun processTop3(players_score: List<TopRankings>): List<TopRankings> {
-    if (timeFrame === TimeFrame.ALL_TIME) {
-      return players_score
-    }
     val firstPlayerRowBinding: FirstRowLayoutBinding = binding.currentTop3Container.firstPlayerRow
     val secondPlayerRowBinding: SecondRowLayoutBinding =
       binding.currentTop3Container.secondPlayerRow
@@ -203,7 +209,7 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun updateCurrentRanking(currentRanking: TopRankings?) {
-    if (currentRanking == null) {
+    if (currentRanking == null || currentRanking.rankPosition == -1) {
       binding.currentRankingContainer.root.visibility = View.GONE
     } else {
       binding.currentRankingContainer.rankingScore.text =
@@ -283,11 +289,16 @@ class RankingsContentFragment : Fragment() {
     private const val TIME_FRAME_KEY = "TIME_FRAME_KEY"
     private const val PACKAGE_NAME_KEY = "PACKAGE_NAME_KEY"
     private const val SKU_KEY = "SKU_KEY"
+    private const val SUPPORTS_REWARDS_KEY = "SUPPORTS_REWARDS"
     private const val COUNTDOWN_INTERVAL: Long = 1000
 
     @JvmStatic
     fun newInstance(
-      walletAddress: String, packageName: String, sku: String, timeFrame: TimeFrame
+      walletAddress: String,
+      packageName: String,
+      sku: String,
+      timeFrame: TimeFrame,
+      supportsRewards: Boolean
     ): RankingsContentFragment {
       return RankingsContentFragment().apply {
         arguments = Bundle().apply {
@@ -295,6 +306,7 @@ class RankingsContentFragment : Fragment() {
           putString(PACKAGE_NAME_KEY, packageName)
           putString(SKU_KEY, sku)
           putSerializable(TIME_FRAME_KEY, timeFrame)
+          putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
         }
       }
     }
