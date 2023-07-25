@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,13 +26,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<WithdrawBottomSheetState, WithdrawBottomSheetSideEffect> {
 
-//  @Inject  //TODO
-//  lateinit var navigator: WithdrawBottomSheetNavigator
+  @Inject
+  lateinit var navigator: WithdrawBottomSheetNavigator
 
   private val viewModel: WithdrawBottomSheetViewModel by viewModels()
   private val views by viewBinding(EskillsWithdrawBottomSheetLayoutBinding::bind)
@@ -92,7 +92,7 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
     views.eskillsEmailString.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.eskillsBottomSheetSubmitButton.isEnabled = s.isNotEmpty() // TODO condition for enable
+        views.eskillsBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
       }
 
       override fun afterTextChanged(s: Editable) = Unit
@@ -102,7 +102,7 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         views.eskillsBottomSheetSubmitButton.isEnabled =
-          s.isNotEmpty() // TODO condition for enable (amount + email)
+          s.isNotEmpty()
       }
 
       override fun afterTextChanged(s: Editable) = Unit
@@ -153,13 +153,13 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleClickSuccessState(withdraw: WithdrawResult?) { // TODO
+  private fun handleClickSuccessState(withdraw: WithdrawResult?) {
     when (withdraw) {
       is SuccessfulWithdraw -> {
         withdraw.amount.let {
           if (viewModel.isFirstSuccess) {
             KeyboardUtils.hideKeyboard(view)
-//            navigator.navigateToSuccess(withdraw.withdraw) // TODO
+            navigator.navigateToSuccess(it.toString())
             viewModel.isFirstSuccess = false
           }
         }
