@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
 import com.asfoundation.wallet.GlideApp
@@ -74,15 +73,6 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     binding.layoutContent.visibility = View.VISIBLE
 
     loadImage(subscriptionItem.appIcon)
-
-    binding.layoutSubscriptionInfo.appName.text = subscriptionItem.appName
-    binding.layoutSubscriptionInfo.skuName.text = subscriptionItem.itemName
-
-    val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    binding.layoutSubscriptionInfo.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
-        getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    binding.layoutSubscriptionInfo.totalValueAppc.text = String.format("~%s / APPC",
-        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
   private fun loadImage(appIcon: String) {

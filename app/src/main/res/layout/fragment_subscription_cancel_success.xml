@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue_secondary"
     >
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/success_animation"
@@ -25,7 +26,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
       android:text="@string/subscriptions_cancel_confirmation_title"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_light_grey"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="@id/success_animation"
       app:layout_constraintStart_toStartOf="@id/success_animation"

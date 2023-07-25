@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/styleguide_blue"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +38,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="@string/subscriptions_empty_title"
-        android:textColor="@color/styleguide_black_transparent_80"
+        android:textColor="@color/styleguide_light_grey"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +56,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="@string/subscriptions_empty_body"
-        android:textColor="@color/styleguide_black_transparent_80"
+        android:textColor="@color/styleguide_light_grey"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

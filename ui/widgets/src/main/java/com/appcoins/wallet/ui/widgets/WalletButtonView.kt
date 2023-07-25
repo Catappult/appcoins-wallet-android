@@ -11,9 +11,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.setMargins
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 
 class WalletButtonView : FrameLayout {
 
@@ -97,14 +97,9 @@ class WalletButtonView : FrameLayout {
     applyType()
   }
 
-  fun setColorResource(@ColorRes colorRes: Int) {
-    setColor(ContextCompat.getColor(this.context, colorRes))
-  }
-
   private fun applyType() {
     if (enabled) {
       views.root.isClickable = true
-
       when (type) {
         Type.FILLED -> {
           views.root.setCardBackgroundColor(color)
@@ -127,6 +122,7 @@ class WalletButtonView : FrameLayout {
           }
         }
         Type.OUTLINED -> {
+          this.color = ContextCompat.getColor(this.context, R.color.styleguide_light_grey)
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(this.context, R.color.transparent)
           )

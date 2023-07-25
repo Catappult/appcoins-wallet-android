@@ -28,7 +28,8 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -113,7 +114,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.layoutActiveSubscriptionContent.root.visibility = View.VISIBLE
 
     binding.status.text = getString(R.string.subscriptions_active_title)
-    binding.statusIcon.setImageResource(R.drawable.ic_active)
     binding.layoutActiveSubscriptionContent.paymentMethodValue.text = subscriptionItem.paymentMethod
     binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
@@ -150,7 +150,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.cancelSubscription.visibility = View.GONE
 
     binding.renewSubscription.visibility = View.GONE
-    binding.statusIcon.setImageResource(R.drawable.ic_forbidden)
     binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
     binding.status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
@@ -163,14 +162,23 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
     binding.expiresOn.visibility = View.VISIBLE
     binding.cancelSubscription.visibility = View.GONE
-    binding.layoutActiveSubscriptionContent.nextPaymentValue.text = getString(R.string.subscriptions_canceled_body)
-    binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_red, null))
+    binding.layoutActiveSubscriptionContent.nextPaymentValue.text =
+      getString(R.string.subscriptions_canceled_body)
+    binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(
+      ResourcesCompat.getColor(
+        resources,
+        R.color.styleguide_pink,
+        null
+      )
+    )
 
     val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     subscriptionItem.expiry?.let {
-      binding.expiresOn.text = getString(R.string.subscriptions_details_cancelled_body,
-          dateFormat.format(it))
+      binding.expiresOn.text = getString(
+        R.string.subscriptions_details_cancelled_body,
+        dateFormat.format(it)
+      )
     }
   }
 
@@ -191,9 +199,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
         .apply { RequestOptions().dontTransform() }
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .into(target)
-    GlideApp.with(context)
-        .load(paymentIcon)
-        .into(binding.layoutActiveSubscriptionContent.paymentMethodIcon)
   }
 
   private val target = object : Target<Bitmap> {

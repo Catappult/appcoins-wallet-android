@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue_secondary"
     >
 
   <include
@@ -25,24 +26,6 @@
       />
 
   <TextView
-      android:id="@+id/title"
-      style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="25dp"
-      android:layout_marginEnd="32dp"
-      android:text="@string/subscriptions_cancel_title"
-      android:textColor="@color/styleguide_black_transparent_80"
-      android:textSize="20sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <TextView
       android:id="@+id/subtitle"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="match_parent"
@@ -52,11 +35,13 @@
       android:layout_marginTop="7dp"
       android:layout_marginEnd="32dp"
       android:text="@string/subscriptions_cancel_body"
-      android:textColor="@color/styleguide_black_transparent_80"
-      android:textSize="14sp"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
+      android:textSize="16sp"
+      android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/title"
+      app:layout_constraintTop_toBottomOf="@id/layout_subscription_info"
       />
 
   <include
@@ -69,9 +54,8 @@
       android:layout_marginEnd="32dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/subtitle"
+      app:layout_constraintTop_toTopOf="parent"
       />
-
   <TextView
       android:id="@+id/error"
       android:layout_width="0dp"
@@ -83,32 +67,32 @@
       android:gravity="center"
       android:text="@string/verification_insert_code_error_common"
       android:textColor="@color/styleguide_pink"
-      android:textSize="10sp"
+      android:textSize="12sp"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/layout_subscription_info"
+      app:layout_constraintTop_toBottomOf="@id/subtitle"
       tools:visibility="visible"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/back_button"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"
       android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="8dp"
       app:buttonText="@string/subscriptions_cancel_no_button"
       app:buttonType="filled"
-      app:layout_constraintBottom_toTopOf="@id/cancel_subscription"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="@id/cancel_subscription"
+      app:layout_constraintEnd_toStartOf="@id/cancel_subscription"
+      app:layout_constraintTop_toTopOf="@id/cancel_subscription"
       app:layout_constraintStart_toStartOf="parent"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/cancel_subscription"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"
       android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
@@ -131,14 +115,14 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/transact_loading_animation"
+      app:lottie_rawRes="@raw/loading_wallet"
       />
 
   <androidx.constraintlayout.widget.Group
       android:id="@+id/layout_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:constraint_referenced_ids="title,subtitle,layout_subscription_info,back_button,cancel_subscription"
+      app:constraint_referenced_ids="subtitle,layout_subscription_info,back_button,cancel_subscription"
       />
 
   <androidx.constraintlayout.widget.Guideline

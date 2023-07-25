@@ -152,7 +152,7 @@
 
   <style name="TransactionDetailsTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textColor">@color/styleguide_medium_grey</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
