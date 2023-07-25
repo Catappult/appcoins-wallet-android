@@ -23,25 +23,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import com.appcoins.wallet.ui.widgets.GameDetailsData
 import com.appcoins.wallet.ui.widgets.R
+import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
+import javax.inject.Inject
 
-class AppViewFragment : DialogFragment() {
+class AppViewFragment(val gamePackage: String) : DialogFragment() {
+
+
+    private val viewModel: AppDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return ComposeView(requireContext()).apply { setContent { AppViewScreen() } }
+        return ComposeView(requireContext())
+            .apply {
+                setContent {
+                    AppViewScreen(appDetailsData = viewModel.gameDetails.value) {
+                        viewModel.fetchGameDetails(gamePackage)
+                    }
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    @Preview
+
     @Composable
-    fun AppViewScreen() {
+    fun AppViewScreen(appDetailsData: GameDetailsData, function: () -> Unit) {
+        function()
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -55,7 +70,7 @@ class AppViewFragment : DialogFragment() {
             )
             Spacer(modifier = Modifier.weight(0.3f))
             Text(
-                stringResource(id = R.string.e_skills_know_more_about),
+                text = appDetailsData.description,
                 fontWeight = FontWeight.Bold,
                 fontSize = 45.sp,
                 modifier = Modifier.padding(8.dp)
