@@ -33,6 +33,7 @@
         android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
         android:maxLines="1"
         tools:text="Text"
+        android:inputType="number"
         />
   </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

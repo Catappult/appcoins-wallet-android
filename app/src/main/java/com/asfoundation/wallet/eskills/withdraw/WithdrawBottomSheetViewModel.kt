@@ -4,6 +4,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
 import com.asfoundation.wallet.eskills.withdraw.usecases.WithdrawToFiatUseCase
@@ -17,7 +18,7 @@ sealed class WithdrawBottomSheetSideEffect : SideEffect {
 
 data class WithdrawBottomSheetState(
   val withdrawAmountAsync: Async<BigDecimal> = Async.Uninitialized,
-  val submitWithdrawAsync: Async<WithdrawAmountResult> = Async.Uninitialized, // TODO
+  val submitWithdrawAsync: Async<WithdrawResult> = Async.Uninitialized, // TODO
 ) : ViewState
 
 @HiltViewModel
@@ -41,7 +42,7 @@ class WithdrawBottomSheetViewModel @Inject constructor(
     getCurrentWithdrawBalance()
   }
 
-  private fun getCurrentWithdrawBalance() {  //TODO
+  private fun getCurrentWithdrawBalance() {
     getAvailableAmountToWithdrawUseCase()
       .asAsyncToState { copy(withdrawAmountAsync = it) }
       .repeatableScopedSubscribe(WithdrawBottomSheetState::withdrawAmountAsync.name) { e ->
@@ -49,10 +50,10 @@ class WithdrawBottomSheetViewModel @Inject constructor(
       }
   }
 
-  fun submitClick(email: String, amount: String) {
-//    verifyAndWithdrawUseCase(email, amount)   //TODO
-//      .asAsyncToState { copy(submitWithdrawAsync = it) }
-//      .scopedSubscribe()
+  fun withdrawToFiat(paypalEmail: String, amount: BigDecimal) {
+    withdrawToFiatUseCase(paypalEmail, amount)
+      .asAsyncToState { copy(submitWithdrawAsync = it) }
+      .scopedSubscribe { e -> e.printStackTrace() }
   }
 
 }

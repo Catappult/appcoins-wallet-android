@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +19,9 @@ import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.asf.wallet.R
 import com.asf.wallet.databinding.EskillsWithdrawBottomSheetLayoutBinding
+import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
+import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
+import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -50,8 +54,23 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     setListeners()
+    views.eskillsEmailString.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        hideErrorMessages()
+      }
+
+      override fun afterTextChanged(s: Editable) = Unit
+    })
+    views.eskillsAmountText.addTextChangedListener(object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        hideErrorMessages()
+      }
+
+      override fun afterTextChanged(s: Editable) = Unit
+    })
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -67,10 +86,7 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun setListeners() {
     views.eskillsBottomSheetSubmitButton.setOnClickListener {
-      viewModel.submitClick(
-        views.eskillsEmailString.getText().trim(),
-        views.eskillsAmountString.getText().trim()
-      )
+      withdrawToFiat()
     }
 
     views.eskillsEmailString.addTextChangedListener(object : TextWatcher {
@@ -78,35 +94,55 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         views.eskillsBottomSheetSubmitButton.isEnabled = s.isNotEmpty() // TODO condition for enable
       }
+
       override fun afterTextChanged(s: Editable) = Unit
     })
 
     views.eskillsAmountString.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.eskillsBottomSheetSubmitButton.isEnabled = s.isNotEmpty() // TODO condition for enable (amount + email)
+        views.eskillsBottomSheetSubmitButton.isEnabled =
+          s.isNotEmpty() // TODO condition for enable (amount + email)
       }
+
       override fun afterTextChanged(s: Editable) = Unit
     })
   }
 
   override fun onStateChanged(state: WithdrawBottomSheetState) {
-    when (val clickAsync = state.submitWithdrawAsync) {
-      is Async.Uninitialized -> initializeWithdraw(
-        state.withdrawAmountAsync
-      )
+    when (val withdrawAsync = state.withdrawAmountAsync) {
+      is Async.Uninitialized,
       is Async.Loading -> {
-        if (clickAsync.value == null) {
-          showLoading()
-        }
+        showDefaultScreen(withdrawAsync.value?.toFloat() ?: 0F)
       }
       is Async.Fail -> {
-//        handleErrorState(FailedWithdraw.InvalidCode(clickAsync.error.throwable))  // TODO
+        showErrorState()
       }
       is Async.Success -> {
-        handleClickSuccessState(state.submitWithdrawAsync.value)
+
+        when (val clickAsync = state.submitWithdrawAsync) {
+          is Async.Uninitialized -> {
+            withdrawAsync.value?.let {
+              showDefaultScreen(it.toFloat())
+            }
+          }
+          is Async.Loading -> {
+            if (clickAsync.value == null) {
+              showLoading()
+            }
+          }
+          is Async.Fail -> {
+            showErrorState()
+          }
+          is Async.Success -> {
+            handleClickSuccessState(state.submitWithdrawAsync.value)
+          }
+        }
+
       }
     }
+
+
   }
 
   override fun onSideEffect(sideEffect: WithdrawBottomSheetSideEffect) {
@@ -117,57 +153,76 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun initializeWithdraw(
-    withdrawAmountAsync: Async<BigDecimal>
-  ) {
-    when (withdrawAmountAsync) {
-      is Async.Uninitialized,
-      is Async.Loading -> {
-        showDefaultScreen(withdrawAmountAsync.value?.toFloat() ?: 0F)
-      }
-      is Async.Fail -> {
-        if (withdrawAmountAsync.value != null) {
-          handleErrorState(
-            FailedWithdrawAmount.GenericError(withdrawAmountAsync.error.throwable),
-            withdrawAmountAsync.value?.toFloat() ?: 0F
-          )
+  private fun handleClickSuccessState(withdraw: WithdrawResult?) { // TODO
+    when (withdraw) {
+      is SuccessfulWithdraw -> {
+        withdraw.amount.let {
+          if (viewModel.isFirstSuccess) {
+            KeyboardUtils.hideKeyboard(view)
+//            navigator.navigateToSuccess(withdraw.withdraw) // TODO
+            viewModel.isFirstSuccess = false
+          }
         }
       }
-      is Async.Success -> {
-        withdrawAmountAsync.value?.let {
-          showDefaultScreen(it.toFloat())
-        }
+      is FailedWithdraw.NotEnoughEarningError -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsAmountString.setError(getString(R.string.e_skills_withdraw_not_enough_earnings_error_message))
+      }
+      is FailedWithdraw.NotEnoughBalanceError -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsAmountString.setError(getString(R.string.e_skills_withdraw_not_enough_balance_error_message))
+      }
+      is FailedWithdraw.MinAmountRequiredError -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsAmountString.setError(getString(
+          R.string.e_skills_withdraw_minimum_amount_error_message,
+          withdraw.amount
+        ))
+      }
+      is FailedWithdraw.InvalidEmailError -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsEmailString.setError(getString(R.string.e_skills_withdraw_invalid_email_error_message))
+      }
+      is FailedWithdraw.NoNetworkError -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsAmountString.setError(getString(R.string.activity_iab_no_network_message))
+      }
+      else -> {
+        showDefaultScreen(null)
+        views.eskillsBottomSheetSubmitButton.isEnabled = false
+        views.eskillsAmountString.setError(getString(R.string.unknown_error))
       }
     }
   }
 
-  private fun handleClickSuccessState(withdraw: WithdrawAmountResult?) { // TODO
-//    when (withdraw) {   //TODO
-//      is SuccessfulWithdraw -> {
-//        withdraw.withdraw.code?.let {
-//          if (viewModel.isFirstSuccess) {
-//            KeyboardUtils.hideKeyboard(view)
-//            navigator.navigateToSuccess(withdraw.withdraw)
-//            viewModel.isFirstSuccess = false
-//          }
-//        }
-//      }
-//      else -> handleErrorState(withdraw)
-//    }
+  private fun withdrawToFiat() {
+    val paypalEmail: String = views.eskillsEmailString.getText()
+    val amount: String = views.eskillsAmountString.getText()
+    if (paypalEmail.isEmpty()) {
+      views.eskillsEmailString.setError(getString(R.string.error_field_required))
+      return
+    }
+    if (amount.isEmpty()) {
+      views.eskillsAmountString.setError(getString(R.string.error_field_required))
+      return
+    }
+    if ((amount.toFloatOrNull() ?: 0F) <= 0F) {
+      // the minimum withdraw amount (server side) is required here
+      viewModel.withdrawToFiat(paypalEmail, BigDecimal("0.00001"))
+      return
+    }
+    viewModel.withdrawToFiat(paypalEmail, BigDecimal(amount))
   }
 
-  private fun handleErrorState(withdrawAmountResult: WithdrawAmountResult?, withdrawAmount: Float) {
-    showDefaultScreen(withdrawAmount)
+  private fun showErrorState() {
+    showDefaultScreen(null)
     views.eskillsBottomSheetSubmitButton.isEnabled = false
-    when (withdrawAmountResult) {
-      is FailedWithdrawAmount.NoBalanceCode -> {  //TODO errors
-        views.eskillsAmountString.setError(getString(R.string.promo_code_view_error))
-      }
-      is FailedWithdrawAmount.GenericError -> {
-        views.eskillsAmountString.setError(getString(R.string.promo_code_error_invalid_user))
-      }
-      else -> return
-    }
+    views.eskillsAmountString.setError(getString(R.string.unknown_error))
   }
 
   private fun showLoading() {
@@ -178,13 +233,13 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
     views.eskillsBottomSheetSystemView.showProgress(true)
   }
 
-  private fun showDefaultScreen(withdrawAmount: Float) {
+  private fun showDefaultScreen(withdrawAmount: Float?) {
     hideAll()
 
     views.eskillsAmountText.text = getString(
       R.string.e_skills_withdraw_max_amount_part_2,
-      withdrawAmount
-      )
+      withdrawAmount ?: viewModel.state.withdrawAmountAsync.value?.toFloat() ?: 0F
+    )
     views.eskillsAmountText.visibility = View.VISIBLE
 
     views.eskillsEmailString.setType(WalletTextFieldView.Type.FILLED)
@@ -196,7 +251,7 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
     )
     views.eskillsEmailString.visibility = View.VISIBLE
 
-    views.eskillsAmountString.setType(WalletTextFieldView.Type.FILLED)
+    views.eskillsAmountString.setType(WalletTextFieldView.Type.NUMBER)
     views.eskillsAmountString.setColor(
       ContextCompat.getColor(
         requireContext(),
@@ -235,5 +290,10 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun hideLoading() {
     views.eskillsBottomSheetSystemView.visibility = View.GONE
+  }
+
+  private fun hideErrorMessages() {
+    views.eskillsAmountString.setError(null)
+    views.eskillsEmailString.setError(null)
   }
 }
