@@ -24,7 +24,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  dialog: () -> Unit,
+  dialog: (gamePackage:String) -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
@@ -55,15 +55,14 @@ fun GamesBundle(
 @Composable
 private fun CardItem(
   gameCardData: GameData,
-  dialogFragment: () -> Unit
+  dialogFragment: (gamePackage:String) -> Unit
 ) {
   val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    //onClick = { openGame(gameCardData.gamePackage, context) },
-    onClick = dialogFragment,
+    onClick = { dialogFragment(gameCardData.gamePackage) },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
