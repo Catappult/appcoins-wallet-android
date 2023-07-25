@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -58,11 +59,13 @@ private fun CardItem(
   dialogFragment: (gamePackage:String) -> Unit
 ) {
   val context = LocalContext.current
+
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { dialogFragment(gameCardData.gamePackage) },
+    onClick = { dialogFragment(gameCardData.gamePackage)
+      Log.i("Card Item Package", "Package do Card -> "+ gameCardData.gamePackage)},
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)

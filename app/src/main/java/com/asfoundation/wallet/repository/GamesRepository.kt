@@ -46,7 +46,7 @@ class GamesRepository @Inject constructor(
           gamePackage = it.data.packageName,
           description = it.data.media.description,
           screenshots = it.data.media.screenshots
-            .map {
+            ?.map {
               it.imageUrl
             }
         )

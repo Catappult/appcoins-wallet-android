@@ -16,7 +16,7 @@ data class AppData(
   val appIcon: String,
 
   @JsonProperty("graphic")
-  val background: String,
+  val background: String?,
 
   @JsonProperty("media")
   val media: Media
@@ -28,7 +28,7 @@ data class Media(
   val description : String,
 
   @JsonProperty("screenshots")
-  val screenshots : List<Screenshot>
+  val screenshots : List<Screenshot>?
 
 )
 

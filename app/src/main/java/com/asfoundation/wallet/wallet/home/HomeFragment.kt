@@ -176,7 +176,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(
         items = viewModel.gamesList.value,
-        dialog = { launchAppViewFragment("") },
+        dialog = { launchAppViewFragment("com.moyu.watermelon") },
       ) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
@@ -456,7 +456,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   fun launchAppViewFragment(gamePackage:String) {
-    Log.d("AppViewFragment","Entra no launch fragment")
+    Log.i("AppViewFragment","Entra no launch fragment")
+    Log.i("Game Package", "Game Package "+gamePackage)
     val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }
