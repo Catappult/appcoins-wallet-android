@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -21,6 +22,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
+
+var gameClicked :String = ""
 
 @Composable
 fun GamesBundle(
@@ -59,13 +62,16 @@ private fun CardItem(
   dialogFragment: (gamePackage:String) -> Unit
 ) {
   val context = LocalContext.current
-
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { dialogFragment(gameCardData.gamePackage)
-      Log.i("Card Item Package", "Package do Card -> "+ gameCardData.gamePackage)},
+    //onClick = { dialogFragment(gameCardData.gamePackage)
+    //Log.i("Card Item Package", "Package do Card -> "+ gameCardData.gamePackage)},
+    onClick = {
+      gameClicked = gameCardData.gamePackage
+      dialogFragment.invoke(gameCardData.gamePackage)
+              },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
