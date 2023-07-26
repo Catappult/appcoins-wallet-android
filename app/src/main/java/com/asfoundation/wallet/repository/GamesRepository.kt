@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.core.network.eskills.api.AppDataApi
 import com.appcoins.wallet.ui.widgets.GameData
 import com.appcoins.wallet.ui.widgets.GameDetailsData
+import com.appcoins.wallet.ui.widgets.Screenshot
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -39,17 +40,23 @@ class GamesRepository @Inject constructor(
   override fun getGameDetails(packageName:String): Single<GameDetailsData> {
     return appDataApi.getMeta(packageName)
       .map { it ->
-        GameDetailsData(
-          title = it.data.name,
-          gameIcon = it.data.appIcon,
-          gameBackground = it.data.background,
-          gamePackage = it.data.packageName,
-          description = it.data.media.description,
-          screenshots = it.data.media.screenshots
-            ?.map {
-              it.imageUrl
-            }
-        )
+        it.data.media.screenshots
+          ?.map {
+            Screenshot(
+                    it.imageUrl,
+                    it.height,
+                    it.width
+            )
+          }?.let { it1 ->
+            GameDetailsData(
+              title = it.data.name,
+              gameIcon = it.data.appIcon,
+              gameBackground = if (it.data.background == null) defaultBackground else it.data.background,
+              gamePackage = it.data.packageName,
+              description = it.data.media.description,
+              screenshots = it1
+            )
+          }
       }
   }
 
