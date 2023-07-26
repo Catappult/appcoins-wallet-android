@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,11 +21,13 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import com.appcoins.wallet.ui.widgets.GameDetailsData
+import coil.compose.AsyncImage
+import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,9 +46,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
         return ComposeView(requireContext())
             .apply {
                 setContent {
-                    AppViewScreen(appDetailsData = viewModel.gameDetails.value) {
-                        viewModel.fetchGameDetails(gamePackage)
-                    }
+                    AppViewScreen()
                 }
             }
     }
@@ -55,28 +57,46 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
 
     @Composable
-    fun AppViewScreen(appDetailsData: GameDetailsData, function: () -> Unit) {
-        function()
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.weight(0.2f))
-            Image(
-                painter = painterResource(id = R.drawable.ic_eskills),
-                contentDescription = stringResource(id = R.string.e_skills_know_more_about),
-                contentScale = ContentScale.Fit,
+    fun AppViewScreen() {
+        GameDetails(appDetailsData = viewModel.gameDetails.value) {
+            viewModel.fetchGameDetails(gamePackage)
+        }
+    }
+
+}
+@Preview
+@Composable
+fun PreviewAppView() {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState()),
+        //modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box() {
+            AsyncImage(
+                model = "https://pool.img.aptoide.com/catappult/ad72b51875828f10222af84ebc55b761_feature_graphic.png",
+                contentDescription = "game background"
             )
-            Spacer(modifier = Modifier.weight(0.3f))
-            Text(
-                text = appDetailsData.description,
-                fontWeight = FontWeight.Bold,
-                fontSize = 45.sp,
-                modifier = Modifier.padding(8.dp)
+            AsyncImage(
+                model = "https://pool.img.aptoide.com/catappult/57d4a771e6dbedff5e5f8db37687c3dc_icon.png",
+                contentDescription = "game icon"
             )
 
-            Spacer(modifier = Modifier.weight(0.2f))
         }
+        Image(
+            painter = painterResource(id = R.drawable.ic_eskills),
+            contentDescription = stringResource(id = R.string.e_skills_know_more_about),
+            contentScale = ContentScale.Fit,
+        )
+        Spacer(modifier = Modifier.weight(0.1f))
+        Text(
+            text = "Descricao Teste",
+            fontWeight = FontWeight.Normal,
+            fontSize = 10.sp,
+            modifier = Modifier.padding(8.dp)
+        )
+
+        Spacer(modifier = Modifier.weight(0.2f))
     }
 }
