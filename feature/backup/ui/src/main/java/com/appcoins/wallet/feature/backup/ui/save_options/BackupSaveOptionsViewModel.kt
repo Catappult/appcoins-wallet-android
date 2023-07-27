@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ sealed class BackupSaveOptionsSideEffect : SideEffect {
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
-data class BackupSaveOptionsState(var saveOptionAsync: Async<Boolean> = Async.Uninitialized) : ViewState
+data class BackupSaveOptionsState(var saveOptionAsync: Async<BackupResult> = Async.Uninitialized) : ViewState
 
 @HiltViewModel
 class BackupSaveOptionsViewModel @Inject constructor(
@@ -46,7 +47,7 @@ class BackupSaveOptionsViewModel @Inject constructor(
         sendBackupToEmailUseCase(walletAddress, password, text)
       }.onSuccess {
         backupSuccessLogUseCase(walletAddress).let {}
-          setState {  copy(saveOptionAsync = Async.Success(true))}
+          setState {  copy(saveOptionAsync = Async.Success(it))}
       }.onFailure {
         setState {  copy(saveOptionAsync = Async.Fail(Error.UnknownError(Throwable(""))))}
 

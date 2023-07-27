@@ -222,7 +222,7 @@ fun SaveOnDeviceOptions(
       modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)
     ) {
       ButtonWithText(
-        label = "SEND BACKUP", // String ??
+        label = stringResource(id = R.string.backup_ready_device_button),
         onClick = {
           onSaveOnDevice()
         },

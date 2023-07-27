@@ -20,12 +20,12 @@ import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import io.intercom.android.sdk.utilities.KeyboardUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -12,25 +12,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.feature.backup.ui.BackupErrorScreen
+import com.appcoins.wallet.feature.backup.data.result.FailedBackup
+import com.appcoins.wallet.feature.backup.data.result.SuccessfulBackup
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsRoute
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsSideEffect
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsState
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
-import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetState
-import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
-import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
-import com.asfoundation.wallet.wallet_reward.RewardFragmentDirections
-import com.asfoundation.wallet.wallet_reward.RewardNavigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -71,10 +64,15 @@ Navigator{
        navigator.showErrorScreen()
       }
       is Async.Success -> {
-        state.saveOptionAsync.value?.let { successRequest ->
-          if (successRequest)
-            navigator.showWalletSuccessScreen()
-       }
+        when(state.saveOptionAsync.value){
+          is SuccessfulBackup -> {
+                navigator.showWalletSuccessScreen()
+          }
+          is FailedBackup ->{
+            navigator.showErrorScreen()
+          }
+          else -> {}
+        }
       }
     }
   }

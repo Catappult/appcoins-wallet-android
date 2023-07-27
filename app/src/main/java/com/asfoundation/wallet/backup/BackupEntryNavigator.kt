@@ -22,6 +22,12 @@ class BackupEntryNavigator @Inject constructor(
     navController.popBackStack()
   }
 
+  fun navigateToManageWallet(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
+  }
+
   fun showWalletChooseScreen(
     walletModel : WalletsModel,
     mainNavController : NavController

@@ -2,6 +2,7 @@ package com.appcoins.wallet.feature.backup.data.use_cases
 
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.backup.data.repository.BackupRepository
+import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,10 +16,10 @@ class SendBackupToEmailUseCase @Inject constructor(
       walletAddress: String,
       password: String,
       email: String
-  ): Unit {
+  ): BackupResult {
     val backupData = createBackupUseCase(walletAddress, password)
-    withContext(dispatchers.io) {
-      backupRepository.sendBackupEmail(walletAddress, backupData, email)
-    }
+
+      return backupRepository.sendBackupEmail(walletAddress, backupData, email)
+
   }
 }

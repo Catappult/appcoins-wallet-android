@@ -217,6 +217,9 @@
       android:id="@+id/backup_wallet_error_screen"
       android:name="com.asfoundation.wallet.backup.BackupErrorScreenFragment">
 
+    <action
+        android:id="@+id/action_navigate_to_manage_wallet"
+        app:destination="@id/manage_wallet_graph" />
   </fragment>
   <dialog
       android:id="@+id/backup_save_on_device"

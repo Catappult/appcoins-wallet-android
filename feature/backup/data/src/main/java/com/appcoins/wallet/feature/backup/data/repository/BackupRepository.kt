@@ -8,6 +8,9 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BackupEmailApi
 import com.appcoins.wallet.core.network.microservices.model.EmailBody
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
+import com.appcoins.wallet.feature.backup.data.result.BackupResult
+import com.appcoins.wallet.feature.backup.data.result.FailedBackup
+import com.appcoins.wallet.feature.backup.data.result.SuccessfulBackup
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -46,12 +49,17 @@ class BackupRepository @Inject constructor(
 
   private fun getDefaultBackupFileExtension() = ".bck"
 
-  suspend fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Unit {
-    withContext(dispatchers.io) {
-      val signedAddress = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
-      val address = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
-      backupEmailApi.sendBackupEmail(address.address, signedAddress.signedAddress,
-          EmailBody(email, keystore.convertToBase64()))
+  suspend fun sendBackupEmail(walletAddress: String, keystore: String, email: String): BackupResult {
+   return  withContext(dispatchers.io) {
+      try {
+        val signedAddress = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
+        val address = walletService.getAndSignSpecificWalletAddress(walletAddress).await()
+        backupEmailApi.sendBackupEmail(address.address, signedAddress.signedAddress,
+          EmailBody(email, keystore.convertToBase64())).await()
+        return@withContext SuccessfulBackup
+      }catch (e: Exception){
+        return@withContext FailedBackup.GenericError()
+      }
     }
   }
 

@@ -10,18 +10,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.feature.backup.ui.BackupErrorRoute
-import com.appcoins.wallet.feature.backup.ui.success.BackupSuccessRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BackupErrorScreenFragment: BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
+  lateinit var navigator: BackupEntryNavigator
 
   companion object {
     fun newInstance() = BackupErrorScreenFragment()
@@ -38,6 +41,7 @@ class BackupErrorScreenFragment: BasePageViewFragment() {
             BackupErrorRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
+              onCancelBackup = { navigator.navigateToManageWallet(navController()) }
             )
           }
         }
@@ -53,6 +57,6 @@ class BackupErrorScreenFragment: BasePageViewFragment() {
   }
 
   private fun handleBackPress() {
-    navController().popBackStack()
+    parentFragmentManager.popBackStack()
   }
 }
