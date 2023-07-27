@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
+import com.asfoundation.wallet.wallet.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,10 +60,17 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
     @Composable
     fun AppViewScreen() {
-        GameDetails(appDetailsData = viewModel.gameDetails.value) {
+        GameDetails(
+            appDetailsData = viewModel.gameDetails.value,
+            close = { closeFragment() }
+            ) {
             viewModel.fetchGameDetails(gamePackage)
         }
     }
+
+    fun closeFragment() {
+        Log.i("Parent", "Parent Fragment -> "+parentFragment)
+        parentFragmentManager.beginTransaction().remove(this).commit();   }
 
 }
 @Preview
