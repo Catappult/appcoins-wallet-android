@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,21 +12,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,11 +61,16 @@ data class Screenshot(
 
 
 @Composable
-fun GameDetails(appDetailsData: GameDetailsData, function: () -> Unit) {
+fun GameDetails(
+    appDetailsData: GameDetailsData,
+    close: () -> Unit,
+    function: () -> Unit
+) {
     function()
-    Dialog(onDismissRequest = { /*TODO*/ },
+    Dialog(onDismissRequest = close,
         properties = DialogProperties(
-            usePlatformDefaultWidth = false
+            usePlatformDefaultWidth = false,
+            dismissOnBackPress = true
         )
     ) {
         Card(
@@ -66,14 +81,14 @@ fun GameDetails(appDetailsData: GameDetailsData, function: () -> Unit) {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            TopAppView(appDetailsData = appDetailsData)
+            TopAppView(appDetailsData = appDetailsData, close = close)
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .fillMaxWidth(0.85f)
-                    .height(60.dp),
+                    .height(50.dp),
                 colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink)
 
             ) {
@@ -90,10 +105,12 @@ fun GameDetails(appDetailsData: GameDetailsData, function: () -> Unit) {
 }
 
 @Composable
-private fun TopAppView(appDetailsData: GameDetailsData) {
+private fun TopAppView(
+    appDetailsData: GameDetailsData,
+    close: () -> Unit
+) {
     Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
-        elevation = CardDefaults.cardElevation(4.dp),
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -107,13 +124,30 @@ private fun TopAppView(appDetailsData: GameDetailsData) {
                 modifier = Modifier.height(200.dp),
                 contentScale = ContentScale.Crop
             )
+            IconButton(
+                onClick = {
+                    Log.i("Back Button", "Entra no back button")
+                    close() },
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(100.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_back),
+                    contentDescription = null,
+                    tint = WalletColors.styleguide_light_grey,
+                    modifier = Modifier
+                        .size(30.dp)
+
+                )
+            }
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .fillMaxSize()
                     .background(
                         Brush.verticalGradient(
-                            0.3F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.0F),
+                            0.4F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.0F),
                             0.75F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.95F),
                             1F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.99F)
                         )
@@ -130,7 +164,7 @@ private fun TopAppView(appDetailsData: GameDetailsData) {
                 Card(
                     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
                     elevation = CardDefaults.cardElevation(4.dp),
-                    shape = RoundedCornerShape(8.dp),
+                    shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
                         .size(80.dp)
                 ) {
@@ -163,6 +197,21 @@ private fun TopAppView(appDetailsData: GameDetailsData) {
 }
 
 @Composable
+private fun TopBarButtons() {
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun EskillsCard() {
+    Card(
+        onClick = { /*TODO*/ }
+    ) {
+
+    }
+}
+
+@Composable
 private fun ScreenShotsBundle(appDetailsData: GameDetailsData) {
 
     LazyRow(
@@ -182,7 +231,7 @@ private fun ScreenShotsBundle(appDetailsData: GameDetailsData) {
 @Composable
 private fun ScreenshotItem(item: Screenshot) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
         modifier = Modifier.height(200.dp)
     ) {
@@ -205,7 +254,8 @@ private fun Description(appDetailsData: GameDetailsData) {
         Text(
             text = "Description",
             fontSize = 16.sp,
-            color = WalletColors.styleguide_light_grey
+            color = WalletColors.styleguide_light_grey,
+            fontWeight = FontWeight.Bold
 
         )
         Spacer(Modifier.height(10.dp))

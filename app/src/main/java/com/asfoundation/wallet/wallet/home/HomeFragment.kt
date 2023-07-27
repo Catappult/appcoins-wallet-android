@@ -176,7 +176,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(
         items = viewModel.gamesList.value,
-        dialog = { launchAppViewFragment(gameClicked) },
+        dialog = { launchAppViewFragment(gameClicked) }
       ) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
