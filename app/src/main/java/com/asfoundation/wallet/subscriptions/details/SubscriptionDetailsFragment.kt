@@ -99,8 +99,12 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   override fun showLoading() {
     binding.cancelSubscription.visibility = View.GONE
     binding.renewSubscription.visibility = View.GONE
-    binding.mainLayout.visibility = View.GONE
+    binding.renewSubscription.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
+  }
+
+  override fun hideLoading() {
+    binding.loadingAnimation.visibility = View.GONE
   }
 
   override fun setupTransitionName(transitionName: String) {

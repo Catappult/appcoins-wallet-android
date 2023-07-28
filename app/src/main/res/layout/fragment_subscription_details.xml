@@ -46,6 +46,7 @@
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:padding="8dp"
           android:background="@color/styleguide_blue_secondary"
           >
 
@@ -240,13 +241,29 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone"
             app:buttonText="@string/subscriptions_renew_subscription_button"
             app:buttonType="filled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cancel_subscription"
             tools:visibility="visible"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading_animation"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/renew_subscription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/renew_subscription"
+            app:lottie_autoPlay="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_wallet"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -278,21 +295,6 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="140dp"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/transact_loading_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

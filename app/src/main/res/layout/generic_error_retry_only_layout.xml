@@ -1,54 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     tools:background="@color/styleguide_blue"
     >
-
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <include
+      android:id="@+id/generic_error_base"
+      layout="@layout/generic_error_base_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="16dp"
-      android:paddingBottom="16dp"
-      >
-    <include
-        android:id="@+id/generic_error_base"
-        layout="@layout/generic_error_base_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 
-    <com.appcoins.wallet.ui.widgets.WalletButtonView
-        android:id="@+id/generic_retry_button"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/small_button_height"
-        android:layout_marginTop="22dp"
-        app:buttonText="@string/retry_button"
-        app:buttonType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/generic_error_base"
-        />
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/generic_retry_button"
+      android:layout_width="wrap_content"
+      android:layout_height="48dp"
+      android:layout_marginTop="32dp"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/generic_error_base"
+      />
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/generic_retry_animation"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/generic_retry_button"
-        app:layout_constraintEnd_toEndOf="@+id/generic_retry_button"
-        app:layout_constraintStart_toStartOf="@+id/generic_retry_button"
-        app:layout_constraintTop_toTopOf="@+id/generic_retry_button"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/retry_animation"
-        />
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/generic_retry_animation"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/generic_retry_button"
+      app:layout_constraintEnd_toEndOf="@+id/generic_retry_button"
+      app:layout_constraintStart_toStartOf="@+id/generic_retry_button"
+      app:layout_constraintTop_toTopOf="@+id/generic_retry_button"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_wallet"
+      />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

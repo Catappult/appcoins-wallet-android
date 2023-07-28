@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:background="@color/styleguide_blue"
     >
 
@@ -19,7 +19,7 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/no_network_animation"
-      tools:src="@drawable/ic_topup_error"
+      tools:src="@drawable/ic_error_pink"
       />
 
   <TextView
@@ -28,12 +28,12 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
-      android:layout_marginTop="@dimen/half_large_margin"
-      android:fontFamily="sans-serif"
+      android:layout_marginTop="24dp"
+      android:fontFamily="@font/roboto_medium"
       android:gravity="center"
       android:lineSpacingExtra="4sp"
       android:textColor="@color/styleguide_light_grey"
-      android:text="@string/connection_error_body"
+      android:text="@string/notification_no_network_poa"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/no_network_animation"

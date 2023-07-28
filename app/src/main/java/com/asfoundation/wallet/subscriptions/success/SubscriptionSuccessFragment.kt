@@ -9,22 +9,33 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionCancelSuccessBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
-import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessView {
+class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuccessView {
 
   @Inject
   lateinit var presenter: SubscriptionSuccessPresenter
 
   private val binding by viewBinding(FragmentSubscriptionCancelSuccessBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelSuccessBinding.inflate(inflater).root
+  override fun onStart() {
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    behavior.isHideable = false
+    behavior.isDraggable = false
+    super.onStart()
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionCancelSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
