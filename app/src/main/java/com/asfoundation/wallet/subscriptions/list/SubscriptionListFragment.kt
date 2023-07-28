@@ -110,7 +110,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
   override fun showNoSubscriptions() {
     binding.loadingAnimation.visibility = View.GONE
-    binding.mainLayout.visibility = View.GONE
+    binding.contentLayout.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.VISIBLE
