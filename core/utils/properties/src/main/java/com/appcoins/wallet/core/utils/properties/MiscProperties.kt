@@ -14,7 +14,7 @@ object MiscProperties {
   const val PAYMENT_GAS_LIMIT = "125000"
   const val BILLING_SUPPORTED_VERSION = 3
   const val GAMESHUB_PACKAGE = "com.dti.folderlauncher"
-  const val GAMESHUB_OEMID = "b61ccfb8fb57721787ecfc2c26c16c6f"
+  const val GAME_FROM_GAMESHUB_OEMID = "b61ccfb8fb57721787ecfc2c26c16c6f"
   const val GAMESHUB_BROADCAST_IAP_ACTION = "IAP_SUCCESS"
 }
 

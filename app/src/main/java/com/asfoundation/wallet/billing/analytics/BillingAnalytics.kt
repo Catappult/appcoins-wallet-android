@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.billing.analytics
 
 import android.content.Context
+import android.content.SharedPreferences
 import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.billing.gameshub.GamesHubBroadcastService
+import com.asfoundation.wallet.billing.partners.PartnerAddressService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -10,7 +12,9 @@ import javax.inject.Inject
 @BoundTo(supertype = EventSender::class)
 class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
-  @ApplicationContext private val context: Context
+  @ApplicationContext private val context: Context,
+  private val partnerAddressService: PartnerAddressService,
+  private val sharedPreferences: SharedPreferences
   ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
@@ -188,13 +192,15 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_SUCCESS, isOnboardingPayment
     )
-    GamesHubBroadcastService.sendSuccessPaymentBroadcast(
-      context,
-      txId = txId,
-      packageName = packageName,
-      usdAmount = valueUsd,
-      appcAmount = value
-    )
+    if (partnerAddressService.isGameFromGamesHub()) {
+      GamesHubBroadcastService.sendSuccessPaymentBroadcast(
+        context,
+        txId = txId,
+        packageName = packageName,
+        usdAmount = valueUsd,
+        appcAmount = value
+      )
+    }
     analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
