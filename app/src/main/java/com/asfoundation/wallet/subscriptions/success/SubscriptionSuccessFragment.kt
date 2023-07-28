@@ -43,12 +43,17 @@ class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuc
     presenter.present()
   }
 
+  override fun getTheme(): Int {
+    return R.style.AppBottomSheetDialogThemeDraggable
+  }
+
   override fun setupUi(successType: SubscriptionSuccess) {
     when (successType) {
       SubscriptionSuccess.CANCEL -> {
         binding.successAnimation.setAnimation(R.raw.subscription_cancel_success)
         binding.updateTitle.text = getString(R.string.subscriptions_cancel_confirmation_title)
       }
+
       SubscriptionSuccess.RENEW -> {
         binding.successAnimation.setAnimation(R.raw.success_animation)
         binding.updateTitle.text = getString(R.string.subscriptions_renewed_confirmation_title)

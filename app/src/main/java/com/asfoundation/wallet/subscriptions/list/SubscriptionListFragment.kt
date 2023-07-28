@@ -102,7 +102,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.GONE
-    binding.mainLayout.visibility = View.VISIBLE
+    binding.contentLayout.visibility = View.VISIBLE
   }
 
   override fun showNoSubscriptions() {
@@ -114,7 +114,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   }
 
   override fun showLoading() {
-    binding.mainLayout.visibility = View.GONE
+    binding.contentLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.root.visibility = View.GONE
     binding.layoutNoSubscriptions.root.visibility = View.GONE

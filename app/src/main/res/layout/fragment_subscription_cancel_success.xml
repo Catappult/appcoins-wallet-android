@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/styleguide_blue_secondary"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:theme="@style/MaterialAppTheme"
+    android:background="@drawable/rounded_dialog_black"
     >
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/success_animation"

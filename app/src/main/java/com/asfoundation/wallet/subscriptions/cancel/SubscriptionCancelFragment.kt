@@ -57,6 +57,10 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
     presenter.present()
   }
 
+  override fun getTheme(): Int {
+    return R.style.AppBottomSheetDialogThemeDraggable
+  }
+
   override fun getBackClicks() = RxView.clicks(binding.backButton)
 
   override fun getCancelClicks() = RxView.clicks(binding.cancelSubscription)

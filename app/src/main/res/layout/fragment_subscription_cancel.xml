@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/styleguide_blue_secondary"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:theme="@style/MaterialAppTheme"
+    android:background="@drawable/rounded_dialog_black"
     >
 
   <include
@@ -13,7 +16,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 
   <include
@@ -22,7 +25,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/layout_guideline"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 
   <TextView
@@ -134,14 +137,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:constraint_referenced_ids="back_button,cancel_subscription"
-      />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/layout_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.68"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

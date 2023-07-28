@@ -78,92 +78,104 @@
           android:textColor="@color/styleguide_white"
           android:textSize="24sp"
           android:textStyle="bold"
-          app:layout_constraintBottom_toTopOf="@id/active_title"
+          app:layout_constraintBottom_toTopOf="@id/content_layout"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
 
-      <TextView
-          android:id="@+id/active_title"
-          style="@style/SettingsTextStyle"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/content_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
-          android:layout_marginTop="24dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:textColor="@color/styleguide_light_grey"
-          android:text="@string/subscriptions_active_title"
-          android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/title_subscription"
-          tools:visibility="visible"
-          />
-
-      <androidx.cardview.widget.CardView
-          android:id="@+id/cvActive"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="12dp"
-          android:layout_marginHorizontal="16dp"
-          app:cardBackgroundColor="@color/styleguide_blue_secondary"
-          app:cardCornerRadius="16dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/active_title"
-          >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvActiveSubs"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/subscription_item"
-            />
-      </androidx.cardview.widget.CardView>
-
-      <TextView
-          android:id="@+id/expired_title"
-          style="@style/SettingsTextStyle"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:text="@string/subscriptions_inactive_title"
-          android:textColor="@color/styleguide_light_grey"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/cvActive"
-          tools:visibility="visible"
-          />
-
-      <androidx.cardview.widget.CardView
-          android:id="@+id/cvExpired"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:layout_marginHorizontal="16dp"
-          app:cardBackgroundColor="@color/styleguide_blue_secondary"
-          app:cardCornerRadius="16dp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/expired_title"
           >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvExpiredSubs"
+        <TextView
+            android:id="@+id/active_title"
+            style="@style/SettingsTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/subscription_item"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:text="@string/subscriptions_active_title"
+            android:textColor="@color/styleguide_light_grey"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"
             />
-      </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvActive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/styleguide_blue_secondary"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/active_title"
+            >
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rvActiveSubs"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:nestedScrollingEnabled="false"
+              android:overScrollMode="never"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:listitem="@layout/subscription_item"
+              />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/expired_title"
+            style="@style/SettingsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:text="@string/subscriptions_inactive_title"
+            android:textColor="@color/styleguide_light_grey"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvActive"
+            tools:visibility="visible"
+            />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvExpired"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/styleguide_blue_secondary"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/expired_title"
+            >
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rvExpiredSubs"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:nestedScrollingEnabled="false"
+              android:overScrollMode="never"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:listitem="@layout/subscription_item"
+              />
+        </androidx.cardview.widget.CardView>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

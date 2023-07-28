@@ -22,7 +22,6 @@
       android:id="@+id/retry_button"
       android:layout_width="wrap_content"
       android:layout_height="48dp"
-      android:layout_gravity="center_vertical"
       android:layout_marginTop="@dimen/half_large_margin"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
