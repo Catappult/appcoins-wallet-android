@@ -32,7 +32,6 @@
       android:fontFamily="@font/roboto_medium"
       android:gravity="center"
       android:lineSpacingExtra="4sp"
-      android:textColor="@color/styleguide_light_grey"
       android:text="@string/notification_no_network_poa"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

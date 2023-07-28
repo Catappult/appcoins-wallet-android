@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
@@ -88,6 +89,8 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   }
 
   override fun showGenericError() {
+    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.mainLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.genericErrorRetryOnlyLayout.genericRetryAnimation.visibility = View.GONE

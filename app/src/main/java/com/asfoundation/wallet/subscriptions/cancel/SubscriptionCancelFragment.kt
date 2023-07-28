@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
@@ -133,6 +134,8 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
   }
 
   override fun showNoNetworkError() {
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.layoutContent.visibility = View.GONE
     binding.error.visibility = View.GONE

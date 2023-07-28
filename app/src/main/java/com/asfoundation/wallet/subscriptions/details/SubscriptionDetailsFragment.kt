@@ -8,6 +8,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -69,6 +70,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun showNoNetworkError() {
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.mainLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
@@ -79,6 +82,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun showRenewError() {
+    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.cancelSubscription.visibility = View.GONE
     binding.renewSubscription.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
