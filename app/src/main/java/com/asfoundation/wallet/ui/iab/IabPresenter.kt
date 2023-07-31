@@ -57,7 +57,6 @@ class IabPresenter(
 
   fun onResume() {
     handleAutoUpdate()
-    //handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
   }
@@ -73,7 +72,7 @@ class IabPresenter(
     disposable.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { iabInteract.showSupport() }
+      .flatMapCompletable { iabInteract.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -151,14 +150,6 @@ class IabPresenter(
     )
   }
 
-  private fun handleUserRegistration() {
-    disposable.add(
-      iabInteract.registerUser()
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() })
-    )
-  }
-
   fun stop() = disposable.clear()
 
   fun onSaveInstance(outState: Bundle) {
@@ -225,7 +216,7 @@ class IabPresenter(
         }
         if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
           logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
-          iabInteract.showSupport()
+          iabInteract.showSupport().subscribe({}, { it.printStackTrace() })
         }
         view.showPaymentMethodsView()
       }
