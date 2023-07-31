@@ -823,7 +823,7 @@
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
   <string name="subscriptions_cancel_no_button">Ne, idi nazad</string>
-  <string name="subscriptions_cancel_yes_button">Da, otkaži pretplatu</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Pretplata je otkazana!</string>
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
