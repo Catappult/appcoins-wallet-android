@@ -821,7 +821,7 @@
   <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
   <string name="subscriptions_cancel_no_button">မဟုတ္ပါ။ ျပန္သြားမည္</string>
-  <string name="subscriptions_cancel_yes_button">ဟုတ္ပါသည္။ ပုံမွန္ဝယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုက္ပါၿပီ။</string>
   <string name="subscriptions_cancel_confirmation_body">ဤပံုမွန္၀ယ္ယူမႈအတြက္ သင့္အားေငြေကာက္ခံေတာ့မည္ မဟုတ္ဘဲ %s အထိ သင္အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="subscriptions_category_title">ပံုမွန္၀ယ္ယူမႈ</string>
