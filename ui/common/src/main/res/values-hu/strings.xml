@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Feliratkozás lemondása</string>
   <string name="subscriptions_cancel_body">Biztos vagy benne, hogy lemondod a feliratkozást?</string>
   <string name="subscriptions_cancel_no_button">Nem, vissza</string>
-  <string name="subscriptions_cancel_yes_button">Igen, feliratkozás lemondása</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Feliratkozás lemondva!</string>
   <string name="subscriptions_cancel_confirmation_body">Már nem kell többet fizetned ezért a feliratkozásért. Eddig használhatod: %s.</string>
   <string name="subscriptions_category_title">Feliratkozás</string>
