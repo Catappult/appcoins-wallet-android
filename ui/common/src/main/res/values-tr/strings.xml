@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Aboneliği İptal Edin</string>
   <string name="subscriptions_cancel_body">Bu aboneliği iptal etmek istediğinizden emin misiniz?</string>
   <string name="subscriptions_cancel_no_button">Hayır, geri dön</string>
-  <string name="subscriptions_cancel_yes_button">Evet, aboneliği iptal et</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonelik İptal Edildi!</string>
   <string name="subscriptions_cancel_confirmation_body">Bu abonelik için artık sizden ücret alınmayacak. Paketi %s tarihine kadar kullanabilirsiniz.</string>
   <string name="subscriptions_category_title">Abonelik</string>
