@@ -9,6 +9,9 @@ data class AppData(
   @JsonProperty("name")
   var name: String,
 
+  @JsonProperty("size")
+  val size : Long,
+
   @JsonProperty("package")
   val packageName: String,
 
@@ -19,8 +22,23 @@ data class AppData(
   val background: String?,
 
   @JsonProperty("media")
-  val media: Media
+  val media: Media,
 
+  @JsonProperty("stats")
+  val stats: Stats
+
+)
+
+data class Stats(
+  @JsonProperty("rating")
+  val rating : Rating,
+  @JsonProperty("downloads")
+  val downloads : Long
+)
+
+data class Rating(
+  @JsonProperty("avg")
+  val avg : Double
 )
 
 data class Media(

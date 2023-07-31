@@ -54,7 +54,10 @@ class GamesRepository @Inject constructor(
               gameBackground = if (it.data.background == null) defaultBackground else it.data.background,
               gamePackage = it.data.packageName,
               description = it.data.media.description,
-              screenshots = it1
+              screenshots = it1,
+              size = it.data.size,
+              rating = it.data.stats.rating.avg,
+              downloads = it.data.stats.downloads
             )
           }
       }

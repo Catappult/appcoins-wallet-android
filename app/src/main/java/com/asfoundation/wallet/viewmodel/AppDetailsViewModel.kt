@@ -16,7 +16,7 @@ class AppDetailsViewModel
         private val rxSchedulers: RxSchedulers,
     ): ViewModel() {
 
-    val gameDetails = mutableStateOf(GameDetailsData("","","","","", listOf()))
+    val gameDetails = mutableStateOf(GameDetailsData("","","","","", listOf(), 0.0, 0, 0))
 
     init {
 
