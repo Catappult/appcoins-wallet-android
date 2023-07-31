@@ -826,7 +826,7 @@
   <string name="subscriptions_cancel_title">Скасувати підписку</string>
   <string name="subscriptions_cancel_body">Ви впевнені, що хочете скасувати цю підписку?</string>
   <string name="subscriptions_cancel_no_button">Ні, повернутися</string>
-  <string name="subscriptions_cancel_yes_button">Так, скасувати підписку</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Підписка скасована!</string>
   <string name="subscriptions_cancel_confirmation_body">З вас більше не стягуватиметься плата за цю підписку, і ви можете використовувати її до %s.</string>
   <string name="subscriptions_category_title">Підписка</string>
