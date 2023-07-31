@@ -821,7 +821,7 @@
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
   <string name="subscriptions_cancel_no_button">いいえ、戻る</string>
-  <string name="subscriptions_cancel_yes_button">はい、サブスクリプションをキャンセルします</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">購読がキャンセルされました！</string>
   <string name="subscriptions_cancel_confirmation_body">この購読には今後課金されませんが、%sまでお使いいただけます。</string>
   <string name="subscriptions_category_title">購読</string>
