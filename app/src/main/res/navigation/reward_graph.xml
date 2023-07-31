@@ -14,6 +14,9 @@
     <action
         android:id="@+id/action_navigate_gift_card"
         app:destination="@id/gift_card_fragment" />
+    <action
+        android:id="@+id/action_navigate_eskills_withdraw"
+        app:destination="@id/eskills_withdraw_fragment" />
   </fragment>
 
   <dialog
@@ -25,6 +28,12 @@
   <dialog
       android:id="@+id/gift_card_fragment"
       android:name="com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment"
+      tools:layout="@layout/settings_redeem_gift_bottom_sheet_layout">
+  </dialog>
+
+  <dialog
+      android:id="@+id/eskills_withdraw_fragment"
+      android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawBottomSheetFragment"
       tools:layout="@layout/settings_redeem_gift_bottom_sheet_layout">
   </dialog>
 

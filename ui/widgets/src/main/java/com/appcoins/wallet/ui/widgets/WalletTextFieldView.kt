@@ -1,7 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -102,6 +101,16 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.isPasswordVisibilityToggleEnabled = true
       }
+      Type.NUMBER -> {
+        views.textInputEditText.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        views.textInputLayout.boxBackgroundColor = color
+        views.textInputLayout.boxStrokeColor =
+          ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeWidth = 0
+        views.textInputLayout.endIconMode = END_ICON_NONE
+        views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
+        views.textInputLayout.editText?.setHintTextColor(resources.getColor(R.color.styleguide_dark_grey))
+      }
       Type.READ_ONLY -> {
         views.textInputEditText.setReadOnly(value = true)
         views.textInputLayout.boxBackgroundColor =
@@ -117,5 +126,5 @@ class WalletTextFieldView : FrameLayout {
     return views.textInputEditText.addTextChangedListener(watcher)
   }
 
-  enum class Type { FILLED, OUTLINED, PASSWORD, READ_ONLY }
+  enum class Type { FILLED, OUTLINED, PASSWORD, READ_ONLY, NUMBER}
 }

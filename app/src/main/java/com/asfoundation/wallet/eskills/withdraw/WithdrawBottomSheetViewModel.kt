@@ -12,51 +12,48 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import javax.inject.Inject
 
-object WithdrawSideEffect : SideEffect
+sealed class WithdrawBottomSheetSideEffect : SideEffect {
+  object NavigateBack : WithdrawBottomSheetSideEffect()
+}
 
-data class WithdrawState(
-  val availableAmountAsync: Async<BigDecimal> = Async.Uninitialized,
-  val withdrawResultAsync: Async<WithdrawResult> = Async.Uninitialized,
-  val userEmail: String = ""
+data class WithdrawBottomSheetState(
+  val withdrawAmountAsync: Async<BigDecimal> = Async.Uninitialized,
+  val submitWithdrawAsync: Async<WithdrawResult> = Async.Uninitialized, // TODO
 ) : ViewState
 
 @HiltViewModel
-class WithdrawViewModel @Inject constructor(
+class WithdrawBottomSheetViewModel @Inject constructor(
   private val getAvailableAmountToWithdrawUseCase: GetAvailableAmountToWithdrawUseCase,
   private val getStoredUserEmailUseCase: GetStoredUserEmailUseCase,
   private val withdrawToFiatUseCase: WithdrawToFiatUseCase
-) : BaseViewModel<WithdrawState, WithdrawSideEffect>(initialState()) {
+) :
+  BaseViewModel<WithdrawBottomSheetState, WithdrawBottomSheetSideEffect>(initialState()) {
+
+  // to prevent success being called multiple times when any async is changed
+  var isFirstSuccess = true
 
   companion object {
-    fun initialState(): WithdrawState {
-      return WithdrawState()
+    fun initialState(): WithdrawBottomSheetState {
+      return WithdrawBottomSheetState()
     }
   }
 
   init {
-    setAvailableAmount()
-    setStoredUserEmail()
+    getCurrentWithdrawBalance()
   }
 
-  private fun setAvailableAmount() {
+  private fun getCurrentWithdrawBalance() {
     getAvailableAmountToWithdrawUseCase()
-      .asAsyncToState { copy(availableAmountAsync = it) }
-      .repeatableScopedSubscribe(WithdrawState::availableAmountAsync.name) { e ->
+      .asAsyncToState { copy(withdrawAmountAsync = it) }
+      .repeatableScopedSubscribe(WithdrawBottomSheetState::withdrawAmountAsync.name) { e ->
         e.printStackTrace()
       }
   }
 
-  private fun setStoredUserEmail() {
-    getStoredUserEmailUseCase()
-      .doOnSuccess { setState { copy(userEmail = it) } }
-      .scopedSubscribe { }
-  }
-
   fun withdrawToFiat(paypalEmail: String, amount: BigDecimal) {
     withdrawToFiatUseCase(paypalEmail, amount)
-      .asAsyncToState(WithdrawState::withdrawResultAsync) {
-        copy(withdrawResultAsync = it)
-      }
+      .asAsyncToState { copy(submitWithdrawAsync = it) }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
+
 }

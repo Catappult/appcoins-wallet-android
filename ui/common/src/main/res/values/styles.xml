@@ -1308,4 +1308,17 @@
     <item name="android:windowIsFloating">false</item>
     <item name="android:windowFrame">@null</item>
   </style>
+
+  <style name="ESkillsTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/styleguide_white</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="ESkillsSubTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/styleguide_white</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
 </resources>
