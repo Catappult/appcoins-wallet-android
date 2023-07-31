@@ -821,7 +821,7 @@
   <string name="subscriptions_cancel_title">Batal Langganan</string>
   <string name="subscriptions_cancel_body">Anda pasti mahu batalkan langganan ini?</string>
   <string name="subscriptions_cancel_no_button">Tidak, kembali</string>
-  <string name="subscriptions_cancel_yes_button">Ya, batalkan langganan</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Langganan Dibatalkan!</string>
   <string name="subscriptions_cancel_confirmation_body">Anda tidak akan dikenakan bayaran lagi untuk langganan ini, dan anda boleh gunakannya sehingga %s.</string>
   <string name="subscriptions_category_title">Langganan</string>
