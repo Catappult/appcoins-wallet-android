@@ -167,7 +167,17 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 stringResource(title)
               )
 
+              if (sku != null)
+                TransactionDetailItem("SKU", sku)
+
               TransactionDetailItem(stringResource(R.string.transaction_date_label), date)
+
+              if (txId != null)
+                TransactionDetailItem(
+                  label = "TxID", // TODO stringResource(R.string.transaction_order_reference_label),
+                  data = txId,
+                  allowCopy = true,
+                  onClick = { copyOrderIdToClipBoard(txId) })
 
               if (id != null)
                 TransactionDetailItem(
@@ -184,13 +194,6 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
               Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
-              ButtonWithText(
-                label = stringResource(R.string.transaction_more_details_label),
-                onClick = { openTransactionUrl(transactionUrl) },
-                labelColor = styleguide_light_grey,
-                outlineColor = styleguide_light_grey,
-                buttonType = ButtonType.LARGE
-              )
             }
           }
         }

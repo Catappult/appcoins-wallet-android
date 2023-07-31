@@ -26,7 +26,8 @@ data class TransactionResponse(
   @JsonProperty("reference") val reference: String?,
   @JsonProperty("refund_txid") val refundTxId: String?,
   @JsonProperty("revert_txid") val revertTxId: String?,
-  @JsonProperty("parent_txid") val parentTxId: String?
+  @JsonProperty("parent_txid") val parentTxId: String?,
+  @JsonProperty("sku") val sku: String?
 )
 
 enum class StatusResponse {
