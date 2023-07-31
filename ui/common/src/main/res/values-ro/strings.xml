@@ -823,7 +823,7 @@
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
   <string name="subscriptions_cancel_no_button">Nu, du-te înapoi</string>
-  <string name="subscriptions_cancel_yes_button">Da, anulează abonament</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonament anulat!</string>
   <string name="subscriptions_cancel_confirmation_body">Nu vei mai fi taxat pentru acest abonament și îl poți folosi până pe %s.</string>
   <string name="subscriptions_category_title">Abonament</string>
