@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Cancelar Subscrição</string>
   <string name="subscriptions_cancel_body">Tens a certeza de que queres cancelar esta subscrição?</string>
   <string name="subscriptions_cancel_no_button">Não, voltar atrás</string>
-  <string name="subscriptions_cancel_yes_button">Sim, cancelar subscrição</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Subscrição Cancelada!</string>
   <string name="subscriptions_cancel_confirmation_body">Não serás mais cobrado por esta subscrição e podes usá-la até %s.</string>
   <string name="subscriptions_category_title">Subscrição</string>
