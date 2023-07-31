@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_cancel_body">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="subscriptions_cancel_no_button">ਨਹੀਂ, ਵਾਪਸ ਜਾਓ</string>
-  <string name="subscriptions_cancel_yes_button">ਹਾਂਜੀ, ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰੱਦ ਕੀਤੀ ਗਈ!</string>
   <string name="subscriptions_cancel_confirmation_body">ਤੁਹਾਡੇ ਤੋਂ ਹੁਣ ਇਸ ਗਾਹਕੀ ਲਈ ਕੋਈ ਪੈਸਾ ਨਹੀਂ ਲਿੱਤਾ ਜਾਵੇਗਾ, ਅਤੇ ਤੁਸੀਂ ਇਸ ਨੂੰ %s ਤੱਕ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="subscriptions_category_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
