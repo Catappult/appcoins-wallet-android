@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">لغو آبونمان</string>
   <string name="subscriptions_cancel_body">آیا مطمئن هستید که می‌خواهید این آبونمان را لغو کنید؟</string>
   <string name="subscriptions_cancel_no_button">خیر، بازگشت به قبل</string>
-  <string name="subscriptions_cancel_yes_button">بله، لغو آبونمان</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">آبونمان لغو شد!</string>
   <string name="subscriptions_cancel_confirmation_body">دیگر برای این آبونمان پرداختی نخواهید داشت، تا %s می‌توانید آن را استفاده کنید.</string>
   <string name="subscriptions_category_title">آبونمان</string>
