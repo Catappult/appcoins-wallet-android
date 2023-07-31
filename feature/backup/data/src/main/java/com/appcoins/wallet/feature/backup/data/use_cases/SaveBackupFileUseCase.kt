@@ -5,7 +5,6 @@ import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.backup.data.repository.BackupRepository
 import com.appcoins.wallet.feature.backup.data.result.BackupResult
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SaveBackupFileUseCase @Inject constructor(
