@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Прекрати абонамент</string>
   <string name="subscriptions_cancel_body">Сигурен ли си, че искаш да прекратиш абонамента?</string>
   <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Абонаментът е прекратен!</string>
   <string name="subscriptions_cancel_confirmation_body">Няма да бъдеш таксуван повече за този абонамент и можеш да го използваш до %s.</string>
   <string name="subscriptions_category_title">Абонамент</string>
