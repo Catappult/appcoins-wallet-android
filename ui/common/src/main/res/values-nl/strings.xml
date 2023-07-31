@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
   <string name="subscriptions_cancel_no_button">Nee, teruggaan</string>
-  <string name="subscriptions_cancel_yes_button">Ja, abonnement annuleren</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement geannuleerd!</string>
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
