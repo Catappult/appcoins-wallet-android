@@ -45,7 +45,6 @@ data class TransactionCardInfo(
     val date: String,
     val from: String? = null,
     val to: String? = null,
-    val transactionUrl: String,
     val failedMessage: Int? = null,
     val sku: String? = null,
     val txId: String? = null
@@ -64,7 +63,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 sku = sku,
                 txId = txId
             )
@@ -77,7 +75,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 txId = txId
             )
 
@@ -89,7 +86,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
             )
 
         EXTRA_BONUS ->
@@ -103,7 +99,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 sku = sku,
                 txId = txId,
             )
@@ -116,7 +111,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
             )
 
         REVERTED_PURCHASE_BONUS ->
@@ -129,7 +123,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
                 txId = txId
@@ -146,7 +139,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_reverted_body,
                 txId = txId
             )
@@ -162,7 +154,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_reverted_body
             )
 
@@ -177,7 +168,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 sku = sku,
                 txId = txId
             )
@@ -192,7 +182,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
                 txId = txId
@@ -207,7 +196,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_rejected_body,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
@@ -222,7 +210,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 to = to,
                 from = from,
                 txId = txId
@@ -236,7 +223,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 from = from,
                 to = to,
                 txId = txId
@@ -252,7 +238,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
                 from = from,
@@ -270,7 +255,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
                 sku = sku,
@@ -286,7 +270,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
                 failedMessage = R.string.transaction_rejected_body,
@@ -302,7 +285,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_reverted_body,
                 txId = txId
             )
@@ -315,7 +297,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 textDecoration = TextDecoration.LineThrough,
                 failedMessage = R.string.transaction_rejected_body,
                 txId = txId
@@ -330,7 +311,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
                 from = from,
@@ -348,7 +328,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
                 sku = sku,
@@ -364,7 +343,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_rejected_body,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
@@ -382,7 +360,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
                 from = from,
@@ -399,7 +376,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
             )
 
         FEE,
@@ -415,7 +391,6 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
             )
         }
     }

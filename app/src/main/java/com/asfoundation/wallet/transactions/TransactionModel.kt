@@ -33,7 +33,6 @@ data class TransactionModel(
   val amountSubtitle: String,
   val from: String,
   val to: String,
-  val transactionUrl: String,
   val sku: String?,
   val txId: String?,
 ) : Parcelable
@@ -53,7 +52,6 @@ fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
     else "${amount()} $amountCurrency",
     from = sender,
     to = receiver,
-    transactionUrl = "$TRANSACTION_DETAILS_HOST$txId",
     sku = sku,
     txId = txId
   )
