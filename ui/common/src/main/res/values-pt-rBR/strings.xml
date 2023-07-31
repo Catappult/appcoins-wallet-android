@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Cancelar Assinatura</string>
   <string name="subscriptions_cancel_body">Tem certeza de que deseja cancelar esta assinatura?</string>
   <string name="subscriptions_cancel_no_button">Não, voltar</string>
-  <string name="subscriptions_cancel_yes_button">Sim, cancelar assinatura</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Assinatura Cancelada!</string>
   <string name="subscriptions_cancel_confirmation_body">Você não será mais cobrado por esta assinatura e poderá usá-la até %s.</string>
   <string name="subscriptions_category_title">Assinatura</string>
