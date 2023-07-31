@@ -822,7 +822,7 @@
   <string name="subscriptions_cancel_title">Abonnement kündigen</string>
   <string name="subscriptions_cancel_body">Bist du sicher, dass du dieses Abonnement kündigen willst?</string>
   <string name="subscriptions_cancel_no_button">Nein, zurückgehen</string>
-  <string name="subscriptions_cancel_yes_button">Ja, Abonnement kündigen</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement wurde gekündigt!</string>
   <string name="subscriptions_cancel_confirmation_body">Du musst für dieses Abonnement nichts mehr bezahlen, du kannst es noch bis %s nutzen.</string>
   <string name="subscriptions_category_title">Abonnement</string>
