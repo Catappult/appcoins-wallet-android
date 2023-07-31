@@ -824,7 +824,7 @@
   <string name="subscriptions_cancel_title">Rezygnuj z subskrypcji</string>
   <string name="subscriptions_cancel_body">Na pewno chcesz zrezygnować z subskrypcji?</string>
   <string name="subscriptions_cancel_no_button">Nie, wróć</string>
-  <string name="subscriptions_cancel_yes_button">Tak, zrezygnuj</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Subskrypcja anulowana!</string>
   <string name="subscriptions_cancel_confirmation_body">Za tę subskrypcję nie będzie już naliczana opłata i można z niej korzystać do %s.</string>
   <string name="subscriptions_category_title">Subskrypcja</string>
