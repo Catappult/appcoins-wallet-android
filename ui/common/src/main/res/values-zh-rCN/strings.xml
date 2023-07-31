@@ -821,7 +821,7 @@
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
   <string name="subscriptions_cancel_no_button">否，返回</string>
-  <string name="subscriptions_cancel_yes_button">是，取消订购</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">已取消订购！</string>
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
