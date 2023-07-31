@@ -63,7 +63,7 @@
           android:paddingHorizontal="16dp"
           >
         <ImageView
-            android:id="@+id/new_wallet_icon"
+            android:id="@+id/manage_wallet_icon"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_gravity="center_vertical"
@@ -142,7 +142,7 @@
           android:paddingHorizontal="16dp"
           >
         <ImageView
-            android:id="@+id/delete_wallet_icon"
+            android:id="@+id/backup_wallet_icon"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_gravity="center_vertical"

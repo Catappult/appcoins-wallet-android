@@ -111,6 +111,8 @@
 
   <include app:graph="@navigation/transactions_graph" />
 
+  <include app:graph="@navigation/home_graph" />
+
   <action
       android:id="@+id/action_navigate_to_transactions_list"
       app:destination="@id/transactions_graph" />

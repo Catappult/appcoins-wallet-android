@@ -26,7 +26,6 @@ constructor(
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
-  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val deleteWalletInteract: DeleteWalletInteract
 ) : ViewModel() {
 
@@ -82,28 +81,11 @@ constructor(
       .subscribe()
   }
 
-  fun setName(wallet: String, name: String) {
-    updateWalletNameUseCase(wallet, name)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnComplete { getWallets() }
-      .subscribe()
-  }
-
   fun deleteWallet(wallet: String) {
     deleteWalletInteract.delete(wallet)
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnComplete {
         _uiState.value = UiState.WalletDeleted
-      }
-      .subscribe()
-  }
-
-  fun createWallet(name: String) {
-    walletsInteract.createWallet(name)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnComplete {
-        getWallets()
-        _uiState.value = UiState.WalletCreated
       }
       .subscribe()
   }

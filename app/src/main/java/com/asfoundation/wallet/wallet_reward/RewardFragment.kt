@@ -11,10 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -22,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -46,6 +44,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Inject
   lateinit var navigator: RewardNavigator
   private val viewModel: RewardViewModel by viewModels()
+
+  private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
   private var isVip by mutableStateOf(false)
 
@@ -81,6 +81,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   fun RewardScreen(
     modifier: Modifier = Modifier,
   ) {
+    val dialogDismissed by rewardSharedViewModel.dialogDismissed
+    LaunchedEffect(key1 = dialogDismissed) {
+      viewModel.fetchPromotions()
+      viewModel.fetchGamificationStats()
+    }
     Scaffold(
       topBar = {
         Surface {
