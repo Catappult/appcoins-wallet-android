@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
+import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
@@ -60,7 +61,7 @@ class GamificationInteractor @Inject constructor(
           promoCodeString, currency
         ).flatMap { appcBonusValue ->
           conversionService.getAppcToLocalFiat(appcBonusValue.amount.toString(), 18).flatMap { fiatValue ->
-            Single.just(map(appcBonusValue, fiatValue, null))
+            Single.just(map(appcBonusValue, fiatValue))
           }
         }
       }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
@@ -68,26 +69,12 @@ class GamificationInteractor @Inject constructor(
 
 
   private fun map(
-    forecastBonus: ForecastBonus, fiatValue: FiatValue,
-    forecastBonusAndLevel: ForecastBonusAndLevel?
+    forecastBonus: ForecastBonus, fiatValue: FiatValue
   ): ForecastBonusAndLevel {
-    //val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
     return ForecastBonusAndLevel(
       forecastBonus.status, fiatValue.amount, fiatValue.symbol
       , level = forecastBonus.level.toInt()
-      // , level = forecastBonusAndLevel.level
     )
-  }
-
-  private fun getBonusStatus(
-    forecastBonus: ForecastBonus,
-    userBonusAndLevel: ForecastBonusAndLevel
-  ): ForecastBonus.Status {
-    return if (forecastBonus.status == ForecastBonus.Status.ACTIVE || userBonusAndLevel.status == ForecastBonus.Status.ACTIVE) {
-      ForecastBonus.Status.ACTIVE
-    } else {
-      ForecastBonus.Status.INACTIVE
-    }
   }
 
   fun hasNewLevel(
