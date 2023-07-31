@@ -58,7 +58,7 @@
   <style name="MyWallets.TokenInfo.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="MyWallets.TokenInfo.Description">

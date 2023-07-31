@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/styleguide_blue"
     >
 
   <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/small_margin"
       android:clipChildren="false"
       android:clipToPadding="false"
-      app:cardCornerRadius="12dp"
+      app:cardCornerRadius="16dp"
       app:cardElevation="2dp"
       app:cardUseCompatPadding="true"
       app:layout_constraintTop_toTopOf="parent"
-      android:background="@color/styleguide_white"
+      android:background="@color/styleguide_blue"
       android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,35 +26,35 @@
         android:clipToPadding="false">
 
       <ImageView
-          android:transitionName="nft_image_transition"
           android:id="@+id/nft_image"
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:adjustViewBounds="true"
+          android:src="@drawable/nfts_error"
+          android:transitionName="nft_image_transition"
+          android:scaleType="centerCrop"
           app:layout_constraintDimensionRatio="1:1"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:src="@drawable/nfts_error"
+          tools:src="@drawable/gamification_unknown_planet_green_reached"
           />
-
       <TextView
           android:transitionName="nft_title_transition"
           android:id="@+id/nft_title"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/normal_margin"
-          android:layout_marginTop="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/normal_margin"
-          android:layout_marginBottom="@dimen/big_margin"
+          android:padding="16dp"
           android:fontFamily="@font/roboto_bolt"
-          android:textColor="#000B14"
+          android:textColor="@color/styleguide_light_grey"
           android:textSize="14sp"
+          android:background="@color/intercom_transparent_black"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/nft_image"
-          app:layout_constraintTop_toBottomOf="@id/nft_image"
-          app:layout_constraintBottom_toBottomOf="parent"
-          tools:text="Title" />
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/nft_image"
+          tools:text="Title"
+          />
 
       <TextView
           android:id="@+id/nft_subtitle"

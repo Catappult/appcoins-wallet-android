@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.ui.widgets.TopBar
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftsBinding
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -20,17 +24,21 @@ import javax.inject.Inject
 class NFTFragment : BasePageViewFragment(),
   SingleStateFragment<NFTState, NFTSideEffect> {
 
-
   @Inject
   lateinit var navigator: NFTNavigator
+
+  @Inject
+  lateinit var displayChat: DisplayChatUseCase
 
   private lateinit var nftsController: NFTsController
 
   private val viewModel: NFTViewModel by viewModels()
   private val views by viewBinding(FragmentNftsBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentNftsBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentNftsBinding.inflate(inflater).root
 
   override fun onResume() {
     super.onResume()
@@ -41,6 +49,7 @@ class NFTFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     nftsController = NFTsController()
     setListeners()
+    setToolbar(view)
     views.rvNfts.setController(nftsController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -58,12 +67,22 @@ class NFTFragment : BasePageViewFragment(),
   }
 
   private fun setListeners() {
-    views.actionBack.setOnClickListener { navigator.navigateBack() }
     nftsController.clickListener = { nftClick ->
       viewModel.nftClicked(nftClick)
     }
     views.refreshLayout.setOnRefreshListener { viewModel.fetchNFTList() }
     views.noNetwork.retryButton.setOnClickListener { networkRetry() }
+  }
+
+  private fun setToolbar(view: View) {
+    view.findViewById<ComposeView>(R.id.header).apply {
+      setContent {
+        TopBar(
+          isMainBar = false,
+          onClickSupport = { displayChat() },
+          onClickBack = { navigator.navigateBack() })
+      }
+    }
   }
 
   private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
@@ -73,6 +92,7 @@ class NFTFragment : BasePageViewFragment(),
           showLoading()
         }
       }
+
       is Async.Fail -> {
         hideLoading()
         showNetworkErrorView()

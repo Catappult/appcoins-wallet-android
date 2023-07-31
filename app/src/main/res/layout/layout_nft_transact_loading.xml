@@ -3,16 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     >
 
-  <ProgressBar
+  <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_progress"
-      android:layout_width="60dp"
-      android:layout_height="60dp"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_wallet"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

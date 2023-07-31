@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/styleguide_blue"
     >
 
   <TextView
@@ -11,7 +13,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginTop="31dp"
+      android:layout_marginTop="32dp"
       android:layout_marginBottom="0dp"
       android:text="@string/nfts_transact_gas_title"
       app:layout_constraintBottom_toTopOf="@+id/speed_description"
@@ -25,8 +27,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginTop="10dp"
-      android:layout_marginBottom="25dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="24dp"
       android:ellipsize="end"
       android:text="@string/nfts_transact_gas_description"
       android:textAlignment="textStart"
@@ -40,7 +42,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="25dp"
+      android:layout_marginBottom="24dp"
       app:layout_constraintBottom_toTopOf="@id/fee"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +52,7 @@
         android:id="@+id/gas_fee"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/gas_limit"
@@ -64,13 +66,13 @@
           android:ellipsize="end"
           android:maxLines="1"
           android:text="@string/nfts_transact_gas_price"
+          android:labelFor="@id/gas_price_input"
           app:layout_constraintBottom_toTopOf="@+id/gas_input_layout"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/gas_input_layout"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -83,6 +85,7 @@
             android:digits="0123456789"
             android:imeOptions="actionDone|flagNoFullscreen|flagNoExtractUi"
             android:inputType="number"
+            android:textColor="@color/styleguide_medium_grey"
             android:maxLines="1"
             />
       </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +95,7 @@
         android:id="@+id/gas_limit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/gas_fee"
         app:layout_constraintRight_toRightOf="parent"
@@ -106,13 +109,13 @@
           android:ellipsize="end"
           android:maxLines="1"
           android:text="@string/nfts_transact_gas_limit"
+          android:labelFor="@id/gas_limit_input"
           app:layout_constraintBottom_toTopOf="@+id/gas_limit_input_layout"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/gas_limit_input_layout"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -125,60 +128,72 @@
             android:digits="0123456789"
             android:imeOptions="actionDone|flagNoFullscreen|flagNoExtractUi"
             android:inputType="number"
+            android:textColor="@color/styleguide_medium_grey"
             android:maxLines="1"
             />
       </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
-  <androidx.constraintlayout.widget.ConstraintLayout
+
+  <androidx.cardview.widget.CardView
       android:id="@+id/fee"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="20dp"
-      android:background="@color/styleguide_light_grey"
+      android:layout_marginBottom="24dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBottom_toTopOf="@id/send_button"
       app:layout_constraintTop_toBottomOf="@id/gas_inputs"
+      app:cardCornerRadius="16dp"
       >
-    <TextView
-        android:id="@+id/fee_title"
-        style="@style/NFTs.Body"
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
-        android:ellipsize="end"
-        android:text="@string/nfts_transact_gas_fee_message"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        android:id="@+id/price_fiat"
-        style="@style/NFTs.SubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginRight="28dp"
-        android:ellipsize="end"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@id/price_eth"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        android:id="@+id/price_eth"
-        style="@style/NFTs.Body"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="28dp"
-        android:layout_marginBottom="22dp"
-        android:ellipsize="end"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_fiat"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@color/styleguide_blue_secondary"
+        >
+      <TextView
+          android:id="@+id/fee_title"
+          style="@style/NFTs.Body"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:ellipsize="end"
+          android:text="@string/nfts_transact_gas_fee_message"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <TextView
+          android:id="@+id/price_fiat"
+          style="@style/NFTs.SubTitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="24dp"
+          android:layout_marginTop="24dp"
+          android:ellipsize="end"
+          tools:text="9.23$"
+          app:layout_constraintBottom_toTopOf="@id/price_eth"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <TextView
+          android:id="@+id/price_eth"
+          style="@style/NFTs.Body"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="24dp"
+          android:layout_marginBottom="24dp"
+          android:ellipsize="end"
+          tools:text="12.23"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/price_fiat"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.cardview.widget.CardView>
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/send_button"
@@ -186,8 +201,8 @@
       android:layout_height="@dimen/large_button_height"
       android:layout_gravity="center_horizontal"
       android:layout_marginHorizontal="16dp"
-      android:layout_marginTop="27dp"
-      android:layout_marginBottom="27dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="24dp"
       app:buttonText="@string/nfts_transact_button_send"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"

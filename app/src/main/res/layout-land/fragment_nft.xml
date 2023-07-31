@@ -4,89 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_white"
+    android:background="@color/styleguide_blue"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.compose.ui.platform.ComposeView
       android:id="@+id/header"
-      android:layout_width="match_parent"
-      android:layout_height="104dp"
-      android:background="@color/styleguide_blue"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      >
-
-    <ImageButton
-        android:id="@+id/action_back"
-        style="@style/Widget.AppCompat.ActionButton"
-        android:layout_width="42dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
-        android:rotation="-90"
-        android:scaleType="fitCenter"
-        android:src="@drawable/arrow_rotated"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/styleguide_white"
-        />
-
-    <TextView
-        android:id="@+id/title"
-        style="@style/BottomNav.Header.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:text="@string/nfts_title"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/action_back"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      app:layout_constraintBottom_toTopOf="@id/gamification_background"
+      />
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gamification_background"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="89dp"
-      android:background="@color/styleguide_white"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="8dp"
+      android:background="@color/styleguide_blue"
       android:clipChildren="false"
       android:clipToPadding="false"
-      app:cardBackgroundColor="@color/styleguide_white"
+      app:cardBackgroundColor="@color/styleguide_blue"
       app:cardPreventCornerOverlap="false"
       app:layout_constraintTop_toBottomOf="@id/header"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       >
-    <ImageView
-        android:id="@+id/nft_image"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:src="@drawable/nfts_error"
-        android:transitionName="nft_image_transition"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
-    <include
-        android:id="@+id/nft_image_skeleton"
-        layout="@layout/skeleton_rounded_rectangle"
-        android:layout_width="0dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/nft_image_card"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="24dp"
+        >
+
+      <ImageView
+          android:id="@+id/nft_image"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:adjustViewBounds="true"
+          android:src="@drawable/nfts_error"
+          android:transitionName="nft_image_transition"
+          app:layout_constraintDimensionRatio="1:1"
+          />
+
+      <include
+          android:id="@+id/nft_image_skeleton"
+          layout="@layout/skeleton_rounded_rectangle"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:visibility="gone"
+          app:layout_constraintDimensionRatio="1:1"
+          />
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nft_image"
+        app:layout_constraintStart_toEndOf="@id/nft_image_card"
         app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true"
         >
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
@@ -100,15 +85,15 @@
             android:id="@+id/nft_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginHorizontal="24dp"
             android:fontFamily="@font/roboto_bolt"
-            android:textColor="#000B14"
+            android:textColor="@color/styleguide_light_grey"
             android:textSize="24sp"
             android:transitionName="nft_title_transition"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/nft_subtitle"
             tools:text="Title"
             />
 
@@ -116,11 +101,10 @@
             android:id="@+id/nft_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:textColor="#000B14"
+            android:textColor="@color/styleguide_dark_grey"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/nft_title"
             tools:text="Sub-Title"
@@ -132,10 +116,10 @@
             android:layout_height="@dimen/large_button_height"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="27dp"
+            android:layout_marginBottom="24dp"
             app:buttonText="@string/nfts_transact_button"
             app:buttonType="filled"
-            app:layout_constraintTop_toBottomOf="@id/nft_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>

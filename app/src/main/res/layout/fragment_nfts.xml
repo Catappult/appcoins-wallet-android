@@ -4,60 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_white"
+    android:background="@color/styleguide_blue"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.compose.ui.platform.ComposeView
       android:id="@+id/header"
-      android:layout_width="match_parent"
-      android:layout_height="104dp"
-      android:background="@color/styleguide_blue"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      >
+      app:layout_constraintBottom_toTopOf="@id/content_card"
+      />
 
-    <ImageButton
-        android:id="@+id/action_back"
-        style="@style/Widget.AppCompat.ActionButton"
-        android:layout_width="42dp"
-        android:layout_height="48dp"
-        android:rotation="-90"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/arrow_rotated"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitCenter"
-        app:tint="@color/styleguide_white"
-        />
-
-    <TextView
-        android:id="@+id/title"
-        style="@style/BottomNav.Header.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:text="@string/nfts_title"
-        app:layout_constraintStart_toStartOf="@id/action_back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-  <com.google.android.material.card.MaterialCardView
+  <androidx.cardview.widget.CardView
+      android:id="@+id/content_card"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginTop="89dp"
+      android:layout_marginTop="8dp"
       app:cardPreventCornerOverlap="false"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:cardBackgroundColor="@color/styleguide_white"
-      app:shapeAppearance="@style/Promotions.ContentShape"
+      app:layout_constraintTop_toBottomOf="@id/header"
+      app:cardBackgroundColor="@color/styleguide_blue"
       >
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
@@ -70,11 +42,11 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:animateLayoutChanges="true"
+          android:paddingHorizontal="8dp"
           >
 
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/rv_nfts"
-            android:layout_marginHorizontal="@dimen/normal_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -121,6 +93,5 @@
 
       </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-  </com.google.android.material.card.MaterialCardView>
-
+  </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

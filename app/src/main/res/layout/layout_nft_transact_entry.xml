@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/styleguide_blue_secondary"
     >
 
   <TextView
@@ -14,21 +15,24 @@
       android:layout_marginTop="31dp"
       android:layout_marginBottom="13dp"
       android:text="@string/nfts_transact_tip"
-      app:layout_constraintVertical_chainStyle="packed"
       app:layout_constraintBottom_toTopOf="@id/to_input_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
       />
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/to_input_layout"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="23dp"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:textColorHint="@color/styleguide_dark_grey"
+      app:boxBackgroundColor="@color/styleguide_blue"
+      app:boxStrokeColor="@color/styleguide_pink"
+      app:boxStrokeErrorColor="@color/styleguide_pink"
+      app:layout_constraintBottom_toTopOf="@id/send_button"
       app:layout_constraintTop_toBottomOf="@id/title"
       >
     <EditText
