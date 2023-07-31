@@ -823,7 +823,7 @@
   <string name="subscriptions_cancel_title">ยกเลิกสมาชิก</string>
   <string name="subscriptions_cancel_body">คุณแน่ใจใช่ไหมว่าต้องการยกเลิกการเป็นสมาชิกนี้</string>
   <string name="subscriptions_cancel_no_button">ไม่ ย้อนกลับ</string>
-  <string name="subscriptions_cancel_yes_button">ใช่ ยกเลิกการเป็นสมาชิก</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">สมาชิกถูกยกเลิก!</string>
   <string name="subscriptions_cancel_confirmation_body">คุณจะไม่โดนเรียกเก็บเงินใดๆสำหรับการเป็นสมาชิกนี้ และคุณสามารถใช้ได้ถึง %s</string>
   <string name="subscriptions_category_title">สมัครสมาชิก</string>
