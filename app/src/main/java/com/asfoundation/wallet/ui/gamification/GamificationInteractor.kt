@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.gamification
 
-import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
