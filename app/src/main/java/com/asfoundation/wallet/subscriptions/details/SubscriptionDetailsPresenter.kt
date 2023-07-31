@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.subscriptions.details
 
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
-import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -64,6 +64,7 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
                   .subscribeOn(Schedulers.io())
                   .observeOn(viewScheduler)
                   .doOnComplete {
+                    view.hideLoading()
                     navigator.showRenewSuccess()
                   }
                   .doOnError { onError(it) }
