@@ -826,7 +826,7 @@
   <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
   <string name="subscriptions_cancel_no_button">नाही, परत जा</string>
-  <string name="subscriptions_cancel_yes_button">होय, सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">सदस्यत्व रद्द केले!</string>
   <string name="subscriptions_cancel_confirmation_body">ह्या सदस्यत्वासाठी आपल्याला काहीही शुल्क लागू होणार नाही आणि आपण ह्याचा वापर %s पर्यंत करु शकता.</string>
   <string name="subscriptions_category_title">सदस्यत्व</string>
