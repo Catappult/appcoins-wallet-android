@@ -25,6 +25,9 @@ class BackupSuccessComposeFragment : BasePageViewFragment(){
   @Inject
   lateinit var displayChat: DisplayChatUseCase
 
+  @Inject
+  lateinit var navigator: BackupEntryNavigator
+
   companion object {
     fun newInstance() = BackupSuccessComposeFragment()
   }
@@ -38,9 +41,9 @@ class BackupSuccessComposeFragment : BasePageViewFragment(){
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSuccessRoute(
-              onExitClick = { handleBackPress() },
+              onExitClick = { navigator.handleBackPress() },
               onChatClick = { displayChat() },
-              onGotItClick = { navigateBackToManageWallets(navController()) }
+              onGotItClick = { navigator.navigateToHome(navController()) }
             )
           }
         }
@@ -48,21 +51,12 @@ class BackupSuccessComposeFragment : BasePageViewFragment(){
     }
   }
 
-  private fun handleBackPress() {
-    navController().popBackStack()
-  }
 
   private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
       R.id.main_host_container
     ) as NavHostFragment
     return navHostFragment.navController
-  }
-
-  private fun navigateBackToManageWallets(
-    mainNavController: NavController
-  ) {
-    mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
 }

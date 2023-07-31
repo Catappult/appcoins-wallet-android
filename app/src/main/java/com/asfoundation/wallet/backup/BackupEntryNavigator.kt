@@ -28,6 +28,11 @@ class BackupEntryNavigator @Inject constructor(
     mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
+  fun navigateToHome(  mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_success_screen_back_to_home)
+  }
+
   fun showWalletChooseScreen(
     walletModel : WalletsModel,
     mainNavController : NavController

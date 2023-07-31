@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -33,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.simpleFormat
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.maskedEnd
 import com.appcoins.wallet.feature.backup.ui.BackupDialogCardAlertBottomSheet
 import com.appcoins.wallet.ui.common.R
@@ -161,7 +165,7 @@ fun BackupEntryScreen(
           BalanceCard(
             "${balanceInfo.value?.amount}${balanceInfo.value?.symbol}",
             walletAddress.maskedEnd(),
-            "$walletName - ",
+            "${walletName.simpleFormat()} - ",
             onPasswordChange = onPasswordChange,
             onChooseWallet = onChooseWallet,
             viewModel = viewModel,
@@ -184,6 +188,7 @@ fun BalanceCard(balance : String,
                 onPasswordChange: (password : String) -> Unit,
                 onChooseWallet: () -> Unit,
                 viewModel: BackupEntryViewModel) {
+  val interactionSource = remember { MutableInteractionSource() }
   Card(
     elevation = CardDefaults.cardElevation(8.dp),
     shape = RoundedCornerShape(14.dp),
@@ -204,22 +209,25 @@ fun BalanceCard(balance : String,
         modifier = Modifier
           .padding(start = 16.dp).fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
       ){
         Column(
           modifier = Modifier
-            .padding(bottom = 11.dp).width(186.dp)
+            .padding(bottom = 11.dp)
         ){
-          Row {
+          Row{
             Text(text = walletName,
               style = WalletTypography.medium.sp14,
               maxLines = 1,
               color = WalletColors.styleguide_light_grey,
               modifier = Modifier
                 .padding(bottom = 4.dp , top = 11.dp))
+
             Text(
               text = balance,
               style = WalletTypography.medium.sp14,
               color = WalletColors.styleguide_light_grey,
+              maxLines = 1,
               modifier = Modifier
                 .padding(top = 11.dp)
             )
@@ -236,7 +244,12 @@ fun BalanceCard(balance : String,
           Icon(
             painter = painterResource(id = R.drawable.ic_arrow_head_down),
             contentDescription = "show password",
-            modifier = Modifier.height(48.dp).width(48.dp).clickable { onChooseWallet() }.weight(1f),
+            modifier = Modifier.height(58.dp).width(64.dp)
+              .padding(end = 22.dp)
+              .clickable (
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = {onChooseWallet()} ),
             tint = WalletColors.styleguide_pink
             )
 
@@ -346,7 +359,7 @@ fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit, viewModel
               text = stringResource(R.string.backup_additional_security_title),
               style = WalletTypography.bold.sp14,
               color = WalletColors.styleguide_light_grey,
-              modifier = Modifier.padding(bottom = 8.21.dp, end = 68.dp)
+              modifier = Modifier.padding(bottom = 8.21.dp, end = 72.dp)
             )
             Text(
               text = stringResource(R.string.backup_additional_security_body),
@@ -356,8 +369,8 @@ fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit, viewModel
             )
           }
 
-          Switch(  //switch ??
-            modifier = Modifier.padding(end = 8.dp),
+          Switch(
+            modifier = Modifier.padding(end = 18.dp),
             checked = switchON,
             onCheckedChange = {
                 changedSwitch -> switchON = changedSwitch

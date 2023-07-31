@@ -26,7 +26,7 @@ class BackupRepository @Inject constructor(
   suspend fun saveFile(
       content: String, filePath: DocumentFile?,
       fileName: String
-  ): Unit {
+  ): BackupResult {
     //mimetype anything so that the file has the .bck extension alone.
     val file = filePath?.createFile("anything", fileName + getDefaultBackupFileExtension())
         ?: throw IOException("Error creating file")
@@ -39,11 +39,13 @@ class BackupRepository @Inject constructor(
 
       } catch (e: IOException) {
         e.printStackTrace()
+        FailedBackup.GenericError()
         throw e
       } finally {
         outputStream?.close()
       }
     }
+    return SuccessfulBackup
   }
 
 
@@ -66,7 +68,7 @@ class BackupRepository @Inject constructor(
 
   suspend fun logBackupSuccess(ewt: String): Unit {
     withContext(dispatchers.io) {
-      backupLogApi.logBackupSuccess(ewt)
+      backupLogApi.logBackupSuccess(ewt).await()
     }
   }
 }

@@ -88,6 +88,11 @@
 
   <include app:graph="@navigation/manage_wallet_graph" />
 
+
+  <include app:graph="@navigation/home_graph" />
+
+
+
   <action
       android:id="@+id/action_navigate_to_manage_wallet"
       app:destination="@id/manage_wallet_graph" />
@@ -204,6 +209,7 @@
         app:destination="@id/backup_wallet_error_screen" />
   </fragment>
 
+
   <fragment
       android:id="@+id/backup_wallet_success_screen"
       android:name="com.asfoundation.wallet.backup.BackupSuccessComposeFragment">
@@ -211,7 +217,12 @@
     <action
         android:id="@+id/action_success_screen_back_to_manage_wallets"
         app:destination="@id/action_navigate_to_manage_wallet" />
+
+    <action
+        android:id="@+id/action_success_screen_back_to_home"
+        app:destination="@id/home_graph" />
   </fragment>
+
 
   <fragment
       android:id="@+id/backup_wallet_error_screen"

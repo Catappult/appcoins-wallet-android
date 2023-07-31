@@ -79,7 +79,6 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
     try {
       viewModelScope.launch {
         saveBackupFileUseCase(state.walletAddress, state.walletPassword, fileName, filePath)
-        backupSuccessLogUseCase(state.walletAddress)
       }
     } catch (e: Exception) {
       showError(e)
