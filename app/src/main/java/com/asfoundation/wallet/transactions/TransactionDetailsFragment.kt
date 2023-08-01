@@ -168,13 +168,13 @@ class TransactionDetailsFragment : BasePageViewFragment() {
               )
 
               if (sku != null)
-                TransactionDetailItem("SKU", sku)
+                TransactionDetailItem(stringResource(R.string.transaction_details_sku), sku)
 
               TransactionDetailItem(stringResource(R.string.transaction_date_label), date)
 
               if (txId != null)
                 TransactionDetailItem(
-                  label = "TxID", // TODO stringResource(R.string.transaction_order_reference_label),
+                  label = stringResource(R.string.transaction_details_txid),
                   data = txId,
                   allowCopy = true,
                   onClick = { copyOrderIdToClipBoard(txId) })
