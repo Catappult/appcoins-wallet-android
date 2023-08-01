@@ -2,7 +2,7 @@ package com.asfoundation.wallet.eskills
 
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.WalletAddress
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Observable
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo

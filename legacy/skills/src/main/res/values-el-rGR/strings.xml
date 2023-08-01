@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Ξεκινήστε</string>
   <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
   <string name="buy_button">Αγορά</string>
@@ -32,21 +32,26 @@
   <string name="purchase_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="shared_room_waiting">Αναμονή αντιπάλων για να μπουν στο %s</string>
-  <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με συσκευή \"rooted.\"</string>
-  <string name="top_up_needed_body">Για λόγους ασφαλείας, πρέπει να εκτελέσετε τουλάχιστον μία φόρτιση στο wallet σας για να παίξετε παιχνίδια e-Skills.</string>
-  <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
-  <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Μη υποστηριζόμενη έκδοση wallet!</string>
   <string name="update_not_supported_body">Ενημερώστε το AppCoins Wallet στην τελευταία έκδοση.</string>
   <string name="update_button">Ενημέρωση</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Εσείς και οι φίλοι που προσκαλείτε θα λάβετε ένα μπόνους $%s. Μπορείτε να προσκαλέσετε μέχρι 5 φίλους, και πρέπει να είναι νέοι χρήστες. Το μπόνους θα πιστωθεί στο wallet σας μόλις χρησιμοποιήσουν τον κωδικό πρόσκλησής τους στο πρώτο τους παιχνίδι e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">Ετοιμαστήκατε να δείξετε τις ικανότητές σας;</string>
+  <string name="refer_a_friend_first_time_body">Νικήστε άλλους παίχτες για να κερδίσετε ένα δώρο σε αληθινά χρήματα! Ας ξεκινήσουμε με ένα παιχνίδι εξάσκησης χωρίς εισιτήριο εισόδου.</string>
+  <string name="refer_a_friend_error_unavailable_body">Αυτή η λειτουργία επί του παρόντος δεν είναι διαθέσιμη.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Μη έγκυρος κωδικός!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Μόνο για νέους χρήστες!</string>
+  <string name="refer_a_friend_first_time_tooltip">Με το Πρόγραμμα Σύστασής μας θα λάβετε ένα μπόνους $%s όταν χρησιμοποιήσετε τον κωδικό του φίλου σας. Και αυτός θα λάβει το ίδιο ποσό, για να το χρησιμοποιήσει σε αγορές εντός παιχνιδιού ή σε εισιτήρια εισόδου e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Προσκαλέστε έναν Φίλο!</string>
+  <string name="refer_a_friend_waiting_from_body">Λάβετε ένα μπόνους για κάθε φίλο που προσκαλείτε.</string>
+  <string name="refer_a_friend_invitation_message">Προσκληθήκατε να παίξετε %1$s! Χρησιμοοποιήστε τον κωδικό πρόσκλησης %2$s αφού το κατεβάσετε από %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Τα παιχνίδια e-Skills δεν μπορούν να παιχτούν με ενεργό VPN. Παρακαλούμε απενεργοποιήστε το και δοκιμάστε ξανά!</string>
+  <string name="top_up_needed_body">Για λόγους ασφαλείας, πρέπει να εκτελέσετε τουλάχιστον μία φόρτιση στο wallet σας για να παίξετε παιχνίδια e-Skills.</string>
+  <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
+  <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
+  <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με «σπασμένη» συσκευή.</string>
 </resources>

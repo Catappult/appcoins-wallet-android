@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
 import android.util.Log
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Completable
@@ -14,13 +14,12 @@ class CancelPaypalTokenUseCase @Inject constructor(
 ) {
 
   operator fun invoke(token: String): Completable {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
       .subscribeOn(rxSchedulers.io)
-      .flatMapCompletable { addressModel ->
+      .flatMapCompletable { address ->
         Log.d(this.toString(), "Canceling token")
         payPalV2Repository.cancelToken(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           token = token
         )
       }

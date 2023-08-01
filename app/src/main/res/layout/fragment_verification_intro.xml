@@ -27,10 +27,10 @@
           android:layout_marginStart="24dp"
           android:layout_marginTop="27dp"
           android:layout_marginEnd="41dp"
-          android:text="@string/card_verification_body"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          tools:text="@string/card_verification_body_new"
           />
 
       <RelativeLayout
@@ -80,10 +80,10 @@
           android:paddingTop="13dp"
           android:paddingEnd="@dimen/big_margin"
           android:paddingBottom="@dimen/normal_margin"
+          android:text="@string/card_verification_disclaimer_body"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/cc_container"
-          tools:text="@string/card_verification_charde_disclaimer"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView

@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">Dompet AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Mula</string>
   <string name="ok">OK</string>
   <string name="cancel">Batal</string>
   <string name="buy_button">Beli</string>
@@ -32,21 +32,26 @@
   <string name="purchase_error_title">Oops, ada yang tak kena.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk sertai %s</string>
-  <string name="rooted_device_blocked_body">Alamak, anda tak boleh main permainan e-Skills dengan peranti akar.\"</string>
-  <string name="top_up_needed_body">Untuk tujuan keselamatan, anda perlu tambah nilai minimum satu kali dalam dompet anda untuk main permainan e-Skills.</string>
-  <string name="not_enough_funds_body">Dana anda tidak cukup! Sila tambah nilai untuk beli tiket masuk.</string>
-  <string name="error_message_local_payment_method_body">Kaedah pembayaran tempatan tidak diterima untuk bayar yuran masuk. Sila cipta dompet baru dan tambah nilai dengan kad bank atau PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Versi dompet tidak disokong!</string>
   <string name="update_not_supported_body">Kemas kini Dompet AppCoins ke versi terkini.</string>
   <string name="update_button">Kemas kini</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Anda dan rakan yang anda jemput akan terima bonus $%s. Anda boleh jemput sehingga 5 rakan, dan mereka mestilah pengguna baru. Bonus akan dikreditkan ke dompet anda sebaik saja mereka gunakan kod jemputan dalam permainan e-Skills pertama mereka.</string>
+  <string name="refer_a_friend_first_time_header">Dah sedia nak tunjuk hebat?</string>
+  <string name="refer_a_friend_first_time_body">Tumpaskan pemain lain untuk dapat hadiah wang tunai! Jum berlatih dulu tanpa sebarang bayaran masuk.</string>
+  <string name="refer_a_friend_error_unavailable_body">Ciri ini tidak tersedia buat masa ini.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Kod tidak sah!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Hanya untuk pengguna baru!</string>
+  <string name="refer_a_friend_first_time_tooltip">Dengan Program Rujukan kami, anda akan terima $%s apabila anda guna kod rakan anda. Mereka juga akan terima bonus berjumlah sama untuk digunakan bagi pembelian dalam aplikasi atau tiket masuk e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Jemput Rakan!</string>
+  <string name="refer_a_friend_waiting_from_body">Dapat bonus untuk setiap rakan yang dijemput.</string>
+  <string name="refer_a_friend_invitation_message">Anda telah dijemput untuk main %1$s! Guna kod jemputan %2$s setelah muat turun daripada %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Permainan e-Skills tidak boleh dimain dengan VPN aktif. Sila nyahdaya dan cuba lagi!</string>
+  <string name="top_up_needed_body">Untuk tujuan keselamatan, anda perlu tambah nilai minimum satu kali dalam dompet anda untuk main permainan e-Skills.</string>
+  <string name="not_enough_funds_body">Dana anda tidak cukup! Sila tambah nilai untuk beli tiket masuk.</string>
+  <string name="error_message_local_payment_method_body">Kaedah pembayaran tempatan tidak diterima untuk bayar yuran masuk. Sila cipta dompet baru dan tambah nilai dengan kad bank atau PayPal!</string>
+  <string name="rooted_device_blocked_body">Malangnya, anda tidak boleh main permainan e-Skills dengan peranti yang diakar.</string>
 </resources>

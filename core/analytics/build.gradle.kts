@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":core:utils:properties"))
     implementation(project(":core:network:analytics"))
     implementation(project(":core:network:base"))
+    implementation(project(":core:network:eskills"))
     implementation(libs.jackson.annotation)
     implementation(libs.bundles.analytics)
     implementation(libs.bundles.network)

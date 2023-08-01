@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import io.reactivex.Single
@@ -14,10 +14,9 @@ class SkillsPaymentInteractor @Inject constructor(
                         encryptedCardNumber: String?, encryptedExpiryMonth: String?,
                         encryptedExpiryYear: String?, encryptedSecurityCode: String
   ): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
         .flatMap { address ->
-          skillsPaymentRepository.makeSkillsPayment(returnUrl, address.address,
-              address.signedAddress, productToken, encryptedCardNumber, encryptedExpiryMonth,
+          skillsPaymentRepository.makeSkillsPayment(returnUrl, address, productToken, encryptedCardNumber, encryptedExpiryMonth,
               encryptedExpiryYear, encryptedSecurityCode
           )
         }

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
@@ -22,8 +22,8 @@ class GetPaymentLinkUseCase @Inject constructor(
         currency: String,
         packageName: String,
     ) : Single<Transaction> {
-        return walletService.getAndSignCurrentWalletAddress()
-            .flatMap { walletAddressModel ->
+        return walletService.getWalletAddress()
+            .flatMap { address ->
                 partnerAddressService.getAttributionEntity(packageName)
                     .flatMap { attributionEntity ->
                         getCurrentPromoCodeUseCase().flatMap { promoCode ->
@@ -32,7 +32,7 @@ class GetPaymentLinkUseCase @Inject constructor(
                                 attributionEntity.oemId, attributionEntity.domain, promoCode.code,
                                 data.payload,
                                 data.callbackUrl, data.orderReference,
-                                data.referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
+                                data.referrerUrl, address)
                         }
                     }
             }

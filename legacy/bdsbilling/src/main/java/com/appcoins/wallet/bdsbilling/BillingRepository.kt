@@ -26,8 +26,7 @@ interface BillingRepository {
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                    type: BillingSupportedType): Single<List<Purchase>>
 
-  fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                       walletSignature: String, type: BillingSupportedType?): Single<Boolean>
+  fun consumePurchases(packageName: String, purchaseToken: String, type: BillingSupportedType?): Single<Boolean>
 
   fun getSubscriptionToken(packageName: String, skuId: String, walletAddress: String,
                            walletSignature: String): Single<String>

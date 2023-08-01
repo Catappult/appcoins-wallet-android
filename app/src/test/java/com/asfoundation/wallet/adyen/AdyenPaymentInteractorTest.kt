@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AttributionEntity
 import com.asfoundation.wallet.billing.partners.PartnerAddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
@@ -25,6 +26,7 @@ import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import okhttp3.internal.wait
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -41,6 +43,7 @@ class AdyenPaymentInteractorTest {
   companion object {
     private const val TEST_WALLET_ADDRESS = "0x123"
     private const val TEST_WALLET_SIGNATURE = "0x1234"
+    private const val TEST_EWT = "123456789"
     private const val TEST_FIAT_VALUE = "2.00"
     private const val TEST_FIAT_CURRENCY = "EUR"
   }
@@ -75,6 +78,9 @@ class AdyenPaymentInteractorTest {
   @Mock
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
+  @Mock
+  lateinit var ewtObtainer: EwtAuthenticatorService
+
   private lateinit var interactor: AdyenPaymentInteractor
   private val fakeSchedulers = FakeSchedulers()
 
@@ -83,7 +89,7 @@ class AdyenPaymentInteractorTest {
     interactor = AdyenPaymentInteractor(repository, inAppPurchaseInteractor, billingMessageMapper,
         partnerAddressService, walletService, supportInteractor, walletBlockedInteractor,
         walletVerificationInteractor, billingAddressRepository, getCurrentPromoCodeUseCase,
-        fakeSchedulers)
+        ewtObtainer, fakeSchedulers)
   }
 
   @Test
@@ -155,18 +161,21 @@ class AdyenPaymentInteractorTest {
   fun loadPaymentInfoTest() {
     val testObserver = TestObserver<PaymentInfoModel>()
     val expectedModel = PaymentInfoModel(null, false, BigDecimal(2), TEST_FIAT_CURRENCY)
-    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
-    Mockito.`when`(repository.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
-        TEST_FIAT_VALUE, TEST_FIAT_CURRENCY, TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-        .thenReturn(Single.just(expectedModel))
+    Mockito.`when`(walletService.getWalletAddress())
+        .thenReturn(
+          Single.just(TEST_WALLET_ADDRESS)
+        )
+    Mockito.`when`(ewtObtainer.getEwtAuthentication())
+      .thenReturn(
+        Single.just(TEST_EWT)
+      )
 
     interactor.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
         TEST_FIAT_VALUE, TEST_FIAT_CURRENCY)
         .subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-        .assertValue { it == expectedModel }
+    testObserver.awaitDone(1, TimeUnit.SECONDS)
+      .assertNoErrors()
   }
 
   @Test
@@ -225,10 +234,10 @@ class AdyenPaymentInteractorTest {
     val expectedModel =
         PaymentModel(null, null, null, null, null, "", "uid", null, null, null, emptyList(),
             PaymentModel.Status.COMPLETED, null, null)
-    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+    Mockito.`when`(walletService.getWalletAddress())
+        .thenReturn(Single.just(TEST_WALLET_ADDRESS))
     Mockito.`when`(
-        repository.submitRedirect("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE, json, null))
+        repository.submitRedirect("uid", TEST_WALLET_ADDRESS, json, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.submitRedirect("uid", json, null)
