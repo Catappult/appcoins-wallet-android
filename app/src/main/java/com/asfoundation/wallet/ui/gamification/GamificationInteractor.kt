@@ -72,7 +72,7 @@ class GamificationInteractor @Inject constructor(
   ): ForecastBonusAndLevel {
     return ForecastBonusAndLevel(
       forecastBonus.status, fiatValue.amount, fiatValue.symbol
-      , level = forecastBonus.level.toInt()
+      , level = forecastBonus.level
     )
   }
 
