@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.model.*
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.gamification.GamificationContext
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -131,7 +132,7 @@ class BdsPromotionsRepository @Inject constructor(
 
   private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus =
     if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
-      ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus, bonusResponse.level)
+      ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus, bonusResponse.level, bonusResponse.currency_symbol ?: "")
     } else {
       ForecastBonus(ForecastBonus.Status.INACTIVE)
     }

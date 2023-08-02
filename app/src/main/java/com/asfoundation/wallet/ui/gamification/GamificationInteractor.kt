@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
+import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
@@ -58,22 +59,12 @@ class GamificationInteractor @Inject constructor(
         gamification.getEarningBonus(
           wallet.address, packageName, amount,
           promoCodeString, currency
-        ).flatMap { appcBonusValue ->
-          conversionService.getAppcToLocalFiat(appcBonusValue.amount.toString(), 18).flatMap { fiatValue ->
-            Single.just(map(appcBonusValue, fiatValue))
-          }
+        ).map { forecastBonus ->
+          ForecastBonusAndLevel(
+            forecastBonus.status, forecastBonus.amount, forecastBonus.currency, level = forecastBonus.level
+          )
         }
       }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
-  }
-
-
-  private fun map(
-    forecastBonus: ForecastBonus, fiatValue: FiatValue
-  ): ForecastBonusAndLevel {
-    return ForecastBonusAndLevel(
-      forecastBonus.status, fiatValue.amount, fiatValue.symbol
-      , level = forecastBonus.level
-    )
   }
 
   fun hasNewLevel(

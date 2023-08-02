@@ -97,11 +97,9 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    //test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
     test.assertValue { transactionBuilder -> transactionBuilder.type == paymentType }
     test.assertValue { transactionBuilder -> transactionBuilder.domain == packageName }
-    //test.assertValue { transactionBuilder -> transactionBuilder.iabContract == iabContractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.skuId == null }
     test.assertValue { transactionBuilder -> transactionBuilder.payload == developerPayload }
     test.assertValue { transactionBuilder -> transactionBuilder.callbackUrl == callback }
@@ -135,7 +133,6 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    //test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
 
@@ -165,7 +162,6 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    //test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
 }

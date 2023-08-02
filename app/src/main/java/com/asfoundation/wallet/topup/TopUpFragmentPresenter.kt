@@ -281,8 +281,7 @@ class TopUpFragmentPresenter(
   private fun loadBonusIntoView(
     appPackage: String, amount: String,
     currency: String
-  ): Completable = interactor.convertLocal(currency, amount, 18)
-    .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
+  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
     .subscribeOn(networkScheduler)
     .observeOn(viewScheduler)
     .doOnSuccess {
