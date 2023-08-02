@@ -24,15 +24,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
+import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.*
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
@@ -43,6 +45,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Inject
   lateinit var navigator: RewardNavigator
+
+  private val navBarViewModel: NavBarViewModel by activityViewModels()
+
   private val viewModel: RewardViewModel by viewModels()
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
@@ -74,6 +79,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     super.onResume()
     viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
+    navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
   @OptIn(ExperimentalMaterial3Api::class)
