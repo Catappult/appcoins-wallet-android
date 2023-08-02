@@ -2,7 +2,6 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.model.*
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.gamification.GamificationContext
 import io.reactivex.Observable
 import io.reactivex.Single

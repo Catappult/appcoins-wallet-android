@@ -2,7 +2,6 @@ package com.asfoundation.wallet.onboarding.pending_payment
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
