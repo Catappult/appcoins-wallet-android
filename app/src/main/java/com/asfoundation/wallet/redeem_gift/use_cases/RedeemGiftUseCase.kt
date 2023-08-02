@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.redeem_gift.use_cases
 
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase

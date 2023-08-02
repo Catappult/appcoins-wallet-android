@@ -23,8 +23,7 @@ interface BrokerBdsApi {
   fun getAppcoinsTransaction(
     @Path("uId") uId: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature")
-    walletSignature: String
+    @Query("wallet.signature") walletSignature: String
   ): Single<Transaction>
 
   /**
@@ -52,9 +51,8 @@ interface BrokerBdsApi {
     @Path("gateway") gateway: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
-    @Field("pay_key")
-    paykey: String
+    @Header("authorization") authorization: String,
+    @Field("pay_key") paykey: String
   ): Completable
 
   /**
@@ -68,7 +66,7 @@ interface BrokerBdsApi {
   fun createTransaction(
     @Path("gateway") gateway: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body creditsPurchaseBody: CreditsPurchaseBody
   ): Single<Transaction>
 
@@ -115,7 +113,7 @@ interface BrokerBdsApi {
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Header("authorization") authorization: String,
   ): Single<Transaction>
 
   /**
@@ -159,6 +157,6 @@ interface BrokerBdsApi {
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Header("authorization") authorization: String,
   ): Single<Transaction>
 }

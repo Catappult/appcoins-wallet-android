@@ -1,11 +1,14 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -18,7 +21,9 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   private val repository: BillingRepository,
   private val networkScheduler: Scheduler,
   private val transactionFromApprove: MutableMap<String, Transaction>,
-  private val transactionIdsFromBuy: MutableMap<String, String>
+  private val transactionIdsFromBuy: MutableMap<String, String>,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers,
 ) : BillingPaymentProofSubmission {
 
   override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> =
@@ -127,6 +132,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var inappApi: InappBillingApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionBillingApi: SubscriptionBillingApi? = null
+    private var ewtObtainer: EwtAuthenticatorService? = null
+    private var rxSchedulers: RxSchedulers? = null
 
     fun setBrokerBdsApi(brokerBdsApi: BrokerBdsApi) =
       apply { this.brokerBdsApi = brokerBdsApi }
@@ -146,32 +153,46 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun setWalletService(walletService: WalletService) =
       apply { this.walletService = walletService }
 
+    fun setEwtObtainer(ewtObtainer: EwtAuthenticatorService) =
+      apply { this.ewtObtainer = ewtObtainer }
+
+    fun setRxSchedulers(rxSchedulers: RxSchedulers) =
+      apply { this.rxSchedulers = rxSchedulers }
+
     fun build(): BillingPaymentProofSubmissionImpl =
-      walletService?.let { walletService ->
-        brokerBdsApi?.let { brokerBdsApi ->
-          inappApi?.let { inappApi ->
-            bdsApiSecondary?.let { bdsApiSecondary ->
-              subscriptionBillingApi?.let { subscriptionsApi ->
-                BillingPaymentProofSubmissionImpl(
-                  walletService,
-                  BdsRepository(
-                    RemoteRepository(
-                      brokerBdsApi,
-                      inappApi,
-                      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-                      bdsApiSecondary,
-                      subscriptionsApi
+      ewtObtainer?.let { ewtObtainer ->
+        rxSchedulers?.let { rxSchedulers ->
+          walletService?.let { walletService ->
+            brokerBdsApi?.let { brokerBdsApi ->
+              inappApi?.let { inappApi ->
+                bdsApiSecondary?.let { bdsApiSecondary ->
+                  subscriptionBillingApi?.let { subscriptionsApi ->
+                    BillingPaymentProofSubmissionImpl(
+                      walletService,
+                      BdsRepository(
+                        RemoteRepository(
+                          brokerBdsApi,
+                          inappApi,
+                          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                          bdsApiSecondary,
+                          subscriptionsApi,
+                          ewtObtainer,
+                          rxSchedulers
+                        )
+                      ),
+                      networkScheduler,
+                      ConcurrentHashMap(),
+                      ConcurrentHashMap(),
+                      ewtObtainer,
+                      rxSchedulers
                     )
-                  ),
-                  networkScheduler,
-                  ConcurrentHashMap(),
-                  ConcurrentHashMap()
-                )
-              } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
-            } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
-          } ?: throw IllegalArgumentException("InappBdsApi not defined")
-        } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
-      } ?: throw IllegalArgumentException("WalletService not defined")
+                  } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
+                } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
+              } ?: throw IllegalArgumentException("InappBdsApi not defined")
+            } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
+          } ?: throw IllegalArgumentException("WalletService not defined")
+        } ?: throw IllegalArgumentException("ewtObtainer not defined")
+      } ?: throw IllegalArgumentException("rxSchedulers not defined")
   }
 
 }

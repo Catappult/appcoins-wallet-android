@@ -11,7 +11,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class Gamification @Inject constructor(private val repository: PromotionsRepository) {
-
+//
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"

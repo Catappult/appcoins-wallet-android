@@ -1,5 +1,6 @@
-package com.appcoins.wallet.bdsbilling
+package com.appcoins.wallet.core.walletservices
 
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import io.reactivex.Observable
 import io.reactivex.Single
 

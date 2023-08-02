@@ -1,20 +1,19 @@
 package cm.aptoide.skills.util
 
 import android.net.Uri
+import com.appcoins.wallet.core.network.eskills.model.EskillsEndgameData
 import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import javax.inject.Inject
 
-class EskillsUriParser @Inject constructor() {
-  fun parse(uri: Uri): EskillsPaymentData {
-    val scheme = uri.scheme
-    val host = uri.host
-    val path = uri.path
+  fun Uri.parseStartGame(): EskillsPaymentData {
+    val scheme = scheme
+    val host = host
+    val path = path
     val parameters = mutableMapOf<String, String?>()
     parameters.apply {
-      for (key in uri.queryParameterNames) {
-        this[key] = uri.getQueryParameter(key)
+      for (key in queryParameterNames) {
+        this[key] = getQueryParameter(key)
       }
     }
     val userId = parameters[EskillsParameters.USER_ID]
@@ -34,7 +33,23 @@ class EskillsUriParser @Inject constructor() {
     )
   }
 
-  fun getMetadata(parameters: MutableMap<String, String?>): Map<String, String> {
+fun Uri.parseEndgame(): EskillsEndgameData {
+  val scheme = scheme
+  val host = host
+  val path = path
+  val parameters = mutableMapOf<String, String?>()
+  parameters.apply {
+    for (key in queryParameterNames) {
+      this[key] = getQueryParameter(key)
+    }
+  }
+  val session = parameters[EskillsParameters.SESSION]!!
+  val domain = parameters[EskillsParameters.DOMAIN]!!
+  return EskillsEndgameData(
+    scheme!!, host!!, path!!, parameters, domain, session)
+}
+
+  private fun getMetadata(parameters: MutableMap<String, String?>): Map<String, String> {
     val metadata = parameters[EskillsParameters.METADATA]
     return if (metadata != null) {
       Gson().fromJson(metadata, object : TypeToken<Map<String?, String?>?>() {}.type)
@@ -43,7 +58,7 @@ class EskillsUriParser @Inject constructor() {
     }
   }
 
-  fun getEnvironment(
+  private fun getEnvironment(
     parameters: MutableMap<String, String?>
   ): EskillsPaymentData.MatchEnvironment? {
     return try {
@@ -59,5 +74,3 @@ class EskillsUriParser @Inject constructor() {
       null
     }
   }
-
-}

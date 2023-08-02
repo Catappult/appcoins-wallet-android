@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract

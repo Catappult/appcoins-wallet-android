@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import io.reactivex.Single

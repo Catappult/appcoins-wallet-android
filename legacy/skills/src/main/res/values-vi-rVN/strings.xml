@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">Ví AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Bắt đầu</string>
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
   <string name="buy_button">Mua</string>
@@ -32,21 +32,26 @@
   <string name="purchase_error_title">Rất tiếc, đã xảy ra lỗi.</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
   <string name="shared_room_waiting">Đang đợi đối thủ tham gia %s</string>
-  <string name="rooted_device_blocked_body">Rất tiếc, bạn không thể chơi trò chơi e-Skills bằng thiết bị đã root.\"</string>
-  <string name="top_up_needed_body">Vì lý do bảo mật, bạn cần nạp tiền vào ví của mình ít nhất 1 lần để chơi các trò chơi e-Skills.</string>
-  <string name="not_enough_funds_body">Bạn không có đủ tiền! Vui lòng nạp tiền để mua vé vào cửa.</string>
-  <string name="error_message_local_payment_method_body">Phương thức thanh toán địa phương không được chấp nhận. Vui lòng tạo một ví mới và nạp tiền bằng thẻ ngân hàng hoặc PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Phiên bản ví không được hỗ trợ!</string>
   <string name="update_not_supported_body">Cập nhật Ví AppCoins lên phiên bản mới nhất.</string>
   <string name="update_button">Cập nhật</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Bạn và những người bạn mà bạn mời sẽ nhận được $%s tiền thưởng. Bạn có thể giới thiệu tối đa 5 người bạn và họ phải là người dùng mới. Phần thưởng sẽ được ghi có vào ví của bạn sau khi họ sử dụng mã mời của bạn trong trò chơi e-Skills đầu tiên của họ.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Bạn và những người bạn mà bạn đã mời đều sẽ nhận được $%s tiền thưởng. Bạn có thể mời tối đa 5 người và họ phải là người dùng mới. Phần thưởng sẽ được ghi có vào ví của bạn ngay khi họ sử dụng mã mời của bạn trong trò chơi e-Skills đầu tiên của họ.</string>
   <string name="refer_a_friend_first_time_header">Sẵn sàng để thể hiện kỹ năng của bạn?</string>
   <string name="refer_a_friend_first_time_body">Đánh bại những người chơi khác để nhận giải thưởng bằng tiền thật! Hãy bắt đầu với một trò chơi thực hành không tốn phí vào cửa.</string>
   <string name="refer_a_friend_error_unavailable_body">Tính năng này hiện không khả dụng.</string>
   <string name="refer_a_friend_error_invalid_code_body">Mã không hợp lệ!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Chỉ dành cho người dùng mới!</string>
   <string name="refer_a_friend_first_time_tooltip">Với chương trình giới thiệu của chúng tôi, bạn sẽ nhận được $%s tiền thưởng khi sử dụng mã bạn bè của mình. Họ cũng sẽ nhận được số tiền tương tự để sử dụng khi mua hàng trong ứng dụng hoặc vé tham gia các trò chơi e-Skill.</string>
-  <string name="refer_a_friend_waiting_room_title">Giới thiệu bạn bè!</string>
+  <string name="refer_a_friend_waiting_room_title">Mời bạn bè của bạn!</string>
   <string name="refer_a_friend_waiting_from_body">Nhận tiền thưởng cho mỗi người bạn mà bạn mời.</string>
+  <string name="refer_a_friend_invitation_message">Bạn đã được mời chơi %1$s! Hãy sử dụng mã mời %2$s sau khi tải nó xuống từ %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Không thể chơi trò chơi e-Skills bằng VPN đang hoạt động. Vui lòng tắt nó và thử lại!</string>
+  <string name="top_up_needed_body">Vì lý do bảo mật, bạn cần nạp tiền vào ví của mình ít nhất 1 lần để chơi các trò chơi e-Skills.</string>
+  <string name="not_enough_funds_body">Bạn không có đủ tiền! Vui lòng nạp tiền để mua vé vào cửa.</string>
+  <string name="error_message_local_payment_method_body">Phương thức thanh toán địa phương không được chấp nhận. Vui lòng tạo một ví mới và nạp tiền bằng thẻ ngân hàng hoặc PayPal!</string>
+  <string name="rooted_device_blocked_body">Rất tiếc, bạn không thể chơi trò chơi e-Skills bằng thiết bị đã root.</string>
 </resources>
