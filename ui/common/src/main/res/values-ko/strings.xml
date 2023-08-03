@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">구매가 거부되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_reverted_body">이 구매는 반환되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_status_rejected">거부됨</string>
-  <string name="transaction_details_header">거래 상세</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
@@ -821,7 +823,7 @@
   <string name="subscriptions_cancel_title">구독 취소</string>
   <string name="subscriptions_cancel_body">이 구독을 취소하시겠습니까?</string>
   <string name="subscriptions_cancel_no_button">아니오, 뒤로 가기</string>
-  <string name="subscriptions_cancel_yes_button">네, 구독 취소</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">구축 취소됨!</string>
   <string name="subscriptions_cancel_confirmation_body">이 구독에 대하여 더 이상 과금되지 않으며, %s까지 사용할 수 있습니다.</string>
   <string name="subscriptions_category_title">구독</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">지갑 이름 변경</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
