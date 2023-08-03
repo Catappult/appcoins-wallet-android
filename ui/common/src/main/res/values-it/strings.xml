@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Questo acquisto è stato rifiutato.\nPer ulteriori informazioni, contattaci.</string>
   <string name="transaction_reverted_body">Questo acquisto è stato eliminato.\nPer ulteriori informazioni, contattaci.</string>
   <string name="transaction_status_rejected">Rifiutato</string>
-  <string name="transaction_details_header">Dettagli transazione</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
   <string name="activity_airdrop_hint">Digita le parole nell\'immagine</string>
@@ -822,7 +824,7 @@
   <string name="subscriptions_cancel_title">Annulla abbonamento</string>
   <string name="subscriptions_cancel_body">Sei sicuro di voler annullare questo abbonamento?</string>
   <string name="subscriptions_cancel_no_button">No, indietro</string>
-  <string name="subscriptions_cancel_yes_button">Sì, annulla abbonamento</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abbonamento annullato!</string>
   <string name="subscriptions_cancel_confirmation_body">Non ti verranno addebitati altri costi per questo abbonamento e potrai usarlo fino al giorno %s.</string>
   <string name="subscriptions_category_title">Abbonamento</string>
@@ -1223,4 +1225,6 @@
   <string name="manage_wallet_change_wallet_name_title">Cambia nome del wallet</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
