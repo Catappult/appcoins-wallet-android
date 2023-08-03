@@ -62,7 +62,20 @@ class AppcoinsRewardsTest {
   @Before
   fun setUp() {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
-        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(Completable.complete())
+        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(Single.just(
+      com.appcoins.wallet.core.network.microservices.model.Transaction(
+        "123456789",
+        com.appcoins.wallet.core.network.microservices.model.Transaction.Status.PROCESSING,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "",
+        null,
+        null
+      )
+    ))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
@@ -139,7 +152,7 @@ class AppcoinsRewardsTest {
         ),
         Transaction(
             SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null,
+            PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, UID, null, null, null, null,
             null,
             null
         ))
@@ -170,7 +183,7 @@ class AppcoinsRewardsTest {
       ),
       Transaction(
         SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
+        PRICE, origin, Transaction.Status.COMPLETED, UID, null, null, null, null, null,
         null
       )
     )
@@ -201,7 +214,7 @@ class AppcoinsRewardsTest {
       ),
       Transaction(
         SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-        PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
+        PRICE, origin, Transaction.Status.COMPLETED, UID, null, null, null, null, null,
         null
       )
     )
@@ -223,7 +236,7 @@ class AppcoinsRewardsTest {
   fun transferCreditsNetworkError() {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
-        Completable.error(HttpException(
+        Single.error(HttpException(
             Response.error<AppcoinsRewardsRepository.Status>(400, ResponseBody.create(null, "")))))
     val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)
         .test()
@@ -237,7 +250,7 @@ class AppcoinsRewardsTest {
   fun transferCreditsUnknownError() {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
-        Completable.error(NullPointerException()))
+        Single.error(NullPointerException()))
     val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)
         .test()
     scheduler.triggerActions()

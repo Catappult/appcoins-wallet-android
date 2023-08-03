@@ -306,7 +306,7 @@ class RemoteRepository(
     signature: String,
     packageName: String,
     amount: BigDecimal
-  ): Completable =
+  ): Single<Transaction> =
     createTransaction(
       userWallet = toWallet,
       developerWallet = null,
@@ -326,7 +326,7 @@ class RemoteRepository(
       amount = amount.toPlainString(),
       currency = "APPC",
       productName = null
-    ).toCompletable()
+    )
 
   fun createLocalPaymentTransaction(
     paymentId: String,

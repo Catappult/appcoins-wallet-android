@@ -170,10 +170,10 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
     iabView.close(data);
   }
 
-  @Override public void finish(Bundle data) {
+  @Override public void finish(Bundle data, String txId) {
     presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
-    presenter.sendPaymentSuccessEvent();
+    presenter.sendPaymentSuccessEvent(txId);
     data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);
