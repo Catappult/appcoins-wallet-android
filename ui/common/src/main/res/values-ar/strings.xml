@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">عملية الشراء هذه مرفوضة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_reverted_body">عملية الشراء هذه راجعة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_status_rejected">مرفوض</string>
-  <string name="transaction_details_header">تفاصيل التحويل</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
   <string name="activity_airdrop_hint">اكتب الكلمات التي في الصورة</string>
@@ -827,7 +829,7 @@
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
   <string name="subscriptions_cancel_no_button">لا، عُد للخلف</string>
-  <string name="subscriptions_cancel_yes_button">نعم، ألغِ الاشتراك</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">ألغينا الاشتراك!</string>
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
@@ -1276,4 +1278,6 @@
   <string name="manage_wallet_change_wallet_name_title">تغيير اسم المحفظة</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
