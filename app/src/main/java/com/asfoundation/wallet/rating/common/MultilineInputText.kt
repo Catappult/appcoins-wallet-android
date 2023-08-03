@@ -41,7 +41,7 @@ class MultilineInputText : FrameLayout {
   }
 
   fun reset() {
-    root_view.setBackgroundResource(R.drawable.rectangle_outline_grey_radius_8dp)
+    root_view.setBackgroundResource(R.drawable.rectangle_outline_blue_radius_8dp)
     error_layout.visibility = View.GONE
   }
 
