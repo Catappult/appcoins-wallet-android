@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Kupovina je odbijena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_body">Kupovina je vraćena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_status_rejected">Odbijeno</string>
-  <string name="transaction_details_header">Detalji o transakciji</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
   <string name="activity_airdrop_hint">Unesite reči sa slike</string>
@@ -1236,4 +1238,6 @@
   <string name="manage_wallet_change_wallet_name_title">Promenite naziv novčanika</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
