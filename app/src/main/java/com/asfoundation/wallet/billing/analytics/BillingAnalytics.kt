@@ -59,12 +59,12 @@ class BillingAnalytics @Inject constructor(
     action: String,
     isOnboardingPayment: Boolean
   ) {
-    val eventData = createBaseRakamEventMap(
+    val eventData = createBaseWalletEventMap(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
     analytics.logEvent(
-      eventData, RAKAM_PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK,
+      eventData, WALLET_PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -97,12 +97,12 @@ class BillingAnalytics @Inject constructor(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
   ) {
-    val eventData = createBaseRakamEventMap(
+    val eventData = createBaseWalletEventMap(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
     analytics.logEvent(
-      eventData, RAKAM_PRESELECTED_PAYMENT_METHOD, AnalyticsManager.Action.CLICK,
+      eventData, WALLET_PRESELECTED_PAYMENT_METHOD, AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -111,23 +111,23 @@ class BillingAnalytics @Inject constructor(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
   ) {
-    val eventData = createBaseRakamEventMap(
+    val eventData = createBaseWalletEventMap(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
-    analytics.logEvent(eventData, RAKAM_PAYMENT_METHOD, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_METHOD, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentConfirmationEvent(
     packageName: String?, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String?, action: String, isOnboardingPayment: Boolean
   ) {
-    val eventData = createBaseRakamEventMap(
+    val eventData = createBaseWalletEventMap(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
     analytics.logEvent(
-      eventData, RAKAM_PAYMENT_CONFIRMATION, AnalyticsManager.Action.CLICK,
+      eventData, WALLET_PAYMENT_CONFIRMATION, AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -141,12 +141,12 @@ class BillingAnalytics @Inject constructor(
     errorCode: String,
     isOnboardingPayment: Boolean
   ) {
-    val eventData = createConclusionRakamEventMap(
+    val eventData = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
     eventData[EVENT_ERROR_CODE] = errorCode
-    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentErrorWithDetailsEvent(
@@ -159,13 +159,13 @@ class BillingAnalytics @Inject constructor(
     errorDetails: String?,
     isOnboardingPayment: Boolean
   ) {
-    val eventData = createConclusionRakamEventMap(
+    val eventData = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
     eventData[EVENT_ERROR_CODE] = errorCode
     eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentErrorWithDetailsAndRiskEvent(
@@ -173,14 +173,14 @@ class BillingAnalytics @Inject constructor(
     value: String, purchaseDetails: String, transactionType: String, errorCode: String,
     errorDetails: String?, riskRules: String?, isOnboardingPayment: Boolean
   ) {
-    val eventData = createConclusionRakamEventMap(
+    val eventData = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
     eventData[EVENT_ERROR_CODE] = errorCode
     errorDetails?.let { eventData[EVENT_ERROR_DETAILS] = errorDetails }
     riskRules?.let { eventData[EVENT_CODE_RISK_RULES] = riskRules }
-    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentSuccessEvent(
@@ -188,7 +188,7 @@ class BillingAnalytics @Inject constructor(
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
     txId: String, valueUsd: String
   ) {
-    val eventData: Map<String, Any?> = createConclusionRakamEventMap(
+    val eventData: Map<String, Any?> = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_SUCCESS, isOnboardingPayment
     )
@@ -201,18 +201,18 @@ class BillingAnalytics @Inject constructor(
         appcAmount = value
       )
     }
-    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaymentPendingEvent(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
   ) {
-    val eventData: Map<String, Any?> = createConclusionRakamEventMap(
+    val eventData: Map<String, Any?> = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_PENDING, isOnboardingPayment
     )
-    analytics.logEvent(eventData, RAKAM_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPurchaseStartEvent(
@@ -227,7 +227,7 @@ class BillingAnalytics @Inject constructor(
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_CONTEXT] = context
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPurchaseStartWithoutDetailsEvent(
@@ -241,7 +241,7 @@ class BillingAnalytics @Inject constructor(
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_CONTEXT] = context
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendPaypalUrlEvent(
@@ -267,7 +267,7 @@ class BillingAnalytics @Inject constructor(
       eventData[EVENT_URL] = url
     }
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
-    analytics.logEvent(eventData, RAKAM_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendBillingAddressActionEvent(
@@ -279,14 +279,14 @@ class BillingAnalytics @Inject constructor(
     action: String,
     isOnboardingPayment: Boolean = false
   ) {
-    val eventData = createBaseRakamEventMap(
+    val eventData = createBaseWalletEventMap(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
-    analytics.logEvent(eventData, RAKAM_PAYMENT_BILLING, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(eventData, WALLET_PAYMENT_BILLING, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  private fun createBaseRakamEventMap(
+  private fun createBaseWalletEventMap(
     packageName: String?,
     skuDetails: String?,
     value: String,
@@ -306,7 +306,7 @@ class BillingAnalytics @Inject constructor(
     return eventData
   }
 
-  private fun createConclusionRakamEventMap(
+  private fun createConclusionWalletEventMap(
     packageName: String,
     skuDetails: String?,
     value: String,
@@ -337,14 +337,14 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_PAYPAL = "PAYPAL"
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
-    const val RAKAM_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
-    const val RAKAM_PAYMENT_METHOD = "wallet_payment_method"
-    const val RAKAM_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"
-    const val RAKAM_PAYMENT_CONCLUSION = "wallet_payment_conclusion"
-    const val RAKAM_PAYMENT_START = "wallet_payment_start"
-    const val RAKAM_PAYPAL_URL = "wallet_payment_conclusion_paypal"
-    const val RAKAM_PAYMENT_METHOD_DETAILS = "wallet_payment_method_details"
-    const val RAKAM_PAYMENT_BILLING = "wallet_payment_billing"
+    const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
+    const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
+    const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"
+    const val WALLET_PAYMENT_CONCLUSION = "wallet_payment_conclusion"
+    const val WALLET_PAYMENT_START = "wallet_payment_start"
+    const val WALLET_PAYPAL_URL = "wallet_payment_conclusion_paypal"
+    const val WALLET_PAYMENT_METHOD_DETAILS = "wallet_payment_method_details"
+    const val WALLET_PAYMENT_BILLING = "wallet_payment_billing"
     const val EVENT_REVENUE_CURRENCY = "EUR"
     const val EVENT_ACTION = "action"
     private const val WALLET = "WALLET"

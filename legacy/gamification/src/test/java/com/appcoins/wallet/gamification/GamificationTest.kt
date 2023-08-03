@@ -305,7 +305,7 @@ class GamificationTest {
     )
   }
 
-  // TODO - remove the next 3 tests once everything has been put in offline first logic
+  // TODO - remove the next 3 tests once everything has been put in offline first logic.
   @Test
   fun getLevelsOld() {
     api.levelsResponse = Single.just(

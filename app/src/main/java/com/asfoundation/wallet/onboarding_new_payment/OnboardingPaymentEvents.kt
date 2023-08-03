@@ -77,7 +77,7 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       transactionBuilder.type,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD,
+      BillingAnalytics.WALLET_PAYMENT_METHOD,
       isOnboardingPayment = true
     )
   }
