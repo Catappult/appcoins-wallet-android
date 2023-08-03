@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Această achiziție a fost respinsă.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_reverted_body">Această achiziție a fost restituită.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_status_rejected">Respinsă</string>
-  <string name="transaction_details_header">Detalii tranzacție</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
   <string name="activity_airdrop_hint">Introdu cuvintele din imagine</string>
@@ -1236,4 +1238,6 @@
   <string name="manage_wallet_change_wallet_name_title">Redenumește portofel</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
