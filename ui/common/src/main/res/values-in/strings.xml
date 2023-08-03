@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Pembelian ini ditolak.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_reverted_body">Pembelian ini dikembalikan.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Rincian transaksi</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
   <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
   <string name="activity_airdrop_hint">Ketik kata di gambar itu</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">Ganti nama dompet</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
