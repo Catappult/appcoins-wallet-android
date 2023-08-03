@@ -4,10 +4,6 @@ plugins {
 
 android {
     namespace = "com.appcoins.wallet.core.analytics"
-    defaultConfig {
-        buildConfigField(
-            "String", "RAKAM_API_KEY", project.property("RAKAM_API_KEY").toString())
-    }
 }
 
 dependencies {

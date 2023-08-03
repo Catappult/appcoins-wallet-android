@@ -128,7 +128,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     initializeIndicative()
-    initializeRakam()
     initiateIntercom()
     initializeSentry()
     initializeMagnes()
@@ -158,12 +157,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         if (activity.isChangingConfigurations.not()) runningCount--
       }
     })
-  }
-
-  private fun initializeRakam() {
-    initilizeDataAnalytics.initializeRakam()
-      .subscribeOn(Schedulers.io())
-      .subscribe()
   }
 
   private fun initializeIndicative() {
