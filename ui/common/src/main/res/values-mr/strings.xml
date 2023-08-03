@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">ही खरेदी अमान्य केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_reverted_body">ही खरेदी रक्कम परत केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_status_rejected">अमान्य</string>
-  <string name="transaction_details_header">व्यवहार तपशील</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
   <string name="activity_airdrop_hint">चित्रातील शब्द लिहा</string>
@@ -1244,4 +1246,6 @@
   <string name="manage_wallet_change_wallet_name_title">वॉलेटचे नाव बदला</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
