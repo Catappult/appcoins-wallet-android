@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Цю покупку було відхилено.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_reverted_body">Цю покупку було скасовано.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_status_rejected">Відхилено</string>
-  <string name="transaction_details_header">Деталі транзакції</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
   <string name="activity_airdrop_details">Це лише питання безпеки.</string>
   <string name="activity_airdrop_hint">Введіть слова на малюнку</string>
@@ -1251,4 +1253,6 @@
   <string name="manage_wallet_change_wallet_name_title">Змінити назву гаманця</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
