@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_reverted_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_status_rejected">Απορρίφθηκε</string>
-  <string name="transaction_details_header">Λεπτομέρειες συναλλαγής</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
   <string name="activity_airdrop_hint">Πληκτρολογήστε ό,τι βλέπετε στην εικόνα</string>
@@ -1224,4 +1226,6 @@ Wallets</item>
   <string name="manage_wallet_change_wallet_name_title">Αλλαγή ονόματος wallet</string>
   <string name="manage_wallet_set_a_name_button">Επιλέξτε ένα όνομα για το wallet σας</string>
   <string name="manage_wallet_my_wallet_address_title">Η Διεύθυνση Wallet Μου</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
