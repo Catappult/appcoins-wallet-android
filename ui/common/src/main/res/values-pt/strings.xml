@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Esta compra foi rejeitada.\nPara mais informações, contacta o apoio ao cliente.</string>
   <string name="transaction_reverted_body">Esta compra foi revertida.\nPara mais informações, contacta o apoio ao cliente.</string>
   <string name="transaction_status_rejected">Rejeitado</string>
-  <string name="transaction_details_header">Detalhe da transação</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirma que não és um robô para receberes AppCoins</string>
   <string name="activity_airdrop_details">Isto é apenas uma questão de segurança.</string>
   <string name="activity_airdrop_hint">Digite as palavras que estão na imagem</string>
@@ -1223,4 +1225,6 @@
   <string name="manage_wallet_change_wallet_name_title">Mudar o nome da wallet</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
