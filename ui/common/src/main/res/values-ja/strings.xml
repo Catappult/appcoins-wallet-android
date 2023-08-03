@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">この購入は却下されました。\nサポートにお問い合わせください。</string>
   <string name="transaction_reverted_body">この購入は取り消されました。\n詳しくはサポートにお問い合わせください。</string>
   <string name="transaction_status_rejected">拒否</string>
-  <string name="transaction_details_header">トランザクション詳細</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
