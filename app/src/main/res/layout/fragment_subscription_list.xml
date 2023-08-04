@@ -7,176 +7,190 @@
     android:background="@color/styleguide_blue"
     >
 
-  <TextView
-      android:id="@+id/title_subscription"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="12dp"
-      android:paddingBottom="24dp"
-      android:text="@string/subscriptions_title"
-      android:textColor="@color/styleguide_white"
-      android:textSize="24sp"
-      android:textStyle="bold"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <include
-      android:id="@+id/no_network_retry_only_layout"
-      layout="@layout/no_network_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/title_subscription"
-      />
-
-  <include
-      android:id="@+id/generic_error_retry_only_layout"
-      layout="@layout/generic_error_retry_only_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/title_subscription"
-      />
-
-  <include
-      android:id="@+id/layout_no_subscriptions"
-      layout="@layout/layout_no_subscriptions"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/title_subscription"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_wallet"
-      />
-
   <androidx.core.widget.NestedScrollView
-      android:id="@+id/main_layout"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:fillViewport="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/title_subscription"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/content_layout"
-          android:layout_width="match_parent"
+      <TextView
+          android:id="@+id/title_subscription"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="12dp"
+          android:paddingBottom="24dp"
+          android:text="@string/subscriptions_title"
+          android:textColor="@color/styleguide_white"
+          android:textSize="24sp"
+          android:textStyle="bold"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <include
+          android:id="@+id/no_network_retry_only_layout"
+          layout="@layout/no_network_retry_only_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_subscription"
+          />
+
+      <include
+          android:id="@+id/generic_error_retry_only_layout"
+          layout="@layout/generic_error_retry_only_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_subscription"
+          />
+
+      <include
+          android:id="@+id/layout_no_subscriptions"
+          layout="@layout/layout_no_subscriptions"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_subscription"
+          />
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/loading_animation"
+          android:layout_width="120dp"
+          android:layout_height="120dp"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_wallet"
+          />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/main_layout"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_subscription"
           >
 
-        <TextView
-            android:id="@+id/active_title"
-            style="@style/SettingsTextStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:text="@string/subscriptions_active_title"
-            android:textColor="@color/styleguide_light_grey"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible"
-            />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvActive"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
-            app:cardBackgroundColor="@color/styleguide_blue_secondary"
-            app:cardCornerRadius="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/active_title"
-            >
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/rvActiveSubs"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:nestedScrollingEnabled="false"
-              android:overScrollMode="never"
-              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-              tools:listitem="@layout/subscription_item"
-              />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/expired_title"
-            style="@style/SettingsTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:text="@string/subscriptions_inactive_title"
-            android:textColor="@color/styleguide_light_grey"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvActive"
-            tools:visibility="visible"
-            />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvExpired"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/styleguide_blue_secondary"
-            app:cardCornerRadius="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/expired_title"
             >
 
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/rvExpiredSubs"
+          <TextView
+              android:id="@+id/active_title"
+              style="@style/SettingsTextStyle"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:nestedScrollingEnabled="false"
-              android:overScrollMode="never"
-              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-              tools:listitem="@layout/subscription_item"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="24dp"
+              android:layout_marginTop="24dp"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:text="@string/subscriptions_active_title"
+              android:textColor="@color/styleguide_light_grey"
+              android:visibility="invisible"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              tools:visibility="visible"
               />
-        </androidx.cardview.widget.CardView>
+
+          <androidx.cardview.widget.CardView
+              android:id="@+id/cvActive"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="16dp"
+              android:layout_marginTop="12dp"
+              app:cardBackgroundColor="@color/styleguide_blue_secondary"
+              app:cardCornerRadius="16dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/active_title"
+              >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvActiveSubs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/subscription_item"
+                />
+          </androidx.cardview.widget.CardView>
+
+          <TextView
+              android:id="@+id/expired_title"
+              style="@style/SettingsTextStyle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="24dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:text="@string/subscriptions_inactive_title"
+              android:textColor="@color/styleguide_light_grey"
+              android:visibility="invisible"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/cvActive"
+              tools:visibility="visible"
+              />
+
+          <androidx.cardview.widget.CardView
+              android:id="@+id/cvExpired"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="16dp"
+              android:layout_marginTop="8dp"
+              app:cardBackgroundColor="@color/styleguide_blue_secondary"
+              app:cardCornerRadius="16dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/expired_title"
+              >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvExpiredSubs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/subscription_item"
+                />
+          </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
       </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.core.widget.NestedScrollView>
