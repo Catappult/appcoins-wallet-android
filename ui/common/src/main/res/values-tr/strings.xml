@@ -39,7 +39,7 @@
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram Grubu</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
