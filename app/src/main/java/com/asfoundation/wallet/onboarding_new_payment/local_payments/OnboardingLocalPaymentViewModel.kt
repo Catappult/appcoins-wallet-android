@@ -68,7 +68,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                 startTransactionStatusTimer()
             }
             WebViewActivity.USER_CANCEL -> {
-                events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+                events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType)
                 sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
             }
         }
