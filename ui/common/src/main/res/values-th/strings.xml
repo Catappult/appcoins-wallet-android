@@ -39,7 +39,7 @@
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
   <string name="title_delete_account">คุณมั่นใจว่าต้องการลบกระเป๋าสตางค์นี้</string>
-  <string name="twitter">ทวิตเตอร์</string>
+  <string name="twitter">X</string>
   <string name="telegram">กลุ่มเทเลแกรม</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">คอมมิวนิตี้</string>
