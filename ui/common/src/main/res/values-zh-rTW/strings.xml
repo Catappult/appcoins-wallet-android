@@ -39,7 +39,7 @@
   <string name="ok">了解</string>
   <string name="barcode_error_format">無效的QR碼格式：%s</string>
   <string name="title_delete_account">確認移除此錢包嗎？</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram群組</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">社群網站</string>
