@@ -39,7 +39,7 @@
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
   <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram grupa</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Zajednica</string>
