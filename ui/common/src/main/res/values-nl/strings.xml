@@ -39,7 +39,7 @@
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
   <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram-groep</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Gemeenschap</string>
