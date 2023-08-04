@@ -39,7 +39,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Недійсний формат штрих-коду: %s</string>
   <string name="title_delete_account">Ви впевнені, що хочете видалити цей гаманець?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Група в Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Спільнота</string>
