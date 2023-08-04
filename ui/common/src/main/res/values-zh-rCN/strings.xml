@@ -39,7 +39,7 @@
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
   <string name="title_delete_account">确实要删除此钱包？</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram群</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">社区</string>
