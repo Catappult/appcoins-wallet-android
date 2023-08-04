@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.service
 
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletCreatorInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler

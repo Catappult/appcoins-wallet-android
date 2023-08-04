@@ -20,8 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -44,10 +43,9 @@ import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
-import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
-import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
@@ -56,12 +54,12 @@ import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -79,6 +77,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
+  private val navBarViewModel: NavBarViewModel by activityViewModels()
 
   private val pushNotificationPermissionLauncher =
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
@@ -113,6 +112,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       requireActivity().finish()
     }
     viewModel.fetchPromotions()
+  }
+
+  override fun onStart() {
+    super.onStart()
+    navBarViewModel.clickedItem.value = Destinations.HOME.ordinal
   }
 
   override fun onPause() {
@@ -295,8 +299,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-
-      HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
@@ -396,4 +398,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     ) as NavHostFragment
     return navHostFragment.navController
   }
+
+
 }
