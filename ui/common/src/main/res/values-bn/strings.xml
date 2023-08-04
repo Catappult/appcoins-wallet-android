@@ -39,7 +39,7 @@
   <string name="ok">ঠিক আছে</string>
   <string name="barcode_error_format">অকার্যকর বারকোড বিন্যাস: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
-  <string name="twitter">টুইটার</string>
+  <string name="twitter">X</string>
   <string name="telegram">টেলিগ্রাম গোষ্ঠী</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">সমাজ</string>
