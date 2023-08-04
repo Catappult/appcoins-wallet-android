@@ -44,7 +44,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram Group</string>
 
   <!-- TODO: Remove or change this placeholder text -->
