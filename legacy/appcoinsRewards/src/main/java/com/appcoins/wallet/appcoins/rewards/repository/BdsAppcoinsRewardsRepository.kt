@@ -11,11 +11,11 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
   override fun sendCredits(toAddress: String, walletAddress: String, signature: String,
                            amount: BigDecimal,
                            origin: String, type: String,
-                           packageName: String): Single<AppcoinsRewardsRepository.Status> {
+                           packageName: String): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
     return remoteRepository.sendCredits(toAddress, walletAddress, signature, amount, origin, type,
         packageName)
-        .toSingle { AppcoinsRewardsRepository.Status.SUCCESS }
-        .onErrorReturn { map(it) }
+      .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
+        .onErrorReturn { Pair(map(it), Transaction.notFound()) }
   }
 
   override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,

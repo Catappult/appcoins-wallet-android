@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.support
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase

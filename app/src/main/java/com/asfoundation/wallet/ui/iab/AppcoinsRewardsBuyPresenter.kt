@@ -133,11 +133,11 @@ class AppcoinsRewardsBuyPresenter(
             }
         } else {
           rewardsManager.getTransaction(packageName, sku, amount).firstOrError()
-            .map(Transaction::txId).flatMapCompletable { transactionId ->
+            .flatMapCompletable { transactionModel ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-                .andThen(Completable.fromAction { view.finish(transactionId) })
+                .andThen(Completable.fromAction { view.finish(transactionModel.txId, transactionModel.txId ?: "") })
             }
         }
       }
@@ -220,18 +220,20 @@ class AppcoinsRewardsBuyPresenter(
     )
   }
 
-  fun sendPaymentSuccessEvent() {
+  fun sendPaymentSuccessEvent(txId: String) {
     paymentAnalytics.stopTimingForPurchaseEvent(
       PaymentMethodsAnalytics.PAYMENT_METHOD_APPC,
       true,
       isPreSelected
     )
     analytics.sendPaymentSuccessEvent(
-      packageName,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      BillingAnalytics.PAYMENT_METHOD_REWARDS,
-      transactionBuilder.type
+      packageName = packageName,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_REWARDS,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
     )
   }
 

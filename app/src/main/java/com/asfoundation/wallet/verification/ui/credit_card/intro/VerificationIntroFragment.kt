@@ -99,8 +99,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       verificationIntroModel.verificationInfoModel.value,
       WalletCurrency.FIAT
     )
-    views.description.text = getString(
-      R.string.card_verification_charde_disclaimer,
+    views.title.text = getString(
+      R.string.card_verification_body_new,
       "${verificationIntroModel.verificationInfoModel.symbol}$amount"
     )
   }

@@ -57,7 +57,6 @@ class IabPresenter(
 
   fun onResume() {
     handleAutoUpdate()
-    handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
   }
@@ -73,7 +72,7 @@ class IabPresenter(
     disposable.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { iabInteract.showSupport() }
+      .flatMapCompletable { iabInteract.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -122,14 +121,14 @@ class IabPresenter(
             transaction?.domain, transaction?.skuId,
             transaction?.amount()
               .toString(), iabInteract.getPreSelectedPaymentMethod(),
-            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD
+            transaction?.type, BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
           )
         } else {
           billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
             transaction?.domain,
             transaction?.skuId, transaction?.amount()
               .toString(), transaction?.type,
-            BillingAnalytics.RAKAM_PAYMENT_METHOD
+            BillingAnalytics.WALLET_PAYMENT_METHOD
           )
         }
         firstImpression = false
@@ -148,14 +147,6 @@ class IabPresenter(
       }
       .doOnSuccess { view.showUpdateRequiredView() }
       .subscribe({}, { it.printStackTrace() })
-    )
-  }
-
-  private fun handleUserRegistration() {
-    disposable.add(
-      iabInteract.registerUser()
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -225,7 +216,7 @@ class IabPresenter(
         }
         if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
           logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
-          iabInteract.showSupport()
+          iabInteract.showSupport().subscribe({}, { it.printStackTrace() })
         }
         view.showPaymentMethodsView()
       }

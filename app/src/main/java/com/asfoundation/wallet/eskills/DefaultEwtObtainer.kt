@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.eskills
 
 import cm.aptoide.skills.interfaces.EwtObtainer
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject

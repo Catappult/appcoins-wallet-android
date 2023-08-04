@@ -109,7 +109,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[ACTION] = action
 
     analyticsManager.logEvent(
-      map, RAKAM_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
+      map, WALLET_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -156,7 +156,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_TOP_UP_CONFIRMATION = "wallet_top_up_confirmation"
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
-    const val RAKAM_TOP_UP_BILLING = "wallet_top_up_billing"
+    const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
     const val STATUS_SUCCESS = "success"
     private const val VALUE = "value"
     private const val ACTION = "action"

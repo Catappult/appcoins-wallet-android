@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.service
 
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType

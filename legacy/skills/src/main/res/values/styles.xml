@@ -157,4 +157,51 @@
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/onboarding_font_color</item>
   </style>
+  <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
+    <item name="android:textSize">14sp</item>
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textColor">#001727</item>
+  </style>
+
+  <style name="TextAppearance.AppCompat.Headline.Roboto.Large" parent="TextAppearance.AppCompat.Headline">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textSize">40sp</item>
+    <item name="android:letterSpacing">0.1</item>
+  </style>
+
+  <style name="LastWinners.Text.Title" parent="TextAppearance.AppCompat.Headline.Roboto.Large">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">#242333</item>
+    <item name="android:letterSpacing">0.0</item>
+  </style>
+
+  <style name="LastWinners.Text.winnings" parent="LastWinners.Text.Title">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">#3DC642</item>
+  </style>
+
+  <style name="CountdownTimer.Text" parent="TextAppearance.AppCompat.Headline.Roboto.Medium">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textSize">7sp</item>
+    <item name="android:letterSpacing">0.0</item>
+    <item name="android:textColor">@color/countdown_timer_text_color</item>
+    <item name="textAllCaps">true</item>
+  </style>
+
+  <style name="CountdownTimer.Time" parent="LastWinners.Text.Title">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/countdown_timer_text_color</item>
+    <item name="android:padding">0dp</item>
+  </style>
+
+  <style name="NextReward.Title" parent="LastWinners.Text.Title">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">#FFFFFF</item>
+  </style>
+
+  <style name="RankingsTabTextAppearance" parent="TextAppearance.Design.Tab">
+    <item name="fontFamily">@font/roboto_medium</item>
+  </style>
+
 </resources>

@@ -12,10 +12,10 @@ class GetEarningBonusUseCase @Inject constructor(
   private val gamificationInteractor: GamificationInteractor
 ) {
 
-  operator fun invoke(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
+  operator fun invoke(packageName: String, amount: BigDecimal, currency: String): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
       .flatMap {
-        gamificationInteractor.getEarningBonus(packageName, amount, it.code, null)
+        gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
       }
   }
 }

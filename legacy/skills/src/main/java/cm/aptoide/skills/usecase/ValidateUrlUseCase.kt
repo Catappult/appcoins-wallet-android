@@ -1,14 +1,13 @@
 package cm.aptoide.skills.usecase
 
 import android.net.Uri
-import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.UriValidationResult
+import cm.aptoide.skills.util.parseStartGame
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 class ValidateUrlUseCase @Inject constructor(
-  private val eskillsUriParser: EskillsUriParser
 ) {
 
   operator fun invoke(uriString: String): UriValidationResult {
@@ -20,7 +19,7 @@ class ValidateUrlUseCase @Inject constructor(
 //    if (usernameContainsInvalidCharacters(uri)) {
 //      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
 //    }
-    val paymentData = eskillsUriParser.parse(uri)
+    val paymentData = uri.parseStartGame()
     return UriValidationResult.Valid(paymentData)
   }
 

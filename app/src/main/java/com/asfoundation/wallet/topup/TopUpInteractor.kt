@@ -101,9 +101,9 @@ class TopUpInteractor @Inject constructor(
     }
   }
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> =
+  fun getEarningBonus(packageName: String, amount: BigDecimal, currency: String): Single<ForecastBonusAndLevel> =
     getCurrentPromoCodeUseCase().flatMap {
-      gamificationInteractor.getEarningBonus(packageName, amount, it.code, null)
+      gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
     }
 
   fun getLimitTopUpValues(): Single<TopUpLimitValues> =
