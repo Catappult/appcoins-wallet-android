@@ -39,7 +39,7 @@
   <string name="ok">확인</string>
   <string name="barcode_error_format">잘못된 바코드 형식: %s</string>
   <string name="title_delete_account">이 지갑을 제거하시겠습니까?</string>
-  <string name="twitter">트위터</string>
+  <string name="twitter">X</string>
   <string name="telegram">텔레그램 그룹</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">커뮤니티</string>
