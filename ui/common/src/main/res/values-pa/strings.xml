@@ -39,7 +39,7 @@
   <string name="ok">ਠੀਕ ਹੈ</string>
   <string name="barcode_error_format">ਗਲਤ ​​ਬਾਰਕੋਡ ਫਾਰਮੈਟ: %s</string>
   <string name="title_delete_account">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-  <string name="twitter">ਟਵਿੱਟਰ</string>
+  <string name="twitter">X</string>
   <string name="telegram">ਟੈਲੀਗਰਾਮ ਸਮੂਹ</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">ਕਮਿਊਨਿਟੀ</string>
