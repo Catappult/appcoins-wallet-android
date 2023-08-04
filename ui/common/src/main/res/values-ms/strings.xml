@@ -39,7 +39,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
   <string name="title_delete_account">Anda pasti mahu alih keluar dompet ini?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Kumpulan Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komuniti</string>
