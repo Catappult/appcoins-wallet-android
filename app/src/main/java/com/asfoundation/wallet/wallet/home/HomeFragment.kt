@@ -112,6 +112,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       requireActivity().finish()
     }
     viewModel.fetchPromotions()
+  }
+
+  override fun onStart() {
+    super.onStart()
     navBarViewModel.clickedItem.value = Destinations.HOME.ordinal
   }
 
