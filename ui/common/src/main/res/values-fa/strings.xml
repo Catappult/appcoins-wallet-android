@@ -39,7 +39,7 @@
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
   <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
-  <string name="twitter">توییتر</string>
+  <string name="twitter">X</string>
   <string name="telegram">گروه تلگرام</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">جامعه</string>
