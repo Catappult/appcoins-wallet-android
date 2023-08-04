@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
@@ -14,13 +14,12 @@ class CreatePaypalTokenUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Single<PaypalCreateToken> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         val returnUrl = "${PaypalReturnSchemas.RETURN.schema}${BuildConfig.APPLICATION_ID}"
         val cancelUrl = "${PaypalReturnSchemas.CANCEL.schema}${BuildConfig.APPLICATION_ID}"
         payPalV2Repository.createToken(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           returnUrl = returnUrl,
           cancelUrl = cancelUrl
         )

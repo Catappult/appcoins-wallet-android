@@ -14,4 +14,5 @@ object AnalyticsLabels {
   const val MODEL = "device_model"
   const val LANGUAGE = "language"
   const val IS_EMULATOR = "probably_emulator"
+  const val DEVICE_ORIENTATION = "device_orientation"
 }

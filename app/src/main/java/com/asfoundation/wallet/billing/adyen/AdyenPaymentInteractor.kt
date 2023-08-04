@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -15,6 +14,8 @@ import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeU
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
@@ -28,17 +29,18 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AdyenPaymentInteractor @Inject constructor(
-        private val adyenPaymentRepository: AdyenPaymentRepository,
-        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-        private val billingMessagesMapper: BillingMessagesMapper,
-        private val partnerAddressService: AddressService,
-        private val walletService: WalletService,
-        private val supportInteractor: SupportInteractor,
-        private val walletBlockedInteract: WalletBlockedInteract,
-        private val walletVerificationInteractor: WalletVerificationInteractor,
-        private val billingAddressRepository: BillingAddressRepository,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-        private val rxSchedulers: RxSchedulers
+  private val adyenPaymentRepository: AdyenPaymentRepository,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val billingMessagesMapper: BillingMessagesMapper,
+  private val partnerAddressService: AddressService,
+  private val walletService: WalletService,
+  private val supportInteractor: SupportInteractor,
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val walletVerificationInteractor: WalletVerificationInteractor,
+  private val billingAddressRepository: BillingAddressRepository,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
@@ -56,13 +58,27 @@ class AdyenPaymentInteractor @Inject constructor(
   }
 
   fun loadPaymentInfo(
-    methods: AdyenPaymentRepository.Methods, value: String,
+    methods: AdyenPaymentRepository.Methods,
+    value: String,
     currency: String
   ): Single<PaymentInfoModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap {
+    return Single.zip(
+      walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
+      ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+    ) { walletModel, ewt ->
+      Pair(walletModel, ewt)
+    }
+      .flatMap { pair ->
+        val wallet = pair.first
+        val ewt = pair.second
         adyenPaymentRepository
-          .loadPaymentInfo(methods, value, currency, it.address, it.signedAddress)
+          .loadPaymentInfo(
+            methods,
+            value,
+            currency,
+            wallet,
+            ewt
+          )
       }
   }
 
@@ -119,10 +135,10 @@ class AdyenPaymentInteractor @Inject constructor(
     uid: String, details: JsonObject,
     paymentData: String?
   ): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService.getWalletAddress()
       .flatMap {
         adyenPaymentRepository.submitRedirect(
-          uid, it.address, it.signedAddress, details,
+          uid, it, details,
           paymentData
         )
       }

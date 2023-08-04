@@ -1,7 +1,7 @@
 package com.appcoins.wallet.feature.walletInfo.data.balance
 
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationModel
 import com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
 import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository

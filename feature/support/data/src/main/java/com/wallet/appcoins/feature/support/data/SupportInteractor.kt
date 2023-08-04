@@ -1,7 +1,7 @@
 package com.wallet.appcoins.feature.support.data
 
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.Gamification
 import io.intercom.android.sdk.Intercom

@@ -9,6 +9,7 @@ class User(
   @SerializedName("user_name")
   var userName: String,
 
-  @SerializedName("score")
-  var score: Int
+  val status: UserStatus,
+
+  var score: Long
 )

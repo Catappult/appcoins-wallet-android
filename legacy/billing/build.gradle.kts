@@ -13,6 +13,8 @@ dependencies {
   implementation(project(":core:utils:properties"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:bds"))
+  implementation(project(":core:walletServices"))
+  implementation(project(":core:network:base"))
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)
