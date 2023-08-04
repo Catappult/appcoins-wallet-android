@@ -240,7 +240,7 @@
               android:layout_marginBottom="8dp"
               android:visibility="gone"
               app:buttonText="@string/subscriptions_cancel_button"
-              app:buttonType="outlined"
+              app:buttonType="outlined_grey"
               app:layout_constraintBottom_toTopOf="@id/renew_subscription"
               app:layout_constraintTop_toBottomOf="@id/info_text"
               tools:visibility="visible"

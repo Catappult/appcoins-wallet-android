@@ -101,7 +101,7 @@
       android:layout_marginTop="32dp"
       android:layout_marginBottom="32dp"
       app:buttonText="@string/subscriptions_cancel_yes_button"
-      app:buttonType="outlined"
+      app:buttonType="outlined_grey"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/back_button"
