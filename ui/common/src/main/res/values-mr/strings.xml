@@ -39,7 +39,7 @@
   <string name="ok">ठीक आहे</string>
   <string name="barcode_error_format">अवैध बारकोड फोरमॅट: %s</string>
   <string name="title_delete_account">हे वॉलेट नक्की मिटवायचे आहे का?</string>
-  <string name="twitter">ट्वीटर</string>
+  <string name="twitter">X</string>
   <string name="telegram">टेलिग्राम ग्रुप</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">समुदाय</string>
