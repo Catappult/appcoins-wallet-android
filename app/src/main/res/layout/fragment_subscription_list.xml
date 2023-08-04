@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     android:background="@color/styleguide_blue"
     >
+
+  <TextView
+      android:id="@+id/title_subscription"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="12dp"
+      android:paddingBottom="24dp"
+      android:text="@string/subscriptions_title"
+      android:textColor="@color/styleguide_white"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <include
       android:id="@+id/no_network_retry_only_layout"
       layout="@layout/no_network_retry_only_layout"
@@ -13,7 +30,7 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title_subscription"
       />
 
   <include
@@ -23,7 +40,7 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title_subscription"
       />
 
   <include
@@ -33,7 +50,7 @@
       android:layout_height="wrap_content"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title_subscription"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -54,12 +71,12 @@
   <androidx.core.widget.NestedScrollView
       android:id="@+id/main_layout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       android:fillViewport="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title_subscription"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,30 +84,13 @@
         android:layout_height="wrap_content"
         >
 
-      <TextView
-          android:id="@+id/title_subscription"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
-          android:layout_marginTop="12dp"
-          android:layout_marginBottom="24dp"
-          android:text="@string/subscriptions_title"
-          android:textColor="@color/styleguide_white"
-          android:textSize="24sp"
-          android:textStyle="bold"
-          app:layout_constraintBottom_toTopOf="@id/content_layout"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/content_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/title_subscription"
+          app:layout_constraintTop_toTopOf="parent"
           >
 
         <TextView
