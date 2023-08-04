@@ -39,7 +39,7 @@
   <string name="ok">Oké</string>
   <string name="barcode_error_format">Érvénytelen formátumú Qr-kód: %s</string>
   <string name="title_delete_account">Biztos vagy benne, hogy eltávolítod a tárcát?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram csoport</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Közösség</string>
