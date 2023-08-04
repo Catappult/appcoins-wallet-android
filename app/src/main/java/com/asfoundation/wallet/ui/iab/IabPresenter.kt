@@ -122,14 +122,14 @@ class IabPresenter(
             transaction?.domain, transaction?.skuId,
             transaction?.amount()
               .toString(), iabInteract.getPreSelectedPaymentMethod(),
-            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD
+            transaction?.type, BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
           )
         } else {
           billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
             transaction?.domain,
             transaction?.skuId, transaction?.amount()
               .toString(), transaction?.type,
-            BillingAnalytics.RAKAM_PAYMENT_METHOD
+            BillingAnalytics.WALLET_PAYMENT_METHOD
           )
         }
         firstImpression = false

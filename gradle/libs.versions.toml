@@ -68,7 +68,6 @@ mockito_version = "3.3.0"
 okhttp_version = "4.8.1"
 paranoid_version = "0.3.3"
 play_services_vision_version = "19.0.0"
-rakam_version = "2.7.14"
 referrer_version = "2.2"
 retrofit_version = "2.8.1"
 rxandroid_version = "2.1.1"
@@ -189,7 +188,6 @@ appcoins-sdk-communication = { module = "io.catappult:communication", version.re
 analytics-sentry = { module = "io.sentry:sentry-android", version.ref = "sentry_version" }
 analytics-indicative = { module = "com.indicative.client.android:Indicative-Android", version.ref = "indicative_version" }
 analytics-flurry = { module = "com.flurry.android:analytics", version.ref = "flurry_version" }
-analytics-rakam = { module = "io.rakam:android-sdk", version.ref = "rakam_version" }
 analytics-appsflyer = { module = "com.appsflyer:af-android-sdk", version.ref = "appsflyer_version" }
 
 viewbinding-delegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "viewBindingDelegate" }
@@ -250,7 +248,7 @@ androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui"
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
-analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-rakam", "analytics-appsflyer"]
+analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer"]
 testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]
 hilt-implementation = ["hilt-android", "hilt-interface-extensions", "androidx-compose-hilt-navigation"]

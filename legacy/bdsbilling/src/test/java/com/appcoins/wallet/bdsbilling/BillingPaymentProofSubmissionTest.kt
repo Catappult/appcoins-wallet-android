@@ -212,7 +212,6 @@ package com.appcoins.wallet.bdsbilling
 //    ).subscribe(purchaseDisposable)
 //    scheduler.triggerActions()
 //
-//
 //    authorizationDisposable.assertNoErrors().assertComplete()
 //    purchaseDisposable.assertNoErrors().assertComplete()
 //    verify(brokerBdsApi, times(1)).createTransaction(

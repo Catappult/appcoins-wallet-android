@@ -167,7 +167,17 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 stringResource(title)
               )
 
+              if (sku != null)
+                TransactionDetailItem(stringResource(R.string.transaction_details_sku), sku)
+
               TransactionDetailItem(stringResource(R.string.transaction_date_label), date)
+
+              if (txId != null)
+                TransactionDetailItem(
+                  label = stringResource(R.string.transaction_details_txid),
+                  data = txId,
+                  allowCopy = true,
+                  onClick = { copyOrderIdToClipBoard(txId) })
 
               if (id != null)
                 TransactionDetailItem(
@@ -184,13 +194,6 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
               Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
-              ButtonWithText(
-                label = stringResource(R.string.transaction_more_details_label),
-                onClick = { openTransactionUrl(transactionUrl) },
-                labelColor = styleguide_light_grey,
-                outlineColor = styleguide_light_grey,
-                buttonType = ButtonType.LARGE
-              )
             }
           }
         }
@@ -232,9 +235,6 @@ class TransactionDetailsFragment : BasePageViewFragment() {
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
-  private fun openTransactionUrl(transactionUrl: String) =
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(transactionUrl)))
-
   @Preview
   @Composable
   fun PreviewTransactionsDetail() {
@@ -253,9 +253,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         status = StatusType.PENDING,
         id = "0x385e12aa45036de011b8e67ceef307791c64a93bb01089d85b0fc2eda6a5aaec",
         from = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD",
-        to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23",
-        transactionUrl =
-        "https://appcexplorer.io/transaction/0x142e7c14059728205966dd1389feb905cd732fe7f6fbd23f1fceaf2d50f14242"
+        to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23"
       )
     )
   }

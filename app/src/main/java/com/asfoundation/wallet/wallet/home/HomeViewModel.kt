@@ -61,16 +61,15 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Named
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx2.rxObservable
 import kotlinx.coroutines.rx2.rxSingle
+import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Named
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -81,7 +80,6 @@ sealed class HomeSideEffect : SideEffect {
   data class ShowBackupTrigger(val walletAddress: String, val triggerSource: TriggerSource) :
     HomeSideEffect()
 
-  object NavigateToReward : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
