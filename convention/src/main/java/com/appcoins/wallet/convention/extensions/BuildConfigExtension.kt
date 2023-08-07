@@ -10,8 +10,7 @@ import java.io.File
 val defaultBuildConfigList = mutableListOf(
   BuildConfigField("String", "FLURRY_APK_KEY"),
   BuildConfigField("String", "INFURA_API_KEY_MAIN"),
-  BuildConfigField("String", "INFURA_API_KEY_ROPSTEN"),
-  BuildConfigField("String", "INFURA_API_KEY_RINKEBY"),
+  BuildConfigField("String", "INFURA_API_KEY_GOERLI"),
   BuildConfigField("String", "AMPLITUDE_API_KEY"),
   BuildConfigField("String", "FEEDBACK_ZENDESK_API_KEY"),
   BuildConfigField("String", "APPSFLYER_KEY"),

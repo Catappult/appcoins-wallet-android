@@ -207,7 +207,7 @@ internal class AppModule {
     return if (BuildConfig.DEBUG) {
       NetworkInfo(
         C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-        "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
+        "https://goerli.infura.io/v3/${BuildConfig.INFURA_API_KEY_GOERLI}",
         "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false
       )
     } else {
@@ -223,7 +223,7 @@ internal class AppModule {
   @Provides
   fun providesWeb3j(): Web3j {
     return if (BuildConfig.DEBUG) {
-      Web3j.build(HttpService("https://rinkeby.infura.io/v3/${BuildConfig.INFURA_API_KEY_RINKEBY}"))
+      Web3j.build(HttpService("https://goerli.infura.io/v3/${BuildConfig.INFURA_API_KEY_GOERLI}"))
     } else {
       Web3j.build(HttpService("https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}"))
     }
@@ -233,7 +233,7 @@ internal class AppModule {
   @Provides
   fun providesChainID(): Long {
     return if (BuildConfig.DEBUG) {
-      4L //Rinkeby Chain ID
+      5L //Goerli Chain ID
     } else {
       1L //Mainnet Chain ID
     }
