@@ -4,7 +4,7 @@
     android:id="@+id/home_manage_wallet_bottom_sheet_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_dialog_black"
+    android:background="@drawable/rounded_dialog_dark"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"

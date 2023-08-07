@@ -132,7 +132,6 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   }
 
   private fun showSuccess(nftName: String) {
-
     views.layoutNftTransactDone.doneMensage.text =
         String.format(getString(R.string.nfts_transact_done_mensage), nftName)
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
@@ -141,6 +140,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     views.layoutNftTransactDone.errorAnimation.visibility = View.GONE
     views.layoutNftTransactDone.successAnimation.visibility = View.VISIBLE
     views.layoutNftTransactDone.root.visibility = View.VISIBLE
+    views.layoutNftTransactDone.doneButton.setText(getString(R.string.close_button))
   }
 
   private fun showError(errorMessage: String) {

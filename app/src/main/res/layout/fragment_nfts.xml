@@ -14,6 +14,23 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/title_nft"
+      />
+
+  <TextView
+      android:id="@+id/title_nft"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="12dp"
+      android:layout_marginBottom="24dp"
+      android:text="@string/nfts_title"
+      android:textColor="@color/styleguide_white"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/header"
       app:layout_constraintBottom_toTopOf="@id/content_card"
       />
 
@@ -26,7 +43,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/header"
+      app:layout_constraintTop_toBottomOf="@id/title_nft"
       app:cardBackgroundColor="@color/styleguide_blue"
       >
 
@@ -59,17 +76,21 @@
             tools:listitem="@layout/item_nft"
             />
 
-
-        <ProgressBar
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/nfts_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/gradient_progress"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_wallet"
             />
+
         <include
             android:id="@+id/no_network"
             layout="@layout/no_network_retry_only_layout"

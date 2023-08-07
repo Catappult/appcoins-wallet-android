@@ -14,72 +14,93 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/gamification_background"
+      app:layout_constraintBottom_toTopOf="@id/scroll_view"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/gamification_background"
+  <ScrollView
+      android:id="@+id/scroll_view"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginTop="8dp"
-      android:background="@color/styleguide_blue"
-      android:clipChildren="false"
-      android:clipToPadding="false"
-      app:cardBackgroundColor="@color/styleguide_blue"
-      app:cardPreventCornerOverlap="false"
-      app:layout_constraintTop_toBottomOf="@id/header"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/header"
+      android:fillViewport="true"
       >
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/nft_image_card"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cardCornerRadius="16dp"
-        android:layout_margin="24dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         >
 
-      <ImageView
-          android:id="@+id/nft_image"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:adjustViewBounds="true"
-          android:src="@drawable/nfts_error"
-          android:transitionName="nft_image_transition"
-          app:layout_constraintDimensionRatio="1:1"
-          />
-
-      <include
-          android:id="@+id/nft_image_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:visibility="gone"
-          app:layout_constraintDimensionRatio="1:1"
-          />
-    </androidx.cardview.widget.CardView>
-
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nft_image_card"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fillViewport="true"
-        >
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
+      <TextView
+          android:id="@+id/title_nft"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="12dp"
+          android:text="@string/nfts_title"
+          android:textColor="@color/styleguide_white"
+          android:textSize="24sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/nft_image_container"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:padding="24dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_nft"
+          app:layout_constraintEnd_toStartOf="@id/nft_details_container"
+          >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nft_image_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="16dp"
+            >
+
+          <ImageView
+              android:id="@+id/nft_image"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:adjustViewBounds="true"
+              android:src="@drawable/nfts_error"
+              android:transitionName="nft_image_transition"
+              app:layout_constraintDimensionRatio="1:1"
+              />
+
+          <include
+              android:id="@+id/nft_image_skeleton"
+              layout="@layout/skeleton_rounded_rectangle"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:visibility="gone"
+              app:layout_constraintDimensionRatio="1:1"
+              />
+        </androidx.cardview.widget.CardView>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/nft_details_container"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
           android:clipChildren="false"
           android:clipToPadding="false"
           app:cardPreventCornerOverlap="false"
-          app:layout_constraintTop_toBottomOf="@id/header"
+          app:layout_constraintTop_toBottomOf="@id/title_nft"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@id/nft_image_container"
           >
         <TextView
             android:id="@+id/nft_title"
@@ -124,8 +145,9 @@
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
