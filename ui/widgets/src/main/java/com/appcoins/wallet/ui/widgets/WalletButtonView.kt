@@ -98,10 +98,6 @@ class WalletButtonView : FrameLayout {
     applyType()
   }
 
-  fun setColorResource(@ColorRes colorRes: Int) {
-    setColor(ContextCompat.getColor(this.context, colorRes))
-  }
-
   private fun applyType() {
     if (enabled) {
       views.root.isClickable = true
