@@ -39,7 +39,6 @@
         android:paddingBottom="@dimen/normal_margin"
         app:cardBackgroundColor="@color/styleguide_white"
         app:cardPreventCornerOverlap="false"
-        app:layout_constraintTop_toBottomOf="@id/header"
         >
 
       <TextView

@@ -23,7 +23,7 @@
       app:lottie_rawRes="@raw/success_animation"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/error_animation"
       android:layout_width="wrap_content"
       android:layout_height="96dp"
@@ -33,9 +33,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/adyen_error_animation"
+      android:src="@drawable/ic_error_pink"
       />
 
   <TextView
