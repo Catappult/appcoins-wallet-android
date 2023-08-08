@@ -217,92 +217,93 @@ private fun BoxShadow() {
 
 @Composable
 private fun AppInfoRow(appInfo: GameDetailsData) {
-    Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-        elevation = CardDefaults.cardElevation(4.dp),
-        shape = RoundedCornerShape(12.dp),
-        modifier = Modifier
-            .width(70.dp)
-            .height(71.dp)
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    elevation = CardDefaults.cardElevation(4.dp),
+    shape = RoundedCornerShape(12.dp),
+    modifier = Modifier
+      .width(70.dp)
+      .height(71.dp)
+  ) {
+    Box(
+      modifier = Modifier.fillMaxSize(),
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-        ) {
-            AsyncImage(
-                model = appInfo.gameIcon,
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        }
+      AsyncImage(
+        model = appInfo.gameIcon,
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop
+      )
     }
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(0.9f)
-            .padding(start = 20.dp, end = 20.dp),
-        verticalArrangement = Arrangement.Bottom
+  }
+  Column(
+    modifier = Modifier
+      .fillMaxHeight()
+      .fillMaxWidth(0.9f)
+      .padding(start = 20.dp, end = 20.dp),
+    verticalArrangement = Arrangement.Bottom
+  ) {
+
+    Text(
+      text = appInfo.title,
+      fontFamily = FontFamily.SansSerif,
+      fontSize = 17.sp,
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_light_grey,
+      lineHeight = 20.sp,
+      maxLines = 2,
+      overflow = TextOverflow.Ellipsis
+    )
+
+    Row(
+      modifier = Modifier
+        .fillMaxWidth(0.9f)
+        .fillMaxHeight(0.5f),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.Bottom
     ) {
+      AppStatsItem(
+        icon = R.drawable.downloads,
+        description = "downloads",
+        text = getDownloads(appInfo.downloads)
+      )
+      AppStatsItem(
+        icon = R.drawable.pie_chart,
+        description = "size",
+        text = getSize(appInfo.size)
+      )
+      AppStatsItem(
+        icon = R.drawable.rating_star,
+        description = "rating",
+        text = String.format("%.1f", appInfo.rating)
+      )
 
-        Text(
-            text = appInfo.title,
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_light_grey,
-            lineHeight = 20.sp,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(0.8f)
-                .fillMaxHeight(0.5f),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
-        ) {
-            AppStatsItem(
-                icon = R.drawable.downloads,
-                description = "downloads",
-                text = getDownloads(appInfo.downloads)
-            )
-            AppStatsItem(
-                icon = R.drawable.pie_chart,
-                description = "size",
-                text = getSize(appInfo.size)
-            )
-            AppStatsItem(
-                icon = R.drawable.rating_star,
-                description = "rating",
-                text = appInfo.rating.toString()
-            )
-
-        }
     }
+  }
 }
 
 @Composable
 private fun AppStatsItem(
-    icon: Int,
-    description: String,
-    text: String) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Icon(
-            painter = painterResource(icon),
-            contentDescription = description,
-            tint = Color(0xFF8E93A1),
-            modifier = Modifier.padding(end = 6.dp)
-        )
-        Text(
-            text = text,
-            fontSize = 12.sp,
-            color = Color(0xFF8E93A1)
-        )
-    }
+  icon: Int,
+  description: String,
+  text: String
+) {
+  Row(
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+  ) {
+    Icon(
+      painter = painterResource(icon),
+      contentDescription = description,
+      tint = Color(0xFF8E93A1),
+      modifier = Modifier.padding(end = 4.dp)
+    )
+    Text(
+      text = text,
+      fontSize = 12.sp,
+      color = Color(0xFF8E93A1)
+    )
+  }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -313,67 +314,72 @@ private fun EskillsCard() {
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(12.dp),
     modifier = Modifier
-        .height(234.dp)
-        .fillMaxWidth()
-        .padding(top = 20.dp, start = 20.dp, end = 20.dp),
+      .height(234.dp)
+      .fillMaxWidth()
+      .padding(top = 20.dp, start = 20.dp, end = 20.dp),
     onClick = { showEskillsCard = false }
   ) {
-    Column(
-      modifier = Modifier
-          .fillMaxSize()
-          .padding(horizontal = 15.dp, vertical = 15.dp),
-      verticalArrangement = Arrangement.SpaceBetween
-    ) {
-      Row(
-        modifier = Modifier
-            .height(65.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-      ) {
-        Column(
-          modifier = Modifier.fillMaxHeight(0.8f),
-          verticalArrangement = Arrangement.Center
-        ) {
-          Text(
-            text = "Earn money",
-            color = WalletColors.styleguide_golden,
-            fontSize = 14.sp,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Bold
-          )
-          Text(
-            text = "Beat other players with e-Skills",
-            color = WalletColors.styleguide_light_grey,
-            fontSize = 12.sp,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Medium
-          )
-        }
-        Card(
-          colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-          modifier = Modifier.size(65.dp)
-        ) {
-          Box(
-            modifier = Modifier.fillMaxSize(),
-          ) {
-            Image(painter = painterResource(R.drawable.eskills_cup), contentDescription = "Cup")
-          }
+    EskillsCardContent()
+  }
+}
 
+@Composable
+private fun EskillsCardContent() {
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(horizontal = 15.dp, vertical = 15.dp),
+    verticalArrangement = Arrangement.SpaceBetween
+  ) {
+    Row(
+      modifier = Modifier
+        .height(65.dp)
+        .fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+      Column(
+        modifier = Modifier.fillMaxHeight(0.8f),
+        verticalArrangement = Arrangement.Center
+      ) {
+        Text(
+          text = "Earn money",
+          color = WalletColors.styleguide_golden,
+          fontSize = 14.sp,
+          fontFamily = FontFamily.SansSerif,
+          fontWeight = FontWeight.Bold
+        )
+        Text(
+          text = "Beat other players with e-Skills",
+          color = WalletColors.styleguide_light_grey,
+          fontSize = 12.sp,
+          fontFamily = FontFamily.SansSerif,
+          fontWeight = FontWeight.Medium
+        )
+      }
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+        modifier = Modifier.size(65.dp)
+      ) {
+        Box(
+          modifier = Modifier.fillMaxSize(),
+        ) {
+          Image(painter = painterResource(R.drawable.eskills_cup), contentDescription = "Cup")
         }
 
       }
-      EskillsCardList()
-
-      Text(
-        text = "Got it",
-        color = WalletColors.styleguide_golden,
-        fontSize = 14.sp,
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.align(Alignment.End)
-      )
 
     }
+    EskillsCardList()
+
+    Text(
+      text = "Got it",
+      color = WalletColors.styleguide_golden,
+      fontSize = 14.sp,
+      fontFamily = FontFamily.SansSerif,
+      fontWeight = FontWeight.Bold,
+      modifier = Modifier.align(Alignment.End)
+    )
+
   }
 }
 
@@ -440,32 +446,33 @@ private fun Description(appDetailsData: GameDetailsData) {
 
 @Composable
 fun EskillsCardList() {
-    val list = listOf(
-        "Install the e-Skills game you think you’re better at.",
-        "Open it and pay the entry fee to start a match against another player.",
-        "Beat them and get the real-money prize."
-    )
-    LazyColumn(
-      verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(list) {
-            Row(verticalAlignment = Alignment.Top,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Canvas(modifier = Modifier.size(8.dp)
-                  , onDraw = {
-                    drawCircle(color = WalletColors.styleguide_golden)
-                })
-                Text(
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    text = it,
-                    color = WalletColors.styleguide_light_grey,
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        }
+  val list = listOf(
+    "Install the e-Skills game you think you’re better at.",
+    "Open it and pay the entry fee to start a match against another player.",
+    "Beat them and get the real-money prize."
+  )
+  LazyColumn(
+    verticalArrangement = Arrangement.spacedBy(8.dp)
+  ) {
+    items(list) {
+      Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+      ) {
+        Canvas(modifier = Modifier.size(8.dp), onDraw = {
+          drawCircle(color = WalletColors.styleguide_golden)
+        })
+        Text(
+          modifier = Modifier.fillMaxWidth(0.8f),
+          text = it,
+          color = WalletColors.styleguide_light_grey,
+          fontSize = 12.sp,
+          fontFamily = FontFamily.SansSerif,
+          fontWeight = FontWeight.Medium
+        )
+      }
     }
+  }
 }
 
 @Preview
