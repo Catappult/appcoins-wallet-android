@@ -149,7 +149,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   internal fun HomeScreenContent(
     padding: PaddingValues

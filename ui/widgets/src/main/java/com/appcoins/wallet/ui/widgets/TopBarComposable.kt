@@ -32,13 +32,12 @@ fun TopBar(
       .fillMaxWidth(),
     colors = TopAppBarDefaults.mediumTopAppBarColors(WalletColors.styleguide_blue),
     title = { },
-    actions = {
+    navigationIcon = {
       Row(
         modifier = Modifier
-          .fillMaxWidth()
-          .padding(start = 16.dp, end = 4.dp)
+          .padding(start = 16.dp)
           .height(64.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
       ) {
         if (isMainBar) {
           Image(
@@ -47,21 +46,30 @@ fun TopBar(
             modifier = Modifier.heightIn(max = 24.dp)
           )
         } else {
-          if (onClickBack != null) ActionButton(
-            imagePainter = painterResource(R.drawable.ic_arrow_back),
-            description = "Back",
-            onClick = onClickBack
-          )
+          if (onClickBack != null)
+            ActionButton(
+              imagePainter = painterResource(R.drawable.ic_arrow_back),
+              description = "Back",
+              onClick = onClickBack
+            )
           else {
             val activity = LocalContext.current.getActivity()
-            if (activity != null) ActionButton(imagePainter = painterResource(R.drawable.ic_arrow_back),
-              description = "Back",
-              onClick = { activity.onBackPressed() })
+            if (activity != null)
+              ActionButton(
+                imagePainter = painterResource(R.drawable.ic_arrow_back),
+                description = "Back",
+                onClick = { activity.onBackPressed() })
           }
         }
-
-        Spacer(Modifier.weight(1f))
-
+      }
+    },
+    actions = {
+      Row(
+        modifier = Modifier
+          .padding(end = 4.dp)
+          .height(64.dp),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
         if (isMainBar) {
           if (isVip) {
             VipBadge()
