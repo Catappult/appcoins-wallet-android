@@ -10,8 +10,10 @@ import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment.Companion.WALLET_BALANCE_MODEL
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
 import com.asfoundation.wallet.transfers.TransferFundsFragment
@@ -53,8 +55,11 @@ class MyWalletsNavigator @Inject constructor(
   }
 
 
-  fun navigateToManageWalletBalanceBottomSheet() {
+  fun navigateToManageWalletBalanceBottomSheet(walletBalance: WalletBalance) {
     val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putSerializable(WALLET_BALANCE_MODEL, walletBalance)
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
   fun navigateToManageWalletBottomSheet() {

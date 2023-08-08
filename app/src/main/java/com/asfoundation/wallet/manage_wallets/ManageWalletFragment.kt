@@ -358,7 +358,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
       )
-      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet() }) {
+      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(walletInfo.walletBalance) }) {
         Text(
           text =
           balance.creditsOnlyFiat.amount

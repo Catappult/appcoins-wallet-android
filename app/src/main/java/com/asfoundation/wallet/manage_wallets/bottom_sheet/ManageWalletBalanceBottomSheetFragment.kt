@@ -7,13 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.databinding.ManageWalletBalanceBottomSheetLayoutBinding
-import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +31,8 @@ class ManageWalletBalanceBottomSheetFragment() : BottomSheetDialogFragment(),
 
   companion object {
 
+    const val WALLET_BALANCE_MODEL = "wallet_balance_model"
+
     @JvmStatic
     fun newInstance(): ManageWalletBalanceBottomSheetFragment {
       return ManageWalletBalanceBottomSheetFragment()
@@ -42,7 +43,6 @@ class ManageWalletBalanceBottomSheetFragment() : BottomSheetDialogFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    viewModel.getWallets()
     return ManageWalletBalanceBottomSheetLayoutBinding.inflate(inflater).root
   }
 
@@ -50,37 +50,31 @@ class ManageWalletBalanceBottomSheetFragment() : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    when (val uiState = viewModel.uiState.value) {
-      is ManageWalletViewModel.UiState.Success -> {
-        uiState.activeWalletInfo.walletBalance.let {
-          views.totalBalanceValue.text = it.creditsOnlyFiat.amount
-            .toString()
-            .formatMoney(it.creditsOnlyFiat.symbol, "")
-            ?: ""
-          views.totalBalanceValueAppcc.text = "${
-            it.creditsBalance.token.amount.toString().formatMoney()
-          } ${it.creditsBalance.token.symbol}"
+    val walletBalanceModel : WalletBalance = arguments?.getSerializable(WALLET_BALANCE_MODEL) as WalletBalance
 
-          views.titleBalanceAppcValue.text = "${
-            it.appcBalance.token.amount.toString().formatMoney()
-          } ${it.appcBalance.token.symbol}"
+    walletBalanceModel.let {
+      views.totalBalanceValue.text = it.creditsOnlyFiat.amount
+        .toString()
+        .formatMoney(it.creditsOnlyFiat.symbol, "")
+        ?: ""
+      views.totalBalanceValueAppcc.text = "${
+        it.creditsBalance.token.amount.toString().formatMoney()
+      } ${it.creditsBalance.token.symbol}"
 
-          views.titleBalanceAppcCreditsValue.text = "${
-            it.creditsBalance.token.amount.toString().formatMoney()
-          } ${it.creditsBalance.token.symbol}"
+      views.titleBalanceAppcValue.text = "${
+        it.appcBalance.token.amount.toString().formatMoney()
+      } ${it.appcBalance.token.symbol}"
 
-          views.titleBalanceEthereumValue.text = "${
-            it.ethBalance.token.amount.toString().formatMoney()
-          } ${it.ethBalance.token.symbol}"
-        }
-      }
+      views.titleBalanceAppcCreditsValue.text = "${
+        it.creditsBalance.token.amount.toString().formatMoney()
+      } ${it.creditsBalance.token.symbol}"
 
-      ManageWalletViewModel.UiState.Loading -> {}
-      else -> {}
+      views.titleBalanceEthereumValue.text = "${
+        it.ethBalance.token.amount.toString().formatMoney()
+      } ${it.ethBalance.token.symbol}"
     }
-
-    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
+
 
   override fun onStart() {
     val behavior = BottomSheetBehavior.from(requireView().parent as View)
