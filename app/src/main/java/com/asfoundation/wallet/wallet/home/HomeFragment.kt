@@ -187,7 +187,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         if (transactionsState.transactions.isNotEmpty())
           Column(
             modifier = Modifier
-              .heightIn(0.dp, 400.dp)
+              .heightIn(0.dp, 480.dp)
               .padding(horizontal = 16.dp)
           ) {
             Text(

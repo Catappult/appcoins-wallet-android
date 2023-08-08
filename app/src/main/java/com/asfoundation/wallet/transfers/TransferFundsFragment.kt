@@ -309,7 +309,8 @@ class TransferFundsFragment : BasePageViewFragment() {
             backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
             labelColor = if (selected) styleguide_white else styleguide_medium_grey,
             onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
-            textStyle = MaterialTheme.typography.bodySmall
+            textStyle = MaterialTheme.typography.bodySmall,
+            buttonType = ButtonType.LARGE
           )
         }
       }
@@ -355,6 +356,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         value = address,
         placeHolder = stringResource(R.string.hint_recipient_address),
         backgroundColor = styleguide_blue_secondary,
+        keyboardType = KeyboardType.Ascii,
         trailingIcon = {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
