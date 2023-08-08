@@ -3,16 +3,14 @@ package com.appcoins.wallet.core.network.backend
 import com.appcoins.wallet.core.network.backend.annotations.BackendBlockchainRetrofit
 import com.appcoins.wallet.core.network.backend.annotations.BackendDefaultRetrofit
 import com.appcoins.wallet.core.network.backend.annotations.BackendShortTimeoutRetrofit
-import com.appcoins.wallet.core.network.backend.annotations.EskillsCarouselRetrofit
 import com.appcoins.wallet.core.network.backend.api.*
 import com.appcoins.wallet.core.network.backend.model.PromotionsDeserializer
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
-import com.appcoins.wallet.core.network.backend.api.NftApi
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
@@ -34,7 +32,6 @@ import javax.inject.Singleton
 class BackendApiModule {
 
   private val backendUrl = HostProperties.BACKEND_HOST
-  private val eskillsUrl = HostProperties.ESKILLS_CAROUSEL_HOST
 
   @Singleton
   @Provides
@@ -53,23 +50,7 @@ class BackendApiModule {
   @BackendDefaultRetrofit
   fun provideBackendDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(eskillsUrl)
-      .client(client)
-      .addConverterFactory(
-        GsonConverterFactory.create(
-          GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create()
-        )
-      )
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-  }
-
-  @Singleton
-  @Provides
-  @EskillsCarouselRetrofit
-  fun provideEskillsCarouselRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-      .baseUrl(eskillsUrl)
+      .baseUrl(backendUrl)
       .client(client)
       .addConverterFactory(
         GsonConverterFactory.create(
@@ -224,11 +205,4 @@ class BackendApiModule {
     return retrofit.create(GamesApi::class.java)
   }
 
-  @Singleton
-  @Provides
-  fun providesEskillsGamesApi(
-    @EskillsCarouselRetrofit retrofit: Retrofit
-  ): EskillsGamesApi {
-    return retrofit.create(EskillsGamesApi::class.java)
-  }
 }

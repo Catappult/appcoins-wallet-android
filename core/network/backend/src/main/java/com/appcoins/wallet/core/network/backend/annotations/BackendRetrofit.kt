@@ -31,13 +31,3 @@ annotation class BackendDefaultRetrofit
   AnnotationTarget.VALUE_PARAMETER
 )
 annotation class BackendShortTimeoutRetrofit
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-@Target(
-  AnnotationTarget.CLASS,
-  AnnotationTarget.FIELD,
-  AnnotationTarget.FUNCTION,
-  AnnotationTarget.VALUE_PARAMETER
-)
-annotation class EskillsCarouselRetrofit
