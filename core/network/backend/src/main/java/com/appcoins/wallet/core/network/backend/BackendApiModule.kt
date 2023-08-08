@@ -197,4 +197,12 @@ class BackendApiModule {
   ): WithdrawApi {
     return retrofit.create(WithdrawApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun provideTransactionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): TransactionApi {
+    return retrofit.create(TransactionApi::class.java)
+  }
 }

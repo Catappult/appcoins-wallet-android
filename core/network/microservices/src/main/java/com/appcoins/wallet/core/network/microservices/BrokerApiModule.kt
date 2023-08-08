@@ -127,12 +127,4 @@ class BrokerApiModule {
   ): BackupEmailApi {
     return retrofit.create(BackupEmailApi::class.java)
   }
-
-  @Singleton
-  @Provides
-  fun providesTopUpApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): TopUpApi {
-    return retrofit.create(TopUpApi::class.java)
-  }
 }

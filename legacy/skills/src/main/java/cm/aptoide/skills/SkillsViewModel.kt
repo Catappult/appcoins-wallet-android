@@ -6,12 +6,50 @@ import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import cm.aptoide.skills.model.*
-import cm.aptoide.skills.usecase.*
+import cm.aptoide.skills.model.ApplicationInfo
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.EskillsVerification
+import cm.aptoide.skills.model.FailedPayment
+import cm.aptoide.skills.model.FailedTicket
+import cm.aptoide.skills.model.PaymentResult
+import cm.aptoide.skills.model.Price
+import cm.aptoide.skills.model.ProcessingStatus
+import cm.aptoide.skills.model.PurchasedTicket
+import cm.aptoide.skills.model.ReferralResult
+import cm.aptoide.skills.model.SuccessfulPayment
+import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.usecase.BuildShareReferralIntentUseCase
+import cm.aptoide.skills.usecase.BuildUpdateIntentUseCase
+import cm.aptoide.skills.usecase.CachePaymentUseCase
+import cm.aptoide.skills.usecase.CancelTicketUseCase
+import cm.aptoide.skills.usecase.GetApplicationInfoUseCase
+import cm.aptoide.skills.usecase.GetAuthenticationIntentUseCase
+import cm.aptoide.skills.usecase.GetCachedPaymentUseCase
+import cm.aptoide.skills.usecase.GetReferralUseCase
+import cm.aptoide.skills.usecase.GetTicketPriceUseCase
+import cm.aptoide.skills.usecase.GetTicketUseCase
+import cm.aptoide.skills.usecase.GetUserBalanceUseCase
+import cm.aptoide.skills.usecase.GetVerificationUseCase
+import cm.aptoide.skills.usecase.HasAuthenticationPermissionUseCase
+import cm.aptoide.skills.usecase.IsWalletVerifiedUseCase
+import cm.aptoide.skills.usecase.JoinQueueUseCase
+import cm.aptoide.skills.usecase.LoginUseCase
+import cm.aptoide.skills.usecase.PayTicketUseCase
+import cm.aptoide.skills.usecase.ReferralShareTextBuilderUseCase
+import cm.aptoide.skills.usecase.SaveQueueIdToClipboardUseCase
+import cm.aptoide.skills.usecase.SendUserToTopUpFlowUseCase
+import cm.aptoide.skills.usecase.SendUserVerificationFlowUseCase
+import cm.aptoide.skills.usecase.Status
+import cm.aptoide.skills.usecase.UseReferralUseCase
+import cm.aptoide.skills.usecase.UserFirstTimeCheckUseCase
+import cm.aptoide.skills.usecase.ValidateUrlUseCase
+import cm.aptoide.skills.usecase.VerifyUserTopUpUseCase
 import cm.aptoide.skills.util.UriValidationResult
-import com.appcoins.wallet.core.network.eskills.model.*
-import com.appcoins.wallet.core.network.microservices.model.TopUpStatus
-import com.appcoins.wallet.core.network.microservices.model.TransactionType
+import com.appcoins.wallet.core.network.eskills.model.AppData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
+import com.appcoins.wallet.core.network.eskills.model.TicketResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -41,7 +79,7 @@ class SkillsViewModel @Inject constructor(
   private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
   private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   private val validateUrlUseCase: ValidateUrlUseCase,
-  private val getTopUpListStatus: GetTopUpListUseCase,
+  private val verifyUserTopUpUseCase: VerifyUserTopUpUseCase,
   private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val useReferralUseCase: UseReferralUseCase,
@@ -230,7 +268,7 @@ class SkillsViewModel @Inject constructor(
   }
 
   fun getTopUpListStatus(): Status {
-    return getTopUpListStatus(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
+    return verifyUserTopUpUseCase().blockingGet()
   }
 
   fun getVerification(): EskillsVerification{
