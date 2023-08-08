@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.appcoins.wallet.core.utils.properties.MiscProperties
-import org.web3j.protocol.core.methods.response.EthLog.LogResultDeserialiser
 
 class GamesHubBroadcastService {
 
