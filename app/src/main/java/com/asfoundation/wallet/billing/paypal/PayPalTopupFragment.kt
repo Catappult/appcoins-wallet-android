@@ -61,6 +61,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     super.onAttach(context)
     check(context is TopUpActivityView) { "Paypal topup fragment must be attached to Topup activity" }
     topUpActivityView = context
+    topUpActivityView?.lockOrientation()
   }
 
   private fun registerWebViewResult() {
@@ -153,6 +154,11 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   override fun onDetach() {
     super.onDetach()
     topUpActivityView = null
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    topUpActivityView?.unlockRotation()
   }
 
   private fun showLoadingAnimation() {
