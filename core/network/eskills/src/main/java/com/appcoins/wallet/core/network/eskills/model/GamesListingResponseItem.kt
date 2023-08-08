@@ -9,12 +9,12 @@ data class GamesListingResponseItem(
 )
 
 
-data class DataList (
+data class DataList(
   @SerializedName("list") val list: List<GameInfo>
 
 )
 
-data class GameInfo (
+data class GameInfo(
   @SerializedName("name") val appName: String,
   @SerializedName("package") val packageName: String,
   @SerializedName("icon") val appIcon: String,

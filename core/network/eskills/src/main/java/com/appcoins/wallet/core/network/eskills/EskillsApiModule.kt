@@ -1,11 +1,11 @@
 package com.appcoins.wallet.core.network.eskills
 
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.eskills.annotations.EskillsCarouselRetrofit
 import com.appcoins.wallet.core.network.eskills.api.EskillsGamesApi
 import com.appcoins.wallet.core.network.eskills.api.RoomApi
 import com.appcoins.wallet.core.network.eskills.api.TicketApi
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

@@ -10,7 +10,7 @@ data class AppData(
   var name: String,
 
   @JsonProperty("size")
-  val size : Long,
+  val size: Long,
 
   @JsonProperty("package")
   val packageName: String,
@@ -31,28 +31,28 @@ data class AppData(
 
 data class Stats(
   @JsonProperty("rating")
-  val rating : Rating,
+  val rating: Rating,
   @JsonProperty("downloads")
-  val downloads : Long
+  val downloads: Long
 )
 
 data class Rating(
   @JsonProperty("avg")
-  val avg : Double
+  val avg: Double
 )
 
 data class Media(
   @JsonProperty("description")
-  val description : String,
+  val description: String,
 
   @JsonProperty("screenshots")
-  val screenshots : List<Screenshot>?
+  val screenshots: List<Screenshot>?
 
 )
 
 data class Screenshot(
   @JsonProperty("url")
-  val imageUrl : String,
+  val imageUrl: String,
 
   @JsonProperty("height")
   val height: Int,

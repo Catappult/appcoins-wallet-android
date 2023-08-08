@@ -1,6 +1,5 @@
 package com.appcoins.wallet.ui.widgets
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -8,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -23,12 +21,12 @@ import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 
-var gameClicked :String = ""
+var gameClicked: String = ""
 
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  dialog: (gamePackage:String) -> Unit,
+  dialog: (gamePackage: String) -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
@@ -48,8 +46,10 @@ fun GamesBundle(
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
       items(items) { item ->
-        CardItem(gameCardData = item,
-        dialogFragment = dialog)
+        CardItem(
+          gameCardData = item,
+          dialogFragment = dialog
+        )
       }
     }
   }
@@ -59,11 +59,11 @@ fun GamesBundle(
 @Composable
 private fun CardItem(
   gameCardData: GameData,
-  dialogFragment: (gamePackage:String) -> Unit
+  dialogFragment: (gamePackage: String) -> Unit
 ) {
   val context = LocalContext.current
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
     //onClick = { dialogFragment(gameCardData.gamePackage)
@@ -71,7 +71,7 @@ private fun CardItem(
     onClick = {
       gameClicked = gameCardData.gamePackage
       dialogFragment.invoke(gameCardData.gamePackage)
-              },
+    },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
@@ -97,7 +97,7 @@ private fun CardItem(
               1F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.99F)
             )
           )
-        )
+      )
       Row(
         modifier = Modifier
           .fillMaxWidth()

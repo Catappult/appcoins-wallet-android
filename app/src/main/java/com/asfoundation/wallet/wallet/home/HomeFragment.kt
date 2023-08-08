@@ -231,6 +231,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             }
           }
       }
+
       else -> {}
     }
   }
@@ -397,10 +398,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success ->
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
+
       else -> Unit
     }
   }
@@ -411,6 +414,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -455,9 +459,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     return navHostFragment.navController
   }
 
-  fun launchAppViewFragment(gamePackage:String) {
-    Log.i("AppViewFragment","Entra no launch fragment")
-    Log.i("Game Package", "Game Package "+gamePackage)
+  fun launchAppViewFragment(gamePackage: String) {
+    Log.i("AppViewFragment", "Entra no launch fragment")
+    Log.i("Game Package", "Game Package " + gamePackage)
     val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }

@@ -7,13 +7,13 @@ import retrofit2.http.Query
 
 interface EskillsGamesApi {
 
-    //@GET("appc/games")
-    @GET("apps/get")
-    fun getGamesListing(
-        @Query("limit") limit:String,
-        @Query("sort") sort:String,
-        @Query("store_name") store:String,
-        @Query("group_name") group:String,
-        @Query("language") language:String
-    ): Single<GamesListingResponseItem>
+  //@GET("appc/games")
+  @GET("apps/get")
+  fun getGamesListing(
+    @Query("limit") limit: String,
+    @Query("sort") sort: String,
+    @Query("store_name") store: String,
+    @Query("group_name") group: String,
+    @Query("language") language: String
+  ): Single<GamesListingResponseItem>
 }

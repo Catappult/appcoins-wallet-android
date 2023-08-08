@@ -10,25 +10,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppDetailsViewModel
-    @Inject
-    constructor(
-        private val getGameDetailsUseCase: GetGameDetailsUseCase,
-        private val rxSchedulers: RxSchedulers,
-    ): ViewModel() {
+@Inject
+constructor(
+  private val getGameDetailsUseCase: GetGameDetailsUseCase,
+  private val rxSchedulers: RxSchedulers,
+) : ViewModel() {
 
-    val gameDetails = mutableStateOf(GameDetailsData("","","","","", listOf(), 0.0, 0, 0))
+  val gameDetails = mutableStateOf(GameDetailsData("", "", "", "", "", listOf(), 0.0, 0, 0))
 
-    init {
+  init {
 
-    }
+  }
 
-    fun fetchGameDetails(packageName: String) {
-        getGameDetailsUseCase(packageName)
-            .subscribeOn(rxSchedulers.io)
-            .subscribe(
-                {details -> gameDetails.value = details},
-                {e -> e.printStackTrace()}
-            )
+  fun fetchGameDetails(packageName: String) {
+    getGameDetailsUseCase(packageName)
+      .subscribeOn(rxSchedulers.io)
+      .subscribe(
+        { details -> gameDetails.value = details },
+        { e -> e.printStackTrace() }
+      )
 
-    }
+  }
 }
