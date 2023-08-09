@@ -66,7 +66,7 @@
       android:layout_height="48dp"
       android:layout_marginEnd="16dp"
       app:buttonText="@string/no_thanks_button"
-      app:buttonType="outlined"
+      app:buttonType="outlined_grey"
       app:buttonColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@+id/submit_button"
       app:layout_constraintTop_toTopOf="@+id/submit_button"
