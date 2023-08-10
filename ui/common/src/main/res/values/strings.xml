@@ -1110,8 +1110,6 @@
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
   <string name="verify_paypal_button">Verify PayPal account</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
@@ -1363,6 +1361,26 @@
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 
 
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 
 
 </resources>
