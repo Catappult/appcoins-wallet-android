@@ -93,7 +93,7 @@ data class HomeState(
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
-  val showBackup: Boolean = false
+  val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
@@ -137,6 +137,7 @@ constructor(
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
+  val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
@@ -194,7 +195,8 @@ constructor(
     return Observable.mergeDelayError(
       observeBalance(),
       updateTransactions(model).subscribeOn(rxSchedulers.io),
-      updateRegisterUser(model.wallet).toObservable()
+      updateRegisterUser(model.wallet).toObservable(),
+      observeBackup()
     )
       .map {}
       .subscribeOn(rxSchedulers.io)
@@ -238,6 +240,21 @@ constructor(
           }
       }
       .doOnNext { fetchTransactionData() }
+  }
+
+  /**
+   * Balance is refreshed every [UPDATE_INTERVAL] seconds, and stops while [refreshData] is false
+   */
+  private fun observeBackup(): Observable<Boolean> {
+    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+      .flatMap { observeRefreshData() }
+      .switchMap {
+        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+          .map { walletInfo -> walletInfo.hasBackup }
+          .asAsyncToState(HomeState::hasBackup) {
+            copy(hasBackup = it)
+          }
+      }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
@@ -454,7 +471,6 @@ constructor(
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .flatMap { walletInfo ->
         rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
-          setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&
             backupTriggerPreferences.getTriggerState(walletInfo.wallet) &&
             !walletInfo.hasBackup
