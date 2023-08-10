@@ -39,28 +39,8 @@ fun TopBar(
           .height(64.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
-        if (isMainBar) {
-          Image(
-            painter = painterResource(R.drawable.ic_app_logo),
-            null,
-            modifier = Modifier.heightIn(max = 24.dp)
-          )
-        } else {
-          if (onClickBack != null)
-            ActionButton(
-              imagePainter = painterResource(R.drawable.ic_arrow_back),
-              description = "Back",
-              onClick = onClickBack
-            )
-          else {
-            val activity = LocalContext.current.getActivity()
-            if (activity != null)
-              ActionButton(
-                imagePainter = painterResource(R.drawable.ic_arrow_back),
-                description = "Back",
-                onClick = { activity.onBackPressed() })
-          }
-        }
+        if (isMainBar) WalletLogo()
+        else BackButton(onClickBack)
       }
     },
     actions = {
@@ -71,27 +51,85 @@ fun TopBar(
         verticalAlignment = Alignment.CenterVertically,
       ) {
         if (isMainBar) {
-          if (isVip) {
-            VipBadge()
-          }
-//          ActionButton(
-//            imagePainter = painterResource(R.drawable.ic_notifications),
-//            description = "Notifications",
-//            onClick = onClickNotifications
-//          )
-          ActionButton(
-            imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
-            description = "Settings",
-            onClick = onClickSettings
-          )
+          if (isVip) VipBadge()
+          SettingsButton(onClickSettings)
         }
-        ActionButton(
-          imagePainter = painterResource(R.drawable.ic_settings_support),
-          description = "Support",
-          onClick = onClickSupport
-        )
+        SupportButton(onClickSupport)
       }
     })
+}
+
+//This TopBar was created because there is a bug on compose when that is used in a screen with TextField
+@Composable
+fun TopBar(
+  onClickSupport: () -> Unit = {},
+  onClickBack: (() -> Unit)? = null
+) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .background(WalletColors.styleguide_blue)
+      .padding(start = 16.dp, end = 4.dp)
+      .height(64.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceBetween
+  ) {
+    BackButton(onClickBack)
+    SupportButton(onClickSupport)
+  }
+}
+
+@Composable
+fun WalletLogo() {
+  Image(
+    painter = painterResource(R.drawable.ic_app_logo),
+    null,
+    modifier = Modifier.heightIn(max = 24.dp)
+  )
+}
+
+@Composable
+fun NotificationsButton(onClickNotifications: () -> Unit = {}) {
+  ActionButton(
+    imagePainter = painterResource(R.drawable.ic_notifications),
+    description = "Notifications",
+    onClick = onClickNotifications
+  )
+}
+
+@Composable
+fun SettingsButton(onClickSettings: () -> Unit = {}) {
+  ActionButton(
+    imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
+    description = "Settings",
+    onClick = onClickSettings
+  )
+}
+
+@Composable
+fun SupportButton(onClickSupport: () -> Unit = {}) {
+  ActionButton(
+    imagePainter = painterResource(R.drawable.ic_settings_support),
+    description = "Support",
+    onClick = onClickSupport
+  )
+}
+
+@Composable
+fun BackButton(
+  onClickBack: (() -> Unit)? = null
+) {
+  if (onClickBack != null) ActionButton(
+    imagePainter = painterResource(R.drawable.ic_arrow_back),
+    description = "Back",
+    onClick = onClickBack
+  )
+  else {
+    val activity = LocalContext.current.getActivity()
+    if (activity != null) ActionButton(imagePainter = painterResource(R.drawable.ic_arrow_back),
+      description = "Back",
+      onClick = { activity.onBackPressed() })
+  }
 }
 
 @Composable

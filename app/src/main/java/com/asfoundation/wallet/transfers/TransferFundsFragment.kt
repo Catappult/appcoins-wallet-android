@@ -11,10 +11,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,12 +37,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -72,7 +86,6 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
-import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
@@ -84,7 +97,6 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -111,7 +123,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun TransferFundsView() {
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(onClickSupport = { viewModel.displayChat() }) }
       },
       containerColor = styleguide_blue,
     ) { padding ->
@@ -161,15 +173,14 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun CenterContent() {
-    val uiState = viewModel.uiState.collectAsState().value
-    when (uiState) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
       is Success -> {
         Column(
           modifier = Modifier
             .fillMaxHeight(),
           verticalArrangement = Arrangement.SpaceBetween,
         ) {
-          when (viewModel.clickedTransferItem.value ?: TransferDestinations.SEND.ordinal) {
+          when (viewModel.clickedTransferItem.value ?: SEND.ordinal) {
             SEND.ordinal -> {
               Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 NavigationCurrencies()
@@ -220,7 +231,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -229,7 +240,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.error_invalid_amount),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -238,7 +249,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.error_invalid_address),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -247,7 +258,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.activity_iab_no_network_message),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -256,7 +267,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.p2p_send_error_not_enough_funds),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -265,7 +276,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -470,7 +481,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(ManageWalletFragment.ADDRESS_KEY, address)
     clipboard.setPrimaryClip(clip)
-    Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, R.string.copied_to_clipboard, LENGTH_SHORT).show()
   }
 
   private fun createQRImage(address: String): Bitmap? {
@@ -480,7 +491,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       val barcodeEncoder = BarcodeEncoder()
       barcodeEncoder.createBitmap(bitMatrix)
     } catch (e: Exception) {
-      Toast.makeText(context, getString(R.string.error_fail_generate_qr), Toast.LENGTH_SHORT).show()
+      Toast.makeText(context, getString(R.string.error_fail_generate_qr), LENGTH_SHORT).show()
       null
     }
   }
