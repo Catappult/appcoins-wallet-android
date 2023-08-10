@@ -518,6 +518,8 @@
     <item name="colorControlHighlight">@color/styleguide_dark_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
     <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
+<!--    this removes the floating hint, but also messes with the normal hint color... -->
+<!--    <item name="hintEnabled">false</item>-->
   </style>
 
   <style name="editTextStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
@@ -1042,7 +1044,6 @@
     <item name="android:letterSpacing">0.01</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
-
   </style>
 
   <style name="VerifyWallet.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
@@ -1051,6 +1052,14 @@
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
     <item name="android:lineSpacingExtra">4sp</item>
+  </style>
+
+  <style name="VerifyWallet.Info" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:gravity">start</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="VerifyWallet.CodeError" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">

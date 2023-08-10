@@ -49,7 +49,7 @@
 
         <TextView
             android:id="@+id/info_description"
-            style="@style/VerifyWallet.Text"
+            style="@style/VerifyWallet.Info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
