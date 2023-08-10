@@ -34,7 +34,7 @@
 
       <TextView
           android:id="@+id/title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
@@ -75,7 +75,7 @@
 
       <TextView
           android:id="@+id/code_title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="27dp"
