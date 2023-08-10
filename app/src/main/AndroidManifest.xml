@@ -250,11 +250,11 @@
 
     <activity
         android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
-        android:label="@string/verification_settings_unverified_title"
+        android:label=""
         android:windowSoftInputMode="stateHidden" />
     <activity
         android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-        android:label="@string/verification_settings_unverified_title"
+        android:label=""
         android:windowSoftInputMode="stateHidden" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->

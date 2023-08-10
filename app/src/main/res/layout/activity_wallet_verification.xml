@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
+    android:background="@color/styleguide_blue"
     >
 
-  <include
-      android:id="@+id/app_bar"
-      layout="@layout/layout_app_bar"
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/app_bar_verify"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_bar"
+      app:layout_constraintTop_toBottomOf="@id/app_bar_verify"
       />
 
   <FrameLayout
@@ -35,7 +35,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_bar"
+      app:layout_constraintTop_toBottomOf="@id/app_bar_verify"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@
 
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
+  <color name="styleguide_green2">#64BA92</color>
   <color name="styleguide_red">#E02D3E</color>
   <color name="styleguide_vip_yellow">#EFA226</color>
   <color name="styleguide_orange">#f86d00</color>
