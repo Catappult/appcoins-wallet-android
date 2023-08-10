@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ChangeActiveWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
@@ -59,6 +60,17 @@ class MyWalletsNavigator @Inject constructor(
   }
   fun navigateToManageWalletBottomSheet() {
     val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
+  }
+
+  fun navigateToChangeActiveWalletBottomSheet(walletAddress: String, walletName: String, walletBalance: String, walletBalanceSymbol: String) {
+    val bundle = Bundle()
+    val bottomSheet = ChangeActiveWalletBottomSheetFragment.newInstance()
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_NAME, walletName)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol)
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 
