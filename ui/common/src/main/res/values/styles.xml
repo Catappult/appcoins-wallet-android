@@ -1035,9 +1035,9 @@
 
   <style name="VerifyWallet" />
 
-  <style name="VerifyWallet.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+  <style name="VerifyWallet.Text" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">@color/styleguide_light_grey</item>
-    <item name="android:textSize">16sp</item>
+    <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">2sp</item>
@@ -1106,7 +1106,7 @@
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
-  <style name="VerifyWallet.Example.Summary.Title" parent="VerifyWallet.Title">
+  <style name="VerifyWallet.Example.Summary.Title" parent="VerifyWallet.Text">
     <item name="android:textSize">12sp</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textStyle">bold</item>

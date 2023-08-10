@@ -26,7 +26,7 @@
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/ic_payment_method_credit_card"
+      tools:src="@drawable/ic_credit_card"
       />
 
   <TextView
