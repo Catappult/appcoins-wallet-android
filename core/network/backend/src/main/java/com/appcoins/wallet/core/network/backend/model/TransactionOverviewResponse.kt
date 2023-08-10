@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 data class TransactionResponse(
   @SerializedName("txid") val transactionId: String,
-  val type: TransactionType,
+  val type: BackendTransactionType,
   val sender: String,
   val receiver: String,
   @SerializedName("usd_amount") val usdAmount: BigDecimal,
@@ -15,8 +15,7 @@ data class TransactionResponse(
   val country: String,
 )
 
-@Suppress("unused")
-enum class TransactionType {
+enum class BackendTransactionType {
   BONUS_REVERT, TOPUP_REVERT, WALLET_TOPUP, BONUS_REFERRAL, IAP_REVERT, SUBSCRIPTION_REVERT,
   BONUS_REFUND, TOPUP_REFUND, IAP_REFUND, SUBSCRIPTION_REFUND, POA_REJECTED, ICO, BONUS_GIFTCARD,
   IAP, VOUCHER, ESKILLS, ESKILLS_REVERT, ESKILLS_REFUND, ESKILLS_WITHDRAW, ESKILLS_REWARD, TRANSFER,

@@ -2,7 +2,8 @@ package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.TransactionsRepository
-import com.appcoins.wallet.core.network.backend.model.TransactionType
+import com.appcoins.wallet.core.analytics.analytics.logging.Log
+import com.appcoins.wallet.core.network.backend.model.BackendTransactionType
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 
 import io.reactivex.Single
@@ -17,17 +18,18 @@ class VerifyUserTopUpUseCase @Inject constructor(
       .flatMap { wallet ->
         transactionsRepository.getTransactionList(
           wallet.address, listOf(
-            TransactionType.WALLET_TOPUP, TransactionType.WEB_TOPUP, TransactionType.BONUS_GIFTCARD
-          )
+            BackendTransactionType.WALLET_TOPUP, BackendTransactionType.WEB_TOPUP, BackendTransactionType.BONUS_GIFTCARD
+          ), MAX_NR_OF_TRANSACTIONS, 0
         )
           .map { transactions ->
             when {
               transactions.isEmpty() -> Status.NO_TOPUP
-              hasValidTransaction(transactions) -> Status.PAYMENT_METHOD_NOT_SUPPORTED
+              !hasValidTransaction(transactions) -> Status.PAYMENT_METHOD_NOT_SUPPORTED
               else -> Status.AVAILABLE
             }
           }
       }
+      .doOnError {Log.d("VerifyTopUp", it.stackTraceToString())}
   }
 
   private fun hasValidTransaction(transactions: List<TransactionResponse>): Boolean {
@@ -55,6 +57,7 @@ class VerifyUserTopUpUseCase @Inject constructor(
       "true_money_wallet",
       "yoo_money",
     )
+    const val MAX_NR_OF_TRANSACTIONS = 100
   }
 }
 

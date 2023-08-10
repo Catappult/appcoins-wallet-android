@@ -202,7 +202,7 @@ class BackendApiModule {
   @Provides
   fun provideTransactionApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): TransactionApi {
-    return retrofit.create(TransactionApi::class.java)
+  ): TransactionOverviewApi {
+    return retrofit.create(TransactionOverviewApi::class.java)
   }
 }
