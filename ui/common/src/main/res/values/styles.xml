@@ -498,20 +498,34 @@
   </style>
 
   <style name="EditTextCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
-    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlActivated">@color/styleguide_light_grey</item>
   </style>
 
   <style name="AppcoinsTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="boxCornerRadiusBottomEnd">6dp</item>
+    <item name="boxCornerRadiusBottomStart">6dp</item>
+    <item name="boxCornerRadiusTopEnd">6dp</item>
+    <item name="boxCornerRadiusTopStart">6dp</item>
+    <item name="boxBackgroundColor">@color/styleguide_blue_secondary</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">@color/styleguide_black</item>
-    <item name="colorControlActivated">@color/styleguide_black</item>
-    <item name="colorControlNormal">@color/styleguide_black</item>
-    <item name="colorControlHighlight">@color/styleguide_black</item>
+    <item name="hintTextColor">@color/transparent</item>
+    <item name="colorControlActivated">@color/styleguide_dark_grey</item>
+    <item name="colorControlNormal">@color/styleguide_dark_grey</item>
+    <item name="colorControlHighlight">@color/styleguide_dark_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
+    <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
+  </style>
+
+  <style name="editTextStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+    <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColorSecondary">@color/styleguide_light_grey</item>
+    <item name="android:editTextColor">@color/styleguide_light_grey</item>
+    <item name="android:textAppearance">@style/TextS</item>
   </style>
 
   <style name="BillingAddressTextInputLayout" parent="AppcoinsTextInputLayout">
@@ -859,10 +873,12 @@
     <item name="cardBackgroundColor">@color/styleguide_black_transparent_80</item>
     <item name="cardCornerRadius">14dp</item>
   </style>
+
   <style name="VipRefButtonText" parent="TextM">
     <item name="android:fontFamily">@font/roboto_medium</item>
     <item name="android:textColor">@color/styleguide_vip_yellow</item>
   </style>
+
   <style name="VipRefButtonSubText" parent="TextS">
     <item name="android:textColor">@color/styleguide_white</item>
   </style>
@@ -1020,7 +1036,7 @@
   <style name="VerifyWallet" />
 
   <style name="VerifyWallet.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">16sp</item>
     <item name="android:gravity">start</item>
     <item name="android:letterSpacing">0.01</item>
@@ -1028,7 +1044,7 @@
   </style>
 
   <style name="VerifyWallet.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
@@ -1043,8 +1059,8 @@
   </style>
 
   <style name="VerifyWallet.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:background">@color/styleguide_green_transparent_20</item>
-    <item name="android:textColor">@color/styleguide_green</item>
+    <item name="android:background">@color/styleguide_green2</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:lineSpacingExtra">4sp</item>
