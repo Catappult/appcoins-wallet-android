@@ -140,6 +140,7 @@
         android:enabled="false"
         app:buttonText="@string/cancel"
         app:buttonType="outlined"
+        app:buttonColor="@color/styleguide_light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/submit"
         app:layout_constraintVertical_bias="0"
