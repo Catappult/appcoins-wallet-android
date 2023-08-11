@@ -12,7 +12,7 @@ interface AppcoinsRewardsRepository {
 
   fun sendCredits(toAddress: String, walletAddress: String, signature: String, amount: BigDecimal,
                   origin: String,
-                  type: String, packageName: String): Single<Status>
+                  type: String, packageName: String): Single<Pair<Status, Transaction>>
 
   enum class Status {
     API_ERROR, UNKNOWN_ERROR, SUCCESS, INVALID_AMOUNT, INVALID_WALLET_ADDRESS, NOT_ENOUGH_FUNDS,

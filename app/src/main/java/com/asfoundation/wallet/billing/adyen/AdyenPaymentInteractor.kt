@@ -7,13 +7,13 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.asfoundation.wallet.billing.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor

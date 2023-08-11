@@ -20,8 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -44,10 +43,9 @@ import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
-import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
-import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
@@ -56,12 +54,12 @@ import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -79,6 +77,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
+  private val navBarViewModel: NavBarViewModel by activityViewModels()
 
   private val pushNotificationPermissionLauncher =
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
@@ -115,6 +114,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     viewModel.fetchPromotions()
   }
 
+  override fun onStart() {
+    super.onStart()
+    navBarViewModel.clickedItem.value = Destinations.HOME.ordinal
+  }
+
   override fun onPause() {
     super.onPause()
     viewModel.stopRefreshingData()
@@ -145,7 +149,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   internal fun HomeScreenContent(
     padding: PaddingValues
@@ -158,7 +161,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       with(viewModel.balance.value) {
         BalanceCard(
           newWallet = viewModel.newWallet.value,
-          showBackup = viewModel.state.showBackup,
+          showBackup = viewModel.showBackup.value,
           balance = symbol + formatter.formatCurrency(amount, FIAT),
           currencyCode = currency,
           onClickCurrencies = { viewModel.onCurrencySelectorClick() },
@@ -183,7 +186,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         if (transactionsState.transactions.isNotEmpty())
           Column(
             modifier = Modifier
-              .heightIn(0.dp, 400.dp)
+              .heightIn(0.dp, 480.dp)
               .padding(horizontal = 16.dp)
           ) {
             Text(
@@ -277,6 +280,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
+    setBackup(state.hasBackup)
   }
 
   override fun onSideEffect(sideEffect: HomeSideEffect) {
@@ -295,8 +299,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-
-      HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
@@ -339,10 +341,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success ->
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
+
+      else -> Unit
+    }
+  }
+
+  private fun setBackup(hasBackup: Async<Boolean>) {
+    when (hasBackup) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+
+      is Async.Success ->
+        viewModel.showBackup.value = !(hasBackup.value ?: false)
+
       else -> Unit
     }
   }
@@ -353,6 +371,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -396,4 +415,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     ) as NavHostFragment
     return navHostFragment.navController
   }
+
+
 }

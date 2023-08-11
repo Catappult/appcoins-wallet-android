@@ -47,7 +47,7 @@ interface AdyenApi {
     @Body payment: TokenPayment
   ): Single<AdyenTransactionResponse>
 
-  @PATCH("8.20200815/gateways/adyen_v2/transactions/{uid}")
+  @PATCH("8.20230518/gateways/adyen_v2/transactions/{uid}")
   fun submitRedirect(
     @Path("uid") uid: String,
     @Query("wallet.address") address: String,

@@ -131,7 +131,7 @@ class OnChainBuyPresenter(
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
           .observeOn(viewScheduler)
           .map { buildBundle(it, transaction.orderReference) }
-          .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
+          .flatMapCompletable { bundle -> handleSuccessTransaction(bundle, transaction.uid ?: "") }
           .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction {
@@ -196,11 +196,11 @@ class OnChainBuyPresenter(
     }
   }
 
-  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+  private fun handleSuccessTransaction(bundle: Bundle, txId: String): Completable {
     return Completable.fromAction { view.showTransactionCompleted() }
       .subscribeOn(viewScheduler)
       .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-      .andThen(Completable.fromRunnable { view.finish(bundle) })
+      .andThen(Completable.fromRunnable { view.finish(bundle, txId) })
   }
 
   private fun buildBundle(payment: Payment, orderReference: String?): Bundle {
@@ -245,11 +245,15 @@ class OnChainBuyPresenter(
     )
   }
 
-  fun sendPaymentSuccessEvent() {
+  fun sendPaymentSuccessEvent(txId: String) {
     analytics.sendPaymentSuccessEvent(
-      appPackage, transactionBuilder.skuId,
-      transactionBuilder.amount()
-        .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type
+      packageName = appPackage,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_APPC,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
     )
   }
 

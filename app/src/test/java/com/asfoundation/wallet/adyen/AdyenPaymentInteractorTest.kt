@@ -2,12 +2,13 @@ package com.asfoundation.wallet.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
@@ -15,18 +16,14 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificati
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AttributionEntity
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import okhttp3.internal.wait
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
