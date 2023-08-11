@@ -93,7 +93,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       .doOnNext { authorisedPaymentModel ->
         when {
           authorisedPaymentModel.status == PaymentModel.Status.COMPLETED -> {
-            events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType)
+            events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType, authorisedPaymentModel.uid)
             createBundle(
               authorisedPaymentModel.hash,
               authorisedPaymentModel.orderReference,

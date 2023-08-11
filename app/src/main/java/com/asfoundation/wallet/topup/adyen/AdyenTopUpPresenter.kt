@@ -172,11 +172,17 @@ class AdyenTopUpPresenter(
           view.showValues(priceAmount, it.priceCurrency)
           retrievedAmount = it.priceAmount.toString()
           retrievedCurrency = it.priceCurrency
-          if (paymentType == PaymentType.CARD.name) {
-            view.finishCardConfiguration(it, false)
-            handleTopUpClick()
-          } else if (paymentType == PaymentType.PAYPAL.name) {
-            launchPaypal(it.paymentMethod!!)
+          when (paymentType) {
+            PaymentType.CARD.name -> {
+              view.finishCardConfiguration(it, false)
+              handleTopUpClick()
+            }
+            PaymentType.GIROPAY.name -> {
+              launchPaypal(it.paymentMethod!!)
+            }
+            PaymentType.PAYPAL.name -> {
+              launchPaypal(it.paymentMethod!!)
+            }
           }
           loadBonusIntoView()
         }
@@ -538,10 +544,16 @@ class AdyenTopUpPresenter(
   }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
-    return if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    return when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GIROPAY.name -> {
+        AdyenPaymentRepository.Methods.GIROPAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
   }
 

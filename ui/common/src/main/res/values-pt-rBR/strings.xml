@@ -1160,7 +1160,7 @@
   <string name="vip_program_promotions_tab_2">Confira as promoções que temos para você!</string>
   <string name="vip_program_exclusivity_tag">Apenas para VIPs</string>
   <string name="vip_program_referral_button_title">Programa de Indicação para VIPs</string>
-  <string name="vip_program_referral_button_body">%s% de bônus para você e seus amigos.</string>
+  <string name="vip_program_referral_button_body">%s%% de bônus para você e seus amigos.</string>
   <string name="vip_program_promotions_list_title">Promoções especiais para você</string>
   <string name="vip_program_promo_code_tag">Código promocional</string>
   <string name="vip_program_referral_page_title">Programa de Indicação para VIPs</string>

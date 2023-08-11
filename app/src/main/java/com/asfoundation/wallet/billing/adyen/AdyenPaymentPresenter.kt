@@ -23,6 +23,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asfoundation.wallet.billing.gameshub.GamesHubBroadcastService
 import com.asfoundation.wallet.ui.iab.*
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -150,16 +151,22 @@ class AdyenPaymentPresenter(
         } else {
           val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
           view.showProductPrice(amount, it.priceCurrency)
-          if (paymentType == PaymentType.CARD.name) {
-            priceAmount = it.priceAmount
-            priceCurrency = it.priceCurrency
-            view.hideLoadingAndShowView()
-            sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            view.finishCardConfiguration(it, false)
-            handleBuyClick(it.priceAmount, it.priceCurrency)
-            paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-          } else if (paymentType == PaymentType.PAYPAL.name) {
-            launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+          when (paymentType) {
+            PaymentType.CARD.name -> {
+              priceAmount = it.priceAmount
+              priceCurrency = it.priceCurrency
+              view.hideLoadingAndShowView()
+              sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+              view.finishCardConfiguration(it, false)
+              handleBuyClick(it.priceAmount, it.priceCurrency)
+              paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            }
+            PaymentType.GIROPAY.name -> {
+              launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+            }
+            PaymentType.PAYPAL.name -> {
+              launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+            }
           }
         }
       }
@@ -170,7 +177,7 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun launchPaypal(
+  private fun launchPaymentAdyen(
     paymentMethodInfo: ModelObject,
     priceAmount: BigDecimal,
     priceCurrency: String
@@ -216,7 +223,7 @@ class AdyenPaymentPresenter(
       view.showLoading()
       view.lockRotation()
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
-      paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_PP)
+      paymentAnalytics.stopTimingForTotalEvent(mapPaymentToAnalytics(paymentType))
       paymentAnalytics.startTimingForPurchaseEvent()
       handleAdyenAction(paymentModel)
     }
@@ -293,7 +300,7 @@ class AdyenPaymentPresenter(
         .flatMapCompletable {
           when {
             it.status == COMPLETED -> {
-              sendPaymentSuccessEvent()
+              sendPaymentSuccessEvent(it.uid)
               createBundle(it.hash, it.orderReference, it.purchaseUid)
                 .doOnSuccess {
                   sendPaymentEvent()
@@ -644,16 +651,18 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun sendPaymentSuccessEvent() {
+  private fun sendPaymentSuccessEvent(txId: String) {
     disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         analytics.sendPaymentSuccessEvent(
-          transactionBuilder.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          mapPaymentToAnalytics(paymentType),
-          transaction.type
+          packageName = transactionBuilder.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = mapPaymentToAnalytics(paymentType),
+          transactionType = transaction.type,
+          txId = txId,
+          valueUsd = transaction.amountUsd.toString()
         )
       }
       .subscribe({}, { it.printStackTrace() })
@@ -687,15 +696,23 @@ class AdyenPaymentPresenter(
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
       PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+    } else if (paymentType == PaymentType.GIROPAY.name) {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
     } else {
       PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
-    if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GIROPAY.name -> {
+        AdyenPaymentRepository.Methods.GIROPAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
 
   private fun mapToAdyenBillingAddress(billingAddressModel: BillingAddressModel?): AdyenBillingAddress? =
@@ -731,6 +748,11 @@ class AdyenPaymentPresenter(
       bundle.putString(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.PAYPAL.id
+      )
+    } else if (paymentType == PaymentType.GIROPAY.name) {
+      bundle.putString(
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.GIROPAY.id
       )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
@@ -867,6 +889,7 @@ class AdyenPaymentPresenter(
     val paymentMethod = when (paymentType) {
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.GIROPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)

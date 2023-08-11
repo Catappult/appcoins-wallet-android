@@ -170,6 +170,6 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {
-    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal"), GIROPAY("giropay", "giropay")
   }
 }

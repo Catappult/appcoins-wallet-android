@@ -29,7 +29,7 @@ public class CreditsRemoteRepository
   }
 
   @NotNull @Override
-  public Completable sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
+  public Single<Transaction> sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
       @NotNull String signature, @NotNull BigDecimal amount, @NotNull String origin,
       @NotNull String type, @NotNull String packageName) {
     return remoteRepository.transferCredits(toWallet, origin, type, "appcoins_credits",
