@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.math.BigDecimal
 
-interface GamificationApi {
+interface GamificationApi {  //
   @GET("gamification/1.20230531/user_stats")
   fun getUserStats(
     @Query("address") address: String,
