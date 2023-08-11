@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.gameshub
+package com.appcoins.wallet.core.analytics.analytics.gameshub
 
 import android.content.Context
 import android.content.Intent

@@ -1,10 +1,8 @@
-package com.asfoundation.wallet.billing.partners
+package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.content.SharedPreferences
-import com.appcoins.wallet.core.utils.android_common.Log
+import android.util.Log
 import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
-import com.asf.wallet.BuildConfig
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -18,9 +16,11 @@ class PartnerAddressService @Inject constructor(
   AddressService {
 
   val IS_GAME_FROM_GAMESHUB_KEY = "game_from_gameshub"
+  val DEFAULT_STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad"
+  val DEFAULT_OEM_ADDRESS = "DEFAULT_OEM_ADDRESS"
 
-  private val defaultStoreAddress: String = BuildConfig.DEFAULT_STORE_ADDRESS
-  private val defaultOemAddress: String = BuildConfig.DEFAULT_OEM_ADDRESS
+  private val defaultStoreAddress: String = DEFAULT_STORE_ADDRESS
+  private val defaultOemAddress: String = DEFAULT_OEM_ADDRESS
   private val defaultGamesHubPackage: String = MiscProperties.GAMESHUB_PACKAGE
 
   override fun getStoreAddress(suggestedStoreAddress: String?): String {

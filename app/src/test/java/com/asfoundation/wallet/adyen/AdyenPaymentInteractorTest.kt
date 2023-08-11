@@ -16,8 +16,6 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificati
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AttributionEntity
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract

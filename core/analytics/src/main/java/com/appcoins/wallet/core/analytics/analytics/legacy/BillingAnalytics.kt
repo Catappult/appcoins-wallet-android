@@ -1,10 +1,9 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
 
 import android.content.Context
-import android.content.SharedPreferences
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.billing.gameshub.GamesHubBroadcastService
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
+import com.appcoins.wallet.core.analytics.analytics.gameshub.GamesHubBroadcastService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -13,8 +12,7 @@ import javax.inject.Inject
 class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,
-  private val partnerAddressService: PartnerAddressService,
-  private val sharedPreferences: SharedPreferences
+  private val partnerAddressService: PartnerAddressService
   ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
