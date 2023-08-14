@@ -3,7 +3,7 @@
  * Modified by Neurophobic Animal on 24/05/2016.
  */
 
-package com.appcoins.wallet.core.network.eskills.downloadmanager.utils;
+package com.appcoins.wallet.core.network.eskills.downloadmanager.database.room;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;

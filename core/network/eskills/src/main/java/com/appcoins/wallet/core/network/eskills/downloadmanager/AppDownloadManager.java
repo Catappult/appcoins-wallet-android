@@ -1,14 +1,15 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import android.util.Log;
 import androidx.annotation.VisibleForTesting;
-import io.reactivex.BackpressureStrategy;
+
+import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.Flowable;
+import org.reactivestreams.Subscription;
 
 /**
  * Created by filipegoncalves on 7/27/18.
@@ -38,14 +39,14 @@ public class AppDownloadManager implements AppDownloader {
   }
 
   @Override public void startAppDownload() {
-    subscribe = Flowable.fromIterable(app.getDownloadFiles())
+    subscribe =  Observable.fromIterable(app.getDownloadFiles())
         .flatMap(downloadAppFile -> startFileDownload(downloadAppFile, app.getAttributionId()))
         .subscribe(__ -> {
         }, Throwable::printStackTrace);
   }
 
   @Override public Completable pauseAppDownload() {
-    return Flowable.fromIterable(app.getDownloadFiles())
+    return Observable.fromIterable(app.getDownloadFiles())
         .flatMap(downloadAppFile -> getFileDownloader(downloadAppFile.getMainDownloadPath()))
         .filter(retryFileDownloader -> retryFileDownloader != null)
         .flatMapCompletable(fileDownloader -> fileDownloader.pauseDownload()
@@ -53,16 +54,16 @@ public class AppDownloadManager implements AppDownloader {
   }
 
   @Override public Completable removeAppDownload() {
-    return Flowable.fromIterable(app.getDownloadFiles())
+    return Observable.fromIterable(app.getDownloadFiles())
         .flatMap(downloadAppFile -> getFileDownloader(downloadAppFile.getMainDownloadPath()))
         .flatMapCompletable(fileDownloader -> fileDownloader.removeDownloadFile()
             .onErrorComplete());
   }
 
-  @Override public Flowable<AppDownloadStatus> observeDownloadProgress() {
+  @Override public Observable<AppDownloadStatus> observeDownloadProgress() {
     return observeFileDownload().flatMap(fileDownloadCallback -> {
       setAppDownloadStatus(fileDownloadCallback);
-      return Flowable.just(appDownloadStatus);
+      return Observable.just(appDownloadStatus);
     })
         .doOnError(throwable -> throwable.printStackTrace())
         .map(__ -> appDownloadStatus);
@@ -77,9 +78,9 @@ public class AppDownloadManager implements AppDownloader {
     }
   }
 
-  private Flowable<FileDownloadCallback> startFileDownload(DownloadAppFile downloadAppFile,
+  private Observable<FileDownloadCallback> startFileDownload(DownloadAppFile downloadAppFile,
       String attributionId) {
-    return Flowable.just(
+    return Observable.just(
         fileDownloaderProvider.createRetryFileDownloader(downloadAppFile.getDownloadMd5(),
             downloadAppFile.getMainDownloadPath(), downloadAppFile.getFileType(),
             downloadAppFile.getPackageName(), downloadAppFile.getVersionCode(),
@@ -88,22 +89,22 @@ public class AppDownloadManager implements AppDownloader {
         .doOnNext(
             fileDownloader -> fileDownloaderPersistence.put(downloadAppFile.getMainDownloadPath(),
                 fileDownloader))
-        .doOnNext(__ -> Log
+        .doOnNext(__ -> Logger.getInstance()
             .d(TAG, "Starting app file download " + downloadAppFile.getFileName()))
         .doOnNext(fileDownloader -> fileDownloader.startFileDownload())
         .flatMap(fileDownloader -> handleFileDownloadProgress(fileDownloader))
         .doOnError(Throwable::printStackTrace);
   }
 
-  private Flowable<FileDownloadCallback> observeFileDownload() {
-    return fileDownloadSubject.toFlowable(BackpressureStrategy.LATEST);
+  private Observable<FileDownloadCallback> observeFileDownload() {
+    return fileDownloadSubject;
   }
 
   private void setAppDownloadStatus(FileDownloadCallback fileDownloadCallback) {
     appDownloadStatus.setFileDownloadCallback(fileDownloadCallback);
   }
 
-  private Flowable<FileDownloadCallback> handleFileDownloadProgress(
+  private Observable<FileDownloadCallback> handleFileDownloadProgress(
       RetryFileDownloader fileDownloader) {
     return fileDownloader.observeFileDownloadProgress()
         .doOnNext(fileDownloadCallback -> fileDownloadSubject.onNext(fileDownloadCallback))
@@ -138,7 +139,7 @@ public class AppDownloadManager implements AppDownloader {
   }
 
   @VisibleForTesting
-  public Flowable<RetryFileDownloader> getFileDownloader(String mainDownloadPath) {
-    return Flowable.just(fileDownloaderPersistence.get(mainDownloadPath));
+  public Observable<RetryFileDownloader> getFileDownloader(String mainDownloadPath) {
+    return Observable.just(fileDownloaderPersistence.get(mainDownloadPath));
   }
 }

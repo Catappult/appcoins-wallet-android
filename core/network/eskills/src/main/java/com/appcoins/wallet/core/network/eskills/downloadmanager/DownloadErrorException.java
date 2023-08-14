@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import cm.aptoide.pt.utils.BaseException;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils.BaseException;
 
 /**
  * Created by trinkes on 7/22/16.

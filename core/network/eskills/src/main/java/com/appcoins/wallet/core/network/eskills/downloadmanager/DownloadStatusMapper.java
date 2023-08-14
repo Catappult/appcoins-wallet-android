@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import cm.aptoide.pt.database.room.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomDownload;
 
 /**
  * Created by filipegoncalves on 9/4/18.

@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by trinkes on 9/13/16.

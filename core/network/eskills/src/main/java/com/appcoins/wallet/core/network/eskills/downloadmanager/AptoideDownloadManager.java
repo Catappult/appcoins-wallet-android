@@ -1,16 +1,18 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.FileUtils;
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.RoomDownload;
+
+import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils.FileUtils;
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-import org.reactivestreams.Publisher;
+
 
 /**
  * Created by filipegoncalves on 7/27/18.
@@ -71,13 +73,13 @@ public class AptoideDownloadManager implements DownloadManager {
             () -> appDownloaderMap.put(download.getMd5(), createAppDownloadManager(download)));
   }
 
-  @Override public Flowable<RoomDownload> getDownloadAsObservable(String md5) {
+  @Override public Observable<RoomDownload> getDownloadAsObservable(String md5) {
     return downloadsRepository.getDownloadAsObservable(md5)
         .flatMap(download -> {
           if (download == null || isFileMissingFromCompletedDownload(download)) {
-            return Flowable.error((Callable<? extends Throwable>) new DownloadNotFoundException());
+            return Observable.error(new DownloadNotFoundException());
           } else {
-            return Flowable.just(download);
+            return Observable.just(download);
           }
         })
         .takeUntil(
@@ -88,18 +90,18 @@ public class AptoideDownloadManager implements DownloadManager {
     return downloadsRepository.getDownloadAsSingle(md5)
         .flatMap(download -> {
           if (download == null || isFileMissingFromCompletedDownload(download)) {
-            return Single.error((Callable<? extends Throwable>) new DownloadNotFoundException());
+            return Single.error(new DownloadNotFoundException());
           } else {
             return Single.just(download);
           }
         });
   }
 
-  @Override public Flowable<RoomDownload> getDownloadsByMd5(String md5) {
+  @Override public Observable<RoomDownload> getDownloadsByMd5(String md5) {
     return downloadsRepository.getDownloadListByMd5(md5)
-        .flatMap(downloads -> (Publisher<?>) Flowable.fromIterable(downloads)
+        .flatMap(downloads -> Observable.fromIterable(downloads)
             .filter(download -> download != null && !isFileMissingFromCompletedDownload(download))
-            .toList())
+            .toList().toObservable())
         .map(downloads -> {
           if (downloads.isEmpty()) {
             return null;
@@ -129,15 +131,13 @@ public class AptoideDownloadManager implements DownloadManager {
     return downloadsRepository.getDownloadsInProgress()
         .filter(downloads -> !downloads.isEmpty())
         .flatMapIterable(downloads -> downloads)
-        .flatMap(download -> getAppDownloader(download).flatMapCompletable(
-            appDownloader -> appDownloader.pauseAppDownload())
-            .map(appDownloader -> download))
-        .toCompletable();
+        .flatMapCompletable(download -> getAppDownloader(download).flatMapCompletable(
+            appDownloader -> appDownloader.pauseAppDownload()));
   }
 
   @Override public Completable pauseDownload(String md5) {
     return downloadsRepository.getDownloadAsObservable(md5)
-        .first()
+        .first(null).toObservable()
         .doOnError(throwable -> throwable.printStackTrace())
         .flatMap(download -> {
           download.setOverallDownloadStatus(RoomDownload.PAUSED);
@@ -145,28 +145,25 @@ public class AptoideDownloadManager implements DownloadManager {
               .andThen(Observable.just(download));
         })
         .flatMap(download -> getAppDownloader(download))
-        .flatMapCompletable(appDownloader -> appDownloader.pauseAppDownload())
-        .toCompletable();
+        .flatMapCompletable(appDownloader -> appDownloader.pauseAppDownload());
   }
 
   @Override public Completable removeDownload(String md5) {
     return downloadsRepository.getDownloadAsObservable(md5)
-        .first()
+        .first(null).toObservable()
         .flatMap(download -> getAppDownloader(download).flatMap(
             appDownloader -> appDownloader.removeAppDownload()
                 .andThen(downloadsRepository.remove(md5))
                 .andThen(Observable.just(download))))
         .doOnNext(download -> removeDownloadFiles(download))
-        .toCompletable();
+        .ignoreElements();
   }
 
   @Override public Completable invalidateDatabase() {
-    return getDownloadsList().first()
+    return getDownloadsList()
         .flatMapIterable(downloads -> downloads)
         .filter(download -> getStateIfFileExists(download) == RoomDownload.FILE_MISSING)
-        .flatMapCompletable(download -> downloadsRepository.remove(download.getMd5()))
-        .toList()
-        .toCompletable();
+        .flatMapCompletable(download -> downloadsRepository.remove(download.getMd5()));
   }
 
   private void dispatchDownloads() {
@@ -178,7 +175,7 @@ public class AptoideDownloadManager implements DownloadManager {
             .d(TAG, "Downloads in Progress " + downloads.size()))
         .filter(List::isEmpty)
         .flatMap(__ -> downloadsRepository.getInQueueDownloads()
-            .first())
+            .first(null).toObservable())
         .distinctUntilChanged()
         .doOnError(throwable -> throwable.printStackTrace())
         .retry()
@@ -208,7 +205,7 @@ public class AptoideDownloadManager implements DownloadManager {
               return downloadsRepository.save(download);
             }))
         .retry()
-        .subscribe(__ -> {
+        .subscribe(()-> {
         }, Throwable::printStackTrace);
   }
 
@@ -283,7 +280,7 @@ public class AptoideDownloadManager implements DownloadManager {
     return appDownloader.observeDownloadProgress()
         .flatMap(appDownloadStatus -> downloadsRepository.getDownloadAsObservable(
             appDownloadStatus.getMd5())
-            .first()
+            .first(null).toObservable()
             .flatMap(download -> updateDownload(download, appDownloadStatus).andThen(
                 Observable.just(download))))
         .doOnNext(download -> {

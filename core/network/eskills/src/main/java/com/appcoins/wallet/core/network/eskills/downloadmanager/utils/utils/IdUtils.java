@@ -3,7 +3,7 @@
  * Modified on 19/05/2016.
  */
 
-package com.appcoins.wallet.core.network.eskills.downloadmanager.utils;
+package com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils;
 
 import android.util.Base64;
 import java.security.SecureRandom;

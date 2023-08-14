@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 
-import android.util.Log;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
 import java.util.List;
 
 /**
@@ -113,7 +113,7 @@ public class AppDownloadStatus {
               return AppDownloadState.PROGRESS;
             } else if (fileDownloadCallbackList.indexOf(fileDownloadCallback)
                 == fileDownloadCallbackList.size() - 1) {
-              Log
+              Logger.getInstance()
                   .d("AppDownloadState", "emitting APPDOWNLOADSTATE completed " + md5);
               return AppDownloadState.COMPLETED;
             }

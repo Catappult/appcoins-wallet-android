@@ -1,9 +1,9 @@
-package com.appcoins.wallet.core.network.eskills.downloadmanager.utils;
+package com.appcoins.wallet.core.network.eskills.downloadmanager.database.room;
 
 import android.text.TextUtils;
 import androidx.annotation.IntDef;
 import androidx.room.Ignore;
-
+import cm.aptoide.pt.utils.IdUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * Created by filipegoncalves on 7/27/18.
@@ -15,7 +15,7 @@ public interface AppDownloader {
 
   Completable removeAppDownload();
 
-  Flowable<AppDownloadStatus> observeDownloadProgress();
+  Observable<AppDownloadStatus> observeDownloadProgress();
 
   void stop();
 }

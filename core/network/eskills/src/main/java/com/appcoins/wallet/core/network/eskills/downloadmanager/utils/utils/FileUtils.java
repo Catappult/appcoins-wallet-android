@@ -3,22 +3,20 @@
  * Modified on 04/08/2016.
  */
 
-package com.appcoins.wallet.core.network.eskills.downloadmanager.utils;
+package com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
-import io.reactivex.Flowable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import cm.aptoide.pt.logger.Logger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import kotlinx.coroutines.flow.Flow;
-import org.reactivestreams.Publisher;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by trinkes on 5/18/16.
@@ -27,7 +25,7 @@ public class FileUtils {
   public static final String MOVE = "Move";
   public static final String COPY = "Copy";
   private static final String TAG = FileUtils.class.getSimpleName();
-  private Consumer<String> sendFileMoveEvent;
+  private Action1<String> sendFileMoveEvent;
 
   public FileUtils() {
   }
@@ -63,13 +61,13 @@ public class FileUtils {
 
       return true;
     } catch (IOException e) {
-      Log
+      Logger.getInstance()
           .e(TAG, e.getMessage());
       if (fos != null) {
         try {
           fos.close();
         } catch (IOException e1) {
-          Log
+          Logger.getInstance()
               .e(TAG, e1.getMessage());
         }
       }
@@ -189,7 +187,7 @@ public class FileUtils {
       if (outputFile.exists()) {
         outputFile.delete();
       }
-      Log
+      Logger.getInstance()
           .e(TAG, e.getMessage());
       //				toReturn = false;
       throw new RuntimeException(e);
@@ -199,16 +197,16 @@ public class FileUtils {
     }
   }
 
-  public Flowable<Long> deleteFolder(File... folders) {
-    return Flowable.fromArray(folders)
+  public Observable<Long> deleteFolder(File... folders) {
+    return Observable.from(folders)
         .observeOn(Schedulers.io())
-        .flatMap(filePath -> Flowable.fromCallable(() -> {
+        .flatMap(filePath -> Observable.fromCallable(() -> {
           long size = deleteDir(filePath);
-          Log
+          Logger.getInstance()
               .d(TAG, "deleting folder " + filePath.getPath() + " size: " + size);
           return size;
         })
-            .onErrorResumeNext(throwable -> (Publisher) Flowable.empty()))
+            .onErrorResumeNext(throwable -> Observable.empty()))
         .toList()
         .map(deletedSizes -> {
           long size = 0;
@@ -216,10 +214,10 @@ public class FileUtils {
             size += deletedSizes.get(i);
           }
           return size;
-        }).toFlowable();
+        });
   }
 
-  public Flowable<Long> deleteFolder(String... folders) {
+  public Observable<Long> deleteFolder(String... folders) {
     File[] files = new File[folders.length];
     for (int i = 0; i < folders.length; i++) {
       files[i] = new File(folders[i]);

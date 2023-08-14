@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * Created by filipegoncalves on 7/31/18.

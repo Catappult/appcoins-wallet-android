@@ -1,9 +1,9 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomDownload;
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
 
@@ -20,17 +20,17 @@ public interface DownloadManager {
 
   Completable startDownload(RoomDownload download);
 
-  Flowable<RoomDownload> getDownloadAsObservable(String md5);
+  Observable<RoomDownload> getDownloadAsObservable(String md5);
 
   Single<RoomDownload> getDownloadAsSingle(String md5);
 
-  Flowable<RoomDownload> getDownloadsByMd5(String md5);
+  Observable<RoomDownload> getDownloadsByMd5(String md5);
 
-  Flowable<List<RoomDownload>> getDownloadsList();
+  Observable<List<RoomDownload>> getDownloadsList();
 
-  Flowable<RoomDownload> getCurrentInProgressDownload();
+  Observable<RoomDownload> getCurrentInProgressDownload();
 
-  Flowable<List<RoomDownload>> getCurrentActiveDownloads();
+  Observable<List<RoomDownload>> getCurrentActiveDownloads();
 
   Completable pauseAllDownloads();
 
