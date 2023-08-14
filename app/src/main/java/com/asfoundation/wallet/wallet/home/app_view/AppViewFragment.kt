@@ -61,7 +61,8 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
   fun AppViewScreen() {
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
-      close = { closeFragment() }
+      close = { closeFragment() },
+      install = { viewModel.installApp(gamePackage) }
     ) {
       viewModel.fetchGameDetails(gamePackage)
     }

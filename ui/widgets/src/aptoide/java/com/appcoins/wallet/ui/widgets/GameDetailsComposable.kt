@@ -88,6 +88,7 @@ private var showEskillsCard by mutableStateOf(true)
 fun GameDetails(
   appDetailsData: GameDetailsData,
   close: () -> Unit,
+  install: () -> Unit,
   function: () -> Unit
 ) {
   function()
@@ -108,7 +109,7 @@ fun GameDetails(
       TopAppView(appDetailsData = appDetailsData, close = close)
       Spacer(modifier = Modifier.height(20.dp))
       Button(
-        onClick = { /*TODO*/ },
+        onClick = { install },
         modifier = Modifier
           .align(Alignment.CenterHorizontally)
           .fillMaxWidth(0.85f)
