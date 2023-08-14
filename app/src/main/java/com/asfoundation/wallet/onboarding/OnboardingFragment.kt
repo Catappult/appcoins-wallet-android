@@ -48,6 +48,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
+  }
+
+  override fun onResume() {
+    super.onResume()
     handleWalletCreationFragmentResult()
   }
 
