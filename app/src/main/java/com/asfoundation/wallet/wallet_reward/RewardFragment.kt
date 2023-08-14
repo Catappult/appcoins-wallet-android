@@ -311,8 +311,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       val gamificationItem: GamificationItem? =
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
 
-
-      gamificationItem?.let { gamificationItem ->
+      if (gamificationItem != null) {
         viewModel.gamificationHeaderModel.value =
           GamificationHeaderModel(
             color = gamificationItem.levelColor,
@@ -330,6 +329,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isVip = gamificationItem.level >= 8,
             isMaxVip = gamificationItem.level >= 9
           )
+      } else {
+        viewModel.gamificationHeaderModel.value = null
       }
 
     }
