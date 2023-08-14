@@ -6,6 +6,8 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.analytics.analytics.partners.AttributionEntity
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
