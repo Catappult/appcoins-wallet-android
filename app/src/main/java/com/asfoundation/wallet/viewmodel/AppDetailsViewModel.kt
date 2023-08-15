@@ -34,7 +34,7 @@ constructor(
 
   }
 
-  fun installApp(packageName: String) {
-    installAppUseCase(packageName)
+  fun installApp(md5: String) {
+    installAppUseCase(md5)
   }
 }

@@ -38,7 +38,8 @@ class GamesRepository @Inject constructor(
             title = it.appName,
             gameIcon = it.appIcon,
             gameBackground = if (it.background == null) defaultBackground else it.background,
-            gamePackage = it.packageName
+            gamePackage = it.packageName,
+            md5 = it.file.md5
           )
 
         }

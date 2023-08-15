@@ -30,11 +30,12 @@ import androidx.fragment.app.viewModels
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
+
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AppViewFragment(val gamePackage: String) : DialogFragment() {
+class AppViewFragment(val gamePackage: String, val md5: String) : DialogFragment() {
 
 
   private val viewModel: AppDetailsViewModel by viewModels()
@@ -62,7 +63,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
       close = { closeFragment() },
-      install = { viewModel.installApp(gamePackage) }
+      install = { viewModel.installApp(md5) }
     ) {
       viewModel.fetchGameDetails(gamePackage)
     }
