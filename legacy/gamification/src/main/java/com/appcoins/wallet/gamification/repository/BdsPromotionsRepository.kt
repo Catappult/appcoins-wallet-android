@@ -26,10 +26,7 @@ class BdsPromotionsRepository @Inject constructor(
     wallet: String, promoCodeString: String?,
     offlineFirst: Boolean = true
   ): Observable<UserStats> = if (offlineFirst) {
-    Observable.concat(
-      getUserStatsFromDB(wallet),
-      getUserStatsFromAPI(wallet, promoCodeString)
-    )
+    getUserStatsFromAPI(wallet, promoCodeString)
   } else {
     getUserStatsFromAPI(wallet, promoCodeString, true)
   }

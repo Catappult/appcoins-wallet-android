@@ -58,8 +58,11 @@ class MyWalletsNavigator @Inject constructor(
     val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
-  fun navigateToManageWalletBottomSheet() {
+  fun navigateToManageWalletBottomSheet(hasOneWallet: Boolean) {
+    val bundle = Bundle()
+    bundle.putBoolean(ManageWalletBottomSheetFragment.HAS_ONE_WALLET, hasOneWallet)
     val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 

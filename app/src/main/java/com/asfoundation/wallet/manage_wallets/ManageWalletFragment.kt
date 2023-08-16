@@ -302,7 +302,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      ManagementOptionsBottomSheet()
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
@@ -319,7 +319,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ManagementOptionsBottomSheet() {
+  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
 
     Row(
       horizontalArrangement = Arrangement.End,
@@ -330,7 +330,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       VectorIconButton(
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
-        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet() },
+        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0) },
         paddingIcon = 4.dp,
         background = styleguide_blue_secondary
       )

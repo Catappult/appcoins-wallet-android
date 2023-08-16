@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promotions.usecases
 
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeObservableUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -15,17 +15,17 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GetPromotionsUseCase @Inject constructor(
-        private val getCurrentWallet: GetCurrentWalletUseCase,
-        private val observeLevels: ObserveLevelsUseCase,
-        private val promotionsMapper: PromotionsMapper,
-        private val promotionsRepository: PromotionsRepository,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-        private val checkAndCancelVipPollingUseCase: CheckAndCancelVipPollingUseCase,
+  private val getCurrentWallet: GetCurrentWalletUseCase,
+  private val observeLevels: ObserveLevelsUseCase,
+  private val promotionsMapper: PromotionsMapper,
+  private val promotionsRepository: PromotionsRepository,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeObservableUseCase,
+  private val checkAndCancelVipPollingUseCase: CheckAndCancelVipPollingUseCase,
 ) {
 
   operator fun invoke(): Observable<PromotionsModel> {
     return getCurrentPromoCodeUseCase()
-      .flatMapObservable { promoCode ->
+      .flatMap { promoCode ->
         getCurrentWallet()
           .flatMapObservable {
             Observable.zip(

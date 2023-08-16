@@ -243,6 +243,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       }
       is Async.Success -> {
         viewModel.promotions.clear()
+        viewModel.activePromoCode.value = null
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
             val cardItem = CardPromotionItem(
