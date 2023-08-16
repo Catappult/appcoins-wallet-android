@@ -30,7 +30,7 @@ class GetPromotionsUseCase @Inject constructor(
           .flatMapObservable {
             Observable.zip(
               observeLevels(),
-              promotionsRepository.getUserStats(it.address, promoCode.code),
+              promotionsRepository.getUserStats(it.address, promoCode.code, offlineFirst = false),
               checkAndCancelVipPollingUseCase(it).toObservable()
             ) { levels: Levels, userStatsResponse: UserStats, vipReferralResponse: VipReferralResponse ->
               promotionsMapper.mapToPromotionsModel(
