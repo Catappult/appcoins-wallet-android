@@ -30,7 +30,6 @@ class ManageWalletBalanceBottomSheetFragment() : BottomSheetDialogFragment(),
   private val views by viewBinding(ManageWalletBalanceBottomSheetLayoutBinding::bind)
 
   companion object {
-
     const val WALLET_BALANCE_MODEL = "wallet_balance_model"
 
     @JvmStatic
