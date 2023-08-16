@@ -1,5 +1,6 @@
 package cm.aptoide.pt.aab
 
+import com.appcoins.wallet.core.network.eskills.aab.DynamicSplitsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response

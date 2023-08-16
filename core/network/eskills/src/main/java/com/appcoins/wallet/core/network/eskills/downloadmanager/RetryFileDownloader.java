@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import io.reactivex.Completable;
-import io.reactivex.Observable;
+import rx.Completable;
+import rx.Observable;
 
 public interface RetryFileDownloader {
 

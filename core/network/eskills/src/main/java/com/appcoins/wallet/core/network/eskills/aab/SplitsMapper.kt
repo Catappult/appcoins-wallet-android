@@ -4,7 +4,7 @@ import java.util.*
 
 class SplitsMapper {
 
-  fun mapSplits(splits: List<cm.aptoide.pt.dataprovider.model.v7.Split>?): List<Split> {
+  fun mapSplits(splits: List<com.appcoins.wallet.core.network.eskills.aab.v7.Split>?): List<Split> {
     val splitsMapResult = ArrayList<Split>()
     if (splits == null) return splitsMapResult
     for (split in splits) {

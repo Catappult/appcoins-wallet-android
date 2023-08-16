@@ -1,8 +1,9 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.downloadmanager.FileDownloadCallback;
-import cm.aptoide.pt.downloadmanager.FileDownloader;
-import cm.aptoide.pt.downloadmanager.FileDownloaderProvider;
+
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloaderProvider;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloader;
 import rx.subjects.PublishSubject;
 
 /**

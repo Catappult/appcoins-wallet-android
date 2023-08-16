@@ -1,9 +1,10 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.downloadmanager.AppDownloadStatus;
-import cm.aptoide.pt.downloadmanager.FileDownloadCallback;
-import cm.aptoide.pt.downloadmanager.FileDownloadProgressResult;
-import cm.aptoide.pt.logger.Logger;
+
+import com.appcoins.wallet.core.network.eskills.downloadmanager.AppDownloadStatus;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadProgressResult;
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
 import com.liulishuo.filedownloader.exception.FileDownloadHttpException;

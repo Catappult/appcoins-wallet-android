@@ -3,16 +3,19 @@
  * Modified on 04/08/2016.
  */
 
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
 import androidx.annotation.Nullable;
 import cm.aptoide.pt.aab.DynamicSplit;
 import cm.aptoide.pt.aab.Split;
-import cm.aptoide.pt.database.room.RoomDownload;
-import cm.aptoide.pt.database.room.RoomFileToDownload;
-import cm.aptoide.pt.database.room.RoomSplit;
-import cm.aptoide.pt.database.room.RoomUpdate;
-import cm.aptoide.pt.dataprovider.model.v7.Obb;
+
+import cm.aptoide.pt.download.AppValidator;
+
+import cm.aptoide.pt.download.SplitTypeSubFileTypeMapper;
+import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload;
+import com.appcoins.wallet.core.network.eskills.room.RoomSplit;
+import com.appcoins.wallet.core.network.eskills.room.RoomUpdate;
 import java.util.ArrayList;
 import java.util.List;
 

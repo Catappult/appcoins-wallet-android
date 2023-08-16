@@ -2,14 +2,13 @@ package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.subjects.PublishSubject;
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.reactivestreams.Subscription;
+import rx.Completable;
+import rx.Observable;
+import rx.Subscription;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by filipegoncalves on 7/27/18.
@@ -23,7 +22,7 @@ public class AppDownloadManager implements AppDownloader {
   private HashMap<String, RetryFileDownloader> fileDownloaderPersistence;
   private PublishSubject<FileDownloadCallback> fileDownloadSubject;
   private AppDownloadStatus appDownloadStatus;
-  private Disposable subscribe;
+  private Subscription subscribe;
   private DownloadAnalytics downloadAnalytics;
 
   public AppDownloadManager(RetryFileDownloaderProvider fileDownloaderProvider, DownloadApp app,
@@ -39,25 +38,27 @@ public class AppDownloadManager implements AppDownloader {
   }
 
   @Override public void startAppDownload() {
-    subscribe =  Observable.fromIterable(app.getDownloadFiles())
+    subscribe = Observable.from(app.getDownloadFiles())
         .flatMap(downloadAppFile -> startFileDownload(downloadAppFile, app.getAttributionId()))
         .subscribe(__ -> {
         }, Throwable::printStackTrace);
   }
 
   @Override public Completable pauseAppDownload() {
-    return Observable.fromIterable(app.getDownloadFiles())
+    return Observable.from(app.getDownloadFiles())
         .flatMap(downloadAppFile -> getFileDownloader(downloadAppFile.getMainDownloadPath()))
         .filter(retryFileDownloader -> retryFileDownloader != null)
         .flatMapCompletable(fileDownloader -> fileDownloader.pauseDownload()
-            .onErrorComplete());
+            .onErrorComplete())
+        .toCompletable();
   }
 
   @Override public Completable removeAppDownload() {
-    return Observable.fromIterable(app.getDownloadFiles())
+    return Observable.from(app.getDownloadFiles())
         .flatMap(downloadAppFile -> getFileDownloader(downloadAppFile.getMainDownloadPath()))
         .flatMapCompletable(fileDownloader -> fileDownloader.removeDownloadFile()
-            .onErrorComplete());
+            .onErrorComplete())
+        .toCompletable();
   }
 
   @Override public Observable<AppDownloadStatus> observeDownloadProgress() {
@@ -70,8 +71,8 @@ public class AppDownloadManager implements AppDownloader {
   }
 
   public void stop() {
-    if (subscribe != null && !subscribe.isDisposed()) {
-      subscribe.dispose();
+    if (subscribe != null && !subscribe.isUnsubscribed()) {
+      subscribe.unsubscribe();
       fileDownloadSubject = null;
       fileDownloaderPersistence.clear();
       fileDownloaderPersistence = null;

@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import java.util.List;
 
 /**

@@ -8,7 +8,7 @@ import android.content.pm.PackageInstaller;
 import android.os.Build;
 import android.os.Bundle;
 
-import static cm.aptoide.pt.packageinstaller.AppInstaller.INSTALL_SESSION_API_COMPLETE_ACTION;
+import static com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstaller.INSTALL_SESSION_API_COMPLETE_ACTION;
 
 class InstallResultReceiver extends BroadcastReceiver {
 

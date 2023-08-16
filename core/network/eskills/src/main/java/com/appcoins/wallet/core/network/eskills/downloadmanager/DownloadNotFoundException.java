@@ -5,7 +5,7 @@
 
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils.BaseException;
+import com.appcoins.wallet.core.network.eskills.utils.utils.BaseException;
 
 public class DownloadNotFoundException extends BaseException {
 

@@ -1,10 +1,11 @@
 package cm.aptoide.pt.install
 
-import cm.aptoide.pt.database.room.RoomFileToDownload
-import cm.aptoide.pt.downloadmanager.PathProvider
+import com.appcoins.wallet.core.network.eskills.downloadmanager.PathProvider
+import com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload
+
 
 class FilePathProvider(val apkPath: String, val obbPath: String, val cachePath: String) :
-    PathProvider {
+  PathProvider {
 
   override fun getFilePathFromFileType(fileToDownload: RoomFileToDownload): String? {
     return when (fileToDownload.fileType) {

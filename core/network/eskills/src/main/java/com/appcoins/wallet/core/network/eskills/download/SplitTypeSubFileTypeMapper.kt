@@ -1,6 +1,7 @@
 package cm.aptoide.pt.download
 
-import cm.aptoide.pt.database.room.RoomFileToDownload
+import com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload
+
 
 class SplitTypeSubFileTypeMapper {
 

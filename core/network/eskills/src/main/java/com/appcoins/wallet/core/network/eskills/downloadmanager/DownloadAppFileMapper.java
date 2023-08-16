@@ -1,14 +1,14 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload;
+import com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload.APK;
-import static com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload.GENERIC;
-import static com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload.OBB;
-import static com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomFileToDownload.SPLIT;
+import static com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload.APK;
+import static com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload.GENERIC;
+import static com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload.OBB;
+import static com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload.SPLIT;
 
 /**
  * Created by filipegoncalves on 9/12/18.

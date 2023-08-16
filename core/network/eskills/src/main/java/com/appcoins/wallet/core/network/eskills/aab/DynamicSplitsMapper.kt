@@ -1,5 +1,7 @@
 package cm.aptoide.pt.aab
 
+import com.appcoins.wallet.core.network.eskills.aab.DynamicSplitsResponse
+
 class DynamicSplitsMapper {
 
   fun mapDynamicSplits(
@@ -12,7 +14,7 @@ class DynamicSplitsMapper {
   }
 
   private fun mapDynamicConfigSplits(
-      splits: List<cm.aptoide.pt.dataprovider.model.v7.Split>): List<Split> {
+      splits: List<com.appcoins.wallet.core.network.eskills.aab.v7.Split>): List<Split> {
     return splits.map { Split(it.name, it.type, it.path, it.filesize, it.md5sum) }
   }
 }

@@ -1,7 +1,8 @@
 package com.appcoins.wallet.core.network.eskills.aab;
 
-import cm.aptoide.pt.aab.Split;
-import cm.aptoide.pt.dataprovider.model.v7.BaseV7Response;
+
+import com.appcoins.wallet.core.network.eskills.aab.v7.BaseV7Response;
+import com.appcoins.wallet.core.network.eskills.aab.v7.Split;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 

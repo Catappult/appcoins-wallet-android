@@ -1,6 +1,6 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.database.room.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 
 public class DownloadApkPathsProvider {
 
@@ -8,10 +8,9 @@ public class DownloadApkPathsProvider {
   private static final String INSTALL_ACTION = "?action=install";
   private static final String DOWNGRADE_ACTION = "?action=downgrade";
   private static final String OEMID_QUERY = "&oemid=";
-  private final OemidProvider oemidProvider;
 
-  public DownloadApkPathsProvider(OemidProvider oemidProvider) {
-    this.oemidProvider = oemidProvider;
+
+  public DownloadApkPathsProvider() {
   }
 
   public ApkPaths getDownloadPaths(int downloadAction, String path, String altPath) {
@@ -41,7 +40,7 @@ public class DownloadApkPathsProvider {
     String oemId =
         (downloadOemId == null || downloadOemId.isEmpty()) ? "" : OEMID_QUERY + downloadOemId;
     if (oemId.isEmpty()) {
-      String providerOemId = oemidProvider.getOemid();
+      String providerOemId = "0";
       oemId = providerOemId.isEmpty() ? "" : OEMID_QUERY + providerOemId;
     }
     return oemId;

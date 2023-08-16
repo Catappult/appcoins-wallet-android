@@ -5,7 +5,7 @@
 
 package com.appcoins.wallet.core.network.eskills.install.exception;
 
-import cm.aptoide.pt.utils.BaseException;
+import com.appcoins.wallet.core.network.eskills.utils.utils.BaseException;
 
 /**
  * Created by marcelobenites on 7/20/16.

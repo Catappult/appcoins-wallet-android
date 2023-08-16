@@ -1,10 +1,11 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomDownload;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Single;
+
+import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 import java.util.List;
+import rx.Completable;
+import rx.Observable;
+import rx.Single;
 
 /**
  * Created by filipegoncalves on 8/21/18.
@@ -64,11 +65,10 @@ public class DownloadsRepository {
 
   public Observable<List<RoomDownload>> getInProgressDownloadsList() {
     return downloadPersistence.getRunningDownloads()
-        .flatMap(downloads -> Observable.fromIterable(downloads)
+        .flatMap(downloads -> Observable.from(downloads)
             .filter(download -> download.getOverallDownloadStatus() == RoomDownload.PROGRESS
                 || download.getOverallDownloadStatus() == (RoomDownload.PENDING))
-            .toList()
-            .toObservable());
+            .toList());
   }
 
   public Observable<List<RoomDownload>> getOutOfSpaceDownloads() {

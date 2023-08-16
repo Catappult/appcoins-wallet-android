@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.install;
 
-import cm.aptoide.pt.database.room.RoomInstalled;
+
+import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import java.util.List;
 import rx.Completable;
 import rx.Observable;

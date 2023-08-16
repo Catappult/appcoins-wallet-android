@@ -1,6 +1,6 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.utils.BaseException;
+import com.appcoins.wallet.core.network.eskills.utils.utils.BaseException;
 
 class GeneralDownloadErrorException extends BaseException {
   public GeneralDownloadErrorException(String errorMessage) {

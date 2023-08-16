@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import io.reactivex.subjects.PublishSubject;
+import rx.subjects.PublishSubject;
 
 public interface RetryFileDownloaderProvider {
 

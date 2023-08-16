@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.network.eskills.install;
 
-import cm.aptoide.pt.install.installer.InstallationState;
+
+
 import rx.Completable;
 import rx.Observable;
 
@@ -18,8 +19,6 @@ public interface Installer {
   Completable downgrade(String md5, boolean forceDefaultInstall, boolean shouldSetPackageInstaller);
 
   Completable uninstall(String packageName);
-
-  Observable<InstallationState> getState(String packageName, int versionCode);
 
   void stopDispatching();
 }

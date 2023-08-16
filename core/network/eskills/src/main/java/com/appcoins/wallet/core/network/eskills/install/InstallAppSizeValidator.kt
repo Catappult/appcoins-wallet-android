@@ -3,8 +3,9 @@ package cm.aptoide.pt.install
 import android.os.Build
 import android.os.Environment
 import android.os.StatFs
-import cm.aptoide.pt.database.room.RoomDownload
-import cm.aptoide.pt.utils.FileUtils
+
+import com.appcoins.wallet.core.network.eskills.room.RoomDownload
+import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils
 
 class InstallAppSizeValidator(val filePathProvider: FilePathProvider) {
 

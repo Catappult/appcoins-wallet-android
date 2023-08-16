@@ -1,10 +1,11 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.subjects.PublishSubject;
+
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
+import rx.Completable;
+import rx.Observable;
+import rx.Subscription;
+import rx.subjects.PublishSubject;
 
 public class RetryFileDownloadManager implements RetryFileDownloader {
 
@@ -20,7 +21,7 @@ public class RetryFileDownloadManager implements RetryFileDownloader {
   private String alternativeDownloadPath;
   private FileDownloader fileDownloader;
   private PublishSubject<FileDownloadCallback> retryFileDownloadSubject;
-  private Disposable startDownloadSubscription;
+  private Subscription startDownloadSubscription;
   private boolean retried;
 
   public RetryFileDownloadManager(String mainDownloadPath, int fileType, String packageName,
@@ -58,8 +59,8 @@ public class RetryFileDownloadManager implements RetryFileDownloader {
   }
 
   @Override public void stop() {
-    if (startDownloadSubscription != null && !startDownloadSubscription.isDisposed()) {
-      startDownloadSubscription.dispose();
+    if (startDownloadSubscription != null && !startDownloadSubscription.isUnsubscribed()) {
+      startDownloadSubscription.unsubscribe();
     }
   }
 

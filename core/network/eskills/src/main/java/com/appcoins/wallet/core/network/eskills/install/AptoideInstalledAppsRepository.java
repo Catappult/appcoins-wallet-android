@@ -7,16 +7,22 @@ import androidx.annotation.Nullable;
 
 import cm.aptoide.pt.install.InstalledAppsRepository;
 
-import com.appcoins.wallet.core.network.eskills.downloadmanager.database.room.RoomInstalled;
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.logger.Logger;
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils.AptoideUtils;
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.utils.FileUtils;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
+import com.appcoins.wallet.core.network.eskills.database.RoomInstalledPersistence;
+import com.appcoins.wallet.core.network.eskills.room.RoomInstallation;
+import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
+import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;
+import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils;
+
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import rx.Completable;
+import rx.Observable;
+import rx.Single;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by marcelobenites on 7/27/16.

@@ -1,9 +1,10 @@
 package cm.aptoide.pt.download
 
 import cm.aptoide.pt.aab.Split
-import cm.aptoide.pt.dataprovider.model.v7.Obb
 
-class AppValidator(private val appValidationAnalytics: AppValidationAnalytics) {
+import com.appcoins.wallet.core.network.eskills.download.Obb
+
+class AppValidator() {
 
   fun validateApp(md5: String?, appObb: Obb?, packageName: String?, appName: String?,
                   filePath: String?, filePathAlt: String?, splits: MutableList<Split>?,
@@ -13,18 +14,18 @@ class AppValidator(private val appValidationAnalytics: AppValidationAnalytics) {
       result = AppValidationResult.INVALID_MD5
     }
     if (isStringEmptyOrNull(filePath)) {
-      appValidationAnalytics.sendInvalidDownloadMainPath(packageName)
+
       result = AppValidationResult.NO_MAIN_DOWNLOAD_LINK
     } else if (isStringEmptyOrNull(filePathAlt)) {
-      appValidationAnalytics.sendInvalidDownloadAlternativePath(packageName)
+
       result = AppValidationResult.NO_ALTERNATIVE_DOWNLOAD_LINK
     } else if (appObb != null && appObb.main != null && isStringEmptyOrNull(appObb.main
             .path)) {
-      appValidationAnalytics.sendInvalidDownloadObbMainPath(packageName)
+
       result = AppValidationResult.NO_MAIN_OBB_DOWNLOAD_LINK
     } else if (appObb != null && appObb.patch != null && isStringEmptyOrNull(appObb.patch
             .path)) {
-      appValidationAnalytics.sendInvalidDownloadObbPatchPath(packageName)
+
       result = AppValidationResult.NO_PATCH_OBB_DOWNLOAD_LINK
     } else if (appObb != null && isStringEmptyOrNull(packageName)) {
       result = AppValidationResult.NO_PACKAGE_NAME_SPECIFIED

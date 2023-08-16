@@ -1,8 +1,8 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.downloadmanager.AppDownloadStatus.AppDownloadState;
-import cm.aptoide.pt.downloadmanager.FileDownloadCallback;
-import cm.aptoide.pt.downloadmanager.FileDownloadProgressResult;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.AppDownloadStatus.AppDownloadState;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadProgressResult;
 
 /**
  * Created by filipegoncalves on 8/29/18.

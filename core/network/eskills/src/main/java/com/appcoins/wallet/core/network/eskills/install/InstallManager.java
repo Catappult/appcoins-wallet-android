@@ -10,19 +10,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 
-import cm.aptoide.pt.install.ForegroundManager;
+import cm.aptoide.pt.app.aptoideinstall.AptoideInstallManager;
+
 import cm.aptoide.pt.install.InstallAppSizeValidator;
 
+
 import com.appcoins.wallet.core.network.eskills.downloadmanager.AptoideDownloadManager;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadNotFoundException;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadsRepository;
-import com.appcoins.wallet.core.network.eskills.downloadmanager.utils.root.RootAvailabilityManager;
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
+
+import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
+import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
+import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.Nullable;
-
+import rx.Completable;
+import rx.Observable;
+import rx.Single;
+import rx.schedulers.Schedulers;
+import rx.subjects.PublishSubject;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by marcelobenites on 9/29/16.
@@ -39,65 +49,47 @@ public class InstallManager {
   private final PackageInstallerManager packageInstallerManager;
   private final DownloadsRepository downloadRepository;
   private final AptoideInstalledAppsRepository aptoideInstalledAppsRepository;
-  private final RootAvailabilityManager rootAvailabilityManager;
-  private final ForegroundManager foregroundManager;
+
+
   private final AptoideInstallManager aptoideInstallManager;
   private final InstallAppSizeValidator installAppSizeValidator;
-  private final FileManager fileManager;
+
 
   private final CompositeSubscription dispatchInstallationsSubscription =
       new CompositeSubscription();
-  private final PublishSubject<InstallCandidate> installCandidateSubject = PublishSubject.create();
 
   public InstallManager(Context context, AptoideDownloadManager aptoideDownloadManager,
-      Installer installer, RootAvailabilityManager rootAvailabilityManager,
+      Installer installer,
       SharedPreferences sharedPreferences, SharedPreferences securePreferences,
       DownloadsRepository downloadRepository,
       AptoideInstalledAppsRepository aptoideInstalledAppsRepository,
-      PackageInstallerManager packageInstallerManager, ForegroundManager foregroundManager,
-      AptoideInstallManager aptoideInstallManager, InstallAppSizeValidator installAppSizeValidator,
-      FileManager fileManager) {
+      PackageInstallerManager packageInstallerManager,
+      AptoideInstallManager aptoideInstallManager, InstallAppSizeValidator installAppSizeValidator) {
     this.aptoideDownloadManager = aptoideDownloadManager;
     this.installer = installer;
     this.context = context;
-    this.rootAvailabilityManager = rootAvailabilityManager;
+
     this.downloadRepository = downloadRepository;
     this.aptoideInstalledAppsRepository = aptoideInstalledAppsRepository;
     this.sharedPreferences = sharedPreferences;
     this.securePreferences = securePreferences;
     this.packageInstallerManager = packageInstallerManager;
-    this.foregroundManager = foregroundManager;
+
     this.aptoideInstallManager = aptoideInstallManager;
     this.installAppSizeValidator = installAppSizeValidator;
-    this.fileManager = fileManager;
   }
 
   public void start() {
     aptoideDownloadManager.start();
-    dispatchInstallationCandidates();
+
     installer.dispatchInstallations();
   }
 
-  private void dispatchInstallationCandidates() {
-    dispatchInstallationsSubscription.add(installCandidateSubject.flatMap(
-        candidate -> aptoideDownloadManager.getDownloadAsObservable(candidate.getMd5())
-            .onErrorReturn(null)
-            .filter(download -> download != null)
-            .takeFirst(download -> download.getOverallDownloadStatus() == RoomDownload.COMPLETED)
-            .flatMapCompletable(
-                download -> stopForegroundAndInstall(download.getMd5(), download.getAction(),
-                    candidate.getForceDefaultInstall(),
-                    candidate.getShouldSetPackageInstaller()).andThen(
-                    sendBackgroundInstallFinishedBroadcast(download))))
-        .doOnError(Throwable::printStackTrace)
-        .retry()
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
-  }
+
 
   private Completable sendBackgroundInstallFinishedBroadcast(RoomDownload download) {
     return Completable.fromAction(() -> context.sendBroadcast(
-        new Intent(ACTION_INSTALL_FINISHED).putExtra(EXTRA_INSTALLATION_MD5, download.getMd5())));
+        new Intent("INSTALL_FINISHED").putExtra("INSTALLATION_MD5", download.getMd5())));
   }
 
   public void stop() {
@@ -159,9 +151,6 @@ public class InstallManager {
       if (isInstalling) {
         installStatus = RoomInstalled.STATUS_INSTALLING;
       }
-      InstallationState installationState =
-          new InstallationState(download.getPackageName(), download.getVersionCode(), installStatus,
-              RoomInstalled.TYPE_UNKNOWN, download.getSize());
 
       Install.InstallationType installationType = Install.InstallationType.INSTALL;
 
@@ -173,15 +162,9 @@ public class InstallManager {
             if (!isInstalling) {
               installStatus = installed.getStatus();
             }
-            installationState =
-                new InstallationState(installed.getPackageName(), installed.getVersionCode(),
-                    installed.getVersionName(), installStatus, installed.getType(),
-                    installed.getName(), installed.getIcon(), download.getSize());
             installationType = Install.InstallationType.INSTALLED;
           } else {
-            installationState =
-                new InstallationState(installed.getPackageName(), installed.getVersionCode(),
-                    installStatus, RoomInstalled.TYPE_UNKNOWN, download.getSize());
+
             if (installed.getVersionCode() > download.getVersionCode()) {
               installationType = Install.InstallationType.DOWNGRADE;
             } else {
@@ -192,7 +175,7 @@ public class InstallManager {
         }
       }
       installList.add(
-          createInstall(download, installationState, download.getMd5(), download.getPackageName(),
+          createInstall(download, download.getMd5(), download.getPackageName(),
               download.getVersionCode(), installationType));
     }
     return installList;
@@ -258,88 +241,51 @@ public class InstallManager {
           }
           return Observable.just(storedDownload);
         })
-        .flatMap(savedDownload -> {
-          if (!installAppSizeValidator.hasEnoughSpaceToInstallApp(savedDownload)) {
-            return handleNotEnoughSpaceForDownload(savedDownload, forceDefaultInstall,
-                packageInstallerManager.shouldSetInstallerPackageName() || forceSplitInstall,
-                shouldInstall);
-          } else {
-            return startBackgroundInstallation(download.getMd5(), forceDefaultInstall,
-                packageInstallerManager.shouldSetInstallerPackageName() || forceSplitInstall,
-                shouldInstall);
-          }
-        })
+        .flatMap(savedDownload -> startBackgroundInstallation(download.getMd5(), forceDefaultInstall,
+            packageInstallerManager.shouldSetInstallerPackageName() || forceSplitInstall,
+            shouldInstall))
         .toCompletable();
   }
 
   public Observable<Install> getInstall(String md5, String packageName, int versioncode) {
     return Observable.combineLatest(aptoideDownloadManager.getDownloadsByMd5(md5),
-        installer.getState(packageName, versioncode), getInstallationType(packageName, versioncode),
-        (download, installationState, installationType) -> createInstall(download,
-            installationState, md5, packageName, versioncode, installationType))
+         getInstallationType(packageName, versioncode),
+        (download, installationType) -> createInstall(download,
+             md5, packageName, versioncode, installationType))
         .doOnNext(install -> Logger.getInstance()
             .d(TAG, install.toString()));
   }
 
-  public Observable<String> handleNotEnoughSpaceForDownload(RoomDownload download,
-      boolean forceDefaultInstall, boolean shouldSetPackageInstaller, boolean shouldInstall) {
-    return fileManager.deleteCache(false)
-        .first()
-        .toSingle()
-        .flatMapObservable(__ -> {
-          if (download.getSize() >= installAppSizeValidator.getAvailableSpace()) {
-            download.setOverallDownloadStatus(RoomDownload.ERROR);
-            download.setDownloadError(RoomDownload.NOT_ENOUGH_SPACE_ERROR);
-            return downloadRepository.save(download)
-                .andThen(Observable.just(download.getMd5()));
-          } else {
-            return startBackgroundInstallation(download.getMd5(), forceDefaultInstall,
-                shouldSetPackageInstaller, shouldInstall);
-          }
-        });
-  }
-
-  private Install createInstall(RoomDownload download, InstallationState installationState,
+  private Install createInstall(RoomDownload download,
       String md5, String packageName, int versioncode, Install.
       InstallationType installationType) {
     return new Install(mapInstallation(download),
-        mapInstallationStatus(download, installationState), installationType,
-        mapIndeterminateState(download, installationState), getSpeed(download), md5, packageName,
-        versioncode, getVersionName(download, installationState),
-        getAppName(download, installationState), getAppIcon(download, installationState),
-        getDownloadSize(download, installationState));
+        mapInstallationStatus(download), installationType,
+        mapIndeterminateState(download), getSpeed(download), md5, packageName,
+        versioncode, getVersionName(download),
+        getAppName(download), getAppIcon(download),
+        getDownloadSize(download));
   }
 
-  private long getDownloadSize(RoomDownload download, InstallationState installationState) {
-    if (download != null) {
+  private long getDownloadSize(RoomDownload download) {
+
       return download.getSize();
-    } else {
-      return installationState.getAppSize();
-    }
+
   }
 
-  private String getVersionName(RoomDownload download, InstallationState installationState) {
-    if (download != null) {
+  private String getVersionName(RoomDownload download) {
+
       return download.getVersionName();
-    } else {
-      return installationState.getVersionName();
-    }
+
   }
 
-  private String getAppIcon(RoomDownload download, InstallationState installationState) {
-    if (download != null) {
+  private String getAppIcon(RoomDownload download) {
       return download.getIcon();
-    } else {
-      return installationState.getIcon();
-    }
+
   }
 
-  private String getAppName(RoomDownload download, InstallationState installationState) {
-    if (download != null) {
+  private String getAppName(RoomDownload download) {
       return download.getAppName();
-    } else {
-      return installationState.getName();
-    }
   }
 
   private int getSpeed(RoomDownload download) {
@@ -350,37 +296,11 @@ public class InstallManager {
     }
   }
 
-  private boolean mapIndeterminateState(RoomDownload download,
-      InstallationState installationState) {
-    return mapIndeterminate(download) || mapInstallIndeterminate(installationState.getStatus(),
-        installationState.getType(), download);
+  private boolean mapIndeterminateState(RoomDownload download) {
+    return mapIndeterminate(download);
   }
 
-  private Install.InstallationStatus mapInstallationStatus(RoomDownload download,
-      InstallationState installationState) {
-
-    if (installationState.getStatus() == RoomInstalled.STATUS_COMPLETED) {
-      return Install.InstallationStatus.INSTALLED;
-    }
-
-    if (installationState.getStatus() == RoomInstalled.STATUS_INSTALLING
-        && installationState.getType() != RoomInstalled.TYPE_DEFAULT) {
-      return Install.InstallationStatus.INSTALLING;
-    }
-
-    if (installationState.getStatus() == RoomInstalled.STATUS_WAITING_INSTALL_FEEDBACK) {
-      return Install.InstallationStatus.UNINSTALLED;
-    }
-
-    if (installationState.getStatus() == RoomInstalled.STATUS_PRE_INSTALL
-        && download != null
-        && download.getOverallDownloadStatus() == RoomDownload.COMPLETED) {
-      return Install.InstallationStatus.DOWNLOADING;
-    }
-
-    if (installationState.getStatus() == RoomInstalled.STATUS_ROOT_TIMEOUT) {
-      return Install.InstallationStatus.INSTALLATION_TIMEOUT;
-    }
+  private Install.InstallationStatus mapInstallationStatus(RoomDownload download) {
 
     return mapDownloadState(download);
   }
@@ -531,9 +451,6 @@ public class InstallManager {
         .toObservable()
         .doOnNext(__ -> {
           if (shouldInstall) {
-            installCandidateSubject.onNext(
-                new InstallCandidate(md5, forceDefaultInstall, shouldSetPackageInstaller));
-            foregroundManager.startDownloadService();
           }
         })
         .flatMapCompletable(
@@ -566,20 +483,6 @@ public class InstallManager {
     installed.setType(RoomInstalled.TYPE_UNKNOWN);
     installed.setPackageName(download.getPackageName());
     return installed;
-  }
-
-  public boolean showWarning() {
-    boolean wasRootDialogShowed = SecurePreferences.isRootDialogShowed(securePreferences);
-    boolean isRooted = rootAvailabilityManager.isRootAvailable()
-        .toBlocking()
-        .value();
-    boolean canGiveRoot = ManagerPreferences.allowRootInstallation(securePreferences);
-    return isRooted && !wasRootDialogShowed && !canGiveRoot;
-  }
-
-  public void rootInstallAllowed(boolean allowRoot) {
-    SecurePreferences.setRootDialogShowed(true, securePreferences);
-    ManagerPreferences.setAllowRootInstallation(allowRoot, sharedPreferences);
   }
 
   public Observable<Boolean> startInstalls(List<RoomDownload> downloads) {

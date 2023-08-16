@@ -1,7 +1,8 @@
 package com.appcoins.wallet.core.network.eskills.download;
 
 import android.text.TextUtils;
-import cm.aptoide.pt.utils.AptoideUtils;
+
+import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;
 import java.io.File;
 
 public class Md5Comparator {

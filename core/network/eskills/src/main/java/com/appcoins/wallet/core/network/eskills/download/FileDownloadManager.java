@@ -1,8 +1,9 @@
-package cm.aptoide.pt.download;
+package com.appcoins.wallet.core.network.eskills.download;
 
-import cm.aptoide.pt.downloadmanager.Constants;
-import cm.aptoide.pt.downloadmanager.FileDownloadCallback;
-import cm.aptoide.pt.downloadmanager.FileDownloader;
+
+import com.appcoins.wallet.core.network.eskills.downloadmanager.Constants;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
+import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloader;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import rx.Completable;
 import rx.Observable;
