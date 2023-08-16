@@ -17,7 +17,7 @@ class BackupSuccessLogUseCase @Inject constructor(
 
     withContext(dispatchers.io) {
       val ewt = ewtObtainer.getEwtAuthenticationWithAddress(address).await()
-      backupRepository.logBackupSuccess(ewt)
+      backupRepository.logBackupSuccess(ewt).await()
     }
   }
 }
