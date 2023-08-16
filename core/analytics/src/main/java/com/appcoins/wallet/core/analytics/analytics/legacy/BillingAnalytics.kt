@@ -193,7 +193,7 @@ class BillingAnalytics @Inject constructor(
     if (partnerAddressService.isGameFromGamesHub()) {
       GamesHubBroadcastService.sendSuccessPaymentBroadcast(
         context,
-        txId = txId,
+        txId,
         packageName = packageName,
         usdAmount = valueUsd,
         appcAmount = value
