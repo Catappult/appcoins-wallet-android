@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
@@ -16,11 +17,7 @@ import java.math.BigInteger
 import java.math.RoundingMode
 import javax.inject.Inject
 
-class BalanceRepository @Inject constructor(
-  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-  private val localCurrencyConversionService: LocalCurrencyConversionService,
-  private val rxSchedulers: RxSchedulers
-) {
+class BalanceRepository @Inject constructor() {
 
   companion object {
     const val APPC_CURRENCY = "APPC_CURRENCY"
@@ -31,44 +28,23 @@ class BalanceRepository @Inject constructor(
   }
 
   fun getWalletBalance(
-    appcCreditsWei: BigInteger,
-    appcWei: BigInteger,
-    ethWei: BigInteger
+    info: WalletInfoResponse
   ): Single<WalletBalance> {
-    val credits = BalanceUtils.weiToEth(appcCreditsWei.toBigDecimal())
+    val credits = BalanceUtils.weiToEth(info.appcCreditsBalanceWei.toBigDecimal())
       .setScale(FIAT_SCALE, RoundingMode.FLOOR)
-    val appc = BalanceUtils.weiToEth(appcWei.toBigDecimal())
+    val appc = BalanceUtils.weiToEth(info.appcBalanceWei.toBigDecimal())
       .setScale(FIAT_SCALE, RoundingMode.FLOOR)
-    val eth = BalanceUtils.weiToEth(ethWei.toBigDecimal())
+    val eth = BalanceUtils.weiToEth(info.ethBalanceWei.toBigDecimal())
       .setScale(FIAT_SCALE, RoundingMode.FLOOR)
 
-    return getSelectedCurrencyUseCase(bypass = false)
-      .flatMap { targetCurrency ->
-        Single.zip(
-          localCurrencyConversionService.getValueToFiat(
-            credits.toString(), "APPC",
-            targetCurrency, FIAT_SCALE
-          )
-            .subscribeOn(rxSchedulers.io),
-          localCurrencyConversionService.getValueToFiat(
-            appc.toString(), "APPC", targetCurrency,
-            FIAT_SCALE
-          )
-            .subscribeOn(rxSchedulers.io),
-          localCurrencyConversionService.getValueToFiat(
-            eth.toString(), "ETH", targetCurrency,
-            FIAT_SCALE
-          )
-            .subscribeOn(rxSchedulers.io),
-          { creditsFiat, appcFiat, ethFiat ->
-            return@zip mapToWalletBalance(
-              credits, creditsFiat.amount, appc, appcFiat.amount,
-              eth, ethFiat.amount, creditsFiat.currency, creditsFiat.symbol
-            )
-          }
-        )
-      }
-      .subscribeOn(rxSchedulers.io)
+    return Single.just(
+      mapToWalletBalance(
+        credits, info.appcCreditsBalancFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR),
+        appc, info.appcBalanceFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR),
+        eth, info.ethBalanceFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR),
+        info.currency, info.symbol
+      )
+    )
   }
 
   fun mapToWalletBalance(

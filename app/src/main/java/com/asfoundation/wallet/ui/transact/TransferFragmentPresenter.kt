@@ -58,7 +58,7 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
   }
 
   private fun getBalance(currency: Currency): Single<BigDecimal> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false)
         .map { walletInfo ->
           val balance = walletInfo.walletBalance
           when (currency) {

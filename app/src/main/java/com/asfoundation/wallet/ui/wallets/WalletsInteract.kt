@@ -34,7 +34,7 @@ class WalletsInteract @Inject constructor(
   fun observeWalletsModel(): Observable<WalletsModel> =
     retrieveWallets().filter { it.isNotEmpty() }
       .flatMapIterable { it }
-      .flatMap { observeWalletInfoUseCase(it.address, update = true, updateFiat = false) }
+      .flatMap { observeWalletInfoUseCase(it.address, update = true) }
       .map {
         listOf(
           WalletBalance(
@@ -60,7 +60,7 @@ class WalletsInteract @Inject constructor(
 
   fun getWalletsModel(): Single<WalletsModel> = retrieveWallets().filter { it.isNotEmpty() }
     .flatMapIterable { list -> list }
-    .flatMap { getWalletInfoUseCase(it.address, cached = true, updateFiat = false).toObservable() }
+    .flatMap { getWalletInfoUseCase(it.address, cached = true).toObservable() }
     .map {
       WalletBalance(
         it.name,

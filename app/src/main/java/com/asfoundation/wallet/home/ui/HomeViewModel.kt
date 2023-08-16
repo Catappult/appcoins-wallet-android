@@ -182,7 +182,7 @@ class HomeViewModel @Inject constructor(
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
       .flatMap { observeRefreshData() }
       .switchMap {
-        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+        observeWalletInfoUseCase(null, update = true)
           .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
           .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
             copy(defaultWalletBalanceAsync = it)
@@ -385,7 +385,7 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun handleBackupTrigger() {
-    getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    getWalletInfoUseCase(null, cached = false)
       .flatMap { walletInfo ->
         shouldShowBackupTriggerUseCase(walletInfo.wallet).map { shouldShow ->
           if (shouldShow &&

@@ -59,7 +59,7 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
   }
 
   init {
-    walletInfoUseCase(state.walletAddress, cached = true, updateFiat = false)
+    walletInfoUseCase(state.walletAddress, cached = true)
       .map { it.name }
       .subscribeOn(rxSchedulers.io)
       .asAsyncToState(BackupSaveOnDeviceDialogState::fileName) { copy(fileName = it) }

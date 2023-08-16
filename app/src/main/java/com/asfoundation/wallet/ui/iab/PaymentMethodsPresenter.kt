@@ -427,7 +427,7 @@ class PaymentMethodsPresenter(
     }
       .andThen(
         // updating fiat values is not necessary at this stage, the app only needs to know whether appcBalance > skuAppcPrice is true
-        getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        getWalletInfoUseCase(null, cached = false)
           .subscribeOn(networkThread)
           .map { "" }
           .onErrorReturnItem("")

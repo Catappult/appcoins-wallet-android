@@ -11,7 +11,7 @@ class UpdateBackupStateFromRecoverUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): Completable {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false)
       .flatMapCompletable {
         if (!it.hasBackup) {
           return@flatMapCompletable backupSuccessLogUseCase(it.wallet).andThen(Completable.complete())

@@ -16,7 +16,7 @@ class ShouldShowBackupTriggerUseCase @Inject constructor(
   }
 
   operator fun invoke(walletAddress: String): Single<Boolean> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false)
       .flatMap {
         if (it.hasBackup) {
           Single.just(false)

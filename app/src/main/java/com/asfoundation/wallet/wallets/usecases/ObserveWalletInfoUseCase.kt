@@ -16,15 +16,13 @@ class ObserveWalletInfoUseCase @Inject constructor(
    *
    * @param address Wallet address, or null to use the currently active wallet
    * @param update true to also update WalletInfo, or false if it not necessary
-   * @param updateFiat true if it should also update fiat, or false if not necessary
    */
-  operator fun invoke(address: String?, update: Boolean,
-                      updateFiat: Boolean): Observable<WalletInfo> {
+  operator fun invoke(address: String?, update: Boolean): Observable<WalletInfo> {
     val walletAddressSingle =
         address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return if (update) {
       walletAddressSingle.flatMapObservable {
-        walletInfoRepository.observeUpdatedWalletInfo(it.address, updateFiat)
+        walletInfoRepository.observeUpdatedWalletInfo(it.address)
       }
     } else {
       walletAddressSingle.flatMapObservable {

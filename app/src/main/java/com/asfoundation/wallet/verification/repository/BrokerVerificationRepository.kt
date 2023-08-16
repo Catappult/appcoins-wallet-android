@@ -83,7 +83,7 @@ class BrokerVerificationRepository @Inject constructor(
     walletAddress: String,
     walletSignature: String
   ): Single<VerificationStatus> {
-    return walletInfoRepository.getLatestWalletInfo(walletAddress, updateFiatValues = false)
+    return walletInfoRepository.getLatestWalletInfo(walletAddress)
       .subscribeOn(Schedulers.io())
       .flatMap { walletInfo ->
         if (walletInfo.verified) {

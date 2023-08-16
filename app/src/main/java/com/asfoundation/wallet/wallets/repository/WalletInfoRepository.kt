@@ -4,6 +4,7 @@ import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
 import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
 import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.domain.WalletBalance
@@ -21,11 +22,12 @@ class WalletInfoRepository @Inject constructor(
   private val walletInfoDao: WalletInfoDao,
   private val balanceRepository: BalanceRepository,
   private val sentryEventLogger: SentryEventLogger,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun getLatestWalletInfo(walletAddress: String, updateFiatValues: Boolean): Single<WalletInfo> =
-    updateWalletInfo(walletAddress, updateFiatValues)
+  fun getLatestWalletInfo(walletAddress: String): Single<WalletInfo> =
+    updateWalletInfo(walletAddress)
       .andThen(observeWalletInfo(walletAddress).firstOrError())
 
   /**
@@ -39,17 +41,16 @@ class WalletInfoRepository @Inject constructor(
         if (list.isNotEmpty()) {
           Single.just(list[0].toWalletInfo())
         } else {
-          fetchWalletInfo(walletAddress, updateFiatValues = true)
+          fetchWalletInfo(walletAddress)
             .map { it.toWalletInfo() }
         }
       }
 
   fun observeUpdatedWalletInfo(
-    walletAddress: String,
-    updateFiatValues: Boolean
+    walletAddress: String
   ): Observable<WalletInfo> = Observable.merge(
     observeWalletInfo(walletAddress),
-    updateWalletInfo(walletAddress, updateFiatValues).toObservable()
+    updateWalletInfo(walletAddress).toObservable()
   )
 
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> =
@@ -59,12 +60,10 @@ class WalletInfoRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
 
   /**
-   * Retrieves Wallet Info and fiat values (if specified), saving it to DB.
-   * Fiat values is optional because it involves 3 requests, and it really only is useful in
-   * My Wallets for now.
+   * Retrieves Wallet Info and fiat values, saving it to DB.
    */
-  fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable =
-    fetchWalletInfo(walletAddress, updateFiatValues)
+  fun updateWalletInfo(walletAddress: String): Completable =
+    fetchWalletInfo(walletAddress)
       .ignoreElement()
       .onErrorComplete()
       .subscribeOn(rxSchedulers.io)
@@ -99,25 +98,21 @@ class WalletInfoRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
 
   private fun fetchWalletInfo(
-    walletAddress: String,
-    updateFiatValues: Boolean
-  ): Single<WalletInfoEntity> = api.getWalletInfo(walletAddress)
-    .flatMap { walletInfoResponse ->
-      sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
-      if (updateFiatValues) {
+    walletAddress: String
+  ): Single<WalletInfoEntity> {
+    return getSelectedCurrencyUseCase(bypass = false).flatMap { currency ->
+      api.getWalletInfo(walletAddress, currency)
+      .flatMap { walletInfoResponse ->
+        sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
         balanceRepository.getWalletBalance(
-          walletInfoResponse.appcCreditsBalanceWei,
-          walletInfoResponse.appcBalanceWei,
-          walletInfoResponse.ethBalanceWei
+          walletInfoResponse
         )
           .map { walletInfoResponse.toWalletInfoEntity(it) }
           .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
-      } else {
-        Single.just(walletInfoResponse.toWalletInfoEntity())
-          .doOnSuccess(walletInfoDao::insertOrUpdateNoFiat)
       }
+      .doOnError(Throwable::printStackTrace)
     }
-    .doOnError(Throwable::printStackTrace)
+  }
 
   // This normalization is important as wallet addresses can be received with mixed case
   private fun String.normalize(): String = this.lowercase(Locale.ROOT)

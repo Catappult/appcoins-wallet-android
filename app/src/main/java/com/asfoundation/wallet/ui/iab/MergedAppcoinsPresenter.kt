@@ -65,7 +65,7 @@ class MergedAppcoinsPresenter(
   fun handlePause() = resumeDisposables.clear()
 
   private fun fetchBalance() {
-    resumeDisposables.add(getWalletInfoUseCase(null, cached = true, updateFiat = false)
+    resumeDisposables.add(getWalletInfoUseCase(null, cached = true)
       .map { walletInfo ->
         val appcFiatBalance = walletInfo.walletBalance.appcBalance.fiat
         val ethFiatBalance = walletInfo.walletBalance.ethBalance.fiat

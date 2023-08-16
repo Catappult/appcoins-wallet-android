@@ -69,7 +69,7 @@ class RecoverEntryViewModel @Inject constructor(
     when (recoverResult) {
       is FailedEntryRecover -> Single.just(recoverResult)
       is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
-        .mergeWith(updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
+        .mergeWith(updateWalletInfoUseCase(recoverResult.address))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .toSingleDefault(recoverResult)

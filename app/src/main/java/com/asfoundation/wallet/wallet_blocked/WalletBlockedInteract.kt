@@ -9,7 +9,7 @@ class WalletBlockedInteract @Inject constructor(
     private val getWalletInfoUseCase: GetWalletInfoUseCase) {
 
   fun isWalletBlocked(): Single<Boolean> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false)
         .map { walletInfo -> walletInfo.blocked }
         .onErrorReturn { false }
         .delay(1, TimeUnit.SECONDS)

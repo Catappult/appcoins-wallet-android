@@ -73,7 +73,7 @@ class MyWalletsViewModel @Inject constructor(
 
   private fun fetchWalletInfo(flushAsync: Boolean) {
     val retainValue = if (flushAsync) null else MyWalletsState::walletInfoAsync
-    observeWalletInfoUseCase(null, update = true, updateFiat = true)
+    observeWalletInfoUseCase(null, update = true)
       .asAsyncToState(retainValue) { balance -> copy(walletInfoAsync = balance) }
       .repeatableScopedSubscribe(MyWalletsState::walletInfoAsync.name) { e ->
         e.printStackTrace()

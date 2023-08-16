@@ -14,13 +14,12 @@ class UpdateWalletInfoUseCase @Inject constructor(
    * Updates WalletInfo
    *
    * @param address Wallet address, or null to use the currently active wallet
-   * @param updateFiat true if it should also update fiat, or false if not necessary
    */
-  operator fun invoke(address: String?, updateFiat: Boolean): Completable {
+  operator fun invoke(address: String?): Completable {
     val walletAddressSingle =
         address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return walletAddressSingle.flatMapCompletable {
-      walletInfoRepository.updateWalletInfo(it.address, updateFiat)
+      walletInfoRepository.updateWalletInfo(it.address)
     }
   }
 }

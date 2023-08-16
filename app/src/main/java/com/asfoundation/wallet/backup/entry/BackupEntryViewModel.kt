@@ -34,7 +34,7 @@ class BackupEntryViewModel(
   }
 
   private fun showBalance() {
-    getWalletInfoUseCase(data.walletAddress, cached = true, updateFiat = false)
+    getWalletInfoUseCase(data.walletAddress, cached = true)
       .map { walletInfo -> mapBalance(walletInfo.walletBalance) }
       .subscribeOn(rxSchedulers.io)
       .asAsyncToState(BackupEntryState::balanceAsync) {
