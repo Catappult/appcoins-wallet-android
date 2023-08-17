@@ -11,6 +11,7 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.asf.wallet.R
 import com.asf.wallet.databinding.PreferenceFingerprintBinding
 import com.asf.wallet.databinding.PreferenceFingerprintOffBinding
@@ -342,7 +343,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
         Uri.parse(
-          "https://wallet.appcoins.io/legal?section=privacy&lang=${
+          "$TERMS_CONDITIONS_URL&lang=${
             Locale.getDefault().toLanguageTag()
           }"
         ),
@@ -357,7 +358,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
         Uri.parse(
-          "https://wallet.appcoins.io/legal?section=terms&lang=${
+          "$TERMS_CONDITIONS_URL&lang=${
             Locale.getDefault().toLanguageTag()
           }"
         ),
