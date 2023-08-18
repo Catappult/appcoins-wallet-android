@@ -10,6 +10,7 @@ import android.content.pm.PackageInstaller;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import androidx.annotation.RequiresApi;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import javax.inject.Inject;
 
 public final class AppInstaller {
 
@@ -34,6 +36,14 @@ public final class AppInstaller {
       registerInstallResultBroadcastReceiver();
       observeInstallSession();
     }
+  }
+
+  public AppInstall createAppInstall(String packageName, File baseApk) {
+    AppInstall.InstallBuilder installBuilder = AppInstall.builder()
+        .setPackageName(packageName)
+        .setBaseApk(baseApk);
+
+    return installBuilder.build();
   }
 
   public void install(AppInstall appInstall) {

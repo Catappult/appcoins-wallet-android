@@ -4,6 +4,8 @@ package com.appcoins.wallet.core.network.eskills.download;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloaderProvider;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloader;
+import it.czerwinski.android.hilt.annotations.BoundTo;
+import javax.inject.Inject;
 import rx.subjects.PublishSubject;
 
 /**
@@ -15,6 +17,7 @@ public class FileDownloadManagerProvider implements FileDownloaderProvider {
   private final String downloadsPath;
   private final com.liulishuo.filedownloader.FileDownloader fileDownloader;
   private final Md5Comparator md5Comparator;
+
 
   public FileDownloadManagerProvider(String downloadsPath,
       com.liulishuo.filedownloader.FileDownloader fileDownloader, Md5Comparator md5Comparator) {
