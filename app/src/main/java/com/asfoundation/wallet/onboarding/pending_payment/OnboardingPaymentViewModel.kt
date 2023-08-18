@@ -65,7 +65,8 @@ class OnboardingPaymentViewModel @Inject constructor(
         events.sendPurchaseStartWithoutDetailsEvent(modifiedTransactionBuilder)
         getEarningBonusUseCase(
           modifiedTransactionBuilder.domain,
-          modifiedTransactionBuilder.amount()
+          products.first().transactionPrice.amount.toBigDecimal(),
+          products.first().transactionPrice.currency
         ).map { forecastBonus ->
           TransactionContent(
             modifiedTransactionBuilder,

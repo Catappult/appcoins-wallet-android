@@ -2,9 +2,9 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.AuthorizationProof;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService;
+import com.appcoins.wallet.core.analytics.analytics.partners.AttributionEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.asfoundation.wallet.billing.partners.AddressService;
-import com.asfoundation.wallet.billing.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Single;
 import java.math.BigDecimal;

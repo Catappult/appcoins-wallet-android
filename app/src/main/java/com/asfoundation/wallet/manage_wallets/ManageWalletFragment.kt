@@ -184,14 +184,12 @@ class ManageWalletFragment : BasePageViewFragment() {
             .padding(bottom = 16.dp)
             .padding(horizontal = 16.dp),
           onClick = {
-            viewModel.inactiveWalletBalance.value = wallet
-            viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
+            myWalletsNavigator.navigateToChangeActiveWalletBottomSheet(wallet.walletAddress, wallet.walletName, wallet.balance.amount.toString(), wallet.balance.symbol)
           }) {
           InactiveWalletCard(wallet)
         }
       }
     }
-    ChangeWalletBottomSheet(viewModel.inactiveWalletBalance.value)
   }
 
   @Composable
@@ -304,7 +302,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      ManagementOptionsBottomSheet()
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
@@ -321,7 +319,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ManagementOptionsBottomSheet() {
+  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
 
     Row(
       horizontalArrangement = Arrangement.End,
@@ -332,14 +330,13 @@ class ManageWalletFragment : BasePageViewFragment() {
       VectorIconButton(
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
-        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet() },
+        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0) },
         paddingIcon = 4.dp,
         background = styleguide_blue_secondary
       )
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun BalanceBottomSheet(walletInfo: WalletInfo) {
     val balance = walletInfo.walletBalance
@@ -358,7 +355,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
       )
-      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet() }) {
+      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(walletInfo.walletBalance) }) {
         Text(
           text =
           balance.creditsOnlyFiat.amount
@@ -404,49 +401,6 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
       )
-    }
-  }
-
-  @OptIn(ExperimentalMaterial3Api::class)
-  @Composable
-  fun ChangeWalletBottomSheet(walletBalance: WalletInfoSimple) {
-    val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(false)
-
-    WalletBottomSheet(
-      viewModel.openBottomSheet.value,
-      { viewModel.openBottomSheet.value = false },
-      bottomSheetState
-    ) {
-      Column(verticalArrangement = Arrangement.Center) {
-        Text(
-          modifier = Modifier.padding(bottom = 24.dp),
-          text = stringResource(R.string.manage_wallet_change_active_wallet_title),
-          color = styleguide_light_grey,
-          style = MaterialTheme.typography.bodyMedium,
-          fontWeight = FontWeight.Bold
-        )
-        Card(
-          colors = CardDefaults.cardColors(styleguide_blue),
-          modifier = Modifier.padding(bottom = 24.dp)
-        ) {
-          InactiveWalletCard(walletBalance)
-        }
-        ButtonWithText(
-          label = stringResource(R.string.wallet_view_activate_button),
-          labelColor = styleguide_light_grey,
-          backgroundColor = styleguide_pink,
-          onClick = {
-            scope
-              .launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
-                viewModel.changeActiveWallet(walletBalance.walletAddress)
-              }
-          },
-          buttonType = ButtonType.LARGE
-        )
-      }
     }
   }
 

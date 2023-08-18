@@ -8,4 +8,4 @@ data class WalletBalance(
     val creditsBalance: TokenBalance,
     val appcBalance: TokenBalance,
     val ethBalance: TokenBalance
-)
+): java.io.Serializable

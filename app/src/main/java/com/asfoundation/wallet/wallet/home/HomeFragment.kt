@@ -149,7 +149,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   internal fun HomeScreenContent(
     padding: PaddingValues
@@ -162,7 +161,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       with(viewModel.balance.value) {
         BalanceCard(
           newWallet = viewModel.newWallet.value,
-          showBackup = viewModel.state.showBackup,
+          showBackup = viewModel.showBackup.value,
           balance = symbol + formatter.formatCurrency(amount, FIAT),
           currencyCode = currency,
           onClickCurrencies = { viewModel.onCurrencySelectorClick() },
@@ -187,7 +186,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         if (transactionsState.transactions.isNotEmpty())
           Column(
             modifier = Modifier
-              .heightIn(0.dp, 400.dp)
+              .heightIn(0.dp, 480.dp)
               .padding(horizontal = 16.dp)
           ) {
             Text(
@@ -281,6 +280,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
+    setBackup(state.hasBackup)
   }
 
   override fun onSideEffect(sideEffect: HomeSideEffect) {
@@ -341,10 +341,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success ->
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
+
+      else -> Unit
+    }
+  }
+
+  private fun setBackup(hasBackup: Async<Boolean>) {
+    when (hasBackup) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+
+      is Async.Success ->
+        viewModel.showBackup.value = !(hasBackup.value ?: false)
+
       else -> Unit
     }
   }
@@ -355,6 +371,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.partners
+package com.appcoins.wallet.core.analytics.analytics.partners
 
 import io.reactivex.Single
 

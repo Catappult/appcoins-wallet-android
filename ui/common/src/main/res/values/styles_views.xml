@@ -19,7 +19,7 @@
       <enum name="text" value="2" />
       <enum name="disabled" value="3" />
       <enum name="filled_gray_pink" value="4" />
-      <enum name="number" value="5" />
+      <enum name="outlined_grey" value="5" />
     </attr>
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />

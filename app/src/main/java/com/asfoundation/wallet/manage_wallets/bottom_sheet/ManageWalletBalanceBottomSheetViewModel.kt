@@ -28,8 +28,6 @@ data class ManageWalletBalanceBottomSheetState(
 
 @HiltViewModel
 class ManageWalletBalanceBottomSheetViewModel @Inject constructor(
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val walletsInteract: WalletsInteract
 ) :
   BaseViewModel<ManageWalletBalanceBottomSheetState, ManageWalletBalanceBottomSheetSideEffect>(initialState()) {
 
@@ -49,25 +47,5 @@ class ManageWalletBalanceBottomSheetViewModel @Inject constructor(
       val inactiveWallets: List<WalletInfoSimple>
     ) : UiState()
   }
-
-  fun getWallets(walletChanged: Boolean = false) {
-    walletsInteract
-      .observeWalletsModel()
-      .firstOrError()
-      .doOnSubscribe { _uiState.value = ManageWalletViewModel.UiState.Loading }
-      .doOnSuccess { wallets ->
-        getActiveWallet(wallets)
-        if (walletChanged) _uiState.value = ManageWalletViewModel.UiState.WalletChanged
-      }
-      .subscribe()
-  }
-
-  private fun getActiveWallet(wallets: WalletsModel) {
-    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true, updateFiat = true)
-      .firstOrError()
-      .doOnSuccess { _uiState.value = ManageWalletViewModel.UiState.Success(it, wallets.inactiveWallets()) }
-      .subscribe()
-  }
-  
 
 }
