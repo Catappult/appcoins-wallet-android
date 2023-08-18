@@ -14,7 +14,7 @@
       android:layout_height="wrap_content"
       android:maxHeight="170dp"
       app:layout_constraintTop_toTopOf="parent"
-      app:textFieldColor="@color/styleguide_white"
+      app:textFieldColor="@color/styleguide_blue_secondary"
       app:textFieldHint="@string/import_wallet_keystore_private_keys"
       app:textFieldType="filled"
       />
