@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -117,99 +115,75 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
-    Column(
-      modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .padding(padding),
-    ) {
-      with(viewModel.gamificationHeaderModel.value) {
-        if (
-          this != null &&
-          this.bonusPercentage >= 10.0
-        ) {
-          GamificationHeader(
-            onClick = {
-              navigator.navigateToGamification(
-                cachedBonus = this.bonusPercentage
-              )
-            },
-            indicatorColor = Color(
-              this.color
-            ),
-            valueSpendForNextLevel = this.spendMoreAmount,
-            currencySpend = " AppCoins Credits",
-            currentProgress = this.currentSpent,
-            maxProgress = this.nextLevelSpent ?: 0,
-            bonusValue = df.format(this.bonusPercentage),
-            planetDrawable = this.planetImage,
-            isVip = this.isVip,
-            isMaxVip = this.isMaxVip
-          )
-          with(viewModel.vipReferralModel.value) {
-            if (this != null) {
-              VipReferralCard(
-                {
-                  navigator.navigateToVipReferral(
-                    bonus = this.vipBonus,
-                    code = this.vipCode,
-                    totalEarned = this.totalEarned,
-                    numberReferrals = this.numberReferrals,
-                    mainNavController = navController()
-                  )
-                },
-                this.vipBonus
-              )
-            }
-          }
-        } else if (
-          this != null &&
-          this.bonusPercentage > 0.0 &&
-          this.bonusPercentage < 10.0
-        ) {
-          GamificationHeaderPartner(
-            df.format(this.bonusPercentage)
-          )
-        } else {
-          GamificationHeaderNoPurchases()
-        }
-
-        RewardsActions(
-          { navigator.navigateToWithdrawScreen() },
-          { navigator.showPromoCodeFragment() },
-          { navigator.showGiftCardFragment() }
-        )
-        viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
-        PromotionsList()
-        Spacer(modifier = Modifier.padding(32.dp))
-      }
-    }
-  }
-
-
-  @Composable
-  private fun PromotionsList() {
     LazyColumn(
-      modifier = Modifier
-        .padding(
-          start = 16.dp,
-          end = 16.dp,
-          bottom = 16.dp
-        )
-        .heightIn(min = 0.dp, max = 1000.dp),
-      userScrollEnabled = false,
+      modifier = Modifier.padding(padding),
     ) {
+      item {
+        with(viewModel.gamificationHeaderModel.value) {
+          if (this != null && this.bonusPercentage >= 10.0) {
+            GamificationHeader(
+              onClick = {
+                navigator.navigateToGamification(
+                  cachedBonus = this.bonusPercentage
+                )
+              },
+              indicatorColor = Color(
+                this.color
+              ),
+              valueSpendForNextLevel = this.spendMoreAmount,
+              currencySpend = " AppCoins Credits",
+              currentProgress = this.currentSpent,
+              maxProgress = this.nextLevelSpent ?: 0,
+              bonusValue = df.format(this.bonusPercentage),
+              planetDrawable = this.planetImage,
+              isVip = this.isVip,
+              isMaxVip = this.isMaxVip
+            )
+            with(viewModel.vipReferralModel.value) {
+              if (this != null) {
+                VipReferralCard(
+                  {
+                    navigator.navigateToVipReferral(
+                      bonus = this.vipBonus,
+                      code = this.vipCode,
+                      totalEarned = this.totalEarned,
+                      numberReferrals = this.numberReferrals,
+                      mainNavController = navController()
+                    )
+                  }, this.vipBonus
+                )
+              }
+            }
+          } else if (this != null && this.bonusPercentage > 0.0 && this.bonusPercentage < 10.0) {
+            GamificationHeaderPartner(
+              df.format(this.bonusPercentage)
+            )
+          } else {
+            GamificationHeaderNoPurchases()
+          }
+
+          RewardsActions({ navigator.navigateToWithdrawScreen() },
+            { navigator.showPromoCodeFragment() },
+            { navigator.showGiftCardFragment() })
+          viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
+        }
+      }
       item {
         Text(
           text = getString(R.string.perks_title),
           fontSize = 14.sp,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 16.dp, end = 2.dp, start = 6.dp)
+          modifier = Modifier.padding(top = 16.dp, start = 24.dp)
         )
       }
       items(viewModel.promotions) { promotion ->
-        PromotionsCardComposable(cardItem = promotion)
+        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+          PromotionsCardComposable(cardItem = promotion)
+        }
       }
+
+      item { Spacer(modifier = Modifier.padding(40.dp)) }
     }
   }
 
