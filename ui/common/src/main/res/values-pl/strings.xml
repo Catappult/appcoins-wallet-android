@@ -1233,8 +1233,8 @@
   <string name="intro_backup_card_body">Zadbaj o kopię zapasową portfela i bezpieczeństwo.</string>
   <string name="rewards_spend_to_next_level_body">Wydaj więcej %1$s%2$s, aby wejść wyżej!</string>
   <string name="rewards_current_bonus_title">%s%% bonusu przy każdym zakupie</string>
-  <string name="rewards_eskills_card_title">Zarabiaj!</string>
-  <string name="rewards_eskills_card_body">Pokonaj innych graczy z e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Kody promo</string>
   <string name="rewards_promo_code_card_body">Wpisz kod promocyjny i zgarniaj okazje!</string>
   <string name="rewards_promo_code_status">Status:</string>
