@@ -1207,8 +1207,8 @@
   <string name="intro_backup_card_body">ار کیف پول خود بک‌آپ بگیرید و همیشه آن را امن نگه دارید.</string>
   <string name="rewards_spend_to_next_level_body">%1$s%2$s بیشتر خرج کنید تا به مرحله بعدی برسید!</string>
   <string name="rewards_current_bonus_title">%s%% پاداش برای هر خرید</string>
-  <string name="rewards_eskills_card_title">پول درآوردید!</string>
-  <string name="rewards_eskills_card_body">سایر بازیکنان را در e-Skills شکست دهید</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">کدهای پرومو</string>
   <string name="rewards_promo_code_card_body">برای دریافت پیشنهادات ویژه، یک کد پرومو استفاده کنید!</string>
   <string name="rewards_promo_code_status">وضعیت:</string>
