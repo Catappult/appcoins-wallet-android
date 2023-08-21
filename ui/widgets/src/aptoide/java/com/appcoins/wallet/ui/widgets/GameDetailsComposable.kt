@@ -1,12 +1,17 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +41,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -43,6 +49,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -82,7 +89,8 @@ data class Screenshot(
 )
 
 private var showEskillsCard by mutableStateOf(true)
-
+private var showInstallButton by mutableStateOf(true)
+private var showResume by mutableStateOf(false)
 
 @Composable
 fun GameDetails(
@@ -108,22 +116,101 @@ fun GameDetails(
     ) {
       TopAppView(appDetailsData = appDetailsData, close = close)
       Spacer(modifier = Modifier.height(20.dp))
-      Button(
-        onClick = { install },
+      AnimatedVisibility(
         modifier = Modifier
           .align(Alignment.CenterHorizontally)
-          .fillMaxWidth(0.85f)
-          .height(48.dp),
-        colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink),
-        shape = RoundedCornerShape(24.dp)
-
+          .fillMaxWidth(0.85f),
+        visible = showInstallButton,
+        enter = fadeIn()
       ) {
-        Text(
-          text = "Install",
-          fontSize = 14.sp,
-          fontFamily = FontFamily.SansSerif,
-          fontWeight = FontWeight.Bold
-        )
+        Button(
+          onClick = {
+            install
+            showInstallButton = false
+            showResume = false
+          },
+          modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .fillMaxWidth()
+            .height(48.dp),
+          colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink),
+          shape = RoundedCornerShape(24.dp)
+
+        ) {
+          Text(
+            text = "Install",
+            fontSize = 14.sp,
+            fontFamily = FontFamily.SansSerif,
+            fontWeight = FontWeight.Bold
+          )
+        }
+
+      }
+      if(!showInstallButton) {
+        Row(
+          modifier = Modifier
+            .align(Alignment.CenterHorizontally)
+            .fillMaxWidth(0.85f),
+          horizontalArrangement = Arrangement.SpaceEvenly,
+          verticalAlignment = Alignment.Top
+        ) {
+          Column(
+            modifier = Modifier.fillMaxWidth(0.8f)
+          ) {
+            LinearProgressIndicator(progress = 0.34f,
+              color = WalletColors.styleguide_pink,
+              trackColor = WalletColors.styleguide_blue_secondary,
+              modifier = Modifier
+                .clip(shape = RoundedCornerShape(24.dp))
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth())
+
+            Row(
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              Text(
+                text = "Downloading",
+                color = WalletColors.styleguide_dark_grey,
+                fontSize = 12.sp
+              )
+              Text(
+                text = "34"+"%",
+                color = WalletColors.styleguide_dark_grey,
+                fontSize = 12.sp
+              )
+            }
+          }
+          IconButton(
+            onClick = {
+                      showInstallButton = true
+                      },
+            modifier = Modifier.size(14.dp)
+          ) {
+            Icon(painter = painterResource(R.drawable.cancel),
+              contentDescription = "Cancel",
+              tint = WalletColors.styleguide_dark_grey)
+          }
+          if (showResume) {
+            IconButton(onClick = { showResume = false },
+              modifier = Modifier.size(14.dp)
+            ) {
+              Icon(painter = painterResource(R.drawable.resume),
+                contentDescription = "Resume",
+                tint = WalletColors.styleguide_dark_grey)
+            }
+          } else {
+            IconButton(onClick = { showResume = true },
+              modifier = Modifier.size(14.dp)
+            ) {
+              Icon(painter = painterResource(R.drawable.pause),
+                contentDescription = "Pause",
+                tint = WalletColors.styleguide_dark_grey)
+            }
+          }
+        }
       }
       AnimatedVisibility(
         visible = showEskillsCard,
@@ -540,4 +627,46 @@ fun getSize(size: Long): String {
       digitGroups.toDouble()
     )
   ) + " " + units[digitGroups]
+}
+
+@Preview
+@Composable
+private fun Overview() {
+  GameDetails(
+    appDetailsData =
+    GameDetailsData(
+      title = "Fruit Blast Master Test ",
+      gameIcon = "https://pool.img.aptoide.com/catappult/57d4a771e6dbedff5e5f8db37687c3dc_icon.png",
+      gameBackground = "https://pool.img.aptoide.com/catappult/ad72b51875828f10222af84ebc55b761_feature_graphic.png",
+      gamePackage = "im.maya.legendaryheroes",
+      description = "Just testing description",
+      screenshots = listOf(
+        Screenshot(
+          imageUrl = "https://pool.img.aptoide.com/catappult/4c24292b56918cf363e7a1b3c3275045_screen.jpg",
+          height = 288,
+          width = 512
+        ),
+        Screenshot(
+          imageUrl = "https://pool.img.aptoide.com/catappult/0e9a0a52b013a4eb0d636eb946221a4b_screen.jpg",
+          height = 288,
+          width = 512
+        ),
+        Screenshot(
+          imageUrl = "https://pool.img.aptoide.com/catappult/44cd8d6c8e140e54bbf286b7b32b0fad_screen.jpg",
+          height = 288,
+          width = 512
+        ),
+        Screenshot(
+          imageUrl = "https://pool.img.aptoide.com/catappult/af40419c6caec7d1fc7afc6212f0dc5c_screen.jpg",
+          height = 288,
+          width = 512
+        )
+      ),
+      size = 199720828,
+      downloads = 60500,
+      rating = 5.9
+    ),
+    close = { /*TODO*/ }, install = { /*TODO*/ }) {
+
+  }
 }
