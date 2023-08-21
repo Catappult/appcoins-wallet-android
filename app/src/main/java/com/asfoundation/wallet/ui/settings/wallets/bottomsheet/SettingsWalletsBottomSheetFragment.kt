@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
-import com.asfoundation.wallet.ui.wallets.WalletBalance
-import com.asfoundation.wallet.ui.wallets.WalletsAdapter
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.ui.common.addBottomItemDecoration
+import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsWalletBottomSheetLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
+import com.asfoundation.wallet.ui.wallets.WalletsAdapter
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -62,14 +62,14 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     presenter.present()
   }
 
-  override fun setupUi(walletsBalance: List<WalletBalance>) {
+  override fun setupUi(walletInfoSimple: List<WalletInfoSimple>) {
     with(binding.bottomSheetWalletsCards) {
       addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
       isNestedScrollingEnabled = false
       layoutManager = LinearLayoutManager(context).apply {
         orientation = RecyclerView.VERTICAL
       }
-      adapter = WalletsAdapter(walletsBalance, uiEventListener!!, currencyFormatter)
+      adapter = WalletsAdapter(walletInfoSimple, uiEventListener!!, currencyFormatter)
     }
     provideParentFragment()?.showBottomSheet()
   }

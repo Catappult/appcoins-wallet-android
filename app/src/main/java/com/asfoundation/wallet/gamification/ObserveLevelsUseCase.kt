@@ -2,7 +2,7 @@ package com.asfoundation.wallet.gamification
 
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.Levels
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
 import javax.inject.Inject
 

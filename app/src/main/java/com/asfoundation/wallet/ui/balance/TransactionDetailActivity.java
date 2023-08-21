@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
@@ -24,7 +25,6 @@ import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
-import com.asfoundation.wallet.ui.BaseActivity;
 import com.appcoins.wallet.ui.widgets.SeparatorView;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
@@ -36,6 +36,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -43,8 +44,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
-import static com.asfoundation.wallet.C.Key.TRANSACTION;
+import static com.appcoins.wallet.core.utils.jvm_common.C.Key.GLOBAL_BALANCE_CURRENCY;
+import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
 
 @AndroidEntryPoint public class TransactionDetailActivity extends BaseActivity {
 
@@ -104,6 +105,21 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
           findViewById(R.id.img).setScaleX(percentage);
           findViewById(R.id.img).setScaleY(percentage);
         });
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   @Override protected void onResume() {

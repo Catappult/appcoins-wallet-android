@@ -13,27 +13,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentMyWalletsBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
-import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentMyWalletsBinding
+import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.util.generateQrCode
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,6 +45,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
+
 
   private val viewModel: MyWalletsViewModel by viewModels()
 
@@ -85,6 +83,7 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: MyWalletsState) {
+
     when (val asyncValue = state.walletInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -103,23 +102,23 @@ class MyWalletsFragment : BasePageViewFragment(),
       is Async.Fail -> Unit
       is Async.Success -> asyncValue().run {
         when (status) {
-          BalanceVerificationStatus.VERIFIED -> showVerified(false)
-          BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
-          BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
-          BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
+          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(false)
+          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
+          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
+          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.NO_NETWORK, com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.ERROR -> {
             when (cachedStatus) {
-              BalanceVerificationStatus.VERIFIED -> showVerified(true)
-              BalanceVerificationStatus.UNVERIFIED -> showUnverified(true)
-              BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(true)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(true)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(true)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(true)
               else -> showUnverified(true)
             }
           }
           else -> {
             when (cachedStatus) {
-              BalanceVerificationStatus.VERIFIED -> showVerified(false)
-              BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
-              BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
-              BalanceVerificationStatus.VERIFYING -> showVerifying()
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(false)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFYING -> showVerifying()
               else -> showUnverified(true)
             }
           }
@@ -166,9 +165,9 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToQrCode(views.myWalletsContent.qrImage)
     }
 
-    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
+//    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
     views.myWalletsContent.receiveButton.setOnClickListener {
-      navigator.navigateToReceive(Wallet(wallet))
+      //navigator.navigateToReceive(Wallet(wallet))
     }
 
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
@@ -346,7 +345,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
 
-  private fun FiatValue.getFiatBalanceText(): String =
+  private fun com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue.getFiatBalanceText(): String =
     if (amount.compareTo(BigDecimal("-1")) == 1) {
       symbol + formatter.formatCurrency(amount)
     } else {

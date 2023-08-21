@@ -12,8 +12,8 @@
       android:id="@+id/promotions_graph"
       app:graph="@navigation/promotions_graph" />
   <include
-      android:id="@+id/my_wallets_graph"
-      app:graph="@navigation/my_wallets_graph" />
+      android:id="@+id/reward_graph"
+      app:graph="@navigation/reward_graph" />
 
   <!-- TopUpActivity needs to be refactor with its own graph and fragment -->
   <activity

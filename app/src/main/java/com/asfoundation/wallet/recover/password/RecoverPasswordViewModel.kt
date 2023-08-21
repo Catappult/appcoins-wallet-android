@@ -1,18 +1,23 @@
 package com.asfoundation.wallet.recover.password
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.password.RecoverPasswordFragment.Companion.KEYSTORE_KEY
-import com.asfoundation.wallet.recover.result.*
-import com.asfoundation.wallet.recover.use_cases.*
-import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.recover.result.FailedPasswordRecover
+import com.asfoundation.wallet.recover.result.RecoverPasswordResult
+import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
+import com.asfoundation.wallet.recover.use_cases.RecoverPasswordKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.recover.use_cases.UpdateBackupStateFromRecoverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -27,16 +32,16 @@ data class RecoverPasswordState(
 
 @HiltViewModel
 class RecoverPasswordViewModel @Inject constructor(
-  private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
-  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-  private val walletsEventSender: WalletsEventSender,
-  private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
-  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-  private val savedStateHandle: SavedStateHandle,
+        private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+        private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+        private val walletsEventSender: WalletsEventSender,
+        private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
+        private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+        private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+        private val savedStateHandle: SavedStateHandle,
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
+  BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RecoverPasswordState {

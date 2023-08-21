@@ -6,14 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +30,8 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   lateinit var navigator: PromoCodeBottomSheetNavigator
 
   private val views by viewBinding(SettingsPromoCodeSuccessBottomSheetLayoutBinding::bind)
+
+  private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
   companion object {
 
@@ -53,7 +57,10 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
-    views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener { navigator.navigateBack() }
+    views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener {
+      rewardSharedViewModel.onBottomSheetDismissed()
+      navigator.navigateBack()
+    }
   }
 
   override fun onStart() {
@@ -72,20 +79,20 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
   @SuppressLint("StringFormatMatches")
   private fun showSuccess(promoCode: PromoCode) {
-    views.promoCodeBottomSheetSuccessAnimation.visibility = View.VISIBLE
-    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
-    views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
-    views.promoCodeBottomSheetSuccessAnimation.repeatCount = 0
-    views.promoCodeBottomSheetSuccessAnimation.playAnimation()
+    views.promoCodeBottomSheetSuccessImage.visibility = View.VISIBLE
     if (promoCode.appName != null) {
       views.promoCodeBottomSheetSuccessSubtitle.text =
         this.getString(
-          R.string.promo_code_success_body_specific_app, promoCode.bonus.toString(),
+          R.string.promo_code_success_body_specific_app,
+          promoCode.bonus?.toInt().toString(),
           promoCode.appName
         )
     } else {
       views.promoCodeBottomSheetSuccessSubtitle.text =
-        this.getString(R.string.promo_code_success_body, promoCode.bonus.toString())
+        this.getString(
+          R.string.promo_code_success_body,
+          promoCode.bonus?.toInt().toString()
+        )
     }
   }
 }

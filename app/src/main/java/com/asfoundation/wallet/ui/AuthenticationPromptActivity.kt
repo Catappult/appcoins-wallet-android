@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,6 +70,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
           }
         })
   }
+
+
 
   override fun onResume() {
     super.onResume()

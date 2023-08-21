@@ -12,11 +12,12 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.ui.common.R
 import com.google.android.material.snackbar.Snackbar
 
 class SystemView : FrameLayout, View.OnClickListener {
-  private var progress: ProgressBar? = null
+  private var progress: LottieAnimationView? = null
   private var errorBox: View? = null
   private var messageTxt: TextView? = null
   private var tryAgain: View? = null
