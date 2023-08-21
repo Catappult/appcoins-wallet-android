@@ -1220,8 +1220,8 @@
   <string name="intro_backup_card_body">Napravite rezervnu kopiju novčanika i čuvajte je na sigurnom mestu u svako doba.</string>
   <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
-  <string name="rewards_eskills_card_title">Zaradite novac!</string>
-  <string name="rewards_eskills_card_body">Pobedite druge igrače sa e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo kodovi</string>
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
