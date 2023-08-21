@@ -1196,8 +1196,8 @@
   <string name="intro_backup_card_body">สำรองวอลเล็ตของคุณและเก็บอย่างปลอดภัย</string>
   <string name="rewards_spend_to_next_level_body">ใช้จ่ายมากขึ้น %1$s%2$s เพื่อไปถึงระดับถัดไป!</string>
   <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
-  <string name="rewards_eskills_card_title">ทำรายได้!</string>
-  <string name="rewards_eskills_card_body">เอาชนะผู้เล่นคนอื่นด้วย e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">รหัสโปรโม</string>
   <string name="rewards_promo_code_card_body">ใส่ Promo Code เพื่อรับข้อเสนอพิเศษ!</string>
   <string name="rewards_promo_code_status">สถานะ:</string>
