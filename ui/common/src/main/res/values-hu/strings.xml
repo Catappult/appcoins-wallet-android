@@ -1207,8 +1207,8 @@
   <string name="intro_backup_card_body">Készíts biztonsági mentést a tárcádról, hogy az mindenkor biztonságban maradjon.</string>
   <string name="rewards_spend_to_next_level_body">Még több %1$s%2$s elköltésével juthatsz el a következő szintre!</string>
   <string name="rewards_current_bonus_title">%s%% bónusz minden vásárlás után</string>
-  <string name="rewards_eskills_card_title">Keress pénzt!</string>
-  <string name="rewards_eskills_card_body">Verj meg más játékosokat az e-Skills segítségével</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promóciós kódok</string>
   <string name="rewards_promo_code_card_body">Különleges ajánlatokért használj promóciós kódot!</string>
   <string name="rewards_promo_code_status">Állapot:</string>
