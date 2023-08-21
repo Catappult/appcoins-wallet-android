@@ -82,4 +82,10 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
   val formattedProjects = projects.map { it.replace(":", "/") }.toSet()
   return Pair(formattedProjects, modules)
 }
+include(":feature:promo-code:data")
+include(":feature:backup:data")
+include(":feature:authentication:data")
+include(":feature:backup:ui")
+include(":core:legacy-base")
+include(":feature:support:data")
 include(":core:walletServices")

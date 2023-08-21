@@ -32,6 +32,10 @@ gradlePlugin {
       id = "appcoins.android.library"
       implementationClass = "com.appcoins.wallet.convention.plugins.AndroidLibraryPlugin"
     }
+    register("AndroidLibraryCompose") {
+      id = "appcoins.android.library.compose"
+      implementationClass = "com.appcoins.wallet.convention.plugins.AndroidLibraryComposePlugin"
+    }
     register("JvmLibrary") {
       id = "appcoins.jvm.library"
       implementationClass = "com.appcoins.wallet.convention.plugins.JvmLibraryPlugin"

@@ -8,9 +8,11 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
@@ -18,11 +20,8 @@ import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUC
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.math.BigDecimal

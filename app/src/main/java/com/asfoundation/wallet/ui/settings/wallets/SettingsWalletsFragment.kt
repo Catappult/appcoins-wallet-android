@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsWalletsLayoutBinding
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint

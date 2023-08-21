@@ -8,12 +8,12 @@ import android.view.Window
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.ActivityNavigator
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import com.asf.wallet.R
 import com.asf.wallet.databinding.QrCodeLayoutBinding
-import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.generateQrCode
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

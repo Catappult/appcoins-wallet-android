@@ -6,9 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.asf.wallet.NavBarGraphDirections
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,10 +33,10 @@ class NavBarFragmentNavigator @Inject constructor(
     view.performClick()
   }
 
-  fun navigateToMyWallets() {
+  fun navigateToRewards() {
     val bottomNavView: BottomNavigationView =
       fragment.requireActivity().findViewById(R.id.bottom_nav)
-    val view: View = bottomNavView.findViewById(R.id.my_wallets_graph)
+    val view: View = bottomNavView.findViewById(R.id.reward_graph)
     view.performClick()
   }
 

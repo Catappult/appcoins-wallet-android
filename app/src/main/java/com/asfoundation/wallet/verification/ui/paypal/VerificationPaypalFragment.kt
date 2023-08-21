@@ -10,16 +10,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.data.Error
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

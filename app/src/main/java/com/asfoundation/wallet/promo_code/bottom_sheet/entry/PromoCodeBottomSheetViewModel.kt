@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.promo_code.FailedPromoCode
-import com.asfoundation.wallet.promo_code.PromoCodeResult
-import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetStoredPromoCodeResultUseCase
-import com.asfoundation.wallet.promo_code.use_cases.VerifyAndSavePromoCodeUseCase
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
+import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
+import com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetStoredPromoCodeResultUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,16 +17,16 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 }
 
 data class PromoCodeBottomSheetState(
-  val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val shouldShowDefault: Boolean = false
+    val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
+    val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
+    val shouldShowDefault: Boolean = false
 ) : ViewState
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
-  private val getStoredPromoCodeResultUseCase: GetStoredPromoCodeResultUseCase,
-  private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
-  private val deletePromoCodeUseCase: DeletePromoCodeUseCase
+    private val getStoredPromoCodeResultUseCase: GetStoredPromoCodeResultUseCase,
+    private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
+    private val deletePromoCodeUseCase: DeletePromoCodeUseCase
 ) :
   BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 

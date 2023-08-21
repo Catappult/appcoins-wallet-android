@@ -2,12 +2,14 @@ package com.appcoins.wallet.core.network.microservices
 
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.network.microservices.ProductApiModule.FiatCurrenciesApi
+import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerBlockchainRetrofit
+import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultResultRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
 import com.appcoins.wallet.core.network.microservices.api.*
 import com.appcoins.wallet.core.network.microservices.api.broker.*
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi.*
+import com.appcoins.wallet.core.network.microservices.api.broker.FiatCurrenciesApi
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -50,6 +52,21 @@ class BrokerApiModule {
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+  }
+
+  @Singleton
+  @Provides
+  @BrokerDefaultResultRetrofit
+  fun provideBrokerDefaultResultRetrofit(
+    @DefaultHttpClient client: OkHttpClient,
+    apiResultCallAdapterFactory: ApiResultCallAdapterFactory
+  ): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(brokerUrl)
+      .client(client)
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(apiResultCallAdapterFactory)
       .build()
   }
 
@@ -99,7 +116,7 @@ class BrokerApiModule {
   @Singleton
   @Provides
   fun providesFiatCurrenciesApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
+    @BrokerDefaultResultRetrofit retrofit: Retrofit
   ): FiatCurrenciesApi {
     return retrofit.create(FiatCurrenciesApi::class.java)
   }

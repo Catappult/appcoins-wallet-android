@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
-import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import io.reactivex.Observable
 
 interface SettingsWalletsBottomSheetView {
 
-  fun setupUi(walletsBalance: List<WalletBalance>)
+  fun setupUi(walletsBalance: List<WalletInfoSimple>)
 
   fun walletCardClicked(): Observable<String>
 }

@@ -2,10 +2,10 @@ package com.asfoundation.wallet.router;
 
 import android.content.Context;
 import android.content.Intent;
-import com.asfoundation.wallet.entity.Wallet;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.ui.MyAddressActivity;
 
-import static com.asfoundation.wallet.C.Key.WALLET;
+import static com.appcoins.wallet.core.utils.jvm_common.C.Key.WALLET;
 
 public class MyAddressRouter {
 

@@ -29,6 +29,7 @@ import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.usecase.Status
 import cm.aptoide.skills.util.RootUtil
 import cm.aptoide.skills.util.UriValidationResult
+import com.appcoins.wallet.core.analytics.analytics.legacy.SkillsAnalytics
 import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
