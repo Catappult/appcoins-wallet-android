@@ -1194,8 +1194,8 @@
   <string name="intro_backup_card_body">지갑을 백업하여 항상 안전하게 보관하세요.</string>
   <string name="rewards_spend_to_next_level_body">순 수준에 도달하려면 %1$s%2$s를 더 지출하십시오!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
-  <string name="rewards_eskills_card_title">돈 벌기!</string>
-  <string name="rewards_eskills_card_body">e-Skills로 다른 플레이어들을 무찌르세요</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">프로모션 코드</string>
   <string name="rewards_promo_code_card_body">프로모션 코드를 사용하여 특별한 혜택을 누리십시오!</string>
   <string name="rewards_promo_code_status">상태:</string>
