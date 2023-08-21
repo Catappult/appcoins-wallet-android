@@ -25,7 +25,6 @@ class AndroidAppPlugin : Plugin<Project> {
 
       extensions.configure<BaseAppModuleExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = Config.android.buildToolsVersion
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
           targetSdk = Config.android.targetSdk
@@ -102,6 +101,7 @@ class AndroidAppPlugin : Plugin<Project> {
             kotlinCompilerExtensionVersion = "1.4.3"
           }
           compose = true
+          aidl = true
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)

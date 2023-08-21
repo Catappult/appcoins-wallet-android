@@ -24,7 +24,6 @@ class AndroidLibraryPlugin : Plugin<Project> {
 
       extensions.configure<LibraryExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = Config.android.buildToolsVersion
         defaultConfig.targetSdk = Config.android.targetSdk
         //workaround since only debug and release were being shown as a variant in the android modules
         buildTypes{

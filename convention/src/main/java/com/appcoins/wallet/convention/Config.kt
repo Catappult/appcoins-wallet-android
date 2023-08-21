@@ -7,12 +7,11 @@ object Config {
     minSdk = 21,
     targetSdk = 33,
     compileSdkVersion = 33,
-    buildToolsVersion = "30.0.3",
     ndkVersion = "21.3.6528147"
   )
   val jvm = JvmConfig(
-    javaVersion = JavaVersion.VERSION_1_8,
-    kotlinJvm = "1.8",
+    javaVersion = JavaVersion.VERSION_17,
+    kotlinJvm = JavaVersion.VERSION_17.toString(),
     freeCompilerArgs = listOf(
       "-opt-in=kotlin.RequiresOptIn",
       "-opt-in=kotlin.Experimental",
@@ -24,7 +23,6 @@ object Config {
     val minSdk: Int,
     val targetSdk: Int,
     val compileSdkVersion: Int,
-    val buildToolsVersion: String,
     val ndkVersion: String,
   )
 

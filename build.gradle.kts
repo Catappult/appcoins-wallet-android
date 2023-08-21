@@ -15,6 +15,10 @@ buildscript {
 //    classpath(libs.gradlePlugin.bintray)
   }
 }
+//TODO workaround waiting to be removed after compose.ui be fixed https://issuetracker.google.com/issues/293645018
+allprojects {
+  configurations.all { resolutionStrategy { force("androidx.emoji2:emoji2:1.3.0") } }
+}
 
 tasks.register("clean", Delete::class) {
   delete(rootProject.buildDir)

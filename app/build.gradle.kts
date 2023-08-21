@@ -8,6 +8,7 @@ plugins {
 }
 
 android {
+  namespace = "com.asf.wallet"
   defaultConfig {
     applicationId = "com.appcoins.wallet"
     versionCode = 270

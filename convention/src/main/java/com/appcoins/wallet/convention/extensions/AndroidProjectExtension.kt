@@ -6,7 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
-internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, *, *>) {
+internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, *, *, *>) {
   with(extension) {
     compileSdk = Config.android.compileSdkVersion
     defaultConfig {
@@ -41,6 +41,6 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
 }
 
 
-private fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+private fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
   (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }
