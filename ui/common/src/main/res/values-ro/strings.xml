@@ -1220,8 +1220,8 @@
   <string name="intro_backup_card_body">Fă o copie de rezervă a portofelului pentru a-l păstra în siguranță.</string>
   <string name="rewards_spend_to_next_level_body">Cheltuiește mai mult %1$s%2$s pentru a trece la nivelul următor!</string>
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
-  <string name="rewards_eskills_card_title">Câștigă bani!</string>
-  <string name="rewards_eskills_card_body">Învinge alți jucători cu e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Coduri Promo</string>
   <string name="rewards_promo_code_card_body">Folosește un Cod Promo pentru oferte speciale!</string>
   <string name="rewards_promo_code_status">Status:</string>
