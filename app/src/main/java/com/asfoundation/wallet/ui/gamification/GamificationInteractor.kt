@@ -16,83 +16,61 @@ import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class GamificationInteractor @Inject constructor(private val gamification: Gamification,
-                                                 private val defaultWallet: FindDefaultWalletInteract,
-                                                 private val conversionService: LocalCurrencyConversionService,
-                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class GamificationInteractor @Inject constructor(
+  private val gamification: Gamification,
+  private val defaultWallet: FindDefaultWalletInteract,
+  private val conversionService: LocalCurrencyConversionService,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+) {
 
   private var isBonusActiveAndValid: Boolean = false
 
   fun getLevels(offlineFirst: Boolean = true): Observable<Levels> {
     return defaultWallet.find()
-        .flatMapObservable { gamification.getLevels(it.address, offlineFirst) }
+      .flatMapObservable { gamification.getLevels(it.address, offlineFirst) }
   }
 
   fun getUserStats(): Observable<PromotionsGamificationStats> {
     return getCurrentPromoCodeUseCase()
-        .flatMapObservable { promoCode ->
-          defaultWallet.find()
-              .flatMapObservable { gamification.getUserStats(it.address, promoCode.code) }
-        }
+      .flatMapObservable { promoCode ->
+        defaultWallet.find()
+          .flatMapObservable { gamification.getUserStats(it.address, promoCode.code) }
+      }
   }
 
   fun getUserLevel(): Single<Int> {
     return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
-          defaultWallet.find()
-              .flatMap { gamification.getUserLevel(it.address, promoCode.code) }
+      .flatMap { promoCode ->
+        defaultWallet.find()
+          .flatMap { gamification.getUserLevel(it.address, promoCode.code) }
+      }
+  }
+
+  fun getEarningBonus(
+    packageName: String, amount: BigDecimal,
+    promoCodeString: String?, currency: String?
+  ): Single<ForecastBonusAndLevel> {
+    return defaultWallet.find()
+      .flatMap { wallet: Wallet ->
+        gamification.getEarningBonus(
+          wallet.address, packageName, amount,
+          promoCodeString, currency
+        ).map { forecastBonus ->
+          ForecastBonusAndLevel(
+            forecastBonus.status, forecastBonus.amount, forecastBonus.currency, level = forecastBonus.level
+          )
         }
+      }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
   }
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal,
-                      promoCodeString: String?): Single<ForecastBonusAndLevel> {
-    return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
-          defaultWallet.find()
-              .flatMap { wallet: Wallet ->
-                Single.zip(
-                    gamification.getEarningBonus(wallet.address, packageName, amount,
-                        promoCodeString),
-                    conversionService.localCurrency,
-                    gamification.getUserBonusAndLevel(wallet.address, promoCode.code),
-                    Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
-                      map(appcBonusValue, localCurrency, userBonusAndLevel, amount)
-                    })
-              }
-              .doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
-        }
-  }
-
-
-  private fun map(forecastBonus: ForecastBonus, fiatValue: FiatValue,
-                  forecastBonusAndLevel: ForecastBonusAndLevel,
-                  amount: BigDecimal): ForecastBonusAndLevel {
-    val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
-    var bonus = forecastBonus.amount.multiply(fiatValue.amount)
-
-    if (amount.multiply(fiatValue.amount) >= forecastBonusAndLevel.minAmount) {
-      bonus = bonus.add(forecastBonusAndLevel.amount)
-    }
-    return ForecastBonusAndLevel(status, bonus, fiatValue.symbol,
-        level = forecastBonusAndLevel.level)
-  }
-
-  private fun getBonusStatus(forecastBonus: ForecastBonus,
-                             userBonusAndLevel: ForecastBonusAndLevel): ForecastBonus.Status {
-    return if (forecastBonus.status == ForecastBonus.Status.ACTIVE || userBonusAndLevel.status == ForecastBonus.Status.ACTIVE) {
-      ForecastBonus.Status.ACTIVE
-    } else {
-      ForecastBonus.Status.INACTIVE
-    }
-  }
-
-  fun hasNewLevel(walletAddress: String,
-                  gamificationResponse: GamificationResponse?,
-                  gamificationContext: GamificationContext): Single<Boolean> {
+  fun hasNewLevel(
+    walletAddress: String,
+    gamificationResponse: GamificationResponse?,
+    gamificationContext: GamificationContext
+  ): Single<Boolean> {
     return if (gamificationResponse == null || gamificationResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
@@ -102,13 +80,15 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
 
   fun levelShown(level: Int, gamificationContext: GamificationContext): Completable {
     return defaultWallet.find()
-        .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext) }
+      .flatMapCompletable { gamification.levelShown(it.address, level, gamificationContext) }
   }
 
-  fun getAppcToLocalFiat(value: String, scale: Int,
-                         getFromCache: Boolean = false): Single<FiatValue> {
+  fun getAppcToLocalFiat(
+    value: String, scale: Int,
+    getFromCache: Boolean = false
+  ): Single<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
-        .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
+      .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
   }
 
   fun isBonusActiveAndValid(): Boolean {

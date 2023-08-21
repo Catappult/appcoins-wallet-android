@@ -104,6 +104,17 @@ class AndroidAppPlugin : Plugin<Project> {
           }  // "1.1.0"
           compose = true
         }
+
+        flavorDimensions.add(Config.distributionFlavorDimension)
+        productFlavors {
+          create(Config.googlePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+          create(Config.aptoidePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+        }
+
       }
     }
   }

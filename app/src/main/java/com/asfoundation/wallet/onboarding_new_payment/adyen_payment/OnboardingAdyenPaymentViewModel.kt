@@ -211,7 +211,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
             ) {
               events.sendCarrierBillingConfirmationEvent(args.transactionBuilder, "cancel")
             } else {
-              events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+              events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType.mapToService().transactionType)
             }
           }
           result.data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true -> {
@@ -222,8 +222,8 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       }
       WebViewActivity.SUCCESS -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
-          events.sendPaypalUrlEvent(args.transactionBuilder, result.data!!)
-          events.sendPayPalConfirmationEvent(args.transactionBuilder, "buy")
+          events.sendAdyenPaymentUrlEvent(args.transactionBuilder, result.data!!, args.paymentType.mapToService().transactionType)
+          events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "buy", args.paymentType.mapToService().transactionType)
         }
         sendSideEffect {
           result.data!!.data?.let { uri ->
@@ -233,8 +233,8 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       }
       WebViewActivity.USER_CANCEL -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
-          events.sendPaypalUrlEvent(args.transactionBuilder, result.data!!)
-          events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+          events.sendAdyenPaymentUrlEvent(args.transactionBuilder, result.data!!, args.paymentType.mapToService().transactionType)
+          events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType.mapToService().transactionType)
         }
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
       }

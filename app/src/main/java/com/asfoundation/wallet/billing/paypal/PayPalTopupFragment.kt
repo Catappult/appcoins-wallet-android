@@ -24,9 +24,7 @@ import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
@@ -61,6 +59,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     super.onAttach(context)
     check(context is TopUpActivityView) { "Paypal topup fragment must be attached to Topup activity" }
     topUpActivityView = context
+    topUpActivityView?.lockOrientation()
   }
 
   private fun registerWebViewResult() {
@@ -128,6 +127,9 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     views.paypalErrorButtons.errorCancel.setOnClickListener {
       close()
     }
+    views.paypalErrorButtons.errorTryAgain.setOnClickListener {
+      close()
+    }
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -150,6 +152,11 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   override fun onDetach() {
     super.onDetach()
     topUpActivityView = null
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    topUpActivityView?.unlockRotation()
   }
 
   private fun showLoadingAnimation() {

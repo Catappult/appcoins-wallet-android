@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Почати</string>
   <string name="ok">ОК</string>
   <string name="cancel">Скасувати</string>
   <string name="buy_button">Купити</string>
@@ -32,21 +32,26 @@
   <string name="purchase_error_title">Упс. Щось пішло не так.</string>
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
-  <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на пристрої, який отримав рутинг.\"</string>
-  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
-  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
-  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Ця версія гаманця не підтримується!</string>
   <string name="update_not_supported_body">Оновіть AppCoins Wallet до останньої версії.</string>
   <string name="update_button">Оновити</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Ви та друзі, яких ви запросите, отримаєте бонус у розмірі $%s. Ви можете запросити до 5 друзів, які мають бути новими користувачами. Бонус буде зараховано на ваш гаманець після того, як вони скористуються вашим кодом запрошення у своїй першій грі e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Ви та друзі, яких ви запросите, отримаєте бонус у розмірі $%s. Можна запросити до 5 друзів, які мають бути новими користувачами. Бонус буде зараховано на ваш гаманець після того, як вони скористуються вашим кодом запрошення у своїй першій грі e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Готові показати свої навички?</string>
   <string name="refer_a_friend_first_time_body">Обіграйте інших гравців та отримайте приз у вигляді реальних грошей! Розпочнемо з тренувальної гри без вступного внеску.</string>
   <string name="refer_a_friend_error_unavailable_body">Ця функція наразі недоступна.</string>
   <string name="refer_a_friend_error_invalid_code_body">Невірний код!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Тільки для нових користувачів!</string>
   <string name="refer_a_friend_first_time_tooltip">З нашою реферальною програмою ви отримаєте бонус у розмірі $%s при використанні коду друзів. Вони також отримають стільки ж, скільки й бонус, який можна буде використати на покупки в додатку або вхідні квитки e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Приведи друга!</string>
+  <string name="refer_a_friend_waiting_room_title">Запросити друга!</string>
   <string name="refer_a_friend_waiting_from_body">Отримайте бонус за кожного запрошеного друга.</string>
+  <string name="refer_a_friend_invitation_message">Вас запрошено зіграти у %1$s! Використайте код запрошення %2$s, після завантаження з %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Грати в ігри e-Skills з активним VPN не можна. Будь ласка, вимкніть його і спробуйте ще раз!</string>
+  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
+  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
+  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на рутованому пристрої.</string>
 </resources>

@@ -24,12 +24,12 @@ public class CreditsRemoteRepository
       @Nullable String callback, @Nullable String orderReference, @Nullable String referrerUrl,
       @Nullable String productToken) {
     return remoteRepository.registerAuthorizationProof(origin, type, entityOemId, entityDomain,
-        null, "appcoins_credits", walletAddress, signature, sku, packageName, amount,
-        developerAddress, payload, callback, orderReference, referrerUrl, productToken);
+        null, "appcoins_credits", walletAddress, sku, packageName, amount, developerAddress,
+        payload, callback, orderReference, referrerUrl, productToken);
   }
 
   @NotNull @Override
-  public Completable sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
+  public Single<Transaction> sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
       @NotNull String signature, @NotNull BigDecimal amount, @NotNull String origin,
       @NotNull String type, @NotNull String packageName) {
     return remoteRepository.transferCredits(toWallet, origin, type, "appcoins_credits",

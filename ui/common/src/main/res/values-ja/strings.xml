@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">&gt; をスキップ</string>
   <string name="root_title">デバイスのセキュリティが危険にさらされている</string>
   <string name="root_body">\'ルート\' アプリは AppCoins 財布キーチェーン データにアクセスでき、あなたのウォレット盗みます!すぐにこのウォレットをワイプして、セキュリティで保護されたデバイス上に復元してください。</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s AppCoinsクレジット</string>
   <string name="buying">%s を購入</string>
   <string name="action_buy">購入します。</string>
   <string name="empty"></string>
@@ -133,8 +133,6 @@
   <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
   <string name="intro_agree_terms_and_conditions_body">AppCoins Walletに入ることにより、%1$sと%2$sに同意したことになります。</string>
   <string name="intro_skip_button">スキップ</string>
-  <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
-  <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>
   <string name="intro_welcome_header_2">最大 %s%% のボーナス!</string>
   <string name="intro_welcome_body_2">ボーナスは、どのアプリやゲームでも使用することができます。</string>
   <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
@@ -256,8 +254,9 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">移動</string>
   <string name="transaction_type_bonus">ボーナス</string>
-  <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-Skills購入</string>
+  <string name="transaction_type_eskills_reward">eスキルリワード</string>
+  <string name="transaction_type_eskills">eスキルエントリーチケット</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skillsチケット払い戻し</string>
   <string name="transaction_type_voucher">eギフト券</string>
   <string name="transaction_type_voucher_title">%sのクーポン</string>
   <string name="transaction_type_reverted_bonus_title">還元されたボーナス</string>
@@ -288,6 +287,29 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">クレジット/デビットカード</string>
   <string name="dialog_expiry_date">有効期限</string>
+  <string name="transaction_type_purchase_bonus">購入ボーナス</string>
+  <string name="transaction_type_promo_code_bonus">プロモコードボーナス</string>
+  <string name="transaction_type_extra_bonus">エクストラボーナス</string>
+  <string name="transaction_type_topup">トップアップ</string>
+  <string name="transaction_type_reverted_purchase_bonus">返還された購入ボーナス</string>
+  <string name="transaction_type_reverted_promo_code_bonus">返還されたプロモコードボーナス</string>
+  <string name="transaction_type_reverted_extra_bonus">返還されたエクストラボーナス</string>
+  <string name="transaction_type_reverted_topup">返還されたトップアップ</string>
+  <string name="transaction_type_rejected_topup">拒否されたトップアップ</string>
+  <string name="transaction_type_rejected_subscription_purchase">拒否されたサブスクリプション購入</string>
+  <string name="transaction_type_rejected_purchase">購入却下</string>
+  <string name="transaction_type_rejected_eskills_ticket">拒否されたe-Skillsチケット</string>
+  <string name="transaction_type_refund_subscription">購読料の払い戻し</string>
+  <string name="transaction_type_subscription_payment">購読料支払い</string>
+  <string name="transaction_type_funds_sent">送信された資金</string>
+  <string name="transaction_type_funds_received">受け取った資金</string>
+  <string name="transaction_type_gift_card">ギフトカード</string>
+  <string name="transaction_date_label">日付</string>
+  <string name="transaction_more_details_label">詳細</string>
+  <string name="transaction_rejected_body">この購入は却下されました。\nサポートにお問い合わせください。</string>
+  <string name="transaction_reverted_body">この購入は取り消されました。\n詳しくはサポートにお問い合わせください。</string>
+  <string name="transaction_status_rejected">拒否</string>
+  <string name="transaction_details_header">トランザクション詳細</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
@@ -383,9 +405,8 @@
   <string name="provide_wallet_status">ウォレットアドレスへのアクセスを許可します。</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
-  <string name="topup_home_button">トップアップします。</string>
   <string name="topup_title">トップアップします。</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s AppCoinsクレジット</string>
   <string name="topup_bonus_header">あなたはボーナスを獲得しました！</string>
   <string name="topup_bonus_message">%s AppCoinsクレジットがウォレットに加算されます。</string>
   <string name="topup_completed_1">AppCoinsクレジットで%s</string>
@@ -441,7 +462,7 @@
   <string name="close_button">閉じる</string>
   <string name="back_button">戻る</string>
   <string name="value_fiat">%1$s%2$s</string>
-  <string name="value_crypto">%1$s %2$s</string>
+  <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">表示を消す</string>
   <string name="discover_button">発見する</string>
   <string name="retry_button">再試行</string>
@@ -462,6 +483,14 @@
   <string name="skip_button">今はスキップ</string>
   <string name="understand_button">了承</string>
   <string name="install_button">インストール</string>
+  <string name="get_button">入手</string>
+  <string name="see_all_button">全て表示</string>
+  <string name="transfer_button">移動</string>
+  <string name="top_up_button">トップアップ</string>
+  <string name="back_up_button">ウォレットをバックアップ</string>
+  <string name="play_button">プレイ</string>
+  <string name="manage_wallet_button">ウォレットの管理</string>
+  <string name="log_out_button">ログアウト</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -505,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">この電話番号は、すでにこの報酬を受け取るために使用されています😔。</string>
   <string name="verification_insert_phone_field_phone_used_already_error">すでに使用されている番号です。</string>
   <string name="verification_insert_code_error_common">問題が発生しました。再試行してください。</string>
-  <string name="verification_settings_unverified_title">ウオレットの認証</string>
+  <string name="verification_settings_unverified_title">支払い方法の確認</string>
   <string name="verification_settings_unverified_body">リワードをゲットして友達を招待</string>
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
-  <string name="verification_settings_verifying_title">ウオレットの認証中...</string>
-  <string name="verification_verified_paypal_description">すぐに返金されます。ウォレット間もなく確認されます。</string>
+  <string name="verification_settings_verifying_title">確認中...</string>
+  <string name="verification_verified_paypal_description">すぐに返金されます。お客様のお支払い方法は、まもなく確認されます。</string>
   <string name="verification_verify_paypal_description">アカウントの確認のため、%sの最小限の取引が行われます。これはすぐに返金されます。</string>
   <string name="verification_verify_paypal_button">今すぐ確認</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
@@ -569,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
   <string name="purchase_error_payment_rejected">取引は拒否されました。別のカードや支払い方法をお試しください。</string>
-  <string name="purchase_error_verify_wallet">支払い方法を確認し、この購入を完了します。</string>
-  <string name="purchase_error_verify_card">この購入を完了するためには支払い方法を確認してください。</string>
-  <string name="purachse_error_verify_card_button">カードの確認</string>
+  <string name="purchase_error_verify_wallet">この購入を完了するには支払い方法を確認してください。</string>
+  <string name="purchase_error_verify_card">この購入を完了するためにはこのカードを認証してください。</string>
+  <string name="purachse_error_verify_card_button">カード認証</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPIアプリをインストールする必要があります。</string>
   <string name="purchase_app_needed_body">購入手続きには、以下のアプリが必要です。</string>
@@ -580,6 +609,10 @@
   <string name="purchase_error_wrong_pin_body">あなたのPINコードに問題がありました。もう一度やり直してください。</string>
   <string name="purchase_error_3d_body">3D認証に問題がありました。もう一度お試しください。</string>
   <string name="purchase_error_generic_contact_us_body">何か問題が発生しました。再度お試しいただくか、弊社までご連絡ください。</string>
+  <string name="error_blocked_wallet_title">ブロックされたウォレット</string>
+  <string name="error_blocked_wallet_body">セキュリティ上の理由により、お客様のウォレットはブロックされています。お手数ですが、弊社までご連絡ください。</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
+  <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -602,8 +635,8 @@
   <string name="referral_onboarding_body">紹介プログラムであなたとあなたのお友達は最大%sの報酬を得ることができます！</string>
   <string name="referral_onboarding_body_no_connection">あなたとあなたの友人は、紹介プログラムでAppCoinsクレジットを獲得できます！</string>
   <string name="referral_onboarding_redeem_button">すでに招待されている方</string>
-  <string name="referral_verification_title">ウォレットの認証</string>
-  <string name="referral_verification_body">紹介プログラムに参加するには、ウォレットの認証が必要です。SMSで認証コードをお送りします。</string>
+  <string name="referral_verification_title">支払い方法の認証</string>
+  <string name="referral_verification_body">紹介プログラムに参加するためには、支払い方法の確認が必要です。SMSで認証コードをお送りします。</string>
   <string name="referral_verification_confirmation_title">あなたの招待が有効になりました。</string>
   <string name="referral_verification_confirmation_body">初めてのアプリ内購入で、%1$s相当のAppCoins Creditsを獲得できます。初回購入は、AppCoins Credits以外の支払い方法で、%2$s以上の購入である必要があります。</string>
   <string name="referral_verification_not_invited_title">この番号は招待されていないようです&#8230;</string>
@@ -616,8 +649,8 @@
   <string name="referral_view_share_link_button">招待リンクを共有</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
-  <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
-  <string name="referral_view_verify_button">ウオレットの認証</string>
+  <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、支払い方法を確認する必要があります。</string>
+  <string name="referral_view_verify_button">支払い方法の認証</string>
   <string name="referral_view_i_have_been_invited_button">すでに招待されている方</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
@@ -743,7 +776,7 @@
   <string name="transfer_send_token_title">トークン：</string>
   <string name="transfer_send_amount_title">量</string>
   <string name="transfer_send_current_balance_title">現在の残高：</string>
-  <string name="transfer_send_button">送信する</string>
+  <string name="transfer_send_button">送信</string>
   <string name="transfer_receive_body">資金を受け取るにはウォレットのアドレスを共有してください。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
@@ -889,6 +922,7 @@
   <string name="perks_gamif_subtitle">お気に入りのアプリで使えば使うほど、ボーナスが大きくなります！</string>
   <string name="perks_title">プロモーション</string>
   <string name="perks_body">ご期待ください。特別なキャンペーンをご用意しています。</string>
+  <string name="promotion_ends_short_title">プロモーション終了まで：</string>
   <plurals name="promotion_ends">
     <item quantity="other">プロモーションは %s日で終了します。</item>
   </plurals>
@@ -947,7 +981,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">クレジットカード/デビットカードを有効にして、支払いを行ってください。</string>
+  <string name="card_verification_body">支払いを行うにはクレジットカード/デビットカードを認証してください。</string>
   <string name="card_verification_charde_disclaimer">お客様のカードには%sが請求され、コードを確認した後に返金されます。お使いの銀行によっては、数分から数日かかる場合もあります。</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
@@ -970,8 +1004,12 @@
   <string name="card_verification_wallets_insert_bode_button">コードの入力</string>
   <string name="card_verification_no_attempts_title">間違ったコードが何回も入力されたので、%1$sはあなたのカードに返金されます。</string>
   <string name="card_verification_no_attempts_body">再度、認証プロセスを開始してください。</string>
-  <string name="wallet_verify_header">少なくとも1つの支払い方法を確認してください</string>
+  <string name="wallet_verify_header">少なくとも1つの支払い方法を認証してください</string>
   <string name="verify_card_title">カードの認証</string>
+  <string name="verify_card_button">銀行カードを認証</string>
+  <string name="verify_paypal_button">PayPalアカウントの認証</string>
+  <string name="card_verification_body_new">%sはカードに請求され、すぐに返金されます。カード明細書に記載されている認証コードを確認し、ここに挿入してください。</string>
+  <string name="card_verification_disclaimer_body">なお、返金通知には確認コードが表示される場合があります。</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">このクーポンを購入して</string>
   <string name="voucher_card_body_2"> 最大%s%% のボーナスをゲット</string>
@@ -1080,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">このコードは新規ユーザー限定です！</string>
   <string name="gift_card_error_try_with_different_body">別のもので再度お試しください。</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">未認証のウォレット</string>
-  <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
+  <string name="mywallet_unverified_title">支払い方法の確認</string>
+  <string name="mywallet_unverified_body">決済が滞らないよう、支払い方法を確認</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">再度バックアップ</string>
   <string name="mywallet_verify_payment_method_button">新しいカードの認証</string>
@@ -1128,4 +1166,48 @@
   <string name="vip_program_max_bonus_short">購入毎に最大%s%%のボーナス.</string>
   <string name="vip_program_referral_notification_title">VIP紹介コードが利用可能です！</string>
   <string name="vip_program_referral_notification_body">あなたのコードをコミュニティで共有し、遊びながら収入を得ることができます！</string>
+  <string name="vip_program_title_vip_offer">VIPオファー</string>
+  <!-- Refactor Home -->
+  <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
+  <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>
+  <string name="intro_appcoins_games_header">AppCoinでゲームを探す</string>
+  <string name="intro_active_promotions_header">アクティブ・プロモーション</string>
+  <string name="topup_home_button">トップアップします。</string>
+  <string name="intro_home_button">ホーム</string>
+  <string name="intro_rewards_button">リワード</string>
+  <plurals name="days">
+    <item quantity="other">日</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">時間</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">分</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">秒</item>
+  </plurals>
+  <string name="intro_transactions_header">取引</string>
+  <string name="intro_backup_card_title">資金を失わないようにしましょう！</string>
+  <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
+  <string name="rewards_spend_to_next_level_body">ネットレベルに到達するために、さらに%1$s%2$sを使う！</string>
+  <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
+  <string name="rewards_eskills_card_title">お金を稼ごう！</string>
+  <string name="rewards_eskills_card_body">e-Skillで他のプレイヤーに勝とう</string>
+  <string name="rewards_promo_code_card_title">プロモーションコード</string>
+  <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
+  <string name="rewards_promo_code_status">状況:</string>
+  <string name="rewards_promo_code_status_active">有効</string>
+  <string name="rewards_promo_code_status_expired">期限切れ</string>
+  <string name="home_nft_title">AppCoinsウォレットがNFTに対応しました。</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <!-- Rewards Home -->
+  <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
+  <string name="rewards_bonus_every_purchase_title">購入のたびに%s%% ボーナスをゲット</string>
+  <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
+  <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
+  <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
+  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
 </resources>

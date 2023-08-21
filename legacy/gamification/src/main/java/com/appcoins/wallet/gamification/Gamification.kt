@@ -11,7 +11,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class Gamification @Inject constructor(private val repository: PromotionsRepository) {
-
+//
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"
     const val REFERRAL_ID = "REFERRAL"
@@ -71,8 +71,8 @@ class Gamification @Inject constructor(private val repository: PromotionsReposit
   }
 
   fun getEarningBonus(wallet: String, packageName: String,
-                      amount: BigDecimal, promoCodeString: String?): Single<ForecastBonus> {
-    return repository.getForecastBonus(wallet, packageName, amount, promoCodeString)
+                      amount: BigDecimal, promoCodeString: String?, currency: String?): Single<ForecastBonus> {
+    return repository.getForecastBonus(wallet, packageName, amount, promoCodeString, currency )
   }
 
   fun hasNewLevel(wallet: String, gamificationContext: GamificationContext,

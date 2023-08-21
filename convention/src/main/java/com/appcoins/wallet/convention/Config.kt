@@ -33,4 +33,8 @@ object Config {
     val kotlinJvm: String,
     val freeCompilerArgs: List<String>
   )
+
+  val distributionFlavorDimension = "distribution"
+  val googlePlayDistribution = "gp"
+  val aptoidePlayDistribution = "aptoide"
 }

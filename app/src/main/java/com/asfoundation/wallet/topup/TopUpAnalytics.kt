@@ -26,8 +26,10 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
     map[ACTION] = action
 
-    analyticsManager.logEvent(map, WALLET_TOP_UP_CONFIRMATION, AnalyticsManager.Action.CLICK,
-        WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONFIRMATION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendSuccessEvent(value: Double, paymentMethod: String, status: String) {
@@ -35,12 +37,16 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
     map[STATUS] = status
 
-    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-        WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
-  fun sendPaypalUrlEvent(value: Double, paymentMethod: String, type: String?, resultCode: String?,
-                         url: String) {
+  fun sendPaypalUrlEvent(
+    value: Double, paymentMethod: String, type: String?, resultCode: String?,
+    url: String
+  ) {
     val map = topUpBaseMap(value, paymentMethod)
 
     type?.let { map[PAYPAL_TYPE] = it }
@@ -54,8 +60,10 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     analyticsManager.logEvent(map, WALLET_TOP_UP_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  fun sendErrorEvent(value: Double, paymentMethod: String, status: String,
-                     errorCode: String, errorDetails: String, errorRiskRules: String? = null) {
+  fun sendErrorEvent(
+    value: Double, paymentMethod: String, status: String,
+    errorCode: String, errorDetails: String, errorRiskRules: String? = null
+  ) {
     val map = topUpBaseMap(value, paymentMethod)
 
     map[STATUS] = status
@@ -63,8 +71,10 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[ERROR_DETAILS] = errorDetails
     if (errorRiskRules != null) map[ERROR_CODE_RISK_RULE] = errorRiskRules
 
-    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-        WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendPaypalSuccessEvent(value: String) {
@@ -72,27 +82,36 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
     map[VALUE] = value
     map[STATUS] = STATUS_SUCCESS
-    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
-  fun sendPaypalErrorEvent(errorDetails: String) {
+  fun sendPaypalErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+    errorCode?.let{ map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
-    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
-  fun sendBillingAddressActionEvent(value: Double,
-                                    paymentMethod: String,
-                                    action: String) {
+  fun sendBillingAddressActionEvent(
+    value: Double,
+    paymentMethod: String,
+    action: String
+  ) {
     val map = topUpBaseMap(value, paymentMethod)
 
     map[ACTION] = action
 
-    analyticsManager.logEvent(map, RAKAM_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
-        WALLET)
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
@@ -137,7 +156,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_TOP_UP_CONFIRMATION = "wallet_top_up_confirmation"
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
-    const val RAKAM_TOP_UP_BILLING = "wallet_top_up_billing"
+    const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
     const val STATUS_SUCCESS = "success"
     private const val VALUE = "value"
     private const val ACTION = "action"

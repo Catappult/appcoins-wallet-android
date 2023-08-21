@@ -80,7 +80,18 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                     args.currency,
                     args.forecastBonus
                 )
-                is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalDirect()
+                is PaymentMethodClick.GiroPayAdyenClick -> navigator.navigateToGiroAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
+                is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
                 is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
                     args.transactionBuilder,
                     paymentMethodClick.idItem,

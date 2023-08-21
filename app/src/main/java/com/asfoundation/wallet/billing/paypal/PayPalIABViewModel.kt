@@ -77,7 +77,6 @@ class PayPalIABViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
-              Log.d(TAG, "Successful Paypal payment ")
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
@@ -86,8 +85,8 @@ class PayPalIABViewModel @Inject constructor(
                 createToken(transactionBuilder)
               } else {
                 Log.d(TAG, "No paypal billing agreement")
-                sendPaymentErrorEvent("No paypal billing agreement", transactionBuilder)
-                _state.postValue(State.Error(R.string.unknown_error))
+                sendPaymentErrorEvent(it.errorCode, it.errorMessage, transactionBuilder)
+                _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
             PaypalTransaction.PaypalValidityState.PENDING -> {
@@ -95,20 +94,29 @@ class PayPalIABViewModel @Inject constructor(
             }
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
-              sendPaymentErrorEvent("Paypal transaction error.", transactionBuilder)
-              _state.postValue(State.Error(R.string.unknown_error))
+              sendPaymentErrorEvent(
+                errorMessage = "Paypal transaction error.",
+                transactionBuilder = transactionBuilder
+              )
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
             null -> {
               Log.d(TAG, "Paypal transaction error")
-              sendPaymentErrorEvent("Paypal transaction error.", transactionBuilder)
-              _state.postValue(State.Error(R.string.unknown_error))
+              sendPaymentErrorEvent(
+                errorMessage = "Paypal transaction error.",
+                transactionBuilder = transactionBuilder
+              )
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
           }
         }
         .subscribe({}, {
           Log.d(TAG, it.toString())
-          sendPaymentErrorEvent("Paypal transaction error.", transactionBuilder)
-          _state.postValue(State.Error(R.string.unknown_error))
+          sendPaymentErrorEvent(
+            errorMessage = "Paypal transaction error.",
+            transactionBuilder = transactionBuilder
+          )
+          _state.postValue(State.Error(R.string.purchase_error_paypal))
         })
     )
   }
@@ -119,13 +127,15 @@ class PayPalIABViewModel @Inject constructor(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          Log.d(TAG, "Successful Token creation ")  //TODO event
           authenticatedToken = it.token
           _state.postValue(State.WebViewAuthentication(it.redirect.url))
         }
         .subscribe({}, {
           Log.d(TAG, it.toString())
-          sendPaymentErrorEvent("Error on token creation", transactionBuilder)
+          sendPaymentErrorEvent(
+            errorMessage = "Error on token creation",
+            transactionBuilder = transactionBuilder
+          )
           _state.postValue(State.Error(R.string.unknown_error))
         })
     )
@@ -141,7 +151,6 @@ class PayPalIABViewModel @Inject constructor(
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .doOnSuccess {
-            Log.d(TAG, "Successful Agreement creation: ${it.uid}")
             // after creating the billing agreement, don't create a new token if it fails
             attemptTransaction(
               createTokenIfNeeded = false,
@@ -153,7 +162,10 @@ class PayPalIABViewModel @Inject constructor(
           }
           .subscribe({}, {
             Log.d(TAG, it.toString())
-            sendPaymentErrorEvent("Error on billing agreement creation", transactionBuilder)
+            sendPaymentErrorEvent(
+              errorMessage = "Error on billing agreement creation",
+              transactionBuilder = transactionBuilder
+            )
             _state.postValue(State.Error(R.string.unknown_error))
           })
       )
@@ -180,24 +192,27 @@ class PayPalIABViewModel @Inject constructor(
           {
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
-                Log.d(TAG, "Settled transaction polling completed")
                 getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
               }
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
                 sendPaymentErrorEvent(
-                  "Error on transaction on Settled transaction polling ${it.status.name}",
-                  transactionBuilder
+                  errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
+                  transactionBuilder = transactionBuilder
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> { /* pending */ }
+              else -> { /* pending */
+              }
             }
           },
           {
             Log.d(TAG, "Error on Settled transaction polling")
-            sendPaymentErrorEvent("Error on Settled transaction polling", transactionBuilder)
+            sendPaymentErrorEvent(
+              errorMessage = "Error on Settled transaction polling",
+              transactionBuilder = transactionBuilder
+            )
           })
     )
   }
@@ -208,7 +223,7 @@ class PayPalIABViewModel @Inject constructor(
     purchaseUid: String?,
     transactionBuilder: TransactionBuilder
   ) {
-    sendPaymentSuccessEvent(transactionBuilder)
+    sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
     createSuccessBundleUseCase(
       transactionBuilder.type,
       transactionBuilder.domain,
@@ -270,16 +285,18 @@ class PayPalIABViewModel @Inject constructor(
     )
   }
 
-  private fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder) {
+  private fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder, txId: String) {
     compositeDisposable.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         analytics.sendPaymentSuccessEvent(
-          transactionBuilder.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
-          transaction.type
+          packageName = transactionBuilder.domain,
+          skuDetails = transaction.skuId,
+          value = transaction.amount().toString(),
+          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          transactionType = transaction.type,
+          txId = txId,
+          valueUsd = transaction.amountUsd.toString()
         )
       }
       .subscribe({}, { it.printStackTrace() })
@@ -287,7 +304,8 @@ class PayPalIABViewModel @Inject constructor(
   }
 
   private fun sendPaymentErrorEvent(
-    refusalReason: String?,
+    errorCode: String? = null,
+    errorMessage: String?,
     transactionBuilder: TransactionBuilder
   ) {
     compositeDisposable.add(Single.just(transactionBuilder)
@@ -300,8 +318,8 @@ class PayPalIABViewModel @Inject constructor(
           transaction.amount().toString(),
           BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
           transaction.type,
-          "",
-          refusalReason ?: "",
+          errorCode ?: "",
+          errorMessage ?: "",
           ""
         )
       }

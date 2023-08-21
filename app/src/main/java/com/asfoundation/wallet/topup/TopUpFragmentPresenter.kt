@@ -7,6 +7,11 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -19,18 +24,25 @@ class TopUpFragmentPresenter(
   private val view: TopUpFragmentView,
   private val activity: TopUpActivityView?,
   private val interactor: TopUpInteractor,
+  private val removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase,
+  private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
-  private val selectedValue: String?
+  private val selectedValue: String?,
+  private val logger: Logger,
+  private val networkThread: Scheduler
 ) {
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
+  var wasLoggedOut = false
+  var showingLogout = false
 
   companion object {
+    private val TAG = TopUpFragmentPresenter::class.java.name
     private const val NUMERIC_REGEX = "^([1-9]|[0-9]+[,.]+[0-9])[0-9]*?\$"
     private const val GAMIFICATION_LEVEL = "gamification_level"
   }
@@ -54,48 +66,57 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
-  // abTesting deactivated. uncomment to enable again
   private fun setupUi() {
-    disposables.add(Single.zip(
-      interactor.getLimitTopUpValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler),
-      interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler) /*,
-      interactor.getABTestingExperiment()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler) */
-    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel /*, experiment: Int */ ->
-      if (values.error.hasError || defaultValues.error.hasError &&
-        (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
-      ) {
-        view.showNoNetworkError()
-      } else {
-        view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        //interactor.setABTestingExperimentImpression()
-        updateDefaultValues(defaultValues, 1 /* experiment */)
+    disposables.add(
+      Single.zip(
+        interactor.getLimitTopUpValues()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler),
+        interactor.getDefaultValues()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+      ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
+        if (values.error.hasError || defaultValues.error.hasError &&
+          (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
+        ) {
+          view.showNoNetworkError()
+        } else {
+          view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+          updateDefaultValues(defaultValues, 1)
+        }
       }
-    }
-      .subscribe({}, { handleError(it) })
+        .subscribe({}, { handleError(it) })
     )
   }
 
   private fun retrievePaymentMethods(fiatAmount: String, currency: String): Completable =
-    interactor.getPaymentMethods(fiatAmount, currency)
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        if (it.isNotEmpty()) {
-          view.setupPaymentMethods(it)
+    Single.zip(
+      interactor.getPaymentMethods(fiatAmount, currency)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler),
+      isPaypalAgreementCreatedUseCase()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+    ) { paymentMethods, showPaypalLogout -> Pair(paymentMethods, showPaypalLogout) }
+      .doOnSuccess { methodsAndLogout ->
+        if (methodsAndLogout.first.isNotEmpty()) {
+          showingLogout = (methodsAndLogout.second && !wasLoggedOut)
+          view.setupPaymentMethods(
+            paymentMethods = methodsAndLogout.first,
+            showLogoutPaypal = showingLogout
+          )
         } else {
           view.showNoMethodsError()
         }
       }
       .ignoreElement()
 
-  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultValueIndex: Int) {
-    hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
+  private fun updateDefaultValues(
+    topUpValuesModel: TopUpValuesModel,
+    defaultValueIndex: Int
+  ) {
+    hasDefaultValues =
+      topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
     if (hasDefaultValues) {
       val defaultValues = topUpValuesModel.values
       val defaultFiatValue = defaultValues[defaultValueIndex]
@@ -147,8 +168,7 @@ class TopUpFragmentPresenter(
                 && topUpData.paymentMethod != null
           }
           .observeOn(viewScheduler)
-          .doOnNext { // abTesting deactivated. uncomment to enable again
-//            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
+          .doOnNext {
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
               action = "next",
@@ -242,16 +262,26 @@ class TopUpFragmentPresenter(
 
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
-      .doOnNext { view.paymentMethodsFocusRequest() }
+      .doOnNext {
+        view.paymentMethodsFocusRequest()
+        setNextButton(it)
+      }
       .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  private fun setNextButton(methodSelected: String?) {
+    if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && showingLogout) {
+      view.setTopupButton()
+    } else {
+      view.setNextButton()
+    }
   }
 
   private fun loadBonusIntoView(
     appPackage: String, amount: String,
     currency: String
-  ): Completable = interactor.convertLocal(currency, amount, 18)
-    .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
+  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
     .subscribeOn(networkScheduler)
     .observeOn(viewScheduler)
     .doOnSuccess {
@@ -287,18 +317,19 @@ class TopUpFragmentPresenter(
     appPackage: String,
     limitValues: TopUpLimitValues, fiatAmount: String,
     currency: String
-  ): Completable = if (isValueInRange(limitValues, fiatAmount.toDouble())) {
-    view.changeMainValueColor(true)
-    view.hidePaymentMethods()
-    if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-    retrievePaymentMethods(fiatAmount, currency)
-      .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
-  } else {
-    view.hideBonusAndSkeletons()
-    view.changeMainValueColor(false)
-    view.setNextButtonState(false)
-    Completable.complete()
-  }
+  ): Completable =
+    if (isValueInRange(limitValues, fiatAmount.toDouble())) {
+      view.changeMainValueColor(true)
+      view.hidePaymentMethods()
+      if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
+      retrievePaymentMethods(fiatAmount, currency)
+        .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
+    } else {
+      view.hideBonusAndSkeletons()
+      view.changeMainValueColor(false)
+      view.setNextButtonState(false)
+      Completable.complete()
+    }
 
   private fun handleRetryClick() {
     disposables.add(view.retryClick()
@@ -314,7 +345,11 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun handleValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
+  private fun handleValueWarning(
+    maxValue: FiatValue,
+    minValue: FiatValue,
+    amount: BigDecimal
+  ) {
     val localCurrency = " ${maxValue.currency}"
     when {
       amount == BigDecimal(-1) -> {
@@ -337,7 +372,10 @@ class TopUpFragmentPresenter(
   private fun isCurrencyValid(currencyData: CurrencyData): Boolean =
     currencyData.appcValue != DEFAULT_VALUE && currencyData.fiatValue != DEFAULT_VALUE
 
-  private fun updateConversionValue(value: BigDecimal, topUpData: TopUpData): TopUpData {
+  private fun updateConversionValue(
+    value: BigDecimal,
+    topUpData: TopUpData
+  ): TopUpData {
     if (topUpData.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       topUpData.currency.appcValue =
         if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
@@ -382,10 +420,29 @@ class TopUpFragmentPresenter(
     )
   }
 
+  fun removePaypalBillingAgreement() {
+    disposables.add(
+      removePaypalBillingAgreementUseCase.invoke()
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .subscribe(
+          {
+            view.hideLoading()
+            android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed")
+          },
+          {
+            view.hideLoading()
+            logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed")
+          }
+        )
+    )
+  }
+
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     if (paymentMethod.paymentType == PaymentType.CARD
       || paymentMethod.paymentType == PaymentType.PAYPAL
+      || paymentMethod.paymentType == PaymentType.GIROPAY
     ) {
       activity?.navigateToAdyenPayment(
         paymentType = paymentMethod.paymentType,
@@ -407,7 +464,10 @@ class TopUpFragmentPresenter(
     }
   }
 
-  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData =
+  private fun mapTopUpPaymentData(
+    topUpData: TopUpData,
+    gamificationLevel: Int
+  ): TopUpPaymentData =
     TopUpPaymentData(
       fiatValue = topUpData.currency.fiatValue,
       fiatCurrencyCode = topUpData.currency.fiatCurrencyCode,

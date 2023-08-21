@@ -12,7 +12,7 @@ import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
@@ -27,7 +27,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.repository.Web3jProvider
