@@ -1207,8 +1207,8 @@
   <string name="intro_backup_card_body">Effettua il backup del tuo wallet per tenerlo sempre al sicuro.</string>
   <string name="rewards_spend_to_next_level_body">Spendi ancora %1$s%2$s per raggiungere il prossimo livello!</string>
   <string name="rewards_current_bonus_title">%s%% di bonus su ogni acquisto</string>
-  <string name="rewards_eskills_card_title">Guadagna denaro!</string>
-  <string name="rewards_eskills_card_body">Sconfiggi altri giocatori con e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Codici promozionali</string>
   <string name="rewards_promo_code_card_body">Usa un codice promozionale per sfruttare offerte speciali!</string>
   <string name="rewards_promo_code_status">Stato:</string>
