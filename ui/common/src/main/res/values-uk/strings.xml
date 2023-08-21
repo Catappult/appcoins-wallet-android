@@ -1235,8 +1235,8 @@
   <string name="intro_backup_card_body">Зробіть резервну копію свого гаманця і завжди тримайте його в безпеці.</string>
   <string name="rewards_spend_to_next_level_body">Витратьте більше %1$s%2$s, щоб досягти наступного рівня!</string>
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
-  <string name="rewards_eskills_card_title">Заробляйте гроші!</string>
-  <string name="rewards_eskills_card_body">Перемагайте інших гравців з e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Промокоди</string>
   <string name="rewards_promo_code_card_body">Скористайтеся промокодом, аби отримати спеціальні пропозиції!</string>
   <string name="rewards_promo_code_status">Статус:</string>
