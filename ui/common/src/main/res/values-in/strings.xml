@@ -1194,8 +1194,8 @@
   <string name="intro_backup_card_body">Cadangkan dompet Anda dan jaga keamanannya setiap saat.</string>
   <string name="rewards_spend_to_next_level_body">Habiskan %1$s%2$s lagi untuk mencapai level berikutnya!</string>
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
-  <string name="rewards_eskills_card_title">Raih Uang!</string>
-  <string name="rewards_eskills_card_body">Kalahkan pemain lain dengan e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Kode Promo</string>
   <string name="rewards_promo_code_card_body">Gunakan kode promo untuk mendapatkan penawaran khusus!</string>
   <string name="rewards_promo_code_status">Status:</string>
