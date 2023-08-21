@@ -1260,8 +1260,8 @@
   <string name="intro_backup_card_body">أنشئ نسخة احتياطية لمحفظتك واحتفظ بها في مكان آمن دائمًا.</string>
   <string name="rewards_spend_to_next_level_body">أنفق أكثر من %1$s%2$s لتصل إلى المستوى التالي!</string>
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
-  <string name="rewards_eskills_card_title">اكسب المال!</string>
-  <string name="rewards_eskills_card_body">اهزم اللاعبين الآخرين مع e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">رموز ترويجية</string>
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
