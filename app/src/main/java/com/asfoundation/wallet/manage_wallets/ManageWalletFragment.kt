@@ -35,9 +35,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
@@ -72,9 +70,6 @@ import com.appcoins.wallet.ui.widgets.R.*
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
-import com.appcoins.wallet.ui.widgets.component.ButtonType
-import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
@@ -87,7 +82,6 @@ import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -340,7 +334,6 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Composable
   fun BalanceBottomSheet(walletInfo: WalletInfo) {
     val balance = walletInfo.walletBalance
-    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,

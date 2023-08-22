@@ -29,8 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupSaveOptionsComposeFragment : BasePageViewFragment(), SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect>,
-Navigator{
+class BackupSaveOptionsComposeFragment :
+  BasePageViewFragment(),
+  SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect>,
+  Navigator {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
@@ -40,9 +42,8 @@ Navigator{
 
   companion object {
     fun newInstance() = BackupSaveOptionsComposeFragment()
-      const val PASSWORD_KEY = "password"
-      const val WALLET_ADDRESS_KEY = "wallet_address"
-
+    const val PASSWORD_KEY = "password"
+    const val WALLET_ADDRESS_KEY = "wallet_address"
   }
   private val viewModel: BackupSaveOptionsViewModel by viewModels()
 
@@ -55,22 +56,28 @@ Navigator{
 
   override fun onStateChanged(state: BackupSaveOptionsState) {
     when (state.saveOptionAsync) {
-      is Async.Uninitialized ->  {
+      Async.Uninitialized -> {
+        // Empty block
       }
-      is Async.Loading -> {
 
+      is Async.Loading -> {
+        // Empty block
       }
+
       is Async.Fail -> {
-       navigator.showErrorScreen()
+        navigator.showErrorScreen()
       }
+
       is Async.Success -> {
-        when(state.saveOptionAsync.value){
+        when (state.saveOptionAsync.value) {
           is SuccessfulBackup -> {
-                navigator.showWalletSuccessScreen()
+            navigator.showWalletSuccessScreen()
           }
-          is FailedBackup ->{
+
+          is FailedBackup -> {
             navigator.showErrorScreen()
           }
+
           else -> {}
         }
       }
@@ -78,7 +85,8 @@ Navigator{
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
@@ -88,9 +96,12 @@ Navigator{
             BackupSaveOptionsRoute(
               onExitClick = { navigator.handleBackPress() },
               onChatClick = { displayChat() },
-              onSendEmailClick = {navigator.showWalletSuccessScreen()},
-              onSaveOnDevice = { navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password, navController()) }
-            )
+              onSendEmailClick = { navigator.showWalletSuccessScreen() },
+              onSaveOnDevice = {
+                navigator.showSaveOnDeviceFragment(
+                  viewModel.walletAddress, viewModel.password, navController()
+                )
+              })
           }
         }
       }
@@ -98,16 +109,21 @@ Navigator{
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 
   override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) {
-    TODO("Not yet implemented")
+    when (sideEffect) {
+      is BackupSaveOptionsSideEffect.NavigateToSuccess -> {
+        navigator.showWalletSuccessScreen()
+      }
+
+      BackupSaveOptionsSideEffect.ShowError -> {
+        navigator.showErrorScreen()
+      }
+    }
   }
-
-
 }
-

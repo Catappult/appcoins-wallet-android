@@ -1,6 +1,5 @@
 package com.appcoins.wallet.feature.backup.ui.save_on_device
 
-import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.SavedStateHandle
@@ -35,7 +34,6 @@ data class BackupSaveOnDeviceDialogState(
 class BackupSaveOnDeviceDialogViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
-  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   walletInfoUseCase: GetWalletInfoUseCase,
   dispatchers: Dispatchers
 ) : NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(

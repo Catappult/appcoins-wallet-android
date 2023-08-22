@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.asf.wallet.R
@@ -18,8 +17,6 @@ import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
-import com.asfoundation.wallet.transactions.TransactionDetailsFragment
-import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.wallet.home.bottom_sheet.HomeManageWalletBottomSheetFragment
 import javax.inject.Inject
@@ -28,7 +25,6 @@ class HomeNavigator
 @Inject
 constructor(
   private val fragment: Fragment,
-  private val navBarFragmentNavigator: NavBarFragmentNavigator
 ) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
@@ -47,12 +43,6 @@ constructor(
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show()
     }
-  }
-
-  fun navigateToTransactionDetails(navController: NavController, transaction: TransactionModel) {
-    val bundle = Bundle()
-    bundle.putParcelable(TransactionDetailsFragment.TRANSACTION_KEY, transaction)
-    navController.navigate(resId = R.id.action_navigate_to_transaction_details, args = bundle)
   }
 
   fun navigateToBackup(

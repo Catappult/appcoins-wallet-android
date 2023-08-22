@@ -5,7 +5,6 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
@@ -31,7 +30,7 @@ class BackupSaveOptionsViewModel @Inject constructor(
 ) {
 
   lateinit var walletAddress: String
-  var password : String = ""
+  var password: String = ""
 
   companion object {
     private val TAG = BackupSaveOptionsViewModel::class.java.name
@@ -46,11 +45,10 @@ class BackupSaveOptionsViewModel @Inject constructor(
       runCatching {
         sendBackupToEmailUseCase(walletAddress, password, text)
       }.onSuccess {
-        backupSuccessLogUseCase(walletAddress).let {}
-          setState {  copy(saveOptionAsync = Async.Success(it))}
+        backupSuccessLogUseCase(walletAddress)
+        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
       }.onFailure {
-        setState {  copy(saveOptionAsync = Async.Fail(Error.UnknownError(Throwable(""))))}
-
+        showError(it)
       }
     }
   }
