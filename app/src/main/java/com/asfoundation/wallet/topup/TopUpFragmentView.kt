@@ -43,6 +43,7 @@ interface TopUpFragmentView {
   fun removeBonus()
   fun showSkeletons()
   fun showBonusSkeletons()
+  fun showPaymentMethods()
   fun hidePaymentMethods()
   fun showNoMethodsError()
   fun showAsLoading()
