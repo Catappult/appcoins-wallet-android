@@ -94,13 +94,13 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.paymentMethodDescription.text = data.label
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
-        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
+        ContextCompat.getColor(itemView.context, R.color.styleguide_white)
       )
       binding.paymentMethodDescription.typeface =
-        Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        Typeface.create("sans-serif-medium", Typeface.BOLD)
     } else {
       binding.paymentMethodDescription.setTextColor(
-        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+        ContextCompat.getColor(itemView.context, R.color.styleguide_light_grey)
       )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }

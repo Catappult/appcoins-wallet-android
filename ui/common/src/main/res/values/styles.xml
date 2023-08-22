@@ -346,8 +346,8 @@
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>
-    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
-    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">13sp</item>
   </style>
 
   <style name="TopUpTextStyle.Small">
@@ -518,8 +518,8 @@
     <item name="colorControlHighlight">@color/styleguide_dark_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
     <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
-<!--    this removes the floating hint, but also messes with the normal hint color... -->
-<!--    <item name="hintEnabled">false</item>-->
+    <!--    this removes the floating hint, but also messes with the normal hint color... -->
+    <!--    <item name="hintEnabled">false</item>-->
   </style>
 
   <style name="editTextStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">

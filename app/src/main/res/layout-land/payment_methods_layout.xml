@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:background="@color/styleguide_payments_blue_secondary"
     android:theme="@style/AppTheme"
     >
 
@@ -102,11 +103,12 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
-          tools:visibility="visible"
-          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
-          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/bonus_msg"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
-          app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+          tools:visibility="visible"
+          />
 
       <TextView
           android:id="@+id/bonus_msg"
@@ -120,10 +122,11 @@
           android:gravity="center"
           android:text="@string/gamification_purchase_body"
           android:visibility="invisible"
-          tools:visibility="visible"
-          app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/mid_guideline"/>
+          app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+          tools:visibility="visible"
+          />
 
       <ImageView
           android:id="@+id/mid_separator"

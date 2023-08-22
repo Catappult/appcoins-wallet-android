@@ -30,6 +30,7 @@
   <color name="grey_alpha_active_54">#8a000000</color>
   <color name="light_gray">#ddd</color>
   <color name="appcoins_header_background">#F0F0F0</color>
+  <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="pending_payment_text_color">#727272</color>

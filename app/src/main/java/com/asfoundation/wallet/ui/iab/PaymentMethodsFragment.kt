@@ -665,7 +665,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
-    binding.bonusLayout.bonusValue.text = context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+    binding.bonusLayout.bonusValue.text =
+      context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
   override fun onBackPressed(): Observable<Any> =
@@ -715,7 +716,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun removeBonus() {
-   bonusMessageValue = ""
+    bonusMessageValue = ""
     bonusValue = null
     changeBonusVisibility(View.GONE)
   }
