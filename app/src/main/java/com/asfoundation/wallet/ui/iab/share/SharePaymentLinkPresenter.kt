@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab.share
 
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Scheduler
 import io.reactivex.Single

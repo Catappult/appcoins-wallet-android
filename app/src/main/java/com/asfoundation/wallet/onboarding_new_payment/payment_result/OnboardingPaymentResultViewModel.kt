@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -17,7 +17,7 @@ import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.BACK_TO_THE_GAME
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.EXPLORE_WALLET
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
@@ -42,12 +42,12 @@ object OnboardingPaymentResultState : ViewState
 
 @HiltViewModel
 class OnboardingPaymentResultViewModel @Inject constructor(
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val events: OnboardingPaymentEvents,
-  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  private val supportInteractor: SupportInteractor,
-  private val rxSchedulers: RxSchedulers,
-  savedStateHandle: SavedStateHandle
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val events: OnboardingPaymentEvents,
+    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+    private val supportInteractor: SupportInteractor,
+    private val rxSchedulers: RxSchedulers,
+    savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
     OnboardingPaymentResultState

@@ -1,10 +1,8 @@
 package com.appcoins.wallet.core.network.base
 
 import android.content.Context
-import com.appcoins.wallet.core.network.base.annotations.BaseHttpClient
-import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
-import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.core.network.base.annotations.*
+import com.appcoins.wallet.core.network.base.call_adapter.ApiResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -68,5 +66,11 @@ class BaseApiModule {
       .readTimeout(20, TimeUnit.SECONDS)
       .writeTimeout(20, TimeUnit.SECONDS)
       .build()
+  }
+
+  @Provides
+  @Singleton
+  fun provideApiResultCallAdapterFactory(): ApiResultCallAdapterFactory {
+    return ApiResultCallAdapterFactory()
   }
 }

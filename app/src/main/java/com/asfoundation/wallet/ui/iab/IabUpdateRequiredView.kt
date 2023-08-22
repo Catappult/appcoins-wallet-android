@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.content.Intent
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.Observable
 

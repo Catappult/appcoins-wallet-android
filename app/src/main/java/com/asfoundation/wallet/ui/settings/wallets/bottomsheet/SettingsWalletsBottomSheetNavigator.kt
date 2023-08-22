@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.asfoundation.wallet.backup.BackupActivity
+import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import javax.inject.Inject
 
 class SettingsWalletsBottomSheetNavigator @Inject constructor(
@@ -12,7 +12,7 @@ class SettingsWalletsBottomSheetNavigator @Inject constructor(
 
   fun navigateToBackup(walletAddress: String) {
     fragment.startActivity(
-      BackupActivity.newIntent(
+      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
         fragment.requireContext(),
         walletAddress,
         isBackupTrigger = false

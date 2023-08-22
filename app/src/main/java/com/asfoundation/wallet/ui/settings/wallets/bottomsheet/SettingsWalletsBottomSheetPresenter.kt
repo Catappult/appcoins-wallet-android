@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsWalletsBottomSheetPresenter(

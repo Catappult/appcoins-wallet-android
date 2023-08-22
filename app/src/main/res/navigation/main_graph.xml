@@ -80,4 +80,90 @@
 
   </fragment>
 
+  <include app:graph="@navigation/nft_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_nfts"
+      app:destination="@id/nft_graph" />
+
+  <include app:graph="@navigation/manage_wallet_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_manage_wallet"
+      app:destination="@id/manage_wallet_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_settings"
+      app:destination="@id/settings_fragment">
+    <argument
+        android:name="turn_on_fingerprint"
+        app:argType="boolean" />
+  </action>
+
+  <fragment
+      android:id="@+id/settings_fragment"
+      android:name="com.asfoundation.wallet.ui.settings.entry.SettingsFragment" />
+
+  <include app:graph="@navigation/transactions_graph" />
+
+  <include app:graph="@navigation/home_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_transactions_list"
+      app:destination="@id/transactions_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_change_fiat_currency"
+      app:destination="@id/change_fiat_currency_fragment" />
+
+  <action
+      android:id="@+id/action_navigate_to_send_funds"
+      app:destination="@id/transfer_funds_fragment" />
+
+  <action
+      android:id="@+id/action_navigate_to_transaction_details"
+      app:destination="@id/transactions_details_fragment">
+    <argument
+        android:name="transaction_id"
+        app:argType="string" />
+  </action>
+
+  <fragment
+      android:id="@+id/transactions_details_fragment"
+      android:name="com.asfoundation.wallet.transactions.TransactionDetailsFragment" />
+
+  <fragment
+      android:id="@+id/change_fiat_currency_fragment"
+      android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment" />
+
+  <fragment
+      android:id="@+id/transfer_funds_fragment"
+      android:name="com.asfoundation.wallet.transfers.TransferFundsFragment">
+    <argument
+        android:name="entry_screen_selected"
+        app:argType="integer" />
+    <action
+        android:id="@+id/action_navigate_to_success_transfer"
+        app:destination="@id/transfer_funds_success_fragment"
+        app:enterAnim="@anim/fragment_fade_in_animation"
+        app:exitAnim="@anim/fragment_fade_out_animation"
+        app:popUpTo="@+id/transfer_funds_fragment"
+        app:popUpToInclusive="true">
+      <argument
+          android:name="amount_sent"
+          app:argType="integer" />
+      <argument
+          android:name="currency_key"
+          app:argType="string" />
+      <argument
+          android:name="to_address"
+          app:argType="string" />
+    </action>
+  </fragment>
+
+  <fragment
+      android:id="@+id/transfer_funds_success_fragment"
+      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment">
+  </fragment>
+
 </navigation>

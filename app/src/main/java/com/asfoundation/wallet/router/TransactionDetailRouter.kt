@@ -2,7 +2,7 @@ package com.asfoundation.wallet.router
 
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.C
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import javax.inject.Inject

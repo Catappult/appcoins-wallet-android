@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
 
-import static com.asfoundation.wallet.C.ETHER_DECIMALS;
+import static com.appcoins.wallet.core.utils.jvm_common.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
   public static final long NO_CHAIN_ID = -1;

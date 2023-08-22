@@ -1,18 +1,18 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class CarrierFeePresenter(
-  private val disposables: CompositeDisposable,
-  private val view: CarrierFeeView,
-  private val data: CarrierFeeData,
-  private val navigator: CarrierFeeNavigator,
-  private val billingAnalytics: BillingAnalytics,
-  private val appInfoProvider: ApplicationInfoProvider,
-  private val viewScheduler: Scheduler
+    private val disposables: CompositeDisposable,
+    private val view: CarrierFeeView,
+    private val data: CarrierFeeData,
+    private val navigator: CarrierFeeNavigator,
+    private val billingAnalytics: BillingAnalytics,
+    private val appInfoProvider: ApplicationInfoProvider,
+    private val viewScheduler: Scheduler
 ) {
 
   fun present() {
