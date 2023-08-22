@@ -11,6 +11,8 @@
   <color name="styleguide_light_grey">#F5F5F5</color>
   <color name="styleguide_white">#FFFFFFFF</color>
   <color name="styleguide_black">#000000</color>
+  <color name="styleguide_payments_blue">#1D1E28</color>
+  <color name="styleguide_payments_blue_secondary">#282937</color>
 
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
@@ -31,6 +33,7 @@
   <color name="styleguide_white_transparent_80">#CCFFFFFF</color>
   <color name="styleguide_white_transparent_20">#33FFFFFF</color>
   <color name="styleguide_medium_grey_transparent_50">#88DDDDDD</color>
+  <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <!-- Default Android colors -->
   <color name="colorPrimary">@color/styleguide_blue</color> <!-- App bar -->
