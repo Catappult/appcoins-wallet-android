@@ -11,6 +11,8 @@
   <color name="styleguide_light_grey">#F5F5F5</color>
   <color name="styleguide_white">#FFFFFFFF</color>
   <color name="styleguide_black">#000000</color>
+  <color name="styleguide_payments_blue">#1D1E28</color>
+  <color name="styleguide_payments_blue_secondary">#282937</color>
 
   <color name="styleguide_payments_blue">#1D1E28</color>
   <color name="styleguide_payments_blue_secondary">#282937</color>
