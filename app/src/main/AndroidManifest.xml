@@ -256,9 +256,6 @@
         android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
-        android:label="@string/e_skills_withdraw_title" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
     <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->

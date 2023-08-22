@@ -74,6 +74,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun RemoveWalletView() {
+    viewModel.getWallets(false)
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -230,12 +231,16 @@ class RemoveWalletFragment : BasePageViewFragment() {
     Card(
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
       border = BorderStroke(1.dp, styleguide_pink),
-      modifier = Modifier.padding(horizontal = 16.dp)
+      modifier = Modifier
+        .padding(horizontal = 16.dp)
+        .fillMaxWidth()
     ) {
       Column(
         verticalArrangement = Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)
+        modifier = Modifier
+          .padding(vertical = 24.dp, horizontal = 16.dp)
+          .fillMaxWidth()
       ) {
         Image(
           painterResource(R.drawable.ic_alert_circle),

@@ -1,22 +1,20 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
-import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
-import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -47,7 +45,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
     }
       .flatMap { details ->
           getCurrentPromoCodeUseCase().flatMap { promoCode ->
-            repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
+            repository.makePayment(details.addrs.userAddress,
                 phoneNumber, packageName, origin, details.builder.skuId,
                 details.builder.orderReference, transactionType, currency, value,
                 details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
@@ -62,8 +60,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
   fun getFinishedPayment(uri: Uri, packageName: String): Single<CarrierPaymentModel> {
     return getAddresses(packageName)
         .flatMapObservable { addresses ->
-          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.userAddress,
-              addresses.signedAddress)
+          observeTransactionUpdates(getUidFromUri(uri)!!, addresses.userAddress)
         }
         .firstOrError()
         .map { paymentModel ->
@@ -117,11 +114,13 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
     }
   }
 
-  private fun observeTransactionUpdates(uid: String, walletAddress: String,
-                                        walletSignature: String): Observable<CarrierPaymentModel> {
+  private fun observeTransactionUpdates(
+    uid: String,
+    walletAddress: String
+  ): Observable<CarrierPaymentModel> {
     return Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
         .timeInterval()
-        .switchMap { repository.getPayment(uid, walletAddress, walletSignature) }
+        .switchMap { repository.getPayment(uid, walletAddress) }
         .filter { paymentModel -> isEndingState(paymentModel.status) }
         .distinctUntilChanged { transaction -> transaction.status }
   }

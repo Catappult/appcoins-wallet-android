@@ -8,6 +8,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -28,7 +29,8 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -68,6 +70,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun showNoNetworkError() {
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.mainLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
@@ -78,6 +82,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun showRenewError() {
+    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage
+      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.cancelSubscription.visibility = View.GONE
     binding.renewSubscription.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
@@ -98,8 +104,12 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   override fun showLoading() {
     binding.cancelSubscription.visibility = View.GONE
     binding.renewSubscription.visibility = View.GONE
-    binding.mainLayout.visibility = View.GONE
+    binding.renewSubscription.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
+  }
+
+  override fun hideLoading() {
+    binding.loadingAnimation.visibility = View.GONE
   }
 
   override fun setupTransitionName(transitionName: String) {
@@ -113,7 +123,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.layoutActiveSubscriptionContent.root.visibility = View.VISIBLE
 
     binding.status.text = getString(R.string.subscriptions_active_title)
-    binding.statusIcon.setImageResource(R.drawable.ic_active)
     binding.layoutActiveSubscriptionContent.paymentMethodValue.text = subscriptionItem.paymentMethod
     binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
@@ -150,7 +159,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.cancelSubscription.visibility = View.GONE
 
     binding.renewSubscription.visibility = View.GONE
-    binding.statusIcon.setImageResource(R.drawable.ic_forbidden)
     binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
     binding.status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
@@ -163,14 +171,23 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
     binding.expiresOn.visibility = View.VISIBLE
     binding.cancelSubscription.visibility = View.GONE
-    binding.layoutActiveSubscriptionContent.nextPaymentValue.text = getString(R.string.subscriptions_canceled_body)
-    binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_red, null))
+    binding.layoutActiveSubscriptionContent.nextPaymentValue.text =
+      getString(R.string.subscriptions_canceled_body)
+    binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(
+      ResourcesCompat.getColor(
+        resources,
+        R.color.styleguide_pink,
+        null
+      )
+    )
 
     val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     subscriptionItem.expiry?.let {
-      binding.expiresOn.text = getString(R.string.subscriptions_details_cancelled_body,
-          dateFormat.format(it))
+      binding.expiresOn.text = getString(
+        R.string.subscriptions_details_cancelled_body,
+        dateFormat.format(it)
+      )
     }
   }
 
@@ -191,9 +208,6 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
         .apply { RequestOptions().dontTransform() }
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .into(target)
-    GlideApp.with(context)
-        .load(paymentIcon)
-        .into(binding.layoutActiveSubscriptionContent.paymentMethodIcon)
   }
 
   private val target = object : Target<Bitmap> {

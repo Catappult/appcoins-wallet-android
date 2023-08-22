@@ -48,7 +48,6 @@ class BackupRepository @Inject constructor(
     return SuccessfulBackup
   }
 
-
   private fun getDefaultBackupFileExtension() = ".bck"
 
   suspend fun sendBackupEmail(walletAddress: String, keystore: String, email: String): BackupResult {

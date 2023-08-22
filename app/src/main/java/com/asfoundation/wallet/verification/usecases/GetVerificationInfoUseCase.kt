@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.verification.usecases
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse

@@ -1,9 +1,9 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet
 
 import android.util.Pair
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.WalletUtils
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet

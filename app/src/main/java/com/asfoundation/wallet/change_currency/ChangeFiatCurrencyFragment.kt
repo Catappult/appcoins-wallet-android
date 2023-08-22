@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.change_currency
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
@@ -33,13 +35,17 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    handleOnBackPressedCallback()
     return ComposeView(requireContext()).apply {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             ChangeFiatCurrencyRoute(
               onExitClick = { handleBackPress() },
-              onChatClick = { displayChat() }
+              onChatClick = {
+                unlockRotation()
+                displayChat() }
             )
           }
         }
@@ -48,7 +54,22 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
   }
 
   private fun handleBackPress() {
+    unlockRotation()
     navController().popBackStack()
+  }
+
+  private fun handleOnBackPressedCallback() {
+    val onBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+      override fun handleOnBackPressed() {
+        unlockRotation()
+        navController().popBackStack()
+      }
+    }
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
+  }
+
+  private fun unlockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
   private fun navController(): NavController {

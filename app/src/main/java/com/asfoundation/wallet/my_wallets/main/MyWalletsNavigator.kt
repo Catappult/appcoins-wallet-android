@@ -10,8 +10,11 @@ import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ChangeActiveWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment.Companion.WALLET_BALANCE_MODEL
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment
@@ -56,12 +59,29 @@ class MyWalletsNavigator @Inject constructor(
   }
 
 
-  fun navigateToManageWalletBalanceBottomSheet() {
+  fun navigateToManageWalletBalanceBottomSheet(walletBalance: WalletBalance) {
     val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putSerializable(WALLET_BALANCE_MODEL, walletBalance)
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
-  fun navigateToManageWalletBottomSheet() {
+  fun navigateToManageWalletBottomSheet(hasOneWallet: Boolean) {
+    val bundle = Bundle()
+    bundle.putBoolean(ManageWalletBottomSheetFragment.HAS_ONE_WALLET, hasOneWallet)
     val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
+  }
+
+  fun navigateToChangeActiveWalletBottomSheet(walletAddress: String, walletName: String, walletBalance: String, walletBalanceSymbol: String) {
+    val bundle = Bundle()
+    val bottomSheet = ChangeActiveWalletBottomSheetFragment.newInstance()
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_NAME, walletName)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol)
+    bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 

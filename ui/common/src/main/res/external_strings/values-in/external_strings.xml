@@ -40,7 +40,7 @@
   <string name="buy_button">BELI</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTAL DOMPET</string>
   <string name="button_ok">Oke</string>
-  <string name="install_button">Pasang</string>
+  <string name="install_button">Instal</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Kesalahan</string>
   <string name="purchase_error_item_owned">Anda sudah punya item ini!</string>

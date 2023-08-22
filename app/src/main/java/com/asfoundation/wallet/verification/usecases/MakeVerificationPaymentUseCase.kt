@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.usecases
 
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor

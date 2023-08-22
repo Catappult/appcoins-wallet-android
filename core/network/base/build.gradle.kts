@@ -15,4 +15,5 @@ dependencies {
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:arch"))
+  implementation(project(":core:walletServices"))
 }

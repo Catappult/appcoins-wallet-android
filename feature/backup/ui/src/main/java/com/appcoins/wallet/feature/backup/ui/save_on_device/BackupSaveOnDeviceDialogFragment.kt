@@ -11,13 +11,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.feature.backup.ui.R
-//import com.appcoins.wallet.feature.backup.ui.databinding.BackupSaveOnDeviceDialogFragmentBinding
+import com.appcoins.wallet.feature.backup.ui.databinding.BackupSaveOnDeviceDialogFragmentBinding
+import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,6 +94,13 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    views.fileNameInput.setType(WalletTextFieldView.Type.FILLED)
+    views.fileNameInput.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.styleguide_blue
+      )
+    )
     views.backupSave.setOnClickListener {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {

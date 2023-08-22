@@ -4,28 +4,27 @@ import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
 import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface InappBillingApi {
   @GET("8.20200701/applications/{domain}/inapp")
   fun getPackage(@Path("domain") packageName: String): Single<Boolean>
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/consume")
-  fun consumePurchase(@Path("domain") domain: String,
-                      @Path("uid") uid: String,
-                      @Query("wallet.address") walletAddress: String,
-                      @Query("wallet.signature") walletSignature: String,
-                      @Query("payload") payload: String? = null): Completable
+  fun consumePurchase(
+    @Path("domain") domain: String,
+    @Path("uid") uid: String,
+    @Header("authorization") authorization: String,
+    @Query("payload") payload: String? = null
+  ): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
-  fun acknowledgePurchase(@Path("domain") domain: String,
-                          @Path("uid") uid: String,
-                          @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Query("payload") payload: String? = null): Completable
+  fun acknowledgePurchase(
+    @Path("domain") domain: String,
+    @Path("uid") uid: String,
+    @Header("authorization") authorization: String,
+    @Query("payload") payload: String? = null
+  ): Completable
 
 
   @GET("8.20200701/applications/{packageName}/inapp/consumables")
@@ -37,8 +36,7 @@ interface InappBillingApi {
   @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")
   fun getPurchases(
     @Path("packageName") packageName: String,
-    @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Query("type") type: String,
     @Query("state") state: String = "PENDING",
     @Query("sku") sku: String? = null,

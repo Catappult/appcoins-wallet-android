@@ -18,12 +18,19 @@ import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.interfaces.PaymentView
-import cm.aptoide.skills.model.*
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.ErrorStatus
+import cm.aptoide.skills.model.EskillsVerification
+import cm.aptoide.skills.model.FailedReferral
+import cm.aptoide.skills.model.FailedTicket
+import cm.aptoide.skills.model.PurchasedTicket
+import cm.aptoide.skills.model.SuccessfulReferral
+import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.usecase.Status
-import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
-import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.RootUtil
 import cm.aptoide.skills.util.UriValidationResult
+import com.appcoins.wallet.core.analytics.analytics.legacy.SkillsAnalytics
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,41 +58,42 @@ class SkillsFragment : Fragment(), PaymentView {
     private const val ESKILLS_ONBOARDING_KEY = "ESKILLS_ONBOARDING"
     private const val ESKILLS_REFERRAL_KEY = "ESKILLS_REFERRAL"
 
+    private lateinit var ESKILLS_PAYMENT_DATA: EskillsPaymentData
+
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
     private const val BONUS_VALUE = 1
   }
 
   private val viewModel: SkillsViewModel by viewModels()
 
-  @Inject
-  lateinit var eskillsUriParser: EskillsUriParser
-
   private lateinit var disposable: CompositeDisposable
+
+  @Inject
+  lateinit var analytics: SkillsAnalytics
 
   private val views by viewBinding(FragmentSkillsBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View = FragmentSkillsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     disposable = CompositeDisposable()
 
-    requireActivity().onBackPressedDispatcher
-      .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-          disposable.add(viewModel.cancelTicket()
-            .subscribe { _, _ -> })
-        }
-      })
-    disposable.add(viewModel.closeView()
-      .subscribe { postbackUserData(it.first, it.second) })
+    requireActivity().onBackPressedDispatcher.addCallback(
+        viewLifecycleOwner,
+        object : OnBackPressedCallback(true) {
+          override fun handleOnBackPressed() {
+            disposable.add(viewModel.cancelTicket().subscribe { _, _ -> })
+          }
+        })
+    disposable.add(viewModel.closeView().subscribe { postbackUserData(it.first, it.second) })
 
     showPurchaseTicketLayout()
 
     views.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+      analytics.sendPaymentCancelEvent(ESKILLS_PAYMENT_DATA)
       viewModel.cancelPayment()
     }
   }
@@ -113,8 +121,7 @@ class SkillsFragment : Fragment(), PaymentView {
           )
         } else {
           views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-            requireContext(),
-            R.style.DialogTitleStyle
+            requireContext(), R.style.DialogTitleStyle
           )
         }
         views.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 180F
@@ -126,8 +133,7 @@ class SkillsFragment : Fragment(), PaymentView {
           )
         } else {
           views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-            requireContext(),
-            R.style.DialogTextStyle
+            requireContext(), R.style.DialogTextStyle
           )
         }
         views.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
@@ -139,16 +145,15 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun setupPurchaseTicketLayout(
     eSkillsPaymentData: EskillsPaymentData
   ) {
-    if(getCachedValue(ESKILLS_ONBOARDING_KEY)){
-      if(viewModel.userFirstTimeCheck()) {
+    ESKILLS_PAYMENT_DATA = eSkillsPaymentData
+    if (getCachedValue(ESKILLS_ONBOARDING_KEY)) {
+      if (viewModel.userFirstTimeCheck()) {
         setupOnboarding(eSkillsPaymentData)
-      }
-      else{
-        cacheValue(ESKILLS_ONBOARDING_KEY,false)
+      } else {
+        cacheValue(ESKILLS_ONBOARDING_KEY, false)
         setupPurchaseLayout(eSkillsPaymentData)
       }
-    }
-    else{
+    } else {
       setupPurchaseLayout(eSkillsPaymentData)
     }
   }
@@ -158,9 +163,11 @@ class SkillsFragment : Fragment(), PaymentView {
     views.onboardingLayout.root.visibility = View.VISIBLE
     setupAppNameAndIcon(eSkillsPaymentData.packageName, true)
     setupOnboardingTicketButtons(eSkillsPaymentData)
+    analytics.sendOnboardingLaunchEvent(eSkillsPaymentData)
   }
 
-  private fun setupPurchaseLayout(eSkillsPaymentData: EskillsPaymentData){
+  private fun setupPurchaseLayout(eSkillsPaymentData: EskillsPaymentData) {
+    analytics.sendPaymentLaunchEvent(eSkillsPaymentData)
     setupQueueIdLayout()
     if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX) {
       setupSandboxTicketButtons(eSkillsPaymentData)
@@ -168,65 +175,72 @@ class SkillsFragment : Fragment(), PaymentView {
       updateHeaderInfo(eSkillsPaymentData)
       setupPurchaseTicketButtons(eSkillsPaymentData)
     }
-    setupAppNameAndIcon(eSkillsPaymentData.packageName,false)}
+    setupAppNameAndIcon(eSkillsPaymentData.packageName, false)
+  }
 
   private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
     if (RootUtil.isDeviceRooted()) {
       showRootError()
-    }
-    else{
-      views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
+    } else {
+      views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+        getString(R.string.start_button)
       views.onboardingLayout.referralDisplay.tooltip.referralCode.text =
-        String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
-      val tooltip_btn = views.onboardingLayout.referralDisplay.actionButtonTooltipReferral
-      tooltip_btn
-        .setOnClickListener {
-          if (views.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
+        String.format(getString(R.string.refer_a_friend_first_time_tooltip), BONUS_VALUE)
+      val tooltipBtn = views.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+      tooltipBtn.setOnClickListener {
+          if (views.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE) {
             views.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
-          }
-          else{
+          } else {
             views.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
           }
         }
       views.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
         viewModel.cancelPayment()
+        analytics.sendOnboardingCancelEvent(eSkillsPaymentData)
       }
       views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
         views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
         val referralCode = views.onboardingLayout.referralDisplay.referralCode.text.toString()
-        if (!referralCode.isEmpty()){
+        if (referralCode.isNotEmpty()) {
           when (viewModel.useReferralCode(referralCode)) {
             is FailedReferral.GenericError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
-                Color.RED)
+                Color.RED
+              )
               views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
+              views.onboardingLayout.referralDisplay.errorMessage.text =
+                getString(R.string.refer_a_friend_error_unavailable_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is FailedReferral.NotEligibleError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
-                Color.RED)
+                Color.RED
+              )
               views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
+              views.onboardingLayout.referralDisplay.errorMessage.text =
+                getString(R.string.refer_a_friend_error_user_not_eligible_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is FailedReferral.NotFoundError -> {
               views.onboardingLayout.referralDisplay.referralCode.setTextColor(
-                Color.RED)
+                Color.RED
+              )
               views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
+              views.onboardingLayout.referralDisplay.errorMessage.text =
+                getString(R.string.refer_a_friend_error_invalid_code_body)
               views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is SuccessfulReferral -> {
               views.onboardingLayout.root.visibility = View.GONE
-              createAndPayTicket(eSkillsPaymentData,true)
+              createAndPayTicket(eSkillsPaymentData, true)
+              analytics.sendOnboardingSuccessEvent(eSkillsPaymentData, referralCode)
             }
 
           }
-        }
-        else{
+        } else {
           views.onboardingLayout.root.visibility = View.GONE
-          createAndPayTicket(eSkillsPaymentData,true)
+          createAndPayTicket(eSkillsPaymentData, true)
+          analytics.sendOnboardingSuccessEvent(eSkillsPaymentData)
         }
       }
     }
@@ -242,6 +256,7 @@ class SkillsFragment : Fragment(), PaymentView {
         val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
         if (queueId.isNotBlank()) {
           eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+          analytics.sendPaymentQueueIdInputEvent(eSkillsPaymentData)
         }
         views.payTicketLayout.root.visibility = View.GONE
         createAndPayTicket(eSkillsPaymentData)
@@ -262,14 +277,13 @@ class SkillsFragment : Fragment(), PaymentView {
         view?.postDelayed({ tooltip.visibility = View.GONE }, CLIPBOARD_TOOLTIP_DELAY_SECONDS)
       }
     }
-    disposable.add(Single.zip(
-      viewModel.getCreditsBalance(),
-      viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
-      { balance, appcAmount -> Pair(balance, appcAmount) })
-      .observeOn(AndroidSchedulers.mainThread())
-      .map {
+    disposable.add(Single.zip(viewModel.getCreditsBalance(),
+      viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
+    ) { balance, appcAmount -> Pair(balance, appcAmount) }
+      .observeOn(AndroidSchedulers.mainThread()).map {
         if (it.first < it.second.amount) { // Not enough funds
           showNoFundsWarning()
+          analytics.sendPaymentNoFundsErrorEvent(eSkillsPaymentData)
           views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.topup_button)
           views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
@@ -279,26 +293,31 @@ class SkillsFragment : Fragment(), PaymentView {
           views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.buy_button)
           views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+            analytics.sendPaymentBuyClickEvent(eSkillsPaymentData)
             views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
             val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
             if (queueId.isNotBlank()) {
               eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+              analytics.sendPaymentQueueIdInputEvent(eSkillsPaymentData)
             }
             views.payTicketLayout.root.visibility = View.GONE
             createAndPayTicket(eSkillsPaymentData)
           }
         } else if (RootUtil.isDeviceRooted()) {
           showRootError()
+          analytics.sendPaymentRootErrorEvent(eSkillsPaymentData)
         } else {
           when (getTopUpListStatus()) {
             Status.AVAILABLE -> {
               views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.buy_button)
               views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+                analytics.sendPaymentBuyClickEvent(eSkillsPaymentData)
                 views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
                 val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
                 if (queueId.isNotBlank()) {
                   eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+                  analytics.sendPaymentQueueIdInputEvent(eSkillsPaymentData)
                 }
                 views.payTicketLayout.root.visibility = View.GONE
                 createAndPayTicket(eSkillsPaymentData)
@@ -306,6 +325,7 @@ class SkillsFragment : Fragment(), PaymentView {
             }
             Status.NO_TOPUP -> {
               showNeedsTopUpWarning()
+              analytics.sendPaymentTopUpErrorEvent(eSkillsPaymentData)
               views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.topup_button)
               views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
@@ -314,13 +334,12 @@ class SkillsFragment : Fragment(), PaymentView {
             }
             Status.PAYMENT_METHOD_NOT_SUPPORTED -> {
               showPaymentMethodNotSupported()
-              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.visibility =
-                View.GONE
+              analytics.sendPaymentNotSupportedErrorEvent(eSkillsPaymentData)
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.visibility = View.GONE
             }
           }
         }
-      }
-      .subscribe())
+      }.subscribe())
   }
 
   private fun getTopUpListStatus(): Status {
@@ -336,10 +355,9 @@ class SkillsFragment : Fragment(), PaymentView {
     val appInfo = packageManager.getApplicationInfo(packageName, 0)
     val appName = packageManager.getApplicationLabel(appInfo)
     val appIcon = packageManager.getApplicationIcon(packageName)
-    if(onboarding){
+    if (onboarding) {
       views.onboardingLayout.appIcon.setImageDrawable(appIcon)
-    }
-    else{
+    } else {
       views.payTicketLayout.payTicketHeader.appName.text = appName
       views.payTicketLayout.payTicketHeader.appIcon.setImageDrawable(appIcon)
     }
@@ -347,27 +365,20 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val details = views.payTicketLayout.payTicketPaymentMethodsDetails
-    disposable.addAll(
-      viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
-        .observeOn(AndroidSchedulers.mainThread())
-        .map {
-          details.fiatPrice.text = "${it.amount} ${it.currency}"
-          details.fiatPriceSkeleton.visibility = View.GONE
-          details.fiatPrice.visibility = View.VISIBLE
-        }
-        .subscribe(),
-      viewModel.getFormattedAppcAmount(
-        eSkillsPaymentData.price!!,
-        eSkillsPaymentData.currency!!
-      )
-        .observeOn(AndroidSchedulers.mainThread())
-        .map {
-          details.appcPrice.text = "$it APPC"
-          details.appcPriceSkeleton.visibility = View.GONE
-          details.appcPrice.visibility = View.VISIBLE
-        }
-        .subscribe()
-    )
+    disposable.addAll(viewModel.getLocalFiatAmount(
+      eSkillsPaymentData.price!!,
+      eSkillsPaymentData.currency!!
+    ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.fiatPrice.text = "${it.amount} ${it.currency}"
+        details.fiatPriceSkeleton.visibility = View.GONE
+        details.fiatPrice.visibility = View.VISIBLE
+      }.subscribe(), viewModel.getFormattedAppcAmount(
+      eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
+    ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.appcPrice.text = "$it APPC"
+        details.appcPriceSkeleton.visibility = View.GONE
+        details.appcPrice.visibility = View.VISIBLE
+      }.subscribe())
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
@@ -383,7 +394,12 @@ class SkillsFragment : Fragment(), PaymentView {
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
              }
-        .doOnComplete{if(onboarding){cacheValue(ESKILLS_ONBOARDING_KEY,false)}}
+        .doOnError{analytics.sendPaymentFailEvent(eskillsPaymentData)}
+        .doOnComplete{
+          if(onboarding){
+          cacheValue(ESKILLS_ONBOARDING_KEY,false)
+          }
+        analytics.sendPaymentSuccessEvent(eskillsPaymentData)}
         .subscribe()
     )
   }
@@ -394,18 +410,30 @@ class SkillsFragment : Fragment(), PaymentView {
   ): Completable {
     return when (ticket) {
       is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
-      is FailedTicket -> Completable.fromAction { handleFailedTicketResult(ticket) }
+      is FailedTicket -> Completable.fromAction { handleFailedTicketResult(ticket, eskillsUri) }
       is PurchasedTicket -> return Completable.complete()
     }
   }
 
-  private fun handleFailedTicketResult(ticket: FailedTicket) {
+  private fun handleFailedTicketResult(ticket: FailedTicket, eSkillsPaymentData: EskillsPaymentData) {
     when (ticket.status) {
-      ErrorStatus.VPN_NOT_SUPPORTED -> showVpnNotSupportedError()
-      ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
-      ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> showWalletVersionNotSupportedError()
+      ErrorStatus.VPN_NOT_SUPPORTED -> {
+        showVpnNotSupportedError()
+        analytics.sendPaymentVpnErrorEvent(eSkillsPaymentData)
+      }
+      ErrorStatus.REGION_NOT_SUPPORTED -> {
+        showRegionNotSupportedError()
+        analytics.sendPaymentGeoErrorEvent(eSkillsPaymentData)
+      }
+      ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> {
+        showWalletVersionNotSupportedError()
+        analytics.sendPaymentWalletVersionErrorEvent(eSkillsPaymentData)
+      }
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
-      ErrorStatus.GENERIC -> showError(SkillsViewModel.RESULT_ERROR)
+      ErrorStatus.GENERIC -> {
+        showError(SkillsViewModel.RESULT_ERROR)
+        analytics.sendPaymentCreateTicketFailError(eSkillsPaymentData)
+      }
     }
   }
 
@@ -415,23 +443,35 @@ class SkillsFragment : Fragment(), PaymentView {
   ): Completable {
     return viewModel.getRoom(eskillsUri, ticket, this)
       .observeOn(AndroidSchedulers.mainThread())
-      .doOnNext { userData -> handleUserDataStatus(userData) }
+      .doOnNext { userData -> handleUserDataStatus(userData, eskillsUri) }
       .ignoreElements()
   }
 
-  private fun handleUserDataStatus(userData: UserData) {
+  private fun handleUserDataStatus(userData: UserData, eSkillsPaymentData: EskillsPaymentData) {
     when (userData.status) {
-      UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true, userData.queueId)
-      UserData.Status.REFUNDED -> showRefundedLayout()
-      UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
-      UserData.Status.FAILED -> showError(SkillsViewModel.RESULT_ERROR)
+      UserData.Status.IN_QUEUE, UserData.Status.PAYING -> {
+        showRoomLoading(true, userData.queueId)
+        analytics.sendMatchmakingLaunchEvent(eSkillsPaymentData)
+      }
+      UserData.Status.REFUNDED -> {
+        showRefundedLayout()
+        analytics.sendMatchmakingCancelEvent(eSkillsPaymentData)
+      }
+      UserData.Status.COMPLETED -> {
+        postbackUserData(SkillsViewModel.RESULT_OK, userData)
+        analytics.sendMatchmakingCompletedEvent(eSkillsPaymentData)
+      }
+      UserData.Status.FAILED -> {
+        showError(SkillsViewModel.RESULT_ERROR)
+        analytics.sendMatchmakingErrorEvent(eSkillsPaymentData)
+      }
+      }
     }
-  }
 
   private fun hidePaymentRelatedText() {
-    views.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon?.visibility = View.GONE
-    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle?.visibility = View.GONE
-    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody?.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody.visibility = View.GONE
     views.payTicketLayout.payTicketPaymentMethodsDetails.fiatPrice.visibility = View.GONE
     views.payTicketLayout.payTicketPaymentMethodsDetails.appcPrice.visibility = View.GONE
     views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
@@ -491,15 +531,12 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
-    return viewModel.handleWalletCreationIfNeeded()
-      .observeOn(AndroidSchedulers.mainThread())
+    return viewModel.handleWalletCreationIfNeeded().observeOn(AndroidSchedulers.mainThread())
       .doOnNext {
         if (it == WALLET_CREATING_STATUS) {
           showWalletCreationLoadingAnimation()
         }
-      }
-      .filter { it != WALLET_CREATING_STATUS }
-      .map {
+      }.filter { it != WALLET_CREATING_STATUS }.map {
         endWalletCreationLoadingAnimation()
         it
       }
@@ -517,15 +554,15 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun showRoomLoading(isCancelActive: Boolean, queueIdentifier: QueueIdentifier? = null) {
     if (isCancelActive) {
       if (queueIdentifier != null && queueIdentifier.setByUser) {
-        views.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
-          .append(getString(R.string.finding_room_name_loading_title))
-          .bold { append(" ${queueIdentifier.id}") }
-      } else {
         views.loadingTicketLayout.loadingTitle.text =
-          getString(R.string.finding_room_loading_title)
+          SpannableStringBuilder().append(getString(R.string.finding_room_name_loading_title))
+            .bold { append(" ${queueIdentifier.id}") }
+      } else {
+        views.loadingTicketLayout.loadingTitle.text = getString(R.string.finding_room_loading_title)
       }
       views.loadingTicketLayout.cancelButton.isEnabled = true
       views.loadingTicketLayout.cancelButton.setOnClickListener {
+        analytics.sendMatchmakingCancelEvent(ESKILLS_PAYMENT_DATA)
         disposable.add(viewModel.cancelTicket()
           .subscribe { _, _ -> })
       }
@@ -537,24 +574,22 @@ class SkillsFragment : Fragment(), PaymentView {
 
 
   private fun getReferralAndActivateLayout(eSkillsPaymentData: EskillsPaymentData) {
-    disposable.add(viewModel.getReferral()
-      .observeOn(AndroidSchedulers.mainThread())
+    disposable.add(viewModel.getReferral().observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
         if (referralResponse.available) {
           setReferralLayout(eSkillsPaymentData, referralResponse)
           views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+        } else {
+          if (referralResponse.count != 0)//If not default error Referral
+            cacheValue(ESKILLS_REFERRAL_KEY, false)
         }
-        else{
-          if (referralResponse.count!= 0)//If not default error Referral
-            cacheValue(ESKILLS_REFERRAL_KEY,false)
-        }
-      }
-      .subscribe())
+      }.subscribe())
   }
 
   private fun setReferralLayout(eSkillsPaymentData: EskillsPaymentData, referralResponse: ReferralResponse) {
         views.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
           .setOnClickListener {
+            analytics.sendReferralShareIntentionEvent(eSkillsPaymentData)
             disposable.add(viewModel.getReferralShareText(eSkillsPaymentData.packageName)
               .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess{appData ->
@@ -575,44 +610,36 @@ class SkillsFragment : Fragment(), PaymentView {
               }
               .subscribe())
 
-          }
-        views.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
-          String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
-        val tooltipBtn =
-          views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
-        tooltipBtn
-          .setOnClickListener {
-            if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-              tooltipBtn.setImageDrawable(
-                ContextCompat.getDrawable(
-                  requireContext(),
-                  R.drawable.tooltip_orange
-                )
-              )
-            } else {
-              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
-                View.VISIBLE
-              tooltipBtn.setImageDrawable(
-                ContextCompat.getDrawable(
-                  requireContext(),
-                  R.drawable.tooltip_white
-                )
-              )
-            }
+      }
+    views.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+      String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
+    val tooltipBtn = views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+    tooltipBtn.setOnClickListener {
+        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(), R.drawable.tooltip_orange
+            )
+          )
+        } else {
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.VISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(), R.drawable.tooltip_white
+            )
+          )
+        }
 
-          }
-        views.loadingTicketLayout.root
-          .setOnClickListener {
-            if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-              views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
-                null
-            }
-          }
-        views.loadingTicketLayout.referralShareDisplay.referralCode.text =
-          referralResponse.referralCode
-
+      }
+    views.loadingTicketLayout.root.setOnClickListener {
+        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+            null
+        }
+      }
+    views.loadingTicketLayout.referralShareDisplay.referralCode.text = referralResponse.referralCode
 
 
   }
@@ -744,18 +771,18 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun handleAuthenticationResult(resultCode: Int) {
     if (resultCode == SkillsViewModel.RESULT_OK) {
-      viewModel.restorePurchase(this)
-        .subscribe()
+      viewModel.restorePurchase(this).subscribe()
     } else if (resultCode == SkillsViewModel.RESULT_USER_CANCELED) {
       viewModel.closeView()
     }
   }
 
-  private fun getCachedValue(key: String): Boolean{
+  private fun getCachedValue(key: String): Boolean {
     val sharedPreferences = requireContext().getSharedPreferences(key, 0)
     return sharedPreferences.getBoolean(key, true)
   }
-  private fun cacheValue(key: String,value: Boolean ){
+
+  private fun cacheValue(key: String, value: Boolean) {
     val sharedPreferences = requireContext().getSharedPreferences(key, 0)
     sharedPreferences.edit().putBoolean(key, value).apply()
   }

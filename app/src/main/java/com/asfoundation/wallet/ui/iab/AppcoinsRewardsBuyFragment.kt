@@ -124,10 +124,10 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     hideLoading()
   }
 
-  override fun finish(uid: String?) {
+  override fun finish(uid: String?, purchaseUid: String) {
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
-    presenter.sendPaymentSuccessEvent()
+    presenter.sendPaymentSuccessEvent(purchaseUid)
     val bundle = billingMessagesMapper.successBundle(uid)
     bundle.putString(
       InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
@@ -146,7 +146,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun finish(purchase: Purchase, orderReference: String?) {
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
-    presenter.sendPaymentSuccessEvent()
+    presenter.sendPaymentSuccessEvent(purchase.uid)
     val bundle = billingMessagesMapper.mapPurchase(purchase, orderReference)
     bundle.putString(
       InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,

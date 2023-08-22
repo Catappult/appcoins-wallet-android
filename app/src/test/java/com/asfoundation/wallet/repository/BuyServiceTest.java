@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.core.analytics.analytics.partners.AddressService;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
-import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;

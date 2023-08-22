@@ -7,17 +7,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
+import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageWalletNameBottomSheetLayoutBinding
-import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,7 +58,7 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
     views.textWalletNameBottomSheetString.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.styleguide_blue
+        R.color.styleguide_blue_secondary
       )
     )
 
@@ -128,6 +128,9 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
         manageWalletSharedViewModel.onBottomSheetDismissed()
         navigator.navigateBack()
       }
+
+      is ManageWalletNameBottomSheetSideEffect.WalletCreated ->
+        Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT).show()
     }
   }
 

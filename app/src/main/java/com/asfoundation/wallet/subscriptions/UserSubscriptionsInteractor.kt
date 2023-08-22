@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.subscriptions
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import io.reactivex.Completable
 import io.reactivex.Observable

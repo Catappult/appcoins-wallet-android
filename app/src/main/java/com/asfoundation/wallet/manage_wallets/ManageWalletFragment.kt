@@ -68,28 +68,23 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
-import com.appcoins.wallet.ui.widgets.BalanceItem
 import com.appcoins.wallet.ui.widgets.R.*
 import com.appcoins.wallet.ui.widgets.TopBar
-import com.appcoins.wallet.ui.widgets.TotalBalance
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
-import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
-import com.appcoins.wallet.ui.widgets.component.WalletTextField
 import com.asf.wallet.R
-import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletCreated
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletChanged
+import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletCreated
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletDeleted
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletSharedViewModel
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
-import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -189,14 +184,12 @@ class ManageWalletFragment : BasePageViewFragment() {
             .padding(bottom = 16.dp)
             .padding(horizontal = 16.dp),
           onClick = {
-            viewModel.inactiveWalletBalance.value = wallet
-            viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
+            myWalletsNavigator.navigateToChangeActiveWalletBottomSheet(wallet.walletAddress, wallet.walletName, wallet.balance.amount.toString(), wallet.balance.symbol)
           }) {
           InactiveWalletCard(wallet)
         }
       }
     }
-    ChangeWalletBottomSheet(viewModel.inactiveWalletBalance.value)
   }
 
   @Composable
@@ -309,7 +302,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      ManagementOptionsBottomSheet()
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
@@ -326,7 +319,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ManagementOptionsBottomSheet() {
+  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
 
     Row(
       horizontalArrangement = Arrangement.End,
@@ -337,14 +330,13 @@ class ManageWalletFragment : BasePageViewFragment() {
       VectorIconButton(
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
-        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet() },
+        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0) },
         paddingIcon = 4.dp,
         background = styleguide_blue_secondary
       )
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun BalanceBottomSheet(walletInfo: WalletInfo) {
     val balance = walletInfo.walletBalance
@@ -363,7 +355,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
       )
-      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet() }) {
+      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(walletInfo.walletBalance) }) {
         Text(
           text =
           balance.creditsOnlyFiat.amount
@@ -409,49 +401,6 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis
       )
-    }
-  }
-
-  @OptIn(ExperimentalMaterial3Api::class)
-  @Composable
-  fun ChangeWalletBottomSheet(walletBalance: WalletInfoSimple) {
-    val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(false)
-
-    WalletBottomSheet(
-      viewModel.openBottomSheet.value,
-      { viewModel.openBottomSheet.value = false },
-      bottomSheetState
-    ) {
-      Column(verticalArrangement = Arrangement.Center) {
-        Text(
-          modifier = Modifier.padding(bottom = 24.dp),
-          text = stringResource(R.string.manage_wallet_change_active_wallet_title),
-          color = styleguide_light_grey,
-          style = MaterialTheme.typography.bodyMedium,
-          fontWeight = FontWeight.Bold
-        )
-        Card(
-          colors = CardDefaults.cardColors(styleguide_blue),
-          modifier = Modifier.padding(bottom = 24.dp)
-        ) {
-          InactiveWalletCard(walletBalance)
-        }
-        ButtonWithText(
-          label = stringResource(R.string.wallet_view_activate_button),
-          labelColor = styleguide_light_grey,
-          backgroundColor = styleguide_pink,
-          onClick = {
-            scope
-              .launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
-                viewModel.changeActiveWallet(walletBalance.walletAddress)
-              }
-          },
-          buttonType = ButtonType.LARGE
-        )
-      }
     }
   }
 

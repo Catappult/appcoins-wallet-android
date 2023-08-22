@@ -61,16 +61,15 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.inject.Named
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx2.rxObservable
 import kotlinx.coroutines.rx2.rxSingle
+import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Named
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -81,7 +80,6 @@ sealed class HomeSideEffect : SideEffect {
   data class ShowBackupTrigger(val walletAddress: String, val triggerSource: TriggerSource) :
     HomeSideEffect()
 
-  object NavigateToReward : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
@@ -95,7 +93,7 @@ data class HomeState(
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
-  val showBackup: Boolean = false
+  val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
@@ -139,6 +137,7 @@ constructor(
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
+  val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
@@ -197,7 +196,8 @@ constructor(
     return Observable.mergeDelayError(
       observeBalance(),
       updateTransactions(model).subscribeOn(rxSchedulers.io),
-      updateRegisterUser(model.wallet).toObservable()
+      updateRegisterUser(model.wallet).toObservable(),
+      observeBackup()
     )
       .map {}
       .subscribeOn(rxSchedulers.io)
@@ -241,6 +241,21 @@ constructor(
           }
       }
       .doOnNext { fetchTransactionData() }
+  }
+
+  /**
+   * Balance is refreshed every [UPDATE_INTERVAL] seconds, and stops while [refreshData] is false
+   */
+  private fun observeBackup(): Observable<Boolean> {
+    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
+      .flatMap { observeRefreshData() }
+      .switchMap {
+        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+          .map { walletInfo -> walletInfo.hasBackup }
+          .asAsyncToState(HomeState::hasBackup) {
+            copy(hasBackup = it)
+          }
+      }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
@@ -458,7 +473,6 @@ constructor(
       .flatMap { walletInfo ->
         walletName = walletInfo.name
         rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
-          setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&
             backupTriggerPreferences.getTriggerState(walletInfo.wallet) &&
             !walletInfo.hasBackup
