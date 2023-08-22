@@ -21,7 +21,7 @@ class ShouldShowBackupTriggerUseCase @Inject constructor(
   suspend operator fun invoke(walletAddress: String): Boolean {
     return withContext(dispatchers.io) {
       val walletHaveBackup =
-          getWalletInfoUseCase(null, cached = false, updateFiat = false).await()
+          getWalletInfoUseCase(null, cached = false).await()
       return@withContext if (walletHaveBackup.hasBackup) {
         false
       } else {

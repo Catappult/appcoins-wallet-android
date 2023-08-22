@@ -249,7 +249,7 @@ constructor(
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
       .flatMap { observeRefreshData() }
       .switchMap {
-        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+        observeWalletInfoUseCase(null, update = true)
           .map { walletInfo -> walletInfo.hasBackup }
           .asAsyncToState(HomeState::hasBackup) {
             copy(hasBackup = it)
