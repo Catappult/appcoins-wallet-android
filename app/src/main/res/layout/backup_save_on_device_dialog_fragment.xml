@@ -21,6 +21,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:src="@drawable/pull_up_home_bar"
+      android:importantForAccessibility="no"
       />
 
   <TextView
@@ -28,13 +29,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginTop="24dp"
       android:fontFamily="sans-serif-medium"
       android:letterSpacing="0.01"
       android:lineSpacingExtra="6sp"
       android:text="@string/backup_save_dialogue_body"
       android:textColor="@color/white"
-      android:textSize="18sp"
+      android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
       android:letterSpacing="0.01"
       android:lineSpacingExtra="6sp"
       android:textColor="@color/styleguide_pink"
-      android:textSize="14sp"
+      android:textSize="12sp"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"

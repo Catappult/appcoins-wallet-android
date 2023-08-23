@@ -1,10 +1,8 @@
 package com.appcoins.wallet.feature.backup.ui.save_on_device
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.feature.backup.ui.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior

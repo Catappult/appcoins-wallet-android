@@ -236,7 +236,7 @@
   </fragment>
   <dialog
       android:id="@+id/backup_save_on_device"
-      android:name="com.asfoundation.wallet.backup.BottomSheet.BackupSaveOnDeviceBottomSheetFragment"
+      android:name="com.asfoundation.wallet.backup.bottomSheet.BackupSaveOnDeviceBottomSheetFragment"
       tools:layout="@layout/backup_save_on_device_dialog_fragment">
 
     <argument

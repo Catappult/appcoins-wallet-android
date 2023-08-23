@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.backup.BottomSheet
+package com.asfoundation.wallet.backup.bottomSheet
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -123,8 +123,6 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
     if(views.fileNameInput.getText().isEmpty()) {
       state.fileName()?.also { setFileName(it) }
-    }else{
-
     }
       setFilePath(state.downloadsPath)
   }

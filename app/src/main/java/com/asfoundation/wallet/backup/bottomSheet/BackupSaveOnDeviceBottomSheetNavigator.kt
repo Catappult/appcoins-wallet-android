@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.backup.BottomSheet
+package com.asfoundation.wallet.backup.bottomSheet
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator

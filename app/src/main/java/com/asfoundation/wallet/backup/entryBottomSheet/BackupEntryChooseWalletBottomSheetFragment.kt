@@ -56,14 +56,14 @@ class BackupEntryChooseWalletBottomSheetFragment : BackupEntryChooseWalletBottom
     presenter.present(requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel, navController())
   }
 
-  override fun setupUi(walletInfoSimple: List<WalletInfoSimple>) {
+  override fun setupUi(walletsBalance: List<WalletInfoSimple>) {
     with(binding.bottomSheetWalletsCards) {
       addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
       isNestedScrollingEnabled = false
       layoutManager = LinearLayoutManager(context).apply {
         orientation = RecyclerView.VERTICAL
       }
-      adapter = BackupEntryChooseWalletAdapter(walletInfoSimple, uiEventListener!!, currencyFormatter)
+      adapter = BackupEntryChooseWalletAdapter(walletsBalance, uiEventListener!!, currencyFormatter)
 
     }
     provideParentFragment()?.showBottomSheet()

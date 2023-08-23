@@ -48,8 +48,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.simpleFormat
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.maskedEnd
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.simpleFormat
 import com.appcoins.wallet.feature.backup.ui.BackupDialogCardAlertBottomSheet
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -61,7 +61,6 @@ import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextFieldPassword
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,6 +98,7 @@ fun BackupEntryRoute(
     )
   }
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackupEntryScreen(
@@ -113,17 +113,19 @@ fun BackupEntryScreen(
   viewModel: BackupEntryViewModel,
   bottomSheetState: SheetState
 ) {
-  var openBottomSheet by rememberSaveable{ mutableStateOf(true) }
-  if(openBottomSheet) {
+  var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+
+  if (openBottomSheet) {
     ModalBottomSheet(
       onDismissRequest = {
         openBottomSheet = false
       },
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue
+      containerColor = styleguide_blue
     ) {
       BackupDialogCardAlertBottomSheet(
-        onExitClick = {openBottomSheet = false}
+        onCancelClick = { openBottomSheet = false },
+        onConfirmClick = { onExitClick() }
       )
     }
   }
@@ -207,7 +209,8 @@ fun BalanceCard(balance : String,
     ) {
       Row(
         modifier = Modifier
-          .padding(start = 16.dp).fillMaxWidth(),
+          .padding(start = 16.dp)
+          .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
       ){
@@ -244,14 +247,16 @@ fun BalanceCard(balance : String,
           Icon(
             painter = painterResource(id = R.drawable.ic_arrow_head_down),
             contentDescription = "show password",
-            modifier = Modifier.height(58.dp).width(64.dp)
+            modifier = Modifier
+              .height(58.dp)
+              .width(64.dp)
               .padding(end = 22.dp)
-              .clickable (
+              .clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = {onChooseWallet()} ),
+                onClick = { onChooseWallet() }),
             tint = WalletColors.styleguide_pink
-            )
+          )
 
       }
     }
@@ -309,10 +314,7 @@ Column(
 ) {
   ButtonWithText(
     label = stringResource(id = R.string.backup_wallet_button),
-    onClick = {
-      if (viewModel.correctInputPassword.value) onNextClick() else {
-      }
-    },
+    onClick = { if (viewModel.correctInputPassword.value) onNextClick() },
     backgroundColor = if (viewModel.correctInputPassword.value) WalletColors.styleguide_pink else WalletColors.styleguide_dark_grey,
     labelColor = WalletColors.styleguide_light_grey,
     buttonType = ButtonType.LARGE,
@@ -389,14 +391,15 @@ fun BackupEntryPassword(onPasswordChange: (password : String) -> Unit, viewModel
           )
         }
       if(switchON){
-        switchModeTrue(onPasswordChange = onPasswordChange, viewModel = viewModel)
+        SwitchModeTrue(onPasswordChange = onPasswordChange, viewModel = viewModel)
       }
     }
   }
 @Preview
 @Composable
 fun BackupEntryPasswordPreview() {
-  var switchON by rememberSaveable { mutableStateOf(false) }
+  val switchON by rememberSaveable { mutableStateOf(false) }
+
   Column(
     modifier = Modifier
       .padding(18.dp)
@@ -441,15 +444,17 @@ fun BackupEntryPasswordPreview() {
       )
     }
     if(switchON){
-      switchModeTruePreview()
+      SwitchModeTruePreview()
     }
   }
 }
 
 
-
 @Composable
-private fun switchModeTrue(onPasswordChange: (password : String) -> Unit, viewModel: BackupEntryViewModel) {
+private fun SwitchModeTrue(
+  onPasswordChange: (password: String) -> Unit,
+  viewModel: BackupEntryViewModel
+) {
   var defaultPassword by rememberSaveable { mutableStateOf("") }
   var defaultPassword2 by rememberSaveable { mutableStateOf("") }
 
@@ -473,13 +478,13 @@ private fun switchModeTrue(onPasswordChange: (password : String) -> Unit, viewMo
         hintText = R.string.repeat_password
       )
       if (defaultPassword.isEmpty() || defaultPassword2.isEmpty()){
-        showPasswordError(false)
+        ShowPasswordError(false)
         viewModel.correctInputPassword.value = false
       }else if (defaultPassword.isNotEmpty() && defaultPassword != defaultPassword2){
-        showPasswordError(true)
+        ShowPasswordError(true)
         viewModel.correctInputPassword.value = false
       } else{
-        showPasswordError(false)
+        ShowPasswordError(false)
         viewModel.correctInputPassword.value = true
       }
       Row(
@@ -514,8 +519,8 @@ private fun switchModeTrue(onPasswordChange: (password : String) -> Unit, viewMo
 
 @Preview
 @Composable
-private fun switchModeTruePreview() {
-  var defaultPassword by rememberSaveable { mutableStateOf("") }
+private fun SwitchModeTruePreview() {
+  val defaultPassword by rememberSaveable { mutableStateOf("") }
   var defaultPassword2 by rememberSaveable { mutableStateOf("") }
 
   AnimatedVisibility(
@@ -567,12 +572,13 @@ private fun switchModeTruePreview() {
 }
 
 @Composable
-private fun showPasswordError(shouldShow: Boolean) {
-
+private fun ShowPasswordError(shouldShow: Boolean) {
   if (shouldShow) {
-    Text(text = stringResource(id = R.string.backup_additional_security_password_not_march),
-    style = WalletTypography.regular.sp12,
-    color = WalletColors.styleguide_red)
+    Text(
+      text = stringResource(id = R.string.backup_additional_security_password_not_march),
+      style = WalletTypography.regular.sp12,
+      color = WalletColors.styleguide_red
+    )
   }
 }
 

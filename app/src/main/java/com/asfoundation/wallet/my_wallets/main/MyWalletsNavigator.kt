@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.my_wallets.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
@@ -12,17 +11,15 @@ import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ChangeActiveWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment.Companion.WALLET_BALANCE_MODEL
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
-import com.asfoundation.wallet.backup.BackupWalletEntryFragment
-import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
-import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
-import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
@@ -112,12 +109,6 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
-//  fun navigateToSend() {
-//    val intent = TransferActivity.newIntent(fragment.requireContext())
-//    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-//    openIntent(intent)
-//  }
-
   fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
     val bundle = Bundle()
     bundle.putInt(TransferFundsFragment.TRANSFER_KEY, transferDestinations.ordinal)
@@ -154,11 +145,4 @@ class MyWalletsNavigator @Inject constructor(
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
   }
-
-  fun navigateToRemoveWallet(navController: NavController) {
-    navController.navigate(R.id.action_navigate_to_remove_wallet)
-  }
-
-  private fun openIntent(intent: Intent) = fragment.requireContext()
-    .startActivity(intent)
 }

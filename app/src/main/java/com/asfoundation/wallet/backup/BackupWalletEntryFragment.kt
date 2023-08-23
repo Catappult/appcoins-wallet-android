@@ -8,31 +8,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.core.arch.data.navigate
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryData
-import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryFragment
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryRoute
 import com.appcoins.wallet.feature.backup.ui.entry.BackupEntryViewModel
-import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
-import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel
+import com.asfoundation.wallet.ui.settings.entry.SettingsInteractor
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import com.appcoins.wallet.core.arch.data.Navigator
-import com.asfoundation.wallet.ui.settings.entry.SettingsInteractor
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposables
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
