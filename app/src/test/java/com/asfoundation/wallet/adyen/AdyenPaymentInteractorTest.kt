@@ -6,6 +6,8 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.analytics.analytics.partners.AttributionEntity
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
@@ -16,8 +18,6 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificati
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AttributionEntity
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract

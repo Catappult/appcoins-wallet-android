@@ -14,10 +14,9 @@ class BackupSuccessLogUseCase @Inject constructor(
 ) {
 
   suspend operator fun invoke(address: String): Unit {
-
     withContext(dispatchers.io) {
       val ewt = ewtObtainer.getEwtAuthenticationWithAddress(address).await()
-      backupRepository.logBackupSuccess(ewt)
+      backupRepository.logBackupSuccess(ewt).await()
     }
   }
 }

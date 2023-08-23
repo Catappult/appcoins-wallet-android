@@ -34,15 +34,10 @@ class BackupSaveOptionsViewModel(
     runCatching {
       sendBackupToEmailUseCase(data.walletAddress, data.password, text)
     }.onSuccess {
-      backupSuccessLogUseCase(data.walletAddress).let {}
+      backupSuccessLogUseCase(data.walletAddress)
+      sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(data.walletAddress) }
     }.onFailure {
       showError(it)
-    }
-    try {
-      backupSuccessLogUseCase(data.walletAddress).let {}
-      sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(data.walletAddress) }
-    } catch (e: Exception) {
-      showError(e)
     }
   }
 

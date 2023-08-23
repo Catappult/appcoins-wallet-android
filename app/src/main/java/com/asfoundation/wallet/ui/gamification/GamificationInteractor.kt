@@ -53,47 +53,17 @@ class GamificationInteractor @Inject constructor(
     packageName: String, amount: BigDecimal,
     promoCodeString: String?, currency: String?
   ): Single<ForecastBonusAndLevel> {
-    return getCurrentPromoCodeUseCase()
-      .flatMap { promoCode ->
-        defaultWallet.find()
-          .flatMap { wallet: Wallet ->
-            gamification.getEarningBonus(
-              wallet.address, packageName, amount,
-              promoCodeString, currency
-            ).flatMap { appcBonusValue: ForecastBonus ->
-              Single.zip(
-                conversionService.getAppcToLocalFiat(appcBonusValue.amount.toString(), 18),
-                gamification.getUserBonusAndLevel(wallet.address, promoCode.code)
-              ) { localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
-                map(appcBonusValue, localCurrency, userBonusAndLevel)
-              }
-            }
-          }
-          .doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
-      }
-  }
-
-
-  private fun map(
-    forecastBonus: ForecastBonus, fiatValue: FiatValue,
-    forecastBonusAndLevel: ForecastBonusAndLevel
-  ): ForecastBonusAndLevel {
-    val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
-    return ForecastBonusAndLevel(
-      status, fiatValue.amount, fiatValue.symbol,
-      level = forecastBonusAndLevel.level
-    )
-  }
-
-  private fun getBonusStatus(
-    forecastBonus: ForecastBonus,
-    userBonusAndLevel: ForecastBonusAndLevel
-  ): ForecastBonus.Status {
-    return if (forecastBonus.status == ForecastBonus.Status.ACTIVE || userBonusAndLevel.status == ForecastBonus.Status.ACTIVE) {
-      ForecastBonus.Status.ACTIVE
-    } else {
-      ForecastBonus.Status.INACTIVE
-    }
+    return defaultWallet.find()
+      .flatMap { wallet: Wallet ->
+        gamification.getEarningBonus(
+          wallet.address, packageName, amount,
+          promoCodeString, currency
+        ).map { forecastBonus ->
+          ForecastBonusAndLevel(
+            forecastBonus.status, forecastBonus.amount, forecastBonus.currency, level = forecastBonus.level
+          )
+        }
+      }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
   }
 
   fun hasNewLevel(
