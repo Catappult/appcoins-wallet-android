@@ -200,5 +200,8 @@
     <item name="android:textColor">#FFFFFF</item>
   </style>
 
-  <color name="countdown_timer_text_color">#F9753F</color>
+  <style name="RankingsTabTextAppearance" parent="TextAppearance.Design.Tab">
+    <item name="fontFamily">@font/roboto_medium</item>
+  </style>
+
 </resources>

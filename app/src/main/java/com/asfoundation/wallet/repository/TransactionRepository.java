@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -19,8 +19,8 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
-import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
-import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
+import static com.appcoins.wallet.core.utils.jvm_common.C.ETHEREUM_NETWORK_NAME;
+import static com.appcoins.wallet.core.utils.jvm_common.C.ROPSTEN_NETWORK_NAME;
 
 public abstract class TransactionRepository implements TransactionRepositoryType {
 

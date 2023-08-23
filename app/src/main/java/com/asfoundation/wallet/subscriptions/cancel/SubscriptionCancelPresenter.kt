@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.subscriptions.cancel
 
-import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -53,9 +53,10 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
   }
 
   private fun handleBackClicks() {
-    disposables.add(view.getBackClicks()
+    disposables.add(
+      view.getBackClicks()
         .observeOn(viewScheduler)
-        .doOnNext { navigator.navigateBack() }
+        .doOnNext { navigator.dismissCurrentBottomSheet() }
         .subscribe({}, { it.printStackTrace() })
     )
   }

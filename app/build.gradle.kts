@@ -1,5 +1,3 @@
-import groovy.json.JsonSlurper
-
 plugins {
   id("appcoins.android.app")
   id("appcoins.room")
@@ -12,8 +10,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 264
-    versionName = "2.12.2"
+    versionCode = 271
+    versionName = "2.15.3"
   }
 }
 
@@ -41,11 +39,22 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
+  implementation(project(":core:arch"))
+  implementation(project(":core:legacy-base"))
   implementation(project(":ui:common"))
-  implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
+  implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:change-currency:ui"))
+  implementation(project(":feature:wallet-info:data"))
+  implementation(project(":feature:backup:data"))
+  implementation(project(":feature:support:data"))
+  implementation(project(":feature:backup:ui"))
+  implementation(project(":feature:promo-code:data"))
+  implementation(project(":home"))
 
   implementation(libs.kotlin.coroutines)
+  implementation(libs.kotlin.coroutines.rx2)
+  implementation(libs.bundles.result)
 
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.core.ktx)
@@ -101,6 +110,7 @@ dependencies {
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
+  implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
   kapt(libs.epoxy.processor)
@@ -115,6 +125,8 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
   androidTestImplementation(libs.test.junit.ext)

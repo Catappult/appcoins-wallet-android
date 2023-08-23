@@ -3,10 +3,10 @@ package com.asfoundation.wallet.topup
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
@@ -257,7 +257,12 @@ class TopUpFragmentPresenter(
     ) {
       interactor.convertAppc(data.currency.appcValue).toObservable()
     } else {
-      Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      Observable.just(
+        FiatValue(
+          BigDecimal.ZERO,
+          ""
+        )
+      )
     }
 
   private fun handlePaymentMethodSelected() {
@@ -281,8 +286,7 @@ class TopUpFragmentPresenter(
   private fun loadBonusIntoView(
     appPackage: String, amount: String,
     currency: String
-  ): Completable = interactor.convertLocal(currency, amount, 18)
-    .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
+  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
     .subscribeOn(networkScheduler)
     .observeOn(viewScheduler)
     .doOnSuccess {
@@ -443,6 +447,7 @@ class TopUpFragmentPresenter(
     val paymentMethod = topUpData.paymentMethod!!
     if (paymentMethod.paymentType == PaymentType.CARD
       || paymentMethod.paymentType == PaymentType.PAYPAL
+      || paymentMethod.paymentType == PaymentType.GIROPAY
     ) {
       activity?.navigateToAdyenPayment(
         paymentType = paymentMethod.paymentType,

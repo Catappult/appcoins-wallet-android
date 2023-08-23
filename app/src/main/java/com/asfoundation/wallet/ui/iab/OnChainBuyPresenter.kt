@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
@@ -18,19 +18,19 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class OnChainBuyPresenter(
-  private val view: OnChainBuyView,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val billingMessagesMapper: BillingMessagesMapper,
-  private val isBds: Boolean,
-  private val analytics: BillingAnalytics,
-  private val appPackage: String,
-  private val uriString: String?,
-  private val gamificationLevel: Int,
-  private val logger: Logger,
-  private val onChainBuyInteract: OnChainBuyInteract,
-  private val transactionBuilder: TransactionBuilder
+    private val view: OnChainBuyView,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val isBds: Boolean,
+    private val analytics: BillingAnalytics,
+    private val appPackage: String,
+    private val uriString: String?,
+    private val gamificationLevel: Int,
+    private val logger: Logger,
+    private val onChainBuyInteract: OnChainBuyInteract,
+    private val transactionBuilder: TransactionBuilder
 ) {
 
   private var statusDisposable: Disposable? = null
@@ -131,7 +131,7 @@ class OnChainBuyPresenter(
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
           .observeOn(viewScheduler)
           .map { buildBundle(it, transaction.orderReference) }
-          .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
+          .flatMapCompletable { bundle -> handleSuccessTransaction(bundle, transaction.uid ?: "") }
           .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
       Payment.Status.NO_FUNDS -> Completable.fromAction {
@@ -196,11 +196,11 @@ class OnChainBuyPresenter(
     }
   }
 
-  private fun handleSuccessTransaction(bundle: Bundle): Completable {
+  private fun handleSuccessTransaction(bundle: Bundle, txId: String): Completable {
     return Completable.fromAction { view.showTransactionCompleted() }
       .subscribeOn(viewScheduler)
       .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-      .andThen(Completable.fromRunnable { view.finish(bundle) })
+      .andThen(Completable.fromRunnable { view.finish(bundle, txId) })
   }
 
   private fun buildBundle(payment: Payment, orderReference: String?): Bundle {
@@ -245,11 +245,15 @@ class OnChainBuyPresenter(
     )
   }
 
-  fun sendPaymentSuccessEvent() {
+  fun sendPaymentSuccessEvent(txId: String) {
     analytics.sendPaymentSuccessEvent(
-      appPackage, transactionBuilder.skuId,
-      transactionBuilder.amount()
-        .toString(), BillingAnalytics.PAYMENT_METHOD_APPC, transactionBuilder.type
+      packageName = appPackage,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_APPC,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
     )
   }
 

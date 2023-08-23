@@ -6,7 +6,6 @@ android {
   namespace = "com.appcoins.wallet.gamification"
 }
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:network:backend"))

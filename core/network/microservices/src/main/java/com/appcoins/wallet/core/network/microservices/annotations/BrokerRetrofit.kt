@@ -20,6 +20,16 @@ annotation class BrokerDefaultRetrofit
   AnnotationTarget.FUNCTION,
   AnnotationTarget.VALUE_PARAMETER
 )
+annotation class BrokerDefaultResultRetrofit
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+@Target(
+  AnnotationTarget.CLASS,
+  AnnotationTarget.FIELD,
+  AnnotationTarget.FUNCTION,
+  AnnotationTarget.VALUE_PARAMETER
+)
 annotation class BrokerBlockchainRetrofit
 
 

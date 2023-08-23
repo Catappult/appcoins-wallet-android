@@ -4,7 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.Completable
@@ -16,21 +16,21 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AppcoinsRewardsBuyPresenter(
-  private val view: AppcoinsRewardsBuyView,
-  private val rewardsManager: RewardsManager,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val packageName: String,
-  private val isBds: Boolean,
-  private val isPreSelected: Boolean,
-  private val analytics: BillingAnalytics,
-  private val paymentAnalytics: PaymentMethodsAnalytics,
-  private val transactionBuilder: TransactionBuilder,
-  private val formatter: CurrencyFormatUtils,
-  private val gamificationLevel: Int,
-  private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
-  private val logger: Logger
+    private val view: AppcoinsRewardsBuyView,
+    private val rewardsManager: RewardsManager,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val packageName: String,
+    private val isBds: Boolean,
+    private val isPreSelected: Boolean,
+    private val analytics: BillingAnalytics,
+    private val paymentAnalytics: PaymentMethodsAnalytics,
+    private val transactionBuilder: TransactionBuilder,
+    private val formatter: CurrencyFormatUtils,
+    private val gamificationLevel: Int,
+    private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
+    private val logger: Logger
 ) {
 
   companion object {
@@ -133,11 +133,11 @@ class AppcoinsRewardsBuyPresenter(
             }
         } else {
           rewardsManager.getTransaction(packageName, sku, amount).firstOrError()
-            .map(Transaction::txId).flatMapCompletable { transactionId ->
+            .flatMapCompletable { transactionModel ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-                .andThen(Completable.fromAction { view.finish(transactionId) })
+                .andThen(Completable.fromAction { view.finish(transactionModel.txId, transactionModel.txId ?: "") })
             }
         }
       }
@@ -220,18 +220,20 @@ class AppcoinsRewardsBuyPresenter(
     )
   }
 
-  fun sendPaymentSuccessEvent() {
+  fun sendPaymentSuccessEvent(txId: String) {
     paymentAnalytics.stopTimingForPurchaseEvent(
       PaymentMethodsAnalytics.PAYMENT_METHOD_APPC,
       true,
       isPreSelected
     )
     analytics.sendPaymentSuccessEvent(
-      packageName,
-      transactionBuilder.skuId,
-      transactionBuilder.amount().toString(),
-      BillingAnalytics.PAYMENT_METHOD_REWARDS,
-      transactionBuilder.type
+      packageName = packageName,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_REWARDS,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
     )
   }
 

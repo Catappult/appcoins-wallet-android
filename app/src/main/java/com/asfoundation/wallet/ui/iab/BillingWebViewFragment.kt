@@ -14,15 +14,15 @@ import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
 import java.util.concurrent.Executors

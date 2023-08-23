@@ -1,26 +1,31 @@
 package com.asfoundation.wallet.my_wallets.main
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.transact.TransferActivity
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ChangeActiveWalletBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment.Companion.WALLET_BALANCE_MODEL
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomSheetFragment
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
+import com.asfoundation.wallet.transfers.TransferFundsFragment
+import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navController: NavController
 ) : Navigator {
-
   fun navigateToMore(
     walletAddress: String,
     totalFiatBalance: String,
@@ -38,6 +43,43 @@ class MyWalletsNavigator @Inject constructor(
         ethereumBalance
       )
     )
+  }
+
+
+  fun navigateToManageWalletNameBottomSheet(walletAddress: String, walletName: String) {
+    val bundle = Bundle()
+    bundle.putString(ManageWalletNameBottomSheetFragment.WALLET_NAME, walletName)
+    bundle.putString(ManageWalletNameBottomSheetFragment.WALLET_ADDRESS, walletAddress)
+    val bottomSheet = ManageWalletNameBottomSheetFragment.newInstance()
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWalletName")
+  }
+
+
+  fun navigateToManageWalletBalanceBottomSheet(walletBalance: WalletBalance) {
+    val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putSerializable(WALLET_BALANCE_MODEL, walletBalance)
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
+  }
+  fun navigateToManageWalletBottomSheet(hasOneWallet: Boolean) {
+    val bundle = Bundle()
+    bundle.putBoolean(ManageWalletBottomSheetFragment.HAS_ONE_WALLET, hasOneWallet)
+    val bottomSheet = ManageWalletBottomSheetFragment.newInstance()
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
+  }
+
+  fun navigateToChangeActiveWalletBottomSheet(walletAddress: String, walletName: String, walletBalance: String, walletBalanceSymbol: String) {
+    val bundle = Bundle()
+    val bottomSheet = ChangeActiveWalletBottomSheetFragment.newInstance()
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_NAME, walletName)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
+    bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol)
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
 
   fun navigateToName(
@@ -67,17 +109,16 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToSend() {
-    val intent = TransferActivity.newIntent(fragment.requireContext())
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
-  }
+//  fun navigateToSend() {
+//    val intent = TransferActivity.newIntent(fragment.requireContext())
+//    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+//    openIntent(intent)
+//  }
 
-  fun navigateToReceive(wallet: Wallet) {
-    val intent = Intent(fragment.requireContext(), MyAddressActivity::class.java)
-    intent.putExtra(C.Key.WALLET, wallet)
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
+  fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
+    val bundle = Bundle()
+    bundle.putInt(TransferFundsFragment.TRANSFER_KEY, transferDestinations.ordinal)
+    navController.navigate(R.id.action_navigate_to_receive_funds, bundle)
   }
 
   fun navigateToNfts() {
@@ -103,6 +144,10 @@ class MyWalletsNavigator @Inject constructor(
     )
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
+  }
+
+  fun navigateToRemoveWallet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_remove_wallet)
   }
 
   private fun openIntent(intent: Intent) = fragment.requireContext()

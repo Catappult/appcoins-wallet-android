@@ -9,7 +9,7 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
@@ -22,12 +22,12 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class PromotionsInteractor @Inject constructor(
-  private val referralInteractor: ReferralInteractorContract,
-  private val gamificationInteractor: GamificationInteractor,
-  private val promotionsRepo: PromotionsRepository,
-  private val findWalletUseCase: FindDefaultWalletUseCase,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val userStatsPreferencesRepository: UserStatsLocalData,
+    private val referralInteractor: ReferralInteractorContract,
+    private val gamificationInteractor: GamificationInteractor,
+    private val promotionsRepo: PromotionsRepository,
+    private val findWalletUseCase: FindDefaultWalletUseCase,
+    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase,
+    private val userStatsPreferencesRepository: UserStatsLocalData,
 ) {
 
   companion object {

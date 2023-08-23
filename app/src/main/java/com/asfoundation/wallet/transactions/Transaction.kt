@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.transactions
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Transaction(

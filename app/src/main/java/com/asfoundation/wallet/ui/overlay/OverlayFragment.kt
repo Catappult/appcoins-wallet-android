@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.OverlayFragmentBinding
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject

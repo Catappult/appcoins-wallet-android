@@ -3,14 +3,15 @@ package com.asfoundation.wallet.ui.wallets
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 class WalletsAdapter(
-  private var items: List<WalletBalance>,
-  private val uiEventListener: PublishSubject<String>,
-  private val currencyFormatUtils: CurrencyFormatUtils
+    private var items: List<WalletInfoSimple>,
+    private val uiEventListener: PublishSubject<String>,
+    private val currencyFormatUtils: CurrencyFormatUtils
 ) : RecyclerView.Adapter<WalletsViewHolder>() {
 
 

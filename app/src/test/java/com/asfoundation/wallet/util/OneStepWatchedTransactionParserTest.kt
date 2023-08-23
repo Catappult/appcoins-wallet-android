@@ -3,11 +3,11 @@ package com.asfoundation.wallet.util
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.asfoundation.wallet.entity.TokenInfo
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -43,27 +43,27 @@ class OneStepWatchedTransactionParserTest {
   @Before
   fun before() {
     findDefaultWalletInteract =
-        mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
-    proxyService = mock<ProxyService>(ProxyService::class.java)
-    billing = mock<Billing>(Billing::class.java)
-    conversionService = mock<TokenRateService>(TokenRateService::class.java)
-    defaultTokenProvider = mock<DefaultTokenProvider>(DefaultTokenProvider::class.java)
+        mock(FindDefaultWalletInteract::class.java)
+    proxyService = mock(ProxyService::class.java)
+    billing = mock(Billing::class.java)
+    conversionService = mock(TokenRateService::class.java)
+    defaultTokenProvider = mock(DefaultTokenProvider::class.java)
 
-    `when`<Single<Wallet>>(findDefaultWalletInteract.find()).thenReturn(
+    `when`(findDefaultWalletInteract.find()).thenReturn(
         Single.just(Wallet(contractAddress)))
     val tokenInfo = TokenInfo(contractAddress, "AppCoins", "APPC", 18)
 
     `when`(defaultTokenProvider.defaultToken)
         .thenReturn(Single.just(tokenInfo))
-    `when`<Single<String>>(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
+    `when`(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just(contractAddress))
-    `when`<Single<String>>(proxyService.getIabAddress(anyBoolean())).thenReturn(
+    `when`(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just(iabContractAddress))
 
     `when`<Single<FiatValue>>(conversionService.getAppcRate(anyString())).thenReturn(
         Single.just(FiatValue(BigDecimal("0.07"), "EUR")))
 
-    `when`<Single<String>>(billing.getWallet(anyString())).thenReturn(
+    `when`(billing.getWallet(anyString())).thenReturn(
         Single.just(developerAddress))
   }
 
@@ -97,11 +97,9 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
     test.assertValue { transactionBuilder -> transactionBuilder.type == paymentType }
     test.assertValue { transactionBuilder -> transactionBuilder.domain == packageName }
-    test.assertValue { transactionBuilder -> transactionBuilder.iabContract == iabContractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.skuId == null }
     test.assertValue { transactionBuilder -> transactionBuilder.payload == developerPayload }
     test.assertValue { transactionBuilder -> transactionBuilder.callbackUrl == callback }
@@ -135,7 +133,6 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
 
@@ -165,7 +162,6 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.toAddress()
           .equals(developerAddress, ignoreCase = true)
     }
-    test.assertValue { transactionBuilder -> transactionBuilder.contractAddress() == contractAddress }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
 }

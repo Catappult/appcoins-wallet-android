@@ -27,7 +27,7 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.analytics.initilizeDataAnalytics
+import com.asfoundation.wallet.analytics.InitilizeDataAnalytics
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -94,7 +94,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var initilizeDataAnalytics: initilizeDataAnalytics
+  lateinit var initilizeDataAnalytics: InitilizeDataAnalytics
 
   @Inject
   lateinit var sentryAnalytics: SentryAnalytics
@@ -128,7 +128,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     initializeIndicative()
-    initializeRakam()
     initiateIntercom()
     initializeSentry()
     initializeMagnes()
@@ -158,12 +157,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         if (activity.isChangingConfigurations.not()) runningCount--
       }
     })
-  }
-
-  private fun initializeRakam() {
-    initilizeDataAnalytics.initializeRakam()
-      .subscribeOn(Schedulers.io())
-      .subscribe()
   }
 
   private fun initializeIndicative() {

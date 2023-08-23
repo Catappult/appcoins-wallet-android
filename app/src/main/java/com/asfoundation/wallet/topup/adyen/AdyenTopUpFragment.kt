@@ -20,10 +20,10 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
@@ -39,8 +39,8 @@ import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.*
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -15,7 +15,7 @@ interface OnChainBuyView {
 
   fun close(data: Bundle?)
 
-  fun finish(data: Bundle?)
+  fun finish(data: Bundle?, txId: String)
 
   fun showError(@StringRes message: Int? = null)
 

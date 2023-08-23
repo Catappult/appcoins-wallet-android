@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reward_graph"
+    app:startDestination="@id/reward_fragment">
+
+  <fragment
+      android:id="@+id/reward_fragment"
+      android:name="com.asfoundation.wallet.wallet_reward.RewardFragment">
+    <action
+        android:id="@+id/action_navigate_promo_code"
+        app:destination="@id/promo_code_fragment" />
+    <action
+        android:id="@+id/action_navigate_gift_card"
+        app:destination="@id/gift_card_fragment" />
+    <action
+        android:id="@+id/action_navigate_eskills_withdraw"
+        app:destination="@id/eskills_withdraw_fragment" />
+  </fragment>
+
+  <dialog
+      android:id="@+id/promo_code_fragment"
+      android:name="com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment"
+      tools:layout="@layout/settings_promo_code_bottom_sheet_layout">
+  </dialog>
+
+  <dialog
+      android:id="@+id/gift_card_fragment"
+      android:name="com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment"
+      tools:layout="@layout/settings_redeem_gift_bottom_sheet_layout">
+  </dialog>
+
+  <dialog
+      android:id="@+id/eskills_withdraw_fragment"
+      android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawBottomSheetFragment"
+      tools:layout="@layout/settings_redeem_gift_bottom_sheet_layout">
+  </dialog>
+
+</navigation>

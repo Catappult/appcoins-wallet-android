@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
@@ -74,6 +74,24 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
         transactionBuilder,
         PaymentType.PAYPAL,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
+
+  fun navigateToGiroAdyen(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
+        transactionBuilder,
+        PaymentType.GIROPAY,
         amount,
         currency,
         forecastBonus

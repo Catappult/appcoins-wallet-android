@@ -27,10 +27,10 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -172,11 +172,17 @@ class AdyenTopUpPresenter(
           view.showValues(priceAmount, it.priceCurrency)
           retrievedAmount = it.priceAmount.toString()
           retrievedCurrency = it.priceCurrency
-          if (paymentType == PaymentType.CARD.name) {
-            view.finishCardConfiguration(it, false)
-            handleTopUpClick()
-          } else if (paymentType == PaymentType.PAYPAL.name) {
-            launchPaypal(it.paymentMethod!!)
+          when (paymentType) {
+            PaymentType.CARD.name -> {
+              view.finishCardConfiguration(it, false)
+              handleTopUpClick()
+            }
+            PaymentType.GIROPAY.name -> {
+              launchPaypal(it.paymentMethod!!)
+            }
+            PaymentType.PAYPAL.name -> {
+              launchPaypal(it.paymentMethod!!)
+            }
           }
           loadBonusIntoView()
         }
@@ -538,10 +544,16 @@ class AdyenTopUpPresenter(
   }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
-    return if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    return when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GIROPAY.name -> {
+        AdyenPaymentRepository.Methods.GIROPAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
   }
 

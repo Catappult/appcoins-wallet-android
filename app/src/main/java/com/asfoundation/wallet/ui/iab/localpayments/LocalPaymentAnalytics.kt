@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab.localpayments
 
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -13,9 +13,18 @@ class LocalPaymentAnalytics @Inject constructor(private val analytics: BillingAn
   }
 
   fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
-                                  type: String, paymentId: String) {
+                                  type: String, paymentId: String, txId: String,
+                                  amountUsd: BigDecimal) {
     analytics.sendPaymentEvent(packageName, skuId, amount.toString(), paymentId, type)
-    analytics.sendPaymentSuccessEvent(packageName, skuId, amount.toString(), paymentId, type)
+    analytics.sendPaymentSuccessEvent(
+      packageName = packageName,
+      skuDetails = skuId,
+      value = amount.toString(),
+      purchaseDetails = paymentId,
+      transactionType = type,
+      txId = txId,
+      valueUsd = amountUsd.toString()
+    )
   }
 
   fun sendPendingPaymentEvents(packageName: String, skuId: String?, amount: String, type: String,

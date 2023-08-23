@@ -3,16 +3,16 @@ package com.asfoundation.wallet.ui.iab
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class PaymentMethodsAnalytics @Inject constructor(
-  private val analyticsManager: AnalyticsManager,
-  private val billingAnalytics: BillingAnalytics,
-  private val analyticsSetup: AnalyticsSetup,
-  private val taskTimer: TaskTimer
+    private val analyticsManager: AnalyticsManager,
+    private val billingAnalytics: BillingAnalytics,
+    private val analyticsSetup: AnalyticsSetup,
+    private val taskTimer: TaskTimer
 ) {
 
   companion object {
@@ -28,6 +28,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_SELECTION = "selection"
     const val PAYMENT_METHOD_CC = "credit_card"
     const val PAYMENT_METHOD_PP = "paypal"
+    const val PAYMENT_METHOD_GIROPAY = "giro_pay"
     const val PAYMENT_METHOD_PP_V2 = "paypal_v2"
     const val PAYMENT_METHOD_APPC = "appc_c"
     const val PAYMENT_METHOD_LOCAL = "local"

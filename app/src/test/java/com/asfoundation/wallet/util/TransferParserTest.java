@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.util;
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import java.math.BigDecimal;
