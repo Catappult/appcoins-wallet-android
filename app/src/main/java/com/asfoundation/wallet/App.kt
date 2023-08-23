@@ -43,6 +43,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.asfoundation.wallet.wallet.home.app_view.InstallAppModule
+import com.liulishuo.filedownloader.FileDownloader
 import java.security.Provider
 import java.security.Security
 import java.util.*
@@ -126,6 +128,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeMagnes()
     setupBouncyCastle()
     initializeWalletId()
+    FileDownloader.init(applicationContext)
     MainScope().launch {
       val mode = appStartUseCase.startModes.first()
       // OSP GP: Add enough delay to let wallet be created and set as user ID to the Analytics
