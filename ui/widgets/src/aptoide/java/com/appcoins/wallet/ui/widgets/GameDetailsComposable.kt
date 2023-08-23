@@ -1,9 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
@@ -11,7 +8,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -79,7 +75,10 @@ GameDetailsData(
   val screenshots: List<Screenshot>,
   val rating: Double,
   val downloads: Long,
-  val size: Long
+  val size: Long,
+  val md5: String,
+  val url: String,
+  val version: Int
 )
 
 data class Screenshot(
@@ -92,16 +91,28 @@ private var showEskillsCard by mutableStateOf(true)
 private var showInstallButton by mutableStateOf(true)
 private var showResume by mutableStateOf(false)
 
+
 @Composable
 fun GameDetails(
   appDetailsData: GameDetailsData,
+  progress: Int,
   close: () -> Unit,
   install: () -> Unit,
-  function: () -> Unit
+  isAppInstalled: () -> Boolean,
+  cancel: () -> Unit,
+  pause: () -> Unit,
+  finishedInstall: Boolean,
+  installing: Boolean,
+  open: () -> Unit,
+  function: () -> Unit,
 ) {
   function()
   Dialog(
-    onDismissRequest = close,
+    onDismissRequest = {
+      close()
+      showInstallButton = true
+      showResume = false
+    },
     properties = DialogProperties(
       usePlatformDefaultWidth = false,
       dismissOnBackPress = true
@@ -123,26 +134,47 @@ fun GameDetails(
         visible = showInstallButton,
         enter = fadeIn()
       ) {
-        Button(
-          onClick = {
-            install
-            showInstallButton = false
-            showResume = false
-          },
-          modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .fillMaxWidth()
-            .height(48.dp),
-          colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink),
-          shape = RoundedCornerShape(24.dp)
+        if(finishedInstall || isAppInstalled.invoke()) {
+          Button(
+            onClick = open,
+            modifier = Modifier
+              .align(Alignment.CenterHorizontally)
+              .fillMaxWidth()
+              .height(48.dp),
+            colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink),
+            shape = RoundedCornerShape(24.dp)
 
-        ) {
-          Text(
-            text = "Install",
-            fontSize = 14.sp,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Bold
-          )
+          ) {
+            Text(
+              text = "Open",
+              fontSize = 14.sp,
+              fontFamily = FontFamily.SansSerif,
+              fontWeight = FontWeight.Bold
+            )
+          }
+        } else {
+          Button(
+            onClick = {
+              install()
+              showInstallButton = false
+              showResume = false
+            },
+            modifier = Modifier
+              .align(Alignment.CenterHorizontally)
+              .fillMaxWidth()
+              .height(48.dp),
+            colors = ButtonDefaults.buttonColors(WalletColors.styleguide_pink),
+            shape = RoundedCornerShape(24.dp)
+
+          ) {
+            Text(
+              text = "Install",
+              fontSize = 14.sp,
+              fontFamily = FontFamily.SansSerif,
+              fontWeight = FontWeight.Bold
+            )
+          }
+
         }
 
       }
@@ -154,61 +186,93 @@ fun GameDetails(
           horizontalArrangement = Arrangement.SpaceEvenly,
           verticalAlignment = Alignment.Top
         ) {
-          Column(
-            modifier = Modifier.fillMaxWidth(0.8f)
-          ) {
-            LinearProgressIndicator(progress = 0.34f,
-              color = WalletColors.styleguide_pink,
-              trackColor = WalletColors.styleguide_blue_secondary,
-              modifier = Modifier
-                .clip(shape = RoundedCornerShape(24.dp))
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth())
+          if (!installing && !finishedInstall) {
+            Column(
+              modifier = Modifier.fillMaxWidth(0.8f)
+            ) {
 
-            Row(
-              modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
-              horizontalArrangement = Arrangement.SpaceBetween
+              LinearProgressIndicator(progress = progress/100f,
+                color = WalletColors.styleguide_pink,
+                trackColor = WalletColors.styleguide_blue_secondary,
+                modifier = Modifier
+                  .clip(shape = RoundedCornerShape(24.dp))
+                  .align(Alignment.CenterHorizontally)
+                  .fillMaxWidth())
+
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(top = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                Text(
+                  text = "Downloading",
+                  color = WalletColors.styleguide_dark_grey,
+                  fontSize = 12.sp
+                )
+                Text(
+                  text = "$progress%",
+                  color = WalletColors.styleguide_dark_grey,
+                  fontSize = 12.sp
+                )
+              }
+            }
+            IconButton(
+              onClick = {
+                        showInstallButton = true
+                        cancel()
+                        },
+              modifier = Modifier.size(14.dp)
             ) {
+              Icon(painter = painterResource(R.drawable.cancel),
+                contentDescription = "Cancel",
+                tint = WalletColors.styleguide_dark_grey)
+            }
+            if (showResume) {
+              IconButton(onClick = {
+                showResume = false
+                install()
+               },
+                modifier = Modifier.size(14.dp)
+              ) {
+                Icon(painter = painterResource(R.drawable.resume),
+                  contentDescription = "Resume",
+                  tint = WalletColors.styleguide_dark_grey)
+              }
+            } else {
+              IconButton(onClick = {
+                showResume = true
+                pause()
+               },
+                modifier = Modifier.size(14.dp)
+              ) {
+                Icon(painter = painterResource(R.drawable.pause),
+                  contentDescription = "Pause",
+                  tint = WalletColors.styleguide_dark_grey)
+              }
+            }
+
+          } else if (installing) {
+            Column(
+              modifier = Modifier.fillMaxWidth(0.8f)
+            ) {
+
+              LinearProgressIndicator(
+                color = WalletColors.styleguide_pink,
+                trackColor = WalletColors.styleguide_blue_secondary,
+                modifier = Modifier
+                  .clip(shape = RoundedCornerShape(24.dp))
+                  .align(Alignment.CenterHorizontally)
+                  .fillMaxWidth())
+
               Text(
-                text = "Downloading",
+                text = "Installing",
                 color = WalletColors.styleguide_dark_grey,
                 fontSize = 12.sp
               )
-              Text(
-                text = "34"+"%",
-                color = WalletColors.styleguide_dark_grey,
-                fontSize = 12.sp
-              )
             }
-          }
-          IconButton(
-            onClick = {
-                      showInstallButton = true
-                      },
-            modifier = Modifier.size(14.dp)
-          ) {
-            Icon(painter = painterResource(R.drawable.cancel),
-              contentDescription = "Cancel",
-              tint = WalletColors.styleguide_dark_grey)
-          }
-          if (showResume) {
-            IconButton(onClick = { showResume = false },
-              modifier = Modifier.size(14.dp)
-            ) {
-              Icon(painter = painterResource(R.drawable.resume),
-                contentDescription = "Resume",
-                tint = WalletColors.styleguide_dark_grey)
-            }
-          } else {
-            IconButton(onClick = { showResume = true },
-              modifier = Modifier.size(14.dp)
-            ) {
-              Icon(painter = painterResource(R.drawable.pause),
-                contentDescription = "Pause",
-                tint = WalletColors.styleguide_dark_grey)
-            }
+          } else if(finishedInstall) {
+            showInstallButton = true
           }
         }
       }
@@ -255,7 +319,11 @@ private fun TopAppView(
         horizontalArrangement = Arrangement.SpaceBetween
 
       ) {
-        IconButton(onClick = { close() }) {
+        IconButton(onClick = {
+          close()
+          showInstallButton = true
+          showResume = false
+        }) {
           Icon(
             painter = painterResource(R.drawable.arrow),
             contentDescription = "Back",
@@ -563,6 +631,11 @@ fun EskillsCardList() {
   }
 }
 
+@Composable
+fun AnimatedButton() {
+
+}
+
 @Preview
 @Composable
 private fun TopAppViewPreview() {
@@ -596,9 +669,12 @@ private fun TopAppViewPreview() {
           width = 512
         )
       ),
-      size = 199720828,
+      rating = 5.9,
       downloads = 60500,
-      rating = 5.9
+      size = 199720828,
+      md5 = "",
+      url = "",
+      version = 0
     )
   ) {
 
@@ -662,11 +738,21 @@ private fun Overview() {
           width = 512
         )
       ),
-      size = 199720828,
+      rating = 5.9,
       downloads = 60500,
-      rating = 5.9
+      size = 199720828,
+      md5 = "123414",
+      url = "asdasdasd",
+      version = 12
     ),
-    close = { /*TODO*/ }, install = { /*TODO*/ }) {
-
-  }
+    progress = 50, close = { /*TODO*/ },
+    install = { /*TODO*/ },
+    cancel = { },
+    pause = { },
+    finishedInstall = false,
+    installing = false,
+    function = {},
+    open = {},
+    isAppInstalled = { false }
+  )
 }
