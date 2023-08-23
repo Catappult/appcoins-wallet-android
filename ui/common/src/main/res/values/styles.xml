@@ -1142,7 +1142,7 @@
   </style>
 
   <style name="VerifyWallet.Success" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">19sp</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:textStyle">normal</item>
