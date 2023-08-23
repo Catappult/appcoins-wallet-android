@@ -7,13 +7,15 @@ android {
 }
 
 dependencies {
-    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+
+    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"))))
     implementation(project(":ui:common"))
     implementation(project(":core:utils:jvm-common"))
     implementation(project(":core:utils:properties"))
     implementation(project(":core:network:analytics"))
     implementation(project(":core:network:base"))
     implementation(project(":core:network:eskills"))
+    implementation(project(":core:shared-preferences"))
     implementation(libs.jackson.annotation)
     implementation(libs.bundles.analytics)
     implementation(libs.bundles.network)

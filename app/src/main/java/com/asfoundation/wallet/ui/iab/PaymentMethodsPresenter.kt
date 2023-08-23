@@ -150,6 +150,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              GIROPAY -> view.showGiroPay(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
@@ -421,7 +427,8 @@ class PaymentMethodsPresenter(
       if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
     }
       .andThen(
-        getWalletInfoUseCase(null, cached = false, updateFiat = true)
+        // updating fiat values is not necessary at this stage, the app only needs to know whether appcBalance > skuAppcPrice is true
+        getWalletInfoUseCase(null, cached = false, updateFiat = false)
           .subscribeOn(networkThread)
           .map { "" }
           .onErrorReturnItem("")
@@ -443,7 +450,7 @@ class PaymentMethodsPresenter(
         zip(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
-          interactor.getEarningBonus(transaction.domain,  transaction.amount(), null)
+          interactor.getEarningBonus(transaction.domain, fiatValue.amount, fiatValue.currency)
             .subscribeOn(networkThread),
           isPaypalAgreementCreatedUseCase()
             .subscribeOn(networkThread)
@@ -1079,6 +1086,7 @@ class PaymentMethodsPresenter(
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+      PaymentMethodId.GIROPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC

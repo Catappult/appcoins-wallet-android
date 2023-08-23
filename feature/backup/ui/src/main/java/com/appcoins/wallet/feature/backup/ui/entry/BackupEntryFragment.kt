@@ -16,6 +16,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.backup.data.Balance
 import com.appcoins.wallet.feature.backup.ui.R
 import com.appcoins.wallet.feature.backup.ui.databinding.BackupEntryFragmentBinding
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -66,8 +67,8 @@ class BackupEntryFragment : BasePageViewFragment(),
 
     views.backupBtn.setOnClickListener {
       var password = ""
-      if (views.passwordToggle?.backupPasswordToggle?.isChecked!!) {
-        password = views?.passwordToggle!!.backupPasswordInput.getText()
+      if (views.passwordToggle.backupPasswordToggle.isChecked) {
+        password = views.passwordToggle.backupPasswordInput.getText()
       }
       walletsEventSender.sendBackupInfoEvent(
         WalletsAnalytics.ACTION_NEXT,
@@ -82,12 +83,12 @@ class BackupEntryFragment : BasePageViewFragment(),
   }
 
   private fun setPasswordToggleListener() {
-    views.passwordToggle?.backupPasswordToggle?.setOnCheckedChangeListener { _, isChecked ->
+    views.passwordToggle.backupPasswordToggle.setOnCheckedChangeListener { _, isChecked ->
       if (isChecked) {
-        views.passwordToggle!!.passwordGroup.isVisible = true
+        views.passwordToggle.passwordGroup.isVisible = true
         handlePasswordFields()
       } else {
-        views.passwordToggle!!.passwordGroup.isVisible = false
+        views.passwordToggle.passwordGroup.isVisible = false
         views.backupBtn.isEnabled = true
       }
     }
@@ -110,18 +111,18 @@ class BackupEntryFragment : BasePageViewFragment(),
       }
     }
 
-    views.passwordToggle?.backupPasswordInput?.addTextChangedListener(passwordTextWatcher)
-    views.passwordToggle?.backupRepeatPasswordInput?.addTextChangedListener(passwordTextWatcher)
+    views.passwordToggle.backupPasswordInput.addTextChangedListener(passwordTextWatcher)
+    views.passwordToggle.backupRepeatPasswordInput.addTextChangedListener(passwordTextWatcher)
   }
 
   private fun handlePasswordFields() {
-    val password = views.passwordToggle?.backupPasswordInput?.getText()
-    val repeatedPassword = views.passwordToggle?.backupRepeatPasswordInput?.getText()
+    val password = views.passwordToggle.backupPasswordInput.getText()
+    val repeatedPassword = views.passwordToggle.backupRepeatPasswordInput.getText()
 
-    if (views.passwordToggle?.passwordGroup?.isVisible == false) {
+    if (!views.passwordToggle.passwordGroup.isVisible) {
       showPasswordError(false)
       views.backupBtn.isEnabled = true
-    } else if (password!!.isEmpty() || repeatedPassword!!.isEmpty()) {
+    } else if (password.isEmpty() || repeatedPassword.isEmpty()) {
       showPasswordError(false)
       views.backupBtn.isEnabled = false
     } else if (password.isNotEmpty() && password != repeatedPassword) {
@@ -139,11 +140,11 @@ class BackupEntryFragment : BasePageViewFragment(),
     if (shouldShow) {
       errorMessage = getString(R.string.backup_additional_security_password_not_march)
     }
-    views.passwordToggle?.backupRepeatPasswordInput?.setError(errorMessage)
+    views.passwordToggle.backupRepeatPasswordInput.setError(errorMessage)
   }
 
   private fun setTransitionListener() {
-    views.passwordToggle?.backupPasswordToggleLayout?.layoutTransition?.addTransitionListener(object :
+    views.passwordToggle.backupPasswordToggleLayout.layoutTransition?.addTransitionListener(object :
       LayoutTransition.TransitionListener {
       override fun startTransition(
         transition: LayoutTransition?, container: ViewGroup?,
@@ -169,16 +170,17 @@ class BackupEntryFragment : BasePageViewFragment(),
     handleBalanceAsync(state.balanceAsync)
   }
 
-  private fun handleBalanceAsync(balanceAsync: Async<com.appcoins.wallet.feature.backup.data.Balance>) {
+  private fun handleBalanceAsync(balanceAsync: Async<Balance>) {
     when (balanceAsync) {
       is Async.Success -> {
         setBalance(balanceAsync())
       }
+
       else -> Unit
     }
   }
 
-  private fun setBalance(balance: com.appcoins.wallet.feature.backup.data.Balance) {
+  private fun setBalance(balance: Balance) {
     views.walletBackupInfo.backupBalance.text =
       getString(R.string.value_fiat, balance.symbol, balance.amount)
   }

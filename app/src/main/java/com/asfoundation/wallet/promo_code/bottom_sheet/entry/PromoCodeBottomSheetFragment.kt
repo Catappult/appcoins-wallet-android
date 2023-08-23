@@ -78,7 +78,6 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       viewModel.replaceClick()
     }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener {
-      rewardSharedViewModel.onBottomSheetDismissed()
       viewModel.deleteClick()
     }
 
@@ -114,7 +113,11 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: PromoCodeBottomSheetSideEffect) {
     when (sideEffect) {
-      is PromoCodeBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
+      is PromoCodeBottomSheetSideEffect.NavigateBack -> {
+        navigator.navigateBack()
+        rewardSharedViewModel.onBottomSheetDismissed()
+
+      }
     }
   }
 

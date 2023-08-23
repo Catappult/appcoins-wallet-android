@@ -31,6 +31,8 @@ class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
   private val views by viewBinding(ManageWalletBottomSheetLayoutBinding::bind)
 
   companion object {
+
+    const val HAS_ONE_WALLET = "has_one_wallet"
     @JvmStatic
     fun newInstance(): ManageWalletBottomSheetFragment {
       return ManageWalletBottomSheetFragment()
@@ -46,6 +48,9 @@ class ManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setListeners()
+    if (arguments?.getBoolean(HAS_ONE_WALLET) == true) {
+      views.deleteWalletView.visibility = View.GONE
+    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 

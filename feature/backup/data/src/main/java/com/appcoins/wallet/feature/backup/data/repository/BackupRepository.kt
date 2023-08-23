@@ -18,8 +18,7 @@ class BackupRepository @Inject constructor(
   private val backupEmailApi: BackupEmailApi,
   private val rxSchedulers: RxSchedulers,
   private val walletService: WalletService,
-  private val backupLogApi: BackupLogApi,
-  private val ewtObtainer: EwtAuthenticatorService,
+  private val backupLogApi: BackupLogApi
 ) {
   fun saveFile(
     content: String, filePath: DocumentFile?,

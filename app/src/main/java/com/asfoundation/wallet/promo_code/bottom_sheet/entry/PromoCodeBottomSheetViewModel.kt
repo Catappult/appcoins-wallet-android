@@ -17,16 +17,16 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 }
 
 data class PromoCodeBottomSheetState(
-    val storedPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult> = Async.Uninitialized,
-    val submitPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult> = Async.Uninitialized,
+    val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
+    val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
     val shouldShowDefault: Boolean = false
 ) : ViewState
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
-    private val getStoredPromoCodeResultUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetStoredPromoCodeResultUseCase,
-    private val verifyAndSavePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase,
-    private val deletePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCase
+    private val getStoredPromoCodeResultUseCase: GetStoredPromoCodeResultUseCase,
+    private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
+    private val deletePromoCodeUseCase: DeletePromoCodeUseCase
 ) :
   BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 
@@ -47,7 +47,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
     getStoredPromoCodeResultUseCase()
       .asAsyncToState { copy(storedPromoCodeAsync = it) }
       .doOnNext {
-        if (it == com.appcoins.wallet.feature.promocode.data.FailedPromoCode.ExpiredCode()) deleteCode()
+        if (it == FailedPromoCode.ExpiredCode()) deleteCode()
       }
       .repeatableScopedSubscribe(PromoCodeBottomSheetState::storedPromoCodeAsync.name) { e ->
         e.printStackTrace()

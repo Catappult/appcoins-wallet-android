@@ -9,265 +9,281 @@
     android:paddingBottom="16dp"
     >
 
-  <TextView
-      android:id="@+id/title_subscription"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="12dp"
-      android:layout_marginBottom="24dp"
-      android:text="@string/subscriptions_title"
-      android:textColor="@color/styleguide_white"
-      android:textSize="24sp"
-      android:textStyle="bold"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
   <ScrollView
       android:id="@+id/main_layout"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="0dp"
       android:fillViewport="true"
       android:overScrollMode="never"
       android:scrollbars="none"
-      app:layout_constraintTop_toBottomOf="@id/title_subscription"
-      app:layout_constraintVertical_bias="0.0"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="16dp"
+        android:layout_height="0dp"
         >
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
+      <TextView
+          android:id="@+id/title_subscription"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:background="@color/styleguide_blue_secondary"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="12dp"
+          android:layout_marginBottom="24dp"
+          android:text="@string/subscriptions_title"
+          android:textColor="@color/styleguide_white"
+          android:textSize="24sp"
+          android:textStyle="bold"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          app:cardCornerRadius="16dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_subscription"
+          app:layout_constraintVertical_bias="0"
           >
 
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="@dimen/subscriptions_image_size"
-            android:layout_height="@dimen/subscriptions_image_size"
-            android:layout_marginTop="32dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty"
-            android:lineSpacingExtra="0.25sp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_transaction_peer"
-            tools:visibility="visible"
-            />
-
-        <include
-            android:id="@+id/app_icon_skeleton"
-            layout="@layout/skeleton_rounded_rectangle"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/app_icon"
-            app:layout_constraintEnd_toEndOf="@id/app_icon"
-            app:layout_constraintStart_toStartOf="@id/app_icon"
-            app:layout_constraintTop_toTopOf="@id/app_icon"
-            />
-
-        <TextView
-            android:id="@+id/app_name"
-            style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/big_margin"
-            android:textColor="@color/styleguide_light_grey"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_icon"
-            tools:text="Cut the Rope 2"
-            />
-
-        <TextView
-            android:id="@+id/sku_name"
-            style="@style/TransactionDetailsTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_name"
-            tools:text="Gas Reserve (1 week)"
-            />
-
-
-        <ImageView
-            android:id="@+id/status_icon"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginTop="5dp"
-            android:visibility="gone"
-            android:importantForAccessibility="no"
-            app:layout_constraintEnd_toStartOf="@+id/status"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/app_name"
-            app:layout_constraintTop_toBottomOf="@+id/sku_name"
-            />
-
-        <TextView
-            android:id="@+id/status"
-            style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/styleguide_green"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/status_icon"
-            app:layout_constraintBottom_toTopOf="@id/expires_on"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sku_name"
-            tools:text="active"
-            />
-
-        <TextView
-            android:id="@+id/expires_on"
-            style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:paddingStart="@dimen/half_large_margin"
-            android:paddingTop="4dp"
-            android:paddingEnd="@dimen/half_large_margin"
-            android:paddingBottom="4dp"
-            android:textColor="@color/styleguide_pink"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/app_name"
-            app:layout_constraintStart_toStartOf="@id/app_name"
-            app:layout_constraintTop_toBottomOf="@id/status"
-            tools:text="Canceled — It expires on 19 Jan"
-            tools:visibility="visible"
-            />
-
-
-        <LinearLayout
-            android:id="@+id/content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="@dimen/big_margin"
-            android:layout_marginEnd="32dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/expires_on"
+            android:background="@color/styleguide_blue_secondary"
+            android:padding="8dp"
             >
 
-          <include
-              android:id="@+id/layout_active_subscription_content"
-              layout="@layout/layout_active_subscription_content"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="32dp"
+          <ImageView
+              android:id="@+id/app_icon"
+              android:layout_width="@dimen/subscriptions_image_size"
+              android:layout_height="@dimen/subscriptions_image_size"
+              android:layout_marginTop="32dp"
+              android:adjustViewBounds="true"
+              android:contentDescription="@string/empty"
+              android:lineSpacingExtra="0.25sp"
+              android:visibility="invisible"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              tools:src="@drawable/ic_transaction_peer"
+              tools:visibility="visible"
               />
 
           <include
-              android:id="@+id/layout_expired_subscription_content"
-              layout="@layout/layout_expired_subscription_content"
-              android:layout_width="match_parent"
+              android:id="@+id/app_icon_skeleton"
+              layout="@layout/skeleton_rounded_rectangle"
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              app:layout_constraintBottom_toBottomOf="@id/app_icon"
+              app:layout_constraintEnd_toEndOf="@id/app_icon"
+              app:layout_constraintStart_toStartOf="@id/app_icon"
+              app:layout_constraintTop_toTopOf="@id/app_icon"
+              />
+
+          <TextView
+              android:id="@+id/app_name"
+              style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="32dp"
+              android:layout_gravity="center"
+              android:layout_marginTop="@dimen/big_margin"
+              android:textColor="@color/styleguide_light_grey"
+              android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/app_icon"
+              tools:text="Cut the Rope 2"
+              />
+
+          <TextView
+              android:id="@+id/sku_name"
+              style="@style/TransactionDetailsTextStyle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_marginTop="5dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/app_name"
+              tools:text="Gas Reserve (1 week)"
+              />
+
+
+          <ImageView
+              android:id="@+id/status_icon"
+              android:layout_width="14dp"
+              android:layout_height="14dp"
+              android:layout_marginTop="5dp"
+              android:importantForAccessibility="no"
               android:visibility="gone"
+              app:layout_constraintEnd_toStartOf="@+id/status"
+              app:layout_constraintHorizontal_chainStyle="packed"
+              app:layout_constraintStart_toStartOf="@+id/app_name"
+              app:layout_constraintTop_toBottomOf="@+id/sku_name"
               />
-        </LinearLayout>
+
+          <TextView
+              android:id="@+id/status"
+              style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="5dp"
+              android:textColor="@color/styleguide_green"
+              android:textSize="12sp"
+              app:layout_constraintBottom_toBottomOf="@+id/status_icon"
+              app:layout_constraintBottom_toTopOf="@id/expires_on"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/sku_name"
+              tools:text="active"
+              />
+
+          <TextView
+              android:id="@+id/expires_on"
+              style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/normal_margin"
+              android:paddingStart="@dimen/half_large_margin"
+              android:paddingTop="4dp"
+              android:paddingEnd="@dimen/half_large_margin"
+              android:paddingBottom="4dp"
+              android:textColor="@color/styleguide_pink"
+              android:visibility="gone"
+              app:layout_constraintEnd_toEndOf="@id/app_name"
+              app:layout_constraintStart_toStartOf="@id/app_name"
+              app:layout_constraintTop_toBottomOf="@id/status"
+              tools:text="Canceled — It expires on 19 Jan"
+              tools:visibility="visible"
+              />
 
 
-        <ImageView
-            android:id="@id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content"
-            app:layout_constraintVertical_bias="1"
-            android:importantForAccessibility="no"
-            app:srcCompat="@drawable/ic_info_grey_fill"
-            />
+          <LinearLayout
+              android:id="@+id/content"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="32dp"
+              android:layout_marginTop="@dimen/big_margin"
+              android:layout_marginEnd="32dp"
+              android:orientation="vertical"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/expires_on"
+              >
 
-        <TextView
-            android:id="@+id/info_text"
-            style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:text="@string/subscriptions_details_disclaimer"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/info"
-            app:layout_constraintTop_toTopOf="@id/info"
-            />
+            <include
+                android:id="@+id/layout_active_subscription_content"
+                layout="@layout/layout_active_subscription_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                />
+
+            <include
+                android:id="@+id/layout_expired_subscription_content"
+                layout="@layout/layout_expired_subscription_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:visibility="gone"
+                />
+          </LinearLayout>
 
 
-        <com.appcoins.wallet.ui.widgets.WalletButtonView
-            android:id="@+id/cancel_subscription"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/large_button_height"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:buttonText="@string/subscriptions_cancel_button"
-            app:buttonType="outlined"
-            app:layout_constraintBottom_toTopOf="@id/renew_subscription"
-            app:layout_constraintTop_toBottomOf="@id/info_text"
-            tools:visibility="visible"
-            />
+          <ImageView
+              android:id="@id/info"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginBottom="32dp"
+              android:importantForAccessibility="no"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/content"
+              app:layout_constraintVertical_bias="1"
+              app:srcCompat="@drawable/ic_info_grey_fill"
+              />
 
-        <com.appcoins.wallet.ui.widgets.WalletButtonView
-            android:id="@+id/renew_subscription"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/large_button_height"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"
-            app:buttonText="@string/subscriptions_renew_subscription_button"
-            app:buttonType="filled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cancel_subscription"
-            tools:visibility="visible"
-            />
+          <TextView
+              android:id="@+id/info_text"
+              style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="8dp"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:text="@string/subscriptions_details_disclaimer"
+              android:textSize="12sp"
+              app:layout_constraintBottom_toBottomOf="@id/info"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toEndOf="@id/info"
+              app:layout_constraintTop_toTopOf="@id/info"
+              />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loading_animation"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/renew_subscription"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/renew_subscription"
-            app:lottie_autoPlay="true"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading_wallet"
-            />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
+              android:id="@+id/cancel_subscription"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/large_button_height"
+              android:layout_alignParentBottom="true"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="40dp"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:layout_marginBottom="8dp"
+              android:visibility="gone"
+              app:buttonText="@string/subscriptions_cancel_button"
+              app:buttonType="outlined_grey"
+              app:layout_constraintBottom_toTopOf="@id/renew_subscription"
+              app:layout_constraintTop_toBottomOf="@id/info_text"
+              tools:visibility="visible"
+              />
+
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
+              android:id="@+id/renew_subscription"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/large_button_height"
+              android:layout_alignParentBottom="true"
+              android:layout_marginStart="@dimen/big_margin"
+              android:layout_marginTop="40dp"
+              android:layout_marginEnd="@dimen/big_margin"
+              android:layout_marginBottom="8dp"
+              android:visibility="gone"
+              app:buttonText="@string/subscriptions_renew_subscription_button"
+              app:buttonType="filled"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/cancel_subscription"
+              tools:visibility="visible"
+              />
+
+          <com.airbnb.lottie.LottieAnimationView
+              android:id="@+id/loading_animation"
+              android:layout_width="120dp"
+              android:layout_height="120dp"
+              android:visibility="gone"
+              app:layout_constraintBottom_toBottomOf="@id/renew_subscription"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="@id/renew_subscription"
+              app:lottie_autoPlay="true"
+              app:lottie_enableMergePathsForKitKatAndAbove="true"
+              app:lottie_loop="true"
+              app:lottie_rawRes="@raw/loading_wallet"
+              />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
   </ScrollView>
 
 
