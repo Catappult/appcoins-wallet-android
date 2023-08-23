@@ -176,7 +176,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(
         items = viewModel.gamesList.value,
-        dialog = { launchAppViewFragment(gameClicked, md5) }
+        dialog = { launchAppViewFragment(gameClicked) }
       ) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
@@ -459,10 +459,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     return navHostFragment.navController
   }
 
-  fun launchAppViewFragment(gamePackage: String, md5:String) {
+  fun launchAppViewFragment(gamePackage: String) {
     Log.i("AppViewFragment", "Entra no launch fragment")
     Log.i("Game Package", "Game Package " + gamePackage)
-    val dialog = AppViewFragment(gamePackage, md5)
+    val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }
 }

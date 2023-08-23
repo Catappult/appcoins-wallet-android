@@ -29,6 +29,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -799,9 +800,12 @@ public class AptoideUtils {
     }
 
     public static void openApp(String packageName, PackageManager packageManager, Context context) {
+      Log.d("Aptoide Utils", "package: "+packageName);
+      Log.d("Aptoide Utils", "Enters OpenApp");
       Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage(packageName);
-
+      Log.d("Aptoide Utils", "created intent");
       if (launchIntentForPackage != null) {
+        Log.d("Aptoide Utils", "Intent Exists, starting activity");
         context.startActivity(launchIntentForPackage);
       }
     }

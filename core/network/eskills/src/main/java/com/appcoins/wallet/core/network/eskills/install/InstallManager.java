@@ -19,6 +19,7 @@ import com.appcoins.wallet.core.network.eskills.downloadmanager.AptoideDownloadM
 import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadNotFoundException;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadsRepository;
 
+import com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstaller;
 import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
@@ -42,10 +43,9 @@ public class InstallManager {
 
   private static final String TAG = "InstallManager";
   private final AptoideDownloadManager aptoideDownloadManager;
-  private final Installer installer;
+  private final AppInstaller installer;
   private final SharedPreferences sharedPreferences;
   private final SharedPreferences securePreferences;
-  private final Context context;
   private final PackageInstallerManager packageInstallerManager;
   private final DownloadsRepository downloadRepository;
   private final AptoideInstalledAppsRepository aptoideInstalledAppsRepository;
@@ -58,8 +58,8 @@ public class InstallManager {
   private final CompositeSubscription dispatchInstallationsSubscription =
       new CompositeSubscription();
 
-  public InstallManager(Context context, AptoideDownloadManager aptoideDownloadManager,
-      Installer installer,
+  public InstallManager(AptoideDownloadManager aptoideDownloadManager,
+      AppInstaller installer,
       SharedPreferences sharedPreferences, SharedPreferences securePreferences,
       DownloadsRepository downloadRepository,
       AptoideInstalledAppsRepository aptoideInstalledAppsRepository,
@@ -67,7 +67,6 @@ public class InstallManager {
       AptoideInstallManager aptoideInstallManager, InstallAppSizeValidator installAppSizeValidator) {
     this.aptoideDownloadManager = aptoideDownloadManager;
     this.installer = installer;
-    this.context = context;
 
     this.downloadRepository = downloadRepository;
     this.aptoideInstalledAppsRepository = aptoideInstalledAppsRepository;
@@ -82,36 +81,12 @@ public class InstallManager {
   public void start() {
     aptoideDownloadManager.start();
 
-    installer.dispatchInstallations();
   }
 
-
-
-  private Completable sendBackgroundInstallFinishedBroadcast(RoomDownload download) {
-    return Completable.fromAction(() -> context.sendBroadcast(
-        new Intent("INSTALL_FINISHED").putExtra("INSTALLATION_MD5", download.getMd5())));
-  }
 
   public void stop() {
     aptoideDownloadManager.stop();
-    installer.stopDispatching();
-  }
 
-  private Completable stopForegroundAndInstall(String md5, int downloadAction,
-      boolean forceDefaultInstall, boolean shouldSetPackageInstaller) {
-    Logger.getInstance()
-        .d(TAG, "going to pop install from: " + md5 + "and download action: " + downloadAction);
-    switch (downloadAction) {
-      case RoomDownload.ACTION_INSTALL:
-        return installer.install(md5, forceDefaultInstall, shouldSetPackageInstaller);
-      case RoomDownload.ACTION_UPDATE:
-        return installer.update(md5, forceDefaultInstall, shouldSetPackageInstaller);
-      case RoomDownload.ACTION_DOWNGRADE:
-        return installer.downgrade(md5, forceDefaultInstall, shouldSetPackageInstaller);
-      default:
-        return Completable.error(
-            new IllegalArgumentException("Invalid download action " + downloadAction));
-    }
   }
 
   public Completable cancelInstall(String md5, String packageName, int versionCode) {
@@ -637,10 +612,6 @@ public class InstallManager {
         .first()
         .map(downloads -> downloads != null && !downloads.isEmpty())
         .toSingle();
-  }
-
-  public Completable uninstallApp(String packageName) {
-    return installer.uninstall(packageName);
   }
 
   public Single<Long> getInstalledAppSize(@Nullable String packageName) {
