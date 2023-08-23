@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import coil.compose.AsyncImage
+import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
 
@@ -35,7 +39,7 @@ import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AppViewFragment(val gamePackage: String, val md5: String) : DialogFragment() {
+class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
 
   private val viewModel: AppDetailsViewModel by viewModels()
@@ -60,12 +64,39 @@ class AppViewFragment(val gamePackage: String, val md5: String) : DialogFragment
 
   @Composable
   fun AppViewScreen() {
+    val downloadProgress by remember { viewModel.progress }
+    val finishedInstall by remember { viewModel.finishedInstall}
+    val installing by remember { viewModel.installing}
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
       close = { closeFragment() },
-      install = { viewModel.installApp(md5) }
+      install = { viewModel.installApp() },
+      isAppInstalled = {isAppInstalled(gamePackage)},
+      finishedInstall = finishedInstall,
+      installing = installing,
+      cancel = {viewModel.cancelDownload()},
+      pause = {viewModel.pauseDownoad()},
+      open = { openApp(gamePackage)},
+      progress = downloadProgress
     ) {
       viewModel.fetchGameDetails(gamePackage)
+    }
+  }
+
+  fun openApp(packageName:String) {
+    Log.d("Open App", "Starting App")
+    AptoideUtils.SystemU.openApp(packageName, requireContext().packageManager, context)
+  }
+
+  fun isAppInstalled(packageName: String): Boolean {
+    return try {
+      // on below line getting package info
+      requireContext().packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+      // on below line returning true if package is installed.
+      true
+    } catch (e: PackageManager.NameNotFoundException) {
+      // returning false if package is not installed on device.
+      false
     }
   }
 
