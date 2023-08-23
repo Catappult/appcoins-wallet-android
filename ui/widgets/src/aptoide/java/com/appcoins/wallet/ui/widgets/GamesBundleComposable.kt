@@ -22,7 +22,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 
 var gameClicked: String = ""
-var md5:String = ""
 
 @Composable
 fun GamesBundle(
@@ -71,7 +70,6 @@ private fun CardItem(
     //Log.i("Card Item Package", "Package do Card -> "+ gameCardData.gamePackage)},
     onClick = {
       gameClicked = gameCardData.gamePackage
-      md5 = gameCardData.md5
       dialogFragment.invoke(gameCardData.gamePackage)
     },
     modifier = Modifier
@@ -157,8 +155,7 @@ data class GameData(
   val title: String,
   val gameIcon: String,
   val gameBackground: String,
-  val gamePackage: String,
-  val md5: String
+  val gamePackage: String
 )
 
 @Preview
@@ -170,15 +167,13 @@ fun PreviewGamesBundle() {
         title = "Mobile Legends",
         gameIcon = "https://cdn6.aptoide.com/imgs/b/3/e/b3e336be6c4874605cbc597d811d1822_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/e/e/0/ee0469bf46c9a4423baf41fe8dd59b43_screen.jpg",
-        gamePackage = "com.mobile.legends",
-        md5 = "e41b6e2a1057fbec66db571853da5a58"
+        gamePackage = "com.mobile.legends"
       ),
       GameData(
         title = "Lords Mobile",
         gameIcon = "https://cdn6.aptoide.com/imgs/0/7/e/07eb83a511499243706f0c791b0b8969_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
-        gamePackage = "com.igg.android.lordsmobile",
-        md5 = "e41b6e2a1057fbec66db571853da5a58"
+        gamePackage = "com.igg.android.lordsmobile"
       )
     ),
     {},
