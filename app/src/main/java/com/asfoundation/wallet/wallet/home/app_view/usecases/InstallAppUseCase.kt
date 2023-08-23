@@ -1,14 +1,16 @@
 package com.asfoundation.wallet.wallet.home.app_view.usecases
 
 import android.os.Environment
+import android.util.Log
+import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.network.eskills.download.FileDownloadManagerProvider
-import com.appcoins.wallet.core.network.eskills.downloadmanager.AppDownloadStatus
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloader
-import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloaderProvider
+import com.appcoins.wallet.core.network.eskills.install.AppInstallerStatusReceiver
 import com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstall
 import com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstaller
-
-import rx.Observable
+import com.appcoins.wallet.ui.widgets.GameDetailsData
+import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
+import rx.Single
 import rx.subjects.PublishSubject
 import java.io.File
 import javax.inject.Inject
@@ -16,41 +18,57 @@ import javax.inject.Inject
 
 class InstallAppUseCase @Inject constructor(
   private val fileDownloadManagerProvider: FileDownloadManagerProvider,
-  private val appInstaller: AppInstaller
+  private val appInstaller: AppInstaller,
+  private val installCallback: AppInstallerStatusReceiver
 ) {
-  operator fun invoke(gamePackage: String) {
-    val fileDownloader:FileDownloader = fileDownloadManagerProvider.createFileDownloader(
-      "c3a4c5da0ce2fd44824e747aa277be5b",
-      "https://pool.apk.aptoide.com/catappult/com-appcoins-eskills2048-37-65157799-c3a4c5da0ce2fd44824e747aa277be5b.apk",
+
+  operator fun invoke(appDetails: GameDetailsData) : Single<FileDownloader>? {
+    Log.d("InstallAppUseCase","Enters invoke")
+    val fileDownloader = fileDownloadManagerProvider.createFileDownloader(
+      appDetails.md5,
+      appDetails.url,
       0,
-      "com.appcoins.eskills2048",
+      appDetails.gamePackage,
       37,
-      "c3a4c5da0ce2fd44824e747aa277be5b",
+      appDetails.md5+".apk",
       PublishSubject.create(),
       "1"
     )
+    Log.d("InstallAppUseCase","about to start downloading")
+    val fileReturn =  fileDownloader.startFileDownload().andThen(Single.just(fileDownloader))
 
-    fileDownloader.startFileDownload()
-
-    while(
-      !fileDownloader.observeFileDownloadProgress()
-        .flatMap { status ->
-          Observable.just(status.downloadState.equals(AppDownloadStatus.AppDownloadState.COMPLETED))
-        }
-        .toBlocking().first()
-    ) { }
-
-    val appInstall = AppInstall(
-      "com.appcoins.eskills2048",
-      File(
-        Environment.getExternalStorageDirectory()
-          .absolutePath + "/.wallet/c3a4c5da0ce2fd44824e747aa277be5b"))
-
-    appInstaller.install(appInstall)
+    return fileReturn
 
   }
 
 
+  fun installApk(gameDetailsData: GameDetailsData) : Single<AppInstallerStatusReceiver> {
+    val file = File(
+      Environment.getExternalStorageDirectory()
+        .absolutePath + "/.aptoide/"+gameDetailsData.md5+".apk")
+
+    if (file.exists()){
+      Log.d("File", "File Exists")
+    } else {
+      Log.d("File", "File doesnt exists")
+    }
+
+    val appInstall = AppInstall(
+      gameDetailsData.gamePackage,
+      file)
+
+    appInstaller.install(appInstall)
+
+    return Single.just(installCallback)
+  }
+
+  fun cancelDownload(downloader: FileDownloader) : Single<FileDownloader> {
+    return downloader.removeDownloadFile().andThen(Single.just(downloader))
+  }
+
+  fun pauseDownload(downloader: FileDownloader) : Single<FileDownloader> {
+    return downloader.pauseDownload().andThen(Single.just(downloader))
+  }
 
 
 }
