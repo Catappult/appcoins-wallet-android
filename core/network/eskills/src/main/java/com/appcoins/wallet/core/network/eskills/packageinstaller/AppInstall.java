@@ -16,6 +16,12 @@ public class AppInstall {
     splitApks = builder.splitApks;
   }
 
+  public AppInstall(String packageName, File baseApk) {
+    this.packageName = packageName;
+    this.baseApk = baseApk;
+    splitApks = new ArrayList<>();
+  }
+
   public static InstallBuilder builder() {
     return new InstallBuilder();
   }

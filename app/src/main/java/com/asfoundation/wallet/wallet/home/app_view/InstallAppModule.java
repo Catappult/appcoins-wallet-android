@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallet.home.app_view;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import cm.aptoide.pt.app.aptoideinstall.AptoideInstallManager;
@@ -34,25 +35,18 @@ import com.liulishuo.filedownloader.FileDownloader;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
-import dagger.hilt.migration.DisableInstallInCheck;
-import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import rx.subjects.PublishSubject;
 
 @InstallIn(SingletonComponent.class)
 @Module public class InstallAppModule {
 
-  private final App application;
+  @Inject App application;
 
-  public InstallAppModule(){this.application=null;}
-
-  public InstallAppModule(App application) {
-    this.application = application;
-  }
 
   @Singleton @Provides InstallManager providesInstallManager(
       AptoideDownloadManager aptoideDownloadManager, AppInstaller appInstaller,
@@ -68,8 +62,9 @@ import rx.subjects.PublishSubject;
   }
 
   @Singleton @Provides AppInstaller providesAppInstaller(
+      @ApplicationContext Context context,
       AppInstallerStatusReceiver appInstallerStatusReceiver) {
-    return new AppInstaller(application.getApplicationContext(),
+    return new AppInstaller(context,
         (installStatus) -> appInstallerStatusReceiver.onStatusReceived(installStatus));
   }
 
@@ -99,7 +94,7 @@ import rx.subjects.PublishSubject;
 
   @Singleton @Provides @Named("cachePath") String provideCachePath() {
     return Environment.getExternalStorageDirectory()
-        .getAbsolutePath() + "/.wallet/";
+        .getAbsolutePath() + "/.aptoide/";
   }
 
   @Singleton @Provides @Named("obbPath") String provideObbPath(
@@ -129,11 +124,13 @@ import rx.subjects.PublishSubject;
     return new DownloadAppMapper(downloadAppFileMapper);
   }
 
-  @Provides @Singleton FileDownloaderProvider providesFileDownloaderProvider(
+  @Provides @Singleton FileDownloadManagerProvider providesFileDownloaderProvider(
       @Named("cachePath") String cachePath,
+      @ApplicationContext Context context,
       Md5Comparator md5Comparator) {
 
-
+    FileUtils.createDir(cachePath);
+    FileDownloader.init(context.getApplicationContext());
     return new FileDownloadManagerProvider(cachePath, FileDownloader.getImpl(), md5Comparator);
   }
 

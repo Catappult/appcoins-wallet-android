@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import androidx.annotation.RequiresApi;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,12 +39,8 @@ public final class AppInstaller {
     }
   }
 
-  public AppInstall createAppInstall(String packageName, File baseApk) {
-    AppInstall.InstallBuilder installBuilder = AppInstall.builder()
-        .setPackageName(packageName)
-        .setBaseApk(baseApk);
-
-    return installBuilder.build();
+  public Context getContext() {
+    return context;
   }
 
   public void install(AppInstall appInstall) {
@@ -188,6 +185,7 @@ public final class AppInstaller {
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   private void addApkToInstallSession(File file, PackageInstaller.Session session) {
     try {
+      Log.d("Path",file.getAbsolutePath());
       OutputStream packageInSession = session.openWrite(file.getName(), 0, file.length());
       InputStream is = new FileInputStream(file);
       byte[] buffer = new byte[16384];
