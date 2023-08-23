@@ -4,7 +4,7 @@
     android:id="@+id/promo_code_bottom_sheet_success_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_dialog"
+    android:background="@drawable/rounded_dialog_dark"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
@@ -17,26 +17,24 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/promo_code_bottom_sheet_success_animation"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+  <ImageView
+      android:id="@+id/promo_code_bottom_sheet_success_image"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
       android:layout_centerInParent="true"
       android:layout_marginTop="@dimen/big_margin"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/fade_in_create_wallet"
+      android:src="@drawable/ic_success"
       android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/draggable_bar"
-      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_title"
       />
 
   <TextView
@@ -45,12 +43,13 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="10dp"
-      android:text="@string/promo_code_success_title"
+      android:text="@string/transaction_status_success"
+      android:textColor="@color/styleguide_white"
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_subtitle"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_animation"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_image"
       />
 
   <TextView
@@ -61,6 +60,7 @@
       android:layout_marginTop="10dp"
       android:text="@string/promo_code_success_body"
       android:textAlignment="center"
+      android:textColor="@color/styleguide_white"
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_got_it_button"
       app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +75,10 @@
       android:layout_marginTop="10dp"
       app:buttonText="@string/got_it_button"
       app:buttonType="filled"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_subtitle"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_subtitle"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

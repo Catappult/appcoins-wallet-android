@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AlmostVipFragmentBinding
-import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsSideEffect
 import com.asfoundation.wallet.promotions.ui.PromotionsState
-import com.asfoundation.wallet.viewmodel.BasePageViewDialogFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

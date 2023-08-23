@@ -32,45 +32,19 @@
         app:destination="@id/qr_code_activity" />
     <action
         android:id="@+id/action_navigate_to_nfts"
-        app:destination="@id/nfts_fragment" />
-  </fragment>
-
-  <fragment
-      android:id="@+id/nfts_fragment"
-      android:name="com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment"
-      tools:layout="@layout/fragment_nfts">
-
+        app:destination="@id/nft_graph" />
     <action
-        android:id="@+id/action_navigate_to_nft"
-        app:destination="@id/nft_details_fragment" />
-
-  </fragment>
-
-  <fragment
-      android:id="@+id/nft_details_fragment"
-      android:name="com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment"
-      tools:layout="@layout/fragment_nft">
-
-    <argument
-        android:name="data"
-        app:argType="com.asfoundation.wallet.nfts.domain.NFTItem" />
-
-    <action
-        android:id="@+id/action_navigate_to_transact"
-        app:destination="@id/nft_transact_fragment" />
-
+        android:id="@+id/action_navigate_to_manage_name_wallet_bottom_sheet"
+        app:destination="@id/manage_wallet_name_bottom_sheet" />
   </fragment>
 
   <dialog
-      android:id="@+id/nft_transact_fragment"
-      android:name="com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogFragment"
-      tools:layout="@layout/fragment_nft_transact">
-
-    <argument
-        android:name="data"
-        app:argType="com.asfoundation.wallet.nfts.domain.NFTItem" />
-
+      android:id="@+id/manage_wallet_name_bottom_sheet"
+      android:name="com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment"
+      tools:layout="@layout/manage_wallet_name_bottom_sheet_layout">
   </dialog>
+
+  <include app:graph="@navigation/nft_graph" />
 
   <dialog
       android:id="@+id/more_dialog_fragment"
@@ -211,7 +185,7 @@
   </activity>
   <activity
       android:id="@+id/backup_wallet_activity"
-      android:name="com.asfoundation.wallet.backup.BackupActivity"
+      android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
       tools:layout="@layout/activity_backup">
     <argument
         android:name="wallet_address"

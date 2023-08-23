@@ -1339,8 +1339,8 @@
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
@@ -1361,7 +1361,7 @@
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
   <string name="manage_wallet_verify_title">Verify a Payment Method</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
-  
+
 
 
 

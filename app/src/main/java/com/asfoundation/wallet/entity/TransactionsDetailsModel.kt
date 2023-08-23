@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.entity
 
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 
 data class TransactionsDetailsModel(val networkInfo: NetworkInfo, val wallet: Wallet,
-                                    val fiatValue: FiatValue) {
+                                    val fiatValue: FiatValue
+) {
 }

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.permissions.request.view
 import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.Permission
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.asfoundation.wallet.repository.WalletNotFoundException
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable

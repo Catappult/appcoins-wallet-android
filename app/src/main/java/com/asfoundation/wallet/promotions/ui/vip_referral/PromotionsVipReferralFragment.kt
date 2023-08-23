@@ -10,19 +10,19 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentVipReferralBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentVipReferralBinding
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PromotionsVipReferralFragment: BasePageViewFragment() ,
+class PromotionsVipReferralFragment: BasePageViewFragment(),
   SingleStateFragment<PromotionsVipReferralState, PromotionsVipReferralSideEffect> {
 
   @Inject

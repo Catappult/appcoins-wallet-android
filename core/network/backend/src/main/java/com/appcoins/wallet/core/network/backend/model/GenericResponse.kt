@@ -17,5 +17,7 @@ class GenericResponse(
   @SerializedName("start_date") val startDate: Long?,
   @SerializedName("notification_title") val notificationTitle: String?,
   @SerializedName("view_type") val viewType: String,
-  @SerializedName("details_link") val detailsLink: String?
+  @SerializedName("details_link") val detailsLink: String?,
+  @SerializedName("action_url") val actionUrl: String?,
+  @SerializedName("package_name") val packageName: String?
 ) : PromotionsResponse(id, priority, gamificationStatus)

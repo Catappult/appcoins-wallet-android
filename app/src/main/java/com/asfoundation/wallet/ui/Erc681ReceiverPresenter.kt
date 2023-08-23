@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui
 
 import android.os.Bundle
 import com.appcoins.wallet.core.walletservices.WalletService
-import com.asfoundation.wallet.service.WalletGetterStatus
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable

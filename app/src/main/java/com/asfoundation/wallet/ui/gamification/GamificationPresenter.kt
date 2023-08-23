@@ -7,7 +7,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -71,7 +71,8 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun mapToGamificationInfo(levels: Levels, promotionsGamificationStats: PromotionsGamificationStats,
-                                    bonusEarned: FiatValue): GamificationInfo {
+                                    bonusEarned: FiatValue
+  ): GamificationInfo {
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.OK) {
       return GamificationInfo(promotionsGamificationStats.level, promotionsGamificationStats.totalSpend,
@@ -132,7 +133,12 @@ class GamificationPresenter(private val view: GamificationView,
                 .map { Pair(stats, it) }
                 .toObservable()
           } else {
-            Observable.just(Pair(stats, FiatValue(BigDecimal.ONE.negate(), "")))
+            Observable.just(Pair(stats,
+              FiatValue(
+                BigDecimal.ONE.negate(),
+                ""
+              )
+            ))
           }
         }
   }

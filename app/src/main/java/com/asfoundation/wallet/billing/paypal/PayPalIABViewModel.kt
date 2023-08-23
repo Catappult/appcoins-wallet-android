@@ -8,11 +8,11 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,17 +23,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PayPalIABViewModel @Inject constructor(
-  private val createPaypalTransactionUseCase: CreatePaypalTransactionUseCase,
-  private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
-  private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
-  private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
-  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
-  private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val supportInteractor: SupportInteractor,
-  rxSchedulers: RxSchedulers,
-  private val analytics: BillingAnalytics,
-  private val paymentAnalytics: PaymentMethodsAnalytics
+    private val createPaypalTransactionUseCase: CreatePaypalTransactionUseCase,
+    private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
+    private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
+    private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
+    private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
+    private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val supportInteractor: SupportInteractor,
+    rxSchedulers: RxSchedulers,
+    private val analytics: BillingAnalytics,
+    private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {
 
   sealed class State {
