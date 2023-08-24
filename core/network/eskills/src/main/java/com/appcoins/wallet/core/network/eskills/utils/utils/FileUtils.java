@@ -7,7 +7,6 @@ package com.appcoins.wallet.core.network.eskills.utils.utils;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import java.io.File;
 import java.io.FileInputStream;
@@ -202,11 +201,11 @@ public class FileUtils {
     return Observable.from(folders)
         .observeOn(Schedulers.io())
         .flatMap(filePath -> Observable.fromCallable(() -> {
-          long size = deleteDir(filePath);
-          Logger.getInstance()
-              .d(TAG, "deleting folder " + filePath.getPath() + " size: " + size);
-          return size;
-        })
+              long size = deleteDir(filePath);
+              Logger.getInstance()
+                  .d(TAG, "deleting folder " + filePath.getPath() + " size: " + size);
+              return size;
+            })
             .onErrorResumeNext(throwable -> Observable.empty()))
         .toList()
         .map(deletedSizes -> {

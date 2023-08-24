@@ -8,9 +8,7 @@ package com.appcoins.wallet.core.network.eskills.download;
 import androidx.annotation.Nullable;
 import cm.aptoide.pt.aab.DynamicSplit;
 import cm.aptoide.pt.aab.Split;
-
 import cm.aptoide.pt.download.AppValidator;
-
 import cm.aptoide.pt.download.SplitTypeSubFileTypeMapper;
 import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 import com.appcoins.wallet.core.network.eskills.room.RoomFileToDownload;

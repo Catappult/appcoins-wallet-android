@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import java.util.List;
 
@@ -98,8 +97,7 @@ public class AppDownloadStatus {
           case INVALID_STATUS:
             return AppDownloadState.INVALID_STATUS;
           case VERIFYING_FILE_INTEGRITY:
-            if (previousState != null && (previousState
-                != AppDownloadState.VERIFYING_FILE_INTEGRITY
+            if (previousState != null && (previousState != AppDownloadState.VERIFYING_FILE_INTEGRITY
                 && previousState != AppDownloadState.COMPLETED)) {
               return AppDownloadState.PROGRESS;
             } else if (fileDownloadCallbackList.indexOf(fileDownloadCallback)
@@ -108,8 +106,7 @@ public class AppDownloadStatus {
             }
             break;
           case COMPLETED:
-            if (previousState != null
-                && previousState != AppDownloadState.COMPLETED) {
+            if (previousState != null && previousState != AppDownloadState.COMPLETED) {
               return AppDownloadState.PROGRESS;
             } else if (fileDownloadCallbackList.indexOf(fileDownloadCallback)
                 == fileDownloadCallbackList.size() - 1) {
@@ -119,8 +116,7 @@ public class AppDownloadStatus {
             }
             break;
           case PENDING:
-            if (previousState != null
-                && previousState != AppDownloadState.PENDING) {
+            if (previousState != null && previousState != AppDownloadState.PENDING) {
               return AppDownloadState.PROGRESS;
             } else if (fileDownloadCallbackList.indexOf(fileDownloadCallback)
                 == fileDownloadCallbackList.size() - 1) {
@@ -178,6 +174,8 @@ public class AppDownloadStatus {
   }
 
   public enum AppDownloadState {
-    INVALID_STATUS, COMPLETED, PENDING, PAUSED, WARN, ERROR, ERROR_FILE_NOT_FOUND, ERROR_NOT_ENOUGH_SPACE, ERROR_MD5_DOES_NOT_MATCH, PROGRESS, WAITING_TO_MOVE_FILES, VERIFYING_FILE_INTEGRITY
+    INVALID_STATUS, COMPLETED, PENDING, PAUSED, WARN, ERROR, ERROR_FILE_NOT_FOUND,
+    ERROR_NOT_ENOUGH_SPACE, ERROR_MD5_DOES_NOT_MATCH, PROGRESS, WAITING_TO_MOVE_FILES,
+    VERIFYING_FILE_INTEGRITY
   }
 }

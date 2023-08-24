@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.install;
 
-
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import java.util.List;
 import rx.Completable;

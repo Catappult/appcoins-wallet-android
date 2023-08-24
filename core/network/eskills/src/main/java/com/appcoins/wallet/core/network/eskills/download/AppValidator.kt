@@ -6,9 +6,11 @@ import com.appcoins.wallet.core.network.eskills.download.Obb
 
 class AppValidator() {
 
-  fun validateApp(md5: String?, appObb: Obb?, packageName: String?, appName: String?,
-                  filePath: String?, filePathAlt: String?, splits: MutableList<Split>?,
-                  requiredSplits: List<String>?): AppValidationResult {
+  fun validateApp(
+    md5: String?, appObb: Obb?, packageName: String?, appName: String?,
+    filePath: String?, filePathAlt: String?, splits: MutableList<Split>?,
+    requiredSplits: List<String>?
+  ): AppValidationResult {
     var result = AppValidationResult.VALID_APP
     if (isStringEmptyOrNull(md5)) {
       result = AppValidationResult.INVALID_MD5
@@ -19,12 +21,18 @@ class AppValidator() {
     } else if (isStringEmptyOrNull(filePathAlt)) {
 
       result = AppValidationResult.NO_ALTERNATIVE_DOWNLOAD_LINK
-    } else if (appObb != null && appObb.main != null && isStringEmptyOrNull(appObb.main
-            .path)) {
+    } else if (appObb != null && appObb.main != null && isStringEmptyOrNull(
+        appObb.main
+          .path
+      )
+    ) {
 
       result = AppValidationResult.NO_MAIN_OBB_DOWNLOAD_LINK
-    } else if (appObb != null && appObb.patch != null && isStringEmptyOrNull(appObb.patch
-            .path)) {
+    } else if (appObb != null && appObb.patch != null && isStringEmptyOrNull(
+        appObb.patch
+          .path
+      )
+    ) {
 
       result = AppValidationResult.NO_PATCH_OBB_DOWNLOAD_LINK
     } else if (appObb != null && isStringEmptyOrNull(packageName)) {
@@ -49,19 +57,26 @@ class AppValidator() {
 
   enum class AppValidationResult(val message: String) {
     INVALID_MD5("Invalid App md5"), NO_MAIN_DOWNLOAD_LINK(
-        "No main download link provided"),
+      "No main download link provided"
+    ),
     NO_ALTERNATIVE_DOWNLOAD_LINK(
-        "No alternative download link provided"),
+      "No alternative download link provided"
+    ),
     NO_MAIN_OBB_DOWNLOAD_LINK(
-        "No main obb download link provided"),
+      "No main obb download link provided"
+    ),
     NO_PATCH_OBB_DOWNLOAD_LINK(
-        "No patch obb download link provided"),
+      "No patch obb download link provided"
+    ),
     NO_PACKAGE_NAME_SPECIFIED(
-        "This app has an OBB and doesn't have the package name specified"),
+      "This app has an OBB and doesn't have the package name specified"
+    ),
     NO_APP_NAME_SPECIFIED(
-        "This app has an OBB and doesn't have the App name specified"),
+      "This app has an OBB and doesn't have the App name specified"
+    ),
     REQUIRED_SPLITS_NOT_FOUND("Not all required App bundle Splits are being provided"),
     VALID_APP(
-        "This is a valid app")
+      "This is a valid app"
+    )
   }
 }

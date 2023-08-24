@@ -9,7 +9,6 @@ public class DownloadApkPathsProvider {
   private static final String DOWNGRADE_ACTION = "?action=downgrade";
   private static final String OEMID_QUERY = "&oemid=";
 
-
   public DownloadApkPathsProvider() {
   }
 

@@ -8,9 +8,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.*
 
-class DynamicSplitsRemoteService(private val dynamicSplitsApi: DynamicSplitsApi,
-                                 private val mapper: DynamicSplitsMapper) :
-    DynamicSplitsService {
+class DynamicSplitsRemoteService(
+  private val dynamicSplitsApi: DynamicSplitsApi,
+  private val mapper: DynamicSplitsMapper
+) :
+  DynamicSplitsService {
 
   override suspend fun getDynamicSplitsByMd5(apkMd5Sum: String): DynamicSplitsModel {
 
@@ -38,7 +40,8 @@ class DynamicSplitsRemoteService(private val dynamicSplitsApi: DynamicSplitsApi,
   interface DynamicSplitsApi {
     @GET("app/getDynamicSplits")
     suspend fun getDynamicSplitsByMd5(
-        @Query("apk_md5sum") md5: String): Response<DynamicSplitsResponse>
+      @Query("apk_md5sum") md5: String
+    ): Response<DynamicSplitsResponse>
   }
 
 }

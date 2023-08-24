@@ -140,9 +140,9 @@ public class PackageRepository {
 
   public Observable<String> getRandomInstalledPackages(int count) {
     return getInstalledPackages().map(packageInfos -> {
-      Collections.shuffle(packageInfos);
-      return packageInfos;
-    })
+          Collections.shuffle(packageInfos);
+          return packageInfos;
+        })
         .flatMapIterable(packageInfos -> packageInfos)
         .take(count)
         .map(packageInfo -> packageInfo.packageName)

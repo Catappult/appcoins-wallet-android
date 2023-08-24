@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import rx.Completable;
 import rx.Observable;

@@ -20,7 +20,8 @@ import static androidx.room.OnConflictStrategy.REPLACE;
   @Query("DELETE FROM Installed where packageName = :packageName AND versionCode = :versionCode")
   Completable remove(String packageName, int versionCode);
 
-  @Query("SELECT * FROM Installed where packageName = :packageName AND versionCode = :versionCode LIMIT 1")
+  @Query("SELECT * FROM Installed where packageName = :packageName AND versionCode = :versionCode"
+      + " LIMIT 1")
   Observable<RoomInstalled> get(String packageName, int versionCode);
 
   @Query("SELECT * FROM Installed where packageName = :packageName AND versionCode = :versionCode")

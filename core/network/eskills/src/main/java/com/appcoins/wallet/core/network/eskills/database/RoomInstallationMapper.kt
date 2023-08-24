@@ -3,13 +3,12 @@ package cm.aptoide.pt.database
 
 import com.appcoins.wallet.core.network.eskills.room.RoomInstallation
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled
-import java.util.*
 
 class RoomInstallationMapper {
   fun map(installedList: List<RoomInstalled>): List<RoomInstallation> {
 
     val installationList: MutableList<RoomInstallation> =
-        ArrayList()
+      ArrayList()
     for (installed in installedList) {
       installationList.add(map(installed))
     }
@@ -17,7 +16,9 @@ class RoomInstallationMapper {
   }
 
   fun map(installed: RoomInstalled): RoomInstallation {
-    return RoomInstallation(installed.packageName, installed.name,
-        installed.icon, installed.versionCode, installed.versionName)
+    return RoomInstallation(
+      installed.packageName, installed.name,
+      installed.icon, installed.versionCode, installed.versionName
+    )
   }
 }

@@ -2,9 +2,6 @@ package com.appcoins.wallet.core.network.eskills.api
 
 import cm.aptoide.skills.model.*
 import com.appcoins.wallet.core.network.eskills.model.*
-import cm.aptoide.skills.model.EskillsVerification
-import com.appcoins.wallet.core.network.eskills.model.TicketRequest
-import com.appcoins.wallet.core.network.eskills.model.TicketResponse
 import io.reactivex.Single
 import retrofit2.http.*
 

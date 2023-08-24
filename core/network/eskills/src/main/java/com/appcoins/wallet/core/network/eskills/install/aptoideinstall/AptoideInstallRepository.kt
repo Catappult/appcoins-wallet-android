@@ -3,7 +3,6 @@ package cm.aptoide.pt.app.aptoideinstall
 
 import com.appcoins.wallet.core.network.eskills.install.AptoideInstallPersistence
 import rx.Single
-import java.util.*
 
 class AptoideInstallRepository(val aptoideInstallPersistence: AptoideInstallPersistence) {
 

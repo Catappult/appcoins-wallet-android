@@ -2,7 +2,6 @@ package com.appcoins.wallet.core.network.eskills.database;
 
 import androidx.annotation.NonNull;
 import cm.aptoide.pt.database.RoomInstallationMapper;
-
 import com.appcoins.wallet.core.network.eskills.install.InstallationPersistence;
 import com.appcoins.wallet.core.network.eskills.install.InstalledPersistence;
 import com.appcoins.wallet.core.network.eskills.room.InstalledDao;
@@ -70,13 +69,13 @@ public class RoomInstalledPersistence implements InstalledPersistence {
 
   public Observable<RoomInstalled> get(String packageName, int versionCode) {
     return RxJavaInterop.toV1Observable(installedDao.get(packageName, versionCode),
-        BackpressureStrategy.BUFFER)
+            BackpressureStrategy.BUFFER)
         .subscribeOn(Schedulers.io());
   }
 
   public Observable<List<RoomInstalled>> getAsList(String packageName, int versionCode) {
     return RxJavaInterop.toV1Observable(installedDao.getAsList(packageName, versionCode),
-        BackpressureStrategy.BUFFER)
+            BackpressureStrategy.BUFFER)
         .onErrorReturn(throwable -> new ArrayList<>())
         .subscribeOn(Schedulers.io());
   }
@@ -89,15 +88,15 @@ public class RoomInstalledPersistence implements InstalledPersistence {
 
   public Observable<List<RoomInstalled>> getAllAsList(String packageName) {
     return RxJavaInterop.toV1Observable(installedDao.getAsListByPackageName(packageName),
-        BackpressureStrategy.BUFFER)
+            BackpressureStrategy.BUFFER)
         .subscribeOn(Schedulers.io());
   }
 
   public Completable replaceAllBy(List<RoomInstalled> list) {
     return Completable.fromAction(() -> {
-      installedDao.removeAll();
-      installedDao.insertAll(list);
-    })
+          installedDao.removeAll();
+          installedDao.insertAll(list);
+        })
         .andThen(roomInstallationPersistence.insertAll(installationMapper.map(list)))
         .subscribeOn(Schedulers.io());
   }
@@ -117,7 +116,7 @@ public class RoomInstalledPersistence implements InstalledPersistence {
 
   @Override public Observable<List<RoomInstalled>> getInstalledFilteringSystemApps() {
     return RxJavaInterop.toV1Observable(installedDao.getAllFilteringSystemApps(),
-        BackpressureStrategy.BUFFER)
+            BackpressureStrategy.BUFFER)
         .flatMap(installs -> filterCompleted(installs))
         .subscribeOn(Schedulers.io());
   }
@@ -136,7 +135,7 @@ public class RoomInstalledPersistence implements InstalledPersistence {
 
   private Observable<List<RoomInstalled>> getInstalledAsList(String packageName) {
     return RxJavaInterop.toV1Observable(installedDao.getAsListByPackageName(packageName),
-        BackpressureStrategy.BUFFER)
+            BackpressureStrategy.BUFFER)
         .onErrorReturn(throwable -> new ArrayList<>())
         .flatMap(installs -> filterCompleted(installs))
         .subscribeOn(Schedulers.io());

@@ -4,7 +4,6 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-
 /**
  * Database holder that contains the list of entities (tables) associated with the database.
  */

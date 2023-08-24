@@ -11,7 +11,8 @@ import static androidx.room.OnConflictStrategy.REPLACE;
 
 @Dao public interface NotificationDao {
 
-  @Query("SELECT * from notification where type IN (:notificationType) AND dismissed BETWEEN :startingTime AND :endTime ")
+  @Query("SELECT * from notification where type IN (:notificationType) AND dismissed BETWEEN "
+      + ":startingTime AND :endTime ")
   Single<List<RoomNotification>> getDismissed(Integer[] notificationType, long startingTime,
       long endTime);
 

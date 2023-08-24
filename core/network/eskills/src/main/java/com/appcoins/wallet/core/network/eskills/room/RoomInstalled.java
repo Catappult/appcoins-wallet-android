@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;
 import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils;
 import java.io.File;

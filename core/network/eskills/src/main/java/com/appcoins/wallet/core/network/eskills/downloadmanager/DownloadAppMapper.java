@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.downloadmanager;
 
-
 import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 import java.util.List;
 

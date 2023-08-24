@@ -3,7 +3,6 @@ package com.appcoins.wallet.core.network.eskills.room;
 import android.text.TextUtils;
 import androidx.annotation.IntDef;
 import androidx.room.Ignore;
-
 import com.appcoins.wallet.core.network.eskills.utils.utils.IdUtils;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

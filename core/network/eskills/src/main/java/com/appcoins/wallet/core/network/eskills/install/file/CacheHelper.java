@@ -5,7 +5,6 @@
 
 package com.appcoins.wallet.core.network.eskills.install.file;
 
-
 import com.appcoins.wallet.core.network.eskills.downloadmanager.CacheManager;
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;

@@ -144,7 +144,7 @@ import java.util.List;
   public String getTrustedBadge() {
     return trustedBadge;
   }
-  
+
   public boolean hasAppc() {
     return hasAppc;
   }

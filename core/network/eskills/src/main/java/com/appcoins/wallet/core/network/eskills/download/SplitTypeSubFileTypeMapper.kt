@@ -10,9 +10,11 @@ class SplitTypeSubFileTypeMapper {
       "FEATURE" -> {
         RoomFileToDownload.FEATURE
       }
+
       "ASSET" -> {
         RoomFileToDownload.ASSET
       }
+
       else -> {
         RoomFileToDownload.SUBTYPE_APK
       }

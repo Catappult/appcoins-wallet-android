@@ -10,7 +10,6 @@ import android.content.pm.PackageInstaller;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
 import java.io.File;
@@ -19,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.inject.Inject;
 
 public final class AppInstaller {
 
@@ -83,7 +81,7 @@ public final class AppInstaller {
               appInstall.getPackageName()));
 
       session.commit(PendingIntent.getBroadcast(context, SESSION_INSTALL_REQUEST_CODE,
-          new Intent(INSTALL_SESSION_API_COMPLETE_ACTION), 0)
+              new Intent(INSTALL_SESSION_API_COMPLETE_ACTION), 0)
           .getIntentSender());
     } catch (IOException e) {
       throw new RuntimeException("Couldn't install package", e);
@@ -185,7 +183,7 @@ public final class AppInstaller {
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   private void addApkToInstallSession(File file, PackageInstaller.Session session) {
     try {
-      Log.d("Path",file.getAbsolutePath());
+      Log.d("Path", file.getAbsolutePath());
       OutputStream packageInSession = session.openWrite(file.getName(), 0, file.length());
       InputStream is = new FileInputStream(file);
       byte[] buffer = new byte[16384];

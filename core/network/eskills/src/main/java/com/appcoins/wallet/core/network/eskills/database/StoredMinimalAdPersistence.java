@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.database;
 
-
 import com.appcoins.wallet.core.network.eskills.room.RoomStoredMinimalAd;
 import rx.Observable;
 

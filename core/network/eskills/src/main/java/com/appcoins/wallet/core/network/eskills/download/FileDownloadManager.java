@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.download;
 
-
 import android.util.Log;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.Constants;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
@@ -49,7 +48,7 @@ public class FileDownloadManager implements FileDownloader {
         Log.d("FileDownloadManager", "Enters IF");
         throw new IllegalArgumentException("The url for the download can not be empty");
       } else {
-        Log.d("FileDownloadManager","Starting download");
+        Log.d("FileDownloadManager", "Starting download");
         createBaseDownloadTask(mainDownloadPath, versionCode, packageName, fileType, fileName);
         fileDownloader.start(fileDownloadTask, true);
       }
@@ -63,7 +62,7 @@ public class FileDownloadManager implements FileDownloader {
 
   @Override public Completable removeDownloadFile() {
     Log.d("FileDownloadManager", "Enters remove download");
-    return Completable.fromAction(() -> fileDownloader.clear(downloadId, downloadsPath+fileName));
+    return Completable.fromAction(() -> fileDownloader.clear(downloadId, downloadsPath + fileName));
   }
 
   @Override public Observable<FileDownloadCallback> observeFileDownloadProgress() {

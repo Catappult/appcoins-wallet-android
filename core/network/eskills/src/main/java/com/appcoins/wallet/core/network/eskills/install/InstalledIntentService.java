@@ -6,19 +6,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
-
 import cm.aptoide.pt.app.aptoideinstall.AptoideInstallManager;
-
 import com.appcoins.wallet.core.network.eskills.database.RoomStoredMinimalAdPersistence;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
-
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;
 import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils;
 import javax.inject.Inject;
-import rx.Completable;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 public class InstalledIntentService extends IntentService {
@@ -32,7 +26,6 @@ public class InstalledIntentService extends IntentService {
   private SharedPreferences sharedPreferences;
   private CompositeSubscription subscriptions;
   private InstallManager installManager;
-
 
   private PackageManager packageManager;
 
@@ -81,7 +74,6 @@ public class InstalledIntentService extends IntentService {
         .d(TAG, "Packaged replaced: " + packageName);
     PackageInfo packageInfo = databaseOnPackageReplaced(packageName);
 
-
     aptoideInstallManager.persistCandidate(packageName);
   }
 
@@ -89,7 +81,6 @@ public class InstalledIntentService extends IntentService {
     Logger.getInstance()
         .d(TAG, "Packaged removed: " + packageName);
     sendUninstallEvent(packageName);
-
   }
 
   private PackageInfo databaseOnPackageAdded(String packageName) {
@@ -105,14 +96,9 @@ public class InstalledIntentService extends IntentService {
     return packageInfo;
   }
 
-
-
-
   private void sendUninstallEvent(String packageName) {
 
   }
-
-
 
   private PackageInfo databaseOnPackageReplaced(String packageName) {
 
@@ -123,8 +109,6 @@ public class InstalledIntentService extends IntentService {
     }
     return packageInfo;
   }
-
-
 
   /**
    * @param packageInfo packageInfo.
@@ -138,8 +122,4 @@ public class InstalledIntentService extends IntentService {
       return false;
     }
   }
-
-
-
-
 }

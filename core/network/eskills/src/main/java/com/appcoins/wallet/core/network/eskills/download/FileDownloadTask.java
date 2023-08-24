@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.download;
 
-
 import android.util.Log;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.AppDownloadStatus;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloadCallback;
@@ -41,16 +40,17 @@ public class FileDownloadTask extends FileDownloadLargeFileListener {
 
   @Override
   protected void pending(BaseDownloadTask baseDownloadTask, long soFarBytes, long totalBytes) {
-    Log.d("Pending Bytes: ", "downloaded: "+soFarBytes+" total: "+totalBytes);
+    Log.d("Pending Bytes: ", "downloaded: " + soFarBytes + " total: " + totalBytes);
     downloadStatus.onNext(new FileDownloadTaskStatus(AppDownloadStatus.AppDownloadState.PENDING,
         new FileDownloadProgressResult(soFarBytes, totalBytes), md5));
   }
 
   @Override
   protected void progress(BaseDownloadTask baseDownloadTask, long soFarBytes, long totalBytes) {
-    Log.d("Progress Bytes: ", "downloaded: "+soFarBytes+" total: "+totalBytes);
+    Log.d("Progress Bytes: ", "downloaded: " + soFarBytes + " total: " + totalBytes);
     downloadStatus.onNext(new FileDownloadTaskStatus(AppDownloadStatus.AppDownloadState.PROGRESS,
-        new FileDownloadProgressResult(baseDownloadTask.getLargeFileSoFarBytes(), baseDownloadTask.getLargeFileTotalBytes()), md5));
+        new FileDownloadProgressResult(baseDownloadTask.getLargeFileSoFarBytes(),
+            baseDownloadTask.getLargeFileTotalBytes()), md5));
   }
 
   @Override

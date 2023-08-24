@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.database;
 
-
 import com.appcoins.wallet.core.network.eskills.install.InstallationPersistence;
 import com.appcoins.wallet.core.network.eskills.room.InstallationDao;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstallation;

@@ -5,25 +5,17 @@
 
 package com.appcoins.wallet.core.network.eskills.install;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
-
 import cm.aptoide.pt.app.aptoideinstall.AptoideInstallManager;
-
 import cm.aptoide.pt.install.InstallAppSizeValidator;
-
-
 import com.appcoins.wallet.core.network.eskills.downloadmanager.AptoideDownloadManager;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadNotFoundException;
 import com.appcoins.wallet.core.network.eskills.downloadmanager.DownloadsRepository;
-
 import com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstaller;
 import com.appcoins.wallet.core.network.eskills.room.RoomDownload;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +24,6 @@ import rx.Completable;
 import rx.Observable;
 import rx.Single;
 import rx.schedulers.Schedulers;
-import rx.subjects.PublishSubject;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -50,21 +41,18 @@ public class InstallManager {
   private final DownloadsRepository downloadRepository;
   private final AptoideInstalledAppsRepository aptoideInstalledAppsRepository;
 
-
   private final AptoideInstallManager aptoideInstallManager;
   private final InstallAppSizeValidator installAppSizeValidator;
-
 
   private final CompositeSubscription dispatchInstallationsSubscription =
       new CompositeSubscription();
 
-  public InstallManager(AptoideDownloadManager aptoideDownloadManager,
-      AppInstaller installer,
+  public InstallManager(AptoideDownloadManager aptoideDownloadManager, AppInstaller installer,
       SharedPreferences sharedPreferences, SharedPreferences securePreferences,
       DownloadsRepository downloadRepository,
       AptoideInstalledAppsRepository aptoideInstalledAppsRepository,
-      PackageInstallerManager packageInstallerManager,
-      AptoideInstallManager aptoideInstallManager, InstallAppSizeValidator installAppSizeValidator) {
+      PackageInstallerManager packageInstallerManager, AptoideInstallManager aptoideInstallManager,
+      InstallAppSizeValidator installAppSizeValidator) {
     this.aptoideDownloadManager = aptoideDownloadManager;
     this.installer = installer;
 
@@ -80,18 +68,15 @@ public class InstallManager {
 
   public void start() {
     aptoideDownloadManager.start();
-
   }
-
 
   public void stop() {
     aptoideDownloadManager.stop();
-
   }
 
   public Completable cancelInstall(String md5, String packageName, int versionCode) {
     return pauseInstall(md5).andThen(
-        aptoideInstalledAppsRepository.remove(packageName, versionCode))
+            aptoideInstalledAppsRepository.remove(packageName, versionCode))
         .andThen(aptoideDownloadManager.removeDownload(md5))
         .doOnError(throwable -> throwable.printStackTrace());
   }
@@ -109,8 +94,8 @@ public class InstallManager {
 
   public Observable<List<Install>> getInstallations() {
     return Observable.combineLatest(aptoideDownloadManager.getDownloadsList(),
-        aptoideInstalledAppsRepository.getAllInstalled(),
-        aptoideInstalledAppsRepository.getAllInstalling(), this::createInstallList)
+            aptoideInstalledAppsRepository.getAllInstalled(),
+            aptoideInstalledAppsRepository.getAllInstalling(), this::createInstallList)
         .distinctUntilChanged();
   }
 
@@ -149,9 +134,8 @@ public class InstallManager {
           break;
         }
       }
-      installList.add(
-          createInstall(download, download.getMd5(), download.getPackageName(),
-              download.getVersionCode(), installationType));
+      installList.add(createInstall(download, download.getMd5(), download.getPackageName(),
+          download.getVersionCode(), installationType));
     }
     return installList;
   }
@@ -216,51 +200,46 @@ public class InstallManager {
           }
           return Observable.just(storedDownload);
         })
-        .flatMap(savedDownload -> startBackgroundInstallation(download.getMd5(), forceDefaultInstall,
-            packageInstallerManager.shouldSetInstallerPackageName() || forceSplitInstall,
-            shouldInstall))
+        .flatMap(
+            savedDownload -> startBackgroundInstallation(download.getMd5(), forceDefaultInstall,
+                packageInstallerManager.shouldSetInstallerPackageName() || forceSplitInstall,
+                shouldInstall))
         .toCompletable();
   }
 
   public Observable<Install> getInstall(String md5, String packageName, int versioncode) {
     return Observable.combineLatest(aptoideDownloadManager.getDownloadsByMd5(md5),
-         getInstallationType(packageName, versioncode),
-        (download, installationType) -> createInstall(download,
-             md5, packageName, versioncode, installationType))
+            getInstallationType(packageName, versioncode),
+            (download, installationType) -> createInstall(download, md5, packageName, versioncode,
+                installationType))
         .doOnNext(install -> Logger.getInstance()
             .d(TAG, install.toString()));
   }
 
-  private Install createInstall(RoomDownload download,
-      String md5, String packageName, int versioncode, Install.
-      InstallationType installationType) {
-    return new Install(mapInstallation(download),
-        mapInstallationStatus(download), installationType,
-        mapIndeterminateState(download), getSpeed(download), md5, packageName,
-        versioncode, getVersionName(download),
-        getAppName(download), getAppIcon(download),
+  private Install createInstall(RoomDownload download, String md5, String packageName,
+      int versioncode, Install.InstallationType installationType) {
+    return new Install(mapInstallation(download), mapInstallationStatus(download), installationType,
+        mapIndeterminateState(download), getSpeed(download), md5, packageName, versioncode,
+        getVersionName(download), getAppName(download), getAppIcon(download),
         getDownloadSize(download));
   }
 
   private long getDownloadSize(RoomDownload download) {
 
-      return download.getSize();
-
+    return download.getSize();
   }
 
   private String getVersionName(RoomDownload download) {
 
-      return download.getVersionName();
-
+    return download.getVersionName();
   }
 
   private String getAppIcon(RoomDownload download) {
-      return download.getIcon();
-
+    return download.getIcon();
   }
 
   private String getAppName(RoomDownload download) {
-      return download.getAppName();
+    return download.getAppName();
   }
 
   private int getSpeed(RoomDownload download) {
@@ -547,7 +526,7 @@ public class InstallManager {
     return getTimedOutInstallations().first()
         .flatMap(installs -> Observable.from(installs)
             .flatMap(install -> aptoideInstalledAppsRepository.get(install.getPackageName(),
-                install.getVersionCode())
+                    install.getVersionCode())
                 .first()
                 .flatMapCompletable(installed -> {
                   installed.setStatus(RoomInstalled.STATUS_UNINSTALLED);

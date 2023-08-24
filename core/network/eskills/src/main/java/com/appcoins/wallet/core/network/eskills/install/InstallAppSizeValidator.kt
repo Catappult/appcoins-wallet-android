@@ -33,8 +33,11 @@ class InstallAppSizeValidator(val filePathProvider: FilePathProvider) {
     } else {
       for (fileToDownload in download.filesToDownload) {
         if (!FileUtils.fileExists(
-                filePathProvider.getFilePathFromFileType(
-                    fileToDownload) + fileToDownload.fileName)) {
+            filePathProvider.getFilePathFromFileType(
+              fileToDownload
+            ) + fileToDownload.fileName
+          )
+        ) {
           return false
         }
       }

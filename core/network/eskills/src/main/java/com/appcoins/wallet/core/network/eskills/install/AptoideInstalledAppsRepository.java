@@ -4,16 +4,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import cm.aptoide.pt.install.InstalledAppsRepository;
-
 import com.appcoins.wallet.core.network.eskills.database.RoomInstalledPersistence;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstallation;
 import com.appcoins.wallet.core.network.eskills.room.RoomInstalled;
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils;
 import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils;
-
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,18 +40,20 @@ public class AptoideInstalledAppsRepository implements InstalledAppsRepository {
 
   public Completable syncWithDevice() {
     return Observable.fromCallable(() -> {
-      // get the installed apps
-      List<PackageInfo> installedApps = AptoideUtils.SystemU.getAllInstalledApps(packageManager);
-      Logger.getInstance()
-          .v("InstalledRepository", "Found " + installedApps.size() + " user installed apps.");
+          // get the installed apps
+          List<PackageInfo> installedApps =
+              AptoideUtils.SystemU.getAllInstalledApps(packageManager);
+          Logger.getInstance()
+              .v("InstalledRepository", "Found " + installedApps.size() + " user installed apps.");
 
-      // Installed apps are inserted in database based on their firstInstallTime. Older comes first.
-      Collections.sort(installedApps,
-          (lhs, rhs) -> (int) ((lhs.firstInstallTime - rhs.firstInstallTime) / 1000));
+          // Installed apps are inserted in database based on their firstInstallTime. Older comes
+          // first.
+          Collections.sort(installedApps,
+              (lhs, rhs) -> (int) ((lhs.firstInstallTime - rhs.firstInstallTime) / 1000));
 
-      // return sorted installed apps
-      return installedApps;
-    })  // transform installation package into Installed table entry and save all the data
+          // return sorted installed apps
+          return installedApps;
+        })  // transform installation package into Installed table entry and save all the data
         .flatMapIterable(list -> list)
         .map(packageInfo -> new RoomInstalled(packageInfo, packageManager, fileUtils))
         .toList()

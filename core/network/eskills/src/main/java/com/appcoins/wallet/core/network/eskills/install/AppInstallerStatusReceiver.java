@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.eskills.install;
 
-
 import com.appcoins.wallet.core.network.eskills.packageinstaller.InstallStatus;
 import rx.Observable;
 import rx.subjects.PublishSubject;

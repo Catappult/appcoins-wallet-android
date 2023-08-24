@@ -1,9 +1,6 @@
 package com.appcoins.wallet.core.network.eskills.install;
 
-
-
 import rx.Completable;
-import rx.Observable;
 
 /**
  * Created by trinkes on 9/8/16.

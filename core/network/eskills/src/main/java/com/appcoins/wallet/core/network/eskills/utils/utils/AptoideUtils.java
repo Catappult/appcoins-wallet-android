@@ -14,15 +14,11 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionGroupInfo;
-import android.content.pm.PermissionInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.Html;
@@ -40,10 +36,7 @@ import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-
 import com.appcoins.wallet.core.network.eskills.utils.logger.Logger;
-import com.appcoins.wallet.core.network.eskills.utils.permissions.ApkPermission;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -63,10 +56,7 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -80,12 +70,7 @@ import java.util.regex.Pattern;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import rx.Observable;
-
 import rx.schedulers.Schedulers;
-
-import static android.net.ConnectivityManager.TYPE_ETHERNET;
-import static android.net.ConnectivityManager.TYPE_MOBILE;
-import static android.net.ConnectivityManager.TYPE_WIFI;
 
 /**
  * Created by neuro on 26-05-2016.
@@ -102,7 +87,8 @@ public class AptoideUtils {
     if (systemProperty != null) {
       try {
         versionSupportsAAB = Long.parseLong(systemProperty)
-            > 1583942400; // this is currently a xiaomi device that we have working with app bundles.
+            > 1583942400; // this is currently a xiaomi device that we have working with app
+        // bundles.
       } catch (NumberFormatException ignore) {
       }
     }
@@ -119,7 +105,6 @@ public class AptoideUtils {
     }
     return -1;
   }
-
 
   @SuppressLint("PrivateApi") private static String getSystemProperty(String key) {
     try {
@@ -556,9 +541,11 @@ public class AptoideUtils {
      * provided elements.</p> <p> <p>No delimiter is added before or after the list. A {@code null}
      * separator is the same as an empty String ("").</p>
      *
-     * @param iterable  the {@code Iterable} providing the values to join together, may be null
+     * @param iterable the {@code Iterable} providing the values to join together, may be null
      * @param separator the separator character to use, null treated as ""
+     *
      * @return the joined String, {@code null} if null iterator input
+     *
      * @since 2.3
      */
     public static String join(final Iterable<?> iterable, final String separator) {
@@ -573,8 +560,9 @@ public class AptoideUtils {
      * provided elements.</p> <p> <p>No delimiter is added before or after the list. A {@code null}
      * separator is the same as an empty String ("").</p>
      *
-     * @param iterator  the {@code Iterator} of values to join together, may be null
+     * @param iterator the {@code Iterator} of values to join together, may be null
      * @param separator the separator character to use, null treated as ""
+     *
      * @return the joined String, {@code null} if null iterator input
      */
     public static String join(final Iterator<?> iterator, final String separator) {
@@ -638,6 +626,7 @@ public class AptoideUtils {
 
     /**
      * @param bytes file size
+     *
      * @return formatted string for file file showing a Human perceptible file size
      */
     public static String formatBytes(long bytes, boolean speed) {
@@ -800,7 +789,7 @@ public class AptoideUtils {
     }
 
     public static void openApp(String packageName, PackageManager packageManager, Context context) {
-      Log.d("Aptoide Utils", "package: "+packageName);
+      Log.d("Aptoide Utils", "package: " + packageName);
       Log.d("Aptoide Utils", "Enters OpenApp");
       Intent launchIntentForPackage = packageManager.getLaunchIntentForPackage(packageName);
       Log.d("Aptoide Utils", "created intent");
@@ -868,8 +857,9 @@ public class AptoideUtils {
     @Deprecated public static void hideKeyboard(Activity activity) {
       View view = activity.getCurrentFocus();
       if (view != null) {
-        ((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-            hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        ((InputMethodManager) activity.getSystemService(
+            Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS);
       }
     }
 
@@ -947,7 +937,8 @@ public class AptoideUtils {
         }
       } catch (Exception e) {
         // Can't get root !
-        // Probably broken pipe exception on trying to write to output stream (os) after su failed, meaning that the device is not rooted
+        // Probably broken pipe exception on trying to write to output stream (os) after su
+        // failed, meaning that the device is not rooted
 
         retval = false;
         Logger.getInstance()
@@ -992,7 +983,8 @@ public class AptoideUtils {
      * @return original text converted to HTML in a CharSequence
      */
     public static CharSequence parse(String text) {
-      // Fix for AN-348: replace the & with &amp; (that's was causing the pushback buffer full) (from Aptoide V7)
+      // Fix for AN-348: replace the & with &amp; (that's was causing the pushback buffer full)
+      // (from Aptoide V7)
       return Html.fromHtml(text.replace("\n", "<br/>")
           .replace("&", "&amp;"));
     }
@@ -1038,13 +1030,11 @@ public class AptoideUtils {
       this.context = context;
     }
 
-
-
-
     /**
      * Checks if the given date is yesterday.
      *
      * @param date - Date to check.
+     *
      * @return TRUE if the date is yesterday, FALSE otherwise.
      */
     private static boolean isYesterday(long date) {
@@ -1059,380 +1049,383 @@ public class AptoideUtils {
           && yesterdayDate.get(Calendar.DAY_OF_YEAR) == currentDate.get(Calendar.DAY_OF_YEAR);
     }
 
+    /**
+     * Created with IntelliJ IDEA. User: rmateus Date: 03-12-2013 Time: 12:58 To change this
+     * template
+     * use File | Settings | File Templates.
+     */
+    public static class IconSizeU {
 
+      public static final int DEFAULT_SCREEN_DENSITY = -1;
+      public static final HashMap<Integer, String> mStoreIconSizes;
+      public static final int ICONS_SIZE_TYPE = 0;
+      public static final HashMap<Integer, String> mIconSizes;
+      public static final int STORE_ICONS_SIZE_TYPE = 1;
+      private static final String TAG = IconSizeU.class.getName();
+      static final private int baseLine = 96;
+      static final private int baseLineAvatar = 150;
+      static final private int baseLineXNotification = 320;
+      static final private int baseLineYNotification = 180;
+      private static final String AVATAR_STRING = "_avatar";
+      private static final Pattern urlWithDimensionPattern =
+          Pattern.compile("_{1}[1-9]{3}(x|X){1}[1-9]{3}.{1}.{3,4}\\b");
+      private static int baseLineScreenshotLand = 256;
+      private static int baseLineScreenshotPort = 96;
 
-  /**
-   * Created with IntelliJ IDEA. User: rmateus Date: 03-12-2013 Time: 12:58 To change this template
-   * use File | Settings | File Templates.
-   */
-  public static class IconSizeU {
+      static {
+        mStoreIconSizes = new HashMap<>();
+        mStoreIconSizes.put(DisplayMetrics.DENSITY_XXHIGH, "450x450");
+        mStoreIconSizes.put(DisplayMetrics.DENSITY_XHIGH, "300x300");
+        mStoreIconSizes.put(DisplayMetrics.DENSITY_HIGH, "225x225");
+        mStoreIconSizes.put(DisplayMetrics.DENSITY_MEDIUM, "150x150");
+        mStoreIconSizes.put(DisplayMetrics.DENSITY_LOW, "113x113");
+      }
 
-    public static final int DEFAULT_SCREEN_DENSITY = -1;
-    public static final HashMap<Integer, String> mStoreIconSizes;
-    public static final int ICONS_SIZE_TYPE = 0;
-    public static final HashMap<Integer, String> mIconSizes;
-    public static final int STORE_ICONS_SIZE_TYPE = 1;
-    private static final String TAG = IconSizeU.class.getName();
-    static final private int baseLine = 96;
-    static final private int baseLineAvatar = 150;
-    static final private int baseLineXNotification = 320;
-    static final private int baseLineYNotification = 180;
-    private static final String AVATAR_STRING = "_avatar";
-    private static final Pattern urlWithDimensionPattern =
-        Pattern.compile("_{1}[1-9]{3}(x|X){1}[1-9]{3}.{1}.{3,4}\\b");
-    private static int baseLineScreenshotLand = 256;
-    private static int baseLineScreenshotPort = 96;
+      static {
+        mIconSizes = new HashMap<>();
+        mIconSizes.put(DisplayMetrics.DENSITY_XXXHIGH, "384x384");
+        mIconSizes.put(DisplayMetrics.DENSITY_XXHIGH, "288x288");
+        mIconSizes.put(DisplayMetrics.DENSITY_XHIGH, "192x192");
+        mIconSizes.put(DisplayMetrics.DENSITY_HIGH, "144x144");
+        mIconSizes.put(DisplayMetrics.DENSITY_MEDIUM, "127x127");
+        mIconSizes.put(DisplayMetrics.DENSITY_LOW, "96x96");
+      }
 
-    static {
-      mStoreIconSizes = new HashMap<>();
-      mStoreIconSizes.put(DisplayMetrics.DENSITY_XXHIGH, "450x450");
-      mStoreIconSizes.put(DisplayMetrics.DENSITY_XHIGH, "300x300");
-      mStoreIconSizes.put(DisplayMetrics.DENSITY_HIGH, "225x225");
-      mStoreIconSizes.put(DisplayMetrics.DENSITY_MEDIUM, "150x150");
-      mStoreIconSizes.put(DisplayMetrics.DENSITY_LOW, "113x113");
-    }
+      public static String screenshotToThumb(String imageUrl, String orientation,
+          WindowManager windowManager, Resources resources) {
 
-    static {
-      mIconSizes = new HashMap<>();
-      mIconSizes.put(DisplayMetrics.DENSITY_XXXHIGH, "384x384");
-      mIconSizes.put(DisplayMetrics.DENSITY_XXHIGH, "288x288");
-      mIconSizes.put(DisplayMetrics.DENSITY_XHIGH, "192x192");
-      mIconSizes.put(DisplayMetrics.DENSITY_HIGH, "144x144");
-      mIconSizes.put(DisplayMetrics.DENSITY_MEDIUM, "127x127");
-      mIconSizes.put(DisplayMetrics.DENSITY_LOW, "96x96");
-    }
+        String screen = null;
 
-    public static String screenshotToThumb(String imageUrl, String orientation,
-        WindowManager windowManager, Resources resources) {
+        try {
 
-      String screen = null;
+          if (imageUrl.contains("_screen")) {
+            screen = parseScreenshotUrl(imageUrl, orientation, windowManager, resources);
+          } else {
 
-      try {
+            String[] splitString = imageUrl.split("/");
+            StringBuilder db = new StringBuilder();
+            for (int i = 0; i != splitString.length - 1; i++) {
+              db.append(splitString[i]);
+              db.append("/");
+            }
 
-        if (imageUrl.contains("_screen")) {
-          screen = parseScreenshotUrl(imageUrl, orientation, windowManager, resources);
-        } else {
-
-          String[] splitString = imageUrl.split("/");
-          StringBuilder db = new StringBuilder();
-          for (int i = 0; i != splitString.length - 1; i++) {
-            db.append(splitString[i]);
-            db.append("/");
+            db.append("thumbs/mobile/");
+            db.append(splitString[splitString.length - 1]);
+            screen = db.toString();
           }
-
-          db.append("thumbs/mobile/");
-          db.append(splitString[splitString.length - 1]);
-          screen = db.toString();
+        } catch (Exception e) {
+          Logger.getInstance()
+              .e(TAG, e);
+          throw e;
         }
-      } catch (Exception e) {
-        Logger.getInstance()
-            .e(TAG, e);
-        throw e;
+
+        return screen;
       }
 
-      return screen;
-    }
+      private static String parseScreenshotUrl(String screenshotUrl, String orientation,
+          WindowManager windowManager, Resources resources) {
+        String sizeString = generateSizeStringScreenshotsdd(orientation, windowManager, resources);
 
-    private static String parseScreenshotUrl(String screenshotUrl, String orientation,
-        WindowManager windowManager, Resources resources) {
-      String sizeString = generateSizeStringScreenshotsdd(orientation, windowManager, resources);
-
-      String[] splitUrl = splitUrlExtension(screenshotUrl);
-      return splitUrl[0] + "_" + sizeString + "." + splitUrl[1];
-    }
-
-    private static String generateSizeStringScreenshotsdd(String orient,
-        WindowManager windowManager, Resources resources) {
-      float densityMultiplier = densityMultiplier(resources);
-
-      int size;
-      if (orient != null && orient.equals("portrait")) {
-        size = baseLineScreenshotPort * ((int) densityMultiplier);
-      } else {
-        size = baseLineScreenshotLand * ((int) densityMultiplier);
+        String[] splitUrl = splitUrlExtension(screenshotUrl);
+        return splitUrl[0] + "_" + sizeString + "." + splitUrl[1];
       }
 
-      return size + "x" + ScreenU.getDensityDpi(windowManager);
-    }
+      private static String generateSizeStringScreenshotsdd(String orient,
+          WindowManager windowManager, Resources resources) {
+        float densityMultiplier = densityMultiplier(resources);
 
-    private static String[] splitUrlExtension(String url) {
-      return url.split(RegexU.SPLIT_URL_EXTENSION);
-    }
+        int size;
+        if (orient != null && orient.equals("portrait")) {
+          size = baseLineScreenshotPort * ((int) densityMultiplier);
+        } else {
+          size = baseLineScreenshotLand * ((int) densityMultiplier);
+        }
 
-    private static Float densityMultiplier(Resources resources) {
-
-      float densityMultiplier = resources.getDisplayMetrics().density;
-
-      if (densityMultiplier <= 0.75f) {
-        densityMultiplier = 0.75f;
-      } else if (densityMultiplier <= 1) {
-        densityMultiplier = 1f;
-      } else if (densityMultiplier <= 1.333f) {
-        densityMultiplier = 1.3312500f;
-      } else if (densityMultiplier <= 1.5f) {
-        densityMultiplier = 1.5f;
-      } else if (densityMultiplier <= 2f) {
-        densityMultiplier = 2f;
-      } else if (densityMultiplier <= 3f) {
-        densityMultiplier = 3f;
-      } else {
-        densityMultiplier = 4f;
-      }
-      return densityMultiplier;
-    }
-
-    // method deprecated since no usage was found.
-    @Deprecated public static String generateStringNotification(String url, Resources resources) {
-      if (url == null) {
-        return "";
-      }
-      float densityMultiplier = densityMultiplier(resources);
-
-      int sizeX = (int) (baseLineXNotification * densityMultiplier);
-      int sizeY = (int) (baseLineYNotification * densityMultiplier);
-
-      //Logger.getInstance().d("Aptoide-IconSize", "Size is " + size);
-
-      //return sizeX + "x" + sizeY;
-      String[] splittedUrl = splitUrlExtension(url);
-      url = splittedUrl[0] + "_" + sizeX + "x" + sizeY + "." + splittedUrl[1];
-
-      return url;
-    }
-
-    public static String generateSizeStoreString(String url, Resources resources,
-        WindowManager windowManager) {
-
-      if (url == null) {
-        return "";
+        return size + "x" + ScreenU.getDensityDpi(windowManager);
       }
 
-      String iconRes = mStoreIconSizes.get(resources.getDisplayMetrics().densityDpi);
-      iconRes = (TextUtils.isEmpty(iconRes) ? getDefaultSize(STORE_ICONS_SIZE_TYPE, windowManager)
-          : iconRes);
+      private static String[] splitUrlExtension(String url) {
+        return url.split(RegexU.SPLIT_URL_EXTENSION);
+      }
 
-      if (TextUtils.isEmpty(iconRes)) {
-        return url;
-      } else {
+      private static Float densityMultiplier(Resources resources) {
+
+        float densityMultiplier = resources.getDisplayMetrics().density;
+
+        if (densityMultiplier <= 0.75f) {
+          densityMultiplier = 0.75f;
+        } else if (densityMultiplier <= 1) {
+          densityMultiplier = 1f;
+        } else if (densityMultiplier <= 1.333f) {
+          densityMultiplier = 1.3312500f;
+        } else if (densityMultiplier <= 1.5f) {
+          densityMultiplier = 1.5f;
+        } else if (densityMultiplier <= 2f) {
+          densityMultiplier = 2f;
+        } else if (densityMultiplier <= 3f) {
+          densityMultiplier = 3f;
+        } else {
+          densityMultiplier = 4f;
+        }
+        return densityMultiplier;
+      }
+
+      // method deprecated since no usage was found.
+      @Deprecated public static String generateStringNotification(String url, Resources resources) {
+        if (url == null) {
+          return "";
+        }
+        float densityMultiplier = densityMultiplier(resources);
+
+        int sizeX = (int) (baseLineXNotification * densityMultiplier);
+        int sizeY = (int) (baseLineYNotification * densityMultiplier);
+
+        //Logger.getInstance().d("Aptoide-IconSize", "Size is " + size);
+
+        //return sizeX + "x" + sizeY;
         String[] splittedUrl = splitUrlExtension(url);
-        return splittedUrl[0] + "_" + iconRes + "." + splittedUrl[1];
+        url = splittedUrl[0] + "_" + sizeX + "x" + sizeY + "." + splittedUrl[1];
+
+        return url;
       }
-    }
 
-    private static String getDefaultSize(int varType, WindowManager windowManager) {
+      public static String generateSizeStoreString(String url, Resources resources,
+          WindowManager windowManager) {
 
-      switch (varType) {
-        case STORE_ICONS_SIZE_TYPE:
-          if (ScreenU.getDensityDpi(windowManager) < DisplayMetrics.DENSITY_HIGH) {
-            return mStoreIconSizes.get(DisplayMetrics.DENSITY_LOW);
-          } else {
-            return mStoreIconSizes.get(DisplayMetrics.DENSITY_XXHIGH);
-          }
-        case ICONS_SIZE_TYPE:
-          if (ScreenU.getDensityDpi(windowManager) < DisplayMetrics.DENSITY_HIGH) {
-            return mIconSizes.get(DisplayMetrics.DENSITY_LOW);
-          } else {
-            return mIconSizes.get(DisplayMetrics.DENSITY_XXXHIGH);
-          }
+        if (url == null) {
+          return "";
+        }
+
+        String iconRes = mStoreIconSizes.get(resources.getDisplayMetrics().densityDpi);
+        iconRes = (TextUtils.isEmpty(iconRes) ? getDefaultSize(STORE_ICONS_SIZE_TYPE, windowManager)
+            : iconRes);
+
+        if (TextUtils.isEmpty(iconRes)) {
+          return url;
+        } else {
+          String[] splittedUrl = splitUrlExtension(url);
+          return splittedUrl[0] + "_" + iconRes + "." + splittedUrl[1];
+        }
       }
-      return null;
-    }
 
-    public static String generateStringAvatar(String url, Resources resources,
-        WindowManager windowManager) {
-      if (url == null) {
-        return "";
+      private static String getDefaultSize(int varType, WindowManager windowManager) {
+
+        switch (varType) {
+          case STORE_ICONS_SIZE_TYPE:
+            if (ScreenU.getDensityDpi(windowManager) < DisplayMetrics.DENSITY_HIGH) {
+              return mStoreIconSizes.get(DisplayMetrics.DENSITY_LOW);
+            } else {
+              return mStoreIconSizes.get(DisplayMetrics.DENSITY_XXHIGH);
+            }
+          case ICONS_SIZE_TYPE:
+            if (ScreenU.getDensityDpi(windowManager) < DisplayMetrics.DENSITY_HIGH) {
+              return mIconSizes.get(DisplayMetrics.DENSITY_LOW);
+            } else {
+              return mIconSizes.get(DisplayMetrics.DENSITY_XXXHIGH);
+            }
+        }
+        return null;
       }
-      float densityMultiplier = densityMultiplier(resources);
 
-      int size = Math.round(baseLineAvatar * densityMultiplier);
+      public static String generateStringAvatar(String url, Resources resources,
+          WindowManager windowManager) {
+        if (url == null) {
+          return "";
+        }
+        float densityMultiplier = densityMultiplier(resources);
 
-      //Logger.getInstance().d("Aptoide-IconSize", "Size is " + size);
+        int size = Math.round(baseLineAvatar * densityMultiplier);
 
-      //return size + "x" + size;
+        //Logger.getInstance().d("Aptoide-IconSize", "Size is " + size);
 
-      String[] splittedUrl = splitUrlExtension(url);
-      return splittedUrl[0] + "_" + getUserAvatarIconSize(windowManager) + "." + splittedUrl[1];
-    }
+        //return size + "x" + size;
 
-    private static String getUserAvatarIconSize(WindowManager windowManager) {
-      if (ScreenU.getDensityDpi(windowManager) <= DisplayMetrics.DENSITY_HIGH) {
-        return "50x50";
-      } else {
-        return "150x150";
+        String[] splittedUrl = splitUrlExtension(url);
+        return splittedUrl[0] + "_" + getUserAvatarIconSize(windowManager) + "." + splittedUrl[1];
       }
-    }
 
-    public static String getNewImageUrl(String imageUrl, Resources resources,
-        WindowManager windowManager) {
+      private static String getUserAvatarIconSize(WindowManager windowManager) {
+        if (ScreenU.getDensityDpi(windowManager) <= DisplayMetrics.DENSITY_HIGH) {
+          return "50x50";
+        } else {
+          return "150x150";
+        }
+      }
 
-      if (TextUtils.isEmpty(imageUrl)) {
+      public static String getNewImageUrl(String imageUrl, Resources resources,
+          WindowManager windowManager) {
+
+        if (TextUtils.isEmpty(imageUrl)) {
+          return imageUrl;
+        } else if (imageUrl.contains("portrait")) {
+          return parseScreenshots(imageUrl, windowManager);
+        } else if (imageUrl.contains("_icon")) {
+          return parseIcon(imageUrl, resources, windowManager);
+        }
         return imageUrl;
-      } else if (imageUrl.contains("portrait")) {
-        return parseScreenshots(imageUrl, windowManager);
-      } else if (imageUrl.contains("_icon")) {
-        return parseIcon(imageUrl, resources, windowManager);
       }
-      return imageUrl;
-    }
 
-    private static String parseScreenshots(String orient, WindowManager windowManager) {
-      if (orient == null) {
-        return "";
+      private static String parseScreenshots(String orient, WindowManager windowManager) {
+        if (orient == null) {
+          return "";
+        }
+        boolean isPortrait = orient != null && orient.equals("portrait");
+        int dpi = ScreenU.getDensityDpi(windowManager);
+
+        String[] splittedUrl = splitUrlExtension(orient);
+        return splittedUrl[0] + "_" + getThumbnailSize(dpi, isPortrait) + "." + splittedUrl[1];
       }
-      boolean isPortrait = orient != null && orient.equals("portrait");
-      int dpi = ScreenU.getDensityDpi(windowManager);
 
-      String[] splittedUrl = splitUrlExtension(orient);
-      return splittedUrl[0] + "_" + getThumbnailSize(dpi, isPortrait) + "." + splittedUrl[1];
-    }
+      /**
+       * On v7 webservices there is no attribute of HD icon. <br />Instead, the logic is that if the
+       * filename ends with <b>_icon</b> it is an HD icon.
+       *
+       * @param iconUrl The String with the URL of the icon
+       *
+       * @return A String with
+       */
+      private static String parseIcon(String iconUrl, Resources resources,
+          WindowManager windowManager) {
 
-    /**
-     * On v7 webservices there is no attribute of HD icon. <br />Instead, the logic is that if the
-     * filename ends with <b>_icon</b> it is an HD icon.
-     *
-     * @param iconUrl The String with the URL of the icon
-     * @return A String with
-     */
-    private static String parseIcon(String iconUrl, Resources resources,
-        WindowManager windowManager) {
-
-      if (iconUrl == null) {
-        return "";
+        if (iconUrl == null) {
+          return "";
+        }
+        try {
+          if (iconUrl.contains("_icon")) {
+            String sizeString = IconSizeU.generateSizeString(resources, windowManager);
+            if (sizeString != null && !sizeString.isEmpty()) {
+              String[] splittedUrl = splitUrlExtension(iconUrl);
+              iconUrl = splittedUrl[0] + "_" + sizeString + "." + splittedUrl[1];
+            }
+          }
+        } catch (Exception e) {
+          Logger.getInstance()
+              .e(TAG, e);
+          throw e;
+        }
+        return iconUrl;
       }
-      try {
-        if (iconUrl.contains("_icon")) {
-          String sizeString = IconSizeU.generateSizeString(resources, windowManager);
-          if (sizeString != null && !sizeString.isEmpty()) {
-            String[] splittedUrl = splitUrlExtension(iconUrl);
-            iconUrl = splittedUrl[0] + "_" + sizeString + "." + splittedUrl[1];
+
+      private static String getThumbnailSize(int density, boolean isPortrait) {
+        if (!isPortrait) {
+          if (density >= 640) {
+            return "1024x640";
+          } else if (density >= 480) {
+            return "768x480";
+          } else if (density >= 320) {
+            return "512x320";
+          } else if (density >= 240) {
+            return "384x240";
+          } else if (density >= 213) {
+            return "340x213";
+          } else if (density >= 160) {
+            return "256x160";
+          } else {
+            return "192x120";
+          }
+        } else {
+          if (density >= 640) {
+            return "384x640";
+          } else if (density >= 480) {
+            return "288x480";
+          } else if (density >= 320) {
+            return "192x320";
+          } else if (density >= 240) {
+            return "144x240";
+          } else if (density >= 213) {
+            return "127x213";
+          } else if (density >= 160) {
+            return "96x160";
+          } else {
+            return "72x120";
           }
         }
-      } catch (Exception e) {
-        Logger.getInstance()
-            .e(TAG, e);
-        throw e;
       }
-      return iconUrl;
-    }
 
-    private static String getThumbnailSize(int density, boolean isPortrait) {
-      if (!isPortrait) {
-        if (density >= 640) {
-          return "1024x640";
-        } else if (density >= 480) {
-          return "768x480";
-        } else if (density >= 320) {
-          return "512x320";
-        } else if (density >= 240) {
-          return "384x240";
-        } else if (density >= 213) {
-          return "340x213";
-        } else if (density >= 160) {
-          return "256x160";
-        } else {
-          return "192x120";
-        }
-      } else {
-        if (density >= 640) {
-          return "384x640";
-        } else if (density >= 480) {
-          return "288x480";
-        } else if (density >= 320) {
-          return "192x320";
-        } else if (density >= 240) {
-          return "144x240";
-        } else if (density >= 213) {
-          return "127x213";
-        } else if (density >= 160) {
-          return "96x160";
-        } else {
-          return "72x120";
-        }
+      private static String generateSizeString(Resources resources, WindowManager windowManager) {
+        String iconRes = mIconSizes.get(resources.getDisplayMetrics().densityDpi);
+        return iconRes != null ? iconRes : getDefaultSize(ICONS_SIZE_TYPE, windowManager);
       }
-    }
 
-    private static String generateSizeString(Resources resources, WindowManager windowManager) {
-      String iconRes = mIconSizes.get(resources.getDisplayMetrics().densityDpi);
-      return iconRes != null ? iconRes : getDefaultSize(ICONS_SIZE_TYPE, windowManager);
-    }
+      /**
+       * Cleans the image URL out of "_widthXheight"
+       */
+      public static String cleanImageUrl(String originalUrl) {
+        int lastUnderScore = originalUrl.lastIndexOf('_');
+        if (lastUnderScore == -1) {
+          return originalUrl;
+        }
 
-    /**
-     * Cleans the image URL out of "_widthXheight"
-     */
-    public static String cleanImageUrl(String originalUrl) {
-      int lastUnderScore = originalUrl.lastIndexOf('_');
-      if (lastUnderScore == -1) {
+        String lastPart = originalUrl.substring(lastUnderScore);
+        if (urlWithDimensionPattern.matcher(lastPart)
+            .matches()) {
+          int lastDot = originalUrl.lastIndexOf('.');
+          return originalUrl.substring(0, lastUnderScore) + originalUrl.substring(lastDot);
+        }
+
         return originalUrl;
       }
+    }
 
-      String lastPart = originalUrl.substring(lastUnderScore);
-      if (urlWithDimensionPattern.matcher(lastPart)
-          .matches()) {
-        int lastDot = originalUrl.lastIndexOf('.');
-        return originalUrl.substring(0, lastUnderScore) + originalUrl.substring(lastDot);
+    // deprecated since no usage was found.
+    @Deprecated public static class Benchmarking {
+
+      private static final String TAG = Benchmarking.class.getSimpleName();
+
+      private String methodName;
+      private long startTime;
+
+      public static Benchmarking start(String methodName) {
+        Benchmarking benchmarking = new Benchmarking();
+        benchmarking.methodName = methodName;
+        benchmarking.startTime = System.currentTimeMillis();
+        return benchmarking;
       }
 
-      return originalUrl;
-    }
-  }
-
-  // deprecated since no usage was found.
-  @Deprecated public static class Benchmarking {
-
-    private static final String TAG = Benchmarking.class.getSimpleName();
-
-    private String methodName;
-    private long startTime;
-
-    public static Benchmarking start(String methodName) {
-      Benchmarking benchmarking = new Benchmarking();
-      benchmarking.methodName = methodName;
-      benchmarking.startTime = System.currentTimeMillis();
-      return benchmarking;
-    }
-
-    public void end() {
-      long endTime = System.currentTimeMillis();
-      Logger.getInstance()
-          .d(TAG, "Thread: " + Thread.currentThread()
-              .getId() + " Method:" + methodName + " - Total execution time: " + (endTime
-              - startTime) + "ms");
-    }
-  }
-
-  // deprecated since no usage was found.
-  @Deprecated public static class ObservableU {
-
-    /**
-     * code from <a href="http://blog.danlew.net/2015/03/02/dont-break-the-chain/">http://blog.danlew.net/2015/03/02/dont-break-the-chain/</a>
-     *
-     * @param <T> Observable of T
-     * @return original Observable subscribed in an io thread and observed in the main thread
-     */
-    public static <T> Observable.Transformer<T, T> applySchedulers() {
-      return observable -> observable.subscribeOn(Schedulers.io());
-    }
-
-    // consider moving the retry code from dataprovider module to here
-  }
-
-  public static final class SocialLinksU {
-
-    public static @Nullable String getFacebookPageURL(int version, @NonNull String facebookUrl) {
-      String toReturn;
-      if (version >= 3002850) { //newer versions of fb app
-        toReturn = "fb://facewebmodal/f?href=" + facebookUrl;
-      } else {
-        toReturn = facebookUrl;
+      public void end() {
+        long endTime = System.currentTimeMillis();
+        Logger.getInstance()
+            .d(TAG, "Thread: " + Thread.currentThread()
+                .getId() + " Method:" + methodName + " - Total execution time: " + (endTime
+                - startTime) + "ms");
       }
-      return toReturn;
+    }
+
+    // deprecated since no usage was found.
+    @Deprecated public static class ObservableU {
+
+      /**
+       * code from <a href="http://blog.danlew.net/2015/03/02/dont-break-the-chain/">http://blog
+       * .danlew.net/2015/03/02/dont-break-the-chain/</a>
+       *
+       * @param <T> Observable of T
+       *
+       * @return original Observable subscribed in an io thread and observed in the main thread
+       */
+      public static <T> Observable.Transformer<T, T> applySchedulers() {
+        return observable -> observable.subscribeOn(Schedulers.io());
+      }
+
+      // consider moving the retry code from dataprovider module to here
+    }
+
+    public static final class SocialLinksU {
+
+      public static @Nullable String getFacebookPageURL(int version, @NonNull String facebookUrl) {
+        String toReturn;
+        if (version >= 3002850) { //newer versions of fb app
+          toReturn = "fb://facewebmodal/f?href=" + facebookUrl;
+        } else {
+          toReturn = facebookUrl;
+        }
+        return toReturn;
+      }
+    }
+
+    // deprecated since no usage was found.
+    @Deprecated public static final class LocaleU {
+
+      public static final Locale DEFAULT = Locale.getDefault();
     }
   }
-
-  // deprecated since no usage was found.
-  @Deprecated public static final class LocaleU {
-
-    public static final Locale DEFAULT = Locale.getDefault();
-  }
-}}
+}
