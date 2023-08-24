@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -168,7 +169,7 @@ fun GameDetails(
 
           ) {
             Text(
-              text = "Install",
+              text = stringResource(id = R.string.install_button),
               fontSize = 14.sp,
               fontFamily = FontFamily.SansSerif,
               fontWeight = FontWeight.Bold
@@ -206,7 +207,7 @@ fun GameDetails(
                 horizontalArrangement = Arrangement.SpaceBetween
               ) {
                 Text(
-                  text = "Downloading",
+                  text = stringResource(id = R.string.downloading),
                   color = WalletColors.styleguide_dark_grey,
                   fontSize = 12.sp
                 )
@@ -225,7 +226,7 @@ fun GameDetails(
               modifier = Modifier.size(14.dp)
             ) {
               Icon(painter = painterResource(R.drawable.cancel),
-                contentDescription = "Cancel",
+                contentDescription = stringResource(id = R.string.cancel),
                 tint = WalletColors.styleguide_dark_grey)
             }
             if (showResume) {
@@ -498,14 +499,14 @@ private fun EskillsCardContent() {
         verticalArrangement = Arrangement.Center
       ) {
         Text(
-          text = "Earn money",
+          text = stringResource(id = R.string.eskills_carousel_title),
           color = WalletColors.styleguide_golden,
           fontSize = 14.sp,
           fontFamily = FontFamily.SansSerif,
           fontWeight = FontWeight.Bold
         )
         Text(
-          text = "Beat other players with e-Skills",
+          text = stringResource(id = R.string.eskills_carousel_body),
           color = WalletColors.styleguide_light_grey,
           fontSize = 12.sp,
           fontFamily = FontFamily.SansSerif,
@@ -528,7 +529,7 @@ private fun EskillsCardContent() {
     EskillsCardList()
 
     Text(
-      text = "Got it",
+      text = stringResource(id = R.string.got_it_button),
       color = WalletColors.styleguide_golden,
       fontSize = 14.sp,
       fontFamily = FontFamily.SansSerif,
@@ -580,7 +581,7 @@ private fun Description(appDetailsData: GameDetailsData) {
     modifier = Modifier.padding(20.dp)
   ) {
     Text(
-      text = "Description",
+      text = stringResource(id = R.string.carousel_game_description_title),
       fontSize = 16.sp,
       color = WalletColors.styleguide_light_grey,
       fontWeight = FontWeight.Medium,
@@ -603,9 +604,9 @@ private fun Description(appDetailsData: GameDetailsData) {
 @Composable
 fun EskillsCardList() {
   val list = listOf(
-    "Install the e-Skills game you think you’re better at.",
-    "Open it and pay the entry fee to start a match against another player.",
-    "Beat them and get the real-money prize."
+    stringResource(id = R.string.eskills_game_1),
+    stringResource(id = R.string.carousel_game_2),
+    stringResource(id = R.string.carousel_game_3)
   )
   LazyColumn(
     verticalArrangement = Arrangement.spacedBy(8.dp)
