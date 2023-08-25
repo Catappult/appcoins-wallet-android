@@ -227,6 +227,7 @@ class SkillsViewModel @Inject constructor(
     return validateUrlUseCase(uriString)
   }
 
+
   fun closeView(): Observable<Pair<Int, UserData>> {
     return closeView
   }
