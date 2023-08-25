@@ -242,7 +242,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val credit_card_info: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
   private val change_card_button: WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
   private val bonus_msg: TextView? get() = bindingCreditCardLayout?.bonusMsg
-  private val bonus_layout: LinearLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
+  private val bonus_layout: ConstraintLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
   private val adyen_card_form: ConstraintLayout? get() = bindingCreditCardLayout?.adyenCardForm?.root
   private val fragment_adyen_error: ConstraintLayout? get() = bindingCreditCardLayout?.fragmentAdyenError?.root
   private val error_buttons: LinearLayout? get() = bindingCreditCardLayout?.errorButtons?.root
@@ -253,7 +253,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val change_card_button_pre_selected: WalletButtonView? get() = bindingCreditCardPreSelected?.changeCardButtonPreSelected
   private val more_payment_methods: WalletButtonView? get() = bindingCreditCardPreSelected?.morePaymentMethods
   private val bonus_msg_pre_selected: TextView? get() = bindingCreditCardPreSelected?.bonusMsgPreSelected
-  private val bonus_layout_pre_selected: LinearLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
+  private val bonus_layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
   private val layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.layoutPreSelected?.root
   private val fragment_adyen_error_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
   private val dialog_buy_buttons_error: LinearLayout? get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.root

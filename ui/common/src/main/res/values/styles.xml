@@ -295,9 +295,9 @@
   </style>
 
   <style name="BonusTextStyle">
-    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
     <item name="android:textColor">@color/styleguide_white</item>
-    <item name="android:textSize">10sp</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="BonusTextStyle.Value">

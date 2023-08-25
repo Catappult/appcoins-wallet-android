@@ -105,18 +105,6 @@
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
             >
 
-          <com.appcoins.wallet.ui.widgets.SeparatorView
-              android:id="@+id/top_separator"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="12dp"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:line_orientation="horizontal"
-              app:line_type="solid"
-              />
-
           <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/payment_methods_radio_list"
               android:layout_width="match_parent"
@@ -125,8 +113,9 @@
               android:orientation="vertical"
               android:overScrollMode="never"
               android:paddingStart="16dp"
-              android:paddingTop="8dp"
+              android:paddingTop="2dp"
               android:paddingEnd="16dp"
+              android:paddingBottom="32dp"
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
               app:layout_constrainedHeight="true"
               app:layout_constraintBottom_toBottomOf="parent"
@@ -134,7 +123,7 @@
               app:layout_constraintHeight_max="216dp"
               app:layout_constraintHeight_min="60dp"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/top_separator"
+              app:layout_constraintTop_toTopOf="parent"
               tools:listitem="@layout/item_payment_method"
               />
 
@@ -151,7 +140,7 @@
               app:layout_constraintBottom_toBottomOf="@id/content_main"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/top_separator"
+              app:layout_constraintTop_toTopOf="parent"
               tools:visibility="gone"
               >
             <include
@@ -228,22 +217,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.appcoins.wallet.ui.widgets.SeparatorView
-            android:id="@+id/bottom_separator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin"
-            android:layout_marginBottom="32dp"
-            android:background="@color/styleguide_payments_blue"
-            app:layout_constraintBottom_toTopOf="@id/bonus_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_main"
-            app:line_orientation="horizontal"
-            app:line_type="solid"
-            tools:visibility="visible"
-            />
-
         <include
             android:id="@+id/bonus_layout"
             layout="@layout/view_purchase_bonus"
@@ -252,28 +225,9 @@
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/bonus_msg"
+            app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_main"
-            tools:visibility="visible"
-            />
-
-        <TextView
-            android:id="@+id/bonus_msg"
-            style="@style/TopUpTextStyle.Small.BonusText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bonus_layout"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="@dimen/big_margin"
-            android:gravity="center"
-            android:text="@string/gamification_purchase_body"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bonus_layout"
             tools:visibility="visible"
             />
 
@@ -284,7 +238,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
             android:background="@color/styleguide_payments_blue"
-            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+            app:layout_constraintTop_toBottomOf="@id/content_main"
             app:line_orientation="horizontal"
             app:line_type="solid"
             />

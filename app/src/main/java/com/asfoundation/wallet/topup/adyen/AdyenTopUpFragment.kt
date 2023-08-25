@@ -235,7 +235,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.topUpContainer.visibility = VISIBLE
     binding.mainCurrencyCode.visibility = VISIBLE
     binding.mainValue.visibility = VISIBLE
-    binding.topSeparatorTopup.visibility = VISIBLE
     binding.convertedValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
