@@ -419,7 +419,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       if (isPreSelected) {
         binding.preSelectedPaymentMethodGroup.visibility = View.VISIBLE
         binding.paymentMethodsListGroup.visibility = View.GONE
-        binding.bottomSeparator?.visibility = View.INVISIBLE
         binding.layoutPreSelected.root.visibility = View.VISIBLE
       } else {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
@@ -712,7 +711,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showBonus(@StringRes bonusText: Int) {
     changeBonusVisibility(View.VISIBLE)
-    binding.bonusMsg.text = context?.getString(bonusText)
   }
 
   override fun removeBonus() {
@@ -723,8 +721,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun changeBonusVisibility(visibility: Int) {
     binding.bonusLayout.root.visibility = visibility
-    binding.bottomSeparator?.visibility = visibility
-    binding.bonusMsg.visibility = visibility
   }
 
   override fun hideBonus() {
@@ -733,8 +729,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun replaceBonus() {
     changeBonusVisibility(View.INVISIBLE)
-    binding.bonusMsg.text = context?.getString(R.string.purchase_poa_body)
-    binding.bonusMsg.visibility = View.VISIBLE
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()
