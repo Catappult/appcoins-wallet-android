@@ -24,6 +24,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -132,6 +133,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    ChallengeRewardManager.create(this.requireActivity())
     compositeDisposable = CompositeDisposable()
     setupSubject = PublishSubject.create()
     topupClick = PublishSubject.create()
@@ -176,6 +178,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+    binding.offerWallMsg.setOnClickListener { ChallengeRewardManager.onNavigate() }
 
     setupAppNameAndIcon()
 
@@ -724,6 +727,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.bonusLayout.root.visibility = visibility
     binding.bottomSeparator?.visibility = visibility
     binding.bonusMsg.visibility = visibility
+    binding.offerWallMsg.visibility = visibility
   }
 
   override fun hideBonus() {
