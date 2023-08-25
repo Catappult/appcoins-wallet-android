@@ -59,25 +59,20 @@ class BackupSaveOptionsComposeFragment :
       Async.Uninitialized -> {
         // Empty block
       }
-
       is Async.Loading -> {
         // Empty block
       }
-
       is Async.Fail -> {
         navigator.showErrorScreen()
       }
-
       is Async.Success -> {
         when (state.saveOptionAsync.value) {
           is SuccessfulBackup -> {
             navigator.showWalletSuccessScreen()
           }
-
           is FailedBackup -> {
             navigator.showErrorScreen()
           }
-
           else -> {}
         }
       }
@@ -94,9 +89,7 @@ class BackupSaveOptionsComposeFragment :
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSaveOptionsRoute(
-              onExitClick = { navigator.handleBackPress() },
               onChatClick = { displayChat() },
-              onSendEmailClick = { navigator.showWalletSuccessScreen() },
               onSaveOnDevice = {
                 navigator.showSaveOnDeviceFragment(
                   viewModel.walletAddress, viewModel.password, navController()
@@ -120,7 +113,6 @@ class BackupSaveOptionsComposeFragment :
       is BackupSaveOptionsSideEffect.NavigateToSuccess -> {
         navigator.showWalletSuccessScreen()
       }
-
       BackupSaveOptionsSideEffect.ShowError -> {
         navigator.showErrorScreen()
       }

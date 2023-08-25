@@ -10,24 +10,25 @@ import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
   data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
-data class BackupSaveOptionsState(var saveOptionAsync: Async<BackupResult> = Async.Uninitialized) : ViewState
+data class BackupSaveOptionsState(var saveOptionAsync: Async<BackupResult> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
-class BackupSaveOptionsViewModel @Inject constructor(
+class BackupSaveOptionsViewModel
+@Inject
+constructor(
   private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   private val logger: Logger,
-) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(
-    initialState()
-) {
+) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(initialState()) {
 
   lateinit var walletAddress: String
   var password: String = ""
@@ -42,14 +43,12 @@ class BackupSaveOptionsViewModel @Inject constructor(
 
   fun sendBackupToEmail(text: String) {
     viewModelScope.launch {
-      runCatching {
-        sendBackupToEmailUseCase(walletAddress, password, text)
-      }.onSuccess {
-        backupSuccessLogUseCase(walletAddress)
-        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
-      }.onFailure {
-        showError(it)
-      }
+      runCatching { sendBackupToEmailUseCase(walletAddress, password, text) }
+        .onSuccess {
+          backupSuccessLogUseCase(walletAddress)
+          sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
+        }
+        .onFailure { showError(it) }
     }
   }
 

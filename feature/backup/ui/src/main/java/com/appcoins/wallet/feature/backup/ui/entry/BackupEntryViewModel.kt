@@ -24,31 +24,31 @@ data class BackupEntryState(
 ) : ViewState
 
 @HiltViewModel
-class BackupEntryViewModel @Inject constructor(
-    private val getWalletInfoUseCase: GetWalletInfoUseCase,
-    private val currencyFormatUtils: CurrencyFormatUtils,
-    private val dispatchers: Dispatchers,
-) : NewBaseViewModel<BackupEntryState, BackupEntrySideEffect>(
-  BackupEntryState()
-) {
-   lateinit var walletAddress: String
-   lateinit var walletName: String
-   var password : String = ""
-   val correctInputPassword = mutableStateOf(true)
+class BackupEntryViewModel
+@Inject
+constructor(
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val currencyFormatUtils: CurrencyFormatUtils,
+  private val dispatchers: Dispatchers,
+) : NewBaseViewModel<BackupEntryState, BackupEntrySideEffect>(BackupEntryState()) {
+  lateinit var walletAddress: String
+  lateinit var walletName: String
+  var password: String = ""
+  val correctInputPassword = mutableStateOf(true)
 
-   fun showBalance(walletAddress: String) {
+  fun showBalance(walletAddress: String) {
     viewModelScope.launch {
-      val walletInfo = withContext(dispatchers.io) {
-        getWalletInfoUseCase(walletAddress ,cached = true, updateFiat = true).await()
-      }
-      suspend { mapBalance(walletInfo.walletBalance) }.mapSuspendToAsync(
-          BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
+      val walletInfo =
+        withContext(dispatchers.io) {
+          getWalletInfoUseCase(walletAddress, cached = true, updateFiat = true).await()
+        }
+      suspend { mapBalance(walletInfo.walletBalance) }
+        .mapSuspendToAsync(BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
     }
   }
 
   private fun mapBalance(walletBalance: WalletBalance): Balance {
     val balance = walletBalance.overallFiat
-    return Balance(balance.symbol,
-        currencyFormatUtils.formatCurrency(balance.amount))
+    return Balance(balance.symbol, currencyFormatUtils.formatCurrency(balance.amount))
   }
 }

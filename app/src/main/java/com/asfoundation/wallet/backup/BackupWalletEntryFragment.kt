@@ -26,24 +26,20 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
+class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
 
   @Inject
-  lateinit var navigator : BackupEntryNavigator
-
+  lateinit var navigator: BackupEntryNavigator
 
   @Inject
-  lateinit var settingsInteractor : SettingsInteractor
+  lateinit var settingsInteractor: SettingsInteractor
 
-
-  val networkScheduler= Schedulers.io()
+  val networkScheduler = Schedulers.io()
   val viewScheduler = AndroidSchedulers.mainThread()
   val disposables = CompositeDisposable()
-
-
 
   companion object {
     fun newInstance() = BackupWalletEntryFragment()
@@ -52,7 +48,6 @@ class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
     const val PASSWORD_KEY = "password"
     const val WALLET_MODEL_KEY = "wallet_model"
   }
-
 
   private val viewModel: BackupEntryViewModel by viewModels()
 
@@ -64,7 +59,8 @@ class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?,
   ): View {
     return ComposeView(requireContext()).apply {
@@ -75,23 +71,25 @@ class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
               onChooseWallet = { onBackupPreferenceClick() },
-              onNextClick = {navigateToBackupWalletEntry(viewModel.walletAddress, navController(), viewModel.password)}
-            )
+              onNextClick = {
+                navigateToBackupWalletEntry(
+                  viewModel.walletAddress, navController(), viewModel.password
+                )
+              })
           }
         }
       }
     }
   }
 
-
   private fun handleBackPress() {
     parentFragmentManager.popBackStack()
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 
@@ -99,7 +97,6 @@ class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
     walletAddress: String,
     mainNavController: NavController,
     password: String
-
   ) {
     val bundle = Bundle()
     bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -107,18 +104,19 @@ class BackupWalletEntryFragment  : BasePageViewFragment(), Navigator{
     mainNavController.navigate(R.id.action_backup_entry_to_screen_options, args = bundle)
   }
 
-  fun onBackupPreferenceClick() {
-    disposables.add(settingsInteractor.retrieveWallets()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess { navigator.showWalletChooseScreen(
-        walletModel = it,
-        mainNavController = navController(),
-      )}
-      .subscribe({}, {  })
+  private fun onBackupPreferenceClick() {
+    disposables.add(
+      settingsInteractor
+        .retrieveWallets()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          navigator.showWalletChooseScreen(
+            walletModel = it,
+            mainNavController = navController(),
+          )
+        }
+        .subscribe({}, {})
     )
   }
-
-
-
 }

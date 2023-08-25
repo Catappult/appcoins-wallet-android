@@ -92,7 +92,6 @@
   <include app:graph="@navigation/home_graph" />
 
 
-
   <action
       android:id="@+id/action_navigate_to_manage_wallet"
       app:destination="@id/manage_wallet_graph" />
@@ -124,9 +123,9 @@
   <action
       android:id="@+id/action_navigate_to_backup_entry_wallet"
       app:destination="@id/backup_wallet_fragment">
-  <argument
-      android:name="wallet_address"
-      app:argType="string" />
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
 
     <argument
         android:name="wallet_name"
@@ -185,8 +184,7 @@
         android:id="@+id/action_back_to_entry"
         app:destination="@id/backup_wallet_fragment"
         app:popUpTo="@id/backup_wallet_fragment"
-        app:popUpToInclusive="true"
-        />
+        app:popUpToInclusive="true" />
   </dialog>
 
   <fragment
@@ -277,7 +275,6 @@
 
   <fragment
       android:id="@+id/transfer_funds_success_fragment"
-      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment">
-  </fragment>
+      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment"></fragment>
 
 </navigation>

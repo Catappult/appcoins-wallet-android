@@ -9,13 +9,9 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.appbar.AppBarLayout
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupActivity : BaseActivity() {
-
-  @Inject
-  lateinit var navigator: BackupActivityNavigator
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
@@ -37,12 +33,12 @@ class BackupActivity : BaseActivity() {
         findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
         toolbar()
       }
-      //intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
     }
   }
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
   fun toolbar(): Toolbar {

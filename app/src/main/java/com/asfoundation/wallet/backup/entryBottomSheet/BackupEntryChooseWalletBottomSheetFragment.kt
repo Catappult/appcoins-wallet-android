@@ -22,8 +22,8 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupEntryChooseWalletBottomSheetFragment : BackupEntryChooseWalletBottomSheetView, BottomSheetDialogFragment(),
-  Navigator {
+class BackupEntryChooseWalletBottomSheetFragment :
+  BackupEntryChooseWalletBottomSheetView, BottomSheetDialogFragment(), Navigator {
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils
@@ -53,18 +53,21 @@ class BackupEntryChooseWalletBottomSheetFragment : BackupEntryChooseWalletBottom
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present(requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel, navController())
+    presenter.present(
+      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel, navController()
+    )
+  }
+
+  override fun getTheme(): Int {
+    return com.asf.wallet.R.style.AppBottomSheetDialogThemeDraggable
   }
 
   override fun setupUi(walletsBalance: List<WalletInfoSimple>) {
     with(binding.bottomSheetWalletsCards) {
-      addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
+      addBottomItemDecoration(resources.getDimension(R.dimen.normal_padding))
       isNestedScrollingEnabled = false
-      layoutManager = LinearLayoutManager(context).apply {
-        orientation = RecyclerView.VERTICAL
-      }
+      layoutManager = LinearLayoutManager(context).apply { orientation = RecyclerView.VERTICAL }
       adapter = BackupEntryChooseWalletAdapter(walletsBalance, uiEventListener!!, currencyFormatter)
-
     }
     provideParentFragment()?.showBottomSheet()
   }
@@ -84,9 +87,10 @@ class BackupEntryChooseWalletBottomSheetFragment : BackupEntryChooseWalletBottom
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      com.asf.wallet.R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity()
+        .supportFragmentManager
+        .findFragmentById(com.asf.wallet.R.id.main_host_container) as NavHostFragment
     return navHostFragment.navController
   }
 }

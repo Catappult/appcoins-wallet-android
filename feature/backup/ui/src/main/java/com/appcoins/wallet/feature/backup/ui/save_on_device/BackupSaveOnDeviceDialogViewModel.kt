@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
-import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SaveBackupFileUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,19 +30,21 @@ data class BackupSaveOnDeviceDialogState(
 ) : ViewState
 
 @HiltViewModel
-class BackupSaveOnDeviceDialogViewModel @Inject constructor(
+class BackupSaveOnDeviceDialogViewModel
+@Inject
+constructor(
   savedStateHandle: SavedStateHandle,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
   walletInfoUseCase: GetWalletInfoUseCase,
   dispatchers: Dispatchers
-) : NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
-  initialState(savedStateHandle)
-) {
+) :
+  NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
+    initialState(savedStateHandle)
+  ) {
 
   companion object {
     private val downloadsPath =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-
 
     fun initialState(savedStateHandle: SavedStateHandle) =
       savedStateHandle.run {
@@ -63,9 +64,8 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
       withContext(dispatchers.io) {
         val walletInfo =
           walletInfoUseCase(state.walletAddress, cached = true, updateFiat = false).await()
-        suspend { walletInfo.name }.mapSuspendToAsync((BackupSaveOnDeviceDialogState::fileName)) {
-          copy(fileName = it)
-        }
+        suspend { walletInfo.name }
+          .mapSuspendToAsync((BackupSaveOnDeviceDialogState::fileName)) { copy(fileName = it) }
       }
     }
   }

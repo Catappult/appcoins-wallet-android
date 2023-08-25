@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.backup.ui.R
@@ -16,7 +17,10 @@ class BackupEntryChooseWalletAdapter(
     private val currencyFormatUtils: CurrencyFormatUtils,
 ) : RecyclerView.Adapter<BackupEntryChooseWalletViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BackupEntryChooseWalletViewHolder =
+  override fun onCreateViewHolder(
+    parent: ViewGroup,
+    viewType: Int
+  ): BackupEntryChooseWalletViewHolder =
     BackupEntryChooseWalletViewHolder(
       LayoutInflater.from(parent.context)
         .inflate(R.layout.wallet_rounded_outlined_card, parent, false),
@@ -32,13 +36,16 @@ class BackupEntryChooseWalletAdapter(
 
     val currentWalletIcon = holder.itemView.findViewById<ImageView>(R.id.ic_wallet_address)
     val currentWalletRound = holder.itemView.findViewById<View>(R.id.outline)
-    if(!currentItem.backupWalletActive) {
+    if (!currentItem.backupWalletActive) {
       currentWalletIcon.visibility = View.INVISIBLE
-      currentWalletRound.visibility = View.INVISIBLE
-    }else{
+      currentWalletRound.background =
+        ContextCompat.getDrawable(holder.itemView.context, R.drawable.rectangle_blue_radius_16dp)
+    } else {
       currentWalletIcon.visibility = View.VISIBLE
-      currentWalletRound.visibility = View.VISIBLE
+      currentWalletRound.background =
+        ContextCompat.getDrawable(
+          holder.itemView.context, R.drawable.rectangle_blue_border_pink_radius_16dp
+        )
     }
   }
-  }
-
+}

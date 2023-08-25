@@ -13,9 +13,12 @@ import io.reactivex.disposables.CompositeDisposable
 class SettingsWalletsModule {
 
   @Provides
-  fun providesSettingsWalletsPresenter(fragment: Fragment,
-                                       navigator: SettingsWalletsNavigator): SettingsWalletsPresenter {
-    return SettingsWalletsPresenter(fragment as BackupEntryChooseWalletView, navigator,
-        CompositeDisposable())
+  fun providesSettingsWalletsPresenter(
+    fragment: Fragment,
+    navigator: SettingsWalletsNavigator
+  ): SettingsWalletsPresenter {
+    return SettingsWalletsPresenter(
+      fragment as BackupEntryChooseWalletView, navigator, CompositeDisposable()
+    )
   }
 }

@@ -11,8 +11,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
+class BackupSaveOnDeviceDialogFragment :
+  BottomSheetDialogFragment(),
+  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
 
   @Inject
   lateinit var navigator: BackupSaveOnDeviceDialogNavigator
@@ -23,13 +24,13 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(walletAddress: String, password: String) =
-        BackupSaveOnDeviceDialogFragment()
-            .apply {
-              arguments = Bundle().apply {
-                putString(WALLET_ADDRESS_KEY, walletAddress)
-                putString(PASSWORD_KEY, password)
-              }
-            }
+      BackupSaveOnDeviceDialogFragment().apply {
+        arguments =
+          Bundle().apply {
+            putString(WALLET_ADDRESS_KEY, walletAddress)
+            putString(PASSWORD_KEY, password)
+          }
+      }
   }
 
   override fun onStart() {
@@ -54,6 +55,6 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
-    //Do nothing
+    // Do nothing
   }
 }

@@ -95,7 +95,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
           }
 
         ManageWalletViewModel.UiState.WalletDeleted -> navigateToManageWallet()
-
         else -> {}
       }
     }
@@ -148,10 +147,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
       Card(
         modifier = Modifier.padding(vertical = 24.dp),
         colors =
-        CardDefaults.cardColors(
-          containerColor =
-          WalletColors.styleguide_blue_secondary
-        )
+        CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
       ) {
         Column(
           modifier = Modifier
@@ -181,7 +177,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
             currency = ethBalance.token.symbol
           )
         }
-
       }
     }
   }

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
-
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,15 +11,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
+import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -29,9 +28,9 @@ import io.intercom.android.sdk.utilities.KeyboardUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
+class PromoCodeBottomSheetFragment :
+  BottomSheetDialogFragment(),
   SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
-
 
   @Inject
   lateinit var navigator: PromoCodeBottomSheetNavigator
@@ -49,7 +48,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View = SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
 
@@ -74,37 +74,37 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     views.promoCodeBottomSheetSubmitButton.setOnClickListener {
       viewModel.submitClick(views.promoCodeBottomSheetString.getText().trim())
     }
-    views.promoCodeBottomSheetReplaceButton.setOnClickListener {
-      viewModel.replaceClick()
-    }
-    views.promoCodeBottomSheetDeleteButton.setOnClickListener {
-      viewModel.deleteClick()
-    }
+    views.promoCodeBottomSheetReplaceButton.setOnClickListener { viewModel.replaceClick() }
+    views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
-    views.promoCodeBottomSheetString.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.promoCodeBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
-      }
+    views.promoCodeBottomSheetString.addTextChangedListener(
+      object : TextWatcher {
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
+          Unit
 
-      override fun afterTextChanged(s: Editable) = Unit
-    })
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+          views.promoCodeBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
+        }
+
+        override fun afterTextChanged(s: Editable) = Unit
+      })
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
-      is Async.Uninitialized -> initializePromoCode(
-        state.storedPromoCodeAsync,
-        state.shouldShowDefault
-      )
+      is Async.Uninitialized ->
+        initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
+
       is Async.Fail -> {
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
+
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
@@ -116,7 +116,6 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       is PromoCodeBottomSheetSideEffect.NavigateBack -> {
         navigator.navigateBack()
         rewardSharedViewModel.onBottomSheetDismissed()
-
       }
     }
   }
@@ -180,7 +179,9 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
       is FailedPromoCode.ExpiredCode -> {
-        views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_not_available))
+        views.promoCodeBottomSheetString.setError(
+          getString(R.string.promo_code_error_not_available)
+        )
       }
       is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
@@ -201,10 +202,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     hideAll()
     views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
     views.promoCodeBottomSheetString.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_blue
-      )
+      ContextCompat.getColor(requireContext(), R.color.styleguide_blue)
     )
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE

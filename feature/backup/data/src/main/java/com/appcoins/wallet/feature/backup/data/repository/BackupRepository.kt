@@ -12,27 +12,26 @@ import io.reactivex.Completable
 import java.io.IOException
 import javax.inject.Inject
 
-class BackupRepository @Inject constructor(
+class BackupRepository
+@Inject
+constructor(
   private val contentResolver: ContentResolver,
   private val backupEmailApi: BackupEmailApi,
   private val rxSchedulers: RxSchedulers,
   private val walletService: WalletService,
   private val backupLogApi: BackupLogApi
 ) {
-  fun saveFile(
-    content: String, filePath: DocumentFile?,
-    fileName: String
-  ): Completable {
+  fun saveFile(content: String, filePath: DocumentFile?, fileName: String): Completable {
 
-    //mimetype anything so that the file has the .bck extension alone.
-    val file = filePath?.createFile("anything", fileName + getDefaultBackupFileExtension())
-      ?: return Completable.error(Throwable("Error creating file"))
+    // mimetype anything so that the file has the .bck extension alone.
+    val file =
+      filePath?.createFile("anything", fileName + getDefaultBackupFileExtension())
+        ?: return Completable.error(Throwable("Error creating file"))
 
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
-      outputStream?.run { write(content.toByteArray()) } ?: return Completable.error(
-        Throwable("Null outputStream")
-      )
+      outputStream?.run { write(content.toByteArray()) }
+        ?: return Completable.error(Throwable("Null outputStream"))
     } catch (e: IOException) {
       e.printStackTrace()
       return Completable.error(Throwable(e))
@@ -45,7 +44,8 @@ class BackupRepository @Inject constructor(
   private fun getDefaultBackupFileExtension() = ".bck"
 
   fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
-    return walletService.getAndSignSpecificWalletAddress(walletAddress)
+    return walletService
+      .getAndSignSpecificWalletAddress(walletAddress)
       .flatMapCompletable {
         backupEmailApi.sendBackupEmail(
           walletAddress = it.address,
@@ -57,7 +57,6 @@ class BackupRepository @Inject constructor(
   }
 
   fun logBackupSuccess(ewt: String): Completable {
-    return backupLogApi.logBackupSuccess(ewt)
-      .subscribeOn(rxSchedulers.io)
+    return backupLogApi.logBackupSuccess(ewt).subscribeOn(rxSchedulers.io)
   }
 }

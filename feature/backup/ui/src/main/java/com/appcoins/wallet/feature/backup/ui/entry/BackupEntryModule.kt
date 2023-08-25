@@ -20,18 +20,13 @@ class BackupEntryModule {
       currencyFormatUtils: CurrencyFormatUtils,
       dispatchers: Dispatchers,
   ): BackupEntryViewModelFactory {
-    return BackupEntryViewModelFactory(
-        getWalletInfoUseCase,
-        currencyFormatUtils,
-        dispatchers
-    )
+    return BackupEntryViewModelFactory(getWalletInfoUseCase, currencyFormatUtils, dispatchers)
   }
 
   @Provides
   fun providesBackupEntryData(fragment: Fragment): BackupEntryData {
-    fragment.requireArguments()
-        .apply {
-          return BackupEntryData(getString(WALLET_ADDRESS_KEY)!!)
-        }
+    fragment.requireArguments().apply {
+      return BackupEntryData(getString(WALLET_ADDRESS_KEY)!!)
+    }
   }
 }

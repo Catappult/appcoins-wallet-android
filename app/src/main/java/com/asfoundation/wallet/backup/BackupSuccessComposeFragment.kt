@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.feature.backup.ui.success.BackupSuccessRoute
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupSuccessComposeFragment : BasePageViewFragment(){
+class BackupSuccessComposeFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
@@ -33,7 +32,8 @@ class BackupSuccessComposeFragment : BasePageViewFragment(){
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
@@ -43,20 +43,17 @@ class BackupSuccessComposeFragment : BasePageViewFragment(){
             BackupSuccessRoute(
               onExitClick = { navigator.handleBackPress() },
               onChatClick = { displayChat() },
-              onGotItClick = { navigator.navigateToHome(navController()) }
-            )
+              onGotItClick = { navigator.navigateToHome(navController()) })
           }
         }
       }
     }
   }
 
-
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
-
 }
