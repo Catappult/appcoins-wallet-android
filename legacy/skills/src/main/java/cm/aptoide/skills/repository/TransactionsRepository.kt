@@ -1,7 +1,7 @@
 package cm.aptoide.skills.repository
 
 import com.appcoins.wallet.core.network.backend.api.TransactionOverviewApi
-import com.appcoins.wallet.core.network.backend.model.TransactionResponse
+import com.appcoins.wallet.core.network.backend.model.TransactionOverviewResponse
 import com.appcoins.wallet.core.network.backend.model.BackendTransactionType
 import javax.inject.Inject
 import io.reactivex.Single
@@ -13,7 +13,7 @@ class TransactionsRepository @Inject constructor(private val transactionOverview
     transactionTypes: List<BackendTransactionType>? = null,
     limit: Int? = null,
     offset: Int? = null,
-  ): Single<List<TransactionResponse>> {
+  ): Single<List<TransactionOverviewResponse>> {
     return transactionOverviewApi.getTransactionOverviewList(wallet, transactionTypes, limit, offset).subscribeOn(Schedulers.io())
   }
 }

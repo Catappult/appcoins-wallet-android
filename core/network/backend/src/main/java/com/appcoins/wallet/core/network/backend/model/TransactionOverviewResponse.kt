@@ -3,7 +3,7 @@ package com.appcoins.wallet.core.network.backend.model
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class TransactionResponse(
+data class TransactionOverviewResponse(
   @SerializedName("txid") val transactionId: String,
   val type: BackendTransactionType,
   val sender: String,

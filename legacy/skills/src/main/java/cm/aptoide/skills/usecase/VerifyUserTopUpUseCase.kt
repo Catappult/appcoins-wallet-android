@@ -4,7 +4,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.repository.TransactionsRepository
 import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import com.appcoins.wallet.core.network.backend.model.BackendTransactionType
-import com.appcoins.wallet.core.network.backend.model.TransactionResponse
+import com.appcoins.wallet.core.network.backend.model.TransactionOverviewResponse
 
 import io.reactivex.Single
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class VerifyUserTopUpUseCase @Inject constructor(
       .doOnError {Log.d("VerifyTopUp", it.stackTraceToString())}
   }
 
-  private fun hasValidTransaction(transactions: List<TransactionResponse>): Boolean {
+  private fun hasValidTransaction(transactions: List<TransactionOverviewResponse>): Boolean {
     return transactions.any { transaction ->
       transaction.paymentMethod !in CODAPAY_PAYMENT_METHODS
     }

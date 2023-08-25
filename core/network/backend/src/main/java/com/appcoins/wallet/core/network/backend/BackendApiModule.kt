@@ -206,6 +206,8 @@ class BackendApiModule {
     return retrofit.create(TransactionOverviewApi::class.java)
   }
 
+  @Singleton
+  @Provides
   fun providesGamesApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): GamesApi {

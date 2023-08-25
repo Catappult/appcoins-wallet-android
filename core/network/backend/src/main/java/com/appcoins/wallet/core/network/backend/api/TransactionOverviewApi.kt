@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.backend.api
 
-import com.appcoins.wallet.core.network.backend.model.TransactionResponse
+import com.appcoins.wallet.core.network.backend.model.TransactionOverviewResponse
 import com.appcoins.wallet.core.network.backend.model.BackendTransactionType
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -14,5 +14,5 @@ interface TransactionOverviewApi {
     @Query("transaction_types") transactionTypes: List<BackendTransactionType>?,
     @Query("limit") limit: Int?,
     @Query("offset") offset: Int?,
-    ): Single<List<TransactionResponse>>
+    ): Single<List<TransactionOverviewResponse>>
 }
