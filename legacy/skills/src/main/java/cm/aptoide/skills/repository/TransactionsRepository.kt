@@ -1,8 +1,9 @@
 package cm.aptoide.skills.repository
 
+
 import com.appcoins.wallet.core.network.backend.api.TransactionOverviewApi
-import com.appcoins.wallet.core.network.backend.model.TransactionOverviewResponse
 import com.appcoins.wallet.core.network.backend.model.BackendTransactionType
+import com.appcoins.wallet.core.network.backend.model.TransactionOverviewResponse
 import javax.inject.Inject
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

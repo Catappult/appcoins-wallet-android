@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+  implementation(project(mapOf("path" to ":core:network:backend")))
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:network:backend"))
   implementation(project(":core:shared-preferences"))
