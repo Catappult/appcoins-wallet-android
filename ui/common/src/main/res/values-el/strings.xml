@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Δημιουργήστε τώρα ένα αντίγραφο ασφαλείας του Wallet σας!</string>
   <string name="backup_popup_purchase_body">Κρατήστε τα χρήματά σας ασφαλή ανά πάσα στιγμή.</string>
   <string name="backup_popup_gamification_body">Κρατήστε το επίπεδο bonus σας ασφαλές ανά πάσα στιγμή.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Συνολικό Υπόλοιπο σε %s</string>
