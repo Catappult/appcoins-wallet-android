@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Сделайте бэкап кошелька!</string>
   <string name="backup_popup_purchase_body">Всегда держите свои средства в безопасности.</string>
   <string name="backup_popup_gamification_body">Всегда держите свой уровень бонуса в безопасности.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Кошельки</string>
   <string name="wallets_total_balance_title">Общий баланс в %s</string>
