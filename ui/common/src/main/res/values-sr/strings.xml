@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Napravite rezervnu kopiju novčanika odmah!</string>
   <string name="backup_popup_purchase_body">Neka vaša sredstva budu sigurna u svako doba.</string>
   <string name="backup_popup_gamification_body">Neka vaš nivo bonusa bude siguran u svako doba.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>

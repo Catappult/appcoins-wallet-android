@@ -739,6 +739,7 @@
   <string name="backup_popup_title">احفظ نسخة احتياطية للمحفظة الآن!</string>
   <string name="backup_popup_purchase_body">احفظ أموالك في أمان طوال الوقت.</string>
   <string name="backup_popup_gamification_body">احتفظ بمعدل مكافآتك في أمان طوال الوقت.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>

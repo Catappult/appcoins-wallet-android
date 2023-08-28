@@ -740,6 +740,7 @@
   <string name="backup_popup_title">Створіть резервну копію вашого гаманця зараз!</string>
   <string name="backup_popup_purchase_body">Завжди зберігайте свої кошти в безпеці.</string>
   <string name="backup_popup_gamification_body">Завжди тримайте свій бонусний рівень у безпеці.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Гаманці</string>
   <string name="wallets_total_balance_title">Загальний баланс у %s</string>

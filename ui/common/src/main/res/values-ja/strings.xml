@@ -738,6 +738,7 @@
   <string name="backup_popup_title">今すぐウォレットをバックアップ！</string>
   <string name="backup_popup_purchase_body">資金を常に安全に管理する。</string>
   <string name="backup_popup_gamification_body">ボーナスレベルを常に安全に保つ。</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>
