@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Sandar dompet anda sekarang!</string>
   <string name="backup_popup_purchase_body">Pastikan dana anda selamat sepanjang masa.</string>
   <string name="backup_popup_gamification_body">Pastikan tahap bonus anda selamat sepanjang masa.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
