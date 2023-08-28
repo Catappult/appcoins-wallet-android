@@ -80,7 +80,7 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
-    return getWalletInfoUseCase.invoke(null, true, false)
+    return getWalletInfoUseCase.invoke(null, true)
         .flatMap(walletInfo -> updateWalletPurchasesCountUseCase.invoke(walletInfo)
             .andThen(shouldShowSystemNotificationUseCase.invoke(walletInfo)
                 .flatMap(needed -> Single.just(
@@ -249,7 +249,7 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<BigDecimal> getRewardsBalance() {
-    return getWalletInfoUseCase.invoke(null, true, false)
+    return getWalletInfoUseCase.invoke(null, true)
         .map(walletInfo -> walletInfo.getWalletBalance()
             .getCreditsBalance()
             .getToken()
