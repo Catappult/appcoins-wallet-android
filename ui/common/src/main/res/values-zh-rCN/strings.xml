@@ -738,6 +738,7 @@
   <string name="backup_popup_title">立即备份钱包！</string>
   <string name="backup_popup_purchase_body">始终确保资金安全。</string>
   <string name="backup_popup_gamification_body">始终保持奖励水平安全。</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
