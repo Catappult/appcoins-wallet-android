@@ -738,6 +738,7 @@
   <string name="backup_popup_title">از کیف پول خود بک‌آپ بگیرید!</string>
   <string name="backup_popup_purchase_body">سرمایه خود را در همه زمان امن نگه دارید.</string>
   <string name="backup_popup_gamification_body">پاداش خود را در همه زمان امن نگه دارید.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
