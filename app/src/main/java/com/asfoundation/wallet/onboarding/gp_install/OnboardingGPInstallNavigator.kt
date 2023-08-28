@@ -13,9 +13,11 @@ class OnboardingGPInstallNavigator @Inject constructor(
 
   fun navigateBackToGame(packageName: String) {
     try {
-      fragment.startActivity(
-        packageManager.getLaunchIntentForPackage(packageName)
-      )
+      packageManager.getLaunchIntentForPackage(packageName)?.let {
+        fragment.startActivity(
+          it
+        )
+      }
     } catch (e: Throwable) {
       e.printStackTrace()
       fragment.activity?.finishAffinity()
