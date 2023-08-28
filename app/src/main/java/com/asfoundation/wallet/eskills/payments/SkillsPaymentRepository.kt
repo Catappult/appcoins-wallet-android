@@ -30,7 +30,7 @@ class SkillsPaymentRepository @Inject constructor(
         private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
 ) : ExternalSkillsPaymentProvider {
   override fun getBalance(): Single<BigDecimal> {
-    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false)
       .subscribeOn(schedulers.io)
       .map { it.walletBalance.creditsBalance.token.amount }
   }

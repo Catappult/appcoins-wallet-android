@@ -39,7 +39,7 @@
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
   <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram grupa</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Zajednica</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Kupovina je odbijena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_body">Kupovina je vraćena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_status_rejected">Odbijeno</string>
-  <string name="transaction_details_header">Detalji o transakciji</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
   <string name="activity_airdrop_hint">Unesite reči sa slike</string>
@@ -823,7 +825,7 @@
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
   <string name="subscriptions_cancel_no_button">Ne, idi nazad</string>
-  <string name="subscriptions_cancel_yes_button">Da, otkaži pretplatu</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Pretplata je otkazana!</string>
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
@@ -1218,8 +1220,8 @@
   <string name="intro_backup_card_body">Napravite rezervnu kopiju novčanika i čuvajte je na sigurnom mestu u svako doba.</string>
   <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
-  <string name="rewards_eskills_card_title">Zaradite novac!</string>
-  <string name="rewards_eskills_card_body">Pobedite druge igrače sa e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo kodovi</string>
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
@@ -1236,4 +1238,6 @@
   <string name="manage_wallet_change_wallet_name_title">Promenite naziv novčanika</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

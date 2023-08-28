@@ -43,8 +43,7 @@ class RecoverEntryResultMapper(
       Single.just(FailedEntryRecover.InvalidKeystore(restoreResult.throwable))
     is FailedRestore.InvalidPassword -> getWalletInfoUseCase(
       address = restoreResult.address,
-      cached = false,
-      updateFiat = true
+      cached = false
     )
       .map {
         FailedEntryRecover.InvalidPassword(

@@ -39,7 +39,7 @@
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
-  <string name="twitter">تويتر</string>
+  <string name="twitter">X</string>
   <string name="telegram">مجموعة تيليغرام</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">عملية الشراء هذه مرفوضة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_reverted_body">عملية الشراء هذه راجعة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_status_rejected">مرفوض</string>
-  <string name="transaction_details_header">تفاصيل التحويل</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
   <string name="activity_airdrop_hint">اكتب الكلمات التي في الصورة</string>
@@ -827,7 +829,7 @@
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
   <string name="subscriptions_cancel_no_button">لا، عُد للخلف</string>
-  <string name="subscriptions_cancel_yes_button">نعم، ألغِ الاشتراك</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">ألغينا الاشتراك!</string>
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
@@ -1258,8 +1260,8 @@
   <string name="intro_backup_card_body">أنشئ نسخة احتياطية لمحفظتك واحتفظ بها في مكان آمن دائمًا.</string>
   <string name="rewards_spend_to_next_level_body">أنفق أكثر من %1$s%2$s لتصل إلى المستوى التالي!</string>
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
-  <string name="rewards_eskills_card_title">اكسب المال!</string>
-  <string name="rewards_eskills_card_body">اهزم اللاعبين الآخرين مع e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">رموز ترويجية</string>
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
@@ -1276,4 +1278,6 @@
   <string name="manage_wallet_change_wallet_name_title">تغيير اسم المحفظة</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
