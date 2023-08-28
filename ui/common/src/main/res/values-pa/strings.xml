@@ -738,6 +738,7 @@
   <string name="backup_popup_title">ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਲਓ!</string>
   <string name="backup_popup_purchase_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰੱਖੋ।</string>
   <string name="backup_popup_gamification_body">ਆਪਣੇ ਬੋਨਸ ਪੱਧਰ ਨੂੰ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰੱਖੋ।</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
