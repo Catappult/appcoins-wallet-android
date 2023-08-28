@@ -63,7 +63,7 @@ constructor(
     viewModelScope.launch {
       withContext(dispatchers.io) {
         val walletInfo =
-          walletInfoUseCase(state.walletAddress, cached = true, updateFiat = false).await()
+          walletInfoUseCase(state.walletAddress, cached = true).await()
         suspend { walletInfo.name }
           .mapSuspendToAsync((BackupSaveOnDeviceDialogState::fileName)) { copy(fileName = it) }
       }

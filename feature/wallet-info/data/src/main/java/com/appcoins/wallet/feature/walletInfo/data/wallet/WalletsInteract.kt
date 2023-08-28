@@ -37,7 +37,7 @@ constructor(
     retrieveWallets()
       .filter { it.isNotEmpty() }
       .flatMapIterable { it }
-      .flatMap { observeWalletInfoUseCase(it.address, update = true, updateFiat = false) }
+      .flatMap { observeWalletInfoUseCase(it.address, update = true) }
       .map {
         listOf(
           WalletInfoSimple(
@@ -68,7 +68,7 @@ constructor(
       .filter { it.isNotEmpty() }
       .flatMapIterable { list -> list }
       .flatMap {
-        getWalletInfoUseCase(it.address, cached = true, updateFiat = false).toObservable()
+        getWalletInfoUseCase(it.address, cached = true).toObservable()
       }
       .map {
         WalletInfoSimple(

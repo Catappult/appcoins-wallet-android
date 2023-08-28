@@ -39,7 +39,7 @@
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
   <string name="title_delete_account">Вы уверены, что хотите удалить этот кошелек?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Группа Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Сообщество</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Эта покупка была отклонена.\nДля получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_reverted_body">Эта покупка была отменена.\nДля получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_status_rejected">Отклонено</string>
-  <string name="transaction_details_header">Детали транзакции</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
   <string name="activity_airdrop_hint">Введите слова на картинке</string>
@@ -824,7 +826,7 @@
   <string name="subscriptions_cancel_title">Отменить подписку</string>
   <string name="subscriptions_cancel_body">Вы уверены, что хотите отменить подписку?</string>
   <string name="subscriptions_cancel_no_button">Нет, назад</string>
-  <string name="subscriptions_cancel_yes_button">Да, отменить подписку</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Подписка отменена!</string>
   <string name="subscriptions_cancel_confirmation_body">С вас больше не будут списываться средства за эту подписку, и вы ещё можете использовать её до %s.</string>
   <string name="subscriptions_category_title">Подписка</string>
@@ -1231,8 +1233,8 @@
   <string name="intro_backup_card_body">Сделайте бэкап кошелька и всегда держите его в безопасности.</string>
   <string name="rewards_spend_to_next_level_body">Потратьте ещё %1$s%2$s, чтобы достичь следующего уровня!</string>
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
-  <string name="rewards_eskills_card_title">Зарабатывайте деньги!</string>
-  <string name="rewards_eskills_card_body">Победите других игроков с e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Промо-коды</string>
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
@@ -1249,4 +1251,6 @@
   <string name="manage_wallet_change_wallet_name_title">Изменить название кошелька</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

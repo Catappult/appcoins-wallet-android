@@ -39,7 +39,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
   <string name="title_delete_account">Anda pasti mahu alih keluar dompet ini?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Kumpulan Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komuniti</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Pembelian ini telah ditolak.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_reverted_body">Pembelian ini telah dibatalkan.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Butiran transaksi</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
   <string name="activity_airdrop_details">Ini hanyalah ciri keselamatan.</string>
   <string name="activity_airdrop_hint">Taipkan perkataan di dalam imej</string>
@@ -821,7 +823,7 @@
   <string name="subscriptions_cancel_title">Batal Langganan</string>
   <string name="subscriptions_cancel_body">Anda pasti mahu batalkan langganan ini?</string>
   <string name="subscriptions_cancel_no_button">Tidak, kembali</string>
-  <string name="subscriptions_cancel_yes_button">Ya, batalkan langganan</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Langganan Dibatalkan!</string>
   <string name="subscriptions_cancel_confirmation_body">Anda tidak akan dikenakan bayaran lagi untuk langganan ini, dan anda boleh gunakannya sehingga %s.</string>
   <string name="subscriptions_category_title">Langganan</string>
@@ -1192,8 +1194,8 @@
   <string name="intro_backup_card_body">Sandarkan dompet anda dan pastikan ia selamat sepanjang masa.</string>
   <string name="rewards_spend_to_next_level_body">Belanja sebanyak %1$s%2$s lagi untuk capai tahap seterusnya!</string>
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
-  <string name="rewards_eskills_card_title">Peroleh Wang!</string>
-  <string name="rewards_eskills_card_body">Tewaskan pemain lain dengan e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Kod Promo</string>
   <string name="rewards_promo_code_card_body">Gunakan kod promo untuk dapat tawaran istimewa!</string>
   <string name="rewards_promo_code_status">Status:</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">Tukar nama dompet</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

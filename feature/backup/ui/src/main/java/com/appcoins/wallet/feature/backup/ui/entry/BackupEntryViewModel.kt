@@ -40,7 +40,7 @@ constructor(
     viewModelScope.launch {
       val walletInfo =
         withContext(dispatchers.io) {
-          getWalletInfoUseCase(walletAddress, cached = true, updateFiat = true).await()
+          getWalletInfoUseCase(walletAddress, cached = true).await()
         }
       suspend { mapBalance(walletInfo.walletBalance) }
         .mapSuspendToAsync(BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
