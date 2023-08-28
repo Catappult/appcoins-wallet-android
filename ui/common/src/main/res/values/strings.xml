@@ -1370,7 +1370,6 @@
   <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
   <string name="verify_card_one_more_step_button">Insert code</string>
   <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verify Card</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>
