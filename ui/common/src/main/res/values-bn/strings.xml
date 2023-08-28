@@ -39,7 +39,7 @@
   <string name="ok">ঠিক আছে</string>
   <string name="barcode_error_format">অকার্যকর বারকোড বিন্যাস: %s</string>
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
-  <string name="twitter">টুইটার</string>
+  <string name="twitter">X</string>
   <string name="telegram">টেলিগ্রাম গোষ্ঠী</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">সমাজ</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">অ্যাপকয়েনে কিছু গ্রহণ করার জন্য প্রমান করুন আপনি মানুষ</string>
   <string name="activity_airdrop_details">এটি শুধুমাত্র একটি নিরাপত্তা জিনিস।</string>
   <string name="activity_airdrop_hint">ছবিতে থাকা শব্দ টাইপ করুন</string>
@@ -822,7 +824,7 @@
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
   <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
   <string name="subscriptions_category_title">Subscription</string>
@@ -1205,8 +1207,8 @@
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">স্ট্যাটাস:</string>
@@ -1223,4 +1225,6 @@
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

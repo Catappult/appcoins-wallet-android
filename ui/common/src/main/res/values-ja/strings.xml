@@ -39,7 +39,7 @@
   <string name="ok">わかりました</string>
   <string name="barcode_error_format">無効なバーコード形式: %s</string>
   <string name="title_delete_account">本当にこのウォレットを削除しますか？</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">テレグラムグループ</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">コミュニティ</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">この購入は却下されました。\nサポートにお問い合わせください。</string>
   <string name="transaction_reverted_body">この購入は取り消されました。\n詳しくはサポートにお問い合わせください。</string>
   <string name="transaction_status_rejected">拒否</string>
-  <string name="transaction_details_header">トランザクション詳細</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
@@ -821,7 +823,7 @@
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
   <string name="subscriptions_cancel_no_button">いいえ、戻る</string>
-  <string name="subscriptions_cancel_yes_button">はい、サブスクリプションをキャンセルします</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">購読がキャンセルされました！</string>
   <string name="subscriptions_cancel_confirmation_body">この購読には今後課金されませんが、%sまでお使いいただけます。</string>
   <string name="subscriptions_category_title">購読</string>
@@ -1192,8 +1194,8 @@
   <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
   <string name="rewards_spend_to_next_level_body">ネットレベルに到達するために、さらに%1$s%2$sを使う！</string>
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
-  <string name="rewards_eskills_card_title">お金を稼ごう！</string>
-  <string name="rewards_eskills_card_body">e-Skillで他のプレイヤーに勝とう</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">プロモーションコード</string>
   <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
   <string name="rewards_promo_code_status">状況:</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

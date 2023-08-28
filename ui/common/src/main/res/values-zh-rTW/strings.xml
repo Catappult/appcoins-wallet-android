@@ -39,7 +39,7 @@
   <string name="ok">了解</string>
   <string name="barcode_error_format">無效的QR碼格式：%s</string>
   <string name="title_delete_account">確認移除此錢包嗎？</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram群組</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">社群網站</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">完成驗證以接收您的AppCoins</string>
   <string name="activity_airdrop_details">這只是為了保證安全。</string>
   <string name="activity_airdrop_hint">請輸入圖中的文字</string>
@@ -821,7 +823,7 @@
   <string name="subscriptions_cancel_title">取消訂閱</string>
   <string name="subscriptions_cancel_body">確認取消此訂閱嗎？</string>
   <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">訂閱已取消！</string>
   <string name="subscriptions_cancel_confirmation_body">您將不再為此訂閱付費，並且可以在%s之前繼續使用它。</string>
   <string name="subscriptions_category_title">訂閱</string>
@@ -1192,8 +1194,8 @@
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">狀態:</string>
@@ -1210,4 +1212,6 @@
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>

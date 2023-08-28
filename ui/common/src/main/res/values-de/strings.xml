@@ -39,7 +39,7 @@
   <string name="ok">Okay</string>
   <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
   <string name="title_delete_account">Bist du sicher, dass du diese Wallet entfernen willst?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram Gruppe</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Dieser Kauf wurde abgelehnt.\nFür weitere Informationen wende dich an den Support.</string>
   <string name="transaction_reverted_body">Dieser Kauf wurde zurückerstattet.\nFür weitere Informationen wende dich an den Support.</string>
   <string name="transaction_status_rejected">Abgelehnt</string>
-  <string name="transaction_details_header">Transaktionsdetail</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, musst du bestätigen, dass du ein Mensch bist</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheitsvorgang.</string>
   <string name="activity_airdrop_hint">Gib die Zeichen im Bild ein</string>
@@ -822,7 +824,7 @@
   <string name="subscriptions_cancel_title">Abonnement kündigen</string>
   <string name="subscriptions_cancel_body">Bist du sicher, dass du dieses Abonnement kündigen willst?</string>
   <string name="subscriptions_cancel_no_button">Nein, zurückgehen</string>
-  <string name="subscriptions_cancel_yes_button">Ja, Abonnement kündigen</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement wurde gekündigt!</string>
   <string name="subscriptions_cancel_confirmation_body">Du musst für dieses Abonnement nichts mehr bezahlen, du kannst es noch bis %s nutzen.</string>
   <string name="subscriptions_category_title">Abonnement</string>
@@ -1205,8 +1207,8 @@
   <string name="intro_backup_card_body">Mach ein Backup deiner Wallet und halte sie jederzeit sicher.</string>
   <string name="rewards_spend_to_next_level_body">Gib mehr %1$s%2$s aus, um das nächste Level zu erreichen!</string>
   <string name="rewards_current_bonus_title">%s%% bonus für jeden Einkauf</string>
-  <string name="rewards_eskills_card_title">Verdiene Geld!</string>
-  <string name="rewards_eskills_card_body">Schlage andere Spieler mit e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promocodes</string>
   <string name="rewards_promo_code_card_body">Verwende einen Promocode, um besondere Angebote zu erhalten!</string>
   <string name="rewards_promo_code_status">Status:</string>
@@ -1223,4 +1225,6 @@
   <string name="manage_wallet_change_wallet_name_title">Wallet-Namen ändern</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 </resources>
