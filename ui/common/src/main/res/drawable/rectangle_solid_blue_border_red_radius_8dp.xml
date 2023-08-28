@@ -9,5 +9,6 @@
 
   <!-- The radius makes the corners rounded -->
   <corners android:radius="8dp" />
+  <solid android:color="@color/styleguide_blue" />
 
 </shape>
