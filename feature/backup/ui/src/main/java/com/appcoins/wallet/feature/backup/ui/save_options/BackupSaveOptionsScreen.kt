@@ -49,7 +49,8 @@ fun BackupSaveOptionsRoute(
   viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
 ) {
   Scaffold(
-    topBar = { Surface { TopBar(onClickSupport = { onChatClick() }) } }, modifier = Modifier
+    topBar = { Surface { TopBar(onClickSupport = onChatClick) } },
+    modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(scaffoldPadding = padding, onSaveOnDevice = onSaveOnDevice) {
       viewModel.sendBackupToEmail(passwordInput)
@@ -156,9 +157,7 @@ fun SaveOnDeviceOptions(
       }
       ButtonWithText(
         label = stringResource(id = R.string.backup_ready_email_button),
-        onClick = {
-          if (validEmail) onSendEmailClick()
-        },
+        onClick = { if (validEmail) onSendEmailClick() },
         backgroundColor =
         if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
         labelColor = WalletColors.styleguide_light_grey,

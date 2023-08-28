@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -33,116 +34,90 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupErrorRoute(
-  onExitClick: () -> Unit,
-  onChatClick: () -> Unit,
-  onCancelBackup : () -> Unit
-) {
+fun BackupErrorRoute(onExitClick: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit) {
   Scaffold(
     topBar = {
       Surface {
-        TopBar(isMainBar = false, onClickSupport = { onChatClick() })
+        TopBar(isMainBar = false, onClickBack = onExitClick, onClickSupport = onChatClick)
       }
     },
     modifier = Modifier
   ) { padding ->
-    BackupErrorScreen(
-      scaffoldPadding = padding,
-      onExitClick = onExitClick,
-      onCancelBackup = onCancelBackup
-    )
+    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup)
   }
 }
 
 @Composable
-fun BackupErrorScreen(
-  scaffoldPadding: PaddingValues,
-  onExitClick: () -> Unit,
-  onCancelBackup: () -> Unit
-){
+fun BackupErrorScreen(scaffoldPadding: PaddingValues, onCancelBackup: () -> Unit) {
   Column(
-    modifier = Modifier
+    modifier =
+    Modifier
       .fillMaxSize(1f)
       .padding(scaffoldPadding)
       .verticalScroll(rememberScrollState()),
   ) {
     Column(
-      modifier = Modifier.padding(start = 27.dp,top = 10.dp),
+      modifier = Modifier.padding(start = 24.dp, top = 8.dp, end = 24.dp, bottom = 48.dp),
       horizontalAlignment = Alignment.Start
     ) {
       Text(
         style = WalletTypography.bold.sp22,
         color = WalletColors.styleguide_light_grey,
         text = stringResource(id = R.string.backup_title),
-        modifier = Modifier.padding(
+        modifier =
+        Modifier.padding(
           bottom = 20.dp,
         )
       )
       Text(
         text = stringResource(id = R.string.backup_body),
-        modifier = Modifier.padding(
-          bottom = 4.dp, end = 27.dp
-        ),
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey,
-
-        )
+      )
     }
-    BackupDialogCard(
-      onExitClick = onExitClick,
-      onCancelBackup = onCancelBackup
-    )
+    BackupDialogCard(onCancelBackup = onCancelBackup)
   }
 }
 
-
 @Composable
-fun BackupDialogCard(
-  onExitClick: () -> Unit,
-  onCancelBackup: () -> Unit
-) {
+fun BackupDialogCard(onCancelBackup: () -> Unit) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier
       .fillMaxWidth()
-      .padding(bottom = 40.dp, top = 40.dp, start = 16.dp, end = 16.dp),
+      .padding(horizontal = 16.dp),
     colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
-  ){
+  ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
         .fillMaxWidth()
         .padding(40.dp)
     ) {
-      WalletImage(
-        Modifier
-          .size(40.dp),
-        data = R.drawable.ic_alert_circle_red
-      )
+      WalletImage(Modifier.size(40.dp), data = R.drawable.ic_alert_circle)
       Text(
         text = stringResource(id = R.string.error_general),
         style = WalletTypography.bold.sp22,
         color = WalletColors.styleguide_light_grey,
-        modifier = Modifier.padding(top = 28.93.dp)
+        modifier = Modifier.padding(top = 24.dp)
       )
       Text(
-        text = "We are unable to create the backup file. Try again later", //criar string
+        text = stringResource(R.string.backup_error_body),
         style = WalletTypography.medium.sp14,
         color = WalletColors.styleguide_light_grey,
         textAlign = TextAlign.Center
       )
     }
     Row(
-      Modifier.padding(top = 11.dp, bottom = 24.dp, end = 24.dp).fillMaxWidth(),
+      Modifier
+        .padding(top = 8.dp, bottom = 24.dp, end = 24.dp)
+        .fillMaxWidth(),
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.End
     ) {
-
       ButtonWithText(
         label = stringResource(id = R.string.cancel_button),
-        onClick = {
-          onCancelBackup()
-        },
+        onClick = { onCancelBackup() },
         backgroundColor = Color.Transparent,
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.DEFAULT
@@ -150,13 +125,17 @@ fun BackupDialogCard(
 
       ButtonWithText(
         label = stringResource(id = R.string.try_again),
-        onClick = {
-            onCancelBackup()
-        },
+        onClick = { onCancelBackup() },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.DEFAULT
       )
     }
   }
+}
+
+@Preview
+@Composable
+fun BackupDialogCardPreview() {
+  BackupDialogCard {}
 }

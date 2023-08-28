@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupErrorScreenFragment: BasePageViewFragment() {
+class BackupErrorScreenFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase
@@ -31,7 +31,8 @@ class BackupErrorScreenFragment: BasePageViewFragment() {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
@@ -41,8 +42,7 @@ class BackupErrorScreenFragment: BasePageViewFragment() {
             BackupErrorRoute(
               onExitClick = { handleBackPress() },
               onChatClick = { displayChat() },
-              onCancelBackup = { navigator.navigateToManageWallet(navController()) }
-            )
+              onCancelBackup = { navigator.navigateToManageWallet(navController()) })
           }
         }
       }
@@ -50,9 +50,9 @@ class BackupErrorScreenFragment: BasePageViewFragment() {
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 
