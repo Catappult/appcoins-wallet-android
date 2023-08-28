@@ -233,7 +233,7 @@ constructor(
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
       .flatMap { observeRefreshData() }
       .switchMap {
-        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+        observeWalletInfoUseCase(null, update = true)
           .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
           .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
             copy(defaultWalletBalanceAsync = it)
@@ -249,7 +249,7 @@ constructor(
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
       .flatMap { observeRefreshData() }
       .switchMap {
-        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+        observeWalletInfoUseCase(null, update = true)
           .map { walletInfo -> walletInfo.hasBackup }
           .asAsyncToState(HomeState::hasBackup) {
             copy(hasBackup = it)
@@ -468,7 +468,7 @@ constructor(
   fun onSeeAllTransactionsClick() = sendSideEffect { HomeSideEffect.NavigateToTransactionsList }
 
   private fun handleBackupTrigger() {
-    getWalletInfoUseCase(null, cached = false, updateFiat = false)
+    getWalletInfoUseCase(null, cached = false)
       .flatMap { walletInfo ->
         rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
           if (shouldShow &&

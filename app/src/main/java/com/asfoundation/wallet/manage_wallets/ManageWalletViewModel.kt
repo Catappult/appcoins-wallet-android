@@ -55,7 +55,7 @@ constructor(
   }
 
   private fun getActiveWallet(wallets: WalletsModel) {
-    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true, updateFiat = true)
+    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
       .firstOrError()
       .doOnSuccess { _uiState.value = UiState.Success(it, wallets.inactiveWallets()) }
       .subscribe()
