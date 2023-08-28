@@ -1364,7 +1364,7 @@
   
 
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
   <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
