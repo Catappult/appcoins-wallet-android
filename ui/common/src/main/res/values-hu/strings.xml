@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Wallet biztonsági mentés!</string>
   <string name="backup_popup_purchase_body">Mindig tartsd biztonságban a pénzed.</string>
   <string name="backup_popup_gamification_body">Mindig tartsd biztonságban a bónuszszinted.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>
