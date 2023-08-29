@@ -12,9 +12,11 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2C
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.ui.arch.*
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
@@ -22,7 +24,7 @@ import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentInfoModelUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionOriginUseCase
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.gson.JsonObject
@@ -47,13 +49,13 @@ data class OnboardingAdyenPaymentState(val paymentInfoModel: Async<PaymentInfoMo
 
 @HiltViewModel
 class OnboardingAdyenPaymentViewModel @Inject constructor(
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val events: OnboardingPaymentEvents,
-  private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
-  private val transactionOriginUseCase: GetTransactionOriginUseCase,
-  private val supportInteractor: SupportInteractor,
-  private val rxSchedulers: RxSchedulers,
-  savedStateHandle: SavedStateHandle
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val events: OnboardingPaymentEvents,
+    private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
+    private val transactionOriginUseCase: GetTransactionOriginUseCase,
+    private val supportInteractor: SupportInteractor,
+    private val rxSchedulers: RxSchedulers,
+    savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect>(
     OnboardingAdyenPaymentState()

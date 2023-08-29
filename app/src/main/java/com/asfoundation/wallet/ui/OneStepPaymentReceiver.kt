@@ -10,12 +10,12 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.TransferParser
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -66,8 +66,8 @@ class OneStepPaymentReceiver : BaseActivity() {
       walletCreationText = findViewById(R.id.create_wallet_text)
       if (savedInstanceState == null) {
         disposable = handleWalletCreationIfNeeded()
-          .takeUntil { it != WalletGetterStatus.CREATING.toString() }
-          .filter { it != WalletGetterStatus.CREATING.toString() }
+          .takeUntil { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
+          .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
           .flatMap {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
@@ -141,11 +141,11 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletService.findWalletOrCreate()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnNext {
-        if (it == WalletGetterStatus.CREATING.toString()) {
+        if (it == com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString()) {
           showLoadingAnimation()
         }
       }
-      .filter { it != WalletGetterStatus.CREATING.toString() }
+      .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
       .map {
         endAnimation()
         it

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/withdraw_bottom_sheet_success_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/withdraw_bottom_sheet_success_image"
+      android:layout_width="76dp"
+      android:layout_height="76dp"
+      android:layout_centerInParent="true"
+      android:layout_marginTop="54dp"
+      android:src="@drawable/ic_success"
+      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/withdraw_bottom_sheet_success_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <TextView
+      android:id="@+id/withdraw_bottom_sheet_success_title"
+      style="@style/PromoCodeSuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:text="@string/e_skills_withdraw_started_title"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_white"
+      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/withdraw_bottom_sheet_success_subtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/withdraw_bottom_sheet_success_image"
+      />
+
+  <TextView
+      android:id="@+id/withdraw_bottom_sheet_success_subtitle"
+      style="@style/PromoCodeSuccessSubtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:text="@string/e_skills_withdraw_started_body"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_white"
+      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/withdraw_bottom_sheet_success_got_it_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/withdraw_bottom_sheet_success_title"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/withdraw_bottom_sheet_success_got_it_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="16dp"
+      app:buttonText="@string/got_it_button"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/withdraw_bottom_sheet_success_subtitle"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

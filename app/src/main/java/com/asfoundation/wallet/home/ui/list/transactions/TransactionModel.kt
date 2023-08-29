@@ -11,7 +11,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.transactions.Transaction

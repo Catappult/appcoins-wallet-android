@@ -4,7 +4,7 @@ import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -20,18 +20,18 @@ import java.math.BigDecimal
 import java.util.*
 
 class CarrierVerifyPresenter(
-  private val disposables: CompositeDisposable,
-  private val view: CarrierVerifyView,
-  private val data: CarrierVerifyData,
-  private val navigator: CarrierVerifyNavigator,
-  private val interactor: CarrierInteractor,
-  private val billingAnalytics: BillingAnalytics,
-  private val appInfoProvider: ApplicationInfoProvider,
-  private val stringProvider: StringProvider,
-  private val formatter: CurrencyFormatUtils,
-  private val logger: Logger,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler) {
+    private val disposables: CompositeDisposable,
+    private val view: CarrierVerifyView,
+    private val data: CarrierVerifyData,
+    private val navigator: CarrierVerifyNavigator,
+    private val interactor: CarrierInteractor,
+    private val billingAnalytics: BillingAnalytics,
+    private val appInfoProvider: ApplicationInfoProvider,
+    private val stringProvider: StringProvider,
+    private val formatter: CurrencyFormatUtils,
+    private val logger: Logger,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler) {
 
   fun present() {
     initializeView()

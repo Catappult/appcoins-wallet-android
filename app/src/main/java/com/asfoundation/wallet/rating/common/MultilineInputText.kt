@@ -36,17 +36,16 @@ class MultilineInputText : FrameLayout {
 
   fun setError(errorText: String) {
     error_text.text = errorText
-    root_view.setBackgroundResource(R.drawable.rectangle_outline_red_radius_8dp)
+    root_view.setBackgroundResource(R.drawable.rectangle_solid_blue_border_red_radius_8dp)
     error_layout.visibility = View.VISIBLE
   }
 
   fun reset() {
-    root_view.setBackgroundResource(R.drawable.rectangle_outline_grey_radius_8dp)
+    root_view.setBackgroundResource(R.drawable.rectangle_outline_blue_radius_8dp)
     error_layout.visibility = View.GONE
   }
 
   fun addTextWatcher(textWatcher: TextWatcher) {
     input_text.addTextChangedListener(textWatcher)
   }
-
 }

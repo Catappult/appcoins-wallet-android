@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity

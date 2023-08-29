@@ -6,12 +6,12 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletActivityLayoutBinding
-import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -29,6 +29,21 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     toolbar()
     authenticationResultSubject = PublishSubject.create()
     if (savedInstanceState == null) navigateToInitialRemoveWalletView()
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+   fun toolbar(): Toolbar? {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,7 +99,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToBackUp(walletAddress: String) =
-    startActivity(BackupActivity.newIntent(this, walletAddress, false))
+    startActivity(
+        com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(this, walletAddress, false))
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED

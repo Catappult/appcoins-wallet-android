@@ -2,9 +2,11 @@
 <resources>
   <!-- Main style guide colors -->
   <color name="styleguide_pink">#FF6381</color>
-  <color name="styleguide_blue">#111B39</color>
+  <color name="styleguide_blue">#1A1A24</color>
+  <color name="styleguide_blue_secondary">#242333</color>
   <color name="styleguide_medium_grey">#C9C9C9</color>
   <color name="styleguide_light_grey">#F5F5F5</color>
+  <color name="styleguide_dark_grey">#8E93A1</color>
   <color name="styleguide_white">#FFFFFFFF</color>
 
   <color name="white">#FFFFFFFF</color>

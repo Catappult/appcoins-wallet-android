@@ -39,7 +39,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
   <string name="title_delete_account">Bạn có chắc chắn muốn xóa ví này?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Nhóm Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Cộng đồng</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Giao dịch mua này đã bị từ chối.\nĐể biết thêm thông tin, hãy liên hệ với bộ phận hỗ trợ.</string>
   <string name="transaction_reverted_body">Giao dịch mua này đã được hoàn nguyên.\nĐể biết thêm thông tin, hãy liên hệ với bộ phận hỗ trợ.</string>
   <string name="transaction_status_rejected">Đã bị từ chối</string>
-  <string name="transaction_details_header">Chi tiết giao dịch</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
   <string name="activity_airdrop_hint">Nhập từ trong ảnh</string>
@@ -736,6 +738,7 @@
   <string name="backup_popup_title">Sao lưu ví của bạn ngay bây giờ!</string>
   <string name="backup_popup_purchase_body">Giữ tiền của bạn an toàn mọi lúc.</string>
   <string name="backup_popup_gamification_body">Giữ mức tiền thưởng của bạn an toàn mọi lúc.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
@@ -821,7 +824,7 @@
   <string name="subscriptions_cancel_title">Hủy gói đăng ký</string>
   <string name="subscriptions_cancel_body">Bạn có chắc chắn muốn hủy gói đăng ký này?</string>
   <string name="subscriptions_cancel_no_button">Không, quay lại</string>
-  <string name="subscriptions_cancel_yes_button">Có, hủy gói đăng ký</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Gói đăng ký đã bị hủy!</string>
   <string name="subscriptions_cancel_confirmation_body">Bạn sẽ không bị tính phí cho gói đăng ký này nữa và có thể sử dụng nó cho đến %s.</string>
   <string name="subscriptions_category_title">Gói đăng ký</string>
@@ -1192,8 +1195,8 @@
   <string name="intro_backup_card_body">Sao lưu ví của bạn và giữ nó an toàn mọi lúc.</string>
   <string name="rewards_spend_to_next_level_body">Chi thêm %1$s%2$s để đạt cấp độ tiếp theo!</string>
   <string name="rewards_current_bonus_title">%s%% tiền thưởng trên mỗi giao dịch mua</string>
-  <string name="rewards_eskills_card_title">Kiếm tiền thôi!</string>
-  <string name="rewards_eskills_card_body">Đánh bại những người chơi khác bằng e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Mã khuyến mãi</string>
   <string name="rewards_promo_code_card_body">Sử dụng mã khuyến mãi để nhận ưu đãi đặc biệt!</string>
   <string name="rewards_promo_code_status">Trạng thái:</string>
@@ -1210,4 +1213,25 @@
   <string name="manage_wallet_change_wallet_name_title">Thay đổi tên ví</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 </resources>

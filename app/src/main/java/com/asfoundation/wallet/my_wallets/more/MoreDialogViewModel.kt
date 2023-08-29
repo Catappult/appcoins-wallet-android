@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.my_wallets.more
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.ui.wallets.WalletBalance
-import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
-import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -23,11 +23,11 @@ data class MoreDialogStateItem constructor(
   val walletAddress: String,
   val fiatBalance: String
 ) {
-  constructor(walletAddress: String, walletBalance: WalletBalance) : this(
-    walletAddress == walletBalance.walletAddress,
-    walletBalance.walletName,
-    walletBalance.walletAddress,
-    walletBalance.balance.symbol + currencyFormatUtils.formatCurrency(walletBalance.balance.amount)
+  constructor(walletAddress: String, walletInfoSimple: WalletInfoSimple) : this(
+    walletAddress == walletInfoSimple.walletAddress,
+      walletInfoSimple.walletName,
+      walletInfoSimple.walletAddress,
+      walletInfoSimple.balance.symbol + currencyFormatUtils.formatCurrency(walletInfoSimple.balance.amount)
   )
 
   companion object {
@@ -46,9 +46,9 @@ data class MoreDialogState(
 
 @HiltViewModel
 class MoreDialogViewModel @Inject constructor(
-  savedStateHandle: SavedStateHandle,
-  private val walletsInteract: WalletsInteract,
-  private val walletDetailsInteractor: WalletDetailsInteractor,
+    savedStateHandle: SavedStateHandle,
+    private val walletsInteract: WalletsInteract,
+    private val walletDetailsInteractor: WalletDetailsInteractor,
 ) :
   BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
 

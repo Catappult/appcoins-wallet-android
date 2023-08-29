@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -13,7 +12,7 @@
       app:defaultNavHost="true"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -64,10 +63,11 @@
       app:itemRippleColor="@color/styleguide_dark_grey"
       app:itemTextColor="@color/bottom_nav_color_state"
       app:labelVisibilityMode="labeled"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/composeView"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:menu="@menu/bottom_navigation_menu"
+      android:visibility="gone"
       />
 
   <FrameLayout
@@ -79,5 +79,14 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/composeView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:elevation="6dp"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,15 +5,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-  <ProgressBar
+  <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:indeterminateDrawable="@drawable/gradient_progress"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_centerInParent="true"
+      android:layout_marginTop="48dp"
+      android:layout_marginBottom="32dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_wallet"
       />
   <LinearLayout
       android:id="@+id/error_box"

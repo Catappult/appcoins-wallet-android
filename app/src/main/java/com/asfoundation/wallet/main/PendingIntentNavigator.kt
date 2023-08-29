@@ -4,7 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.Navigator
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.common.error
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.IabActivity
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
