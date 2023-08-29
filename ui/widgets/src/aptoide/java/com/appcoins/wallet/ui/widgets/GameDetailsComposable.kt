@@ -152,12 +152,21 @@ private fun TopAppView(
     Box(
       modifier = Modifier.height(228.dp)
     ) {
-      AsyncImage(
-        model = appDetailsData.gameBackground,
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-      )
+      if (appDetailsData.gameBackground == null){
+        Image(
+          painter = painterResource(id = R.drawable.default_background_carousel),
+          contentDescription = "background",
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      } else {
+        AsyncImage(
+          model = appDetailsData.gameBackground,
+          contentDescription = null,
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      }
       BoxShadow()
       //TopBarButtons(close)
       Row(

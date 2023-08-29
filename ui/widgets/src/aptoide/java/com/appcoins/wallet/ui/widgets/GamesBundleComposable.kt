@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -80,12 +82,21 @@ private fun CardItem(
     Box(
       modifier = Modifier.fillMaxSize()
     ) {
-      AsyncImage(
-        model = gameCardData.gameBackground,
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-      )
+      if (gameCardData.gameBackground == null){
+        Image(
+          painter = painterResource(id = R.drawable.default_background_carousel),
+          contentDescription = "background",
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      } else {
+        AsyncImage(
+          model = gameCardData.gameBackground,
+          contentDescription = null,
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      }
       Box(
         modifier = Modifier
           .align(Alignment.BottomStart)
@@ -154,7 +165,7 @@ private fun CardItem(
 data class GameData(
   val title: String,
   val gameIcon: String,
-  val gameBackground: String,
+  val gameBackground: String?,
   val gamePackage: String
 )
 
