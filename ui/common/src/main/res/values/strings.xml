@@ -1362,6 +1362,10 @@
   <string name="manage_wallet_verify_title">Verify a Payment Method</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
 
+  <!-- Challenge-Reward -->
+  <string name="reward_wallet_challenges_card_title">Challenges</string>
+  <string name="reward_wallet_challenges_card_description">Get your free AppCoins Credits</string>
+  <string name="payments_methods_challenges_underlined_text"><u>Complete challenges to get your free AppCoins Credits</u></string>
 
 
 
