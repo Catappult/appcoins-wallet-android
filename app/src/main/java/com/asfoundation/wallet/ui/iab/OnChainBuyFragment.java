@@ -125,7 +125,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
     if (StringUtils.isNotBlank(getBonus())) {
-      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
+      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation_new);
       setupTransactionCompleteAnimation();
     } else {
       lottieTransactionComplete.setAnimation(R.raw.success_animation);

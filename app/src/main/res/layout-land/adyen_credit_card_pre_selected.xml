@@ -73,22 +73,6 @@
           tools:visibility="visible"
           />
 
-      <TextView
-          android:id="@+id/bonus_msg_pre_selected"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:gravity="center_vertical"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout_pre_selected"
-          tools:visibility="visible"
-          />
       <ScrollView
           android:id="@+id/payment_scroll"
           android:layout_width="0dp"
