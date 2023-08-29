@@ -738,6 +738,7 @@
   <string name="backup_popup_title">आपले वॉलेट आताच बॅकअप करा!</string>
   <string name="backup_popup_purchase_body">आपले पैसे नेहमीच सुरक्षित राखा.</string>
   <string name="backup_popup_gamification_body">आपले बोनस स्तर नेहमीच सुरक्षित राखा.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>

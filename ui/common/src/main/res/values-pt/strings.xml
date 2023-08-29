@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Faz já o back up da tua wallet!</string>
   <string name="backup_popup_purchase_body">Mantém sempre os teus fundos em segurança.</string>
   <string name="backup_popup_gamification_body">Mantém sempre o teu nível de bónus em segurança.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>

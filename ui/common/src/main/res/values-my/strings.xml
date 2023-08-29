@@ -738,6 +738,7 @@
   <string name="backup_popup_title">သင့္ပိုက္ဆံအိတ္ကို ယခုပင္ အရန္သိမ္းဆည္းလိုက္ပါ။</string>
   <string name="backup_popup_purchase_body">သင့္ေငြမ်ားကို အခ်ိန္ျပည့္ ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
   <string name="backup_popup_gamification_body">သင့္ေဘာနပ္စ္အဆင့္ကို အခ်ိန္ျပည့္ ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_total_balance_title">%s တြင္ စုစုေပါင္းလက္က်န္ေငြ</string>

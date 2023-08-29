@@ -7,6 +7,10 @@
   <string name="cancel">İptal et</string>
   <string name="buy_button">Satın Al</string>
   <string name="topup_button">Yükle</string>
+  <string name="downloading">Downloading</string>
+  <string name="get_button">Get</string>
+  <string name="got_it_button">Got it</string>
+  <string name="install_button">Install</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
@@ -78,4 +82,11 @@
   <string name="your_ranking_title">Your ranking</string>
   <string name="retry">RETRY</string>
   <string name="leaderboard_btn_text">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Earn Money</string>
+  <string name="eskills_carousel_body">Beat other players with e-Skills</string>
+  <string name="eskills_game_1">Install the e-Skills game you think you\'re better at.</string>
+  <string name="carousel_game_2">Open it and get an entry ticket to start a match against other players.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Description</string>
 </resources>

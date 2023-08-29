@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Rating.DialogCardStyle"
-    android:layout_width="332dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:paddingTop="25dp"
+    android:layout_marginHorizontal="16dp"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="48dp"
+    android:paddingBottom="24dp"
     android:theme="@style/MaterialAppTheme"
     >
 
@@ -36,85 +39,62 @@
 
   <TextView
       android:id="@+id/description"
-      android:layout_width="280dp"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="10dp"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginTop="8dp"
       android:gravity="center"
+      android:textColor="@color/styleguide_light_grey"
       android:text="@string/rate_us_possitive_thanks_body"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/title"
       />
 
-  <com.appcoins.wallet.ui.widgets.SeparatorView
-      android:id="@+id/separator1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/description"
-      app:line_orientation="horizontal"
-      app:line_type="solid"
-      />
-
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/rate_app_button"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_list_height"
+      android:layout_width="0dp"
+      android:layout_height="56dp"
       android:layout_gravity="center_vertical"
       app:buttonText="@string/rate_us_possitive_rate_button"
+      android:layout_marginTop="16dp"
       app:buttonType="text"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/separator1"
-      />
-
-  <com.appcoins.wallet.ui.widgets.SeparatorView
-      android:id="@+id/separator2"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
+      android:background="@drawable/rectangle_outline_blue_radius_8dp"
+      app:buttonColor="@color/styleguide_light_grey"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/rate_app_button"
-      app:line_orientation="horizontal"
-      app:line_type="solid"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/description"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/remind_me_later_button"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_list_height"
+      android:layout_width="0dp"
+      android:layout_height="56dp"
       android:layout_gravity="center_vertical"
-      app:buttonColor="@color/styleguide_dark_grey"
+      android:layout_marginTop="8dp"
       app:buttonText="@string/remind_later_button"
       app:buttonType="text"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/separator2"
-      />
-
-  <com.appcoins.wallet.ui.widgets.SeparatorView
-      android:id="@+id/separator3"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="parent"
+      android:background="@drawable/rectangle_outline_blue_radius_8dp"
+      app:buttonColor="@color/styleguide_light_grey"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/remind_me_later_button"
-      app:line_orientation="horizontal"
-      app:line_type="solid"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/rate_app_button"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/no_button"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_list_height"
+      android:layout_width="0dp"
+      android:layout_height="56dp"
       android:layout_gravity="center_vertical"
-      app:buttonColor="@color/styleguide_dark_grey"
+      android:layout_marginTop="8dp"
       app:buttonText="@string/no_thanks_button"
       app:buttonType="text"
+      android:background="@drawable/rectangle_outline_blue_radius_8dp"
+      app:buttonColor="@color/styleguide_light_grey"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/separator3"
+      app:layout_constraintTop_toBottomOf="@id/remind_me_later_button"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

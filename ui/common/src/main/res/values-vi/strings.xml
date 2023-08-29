@@ -738,6 +738,7 @@
   <string name="backup_popup_title">Sao lưu ví của bạn ngay bây giờ!</string>
   <string name="backup_popup_purchase_body">Giữ tiền của bạn an toàn mọi lúc.</string>
   <string name="backup_popup_gamification_body">Giữ mức tiền thưởng của bạn an toàn mọi lúc.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>

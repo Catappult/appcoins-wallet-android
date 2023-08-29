@@ -738,6 +738,7 @@
   <string name="backup_popup_title">지금 지갑 백업하기!</string>
   <string name="backup_popup_purchase_body">자금을 항상 안전하게 보관하세요.</string>
   <string name="backup_popup_gamification_body">보너스 레벨을 항상 안전하게 보관하세요.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
