@@ -1,27 +1,15 @@
 package com.asfoundation.wallet.backup
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.bottomSheet.BackupSaveOnDeviceBottomSheetFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class BackupSaveOptionsNavigator
-@Inject
-constructor(private val fragment: Fragment, private val navController: NavController) : Navigator {
-
-  fun navigateBack() {
-    (fragment as BottomSheetDialogFragment).dismiss()
-  }
-
-  fun handleBackPress() {
-    navController.popBackStack()
-  }
-
+class BackupSaveOptionsNavigator @Inject constructor(private val navController: NavController) :
+  Navigator {
   fun showWalletSuccessScreen() {
     navigate(
       navController,

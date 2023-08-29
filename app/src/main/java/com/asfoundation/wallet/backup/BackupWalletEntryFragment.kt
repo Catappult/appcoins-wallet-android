@@ -114,7 +114,6 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
         .doOnSuccess {
           navigator.showWalletChooseScreen(
             walletModel = it,
-            mainNavController = navController(),
           )
         }
         .subscribe({}, {})
