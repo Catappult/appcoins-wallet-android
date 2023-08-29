@@ -59,7 +59,8 @@ class SkillsEndgameViewModel @Inject constructor(
 
   fun isWinner(roomResult: RoomResult): Single<Boolean> {
     return walletAddressObtainer.getWalletAddress().map {
-        walletAddress -> walletAddress.address.equals(roomResult.winner)
+        walletAddress ->
+      walletAddress.address == roomResult.winner.walletAddress
     }.subscribeOn(Schedulers.io())
   }
 
