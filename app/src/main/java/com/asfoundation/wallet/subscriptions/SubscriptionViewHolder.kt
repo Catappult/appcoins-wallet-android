@@ -3,10 +3,10 @@ package com.asfoundation.wallet.subscriptions
 import android.graphics.Bitmap
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.R
 import com.asf.wallet.databinding.SubscriptionItemBinding
+import com.asfoundation.wallet.GlideApp
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import io.reactivex.subjects.PublishSubject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: CurrencyFormatUtils) :
     RecyclerView.ViewHolder(itemView) {
@@ -33,7 +33,6 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
       } else {
         showPriceInfo(this, item)
       }
-        binding.moreButton.setOnClickListener { clickCallback?.onNext(Pair(item, binding.appIcon)) }
         binding.itemParent.setOnClickListener { clickCallback?.onNext(Pair(item, binding.appIcon)) }
     }
 

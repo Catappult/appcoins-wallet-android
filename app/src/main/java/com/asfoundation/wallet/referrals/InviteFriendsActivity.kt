@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.*
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import com.asf.wallet.R
 import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asfoundation.wallet.router.ExternalBrowserRouter
-import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -53,6 +54,21 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     presenter =
         InviteFriendsActivityPresenter(this, referralInteractor, walletInteract,
             CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+   fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

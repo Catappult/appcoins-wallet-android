@@ -134,7 +134,9 @@ class UserStatsRepository @Inject constructor(
             startDate = it.startDate,
             notificationTitle = it.notificationTitle!!,
             viewType = it.viewType!!,
-            detailsLink = it.detailsLink
+            detailsLink = it.detailsLink,
+            actionUrl = it.actionUrl,
+            packageName = it.packageName
           )
       }
     }
@@ -192,7 +194,9 @@ class UserStatsRepository @Inject constructor(
               objectiveProgress = genericResponse.objectiveProgress,
               startDate = genericResponse.startDate,
               notificationTitle = genericResponse.notificationTitle,
-              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink
+              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink,
+              actionUrl = genericResponse.actionUrl,
+              packageName = genericResponse.packageName
             )
           }
         }

@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.recover.result
 
+import com.appcoins.wallet.feature.walletInfo.data.FailedRestore
+import com.appcoins.wallet.feature.walletInfo.data.RestoreResult
+import com.appcoins.wallet.feature.walletInfo.data.SuccessfulRestore
 import com.asfoundation.wallet.entity.WalletKeyStore
 import io.reactivex.Single
 

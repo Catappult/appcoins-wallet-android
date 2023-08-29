@@ -2,12 +2,12 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.core.utils.jvm_common.Repository;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.HasEnoughBalanceUseCase;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.ApproveService.Status;
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException;
-import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;

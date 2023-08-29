@@ -19,6 +19,7 @@
       <enum name="text" value="2" />
       <enum name="disabled" value="3" />
       <enum name="filled_gray_pink" value="4" />
+      <enum name="outlined_grey" value="5" />
     </attr>
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />
@@ -33,6 +34,7 @@
       <enum name="outlined" value="1" />
       <enum name="password" value="2" />
       <enum name="read_only" value="3" />
+      <enum name="number" value="4" />
     </attr>
     <attr name="textFieldHint" format="string" />
     <attr name="textFieldColor" format="color" />

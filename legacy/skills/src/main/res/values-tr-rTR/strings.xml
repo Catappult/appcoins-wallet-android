@@ -7,6 +7,10 @@
   <string name="cancel">İptal et</string>
   <string name="buy_button">Satın Al</string>
   <string name="topup_button">Yükle</string>
+  <string name="downloading">Downloading</string>
+  <string name="get_button">Get</string>
+  <string name="got_it_button">Got it</string>
+  <string name="install_button">Install</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
@@ -54,4 +58,35 @@
   <string name="not_enough_funds_body">Yeterli bakiyen yok! Giriş bileti almak için lütfen yükleme yap.</string>
   <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
   <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.</string>
+  <string name="restart_btn_text">Restart</string>
+  <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
+  <string name="opponent_details">(%1$s did %2$d points)</string>
+  <string name="retry_btn_text">RETRY</string>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <string name="rank_score_details">%1$d points</string>
+  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
+  <string name="you_won">You Won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <string name="days">Days</string>
+  <string name="hours">Hours</string>
+  <string name="minutes">Minutes</string>
+  <string name="seconds">Seconds</string>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward attributed in</string>
+  <string name="current_top_3">Current top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="retry">RETRY</string>
+  <string name="leaderboard_btn_text">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Earn Money</string>
+  <string name="eskills_carousel_body">Beat other players with e-Skills</string>
+  <string name="eskills_game_1">Install the e-Skills game you think you\'re better at.</string>
+  <string name="carousel_game_2">Open it and get an entry ticket to start a match against other players.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Description</string>
 </resources>

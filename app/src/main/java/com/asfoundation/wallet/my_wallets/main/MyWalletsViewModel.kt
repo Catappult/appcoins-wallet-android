@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.my_wallets.main
 
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceInteractor
+import com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
-import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
-import com.asfoundation.wallet.wallets.domain.WalletInfo
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -17,16 +17,16 @@ import javax.inject.Inject
 object MyWalletsSideEffect : SideEffect
 
 data class MyWalletsState(
-  val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
+        val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
+        val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
-  private val balanceInteractor: BalanceInteractor,
-  private val walletDetailsInteractor: WalletDetailsInteractor,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
+        private val balanceInteractor: BalanceInteractor,
+        private val walletDetailsInteractor: WalletDetailsInteractor,
+        private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+        private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {
@@ -73,7 +73,7 @@ class MyWalletsViewModel @Inject constructor(
 
   private fun fetchWalletInfo(flushAsync: Boolean) {
     val retainValue = if (flushAsync) null else MyWalletsState::walletInfoAsync
-    observeWalletInfoUseCase(null, update = true, updateFiat = true)
+    observeWalletInfoUseCase(null, update = true)
       .asAsyncToState(retainValue) { balance -> copy(walletInfoAsync = balance) }
       .repeatableScopedSubscribe(MyWalletsState::walletInfoAsync.name) { e ->
         e.printStackTrace()

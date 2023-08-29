@@ -39,7 +39,7 @@
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Telegram Grubu</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Bu satın alma işlemi reddedildi.\nDaha fazla bilgi için desteğe başvurun.</string>
   <string name="transaction_reverted_body">Bu satın alma işlemi geri alındı.\nDaha fazla bilgi için desteğe başvurun.</string>
   <string name="transaction_status_rejected">Reddedildi</string>
-  <string name="transaction_details_header">İşlem ayrıntıları</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
   <string name="activity_airdrop_hint">Görseldeki kelimeleri girin</string>
@@ -736,6 +738,7 @@
   <string name="backup_popup_title">Cüzdanını şimdi yedekle!</string>
   <string name="backup_popup_purchase_body">Paranı her zaman güvende tut.</string>
   <string name="backup_popup_gamification_body">Bonus seviyeni her zaman güvende tut.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
@@ -822,7 +825,7 @@
   <string name="subscriptions_cancel_title">Aboneliği İptal Edin</string>
   <string name="subscriptions_cancel_body">Bu aboneliği iptal etmek istediğinizden emin misiniz?</string>
   <string name="subscriptions_cancel_no_button">Hayır, geri dön</string>
-  <string name="subscriptions_cancel_yes_button">Evet, aboneliği iptal et</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Abonelik İptal Edildi!</string>
   <string name="subscriptions_cancel_confirmation_body">Bu abonelik için artık sizden ücret alınmayacak. Paketi %s tarihine kadar kullanabilirsiniz.</string>
   <string name="subscriptions_category_title">Abonelik</string>
@@ -1205,8 +1208,8 @@
   <string name="intro_backup_card_body">Cüzdanını yedekle ve her zaman güvende tut.</string>
   <string name="rewards_spend_to_next_level_body">Sonraki seviyeye geçmek için %1$s%2$s daha harca!</string>
   <string name="rewards_current_bonus_title">her satın alma işleminde %s%% bonus</string>
-  <string name="rewards_eskills_card_title">Para Kazan!</string>
-  <string name="rewards_eskills_card_body">e-Skills ile diğer oyuncuları mağlup et</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promosyon Kodları</string>
   <string name="rewards_promo_code_card_body">Özel fırsatları almak için bir promosyon kodu gir!</string>
   <string name="rewards_promo_code_status">Durum:</string>
@@ -1223,4 +1226,25 @@
   <string name="manage_wallet_change_wallet_name_title">Cüzdan ismini değiştir</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 </resources>

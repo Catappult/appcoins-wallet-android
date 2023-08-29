@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.nfts.usecases
 
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.repository.NFTRepository
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
+
 import io.reactivex.Single
 import javax.inject.Inject
 

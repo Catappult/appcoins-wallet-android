@@ -20,7 +20,8 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -426,8 +427,7 @@ class PaymentMethodsPresenter(
       if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
     }
       .andThen(
-        // updating fiat values is not necessary at this stage, the app only needs to know whether appcBalance > skuAppcPrice is true
-        getWalletInfoUseCase(null, cached = false, updateFiat = false)
+        getWalletInfoUseCase(null, cached = false)
           .subscribeOn(networkThread)
           .map { "" }
           .onErrorReturnItem("")
@@ -1073,7 +1073,12 @@ class PaymentMethodsPresenter(
           appcValue
         }
     } else {
-      Single.just(FiatValue(transaction.amount(), "APPC"))
+      Single.just(
+        FiatValue(
+          transaction.amount(),
+          "APPC"
+        )
+      )
     }
 
   private fun setLoadedPayment(paymentMethodId: String) {
