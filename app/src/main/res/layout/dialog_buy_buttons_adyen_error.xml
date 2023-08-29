@@ -23,7 +23,7 @@
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_back"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
+      android:layout_height="40dp"
       android:layout_gravity="center"
       android:layout_marginEnd="@dimen/big_margin"
       app:buttonText="@string/back_button"
@@ -34,7 +34,7 @@
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_try_again"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
+      android:layout_height="40dp"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="@dimen/big_margin"
       app:buttonText="@string/try_again"

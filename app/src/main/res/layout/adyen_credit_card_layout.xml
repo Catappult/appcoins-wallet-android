@@ -143,7 +143,6 @@
           android:gravity="center"
           android:text="@string/gamification_purchase_body"
           android:visibility="invisible"
-          tools:visibility="visible"
           app:layout_constraintTop_toBottomOf="@id/bonus_layout"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"

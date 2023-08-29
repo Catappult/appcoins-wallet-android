@@ -542,17 +542,17 @@
 
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">@color/styleguide_black</item>
-    <item name="colorControlActivated">@color/styleguide_black</item>
-    <item name="colorControlNormal">@color/styleguide_black</item>
-    <item name="colorControlHighlight">@color/styleguide_black</item>
+    <item name="hintTextColor">@color/styleguide_light_grey</item>
+    <item name="colorControlActivated">@color/styleguide_light_grey</item>
+    <item name="colorControlNormal">@color/styleguide_light_grey</item>
+    <item name="colorControlHighlight">@color/styleguide_light_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
-    <item name="endIconTint">@color/edit_text_stroke_color</item>
+    <item name="endIconTint">@color/styleguide_light_grey</item>
   </style>
 
 
@@ -569,7 +569,7 @@
   <style name="TransactionSuccessTextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="GamificationBottomPeekTextStyle">
@@ -961,7 +961,7 @@
   </style>
 
   <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">14sp</item>
   </style>
 
@@ -1350,4 +1350,10 @@
     <item name="android:textSize">16sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
+
+  <style name="CustomLogoutPopUpStyle" parent="Widget.AppCompat.PopupMenu">
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:itemBackground">@color/styleguide_payments_blue</item>
+  </style>
+
 </resources>

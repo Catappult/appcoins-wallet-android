@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Context
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
+import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -71,7 +73,8 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       else
         View.GONE
       binding.paymentMoreLogout.setOnClickListener {
-        val popup = PopupMenu(itemView.context.applicationContext, it)
+        var wrapper: Context =  ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
+        val popup = PopupMenu(wrapper, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
           binding.paymentMoreLogout.visibility = View.GONE

@@ -33,7 +33,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
-      app:lottie_rawRes="@raw/transaction_complete_bonus_animation"
+      app:lottie_rawRes="@raw/transaction_complete_bonus_animation_new"
       />
   <TextView
       android:id="@+id/next_payment_date"

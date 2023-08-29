@@ -247,7 +247,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val payment_methods: ConstraintLayout? get() = bindingCreditCardPreSelected?.paymentMethods
   private val change_card_button_pre_selected: WalletButtonView? get() = bindingCreditCardPreSelected?.changeCardButtonPreSelected
   private val more_payment_methods: WalletButtonView? get() = bindingCreditCardPreSelected?.morePaymentMethods
-  private val bonus_msg_pre_selected: TextView? get() = bindingCreditCardPreSelected?.bonusMsgPreSelected
   private val bonus_layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
   private val layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.layoutPreSelected?.root
   private val fragment_adyen_error_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
@@ -483,7 +482,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     buy_button.visibility = GONE
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
-    bonus_msg_pre_selected?.visibility = GONE
     bonus_layout?.visibility = GONE
     bonus_msg?.visibility = GONE
     more_payment_methods?.visibility = GONE
@@ -673,18 +671,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     if (bonus.isNotEmpty()) {
       bonus_layout?.visibility = VISIBLE
       bonus_layout_pre_selected?.visibility = VISIBLE
-      bonus_msg?.visibility = VISIBLE
-      bonus_msg_pre_selected?.visibility = VISIBLE
       bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
       frequency?.let {
         bonus_msg?.text = getString(R.string.subscriptions_bonus_body)
-        bonus_msg_pre_selected?.text = getString(R.string.subscriptions_bonus_body)
       }
     } else {
       bonus_layout?.visibility = GONE
       bonus_layout_pre_selected?.visibility = GONE
-      bonus_msg?.visibility = GONE
-      bonus_msg_pre_selected?.visibility = GONE
     }
   }
 
@@ -742,7 +735,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
+      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation_new)
       setupTransactionCompleteAnimation()
     } else {
       lottie_transaction_success.setAnimation(R.raw.success_animation)
