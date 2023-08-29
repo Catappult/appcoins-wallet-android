@@ -1,5 +1,6 @@
 package com.appcoins.wallet.feature.backup.ui.entry
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.NewBaseViewModel
@@ -35,13 +36,12 @@ constructor(
   lateinit var walletName: String
   var password: String = ""
   val correctInputPassword = mutableStateOf(true)
+  val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
 
   fun showBalance(walletAddress: String) {
     viewModelScope.launch {
       val walletInfo =
-        withContext(dispatchers.io) {
-          getWalletInfoUseCase(walletAddress, cached = true).await()
-        }
+        withContext(dispatchers.io) { getWalletInfoUseCase(walletAddress, cached = true).await() }
       suspend { mapBalance(walletInfo.walletBalance) }
         .mapSuspendToAsync(BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
     }
@@ -50,5 +50,9 @@ constructor(
   private fun mapBalance(walletBalance: WalletBalance): Balance {
     val balance = walletBalance.overallFiat
     return Balance(balance.symbol, currencyFormatUtils.formatCurrency(balance.amount))
+  }
+
+  fun showBottomSheet(show: Boolean = true) {
+    showBottomSheet.value = show
   }
 }

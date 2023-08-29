@@ -31,4 +31,5 @@ dependencies {
   implementation(libs.bundles.androidx.compose)
   implementation(libs.bundles.coil)
   implementation(libs.google.gson)
+  implementation(libs.compose.lottie)
 }

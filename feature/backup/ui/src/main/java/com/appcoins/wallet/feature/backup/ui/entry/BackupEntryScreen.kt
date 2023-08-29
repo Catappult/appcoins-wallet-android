@@ -36,6 +36,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -61,6 +62,7 @@ import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextFieldPassword
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,12 +71,17 @@ fun BackupEntryRoute(
   onChatClick: () -> Unit,
   onNextClick: () -> Unit,
   onChooseWallet: () -> Unit,
-  viewModel: BackupEntryViewModel = hiltViewModel(),
+  viewModel: BackupEntryViewModel = hiltViewModel()
 ) {
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
   val backupEntryState by viewModel.stateFlow.collectAsState()
   Scaffold(
-    topBar = { Surface { TopBar(onClickSupport = { onChatClick() }) } }, modifier = Modifier
+    topBar = {
+      Surface {
+        TopBar(onClickSupport = { onChatClick() }, onClickBack = { viewModel.showBottomSheet() })
+      }
+    },
+    modifier = Modifier
   ) { padding ->
     BackupEntryScreen(
       backupEntryState = backupEntryState,
@@ -88,7 +95,9 @@ fun BackupEntryRoute(
       onChooseWallet = onChooseWallet,
       bottomSheetState = bottomSheetState,
       onInputPasswordIsCorrect = { viewModel.correctInputPassword.value = true },
-      onInputPasswordIsIncorrect = { viewModel.correctInputPassword.value = false })
+      onInputPasswordIsIncorrect = { viewModel.correctInputPassword.value = false },
+      showBottomSheet = viewModel.showBottomSheet.value,
+      dismissBottomSheet = { viewModel.showBottomSheet(false) })
   }
 }
 
@@ -106,18 +115,26 @@ fun BackupEntryScreen(
   walletAddress: String,
   walletName: String,
   isInputPasswordCorrect: Boolean,
-  bottomSheetState: SheetState
+  bottomSheetState: SheetState,
+  showBottomSheet: Boolean,
+  dismissBottomSheet: () -> Unit
 ) {
-  var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+  val scope = rememberCoroutineScope()
 
-  if (openBottomSheet) {
+  if (showBottomSheet) {
     ModalBottomSheet(
-      onDismissRequest = { openBottomSheet = false },
+      onDismissRequest = dismissBottomSheet,
       sheetState = bottomSheetState,
-      containerColor = styleguide_blue
+      containerColor = styleguide_blue_secondary
     ) {
       BackupDialogCardAlertBottomSheet(
-        onCancelClick = { openBottomSheet = false }, onConfirmClick = { onExitClick() })
+        onCancelClick = {
+          scope.launch { bottomSheetState.hide() }.invokeOnCompletion { dismissBottomSheet() }
+        },
+        onConfirmClick = {
+          dismissBottomSheet()
+          onExitClick()
+        })
     }
   }
   when (val balanceInfo = backupEntryState.balanceAsync) {
@@ -125,7 +142,6 @@ fun BackupEntryScreen(
     is Async.Loading -> {
       // TODO add wallet animation loading and change it to png or xml
     }
-
     is Async.Success -> {
       Column(
         modifier =
@@ -162,7 +178,6 @@ fun BackupEntryScreen(
         BackupEntryButtonPasswordsCorrect(onNextClick, isInputPasswordCorrect)
       }
     }
-
     is Async.Fail -> Unit
   }
 }
@@ -336,11 +351,9 @@ private fun SwitchModeTrue(
   var defaultPassword2 by rememberSaveable { mutableStateOf("") }
 
   AnimatedVisibility(visible = true, enter = fadeIn(), exit = fadeOut()) {
-    Column(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 16.dp)
-    ) {
+    Column(modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 16.dp)) {
       WalletTextFieldPassword(
         value = defaultPassword,
         onValueChange = {
@@ -373,11 +386,9 @@ private fun SwitchModeTrue(
           contentDescription = null,
           modifier = Modifier.size(24.dp)
         )
-        Column(
-          modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 10.dp)
-        ) {
+        Column(modifier = Modifier
+          .fillMaxWidth()
+          .padding(start = 10.dp)) {
           Text(
             text = stringResource(R.string.backup_additional_security_disclaimer_body),
             style = WalletTypography.bold.sp12,

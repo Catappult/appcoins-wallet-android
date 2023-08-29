@@ -34,21 +34,21 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupErrorRoute(onExitClick: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit) {
+fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit) {
   Scaffold(
-    topBar = {
-      Surface {
-        TopBar(isMainBar = false, onClickBack = onExitClick, onClickSupport = onChatClick)
-      }
-    },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick) } },
     modifier = Modifier
   ) { padding ->
-    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup)
+    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack)
   }
 }
 
 @Composable
-fun BackupErrorScreen(scaffoldPadding: PaddingValues, onCancelBackup: () -> Unit) {
+fun BackupErrorScreen(
+  scaffoldPadding: PaddingValues,
+  onCancelBackup: () -> Unit,
+  onClickBack: () -> Unit
+) {
   Column(
     modifier =
     Modifier
@@ -75,12 +75,12 @@ fun BackupErrorScreen(scaffoldPadding: PaddingValues, onCancelBackup: () -> Unit
         color = WalletColors.styleguide_light_grey,
       )
     }
-    BackupDialogCard(onCancelBackup = onCancelBackup)
+    BackupDialogCard(onCancelBackup = onCancelBackup, onClickBack)
   }
 }
 
 @Composable
-fun BackupDialogCard(onCancelBackup: () -> Unit) {
+fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier
@@ -125,7 +125,7 @@ fun BackupDialogCard(onCancelBackup: () -> Unit) {
 
       ButtonWithText(
         label = stringResource(id = R.string.try_again),
-        onClick = { onCancelBackup() },
+        onClick = { onClickBack() },
         backgroundColor = WalletColors.styleguide_pink,
         labelColor = WalletColors.styleguide_white,
         buttonType = ButtonType.DEFAULT
@@ -137,5 +137,5 @@ fun BackupDialogCard(onCancelBackup: () -> Unit) {
 @Preview
 @Composable
 fun BackupDialogCardPreview() {
-  BackupDialogCard {}
+  BackupDialogCard({}, {})
 }

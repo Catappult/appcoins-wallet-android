@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.data.Navigator
@@ -22,7 +20,6 @@ import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsSideE
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsState
 import com.appcoins.wallet.feature.backup.ui.save_options.BackupSaveOptionsViewModel
 import com.appcoins.wallet.ui.common.theme.WalletTheme
-import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,9 +88,7 @@ class BackupSaveOptionsComposeFragment :
             BackupSaveOptionsRoute(
               onChatClick = { displayChat() },
               onSaveOnDevice = {
-                navigator.showSaveOnDeviceFragment(
-                  viewModel.walletAddress, viewModel.password, navController()
-                )
+                navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password)
               })
           }
         }
@@ -101,19 +96,14 @@ class BackupSaveOptionsComposeFragment :
     }
   }
 
-  private fun navController(): NavController {
-    val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
-    return navHostFragment.navController
-  }
-
   override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) {
     when (sideEffect) {
       is BackupSaveOptionsSideEffect.NavigateToSuccess -> {
+        viewModel.showLoading(false)
         navigator.showWalletSuccessScreen()
       }
       BackupSaveOptionsSideEffect.ShowError -> {
+        viewModel.showLoading(false)
         navigator.showErrorScreen()
       }
     }

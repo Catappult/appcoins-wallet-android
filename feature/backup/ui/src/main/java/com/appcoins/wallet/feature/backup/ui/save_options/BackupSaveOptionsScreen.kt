@@ -29,6 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -52,7 +56,10 @@ fun BackupSaveOptionsRoute(
     topBar = { Surface { TopBar(onClickSupport = onChatClick) } },
     modifier = Modifier
   ) { padding ->
-    BackupSaveOptionsScreen(scaffoldPadding = padding, onSaveOnDevice = onSaveOnDevice) {
+    BackupSaveOptionsScreen(
+      scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice
+    ) {
+      viewModel.showLoading()
       viewModel.sendBackupToEmail(passwordInput)
     }
   }
@@ -61,6 +68,7 @@ fun BackupSaveOptionsRoute(
 @Composable
 fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
+  showLoading: Boolean,
   onSaveOnDevice: () -> Unit,
   onSendEmailClick: () -> Unit,
 ) {
@@ -87,11 +95,15 @@ fun BackupSaveOptionsScreen(
         color = WalletColors.styleguide_light_grey,
       )
     }
-    SaveOnDeviceCardDefault()
-    SaveOnDeviceOptions(
-      onSendEmailClick,
-      onSaveOnDevice = onSaveOnDevice,
-    )
+    if (showLoading) {
+      LoadingCard()
+    } else {
+      SaveOnDeviceCardDefault()
+      SaveOnDeviceOptions(
+        onSendEmailClick,
+        onSaveOnDevice = onSaveOnDevice,
+      )
+    }
   }
 }
 
@@ -118,6 +130,42 @@ fun SaveOnDeviceCardDefault() {
         style = WalletTypography.bold.sp22,
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
+      )
+    }
+  }
+}
+
+@Preview
+@Composable
+fun LoadingCard() {
+  Card(
+    shape = RoundedCornerShape(16.dp),
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(vertical = 48.dp, horizontal = 16.dp),
+    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
+  ) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 48.dp)
+    ) {
+      val composition by
+      rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_wallet))
+      val progress by
+      animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+
+      LottieAnimation(
+        modifier = Modifier.size(80.dp),
+        composition = composition,
+        progress = { progress })
+
+      Text(
+        text = stringResource(id = R.string.title_dialog_sending),
+        color = styleguide_dark_grey,
+        style = WalletTypography.medium.sp12,
+        textAlign = TextAlign.Center
       )
     }
   }
@@ -168,22 +216,18 @@ fun SaveOnDeviceOptions(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)
     ) {
-      Divider(
-        modifier = Modifier
-          .weight(1f)
-          .height(1.dp), color = styleguide_dark_grey
-      )
+      Divider(modifier = Modifier
+        .weight(1f)
+        .height(1.dp), color = styleguide_dark_grey)
       Text(
         text = stringResource(R.string.common_or),
         color = styleguide_dark_grey,
         style = WalletTypography.regular.sp12,
         modifier = Modifier.padding(horizontal = 8.dp)
       )
-      Divider(
-        modifier = Modifier
-          .weight(1f)
-          .height(1.dp), color = styleguide_dark_grey
-      )
+      Divider(modifier = Modifier
+        .weight(1f)
+        .height(1.dp), color = styleguide_dark_grey)
     }
     Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)) {
       ButtonWithText(
@@ -200,5 +244,5 @@ fun SaveOnDeviceOptions(
 @Preview
 @Composable
 fun BackupSaveOptionsScreenPreview() {
-  BackupSaveOptionsScreen(PaddingValues(0.dp), {}) {}
+  BackupSaveOptionsScreen(PaddingValues(0.dp), true, {}) {}
 }

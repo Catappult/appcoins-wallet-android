@@ -10,11 +10,9 @@ import com.asfoundation.wallet.backup.bottomSheet.BackupSaveOnDeviceBottomSheetF
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class BackupSaveOptionsNavigator @Inject constructor(
-  private val fragment: Fragment,
-  private val navController: NavController
-) : Navigator {
-
+class BackupSaveOptionsNavigator
+@Inject
+constructor(private val fragment: Fragment, private val navController: NavController) : Navigator {
 
   fun navigateBack() {
     (fragment as BottomSheetDialogFragment).dismiss()
@@ -29,23 +27,19 @@ class BackupSaveOptionsNavigator @Inject constructor(
       navController,
       BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToSuccessScreen()
     )
-
   }
-  fun showErrorScreen(){
+
+  fun showErrorScreen() {
     navigate(
       navController,
       BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToErrorScreen()
     )
   }
 
-  fun showSaveOnDeviceFragment(
-    walletAddress : String,
-    password : String?,
-    mainNavController : NavController
-  ) {
+  fun showSaveOnDeviceFragment(walletAddress: String, password: String?) {
     val bundle = Bundle()
     bundle.putString(BackupSaveOnDeviceBottomSheetFragment.WALLET_ADDRESS_KEY, walletAddress)
     bundle.putString(BackupSaveOnDeviceBottomSheetFragment.PASSWORD_KEY, password)
-    mainNavController.navigate(R.id.action_backup_options_to_save_on_device, bundle)
+    navController.navigate(R.id.action_backup_options_to_save_on_device, bundle)
   }
 }

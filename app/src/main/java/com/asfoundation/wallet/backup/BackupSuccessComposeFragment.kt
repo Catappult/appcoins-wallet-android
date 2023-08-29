@@ -8,11 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.feature.backup.ui.success.BackupSuccessRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
-import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,20 +37,10 @@ class BackupSuccessComposeFragment : BasePageViewFragment() {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
-            BackupSuccessRoute(
-              onExitClick = { navigator.handleBackPress() },
-              onChatClick = { displayChat() },
-              onGotItClick = { navigator.navigateToHome(navController()) })
+            BackupSuccessRoute(onChatClick = { displayChat() }) { navigator.navigateToHome() }
           }
         }
       }
     }
-  }
-
-  private fun navController(): NavController {
-    val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
-    return navHostFragment.navController
   }
 }

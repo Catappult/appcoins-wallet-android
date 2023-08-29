@@ -20,6 +20,7 @@ import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.settings.entry.SettingsInteractor
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -38,7 +39,7 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
   lateinit var settingsInteractor: SettingsInteractor
 
   val networkScheduler = Schedulers.io()
-  val viewScheduler = AndroidSchedulers.mainThread()
+  val viewScheduler: Scheduler = AndroidSchedulers.mainThread()
   val disposables = CompositeDisposable()
 
   companion object {

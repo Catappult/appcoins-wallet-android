@@ -33,23 +33,17 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupSuccessRoute(onExitClick: () -> Unit, onChatClick: () -> Unit, onGotItClick: () -> Unit) {
+fun BackupSuccessRoute(onChatClick: () -> Unit, onGotItClick: () -> Unit) {
   Scaffold(
     topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
     modifier = Modifier
   ) { padding ->
-    BackupSaveOptionsScreen(
-      scaffoldPadding = padding, onExitClick = onExitClick, onGotItClick = onGotItClick
-    )
+    BackupSaveOptionsScreen(scaffoldPadding = padding, onGotItClick = onGotItClick)
   }
 }
 
 @Composable
-fun BackupSaveOptionsScreen(
-  scaffoldPadding: PaddingValues,
-  onExitClick: () -> Unit,
-  onGotItClick: () -> Unit
-) {
+fun BackupSaveOptionsScreen(scaffoldPadding: PaddingValues, onGotItClick: () -> Unit) {
   Column(
     modifier =
     Modifier

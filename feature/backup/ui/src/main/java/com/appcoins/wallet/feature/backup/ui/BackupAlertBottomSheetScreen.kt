@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,62 +24,51 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupDialogCardAlertBottomSheet(
-  onCancelClick: () -> Unit,
-  onConfirmClick: () -> Unit
-) {
-  Card(
-    shape = RoundedCornerShape(14.dp),
-    modifier = Modifier.fillMaxWidth(),
-    colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+fun BackupDialogCardAlertBottomSheet(onCancelClick: () -> Unit, onConfirmClick: () -> Unit) {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(32.dp)
   ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
+    Image(
+      modifier = Modifier.size(72.dp),
+      painter = painterResource(id = R.drawable.ic_alert_circle),
+      contentDescription = null
+    )
+
+    Text(
+      text = stringResource(id = R.string.backup_skip_title),
+      style = WalletTypography.medium.sp16,
+      color = WalletColors.styleguide_light_grey,
+      textAlign = TextAlign.Center,
+      modifier = Modifier.padding(top = 24.dp)
+    )
+    Row(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(32.dp)
+        .padding(top = 40.dp),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-      Image(
-        modifier = Modifier.size(72.dp),
-        painter = painterResource(id = R.drawable.ic_alert_circle),
-        contentDescription = null
-      )
-
-      Text(
-        text = stringResource(id = R.string.backup_skip_title),
-        style = WalletTypography.medium.sp16,
-        color = WalletColors.styleguide_light_grey,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 24.dp)
-      )
-      Row(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(top = 40.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-      ) {
-        Row(Modifier.fillMaxWidth(0.49f)) {
-          ButtonWithText(
-            label = stringResource(id = R.string.cancel_button),
-            onClick = { onCancelClick() },
-            backgroundColor = Color.Transparent,
-            labelColor = WalletColors.styleguide_white,
-            outlineColor = WalletColors.styleguide_white,
-            buttonType = ButtonType.LARGE
-          )
-        }
+      Row(Modifier.fillMaxWidth(0.49f)) {
         ButtonWithText(
-          label = stringResource(id = R.string.confirm_button),
-          onClick = { onConfirmClick() },
-          backgroundColor = WalletColors.styleguide_pink,
+          label = stringResource(id = R.string.cancel_button),
+          onClick = { onCancelClick() },
+          backgroundColor = Color.Transparent,
           labelColor = WalletColors.styleguide_white,
+          outlineColor = WalletColors.styleguide_white,
           buttonType = ButtonType.LARGE
         )
-
       }
+      ButtonWithText(
+        label = stringResource(id = R.string.confirm_button),
+        onClick = { onConfirmClick() },
+        backgroundColor = WalletColors.styleguide_pink,
+        labelColor = WalletColors.styleguide_white,
+        buttonType = ButtonType.LARGE
+      )
     }
-
   }
 }
 

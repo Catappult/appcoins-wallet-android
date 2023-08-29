@@ -40,7 +40,7 @@ class BackupErrorScreenFragment : BasePageViewFragment() {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupErrorRoute(
-              onExitClick = { handleBackPress() },
+              onClickBack = { handleBackPress() },
               onChatClick = { displayChat() },
               onCancelBackup = { navigator.navigateToManageWallet(navController()) })
           }
