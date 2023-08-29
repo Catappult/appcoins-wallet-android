@@ -78,7 +78,6 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
 fun PreviewAppView() {
   Column(
     modifier = Modifier.verticalScroll(rememberScrollState()),
-    //modifier = Modifier.fillMaxSize(),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally
   ) {

@@ -460,8 +460,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   fun launchAppViewFragment(gamePackage: String) {
-    Log.i("AppViewFragment", "Entra no launch fragment")
-    Log.i("Game Package", "Game Package " + gamePackage)
     val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }

@@ -17,27 +17,28 @@ class GamesRepository @Inject constructor(
 ) :
   GamesRepositoryType {
 
-  private val defaultBackground =
-    "https://image.winudf.com/v2/image1/Y29tLm5hdGhuZXR3b3JrLnVsdHJhcHJvX3NjcmVlbl8xXzE2MzE3MzE3MTlfMDQ5/screen-1.webp?fakeurl=1&type=.webp"
+  object ApiParameters {
+    const val GROUP = "e-skills"
+    const val LIMIT = "20"
+    const val SORT = "downloads7d"
+    const val LANGUAGE = "en"
+    const val STORE = "apps"
+  }
 
   override fun getGamesListing(): Single<List<GameData>> {
     return gamesApi.getGamesListing(
-      group = "e-skills",
-      limit = "20",
-      sort = "downloads7d",
-      language = "en",
-      store = "apps"
+      group = ApiParameters.GROUP,
+      limit = ApiParameters.LIMIT,
+      sort = ApiParameters.SORT,
+      language = ApiParameters.LANGUAGE,
+      store = ApiParameters.STORE
     )
       .map {
         it.dataList.list.map {
-          Log.d("App Name", "Name: " + it.appName)
-          Log.d("App Icon", "Icon: " + it.appIcon)
-          Log.d("App Background", "Background: " + it.background)
-          Log.d("App Pack", "Package: " + it.packageName)
           GameData(
             title = it.appName,
             gameIcon = it.appIcon,
-            gameBackground = if (it.background == null) defaultBackground else it.background,
+            gameBackground = it.background,
             gamePackage = it.packageName
           )
 
@@ -60,7 +61,7 @@ class GamesRepository @Inject constructor(
             GameDetailsData(
               title = it.data.name,
               gameIcon = it.data.appIcon,
-              gameBackground = if (it.data.background == null) defaultBackground else it.data.background,
+              gameBackground = it.data.background,
               gamePackage = it.data.packageName,
               description = it.data.media.description,
               screenshots = it1,
