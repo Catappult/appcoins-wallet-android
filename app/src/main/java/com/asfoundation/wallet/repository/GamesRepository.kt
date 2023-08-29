@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository
 
-import android.util.Log
 import com.appcoins.wallet.core.network.eskills.api.AppDataApi
 import com.appcoins.wallet.core.network.eskills.api.EskillsGamesApi
 import com.appcoins.wallet.ui.widgets.GameData

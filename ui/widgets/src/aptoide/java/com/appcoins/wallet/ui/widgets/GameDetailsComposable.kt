@@ -152,7 +152,7 @@ private fun TopAppView(
     Box(
       modifier = Modifier.height(228.dp)
     ) {
-      if (appDetailsData.gameBackground == null){
+      if (appDetailsData.gameBackground == null) {
         Image(
           painter = painterResource(id = R.drawable.default_background_carousel),
           contentDescription = "background",
