@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletTextFieldViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.setReadOnly
-import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletTextFieldViewBinding
 import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
 
 class WalletTextFieldView : FrameLayout {
@@ -24,11 +24,10 @@ class WalletTextFieldView : FrameLayout {
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(
-    context: Context,
-    attrs: AttributeSet?,
-    defStyleAttr: Int
-  ) : super(context, attrs, defStyleAttr) {
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    context, attrs,
+    defStyleAttr
+  ) {
     retrievePreferences(attrs, defStyleAttr)
   }
 
@@ -70,6 +69,7 @@ class WalletTextFieldView : FrameLayout {
     views.textInputLayout.error = errorText
   }
 
+
   private fun applyType() {
     when (type) {
       Type.FILLED -> {
@@ -80,21 +80,20 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.endIconMode = END_ICON_NONE
         views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
-        views.textInputLayout.editText?.setHintTextColor(
-          resources.getColor(R.color.styleguide_dark_grey)
-        )
+        views.textInputLayout.editText?.setHintTextColor(resources.getColor(R.color.styleguide_dark_grey))
       }
       Type.OUTLINED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.styleguide_blue_secondary)
-        views.textInputLayout.boxStrokeColor =
           ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeColor =
+          ContextCompat.getColor(this.context, R.color.styleguide_dark_grey)
         views.textInputLayout.endIconMode = END_ICON_NONE
       }
       Type.PASSWORD -> {
         views.textInputEditText.setReadOnly(
-          value = false, inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+          value = false,
+          inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         )
         views.textInputLayout.boxBackgroundColor = color
         views.textInputLayout.boxStrokeColor =
@@ -111,9 +110,7 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.endIconMode = END_ICON_NONE
         views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
-        views.textInputLayout.editText?.setHintTextColor(
-          resources.getColor(R.color.styleguide_dark_grey)
-        )
+        views.textInputLayout.editText?.setHintTextColor(resources.getColor(R.color.styleguide_dark_grey))
       }
       Type.READ_ONLY -> {
         views.textInputEditText.setReadOnly(value = true)
@@ -130,11 +127,5 @@ class WalletTextFieldView : FrameLayout {
     return views.textInputEditText.addTextChangedListener(watcher)
   }
 
-  enum class Type {
-    FILLED,
-    OUTLINED,
-    PASSWORD,
-    READ_ONLY,
-    NUMBER
-  }
+  enum class Type { FILLED, OUTLINED, PASSWORD, READ_ONLY, NUMBER }
 }

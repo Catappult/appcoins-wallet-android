@@ -95,6 +95,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
           }
 
         ManageWalletViewModel.UiState.WalletDeleted -> navigateToManageWallet()
+
         else -> {}
       }
     }
@@ -115,7 +116,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { AlertCard() }
 
-      item { ActionButtons(walletInfo.wallet, walletInfo.name) }
+      item { ActionButtons(walletInfo.wallet) }
     }
   }
 
@@ -147,7 +148,10 @@ class RemoveWalletFragment : BasePageViewFragment() {
       Card(
         modifier = Modifier.padding(vertical = 24.dp),
         colors =
-        CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+        CardDefaults.cardColors(
+          containerColor =
+          WalletColors.styleguide_blue_secondary
+        )
       ) {
         Column(
           modifier = Modifier
@@ -177,6 +181,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
             currency = ethBalance.token.symbol
           )
         }
+
       }
     }
   }
@@ -255,7 +260,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActionButtons(address: String, name: String) {
+  fun ActionButtons(address: String) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),
       modifier = Modifier
@@ -264,7 +269,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     ) {
       ButtonWithText(
         label = stringResource(id = R.string.my_wallets_action_backup_wallet),
-        onClick = { myWalletsNavigator.navigateToBackup(address, name) },
+        onClick = { myWalletsNavigator.navigateToBackupWallet(address) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
         buttonType = ButtonType.LARGE

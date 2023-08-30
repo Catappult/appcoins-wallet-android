@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.my_wallets.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityOptionsCompat
@@ -11,8 +12,6 @@ import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupWalletEntryFragment
-import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ChangeActiveWalletBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment.Companion.WALLET_BALANCE_MODEL
@@ -20,11 +19,13 @@ import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBottomShe
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment
 import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
 
-class MyWalletsNavigator
-@Inject
-constructor(private val fragment: Fragment, private val navController: NavController) : Navigator {
+class MyWalletsNavigator @Inject constructor(
+  private val fragment: Fragment,
+  private val navController: NavController
+) : Navigator {
   fun navigateToMore(
     walletAddress: String,
     totalFiatBalance: String,
@@ -35,10 +36,15 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navigate(
       navController,
       MyWalletsFragmentDirections.actionNavigateToMore(
-        walletAddress, totalFiatBalance, appcoinsBalance, creditsBalance, ethereumBalance
+        walletAddress,
+        totalFiatBalance,
+        appcoinsBalance,
+        creditsBalance,
+        ethereumBalance
       )
     )
   }
+
 
   fun navigateToManageWalletNameBottomSheet(walletAddress: String, walletName: String) {
     val bundle = Bundle()
@@ -49,6 +55,7 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bottomSheet.show(fragment.parentFragmentManager, "ManageWalletName")
   }
 
+
   fun navigateToManageWalletBalanceBottomSheet(walletBalance: WalletBalance) {
     val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
     val bundle = Bundle()
@@ -56,7 +63,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
-
   fun navigateToManageWalletBottomSheet(hasOneWallet: Boolean) {
     val bundle = Bundle()
     bundle.putBoolean(ManageWalletBottomSheetFragment.HAS_ONE_WALLET, hasOneWallet)
@@ -77,7 +83,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
     bundle.putString(
-      ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol
+      ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL,
+      walletBalanceSymbol
     )
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
@@ -88,7 +95,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     walletName: String,
   ) {
     navigate(
-      navController, MyWalletsFragmentDirections.actionNavigateToName(walletAddress, walletName)
+      navController,
+      MyWalletsFragmentDirections.actionNavigateToName(walletAddress, walletName)
     )
   }
 
@@ -101,10 +109,19 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navigate(
       navController,
       MyWalletsFragmentDirections.actionNavigateToBalanceDetails(
-        totalFiatBalance, appcoinsBalance, creditsBalance, ethereumBalance
+        totalFiatBalance,
+        appcoinsBalance,
+        creditsBalance,
+        ethereumBalance
       )
     )
   }
+
+//  fun navigateToSend() {
+//    val intent = TransferActivity.newIntent(fragment.requireContext())
+//    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+//    openIntent(intent)
+//  }
 
   fun navigateToReceive(navController: NavController, transferDestinations: TransferDestinations) {
     val bundle = Bundle()
@@ -124,19 +141,23 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyCreditCard(false))
   }
 
-  fun navigateToBackup(walletAddress: String, walletName: String) {
-    val bundle = Bundle()
-    bundle.putString(BackupWalletEntryFragment.WALLET_ADDRESS_KEY, walletAddress)
-    bundle.putString(WALLET_NAME, walletName)
-    navController.navigate(R.id.action_navigate_to_backup_entry_wallet, args = bundle)
+  fun navigateToBackupWallet(walletAddress: String) {
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToBackupWallet(walletAddress))
   }
 
   fun navigateToQrCode(qrCodeView: View) {
-    val options =
-      ActivityOptionsCompat.makeSceneTransitionAnimation(
-        fragment.requireActivity(), Pair(qrCodeView, "qr_code_image")
-      )
+    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+      fragment.requireActivity(),
+      Pair(qrCodeView, "qr_code_image")
+    )
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
   }
+
+  fun navigateToRemoveWallet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_remove_wallet)
+  }
+
+  private fun openIntent(intent: Intent) = fragment.requireContext()
+    .startActivity(intent)
 }

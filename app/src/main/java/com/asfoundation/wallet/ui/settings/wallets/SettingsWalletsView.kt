@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.backup.entryBottomSheet
+package com.asfoundation.wallet.ui.settings.wallets
 
 import io.reactivex.Observable
 
-interface BackupEntryChooseWalletView {
+interface SettingsWalletsView {
 
   fun showBottomSheet()
 

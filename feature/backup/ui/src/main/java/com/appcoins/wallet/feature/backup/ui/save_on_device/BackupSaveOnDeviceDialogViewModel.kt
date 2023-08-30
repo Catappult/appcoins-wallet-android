@@ -1,5 +1,6 @@
 package com.appcoins.wallet.feature.backup.ui.save_on_device
 
+import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.SavedStateHandle
@@ -9,6 +10,7 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
+import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SaveBackupFileUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,21 +32,23 @@ data class BackupSaveOnDeviceDialogState(
 ) : ViewState
 
 @HiltViewModel
-class BackupSaveOnDeviceDialogViewModel
-@Inject
-constructor(
+class BackupSaveOnDeviceDialogViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   walletInfoUseCase: GetWalletInfoUseCase,
   dispatchers: Dispatchers
-) :
-  NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
-    initialState(savedStateHandle)
-  ) {
+) : NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
+  initialState(savedStateHandle)
+) {
 
   companion object {
-    private val downloadsPath =
+    private val downloadsPath = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+      @Suppress("DEPRECATION")
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+    } else {
+      null
+    }
 
     fun initialState(savedStateHandle: SavedStateHandle) =
       savedStateHandle.run {
@@ -64,8 +68,9 @@ constructor(
       withContext(dispatchers.io) {
         val walletInfo =
           walletInfoUseCase(state.walletAddress, cached = true).await()
-        suspend { walletInfo.name }
-          .mapSuspendToAsync((BackupSaveOnDeviceDialogState::fileName)) { copy(fileName = it) }
+        suspend { walletInfo.name }.mapSuspendToAsync((BackupSaveOnDeviceDialogState::fileName)) {
+          copy(fileName = it)
+        }
       }
     }
   }
@@ -77,6 +82,8 @@ constructor(
     try {
       viewModelScope.launch {
         saveBackupFileUseCase(state.walletAddress, state.walletPassword, fileName, filePath)
+        backupSuccessLogUseCase(state.walletAddress)
+        sendSideEffect { BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess(state.walletAddress) }
       }
     } catch (e: Exception) {
       showError(e)

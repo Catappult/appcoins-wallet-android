@@ -161,6 +161,7 @@
   <string name="other_payment_methos_title">Other payment methods:</string>
 
 
+
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -490,6 +491,7 @@
   <string name="p2p_send_currency_appc_c" translatable="false">AppCoins Credits</string>
 
 
+
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
@@ -764,7 +766,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -1114,6 +1116,7 @@
   <string name="verify_paypal_button">Verify PayPal account</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+
 
 
   <!--Vouchers-->

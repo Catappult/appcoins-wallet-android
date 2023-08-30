@@ -35,7 +35,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
@@ -70,6 +72,9 @@ import com.appcoins.wallet.ui.widgets.R.*
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
+import com.appcoins.wallet.ui.widgets.component.ButtonType
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
@@ -82,6 +87,7 @@ import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -119,7 +125,9 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Composable
   fun ManageWalletView() {
     val dialogDismissed by manageWalletSharedViewModel.dialogDismissed
-    LaunchedEffect(key1 = dialogDismissed) { viewModel.getWallets() }
+    LaunchedEffect(key1 = dialogDismissed) {
+      viewModel.getWallets()
+    }
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -128,15 +136,19 @@ class ManageWalletFragment : BasePageViewFragment() {
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is Success -> {
-          ManageWalletContent(padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets)
+          ManageWalletContent(
+            padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets
+          )
         }
+
         WalletChanged -> {
           Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
             .show()
         }
 
         WalletCreated -> {
-          Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT)
+            .show()
         }
 
         Loading ->
@@ -203,7 +215,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           Spacer(modifier = Modifier.height(24.dp))
           BackupAlertCard(
             onClickButton = {
-              myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+              myWalletsNavigator.navigateToBackupWallet(walletInfo.wallet)
             },
             hasBackup = walletInfo.hasBackup,
             backupDate = walletInfo.backupDate
@@ -272,7 +284,8 @@ class ManageWalletFragment : BasePageViewFragment() {
           contentDescription = R.string.scan_qr,
           onClick = {
             myWalletsNavigator.navigateToReceive(
-              navController(), TransferDestinations.RECEIVE
+              navController(),
+              TransferDestinations.RECEIVE
             )
           })
         VectorIconButton(
@@ -323,9 +336,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       VectorIconButton(
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
-        onClick = {
-          myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
-        },
+        onClick = { myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0) },
         paddingIcon = 4.dp,
         background = styleguide_blue_secondary
       )
@@ -335,6 +346,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Composable
   fun BalanceBottomSheet(walletInfo: WalletInfo) {
     val balance = walletInfo.walletBalance
+    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
@@ -349,12 +361,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
       )
-      TextButton(
-        onClick = {
-          myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(
-            walletInfo.walletBalance
-          )
-        }) {
+      TextButton(onClick = { myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(walletInfo.walletBalance) }) {
         Text(
           text =
           balance.creditsOnlyFiat.amount
@@ -402,6 +409,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       )
     }
   }
+
 
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =
@@ -454,8 +462,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
         balance = fiatValue,
         isActiveWallet = true,
-        backupDate = 987654L,
-        backupWalletActive = false
+        backupDate = 987654L
       )
     )
   }
