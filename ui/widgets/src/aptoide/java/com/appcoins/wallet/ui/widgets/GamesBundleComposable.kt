@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -11,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,13 +62,10 @@ private fun CardItem(
   gameCardData: GameData,
   dialogFragment: (gamePackage: String) -> Unit
 ) {
-  val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    //onClick = { dialogFragment(gameCardData.gamePackage)
-    //Log.i("Card Item Package", "Package do Card -> "+ gameCardData.gamePackage)},
     onClick = {
       gameClicked = gameCardData.gamePackage
       dialogFragment.invoke(gameCardData.gamePackage)
@@ -80,12 +78,21 @@ private fun CardItem(
     Box(
       modifier = Modifier.fillMaxSize()
     ) {
-      AsyncImage(
-        model = gameCardData.gameBackground,
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-      )
+      if (gameCardData.gameBackground == null) {
+        Image(
+          painter = painterResource(id = R.drawable.default_background_carousel),
+          contentDescription = "background",
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      } else {
+        AsyncImage(
+          model = gameCardData.gameBackground,
+          contentDescription = null,
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      }
       Box(
         modifier = Modifier
           .align(Alignment.BottomStart)
@@ -103,7 +110,6 @@ private fun CardItem(
           .fillMaxWidth()
           .align(Alignment.BottomCenter)
           .padding(12.dp),
-//        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
       ) {
         Card(
@@ -154,7 +160,7 @@ private fun CardItem(
 data class GameData(
   val title: String,
   val gameIcon: String,
-  val gameBackground: String,
+  val gameBackground: String?,
   val gamePackage: String
 )
 
