@@ -97,17 +97,14 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         state.storedPromoCodeAsync,
         state.shouldShowDefault
       )
-
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-
       is Async.Fail -> {
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
-
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
       }

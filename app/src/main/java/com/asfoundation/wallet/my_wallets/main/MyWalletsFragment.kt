@@ -90,7 +90,6 @@ class MyWalletsFragment : BasePageViewFragment(),
         showWalletInfoLoading()
         showBackupLoading()
       }
-
       is Async.Fail -> Unit
       is Async.Success -> asyncValue().run {
         showWalletInfo()
@@ -100,7 +99,6 @@ class MyWalletsFragment : BasePageViewFragment(),
     when (val asyncValue = state.walletVerifiedAsync) {
       Async.Uninitialized,
       is Async.Loading -> showVerifyLoading()
-
       is Async.Fail -> Unit
       is Async.Success -> asyncValue().run {
         when (status) {

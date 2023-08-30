@@ -299,7 +299,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
