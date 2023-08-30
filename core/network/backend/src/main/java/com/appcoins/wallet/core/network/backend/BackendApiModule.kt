@@ -200,6 +200,14 @@ class BackendApiModule {
 
   @Singleton
   @Provides
+  fun provideTransactionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): TransactionOverviewApi {
+    return retrofit.create(TransactionOverviewApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesGamesApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): GamesApi {

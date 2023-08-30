@@ -43,7 +43,7 @@ class BackupEntryViewModel(
   private fun showBalance() {
     viewModelScope.launch {
       val walletInfo = withContext(dispatchers.io) {
-        getWalletInfoUseCase(data.walletAddress, cached = true, updateFiat = false).await()
+        getWalletInfoUseCase(data.walletAddress, cached = true).await()
       }
       suspend { mapBalance(walletInfo.walletBalance) }.mapSuspendToAsync(
           BackupEntryState::balanceAsync) { copy(balanceAsync = it) }

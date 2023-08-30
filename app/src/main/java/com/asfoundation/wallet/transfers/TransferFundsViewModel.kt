@@ -53,7 +53,7 @@ constructor(
   }
 
   fun getWalletInfo() {
-    observeWalletInfoUseCase(null, update = true, updateFiat = true)
+    observeWalletInfoUseCase(null, update = true)
       .firstOrError()
       .doOnSuccess { _uiState.value = UiState.Success(it) }
       .subscribe()
