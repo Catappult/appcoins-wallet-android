@@ -106,7 +106,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="40dp"
-      android:src="@drawable/ic_logo_appc_support"
+      android:src="@drawable/ic_logo_appc_support_light"
       app:layout_constraintBottom_toBottomOf="@+id/contact_us"
       app:layout_constraintEnd_toStartOf="@+id/end_guideline"
       app:layout_constraintStart_toEndOf="@+id/start_guideline"

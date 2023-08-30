@@ -214,7 +214,7 @@
   <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_blue</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium" parent="TextAppearance.AppCompat.Body1">
@@ -230,7 +230,7 @@
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto" parent="TextAppearance.AppCompat.Body1">
-    <item name="android:textColor">@color/styleguide_blue</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:lineSpacingExtra">8sp</item>
   </style>
 
@@ -336,11 +336,12 @@
 
   <style name="ShareLinkTextStyle.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="ShareLinkTextStyle.Title.Landscape">
     <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="TopUpTextStyle">
@@ -481,7 +482,7 @@
     <!-- reference our hint & error styles -->
     <item name="hintTextAppearance">@style/HintText</item>
     <item name="errorTextAppearance">@style/ErrorText</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="colorControlNormal">@color/styleguide_dark_grey</item>
     <item name="colorControlActivated">@color/colorAccent</item>
@@ -1166,7 +1167,7 @@
     <item name="android:letterSpacing">0.03</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textAlignment">center</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">16sp</item>
   </style>
 
