@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
-import android.view.View
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -450,7 +449,6 @@ class TopUpFragmentPresenter(
         .subscribeOn(networkScheduler)
         .subscribe(
           {
-            //sleep(5000)
             paypalObservable.onNext(it!!)
           },
           {
