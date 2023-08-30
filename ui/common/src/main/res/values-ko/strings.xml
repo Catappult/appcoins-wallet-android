@@ -39,7 +39,7 @@
   <string name="ok">확인</string>
   <string name="barcode_error_format">잘못된 바코드 형식: %s</string>
   <string name="title_delete_account">이 지갑을 제거하시겠습니까?</string>
-  <string name="twitter">트위터</string>
+  <string name="twitter">X</string>
   <string name="telegram">텔레그램 그룹</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">커뮤니티</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">구매가 거부되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_reverted_body">이 구매는 반환되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_status_rejected">거부됨</string>
-  <string name="transaction_details_header">거래 상세</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
@@ -736,6 +738,7 @@
   <string name="backup_popup_title">지금 지갑 백업하기!</string>
   <string name="backup_popup_purchase_body">자금을 항상 안전하게 보관하세요.</string>
   <string name="backup_popup_gamification_body">보너스 레벨을 항상 안전하게 보관하세요.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
@@ -821,7 +824,7 @@
   <string name="subscriptions_cancel_title">구독 취소</string>
   <string name="subscriptions_cancel_body">이 구독을 취소하시겠습니까?</string>
   <string name="subscriptions_cancel_no_button">아니오, 뒤로 가기</string>
-  <string name="subscriptions_cancel_yes_button">네, 구독 취소</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">구축 취소됨!</string>
   <string name="subscriptions_cancel_confirmation_body">이 구독에 대하여 더 이상 과금되지 않으며, %s까지 사용할 수 있습니다.</string>
   <string name="subscriptions_category_title">구독</string>
@@ -836,7 +839,7 @@
   <string name="subscriptions_per_several_year">매 %2$s 년 마다 %1$s</string>
   <string name="subscriptions_error_already_subscribed">이 서비스에 이미 가입되어 있습니다! 언제든 연락 주세요.</string>
   <!--New Gamification-->
-  <string name="gamif_title">최대 %s%% 보너스!</string>
+  <string name="gamif_title">최대 %% 보너스!</string>
   <string name="gamif_bonus_received">받은 보너스</string>
   <string name="gamif_spent">이 단계에 도달하기 위해 사용한 금액</string>
   <string name="gamif_show_previous">이전 달성기록 표시</string>
@@ -1155,7 +1158,7 @@
   <string name="vip_program_promotions_list_title">당신을 위한 특별 프로모션</string>
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
-  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%% 의 보너스</b>를 한 달 동안 받게 됩니다!</string>
+  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%의 보너스</b>를 한 달 동안 받게 됩니다!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
@@ -1192,8 +1195,8 @@
   <string name="intro_backup_card_body">지갑을 백업하여 항상 안전하게 보관하세요.</string>
   <string name="rewards_spend_to_next_level_body">순 수준에 도달하려면 %1$s%2$s를 더 지출하십시오!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
-  <string name="rewards_eskills_card_title">돈 벌기!</string>
-  <string name="rewards_eskills_card_body">e-Skills로 다른 플레이어들을 무찌르세요</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">프로모션 코드</string>
   <string name="rewards_promo_code_card_body">프로모션 코드를 사용하여 특별한 혜택을 누리십시오!</string>
   <string name="rewards_promo_code_status">상태:</string>
@@ -1210,4 +1213,25 @@
   <string name="manage_wallet_change_wallet_name_title">지갑 이름 변경</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 </resources>

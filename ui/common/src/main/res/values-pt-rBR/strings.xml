@@ -39,7 +39,7 @@
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
   <string name="title_delete_account">Tem certeza que deseja remover esta wallet?</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">Grupo Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunidade</string>
@@ -309,7 +309,9 @@
   <string name="transaction_rejected_body">Esta compra foi negada.\nPara mais informações, entre em contato com o suporte.</string>
   <string name="transaction_reverted_body">Esta compra foi restituída.\nPara mais informações, entre em contato com o suporte.</string>
   <string name="transaction_status_rejected">Rejeitado</string>
-  <string name="transaction_details_header">Detalhes da transação</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirmar se você é um humano para receber AppCoins</string>
   <string name="activity_airdrop_details">Isto é só um lance de segurança.</string>
   <string name="activity_airdrop_hint">Digite as palavras contidas na imagem</string>
@@ -736,6 +738,7 @@
   <string name="backup_popup_title">Faça o backup de sua carteira agora!</string>
   <string name="backup_popup_purchase_body">Mantenha seus recursos sempre seguros.</string>
   <string name="backup_popup_gamification_body">Mantenha seu nível de bônus seguro em todos os momentos.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -822,7 +825,7 @@
   <string name="subscriptions_cancel_title">Cancelar Assinatura</string>
   <string name="subscriptions_cancel_body">Tem certeza de que deseja cancelar esta assinatura?</string>
   <string name="subscriptions_cancel_no_button">Não, voltar</string>
-  <string name="subscriptions_cancel_yes_button">Sim, cancelar assinatura</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Assinatura Cancelada!</string>
   <string name="subscriptions_cancel_confirmation_body">Você não será mais cobrado por esta assinatura e poderá usá-la até %s.</string>
   <string name="subscriptions_category_title">Assinatura</string>
@@ -1160,7 +1163,7 @@
   <string name="vip_program_promotions_tab_2">Confira as promoções que temos para você!</string>
   <string name="vip_program_exclusivity_tag">Apenas para VIPs</string>
   <string name="vip_program_referral_button_title">Programa de Indicação para VIPs</string>
-  <string name="vip_program_referral_button_body">%s%% de bônus para você e seus amigos.</string>
+  <string name="vip_program_referral_button_body">%s% de bônus para você e seus amigos.</string>
   <string name="vip_program_promotions_list_title">Promoções especiais para você</string>
   <string name="vip_program_promo_code_tag">Código promocional</string>
   <string name="vip_program_referral_page_title">Programa de Indicação para VIPs</string>
@@ -1205,8 +1208,8 @@
   <string name="intro_backup_card_body">Faça o backup de sua carteira e mantenha-a sempre segura.</string>
   <string name="rewards_spend_to_next_level_body">Gaste mais %1$s%2$s para chegar ao próximo nível!</string>
   <string name="rewards_current_bonus_title">%s% bônus em cada compra</string>
-  <string name="rewards_eskills_card_title">Ganhe Dinheiro!</string>
-  <string name="rewards_eskills_card_body">Vença outros jogadores com o e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Códigos Promocionais</string>
   <string name="rewards_promo_code_card_body">Utilize um código promocional para obter ofertas imperdíveis!</string>
   <string name="rewards_promo_code_status">Status:</string>
@@ -1223,4 +1226,25 @@
   <string name="manage_wallet_change_wallet_name_title">Modificar o nome da carteira</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 </resources>
