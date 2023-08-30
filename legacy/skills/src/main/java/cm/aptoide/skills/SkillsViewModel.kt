@@ -50,6 +50,7 @@ import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import com.appcoins.wallet.core.network.eskills.model.TicketResponse
+import com.appcoins.wallet.core.network.eskills.model.TicketStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -206,7 +207,13 @@ class SkillsViewModel @Inject constructor(
     )
   }
 
-  fun cancelTicket(): Single<TicketResponse> {
+  fun cancelTicket(): Single<TicketResponse?> {
+    if (!::ticketId.isInitialized) {
+      closeView.onNext(
+        Pair(RESULT_USER_CANCELED, UserData.fromStatus(UserData.Status.REFUNDED))
+      )
+      return Single.just(TicketResponse.emptyWithStatus(TicketStatus.REFUNDED))
+    }
     // only paid tickets can be canceled/refunded on the backend side, meaning that if we
     // cancel before actually paying the backend will return a 409 HTTP. this way we allow
     // users to return to the game, without crashing, even if they weren't waiting in queue
