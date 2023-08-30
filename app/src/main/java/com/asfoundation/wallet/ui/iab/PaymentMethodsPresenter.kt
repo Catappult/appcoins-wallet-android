@@ -58,7 +58,7 @@ class PaymentMethodsPresenter(
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
   private var loadedPaymentMethodEvent: String? = null
-  var paypalObservable: Subject<Boolean> = BehaviorSubject.create()
+  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
     val TAG = PaymentMethodsPresenter::class.java.name
@@ -1049,11 +1049,11 @@ class PaymentMethodsPresenter(
         .subscribeOn(networkThread)
         .subscribe(
           {
-            paypalObservable.onNext(it!!)
+            showPayPalLogout.onNext(it!!)
           },
           {
             logger.log(TAG, "Error getting agreement")
-            paypalObservable.onNext(false)
+            showPayPalLogout.onNext(false)
           }
         )
     )

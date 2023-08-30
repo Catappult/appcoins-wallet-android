@@ -204,12 +204,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       paymentMethodClick = paymentMethodClick,
       logoutCallback = {
         presenter.removePaypalBillingAgreement()
-        presenter.paypalObservable.onNext(false)
+        presenter.showPayPalLogout.onNext(false)
         setNextButton()
         showAsLoading()
       },
       disposables = presenter.disposables,
-      observable = presenter.paypalObservable
+      showPayPalLogout = presenter.showPayPalLogout
     )
     selectPaymentMethod(paymentMethods)
 

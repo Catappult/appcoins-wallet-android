@@ -246,11 +246,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           topupClick = topupClick,
           logoutCallback = {
             presenter.removePaypalBillingAgreement()
-            presenter.paypalObservable.onNext(false)
+            presenter.showPayPalLogout.onNext(false)
             showProgressBarLoading()
           },
           disposables = presenter.disposables,
-          observable = presenter.paypalObservable
+          showPayPalLogout = presenter.showPayPalLogout
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()

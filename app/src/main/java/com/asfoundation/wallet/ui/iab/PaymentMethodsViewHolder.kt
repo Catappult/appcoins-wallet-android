@@ -30,7 +30,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     onClickListenerTopup: View.OnClickListener,
     onClickPaypalLogout: () -> Unit,
     disposables: CompositeDisposable,
-    observable: Subject<Boolean>
+    showPayPalLogout: Subject<Boolean>
   ) {
     GlideApp.with(itemView.context)
       .load(data.iconUrl)
@@ -70,7 +70,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     }
     if (data.showLogout) {
       disposables.add(
-        observable
+        showPayPalLogout
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe {
           binding.paymentMoreLogout.visibility = if (it!!)

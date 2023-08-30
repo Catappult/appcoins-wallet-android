@@ -40,7 +40,7 @@ class TopUpFragmentPresenter(
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
-  var paypalObservable: Subject<Boolean> = BehaviorSubject.create()
+  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -272,7 +272,7 @@ class TopUpFragmentPresenter(
 
   private fun setNextButton(methodSelected: String?) {
     disposables.add(
-      paypalObservable
+      showPayPalLogout
       .subscribe {
         if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
           view.setTopupButton()
@@ -449,11 +449,11 @@ class TopUpFragmentPresenter(
         .subscribeOn(networkScheduler)
         .subscribe(
           {
-            paypalObservable.onNext(it!!)
+            showPayPalLogout.onNext(it!!)
           },
           {
             logger.log(TAG, "Error getting agreement")
-            paypalObservable.onNext(false)
+            showPayPalLogout.onNext(false)
           }
         )
     )

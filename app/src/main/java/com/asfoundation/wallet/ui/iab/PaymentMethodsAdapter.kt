@@ -17,7 +17,7 @@ class PaymentMethodsAdapter(
   private val topupClick: PublishSubject<String>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
-  private val observable: Subject<Boolean>
+  private val showPayPalLogout: Subject<Boolean>
 ) :
   RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = -1
@@ -51,7 +51,7 @@ class PaymentMethodsAdapter(
       onClickListenerTopup = { topupClick.onNext(paymentMethods[position].id) },
       onClickPaypalLogout = logoutCallback,
       disposables = disposables,
-      observable = observable
+      showPayPalLogout = showPayPalLogout
     )
   }
 
