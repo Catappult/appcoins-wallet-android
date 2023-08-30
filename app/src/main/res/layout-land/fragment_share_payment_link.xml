@@ -22,7 +22,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/share_link_animation"
+      app:lottie_rawRes="@raw/share_link_animation_new"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -64,7 +64,7 @@
       android:inputType="text"
       android:maxLength="50"
       android:maxLines="1"
-      android:textColorHint="@color/styleguide_black_transparent_80"
+      android:textColorHint="@color/styleguide_light_grey"
       app:layout_constraintBottom_toBottomOf="@id/bottom_separator"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
@@ -77,7 +77,7 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_marginTop="252dp"
-      android:background="@color/styleguide_light_grey"
+      android:background="@color/styleguide_payments_blue"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"

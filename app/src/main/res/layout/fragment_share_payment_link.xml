@@ -23,7 +23,7 @@
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/share_link_animation"
+        app:lottie_rawRes="@raw/share_link_animation_new"
         />
 
     <TextView
@@ -51,7 +51,7 @@
         android:inputType="text"
         android:maxLength="50"
         android:maxLines="2"
-        android:textColorHint="@color/styleguide_black_transparent_80"
+        android:textColorHint="@color/styleguide_dark_grey"
         />
 
     <com.appcoins.wallet.ui.widgets.WalletButtonView
