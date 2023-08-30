@@ -197,20 +197,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
     this@TopUpFragment.paymentMethods = paymentMethods
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
-      showPaypalLogout = showLogoutPaypal,
-      wasLoggedOut = { presenter.wasLoggedOut },
       logoutCallback = {
         presenter.removePaypalBillingAgreement()
-        presenter.wasLoggedOut = true
-        presenter.showingLogout = false
+        presenter.paypalObservable.onNext(false)
         setNextButton()
         showAsLoading()
-      }
+      },
+      disposables = presenter.disposables,
+      observable = presenter.paypalObservable
     )
     selectPaymentMethod(paymentMethods)
 

@@ -209,11 +209,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
-    isSubscription: Boolean,
-    showLogoutPaypal: Boolean
+    isSubscription: Boolean
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
-    setupPaymentMethods(paymentMethods, paymentMethodId, showLogoutPaypal)
+    setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
     }
@@ -228,8 +227,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
-    paymentMethodId: String,
-    showLogoutPaypal: Boolean
+    paymentMethodId: String
   ) {
     if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
       binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethods[0].showTopup
@@ -246,13 +244,13 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
           topupClick = topupClick,
-          showPaypalLogout = showLogoutPaypal,
-          wasLoggedOut = { presenter.wasLoggedOut },
           logoutCallback = {
             presenter.removePaypalBillingAgreement()
-            presenter.wasLoggedOut = true
+            presenter.paypalObservable.onNext(false)
             showProgressBarLoading()
-          }
+          },
+          disposables = presenter.disposables,
+          observable = presenter.paypalObservable
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()

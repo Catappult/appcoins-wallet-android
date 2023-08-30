@@ -1,21 +1,23 @@
 package com.asfoundation.wallet.topup.paymentMethods
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.PaymentMethod
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.PaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 
 
 class TopUpPaymentMethodsAdapter(
   private var paymentMethods: List<PaymentMethod>,
   private var paymentMethodClick: PublishRelay<String>,
-  private val showPaypalLogout: Boolean,
-  private val wasLoggedOut: () -> Boolean,
-  private val logoutCallback: () -> Unit
+  private val logoutCallback: () -> Unit,
+  private val disposables: CompositeDisposable,
+  private val observable: Subject<Boolean>
 ) :
   RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = 0
@@ -38,15 +40,15 @@ class TopUpPaymentMethodsAdapter(
     holder.bind(
       data = paymentMethods[position],
       checked = selectedItem == position,
-      listener = View.OnClickListener {
+      listener = {
         selectedItem = position
         paymentMethodClick.accept(paymentMethods[position].id)
         notifyDataSetChanged()
       },
       onClickListenerTopup = { },
-      showPaypalLogout = showPaypalLogout,
       onClickPaypalLogout = logoutCallback,
-      wasLoggedOut = wasLoggedOut
+      disposables = disposables,
+      observable = observable
     )
   }
 

@@ -28,6 +28,8 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.*
@@ -37,7 +39,7 @@ class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
-  private val disposables: CompositeDisposable,
+  val disposables: CompositeDisposable,
   private val analytics: PaymentMethodsAnalytics,
   private val transaction: TransactionBuilder,
   private val paymentMethodsMapper: PaymentMethodsMapper,
@@ -56,7 +58,7 @@ class PaymentMethodsPresenter(
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
   private var loadedPaymentMethodEvent: String? = null
-  var wasLoggedOut = false
+  var paypalObservable: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
     val TAG = PaymentMethodsPresenter::class.java.name
@@ -93,6 +95,7 @@ class PaymentMethodsPresenter(
   }
 
   fun onResume(firstRun: Boolean) {
+    handlePaypalBillingAgreement()
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
@@ -450,24 +453,21 @@ class PaymentMethodsPresenter(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
           interactor.getEarningBonus(transaction.domain, fiatValue.amount, fiatValue.currency)
-            .subscribeOn(networkThread),
-          isPaypalAgreementCreatedUseCase()
             .subscribeOn(networkThread)
-        ) { paymentMethods, bonus, showPaypalLogout ->
-          Triple(paymentMethods, bonus, showPaypalLogout)
+        ) { paymentMethods, bonus ->
+          Pair(paymentMethods, bonus)
         }
           .observeOn(viewScheduler)
-          .flatMapCompletable { methodsAndBonusAndLogout ->
+          .flatMapCompletable { methodsAndBonus ->
             if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
             Completable.fromAction {
               if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
               view.updateProductName()
-              setupBonusInformation(methodsAndBonusAndLogout.second)
+              setupBonusInformation(methodsAndBonus.second)
               selectPaymentMethod(
-                paymentMethods = methodsAndBonusAndLogout.first,
+                paymentMethods = methodsAndBonus.first,
                 fiatValue = fiatValue,
-                isBonusActive = interactor.isBonusActiveAndValid(methodsAndBonusAndLogout.second),
-                showPaypalLogout = (methodsAndBonusAndLogout.third && !wasLoggedOut)
+                isBonusActive = interactor.isBonusActiveAndValid(methodsAndBonus.second)
               )
               if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
             }
@@ -520,8 +520,7 @@ class PaymentMethodsPresenter(
   private fun selectPaymentMethod(
     paymentMethods: List<PaymentMethod>,
     fiatValue: FiatValue,
-    isBonusActive: Boolean,
-    showPaypalLogout: Boolean
+    isBonusActive: Boolean
   ) {
     val fiatAmount = formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
@@ -556,8 +555,7 @@ class PaymentMethodsPresenter(
           PaymentMethodId.CREDIT_CARD.id,
           fiatAmount,
           appcAmount,
-          paymentMethodsData.frequency,
-          showPaypalLogout
+          paymentMethodsData.frequency
         )
       } else {
         when (paymentMethod.id) {
@@ -605,8 +603,7 @@ class PaymentMethodsPresenter(
         paymentMethods[0].id,
         fiatAmount,
         appcAmount,
-        paymentMethodsData.frequency,
-        showPaypalLogout
+        paymentMethodsData.frequency
       )
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
@@ -616,8 +613,7 @@ class PaymentMethodsPresenter(
         paymentMethodId,
         fiatAmount,
         appcAmount,
-        paymentMethodsData.frequency,
-        showPaypalLogout
+        paymentMethodsData.frequency
       )
     }
   }
@@ -658,8 +654,7 @@ class PaymentMethodsPresenter(
     paymentMethodId: String,
     fiatAmount: String,
     appcAmount: String,
-    frequency: String?,
-    showLogoutPaypal: Boolean
+    frequency: String?
   ) {
     var appcEnabled = false
     var creditsEnabled = false
@@ -688,8 +683,7 @@ class PaymentMethodsPresenter(
       appcEnabled,
       creditsEnabled,
       frequency,
-      paymentMethodsData.subscription,
-      showLogoutPaypal
+      paymentMethodsData.subscription
     )
     sendPaymentMethodsEvents()
   }
@@ -782,8 +776,7 @@ class PaymentMethodsPresenter(
                     paymentMethodId,
                     fiatAmount,
                     appcAmount,
-                    paymentMethodsData.frequency,
-                    (showPaypalLogout && !wasLoggedOut)
+                    paymentMethodsData.frequency
                   )
                 }
               }
@@ -1045,6 +1038,22 @@ class PaymentMethodsPresenter(
           {
             logger.log(TAG, "Agreement Not Removed")
             view.hideLoading()
+          }
+        )
+    )
+  }
+
+  private fun handlePaypalBillingAgreement() {
+    disposables.add(
+      isPaypalAgreementCreatedUseCase()
+        .subscribeOn(networkThread)
+        .subscribe(
+          {
+            paypalObservable.onNext(it!!)
+          },
+          {
+            logger.log(TAG, "Error getting agreement")
+            paypalObservable.onNext(false)
           }
         )
     )
