@@ -106,6 +106,7 @@
               android:layout_below="@id/layout_pre_selected"
               android:layout_alignParentEnd="true"
               android:layout_marginTop="@dimen/normal_margin"
+              android:layout_marginEnd="-16dp"
               android:visibility="gone"
               app:buttonColor="@color/styleguide_pink"
               app:buttonText="@string/activity_iab_change_card_lower_case_button"
