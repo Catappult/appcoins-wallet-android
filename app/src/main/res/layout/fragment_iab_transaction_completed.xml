@@ -8,6 +8,7 @@
     android:layout_gravity="center"
     android:layout_marginStart="80dp"
     android:layout_marginEnd="80dp"
+    android:background="@drawable/background_card_active_wallet"
     android:visibility="gone"
     tools:visibility="visible"
     >

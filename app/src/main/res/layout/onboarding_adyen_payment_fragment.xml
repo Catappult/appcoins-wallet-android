@@ -5,6 +5,7 @@
     android:id="@+id/onboarding_adyen_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_card_active_wallet"
     android:layout_marginHorizontal="@dimen/big_margin"
     >
   <ScrollView
