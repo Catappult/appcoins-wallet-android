@@ -8,18 +8,16 @@
     android:layout_height="match_parent"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/validation_success_animation"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:src="@drawable/ic_error_pink"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.2"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView

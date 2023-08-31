@@ -7,16 +7,14 @@
     android:layout_height="match_parent"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/topup_error_animation"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:src="@drawable/ic_error_pink"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/guideline_top"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
@@ -74,6 +72,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="42dp"
       android:text="@string/error_contac_us_body"
+      android:textColor="@color/styleguide_dark_grey"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

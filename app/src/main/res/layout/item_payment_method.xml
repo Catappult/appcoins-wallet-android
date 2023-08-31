@@ -11,7 +11,22 @@
     android:minHeight="60dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:clipToPadding="false"
     >
+
+  <View
+      android:id="@+id/selected_background"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:background="@drawable/background_method_selected"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="-8dp"
+      android:layout_marginBottom="-8dp"
+      android:visibility="invisible"
+    />
 
   <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/radio_button"
@@ -26,6 +41,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:useMaterialThemeColors="false"
+      android:layout_marginStart="8dp"
       />
 
   <ImageView

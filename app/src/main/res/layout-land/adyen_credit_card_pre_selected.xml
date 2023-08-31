@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:background="@drawable/background_content_payments"
     android:theme="@style/AdyenMaterialAppTheme"
     >
 
@@ -106,10 +107,10 @@
               android:layout_below="@id/layout_pre_selected"
               android:layout_alignParentEnd="true"
               android:layout_marginTop="@dimen/normal_margin"
+              android:layout_marginEnd="-16dp"
               android:visibility="gone"
-              app:buttonColor="@color/styleguide_dark_grey"
-              app:buttonIsAllCaps="true"
-              app:buttonText="@string/activity_iab_change_card"
+              app:buttonColor="@color/styleguide_pink"
+              app:buttonText="Change card"
               app:buttonType="text"
               tools:visibility="visible"
               />
@@ -130,7 +131,7 @@
           android:layout_marginTop="@dimen/normal_margin"
           app:buttonImageRight="@drawable/ic_arrow_right"
           app:buttonIsAllCaps="true"
-          app:buttonText="@string/purchase_more_payment_methods_button"
+          app:buttonText="Other payment methods"
           app:buttonType="text"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"

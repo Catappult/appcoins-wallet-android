@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:theme="@style/AdyenMaterialAppTheme"
+    android:background="@drawable/background_content_payments"
     >
   <RelativeLayout
       android:id="@id/main_view"
