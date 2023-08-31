@@ -1,12 +1,16 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,17 +33,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import coil.compose.AsyncImage
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
+import com.appcoins.wallet.ui.widgets.grantedPermission
+import com.appcoins.wallet.ui.widgets.showInstallButton
+import com.appcoins.wallet.ui.widgets.showResume
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
-
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AppViewFragment(val gamePackage: String) : DialogFragment() {
@@ -52,6 +60,11 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
 
   private val viewModel: AppDetailsViewModel by viewModels()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    createLaunchers()
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -75,7 +88,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
       close = { closeFragment() },
-      install = { viewModel.installApp() },
+      install = { installApp() },
       isAppInstalled = {isAppInstalled(gamePackage)},
       finishedInstall = finishedInstall,
       installing = installing,
@@ -86,6 +99,41 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     ) {
       viewModel.fetchGameDetails(gamePackage)
     }
+  }
+
+  fun installApp() {
+    val storagePermission = ActivityCompat.checkSelfPermission(
+      requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+    if (storagePermission) {
+      viewModel.installApp()
+      grantedPermission.value = true
+    } else {
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+      } else {
+       //navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+      }
+      grantedPermission.value = false
+    }
+  }
+
+  private fun createLaunchers() {
+    requestPermissionsLauncher =
+      registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+          showInstallButton = false
+          showResume = false
+          installApp()
+        }
+
+      }
+    storageIntentLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+
+        }
+      }
   }
 
   fun openApp(packageName:String) {

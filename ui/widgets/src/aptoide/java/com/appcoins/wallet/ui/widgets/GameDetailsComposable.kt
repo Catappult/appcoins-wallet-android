@@ -93,12 +93,11 @@ data class Screenshot(
   val width: Int
 )
 
-private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
-private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
+val grantedPermission = mutableStateOf(false)
 
-private var showEskillsCard by mutableStateOf(true)
-private var showInstallButton by mutableStateOf(true)
-private var showResume by mutableStateOf(false)
+var showEskillsCard by mutableStateOf(true)
+var showInstallButton by mutableStateOf(true)
+var showResume by mutableStateOf(false)
 
 
 @Composable
@@ -164,14 +163,11 @@ fun GameDetails(
         } else {
           Button(
             onClick = {
-              if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-              } else {
-               //navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-              }
               install()
-              showInstallButton = false
-              showResume = false
+              if (grantedPermission.value) {
+                showInstallButton = false
+                showResume = false
+              }
             },
             modifier = Modifier
               .align(Alignment.CenterHorizontally)
@@ -769,7 +765,7 @@ private fun Overview() {
       version = 12
     ),
     progress = 50, close = { /*TODO*/ },
-    install = { /*TODO*/ },
+    install = { false },
     cancel = { },
     pause = { },
     finishedInstall = false,
