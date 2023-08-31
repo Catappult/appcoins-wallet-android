@@ -27,6 +27,8 @@
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_cancel_text">#8f000000</color>
   <color name="dialog_buy_value_text">#4e4e4e</color>
+  <color name="payments_skeleton_secondary">#2E2D3B</color>
+  <color name="payments_skeleton_shimmer">#313040</color>
 
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>

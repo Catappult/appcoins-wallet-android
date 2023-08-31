@@ -2,6 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-  <solid android:color="@color/styleguide_payments_blue_secondary" />
-  <corners android:radius="4dp" />
+  <solid android:color="@color/styleguide_payments_blue" />
+  <corners android:radius="8dp" />
 </shape>

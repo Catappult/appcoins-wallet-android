@@ -21,6 +21,7 @@
       android:layout_marginEnd="6dp"
       app:buttonText="@string/cancel"
       app:buttonType="text"
+      app:buttonColor="@color/styleguide_dark_grey"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView

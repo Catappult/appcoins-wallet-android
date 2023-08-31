@@ -7,6 +7,7 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:theme="@style/AdyenMaterialAppTheme"
+    android:background="@drawable/background_content_payments"
     >
   <RelativeLayout
       android:id="@+id/main_view_pre_selected"
@@ -110,7 +111,7 @@
             android:layout_marginTop="@dimen/normal_margin"
             app:buttonImageRight="@drawable/ic_arrow_right"
             app:buttonIsAllCaps="true"
-            app:buttonText="@string/purchase_more_payment_methods_button"
+            app:buttonText="Other payment methods"
             app:buttonType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/payment_scroll"

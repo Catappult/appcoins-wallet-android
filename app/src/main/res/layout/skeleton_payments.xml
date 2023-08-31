@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="58dp"
     >
   <com.facebook.shimmer.ShimmerFrameLayout
       android:id="@+id/main_background"
@@ -13,46 +13,29 @@
       app:shimmer_base_color="@color/styleguide_payments_blue"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/styleguide_payments_blue_secondary"
+      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
       >
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/skeleton_row"
+        android:background="@drawable/skeleton_row_big"
         />
+
   </com.facebook.shimmer.ShimmerFrameLayout>
+
   <com.facebook.shimmer.ShimmerFrameLayout
-      android:layout_width="108dp"
-      android:layout_height="16dp"
-      android:layout_marginStart="80dp"
+      android:layout_width="154dp"
+      android:layout_height="22dp"
+      android:layout_marginStart="62dp"
       app:layout_constraintBottom_toBottomOf="@id/main_background"
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/styleguide_dark_grey_transparent_50"
+      app:shimmer_base_color="@color/payments_skeleton_secondary"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/styleguide_dark_grey_transparent_50"
-      >
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/skeleton_row"
-        />
-  </com.facebook.shimmer.ShimmerFrameLayout>
-  <com.facebook.shimmer.ShimmerFrameLayout
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_marginStart="42dp"
-      app:layout_constraintBottom_toBottomOf="@id/main_background"
-      app:layout_constraintStart_toStartOf="@id/main_background"
-      app:layout_constraintTop_toTopOf="@id/main_background"
-      app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/styleguide_dark_grey_transparent_50"
-      app:shimmer_colored="true"
-      app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/styleguide_dark_grey_transparent_50"
+      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
       >
     <View
         android:layout_width="match_parent"
@@ -62,17 +45,17 @@
   </com.facebook.shimmer.ShimmerFrameLayout>
 
   <com.facebook.shimmer.ShimmerFrameLayout
-      android:layout_width="16dp"
-      android:layout_height="16dp"
-      android:layout_marginStart="8dp"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_marginStart="16dp"
       app:layout_constraintBottom_toBottomOf="@id/main_background"
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/styleguide_dark_grey_transparent_50"
+      app:shimmer_base_color="@color/payments_skeleton_secondary"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/styleguide_dark_grey_transparent_50"
+      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
       app:shimmer_shape="radial"
       >
     <View

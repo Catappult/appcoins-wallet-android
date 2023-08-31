@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:background="@color/styleguide_payments_blue_secondary"
+    android:background="@drawable/background_content_payments"
     android:theme="@style/AppTheme"
     >
 
@@ -113,15 +113,15 @@
               android:orientation="vertical"
               android:overScrollMode="never"
               android:paddingStart="16dp"
-              android:paddingTop="2dp"
+              android:paddingTop="16dp"
               android:paddingEnd="16dp"
-              android:paddingBottom="32dp"
+              android:paddingBottom="64dp"
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
               app:layout_constrainedHeight="true"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHeight_max="216dp"
-              app:layout_constraintHeight_min="60dp"
+              app:layout_constraintHeight_max="256dp"
+              app:layout_constraintHeight_min="80dp"
               app:layout_constraintHorizontal_bias="0.0"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
@@ -137,35 +137,29 @@
               android:layout_marginEnd="10dp"
               android:orientation="vertical"
               android:paddingTop="8dp"
-              android:paddingBottom="8dp"
+              android:paddingBottom="60dp"
               app:layout_constraintBottom_toBottomOf="@id/content_main"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              tools:visibility="gone"
+              tools:visibility="visible"
               >
             <include
                 layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="58dp"
                 />
             <include
                 layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="8dp"
                 />
             <include
                 layout="@layout/skeleton_payments"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="2dp"
-                />
-            <include
-                layout="@layout/skeleton_payments"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="8dp"
                 />
           </LinearLayout>
 
@@ -191,7 +185,7 @@
               android:layout_marginBottom="42dp"
               app:buttonImageRight="@drawable/ic_arrow_right"
               app:buttonIsAllCaps="true"
-              app:buttonText="@string/purchase_more_payment_methods_button"
+              app:buttonText="Other payment methods"
               app:buttonType="text"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="1.0"
@@ -227,6 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginBottom="16dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             app:layout_constraintEnd_toEndOf="parent"

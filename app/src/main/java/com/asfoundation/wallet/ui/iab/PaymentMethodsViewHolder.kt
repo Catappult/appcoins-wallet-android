@@ -45,6 +45,8 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     handleDescription(data, selected, data.isEnabled)
     handleFee(data.fee, data.isEnabled)
 
+    binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
+
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
       binding.radioButton.visibility = View.VISIBLE

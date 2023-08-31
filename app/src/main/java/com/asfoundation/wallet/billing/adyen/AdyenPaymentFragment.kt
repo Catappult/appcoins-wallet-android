@@ -241,7 +241,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val main_view: RelativeLayout? get() = bindingCreditCardLayout?.mainView
   private val credit_card_info: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
   private val change_card_button: WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
-  private val bonus_msg: TextView? get() = bindingCreditCardLayout?.bonusMsg
   private val bonus_layout: ConstraintLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
   private val adyen_card_form: ConstraintLayout? get() = bindingCreditCardLayout?.adyenCardForm?.root
   private val fragment_adyen_error: ConstraintLayout? get() = bindingCreditCardLayout?.fragmentAdyenError?.root
@@ -402,7 +401,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     } else {
       if (bonus.isNotEmpty()) {
         bonus_layout?.visibility = View.INVISIBLE
-        bonus_msg?.visibility = View.INVISIBLE
       }
       adyen_card_form?.visibility = View.INVISIBLE
       change_card_button?.visibility = View.INVISIBLE
@@ -488,7 +486,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_layout?.visibility = GONE
-    bonus_msg?.visibility = GONE
     more_payment_methods?.visibility = GONE
     adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
@@ -677,9 +674,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       bonus_layout?.visibility = VISIBLE
       bonus_layout_pre_selected?.visibility = VISIBLE
       bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
-      frequency?.let {
-        bonus_msg?.text = getString(R.string.subscriptions_bonus_body)
-      }
     } else {
       bonus_layout?.visibility = GONE
       bonus_layout_pre_selected?.visibility = GONE
