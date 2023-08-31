@@ -1,5 +1,9 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.Manifest
+import android.content.Intent
+import android.os.Build
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -63,6 +67,7 @@ import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import java.text.DecimalFormat
+import javax.inject.Inject
 import kotlin.math.ln
 import kotlin.math.pow
 
@@ -87,6 +92,9 @@ data class Screenshot(
   val height: Int,
   val width: Int
 )
+
+private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
+private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
 
 private var showEskillsCard by mutableStateOf(true)
 private var showInstallButton by mutableStateOf(true)
@@ -156,6 +164,11 @@ fun GameDetails(
         } else {
           Button(
             onClick = {
+              if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+              } else {
+               //navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+              }
               install()
               showInstallButton = false
               showResume = false

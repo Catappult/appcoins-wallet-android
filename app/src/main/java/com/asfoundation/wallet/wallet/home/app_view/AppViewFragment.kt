@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,12 +35,20 @@ import coil.compose.AsyncImage
 import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
+import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AppViewFragment(val gamePackage: String) : DialogFragment() {
+
+  @Inject
+  lateinit var navigator: RecoverEntryNavigator
+
+  private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
+  private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
 
 
   private val viewModel: AppDetailsViewModel by viewModels()
