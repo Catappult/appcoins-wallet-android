@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.network.eskills.download.FileDownloadManager
@@ -47,10 +46,6 @@ constructor(
     return null
   }
 
-  init {
-
-  }
-
   fun fetchGameDetails(packageName: String) {
     getGameDetailsUseCase(packageName)
       .subscribeOn(rxSchedulers.io)
@@ -74,16 +69,10 @@ constructor(
           downloader.observeFileDownloadProgress()
             .subscribe() { status ->
               if(status.downloadProgress.totalFileBytes.toInt() == 0) {
-                Log.d("Total Bytes Zero ? ", "True")
                 progress.value = 0
               } else {
-                Log.d("Progress Value: ", progress.value.toString()+"%")
-                Log.d("So Far Bytes: ", status.downloadProgress.downloadedBytes.toString()+"%")
-                Log.d("Total Bytes: ", status.downloadProgress.totalFileBytes.toString()+"%")
-                Log.d("Percentagem: ", (((status.downloadProgress.downloadedBytes) / (status.downloadProgress.totalFileBytes))*100).toInt().toString()+"%")
                 progress.value =
                   (((status.downloadProgress.downloadedBytes).toDouble() / (status.downloadProgress.totalFileBytes))*100).toInt()
-
               }
               if(status.downloadState.equals(AppDownloadStatus.AppDownloadState.COMPLETED)){
                 finished = true
@@ -94,12 +83,10 @@ constructor(
                     callback.installerInstallStatus
                       .subscribe { installStatus ->
                         if (installStatus.status.equals(InstallStatus.Status.INSTALLING)) {
-                          Log.d("Install Progress", "Installing")
                           installing.value = true
                           finishedInstall.value = false
                         }
                         if (installStatus.status.equals(InstallStatus.Status.SUCCESS)) {
-                          Log.d("Install Progress", "Finished")
                           finishedInstall.value = true
                           installing.value = false
                           cancelDownload()
@@ -116,7 +103,6 @@ constructor(
   }
 
   fun cancelDownload() {
-    Log.d("App View Model", "Enters cancel download")
     fileDownloader.value?.let {
       installAppUseCase.cancelDownload(it)
         .subscribeOn(Schedulers.io())
@@ -127,7 +113,6 @@ constructor(
   }
 
   fun pauseDownoad() {
-    Log.d("App View Model", "Enters pause download")
     fileDownloader.value?.let {
       installAppUseCase.pauseDownload(it)
         .subscribeOn(Schedulers.io())

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.wallet.home.app_view.usecases
 
 import android.os.Environment
-import android.util.Log
 import com.appcoins.wallet.core.network.eskills.download.FileDownloadManagerProvider
 import com.appcoins.wallet.core.network.eskills.downloadmanager.FileDownloader
 import com.appcoins.wallet.core.network.eskills.install.AppInstallerStatusReceiver
@@ -21,7 +20,6 @@ class InstallAppUseCase @Inject constructor(
 ) {
 
   operator fun invoke(appDetails: GameDetailsData): Single<FileDownloader>? {
-    Log.d("InstallAppUseCase", "Enters invoke")
     val fileDownloader = fileDownloadManagerProvider.createFileDownloader(
       appDetails.md5,
       appDetails.url,
@@ -32,7 +30,6 @@ class InstallAppUseCase @Inject constructor(
       PublishSubject.create(),
       "1"
     )
-    Log.d("InstallAppUseCase", "about to start downloading")
     val fileReturn = fileDownloader.startFileDownload().andThen(Single.just(fileDownloader))
 
     return fileReturn
@@ -45,12 +42,6 @@ class InstallAppUseCase @Inject constructor(
       Environment.getExternalStorageDirectory()
         .absolutePath + "/.aptoide/" + gameDetailsData.md5 + ".apk"
     )
-
-    if (file.exists()) {
-      Log.d("File", "File Exists")
-    } else {
-      Log.d("File", "File doesnt exists")
-    }
 
     val appInstall = AppInstall(
       gameDetailsData.gamePackage,

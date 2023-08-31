@@ -2,7 +2,6 @@ package com.asfoundation.wallet.wallet.home.app_view
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,10 +56,6 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
       }
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-  }
-
 
   @Composable
   fun AppViewScreen() {
@@ -84,24 +79,19 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
   }
 
   fun openApp(packageName:String) {
-    Log.d("Open App", "Starting App")
     AptoideUtils.SystemU.openApp(packageName, requireContext().packageManager, context)
   }
 
   fun isAppInstalled(packageName: String): Boolean {
     return try {
-      // on below line getting package info
       requireContext().packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-      // on below line returning true if package is installed.
       true
     } catch (e: PackageManager.NameNotFoundException) {
-      // returning false if package is not installed on device.
       false
     }
   }
 
   fun closeFragment() {
-    Log.i("Parent", "Parent Fragment -> " + parentFragment)
     parentFragmentManager.beginTransaction().remove(this).commit(); }
 
 }
