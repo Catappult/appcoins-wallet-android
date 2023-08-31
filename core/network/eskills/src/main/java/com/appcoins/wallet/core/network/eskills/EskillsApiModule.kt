@@ -1,9 +1,11 @@
 package com.appcoins.wallet.core.network.eskills
 
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.eskills.annotations.EskillsCarouselRetrofit
+import com.appcoins.wallet.core.network.eskills.api.EskillsGamesApi
 import com.appcoins.wallet.core.network.eskills.api.RoomApi
 import com.appcoins.wallet.core.network.eskills.api.TicketApi
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -22,6 +24,8 @@ class EskillsApiModule {
 
   private val eskillsUrl = HostProperties.SKILLS_HOST
 
+  private val carouselUrl = HostProperties.ESKILLS_CAROUSEL_HOST
+
   @Singleton
   @Provides
   @Named("eskills-default")
@@ -39,6 +43,22 @@ class EskillsApiModule {
 
   @Singleton
   @Provides
+  @EskillsCarouselRetrofit
+  fun provideEskillsCarouselRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .baseUrl(carouselUrl)
+      .client(client)
+      .addConverterFactory(
+        GsonConverterFactory.create(
+          GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create()
+        )
+      )
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build()
+  }
+
+  @Singleton
+  @Provides
   fun provideBdsApiSecondary(
     @Named("eskills-default") retrofit: Retrofit
   ): RoomApi {
@@ -50,5 +70,13 @@ class EskillsApiModule {
     @Named("eskills-default") retrofit: Retrofit
   ): TicketApi {
     return retrofit.create(TicketApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesEskillsGamesApi(
+    @EskillsCarouselRetrofit retrofit: Retrofit
+  ): EskillsGamesApi {
+    return retrofit.create(EskillsGamesApi::class.java)
   }
 }

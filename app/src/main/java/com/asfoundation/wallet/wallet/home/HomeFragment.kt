@@ -58,6 +58,7 @@ import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.wallet.home.app_view.AppViewFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -173,7 +174,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
+      GamesBundle(
+        items = viewModel.gamesList.value,
+        dialog = { launchAppViewFragment(gameClicked) }
+      ) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
 
@@ -227,6 +231,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             }
           }
       }
+
       else -> {}
     }
   }
@@ -393,10 +398,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success ->
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
+
       else -> Unit
     }
   }
@@ -407,6 +414,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         //TODO loading
       }
+
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -450,4 +458,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     ) as NavHostFragment
     return navHostFragment.navController
   }
+
+  fun launchAppViewFragment(gamePackage: String) {
+    val dialog = AppViewFragment(gamePackage)
+    dialog.show(childFragmentManager, dialog.tag)
+  }
 }
+

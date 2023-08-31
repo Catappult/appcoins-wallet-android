@@ -1,9 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -15,20 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 
+var gameClicked: String = ""
+
 @Composable
 fun GamesBundle(
   items: List<GameData>,
+  dialog: (gamePackage: String) -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
@@ -48,7 +47,10 @@ fun GamesBundle(
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
       items(items) { item ->
-        CardItem(gameCardData = item)
+        CardItem(
+          gameCardData = item,
+          dialogFragment = dialog
+        )
       }
     }
   }
@@ -57,14 +59,17 @@ fun GamesBundle(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameData
+  gameCardData: GameData,
+  dialogFragment: (gamePackage: String) -> Unit
 ) {
-  val context = LocalContext.current
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, context) },
+    onClick = {
+      gameClicked = gameCardData.gamePackage
+      dialogFragment.invoke(gameCardData.gamePackage)
+    },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
@@ -73,12 +78,21 @@ private fun CardItem(
     Box(
       modifier = Modifier.fillMaxSize()
     ) {
-      AsyncImage(
-        model = gameCardData.gameBackground,
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-      )
+      if (gameCardData.gameBackground == null) {
+        Image(
+          painter = painterResource(id = R.drawable.default_background_carousel),
+          contentDescription = "background",
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      } else {
+        AsyncImage(
+          model = gameCardData.gameBackground,
+          contentDescription = null,
+          modifier = Modifier.fillMaxSize(),
+          contentScale = ContentScale.Crop
+        )
+      }
       Box(
         modifier = Modifier
           .align(Alignment.BottomStart)
@@ -90,13 +104,12 @@ private fun CardItem(
               1F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.99F)
             )
           )
-        )
+      )
       Row(
         modifier = Modifier
           .fillMaxWidth()
           .align(Alignment.BottomCenter)
           .padding(12.dp),
-//        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
       ) {
         Card(
@@ -147,7 +160,7 @@ private fun CardItem(
 data class GameData(
   val title: String,
   val gameIcon: String,
-  val gameBackground: String,
+  val gameBackground: String?,
   val gamePackage: String
 )
 
@@ -169,6 +182,7 @@ fun PreviewGamesBundle() {
         gamePackage = "com.igg.android.lordsmobile",
       )
     ),
+    {},
     {}
   )
 }

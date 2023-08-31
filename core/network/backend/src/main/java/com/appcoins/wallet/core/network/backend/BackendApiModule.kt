@@ -7,11 +7,10 @@ import com.appcoins.wallet.core.network.backend.api.*
 import com.appcoins.wallet.core.network.backend.model.PromotionsDeserializer
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
-import com.appcoins.wallet.core.network.backend.api.NftApi
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
@@ -205,4 +204,5 @@ class BackendApiModule {
   ): GamesApi {
     return retrofit.create(GamesApi::class.java)
   }
+
 }
