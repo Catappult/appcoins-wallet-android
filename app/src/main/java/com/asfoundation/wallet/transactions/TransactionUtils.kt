@@ -1,5 +1,9 @@
 package com.asfoundation.wallet.transactions
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import androidx.compose.ui.text.style.TextDecoration
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.BURN
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_ENTRY_TICKET
@@ -50,6 +54,20 @@ data class TransactionCardInfo(
     val txId: String? = null,
     val invoiceId: String? = null
 )
+
+object DownloadHelper {
+    fun downloadFile(context: Context, url: String, fileName: String) {
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val uri = Uri.parse(url)
+
+        val request = DownloadManager.Request(uri)
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+        request.setMimeType("application/pdf")
+        downloadManager.enqueue(request)
+    }
+}
 
 fun TransactionModel.cardInfoByType() =
     when (this.type) {

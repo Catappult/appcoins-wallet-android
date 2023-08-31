@@ -3,8 +3,6 @@ package com.asfoundation.wallet.transactions
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -117,7 +115,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         UiState.ApiError ->
           Toast.makeText(context, R.string.error_general, Toast.LENGTH_SHORT).show()
 
-        is UiState.InvoiceSuccess -> openUrlIntent(invoiceState.url)
+        is UiState.InvoiceSuccess -> openUrlIntent(invoiceState.url, invoiceState.invoiceId)
         else -> {
           // Do nothing
         }
@@ -257,8 +255,8 @@ class TransactionDetailsFragment : BasePageViewFragment() {
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
-  private fun openUrlIntent(url: String) {
-    requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+  private fun openUrlIntent(url: String, invoiceId: String) {
+    DownloadHelper.downloadFile(requireContext(), url, "$invoiceId.pdf")
   }
 
   @Preview

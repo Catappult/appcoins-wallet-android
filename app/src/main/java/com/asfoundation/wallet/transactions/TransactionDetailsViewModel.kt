@@ -55,7 +55,7 @@ constructor(
             .collect { result ->
               when (result) {
                 is ApiSuccess -> {
-                  _invoiceState.value = InvoiceSuccess(result.data.url)
+                  _invoiceState.value = InvoiceSuccess(result.data.url, invoiceId)
                 }
 
                 is ApiException -> {
@@ -79,6 +79,6 @@ constructor(
     object Loading : UiState()
     object ApiError : UiState()
     data class TransactionSuccess(val transaction: TransactionModel) : UiState()
-    data class InvoiceSuccess(val url: String) : UiState()
+    data class InvoiceSuccess(val url: String, val invoiceId: String) : UiState()
   }
 }
