@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository
 
 import com.appcoins.wallet.core.network.backend.api.TransactionsApi
+import com.appcoins.wallet.core.network.backend.model.InvoiceResponse
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.network.base.call_adapter.Result
 import com.appcoins.wallet.core.network.base.call_adapter.handleApi
@@ -12,24 +13,25 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 interface TransactionsHistoryRepository {
-  suspend fun fetchTransactions(
+  fun fetchTransactions(
     wallet: String,
     limit: Int,
     currency: String
   ): Flow<Result<List<TransactionResponse>>>
 
   fun fetchPagingTransactions(wallet: String, currency: String): TransactionsHistoryPagingSource
+
+  fun getInvoiceUrl(invoiceId: String, ewt: String): Flow<Result<InvoiceResponse>>
 }
 
 @BoundTo(supertype = TransactionsHistoryRepository::class)
 class DefaultTransactionsHistoryRepository @Inject constructor(private val api: TransactionsApi) :
   TransactionsHistoryRepository {
-  override suspend fun fetchTransactions(
+  override fun fetchTransactions(
     wallet: String,
     limit: Int,
     currency: String
   ): Flow<Result<List<TransactionResponse>>> {
-
     return flow {
       emit(
         handleApi {
@@ -41,13 +43,13 @@ class DefaultTransactionsHistoryRepository @Inject constructor(private val api: 
       .flowOn(Dispatchers.IO)
   }
 
-  override fun fetchPagingTransactions(
-    wallet: String,
-    currency: String
-  ) =
-    TransactionsHistoryPagingSource(
-      backend = api,
-      wallet = wallet,
-      currency = currency
-    )
+  override fun fetchPagingTransactions(wallet: String, currency: String) =
+    TransactionsHistoryPagingSource(backend = api, wallet = wallet, currency = currency)
+
+  override fun getInvoiceUrl(invoiceId: String, ewt: String): Flow<Result<InvoiceResponse>> {
+    return flow {
+      emit(handleApi { api.getInvoiceById(invoiceId = invoiceId, authorization = ewt) })
+    }
+      .flowOn(Dispatchers.IO)
+  }
 }

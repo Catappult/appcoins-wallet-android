@@ -50,8 +50,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
-import com.appcoins.wallet.ui.widgets.component.ButtonType
-import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -67,7 +65,11 @@ class TransactionDetailsFragment : BasePageViewFragment() {
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
-      setContent { TransactionDetailView(viewModel.uiState.collectAsState().value) }
+      setContent {
+        TransactionDetailView(
+          viewModel.uiState.collectAsState().value, viewModel.invoiceState.collectAsState().value
+        )
+      }
     }
   }
 
@@ -83,17 +85,15 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun TransactionDetailView(uiState: UiState) {
+  fun TransactionDetailView(uiState: UiState, invoiceState: UiState) {
     Scaffold(
       topBar = {
-        Surface {
-          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
-        }
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
       },
       containerColor = WalletColors.styleguide_blue
     ) { padding ->
       when (uiState) {
-        is UiState.Success -> {
+        is UiState.TransactionSuccess -> {
           TransactionsDetail(
             paddingValues = padding,
             with(uiState.transaction) { cardInfoByType().copy(date = date.getDayAndHour()) })
@@ -107,6 +107,19 @@ class TransactionDetailsFragment : BasePageViewFragment() {
           ) {
             CircularProgressIndicator()
           }
+        }
+
+        else -> {
+          // Do nothing
+        }
+      }
+      when (invoiceState) {
+        UiState.ApiError ->
+          Toast.makeText(context, R.string.error_general, Toast.LENGTH_SHORT).show()
+
+        is UiState.InvoiceSuccess -> openUrlIntent(invoiceState.url)
+        else -> {
+          // Do nothing
         }
       }
     }
@@ -138,12 +151,14 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         }
         item {
           Card(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
+            modifier = Modifier
+              .padding(horizontal = 16.dp)
+              .padding(top = 24.dp),
             colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
           ) {
             Column(
               horizontalAlignment = Alignment.CenterHorizontally,
-              modifier = Modifier.padding(bottom = 24.dp, start = 16.dp, end = 16.dp)
+              modifier = Modifier.padding(horizontal = 16.dp)
             ) {
               TransactionDetailHeader(
                 icon = icon,
@@ -168,7 +183,9 @@ class TransactionDetailsFragment : BasePageViewFragment() {
               )
 
               if (sku != null)
-                TransactionDetailItem(stringResource(R.string.transaction_details_sku), sku)
+                TransactionDetailItem(
+                  stringResource(R.string.transaction_details_sku), sku
+                )
 
               TransactionDetailItem(stringResource(R.string.transaction_date_label), date)
 
@@ -192,8 +209,13 @@ class TransactionDetailsFragment : BasePageViewFragment() {
               if (to != null)
                 TransactionDetailItem(stringResource(R.string.transaction_to_label), to)
 
-              Spacer(modifier = Modifier.padding(vertical = 16.dp))
+              if (invoiceId != null)
+                TransactionDetailItem(
+                  "Invoice",
+                  showDownloadInvoice = true,
+                  onClick = { viewModel.downloadInvoice(invoiceId) })
 
+              Spacer(modifier = Modifier.padding(vertical = 16.dp))
             }
           }
         }
@@ -235,6 +257,10 @@ class TransactionDetailsFragment : BasePageViewFragment() {
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
+  private fun openUrlIntent(url: String) {
+    requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+  }
+
   @Preview
   @Composable
   fun PreviewTransactionsDetail() {
@@ -253,7 +279,8 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         status = StatusType.PENDING,
         id = "0x385e12aa45036de011b8e67ceef307791c64a93bb01089d85b0fc2eda6a5aaec",
         from = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD",
-        to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23"
+        to = "0xd21e10A8bd5917Fa57776dE4654284dCc8434F23",
+        invoiceId = "123"
       )
     )
   }
