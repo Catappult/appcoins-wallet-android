@@ -14,10 +14,7 @@ GameDetailsData(
   val screenshots: List<Screenshot>,
   val rating: Double,
   val downloads: Long,
-  val size: Long,
-  val md5: String,
-  val url: String,
-  val version: Int
+  val size: Long
 )
 
 data class Screenshot(
@@ -30,15 +27,7 @@ data class Screenshot(
 @Composable
 fun GameDetails(
   appDetailsData: GameDetailsData,
-  progress: Int,
   close: () -> Unit,
-  install: () -> Unit,
-  isAppInstalled: () -> Boolean,
-  cancel: () -> Unit,
-  pause: () -> Unit,
-  finishedInstall: Boolean,
-  installing: Boolean,
-  open: () -> Unit,
   function: () -> Unit,
 ) {
 
