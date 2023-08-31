@@ -2,9 +2,12 @@ package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.runtime.Composable
 
+var gameClicked: String = ""
+
 @Composable
 fun GamesBundle(
   items: List<GameData>,
+  dialog: () -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
 
