@@ -296,6 +296,7 @@
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
@@ -529,6 +530,7 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
   
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
