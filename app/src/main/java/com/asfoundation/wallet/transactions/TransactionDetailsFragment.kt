@@ -149,9 +149,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         }
         item {
           Card(
-            modifier = Modifier
-              .padding(horizontal = 16.dp)
-              .padding(top = 24.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
             colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
           ) {
             Column(
