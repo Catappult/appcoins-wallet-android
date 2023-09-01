@@ -13,7 +13,7 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean, showLogoutPaypal: Boolean
+    frequency: String?, isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
