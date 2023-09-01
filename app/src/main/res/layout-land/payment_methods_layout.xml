@@ -194,8 +194,6 @@
           android:layout_height="@dimen/small_button_height"
           android:layout_gravity="center_vertical"
           android:layout_marginTop="6dp"
-          app:buttonImageRight="@drawable/ic_arrow_right"
-          app:buttonIsAllCaps="true"
           app:buttonText="Other payment methods"
           app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"

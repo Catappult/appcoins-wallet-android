@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:background="@drawable/background_content_payments"
     android:maxHeight="300dp"
     android:theme="@style/AdyenMaterialAppTheme"
-    android:background="@drawable/background_content_payments"
     >
 
   <RelativeLayout
@@ -82,13 +82,13 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginBottom="4dp"
           android:layout_marginTop="4dp"
           android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="4dp"
           android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="@+id/dialog_buy_buttons"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="@+id/dialog_buy_buttons"
-          app:layout_constraintBottom_toBottomOf="@+id/dialog_buy_buttons"
           tools:visibility="visible"
           />
 
@@ -129,9 +129,8 @@
               android:layout_gravity="center_vertical"
               android:layout_marginEnd="0dp"
               android:visibility="gone"
-              app:buttonColor="@color/styleguide_dark_grey"
-              app:buttonIsAllCaps="true"
-              app:buttonText="@string/activity_iab_change_card"
+              app:buttonColor="@color/styleguide_pink"
+              app:buttonText="Change card"
               app:buttonType="text"
               tools:visibility="visible"
               />
@@ -197,7 +196,8 @@
 
     <include
         android:id="@+id/fragment_iab_transaction_completed"
-        layout="@layout/fragment_iab_transaction_completed" />
+        layout="@layout/fragment_iab_transaction_completed"
+        />
 
   </RelativeLayout>
 

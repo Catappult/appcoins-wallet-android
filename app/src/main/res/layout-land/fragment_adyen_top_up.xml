@@ -175,9 +175,8 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="-16dp"
                 android:visibility="gone"
-                app:buttonColor="@color/styleguide_dark_grey"
-                app:buttonIsAllCaps="true"
-                app:buttonText="@string/activity_iab_change_card"
+                app:buttonColor="@color/styleguide_pink"
+                app:buttonText="Change card"
                 app:buttonType="text"
                 tools:visibility="visible"
                 />

@@ -78,7 +78,7 @@
                 layout="@layout/selected_payment_method_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-26dp"
+
                 />
             <com.appcoins.wallet.ui.widgets.WalletButtonView
                 android:id="@+id/change_card_button_pre_selected"
@@ -88,9 +88,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/big_margin"
                 android:visibility="gone"
-                app:buttonColor="@color/styleguide_dark_grey"
-                app:buttonIsAllCaps="true"
-                app:buttonText="@string/activity_iab_change_card"
+                app:buttonColor="@color/styleguide_pink"
+                app:buttonText="Change card"
                 app:buttonType="text"
                 tools:visibility="visible"
                 />
@@ -109,8 +108,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/small_button_height"
             android:layout_marginTop="@dimen/normal_margin"
-            app:buttonImageRight="@drawable/ic_arrow_right"
-            app:buttonIsAllCaps="true"
             app:buttonText="Other payment methods"
             app:buttonType="text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +145,7 @@
             android:id="@+id/dialog_buy_buttons_payment_methods"
             layout="@layout/dialog_buy_buttons"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
