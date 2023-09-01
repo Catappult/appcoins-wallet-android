@@ -13,6 +13,7 @@ dependencies {
   implementation(libs.gradlePlugin.ksp)
   implementation(libs.gradlePlugin.junit5)
   implementation(libs.firebase.crashlytics.gradlePlugin)
+  implementation(libs.firebase.performance.gradlePlugin)
 }
 
 gradlePlugin {
