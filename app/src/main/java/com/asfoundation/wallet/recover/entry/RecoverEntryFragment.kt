@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -40,6 +41,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
+  private var isFromOnboarding = false
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -58,14 +60,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    //needed to handle the removal of activity usage from onboarding
-    val isOnboardingLayout = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-    if (!isOnboardingLayout) {
-      views.recoverWalletBackButton.visibility = View.GONE
-    }
-    views.recoverWalletBackButton.setOnClickListener {
-      navigator.navigateBack(fromActivity = !isOnboardingLayout)
-    }
+    isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
       // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
       // still needed for backward compatibility.
@@ -80,6 +75,9 @@ class RecoverEntryFragment : BasePageViewFragment(),
         views.recoverWalletOptions.recoverKeystoreInput.getText().trim()
       )
     }
+    //Validate with carlos Translate for this
+    views.recoverWalletOptions.recoverKeystoreInput.setHintText("Recover code here…")
+    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -122,13 +120,12 @@ class RecoverEntryFragment : BasePageViewFragment(),
   }
 
   fun showLoading() {
-
   }
 
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
-        navigator.navigateToCreateWalletDialog(requireArguments().getBoolean(ONBOARDING_LAYOUT, false))
+        navigator.navigateToSuccess(isFromOnboarding)
       }
       else -> handleErrorState(recoverResult)
     }
@@ -147,6 +144,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
           keystore = recoverResult.keyStore,
           walletBalance = recoverResult.symbol + recoverResult.amount,
           walletAddress = recoverResult.address,
+          walletName = recoverResult.name,
           requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
         )
       }

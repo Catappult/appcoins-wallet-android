@@ -43,6 +43,9 @@
         android:name="wallet_address"
         app:argType="string" />
     <argument
+        android:name="wallet_name"
+        app:argType="string" />
+    <argument
         android:name="onboarding_layout"
         app:argType="boolean" />
 

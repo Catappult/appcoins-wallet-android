@@ -30,14 +30,13 @@
         <ImageView
             android:id="@+id/onboarding_wallet_icon"
             android:layout_width="@dimen/onboarding_icon_size_land"
-            android:layout_height="@dimen/onboarding_icon_size_land"
+            android:layout_height="108dp"
             android:layout_marginTop="@dimen/big_margin"
             android:layout_marginHorizontal="@dimen/large_margin"
-            android:src="@drawable/ic_wallet_black"
+            android:src="@drawable/recovery_entry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/styleguide_white"
             />
 
         <TextView

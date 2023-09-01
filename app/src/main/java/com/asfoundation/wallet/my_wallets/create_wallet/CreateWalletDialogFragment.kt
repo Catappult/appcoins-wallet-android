@@ -48,9 +48,6 @@ class CreateWalletDialogFragment : DialogFragment(),
     if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
       views.createWalletText.text = getText(R.string.provide_wallet_creating_wallet_header)
       viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
-    } else {
-      views.createWalletText.text = getText(R.string.import_wallet_recovering_body)
-      viewModel.recoverWallet()
     }
   }
 

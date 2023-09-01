@@ -32,11 +32,4 @@ class CreateWalletDialogViewModel @Inject constructor(
         Throwable::printStackTrace
       )
   }
-
-  //Temporary bad code until this flow is refactored to the new design
-  fun recoverWallet() {
-    Completable.fromAction {}
-      .asAsyncToState { copy(walletCreationAsync = it) }
-      .scopedSubscribe()
-  }
 }
