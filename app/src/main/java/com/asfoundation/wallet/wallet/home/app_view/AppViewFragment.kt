@@ -4,8 +4,12 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,18 +106,12 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
   }
 
   fun installApp() {
-    val storagePermission = ActivityCompat.checkSelfPermission(
-      requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE
-    ) == PackageManager.PERMISSION_GRANTED
+    val storagePermission = isGrantedPermissionWRITE_EXTERNAL_STORAGE()
     if (storagePermission) {
       viewModel.installApp()
       grantedPermission.value = true
     } else {
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-        requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-      } else {
-       //navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-      }
+      requestPermission()
       grantedPermission.value = false
     }
   }
@@ -129,11 +127,42 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
       }
     storageIntentLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+          if (Environment.isExternalStorageManager()) {
+            showInstallButton = false
+            showResume = false
+            installApp()
+          }
 
         }
       }
+  }
+
+  private fun requestPermission() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+      requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    } else {
+      try {
+        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+        val uri = Uri.fromParts("package", requireActivity().applicationContext.packageName, null)
+        intent.data = uri
+        storageIntentLauncher.launch(intent)
+      } catch (e: Exception) {
+        val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+        storageIntentLauncher.launch(intent)
+      }
+    }
+  }
+
+  fun isGrantedPermissionWRITE_EXTERNAL_STORAGE(): Boolean {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      return Environment.isExternalStorageManager()
+    } else {
+      return ActivityCompat.checkSelfPermission(
+        requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+      ) == PackageManager.PERMISSION_GRANTED
+    }
   }
 
   fun openApp(packageName:String) {
