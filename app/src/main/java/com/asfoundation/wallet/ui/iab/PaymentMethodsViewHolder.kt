@@ -17,6 +17,9 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -27,9 +30,9 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     checked: Boolean,
     listener: View.OnClickListener,
     onClickListenerTopup: View.OnClickListener,
-    showPaypalLogout: Boolean,
     onClickPaypalLogout: () -> Unit,
-    wasLoggedOut: () -> Boolean
+    disposables: CompositeDisposable,
+    showPayPalLogout: Subject<Boolean>
   ) {
     GlideApp.with(itemView.context)
       .load(data.iconUrl)
@@ -70,10 +73,17 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.radioButton.visibility = View.VISIBLE
     }
     if (data.showLogout) {
-      binding.paymentMoreLogout.visibility = if (showPaypalLogout && !wasLoggedOut())
-        View.VISIBLE
-      else
-        View.GONE
+      disposables.add(
+        showPayPalLogout
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe {
+          binding.paymentMoreLogout.visibility = if (it!!)
+            View.VISIBLE
+          else
+            View.GONE
+        }
+      )
+
       binding.paymentMoreLogout.setOnClickListener {
         var wrapper: Context =  ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
         val popup = PopupMenu(wrapper, it)

@@ -153,6 +153,7 @@
       android:contentDescription="Logout"
       android:foregroundTint="@color/styleguide_light_grey"
       android:src="@drawable/ic_more"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
       app:layout_constraintTop_toTopOf="parent"

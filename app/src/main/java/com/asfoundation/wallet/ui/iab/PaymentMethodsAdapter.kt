@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.jakewharton.rxrelay2.PublishRelay
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 
 
 class PaymentMethodsAdapter(
@@ -13,9 +15,9 @@ class PaymentMethodsAdapter(
   private var paymentMethodId: String,
   private var paymentMethodClick: PublishRelay<Int>,
   private val topupClick: PublishSubject<String>,
-  private val showPaypalLogout: Boolean,
-  private val wasLoggedOut: () -> Boolean,
-  private val logoutCallback: () -> Unit
+  private val logoutCallback: () -> Unit,
+  private val disposables: CompositeDisposable,
+  private val showPayPalLogout: Subject<Boolean>
 ) :
   RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = -1
@@ -47,9 +49,9 @@ class PaymentMethodsAdapter(
         notifyDataSetChanged()
       },
       onClickListenerTopup = { topupClick.onNext(paymentMethods[position].id) },
-      showPaypalLogout = showPaypalLogout,
       onClickPaypalLogout = logoutCallback,
-      wasLoggedOut = wasLoggedOut
+      disposables = disposables,
+      showPayPalLogout = showPayPalLogout
     )
   }
 
