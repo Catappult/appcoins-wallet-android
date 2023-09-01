@@ -21,15 +21,10 @@
       android:name="com.asfoundation.wallet.App"
       android:allowBackup="false"
       android:label="@string/app_name"
-      android:networkSecurityConfig="@xml/network_security_config"
       android:supportsRtl="true"
       android:testOnly="false"
-      android:theme="@style/MaterialAppTheme">
-
-    <meta-data
-        android:name="firebase_performance_logcat_enabled"
-        android:value="true" />
-
+      android:theme="@style/MaterialAppTheme"
+      android:networkSecurityConfig="@xml/network_security_config">
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
