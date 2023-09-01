@@ -56,7 +56,15 @@ data class TransactionCardInfo(
 )
 
 object DownloadHelper {
-    fun downloadFile(context: Context, url: String, fileName: String) {
+    private const val MIMETYPE_PDF = "application/pdf"
+    const val PDF_FORMAT = ".pdf"
+
+    fun downloadFile(
+        context: Context,
+        url: String,
+        fileName: String,
+        mimeType: String = MIMETYPE_PDF
+    ) {
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         val uri = Uri.parse(url)
@@ -64,7 +72,7 @@ object DownloadHelper {
         val request = DownloadManager.Request(uri)
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-        request.setMimeType("application/pdf")
+        request.setMimeType(mimeType)
         downloadManager.enqueue(request)
     }
 }

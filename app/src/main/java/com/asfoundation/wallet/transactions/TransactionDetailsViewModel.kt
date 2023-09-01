@@ -9,8 +9,9 @@ import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.GetInvoiceByIdUseCase
-import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState.Idle
-import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState.InvoiceSuccess
+import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState.ApiError
+import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState.Idle
+import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState.InvoiceSuccess
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState.Loading
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState.TransactionSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,13 +30,13 @@ constructor(
   private val getInvoiceByIdUseCase: GetInvoiceByIdUseCase,
   private val logger: Logger
 ) : ViewModel() {
-  private val TAG = TransactionDetailsViewModel::class.java.name
+  private val tag = TransactionDetailsViewModel::class.java.name
 
   private val _uiState = MutableStateFlow<UiState>(Loading)
   var uiState: StateFlow<UiState> = _uiState
 
-  private val _invoiceState = MutableStateFlow<UiState>(Idle)
-  var invoiceState: StateFlow<UiState> = _invoiceState
+  private val _invoiceState = MutableStateFlow<InvoiceState>(Idle)
+  var invoiceState: StateFlow<InvoiceState> = _invoiceState
 
   fun displayChat() {
     displayChatUseCase()
@@ -51,7 +52,7 @@ constructor(
       .doOnSuccess { ewt ->
         viewModelScope.launch {
           getInvoiceByIdUseCase(invoiceId, ewt)
-            .catch { logger.log(TAG, it) }
+            .catch { logger.log(tag, it) }
             .collect { result ->
               when (result) {
                 is ApiSuccess -> {
@@ -59,13 +60,13 @@ constructor(
                 }
 
                 is ApiException -> {
-                  _invoiceState.value = UiState.ApiError
-                  logger.log(TAG, result.e)
+                  _invoiceState.value = ApiError
+                  logger.log(tag, result.e)
                 }
 
                 is ApiFailure -> {
-                  _invoiceState.value = UiState.ApiError
-                  logger.log(TAG, "${result.code}  ${result.message}")
+                  _invoiceState.value = ApiError
+                  logger.log(tag, "${result.code}  ${result.message}")
                 }
               }
             }
@@ -75,10 +76,13 @@ constructor(
   }
 
   sealed class UiState {
-    object Idle : UiState()
     object Loading : UiState()
-    object ApiError : UiState()
     data class TransactionSuccess(val transaction: TransactionModel) : UiState()
-    data class InvoiceSuccess(val url: String, val invoiceId: String) : UiState()
+  }
+
+  sealed class InvoiceState {
+    object Idle : InvoiceState()
+    object ApiError : InvoiceState()
+    data class InvoiceSuccess(val url: String, val invoiceId: String) : InvoiceState()
   }
 }

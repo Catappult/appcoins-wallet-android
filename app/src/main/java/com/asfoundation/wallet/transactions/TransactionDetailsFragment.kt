@@ -49,6 +49,8 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
 import com.asf.wallet.R
+import com.asfoundation.wallet.transactions.DownloadHelper.PDF_FORMAT
+import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +85,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun TransactionDetailView(uiState: UiState, invoiceState: UiState) {
+  fun TransactionDetailView(uiState: UiState, invoiceState: InvoiceState) {
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -106,16 +108,14 @@ class TransactionDetailsFragment : BasePageViewFragment() {
             CircularProgressIndicator()
           }
         }
-
-        else -> {
-          // Do nothing
-        }
       }
       when (invoiceState) {
-        UiState.ApiError ->
+        InvoiceState.ApiError ->
           Toast.makeText(context, R.string.error_general, Toast.LENGTH_SHORT).show()
 
-        is UiState.InvoiceSuccess -> openUrlIntent(invoiceState.url, invoiceState.invoiceId)
+        is InvoiceState.InvoiceSuccess ->
+          openUrlIntent(invoiceState.url, invoiceState.invoiceId)
+
         else -> {
           // Do nothing
         }
@@ -255,7 +255,9 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
   private fun openUrlIntent(url: String, invoiceId: String) {
     DownloadHelper.downloadFile(
-      requireContext(), url, "${getString(R.string.transaction_invoice_label)}-$invoiceId.pdf"
+      context = requireContext(),
+      url = url,
+      fileName = "${getString(R.string.transaction_invoice_label)}-$invoiceId$PDF_FORMAT"
     )
   }
 
