@@ -280,7 +280,11 @@ fun TransactionDetailItem(
       modifier = Modifier.padding(start = 48.dp)
     ) {
       if (showDownloadInvoice)
-        IconTextButton(text = "Download", R.drawable.ic_download, onClick)
+        IconTextButton(
+          text = stringResource(id = R.string.download_button),
+          R.drawable.ic_download,
+          onClick
+        )
       else TransactionDetailInfo(data, dataColor, allowCopy, onClick)
     }
   }

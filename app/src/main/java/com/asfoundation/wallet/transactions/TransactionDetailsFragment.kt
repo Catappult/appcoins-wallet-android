@@ -207,7 +207,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
               if (invoiceId != null)
                 TransactionDetailItem(
-                  "Invoice",
+                  stringResource(id = R.string.transaction_invoice_label),
                   showDownloadInvoice = true,
                   onClick = { viewModel.downloadInvoice(invoiceId) })
 
@@ -254,7 +254,9 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   }
 
   private fun openUrlIntent(url: String, invoiceId: String) {
-    DownloadHelper.downloadFile(requireContext(), url, "$invoiceId.pdf")
+    DownloadHelper.downloadFile(
+      requireContext(), url, "${getString(R.string.transaction_invoice_label)}-$invoiceId.pdf"
+    )
   }
 
   @Preview
