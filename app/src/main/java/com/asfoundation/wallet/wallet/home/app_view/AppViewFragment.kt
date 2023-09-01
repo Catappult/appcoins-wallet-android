@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,18 +85,18 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
   @Composable
   fun AppViewScreen() {
     val downloadProgress by remember { viewModel.progress }
-    val finishedInstall by remember { viewModel.finishedInstall}
-    val installing by remember { viewModel.installing}
+    val finishedInstall by remember { viewModel.finishedInstall }
+    val installing by remember { viewModel.installing }
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
       close = { closeFragment() },
       install = { installApp() },
-      isAppInstalled = {isAppInstalled(gamePackage)},
+      isAppInstalled = { isAppInstalled(gamePackage) },
       finishedInstall = finishedInstall,
       installing = installing,
-      cancel = {viewModel.cancelDownload()},
-      pause = {viewModel.pauseDownoad()},
-      open = { openApp(gamePackage)},
+      cancel = { viewModel.cancelDownload() },
+      pause = { viewModel.pauseDownoad() },
+      open = { openApp(gamePackage) },
       progress = downloadProgress
     ) {
       viewModel.fetchGameDetails(gamePackage)
@@ -165,7 +163,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     }
   }
 
-  fun openApp(packageName:String) {
+  fun openApp(packageName: String) {
     AptoideUtils.SystemU.openApp(packageName, requireContext().packageManager, context)
   }
 
