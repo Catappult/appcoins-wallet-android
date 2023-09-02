@@ -3,6 +3,9 @@ package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 data class
 GameDetailsData(
@@ -25,6 +28,12 @@ data class Screenshot(
   val height: Int,
   val width: Int
 )
+
+val grantedPermission = mutableStateOf(false)
+
+var showEskillsCard by mutableStateOf(true)
+var showInstallButton by mutableStateOf(true)
+var showResume by mutableStateOf(false)
 
 
 @Composable
