@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import androidx.compose.ui.text.style.TextDecoration
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.CHALLENGE_REWARD
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.BURN
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_ENTRY_TICKET
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_REWARD
@@ -19,10 +20,12 @@ import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.IN
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PROMO_CODE_BONUS
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PURCHASE_BONUS
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PURCHASE_REFUND
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_CHALLENGE_REWARD
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_ESKILLS_TICKET
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_PURCHASE
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_SUBSCRIPTION_PURCHASE
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_TOPUP
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_CHALLENGE_REWARD
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_EXTRA_BONUS
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_PROMO_CODE_BONUS
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_PURCHASE_BONUS
@@ -396,6 +399,50 @@ fun TransactionModel.cardInfoByType() =
                 sku = sku,
                 txId = txId,
                 invoiceId = invoiceId
+            )
+
+        CHALLENGE_REWARD ->
+            TransactionCardInfo(
+              id = orderId,
+              title = R.string.transaction_type_challenge_reward,
+              icon = R.drawable.ic_transaction_challenge_reward,
+              amount = amount,
+              amountSubtitle = amountSubtitle,
+              status = status,
+              date = date,
+              txId = txId,
+              invoiceId = invoiceId,
+            )
+
+        REJECTED_CHALLENGE_REWARD ->
+            TransactionCardInfo(
+              title = R.string.transaction_type_challenge_reward_rejected,
+              icon = R.drawable.ic_transaction_reverted_challenge_reward,
+              amount = amount,
+              amountSubtitle = amountSubtitle,
+              status = status,
+              subIcon = R.drawable.ic_transaction_rejected_mini,
+              textDecoration = TextDecoration.LineThrough,
+              failedMessage = R.string.transaction_rejected_body,
+              date = date,
+              txId = txId,
+              invoiceId = invoiceId,
+            )
+
+        REVERTED_CHALLENGE_REWARD ->
+            TransactionCardInfo(
+              title = R.string.transaction_type_challenge_reward_reverted,
+              icon = R.drawable.ic_transaction_reverted_challenge_reward,
+              amount = amount,
+              amountSubtitle = amountSubtitle,
+              description = description,
+              appIcon = appIcon,
+              status = status,
+              subIcon = R.drawable.ic_transaction_refund_reverted_mini,
+              failedMessage = R.string.transaction_bonus_reverted_body,
+              date = date,
+              txId = txId,
+              invoiceId = invoiceId,
             )
 
         ESKILLS_ENTRY_TICKET ->
