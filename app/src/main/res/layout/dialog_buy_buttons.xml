@@ -18,6 +18,7 @@
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="6dp"
       android:visibility="gone"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:buttonText="@string/cancel"
       app:buttonType="text"
       tools:visibility="visible"

@@ -214,6 +214,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val lottie_transaction_success: LottieAnimationView
     get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.lottieTransactionSuccess
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.lottieTransactionSuccess!!
+  private val transaction_success_bonus_text: TextView
+    get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.transactionSuccessBonusText
+      ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.transactionSuccessBonusText!!
+  private val bonus_success_layout: LinearLayout
+    get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.bonusSuccessLayout
+      ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.bonusSuccessLayout!!
   private val next_payment_date: TextView
     get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.nextPaymentDate
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.nextPaymentDate!!
@@ -318,7 +324,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun setupUi() {
     adyenCardView = AdyenCardView(adyen_card_form_pre_selected)
-    setupTransactionCompleteAnimation()
+    setupTransactionComplete()
     handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
     setupRedirectConfiguration()
@@ -370,7 +376,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun retrieveBillingAddressData() = billingAddressModel
 
-  override fun getAnimationDuration() = lottie_transaction_success.duration
+  override fun getAnimationDuration() = lottie_transaction_success.duration * 3
 
   override fun showProduct() {
     try {
@@ -649,19 +655,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(lottie_transaction_success)
-    textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    lottie_transaction_success.setTextDelegate(textDelegate)
-    lottie_transaction_success.setFontAssetDelegate(object : FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+  private fun setupTransactionComplete() {
+    if (bonus.isNotEmpty()) {
+      transaction_success_bonus_text.text = "$bonus Bonus Received"   // TODO replace string
+    } else {
+      bonus_success_layout.visibility = GONE
+    }
   }
 
   private fun showBonus() {
@@ -729,8 +728,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation_new)
-      setupTransactionCompleteAnimation()
+      lottie_transaction_success.setAnimation(R.raw.success_animation)
+      setupTransactionComplete()
     } else {
       lottie_transaction_success.setAnimation(R.raw.success_animation)
     }

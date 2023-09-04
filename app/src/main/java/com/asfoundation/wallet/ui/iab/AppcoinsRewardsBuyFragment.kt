@@ -161,9 +161,10 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     binding.loadingView.visibility = View.GONE
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
   }
 
-  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
+  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration * 2
 
   override fun lockRotation() = iabView.lockRotation()
 
