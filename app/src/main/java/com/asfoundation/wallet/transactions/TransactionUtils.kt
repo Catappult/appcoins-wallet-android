@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.transactions
 
 import androidx.compose.ui.text.style.TextDecoration
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.CHALLENGE_REWARD
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.BURN
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_ENTRY_TICKET
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_REWARD
@@ -348,6 +349,22 @@ fun TransactionModel.cardInfoByType() =
                 textDecoration = TextDecoration.LineThrough,
                 sku = sku,
                 txId = txId
+            )
+
+        CHALLENGE_REWARD ->
+            TransactionCardInfo(
+              id = orderId,
+              title = R.string.challenge_reward_title,
+              icon = R.drawable.ic_challenge_reward,
+              app = app,
+              appIcon = appIcon,
+              description = description,
+              amount = amount,
+              amountSubtitle = amountSubtitle,
+              status = status,
+              date = date,
+              sku = sku,
+              txId = txId
             )
 
         ESKILLS_ENTRY_TICKET ->
