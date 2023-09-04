@@ -33,7 +33,7 @@ data class TransactionEntity(val transactionId: String,
   enum class TransactionType {
     STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN, TRANSFER,
     ETHER_TRANSFER, BONUS_REVERT, TOP_UP_REVERT, IAP_REVERT, INAPP_SUBSCRIPTION, ESKILLS_REWARD,
-    ESKILLS;
+    ESKILLS, CHALLENGE_REWARD,
   }
 
   enum class SubType {

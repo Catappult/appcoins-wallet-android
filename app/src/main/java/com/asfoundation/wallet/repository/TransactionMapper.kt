@@ -103,6 +103,7 @@ class TransactionMapper @Inject constructor(){
       TransactionEntity.TransactionType.INAPP_SUBSCRIPTION -> Transaction.TransactionType.SUBS_OFFCHAIN
       TransactionEntity.TransactionType.ESKILLS_REWARD -> Transaction.TransactionType.ESKILLS_REWARD
       TransactionEntity.TransactionType.ESKILLS -> Transaction.TransactionType.ESKILLS
+      TransactionEntity.TransactionType.CHALLENGE_REWARD -> Transaction.TransactionType.CHALLENGE_REWARD
     }
   }
 
@@ -180,6 +181,7 @@ class TransactionMapper @Inject constructor(){
       Transaction.TransactionType.SUBS_OFFCHAIN -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
       Transaction.TransactionType.ESKILLS_REWARD -> TransactionEntity.TransactionType.ESKILLS_REWARD
       Transaction.TransactionType.ESKILLS -> TransactionEntity.TransactionType.ESKILLS
+      Transaction.TransactionType.CHALLENGE_REWARD -> TransactionEntity.TransactionType.CHALLENGE_REWARD
     }
   }
 

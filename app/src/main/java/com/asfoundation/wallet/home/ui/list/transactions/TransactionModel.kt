@@ -138,6 +138,12 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
       Transaction.TransactionType.ESKILLS -> {
         txTypeIcon = R.drawable.ic_transaction_iab
       }
+      Transaction.TransactionType.CHALLENGE_REWARD -> {
+        txTypeIcon = R.drawable.ic_challenge_reward
+        isTypeIconVisible = true
+        address = context.getString(R.string.challenge_reward_title)
+        currencySymbol = WalletCurrency.CREDITS.symbol
+      }
       else -> Unit
     }
 

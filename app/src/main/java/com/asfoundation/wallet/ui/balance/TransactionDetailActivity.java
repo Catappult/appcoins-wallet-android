@@ -343,6 +343,15 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
 //        to = transaction.getTo() ;
         from = transaction.getFrom() ;
         break;
+      case CHALLENGE_REWARD:
+        id = getString(R.string.challenge_reward_title);
+        typeStr = R.string.challenge_reward_title;
+        typeIcon = R.drawable.ic_challenge_reward;
+        symbol = getString(R.string.challenge_reward_title);
+        button.setVisibility(View.VISIBLE);
+        categoryBackground.setBackground(null);
+        manageSubscriptions.setVisibility(View.GONE);
+        break;
     }
 
     switch (transaction.getStatus()) {
