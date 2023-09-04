@@ -80,7 +80,7 @@
   <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Buying %s</string>
   <string name="action_buy">Buy</string>
-  <string name="empty" />
+  <string name="empty"/>
   <string name="try_again">Try again</string>
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
@@ -159,6 +159,7 @@
   <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
   <string name="back_to_the_game_button">Back to the game</string>
   <string name="other_payment_methos_title">Other payment methods:</string>
+
 
 
   <!-- Menus -->
@@ -243,6 +244,7 @@
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
@@ -295,6 +297,7 @@
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
@@ -327,7 +330,7 @@
   <string name="transaction_details_header">Transaction details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
-
+ 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
@@ -490,6 +493,7 @@
   <string name="p2p_send_currency_appc_c" translatable="false">AppCoins Credits</string>
 
 
+
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
@@ -527,6 +531,7 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -596,6 +601,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
   <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
@@ -711,7 +717,7 @@
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
 
 
-  <!--Promotions-->
+<!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>
   <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
   <string name="promotions_title">Earn AppCoins Credits</string>
@@ -730,7 +736,7 @@
   <string name="promotions_vouhers_button">Vouchers</string>
   <string name="promotions_tooltip">Earn free AppCoins Credits with our promotions!</string>
 
-  <!--Update-->
+<!--Update-->
   <string name="update_wallet_poa_notification_title">Update to receive rewards</string>
   <string name="update_wallet_poa_notification_body">Please update the AppCoins Wallet to receive this reward.</string>
   <string name="update_wallet_purchase_title">You need to update!</string>
@@ -743,9 +749,9 @@
   <string name="update_backup_body">Back up your wallet before updating.</string>
   <string name="update_backup_date">Last backed up on %s.</string>
   <string name="update_backup_never">Not backed up yet.</string>
-
-
-  <!--Backup and Import-->
+  
+  
+<!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
 
@@ -794,7 +800,7 @@
   <string name="backup_wallet_button">Backup wallet</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
-
+  
   <string name="backup_popup_title">Back up your wallet now!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
@@ -826,7 +832,7 @@
   <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">This is your active wallet.</string>
 
-  <!--Remove Wallet-->
+<!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
   <string name="remove_wallet_backup_button">Back up wallet</string>
@@ -836,7 +842,7 @@
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
 
-  <!--Tranfer-->
+<!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Funds</string>
   <string name="transfer_send_tab_title">Send</string>
@@ -859,7 +865,7 @@
   <string name="pioneer_gamification_title">You\'re a Pioneer</string>
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
 
-  <!--Check for Updates-->
+<!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
@@ -870,7 +876,7 @@
   <string name="check_updates_settings_available_title">New version available</string>
   <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
 
-  <!--Subscriptions-->
+<!--Subscriptions-->
   <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
   <string name="subscriptions_subscribe_button">Subscribe</string>
@@ -983,7 +989,7 @@
   <string name="carrier_billing_terms_button">Terms and Conditions</string>
   <string name="carrier_billing_privacy_button">Privacy Policy</string>
 
-  <!--Manage Cards-->
+<!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_view_title">Manage cards</string>
@@ -998,7 +1004,7 @@
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
 
-  <!--Perks-->
+ <!--Perks-->
   <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
   <string name="perks_gamif_subtitle">The more you spend in your favorite apps, the bigger the bonus!</string>
   <string name="perks_title">Promotions</string>
@@ -1080,7 +1086,7 @@
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
 
 
-  <!--Card verification-->
+ <!--Card verification-->
   <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
@@ -1114,6 +1120,7 @@
   <string name="verify_paypal_button">Verify PayPal account</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+
 
 
   <!--Vouchers-->
@@ -1233,7 +1240,7 @@
   <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
 
 
-  <!-- My Wallet -->
+<!-- My Wallet -->
   <string name="mywallet_unverified_title">Verify a Payment Method</string>
   <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
@@ -1247,18 +1254,20 @@
   <string name="mywallet_address_title">Address:</string>
 
 
-  <!-- Onboarding for new users coming from an iap -->
+
+<!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
   <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
-
+  
   <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
   <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
   <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  
 
 
-  <!-- VIP Program -->
+<!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
   <string name="vip_program_almost_notification_title">Almost there!</string>
@@ -1289,7 +1298,7 @@
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
   <string name="vip_program_title_vip_offer">VIP Offer</string>
 
-  <!-- Refactor Home -->
+<!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
@@ -1345,10 +1354,10 @@
   <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
 
-  <!-- Rewards Home -->
+ <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
-
+  
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
