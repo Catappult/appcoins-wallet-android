@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -28,7 +29,10 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
+import java.lang.Thread.sleep
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -157,7 +161,10 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    navigatorIAB?.popView(successBundle)
+    viewLifecycleOwner.lifecycleScope.launch{
+      delay(1500L)
+      navigatorIAB?.popView(successBundle)
+    }
   }
 
   private fun handleSuccess(bundle: Bundle) {
@@ -192,28 +199,13 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
+    views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
-      setupTransactionCompleteAnimation()
+      views.successContainer.transactionSuccessBonusText .text = "$bonus Bonus Received"   // TODO replace string
+      views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      views.successContainer.bonusSuccessLayout.visibility = View.GONE
     }
-  }
-
-  private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
   }
 
   private val amount: BigDecimal by lazy {

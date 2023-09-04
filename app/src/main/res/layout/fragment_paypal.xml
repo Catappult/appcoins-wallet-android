@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:minHeight="250dp"
+    android:background="@drawable/background_content_payments"
     >
 
   <include

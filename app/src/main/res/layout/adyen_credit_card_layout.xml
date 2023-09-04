@@ -5,6 +5,7 @@
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:animateLayoutChanges="true"
     android:theme="@style/AdyenMaterialAppTheme"
     android:background="@drawable/background_content_payments"
     >
@@ -86,7 +87,7 @@
               android:layout_marginBottom="8dp"
               android:visibility="gone"
               app:buttonColor="@color/styleguide_pink"
-              app:buttonText="Change card"
+              app:buttonText="@string/activity_iab_change_card_lower_case_button"
               app:buttonType="text"
               tools:visibility="visible"
               />
@@ -129,7 +130,7 @@
           app:layout_constraintTop_toBottomOf="@id/cc_info_view"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
+          app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons" />
 
       <TextView
           android:id="@+id/bonus_msg"
@@ -138,7 +139,7 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/bonus_layout"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
+          android:layout_marginTop="0dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:gravity="center"
           android:text="@string/gamification_purchase_body"

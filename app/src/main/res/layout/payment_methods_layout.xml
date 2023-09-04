@@ -183,7 +183,7 @@
               android:layout_gravity="center_vertical"
               android:layout_marginTop="6dp"
               android:layout_marginBottom="42dp"
-              app:buttonText="Other payment methods"
+              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
               app:buttonType="text"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="1.0"
