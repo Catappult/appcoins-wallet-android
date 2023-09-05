@@ -20,13 +20,13 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/fragment_credit_card_authorization_progress_bar"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
         android:layout_centerInParent="true"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_dark_animation"
+        app:lottie_rawRes="@raw/loading_wallet"
         tools:visibility="visible"
         />
 
@@ -183,6 +183,9 @@
   <include
       android:id="@+id/fragment_iab_transaction_completed"
       layout="@layout/fragment_iab_transaction_completed"
+      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_height="280dp"
+      android:layout_centerInParent="true"
       tools:visibility="gone"
       />
 
