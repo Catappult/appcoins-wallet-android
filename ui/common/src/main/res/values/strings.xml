@@ -532,7 +532,7 @@
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  
+
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
@@ -772,7 +772,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>

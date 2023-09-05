@@ -34,8 +34,8 @@ import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyWalletsFragment : BasePageViewFragment(),
-  SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+class MyWalletsFragment :
+  BasePageViewFragment(), SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -46,11 +46,11 @@ class MyWalletsFragment : BasePageViewFragment(),
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
-
   private val viewModel: MyWalletsViewModel by viewModels()
 
   private var binding: FragmentMyWalletsBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -90,40 +90,68 @@ class MyWalletsFragment : BasePageViewFragment(),
         showWalletInfoLoading()
         showBackupLoading()
       }
+
       is Async.Fail -> Unit
-      is Async.Success -> asyncValue().run {
-        showWalletInfo()
-        showBackup()
-      }
+      is Async.Success ->
+        asyncValue().run {
+          showWalletInfo()
+          showBackup()
+        }
     }
     when (val asyncValue = state.walletVerifiedAsync) {
       Async.Uninitialized,
       is Async.Loading -> showVerifyLoading()
+
       is Async.Fail -> Unit
-      is Async.Success -> asyncValue().run {
-        when (status) {
-          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(false)
-          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
-          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
-          com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.NO_NETWORK, com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.ERROR -> {
-            when (cachedStatus) {
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(true)
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(true)
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(true)
-              else -> showUnverified(true)
+      is Async.Success ->
+        asyncValue().run {
+          when (status) {
+            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              .VERIFIED -> showVerified(false)
+
+            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              .UNVERIFIED -> showUnverified(false)
+
+            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              .CODE_REQUESTED -> showUnverifiedInsertCode(false)
+
+            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              .NO_NETWORK,
+            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              .ERROR -> {
+              when (cachedStatus) {
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .VERIFIED -> showVerified(true)
+
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .UNVERIFIED -> showUnverified(true)
+
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .CODE_REQUESTED -> showUnverifiedInsertCode(true)
+
+                else -> showUnverified(true)
+              }
             }
-          }
-          else -> {
-            when (cachedStatus) {
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFIED -> showVerified(false)
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
-              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus.VERIFYING -> showVerifying()
-              else -> showUnverified(true)
+
+            else -> {
+              when (cachedStatus) {
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .VERIFIED -> showVerified(false)
+
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .UNVERIFIED -> showUnverified(false)
+
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .CODE_REQUESTED -> showUnverifiedInsertCode(false)
+
+                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .VERIFYING -> showVerifying()
+
+                else -> showUnverified(true)
+              }
             }
           }
         }
-      }
     }
   }
 
@@ -158,18 +186,13 @@ class MyWalletsFragment : BasePageViewFragment(),
         views.myWalletsContent.qrImage,
         getString(R.string.error_fail_generate_qr),
         Snackbar.LENGTH_SHORT
-      ).show()
+      )
+        .show()
     }
     views.myWalletsContent.qrImage.isEnabled = true
     views.myWalletsContent.qrImage.setOnClickListener {
       navigator.navigateToQrCode(views.myWalletsContent.qrImage)
     }
-
-//    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
-    views.myWalletsContent.receiveButton.setOnClickListener {
-      //navigator.navigateToReceive(Wallet(wallet))
-    }
-
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
     views.myWalletsContent.walletNameSkeleton.playAnimation()
     views.myWalletsContent.walletNameTextView.text = name
@@ -203,9 +226,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     }
 
     views.myWalletsContent.actionButtonShareAddress.isEnabled = true
-    views.myWalletsContent.actionButtonShareAddress.setOnClickListener {
-      showShare(wallet)
-    }
+    views.myWalletsContent.actionButtonShareAddress.setOnClickListener { showShare(wallet) }
 
     views.myWalletsContent.actionButtonCopyAddress.isEnabled = true
     views.myWalletsContent.actionButtonCopyAddress.setOnClickListener {
@@ -224,25 +245,28 @@ class MyWalletsFragment : BasePageViewFragment(),
   private fun WalletInfo.showBackup() {
     val imageRes = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
     val colorRes = if (hasBackup) R.color.styleguide_white else R.color.styleguide_pink
-    val titleRes = if (hasBackup) {
-      R.string.backup_confirmation_no_share_title
-    } else {
-      R.string.my_wallets_action_backup_wallet
-    }
+    val titleRes =
+      if (hasBackup) {
+        R.string.backup_confirmation_no_share_title
+      } else {
+        R.string.my_wallets_action_backup_wallet
+      }
     // If the date is 0 or 1, then either wallet was not backup yet or the backup date is unknown
-    val text = if (backupDate > 1) {
-      getString(
-        R.string.mywallet_backed_up_date,
-        DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
-      )
-    } else {
-      getString(R.string.backup_wallet_tooltip)
-    }
-    val buttonTextRes = if (hasBackup) {
-      R.string.mywallet_backup_again_button
-    } else {
-      R.string.my_wallets_action_backup_wallet
-    }
+    val text =
+      if (backupDate > 1) {
+        getString(
+          R.string.mywallet_backed_up_date,
+          DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
+        )
+      } else {
+        getString(R.string.backup_wallet_tooltip)
+      }
+    val buttonTextRes =
+      if (hasBackup) {
+        R.string.mywallet_backup_again_button
+      } else {
+        R.string.my_wallets_action_backup_wallet
+      }
     views.myWalletsContent.backupLoading.visibility = View.GONE
     views.myWalletsContent.backupAlertIcon.visibility = View.VISIBLE
     views.myWalletsContent.backupAlertIcon.setImageResource(imageRes)
@@ -254,7 +278,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.backupButton.setText(getString(buttonTextRes))
     views.myWalletsContent.backupButton.setColor(ContextCompat.getColor(requireContext(), colorRes))
     views.myWalletsContent.backupButton.setOnClickListener {
-      navigator.navigateToBackupWallet(wallet)
+      navigator.navigateToBackup(wallet, name)
       walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
     }
   }
@@ -278,16 +302,13 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
-    views.myWalletsContent.verifyButton.setText(getString(R.string.mywallet_verify_payment_method_button))
-    views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_white
-      )
+    views.myWalletsContent.verifyButton.setText(
+      getString(R.string.mywallet_verify_payment_method_button)
     )
-    views.myWalletsContent.verifyButton.setOnClickListener {
-      navigator.navigateToVerifyPicker()
-    }
+    views.myWalletsContent.verifyButton.setColor(
+      ContextCompat.getColor(requireContext(), R.color.styleguide_white)
+    )
+    views.myWalletsContent.verifyButton.setOnClickListener { navigator.navigateToVerifyPicker() }
   }
 
   private fun showUnverified(disableButton: Boolean) {
@@ -302,14 +323,9 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.referral_view_verify_button))
     views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_pink
-      )
+      ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
     )
-    views.myWalletsContent.verifyButton.setOnClickListener {
-      navigator.navigateToVerifyPicker()
-    }
+    views.myWalletsContent.verifyButton.setOnClickListener { navigator.navigateToVerifyPicker() }
   }
 
   private fun showUnverifiedInsertCode(disableButton: Boolean) {
@@ -318,16 +334,19 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyAlertIcon.visibility = View.VISIBLE
     views.myWalletsContent.verifyAlertIcon.setImageResource(R.drawable.ic_alert_circle)
     views.myWalletsContent.verifyWalletTitle.visibility = View.VISIBLE
-    views.myWalletsContent.verifyWalletTitle.setText(R.string.card_verification_wallets_one_step_title)
+    views.myWalletsContent.verifyWalletTitle.setText(
+      R.string.card_verification_wallets_one_step_title
+    )
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
-    views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
+    views.myWalletsContent.verifyWalletText.setText(
+      R.string.card_verification_wallets_one_step_body
+    )
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
-    views.myWalletsContent.verifyButton.setText(getString(R.string.card_verification_wallets_insert_bode_button))
+    views.myWalletsContent.verifyButton.setText(
+      getString(R.string.card_verification_wallets_insert_bode_button)
+    )
     views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_pink
-      )
+      ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
     )
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyCreditCard()
@@ -385,9 +404,10 @@ class MyWalletsFragment : BasePageViewFragment(),
       .show()
   }
 
-  fun showShare(walletAddress: String) = ShareCompat.IntentBuilder(requireActivity())
-    .setText(walletAddress)
-    .setType("text/plain")
-    .setChooserTitle(resources.getString(R.string.share_via))
-    .startChooser()
+  fun showShare(walletAddress: String) =
+    ShareCompat.IntentBuilder(requireActivity())
+      .setText(walletAddress)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via))
+      .startChooser()
 }
