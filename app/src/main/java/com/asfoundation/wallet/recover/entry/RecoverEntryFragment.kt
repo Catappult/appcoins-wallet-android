@@ -55,7 +55,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    handleFragmentResult()
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
@@ -76,7 +75,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       )
     }
     //Validate with carlos Translate for this
-    views.recoverWalletOptions.recoverKeystoreInput.setHintText("Recover code here…")
+    views.recoverWalletOptions.recoverKeystoreInput.setHintText(getString(R.string.import_code_here_field))
     views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -155,15 +154,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_general))
       }
       else -> return
-    }
-  }
-
-  private fun handleFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
-      this
-    ) { _, _ ->
-      navigator.navigateToNavigationBar()
     }
   }
 }

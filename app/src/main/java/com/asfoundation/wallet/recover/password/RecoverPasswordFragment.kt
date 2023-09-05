@@ -48,18 +48,14 @@ class RecoverPasswordFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     if (!requireArguments().getBoolean(ONBOARDING_LAYOUT, false)) {
       isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-      views.recoverWalletBackButton.visibility = View.GONE
-    }
-    views.recoverWalletBackButton.setOnClickListener {
-      navigator.navigateBack()
     }
     views.recoverWalletPasswordButton.setOnClickListener {
       viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }
     views.recoverPasswordInfo.recoverPasswordInput.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_blue
+          ContextCompat.getColor(
+            requireContext(),
+            R.color.styleguide_blue
       )
     )
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

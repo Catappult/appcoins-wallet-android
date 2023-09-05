@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.asf.wallet.databinding.RecoveryWalletSuccessBottomSheetLayoutBinding
-import com.asfoundation.wallet.promo_code.bottom_sheet.success.PromoCodeSuccessBottomSheetFragment
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -54,7 +51,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     views.recoveryWalletBottomButton.setOnClickListener {
       if (requireArguments().getSerializable(IS_FROM_ONBOARDING) as Boolean) {
-        navigator.navigateToNavigationBar()
+        navigator.navigateToMainHomeGraph()
       } else {
         navigator.navigateBack(true)
       }
