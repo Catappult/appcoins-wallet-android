@@ -719,6 +719,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun changeBonusVisibility(visibility: Int) {
     binding.bonusLayout.root.visibility = visibility
+    binding.bonusBackground.visibility = visibility
   }
 
   override fun hideBonus() {

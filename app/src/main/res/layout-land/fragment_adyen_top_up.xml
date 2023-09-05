@@ -188,8 +188,8 @@
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/loading"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
+          android:layout_width="128dp"
+          android:layout_height="128dp"
           android:layout_marginTop="50dp"
           android:layout_marginBottom="50dp"
           app:layout_constraintBottom_toBottomOf="@id/container"
@@ -199,7 +199,7 @@
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_autoPlay="true"
           app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_dark_animation"
+          app:lottie_rawRes="@raw/loading_wallet"
           android:visibility="gone"
           tools:visibility="visible"
           />

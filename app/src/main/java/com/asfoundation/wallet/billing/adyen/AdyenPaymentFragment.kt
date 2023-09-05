@@ -4,19 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.Typeface
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
@@ -27,9 +24,7 @@ import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
-import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -70,6 +65,7 @@ import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
@@ -239,6 +235,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted!!
 
   // adyen_credit_card_layout.xml
+  private val adyen_credit_card_root: RelativeLayout? get() = bindingCreditCardLayout?.adyenCreditCardRoot
   private val main_view: RelativeLayout? get() = bindingCreditCardLayout?.mainView
   private val credit_card_info: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
   private val change_card_button: WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
@@ -306,6 +303,19 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupUi()
+
+    val orientation = this.resources.configuration.orientation
+    val dpWidth = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 592F else 340F
+
+    val dimensionInPixels = TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP,
+      dpWidth,
+      resources.displayMetrics
+    ).toInt()
+    adyen_credit_card_root?.layoutParams?.width = dimensionInPixels
+    adyen_credit_card_root?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+
     presenter.present(savedInstanceState)
   }
 

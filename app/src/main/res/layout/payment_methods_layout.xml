@@ -44,7 +44,7 @@
           android:gravity="center"
           android:lineSpacingExtra="8sp"
           android:text="@string/activity_aib_loading_title"
-          android:textColor="@color/styleguide_black_transparent_80"
+          android:textColor="@color/styleguide_light_grey"
           android:textSize="24sp"
           />
 
@@ -132,9 +132,9 @@
               android:id="@+id/payments_skeleton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
+              android:layout_marginStart="16dp"
               android:layout_marginTop="4dp"
-              android:layout_marginEnd="10dp"
+              android:layout_marginEnd="16dp"
               android:orientation="vertical"
               android:paddingTop="8dp"
               android:paddingBottom="60dp"
@@ -211,6 +211,15 @@
               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/bonus_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/styleguide_payments_blue_secondary"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
+            app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+            />
 
         <include
             android:id="@+id/bonus_layout"
