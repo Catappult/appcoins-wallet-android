@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -33,17 +32,25 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupSuccessRoute(onChatClick: () -> Unit, onGotItClick: () -> Unit) {
+fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, onGotItClick: () -> Unit) {
   Scaffold(
     topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
     modifier = Modifier
   ) { padding ->
-    BackupSaveOptionsScreen(scaffoldPadding = padding, onGotItClick = onGotItClick)
+    BackupSaveOptionsScreen(
+      scaffoldPadding = padding,
+      onGotItClick = onGotItClick,
+      saveOnDevice = saveOnDevice
+    )
   }
 }
 
 @Composable
-fun BackupSaveOptionsScreen(scaffoldPadding: PaddingValues, onGotItClick: () -> Unit) {
+fun BackupSaveOptionsScreen(
+  scaffoldPadding: PaddingValues,
+  onGotItClick: () -> Unit,
+  saveOnDevice: Boolean
+) {
   Column(
     modifier =
     Modifier
@@ -67,15 +74,15 @@ fun BackupSaveOptionsScreen(scaffoldPadding: PaddingValues, onGotItClick: () -> 
         color = WalletColors.styleguide_light_grey,
       )
     }
-    BackupSuccessScreenCard()
+    BackupSuccessScreenCard(saveOnDevice = saveOnDevice)
     Spacer(modifier = Modifier.weight(10f))
     BackupSuccessButton(onGotItClick)
   }
 }
 
-@Preview
+
 @Composable
-fun BackupSuccessScreenCard() {
+fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
   Card(
     shape = RoundedCornerShape(14.dp),
     modifier = Modifier.padding(bottom = 48.dp, start = 16.dp, end = 16.dp),
@@ -92,14 +99,19 @@ fun BackupSuccessScreenCard() {
         data = R.drawable.ic_lock_check
       )
       Text(
-        text = "Backup done!", // trocar problema com string
+        text = stringResource(R.string.backup_confirmation_no_share_title),
         color = WalletColors.styleguide_light_grey,
         style = WalletTypography.bold.sp22,
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(top = 16.dp, bottom = 11.dp)
       )
       Text(
-        text = "Your backup is on your device", // trocar problema com string
+        text =
+        stringResource(
+          id =
+          if (saveOnDevice) R.string.backup_confirmation_save_device
+          else R.string.backup_confirmation_save_email
+        ),
         color = WalletColors.styleguide_light_grey,
         style = WalletTypography.medium.sp14,
         textAlign = TextAlign.Center,

@@ -41,6 +41,7 @@ class BackupSaveOptionsComposeFragment :
     fun newInstance() = BackupSaveOptionsComposeFragment()
     const val PASSWORD_KEY = "password"
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val SAVE_PLACE_KEY = "save_backup_place"
   }
   private val viewModel: BackupSaveOptionsViewModel by viewModels()
 
@@ -102,10 +103,13 @@ class BackupSaveOptionsComposeFragment :
         viewModel.showLoading(false)
         navigator.showWalletSuccessScreen()
       }
+
       BackupSaveOptionsSideEffect.ShowError -> {
         viewModel.showLoading(false)
         navigator.showErrorScreen()
       }
+
+      else -> {}
     }
   }
 }

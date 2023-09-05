@@ -193,12 +193,6 @@ class MyWalletsFragment :
     views.myWalletsContent.qrImage.setOnClickListener {
       navigator.navigateToQrCode(views.myWalletsContent.qrImage)
     }
-
-    //    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
-    views.myWalletsContent.receiveButton.setOnClickListener {
-      // navigator.navigateToReceive(Wallet(wallet))
-    }
-
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
     views.myWalletsContent.walletNameSkeleton.playAnimation()
     views.myWalletsContent.walletNameTextView.text = name

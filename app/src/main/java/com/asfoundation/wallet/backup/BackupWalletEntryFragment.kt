@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
@@ -54,7 +55,7 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY) ?: "" // aq
+    viewModel.walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY) ?: ""
     viewModel.walletName = requireArguments().getString(WALLET_NAME) ?: ""
     viewModel.showBalance(viewModel.walletAddress)
   }
@@ -81,6 +82,19 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
         }
       }
     }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    requireActivity()
+      .onBackPressedDispatcher
+      .addCallback(
+        this,
+        object : OnBackPressedCallback(true) {
+          override fun handleOnBackPressed() {
+            viewModel.showBottomSheet.value = true
+          }
+        })
   }
 
   private fun handleBackPress() {

@@ -214,6 +214,10 @@
       android:id="@+id/backup_wallet_success_screen"
       android:name="com.asfoundation.wallet.backup.BackupSuccessComposeFragment">
 
+    <argument
+        android:name="save_backup_place"
+        app:argType="boolean" />
+
     <action
         android:id="@+id/action_success_screen_back_to_manage_wallets"
         app:destination="@id/action_navigate_to_manage_wallet" />

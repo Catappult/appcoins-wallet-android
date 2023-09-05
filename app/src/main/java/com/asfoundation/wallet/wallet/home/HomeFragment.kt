@@ -402,8 +402,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   private fun navigateToNft() = navigator.navigateToNfts(navController())
 
-  private fun navigateToManageWallet() = navigator.navigateToManageWallet(navController())
-
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
     transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
 

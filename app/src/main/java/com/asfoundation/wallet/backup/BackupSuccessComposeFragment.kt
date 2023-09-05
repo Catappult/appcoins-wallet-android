@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import com.appcoins.wallet.feature.backup.ui.success.BackupSuccessRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
+import com.asfoundation.wallet.backup.BackupSaveOptionsComposeFragment.Companion.SAVE_PLACE_KEY
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +38,12 @@ class BackupSuccessComposeFragment : BasePageViewFragment() {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
-            BackupSuccessRoute(onChatClick = { displayChat() }) { navigator.navigateToHome() }
+            BackupSuccessRoute(
+              onChatClick = { displayChat() },
+              saveOnDevice = requireArguments().getBoolean(SAVE_PLACE_KEY)
+            ) {
+              navigator.navigateToHome()
+            }
           }
         }
       }
