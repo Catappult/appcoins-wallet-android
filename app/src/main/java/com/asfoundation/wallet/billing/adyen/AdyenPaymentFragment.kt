@@ -674,7 +674,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun setupTransactionComplete() {
     if (bonus.isNotEmpty()) {
-      transaction_success_bonus_text.text = "$bonus Bonus Received"   // TODO replace string
+      transaction_success_bonus_text.text = getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
       bonus_success_layout.visibility = GONE
     }
