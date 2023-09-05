@@ -806,6 +806,9 @@
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
 
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+
 
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
