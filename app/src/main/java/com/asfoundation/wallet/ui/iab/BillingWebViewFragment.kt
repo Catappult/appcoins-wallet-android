@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
@@ -39,6 +38,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   @Inject
   lateinit var analytics: BillingAnalytics
+
   @Inject
   lateinit var logger: Logger
 
@@ -48,7 +48,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private var asyncDetailsShown = false
   private val TAG = BillingWebViewFragment::class.java.name
 
-  private val binding by viewBinding(WebviewFragmentBinding::bind)
+  private var _binding: WebviewFragmentBinding? = null
+  private val binding get() = _binding!!
 
   companion object {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
@@ -115,7 +116,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = WebviewFragmentBinding.inflate(inflater).root
+  ): View {
+    _binding = WebviewFragmentBinding.inflate(inflater, container, false)
+    return binding.root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -225,6 +229,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onDestroy() {
     executorService!!.shutdown()
     super.onDestroy()
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
   }
 
   override fun onDetach() {
