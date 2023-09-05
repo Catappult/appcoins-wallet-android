@@ -66,7 +66,7 @@
         style="@style/TransactionSuccessTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="%s Bonus Received"
+        android:text="@string/purchase_success_bonus_received_title"
         android:textSize="14sp"
         />
 

@@ -201,7 +201,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.transactionSuccessBonusText .text = "$bonus Bonus Received"   // TODO replace string
+      views.successContainer.transactionSuccessBonusText .text = getString(R.string.purchase_success_bonus_received_title, bonus)
       views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
       views.successContainer.bonusSuccessLayout.visibility = View.GONE
