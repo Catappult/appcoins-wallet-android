@@ -340,9 +340,7 @@ constructor(
   }
 
   fun isEskillsVersion(packageName:String){
-    Log.d("ESKILLS VERSION", isEskillsVersion.value.toString())
     isEskillsVersion.value = isEskillsVersionUseCase(packageName)
-    Log.d("ESKILLS VERSION", isEskillsVersion.value.toString())
   }
 
 
