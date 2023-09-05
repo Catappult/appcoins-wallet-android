@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
@@ -114,6 +115,7 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
+  private val isEskillsVersionUseCase: IsEskillsVersionUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -140,6 +142,7 @@ constructor(
   val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
+  val isEskillsVersion = mutableStateOf(false)
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
@@ -334,6 +337,12 @@ constructor(
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
       .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
+  }
+
+  fun isEskillsVersion(packageName:String){
+    Log.d("ESKILLS VERSION", isEskillsVersion.value.toString())
+    isEskillsVersion.value = isEskillsVersionUseCase(packageName)
+    Log.d("ESKILLS VERSION", isEskillsVersion.value.toString())
   }
 
 
