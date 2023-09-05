@@ -143,16 +143,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       containerColor = WalletColors.styleguide_blue,
       modifier = modifier
     ) { padding ->
-      HomeScreenContent(
-        padding = padding
-      )
+      HomeScreenContent(padding = padding)
     }
   }
 
   @Composable
-  internal fun HomeScreenContent(
-    padding: PaddingValues
-  ) {
+  internal fun HomeScreenContent(padding: PaddingValues) {
     Column(
       modifier = Modifier
         .verticalScroll(rememberScrollState())
@@ -168,8 +164,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           onClickTransfer = { viewModel.onTransferClick() },
           onClickBackup = { viewModel.onBackupClick() },
           onClickTopUp = { viewModel.onTopUpClick() },
-          onClickMenuOptions = { navigator.navigateToManageBottomSheet() }
-        )
+          onClickMenuOptions = { navigator.navigateToManageBottomSheet() })
       }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
@@ -275,7 +270,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   override fun onStateChanged(state: HomeState) {
-    // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
+    // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync,
+    // state.transactionsModelAsync)
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
@@ -287,24 +283,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (sideEffect) {
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
-      is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
-        navController(),
-        sideEffect.turnOnFingerprint
-      )
+      is HomeSideEffect.NavigateToSettings ->
+        navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
 
-      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is HomeSideEffect.NavigateToBackup ->
+        navigator.navigateToBackup(
+          sideEffect.walletAddress, viewModel.walletName, navController()
+        )
+
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
-      is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(
-        sideEffect.walletAddress,
-        sideEffect.triggerSource
-      )
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
+      is HomeSideEffect.ShowBackupTrigger ->
+        navigator.navigateToBackupTrigger(sideEffect.walletAddress, sideEffect.triggerSource)
+
+      HomeSideEffect.NavigateToChangeCurrency ->
+        navigator.navigateToCurrencySelector(navController())
+
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
-      HomeSideEffect.NavigateToTransactionsList -> transactionsNavigator.navigateToTransactionsList(
-        navController()
-      )
+      HomeSideEffect.NavigateToTransactionsList ->
+        transactionsNavigator.navigateToTransactionsList(navController())
     }
   }
 
@@ -320,17 +318,18 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private fun checkRoot() {
     val pref = PreferenceManager.getDefaultSharedPreferences(context)
     if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
-      pref.edit()
-        .putBoolean("should_show_root_warning", false)
-        .apply()
-      val alertDialog = android.app.AlertDialog.Builder(context)
-        .setTitle(R.string.root_title)
-        .setMessage(R.string.root_body)
-        .setNegativeButton(R.string.ok) { _, _ -> }
-        .show()
-      alertDialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+      pref.edit().putBoolean("should_show_root_warning", false).apply()
+      val alertDialog =
+        android.app.AlertDialog.Builder(context)
+          .setTitle(R.string.root_title)
+          .setMessage(R.string.root_body)
+          .setNegativeButton(R.string.ok) { _, _ -> }
+          .show()
+      alertDialog
+        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
-      alertDialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+      alertDialog
+        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
         .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
     }
   }
@@ -339,7 +338,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (balanceAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
-        //TODO loading
+        // TODO loading
       }
 
       is Async.Success ->
@@ -355,12 +354,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (hasBackup) {
       Async.Uninitialized,
       is Async.Loading -> {
-        //TODO loading
+        // TODO loading
       }
 
-      is Async.Success ->
-        viewModel.showBackup.value = !(hasBackup.value ?: false)
-
+      is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
       else -> Unit
     }
   }
@@ -369,31 +366,32 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (promotionsModel) {
       Async.Uninitialized,
       is Async.Loading -> {
-        //TODO loading
+        // TODO loading
       }
-
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
-            val cardItem = CardPromotionItem(
-              promotion.appName,
-              promotion.description,
-              promotion.startDate,
-              promotion.endDate,
-              promotion.icon,
-              promotion.actionUrl,
-              promotion.packageName,
-              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-              hasFuturePromotion = false,
-              hasVerticalList = false,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
-            )
+            val cardItem =
+              CardPromotionItem(
+                promotion.appName,
+                promotion.description,
+                promotion.startDate,
+                promotion.endDate,
+                promotion.icon,
+                promotion.actionUrl,
+                promotion.packageName,
+                promotion.gamificationStatus == GamificationStatus.VIP ||
+                    promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                hasFuturePromotion = false,
+                hasVerticalList = false,
+                action = {
+                  openGame(promotion.packageName ?: promotion.actionUrl, requireContext())
+                })
             viewModel.activePromotions.add(cardItem)
           }
         }
       }
-
       else -> Unit
     }
   }
@@ -404,17 +402,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   private fun navigateToNft() = navigator.navigateToNfts(navController())
 
-  private fun navigateToManageWallet() = navigator.navigateToManageWallet(navController())
-
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
     transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
-
-
 }

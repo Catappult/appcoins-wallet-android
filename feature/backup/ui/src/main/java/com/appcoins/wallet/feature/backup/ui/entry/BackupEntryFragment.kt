@@ -24,8 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupEntryFragment : BasePageViewFragment(),
-  SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
+class BackupEntryFragment :
+  BasePageViewFragment(), SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
 
   @Inject
   lateinit var backupEntryViewModelFactory: BackupEntryViewModelFactory
@@ -41,20 +41,23 @@ class BackupEntryFragment : BasePageViewFragment(),
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val WALLET_NAME = "wallet_name"
 
     @JvmStatic
-    fun newInstance(walletAddress: String): BackupEntryFragment {
-      return BackupEntryFragment()
-        .apply {
-          arguments = Bundle().apply {
+    fun newInstance(walletAddress: String, walletName: String): BackupEntryFragment {
+      return BackupEntryFragment().apply {
+        arguments =
+          Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
+            putString(WALLET_NAME, walletName)
           }
-        }
+      }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View = BackupEntryFragmentBinding.inflate(inflater).root
 
@@ -95,21 +98,27 @@ class BackupEntryFragment : BasePageViewFragment(),
   }
 
   private fun setTextWatchers() {
-    val passwordTextWatcher = object : TextWatcher {
-      var timer: CountDownTimer? = null
+    val passwordTextWatcher =
+      object : TextWatcher {
+        var timer: CountDownTimer? = null
 
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
-      override fun afterTextChanged(s: Editable) {
-        timer?.cancel() // wait until the user stops writing for 0.5s to validate password fields
-        timer = object : CountDownTimer(500, 500) {
-          override fun onTick(millisUntilFinished: Long) {}
-          override fun onFinish() {
-            handlePasswordFields()
-          }
-        }.start()
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
+          Unit
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
+        override fun afterTextChanged(s: Editable) {
+          timer
+            ?.cancel() // wait until the user stops writing for 0.5s to validate password fields
+          timer =
+            object : CountDownTimer(500, 500) {
+              override fun onTick(millisUntilFinished: Long) {}
+              override fun onFinish() {
+                handlePasswordFields()
+              }
+            }
+              .start()
+        }
       }
-    }
 
     views.passwordToggle.backupPasswordInput.addTextChangedListener(passwordTextWatcher)
     views.passwordToggle.backupRepeatPasswordInput.addTextChangedListener(passwordTextWatcher)
@@ -144,29 +153,32 @@ class BackupEntryFragment : BasePageViewFragment(),
   }
 
   private fun setTransitionListener() {
-    views.passwordToggle.backupPasswordToggleLayout.layoutTransition?.addTransitionListener(object :
-      LayoutTransition.TransitionListener {
-      override fun startTransition(
-        transition: LayoutTransition?, container: ViewGroup?,
-        view: View?, transitionType: Int
-      ) = Unit
+    views.passwordToggle.backupPasswordToggleLayout.layoutTransition?.addTransitionListener(
+      object : LayoutTransition.TransitionListener {
+        override fun startTransition(
+          transition: LayoutTransition?,
+          container: ViewGroup?,
+          view: View?,
+          transitionType: Int
+        ) = Unit
 
-      override fun endTransition(
-        transition: LayoutTransition?, container: ViewGroup?,
-        view: View?, transitionType: Int
-      ) {
-        if (transitionType == LayoutTransition.APPEARING) {
-          views.backupScrollView.smoothScrollTo(
-            views.backupScrollView.x.toInt(),
-            views.backupScrollView.bottom
-          )
+        override fun endTransition(
+          transition: LayoutTransition?,
+          container: ViewGroup?,
+          view: View?,
+          transitionType: Int
+        ) {
+          if (transitionType == LayoutTransition.APPEARING) {
+            views.backupScrollView.smoothScrollTo(
+              views.backupScrollView.x.toInt(), views.backupScrollView.bottom
+            )
+          }
         }
-      }
-    })
+      })
   }
 
   override fun onStateChanged(state: BackupEntryState) {
-    views.walletBackupInfo.backupWalletAddress.text = state.walletAddress
+    views.walletBackupInfo.backupWalletAddress.text = "" // a confirmar
     handleBalanceAsync(state.balanceAsync)
   }
 
@@ -175,7 +187,6 @@ class BackupEntryFragment : BasePageViewFragment(),
       is Async.Success -> {
         setBalance(balanceAsync())
       }
-
       else -> Unit
     }
   }

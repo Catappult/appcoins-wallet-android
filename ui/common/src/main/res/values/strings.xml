@@ -244,6 +244,7 @@
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
   <string name="notification_completed_poa">Reward received!👌 You\’ll have to wait %1$sh%2$sm to earn more rewards by trying apps ⏰!</string>
@@ -296,6 +297,7 @@
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
@@ -529,7 +531,8 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
-  
+  <string name="download_button">Download</string>
+
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
@@ -598,6 +601,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
   <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
   <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
@@ -660,6 +664,7 @@
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
 
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
@@ -763,10 +768,11 @@
   <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -801,6 +807,9 @@
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
 
 
   <!--Wallets Management-->

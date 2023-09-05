@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.wallet.home.bottom_sheet
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
-import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupWalletEntryFragment
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
@@ -19,11 +20,15 @@ class HomeManageWalletBottomSheetNavigator @Inject constructor(
     (fragment as BottomSheetDialogFragment).dismiss()
   }
 
-  fun navigateToBackup(walletAddress: String) {
-    val intent =
-      BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
-    openIntent(intent)
+  fun navigateToBackup(
+    mainNavController: NavController,
+    walletAddress: String,
+    walletName: String
+  ) {
+    val bundle = Bundle()
+    bundle.putString(BackupWalletEntryFragment.WALLET_ADDRESS_KEY, walletAddress)
+    bundle.putString(BackupWalletEntryFragment.WALLET_NAME, walletName)
+    mainNavController.navigate(R.id.action_navigate_to_backup_entry_wallet, args = bundle)
   }
 
   fun navigateToRecoverWallet() {

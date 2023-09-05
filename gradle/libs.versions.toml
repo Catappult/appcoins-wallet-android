@@ -39,7 +39,9 @@ epoxy_version = "4.5.0"
 erc681_version = "0.36"
 ethereumj_sdk_version = "0.5.0.0"
 espresso_version = "3.4.0"
-firebase_messaging = "20.2.1"
+firebase_bom = "32.2.3"
+firebase_crashlytics_plugin = "2.9.9"
+firebase_performance_plugin = "1.4.2"
 flurry_version = "14.0.0"
 flexbox_version = "3.0.0"
 glide_version = "4.12.0"
@@ -63,7 +65,7 @@ ksp_version = "1.8.10-1.0.9"
 ktx_version = "1.3.0"
 lottie_version = "6.0.0"
 material_version = "1.5.0"
-michel_bull_kotlin_result="1.1.16"
+michel_bull_kotlin_result = "1.1.16"
 mockito_version = "3.3.0"
 okhttp_version = "4.8.1"
 paranoid_version = "0.3.3"
@@ -81,7 +83,7 @@ spongycastle_version = "1.58.0.0" #it was "1.58.0.0@jar"?
 support_annotations = "27.1.0"
 test_ext_version = "1.1.3"
 turbine_version = "0.9.0"
-viewBindingDelegate = "1.4.7"
+viewBindingDelegate = "1.5.9"
 web3j_version = "4.8.8-android"
 androidx_work_version = "2.7.1"
 zxing_android_version = "3.6.0"
@@ -157,6 +159,11 @@ google-services = { module = "com.google.gms:google-services", version.ref = "go
 google-play-services = { module = "com.google.android.gms:play-services-vision", version.ref = "play_services_vision_version" }
 google-zxing = { module = "com.google.zxing:core", version.ref = "zxing_version" }
 zxing-android = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing_android_version" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase_bom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt_version" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_version" }
@@ -201,7 +208,6 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie_version" 
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer_version" }
 epoxy = { module = "com.airbnb.android:epoxy", version.ref = "epoxy_version" }
 epoxy-processor = { module = "com.airbnb.android:epoxy-processor", version.ref = "epoxy_version" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase_messaging" }
 cpp = { module = "com.hbb20:ccp", version.ref = "cpp_version" }
 android-installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "referrer_version" }
 android-support-annotations = { module = "com.android.support:support-annotations", version.ref = "support_annotations" }
@@ -239,6 +245,8 @@ gradlePlugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.g
 gradlePlugin-hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt_version" }
 gradlePlugin-junit5 = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "junit5_plugin_version" }
 gradlePlugin-bintray = { module = "com.jfrog.bintray.gradle:gradle-bintray-plugin", version.ref = "bintray_plugin_version" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebase_crashlytics_plugin" }
+firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebase_performance_plugin" }
 
 [bundles]
 androidx-room = ["androidx-room-runtime", "androidx-room-rxjava2", "androidx-room-ktx"]
@@ -258,6 +266,8 @@ result = ["kotlin-result-coroutines", "kotlin-result"]
 paging = ["paging", "paging_compose"]
 
 [plugins]
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase_performance_plugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase_crashlytics_plugin" }
 android-application = { id = "com.android.application", version.ref = "gradle_plugin_version" }
 android-library = { id = "com.android.library", version.ref = "gradle_plugin_version" }
 android-test = { id = "com.android.test", version.ref = "gradle_plugin_version" }

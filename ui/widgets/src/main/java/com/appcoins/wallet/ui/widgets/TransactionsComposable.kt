@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,7 +61,8 @@ fun TransactionCard(
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier
+      modifier =
+      Modifier
         .fillMaxWidth()
         .defaultMinSize(minHeight = 64.dp)
         .padding(vertical = 8.dp, horizontal = 16.dp)
@@ -91,7 +93,10 @@ fun TransactionCard(
                 overflow = TextOverflow.Ellipsis
               )
           }
-          Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth(0.9f)) {
+          Column(
+            horizontalAlignment = Alignment.End,
+            modifier = Modifier.fillMaxWidth(0.9f)
+          ) {
             if (amount != null)
               Text(
                 text = amount,
@@ -114,7 +119,6 @@ fun TransactionCard(
                 textDecoration = textDecoration
               )
           }
-
         }
       }
     }
@@ -123,11 +127,9 @@ fun TransactionCard(
 
 @Composable
 fun TransactionSeparator(text: String) {
-  Row(
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(top = 16.dp, bottom = 8.dp, start = 8.dp)
-  ) {
+  Row(modifier = Modifier
+    .fillMaxWidth()
+    .padding(top = 16.dp, bottom = 8.dp, start = 8.dp)) {
     Text(
       text = text,
       color = styleguide_dark_grey,
@@ -230,10 +232,7 @@ fun TransactionDetailHeader(
     }
 
     if (description != null && appIcon != null)
-      TransactionDetailLinkedHeader(
-        description = description,
-        appIcon = appIcon
-      )
+      TransactionDetailLinkedHeader(description = description, appIcon = appIcon)
   }
 }
 
@@ -260,9 +259,10 @@ fun TransactionDetailLinkedHeader(description: String, appIcon: String? = null) 
 @Composable
 fun TransactionDetailItem(
   label: String,
-  data: String,
+  data: String = "",
   dataColor: Color = styleguide_light_grey,
   allowCopy: Boolean = false,
+  showDownloadInvoice: Boolean = false,
   onClick: () -> Unit = {}
 ) {
   Row(
@@ -279,27 +279,66 @@ fun TransactionDetailItem(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.padding(start = 48.dp)
     ) {
-      if (allowCopy)
-        IconButton(onClick = onClick) {
-          Icon(
-            painter = painterResource(R.drawable.ic_copy),
-            contentDescription = stringResource(R.string.copy),
-            tint = WalletColors.styleguide_pink,
-            modifier = Modifier.size(14.dp)
-          )
-        }
-      Text(
-        text = data,
-        color = dataColor,
-        style = MaterialTheme.typography.bodySmall,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis,
-        modifier =
-        Modifier
-          .widthIn(0.dp, 160.dp)
-          .padding(vertical = if (allowCopy) 0.dp else 16.dp)
+      if (showDownloadInvoice)
+        IconTextButton(
+          text = stringResource(id = R.string.download_button),
+          R.drawable.ic_download,
+          onClick
+        )
+      else TransactionDetailInfo(data, dataColor, allowCopy, onClick)
+    }
+  }
+}
+
+@Composable
+fun TransactionDetailInfo(
+  data: String,
+  dataColor: Color = styleguide_light_grey,
+  allowCopy: Boolean = false,
+  onClick: () -> Unit = {}
+) {
+  if (allowCopy) {
+    IconButton(onClick = onClick) {
+      Icon(
+        painter = painterResource(R.drawable.ic_copy),
+        contentDescription = stringResource(R.string.copy),
+        tint = WalletColors.styleguide_pink,
+        modifier = Modifier.size(14.dp)
       )
     }
+  }
+  Text(
+    text = data,
+    color = dataColor,
+    style = MaterialTheme.typography.bodySmall,
+    maxLines = 1,
+    overflow = TextOverflow.Ellipsis,
+    modifier = Modifier
+      .widthIn(0.dp, 160.dp)
+      .padding(vertical = if (allowCopy) 0.dp else 16.dp)
+  )
+}
+
+@Composable
+fun IconTextButton(text: String, iconId: Int, onClick: () -> Unit = {}) {
+  TextButton(onClick = onClick) {
+    Icon(
+      painter = painterResource(iconId),
+      contentDescription = text,
+      tint = WalletColors.styleguide_pink,
+      modifier = Modifier
+        .padding(end = 8.dp)
+        .size(14.dp)
+    )
+    Text(
+      text = text,
+      color = WalletColors.styleguide_pink,
+      style = MaterialTheme.typography.bodySmall,
+      maxLines = 1,
+      overflow = TextOverflow.Ellipsis,
+      modifier = Modifier.widthIn(0.dp, 160.dp),
+      fontWeight = FontWeight.Medium
+    )
   }
 }
 
@@ -348,7 +387,11 @@ fun PreviewTransactionCard() {
 @Preview
 @Composable
 fun PreviewTransactionSeparator() {
-  TransactionSeparator(
-    text = "Jun, 13 2022"
-  )
+  TransactionSeparator(text = "Jun, 13 2022")
+}
+
+@Preview
+@Composable
+fun PreviewDownloadButton() {
+  IconTextButton(text = "Download", R.drawable.ic_download)
 }

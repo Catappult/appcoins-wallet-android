@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
+package com.asfoundation.wallet.backup.entryBottomSheet
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
-import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment.Companion.WALLET_MODEL_KEY
+import com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletBottomSheetFragment.Companion.WALLET_MODEL_KEY
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import dagger.Module
 import dagger.Provides
@@ -12,23 +12,24 @@ import io.reactivex.disposables.CompositeDisposable
 
 @InstallIn(FragmentComponent::class)
 @Module
-class SettingsWalletsBottomSheetModule {
+class BackupEntryChooseWalletBottomSheetModule {
 
   @Provides
   fun providesSettingsWalletsBottomSheetPresenter(fragment: Fragment,
-                                                  navigator: SettingsWalletsBottomSheetNavigator,
+                                                  navigator: BackupEntryChooseWalletBottomSheetNavigator,
                                                   walletsEventSender: WalletsEventSender,
-                                                  data: SettingsWalletsBottomSheetData): SettingsWalletsBottomSheetPresenter {
-    return SettingsWalletsBottomSheetPresenter(fragment as SettingsWalletsBottomSheetView,
+                                                  data: BackupEntryChooseWalletBottomSheetData
+  ): BackupEntryChooseWalletBottomSheetPresenter {
+    return BackupEntryChooseWalletBottomSheetPresenter(fragment as BackupEntryChooseWalletBottomSheetView,
         navigator, CompositeDisposable(), walletsEventSender, data)
   }
 
   @Provides
   fun providesSettingsWalletsBottomSheetData(
-      fragment: Fragment): SettingsWalletsBottomSheetData {
+      fragment: Fragment): BackupEntryChooseWalletBottomSheetData {
     fragment.requireArguments()
         .apply {
-          return SettingsWalletsBottomSheetData(getSerializable(WALLET_MODEL_KEY) as WalletsModel)
+          return BackupEntryChooseWalletBottomSheetData(getSerializable(WALLET_MODEL_KEY) as WalletsModel)
         }
   }
 }
