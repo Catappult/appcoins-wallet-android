@@ -16,13 +16,18 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       >
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_wallet"
         android:visibility="gone"
+        tools:visibility="visible"
         />
 
     <LinearLayout

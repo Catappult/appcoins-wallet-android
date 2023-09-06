@@ -401,7 +401,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showProgressBarLoading() {
     binding.paymentMethods.visibility = View.INVISIBLE
-    binding.loadingView.visibility = View.VISIBLE
+    binding.loadingAnimation.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
@@ -422,7 +422,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
         binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
-      binding.loadingView.visibility = View.GONE
+      binding.loadingAnimation.visibility = View.GONE
     }
   }
 
