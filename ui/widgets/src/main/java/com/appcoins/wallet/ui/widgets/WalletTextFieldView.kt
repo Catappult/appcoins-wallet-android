@@ -1,6 +1,7 @@
 package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -101,6 +102,9 @@ class WalletTextFieldView : FrameLayout {
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.isPasswordVisibilityToggleEnabled = true
+        views.textInputLayout.setEndIconTintList(ColorStateList.valueOf(resources.getColor(R.color.styleguide_white)))
+        views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
+        views.textInputLayout.editText?.setHintTextColor(resources.getColor(R.color.styleguide_dark_grey))
       }
       Type.NUMBER -> {
         views.textInputEditText.inputType =

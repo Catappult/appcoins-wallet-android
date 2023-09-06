@@ -1,14 +1,15 @@
-package com.asfoundation.wallet.rating.common
+package com.appcoins.wallet.ui.common
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.asf.wallet.R
 import com.google.android.material.textfield.TextInputEditText
 
 class MultilineInputText : FrameLayout {
@@ -38,6 +39,14 @@ class MultilineInputText : FrameLayout {
     error_text.text = errorText
     root_view.setBackgroundResource(R.drawable.rectangle_solid_blue_border_red_radius_8dp)
     error_layout.visibility = View.VISIBLE
+  }
+
+
+  fun setRootBackground(drawable: Drawable?) {
+    root_view.background = drawable
+  }
+  fun setHintText(hintText: String) {
+    input_text.hint = hintText
   }
 
   fun reset() {
