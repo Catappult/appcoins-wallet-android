@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.RecoverActivity
+import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
 import javax.inject.Inject
 
 class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
@@ -39,6 +41,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
     keystore: WalletKeyStore,
     walletBalance: String,
     walletAddress: String,
+    walletName: String?,
     isFromOnboarding: Boolean
   ) {
     navigate(
@@ -46,20 +49,11 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
       RecoverEntryFragmentDirections.actionNavigateToRecoverPassword(
         keystore,
         walletBalance,
-        walletAddress, isFromOnboarding
+        walletAddress, walletName ?: walletAddress, isFromOnboarding
       )
     )
   }
 
-  fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
-    navigate(
-      fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = false,
-        isFromOnboarding = isFromOnboarding
-      )
-    )
-  }
 
   fun navigateBack(fromActivity: Boolean) {
     if (fromActivity) {
@@ -69,13 +63,18 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
     }
   }
 
-  fun navigateToNavigationBar() {
-    /* Temporary workaround for the RecoverActivity */
-    fragment.requireActivity()
-      .takeIf { it is RecoverActivity }?.finish()
-      ?: navigate(
-        fragment.findNavController(),
-        RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
+  fun navigateToSuccess(isFromOnboarding: Boolean) {
+    val bottomSheet = RecoveryWalletSuccessBottomSheetFragment.newInstance(isFromOnboarding)
+    bottomSheet.isCancelable = false
+    bottomSheet.show(fragment.parentFragmentManager, "RecoveryWalletSuccess")
+  }
+
+  fun navigateToMainHomeGraph() {
+    with(fragment.findNavController()) {
+      navigate(
+       this,
+        RecoverEntryFragmentDirections.actionNavigateToHomeGraph()
       )
+    }
   }
 }
