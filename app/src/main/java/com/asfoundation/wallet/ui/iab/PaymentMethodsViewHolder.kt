@@ -109,7 +109,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.paymentMethodDescription.typeface =
         Typeface.create("sans-serif", Typeface.BOLD)
     } else {
-      binding.paymentMethodDescription.setTextColor(
+      binding.paymentMethodDescription.setTextColor(  //
         ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
       )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
