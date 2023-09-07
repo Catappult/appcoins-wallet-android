@@ -26,8 +26,13 @@
         android:icon="@drawable/ic_account"
         android:key="pref_account"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="Account"
-        app:isPreferenceVisible="false" />
+        android:title="Personal" />
+
+    <Preference
+        android:icon="@drawable/ic_invoices"
+        android:key="pref_invoices"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="Invoices" />
 
     <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
         android:icon="@drawable/ic_currency"

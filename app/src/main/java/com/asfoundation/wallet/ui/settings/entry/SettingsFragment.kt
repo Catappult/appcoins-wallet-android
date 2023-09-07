@@ -19,10 +19,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
@@ -182,11 +182,18 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setAccountPreference() {
+  override fun setPersonalPreference() {
     val accountPreference = findPreference<Preference>("pref_account")
     accountPreference?.setOnPreferenceClickListener {
-      Toast.makeText(context, "In Progress", Toast.LENGTH_SHORT)
-        .show() // TODO create account screen
+      presenter.onPersonalClick(navController())
+      false
+    }
+  }
+
+  override fun setInvoicesPreference() {
+    val accountPreference = findPreference<Preference>("pref_invoices")
+    accountPreference?.setOnPreferenceClickListener {
+      presenter.onInvoicesClick(navController())
       false
     }
   }

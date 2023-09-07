@@ -121,6 +121,14 @@
       app:destination="@id/change_fiat_currency_fragment" />
 
   <action
+      android:id="@+id/action_navigate_to_personal_information"
+      app:destination="@id/personal_information_fragment" />
+
+  <action
+      android:id="@+id/action_navigate_to_invoices"
+      app:destination="@id/invoices_fragment" />
+
+  <action
       android:id="@+id/action_navigate_to_backup_entry_wallet"
       app:destination="@id/backup_wallet_fragment">
     <argument
@@ -151,6 +159,14 @@
   <fragment
       android:id="@+id/change_fiat_currency_fragment"
       android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment" />
+
+  <fragment
+      android:id="@+id/personal_information_fragment"
+      android:name="com.asfoundation.wallet.personal_info.PersonalInformationFragment" />
+
+  <fragment
+      android:id="@+id/invoices_fragment"
+      android:name="com.asfoundation.wallet.invoices.InvoicesFragment" />
 
   <fragment
       android:id="@+id/backup_wallet_fragment"

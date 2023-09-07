@@ -43,7 +43,9 @@ interface SettingsView {
 
   fun setManageWalletPreference()
 
-  fun setAccountPreference()
+  fun setPersonalPreference()
+
+  fun setInvoicesPreference()
 
   fun setManageSubscriptionsPreference()
 
