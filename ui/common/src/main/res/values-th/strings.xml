@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">ตรวจสอบรายละเอียดทั้งหมด: ยอดคงเหลือ สินค้า เครือข่าย...</string>
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">ค่าธรรมเนียม</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
   <string name="notification_completed_poa">รับรางวัล!👌 คุณจะต้องรอ %1$s ชม.%2$s น. เพื่อรับรางวัลโดยการลองแอป⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">รหัสคำสั่งซื้อ</string>
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
   <string name="notification_payment_refused">การชำระเงินถูกปฏิเสธ</string>
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
@@ -493,6 +495,7 @@
   <string name="play_button">เล่น</string>
   <string name="manage_wallet_button">จัดการวอลเล็ต</string>
   <string name="log_out_button">ลงชื่อออก</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">คุณจะใช้ ETH จำนวนเล็กน้อยเพื่อชำระค่าธรรมเนียม</string>
   <string name="purchase_appcoins_noavailable_body">คุณไม่จำเป็นต้องมี AppCoins หรือ. Ether. ที่เพียงพอในการซื้อนี้</string>
   <string name="purchase_no_eth_body">คุณมี ETH ไม่เพียงพอสำหรับจ่ายแก๊ส</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">เหตุผลด้านความปลอดภัย วอลเล็ตของคุณถูกบล็อก กรุณาติดต่อเราสำหรับข้อมูลเพิ่มเติม</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">อาจมีค่าใช้จ่ายเพิ่มเติม.</string>
   <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -708,6 +713,7 @@
   <string name="import_wallet_button">กู้คืนวอลเล็ต</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
   <string name="backup_title">สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
@@ -741,6 +747,8 @@
   <string name="backup_popup_purchase_body">เก็บเงินของคุณในที่ปลอกภัยตลอดเวลา</string>
   <string name="backup_popup_gamification_body">เก็บโบนัสของคุณในที่ปลอกภัยตลอดเวลา</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
