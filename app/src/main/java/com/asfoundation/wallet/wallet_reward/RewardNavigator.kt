@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
@@ -38,6 +39,8 @@ class RewardNavigator @Inject constructor(
       RewardFragmentDirections.actionNavigateGiftCard()
     )
   }
+
+  fun showOfferWallScreen() = ChallengeRewardManager.onNavigate()
 
   fun navigateToWithdrawScreen() {
     navigate(
