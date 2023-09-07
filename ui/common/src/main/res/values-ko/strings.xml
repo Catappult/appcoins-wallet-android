@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
   <string name="activity_iab_change_card">카드 변경</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">수수료</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">보상을 받았습니다!👌 앱을 사용하여 더 많은 보상까지 %1$s시간%2$s분을 기다려주세요⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">주문 ID</string>
   <string name="transaction_details_label">상세내용</string>
   <string name="transaction_to_label">수신</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">카드 기억하기</string>
   <string name="notification_payment_refused">지불 거절됨</string>
   <string name="dialog_credit_card_number">카드번호</string>
@@ -493,6 +495,7 @@
   <string name="play_button">플레이</string>
   <string name="manage_wallet_button">지갑 관리</string>
   <string name="log_out_button">로그아웃</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>
   <string name="purchase_more_payment_methods_button">다른 지불 방식</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">이 수수료 지불을 위해 적은 양의 ETH를 사용하게 됩니다.</string>
   <string name="purchase_appcoins_noavailable_body">이 구매를 하기 위한 AppCoins 또는 이더리움이 부족합니다.</string>
   <string name="purchase_no_eth_body">이 가스 지불을 위한 ETH이 부족합니다.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">보안상의 이유로, 지갑이 차단되었습니다. 상세 내용은 지원팀에 문의해 주세요.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">지갑 복구</string>
   <string name="import_wallet_password_body">이 지갑의 비밀번호는 보호되어 있습니다!</string>
   <string name="import_wallet_wrong_password_body">이런, 잘못된 비밀번호입니다!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">잘못된 비밀 키</string>
   <string name="error_invalid_keystore">잘못된 키 스토어</string>
   <string name="backup_title">지금 지갑 백업하기!</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">자금을 항상 안전하게 보관하세요.</string>
   <string name="backup_popup_gamification_body">보너스 레벨을 항상 안전하게 보관하세요.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
