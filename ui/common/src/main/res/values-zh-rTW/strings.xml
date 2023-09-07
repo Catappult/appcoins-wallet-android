@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">正在檢視所有細節：餘額，物品，網路…</string>
   <string name="activity_iab_buying_message">細節檢視完成 \n正在接收您的物品…</string>
   <string name="activity_iab_change_card">更改卡片</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">手續費</string>
   <string name="notification_ongoing_poa">正在處理您的獎勵</string>
   <string name="notification_completed_poa">已收到獎勵！👌請等待 %1$s小時%2$s分鐘後再嘗試使用應用程式來獲得更多獎勵⏰！</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">詳情</string>
   <string name="transaction_to_label">至</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">記住此卡片</string>
   <string name="notification_payment_refused">付款被拒絕</string>
   <string name="dialog_credit_card_number">卡號</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">似乎此購買已在處理中。 請等待交易完成，或與聯繫我們的支援團隊。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">您將會支付一點ETH用於手續費。</string>
   <string name="purchase_appcoins_noavailable_body">您沒有足夠的AppCoins或以太幣來進行此購買。</string>
   <string name="purchase_no_eth_body">您沒有足夠的ETH來支付燃氣手續費。</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帳單地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">這個錢包已設定密碼！</string>
   <string name="import_wallet_wrong_password_body">密碼不正確</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">無效的私鑰</string>
   <string name="error_invalid_keystore">無效的密鑰庫</string>
   <string name="backup_title">Backup your wallet now!</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">錢包</string>
   <string name="wallets_total_balance_title">帳戶總餘額 %s</string>
