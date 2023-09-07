@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">جاري التحقق من كل التفاصيل: التوازن، العناصر، الشبكة…</string>
   <string name="activity_iab_buying_message">تم التحقق من التفاصيل \nجاري استقبال العنصر الخاص بك…</string>
   <string name="activity_iab_change_card">تغيير البطاقة</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">الرسوم</string>
   <string name="notification_ongoing_poa">جاري تنفيذ مكافأتك</string>
   <string name="notification_completed_poa">تلقيت مكافأة!👌 يرجى الانتظار %1$sساعة و%2$sدقيقة للحصول على المزيد من المكافآت بتجريب التطبيقات ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">اطلب الهُوِيَّة</string>
   <string name="transaction_details_label">تفاصيل</string>
   <string name="transaction_to_label">إلى</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">تذكر البطاقة</string>
   <string name="notification_payment_refused">تم رفض الدفعة</string>
   <string name="dialog_credit_card_number">رقم البطاقة</string>
@@ -493,6 +495,7 @@
   <string name="play_button">لعب</string>
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">سترى رصيدًا قليلًا من ETH لتدفع به الرّسوم.</string>
   <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
   <string name="purchase_no_eth_body">لا يوجد لديك ETH كافية لتدفع رسوم عمولات التحويل.</string>
@@ -616,6 +620,7 @@
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -707,6 +712,7 @@
   <string name="import_wallet_button">استعادة المحفظة</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
   <string name="error_invalid_keystore">محفظة مفاتيح غير صالحة</string>
   <string name="backup_title">احفظ نسخة احتياطية لمحفظتك الآن!</string>
@@ -740,6 +746,8 @@
   <string name="backup_popup_purchase_body">احفظ أموالك في أمان طوال الوقت.</string>
   <string name="backup_popup_gamification_body">احتفظ بمعدل مكافآتك في أمان طوال الوقت.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
