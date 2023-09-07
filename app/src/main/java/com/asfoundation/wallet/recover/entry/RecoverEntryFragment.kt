@@ -6,6 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +22,6 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
@@ -28,6 +29,7 @@ import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class RecoverEntryFragment : BasePageViewFragment(),
@@ -74,9 +76,17 @@ class RecoverEntryFragment : BasePageViewFragment(),
         views.recoverWalletOptions.recoverKeystoreInput.getText().trim()
       )
     }
-    //Validate with carlos Translate for this
     views.recoverWalletOptions.recoverKeystoreInput.setHintText(getString(R.string.import_code_here_field))
     views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
+
+    views.recoverWalletButton.isEnabled = false
+    views.recoverWalletOptions.recoverKeystoreInput.addTextWatcher(object : TextWatcher {
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+      override fun afterTextChanged(s: Editable) {
+        views.recoverWalletButton.isEnabled = true
+      }
+    })
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
