@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Verificando todos os detalhes: saldo, itens, rede…</string>
   <string name="activity_iab_buying_message">Detalhes verificados \nRecebendo seu item…</string>
   <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Taxa</string>
   <string name="notification_ongoing_poa">Processando sua recompensa</string>
   <string name="notification_completed_poa">Recompensa recebida! 👌 Você terá que esperar %1$sh%2$sm para ganhar mais recompensas ao experimentar apps ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">ID do Pedido</string>
   <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">Para</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Memorizar Cartão</string>
   <string name="notification_payment_refused">Pagamento Recusado</string>
   <string name="dialog_credit_card_number">Número do Cartão</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Jogar</string>
   <string name="manage_wallet_button">Gerenciar carteira</string>
   <string name="log_out_button">Sair</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">Você usará uma pequena quantia de ETH para pagar as taxas.</string>
   <string name="purchase_appcoins_noavailable_body">Você não tem AppCoins ou Ether suficientes para esta compra.</string>
   <string name="purchase_no_eth_body">Você não tem ETH o suficiente para pagar pelo combustível.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">Por questões de segurança, sau carteira foi bloqueada. Por favor, entre em contato com o suporte para mais informações.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
   <string name="purchase_error_paypal">Houve um problema com o seu pagamento no PayPal. Por favor, tente novamente ou utilize um método de pagamento diferente.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Endereço de cobrança</string>
   <string name="purchase_address_address_field">Endereço</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Recuperar wallet</string>
   <string name="import_wallet_password_body">Esta wallet está protegida com senha!</string>
   <string name="import_wallet_wrong_password_body">Ops, senha incorreta!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Chave privada inválida</string>
   <string name="error_invalid_keystore">Keystore inválida</string>
   <string name="backup_title">Faça o backup de sua carteira agora!</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">Mantenha seus recursos sempre seguros.</string>
   <string name="backup_popup_gamification_body">Mantenha seu nível de bônus seguro em todos os momentos.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Saldo total em %s</string>
@@ -1219,7 +1227,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Faça a sua primeira compra com um jogo compatível com AppCoins e libere um bônus a cada compra.</string>
-  <string name="rewards_bonus_every_purchase_title">Aproveite um bônus de %s a cada compra</string>
+  <string name="rewards_bonus_every_purchase_title">Aproveite um bônus de %s%% a cada compra</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Carteira alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Você quer selecionar esta carteira?</string>
