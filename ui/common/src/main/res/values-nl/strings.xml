@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="activity_iab_change_card">KAART WIJZIGEN</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Kosten</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen!👌 Je kunt over %1$s uur en %2$s min meer beloningen verdienen door apps te proberen⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">Bestelnummer</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">Naar</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Kaart onthouden</string>
   <string name="notification_payment_refused">Betaling geweigerd</string>
   <string name="dialog_credit_card_number">Kaartnummer</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Spelen</string>
   <string name="manage_wallet_button">Wallet beheren</string>
   <string name="log_out_button">Uitloggen</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Het lijkt erop dat deze aankoop al wordt verwerkt. Wacht totdat de transactie is voltooid of neem contact op met ons ondersteuningsteam.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BETALINGSMETHODEN</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">Er zal een klein bedrag ETH worden gebruikt om de kosten te betalen.</string>
   <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg AppCoins of Ether voor deze aankoop.</string>
   <string name="purchase_no_eth_body">Je hebt niet genoeg ETH om gas te betalen.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Wallet herstellen</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
   <string name="backup_title">Maak nu een back-up van je wallet!</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">Zorg ervoor dat je saldo altijd is beveiligd.</string>
   <string name="backup_popup_gamification_body">Zorg ervoor dat je bonusniveau altijd is beveiligd.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
