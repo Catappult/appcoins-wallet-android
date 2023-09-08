@@ -22,6 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -30,6 +34,7 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.google.android.material.textview.MaterialTextView
 
 @Composable
 fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, onGotItClick: () -> Unit) {
@@ -38,9 +43,7 @@ fun BackupSuccessRoute(onChatClick: () -> Unit, saveOnDevice: Boolean, onGotItCl
     modifier = Modifier
   ) { padding ->
     BackupSaveOptionsScreen(
-      scaffoldPadding = padding,
-      onGotItClick = onGotItClick,
-      saveOnDevice = saveOnDevice
+      scaffoldPadding = padding, onGotItClick = onGotItClick, saveOnDevice = saveOnDevice
     )
   }
 }
@@ -59,14 +62,16 @@ fun BackupSaveOptionsScreen(
       .verticalScroll(rememberScrollState()),
   ) {
     Column(
-      modifier = Modifier.padding(start = 27.dp, bottom = 45.dp),
+      modifier = Modifier
+        .padding(horizontal = 24.dp)
+        .padding(bottom = 48.dp),
       horizontalAlignment = Alignment.Start
     ) {
       Text(
         style = WalletTypography.bold.sp22,
         color = WalletColors.styleguide_light_grey,
         text = stringResource(id = R.string.backup_title),
-        modifier = Modifier.padding(top = 10.dp, bottom = 20.dp, end = 27.dp)
+        modifier = Modifier.padding(top = 8.dp, bottom = 20.dp)
       )
       Text(
         text = stringResource(id = R.string.backup_body),
@@ -79,7 +84,6 @@ fun BackupSaveOptionsScreen(
     BackupSuccessButton(onGotItClick)
   }
 }
-
 
 @Composable
 fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
@@ -135,13 +139,7 @@ fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
           .padding(top = 10.dp, bottom = 10.dp)
       ) {
         WalletImage(data = R.drawable.ic_circle, modifier = Modifier.size(5.dp))
-
-        Text(
-          stringResource(id = R.string.backup_confirmation_tips_1),
-          color = WalletColors.styleguide_light_grey,
-          style = WalletTypography.regular.sp14,
-          modifier = Modifier.padding(start = 7.dp)
-        )
+        HtmlText(R.string.backup_confirmation_tips_1)
       }
       Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -150,26 +148,14 @@ fun BackupSuccessScreenCard(saveOnDevice: Boolean) {
           .padding(bottom = 10.dp)
       ) {
         WalletImage(data = R.drawable.ic_circle, modifier = Modifier.size(5.dp))
-
-        Text(
-          stringResource(id = R.string.backup_confirmation_tips_2),
-          color = WalletColors.styleguide_light_grey,
-          style = WalletTypography.regular.sp14,
-          modifier = Modifier.padding(start = 7.dp)
-        )
+        HtmlText(R.string.backup_confirmation_tips_2)
       }
       Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
       ) {
         WalletImage(data = R.drawable.ic_circle, modifier = Modifier.size(5.dp))
-
-        Text(
-          stringResource(id = R.string.backup_confirmation_tips_3),
-          color = WalletColors.styleguide_light_grey,
-          style = WalletTypography.regular.sp14,
-          modifier = Modifier.padding(start = 7.dp)
-        )
+        HtmlText(R.string.backup_confirmation_tips_3)
       }
     }
   }
@@ -186,4 +172,18 @@ fun BackupSuccessButton(onGotItClick: () -> Unit) {
       buttonType = ButtonType.LARGE,
     )
   }
+}
+
+@Composable
+fun HtmlText(textId: Int) {
+  AndroidView(
+    modifier = Modifier.padding(horizontal = 8.dp),
+    factory = { context ->
+      MaterialTextView(context).apply {
+        text = HtmlCompat.fromHtml(context.getString(textId), FROM_HTML_MODE_COMPACT)
+        textSize = 14F
+        setTextColor(ContextCompat.getColor(context, R.color.styleguide_light_grey))
+      }
+    }
+  )
 }
