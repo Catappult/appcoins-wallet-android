@@ -229,7 +229,7 @@
   <string name="activity_iab_approving_message">Перевірка всіх деталей: баланс, предмети, мережа…</string>
   <string name="activity_iab_buying_message">Деталі перевірено \nОтримання вашого предмету…</string>
   <string name="activity_iab_change_card">ЗМІНИТИ КАРТКУ</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">Змінити картку</string>
   <string name="activity_iab_fees">Плата</string>
   <string name="notification_ongoing_poa">Обробка вашої винагороди</string>
   <string name="notification_completed_poa">Винагороду отримано!👌 Вам доведеться зачекати %1$sh%2$sm, щоб отримати більше винагород, спробувавши програми ⏰!</string>
@@ -281,7 +281,7 @@
   <string name="transaction_order_reference_label">ID замовника</string>
   <string name="transaction_details_label">Деталі</string>
   <string name="transaction_to_label">До</string>
-  <string name="transaction_invoice_label">Invoice</string>
+  <string name="transaction_invoice_label">Рахунок</string>
   <string name="dialog_credit_card_remember">Запам\'ятати картку</string>
   <string name="notification_payment_refused">У оплаті відмовлено</string>
   <string name="dialog_credit_card_number">Номер картки</string>
@@ -311,7 +311,7 @@
   <string name="transaction_rejected_body">Цю покупку було відхилено.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_reverted_body">Цю покупку було скасовано.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_status_rejected">Відхилено</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Деталі транзакції</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
@@ -497,7 +497,7 @@
   <string name="play_button">Грати</string>
   <string name="manage_wallet_button">Керувати гаманцем</string>
   <string name="log_out_button">Вийти</string>
-  <string name="download_button">Download</string>
+  <string name="download_button">Завантажити</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -558,7 +558,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>
   <string name="purchase_more_payment_methods_button">ІНШІ СПОСОБИ ОПЛАТИ</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Інші способи оплати</string>
   <string name="purchase_appcoins_available_body">Ви будете використовувати невелику суму ETH для оплати комісій.</string>
   <string name="purchase_appcoins_noavailable_body">У вас недостатньо AppCoins або Ether для цієї покупки.</string>
   <string name="purchase_no_eth_body">У вас недостатньо ETH, щоб заплатити за газ.</string>
@@ -621,7 +621,7 @@
   <string name="error_blocked_wallet_body">Ваш гаманець заблоковано з міркувань безпеки. Зверніться до нас за додатковою інформацією.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
-  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>
@@ -713,7 +713,7 @@
   <string name="import_wallet_button">Відновити гаманець</string>
   <string name="import_wallet_password_body">Цей гаманець захищений паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неправильний пароль!</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">Відновити код тут&#8230;</string>
   <string name="error_invalid_private_key">Недійсний приватний ключ</string>
   <string name="error_invalid_keystore">Недійсне сховище ключів</string>
   <string name="backup_title">Створіть резервну копію вашого гаманця зараз!</string>
@@ -746,9 +746,9 @@
   <string name="backup_popup_title">Створіть резервну копію вашого гаманця зараз!</string>
   <string name="backup_popup_purchase_body">Завжди зберігайте свої кошти в безпеці.</string>
   <string name="backup_popup_gamification_body">Завжди тримайте свій бонусний рівень у безпеці.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">Не вдалося створити файл резервної копії. Спробуйте пізніше.</string>
+  <string name="backup_confirmation_save_device">Ваша резервна копія на вашому пристрої</string>
+  <string name="backup_confirmation_save_email">Ваша резервна копія на вашій електронній пошті</string>
   <!--Wallets Management-->
   <string name="wallets_title">Гаманці</string>
   <string name="wallets_total_balance_title">Загальний баланс у %s</string>
@@ -837,7 +837,7 @@
   <string name="subscriptions_cancel_title">Скасувати підписку</string>
   <string name="subscriptions_cancel_body">Ви впевнені, що хочете скасувати цю підписку?</string>
   <string name="subscriptions_cancel_no_button">Ні, повернутися</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Так, скасувати</string>
   <string name="subscriptions_cancel_confirmation_title">Підписка скасована!</string>
   <string name="subscriptions_cancel_confirmation_body">З вас більше не стягуватиметься плата за цю підписку, і ви можете використовувати її до %s.</string>
   <string name="subscriptions_category_title">Підписка</string>
@@ -1245,14 +1245,14 @@
   <string name="rewards_spend_to_next_level_body">Витратьте більше %1$s%2$s, щоб досягти наступного рівня!</string>
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Виведіть свій e-Skills дохід.</string>
   <string name="rewards_promo_code_card_title">Промокоди</string>
   <string name="rewards_promo_code_card_body">Скористайтеся промокодом, аби отримати спеціальні пропозиції!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
   <string name="rewards_promo_code_status_expired">Термін дії закінчився</string>
   <string name="home_nft_title">AppCoins Wallet тепер підтримує NFT</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Сумісні з AppCoins ігри</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Отримуйте бонус %s%% до кожної покупки</string>
@@ -1260,27 +1260,27 @@
   <string name="manage_wallet_wallet_changed_title">Гаманець змінено</string>
   <string name="manage_wallet_change_active_wallet_title">Хочете обрати цей гаманець?</string>
   <string name="manage_wallet_change_wallet_name_title">Змінити назву гаманця</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">Задайте ім\'я для свого гаманця</string>
+  <string name="manage_wallet_my_wallet_address_title">Адреса мого гаманця</string>
+  <string name="manage_wallet_verify_title">Підтвердити спосіб оплати</string>
+  <string name="manage_wallet_verify_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">Підтвердити спосіб оплати</string>
+  <string name="verify_card_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
+  <string name="verify_card_one_more_step_title">Ще один крок для підтвердження</string>
+  <string name="verify_card_one_more_step_body">Вставте код, який знаходиться в деталях транзакції</string>
+  <string name="verify_card_one_more_step_button">Вставте код</string>
+  <string name="verify_card_verified">Спосіб оплати підтверджено!</string>
+  <string name="verify_card_view_title">Підтвердити карту</string>
+  <string name="verify_card_view_disclaimer">Ми знімемо з вашої картки %s, і ці кошти будуть повернуті, як тільки ви підтвердите код.</string>
+  <string name="verify_card_view_title_2">Введіть дані вашої банківської картки</string>
+  <string name="verify_card_get_a_code_button">Отримати код</string>
+  <string name="verify_card_code_title">Знайдіть свій код у деталях транзакції</string>
+  <string name="verify_card_code_body">Унікальний код з\'явиться у звіті про транзакцію, наданому емітентом вашої картки.</string>
+  <string name="verify_card_code_example_title">Приклад звіту про транзакцію</string>
+  <string name="verify_card_code_example_date">Дата транзакції</string>
+  <string name="verify_card_code_example_description">Опис</string>
+  <string name="verify_card_code_example_amount">Сума</string>
+  <string name="verify_card_code_enter_title">Введіть 4-значний код</string>
+  <string name="verify_card_code_refund_body">%s буде повернуто протягом 24 годин після підтвердження коду.</string>
 </resources>
