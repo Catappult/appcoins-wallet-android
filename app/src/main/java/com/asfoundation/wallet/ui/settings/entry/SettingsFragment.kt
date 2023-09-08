@@ -190,14 +190,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setInvoicesPreference() {
-    val accountPreference = findPreference<Preference>("pref_invoices")
-    accountPreference?.setOnPreferenceClickListener {
-      presenter.onInvoicesClick(navController())
-      false
-    }
-  }
-
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
   override fun authenticationResult(): ActivityResultLauncher<Intent> = authenticationResultLauncher

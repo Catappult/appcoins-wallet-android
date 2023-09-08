@@ -123,11 +123,6 @@
   <action
       android:id="@+id/action_navigate_to_personal_information"
       app:destination="@id/personal_information_fragment" />
-
-  <action
-      android:id="@+id/action_navigate_to_invoices"
-      app:destination="@id/invoices_fragment" />
-
   <action
       android:id="@+id/action_navigate_to_backup_entry_wallet"
       app:destination="@id/backup_wallet_fragment">

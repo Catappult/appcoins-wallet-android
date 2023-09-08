@@ -53,7 +53,6 @@ class SettingsPresenter(
     view.setVersionPreference()
     view.setManageWalletPreference()
     view.setPersonalPreference()
-    view.setInvoicesPreference()
     view.setManageSubscriptionsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
@@ -118,10 +117,6 @@ class SettingsPresenter(
 
   fun onPersonalClick(navController: NavController) {
     navigator.navigateToPersonalInformation(navController)
-  }
-
-  fun onInvoicesClick(navController: NavController) {
-    navigator.navigateToInvoices(navController)
   }
 
   fun onBugReportClicked() = settingsInteractor.displaySupportScreen()

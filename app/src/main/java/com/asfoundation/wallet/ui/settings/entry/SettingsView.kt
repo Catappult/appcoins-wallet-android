@@ -45,8 +45,6 @@ interface SettingsView {
 
   fun setPersonalPreference()
 
-  fun setInvoicesPreference()
-
   fun setManageSubscriptionsPreference()
 
   fun removeFingerprintPreference()

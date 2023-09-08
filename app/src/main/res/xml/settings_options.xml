@@ -28,12 +28,6 @@
         android:layout="@layout/preference_without_summary_layout"
         android:title="Personal" />
 
-    <Preference
-        android:icon="@drawable/ic_invoices"
-        android:key="pref_invoices"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="Invoices" />
-
     <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
         android:icon="@drawable/ic_currency"
         android:key="pref_currency"
