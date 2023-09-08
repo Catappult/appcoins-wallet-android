@@ -77,12 +77,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       )
     }
     views.recoverWalletOptions.recoverKeystoreInput.setHintText(getString(R.string.import_code_here_field))
-    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(
-      ContextCompat.getDrawable(
-        requireContext(),
-        R.drawable.background_card_blue
-      )
-    )
+    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
 
     views.recoverWalletButton.isEnabled = false
     views.recoverWalletOptions.recoverKeystoreInput.addTextWatcher(object : TextWatcher {
