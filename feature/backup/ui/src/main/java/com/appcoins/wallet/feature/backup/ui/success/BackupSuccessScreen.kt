@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -184,6 +185,11 @@ fun HtmlText(textId: Int) {
         textSize = 14F
         setTextColor(ContextCompat.getColor(context, R.color.styleguide_light_grey))
       }
-    }
-  )
+    })
+}
+
+@Preview
+@Composable
+fun PreviewHtmlText() {
+  HtmlText(R.string.backup_confirmation_tips_1)
 }

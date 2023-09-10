@@ -288,14 +288,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
       is HomeSideEffect.NavigateToBackup ->
         navigator.navigateToBackup(
-          sideEffect.walletAddress, viewModel.walletName, navController()
+          sideEffect.walletAddress, sideEffect.walletName, navController()
         )
 
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
-      is HomeSideEffect.ShowBackupTrigger ->
-        navigator.navigateToBackupTrigger(sideEffect.walletAddress, sideEffect.triggerSource)
-
       HomeSideEffect.NavigateToChangeCurrency ->
         navigator.navigateToCurrencySelector(navController())
 
