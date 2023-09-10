@@ -160,10 +160,6 @@
       android:name="com.asfoundation.wallet.personal_info.PersonalInformationFragment" />
 
   <fragment
-      android:id="@+id/invoices_fragment"
-      android:name="com.asfoundation.wallet.invoices.InvoicesFragment" />
-
-  <fragment
       android:id="@+id/backup_wallet_fragment"
       android:name="com.asfoundation.wallet.backup.BackupWalletEntryFragment">
     <argument

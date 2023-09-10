@@ -330,7 +330,8 @@
   <string name="transaction_details_header">Transaction details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
- 
+
+  <string name="settings_personal_title">Personal</string>
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>

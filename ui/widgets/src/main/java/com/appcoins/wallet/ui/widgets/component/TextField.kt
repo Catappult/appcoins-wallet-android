@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets.component
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,32 +26,44 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.R
 
 @Composable
-fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (String) -> Unit) {
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 24.dp),
-        singleLine = true,
-        shape = RoundedCornerShape(8.dp),
-        colors =
-        TextFieldDefaults.colors(
-            focusedContainerColor = WalletColors.styleguide_blue_secondary,
-            unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
-            focusedIndicatorColor = WalletColors.styleguide_blue,
-            unfocusedIndicatorColor = WalletColors.styleguide_blue,
-            focusedTextColor = WalletColors.styleguide_light_grey,
-            unfocusedTextColor = WalletColors.styleguide_light_grey,
-            cursorColor = WalletColors.styleguide_light_grey
-        ),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
-        placeholder = {
-            Text(text = stringResource(hintText!!), color = WalletColors.styleguide_dark_grey)
-        })
+fun WalletTextFieldCustom(
+    value: String,
+    hintText: String = "",
+    title: String = "",
+    onValueChange: (String) -> Unit
+) {
+    Column {
+        if (title.isNotEmpty())
+            Text(
+                text = title,
+                Modifier.padding(start = 8.dp),
+                style = WalletTypography.medium.sp14,
+                color = WalletColors.styleguide_light_grey
+            )
+        TextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            shape = RoundedCornerShape(8.dp),
+            colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = WalletColors.styleguide_blue_secondary,
+                unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
+                focusedIndicatorColor = WalletColors.styleguide_blue,
+                unfocusedIndicatorColor = WalletColors.styleguide_blue,
+                focusedTextColor = WalletColors.styleguide_light_grey,
+                unfocusedTextColor = WalletColors.styleguide_light_grey,
+                cursorColor = WalletColors.styleguide_light_grey
+            ),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
+            placeholder = { Text(text = hintText, color = WalletColors.styleguide_dark_grey) }
+        )
+    }
 }
 
 @Composable

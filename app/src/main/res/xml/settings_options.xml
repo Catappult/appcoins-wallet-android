@@ -26,7 +26,7 @@
         android:icon="@drawable/ic_account"
         android:key="pref_account"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="Personal" />
+        android:title="@string/settings_personal_title" />
 
     <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
         android:icon="@drawable/ic_currency"

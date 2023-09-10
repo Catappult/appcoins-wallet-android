@@ -196,7 +196,7 @@ fun SaveOnDeviceOptions(
           defaultEmail = it
           passwordInput = defaultEmail
         },
-        hintText = R.string.email_here_field,
+        hintText = stringResource(R.string.email_here_field),
       )
       if (defaultEmail.isNotEmpty() &&
         android.util.Patterns.EMAIL_ADDRESS.matcher(defaultEmail).matches()
