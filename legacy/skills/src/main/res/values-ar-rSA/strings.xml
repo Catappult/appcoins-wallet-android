@@ -85,8 +85,8 @@
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">اكسب المال</string>
   <string name="eskills_carousel_body">اهزم اللاعبين الآخرين مع e-Skills</string>
-  <string name="eskills_game_1">Install the e-Skills game you think you\'re better at.</string>
-  <string name="carousel_game_2">Open it and get an entry ticket to start a match against other players.</string>
+  <string name="eskills_game_1">ثبت لعبة e-Skills التي تعتقد أنها أنك تتقنها.</string>
+  <string name="carousel_game_2">افتحها واحصل على تذكرة دخول لتبدأ مباراة ضد لاعبين آخرين.</string>
   <string name="carousel_game_3">Veat them and get a real-money prize!</string>
-  <string name="carousel_game_description_title">Description</string>
+  <string name="carousel_game_description_title">الوصف</string>
 </resources>
