@@ -311,7 +311,7 @@
   <string name="transaction_rejected_body">عملية الشراء هذه مرفوضة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_reverted_body">عملية الشراء هذه راجعة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_status_rejected">مرفوض</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">تفاصيل التحويل</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
