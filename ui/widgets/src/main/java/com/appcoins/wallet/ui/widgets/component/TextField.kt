@@ -31,6 +31,7 @@ import com.appcoins.wallet.ui.widgets.R
 
 @Composable
 fun WalletTextFieldCustom(
+    modifier: Modifier = Modifier.fillMaxWidth(),
     value: String,
     hintText: String = "",
     title: String = "",
@@ -40,14 +41,14 @@ fun WalletTextFieldCustom(
         if (title.isNotEmpty())
             Text(
                 text = title,
-                Modifier.padding(start = 8.dp),
+                Modifier.padding(start = 8.dp, bottom = 8.dp),
                 style = WalletTypography.medium.sp14,
                 color = WalletColors.styleguide_light_grey
             )
         TextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier,
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
             colors =
