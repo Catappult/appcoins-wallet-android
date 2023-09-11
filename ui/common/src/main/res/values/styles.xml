@@ -915,7 +915,7 @@
   </style>
 
   <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">10sp</item>
   </style>
