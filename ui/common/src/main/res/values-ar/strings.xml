@@ -229,7 +229,7 @@
   <string name="activity_iab_approving_message">جاري التحقق من كل التفاصيل: التوازن، العناصر، الشبكة…</string>
   <string name="activity_iab_buying_message">تم التحقق من التفاصيل \nجاري استقبال العنصر الخاص بك…</string>
   <string name="activity_iab_change_card">تغيير البطاقة</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">تغيير البطاقة</string>
   <string name="activity_iab_fees">الرسوم</string>
   <string name="notification_ongoing_poa">جاري تنفيذ مكافأتك</string>
   <string name="notification_completed_poa">تلقيت مكافأة!👌 يرجى الانتظار %1$sساعة و%2$sدقيقة للحصول على المزيد من المكافآت بتجريب التطبيقات ⏰!</string>
@@ -281,7 +281,7 @@
   <string name="transaction_order_reference_label">اطلب الهُوِيَّة</string>
   <string name="transaction_details_label">تفاصيل</string>
   <string name="transaction_to_label">إلى</string>
-  <string name="transaction_invoice_label">Invoice</string>
+  <string name="transaction_invoice_label">فاتورة</string>
   <string name="dialog_credit_card_remember">تذكر البطاقة</string>
   <string name="notification_payment_refused">تم رفض الدفعة</string>
   <string name="dialog_credit_card_number">رقم البطاقة</string>
