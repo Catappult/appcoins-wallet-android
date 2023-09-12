@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Envoyer au courriel</string>
   <string name="backup_ready_device_button">Sauvegarder sur l\'appareil</string>
   <string name="backup_confirmation_tips_title">Conservez le fichier en sécurité :</string>
-  <string name="backup_confirmation_tips_1"><b>Imprimez-le</b> et conservez-le dans un endroit sûr.</string>
-  <string name="backup_confirmation_tips_2"><b>Enregistrez-le</b> sur une clé USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Copiez-le</b> sur un stockage cloud privé et sécurisé.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Imprimez-le</b> et conservez-le dans un endroit sûr.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Enregistrez-le</b> sur une clé USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copiez-le</b> sur un stockage cloud privé et sécurisé.]]></string>
   <string name="backup_tooltip_body">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_tooltip_later_button">Peut-être plus tard</string>
   <string name="backup_tooltip_backup_button">Sauvegarde</string>
