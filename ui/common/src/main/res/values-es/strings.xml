@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Enviar al email</string>
   <string name="backup_ready_device_button">Guardar en el dispositivo</string>
   <string name="backup_confirmation_tips_title">Mantén el archivo seguro:</string>
-  <string name="backup_confirmation_tips_1"><b>Imprímelo</b> y guárdalo en un lugar seguro.</string>
-  <string name="backup_confirmation_tips_2"><b>Guárdalo</b> en un USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Cópialo</b> en un repositorio en la nube privado y seguro.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Imprímelo</b> y guárdalo en un lugar seguro.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Guárdalo</b> en un USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Cópialo</b> en un repositorio en la nube privado y seguro.]]></string>
   <string name="backup_tooltip_body">¡Haz una copia de tu wallet!</string>
   <string name="backup_tooltip_later_button">Más tarde</string>
   <string name="backup_tooltip_backup_button">Copia de Seguridad</string>
