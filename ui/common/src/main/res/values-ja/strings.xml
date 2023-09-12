@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">メールに送信</string>
   <string name="backup_ready_device_button">デバイスに保存</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1"><b>印刷</b>して安全な場所に保管。</string>
-  <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
-  <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>印刷</b>して安全な場所に保管。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>USBメモリ</b>に保存する。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[安全なプライベートクラウドストレージに<b>コピー</b>する。]]></string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
