@@ -8,15 +8,11 @@ import com.appcoins.wallet.feature.backup.ui.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOnDeviceDialogFragment :
   BottomSheetDialogFragment(),
   SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
-
-  @Inject
-  lateinit var navigator: BackupSaveOnDeviceDialogNavigator
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
@@ -43,8 +39,9 @@ class BackupSaveOnDeviceDialogFragment :
 
   override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) =
     when (sideEffect) {
-      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess ->
-        navigator.navigateToSuccessScreen(sideEffect.walletAddress)
+      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess -> {
+        //Do nothing
+      }
 
       BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
     }
