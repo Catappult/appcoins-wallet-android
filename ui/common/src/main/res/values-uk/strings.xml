@@ -726,9 +726,9 @@
   <string name="backup_ready_email_button">Надіслати на електронну пошту</string>
   <string name="backup_ready_device_button">Зберегти на пристрої</string>
   <string name="backup_confirmation_tips_title">Тримайте файл у безпеці:</string>
-  <string name="backup_confirmation_tips_1"><b>Надрукуйте</b> та зберігайте в безпечному місці.</string>
-  <string name="backup_confirmation_tips_2"><b>Зберегти</b> на USB-накопичувач.</string>
-  <string name="backup_confirmation_tips_3"><b>Скопіюйте</b> у приватне та безпечне хмарне сховище.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Надрукуйте</b> та зберігайте в безпечному місці.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Зберегти</b> на USB-накопичувач.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Скопіюйте</b> у приватне та безпечне хмарне сховище.]]></string>
   <string name="backup_tooltip_body">Зробіть резервну копію свого гаманця!</string>
   <string name="backup_tooltip_later_button">Можливо пізніше</string>
   <string name="backup_tooltip_backup_button">Резервне копіювання</string>
