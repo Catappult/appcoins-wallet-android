@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">ਈਮੇਲ ਤੇ ਭੇਜੋ</string>
   <string name="backup_ready_device_button">ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
   <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
-  <string name="backup_confirmation_tips_1"><b>ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ</b> ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
-  <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ <b>ਸੁਰੱਖਿਅਤ</b> ਕਰੋ|</string>
-  <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ <b>ਕਾਪੀ</b> ਕਰੋ|</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ</b> ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ <b>ਸੁਰੱਖਿਅਤ</b> ਕਰੋ|]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ <b>ਕਾਪੀ</b> ਕਰੋ|]]></string>
   <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
   <string name="backup_tooltip_backup_button">ਬੈਕਅੱਪ ਕਰੋ</string>
