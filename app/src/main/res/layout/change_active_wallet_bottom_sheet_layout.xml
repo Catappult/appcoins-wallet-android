@@ -93,7 +93,6 @@
       app:layout_constraintTop_toBottomOf="@id/wallet_new_name_sheet_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
       />
 
   <com.appcoins.wallet.ui.widgets.SystemView
