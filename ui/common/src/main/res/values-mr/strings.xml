@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">ईमेलवर पाठवा</string>
   <string name="backup_ready_device_button">डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
-  <string name="backup_confirmation_tips_1"><b>प्रिंट करा</b> आणि कुठेतरी सुरक्षित राखा.</string>
-  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर <b>सेव्ह करा</b>.</string>
-  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>प्रिंट करा</b> आणि कुठेतरी सुरक्षित राखा.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[यूएसबी ड्राईव्हवर <b>सेव्ह करा</b>.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.]]></string>
   <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_tooltip_later_button">कदाचित नंतर</string>
   <string name="backup_tooltip_backup_button">बॅक अप</string>
