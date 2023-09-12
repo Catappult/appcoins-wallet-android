@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Αποστολή σε e-mail</string>
   <string name="backup_ready_device_button">Αποθήκευση σε συσκευή</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
-  <string name="backup_confirmation_tips_1"><b>Εκτυπώστε το</b> και αποθηκεύστε το σε ασφαλές μέρος.</string>
-  <string name="backup_confirmation_tips_2"><b>Αποθηκεύστε το</b> σε μονάδα USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Αντιγράψτε το</b> σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Εκτυπώστε το</b> και αποθηκεύστε το σε ασφαλές μέρος.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Αποθηκεύστε το</b> σε μονάδα USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Αντιγράψτε το</b> σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.]]></string>
   <string name="backup_tooltip_body">Δημιουργήστε αντίγραφο ασφαλείας του wallet σας!</string>
   <string name="backup_tooltip_later_button">Ίσως αργότερα</string>
   <string name="backup_tooltip_backup_button">Δημιουργία αντιγράφου ασφαλείας</string>
