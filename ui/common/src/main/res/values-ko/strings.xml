@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">이메일로 전송합니다</string>
   <string name="backup_ready_device_button">디바이스에 저장합니다</string>
   <string name="backup_confirmation_tips_title">파일을 안전하게 보관하세요:</string>
-  <string name="backup_confirmation_tips_1"><b>출력</b>하고 다른 안전한 곳에 보관하세요.</string>
-  <string name="backup_confirmation_tips_2">USB 드라이브에 <b>저장</b>합니다.</string>
-  <string name="backup_confirmation_tips_3">개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>출력</b>하고 다른 안전한 곳에 보관하세요.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[USB 드라이브에 <b>저장</b>합니다.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다]]></string>
   <string name="backup_tooltip_body">지갑의 백업 만들기</string>
   <string name="backup_tooltip_later_button">다음 기회로</string>
   <string name="backup_tooltip_backup_button">백업</string>
