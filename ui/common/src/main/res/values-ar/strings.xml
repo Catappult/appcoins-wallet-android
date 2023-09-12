@@ -1301,11 +1301,11 @@
   <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>
   <string name="verify_card_get_a_code_button">اطلب الرمز</string>
   <string name="verify_card_code_title">ابحث عن الرمز في تفاصيل التحويل</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_body">رمز مميز يظهر في كشف حساب التحويل الصادر من الجهة المُصدرة لبطاقتك.</string>
+  <string name="verify_card_code_example_title">مثال على كشف حساب التحويل</string>
+  <string name="verify_card_code_example_date">تاريخ التحويل</string>
+  <string name="verify_card_code_example_description">الوصف</string>
+  <string name="verify_card_code_example_amount">المبلغ</string>
+  <string name="verify_card_code_enter_title">أدخل الرمز من 4 أرقام</string>
+  <string name="verify_card_code_refund_body">سيتم إعادة %s خلال 24 ساعة بعد تأكيد الرمز.</string>
 </resources>
