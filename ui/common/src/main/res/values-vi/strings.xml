@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Gửi đến email</string>
   <string name="backup_ready_device_button">Lưu trên thiết bị</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
-  <string name="backup_confirmation_tips_1"><b>In</b> và lưu trữ nó ở nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2"><b>Lưu</b> trên ổ USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>In</b> và lưu trữ nó ở nơi an toàn.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Lưu</b> trên ổ USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.]]></string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_tooltip_later_button">Để sau</string>
   <string name="backup_tooltip_backup_button">Sao lưu</string>
