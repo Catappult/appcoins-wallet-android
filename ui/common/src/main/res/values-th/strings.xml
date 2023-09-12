@@ -726,9 +726,9 @@
   <string name="backup_ready_email_button">ส่งไปยังอีเมล</string>
   <string name="backup_ready_device_button">บันทึกบนอุปกรณ์</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
-  <string name="backup_confirmation_tips_1"><b>ปรินท์</b>และจัดเก็บในที่ปลอดภัย</string>
-  <string name="backup_confirmation_tips_2"><b>บันทึก</b>ลงในไดรฟ์ USB</string>
-  <string name="backup_confirmation_tips_3"><b>คัดลอก</b>เป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>ปรินท์</b>และจัดเก็บในที่ปลอดภัย]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>บันทึก</b>ลงในไดรฟ์ USB]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>คัดลอก</b>เป็นส่วนตัวและเก็บรักษาในคลาวน์]]></string>
   <string name="backup_tooltip_body">สำรองกระเป๋าสตางค์</string>
   <string name="backup_tooltip_later_button">ไว้ก่อน</string>
   <string name="backup_tooltip_backup_button">สำรอง</string>
