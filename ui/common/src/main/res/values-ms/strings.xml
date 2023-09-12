@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Hantar ke e-mel</string>
   <string name="backup_ready_device_button">Simpan dalam peranti</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
-  <string name="backup_confirmation_tips_1"><b>Cetak ia</b> dan simpan ia di tempat yang selamat.</string>
-  <string name="backup_confirmation_tips_2"><b>Simpan</b> di dalam pemacu USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Salin</b> ke storan awan peribadi dan selamat.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Cetak ia</b> dan simpan ia di tempat yang selamat.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Simpan</b> di dalam pemacu USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Salin</b> ke storan awan peribadi dan selamat.]]></string>
   <string name="backup_tooltip_body">Buat sandaran untuk dompet anda!</string>
   <string name="backup_tooltip_later_button">Nanti</string>
   <string name="backup_tooltip_backup_button">Buat sandaran</string>
