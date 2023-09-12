@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Trimite-o pe e-mail</string>
   <string name="backup_ready_device_button">Salvează pe dispozitiv</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
-  <string name="backup_confirmation_tips_1"><b>Printeaz-o</b> și păstreaz-o în siguranță.</string>
-  <string name="backup_confirmation_tips_2"><b>Salvează-o</b> pe un drive USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Copiaz-o</b> într-un cloud de stocare privat și securizat.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Printeaz-o</b> și păstreaz-o în siguranță.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Salvează-o</b> pe un drive USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copiaz-o</b> într-un cloud de stocare privat și securizat.]]></string>
   <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
   <string name="backup_tooltip_later_button">Poate mai târziu</string>
   <string name="backup_tooltip_backup_button">Copie de rezervă</string>
