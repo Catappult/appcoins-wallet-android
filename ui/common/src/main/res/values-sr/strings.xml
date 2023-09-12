@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Pošaljite na e-poštu</string>
   <string name="backup_ready_device_button">Sačuvajte na uređaju</string>
   <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
-  <string name="backup_confirmation_tips_1"><b>Odštampajte je</b> i čuvajte je na bezbednom mestu.</string>
-  <string name="backup_confirmation_tips_2"><b>Sačuvajte je</b> na USB disku.</string>
-  <string name="backup_confirmation_tips_3"><b>Kopirajte je</b> u privatnu, bezbednu memoriju na oblaku.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Odštampajte je</b> i čuvajte je na bezbednom mestu.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Sačuvajte je</b> na USB disku.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Kopirajte je</b> u privatnu, bezbednu memoriju na oblaku.]]></string>
   <string name="backup_tooltip_body">Napravite rezervnu kopiju novčanika!</string>
   <string name="backup_tooltip_later_button">Možda kasnije</string>
   <string name="backup_tooltip_backup_button">Napravite rezervnu kopiju</string>
