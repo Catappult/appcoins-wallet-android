@@ -2,7 +2,7 @@ plugins {
   id("appcoins.android.app")
   id("appcoins.room")
   id("appcoins.hilt")
-  id("appcoins.firebase")
+  //id("appcoins.firebase") TODO this comment should be removed when the following PR is merged: https://github.com/Catappult/appcoins-wallet-android/pull/710
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit5")
