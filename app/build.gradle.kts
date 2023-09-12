@@ -3,7 +3,6 @@ plugins {
   id("appcoins.room")
   id("appcoins.hilt")
   id("appcoins.firebase")
-  id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit5")
 }

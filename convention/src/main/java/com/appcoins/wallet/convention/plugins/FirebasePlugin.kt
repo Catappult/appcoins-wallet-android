@@ -23,6 +23,7 @@ class FirebasePlugin : Plugin<Project> {
         "implementation"(libs.findLibrary("firebase.analytics").get())
         "implementation"(libs.findLibrary("firebase.performance").get())
         "implementation"(libs.findLibrary("firebase.crashlytics").get())
+        "implementation"(libs.findLibrary("firebase.messaging").get())
       }
 
       extensions.configure<ApplicationExtension> {
