@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">发送至电子邮件</string>
   <string name="backup_ready_device_button">保存在设备上</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
-  <string name="backup_confirmation_tips_1"><b>打印</b>并将其存储在安全的地方。</string>
-  <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
-  <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>打印</b>并将其存储在安全的地方。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[将其<b>保存</b>在 USB 驱动器上。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[将其<b>复制</b>到安全的私有云存储中。]]></string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
   <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
