@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Wyślij na maila</string>
   <string name="backup_ready_device_button">Zapisz na urządzeniu</string>
   <string name="backup_confirmation_tips_title">Dbaj o bezpieczeństwo pliku:</string>
-  <string name="backup_confirmation_tips_1"><b>Wydrukuj go</b> i przechowuj w bezpiecznym miejscu.</string>
-  <string name="backup_confirmation_tips_2"><b>Zapisz go</b> na pendrivie.</string>
-  <string name="backup_confirmation_tips_3"><b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Wydrukuj go</b> i przechowuj w bezpiecznym miejscu.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Zapisz go</b> na pendrivie.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.]]></string>
   <string name="backup_tooltip_body">Stwórz backup portfela!</string>
   <string name="backup_tooltip_later_button">Może później</string>
   <string name="backup_tooltip_backup_button">Kopia zapasowa</string>
