@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Naar mailbox verzenden</string>
   <string name="backup_ready_device_button">Opslaan op apparaat</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
-  <string name="backup_confirmation_tips_1"><b>Bestand afdrukken</b> en op een veilige plek bewaren.</string>
-  <string name="backup_confirmation_tips_2"><b>Bestand opslaan</b> op een USB-stick.</string>
-  <string name="backup_confirmation_tips_3"><b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Bestand afdrukken</b> en op een veilige plek bewaren.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Bestand opslaan</b> op een USB-stick.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.]]></string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
   <string name="backup_tooltip_later_button">Misschien later</string>
   <string name="backup_tooltip_backup_button">Back-up maken</string>
