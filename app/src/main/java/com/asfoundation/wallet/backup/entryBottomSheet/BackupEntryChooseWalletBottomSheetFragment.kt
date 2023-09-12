@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.backup.entryBottomSheet
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.appcoins.wallet.feature.backup.ui.databinding.SettingsWalletBottomShe
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.ui.common.addBottomItemDecoration
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
@@ -53,9 +55,18 @@ class BackupEntryChooseWalletBottomSheetFragment :
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present(
-      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel, navController()
-    )
+    val arguments = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      requireArguments().getSerializable(WALLET_MODEL_KEY, WalletsModel::class.java) as WalletsModel
+    } else {
+      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel
+    }
+    presenter.present(arguments, navController())
+  }
+
+  override fun onStart() {
+    val behavior = BottomSheetBehavior.from(requireView().parent as View)
+    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    super.onStart()
   }
 
   override fun getTheme(): Int {

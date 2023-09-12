@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
@@ -69,15 +67,6 @@ constructor(
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
       }
     fragment.requireContext().startActivity(intent)
-  }
-
-  fun navigateToBackupTrigger(
-    walletAddress: String,
-    triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
-  ) {
-    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
-    bottomSheet.isCancelable = false
-    bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
   }
 
   fun navigateToCurrencySelector(mainNavController: NavController) {
