@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">အီးေမးလ္သို႔ပို႔မည္</string>
   <string name="backup_ready_device_button">ကိရိယာေပၚတြင္ သိမ္းမည္</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
-  <string name="backup_confirmation_tips_1"><b>ပရင့္ထုတ္ကာ</b> လုံၿခဳံေသာ တစ္ေနရာရာတြင္ သိမ္းထားလိုက္ပါ။</string>
-  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္ဗ္တစ္ခုေပၚတြင္ <b>သိမ္းဆည္းပါ။</b></string>
-  <string name="backup_confirmation_tips_3">သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b></string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>ပရင့္ထုတ္ကာ</b> လုံၿခဳံေသာ တစ္ေနရာရာတြင္ သိမ္းထားလိုက္ပါ။]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[ယူအက္စ္ဘီ ဒ႐ိုက္ဗ္တစ္ခုေပၚတြင္ <b>သိမ္းဆည္းပါ။</b>]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b>]]></string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="backup_tooltip_backup_button">အရန္သိမ္းဆည္းမည္</string>
