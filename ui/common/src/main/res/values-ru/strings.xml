@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Отправить на email</string>
   <string name="backup_ready_device_button">Сохранить на диск</string>
   <string name="backup_confirmation_tips_title">Держите файл в безопасном месте:</string>
-  <string name="backup_confirmation_tips_1"><b>Распечатайте</b> и храните в безопасном месте.</string>
-  <string name="backup_confirmation_tips_2"><b>Сохраните</b> на диск USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Скопируйте</b> в личное безопасное облачное хранилище.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Распечатайте</b> и храните в безопасном месте.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Сохраните</b> на диск USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Скопируйте</b> в личное безопасное облачное хранилище.]]></string>
   <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
   <string name="backup_tooltip_later_button">Может быть позже</string>
   <string name="backup_tooltip_backup_button">Бэкап</string>
