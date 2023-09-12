@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.core.os.bundleOf
@@ -10,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
-import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import javax.inject.Inject
 
 class OnboardingPaymentResultNavigator @Inject constructor(
