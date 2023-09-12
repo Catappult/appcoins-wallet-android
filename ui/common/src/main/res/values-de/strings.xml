@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">An die E-Mail-Adresse versenden</string>
   <string name="backup_ready_device_button">Auf dem Gerät speichern</string>
   <string name="backup_confirmation_tips_title">Datei sichern:</string>
-  <string name="backup_confirmation_tips_1"><b>Druck es aus</b> und bewahre es an einem sicheren Ort auf.</string>
-  <string name="backup_confirmation_tips_2"><b>Speichere es</b> auf einem USB-Laufwerk.</string>
-  <string name="backup_confirmation_tips_3"><b>Kopier es</b> in einen privaten und sicheren Cloud-Speicher.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Druck es aus</b> und bewahre es an einem sicheren Ort auf.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Speichere es</b> auf einem USB-Laufwerk.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Kopier es</b> in einen privaten und sicheren Cloud-Speicher.]]></string>
   <string name="backup_tooltip_body">Erstelle ein Backup deiner Wallet!</string>
   <string name="backup_tooltip_later_button">Vielleicht später</string>
   <string name="backup_tooltip_backup_button">Sichern</string>
