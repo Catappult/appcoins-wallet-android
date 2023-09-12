@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">E-postaya gönder</string>
   <string name="backup_ready_device_button">Cihaza kaydet</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
-  <string name="backup_confirmation_tips_1"><b>Yazdır</b> ve güvenli bir yerde sakla.</string>
-  <string name="backup_confirmation_tips_2">USB sürücüsüne <b>kaydet</b>.</string>
-  <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına <b>kopyala</b>.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Yazdır</b> ve güvenli bir yerde sakla.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[USB sürücüsüne <b>kaydet</b>.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[Gizli ve güvenli bir bulut depolama alanına <b>kopyala</b>.]]></string>
   <string name="backup_tooltip_body">Cüzdanınızın bir yedeğini oluşturun!</string>
   <string name="backup_tooltip_later_button">Belki daha sonra</string>
   <string name="backup_tooltip_backup_button">Yedekle</string>
