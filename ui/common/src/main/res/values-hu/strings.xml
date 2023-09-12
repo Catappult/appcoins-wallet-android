@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">Küldés az email címedre</string>
   <string name="backup_ready_device_button">Mentés az eszközön</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
-  <string name="backup_confirmation_tips_1"><b>Nyomtasd ki</b> és tárold biztonságos helyen.</string>
-  <string name="backup_confirmation_tips_2"><b>Mentsd</b> egy USB meghajtóra.</string>
-  <string name="backup_confirmation_tips_3"><b>Másold</b> egy biztonságos és magán felhőalapú tárhelyre.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Nyomtasd ki</b> és tárold biztonságos helyen.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Mentsd</b> egy USB meghajtóra.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Másold</b> egy biztonságos és magán felhőalapú tárhelyre.]]></string>
   <string name="backup_tooltip_body">Készíts biztonsági másolatot a tárcádról!</string>
   <string name="backup_tooltip_later_button">Talán később</string>
   <string name="backup_tooltip_backup_button">Biztonsági mentés</string>
