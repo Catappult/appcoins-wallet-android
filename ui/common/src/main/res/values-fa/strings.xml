@@ -724,9 +724,9 @@
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
-  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[آن را روی یک USB <b>ذخیره کنید.</b>]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b>]]></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
