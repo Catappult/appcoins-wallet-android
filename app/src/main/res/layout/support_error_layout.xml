@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generic_purchase_error_layout"
-    android:background="@drawable/background_card_active_wallet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/validation_success_animation"
-      android:layout_width="66dp"
-      android:layout_height="66dp"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:src="@drawable/ic_error_pink"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
@@ -29,7 +27,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_medium_grey"
+      android:textColor="@color/styleguide_light_grey"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +75,7 @@
       android:layout_marginTop="32dp"
       android:text="@string/error_contac_us_body"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_medium_grey"
+      android:textColor="@color/styleguide_dark_grey"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +97,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="18dp"
       android:layout_marginEnd="@dimen/small_margin"
-      android:src="@drawable/ic_logo_appc_support"
+      android:src="@drawable/ic_logo_appc_support_light"
       app:layout_constraintEnd_toStartOf="@id/layout_support_icn"
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"

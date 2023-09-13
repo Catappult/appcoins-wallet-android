@@ -3,9 +3,9 @@ package com.asfoundation.wallet.home.usecases
 import com.asfoundation.wallet.repository.TransactionsHistoryRepository
 import javax.inject.Inject
 
-class FetchTransactionsHistoryUseCase
+class GetInvoiceByIdUseCase
 @Inject
 constructor(private val transactionRepository: TransactionsHistoryRepository) {
-  operator fun invoke(wallet: String, limit: Int, currency: String) =
-    transactionRepository.fetchTransactions(wallet, limit, currency)
+  operator fun invoke(invoiceId: String, ewt: String) =
+    transactionRepository.getInvoiceUrl(invoiceId = invoiceId, ewt = ewt)
 }

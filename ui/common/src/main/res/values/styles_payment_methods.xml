@@ -20,16 +20,17 @@
 
   <style name="PaymentMethods.Carrier.TextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.Title" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.FiatValueText" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">15sp</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.AppcValueText" parent="PaymentMethods.Carrier.TextStyle">
@@ -44,7 +45,7 @@
   </style>
 
   <style name="PaymentMethods.Carrier.PhoneFieldError">
-    <item name="android:textColor">@color/styleguide_red</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textStyle">normal</item>
@@ -53,21 +54,26 @@
   <style name="PaymentMethods.Carrier.PhoneNumberLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:background">@null</item>
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
+    <item name="hintTextColor">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="boxStrokeColor">@null</item>
     <item name="boxBackgroundMode">none</item>
     <item name="hintEnabled">false</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="colorControlActivated">@color/styleguide_light_grey</item>
+    <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="colorControlNormal">@color/styleguide_light_grey</item>
+    <item name="colorControlHighlight">@color/styleguide_light_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
+    <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
   </style>
 
   <style name="PaymentMethods.Carrier.PhoneNumberEditText">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:singleLine">true</item>
+    <item name="hintTextColor">@color/styleguide_dark_grey</item>
     <item name="android:maxLines">1</item>
     <item name="android:paddingStart">16dp</item>
     <item name="android:paddingEnd">16dp</item>
@@ -75,11 +81,12 @@
     <item name="android:paddingBottom">0dp</item>
     <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
     <item name="android:inputType">phone</item>
-    <item name="android:textCursorDrawable">@drawable/text_cursor_black</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="android:textCursorDrawable">@drawable/text_cursor</item>
+    <item name="colorControlActivated">@color/styleguide_light_grey</item>
+    <item name="colorControlNormal">@color/styleguide_light_grey</item>
+    <item name="colorControlHighlight">@color/styleguide_light_grey</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+    <item name="editTextStyle">@style/editTextStyle</item>
   </style>
 
   <style name="PaymentMethods.Error" />

@@ -22,8 +22,8 @@
       android:layout_width="80dp"
       android:layout_height="80dp"
       android:layout_marginTop="20dp"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -42,7 +42,7 @@
       android:gravity="center_horizontal"
       android:letterSpacing="0.01"
       android:text="@string/update_wallet_purchase_title"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_light_grey"
       android:textSize="20sp"
       app:layout_constraintEnd_toStartOf="@id/mid_guideline"
       app:layout_constraintStart_toStartOf="parent"
@@ -60,12 +60,12 @@
       android:gravity="center_horizontal"
       android:letterSpacing="0.02"
       android:text="@string/update_wallet_purchase_body"
-      android:textColor="#99000000"
+      android:textColor="@color/styleguide_light_grey"
       android:textSize="14sp"
+      app:layout_constraintBottom_toTopOf="@id/buttons_separator"
       app:layout_constraintEnd_toEndOf="@id/mid_guideline"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/update_title"
-      app:layout_constraintBottom_toTopOf="@id/buttons_separator"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,10 +74,10 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:background="@drawable/update_required_backup_container"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="@id/buttons_separator"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <ImageView
@@ -100,10 +100,10 @@
         android:layout_marginVertical="@dimen/big_margin"
         android:text="@string/update_backup_title"
         app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/update_required_info_icon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <TextView
@@ -115,8 +115,8 @@
         android:lineSpacingMultiplier="0.5"
         android:text="@string/update_backup_body"
         app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/update_required_info_icon"
         app:layout_constraintTop_toBottomOf="@id/update_required_backup_title"
         />
@@ -142,7 +142,7 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_marginTop="@dimen/half_large_margin"
-      android:background="@color/styleguide_light_grey"
+      android:background="@color/styleguide_payments_blue"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/update_description"

@@ -12,18 +12,20 @@ class SeparatorView : View {
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
-      defStyleAttr) {
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    context, attrs,
+    defStyleAttr
+  ) {
     setLayerType(LAYER_TYPE_SOFTWARE, null)
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-        context.obtainStyledAttributes(attrs, R.styleable.SeparatorView, defStyleAttr, 0)
+      context.obtainStyledAttributes(attrs, R.styleable.SeparatorView, defStyleAttr, 0)
     this.type = Type.values()[typedArray.getInt(R.styleable.SeparatorView_line_type, 0)]
     this.orientation =
-        Orientation.values()[typedArray.getInt(R.styleable.SeparatorView_line_orientation, 0)]
+      Orientation.values()[typedArray.getInt(R.styleable.SeparatorView_line_orientation, 0)]
     applyOrientationType()
     typedArray.recycle()
   }
@@ -41,7 +43,7 @@ class SeparatorView : View {
   private fun applyOrientationType() {
     when (type) {
       Type.SOLID -> {
-        setBackgroundResource(R.color.styleguide_light_grey)
+        setBackgroundResource(R.color.styleguide_payments_blue)
       }
       Type.DASHED -> {
         if (orientation == Orientation.VERTICAL) {

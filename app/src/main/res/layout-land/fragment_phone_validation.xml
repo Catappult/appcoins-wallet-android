@@ -66,7 +66,7 @@
         android:layout_weight="1.5"
         android:gravity="bottom"
         app:ccpDialog_background="@drawable/ccp_background"
-        app:ccpDialog_textColor="#000000"
+        app:ccpDialog_textColor="@color/styleguide_light_grey"
         app:ccp_arrowColor="@color/styleguide_pink"
         app:ccp_arrowSize="30dp"
         app:ccp_autoDetectCountry="true"
@@ -92,7 +92,7 @@
           android:imeOptions="flagNoExtractUi|flagNoFullscreen"
           android:inputType="phone"
           android:maxLines="1"
-          android:textColor="#000000"
+          android:textColor="@color/styleguide_dark_grey"
           android:textSize="16sp"
           tools:text="9349595"
           />
