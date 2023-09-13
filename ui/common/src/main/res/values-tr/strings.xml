@@ -711,7 +711,7 @@
   <string name="import_wallet_button">Cüzdanı geri yükle</string>
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">Kodu buradan al&#8230;</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <string name="error_invalid_keystore">Geçersiz keystore</string>
   <string name="backup_title">Cüzdanını şimdi yedekle!</string>
@@ -744,9 +744,9 @@
   <string name="backup_popup_title">Cüzdanını şimdi yedekle!</string>
   <string name="backup_popup_purchase_body">Paranı her zaman güvende tut.</string>
   <string name="backup_popup_gamification_body">Bonus seviyeni her zaman güvende tut.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">Yedekleme dosyanı oluşturamadık. Daha sonra tekrar dene.</string>
+  <string name="backup_confirmation_save_device">Yedekleme dosyan cihazında bulunuyor</string>
+  <string name="backup_confirmation_save_email">Yedekleme dosyan e-postanda bulunuyor</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
@@ -1217,7 +1217,7 @@
   <string name="rewards_spend_to_next_level_body">Sonraki seviyeye geçmek için %1$s%2$s daha harca!</string>
   <string name="rewards_current_bonus_title">her satın alma işleminde %s%% bonus</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">e-Skills kazançlarını çek.</string>
   <string name="rewards_promo_code_card_title">Promosyon Kodları</string>
   <string name="rewards_promo_code_card_body">Özel fırsatları almak için bir promosyon kodu gir!</string>
   <string name="rewards_promo_code_status">Durum:</string>
@@ -1239,20 +1239,20 @@
   <!-- Refactor Verify Payment Method -->
   <string name="verify_payment_method_title">Bir Ödeme Yöntemi Doğrula</string>
   <string name="verify_card_body">Bir ödeme yöntemini doğrulayarak kısıtlamaları önle.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_title">Doğrulamak için Son Bir Adım</string>
+  <string name="verify_card_one_more_step_body">İşlem detaylarında görünen kodu ekle</string>
   <string name="verify_card_one_more_step_button">Kodu gir</string>
   <string name="verify_card_verified">Ödeme yöntemi doğrulandı!</string>
   <string name="verify_card_view_title">Kartı Doğrula</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_disclaimer">Kartından %s tutarında çekim yapacağız, kodu onayladıktan sonra bu iade edilecek.</string>
   <string name="verify_card_view_title_2">Banka kartı bilgilerini gir</string>
   <string name="verify_card_get_a_code_button">Kod al</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_title">Kodunu işlem ayrıntılarında bulabilirsin</string>
+  <string name="verify_card_code_body">Kart sağlayıcının sunduğu işlem özetinde özel bir kod görünecek.</string>
+  <string name="verify_card_code_example_title">İşlem özeti örneği</string>
+  <string name="verify_card_code_example_date">İşlem Tarihi</string>
   <string name="verify_card_code_example_description">Açıklama</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_amount">Tutar</string>
   <string name="verify_card_code_enter_title">4 haneli kodu gir</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_refund_body">%s kodu onayladıktan sonra 24 saat içinde iade edilecek.</string>
 </resources>
