@@ -124,7 +124,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.skuTitle
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusText.text =
       getString(
-        R.string.bonus_body,
+        R.string.gamification_purchase_header_part_2,
         transactionContent.forecastBonus.getPurchaseBonusMessage(formatter)
       )
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusFiatAmount.text =

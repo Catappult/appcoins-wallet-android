@@ -4,7 +4,7 @@
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/background_card_active_wallet"
+    android:background="@drawable/background_card_blue"
     android:gravity="center"
     android:orientation="vertical"
     >
@@ -13,7 +13,7 @@
       android:id="@+id/progress_bar"
       android:layout_width="match_parent"
       android:layout_height="336dp"
-      android:background="@drawable/background_card_active_wallet"
+      android:background="@drawable/background_card_blue"
       android:gravity="center"
       android:visibility="gone"
       tools:visibility="visible"
@@ -40,7 +40,7 @@
       android:id="@+id/complete_payment_view"
       android:layout_width="match_parent"
       android:layout_height="336dp"
-      android:background="@drawable/background_card_active_wallet"
+      android:background="@drawable/background_card_blue"
       android:gravity="center"
       android:visibility="gone"
       >

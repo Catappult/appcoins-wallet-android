@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/normal_margin"
-    android:background="@drawable/rectangle_outline_medium_grey_radius_8dp"
+    android:background="@drawable/background_card_active_wallet"
     >
 
   <ImageView

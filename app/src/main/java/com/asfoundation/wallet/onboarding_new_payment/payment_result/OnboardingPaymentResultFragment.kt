@@ -175,6 +175,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.genericErrorButtons.root.visibility = View.GONE
     views.genericSuccessLayout.root.visibility = View.VISIBLE
     views.successButtons.root.visibility = View.VISIBLE
+    views.onboardingPaymentMethodsLayout.visibility = View.GONE
     handleBonusAnimation()
   }
 

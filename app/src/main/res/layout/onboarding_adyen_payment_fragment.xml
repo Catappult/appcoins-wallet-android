@@ -5,7 +5,7 @@
     android:id="@+id/onboarding_adyen_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card_active_wallet"
+    android:background="@drawable/background_card_blue"
     android:layout_marginHorizontal="@dimen/big_margin"
     >
   <ScrollView
@@ -52,17 +52,17 @@
           />
 
       <com.adyen.checkout.card.CardView
-        android:id="@+id/adyen_card_form_pre_selected"
+          android:id="@+id/adyen_card_form_pre_selected"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/onboarding_adyen_payment_buttons"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/onboarding_adyen_payment_title"
           tools:visibility="visible"
           />
-
       <include
           android:id="@+id/onboarding_adyen_payment_buttons"
           layout="@layout/onboarding_adyen_payment_buttons"

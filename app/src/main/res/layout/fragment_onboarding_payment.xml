@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/styleguide_white"
+    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView

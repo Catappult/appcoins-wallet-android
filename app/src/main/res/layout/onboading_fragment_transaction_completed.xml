@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_activity_transaction_completed"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/background_card_active_wallet"
+    android:visibility="gone"
+    tools:visibility="visible"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/lottie_transaction_success"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.36"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/transaction_complete_bonus_animation_new"
+      />
+
+  <TextView
+      android:id="@+id/transaction_success_text"
+      style="@style/TransactionSuccessTextStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="@string/transaction_status_success"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/lottie_transaction_success"
+      />
+
+  <LinearLayout
+      android:id="@+id/bonus_success_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/transaction_success_text"
+      android:layout_marginTop="8dp"
+      android:gravity="center"
+    >
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_bonus_success"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="8dp"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/bonus_gift_animation"
+        />
+
+    <TextView
+        android:id="@+id/transaction_success_bonus_text"
+        style="@style/TransactionSuccessTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchase_success_bonus_received_title"
+        android:textSize="14sp"
+        />
+
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/next_payment_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="#727272"
+      android:textSize="10sp"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/lottie_transaction_success"
+      tools:text="Next payment: 10/12/20"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

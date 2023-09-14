@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_payment_methods_layout"
+    android:background="@drawable/background_card_blue"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -45,7 +46,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:visibility="visible"
+          tools:visibility="gone"
           />
 
       <include
@@ -62,11 +63,11 @@
 
       <include
           android:id="@+id/generic_success_layout"
-          layout="@layout/fragment_iab_transaction_completed"
+          layout="@layout/onboading_fragment_transaction_completed"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
-          android:visibility="gone"
+          android:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"

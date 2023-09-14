@@ -5,6 +5,7 @@
     android:id="@+id/onboarding_payment_methods_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_card_blue"
     >
   <ScrollView
       android:id="@+id/scroll_view"
@@ -61,7 +62,7 @@
 
       <include
           android:id="@+id/generic_success_layout"
-          layout="@layout/fragment_iab_transaction_completed"
+          layout="@layout/onboading_fragment_transaction_completed"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
