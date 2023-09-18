@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Γίνεται έλεγχος όλων των λεπτομερειών: υπόλοιπο, αντικείμενα, δίκτυο…</string>
   <string name="activity_iab_buying_message">Οι λεπτομέρειες ελέγχθηκαν \nΓίνεται λήψη του αντικειμένου σας…</string>
   <string name="activity_iab_change_card">ΑΛΛΑΓΗ ΚΑΡΤΑΣ</string>
+  <string name="activity_iab_change_card_lower_case_button">Αλλαγή κάρτας</string>
   <string name="activity_iab_fees">Χρεώσεις</string>
   <string name="notification_ongoing_poa">Γίνεται επεξεργασία της αμοιβής σας</string>
   <string name="notification_completed_poa">Ελήφθη αμοιβή!👌 Θα πρέπει να περιμένετε %1$s ώρα/ες και %2$s λεπτό/ά για να λάβετε περισσότερες αμοιβές δοκιμάζοντας εφαρμογές ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">Αναγνωριστικό παραγγελίας</string>
   <string name="transaction_details_label">Λεπτομέρειες</string>
   <string name="transaction_to_label">Προς</string>
+  <string name="transaction_invoice_label">Τιμολόγιο</string>
   <string name="dialog_credit_card_remember">Αποθήκευση Στοιχείων Κάρτας</string>
   <string name="notification_payment_refused">Η Πληρωμή Απορρίφθηκε</string>
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
@@ -309,8 +311,8 @@
   <string name="transaction_rejected_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_reverted_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_status_rejected">Απορρίφθηκε</string>
-  <string name="transaction_details_header">Transaction details</string>
-  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_header">Λεπτομέρειες συναλλαγής</string>
+  <string name="transaction_details_txid">ΑΦΜ</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Αναπαραγωγή</string>
   <string name="manage_wallet_button">Διαχείριση wallet</string>
   <string name="log_out_button">Αποσύνδεση</string>
+  <string name="download_button">Λήψη</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Άλλες μέθοδοι πληρωμής</string>
   <string name="purchase_appcoins_available_body">Θα χρησιμοποιήσετε ένα μικρό ποσό ETH για την πληρωμή των χρεώσεων.</string>
   <string name="purchase_appcoins_noavailable_body">Δεν έχετε αρκετά AppCoins ή Ether για αυτήν την αγορά.</string>
   <string name="purchase_no_eth_body">Δεν έχετε αρκετά ETH για την πληρωμή του gas.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">Για λόγους ασφαλείας, το wallet σας έχει αποκλειστεί. Παρακαλούμε επικοινωνήστε μαζί μας για περισσότερες λεπτομέρειες.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ενδέχεται να ισχύουν επιπλέον χρεώσεις.</string>
   <string name="purchase_error_paypal">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω PayPal. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Ανάκτηση wallet</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
   <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
+  <string name="import_code_here_field">Ανακτήστε τον κωδικό εδώ&#8230;</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
   <string name="error_invalid_keystore">Μη έγκυρο keystore</string>
   <string name="backup_title">Δημιουργήστε τώρα ένα αντίγραφο ασφαλείας του Wallet σας!</string>
@@ -718,9 +724,9 @@
   <string name="backup_ready_email_button">Αποστολή σε e-mail</string>
   <string name="backup_ready_device_button">Αποθήκευση σε συσκευή</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
-  <string name="backup_confirmation_tips_1"><b>Εκτυπώστε το</b> και αποθηκεύστε το σε ασφαλές μέρος.</string>
-  <string name="backup_confirmation_tips_2"><b>Αποθηκεύστε το</b> σε μονάδα USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Αντιγράψτε το</b> σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Εκτυπώστε το</b> και αποθηκεύστε το σε ασφαλές μέρος.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Αποθηκεύστε το</b> σε μονάδα USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Αντιγράψτε το</b> σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.]]></string>
   <string name="backup_tooltip_body">Δημιουργήστε αντίγραφο ασφαλείας του wallet σας!</string>
   <string name="backup_tooltip_later_button">Ίσως αργότερα</string>
   <string name="backup_tooltip_backup_button">Δημιουργία αντιγράφου ασφαλείας</string>
@@ -738,7 +744,9 @@
   <string name="backup_popup_title">Δημιουργήστε τώρα ένα αντίγραφο ασφαλείας του Wallet σας!</string>
   <string name="backup_popup_purchase_body">Κρατήστε τα χρήματά σας ασφαλή ανά πάσα στιγμή.</string>
   <string name="backup_popup_gamification_body">Κρατήστε το επίπεδο bonus σας ασφαλές ανά πάσα στιγμή.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">Δεν μπορέσαμε να δημιουργήσουμε το αρχείο αντιγράφου ασφαλείας σας. Δοκιμάστε ξανά αργότερα.</string>
+  <string name="backup_confirmation_save_device">Το αρχείο αντιγράφου ασφαλείας σας βρίσκεται στη συσκευή σας</string>
+  <string name="backup_confirmation_save_email">Το αντίγραφο ασφαλείας σας βρίσκεται στο e-mail σας</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Συνολικό Υπόλοιπο σε %s</string>
@@ -826,7 +834,7 @@ Wallets</item>
   <string name="subscriptions_cancel_title">Ακύρωση Εγγραφής</string>
   <string name="subscriptions_cancel_body">Είστε σίγουροι ότι θέλετε να ακυρώσετε αυτή την εγγραφή;</string>
   <string name="subscriptions_cancel_no_button">Όχι, πήγαινε πίσω</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Ναι, να ακυρωθεί</string>
   <string name="subscriptions_cancel_confirmation_title">Η εγγραφή ακυρώθηκε!</string>
   <string name="subscriptions_cancel_confirmation_body">Δε θα χρεωθείτε εκ νέου για αυτή την εγγραφή και μπορείτε να τη χρησιμοποιήσετε έως %s.</string>
   <string name="subscriptions_category_title">Εγγραφή</string>
@@ -1210,7 +1218,7 @@ Wallets</item>
   <string name="rewards_spend_to_next_level_body">Ξοδέψτε περισσότερα %1$s%2$s για να φτάσετε στο επόμενο επίπεδο!</string>
   <string name="rewards_current_bonus_title">%s%% bonus σε κάθε αγορά</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Κάντε ανάληψη των κερδών σας e-Skills.</string>
   <string name="rewards_promo_code_card_title">Κωδικοί Προσφοράς</string>
   <string name="rewards_promo_code_card_body">Χρησιμοποιήστε έναν κωδικό προσφοράς για να λάβετε ειδικές προσφορές!</string>
   <string name="rewards_promo_code_status">Κατάσταση:</string>
@@ -1227,25 +1235,25 @@ Wallets</item>
   <string name="manage_wallet_change_wallet_name_title">Αλλαγή ονόματος wallet</string>
   <string name="manage_wallet_set_a_name_button">Επιλέξτε ένα όνομα για το wallet σας</string>
   <string name="manage_wallet_my_wallet_address_title">Η Διεύθυνση Wallet Μου</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_verify_title">Επαληθεύστε μία Μέθοδο Πληρωμής</string>
+  <string name="manage_wallet_verify_body">Αποφύγετε κωλύματα επαληθεύοντας μία μέθοδο πληρωμής.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">Επαληθεύστε μία Μέθοδο Πληρωμής</string>
+  <string name="verify_card_body">Αποφύγετε κωλύματα επαληθεύοντας μία μέθοδο πληρωμής.</string>
+  <string name="verify_card_one_more_step_title">Ένα ακόμη βήμα για επαλήθευση</string>
+  <string name="verify_card_one_more_step_body">Εισαγάγετε τον κωδικό που εμφανίζεται στις λεπτομέρειες συναλλαγής</string>
+  <string name="verify_card_one_more_step_button">Εισαγάγετε τον κωδικό</string>
+  <string name="verify_card_verified">Η μέθοδος πληρωμής επαληθεύτηκε!</string>
+  <string name="verify_card_view_title">Επαλήθευση Κάρτας</string>
+  <string name="verify_card_view_disclaimer">Η κάρτα σας θα χρεωθεί κατά %s, τα οποία θα επιστραφούν όταν επιβεβαιώσετε τον κωδικό.</string>
+  <string name="verify_card_view_title_2">Συμπληρώστε τα στοιχεία της τραπεζικής σας κάρτας</string>
+  <string name="verify_card_get_a_code_button">Λάβετε κωδικό</string>
+  <string name="verify_card_code_title">Βρείτε τον κωδικό στις λεπτομέρειες συναλλαγής</string>
+  <string name="verify_card_code_body">Ένας μοναδικός κωδικός θα εμφανιστεί στη σύνοψη συναλλαγής που παρέχεται από τον εκδότη της κάρτας σας.</string>
+  <string name="verify_card_code_example_title">Παράδειγμα σύνοψης συναλλαγής</string>
+  <string name="verify_card_code_example_date">Ημερομηνία συναλλαγής</string>
+  <string name="verify_card_code_example_description">Περιγραφή</string>
+  <string name="verify_card_code_example_amount">Ποσό</string>
+  <string name="verify_card_code_enter_title">Εισαγάγετε τον κωδικό 4 ψηφίων</string>
+  <string name="verify_card_code_refund_body">%s θα επιστραφούν εντός 24 ωρών από την επιβεβαίωση του κωδικού.</string>
 </resources>

@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">ਸਾਰੇ ਵੇਰਵਿਆਂ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ: ਬਚੀ ਰਕਮ, ਚੀਜ਼ਾਂ, ਨੈਟਵਰਕ…</string>
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
   <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">ਫੀਸ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="notification_completed_poa">ਇਨਾਮ ਮਿਲਿਆ!👌 ਹੋਰ ਇਨਾਮ ਜਿੱਤਣ ਲਈ ਤੁਹਾਨੂੰ %1$sh%2$sm ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">ਆਰਡਰ ਆਈਡੀ</string>
   <string name="transaction_details_label">ਵੇਰਵਾ</string>
   <string name="transaction_to_label">ਲਈ</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
   <string name="notification_payment_refused">ਭੁਗਤਾਨ ਦੀ ਪ੍ਰਵਾਨਗੀ ਨਹੀਂ ਮਿਲੀ</string>
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ਇੰਝ ਲਗਦਾ ਹੈ ਕਿ ਖਰੀਦ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਪ੍ਰੋਸੈਸ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੂਰੀ ਹੋਣ ਤੱਕ ਰੁਕੋ ਜਾਂ ਸਾਡੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">ਫ਼ੀਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਥੋੜ੍ਹੇ ਜਿਹੇ ਈਥਰ ਦਾ ਇਸਤੇਮਾਲ ਕਰੋਗੇ|</string>
   <string name="purchase_appcoins_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਜਾਂ ਈਥਰ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_no_eth_body">ਤੁਹਾਡੇ ਕੋਲ ਗੈਸ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਈਟੀਐਚ ਨਹੀਂ ਹੈ|</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
   <string name="error_invalid_keystore">ਅਵੈਧ ਕੀਸਟੋਰ</string>
   <string name="backup_title">ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਲਓ!</string>
@@ -718,9 +724,9 @@
   <string name="backup_ready_email_button">ਈਮੇਲ ਤੇ ਭੇਜੋ</string>
   <string name="backup_ready_device_button">ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
   <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
-  <string name="backup_confirmation_tips_1"><b>ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ</b> ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
-  <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ <b>ਸੁਰੱਖਿਅਤ</b> ਕਰੋ|</string>
-  <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ <b>ਕਾਪੀ</b> ਕਰੋ|</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ</b> ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ <b>ਸੁਰੱਖਿਅਤ</b> ਕਰੋ|]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ <b>ਕਾਪੀ</b> ਕਰੋ|]]></string>
   <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
   <string name="backup_tooltip_backup_button">ਬੈਕਅੱਪ ਕਰੋ</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰੱਖੋ।</string>
   <string name="backup_popup_gamification_body">ਆਪਣੇ ਬੋਨਸ ਪੱਧਰ ਨੂੰ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰੱਖੋ।</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>

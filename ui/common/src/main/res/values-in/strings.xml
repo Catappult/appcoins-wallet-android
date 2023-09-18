@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Memeriksa semua rincian: saldo, item, jaringan…</string>
   <string name="activity_iab_buying_message">Rincian sudah diperiksa \nMenerima item Anda…</string>
   <string name="activity_iab_change_card">GANTI KARTU</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Biaya</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
   <string name="notification_completed_poa">Hadiah diterima!👌 Anda harus menunggu %1$s jam %2$s menit untuk mendapatkan hadiah lainnya dengan mencoba berbagai aplikasi ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">ID Pesanan</string>
   <string name="transaction_details_label">Rincian</string>
   <string name="transaction_to_label">Ke</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Ingat Kartu</string>
   <string name="notification_payment_refused">Pembayaran Ditolak</string>
   <string name="dialog_credit_card_number">Nomor Kartu</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Main</string>
   <string name="manage_wallet_button">Kelola dompet</string>
   <string name="log_out_button">Keluar</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
   <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">Anda akan menggunakan sedikit ETH untuk membayar biayanya.</string>
   <string name="purchase_appcoins_noavailable_body">AppCoin atau Ether yang Anda miliki tidak cukup untuk pembelian ini.</string>
   <string name="purchase_no_eth_body">ETH Anda tidak cukup untuk membayar gas.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">Demi alasan keamanan, dompet Anda sudah diblokir. Silakan hubungi kami untuk informasi lebih lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Mungkin akan dikenakan biaya tambahan.</string>
   <string name="purchase_error_paypal">Terjadi masalah dengan pembayaran PayPal Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Pulihkan dompet</string>
   <string name="import_wallet_password_body">Dompet ini diproteksi dengan kata sandi!</string>
   <string name="import_wallet_wrong_password_body">Ups, kata sandi salah!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Kunci pribadi tidak valid</string>
   <string name="error_invalid_keystore">Keystore salah</string>
   <string name="backup_title">Cadangkan dompet Anda sekarang!</string>
@@ -718,9 +724,9 @@
   <string name="backup_ready_email_button">Kirim ke email</string>
   <string name="backup_ready_device_button">Simpan di perangkat</string>
   <string name="backup_confirmation_tips_title">Amankan file:</string>
-  <string name="backup_confirmation_tips_1"><b>Cetak</b> dan simpan di tempat yang aman.</string>
-  <string name="backup_confirmation_tips_2"><b>Simpan</b> di USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Salin</b> ke penyimpanan cloud yang pribadi dan aman.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Cetak</b> dan simpan di tempat yang aman.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Simpan</b> di USB drive.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Salin</b> ke penyimpanan cloud yang pribadi dan aman.]]></string>
   <string name="backup_tooltip_body">Buat cadangan dompet!</string>
   <string name="backup_tooltip_later_button">Mungkin nanti</string>
   <string name="backup_tooltip_backup_button">Cadangkan</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">Jaga keamanan dana Anda setiap saat.</string>
   <string name="backup_popup_gamification_body">Jaga keamanan level bonus Anda setiap saat.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
