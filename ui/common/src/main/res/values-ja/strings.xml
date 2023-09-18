@@ -556,7 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_button">その他の支払方法</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
   <string name="purchase_appcoins_available_body">少額のETHを使って手数料を支払います。</string>
   <string name="purchase_appcoins_noavailable_body">この購入に必要なAppCoinまたはEtherがありません。</string>
   <string name="purchase_no_eth_body">ガスを購入するために十分なETHがありません。</string>
