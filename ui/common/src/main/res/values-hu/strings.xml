@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Részletek ellenőrzése: egyenleg, tételek, hálózat…</string>
   <string name="activity_iab_buying_message">Részletek áttekintve \nTétel fogadása…</string>
   <string name="activity_iab_change_card">KÁRTYA MÓDOSÍTÁSA</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Díjak</string>
   <string name="notification_ongoing_poa">Jutalom feldolgozása folyamatban</string>
   <string name="notification_completed_poa">Megszerezted a jutalmat!👌 %1$sóra%2$spercet kell várnod, hogy appok kipróbálásával újabb jutalmat szerezhess ⏰!</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">A megrendelés azonosítója</string>
   <string name="transaction_details_label">Részletek</string>
   <string name="transaction_to_label">Címzett</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Kártyaadatok megjegyzése</string>
   <string name="notification_payment_refused">Kifizetés elutasítva</string>
   <string name="dialog_credit_card_number">Kártyaszám</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Játék</string>
   <string name="manage_wallet_button">Wallet kezelése</string>
   <string name="log_out_button">Kijelentkezés</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>
   <string name="purchase_more_payment_methods_button">MÁS FIZETÉSI MÓDOK</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">Kis mennyiségű ETH szükséges a díjak kifizetésére.</string>
   <string name="purchase_appcoins_noavailable_body">Nem rendelkezel elegendő AppCoins-szal vagy Etherrel a vásárláshoz.</string>
   <string name="purchase_no_eth_body">Nem rendelkezel elég ETH-val a gas kifizetéséhez.</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">A tárcádat blokkoltuk biztonsági okokból. További információért lépj velünk kapcsolatba.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">További költségek léphetnek fel.</string>
   <string name="purchase_error_paypal">Probléma merült fel a PayPales fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">Tárca visszaállítása</string>
   <string name="import_wallet_password_body">Ez a tárca jelszóval védett!</string>
   <string name="import_wallet_wrong_password_body">Hoppá, hibás jelszó!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Érvénytelen privát kulcs</string>
   <string name="error_invalid_keystore">Érvénytelen keystore</string>
   <string name="backup_title">Wallet biztonsági mentés!</string>
@@ -718,9 +724,9 @@
   <string name="backup_ready_email_button">Küldés az email címedre</string>
   <string name="backup_ready_device_button">Mentés az eszközön</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
-  <string name="backup_confirmation_tips_1"><b>Nyomtasd ki</b> és tárold biztonságos helyen.</string>
-  <string name="backup_confirmation_tips_2"><b>Mentsd</b> egy USB meghajtóra.</string>
-  <string name="backup_confirmation_tips_3"><b>Másold</b> egy biztonságos és magán felhőalapú tárhelyre.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Nyomtasd ki</b> és tárold biztonságos helyen.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Mentsd</b> egy USB meghajtóra.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Másold</b> egy biztonságos és magán felhőalapú tárhelyre.]]></string>
   <string name="backup_tooltip_body">Készíts biztonsági másolatot a tárcádról!</string>
   <string name="backup_tooltip_later_button">Talán később</string>
   <string name="backup_tooltip_backup_button">Biztonsági mentés</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">Mindig tartsd biztonságban a pénzed.</string>
   <string name="backup_popup_gamification_body">Mindig tartsd biztonságban a bónuszszinted.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>

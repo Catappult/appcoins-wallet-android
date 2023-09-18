@@ -139,4 +139,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
   }
+
+  fun navigateBack() {
+    navController.popBackStack()
+  }
 }

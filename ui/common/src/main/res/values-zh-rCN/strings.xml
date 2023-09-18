@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">服务费</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励！👌 你需要等待%1$s小时%2$s分钟才能使用应用来赢得更多奖励⏰！</string>
@@ -280,6 +281,7 @@
   <string name="transaction_order_reference_label">订单ID</string>
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
   <string name="notification_payment_refused">支付被拒绝</string>
   <string name="dialog_credit_card_number">卡号</string>
@@ -493,6 +495,7 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -553,6 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
@@ -615,6 +619,7 @@
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -706,6 +711,7 @@
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
   <string name="backup_title">立即备份你的钱包！</string>
@@ -718,9 +724,9 @@
   <string name="backup_ready_email_button">发送至电子邮件</string>
   <string name="backup_ready_device_button">保存在设备上</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
-  <string name="backup_confirmation_tips_1"><b>打印</b>并将其存储在安全的地方。</string>
-  <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
-  <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>打印</b>并将其存储在安全的地方。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[将其<b>保存</b>在 USB 驱动器上。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[将其<b>复制</b>到安全的私有云存储中。]]></string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
   <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
@@ -739,6 +745,8 @@
   <string name="backup_popup_purchase_body">始终确保资金安全。</string>
   <string name="backup_popup_gamification_body">始终保持奖励水平安全。</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>

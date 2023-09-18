@@ -27,7 +27,7 @@ class BackupEntryNavigator @Inject constructor(private val navController: NavCon
   }
 
   private fun clearBackStack() {
-    //backQueue needs to contain at least 2 elements
-    with(navController) { while (backQueue.size > 2) navController.popBackStack() }
+    //currentBackStack needs to contain at least 2 elements
+    with(navController) { while (currentBackStack.value.size > 2) navController.popBackStack() }
   }
 }
