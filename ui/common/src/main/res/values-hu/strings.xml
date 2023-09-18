@@ -556,7 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>
   <string name="purchase_more_payment_methods_button">MÁS FIZETÉSI MÓDOK</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Egyéb fizetési módok</string>
   <string name="purchase_appcoins_available_body">Kis mennyiségű ETH szükséges a díjak kifizetésére.</string>
   <string name="purchase_appcoins_noavailable_body">Nem rendelkezel elegendő AppCoins-szal vagy Etherrel a vásárláshoz.</string>
   <string name="purchase_no_eth_body">Nem rendelkezel elég ETH-val a gas kifizetéséhez.</string>
@@ -1234,25 +1234,25 @@
   <string name="manage_wallet_change_wallet_name_title">Wallet nevének megváltoztatása</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_title">Hitelesítsd a fizetési módot</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_payment_method_title">Hitelesítsd a fizetési módot</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_one_more_step_body">Add meg a tranzakció részletekben megjelenő kódot</string>
+  <string name="verify_card_one_more_step_button">Kód megadása</string>
   <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_title">Kártya hitelesítése</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>
   <string name="verify_card_get_a_code_button">Get a code</string>
   <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_body">A kártyaszolgáltató által kiadott tranzakció összegzésben egy egyedi kód fog megjelenni.</string>
   <string name="verify_card_code_example_title">Example of transaction summary</string>
   <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_description">Leírás</string>
+  <string name="verify_card_code_example_amount">Összeg</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 </resources>
