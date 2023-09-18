@@ -556,7 +556,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint, wurde dieser Einkauf bereits verarbeitet. Bitte warte ab, bis die Transaktion verarbeitet wurde oder kontaktiere unser Support-Team.</string>
   <string name="purchase_more_payment_methods_button">ANDERE ZAHLUNGSMETHODEN</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Weitere Zahlungsmethoden</string>
   <string name="purchase_appcoins_available_body">Du brauchst einen kleinen Betrag an ETH, um die Gebühren zu bezahlen.</string>
   <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügst du über zu wenige AppCoins oder Ethereum.</string>
   <string name="purchase_no_eth_body">Deine ETH reichen für die Bezahlung der Gasgebühren nicht aus.</string>
