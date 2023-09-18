@@ -1253,6 +1253,6 @@
   <string name="verify_card_code_example_date">Fecha</string>
   <string name="verify_card_code_example_description">Descripción</string>
   <string name="verify_card_code_example_amount">Cantidad</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_enter_title">Introduce el código de 4 dígitos</string>
+  <string name="verify_card_code_refund_body">Se devolverán %s en las 24 horas posteriores a la introducción del código.</string>
 </resources>
