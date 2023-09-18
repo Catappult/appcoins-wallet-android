@@ -33,6 +33,11 @@ data class TransactionResponse(
 
 data class InvoiceResponse(@JsonProperty("url") val url: String)
 
+class CountriesResponse(
+  @JsonProperty("original_name") val name: String,
+  @JsonProperty("translated_name") val translatedName: String
+)
+
 enum class StatusResponse {
   SUCCESS,
   REJECTED,

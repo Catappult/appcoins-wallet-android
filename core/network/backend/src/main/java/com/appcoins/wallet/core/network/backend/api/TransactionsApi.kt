@@ -41,4 +41,9 @@ interface TransactionsApi {
     @Path("invoice_id") invoiceId: String,
     @Header("authorization") authorization: String
   ): Response<InvoiceResponse>
+
+  @GET(value = "/transaction/wallet/invoices/countries/")
+  suspend fun getCountriesByLanguage(
+    @Query("lang_code") languageCode: String,
+  ): Response<List<CountriesResponse>>
 }

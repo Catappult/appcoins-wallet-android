@@ -24,7 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,8 +32,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.appcoins.wallet.feature.personalinfo.data.CountriesModel
+import com.appcoins.wallet.feature.personalinfo.data.PersonalInformation
 import com.appcoins.wallet.feature.personalinfo.ui.PersonalInformationViewModel.CountriesUiState
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -52,28 +54,43 @@ fun PersonalInformationRoute(
   onChatClick: () -> Unit,
   viewModel: PersonalInformationViewModel = hiltViewModel()
 ) {
-  val countriesUiState = viewModel.countriesUiState.collectAsState()
+  val countriesUiState = viewModel.countriesUiState.collectAsState().value
   Scaffold(
     topBar = { Surface { TopBar(onClickSupport = { onChatClick() }) } }, modifier = Modifier
   ) { padding ->
-    PersonalInformationScreen(countriesUiState, scaffoldPadding = padding)
+    PersonalInformationScreen(countriesUiState, scaffoldPadding = padding) { personalInformation
+      ->
+      viewModel.saveInfo(personalInformation)
+    }
   }
 }
 
 @Composable
 fun PersonalInformationScreen(
-  countriesUiState: State<CountriesUiState>,
-  scaffoldPadding: PaddingValues
+  countriesUiState: CountriesUiState,
+  scaffoldPadding: PaddingValues,
+  onTextFilled: (PersonalInformation) -> Unit
 ) {
-  PersonalInformationList(scaffoldPadding)
+  PersonalInformationList(scaffoldPadding, onTextFilled, countriesUiState)
 }
 
 @Composable
-private fun PersonalInformationList(scaffoldPadding: PaddingValues) {
-  var nameValue by rememberSaveable { mutableStateOf("") }
+private fun PersonalInformationList(
+  scaffoldPadding: PaddingValues,
+  onTextFilled: (PersonalInformation) -> Unit,
+  countriesUiState: CountriesUiState
+) {
+  var country by rememberSaveable { mutableStateOf(CountriesModel("", "")) }
+  var name by rememberSaveable { mutableStateOf("") }
+  var address by rememberSaveable { mutableStateOf("") }
+  var city by rememberSaveable { mutableStateOf("") }
+  var zipCode by rememberSaveable { mutableStateOf("") }
+  var email by rememberSaveable { mutableStateOf("") }
+  var fiscalId by rememberSaveable { mutableStateOf("") }
 
   LazyColumn(
-    modifier = Modifier
+    modifier =
+    Modifier
       .fillMaxSize()
       .padding(top = scaffoldPadding.calculateTopPadding())
       .padding(16.dp)
@@ -88,26 +105,42 @@ private fun PersonalInformationList(scaffoldPadding: PaddingValues) {
 
     item {
       Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        DropDownMenu()
-        WalletTextFieldCustom(value = nameValue, title = "Name and surname") { nameValue = it }
-        WalletTextFieldCustom(value = nameValue, title = "Address") { nameValue = it }
+        when (countriesUiState) {
+          is CountriesUiState.Success ->
+            DropDownMenu(countries = countriesUiState.countries) { selectedCountry ->
+              country = selectedCountry
+            }
+
+          CountriesUiState.ApiError, CountriesUiState.Idle -> Unit
+        }
+
+        WalletTextFieldCustom(value = name, title = "Name and surname") { name = it }
+        WalletTextFieldCustom(value = address, title = "Address") { address = it }
         Row(
-          modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween
         ) {
           WalletTextFieldCustom(
-            value = nameValue,
+            value = city,
             title = "City",
             modifier = Modifier
               .fillMaxWidth(0.5f)
               .padding(end = 8.dp)
           ) {
-            nameValue = it
+            city = it
           }
-          WalletTextFieldCustom(value = nameValue, title = "Zip Code") { nameValue = it }
+          WalletTextFieldCustom(value = zipCode, title = "Zip Code") { zipCode = it }
         }
-        WalletTextFieldCustom(value = nameValue, title = "E-mail") { nameValue = it }
-        WalletTextFieldCustom(value = nameValue, title = "VAT number/Fiscal ID") {
-          nameValue = it
+        WalletTextFieldCustom(
+          value = email, title = "E-mail", keyboardType = KeyboardType.Email
+        ) {
+          email = it
+        }
+        WalletTextFieldCustom(
+          value = fiscalId,
+          title = "VAT number/Fiscal ID",
+        ) {
+          fiscalId = it
         }
       }
     }
@@ -116,7 +149,11 @@ private fun PersonalInformationList(scaffoldPadding: PaddingValues) {
       Column(modifier = Modifier.padding(top = 40.dp, bottom = 8.dp)) {
         ButtonWithText(
           label = stringResource(R.string.action_save),
-          onClick = { /*TODO*/ },
+          onClick = {
+            onTextFilled(
+              PersonalInformation(country, name, address, city, zipCode, email, fiscalId)
+            )
+          },
           labelColor = styleguide_light_grey,
           backgroundColor = WalletColors.styleguide_pink,
           buttonType = ButtonType.LARGE
@@ -128,10 +165,10 @@ private fun PersonalInformationList(scaffoldPadding: PaddingValues) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDownMenu() {
-  val countries = arrayOf("Portugal", "Brazil", "Spain", "United States", "China")
+fun DropDownMenu(countries: List<CountriesModel>, onCountryChanged: (CountriesModel) -> Unit) {
   var expanded by rememberSaveable { mutableStateOf(false) }
-  var selectedCountry by rememberSaveable { mutableStateOf("") }
+  var selectedCountry by rememberSaveable { mutableStateOf(CountriesModel("", "")) }
+  onCountryChanged(selectedCountry)
 
   ExposedDropdownMenuBox(
     expanded = expanded,
@@ -141,11 +178,12 @@ fun DropDownMenu() {
       .padding(top = 32.dp)
   ) {
     TextField(
-      value = selectedCountry,
+      value = selectedCountry.translatedName,
       onValueChange = {},
       readOnly = true,
       shape = RoundedCornerShape(8.dp),
-      colors = TextFieldDefaults.colors(
+      colors =
+      TextFieldDefaults.colors(
         unfocusedContainerColor = styleguide_blue_secondary,
         unfocusedIndicatorColor = styleguide_blue,
         unfocusedTextColor = styleguide_light_grey,
@@ -154,8 +192,7 @@ fun DropDownMenu() {
         Icon(
           Icons.Filled.KeyboardArrowDown,
           tint = WalletColors.styleguide_pink,
-          modifier = Modifier
-            .rotate(if (expanded) 180f else 0f),
+          modifier = Modifier.rotate(if (expanded) 180f else 0f),
           contentDescription = null
         )
       },
@@ -168,37 +205,42 @@ fun DropDownMenu() {
     DropdownMenu(
       expanded = expanded,
       onDismissRequest = { expanded = false },
-      modifier = Modifier
+      modifier =
+      Modifier
         .exposedDropdownSize()
         .background(color = styleguide_blue_secondary)
         .padding(horizontal = 8.dp)
     ) {
-
       countries.forEach { country ->
-        DropdownMenuItem(text = {
-          Text(
-            text = country,
-            color = if (selectedCountry == country) styleguide_light_grey else styleguide_dark_grey,
-            modifier = Modifier.padding(start = 16.dp),
-          )
-        },
+        DropdownMenuItem(
+          text = {
+            Text(
+              text = country.translatedName,
+              color =
+              if (selectedCountry == country) styleguide_light_grey
+              else styleguide_dark_grey,
+              modifier = Modifier.padding(start = 16.dp),
+            )
+          },
           onClick = {
             selectedCountry = country
             expanded = false
           },
-          modifier = Modifier
-            .background(
-              color = if (selectedCountry == country) styleguide_blue else styleguide_blue_secondary,
-              shape = RoundedCornerShape(8.dp)
-            ),
+          modifier =
+          Modifier.background(
+            color =
+            if (selectedCountry == country) styleguide_blue
+            else styleguide_blue_secondary,
+            shape = RoundedCornerShape(8.dp)
+          ),
           trailingIcon = {
-            if ((selectedCountry == country)) Icon(
-              Icons.Filled.Done,
-              tint = WalletColors.styleguide_pink,
-              contentDescription = "selected"
-            )
+            if ((selectedCountry == country))
+              Icon(
+                Icons.Filled.Done,
+                tint = WalletColors.styleguide_pink,
+                contentDescription = "selected"
+              )
           })
-
       }
     }
   }

@@ -31,11 +31,12 @@ import com.appcoins.wallet.ui.widgets.R
 
 @Composable
 fun WalletTextFieldCustom(
-    modifier: Modifier = Modifier.fillMaxWidth(),
-    value: String,
-    hintText: String = "",
-    title: String = "",
-    onValueChange: (String) -> Unit
+  modifier: Modifier = Modifier.fillMaxWidth(),
+  value: String,
+  hintText: String = "",
+  title: String = "",
+  keyboardType: KeyboardType = KeyboardType.Text,
+  onValueChange: (String) -> Unit
 ) {
     Column {
         if (title.isNotEmpty())
@@ -46,23 +47,26 @@ fun WalletTextFieldCustom(
                 color = WalletColors.styleguide_light_grey
             )
         TextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = modifier,
-            singleLine = true,
-            shape = RoundedCornerShape(8.dp),
-            colors =
-            TextFieldDefaults.colors(
-                focusedContainerColor = WalletColors.styleguide_blue_secondary,
-                unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
-                focusedIndicatorColor = WalletColors.styleguide_blue,
-                unfocusedIndicatorColor = WalletColors.styleguide_blue,
-                focusedTextColor = WalletColors.styleguide_light_grey,
-                unfocusedTextColor = WalletColors.styleguide_light_grey,
-                cursorColor = WalletColors.styleguide_light_grey
-            ),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Default),
-            placeholder = { Text(text = hintText, color = WalletColors.styleguide_dark_grey) }
+          value = value,
+          onValueChange = onValueChange,
+          modifier = modifier,
+          singleLine = true,
+          shape = RoundedCornerShape(8.dp),
+          colors =
+          TextFieldDefaults.colors(
+            focusedContainerColor = WalletColors.styleguide_blue_secondary,
+            unfocusedContainerColor = WalletColors.styleguide_blue_secondary,
+            focusedIndicatorColor = WalletColors.styleguide_blue,
+            unfocusedIndicatorColor = WalletColors.styleguide_blue,
+            focusedTextColor = WalletColors.styleguide_light_grey,
+            unfocusedTextColor = WalletColors.styleguide_light_grey,
+            cursorColor = WalletColors.styleguide_light_grey
+          ),
+          keyboardOptions = KeyboardOptions(
+            keyboardType = keyboardType,
+            imeAction = ImeAction.Default
+          ),
+          placeholder = { Text(text = hintText, color = WalletColors.styleguide_dark_grey) }
         )
     }
 }
@@ -101,31 +105,31 @@ fun WalletTextField(
 fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange: (String) -> Unit) {
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     TextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp),
-        singleLine = true,
-        shape = RoundedCornerShape(8.dp),
-        colors =
-        TextFieldDefaults.colors(
-            focusedContainerColor = WalletColors.styleguide_blue,
-            unfocusedContainerColor = WalletColors.styleguide_blue,
-            focusedIndicatorColor = WalletColors.styleguide_blue,
-            unfocusedIndicatorColor = WalletColors.styleguide_blue,
-            focusedTextColor = WalletColors.styleguide_light_grey,
-            unfocusedTextColor = WalletColors.styleguide_light_grey,
-            cursorColor = WalletColors.styleguide_light_grey
-        ),
-        trailingIcon = {
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(
-                    painter =
-                    if (!passwordVisible) painterResource(R.drawable.ic_transaction_poa)
-                    else painterResource(R.drawable.ic_password_off),
-                    contentDescription = "show password",
-                    modifier = Modifier.size(22.dp),
+      value = value,
+      onValueChange = onValueChange,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(bottom = 16.dp),
+      singleLine = true,
+      shape = RoundedCornerShape(8.dp),
+      colors =
+      TextFieldDefaults.colors(
+        focusedContainerColor = WalletColors.styleguide_blue,
+        unfocusedContainerColor = WalletColors.styleguide_blue,
+        focusedIndicatorColor = WalletColors.styleguide_blue,
+        unfocusedIndicatorColor = WalletColors.styleguide_blue,
+        focusedTextColor = WalletColors.styleguide_light_grey,
+        unfocusedTextColor = WalletColors.styleguide_light_grey,
+        cursorColor = WalletColors.styleguide_light_grey
+      ),
+      trailingIcon = {
+        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+          Icon(
+            painter =
+            if (!passwordVisible) painterResource(R.drawable.ic_transaction_poa)
+            else painterResource(R.drawable.ic_password_off),
+            contentDescription = "show password",
+            modifier = Modifier.size(22.dp),
                     tint = WalletColors.styleguide_dark_grey
                 )
             }
