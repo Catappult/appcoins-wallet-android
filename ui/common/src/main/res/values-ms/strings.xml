@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">Belum selesai</string>
   <string name="transaction_status_failed">Gagal</string>
   <string name="transaction_status_reverted">Dikembalikan</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Belian Dalam Aplikasi</string>
   <string name="transaction_type_poa">Ganjaran</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1242,4 +1245,7 @@
   <string name="verify_card_code_example_amount">Amaun</string>
   <string name="verify_card_code_enter_title">Masukkan kod 4 digit</string>
   <string name="verify_card_code_refund_body">%s akan dikembalikan dalam masa 24 jam setelah anda sahkan kod.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
