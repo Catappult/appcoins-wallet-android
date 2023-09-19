@@ -55,7 +55,8 @@ data class TransactionCardInfo(
     val failedMessage: Int? = null,
     val sku: String? = null,
     val txId: String? = null,
-    val invoiceId: String? = null
+    val invoiceId: String? = null,
+    val category: Int? = null,
 )
 
 object DownloadHelper {
@@ -412,6 +413,7 @@ fun TransactionModel.cardInfoByType() =
               date = date,
               txId = txId,
               invoiceId = invoiceId,
+              category = R.string.transaction_type_bonus,
             )
 
         REJECTED_CHALLENGE_REWARD ->
@@ -427,6 +429,7 @@ fun TransactionModel.cardInfoByType() =
               date = date,
               txId = txId,
               invoiceId = invoiceId,
+              category = R.string.transaction_type_bonus,
             )
 
         REVERTED_CHALLENGE_REWARD ->
@@ -443,6 +446,7 @@ fun TransactionModel.cardInfoByType() =
               date = date,
               txId = txId,
               invoiceId = invoiceId,
+              category = R.string.transaction_type_bonus,
             )
 
         ESKILLS_ENTRY_TICKET ->
