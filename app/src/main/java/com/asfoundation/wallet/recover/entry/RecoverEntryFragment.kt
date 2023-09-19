@@ -154,7 +154,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
           walletBalance = recoverResult.symbol + recoverResult.amount,
           walletAddress = recoverResult.address,
           walletName = recoverResult.name,
-          requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
+          isFromOnboarding
         )
       }
       is FailedEntryRecover.InvalidPrivateKey -> {
