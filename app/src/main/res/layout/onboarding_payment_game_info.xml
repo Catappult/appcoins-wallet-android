@@ -20,13 +20,12 @@
 
   <TextView
       android:id="@+id/onboarding_payment_game_name"
-      style="@style/TextL"
+      style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/big_margin"
       app:layout_constraintBottom_toTopOf="@id/onboarding_payment_game_item"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_payment_bonus_fiat_amount"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/onboarding_payment_game_icon"
       app:layout_constraintTop_toTopOf="@id/onboarding_payment_game_icon"
@@ -35,14 +34,14 @@
       />
   <TextView
       android:id="@+id/onboarding_payment_game_item"
-      style="@style/TextM"
+      style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/small_margin"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginEnd="4dp"
       android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="@id/onboarding_payment_game_icon"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_payment_bonus_fiat_amount"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/onboarding_payment_game_icon"
       app:layout_constraintStart_toStartOf="@id/onboarding_payment_game_name"
@@ -52,14 +51,13 @@
 
   <TextView
       android:id="@+id/onboarding_payment_bonus_fiat_amount"
-      style="@style/TextXXL"
+      style="@style/TextXL"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:textColor="@color/styleguide_white"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_item"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_name"
       tools:text="€12.73"
       />
 
@@ -71,7 +69,7 @@
         android:layout_marginVertical="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onboarding_payment_bonus_fiat_amount"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
