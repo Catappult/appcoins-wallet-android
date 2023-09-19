@@ -1393,5 +1393,4 @@
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
 
-
 </resources>
