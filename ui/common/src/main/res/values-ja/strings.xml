@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">処理中</string>
   <string name="transaction_status_failed">失敗</string>
   <string name="transaction_status_reverted">返金</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">アプリ内購入</string>
   <string name="transaction_type_poa">リワード</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1242,4 +1245,7 @@
   <string name="verify_card_code_example_amount">金額</string>
   <string name="verify_card_code_enter_title">4桁のコードを入力</string>
   <string name="verify_card_code_refund_body">%sは、コードを確認した後、24時間以内に返金されます</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
