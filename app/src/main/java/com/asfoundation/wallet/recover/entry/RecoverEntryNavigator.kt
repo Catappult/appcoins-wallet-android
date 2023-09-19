@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
@@ -55,12 +56,8 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
   }
 
 
-  fun navigateBack(fromActivity: Boolean) {
-    if (fromActivity) {
+  fun navigateBack() {
       fragment.requireActivity().finish()
-    } else {
-      fragment.requireActivity().onBackPressed()
-    }
   }
 
   fun navigateToSuccess(isFromOnboarding: Boolean) {
@@ -69,8 +66,8 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
     bottomSheet.show(fragment.parentFragmentManager, "RecoveryWalletSuccess")
   }
 
-  fun navigateToMainHomeGraph() {
-    with(fragment.findNavController()) {
+  fun navigateToMainHomeGraph(navController: NavController) {
+    with(navController) {
       navigate(
        this,
         RecoverEntryFragmentDirections.actionNavigateToHomeGraph()
