@@ -175,7 +175,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
               TransactionDetailItem(
                 stringResource(R.string.transaction_category_label),
-                stringResource(title)
+                stringResource(category ?: title)
               )
 
               if (sku != null)
