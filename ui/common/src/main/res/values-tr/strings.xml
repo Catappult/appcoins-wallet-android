@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">Beklemede</string>
   <string name="transaction_status_failed">Başarısız</string>
   <string name="transaction_status_reverted">Geri Alındı</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Uygulama İçi Satın Alım</string>
   <string name="transaction_type_poa">Ödül</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1255,4 +1258,7 @@
   <string name="verify_card_code_example_amount">Tutar</string>
   <string name="verify_card_code_enter_title">4 haneli kodu gir</string>
   <string name="verify_card_code_refund_body">%s kodu onayladıktan sonra 24 saat içinde iade edilecek.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
