@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
   <string name="transaction_status_reverted">ျပန္ပို႔ခဲ့သည္</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">အက္ပ္အတြင္း ဝယ္ယူမႈ</string>
   <string name="transaction_type_poa">ဆု</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1242,4 +1245,7 @@
   <string name="verify_card_code_example_amount">ပမာဏ</string>
   <string name="verify_card_code_enter_title">ဂဏန္း 4 လုံးပါကုဒ္ကိုထည့္ပါ</string>
   <string name="verify_card_code_refund_body">ကုဒ္ကို သင္အတည္ျပဳၿပီးေနာက္ 24 နာရီအတြင္း %s ကို ျပန္အမ္းေပးပါမည္။</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>

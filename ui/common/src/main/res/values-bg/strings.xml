@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">В процес на чакане</string>
   <string name="transaction_status_failed">Неуспешно</string>
   <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Покупка в приложението</string>
   <string name="transaction_type_poa">Награда</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -289,7 +292,7 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_purchase_bonus">Бонус от покупката</string>
   <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
   <string name="transaction_type_extra_bonus">Extra Bonus</string>
   <string name="transaction_type_topup">Top-up</string>
@@ -432,7 +435,7 @@
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">Backup your wallet now!</string>
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
@@ -738,7 +741,7 @@
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_wallet_button">Backup your wallet now!</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
@@ -1252,7 +1255,10 @@
   <string name="verify_card_code_example_title">Example of transaction summary</string>
   <string name="verify_card_code_example_date">Trans Date</string>
   <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_amount">Сума</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>

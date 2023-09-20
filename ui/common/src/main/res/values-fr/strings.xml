@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">En attente</string>
   <string name="transaction_status_failed">A échoué</string>
   <string name="transaction_status_reverted">Inversé</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Achat in-App</string>
   <string name="transaction_type_poa">Récompense</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1255,4 +1258,7 @@
   <string name="verify_card_code_example_amount">Montant</string>
   <string name="verify_card_code_enter_title">Entrez les  chiffres du code</string>
   <string name="verify_card_code_refund_body">Les % seront remboursés dans les 24 heures suivant la confirmation du code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>

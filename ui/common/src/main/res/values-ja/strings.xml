@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">処理中</string>
   <string name="transaction_status_failed">失敗</string>
   <string name="transaction_status_reverted">返金</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">アプリ内購入</string>
   <string name="transaction_type_poa">リワード</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -556,7 +559,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_button">その他の支払方法</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
   <string name="purchase_appcoins_available_body">少額のETHを使って手数料を支払います。</string>
   <string name="purchase_appcoins_noavailable_body">この購入に必要なAppCoinまたはEtherがありません。</string>
   <string name="purchase_no_eth_body">ガスを購入するために十分なETHがありません。</string>
@@ -1242,4 +1245,7 @@
   <string name="verify_card_code_example_amount">金額</string>
   <string name="verify_card_code_enter_title">4桁のコードを入力</string>
   <string name="verify_card_code_refund_body">%sは、コードを確認した後、24時間以内に返金されます</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
