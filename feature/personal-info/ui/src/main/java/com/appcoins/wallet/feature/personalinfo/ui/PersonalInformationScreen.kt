@@ -38,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.feature.personalinfo.data.CountriesModel
 import com.appcoins.wallet.feature.personalinfo.data.PersonalInformation
 import com.appcoins.wallet.feature.personalinfo.ui.PersonalInformationViewModel.CountriesUiState
+import com.appcoins.wallet.feature.personalinfo.ui.PersonalInformationViewModel.PersonalInfoUiState
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -55,12 +56,17 @@ fun PersonalInformationRoute(
   viewModel: PersonalInformationViewModel = hiltViewModel()
 ) {
   val countriesUiState = viewModel.countriesUiState.collectAsState().value
+  val personalInfoUiState = viewModel.personalInfoUiState.collectAsState().value
+
   Scaffold(
     topBar = { Surface { TopBar(onClickSupport = { onChatClick() }) } }, modifier = Modifier
   ) { padding ->
-    PersonalInformationScreen(countriesUiState, scaffoldPadding = padding) { personalInformation
-      ->
-      viewModel.saveInfo(personalInformation)
+    PersonalInformationScreen(
+      countriesUiState,
+      personalInfoUiState,
+      scaffoldPadding = padding
+    ) { personalInformation ->
+      viewModel.savePersonalInfo(personalInformation)
     }
   }
 }
@@ -68,17 +74,19 @@ fun PersonalInformationRoute(
 @Composable
 fun PersonalInformationScreen(
   countriesUiState: CountriesUiState,
+  personalInfoUiState: PersonalInfoUiState,
   scaffoldPadding: PaddingValues,
   onTextFilled: (PersonalInformation) -> Unit
 ) {
-  PersonalInformationList(scaffoldPadding, onTextFilled, countriesUiState)
+  PersonalInformationList(scaffoldPadding, onTextFilled, countriesUiState, personalInfoUiState)
 }
 
 @Composable
 private fun PersonalInformationList(
   scaffoldPadding: PaddingValues,
   onTextFilled: (PersonalInformation) -> Unit,
-  countriesUiState: CountriesUiState
+  countriesUiState: CountriesUiState,
+  personalInfoUiState: PersonalInfoUiState
 ) {
   var country by rememberSaveable { mutableStateOf(CountriesModel("", "")) }
   var name by rememberSaveable { mutableStateOf("") }
@@ -113,36 +121,42 @@ private fun PersonalInformationList(
 
           CountriesUiState.ApiError, CountriesUiState.Idle -> Unit
         }
-
-        WalletTextFieldCustom(value = name, title = "Name and surname") { name = it }
-        WalletTextFieldCustom(value = address, title = "Address") { address = it }
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-          WalletTextFieldCustom(
-            value = city,
-            title = "City",
-            modifier = Modifier
-              .fillMaxWidth(0.5f)
-              .padding(end = 8.dp)
-          ) {
-            city = it
+        when (personalInfoUiState) {
+          PersonalInfoUiState.ApiError, PersonalInfoUiState.Idle -> Unit
+          is PersonalInfoUiState.Success -> {
+            WalletTextFieldCustom(value = name, title = "Name and surname") { name = it }
+            WalletTextFieldCustom(value = address, title = "Address") { address = it }
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+              WalletTextFieldCustom(
+                value = city,
+                title = "City",
+                modifier = Modifier
+                  .fillMaxWidth(0.5f)
+                  .padding(end = 8.dp)
+              ) {
+                city = it
+              }
+              WalletTextFieldCustom(value = zipCode, title = "Zip Code") { zipCode = it }
+            }
+            WalletTextFieldCustom(
+              value = email, title = "E-mail", keyboardType = KeyboardType.Email
+            ) {
+              email = it
+            }
+            WalletTextFieldCustom(
+              value = fiscalId,
+              title = "VAT number/Fiscal ID",
+            ) {
+              fiscalId = it
+            }
           }
-          WalletTextFieldCustom(value = zipCode, title = "Zip Code") { zipCode = it }
-        }
-        WalletTextFieldCustom(
-          value = email, title = "E-mail", keyboardType = KeyboardType.Email
-        ) {
-          email = it
-        }
-        WalletTextFieldCustom(
-          value = fiscalId,
-          title = "VAT number/Fiscal ID",
-        ) {
-          fiscalId = it
         }
       }
+
+
     }
 
     item {

@@ -46,4 +46,15 @@ interface TransactionsApi {
   suspend fun getCountriesByLanguage(
     @Query("lang_code") languageCode: String,
   ): Response<List<CountriesResponse>>
+
+  @POST(value = "/transaction/wallet/invoices/user_information/")
+  suspend fun savePersonalInformation(
+    @Header("authorization") authorization: String,
+    @Body personalInformation: PersonalInformationRequest,
+  ): Response<PersonalInformationResponse>
+
+  @GET(value = "/transaction/wallet/invoices/user_information/")
+  suspend fun getPersonalInformation(
+    @Header("authorization") authorization: String,
+  ): Response<PersonalInformationRequest>
 }

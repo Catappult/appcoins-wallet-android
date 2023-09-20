@@ -13,4 +13,5 @@ dependencies {
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
   implementation(libs.bundles.androidx.compose)
+  implementation(libs.bundles.rx)
 }

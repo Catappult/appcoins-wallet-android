@@ -33,9 +33,23 @@ data class TransactionResponse(
 
 data class InvoiceResponse(@JsonProperty("url") val url: String)
 
-class CountriesResponse(
+data class CountriesResponse(
   @JsonProperty("original_name") val name: String,
   @JsonProperty("translated_name") val translatedName: String
+)
+
+data class PersonalInformationResponse(
+  @JsonProperty("message") val message: String,
+)
+
+data class PersonalInformationRequest(
+  @JsonProperty("name") val name: String? = null,
+  @JsonProperty("email") val email: String? = "",
+  @JsonProperty("address") val address: String? = "",
+  @JsonProperty("city") val city: String? = "",
+  @JsonProperty("postal_code") val postalCode: String? = "",
+  @JsonProperty("country") val country: String,
+  @JsonProperty("fiscal_id") val fiscalId: String? = ""
 )
 
 enum class StatusResponse {
