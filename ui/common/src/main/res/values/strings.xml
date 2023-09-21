@@ -1379,6 +1379,7 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="payments_methods_challenges_underlined_text"><u>Complete challenges to get your free AppCoins Credits</u></string>
 
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
