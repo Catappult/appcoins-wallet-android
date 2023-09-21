@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.wallet.home
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -21,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -44,13 +42,11 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
-import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.partners.OemIdExtractorService
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -89,14 +85,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
   private var isVip by mutableStateOf(false)
+  private var isEskillsVersion by mutableStateOf(false)
 
-  @SuppressLint("CheckResult")
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    viewModel.isEskillsVersion(requireActivity().packageName)
     return ComposeView(requireContext()).apply { setContent { HomeScreen() } }
   }
 
@@ -159,7 +154,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(false)
-    val isEskillsVersion by remember { viewModel.isEskillsVersion }
 
     Column(
       modifier = Modifier
@@ -344,6 +338,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
+    setEskillsWalletVersion(state.eskillsVersion)
     // TODO updateSupportIcon(state.unreadMessages)
   }
 
@@ -454,6 +449,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     isVip = shouldShow
   }
 
+  private fun setEskillsWalletVersion(eSkillsVersion: Boolean) {
+    isEskillsVersion = eSkillsVersion
+  }
+
   private fun navigateToNft() = navigator.navigateToNfts(navController())
 
   private fun navigateToManageWallet() = navigator.navigateToManageWallet(navController())
@@ -468,9 +467,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     return navHostFragment.navController
   }
 
-  fun launchAppViewFragment(gamePackage: String) {
+  private fun launchAppViewFragment(gamePackage: String) {
     val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }
 }
-
