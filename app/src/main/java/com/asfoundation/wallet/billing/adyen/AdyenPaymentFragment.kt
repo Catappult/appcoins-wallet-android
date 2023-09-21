@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
@@ -157,11 +158,17 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage
       ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorMessage!!
   private val error_verify_wallet_button: WalletButtonView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.errorVerifyWalletButton
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.errorVerifyWalletButton
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton!!
+
   private val error_verify_card_button: WalletButtonView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.errorVerifyCardButton
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.errorVerifyCardButton
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton!!
+
   private val layout_support_logo: ImageView
     get() = bindingCreditCardLayout?.fragmentAdyenError?.layoutSupportLogo
       ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.layoutSupportLogo

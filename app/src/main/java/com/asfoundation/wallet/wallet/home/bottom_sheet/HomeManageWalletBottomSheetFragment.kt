@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.asf.wallet.R
 import com.asf.wallet.databinding.HomeManageWalletBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -92,7 +92,9 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
       is Async.Success -> {
         this.dismiss()
         viewModel.sendOpenBackupEvent()
-        navigator.navigateToBackup(state.currentWalletAsync.value!!.address)
+        with(state.currentWalletAsync.value!!) {
+          navigator.navigateToBackup(navController(), wallet, name)
+        }
       }
       else -> {}
     }

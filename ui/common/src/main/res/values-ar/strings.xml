@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">جاري التحقق من كل التفاصيل: التوازن، العناصر، الشبكة…</string>
   <string name="activity_iab_buying_message">تم التحقق من التفاصيل \nجاري استقبال العنصر الخاص بك…</string>
   <string name="activity_iab_change_card">تغيير البطاقة</string>
+  <string name="activity_iab_change_card_lower_case_button">تغيير البطاقة</string>
   <string name="activity_iab_fees">الرسوم</string>
   <string name="notification_ongoing_poa">جاري تنفيذ مكافأتك</string>
   <string name="notification_completed_poa">تلقيت مكافأة!👌 يرجى الانتظار %1$sساعة و%2$sدقيقة للحصول على المزيد من المكافآت بتجريب التطبيقات ⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">قيد الانتظار</string>
   <string name="transaction_status_failed">فشل</string>
   <string name="transaction_status_reverted">راجعة</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">شراء داخل التطبيق</string>
   <string name="transaction_type_poa">الجوائز</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">اطلب الهُوِيَّة</string>
   <string name="transaction_details_label">تفاصيل</string>
   <string name="transaction_to_label">إلى</string>
+  <string name="transaction_invoice_label">فاتورة</string>
   <string name="dialog_credit_card_remember">تذكر البطاقة</string>
   <string name="notification_payment_refused">تم رفض الدفعة</string>
   <string name="dialog_credit_card_number">رقم البطاقة</string>
@@ -309,7 +314,7 @@
   <string name="transaction_rejected_body">عملية الشراء هذه مرفوضة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_reverted_body">عملية الشراء هذه راجعة.\nلمزيد من المعلومات يرجى التواصل مع الدعم.</string>
   <string name="transaction_status_rejected">مرفوض</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">تفاصيل التحويل</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
@@ -493,6 +498,7 @@
   <string name="play_button">لعب</string>
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
+  <string name="download_button">تنزيل</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -553,6 +559,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
+  <string name="purchase_more_payment_methods_lower_case_button">وسائل دفع أخرى</string>
   <string name="purchase_appcoins_available_body">سترى رصيدًا قليلًا من ETH لتدفع به الرّسوم.</string>
   <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
   <string name="purchase_no_eth_body">لا يوجد لديك ETH كافية لتدفع رسوم عمولات التحويل.</string>
@@ -616,6 +623,7 @@
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -707,6 +715,7 @@
   <string name="import_wallet_button">استعادة المحفظة</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
+  <string name="import_code_here_field">استرداد الرمز هنا&#8230;</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
   <string name="error_invalid_keystore">محفظة مفاتيح غير صالحة</string>
   <string name="backup_title">احفظ نسخة احتياطية لمحفظتك الآن!</string>
@@ -719,9 +728,9 @@
   <string name="backup_ready_email_button">أرسل إلى البريد الإلكتروني</string>
   <string name="backup_ready_device_button">احفظها في الجهاز</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
-  <string name="backup_confirmation_tips_1"><b>اطبعها</b> وخزنها في مكان آمن.</string>
-  <string name="backup_confirmation_tips_2"><b>احفظها</b> على مشغل USB.</string>
-  <string name="backup_confirmation_tips_3"><b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>اطبعها</b> وخزنها في مكان آمن.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>احفظها</b> على مشغل USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.]]></string>
   <string name="backup_tooltip_body">أنشئ نسخًا احتياطيًا لمحفظتك!</string>
   <string name="backup_tooltip_later_button">ربما لاحقًا</string>
   <string name="backup_tooltip_backup_button">نسخ احتياطي</string>
@@ -739,7 +748,9 @@
   <string name="backup_popup_title">احفظ نسخة احتياطية للمحفظة الآن!</string>
   <string name="backup_popup_purchase_body">احفظ أموالك في أمان طوال الوقت.</string>
   <string name="backup_popup_gamification_body">احتفظ بمعدل مكافآتك في أمان طوال الوقت.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">لم نتمكن من إنشاء ملف نسخ احتياطي. حاول لاحقًا.</string>
+  <string name="backup_confirmation_save_device">ملف نسخ احتياطي صار على جهازك</string>
+  <string name="backup_confirmation_save_email">ملف نسخ احتياطي صار على بريدك الإلكتروني</string>
   <!--Wallets Management-->
   <string name="wallets_title">المَحافظ</string>
   <string name="wallets_total_balance_title">الرصيد الكلي يساوي %s</string>
@@ -830,7 +841,7 @@
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
   <string name="subscriptions_cancel_no_button">لا، عُد للخلف</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">نعم، إلغاء</string>
   <string name="subscriptions_cancel_confirmation_title">ألغينا الاشتراك!</string>
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
@@ -1262,14 +1273,14 @@
   <string name="rewards_spend_to_next_level_body">أنفق أكثر من %1$s%2$s لتصل إلى المستوى التالي!</string>
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">سحب أرباحك من e-Skills.</string>
   <string name="rewards_promo_code_card_title">رموز ترويجية</string>
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
   <string name="home_nft_title">محفظة AppCoins Wallet الآن تدعم NFTs</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
   <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
@@ -1277,27 +1288,30 @@
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
   <string name="manage_wallet_change_wallet_name_title">تغيير اسم المحفظة</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">أعطِ محفظتك اسمًا</string>
+  <string name="manage_wallet_my_wallet_address_title">عنوان محفظتي</string>
+  <string name="manage_wallet_verify_title">وثّق وسيلة دفع</string>
+  <string name="manage_wallet_verify_body">تجنب الانقطاعات بتوثيق وسيلة الدفع.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">وثّق وسيلة دفع</string>
+  <string name="verify_card_body">تجنب الانقطاعات بتوثيق وسيلة دفع.</string>
+  <string name="verify_card_one_more_step_title">خطوة واحدة أخيرة للتوثيق</string>
+  <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>
+  <string name="verify_card_one_more_step_button">أدخل الرمز</string>
+  <string name="verify_card_verified">تم توثيق وسيلة الدفع!</string>
+  <string name="verify_card_view_title">توثيق البطاقة</string>
+  <string name="verify_card_view_disclaimer">سنسحب %s من بطاقتك، وستستعيدها بعد تأكيد الرمز.</string>
+  <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>
+  <string name="verify_card_get_a_code_button">اطلب الرمز</string>
+  <string name="verify_card_code_title">ابحث عن الرمز في تفاصيل التحويل</string>
+  <string name="verify_card_code_body">رمز مميز يظهر في كشف حساب التحويل الصادر من الجهة المُصدرة لبطاقتك.</string>
+  <string name="verify_card_code_example_title">مثال على كشف حساب التحويل</string>
+  <string name="verify_card_code_example_date">تاريخ التحويل</string>
+  <string name="verify_card_code_example_description">الوصف</string>
+  <string name="verify_card_code_example_amount">المبلغ</string>
+  <string name="verify_card_code_enter_title">أدخل الرمز من 4 أرقام</string>
+  <string name="verify_card_code_refund_body">سيتم إعادة %s خلال 24 ساعة بعد تأكيد الرمز.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
