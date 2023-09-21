@@ -78,9 +78,6 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.successButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
     }
-    views.genericErrorLayout.errorVerifyWalletButton.setOnClickListener {
-
-    }
   }
 
   override fun onStateChanged(state: OnboardingPaymentResultState) = Unit
