@@ -169,7 +169,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
-      NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
     }
   }
@@ -396,8 +395,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private fun showVipBadge(shouldShow: Boolean) {
     isVip = shouldShow
   }
-
-  private fun navigateToNft() = navigator.navigateToNfts(navController())
 
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
     transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
