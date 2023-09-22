@@ -200,47 +200,19 @@
           app:layout_constraintTop_toBottomOf="@id/payment_container"
           />
 
-      <TextView
-          android:id="@+id/offer_wall_msg"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="24dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="16dp"
-          android:gravity="center"
-          android:text="@string/payments_methods_challenges_underlined_text"
-          android:visibility="invisible"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bot_separator"
-          app:layout_constraintVertical_bias="0"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          />
-
-      <include
-          layout="@layout/skeleton_rounded_rectangle"
-          android:id="@+id/offer_wall_msg_skeleton"
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_marginEnd="80dp"
-          android:layout_marginStart="80dp"
-          app:layout_constraintBottom_toBottomOf="@id/offer_wall_msg"
-          app:layout_constraintTop_toTopOf="@id/offer_wall_msg"
-          />
-
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="24dp"
+          android:layout_marginTop="36dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
           app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/offer_wall_msg"
+          app:layout_constraintTop_toBottomOf="@+id/bot_separator"
           app:layout_constraintVertical_bias="0"
           app:layout_constraintVertical_chainStyle="packed"
           />
