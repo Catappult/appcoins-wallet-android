@@ -1207,11 +1207,11 @@
     <item quantity="other">ساعت</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">MINUTE</item>
+    <item quantity="one">دقیقه</item>
     <item quantity="other">دقیقه</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">SECOND</item>
+    <item quantity="one">ثانیه</item>
     <item quantity="other">ثانیه</item>
   </plurals>
   <string name="intro_transactions_header">تراکنش‌ها</string>
