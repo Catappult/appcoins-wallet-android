@@ -31,7 +31,6 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -143,7 +142,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    ChallengeRewardManager.create(this.requireActivity())
     paymentMethodClick = PublishRelay.create()
     valueSubject = PublishSubject.create()
     keyboardEvents = PublishSubject.create()
@@ -186,7 +184,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       adapter = topUpAdapter
     }
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
-    binding.offerWallMsg.setOnClickListener { ChallengeRewardManager.onNavigate() }
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -219,7 +216,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.paymentMethods.adapter = adapter
 
     handlePaymentListMaxHeight(paymentMethods.size)
-    showPaymentMethods()
+
+    binding.paymentsSkeleton.visibility = View.GONE
+    binding.paymentMethods.visibility = View.VISIBLE
   }
 
   private fun handlePaymentListMaxHeight(listSize: Int) {
@@ -287,7 +286,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun showAsLoading() {
     setNextButtonState(enabled = false)
-    hidePaymentMethods()
+    binding.paymentsSkeleton.visibility = View.VISIBLE
+    binding.paymentMethods.visibility = View.INVISIBLE
   }
 
   override fun hideLoading() {
@@ -529,18 +529,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
-  override fun showPaymentMethods() {
-    binding.paymentsSkeleton.visibility = View.GONE
-    binding.paymentMethods.visibility = View.VISIBLE
-    binding.offerWallMsgSkeleton.root.visibility = View.GONE
-    binding.offerWallMsg.visibility = View.VISIBLE
-  }
-
   override fun hidePaymentMethods() {
     binding.paymentsSkeleton.visibility = View.VISIBLE
     binding.paymentMethods.visibility = View.GONE
-    binding.offerWallMsgSkeleton.root.visibility = View.VISIBLE
-    binding.offerWallMsg.visibility = View.INVISIBLE
   }
 
   private fun hideErrorViews() {
