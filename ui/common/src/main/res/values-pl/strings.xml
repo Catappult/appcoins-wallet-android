@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Sprawdzanie wszystkich szczegółów: bilans, pozycje, sieć…</string>
   <string name="activity_iab_buying_message">Szczegóły sprawdzone \nOdbieranie przedmiotu…</string>
   <string name="activity_iab_change_card">ZMIANA KARTY</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Opłaty</string>
   <string name="notification_ongoing_poa">Przetwarzanie twojej nagrody</string>
   <string name="notification_completed_poa">Otrzymano nagrodę! Musisz zaczekać %1$s godz. %2$s min. aby zdobyć więcej nagród przez wypróbowywanie aplikacji!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">W trakcie</string>
   <string name="transaction_status_failed">Nie udało się</string>
   <string name="transaction_status_reverted">Cofnięto</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Płatności w aplikacji</string>
   <string name="transaction_type_poa">Nagroda</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">ID zamówienia</string>
   <string name="transaction_details_label">Szczegóły</string>
   <string name="transaction_to_label">Do</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Pamiętaj kartę</string>
   <string name="notification_payment_refused">Płatność odrzucona</string>
   <string name="dialog_credit_card_number">Numer karty</string>
@@ -493,6 +498,7 @@
   <string name="play_button">Graj</string>
   <string name="manage_wallet_button">Zarządzaj portfelem</string>
   <string name="log_out_button">Wyloguj</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -553,6 +559,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>
   <string name="purchase_more_payment_methods_button">INNE METODY PŁATNOŚCI</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Inne metody płatności</string>
   <string name="purchase_appcoins_available_body">Użyjesz małej sumy ETH aby opłacić transakcję.</string>
   <string name="purchase_appcoins_noavailable_body">Nie masz wystarczającej ilości AppCoins lub Ether dla tego zakupu.</string>
   <string name="purchase_no_eth_body">Masz za mało ETH by zapłacić.</string>
@@ -615,6 +622,7 @@
   <string name="error_blocked_wallet_body">Ze względów bezpieczeństwa portfel został zablokowany. Skontaktuj się z nami, aby uzyskać więcej informacji.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Możliwe dodatkowe opłaty.</string>
   <string name="purchase_error_paypal">Wystąpił problem z płatnością PayPal. Spróbuj ponownie lub użyj innej metody płatności.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -706,6 +714,7 @@
   <string name="import_wallet_button">Odzyskaj portfel</string>
   <string name="import_wallet_password_body">Ten portfel jest chroniony hasłem!</string>
   <string name="import_wallet_wrong_password_body">Oj, niepoprawne hasło!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Niewłaściwy klucz</string>
   <string name="error_invalid_keystore">Nieprawidłowy klucz</string>
   <string name="backup_title">Utwórz kopię zapasową portfela!</string>
@@ -718,9 +727,9 @@
   <string name="backup_ready_email_button">Wyślij na maila</string>
   <string name="backup_ready_device_button">Zapisz na urządzeniu</string>
   <string name="backup_confirmation_tips_title">Dbaj o bezpieczeństwo pliku:</string>
-  <string name="backup_confirmation_tips_1"><b>Wydrukuj go</b> i przechowuj w bezpiecznym miejscu.</string>
-  <string name="backup_confirmation_tips_2"><b>Zapisz go</b> na pendrivie.</string>
-  <string name="backup_confirmation_tips_3"><b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Wydrukuj go</b> i przechowuj w bezpiecznym miejscu.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Zapisz go</b> na pendrivie.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.]]></string>
   <string name="backup_tooltip_body">Stwórz backup portfela!</string>
   <string name="backup_tooltip_later_button">Może później</string>
   <string name="backup_tooltip_backup_button">Kopia zapasowa</string>
@@ -739,6 +748,8 @@
   <string name="backup_popup_purchase_body">Dbaj o bezpieczeństwo portfela.</string>
   <string name="backup_popup_gamification_body">Dbaj o bezpieczeństwo bonusu.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portfele</string>
   <string name="wallets_total_balance_title">Saldo w %s</string>
@@ -1252,25 +1263,28 @@
   <string name="manage_wallet_change_wallet_name_title">Zmień nazwę portfela</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_title">Zweryfikuj metodę płatności</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_payment_method_title">Zweryfikuj metodę płatności</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_one_more_step_body">Wpisz kod widoczny w szczegółach transakcji</string>
+  <string name="verify_card_one_more_step_button">Wpisz kod</string>
   <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_title">Zweryfikuj kartę</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>
   <string name="verify_card_get_a_code_button">Get a code</string>
   <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_body">Indywidualny kod pojawi się w podsumowaniu transakcji obsługiwanej przez wydawcę karty.</string>
   <string name="verify_card_code_example_title">Example of transaction summary</string>
   <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_description">Opis</string>
+  <string name="verify_card_code_example_amount">Kwota</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>

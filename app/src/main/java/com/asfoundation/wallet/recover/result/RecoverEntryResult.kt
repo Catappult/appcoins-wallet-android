@@ -19,6 +19,7 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
     val keyStore: WalletKeyStore,
     val address: String,
     val amount: String,
+    val name: String?,
     val symbol: String
   ) : FailedEntryRecover()
 
@@ -51,6 +52,7 @@ class RecoverEntryResultMapper(
           keyStore = walletKeyStore,
           address = it.wallet,
           amount = currencyFormatUtils.formatCurrency(it.walletBalance.overallFiat.amount),
+          name = it.name,
           symbol = it.walletBalance.overallFiat.symbol
         )
       }

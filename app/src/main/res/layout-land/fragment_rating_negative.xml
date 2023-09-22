@@ -37,7 +37,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       />
 
-  <com.asfoundation.wallet.rating.common.MultilineInputText
+  <com.appcoins.wallet.ui.common.MultilineInputText
       android:id="@+id/feedback_input_text"
       android:layout_width="0dp"
       android:layout_height="92dp"

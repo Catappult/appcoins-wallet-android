@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Provera svih detalja: stanje, stavke, mreža…</string>
   <string name="activity_iab_buying_message">Detalji su provereni\nPrijem vaše stavke…</string>
   <string name="activity_iab_change_card">PROMENITE KARTICU</string>
+  <string name="activity_iab_change_card_lower_case_button">Promenite karticu</string>
   <string name="activity_iab_fees">Naknade</string>
   <string name="notification_ongoing_poa">Obrada vaše nagrade</string>
   <string name="notification_completed_poa">Dobili ste nagradu!👌 Moraćete da sačekate %1$s č. %2$s min. da biste osvojili još nagrada isprobavanjem aplikacija ⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">Na čekanju</string>
   <string name="transaction_status_failed">Nije uspelo</string>
   <string name="transaction_status_reverted">Vraćeno</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Kupovina u aplikaciji</string>
   <string name="transaction_type_poa">Nagrada</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">ID porudžbenice</string>
   <string name="transaction_details_label">Detalji</string>
   <string name="transaction_to_label">Za</string>
+  <string name="transaction_invoice_label">Faktura</string>
   <string name="dialog_credit_card_remember">Zapamti karticu</string>
   <string name="notification_payment_refused">Plaćanje je odbijeno</string>
   <string name="dialog_credit_card_number">Broj kartice</string>
@@ -309,7 +314,7 @@
   <string name="transaction_rejected_body">Kupovina je odbijena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_body">Kupovina je vraćena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_status_rejected">Odbijeno</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Detalji o transakciji</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
@@ -493,6 +498,7 @@
   <string name="play_button">Igraj</string>
   <string name="manage_wallet_button">Upravljajte novčanikom</string>
   <string name="log_out_button">Odjava</string>
+  <string name="download_button">Preuzmi</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -553,6 +559,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Drugi načini plaćanja</string>
   <string name="purchase_appcoins_available_body">Malim iznosom u ETH ćete platiti naknade.</string>
   <string name="purchase_appcoins_noavailable_body">Nemate dovoljno AppCoins ili Ethera za ovu kupovinu.</string>
   <string name="purchase_no_eth_body">Nemate dovoljno Ethereuma da platite gas.</string>
@@ -615,6 +622,7 @@
   <string name="error_blocked_wallet_body">Vaš novčanik je blokiran iz sigurnosnih razloga. Kontaktirajte nas za više informacija.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
+  <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -706,6 +714,7 @@
   <string name="import_wallet_button">Oporavite novčanik</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
+  <string name="import_code_here_field">Oporavite kod ovde&#8230;</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <string name="error_invalid_keystore">Nevažeće skladište ključeva</string>
   <string name="backup_title">Napravite rezervnu kopiju novčanika odmah!</string>
@@ -718,9 +727,9 @@
   <string name="backup_ready_email_button">Pošaljite na e-poštu</string>
   <string name="backup_ready_device_button">Sačuvajte na uređaju</string>
   <string name="backup_confirmation_tips_title">Čuvajte datoteku na sigurnom:</string>
-  <string name="backup_confirmation_tips_1"><b>Odštampajte je</b> i čuvajte je na bezbednom mestu.</string>
-  <string name="backup_confirmation_tips_2"><b>Sačuvajte je</b> na USB disku.</string>
-  <string name="backup_confirmation_tips_3"><b>Kopirajte je</b> u privatnu, bezbednu memoriju na oblaku.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Odštampajte je</b> i čuvajte je na bezbednom mestu.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Sačuvajte je</b> na USB disku.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Kopirajte je</b> u privatnu, bezbednu memoriju na oblaku.]]></string>
   <string name="backup_tooltip_body">Napravite rezervnu kopiju novčanika!</string>
   <string name="backup_tooltip_later_button">Možda kasnije</string>
   <string name="backup_tooltip_backup_button">Napravite rezervnu kopiju</string>
@@ -738,7 +747,9 @@
   <string name="backup_popup_title">Napravite rezervnu kopiju novčanika odmah!</string>
   <string name="backup_popup_purchase_body">Neka vaša sredstva budu sigurna u svako doba.</string>
   <string name="backup_popup_gamification_body">Neka vaš nivo bonusa bude siguran u svako doba.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">Nismo mogli da kreiramo datoteku sa rezervnom kopijom. Pokušajte ponovo kasnije.</string>
+  <string name="backup_confirmation_save_device">Vaša rezervna kopija je na vašem uređaju</string>
+  <string name="backup_confirmation_save_email">Vaša rezervna kopija je u vašoj e-pošti</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
@@ -826,7 +837,7 @@
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
   <string name="subscriptions_cancel_no_button">Ne, idi nazad</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Da, otkaži</string>
   <string name="subscriptions_cancel_confirmation_title">Pretplata je otkazana!</string>
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
@@ -1222,14 +1233,14 @@
   <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>
   <string name="rewards_promo_code_card_title">Promo kodovi</string>
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktivne</string>
   <string name="rewards_promo_code_status_expired">Istekao</string>
   <string name="home_nft_title">AppCoins Wallet sada podržava NFT-jeve</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
   <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
@@ -1237,27 +1248,30 @@
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
   <string name="manage_wallet_change_wallet_name_title">Promenite naziv novčanika</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">Postavite naziv za vaš novčanik</string>
+  <string name="manage_wallet_my_wallet_address_title">Adresa mog novčanika</string>
+  <string name="manage_wallet_verify_title">Potvrdite način plaćanja</string>
+  <string name="manage_wallet_verify_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">Potvrdite način plaćanja</string>
+  <string name="verify_card_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
+  <string name="verify_card_one_more_step_title">Još jedan korak za potvrdu</string>
+  <string name="verify_card_one_more_step_body">Unesite kod koji se pojavljuje u detaljima transakcije</string>
+  <string name="verify_card_one_more_step_button">Unesite kod</string>
+  <string name="verify_card_verified">Način plaćanja je potvrđen!</string>
+  <string name="verify_card_view_title">Potvrdite karticu</string>
+  <string name="verify_card_view_disclaimer">Zadužićemo vašu karticu za %s i refundiraćemo vam novac čim potvrdite kod.</string>
+  <string name="verify_card_view_title_2">Unesite detalje o bankovnoj kartici</string>
+  <string name="verify_card_get_a_code_button">Preuzmite kod</string>
+  <string name="verify_card_code_title">Pronađite kod u detaljima transakcije</string>
+  <string name="verify_card_code_body">Pojaviće se jedinstven kod u sažetku transakcije koju pruža izdavalac vaše kartice.</string>
+  <string name="verify_card_code_example_title">Primer sažetka transakcije</string>
+  <string name="verify_card_code_example_date">Datum transakcije</string>
+  <string name="verify_card_code_example_description">Opis</string>
+  <string name="verify_card_code_example_amount">Iznos</string>
+  <string name="verify_card_code_enter_title">Unesite kod od 4 cifre</string>
+  <string name="verify_card_code_refund_body">%s će vam biti refundirano 24 sata nakon što potvrdite kod.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
