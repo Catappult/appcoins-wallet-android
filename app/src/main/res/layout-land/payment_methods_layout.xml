@@ -94,23 +94,6 @@
           app:layout_constraintTop_toTopOf="parent"
           />
 
-      <TextView
-          android:id="@+id/offer_wall_msg"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="24dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="16dp"
-          android:gravity="center"
-          android:text="@string/payments_methods_challenges_underlined_text"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          />
-
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
@@ -118,10 +101,9 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginTop="8dp"
           android:visibility="invisible"
           tools:visibility="visible"
-          app:layout_constraintTop_toBottomOf="@id/offer_wall_msg"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
