@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkExcep
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
@@ -486,7 +487,8 @@ class TopUpFragmentPresenter(
         paymentType = paymentMethod.paymentType,
         data = mapTopUpPaymentData(topUpData, gamificationLevel)
       )
-    }
+    } else if (paymentMethod.paymentType == PaymentType.CHALLENGE_REWARD)
+      ChallengeRewardManager.onNavigate()
   }
 
   private fun mapTopUpPaymentData(

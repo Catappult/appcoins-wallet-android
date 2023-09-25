@@ -24,6 +24,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -181,6 +182,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
     setBuyButtonText()
     presenter.present(savedInstanceState)
+    ChallengeRewardManager.create(this.requireActivity())
   }
 
   override fun onCreateView(
@@ -224,6 +226,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     presenter.onResume(firstRun)
     super.onResume()
   }
+
+  override fun showChallengeReward() = iabView.showChallengeReward()
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,

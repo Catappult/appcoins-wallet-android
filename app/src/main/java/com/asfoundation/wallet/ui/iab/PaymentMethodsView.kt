@@ -136,9 +136,11 @@ interface PaymentMethodsView {
 
   fun showTopupFlow()
 
+  fun showChallengeReward()
+
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR, GIROPAY
+    CARRIER_BILLING, ERROR, GIROPAY, CHALLENGE_REWARD
   }
 
   enum class PaymentMethodId(val id: String) {

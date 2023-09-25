@@ -290,6 +290,8 @@ public class AsfInAppPurchaseInteractor {
             return CurrentPaymentStep.PAUSED_LOCAL_PAYMENT;
           case appcoins_credits:
             return CurrentPaymentStep.PAUSED_CREDITS;
+          case challenge_reward:
+            return CurrentPaymentStep.READY;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
