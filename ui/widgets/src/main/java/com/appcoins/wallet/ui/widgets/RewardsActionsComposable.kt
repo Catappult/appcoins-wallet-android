@@ -47,19 +47,19 @@ fun RewardsActions(
       image = R.drawable.ic_promocode,
       title = R.string.rewards_promo_code_card_title,
       description = R.string.rewards_promo_code_card_body,
-      onClick = { onClickPromoCode() },
+      onClick = onClickPromoCode,
     )
     ActionCard(
       image = R.drawable.ic_giftcard,
       title = R.string.transaction_type_gift_card,
       description = R.string.gift_card_title,
-      onClick = { onClickGiftCard() },
+      onClick = onClickGiftCard,
     )
     ActionCard(
       image = R.drawable.ic_eskills,
       title = R.string.rewards_eskills_card_title,
       description = R.string.rewards_eskills_card_body,
-      onClick = { onClickEskills() },
+      onClick = onClickEskills,
     )
   }
 }
