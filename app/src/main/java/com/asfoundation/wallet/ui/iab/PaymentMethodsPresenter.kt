@@ -177,6 +177,7 @@ class PaymentMethodsPresenter(
                 cachedGamificationLevel
               )
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
+              CHALLENGE_REWARD -> view.showChallengeReward()
               else -> return@doOnNext
             }
           }
@@ -301,7 +302,7 @@ class PaymentMethodsPresenter(
         cachedFiatValue!!,
         paymentNavigationData.isPreselected
       )
-
+      CHALLENGE_REWARD -> view.showChallengeReward()
       else -> {
         showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")

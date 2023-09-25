@@ -22,6 +22,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
@@ -62,6 +63,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         handlePaymentMethodList()
         setStringWithLinks()
         viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+        ChallengeRewardManager.create(this.requireActivity())
     }
 
     private fun handlePaymentMethodList() {
@@ -100,6 +102,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                 )
                 is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
                 is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+                is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
                 PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
             }
         }
