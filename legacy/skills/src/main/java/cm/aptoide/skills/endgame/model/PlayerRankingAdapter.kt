@@ -18,8 +18,12 @@ class PlayerRankingAdapter(dataSet: List<User>) :
 
     fun bind(user: User) {
       userNameTextView.text = user.userName
-      userScoreTextView.text = itemView.resources
-        .getString(R.string.rank_score_details, user.score)
+      userScoreTextView.text =
+        itemView.context.resources.getQuantityString(
+          R.plurals.rank_score_details,
+          user.score.toInt(),
+          user.score.toInt()
+      )
     }
   }
 
