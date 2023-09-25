@@ -16,6 +16,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -36,6 +38,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardPaymentMethodViewModel
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -143,6 +146,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
+    val checkChallengeRewardPaymentMethodViewModel =
+      hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
+    val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
+    val challengeRewardNavigation: (() -> Unit)? = if (hasChallengeReward) {
+      { navigator.showOfferWallScreen() }
+    } else null
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
@@ -194,7 +203,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
             { navigator.showGiftCardFragment() },
-            { navigator.showOfferWallScreen() },
+            challengeRewardNavigation,
           )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
