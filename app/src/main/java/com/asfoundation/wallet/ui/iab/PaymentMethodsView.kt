@@ -152,6 +152,7 @@ interface PaymentMethodsView {
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
-    ASK_FRIEND("ask_friend")
+    ASK_FRIEND("ask_friend"),
+    CHALLENGE_REWARD("challenge_reward"),
   }
 }
