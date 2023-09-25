@@ -34,7 +34,7 @@ fun RewardsActions(
   onClickEskills: () -> Unit,
   onClickPromoCode: () -> Unit,
   onClickGiftCard: () -> Unit,
-  onClickOfferWall: () -> Unit,
+  onClickOfferWall: (() -> Unit)?,
 ) {
   val scrollState = rememberScrollState()
   Row(
@@ -44,12 +44,14 @@ fun RewardsActions(
       .padding(top = 24.dp),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
-    ActionCard(
-      image = R.drawable.ic_challenge_reward,
-      title = R.string.challenge_reward_card_title,
-      description = R.string.challenge_reward_card_body,
-      onClick = onClickOfferWall,
-    )
+    onClickOfferWall?.let {
+      ActionCard(
+        image = R.drawable.ic_challenge_reward,
+        title = R.string.challenge_reward_card_title,
+        description = R.string.challenge_reward_card_body,
+        onClick = onClickOfferWall,
+      )
+    }
     ActionCard(
       image = R.drawable.ic_promocode,
       title = R.string.rewards_promo_code_card_title,
