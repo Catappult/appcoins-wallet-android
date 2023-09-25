@@ -169,7 +169,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
-      Spacer(modifier = Modifier.padding(32.dp))
+      Spacer(modifier = Modifier.padding(40.dp))
     }
   }
 
