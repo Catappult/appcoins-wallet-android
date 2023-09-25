@@ -36,6 +36,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -147,6 +148,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
+    val challengeRewardNavigation = challengeRewardNavigation(
+      navigation = { navigator.showOfferWallScreen() },
+    )
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
@@ -199,7 +203,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
             { navigator.showGiftCardFragment() },
-            { navigator.showOfferWallScreen() },
+            challengeRewardNavigation,
           )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
