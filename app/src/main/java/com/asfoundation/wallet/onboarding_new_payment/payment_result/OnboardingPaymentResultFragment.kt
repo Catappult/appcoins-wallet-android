@@ -183,7 +183,8 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     val purchaseBonusMessage = args.forecastBonus.getPurchaseBonusMessage(formatter)
     if (StringUtils.isNotBlank(purchaseBonusMessage)) {
       views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
-      setupTransactionCompleteAnimation(purchaseBonusMessage)
+      views.genericSuccessLayout.transactionSuccessBonusText.text = String.format(getString(R.string.purchase_success_bonus_received_title), purchaseBonusMessage)
+      //setupTransactionCompleteAnimation(purchaseBonusMessage)
     } else {
       views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
@@ -191,18 +192,6 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun setupTransactionCompleteAnimation(purchaseBonusMessage: String) {
-    val textDelegate = TextDelegate(views.genericSuccessLayout.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", purchaseBonusMessage)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    views.genericSuccessLayout.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.genericSuccessLayout.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+
   }
 }

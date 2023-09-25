@@ -5,7 +5,8 @@
     android:id="@+id/onboarding_payment_header_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card_blue"
+    android:paddingBottom="8dp"
+    android:background="@drawable/background_card_dotted"
     >
   <ImageView
       android:id="@+id/onboarding_payment_game_icon"
@@ -61,6 +62,15 @@
       tools:text="€12.73"
       />
 
+  <ImageView
+      android:id="@+id/divider_image"
+      android:layout_width="match_parent"
+      android:layout_height="6dp"
+      android:layout_marginTop="8dp"
+      android:src="@drawable/dotted"
+      android:layerType="software"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"/>
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_payment_bonus_animation"
@@ -69,7 +79,7 @@
         android:layout_marginVertical="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"
+        app:layout_constraintTop_toBottomOf="@id/divider_image"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
