@@ -495,10 +495,11 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
-          .getName() == (Gateway.Name.myappcoins)
-          || paymentMethod.getGateway()
-          .getName() == (Gateway.Name.adyen_v2)) && !paymentMethod.isAvailable()) {
+      } else if (paymentMethod.getGateway() != null &&
+          (paymentMethod.getGateway().getName() == (Gateway.Name.myappcoins)
+              || paymentMethod.getGateway().getName() == (Gateway.Name.adyen_v2)
+              || paymentMethod.getGateway().getName() == Gateway.Name.challenge_reward
+          ) && !paymentMethod.isAvailable()) {
         iterator.remove();
       }
     }
