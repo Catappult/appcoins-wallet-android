@@ -158,6 +158,7 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
     ASK_FRIEND("ask_friend"),
+    CHALLENGE_REWARD("challenge_reward"),
     VKPAY("vk_pay")
   }
 }
