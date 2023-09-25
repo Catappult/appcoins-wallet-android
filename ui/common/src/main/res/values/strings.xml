@@ -266,6 +266,9 @@
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
   <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Reward</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -532,7 +535,7 @@
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  
+
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
@@ -772,7 +775,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -782,9 +785,9 @@
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
   <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Print it</b> and store it somewhere safe.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Save it</b> on a USB drive.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copy it</b> to a private and secure cloud storage.]]></string>
 
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">Maybe later</string>
@@ -1391,5 +1394,10 @@
   <string name="verify_card_code_example_amount">Amount</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+
+
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 
 </resources>

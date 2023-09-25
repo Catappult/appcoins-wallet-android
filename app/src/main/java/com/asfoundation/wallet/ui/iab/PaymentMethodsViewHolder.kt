@@ -42,7 +42,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.radioButton.isChecked = selected
     binding.radioButton.isEnabled = data.isEnabled
 
-    handleDescription(data, selected)
+    handleDescription(data, selected, data.isEnabled)
     handleFee(data.fee, data.isEnabled)
 
     binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
@@ -105,7 +105,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
   }
 
-  private fun handleDescription(data: PaymentMethod, selected: Boolean) {
+  private fun handleDescription(data: PaymentMethod, selected: Boolean, isEnabled: Boolean) {
     binding.paymentMethodDescription.text = data.label
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
@@ -114,6 +114,12 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.paymentMethodDescription.typeface =
         Typeface.create("sans-serif-medium", Typeface.BOLD)
     } else {
+      binding.paymentMethodDescription.setTextColor(  //
+        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
+      )
+      binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+    }
+    if(!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_light_grey)
       )

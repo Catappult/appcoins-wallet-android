@@ -127,6 +127,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter
           android:autoVerify="true"
+          android:priority="10"
           tools:ignore="UnusedAttribute">
         <action android:name="android.intent.action.VIEW" />
 
@@ -294,16 +295,6 @@
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
         tools:node="remove">
-    </provider>
-    <!--Needed to share file in android P and above -->
-    <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="${applicationId}.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-      <meta-data
-          android:name="android.support.FILE_PROVIDER_PATHS"
-          android:resource="@xml/file_provider_paths" />
     </provider>
   </application>
 

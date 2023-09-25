@@ -1,18 +1,14 @@
-plugins{
+plugins {
   id("appcoins.android.library")
-
+  id("appcoins.android.library.compose")
 }
 
-android{
+android {
   namespace = "com.appcoins.wallet.feature.backup.ui"
-  defaultConfig {
-    buildFeatures {
-      viewBinding = true
-    }
-  }
+  defaultConfig { buildFeatures { viewBinding = true } }
 }
 
-dependencies{
+dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":legacy:billing"))
   implementation(project(":feature:wallet-info:data"))
@@ -32,6 +28,8 @@ dependencies{
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.google.material)
+  implementation(libs.bundles.androidx.compose)
+  implementation(libs.bundles.coil)
   implementation(libs.google.gson)
-
+  implementation(libs.compose.lottie)
 }

@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Phí</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
   <string name="notification_completed_poa">Đã nhận phần thưởng!👌 Bạn sẽ phải chờ %1$s giờ %2$s phút để có thể kiếm thêm phần thưởng bằng cách trải nghiệm các ứng dụng ⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">Chờ xử lý</string>
   <string name="transaction_status_failed">Thất bại</string>
   <string name="transaction_status_reverted">Đã hoàn nguyên</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Mua hàng trong ứng dụng</string>
   <string name="transaction_type_poa">Phần thưởng</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">Mã đơn hàng</string>
   <string name="transaction_details_label">Chi tiết</string>
   <string name="transaction_to_label">Đến</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">Nhớ thẻ</string>
   <string name="notification_payment_refused">Từ chối thanh toán</string>
   <string name="dialog_credit_card_number">Số thẻ</string>
@@ -493,6 +498,7 @@
   <string name="play_button">Chơi</string>
   <string name="manage_wallet_button">Quản lý ví</string>
   <string name="log_out_button">Đăng xuất</string>
+  <string name="download_button">Download</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -553,6 +559,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Phương thức thanh toán khác</string>
   <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
   <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
   <string name="purchase_no_eth_body">Bạn không có đủ ETH để trả tiền xăng.</string>
@@ -615,6 +622,7 @@
   <string name="error_blocked_wallet_body">Vì lý do bảo mật, ví của bạn đã bị chặn. Vui lòng liên hệ với chúng tôi để biết thêm thông tin.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Phí bổ sung có thể được áp dụng.</string>
   <string name="purchase_error_paypal">Đã xảy ra sự cố với khoản thanh toán PayPal của bạn. Vui lòng thử lại hoặc sử dụng một phương thức thanh toán khác.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -706,6 +714,7 @@
   <string name="import_wallet_button">Khôi phục ví</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <string name="error_invalid_keystore">Kho khóa không hợp lệ</string>
   <string name="backup_title">Sao lưu ví của bạn ngay bây giờ!</string>
@@ -718,9 +727,9 @@
   <string name="backup_ready_email_button">Gửi đến email</string>
   <string name="backup_ready_device_button">Lưu trên thiết bị</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
-  <string name="backup_confirmation_tips_1"><b>In</b> và lưu trữ nó ở nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2"><b>Lưu</b> trên ổ USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>In</b> và lưu trữ nó ở nơi an toàn.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Lưu</b> trên ổ USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.]]></string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_tooltip_later_button">Để sau</string>
   <string name="backup_tooltip_backup_button">Sao lưu</string>
@@ -739,6 +748,8 @@
   <string name="backup_popup_purchase_body">Giữ tiền của bạn an toàn mọi lúc.</string>
   <string name="backup_popup_gamification_body">Giữ mức tiền thưởng của bạn an toàn mọi lúc.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
@@ -1213,25 +1224,28 @@
   <string name="manage_wallet_change_wallet_name_title">Thay đổi tên ví</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_title">Xác minh một phương thức thanh toán</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_payment_method_title">Xác minh một phương thức thanh toán</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_one_more_step_body">Chèn mã hiển thị trong chi tiết giao dịch</string>
+  <string name="verify_card_one_more_step_button">Nhập mã</string>
   <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_title">Xác minh thẻ</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>
   <string name="verify_card_get_a_code_button">Get a code</string>
   <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
   <string name="verify_card_code_example_title">Example of transaction summary</string>
   <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_description">Mô tả</string>
+  <string name="verify_card_code_example_amount">Số tiền</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
 </resources>
