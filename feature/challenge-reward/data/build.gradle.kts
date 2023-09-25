@@ -7,5 +7,8 @@ android {
 }
 
 dependencies {
+  implementation(project(":legacy:billing"))
+  implementation(project(":core:network:microservices"))
   implementation(libs.fyber.sdk)
+  implementation(libs.rx.rxjava)
 }
