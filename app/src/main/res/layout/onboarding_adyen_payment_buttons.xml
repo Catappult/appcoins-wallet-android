@@ -34,6 +34,7 @@
   <TextView
       android:id="@+id/adyen_payment_back_description"
       style="@style/TextS"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:maxWidth="100dp"

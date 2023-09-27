@@ -39,7 +39,7 @@
 
       <include
           android:id="@+id/generic_error_layout"
-          layout="@layout/support_error_layout"
+          layout="@layout/onboarding_support_error_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
@@ -68,7 +68,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="28dp"
-          android:visibility="visible"
+          android:visibility="gone"
+          tools:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -81,6 +82,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/large_margin"
           android:visibility="gone"
+          tools:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/generic_success_layout"

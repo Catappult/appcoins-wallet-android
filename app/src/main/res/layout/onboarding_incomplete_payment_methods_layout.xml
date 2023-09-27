@@ -13,6 +13,7 @@
       android:id="@+id/incomplete_payment_methods_title"
       style="@style/TextS"
       android:layout_width="0dp"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/normal_margin"
       android:text="@string/other_payment_methos_title"
@@ -25,6 +26,7 @@
   <TextView
       android:id="@+id/incomplete_payment_methods_text_list"
       style="@style/TextS"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/normal_margin"

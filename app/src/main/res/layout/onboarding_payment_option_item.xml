@@ -24,6 +24,7 @@
   <TextView
       android:id="@+id/payment_option_item_title"
       style="@style/TextS"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"

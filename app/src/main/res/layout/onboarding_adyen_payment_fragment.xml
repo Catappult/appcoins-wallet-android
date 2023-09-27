@@ -43,6 +43,7 @@
           android:layout_height="wrap_content"
           android:text="@string/pay_with_card_title"
           android:visibility="gone"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintBottom_toTopOf="@id/adyen_card_form_pre_selected"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
@@ -61,7 +62,7 @@
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/onboarding_adyen_payment_title"
-          tools:visibility="visible"
+          tools:visibility="gone"
           />
       <include
           android:id="@+id/onboarding_adyen_payment_buttons"

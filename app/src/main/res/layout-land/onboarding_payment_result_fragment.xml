@@ -38,7 +38,7 @@
 
       <include
           android:id="@+id/generic_error_layout"
-          layout="@layout/support_error_layout"
+          layout="@layout/onboarding_support_error_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"

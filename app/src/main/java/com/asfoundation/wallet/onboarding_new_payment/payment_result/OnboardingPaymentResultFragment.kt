@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,6 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.SingleStateFragment
@@ -184,25 +181,19 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.GONE
     views.genericErrorButtons.root.visibility = View.GONE
-    views.genericSuccessLayout.root.visibility = View.VISIBLE
+    handleBonusAnimation()
+    views.genericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
     views.successButtons.root.visibility = View.VISIBLE
     views.onboardingPaymentMethodsLayout.visibility = View.GONE
-    handleBonusAnimation()
   }
 
   private fun handleBonusAnimation() {
     val purchaseBonusMessage = args.forecastBonus.getPurchaseBonusMessage(formatter)
     if (StringUtils.isNotBlank(purchaseBonusMessage)) {
-      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
-      views.genericSuccessLayout.transactionSuccessBonusText.text = String.format(getString(R.string.purchase_success_bonus_received_title), purchaseBonusMessage)
-      //setupTransactionCompleteAnimation(purchaseBonusMessage)
-    } else {
-      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      views.genericSuccessLayout.onboardingBonusSuccessLayout.visibility = View.VISIBLE
+      views.genericSuccessLayout.onboardingTransactionSuccessBonusText.text =
+        String.format(getString(R.string.bonus_granted_body), purchaseBonusMessage)
     }
-    views.genericSuccessLayout.lottieTransactionSuccess.playAnimation()
   }
 
-  private fun setupTransactionCompleteAnimation(purchaseBonusMessage: String) {
-
-  }
 }
