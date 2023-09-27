@@ -35,6 +35,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -48,6 +49,7 @@ import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -82,6 +84,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    ChallengeRewardManager.create(BuildConfig.FYBER_APP_ID, requireActivity())
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -188,9 +195,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderNoPurchases()
           }
 
-          RewardsActions({ navigator.navigateToWithdrawScreen() },
+          RewardsActions(
+            { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() })
+            { navigator.showGiftCardFragment() },
+            { navigator.showOfferWallScreen() },
+          )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
       }
