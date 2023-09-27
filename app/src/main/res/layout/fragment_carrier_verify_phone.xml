@@ -50,7 +50,7 @@
       android:text="@string/carrier_billing_insert_phone_body"
       app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/line_separator"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       />
 
   <TextView
@@ -96,9 +96,9 @@
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         app:ccpDialog_background="@drawable/ccp_background"
-        app:ccpDialog_textColor="@color/styleguide_light_grey"
+        app:ccpDialog_textColor="@color/styleguide_payments_main_text"
         app:ccp_arrowColor="@color/styleguide_dark_grey"
-        app:ccp_contentColor="@color/styleguide_light_grey"
+        app:ccp_contentColor="@color/styleguide_payments_main_text"
         app:ccp_arrowSize="16dp"
         app:ccp_autoDetectCountry="true"
         app:ccp_rememberLastSelection="true"

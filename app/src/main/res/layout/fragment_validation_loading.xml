@@ -17,7 +17,7 @@
       android:maxLines="1"
       android:text="@string/verification_validating_title"
       android:textSize="16sp"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"

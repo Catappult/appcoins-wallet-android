@@ -10,10 +10,10 @@
       android:layout_height="match_parent"
       app:layout_constraintTop_toTopOf="parent"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/styleguide_payments_blue"
+      app:shimmer_base_color="@color/styleguide_payments_skeleton"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
+      app:shimmer_highlight_color="@color/styleguide_payments_skeleton_shimmer"
       >
 
     <View
@@ -32,10 +32,10 @@
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/payments_skeleton_secondary"
+      app:shimmer_base_color="@color/styleguide_payments_skeleton_secondary"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
+      app:shimmer_highlight_color="@color/styleguide_payments_skeleton_shimmer"
       >
     <View
         android:layout_width="match_parent"
@@ -52,10 +52,10 @@
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/payments_skeleton_secondary"
+      app:shimmer_base_color="@color/styleguide_payments_skeleton_secondary"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/payments_skeleton_shimmer"
+      app:shimmer_highlight_color="@color/styleguide_payments_skeleton_shimmer"
       app:shimmer_shape="radial"
       >
     <View

@@ -33,7 +33,7 @@
       android:layout_marginTop="10dp"
       android:maxLines="1"
       android:text="@string/provide_wallet_creating_wallet_header"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:visibility="gone"
       tools:visibility="visible"
       />

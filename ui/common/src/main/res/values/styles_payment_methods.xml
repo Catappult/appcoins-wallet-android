@@ -20,17 +20,17 @@
 
   <style name="PaymentMethods.Carrier.TextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.Title" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.FiatValueText" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">15sp</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.AppcValueText" parent="PaymentMethods.Carrier.TextStyle">
@@ -45,7 +45,7 @@
   </style>
 
   <style name="PaymentMethods.Carrier.PhoneFieldError">
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textStyle">normal</item>
@@ -60,18 +60,18 @@
     <item name="boxStrokeColor">@null</item>
     <item name="boxBackgroundMode">none</item>
     <item name="hintEnabled">false</item>
-    <item name="colorControlActivated">@color/styleguide_light_grey</item>
+    <item name="colorControlActivated">@color/styleguide_payments_main_text</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="colorControlNormal">@color/styleguide_light_grey</item>
-    <item name="colorControlHighlight">@color/styleguide_light_grey</item>
+    <item name="colorControlNormal">@color/styleguide_payments_main_text</item>
+    <item name="colorControlHighlight">@color/styleguide_payments_main_text</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
-    <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
+    <item name="android:textColorPrimary">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="PaymentMethods.Carrier.PhoneNumberEditText">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
     <item name="android:singleLine">true</item>
     <item name="hintTextColor">@color/styleguide_dark_grey</item>
     <item name="android:maxLines">1</item>
@@ -82,9 +82,9 @@
     <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
     <item name="android:inputType">phone</item>
     <item name="android:textCursorDrawable">@drawable/text_cursor</item>
-    <item name="colorControlActivated">@color/styleguide_light_grey</item>
-    <item name="colorControlNormal">@color/styleguide_light_grey</item>
-    <item name="colorControlHighlight">@color/styleguide_light_grey</item>
+    <item name="colorControlActivated">@color/styleguide_payments_main_text</item>
+    <item name="colorControlNormal">@color/styleguide_payments_main_text</item>
+    <item name="colorControlHighlight">@color/styleguide_payments_main_text</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
     <item name="editTextStyle">@style/editTextStyle</item>
   </style>
