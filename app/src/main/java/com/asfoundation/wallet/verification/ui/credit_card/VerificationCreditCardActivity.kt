@@ -51,7 +51,6 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
         if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
-    setTitle("")
     toolbar()
     presenter.present(savedInstanceState)
   }
