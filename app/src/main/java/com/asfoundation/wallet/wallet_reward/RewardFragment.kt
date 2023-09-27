@@ -5,11 +5,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -28,10 +37,24 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.*
+import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
+import com.appcoins.wallet.ui.widgets.ActivePromoCodeComposable
+import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.appcoins.wallet.ui.widgets.GamificationHeader
+import com.appcoins.wallet.ui.widgets.GamificationHeaderNoPurchases
+import com.appcoins.wallet.ui.widgets.GamificationHeaderPartner
+import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
+import com.appcoins.wallet.ui.widgets.RewardsActions
+import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.VipReferralCard
+import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
-import com.asfoundation.wallet.promotions.model.*
+import com.asfoundation.wallet.promotions.model.DefaultItem
+import com.asfoundation.wallet.promotions.model.FutureItem
+import com.asfoundation.wallet.promotions.model.GamificationItem
+import com.asfoundation.wallet.promotions.model.PromoCodeItem
+import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +103,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun RewardScreen(
     modifier: Modifier = Modifier,
