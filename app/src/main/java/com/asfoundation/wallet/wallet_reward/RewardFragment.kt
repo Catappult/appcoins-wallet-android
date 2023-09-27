@@ -35,6 +35,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -79,6 +80,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    ChallengeRewardManager.create(this.requireActivity())
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -184,9 +190,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderNoPurchases()
           }
 
-          RewardsActions({ navigator.navigateToWithdrawScreen() },
+          RewardsActions(
+            { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() })
+            { navigator.showGiftCardFragment() },
+            { navigator.showOfferWallScreen() },
+          )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
       }
