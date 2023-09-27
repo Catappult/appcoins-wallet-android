@@ -499,6 +499,7 @@
   <string name="manage_wallet_button">ウォレットの管理</string>
   <string name="log_out_button">ログアウト</string>
   <string name="download_button">Download</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -1248,4 +1249,6 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>

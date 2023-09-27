@@ -499,6 +499,7 @@
   <string name="manage_wallet_button">Διαχείριση wallet</string>
   <string name="log_out_button">Αποσύνδεση</string>
   <string name="download_button">Λήψη</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -1262,4 +1263,6 @@ Wallets</item>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>
