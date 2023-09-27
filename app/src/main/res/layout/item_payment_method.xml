@@ -64,7 +64,7 @@
       android:layout_marginStart="17dp"
       android:ellipsize="end"
       android:gravity="start"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
       app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
       app:layout_constraintHorizontal_bias="0"
@@ -151,13 +151,13 @@
       android:layout_marginEnd="@dimen/normal_margin"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="Logout"
-      android:foregroundTint="@color/styleguide_light_grey"
-      android:src="@drawable/ic_more"
+      android:foregroundTint="@color/styleguide_payments_main_text"
+      android:src="@drawable/ic_more_dark"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
       app:layout_constraintTop_toTopOf="parent"
-      app:tint="@color/styleguide_light_grey"
+      app:tint="@color/styleguide_payments_main_text"
       />
 
   <LinearLayout

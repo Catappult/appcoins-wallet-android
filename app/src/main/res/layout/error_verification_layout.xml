@@ -28,7 +28,7 @@
       android:lineSpacingExtra="4sp"
       android:text="@string/error_general"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:textSize="20sp"
       android:textStyle="bold"
       android:visibility="gone"

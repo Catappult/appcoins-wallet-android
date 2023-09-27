@@ -30,7 +30,7 @@
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="@dimen/backup_success_text_margin_top"
       android:text="@string/activity_iab_transaction_completed_title"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       app:layout_constraintBottom_toTopOf="@id/description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

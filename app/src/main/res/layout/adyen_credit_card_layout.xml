@@ -143,7 +143,7 @@
           android:id="@+id/bottom_separator_buttons_cc"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@color/styleguide_payments_blue"
+          android:background="@color/styleguide_payments_separator"
           app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"
           app:line_orientation="horizontal"
           app:line_type="solid"

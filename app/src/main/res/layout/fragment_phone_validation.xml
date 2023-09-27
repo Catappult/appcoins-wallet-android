@@ -80,7 +80,7 @@
         android:imeOptions="flagNoExtractUi|flagNoFullscreen"
         android:inputType="phone"
         android:maxLines="1"
-        android:textColor="@color/styleguide_light_grey"
+        android:textColor="@color/styleguide_payments_main_text"
         android:textSize="16sp"
         />
   </com.google.android.material.textfield.TextInputLayout>

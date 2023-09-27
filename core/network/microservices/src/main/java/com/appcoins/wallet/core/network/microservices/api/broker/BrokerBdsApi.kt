@@ -43,7 +43,7 @@ interface BrokerBdsApi {
     @Query("direct") direct: Boolean? = null,
     @Query("transaction.type") type: String?,
     @Query("domain") packageName: String?,
-    @Query("dark_theme") darkTheme: Boolean = true
+    @Query("dark_theme") darkTheme: Boolean = false
   ): Single<GetMethodsResponse>
 
   @FormUrlEncoded

@@ -19,7 +19,7 @@
   <style name="AdyenCheckout.Card.StorePaymentSwitch" parent="AdyenCheckout.Switch">
     <item name="android:text">@string/dialog_credit_card_remember</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_adyen_field</item>
     <item name="android:paddingStart">0dp</item>
     <item name="android:paddingTop">0dp</item>
     <item name="android:paddingEnd">0dp</item>
@@ -38,14 +38,14 @@
     <item name="android:layout_height">@dimen/input_height</item>
     <item name="android:textCursorDrawable">@drawable/cursor</item>
     <item name="android:textSize">16sp</item>
-    <item name="editTextStyle">@style/editTextStyle</item>
+    <item name="editTextStyle">@style/editTextPaymentStyle</item>
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">8dp</item>
     <!-- The textDirection and textAlignment attributes ensure consistent display behaviour with RTL locales -->
     <item name="android:textDirection">ltr</item>
     <item name="android:textAlignment">viewStart</item>
     <item name="android:imeOptions">flagNoExtractUi</item>
-    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_payments_adyen_field</item>
   </style>
 
   <string name="checkout_security_code_not_valid" translatable="false">@string/purchase_card_error_CVV</string>

@@ -47,7 +47,7 @@
           android:gravity="center"
           android:lineSpacingExtra="8sp"
           android:text="@string/activity_aib_loading_title"
-          android:textColor="@color/styleguide_light_grey"
+          android:textColor="@color/styleguide_payments_main_text"
           android:textSize="24sp"
           />
       <TextView
@@ -104,7 +104,7 @@
           android:id="@+id/bonus_background"
           android:layout_width="0dp"
           android:layout_height="0dp"
-          android:background="@color/styleguide_payments_blue_secondary"
+          android:background="@color/styleguide_payments_background"
           app:layout_constraintTop_toTopOf="@id/bonus_layout"
           app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
           app:layout_constraintStart_toStartOf="@id/bonus_layout"
