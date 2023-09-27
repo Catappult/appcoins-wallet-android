@@ -52,6 +52,7 @@ dependencies {
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":home"))
+  implementation(project(":feature:challenge-reward:data"))
 
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)

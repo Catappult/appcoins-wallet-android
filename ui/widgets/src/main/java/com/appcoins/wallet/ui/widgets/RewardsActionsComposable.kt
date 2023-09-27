@@ -33,7 +33,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 fun RewardsActions(
   onClickEskills: () -> Unit,
   onClickPromoCode: () -> Unit,
-  onClickGiftCard: () -> Unit
+  onClickGiftCard: () -> Unit,
+  onClickOfferWall: () -> Unit,
 ) {
   val scrollState = rememberScrollState()
   Row(
@@ -43,6 +44,12 @@ fun RewardsActions(
       .padding(top = 24.dp),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
+    ActionCard(
+      image = R.drawable.ic_challenge_reward,
+      title = R.string.challenge_reward_card_title,
+      description = R.string.challenge_reward_card_body,
+      onClick = onClickOfferWall,
+    )
     ActionCard(
       image = R.drawable.ic_promocode,
       title = R.string.rewards_promo_code_card_title,
@@ -69,7 +76,7 @@ fun ActionCard(
   @DrawableRes image: Int,
   @StringRes title: Int,
   @StringRes description: Int,
-  onClick: () -> Unit
+  onClick: () -> Unit,
 ) {
   Card(
     modifier = Modifier
@@ -113,6 +120,7 @@ private fun PreviewRewardsActions() {
   RewardsActions(
     { },
     { },
-    { }
+    { },
+    { },
   )
 }
