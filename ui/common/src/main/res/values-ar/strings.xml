@@ -499,6 +499,7 @@
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
   <string name="download_button">تنزيل</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -1314,4 +1315,6 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>

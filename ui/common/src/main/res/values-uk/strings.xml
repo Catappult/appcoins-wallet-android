@@ -501,6 +501,7 @@
   <string name="manage_wallet_button">Керувати гаманцем</string>
   <string name="log_out_button">Вийти</string>
   <string name="download_button">Завантажити</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -1289,4 +1290,6 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>

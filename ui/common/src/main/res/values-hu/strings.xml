@@ -499,6 +499,7 @@
   <string name="manage_wallet_button">Wallet kezelése</string>
   <string name="log_out_button">Kijelentkezés</string>
   <string name="download_button">Download</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -1261,4 +1262,6 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">Challenge Reward</string>
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>
