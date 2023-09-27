@@ -1129,26 +1129,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Kapitalizacja</string>
   <string name="appcoins_info_volume_title">Wartość (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">W tym portfelu nie masz jeszcze żadnych NFT!</string>
-  <string name="nfts_transact_button">Wyślij te NFT</string>
-  <string name="nfts_transact_button_send">Wyślij</string>
-  <string name="nfts_transact_button_next">Następny</string>
-  <string name="nfts_transact_button_done">Zrobione</string>
-  <string name="nfts_transact_button_success">Rozumiem</string>
-  <string name="nfts_transact_tip">Wprowadź adres portfela znajomego</string>
-  <string name="nfts_transact_input_tip">Adres portfela...</string>
-  <string name="nfts_transact_done_mensage">Wysłano %s!</string>
-  <string name="nfts_generic_error">Ojej, coś poszło nie tak!</string>
-  <string name="nfts_transact_gas_title">Spieszysz się?</string>
-  <string name="nfts_transact_gas_description">Wybierz, ile chcesz wpłacić. Im wyższa opłata, tym szybsza transakcja.</string>
-  <string name="nfts_transact_gas_price">Cena gazu</string>
-  <string name="nfts_transact_gas_limit">Limit gazu</string>
-  <string name="nfts_transact_gas_fee_message">Koszt transakcji</string>
-  <string name="nfts_transact_error_no_funds">Za mało funduszy! Nie masz wystarczająco dużo ETH, by zapłacić.</string>
-  <string name="nfts_transact_error_low_gas">Za mało gasu! Zwiększ ilość gasu dla sieci, by zaakceptować transakcję.</string>
-  <string name="nfts_transact_error_already_in_progress">Te NFT są w trakcie wysyłki. Trwa poprzednia transakcja.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Odzyskaj kod prezentowy</string>
   <string name="gift_card_field">Wpisz kod karty</string>
@@ -1253,7 +1233,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktywny</string>
   <string name="rewards_promo_code_status_expired">Wygasł</string>
-  <string name="home_nft_title">Portfel AppCoins obsługuje teraz NFT</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Dokonaj pierwszego zakupu w grze kompatybilnej z AppCoins i odblokuj bonus przy każdym zakupie.</string>

@@ -1132,26 +1132,6 @@
   <string name="appcoins_info_explorer_title">एक्सप्लोरर</string>
   <string name="appcoins_info_market_cap_title">मार्केट कॅप</string>
   <string name="appcoins_info_volume_title">एकुण उलाढाल (२४ तास)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">एनएफटी</string>
-  <string name="nfts_no_nfts">अजुनपर्यंत आपल्या ह्या वॉलेटमध्ये एनएफटी नाही!</string>
-  <string name="nfts_transact_button">ही एनएफटी पाठवा</string>
-  <string name="nfts_transact_button_send">पाठवा</string>
-  <string name="nfts_transact_button_next">पुढचे</string>
-  <string name="nfts_transact_button_done">झाले</string>
-  <string name="nfts_transact_button_success">समजले</string>
-  <string name="nfts_transact_tip">आपल्या स्नेह्याचा वॉलेट पत्ता भरा</string>
-  <string name="nfts_transact_input_tip">वॉलेट पत्ता इथे...</string>
-  <string name="nfts_transact_done_mensage">%s सफलतेने पाठविले!</string>
-  <string name="nfts_generic_error">अरेरे! काहीतरी चूक झाली!</string>
-  <string name="nfts_transact_gas_title">घाई आहे?</string>
-  <string name="nfts_transact_gas_description">शुल्क म्हणुन किती भरायचे ते निवडा. जितके जास्त शुल्क तितका लवकर व्यवहार.</string>
-  <string name="nfts_transact_gas_price">गॅस किंमत</string>
-  <string name="nfts_transact_gas_limit">गॅस सीमा</string>
-  <string name="nfts_transact_gas_fee_message">व्यवहार शुल्क</string>
-  <string name="nfts_transact_error_no_funds">पुरेसे पैसे नाहीत! शुल्क भरण्यासाठी पुरेसे ईटीएच आपल्याकडे नाहीत.</string>
-  <string name="nfts_transact_error_low_gas">गॅस फार कमी! आपला व्यवहार मान्य करविण्यासाठी नेटवर्कचा आपला गॅस वाढवा.</string>
-  <string name="nfts_transact_error_already_in_progress">ही एनएफटी आधीच पाठविली जात आहे! आधीचा व्यवहार सध्या प्रक्रियागत आहे.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
   <string name="gift_card_field">कार्ड कोड इथे...</string>
@@ -1248,7 +1228,6 @@
   <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
   <string name="rewards_promo_code_status_expired">कालबाह्य</string>
-  <string name="home_nft_title">आता अॅपकॉइन्स वॉलेट एनएफटीला समर्थन देते</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
