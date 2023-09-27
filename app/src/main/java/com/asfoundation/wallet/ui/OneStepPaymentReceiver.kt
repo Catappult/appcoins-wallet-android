@@ -54,13 +54,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     super.onCreate(savedInstanceState)
 
     if (savedInstanceState == null) analytics.startTimingForOspTotalEvent()
-    if (isEskillsUri(intent.dataString!!)) {
-      val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
-      skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
-      @Suppress("DEPRECATION")
-      startActivityForResult(skillsActivityIntent, REQUEST_CODE)
-    } else {
-      setContentView(R.layout.activity_iab_wallet_creation)
+    setContentView(R.layout.activity_iab_wallet_creation)
       walletCreationCard = findViewById(R.id.create_wallet_card)
       walletCreationAnimation = findViewById(R.id.create_wallet_animation)
       walletCreationText = findViewById(R.id.create_wallet_text)
@@ -73,7 +67,13 @@ class OneStepPaymentReceiver : BaseActivity() {
               .flatMap { transaction: TransactionBuilder ->
                 inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
                   .doOnSuccess { isBds: Boolean ->
-                    startOneStepTransfer(transaction, isBds)
+                    if (isEskillsUri(intent.dataString!!)) {
+                      val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
+                      skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
+                      @Suppress("DEPRECATION")
+                      startActivityForResult(skillsActivityIntent, REQUEST_CODE)
+                    }
+                    else{startOneStepTransfer(transaction, isBds)}
                   }
               }
               .toObservable()
@@ -84,7 +84,6 @@ class OneStepPaymentReceiver : BaseActivity() {
           })
       }
     }
-  }
 
   @Suppress("DEPRECATION")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
