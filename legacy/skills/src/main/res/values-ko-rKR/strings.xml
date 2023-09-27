@@ -11,6 +11,8 @@
   <string name="get_button">얻기</string>
   <string name="got_it_button">알겠습니다</string>
   <string name="install_button">설치</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
@@ -58,30 +60,40 @@
   <string name="not_enough_funds_body">자본이 부족합니다! 입장 티켓을 구매하여 충전하세요.</string>
   <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
   <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-Skills 게임을 플레이하실 수 없습니다.</string>
-  <string name="restart_btn_text">재시작</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">상대의 게임 종료를 기다리는 중입니다.</string>
-  <string name="opponent_details">(%1$s did %2$d points)</string>
-  <string name="retry_btn_text">RETRY</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
-  <string name="rank_score_details">%1$d points</string>
-  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
-  <string name="you_won">You Won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="days">Days</string>
-  <string name="hours">Hours</string>
-  <string name="minutes">Minutes</string>
-  <string name="seconds">Seconds</string>
+  <plurals name="days">
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">Seconds</item>
+  </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward attributed in</string>
-  <string name="current_top_3">Current top 3</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="retry">재시도</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
+  <string name="leaderboard_button">Leaderboards</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">돈 벌기</string>
   <string name="eskills_carousel_body">e-Skills로 다른 플레이어들을 무찌르세요</string>

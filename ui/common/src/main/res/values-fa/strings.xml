@@ -499,6 +499,7 @@
   <string name="manage_wallet_button">مدیریت کیف‌پول</string>
   <string name="log_out_button">خروج از سیستم</string>
   <string name="download_button">دانلود</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -1261,4 +1262,6 @@
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">چالش پاداش</string>
   <string name="challenge_reward_card_body">یک چالش را کامل کنید تا AppCoins Credits دریافت کنید.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>
