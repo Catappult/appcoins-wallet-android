@@ -99,7 +99,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="18dp"
       android:layout_marginEnd="@dimen/small_margin"
-      android:src="@drawable/ic_logo_appc_support_light"
+      android:src="@drawable/ic_logo_appc_support"
       app:layout_constraintEnd_toStartOf="@id/layout_support_icn"
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
