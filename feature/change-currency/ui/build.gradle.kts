@@ -1,13 +1,10 @@
-plugins {
-  id("appcoins.android.library.compose")
-}
+plugins { id("appcoins.android.library.compose") }
 
-android {
-  namespace = "com.appcoins.wallet.feature.changecurrency.ui"
-}
+android { namespace = "com.appcoins.wallet.feature.changecurrency.ui" }
 
 dependencies {
   implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:backup:ui"))
   implementation(project(":core:arch"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:utils:android-common"))

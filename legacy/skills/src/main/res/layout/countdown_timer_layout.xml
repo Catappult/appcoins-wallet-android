@@ -6,15 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     >
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/countdown_timer_spacing"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        app:cardBackgroundColor="@color/styleguide_white"
-        app:cardCornerRadius="8dp"
-        android:id="@+id/countdown_days_container">
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/countdown_timer_spacing"
+      android:layout_weight="1"
+      android:orientation="horizontal"
+      app:cardBackgroundColor="@color/styleguide_white"
+      app:cardCornerRadius="8dp"
+      android:id="@+id/countdown_days_container">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,21 +37,21 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="@string/days"
+          tools:text="Days"
           style="@style/CountdownTimer.Text" />
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/countdown_timer_spacing"
-        android:layout_weight="1"
-        app:cardBackgroundColor="@color/styleguide_white"
-        android:orientation="horizontal"
-        app:cardCornerRadius="8dp"
-        >
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/countdown_timer_spacing"
+      android:layout_weight="1"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,20 +72,20 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="@string/hours"
+          tools:text="Hours"
           style="@style/CountdownTimer.Text" />
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_weight="1"
-        app:cardBackgroundColor="@color/styleguide_white"
-        android:orientation="horizontal"
-        app:cardCornerRadius="8dp"
-        >
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="6dp"
+      android:layout_weight="1"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,20 +106,20 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="@string/minutes"
+          tools:text="Minutes"
           style="@style/CountdownTimer.Text" />
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="6dp"
-        app:cardBackgroundColor="@color/styleguide_white"
-        android:orientation="horizontal"
-        app:cardCornerRadius="8dp"
-        >
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginStart="6dp"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,9 +140,9 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="@string/seconds"
+          tools:text="Seconds"
           style="@style/CountdownTimer.Text" />
     </LinearLayout>
-    </androidx.cardview.widget.CardView>
+  </androidx.cardview.widget.CardView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

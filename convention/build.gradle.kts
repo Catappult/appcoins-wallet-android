@@ -1,14 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-  `kotlin-dsl`
-}
+plugins { `kotlin-dsl` }
 
 group = "com.appcoins.wallet.convention"
 
-tasks.withType<KotlinCompile> {
-  kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
-}
+tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString() }
 
 dependencies {
   implementation(libs.gradlePlugin.android)
@@ -16,6 +12,8 @@ dependencies {
   implementation(libs.gradlePlugin.hilt)
   implementation(libs.gradlePlugin.ksp)
   implementation(libs.gradlePlugin.junit5)
+  implementation(libs.firebase.crashlytics.gradlePlugin)
+  implementation(libs.firebase.performance.gradlePlugin)
 }
 
 gradlePlugin {
@@ -55,6 +53,10 @@ gradlePlugin {
     register("JacocoLibrary") {
       id = "appcoins.jacoco.library"
       implementationClass = "com.appcoins.wallet.convention.plugins.JacocoLibraryPlugin"
+    }
+    register("FirebasePlugin") {
+      id = "appcoins.firebase"
+      implementationClass = "com.appcoins.wallet.convention.plugins.FirebasePlugin"
     }
   }
 }

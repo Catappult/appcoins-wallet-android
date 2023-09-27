@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Rating.DialogCardStyle"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:paddingTop="25dp"
-    android:paddingBottom="25dp"
+    android:layout_marginHorizontal="16dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
     android:theme="@style/MaterialAppTheme"
     >
 
@@ -24,11 +25,10 @@
   <TextView
       android:id="@+id/title"
       style="@style/Rating.Title"
-      android:layout_width="192dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="60dp"
       android:layout_marginTop="20dp"
-      android:layout_marginEnd="60dp"
+      android:layout_marginHorizontal="24dp"
       android:gravity="center"
       android:text="@string/rate_us_improve_title"
       app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
       app:layout_constraintTop_toBottomOf="@+id/animation"
       />
 
-  <com.asfoundation.wallet.rating.common.MultilineInputText
+  <com.appcoins.wallet.ui.common.MultilineInputText
       android:id="@+id/feedback_input_text"
       android:layout_width="0dp"
       android:layout_height="146dp"
@@ -63,12 +63,12 @@
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/no_button"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="@dimen/small_button_height"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="0dp"
       app:buttonText="@string/no_thanks_button"
-      app:buttonType="outlined"
+      app:buttonType="outlined_grey"
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/submit_button"
@@ -77,7 +77,7 @@
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/submit_button"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="@dimen/small_button_height"
       android:layout_marginTop="22dp"
       android:layout_marginHorizontal="@dimen/big_margin"

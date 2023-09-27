@@ -7,6 +7,12 @@
   <string name="cancel">Otkaži</string>
   <string name="buy_button">Kupi</string>
   <string name="topup_button">Dopunite</string>
+  <string name="downloading">Preuzimanje</string>
+  <string name="get_button">Preuzmi</string>
+  <string name="got_it_button">Jasno</string>
+  <string name="install_button">Instaliraj</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="processing_loading_title">Vaša ulaznica je u pripremi</string>
   <string name="finding_room_loading_title">Čekaju se protivnici</string>
@@ -54,4 +60,57 @@
   <string name="not_enough_funds_body">Nemate dovoljno sredstava! Dopunite da biste kupili ulaznicu.</string>
   <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
   <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa „rutovanim” uređajem.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Čekaju se protivnici da završe igru.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="few">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="few">%1$d points</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="few">Days</item>
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="few">Hours</item>
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="few">Minutes</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="few">Seconds</item>
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Zaradite novac</string>
+  <string name="eskills_carousel_body">Pobedite druge igrače sa e-Skills</string>
+  <string name="eskills_game_1">Instalirajte e-Skills igru za koju smatrate da vam dobro ide.</string>
+  <string name="carousel_game_2">Otvorite je i preuzmite ulaznicu da biste započeli meč protiv drugih igrača.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Opis</string>
 </resources>

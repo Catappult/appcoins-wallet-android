@@ -39,7 +39,7 @@
   <string name="ok">わかりました</string>
   <string name="barcode_error_format">無効なバーコード形式: %s</string>
   <string name="title_delete_account">本当にこのウォレットを削除しますか？</string>
-  <string name="twitter">Twitter</string>
+  <string name="twitter">X</string>
   <string name="telegram">テレグラムグループ</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">コミュニティ</string>
@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">すべての詳細をチェックする：残高、商品、ネットワーク...</string>
   <string name="activity_iab_buying_message">詳細をチェック \nあなたの商品を受け取っています...</string>
   <string name="activity_iab_change_card">カードの変更</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">手数料</string>
   <string name="notification_ongoing_poa">報酬を処理しています</string>
   <string name="notification_completed_poa">報酬を受け取りました！👌 アプリを試してさらに報酬を得るためには、%1$sh%2$sm待ちましょう⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">処理中</string>
   <string name="transaction_status_failed">失敗</string>
   <string name="transaction_status_reverted">返金</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">アプリ内購入</string>
   <string name="transaction_type_poa">リワード</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">オーダーID</string>
   <string name="transaction_details_label">詳細</string>
   <string name="transaction_to_label">宛て</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">リメンバーカード</string>
   <string name="notification_payment_refused">支払い拒否</string>
   <string name="dialog_credit_card_number">カード番号</string>
@@ -310,6 +315,8 @@
   <string name="transaction_reverted_body">この購入は取り消されました。\n詳しくはサポートにお問い合わせください。</string>
   <string name="transaction_status_rejected">拒否</string>
   <string name="transaction_details_header">トランザクション詳細</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
@@ -491,6 +498,8 @@
   <string name="play_button">プレイ</string>
   <string name="manage_wallet_button">ウォレットの管理</string>
   <string name="log_out_button">ログアウト</string>
+  <string name="download_button">Download</string>
+  <string name="done">Done!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -551,6 +560,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_button">その他の支払方法</string>
+  <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
   <string name="purchase_appcoins_available_body">少額のETHを使って手数料を支払います。</string>
   <string name="purchase_appcoins_noavailable_body">この購入に必要なAppCoinまたはEtherがありません。</string>
   <string name="purchase_no_eth_body">ガスを購入するために十分なETHがありません。</string>
@@ -613,6 +623,7 @@
   <string name="error_blocked_wallet_body">セキュリティ上の理由により、お客様のウォレットはブロックされています。お手数ですが、弊社までご連絡ください。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -704,6 +715,7 @@
   <string name="import_wallet_button">ウォレットの復元</string>
   <string name="import_wallet_password_body">このウォレットはパスワードで保護されています！</string>
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
   <string name="error_invalid_keystore">無効なキーストアです</string>
   <string name="backup_title">ウォレットのバックアップ!</string>
@@ -716,9 +728,9 @@
   <string name="backup_ready_email_button">メールに送信</string>
   <string name="backup_ready_device_button">デバイスに保存</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1"><b>印刷</b>して安全な場所に保管。</string>
-  <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
-  <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>印刷</b>して安全な場所に保管。]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>USBメモリ</b>に保存する。]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[安全なプライベートクラウドストレージに<b>コピー</b>する。]]></string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
@@ -736,6 +748,9 @@
   <string name="backup_popup_title">今すぐウォレットをバックアップ！</string>
   <string name="backup_popup_purchase_body">資金を常に安全に管理する。</string>
   <string name="backup_popup_gamification_body">ボーナスレベルを常に安全に保つ。</string>
+  <string name="backup_error_body">バックアップファイルを作成できませんでした。後でもう一度お試しください。</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>
@@ -821,7 +836,7 @@
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
   <string name="subscriptions_cancel_no_button">いいえ、戻る</string>
-  <string name="subscriptions_cancel_yes_button">はい、サブスクリプションをキャンセルします</string>
+  <string name="subscriptions_cancel_yes_button">はい、キャンセルします</string>
   <string name="subscriptions_cancel_confirmation_title">購読がキャンセルされました！</string>
   <string name="subscriptions_cancel_confirmation_body">この購読には今後課金されませんが、%sまでお使いいただけます。</string>
   <string name="subscriptions_category_title">購読</string>
@@ -1192,15 +1207,15 @@
   <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
   <string name="rewards_spend_to_next_level_body">ネットレベルに到達するために、さらに%1$s%2$sを使う！</string>
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
-  <string name="rewards_eskills_card_title">お金を稼ごう！</string>
-  <string name="rewards_eskills_card_body">e-Skillで他のプレイヤーに勝とう</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">e-Skillsの収益を引き出す</string>
   <string name="rewards_promo_code_card_title">プロモーションコード</string>
   <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
   <string name="rewards_promo_code_status">状況:</string>
   <string name="rewards_promo_code_status_active">有効</string>
   <string name="rewards_promo_code_status_expired">期限切れ</string>
   <string name="home_nft_title">AppCoinsウォレットがNFTに対応しました。</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins対応ゲーム</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
   <string name="rewards_bonus_every_purchase_title">購入のたびに%s%% ボーナスをゲット</string>
@@ -1208,6 +1223,32 @@
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
   <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">ウォレットの名前を設定</string>
+  <string name="manage_wallet_my_wallet_address_title">マイウォレットのアドレス</string>
+  <string name="manage_wallet_verify_title">支払い方法の確認</string>
+  <string name="manage_wallet_verify_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">支払い方法の認証</string>
+  <string name="verify_card_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
+  <string name="verify_card_one_more_step_title">認証までのもう１ステップ</string>
+  <string name="verify_card_one_more_step_body">取引詳細に表示されるコードを挿入</string>
+  <string name="verify_card_one_more_step_button">コードを挿入</string>
+  <string name="verify_card_verified">支払い方法が認証されました！</string>
+  <string name="verify_card_view_title">カードの認証</string>
+  <string name="verify_card_view_disclaimer">お客様のカードに%sをチャージし、コードを確認次第返金いたします</string>
+  <string name="verify_card_view_title_2">銀行カード情報を入力</string>
+  <string name="verify_card_get_a_code_button">コードを入手</string>
+  <string name="verify_card_code_title">お取引の詳細でコードを検索</string>
+  <string name="verify_card_code_body">カード発行会社から提供される取引概要に、固有のコードが表示されます</string>
+  <string name="verify_card_code_example_title">取引概要の例</string>
+  <string name="verify_card_code_example_date">取引日</string>
+  <string name="verify_card_code_example_description">内容</string>
+  <string name="verify_card_code_example_amount">金額</string>
+  <string name="verify_card_code_enter_title">4桁のコードを入力</string>
+  <string name="verify_card_code_refund_body">%sは、コードを確認した後、24時間以内に返金されます</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>
