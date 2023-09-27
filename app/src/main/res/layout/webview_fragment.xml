@@ -95,7 +95,7 @@
           android:layout_marginTop="24dp"
           android:gravity="center"
           android:text="Gojek"
-          android:textColor="@color/styleguide_light_grey"
+          android:textColor="@color/styleguide_payments_main_text"
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

@@ -47,7 +47,7 @@
           android:gravity="center"
           android:lineSpacingExtra="8sp"
           android:text="@string/activity_aib_loading_title"
-          android:textColor="@color/styleguide_light_grey"
+          android:textColor="@color/styleguide_payments_main_text"
           android:textSize="24sp"
           />
 
@@ -219,7 +219,7 @@
             android:id="@+id/bonus_background"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/styleguide_payments_blue_secondary"
+            android:background="@color/styleguide_payments_background"
             app:layout_constraintTop_toTopOf="@id/bonus_layout"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             />
@@ -245,7 +245,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/styleguide_payments_blue"
+            android:background="@color/styleguide_payments_separator"
             app:layout_constraintTop_toBottomOf="@id/content_main"
             app:line_orientation="horizontal"
             app:line_type="solid"

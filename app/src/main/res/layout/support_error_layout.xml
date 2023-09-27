@@ -28,7 +28,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

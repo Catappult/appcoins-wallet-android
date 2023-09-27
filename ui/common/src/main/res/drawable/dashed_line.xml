@@ -4,7 +4,7 @@
 
   <stroke
       android:width="0.8dp"
-      android:color="@color/styleguide_payments_blue"
+      android:color="@color/styleguide_payments_separator"
       android:dashWidth="2dp"
       android:dashGap="3dp" />
   

@@ -53,7 +53,7 @@
           android:layout_height="wrap_content"
           android:layout_marginEnd="4dp"
           android:text="@string/gamification_purchase_header_part_1"
-          android:textColor="@color/styleguide_bonus_yellow"
+          android:textColor="@color/styleguide_pink"
           />
 
       <TextView
@@ -70,7 +70,7 @@
 
     <TextView
         android:id="@+id/bonus_message"
-        style="@style/TopUpTextStyle.Small.BonusText"
+        style="@style/TopUpTextStyle.Small.BonusTextPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gamification_purchase_body"

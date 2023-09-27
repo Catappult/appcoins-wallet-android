@@ -72,7 +72,7 @@
       android:layout_height="1dp"
       android:layout_below="@id/info_view"
       android:layout_marginTop="@dimen/big_margin"
-      android:background="@color/styleguide_payments_blue"
+      android:background="@color/styleguide_payments_separator"
       />
 
   <include

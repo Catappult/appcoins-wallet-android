@@ -11,8 +11,16 @@
   <color name="styleguide_light_grey">#F5F5F5</color>
   <color name="styleguide_white">#FFFFFFFF</color>
   <color name="styleguide_black">#000000</color>
+
   <color name="styleguide_payments_blue">#1D1E28</color>
   <color name="styleguide_payments_blue_secondary">#282937</color>
+  <color name="styleguide_payments_adyen_field">#919191</color>
+  <color name="styleguide_payments_background">#F5F5FA</color>
+  <color name="styleguide_payments_main_text">#1A1A23</color>
+  <color name="styleguide_payments_separator">#DDDDDD</color>
+  <color name="styleguide_payments_skeleton">#E2E2E2</color>
+  <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
+  <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
 
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
