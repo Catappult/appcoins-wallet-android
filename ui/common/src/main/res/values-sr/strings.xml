@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Upravljajte novčanikom</string>
   <string name="log_out_button">Odjava</string>
   <string name="download_button">Preuzmi</string>
-  <string name="done">Done!</string>
+  <string name="done">Gotovo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
