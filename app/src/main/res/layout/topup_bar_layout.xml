@@ -40,15 +40,4 @@
         />
 
   </LinearLayout>
-
-  <com.google.android.material.imageview.ShapeableImageView
-      android:id="@+id/bar_corners"
-      android:layout_width="match_parent"
-      android:layout_height="24dp"
-      android:src="@drawable/topup_bar"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/top_bar"
-      />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
