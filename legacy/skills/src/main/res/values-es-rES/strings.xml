@@ -11,7 +11,7 @@
   <string name="get_button">Obtener</string>
   <string name="got_it_button">Ok</string>
   <string name="install_button">Instalar</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">Volver a intentar</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Creando dirección pública&#8230;</string>
   <string name="processing_loading_title">Obteniendo tu ticket de entrada</string>
@@ -89,7 +89,7 @@
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="other">Minutos</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>
