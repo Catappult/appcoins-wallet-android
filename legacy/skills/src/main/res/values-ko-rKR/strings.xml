@@ -11,8 +11,8 @@
   <string name="get_button">얻기</string>
   <string name="got_it_button">알겠습니다</string>
   <string name="install_button">설치</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">재시도</string>
+  <string name="restart_button">재시작</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
