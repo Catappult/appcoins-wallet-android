@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">จัดการวอลเล็ต</string>
   <string name="log_out_button">ลงชื่อออก</string>
   <string name="download_button">ดาวน์โหลด</string>
-  <string name="done">Done!</string>
+  <string name="done">เสร็จสิ้น!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
