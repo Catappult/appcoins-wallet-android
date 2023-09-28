@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Gérer le portefeuille</string>
   <string name="log_out_button">Déconnexion</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Terminé !</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
