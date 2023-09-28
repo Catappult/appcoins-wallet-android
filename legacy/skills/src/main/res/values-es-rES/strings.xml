@@ -12,7 +12,7 @@
   <string name="got_it_button">Ok</string>
   <string name="install_button">Instalar</string>
   <string name="retry_button">Volver a intentar</string>
-  <string name="restart_button">Restart</string>
+  <string name="restart_button">Reiniciar</string>
   <string name="provide_wallet_creating_wallet_header">Creando dirección pública&#8230;</string>
   <string name="processing_loading_title">Obteniendo tu ticket de entrada</string>
   <string name="finding_room_loading_title">Esperando adversarios</string>
@@ -64,42 +64,42 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Esperando adversarios para finalizar el juego.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="one">(%1$s hizo %2$d punto)</item>
+    <item quantity="other">(%1$s hizo %2$d puntos)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="one">%1$d punto</item>
+    <item quantity="other">%1$d puntos</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f$ fueron abonados en tu wallet)</string>
+  <string name="you_won">¡Ganaste! %1$s</string>
+  <string name="you_lost_timeout">Se acabó el tiempo, ¡has perdido! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="one">Día</item>
+    <item quantity="other">Días</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="one">Hora</item>
+    <item quantity="other">Horas</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">Minute</item>
+    <item quantity="one">Minuto</item>
     <item quantity="other">Minutos</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="one">Segundo</item>
+    <item quantity="other">Segundos</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Próxima recompensa en</string>
+  <string name="current_top_3">Top 3 actual</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Clasificaciones</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Gana Dinero</string>
   <string name="eskills_carousel_body">Vence a otros jugadores con e-Skills</string>
