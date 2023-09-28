@@ -11,8 +11,8 @@
   <string name="get_button">मिळवा</string>
   <string name="got_it_button">समजले</string>
   <string name="install_button">इंस्टॉल</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">पुन्हा प्रयत्न करा</string>
+  <string name="restart_button">परत सुरु करा</string>
   <string name="provide_wallet_creating_wallet_header">वॉलेट पत्ता तयार करत आहे &#8230;</string>
   <string name="processing_loading_title">आपले प्रवेश तिकिट मिळविणे</string>
   <string name="finding_room_loading_title">प्रतिस्पर्ध्यांसाठी थांबत आहोत</string>
