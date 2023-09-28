@@ -11,8 +11,8 @@
   <string name="get_button">Al</string>
   <string name="got_it_button">Anladım</string>
   <string name="install_button">Yükle</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Tekrar deneyin</string>
+  <string name="restart_button">Yeniden Başlat</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
