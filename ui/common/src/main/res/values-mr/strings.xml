@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">वॉलेटचे व्यवस्थापन करा</string>
   <string name="log_out_button">लॉग आऊट</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">झाले!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
