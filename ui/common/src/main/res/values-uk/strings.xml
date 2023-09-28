@@ -501,7 +501,7 @@
   <string name="manage_wallet_button">Керувати гаманцем</string>
   <string name="log_out_button">Вийти</string>
   <string name="download_button">Завантажити</string>
-  <string name="done">Done!</string>
+  <string name="done">Готово!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
