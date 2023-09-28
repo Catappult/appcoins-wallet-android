@@ -5,7 +5,7 @@
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/styleguide_blue"
+
     >
 
   <ImageView
@@ -13,7 +13,6 @@
       android:layout_width="60dp"
       android:layout_height="60dp"
       android:src="@drawable/ic_error_pink"
-      android:importantForAccessibility="no"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +27,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +98,6 @@
       android:layout_marginTop="18dp"
       android:layout_marginEnd="@dimen/small_margin"
       android:src="@drawable/ic_logo_appc_support_light"
-      android:contentDescription="@string/title_support"
       app:layout_constraintEnd_toStartOf="@id/layout_support_icn"
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +110,6 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/small_margin"
       android:src="@drawable/ic_open_in_24"
-      android:contentDescription="@string/title_support"
       app:layout_constraintBottom_toBottomOf="@id/layout_support_logo"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/layout_support_logo"
