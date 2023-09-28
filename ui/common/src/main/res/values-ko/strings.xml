@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">지갑 관리</string>
   <string name="log_out_button">로그아웃</string>
   <string name="download_button">다운로드</string>
-  <string name="done">Done!</string>
+  <string name="done">완료!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
