@@ -11,8 +11,8 @@
   <string name="get_button">ရယူမည္</string>
   <string name="got_it_button">သိပါၿပီ</string>
   <string name="install_button">ထည့္သြင္းပါ</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">ျပန္ႀကိဳးစားမည္</string>
+  <string name="restart_button">ျပန္စမည္</string>
   <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
   <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
