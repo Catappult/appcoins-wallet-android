@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Quản lý ví</string>
   <string name="log_out_button">Đăng xuất</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Hoàn thành!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
