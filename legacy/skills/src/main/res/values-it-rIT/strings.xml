@@ -11,7 +11,7 @@
   <string name="get_button">Ottieni</string>
   <string name="got_it_button">Ricevuto</string>
   <string name="install_button">Avvia l\'installazione</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">Riprova</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Creazione indirizzo wallet in corso&#8230;</string>
   <string name="processing_loading_title">Ottieni il tuo biglietto d\'ingresso</string>
