@@ -485,9 +485,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun changeMainValueColor(isValid: Boolean) {
     if (isValid) {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_blue_transparent_90))
+      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     } else {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_medium_grey))
+      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_dark_grey))
     }
   }
 

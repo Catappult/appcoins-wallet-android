@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card"
+    android:background="@color/styleguide_blue"
     android:theme="@style/AdyenMaterialAppTheme"
     >
   <ScrollView
@@ -44,6 +44,7 @@
           android:focusable="true"
           android:focusableInTouchMode="true"
           android:gravity="center"
+          android:textColor="@color/styleguide_light_grey"
           android:hint="0"
           android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
           android:inputType="numberDecimal"
@@ -118,7 +119,7 @@
           android:layout_marginStart="32dp"
           android:layout_marginTop="8dp"
           android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
+          android:background="@color/styleguide_blue"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/value_warning_text"
@@ -164,9 +165,9 @@
             android:id="@+id/payments_skeleton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -175,15 +176,15 @@
             app:layout_constraintTop_toTopOf="parent"
             >
           <include
-              layout="@layout/skeleton_payments"
+              layout="@layout/skeleton_payments_dark"
               android:layout_width="match_parent"
-              android:layout_height="48dp"
+              android:layout_height="64dp"
               />
           <include
-              layout="@layout/skeleton_payments"
+              layout="@layout/skeleton_payments_dark"
               android:layout_width="match_parent"
-              android:layout_height="48dp"
-              android:layout_marginTop="4dp"
+              android:layout_height="64dp"
+              android:layout_marginTop="8dp"
               />
         </LinearLayout>
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -194,7 +195,7 @@
           android:layout_height="1dp"
           android:layout_marginStart="32dp"
           android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
+          android:background="@color/styleguide_blue"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/payment_container"
@@ -236,7 +237,7 @@
 
       <include
           android:id="@+id/bonus_layout_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
+          layout="@layout/skeleton_rounded_rectangle_dark"
           android:layout_width="0dp"
           android:layout_height="0dp"
           app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
@@ -246,7 +247,7 @@
           />
       <include
           android:id="@+id/bonus_msg_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
+          layout="@layout/skeleton_rounded_rectangle_dark"
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_marginStart="80dp"

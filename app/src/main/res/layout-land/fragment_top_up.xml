@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card"
+    android:background="@color/styleguide_blue"
     android:theme="@style/AdyenMaterialAppTheme"
     >
 
@@ -55,6 +55,7 @@
           android:focusable="true"
           android:focusableInTouchMode="true"
           android:gravity="center"
+          android:textColor="@color/styleguide_light_grey"
           android:hint="0"
           android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
           android:inputType="numberDecimal"
@@ -171,7 +172,7 @@
 
       <include
           android:id="@+id/bonus_layout_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
+          layout="@layout/skeleton_rounded_rectangle_dark"
           android:layout_width="0dp"
           android:layout_height="0dp"
           app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
@@ -181,7 +182,7 @@
           />
       <include
           android:id="@+id/bonus_msg_skeleton"
-          layout="@layout/skeleton_rounded_rectangle"
+          layout="@layout/skeleton_rounded_rectangle_dark"
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_marginStart="56dp"
@@ -198,7 +199,7 @@
           android:layout_height="1dp"
           android:layout_marginStart="32dp"
           android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
+          android:background="@color/styleguide_blue"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
@@ -254,14 +255,14 @@
               app:layout_constraintTop_toTopOf="parent"
               >
             <include
-                layout="@layout/skeleton_payments"
+                layout="@layout/skeleton_payments_dark"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="64dp"
                 />
             <include
-                layout="@layout/skeleton_payments"
+                layout="@layout/skeleton_payments_dark"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="8dp"
                 />
           </LinearLayout>
@@ -275,7 +276,7 @@
           android:layout_height="1dp"
           android:layout_marginStart="32dp"
           android:layout_marginEnd="32dp"
-          android:background="#eaeaea"
+          android:background="@color/styleguide_blue"
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"

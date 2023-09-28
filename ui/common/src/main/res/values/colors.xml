@@ -22,6 +22,10 @@
   <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
   <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
 
+  <color name="styleguide_topup_skeleton">#1D1E28</color>
+  <color name="styleguide_topup_skeleton_secondary">#2E2D3B</color>
+  <color name="styleguide_topup_skeleton_shimmer">#313040</color>
+
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
   <color name="styleguide_green2">#64BA92</color>
