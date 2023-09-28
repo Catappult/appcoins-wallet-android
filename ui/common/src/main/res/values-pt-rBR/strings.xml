@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Gerenciar carteira</string>
   <string name="log_out_button">Sair</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Pronto!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
