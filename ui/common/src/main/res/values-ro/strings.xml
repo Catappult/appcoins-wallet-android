@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Gestionează portofel</string>
   <string name="log_out_button">Deconectează-te</string>
   <string name="download_button">Descarcă</string>
-  <string name="done">Done!</string>
+  <string name="done">Gata!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
