@@ -11,8 +11,8 @@
   <string name="get_button">Preuzmi</string>
   <string name="got_it_button">Jasno</string>
   <string name="install_button">Instaliraj</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Pokušaj ponovo</string>
+  <string name="restart_button">Pokreni ponovo</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="processing_loading_title">Vaša ulaznica je u pripremi</string>
   <string name="finding_room_loading_title">Čekaju se protivnici</string>
@@ -93,8 +93,8 @@
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="few">Minutes</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="few">Minuta</item>
+    <item quantity="other">Minuta</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>
