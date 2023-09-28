@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">ပိုက္ဆံအိတ္ကို စီမံမည္</string>
   <string name="log_out_button">အေကာင့္ထြက္မည္</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">ၿပီးပါၿပီ။</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
