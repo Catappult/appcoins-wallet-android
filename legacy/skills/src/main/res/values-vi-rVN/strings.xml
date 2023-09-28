@@ -11,7 +11,7 @@
   <string name="get_button">Tải</string>
   <string name="got_it_button">Đã hiểu</string>
   <string name="install_button">Cài đặt</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">Thử lại</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Đang tạo địa chỉ ví&#8230;</string>
   <string name="processing_loading_title">Tải vé tham gia của bạn</string>
