@@ -11,8 +11,8 @@
   <string name="get_button">Nemen</string>
   <string name="got_it_button">Begrepen</string>
   <string name="install_button">Installeren</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Opnieuw proberen</string>
+  <string name="restart_button">Herstarten</string>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
   <string name="processing_loading_title">Toegangsticket ophalen</string>
   <string name="finding_room_loading_title">Wachten op tegenstanders</string>
