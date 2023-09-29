@@ -1120,26 +1120,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Tržišna vrednost</string>
   <string name="appcoins_info_volume_title">Obim (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">Još uvek nemate nijedan NFT u ovom novčaniku!</string>
-  <string name="nfts_transact_button">Pošaljite ovaj NFT</string>
-  <string name="nfts_transact_button_send">Pošaljite</string>
-  <string name="nfts_transact_button_next">Sledeće</string>
-  <string name="nfts_transact_button_done">Gotovo</string>
-  <string name="nfts_transact_button_success">Jasno</string>
-  <string name="nfts_transact_tip">Unesite adresu novčanika svog prijatelja</string>
-  <string name="nfts_transact_input_tip">Adresa novčanika ovde...</string>
-  <string name="nfts_transact_done_mensage">%s je uspešno poslat!</string>
-  <string name="nfts_generic_error">Ups! Došlo je do greške!</string>
-  <string name="nfts_transact_gas_title">Da li se žurite?</string>
-  <string name="nfts_transact_gas_description">Izaberite koliku naknadu želite da platite. Što je veća naknada, transakcija je brža.</string>
-  <string name="nfts_transact_gas_price">Cena gasa</string>
-  <string name="nfts_transact_gas_limit">Ograničenje gasa</string>
-  <string name="nfts_transact_gas_fee_message">Naknada za transakciju</string>
-  <string name="nfts_transact_error_no_funds">Nedovoljno sredstava! Nemate dovoljno ETH da platite naknade.</string>
-  <string name="nfts_transact_error_low_gas">Nivo gasa je suviše nizak! Povećajte nivo gasa kako bi mreža mogla da prihvati vašu transakciju.</string>
-  <string name="nfts_transact_error_already_in_progress">Ovaj NFT se već šalje! Prethodna transakcija je u toku.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Iskoristite kod sa poklon-kartice</string>
   <string name="gift_card_field">Kod sa kartice ovde...</string>
@@ -1240,7 +1220,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktivne</string>
   <string name="rewards_promo_code_status_expired">Istekao</string>
-  <string name="home_nft_title">AppCoins Wallet sada podržava NFT-jeve</string>
   <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
