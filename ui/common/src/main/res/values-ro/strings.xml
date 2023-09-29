@@ -1120,26 +1120,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Capitalizare bursieră</string>
   <string name="appcoins_info_volume_title">Volum (24 h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT-uri</string>
-  <string name="nfts_no_nfts">Nu ai încă NFT-uri în acest portofel!</string>
-  <string name="nfts_transact_button">Trimite acest NFT</string>
-  <string name="nfts_transact_button_send">Trimite</string>
-  <string name="nfts_transact_button_next">Următorul</string>
-  <string name="nfts_transact_button_done">Gata</string>
-  <string name="nfts_transact_button_success">Am înțeles</string>
-  <string name="nfts_transact_tip">Introdu adresa portofelului prietenului tău</string>
-  <string name="nfts_transact_input_tip">Adresă portofel aici...</string>
-  <string name="nfts_transact_done_mensage">%s trimise cu succes!</string>
-  <string name="nfts_generic_error">Ups! Ceva nu a mers cum trebuie!</string>
-  <string name="nfts_transact_gas_title">Te grăbești?</string>
-  <string name="nfts_transact_gas_description">Alege cât de mult vrei să plătești pentru comisioane. Cu cât este mai mare comisionul, cu atât mai rapidă este tranzacția.</string>
-  <string name="nfts_transact_gas_price">Preț benzină</string>
-  <string name="nfts_transact_gas_limit">Limită benzină</string>
-  <string name="nfts_transact_gas_fee_message">Comision tranzacție</string>
-  <string name="nfts_transact_error_no_funds">Fonduri insuficiente! Nu ai destule ETH pentru a plăti comisioanele.</string>
-  <string name="nfts_transact_error_low_gas">Ai prea puțin gaz! Crește cantitatea de gaz pentru rețea ca să îți accepte tranzacția.</string>
-  <string name="nfts_transact_error_already_in_progress">Acest NFT se trimite deja! O tranzacție anterioară se află în curs de procesare.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Revendică-ți codul de card cadou</string>
   <string name="gift_card_field">Cod card aici...</string>
@@ -1240,7 +1220,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Activ</string>
   <string name="rewards_promo_code_status_expired">Expirat</string>
-  <string name="home_nft_title">AppCoins Wallet este compatibil acum și cu NFT-uri</string>
   <string name="home_appcoins_compatible_games_title">Jocuri compatibile AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Fă prima achiziție într-un joc compatibil AppCoins și deblochează un bonus la fiecare achiziție.</string>
