@@ -22,9 +22,11 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -108,6 +110,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -227,7 +232,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     super.onResume()
   }
 
-  override fun showChallengeReward() = iabView.showChallengeReward()
+  override fun showChallengeReward() {
+    challengeRewardAnalytics.sendChallengeRewardEvent(ChallengeRewardFlowPath.IAP.id)
+    iabView.showChallengeReward()
+  }
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
