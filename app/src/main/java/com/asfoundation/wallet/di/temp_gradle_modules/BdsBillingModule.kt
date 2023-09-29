@@ -2,7 +2,7 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
@@ -49,9 +49,9 @@ class BdsBillingModule {
   fun provideBillingFactory(
     walletService: WalletService,
     bdsRepository: BdsRepository,
-    oemIdExtractorService: OemIdExtractorService
+    partnerAddressService: PartnerAddressService
   ): Billing =
-    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), oemIdExtractorService)
+    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
 
   @Singleton
   @Provides

@@ -12,7 +12,7 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
 import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
@@ -116,7 +116,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var ewtObtainer: EwtAuthenticatorService
 
   @Inject
-  lateinit var oemIdExtractorService: OemIdExtractorService
+  lateinit var partnerAddressService: PartnerAddressService
 
   companion object {
     private val TAG = App::class.java.name
@@ -257,6 +257,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   override fun ewtObtainer() = ewtObtainer
 
-  override fun oemIdExtractorService() = oemIdExtractorService
+  override fun partnerAddressService() = partnerAddressService
 
 }

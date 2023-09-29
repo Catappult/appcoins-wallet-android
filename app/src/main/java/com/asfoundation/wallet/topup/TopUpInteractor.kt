@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -34,7 +34,7 @@ class TopUpInteractor @Inject constructor(
   private var supportInteractor: SupportInteractor,
   private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val oemIdExtractorService: OemIdExtractorService
+  private val partnerAddressService: PartnerAddressService
 ) {
 
   private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
@@ -45,14 +45,14 @@ class TopUpInteractor @Inject constructor(
     currency: String,
     packageName: String
   ): Single<List<PaymentMethod>> =
-    oemIdExtractorService.extractOemId(packageName).flatMap { entityOemId ->
+    partnerAddressService.getAttributionEntity(packageName).flatMap { attributionEntity ->
       repository.getPaymentMethods(
         value = value,
         currency = currency,
         currencyType = "fiat",
         direct = true,
         transactionType = "TOPUP",
-        entityOemId = entityOemId
+        entityOemId = attributionEntity.oemId
       )
         .map { mapPaymentMethods(it, currency) }
     }

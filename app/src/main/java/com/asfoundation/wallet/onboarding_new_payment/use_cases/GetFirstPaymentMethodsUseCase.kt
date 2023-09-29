@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class GetFirstPaymentMethodsUseCase @Inject constructor(
   private val bdsRepository: BdsRepository,
-  private val oemIdExtractorService: OemIdExtractorService,
+  private val partnerAddressService: PartnerAddressService,
 ) {
 
   companion object {
@@ -24,13 +24,15 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
-    return oemIdExtractorService.extractOemId(packageName = cachedTransaction.packageName ?: "")
-      .flatMap { entityOemId ->
+    return partnerAddressService.getAttributionEntity(
+      packageName = cachedTransaction.packageName ?: ""
+    )
+      .flatMap { attributionEntity ->
         bdsRepository.getPaymentMethods(
           cachedTransaction.value.toString(),
           cachedTransaction.currency,
           packageName = cachedTransaction.packageName,
-          entityOemId = entityOemId
+          entityOemId = attributionEntity.oemId
         )
           .flatMap { paymentMethods ->
             removeUnavailableMethods(paymentMethods)

@@ -2,7 +2,7 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -15,7 +15,7 @@ class BdsBilling(
   private val repository: BillingRepository,
   private val walletService: WalletService,
   private val errorMapper: BillingThrowableCodeMapper,
-  private val oemIdExtractorService: OemIdExtractorService,
+  private val partnerAddressService: PartnerAddressService,
 ) : Billing {
   override fun getWallet(packageName: String): Single<String> {
     return repository.getWallet(packageName)
@@ -100,13 +100,13 @@ class BdsBilling(
     transactionType: String,
     packageName: String
   ): Single<List<PaymentMethodEntity>> {
-    return oemIdExtractorService.extractOemId(packageName).flatMap { entityOemId ->
+    return partnerAddressService.getAttributionEntity(packageName).flatMap { attributionEntity ->
       repository.getPaymentMethods(
         value,
         currency,
         transactionType = transactionType,
         packageName = packageName,
-        entityOemId = entityOemId
+        entityOemId = attributionEntity.oemId
       )
     }
   }

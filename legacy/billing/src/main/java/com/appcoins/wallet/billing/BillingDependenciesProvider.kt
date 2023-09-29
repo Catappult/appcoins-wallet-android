@@ -1,7 +1,7 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
@@ -31,6 +31,6 @@ interface BillingDependenciesProvider {
 
   fun ewtObtainer(): EwtAuthenticatorService
 
-  fun oemIdExtractorService(): OemIdExtractorService
+  fun partnerAddressService(): PartnerAddressService
 
 }

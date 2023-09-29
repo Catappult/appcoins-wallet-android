@@ -15,6 +15,7 @@ dependencies {
   implementation(project(":core:network:bds"))
   implementation(project(":core:walletServices"))
   implementation(project(":core:network:base"))
+  implementation(project(":core:analytics"))
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)
@@ -26,6 +27,5 @@ dependencies {
   }
   implementation(libs.bundles.jackson)
   implementation(libs.spongycastle.core)
-  implementation(project(mapOf("path" to ":core:analytics")))
   testImplementation(libs.bundles.testing)
 }

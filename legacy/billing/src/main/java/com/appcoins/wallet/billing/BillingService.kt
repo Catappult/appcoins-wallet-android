@@ -47,7 +47,7 @@ class BillingService : Service() {
           ),
           dependenciesProvider.walletService(),
           BillingThrowableCodeMapper(),
-          dependenciesProvider.oemIdExtractorService()
+          dependenciesProvider.partnerAddressService()
         )
       },
       serializer,
