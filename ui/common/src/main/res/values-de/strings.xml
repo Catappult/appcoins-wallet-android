@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Marktkapitalisierung</string>
   <string name="appcoins_info_volume_title">Volumen (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Du hast noch keine NFTs in dieser Wallet!</string>
-  <string name="nfts_transact_button">Dieses NFT versenden</string>
-  <string name="nfts_transact_button_send">Senden</string>
-  <string name="nfts_transact_button_next">Weiter</string>
-  <string name="nfts_transact_button_done">Erledigt</string>
-  <string name="nfts_transact_button_success">Verstanden</string>
-  <string name="nfts_transact_tip">Gib die Wallet-Adresse deines Freundes ein</string>
-  <string name="nfts_transact_input_tip">Wallet-Adresse hier eingeben...</string>
-  <string name="nfts_transact_done_mensage">%s erfolgreich gesendet!</string>
-  <string name="nfts_generic_error">Hoppla! Etwas ist schief gelaufen!</string>
-  <string name="nfts_transact_gas_title">Hast du es eilig?</string>
-  <string name="nfts_transact_gas_description">Wähle aus, wie viel du an Gebühren zahlen willst. Je höher die Gebühr, desto schneller die Transaktion.</string>
-  <string name="nfts_transact_gas_price">Gaspreis</string>
-  <string name="nfts_transact_gas_limit">Gas-Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaktionsgebühr</string>
-  <string name="nfts_transact_error_no_funds">Nicht genug Guthaben! Du hast nicht genug ETH, um die Gebühren zu bezahlen.</string>
-  <string name="nfts_transact_error_low_gas">Der Gaspreis ist zu niedrig! Erhöhe deinen Gaspreis, damit das Netzwerk deine Transaktion akzeptiert.</string>
-  <string name="nfts_transact_error_already_in_progress">Dieses NFT wird bereits versendet! Eine frühere Transaktion ist bereits im Gange.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Löse deinen Geschenkkartencode ein</string>
   <string name="gift_card_field">Den Code der Karte findest du hier...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktiv</string>
   <string name="rewards_promo_code_status_expired">Abgelaufen</string>
-  <string name="home_nft_title">Die AppCoins Wallet unterstützt jetzt NFTs</string>
   <string name="home_appcoins_compatible_games_title">AppCoins kompatible Spiele</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Tätige deinen ersten Kauf in einem AppCoins-kompatiblen Spiel und schalte bei jedem Kauf einen Bonus frei.</string>
