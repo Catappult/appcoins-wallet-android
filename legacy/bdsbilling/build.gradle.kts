@@ -16,5 +16,6 @@ dependencies {
 
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)
+  implementation(project(mapOf("path" to ":core:analytics")))
   testImplementation(libs.bundles.testing)
 }

@@ -26,5 +26,6 @@ dependencies {
   }
   implementation(libs.bundles.jackson)
   implementation(libs.spongycastle.core)
+  implementation(project(mapOf("path" to ":core:analytics")))
   testImplementation(libs.bundles.testing)
 }

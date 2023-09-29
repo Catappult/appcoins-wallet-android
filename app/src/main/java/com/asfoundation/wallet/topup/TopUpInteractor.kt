@@ -1,27 +1,26 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.asfoundation.wallet.ui.iab.*
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -34,21 +33,29 @@ class TopUpInteractor @Inject constructor(
   private var inAppPurchaseInteractor: InAppPurchaseInteractor,
   private var supportInteractor: SupportInteractor,
   private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val oemIdExtractorService: OemIdExtractorService
 ) {
 
   private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
   private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
-  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> =
-    repository.getPaymentMethods(
-      value = value,
-      currency = currency,
-      currencyType = "fiat",
-      direct = true,
-      transactionType = "TOPUP"
-    )
-      .map { mapPaymentMethods(it, currency) }
+  fun getPaymentMethods(
+    value: String,
+    currency: String,
+    packageName: String
+  ): Single<List<PaymentMethod>> =
+    oemIdExtractorService.extractOemId(packageName).flatMap { entityOemId ->
+      repository.getPaymentMethods(
+        value = value,
+        currency = currency,
+        currencyType = "fiat",
+        direct = true,
+        transactionType = "TOPUP",
+        entityOemId = entityOemId
+      )
+        .map { mapPaymentMethods(it, currency) }
+    }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

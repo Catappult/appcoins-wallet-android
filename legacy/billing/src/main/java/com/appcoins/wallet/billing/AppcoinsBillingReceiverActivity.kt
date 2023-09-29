@@ -11,7 +11,11 @@ import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.InAppMapper
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionsMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
@@ -57,11 +61,12 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
           dependenciesProvider.bdsApiSecondary(),
           dependenciesProvider.subscriptionsApi(),
           dependenciesProvider.ewtObtainer(),
-          dependenciesProvider.rxSchedulers()
+          dependenciesProvider.rxSchedulers(),
         )
       ),
       dependenciesProvider.walletService(),
-      BillingThrowableCodeMapper()
+      BillingThrowableCodeMapper(),
+      dependenciesProvider.oemIdExtractorService()
     )
 
 

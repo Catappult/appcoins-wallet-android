@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.core.analytics.analytics.partners.OemIdExtractorService
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -11,7 +12,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepository: BdsRepository) {
+class GetFirstPaymentMethodsUseCase @Inject constructor(
+  private val bdsRepository: BdsRepository,
+  private val oemIdExtractorService: OemIdExtractorService,
+) {
 
   companion object {
     private const val APPC_ID = "appcoins"
@@ -20,19 +24,23 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
-    return bdsRepository.getPaymentMethods(
-      cachedTransaction.value.toString(),
-      cachedTransaction.currency,
-      packageName = cachedTransaction.packageName
-    )
-      .flatMap { paymentMethods ->
-        removeUnavailableMethods(paymentMethods)
-          .flatMap { availablePaymentMethods ->
-            Observable.fromIterable(paymentMethods)
-              .map { paymentMethod ->
-                mapPaymentMethods(paymentMethod, availablePaymentMethods)
+    return oemIdExtractorService.extractOemId(packageName = cachedTransaction.packageName ?: "")
+      .flatMap { entityOemId ->
+        bdsRepository.getPaymentMethods(
+          cachedTransaction.value.toString(),
+          cachedTransaction.currency,
+          packageName = cachedTransaction.packageName,
+          entityOemId = entityOemId
+        )
+          .flatMap { paymentMethods ->
+            removeUnavailableMethods(paymentMethods)
+              .flatMap { availablePaymentMethods ->
+                Observable.fromIterable(paymentMethods)
+                  .map { paymentMethod ->
+                    mapPaymentMethods(paymentMethod, availablePaymentMethods)
+                  }
+                  .toList()
               }
-              .toList()
           }
       }
   }

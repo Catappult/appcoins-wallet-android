@@ -261,7 +261,8 @@ class RemoteRepository(
     currencyType: String?,
     direct: Boolean? = null,
     transactionType: String?,
-    packageName: String?
+    packageName: String?,
+    entityOemId: String?
   ): Single<List<PaymentMethodEntity>> =
     brokerBdsApi.getPaymentMethods(
       value = value,
@@ -269,7 +270,8 @@ class RemoteRepository(
       currencyType = currencyType,
       direct = direct,
       type = transactionType,
-      packageName = packageName
+      packageName = packageName,
+      entityOemId = entityOemId
     )
       .map { responseMapper.map(it) }
 
