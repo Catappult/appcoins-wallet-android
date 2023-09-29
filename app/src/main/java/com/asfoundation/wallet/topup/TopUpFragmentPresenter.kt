@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -8,6 +9,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
@@ -22,6 +24,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class TopUpFragmentPresenter(
   private val view: TopUpFragmentView,
@@ -42,6 +45,9 @@ class TopUpFragmentPresenter(
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
   var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
+
+  @Inject
+  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -487,8 +493,10 @@ class TopUpFragmentPresenter(
         paymentType = paymentMethod.paymentType,
         data = mapTopUpPaymentData(topUpData, gamificationLevel)
       )
-    } else if (paymentMethod.paymentType == PaymentType.CHALLENGE_REWARD)
+    } else if (paymentMethod.paymentType == PaymentType.CHALLENGE_REWARD) {
+      challengeRewardAnalytics.sendChallengeRewardEvent(ChallengeRewardFlowPath.TOPUP.id)
       ChallengeRewardManager.onNavigate()
+    }
   }
 
   private fun mapTopUpPaymentData(
