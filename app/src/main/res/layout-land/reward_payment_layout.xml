@@ -8,7 +8,7 @@
     android:background="@drawable/background_content_payments"
     android:elevation="2dp"
     android:minWidth="@dimen/payment_methods_width"
-    android:minHeight="408dp"
+    android:minHeight="180dp"
     >
 
   <include

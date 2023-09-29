@@ -9,6 +9,16 @@
   <color name="styleguide_dark_grey">#8E93A1</color>
   <color name="styleguide_white">#FFFFFFFF</color>
 
+  <color name="styleguide_payments_blue">#1D1E28</color>
+  <color name="styleguide_payments_blue_secondary">#282937</color>
+  <color name="styleguide_payments_adyen_field">#919191</color>
+  <color name="styleguide_payments_background">#F5F5FA</color>
+  <color name="styleguide_payments_main_text">#1A1A23</color>
+  <color name="styleguide_payments_separator">#DDDDDD</color>
+  <color name="styleguide_payments_skeleton">#E2E2E2</color>
+  <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
+  <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
+
   <color name="white">#FFFFFFFF</color>
   <color name="black">#000000</color>
   <color name="transparent">#00000000</color>
@@ -18,18 +28,22 @@
   <color name="colorAccent">#e44b46</color>
   <color name="statusBarColor">#154868</color>
   <color name="btn_start_gradient_color">#fc9d48</color>
+  <color name="styleguide_bonus_yellow">#F9B622</color>
   <color name="btn_end_gradient_color">#ff578c</color>
   <color name="btn_text_disable_color">#42000000</color>
   <color name="btn_text_enable_color">#ffffff</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_cancel_text">#8f000000</color>
   <color name="dialog_buy_value_text">#4e4e4e</color>
+  <color name="payments_skeleton_secondary">#2E2D3B</color>
+
 
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
   <color name="grey_alpha_active_54">#8a000000</color>
   <color name="light_gray">#ddd</color>
   <color name="appcoins_header_background">#F0F0F0</color>
+  <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="pending_payment_text_color">#727272</color>

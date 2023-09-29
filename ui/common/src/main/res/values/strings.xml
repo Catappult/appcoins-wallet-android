@@ -1124,6 +1124,7 @@
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_button">Verify bank card</string>
   <string name="verify_paypal_button">Verify PayPal account</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>

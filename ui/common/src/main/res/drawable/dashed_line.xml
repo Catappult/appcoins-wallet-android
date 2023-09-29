@@ -3,8 +3,9 @@
     android:shape="line">
 
   <stroke
-      android:color="@color/styleguide_light_grey"
-      android:dashGap="3dp"
+      android:width="0.8dp"
+      android:color="@color/styleguide_payments_separator"
       android:dashWidth="2dp"
-      android:width="0.8dp"/>
+      android:dashGap="3dp" />
+  
 </shape>

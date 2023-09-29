@@ -7,16 +7,14 @@
     android:layout_height="match_parent"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/verification_error_animation"
-      android:layout_width="66dp"
-      android:layout_height="66dp"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:src="@drawable/ic_error_pink"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/guideline_top"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
@@ -26,7 +24,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="23dp"
       android:text="@string/error_general"
-      android:textColor="@color/styleguide_light_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -103,18 +101,16 @@
   <TextView
       android:id="@+id/contact_us"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="8dp"
       android:layout_marginBottom="26dp"
       android:text="@string/error_contac_us_body"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_dark_grey"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/start_guideline"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintVertical_bias="1"
+      app:layout_constraintTop_toBottomOf="@+id/error_message"
       />
 
   <ImageView
