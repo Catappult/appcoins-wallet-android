@@ -1102,26 +1102,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">Anda belum ada NFT dalam dompet ini!</string>
-  <string name="nfts_transact_button">Hantar NFT ini</string>
-  <string name="nfts_transact_button_send">Hantar</string>
-  <string name="nfts_transact_button_next">Seterusnya</string>
-  <string name="nfts_transact_button_done">Selesai</string>
-  <string name="nfts_transact_button_success">Berjaya</string>
-  <string name="nfts_transact_tip">Masukkan alamat dompet rakan anda</string>
-  <string name="nfts_transact_input_tip">Alamat dompet di sini...</string>
-  <string name="nfts_transact_done_mensage">%s berjaya dihantar!</string>
-  <string name="nfts_generic_error">Oops! Ada yang tak kena!</string>
-  <string name="nfts_transact_gas_title">Anda nak cepat?</string>
-  <string name="nfts_transact_gas_description">Pilih berapa banyak anda mahu bayar untuk fi. Lebih tinggi fi, lebih pantas transaksi.</string>
-  <string name="nfts_transact_gas_price">Harga Minyak</string>
-  <string name="nfts_transact_gas_limit">Had Minyak</string>
-  <string name="nfts_transact_gas_fee_message">Fi Transaksi</string>
-  <string name="nfts_transact_error_no_funds">Dana tidak cukup! ETH anda tidak cukup untuk bayar fi.</string>
-  <string name="nfts_transact_error_low_gas">Minyak terlalu sedikit! Tingkatkan minyak anda supaya rangkaian dapat menerima transaksi anda.</string>
-  <string name="nfts_transact_error_already_in_progress">NFT ini sedang dihantar! Transaksi sebelum ini sedang diproses.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Tebus kod kad hadiah anda</string>
   <string name="gift_card_field">Kod kad di sini...</string>
@@ -1214,7 +1194,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Luput</string>
-  <string name="home_nft_title">Dompet AppCoins kini menyokong NFT</string>
   <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
