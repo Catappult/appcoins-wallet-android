@@ -425,7 +425,7 @@ class RemoteRepository(
             gateway = gateway,
             walletAddress = walletAddress,
             authorization = ewt,
-            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken)
+            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
           brokerBdsApi.createTransaction(
