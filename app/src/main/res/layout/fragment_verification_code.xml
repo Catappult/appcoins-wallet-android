@@ -34,7 +34,7 @@
 
       <TextView
           android:id="@+id/title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
@@ -52,11 +52,12 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
-          android:layout_marginTop="10dp"
+          android:layout_marginTop="4dp"
           android:layout_marginEnd="24dp"
           android:text="@string/card_verification_code_body"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          android:textColor="@color/styleguide_dark_grey"
           app:layout_constraintTop_toBottomOf="@id/title"
           />
 
@@ -66,7 +67,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="20dp"
-          android:layout_marginTop="@dimen/normal_margin"
+          android:layout_marginTop="16dp"
           android:layout_marginEnd="20dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +76,7 @@
 
       <TextView
           android:id="@+id/code_title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="27dp"
@@ -131,7 +132,6 @@
           android:layout_gravity="end"
           android:layout_marginStart="-32dp"
           android:layout_marginTop="26dp"
-          app:buttonIsAllCaps="true"
           app:buttonText="@string/card_verification_code_other_card_button"
           app:buttonType="text"
           app:layout_constraintStart_toStartOf="@+id/code"
@@ -141,7 +141,7 @@
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/confirm"
           android:layout_width="0dp"
-          android:layout_height="@dimen/small_button_height"
+          android:layout_height="@dimen/large_button_height"
           android:layout_alignParentBottom="true"
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="24dp"
@@ -157,13 +157,14 @@
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/maybe_later"
           android:layout_width="0dp"
-          android:layout_height="@dimen/small_button_height"
+          android:layout_height="@dimen/large_button_height"
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/normal_margin"
           android:layout_marginBottom="18dp"
           android:enabled="false"
           app:buttonText="@string/backup_tooltip_later_button"
           app:buttonType="outlined"
+          app:buttonColor="@color/styleguide_light_grey"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/confirm"
           app:layout_constraintVertical_bias="0"

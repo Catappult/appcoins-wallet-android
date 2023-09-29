@@ -175,7 +175,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
       setupTransactionCompleteAnimation()
     } else {
       views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)

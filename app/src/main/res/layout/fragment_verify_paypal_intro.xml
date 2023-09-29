@@ -41,7 +41,7 @@
       android:fontFamily="sans-serif-medium"
       android:gravity="center"
       android:text="@string/verification_verify_paypal_description"
-      android:textColor="@color/styleguide_black"
+      android:textColor="@color/styleguide_light_grey"
       android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@+id/verify_now_button"
       app:layout_constraintEnd_toEndOf="parent"

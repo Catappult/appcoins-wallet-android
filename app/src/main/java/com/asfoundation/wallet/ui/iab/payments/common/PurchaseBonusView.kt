@@ -19,19 +19,22 @@ import java.math.BigDecimal
  */
 class PurchaseBonusView : FrameLayout {
 
-  private val binding = LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
+  private val binding =
+    LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
   private val formatter = CurrencyFormatUtils()
 
   private var showHeader: Boolean = true
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
-      defStyleAttr)
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    context, attrs,
+    defStyleAttr
+  )
 
   fun setPurchaseBonusHeaderValue(bonus: BigDecimal, currencySymbol: String) {
     var scaledBonus = bonus.stripTrailingZeros()
-        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currencySymbol
     if (scaledBonus < BigDecimal("0.01")) {
       newCurrencyString = "~$currencySymbol"
@@ -40,7 +43,8 @@ class PurchaseBonusView : FrameLayout {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     val bonusMessageValue = newCurrencyString + formattedBonus
     setPurchaseBonusHeaderValue(
-        context.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue))
+      context.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+    )
   }
 
   fun setPurchaseBonusHeaderValue(valueText: String) {

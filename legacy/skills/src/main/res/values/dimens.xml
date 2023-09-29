@@ -7,7 +7,7 @@
   <dimen name="mid_margin">24dp</dimen>
   <dimen name="button_height">36dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
-  <dimen name="payment_methods_width_landscape">544dp</dimen>
+  <dimen name="payment_methods_width_landscape">592dp</dimen>
   <dimen name="onboarding_width_landscape">600dp</dimen>
   <dimen name="waiting_for_players_width_landscape">660dp</dimen>
   <dimen name="countdown_timer_spacing">12dp</dimen>

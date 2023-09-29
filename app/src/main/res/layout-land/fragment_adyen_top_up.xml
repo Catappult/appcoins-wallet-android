@@ -175,9 +175,8 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="-16dp"
                 android:visibility="gone"
-                app:buttonColor="@color/styleguide_dark_grey"
-                app:buttonIsAllCaps="true"
-                app:buttonText="@string/activity_iab_change_card"
+                app:buttonColor="@color/styleguide_pink"
+                app:buttonText="@string/activity_iab_change_card_lower_case_button"
                 app:buttonType="text"
                 tools:visibility="visible"
                 />
@@ -189,8 +188,8 @@
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/loading"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
+          android:layout_width="128dp"
+          android:layout_height="128dp"
           android:layout_marginTop="50dp"
           android:layout_marginBottom="50dp"
           app:layout_constraintBottom_toBottomOf="@id/container"
@@ -200,7 +199,7 @@
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_autoPlay="true"
           app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_regular_animation"
+          app:lottie_rawRes="@raw/loading_wallet"
           android:visibility="gone"
           tools:visibility="visible"
           />

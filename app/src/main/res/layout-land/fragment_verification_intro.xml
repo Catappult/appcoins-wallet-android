@@ -17,28 +17,61 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         >
 
-      <TextView
-          android:id="@+id/title"
-          style="@style/VerifyWallet.Title"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/info_container"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
-          android:layout_marginTop="27dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginTop="16dp"
+          android:background="@drawable/background_info_card"
+          android:padding="17dp"
           app:layout_constraintEnd_toStartOf="@id/guideline_mid"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="@string/card_verification_body_new"
-          />
+          >
+
+        <ImageView
+            android:id="@+id/info_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_info_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/info_description"
+            style="@style/VerifyWallet.Info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:textColor="@color/styleguide_light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/info_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/verify_card_view_disclaimer"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <RelativeLayout
           android:id="@+id/cc_container"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/half_large_margin"
+          android:layout_marginTop="-8dp"
           android:paddingStart="@dimen/normal_margin"
-          android:paddingEnd="@dimen/big_margin"
+          android:paddingEnd="@dimen/normal_margin"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/guideline_mid"
           app:layout_constraintTop_toTopOf="parent"
@@ -59,32 +92,13 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:visibility="gone"
-            app:buttonIsAllCaps="true"
-            app:buttonText="@string/activity_iab_change_card"
+            app:buttonColor="@color/styleguide_pink"
+            app:buttonText="@string/activity_iab_change_card_lower_case_button"
             app:buttonType="text"
             tools:visibility="visible"
             />
 
       </RelativeLayout>
-
-      <TextView
-          android:id="@+id/description"
-          style="@style/VerifyWallet.Description"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:paddingStart="@dimen/big_margin"
-          android:paddingTop="13dp"
-          android:paddingEnd="@dimen/big_margin"
-          android:paddingBottom="@dimen/normal_margin"
-          android:text="@string/card_verification_disclaimer_body"
-          app:layout_constraintBottom_toBottomOf="@id/cc_container"
-          app:layout_constraintEnd_toStartOf="@id/guideline_mid"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/title"
-          app:layout_constraintVertical_bias="0.15"
-          />
 
       <View
           android:id="@+id/bottom_separator"
@@ -114,7 +128,7 @@
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/description"
+          app:layout_constraintTop_toBottomOf="@id/cc_container"
           app:layout_constraintVertical_bias="1"
           />
 

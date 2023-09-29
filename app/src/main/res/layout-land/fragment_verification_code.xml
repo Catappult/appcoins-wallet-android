@@ -37,7 +37,7 @@
 
       <TextView
           android:id="@+id/title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
@@ -54,7 +54,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
-          android:layout_marginTop="10dp"
+          android:layout_marginTop="4dp"
           android:text="@string/card_verification_code_body"
           app:layout_constraintEnd_toStartOf="@id/guideline_mid"
           app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
 
       <TextView
           android:id="@+id/code_title"
-          style="@style/VerifyWallet.Title"
+          style="@style/VerifyWallet.Text"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="24dp"
@@ -130,8 +130,8 @@
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
           android:layout_gravity="end"
+          android:layout_marginStart="-32dp"
           android:layout_marginTop="26dp"
-          app:buttonIsAllCaps="true"
           app:buttonText="@string/card_verification_code_other_card_button"
           app:buttonType="text"
           app:layout_constraintStart_toStartOf="@+id/code"
@@ -142,7 +142,7 @@
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="24dp"
+          android:layout_marginTop="2dp"
           android:layout_marginBottom="21dp"
           android:background="@color/styleguide_light_grey"
           app:layout_constraintBottom_toTopOf="@id/maybe_later"
@@ -176,6 +176,7 @@
           android:layout_marginEnd="@dimen/normal_margin"
           android:layout_marginBottom="18dp"
           android:enabled="false"
+          app:buttonColor="@color/styleguide_light_grey"
           app:buttonText="@string/backup_tooltip_later_button"
           app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"

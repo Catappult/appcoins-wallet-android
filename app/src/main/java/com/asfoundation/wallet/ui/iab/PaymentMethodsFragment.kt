@@ -401,7 +401,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showProgressBarLoading() {
     binding.paymentMethods.visibility = View.INVISIBLE
-    binding.loadingView.visibility = View.VISIBLE
+    binding.loadingAnimation.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
@@ -417,13 +417,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       if (isPreSelected) {
         binding.preSelectedPaymentMethodGroup.visibility = View.VISIBLE
         binding.paymentMethodsListGroup.visibility = View.GONE
-        binding.bottomSeparator?.visibility = View.INVISIBLE
         binding.layoutPreSelected.root.visibility = View.VISIBLE
       } else {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
         binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
-      binding.loadingView.visibility = View.GONE
+      binding.loadingAnimation.visibility = View.GONE
     }
   }
 
@@ -663,7 +662,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
-    binding.bonusLayout.bonusValue.text = context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+    binding.bonusLayout.bonusValue.text =
+      context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
   override fun onBackPressed(): Observable<Any> =
@@ -709,19 +709,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showBonus(@StringRes bonusText: Int) {
     changeBonusVisibility(View.VISIBLE)
-    binding.bonusMsg.text = context?.getString(bonusText)
   }
 
   override fun removeBonus() {
-   bonusMessageValue = ""
+    bonusMessageValue = ""
     bonusValue = null
     changeBonusVisibility(View.GONE)
   }
 
   private fun changeBonusVisibility(visibility: Int) {
     binding.bonusLayout.root.visibility = visibility
-    binding.bottomSeparator?.visibility = visibility
-    binding.bonusMsg.visibility = visibility
+    binding.bonusBackground.visibility = visibility
   }
 
   override fun hideBonus() {
@@ -730,8 +728,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun replaceBonus() {
     changeBonusVisibility(View.INVISIBLE)
-    binding.bonusMsg.text = context?.getString(R.string.purchase_poa_body)
-    binding.bonusMsg.visibility = View.VISIBLE
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()

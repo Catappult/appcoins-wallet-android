@@ -50,7 +50,7 @@
       android:layout_marginTop="22dp"
       android:layout_marginEnd="40dp"
       app:ccpDialog_background="@drawable/ccp_background"
-      app:ccpDialog_textColor="#000000"
+      app:ccpDialog_textColor="@color/styleguide_light_grey"
       app:ccp_arrowColor="@color/styleguide_pink"
       app:ccp_arrowSize="30dp"
       app:ccp_autoDetectCountry="true"
@@ -80,7 +80,7 @@
         android:imeOptions="flagNoExtractUi|flagNoFullscreen"
         android:inputType="phone"
         android:maxLines="1"
-        android:textColor="#000000"
+        android:textColor="@color/styleguide_payments_main_text"
         android:textSize="16sp"
         />
   </com.google.android.material.textfield.TextInputLayout>
