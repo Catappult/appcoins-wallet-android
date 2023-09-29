@@ -171,15 +171,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @SuppressLint("SetTextI18n")
   override fun showValues(value: String, currency: String) {
     binding.mainValue.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
     if (data.selectedCurrencyType == FIAT_CURRENCY) {
       binding.mainValue.setText(value)
       binding.mainCurrencyCode.text = currency
-      binding.convertedValue.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
       binding.mainValue.setText(formattedValue)
       binding.mainCurrencyCode.text = WalletCurrency.CREDITS.symbol
-      binding.convertedValue.text = "$value $currency"
     }
   }
 
@@ -234,8 +233,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.noNetwork.root.visibility = GONE
     binding.topUpContainer.visibility = VISIBLE
     binding.mainCurrencyCode.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     binding.mainValue.visibility = VISIBLE
-    binding.convertedValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
     if (isStored) {
@@ -377,7 +376,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
     binding.bonusLayout.root.visibility = VISIBLE
-    binding.bonusMsg.visibility = VISIBLE
   }
 
   override fun showVerification() = topUpView.showVerification()
@@ -438,6 +436,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
     binding.mainValue.visibility = INVISIBLE
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
     binding.button.visibility = VISIBLE
   }
 
