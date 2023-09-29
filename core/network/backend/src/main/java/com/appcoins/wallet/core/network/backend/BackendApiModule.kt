@@ -11,7 +11,6 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
-import com.appcoins.wallet.core.network.backend.api.NftApi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
@@ -132,14 +131,6 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): RedeemGiftApi {
     return retrofit.create(RedeemGiftApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun providesNftApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
-  ): NftApi {
-    return retrofit.create(NftApi::class.java)
   }
 
   @Singleton
