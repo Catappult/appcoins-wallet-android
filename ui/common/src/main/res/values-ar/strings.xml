@@ -1148,26 +1148,6 @@
   <string name="appcoins_info_explorer_title">المتصفح</string>
   <string name="appcoins_info_market_cap_title">القيمة السوقية</string>
   <string name="appcoins_info_volume_title">الحجم (24س)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">لا يوجد لديك أي NFTs في هذه المحفظة بعد!</string>
-  <string name="nfts_transact_button">أرسل NFT هذا</string>
-  <string name="nfts_transact_button_send">إرسال</string>
-  <string name="nfts_transact_button_next">التالي</string>
-  <string name="nfts_transact_button_done">تمت</string>
-  <string name="nfts_transact_button_success">تمام</string>
-  <string name="nfts_transact_tip">أدخل عنوان محفظة صديقك</string>
-  <string name="nfts_transact_input_tip">عنوان المحفظة هنا...</string>
-  <string name="nfts_transact_done_mensage">تم إرسال %s بنجاح!</string>
-  <string name="nfts_generic_error">ييي! حدث خطأ!</string>
-  <string name="nfts_transact_gas_title">هل أنت مستعجِل؟</string>
-  <string name="nfts_transact_gas_description">اختر كم تريد أن تدفع في مصاريف التحويل. كلما ارتفعت المصاريف، كان التحويل أسرع.</string>
-  <string name="nfts_transact_gas_price">مصاريف جانبية</string>
-  <string name="nfts_transact_gas_limit">حد المصاريف الجانبية</string>
-  <string name="nfts_transact_gas_fee_message">مصاريف التحويل</string>
-  <string name="nfts_transact_error_no_funds">ليس لديك أموال كافية! ليس لديك ETH كافية لتدفع الرسوم.</string>
-  <string name="nfts_transact_error_low_gas">عمولة التحويل منخفضة جدًا! ارفع عمولة تحويلك للشبكة لقبول تحويلاتك.</string>
-  <string name="nfts_transact_error_already_in_progress">هذه الـ NFT مرسلة فعلًا! هناك تحويل سابق قيد التنفيذ حاليًا.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">استرداد رمز بطاقة هديتك</string>
   <string name="gift_card_field">رمز البطاقة هنا...</string>
@@ -1280,7 +1260,6 @@
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
-  <string name="home_nft_title">محفظة AppCoins Wallet الآن تدعم NFTs</string>
   <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>

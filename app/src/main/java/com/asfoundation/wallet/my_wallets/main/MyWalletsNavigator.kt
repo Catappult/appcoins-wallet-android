@@ -112,10 +112,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navController.navigate(R.id.action_navigate_to_receive_funds, bundle)
   }
 
-  fun navigateToNfts() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToNfts())
-  }
-
   fun navigateToVerifyPicker() {
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
   }
