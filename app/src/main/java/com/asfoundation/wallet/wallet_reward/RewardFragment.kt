@@ -38,7 +38,10 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardPaymentMethodViewModel
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
+import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -150,7 +153,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
     val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
     val challengeRewardNavigation: (() -> Unit)? = if (hasChallengeReward) {
-      { navigator.showOfferWallScreen() }
+      challengeRewardNavigation(activity = this.requireActivity(), flowPath = REWARDS)
     } else null
     LazyColumn(
       modifier = Modifier.padding(padding),
