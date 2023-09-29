@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">În așteptare</string>
   <string name="transaction_status_failed">Eșuată</string>
   <string name="transaction_status_reverted">Restituit</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Recompensă provocare</string>
+  <string name="transaction_type_challenge_reward_rejected">Recompensă provocare respinsă</string>
+  <string name="transaction_type_challenge_reward_reverted">Recompensă provocare returnată</string>
   <string name="transaction_type_iab">Cumpărătură in-app</string>
   <string name="transaction_type_poa">Recompensă</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1273,8 +1273,8 @@
   <string name="verify_card_code_enter_title">Introdu codul format din 4 cifre</string>
   <string name="verify_card_code_refund_body">Suma de %s va fi rambursată într-un interval de 24 de ore, după confirmarea codului.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Recompensă provocare</string>
+  <string name="challenge_reward_card_body">Finalizează o provocare pentru a obține AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Bucură-te de %s în AppCoins Credits, în portofelul tău</string>
 </resources>
