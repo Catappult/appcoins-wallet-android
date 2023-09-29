@@ -1102,26 +1102,6 @@
   <string name="appcoins_info_explorer_title">လိုက္ၾကည့္ရန္</string>
   <string name="appcoins_info_market_cap_title">ေစ်းကြက္တန္ဖိုး</string>
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">ဤပိုက္ဆံအိတ္တြင္ မည္သည့္ NFT မွ် မရွိေသးပါ။</string>
-  <string name="nfts_transact_button">ဤ NFT ကို ေပးပို႔မည္</string>
-  <string name="nfts_transact_button_send">ေပးပို႔မည္</string>
-  <string name="nfts_transact_button_next">ေနာက္္ထပ္</string>
-  <string name="nfts_transact_button_done">ၿပီးပါၿပီ</string>
-  <string name="nfts_transact_button_success">သိပါၿပီ</string>
-  <string name="nfts_transact_tip">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို ထည့္ပါ</string>
-  <string name="nfts_transact_input_tip">ပိုက္ဆံအိတ္လိပ္စာကို ဤေနရာတြင္...</string>
-  <string name="nfts_transact_done_mensage">%s ေအာင္ျမင္စြာ ေပးပို႔လိုက္ပါသည္။</string>
-  <string name="nfts_generic_error">အိုး။ တစ္ခုခု မွားသြားပါသည္။</string>
-  <string name="nfts_transact_gas_title">အေရးႀကီးေနပါသလား။</string>
-  <string name="nfts_transact_gas_description">အခေၾကးေငြအျဖစ္ သင္မည္မွ်ေပးလိုသည္ကို ေ႐ြးခ်ယ္ပါ။ အခေၾကးေငြမ်ားေလ ေငြလႊဲေျပာင္းမႈ ပိုျမန္ေလ ျဖစ္ပါသည္။</string>
-  <string name="nfts_transact_gas_price">ဂတ္စ္ေစ်းႏႈန္း</string>
-  <string name="nfts_transact_gas_limit">ဂတ္စ္အကန္္႔အသတ္</string>
-  <string name="nfts_transact_gas_fee_message">ေငြလႊဲေျပာင္းခ</string>
-  <string name="nfts_transact_error_no_funds">ေငြမလုံေလာက္ပါ။ အခေၾကးေငြကိုေပးရန္ သင့္တြင္ ETH အလုံအေလာက္ မရွိပါ။</string>
-  <string name="nfts_transact_error_low_gas">ဂတ္စ္အလြန္နည္းေနပါသည္။ သင့္ေငြလႊဲေျပာင္းမႈကို လက္ခံရန္ ကြန္ရက္အတြက္ ဂတ္စ္ကို တိုးျမႇင့္လိုက္ပါ။</string>
-  <string name="nfts_transact_error_already_in_progress">ဤ NFT ကို ေပးပို႔ထားၿပီး ျဖစ္ပါသည္။ ယခင္ေငြလႊဲေျပာင္းမႈကို လက္ရွိတြင္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။</string>
   <!-- Gift Card -->
   <string name="gift_card_title">သင့္လက္ေဆာင္ကုဒ္ကို လဲလွယ္လိုက္ပါ</string>
   <string name="gift_card_field">ကဒ္ကုဒ္ကို ဤေနရာတြင္...</string>
@@ -1214,7 +1194,6 @@
   <string name="rewards_promo_code_status">အေျခအေန:</string>
   <string name="rewards_promo_code_status_active">သုံးႏိုင္ေသာ</string>
   <string name="rewards_promo_code_status_expired">သက္တမ္းကုန္သြားပါၿပီ</string>
-  <string name="home_nft_title">AppCoins Wallet သည္ ယခုအခါ NFTs မ်ားကို ပံ့ပိုးမႈေပးပါသည္</string>
   <string name="home_appcoins_compatible_games_title">AppCoins အသုံးျပဳႏိုင္ေသာဂိမ္းမ်ား</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ပထမဆုံးဝယ္ယူမႈကို ျပဳလုပ္ကာ ဝယ္ယူမႈတိုင္းတြင္ ေဘာနပ္စ္တစ္ခုကို ပြင့္ေစလိုက္ပါ။</string>
