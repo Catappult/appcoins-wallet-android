@@ -1102,26 +1102,6 @@
   <string name="appcoins_info_explorer_title">Trình duyệt</string>
   <string name="appcoins_info_market_cap_title">Vốn hóa thị trường</string>
   <string name="appcoins_info_volume_title">Khối lượng (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Bạn chưa có bất kỳ NFT nào trong ví này!</string>
-  <string name="nfts_transact_button">Gửi NFT này</string>
-  <string name="nfts_transact_button_send">Gửi</string>
-  <string name="nfts_transact_button_next">Kế tiếp</string>
-  <string name="nfts_transact_button_done">Hoàn thành</string>
-  <string name="nfts_transact_button_success">Đã hiểu</string>
-  <string name="nfts_transact_tip">Nhập địa chỉ ví bạn của bạn</string>
-  <string name="nfts_transact_input_tip">Địa chỉ ví tại đây...</string>
-  <string name="nfts_transact_done_mensage">%s đã được gửi thành công!</string>
-  <string name="nfts_generic_error">Rất tiếc! Đã xảy ra lỗi!</string>
-  <string name="nfts_transact_gas_title">Bạn đang vội sao?</string>
-  <string name="nfts_transact_gas_description">Chọn số tiền bạn muốn trả trong các khoản phí. Phí càng cao, giao dịch càng nhanh.</string>
-  <string name="nfts_transact_gas_price">Giá gas</string>
-  <string name="nfts_transact_gas_limit">Giới hạn gas</string>
-  <string name="nfts_transact_gas_fee_message">Phí giao dịch</string>
-  <string name="nfts_transact_error_no_funds">Không đủ tiền! Bạn không có đủ ETH để trả phí.</string>
-  <string name="nfts_transact_error_low_gas">Giá gas quá thấp! Tăng giá gas của bạn để mạng lưới chấp nhận giao dịch của bạn.</string>
-  <string name="nfts_transact_error_already_in_progress">NFT này đã được gửi! Một giao dịch trước đó hiện đang được thực hiện.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Đổi mã thẻ quà tặng của bạn</string>
   <string name="gift_card_field">Mã thẻ tại đây...</string>
@@ -1214,7 +1194,6 @@
   <string name="rewards_promo_code_status">Trạng thái:</string>
   <string name="rewards_promo_code_status_active">Đã kích hoạt</string>
   <string name="rewards_promo_code_status_expired">Đã hết hạn</string>
-  <string name="home_nft_title">Ví AppCoins hiện có hỗ trợ NFT</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>

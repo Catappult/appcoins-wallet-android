@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Felfedezés</string>
   <string name="appcoins_info_market_cap_title">Piaci érték</string>
   <string name="appcoins_info_volume_title">Mennyiség (24 óra)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT-ék</string>
-  <string name="nfts_no_nfts">Még nincs NFT ebben a tárcában!</string>
-  <string name="nfts_transact_button">NFT küldése</string>
-  <string name="nfts_transact_button_send">Küldés</string>
-  <string name="nfts_transact_button_next">Tovább</string>
-  <string name="nfts_transact_button_done">Kész</string>
-  <string name="nfts_transact_button_success">Értem</string>
-  <string name="nfts_transact_tip">Írd be barátod walletjának címét</string>
-  <string name="nfts_transact_input_tip">Wallet címe ide...</string>
-  <string name="nfts_transact_done_mensage">%s sikeresen elküldve!</string>
-  <string name="nfts_generic_error">Hoppá, valami baj történt!</string>
-  <string name="nfts_transact_gas_title">Sietsz?</string>
-  <string name="nfts_transact_gas_description">Döntsd el, mennyi díjat akarsz fizetni. Minél gyorsabb a tranzakció annál magasabb lesz.</string>
-  <string name="nfts_transact_gas_price">Gas ár</string>
-  <string name="nfts_transact_gas_limit">Gas korlát</string>
-  <string name="nfts_transact_gas_fee_message">Tranzakciós díj</string>
-  <string name="nfts_transact_error_no_funds">Nincs elég pénzed. Nincs elég ETH-d a díjak kifizetésére.</string>
-  <string name="nfts_transact_error_low_gas">Túl kevés a gas! Növeld a gast a hálózathoz, hogy elfogadhasd a tranzakciót.</string>
-  <string name="nfts_transact_error_already_in_progress">Az NFT-t már elküldtél. Az előző tranzakció még folyamatban van.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Ajándékutalvány kódjának beváltása</string>
   <string name="gift_card_field">A kártya kódja ide...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Állapot:</string>
   <string name="rewards_promo_code_status_active">Aktív</string>
   <string name="rewards_promo_code_status_expired">Lejárt</string>
-  <string name="home_nft_title">Az AppCoins Wallet mostantól NFT-ket is támogat</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Végezd el az első vásárlásod egy AppCoins kompatibilis játékban és szerezz bónuszt minden vásárlásért cserébe.</string>

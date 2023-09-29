@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">مرورگر</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">حجم (۲۴ساعته)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT ها</string>
-  <string name="nfts_no_nfts">هیچ NFT در این کیف پول ندارید!</string>
-  <string name="nfts_transact_button">این NFT را ارسال کنید</string>
-  <string name="nfts_transact_button_send">ارسال</string>
-  <string name="nfts_transact_button_next">بعدی</string>
-  <string name="nfts_transact_button_done">انجام شد</string>
-  <string name="nfts_transact_button_success">متوجه شدم</string>
-  <string name="nfts_transact_tip">آدرس کیف پول دوست خود را وارد کنید</string>
-  <string name="nfts_transact_input_tip">آدرس کیف‌پول در اینجا...</string>
-  <string name="nfts_transact_done_mensage">%s با موفقیت ارسال شد!</string>
-  <string name="nfts_generic_error">اوه، مشکلی پیش آمده است!</string>
-  <string name="nfts_transact_gas_title">آیا عجله دارید؟</string>
-  <string name="nfts_transact_gas_description">مقدار مورد نظر خود را برای پرداخت هزینه انتخاب کنید. هزینه بالاتر به تراکنش سریعتر می‌انجامد.</string>
-  <string name="nfts_transact_gas_price">قیمت گس</string>
-  <string name="nfts_transact_gas_limit">حد گس</string>
-  <string name="nfts_transact_gas_fee_message">هزینه تراکنش</string>
-  <string name="nfts_transact_error_no_funds">دارایی شما کافی نیست! به اندازه کافی ETH برای پرداخت هزینه‌ها ندارید.</string>
-  <string name="nfts_transact_error_low_gas">Gas بسیار کم است! Gas خود را افزایش دهید تا شبکه بتواند تراکنش شما را تایید کند.</string>
-  <string name="nfts_transact_error_already_in_progress">این NFT پیشاپیش ارسال شده‌است! یکی از پرداخت‌های قبلی در حال پردازش است.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">کد کارت هدیه خود را استفاده کنید</string>
   <string name="gift_card_field">کد کارت در اینجا...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">وضعیت:</string>
   <string name="rewards_promo_code_status_active">فعال</string>
   <string name="rewards_promo_code_status_expired">منقضی</string>
-  <string name="home_nft_title">کیف پول AppCoins اکنون NFTها را پشتیبانی می کند</string>
   <string name="home_appcoins_compatible_games_title">بازی‌های سازگار با AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">اولین خرید خود را در یک بازی سازگار با AppCoins انجام دهید و در هر خرید یک پاداش فعال کنید.</string>
