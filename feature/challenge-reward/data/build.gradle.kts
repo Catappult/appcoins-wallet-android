@@ -4,11 +4,22 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.feature.challengereward.data"
+
+  @Suppress("UnstableApiUsage")
+  buildFeatures {
+    compose = true
+  }
+
+  @Suppress("UnstableApiUsage")
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.2"
+  }
 }
 
 dependencies {
   implementation(project(":legacy:billing"))
   implementation(project(":core:network:microservices"))
+  implementation(project(":core:analytics"))
 
   // FYBER
   implementation("com.fyber:fairbid-sdk:3.42.0")
