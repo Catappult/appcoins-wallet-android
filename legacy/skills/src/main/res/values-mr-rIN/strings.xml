@@ -64,7 +64,7 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">विरोधकांनी खेळ संपविण्यासाठी थांबलो आहोत.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="one">(%1$s नी %2$d पॉईंट केले)</item>
     <item quantity="other">(%1$s did %2$d points)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
@@ -72,34 +72,34 @@
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
+    <item quantity="one">%1$d पॉईंटस</item>
     <item quantity="other">%1$d points</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f$ आपल्या वॉलेटमध्ये जमा केलेत)</string>
+  <string name="you_won">आपण जिंकलात! %1$s</string>
+  <string name="you_lost_timeout">आपली वेळ संपली, आपण हरलात! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
     <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="other">दिवस</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="other">तास</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="other">मिनिटे</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="other">सेकंद</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">पुढील बक्षिस या वेळात</string>
+  <string name="current_top_3">सध्याचे टॉप ३</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">लीडरबोर्डस</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">पैसे कमवा</string>
   <string name="eskills_carousel_body">ई-स्किल्स सह इतर खेळाडुंना मात द्या</string>
