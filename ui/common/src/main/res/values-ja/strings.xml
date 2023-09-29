@@ -1102,26 +1102,6 @@
   <string name="appcoins_info_explorer_title">エクスプローラー</string>
   <string name="appcoins_info_market_cap_title">マーケットキャップ</string>
   <string name="appcoins_info_volume_title">取引高（24h）</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">このウォレットにはまだNFTが入っていません</string>
-  <string name="nfts_transact_button">このNFTを送信</string>
-  <string name="nfts_transact_button_send">送信</string>
-  <string name="nfts_transact_button_next">次</string>
-  <string name="nfts_transact_button_done">完了</string>
-  <string name="nfts_transact_button_success">了解</string>
-  <string name="nfts_transact_tip">お友達のウォレットアドレスを入力</string>
-  <string name="nfts_transact_input_tip">ここにウォレットのアドレス...</string>
-  <string name="nfts_transact_done_mensage">%sが正常に送信されました!</string>
-  <string name="nfts_generic_error">問題が発生しました！</string>
-  <string name="nfts_transact_gas_title">お急ぎですか？</string>
-  <string name="nfts_transact_gas_description">手数料をいくらにするか選んでください。手数料が高いほど、トランザクションが速くなります。</string>
-  <string name="nfts_transact_gas_price">ガスの価格</string>
-  <string name="nfts_transact_gas_limit">ガスの制限</string>
-  <string name="nfts_transact_gas_fee_message">取引手数料</string>
-  <string name="nfts_transact_error_no_funds">資金が足りません！手数料を払うのに十分なETHがありません。</string>
-  <string name="nfts_transact_error_low_gas">ガスが少なすぎます! ネットワークがあなたの取引を受け入れるには、ガスを増やしてください。</string>
-  <string name="nfts_transact_error_already_in_progress">NFTはすでに送信されています。前の取引が現在進行中です。</string>
   <!-- Gift Card -->
   <string name="gift_card_title">ギフトカードコードを利用</string>
   <string name="gift_card_field">カードコードをここに入力...</string>
@@ -1214,7 +1194,6 @@
   <string name="rewards_promo_code_status">状況:</string>
   <string name="rewards_promo_code_status_active">有効</string>
   <string name="rewards_promo_code_status_expired">期限切れ</string>
-  <string name="home_nft_title">AppCoinsウォレットがNFTに対応しました。</string>
   <string name="home_appcoins_compatible_games_title">AppCoins対応ゲーム</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
