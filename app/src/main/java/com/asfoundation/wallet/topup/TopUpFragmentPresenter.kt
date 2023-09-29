@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -36,7 +38,8 @@ class TopUpFragmentPresenter(
   private val formatter: CurrencyFormatUtils,
   private val selectedValue: String?,
   private val logger: Logger,
-  private val networkThread: Scheduler
+  private val networkThread: Scheduler,
+  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
 ) {
 
   private var cachedGamificationLevel = 0
