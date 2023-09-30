@@ -77,7 +77,7 @@
     <item quantity="one">%1$d point</item>
     <item quantity="few">%1$d points</item>
     <item quantity="many">%1$d points</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="other">%1$d бали</item>
   </plurals>
   <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
   <string name="you_won">You won! %1$s</string>
