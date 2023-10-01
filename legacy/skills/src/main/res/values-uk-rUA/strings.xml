@@ -87,31 +87,31 @@
     <item quantity="one">Day</item>
     <item quantity="few">Days</item>
     <item quantity="many">Days</item>
-    <item quantity="other">Days</item>
+    <item quantity="other">Дні</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">Hour</item>
     <item quantity="few">Hours</item>
     <item quantity="many">Hours</item>
-    <item quantity="other">Hours</item>
+    <item quantity="other">Години</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
     <item quantity="few">Хвилин</item>
     <item quantity="many">Хвилин</item>
-    <item quantity="other">Хвилин</item>
+    <item quantity="other">Хвилини</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>
     <item quantity="few">Seconds</item>
     <item quantity="many">Seconds</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="other">Секунди</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Наступна нагорода через</string>
+  <string name="current_top_3">Поточний топ-3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Дошки лідерів</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Заробляйте гроші</string>
   <string name="eskills_carousel_body">Перемагайте інших гравців з e-Skills</string>
