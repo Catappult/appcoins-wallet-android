@@ -1,9 +1,8 @@
 package com.appcoins.wallet.feature.backup.data.use_cases
 
-import com.appcoins.wallet.core.utils.android_common.Dispatchers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.backup.data.repository.BackupRepository
-import kotlinx.coroutines.rx2.await
-import kotlinx.coroutines.withContext
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class SendBackupToEmailUseCase
@@ -11,13 +10,13 @@ class SendBackupToEmailUseCase
 constructor(
   private val createBackupUseCase: CreateBackupUseCase,
   private val backupRepository: BackupRepository,
-  private val dispatchers: Dispatchers,
+  private val schedulers: RxSchedulers
 ) {
-
-  suspend operator fun invoke(walletAddress: String, password: String, email: String) {
-    val backupData = createBackupUseCase(walletAddress, password)
-    withContext(dispatchers.io) {
-      backupRepository.sendBackupEmail(walletAddress, backupData, email).await()
-    }
+  operator fun invoke(walletAddress: String, password: String, email: String): Completable {
+    return createBackupUseCase(walletAddress, password)
+      .observeOn(schedulers.io)
+      .flatMapCompletable { backupData ->
+        backupRepository.sendBackupEmail(walletAddress, backupData, email)
+      }
   }
 }
