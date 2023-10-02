@@ -64,9 +64,13 @@ class GamesRepository @Inject constructor(
               gamePackage = it.data.packageName,
               description = it.data.media.description,
               screenshots = it1,
-              size = it.data.size,
               rating = it.data.stats.rating.avg,
-              downloads = it.data.stats.downloads
+              downloads = it.data.stats.downloads,
+              size = it.data.size,
+              md5 = it.data.file.md5,
+              url = it.data.file.path,
+              version = it.data.file.versionCode
+
             )
           }
       }

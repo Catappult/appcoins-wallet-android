@@ -20,3 +20,4 @@ data class GameInfo(
   @SerializedName("icon") val appIcon: String,
   @SerializedName("graphic") val background: String
 )
+

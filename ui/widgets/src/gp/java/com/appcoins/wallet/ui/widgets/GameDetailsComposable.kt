@@ -3,6 +3,9 @@ package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 data class
 GameDetailsData(
@@ -14,7 +17,10 @@ GameDetailsData(
   val screenshots: List<Screenshot>,
   val rating: Double,
   val downloads: Long,
-  val size: Long
+  val size: Long,
+  val md5: String,
+  val url: String,
+  val version: Int
 )
 
 data class Screenshot(
@@ -23,11 +29,25 @@ data class Screenshot(
   val width: Int
 )
 
+val grantedPermission = mutableStateOf(false)
+
+var showEskillsCard by mutableStateOf(true)
+var showInstallButton by mutableStateOf(true)
+var showResume by mutableStateOf(false)
+
 
 @Composable
 fun GameDetails(
   appDetailsData: GameDetailsData,
+  progress: Int,
   close: () -> Unit,
+  install: () -> Unit,
+  isAppInstalled: () -> Boolean,
+  cancel: () -> Unit,
+  pause: () -> Unit,
+  finishedInstall: Boolean,
+  installing: Boolean,
+  open: () -> Unit,
   function: () -> Unit,
 ) {
 

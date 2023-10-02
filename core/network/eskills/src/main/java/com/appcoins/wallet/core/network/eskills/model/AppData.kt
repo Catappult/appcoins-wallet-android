@@ -21,6 +21,9 @@ data class AppData(
   @JsonProperty("graphic")
   val background: String?,
 
+  @JsonProperty("file")
+  val file: File,
+
   @JsonProperty("media")
   val media: Media,
 
@@ -34,6 +37,15 @@ data class Stats(
   val rating: Rating,
   @JsonProperty("downloads")
   val downloads: Long
+)
+
+data class File(
+  @JsonProperty("md5sum")
+  val md5: String,
+  @JsonProperty("path")
+  val path: String,
+  @JsonProperty("vercode")
+  val versionCode: Int
 )
 
 data class Rating(

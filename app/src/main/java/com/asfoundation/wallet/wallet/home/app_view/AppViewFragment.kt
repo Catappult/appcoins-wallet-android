@@ -1,10 +1,18 @@
 package com.asfoundation.wallet.wallet.home.app_view
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.os.Environment
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +23,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -25,19 +35,38 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import coil.compose.AsyncImage
+import com.appcoins.wallet.core.network.eskills.utils.utils.AptoideUtils
 import com.appcoins.wallet.ui.widgets.GameDetails
 import com.appcoins.wallet.ui.widgets.R
+import com.appcoins.wallet.ui.widgets.grantedPermission
+import com.appcoins.wallet.ui.widgets.showInstallButton
+import com.appcoins.wallet.ui.widgets.showResume
+import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class AppViewFragment(val gamePackage: String) : DialogFragment() {
 
+  @Inject
+  lateinit var navigator: RecoverEntryNavigator
+
+  private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
+  private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
+
 
   private val viewModel: AppDetailsViewModel by viewModels()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    createLaunchers()
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -52,23 +81,102 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
       }
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-  }
-
 
   @Composable
   fun AppViewScreen() {
+    val downloadProgress by remember { viewModel.progress }
+    val finishedInstall by remember { viewModel.finishedInstall }
+    val installing by remember { viewModel.installing }
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
-      close = { closeFragment() }
+      close = { closeFragment() },
+      install = { installApp() },
+      isAppInstalled = { isAppInstalled(gamePackage) },
+      finishedInstall = finishedInstall,
+      installing = installing,
+      cancel = { viewModel.cancelDownload() },
+      pause = { viewModel.pauseDownoad() },
+      open = { openApp(gamePackage) },
+      progress = downloadProgress
     ) {
       viewModel.fetchGameDetails(gamePackage)
     }
   }
 
+  fun installApp() {
+    val storagePermission = isGrantedPermissionWRITE_EXTERNAL_STORAGE()
+    if (storagePermission) {
+      viewModel.installApp()
+      grantedPermission.value = true
+    } else {
+      requestPermission()
+      grantedPermission.value = false
+    }
+  }
+
+  private fun createLaunchers() {
+    requestPermissionsLauncher =
+      registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+          showInstallButton = false
+          showResume = false
+          installApp()
+        }
+
+      }
+    storageIntentLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+          if (Environment.isExternalStorageManager()) {
+            showInstallButton = false
+            showResume = false
+            installApp()
+          }
+
+        }
+      }
+  }
+
+  private fun requestPermission() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+      requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    } else {
+      try {
+        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+        val uri = Uri.fromParts("package", requireActivity().applicationContext.packageName, null)
+        intent.data = uri
+        storageIntentLauncher.launch(intent)
+      } catch (e: Exception) {
+        val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+        storageIntentLauncher.launch(intent)
+      }
+    }
+  }
+
+  fun isGrantedPermissionWRITE_EXTERNAL_STORAGE(): Boolean {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      return Environment.isExternalStorageManager()
+    } else {
+      return ActivityCompat.checkSelfPermission(
+        requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+      ) == PackageManager.PERMISSION_GRANTED
+    }
+  }
+
+  fun openApp(packageName: String) {
+    AptoideUtils.SystemU.openApp(packageName, requireContext().packageManager, context)
+  }
+
+  fun isAppInstalled(packageName: String): Boolean {
+    return try {
+      requireContext().packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+      true
+    } catch (e: PackageManager.NameNotFoundException) {
+      false
+    }
+  }
+
   fun closeFragment() {
-    Log.i("Parent", "Parent Fragment -> " + parentFragment)
     parentFragmentManager.beginTransaction().remove(this).commit(); }
 
 }
