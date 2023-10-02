@@ -1131,26 +1131,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Ринкова капіталізація</string>
   <string name="appcoins_info_volume_title">Тривалість(24 год)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">У вас ще немає NFT у цьому гаманці!</string>
-  <string name="nfts_transact_button">Надіслати ці NFT</string>
-  <string name="nfts_transact_button_send">Надіслати</string>
-  <string name="nfts_transact_button_next">Далі</string>
-  <string name="nfts_transact_button_done">Готово</string>
-  <string name="nfts_transact_button_success">Зрозуміло</string>
-  <string name="nfts_transact_tip">Введіть адресу гаманця вашого друга</string>
-  <string name="nfts_transact_input_tip">Адреса гаманця тут...</string>
-  <string name="nfts_transact_done_mensage">% успішно надіслано!</string>
-  <string name="nfts_generic_error">Упс! Щось пішло не так!</string>
-  <string name="nfts_transact_gas_title">Ви поспішаєте?</string>
-  <string name="nfts_transact_gas_description">Виберіть суму, яку ви хочете сплатити. Чим вище комісія, тим швидше буде здійснена транзакція.</string>
-  <string name="nfts_transact_gas_price">Ціна на газ</string>
-  <string name="nfts_transact_gas_limit">Ліміт газу</string>
-  <string name="nfts_transact_gas_fee_message">Комісія за транзакцію</string>
-  <string name="nfts_transact_error_no_funds">Не вистачає коштів! У вас недостатньо ETH для оплати комісій.</string>
-  <string name="nfts_transact_error_low_gas">Замало газу! Збільште обсяг газу, щоб мережа прийняла вашу транзакцію.</string>
-  <string name="nfts_transact_error_already_in_progress">Ці NFT уже надіслано! Наразі виконується попередня транзакція.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Активуйте код подарункової картки</string>
   <string name="gift_card_field">Код картки тут...</string>
@@ -1255,7 +1235,6 @@
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
   <string name="rewards_promo_code_status_expired">Термін дії закінчився</string>
-  <string name="home_nft_title">AppCoins Wallet тепер підтримує NFT</string>
   <string name="home_appcoins_compatible_games_title">Сумісні з AppCoins ігри</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
