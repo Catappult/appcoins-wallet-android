@@ -53,8 +53,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
         buildTypes {
           debug {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             enableUnitTestCoverage = true
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
