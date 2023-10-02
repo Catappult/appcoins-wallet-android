@@ -15,6 +15,7 @@ object MiscProperties {
   const val BILLING_SUPPORTED_VERSION = 3
   const val GAMESHUB_PACKAGE = "com.dti.folderlauncher"
   const val GAMESHUB_OEMID = "b61ccfb8fb57721787ecfc2c26c16c6f"
+  val ESKILLS_OEM_IDS = listOf<String>("01b4b7f957b2d8ff96a0f742fd5e41fa")
 }
 
 private const val ROPSTEN_DEFAULT_TOKEN_SYMBOL = "APPC"

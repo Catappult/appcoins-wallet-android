@@ -94,7 +94,8 @@ data class HomeState(
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
-  val showBackup: Boolean = false
+  val showBackup: Boolean = false,
+  val eskillsVersion: Boolean = false,
 ) : ViewState
 
 @HiltViewModel
@@ -114,6 +115,7 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
+  private val isEskillsVersionUseCase: IsEskillsVersionUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -157,6 +159,7 @@ constructor(
     handleRateUsDialogVisibility()
     handleBackupTrigger()
     fetchPromotions()
+    verifyEskillsVersion()
   }
 
   private fun handleWalletData() {
@@ -357,6 +360,14 @@ constructor(
             }
           }
         }
+      }
+      .scopedSubscribe { e -> e.printStackTrace() }
+  }
+
+  private fun verifyEskillsVersion() {
+    isEskillsVersionUseCase(walletPackageName)
+      .doOnSuccess { eskillsVersion ->
+        setState { copy(eskillsVersion = eskillsVersion) }
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }

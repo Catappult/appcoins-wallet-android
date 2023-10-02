@@ -85,6 +85,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
   private var isVip by mutableStateOf(false)
+  private var isEskillsVersion by mutableStateOf(false)
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -174,10 +175,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       }
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(
-        items = viewModel.gamesList.value,
-        dialog = { launchAppViewFragment(gameClicked) }
-      ) { viewModel.fetchGamesListing() }
+      if (isEskillsVersion) {
+        GamesBundle(
+          items = viewModel.gamesList.value,
+          dialog = { launchAppViewFragment(gameClicked) }
+        ) { viewModel.fetchGamesListing() }
+      }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
 
@@ -335,6 +338,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
+    setEskillsWalletVersion(state.eskillsVersion)
     // TODO updateSupportIcon(state.unreadMessages)
   }
 
@@ -445,6 +449,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     isVip = shouldShow
   }
 
+  private fun setEskillsWalletVersion(eSkillsVersion: Boolean) {
+    isEskillsVersion = eSkillsVersion
+  }
+
   private fun navigateToNft() = navigator.navigateToNfts(navController())
 
   private fun navigateToManageWallet() = navigator.navigateToManageWallet(navController())
@@ -459,9 +467,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     return navHostFragment.navController
   }
 
-  fun launchAppViewFragment(gamePackage: String) {
+  private fun launchAppViewFragment(gamePackage: String) {
     val dialog = AppViewFragment(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }
 }
-
