@@ -1112,26 +1112,6 @@ Wallets</item>
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Κεφαλαιοποίηση Αγοράς</string>
   <string name="appcoins_info_volume_title">Όγκος (24ω)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Δεν έχετε ακόμα NFTs σ\' αυτό το wallet!</string>
-  <string name="nfts_transact_button">Αποστολή αυτού του NFT</string>
-  <string name="nfts_transact_button_send">Αποστολή</string>
-  <string name="nfts_transact_button_next">Επόμενο</string>
-  <string name="nfts_transact_button_done">Τέλος</string>
-  <string name="nfts_transact_button_success">Το κατάλαβα</string>
-  <string name="nfts_transact_tip">Εισαγάγετε τη διεύθυνση wallet του φίλου σας</string>
-  <string name="nfts_transact_input_tip">Διεύθυνση wallet εδώ...</string>
-  <string name="nfts_transact_done_mensage">%s στάλθηκε επιτυχώς!</string>
-  <string name="nfts_generic_error">Ωχ! Κάτι πήγε στραβά!</string>
-  <string name="nfts_transact_gas_title">Βιάζεστε;</string>
-  <string name="nfts_transact_gas_description">Επιλέξτε τώρα πόσα έξοδα θέλετε να πληρώσετε. Όσο περισσότερα τα έξοδα, τόσο γρηγορότερη η συναλλαγή.</string>
-  <string name="nfts_transact_gas_price">Τιμή βενζίνης</string>
-  <string name="nfts_transact_gas_limit">Όριο βενζίνης</string>
-  <string name="nfts_transact_gas_fee_message">Έξοδα συναλλαγής</string>
-  <string name="nfts_transact_error_no_funds">Δεν υπάρχουν αρκετά χρήματα! Δεν έχετε αρκετά ETH για να πληρώσετε τα έξοδα.</string>
-  <string name="nfts_transact_error_low_gas">Η βενζίνη είναι πολύ χαμηλή! Αυξήστε τη βενζίνη σας για να αποδεχθεί το δίκτυο τη συναλλαγή σας.</string>
-  <string name="nfts_transact_error_already_in_progress">Αυτό το NFT ήδη βρίσκεται σε αποστολή! Μία προηγούμενη συναλλαγή βρίσκεται επί του παρόντος σε εξέλιξη.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Εξαργυρώστε τον κωδικό δωροκάρτας σας</string>
   <string name="gift_card_field">Κωδικός δωροκάρτας εδώ...</string>
@@ -1228,7 +1208,6 @@ Wallets</item>
   <string name="rewards_promo_code_status">Κατάσταση:</string>
   <string name="rewards_promo_code_status_active">Ενεργές</string>
   <string name="rewards_promo_code_status_expired">Έληξε</string>
-  <string name="home_nft_title">Το AppCoins Wallet τώρα υποστηρίζει NFT</string>
   <string name="home_appcoins_compatible_games_title">Παιχνίδια Συμβατά με AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα παιχνίδι που είναι συμβατό με AppCoins και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>

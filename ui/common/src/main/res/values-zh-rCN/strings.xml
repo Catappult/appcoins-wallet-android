@@ -1102,26 +1102,6 @@
   <string name="appcoins_info_explorer_title">资源管理器</string>
   <string name="appcoins_info_market_cap_title">市值</string>
   <string name="appcoins_info_volume_title">数据（24小时）</string>
-  <!--  NFTs -->
-  <string name="nfts_title">非同质化代币</string>
-  <string name="nfts_no_nfts">你这个钱包还没有任何NFT！</string>
-  <string name="nfts_transact_button">发送这个NFT</string>
-  <string name="nfts_transact_button_send">发送</string>
-  <string name="nfts_transact_button_next">下一步</string>
-  <string name="nfts_transact_button_done">完成</string>
-  <string name="nfts_transact_button_success">明白了</string>
-  <string name="nfts_transact_tip">输入好友的钱包地址</string>
-  <string name="nfts_transact_input_tip">钱包地址在这里输入......</string>
-  <string name="nfts_transact_done_mensage">已成功发送%s！</string>
-  <string name="nfts_generic_error">糟糕！出错了！</string>
-  <string name="nfts_transact_gas_title">着急吗？</string>
-  <string name="nfts_transact_gas_description">选择你想要支付多少费用。费用越高，交易越快。</string>
-  <string name="nfts_transact_gas_price">燃料价格</string>
-  <string name="nfts_transact_gas_limit">燃料限额</string>
-  <string name="nfts_transact_gas_fee_message">交易费</string>
-  <string name="nfts_transact_error_no_funds">资金不足！你没有足够的ETH来支付费用。</string>
-  <string name="nfts_transact_error_low_gas">燃料太低了！增加网络的燃料以接受交易。</string>
-  <string name="nfts_transact_error_already_in_progress">这个NFT已经发送！之前的交易目前正在进行中。</string>
   <!-- Gift Card -->
   <string name="gift_card_title">兑换礼品卡代码</string>
   <string name="gift_card_field">卡代码在这里输入......</string>
@@ -1214,7 +1194,6 @@
   <string name="rewards_promo_code_status">状态:</string>
   <string name="rewards_promo_code_status_active">激活</string>
   <string name="rewards_promo_code_status_expired">已到期</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>

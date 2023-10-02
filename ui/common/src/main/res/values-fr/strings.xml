@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Capitalisation boursière</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Vous n\'avez pas encore de NFTs dans ce portefeuille !</string>
-  <string name="nfts_transact_button">Envoyer ce NFT</string>
-  <string name="nfts_transact_button_send">Envoyer</string>
-  <string name="nfts_transact_button_next">Suivant</string>
-  <string name="nfts_transact_button_done">Terminé</string>
-  <string name="nfts_transact_button_success">Je l\'ai eu</string>
-  <string name="nfts_transact_tip">Entrez l\'adresse du portefeuille de votre ami</string>
-  <string name="nfts_transact_input_tip">L\'adresse du portefeuille ici...</string>
-  <string name="nfts_transact_done_mensage">%s envoyé avec succès !</string>
-  <string name="nfts_generic_error">Oups, quelque chose s\'est mal passé !</string>
-  <string name="nfts_transact_gas_title">Vous êtes pressé ?</string>
-  <string name="nfts_transact_gas_description">Choisissez le montant des frais que vous souhaitez payer. Plus les frais sont élevés, plus la transaction est rapide.</string>
-  <string name="nfts_transact_gas_price">Prix du gaz</string>
-  <string name="nfts_transact_gas_limit">Limite de gaz</string>
-  <string name="nfts_transact_gas_fee_message">Frais de transaction</string>
-  <string name="nfts_transact_error_no_funds">Pas assez de fonds ! Vous n\'avez pas assez d\'ETH pour payer les frais.</string>
-  <string name="nfts_transact_error_low_gas">Pas assez de fonds ! Augmentez-les pour que le réseau accepte votre transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">Ce NFT est déjà en cours d\'envoi ! Une transaction précédente est actuellement en cours.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Utilisez le code de votre carte cadeau</string>
   <string name="gift_card_field">Code de la carte ici...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Statut:</string>
   <string name="rewards_promo_code_status_active">Activer</string>
   <string name="rewards_promo_code_status_expired">Expiré</string>
-  <string name="home_nft_title">Le portefeuille AppCoins prend désormais en charge les NFTs</string>
   <string name="home_appcoins_compatible_games_title">Jeux compatibles avec les AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effectuez votre premier achat dans un jeu compatible avec les AppCoins et débloquez un bonus à chaque achat.</string>
