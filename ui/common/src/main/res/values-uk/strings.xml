@@ -251,8 +251,8 @@
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
   <string name="transaction_type_challenge_reward">Винагорода за челендж</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Нагороду за челендж відхилено</string>
+  <string name="transaction_type_challenge_reward_reverted">Нагороду за челендж повернуто</string>
   <string name="transaction_type_iab">Покупка в додатку</string>
   <string name="transaction_type_poa">Винагорода</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
