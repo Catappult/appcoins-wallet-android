@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
-  <string name="transaction_type_challenge_reward">Винагорода за челендж</string>
-  <string name="transaction_type_challenge_reward_rejected">Нагороду за челендж відхилено</string>
-  <string name="transaction_type_challenge_reward_reverted">Нагороду за челендж повернуто</string>
+  <string name="transaction_type_challenge_reward">Винагорода за завдання</string>
+  <string name="transaction_type_challenge_reward_rejected">Відхилена винагорода за завдання</string>
+  <string name="transaction_type_challenge_reward_reverted">Повернута винагорода за завдання</string>
   <string name="transaction_type_iab">Покупка в додатку</string>
   <string name="transaction_type_poa">Винагорода</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -1267,8 +1267,8 @@
   <string name="verify_card_code_enter_title">Введіть 4-значний код</string>
   <string name="verify_card_code_refund_body">%s буде повернуто протягом 24 годин після підтвердження коду.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Винагорода за челендж</string>
-  <string name="challenge_reward_card_body">Пройдіть челендж, щоб отримати AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Винагорода за завдання</string>
+  <string name="challenge_reward_card_body">Виконайте завдання, щоб отримати AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Насолоджуйтесь %s в AppCoins Credits на вашому гаманці</string>
 </resources>
