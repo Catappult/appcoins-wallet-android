@@ -68,8 +68,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
           release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
