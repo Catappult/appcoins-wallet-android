@@ -269,6 +269,7 @@
   <string name="transaction_type_challenge_reward">Challenge Reward</string>
   <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
   <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted_date">The Challenge Reward of %s has been reverted.</string>
   <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Reward</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
