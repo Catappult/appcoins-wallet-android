@@ -3,7 +3,14 @@ package com.appcoins.wallet.ui.widgets
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,7 +63,7 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
       color = WalletColors.styleguide_blue_secondary,
       modifier = Modifier
         .border(
-          border = BorderStroke(2.dp,  WalletColors.styleguide_pink),
+          border = BorderStroke(2.dp, WalletColors.styleguide_pink),
           shape = RoundedCornerShape(
             bottomEnd = 16.dp,
             bottomStart = 16.dp,
@@ -109,7 +116,7 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
                 fontSize = 14.sp
               )
             }
-            GetText(cardItem.action, 0.dp, cardItem.packageName)
+            GetText(cardItem.action, cardItem.packageName)
           }
         }
       }
