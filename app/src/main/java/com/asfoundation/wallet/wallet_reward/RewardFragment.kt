@@ -87,11 +87,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    ChallengeRewardManager.create(this.requireActivity())
-  }
-
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
