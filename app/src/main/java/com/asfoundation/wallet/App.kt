@@ -8,7 +8,6 @@ import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
@@ -47,7 +46,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.liulishuo.filedownloader.FileDownloader
 import java.security.Provider
 import java.security.Security
