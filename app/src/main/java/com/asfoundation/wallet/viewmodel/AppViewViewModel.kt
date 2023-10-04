@@ -7,38 +7,41 @@ import com.appcoins.wallet.core.network.eskills.downloadmanager.AppDownloadStatu
 import com.appcoins.wallet.core.network.eskills.packageinstaller.InstallStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.widgets.GameDetailsData
-import com.asfoundation.wallet.home.usecases.GetGameDetailsUseCase
+import com.asfoundation.wallet.home.usecases.GetEskillsGameDetailsUseCase
 import com.asfoundation.wallet.wallet.home.app_view.usecases.InstallAppUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.disposables.CompositeDisposable
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
-class AppDetailsViewModel
+class AppViewViewModel
 @Inject
 constructor(
-  private val getGameDetailsUseCase: GetGameDetailsUseCase,
+  private val getEskillsGameDetailsUseCase: GetEskillsGameDetailsUseCase,
   private val installAppUseCase: InstallAppUseCase,
   private val rxSchedulers: RxSchedulers,
 ) : ViewModel() {
+  private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
   val gameDetails = mutableStateOf(
     GameDetailsData(
-    "",
-    "",
-    "",
-    "",
-    "",
-    listOf(),
-    0.0,
-    0,
-    0,
-    "",
-    "",
-    0)
+      "",
+      "",
+      "",
+      "",
+      "",
+      listOf(),
+      0.0,
+      0,
+      0,
+      "",
+      "",
+      0
+    )
   )
   val progress = mutableStateOf(0)
-  val fileDownloader = mutableStateOf(FileDownloadManager())
+  private val fileDownloader = mutableStateOf(FileDownloadManager())
   val finishedInstall = mutableStateOf(false)
   val installing = mutableStateOf(false)
 
@@ -47,13 +50,14 @@ constructor(
   }
 
   fun fetchGameDetails(packageName: String) {
-    getGameDetailsUseCase(packageName)
-      .subscribeOn(rxSchedulers.io)
-      .subscribe(
-        { details -> gameDetails.value = details },
-        { e -> e.printStackTrace() }
-      )
-
+    compositeDisposable.add(
+      getEskillsGameDetailsUseCase(packageName)
+        .subscribeOn(rxSchedulers.io)
+        .subscribe(
+          { details -> gameDetails.value = details },
+          { e -> e.printStackTrace() }
+        )
+    )
   }
 
   fun installApp() {
@@ -68,13 +72,13 @@ constructor(
           finished = true
           downloader.observeFileDownloadProgress()
             .subscribe() { status ->
-              if(status.downloadProgress.totalFileBytes.toInt() == 0) {
+              if (status.downloadProgress.totalFileBytes.toInt() == 0) {
                 progress.value = 0
               } else {
                 progress.value =
-                  (((status.downloadProgress.downloadedBytes).toDouble() / (status.downloadProgress.totalFileBytes))*100).toInt()
+                  (((status.downloadProgress.downloadedBytes).toDouble() / (status.downloadProgress.totalFileBytes)) * 100).toInt()
               }
-              if(status.downloadState.equals(AppDownloadStatus.AppDownloadState.COMPLETED)){
+              if (status.downloadState.equals(AppDownloadStatus.AppDownloadState.COMPLETED)) {
                 finished = true
                 progress.value =
                   ((status.downloadProgress.downloadedBytes) / (status.downloadProgress.totalFileBytes) * 100).toInt()
@@ -112,7 +116,7 @@ constructor(
     }
   }
 
-  fun pauseDownoad() {
+  fun pauseDownload() {
     fileDownloader.value?.let {
       installAppUseCase.pauseDownload(it)
         .subscribeOn(Schedulers.io())
@@ -120,6 +124,11 @@ constructor(
           fileDownloader.value = downloader as FileDownloadManager?
         }
     }
+  }
+
+  override fun onCleared() {
+    super.onCleared()
+    compositeDisposable.clear()
   }
 
 }

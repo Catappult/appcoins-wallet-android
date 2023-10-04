@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface GamesApi {
   @GET("appc/games")
-  fun getGamesListing(): Single<GamesListingResponseItem>
+  fun getGamesListing(): Single<List<GamesListingResponseItem>>
 }

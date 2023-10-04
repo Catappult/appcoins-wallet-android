@@ -46,13 +46,13 @@ import com.appcoins.wallet.ui.widgets.grantedPermission
 import com.appcoins.wallet.ui.widgets.showInstallButton
 import com.appcoins.wallet.ui.widgets.showResume
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
-import com.asfoundation.wallet.viewmodel.AppDetailsViewModel
+import com.asfoundation.wallet.viewmodel.AppViewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class AppViewFragment(val gamePackage: String) : DialogFragment() {
+class AppViewFragment : DialogFragment() {
 
   @Inject
   lateinit var navigator: RecoverEntryNavigator
@@ -60,8 +60,18 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
 
+  private val viewModel: AppViewViewModel by viewModels()
 
-  private val viewModel: AppDetailsViewModel by viewModels()
+  companion object {
+    private const val ARG_GAME_PACKAGE = "game_package"
+    fun newInstance(gamePackage: String): AppViewFragment {
+      return AppViewFragment().apply {
+        arguments = Bundle().apply {
+          putString(ARG_GAME_PACKAGE, gamePackage)
+        }
+      }
+    }
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -72,7 +82,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     return ComposeView(requireContext())
       .apply {
         setContent {
@@ -87,6 +97,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     val downloadProgress by remember { viewModel.progress }
     val finishedInstall by remember { viewModel.finishedInstall }
     val installing by remember { viewModel.installing }
+    val gamePackage = requireArguments().getString(ARG_GAME_PACKAGE, "")
     GameDetails(
       appDetailsData = viewModel.gameDetails.value,
       close = { closeFragment() },
@@ -95,7 +106,7 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
       finishedInstall = finishedInstall,
       installing = installing,
       cancel = { viewModel.cancelDownload() },
-      pause = { viewModel.pauseDownoad() },
+      pause = { viewModel.pauseDownload() },
       open = { openApp(gamePackage) },
       progress = downloadProgress
     ) {
@@ -103,8 +114,8 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     }
   }
 
-  fun installApp() {
-    val storagePermission = isGrantedPermissionWRITE_EXTERNAL_STORAGE()
+  private fun installApp() {
+    val storagePermission = isGrantedExternalStoragePermission()
     if (storagePermission) {
       viewModel.installApp()
       grantedPermission.value = true
@@ -153,32 +164,39 @@ class AppViewFragment(val gamePackage: String) : DialogFragment() {
     }
   }
 
-  fun isGrantedPermissionWRITE_EXTERNAL_STORAGE(): Boolean {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-      return Environment.isExternalStorageManager()
+  private fun isGrantedExternalStoragePermission(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      Environment.isExternalStorageManager()
     } else {
-      return ActivityCompat.checkSelfPermission(
+      ActivityCompat.checkSelfPermission(
         requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE
       ) == PackageManager.PERMISSION_GRANTED
     }
   }
 
-  fun openApp(packageName: String) {
+  private fun openApp(packageName: String) {
     AptoideUtils.SystemU.openApp(packageName, requireContext().packageManager, context)
   }
 
-  fun isAppInstalled(packageName: String): Boolean {
+  private fun isAppInstalled(packageName: String): Boolean {
     return try {
-      requireContext().packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        requireContext().packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(
+          PackageManager.GET_ACTIVITIES.toLong()
+        ))
+      } else {
+        requireContext().packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+      }
+
       true
     } catch (e: PackageManager.NameNotFoundException) {
       false
     }
   }
 
-  fun closeFragment() {
-    parentFragmentManager.beginTransaction().remove(this).commit(); }
-
+  private fun closeFragment() {
+    parentFragmentManager.beginTransaction().remove(this).commit()
+  }
 }
 
 @Preview

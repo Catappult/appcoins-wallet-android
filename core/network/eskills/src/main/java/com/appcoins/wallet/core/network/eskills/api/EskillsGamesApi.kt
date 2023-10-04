@@ -7,7 +7,6 @@ import retrofit2.http.Query
 
 interface EskillsGamesApi {
 
-  //@GET("appc/games")
   @GET("apps/get")
   fun getGamesListing(
     @Query("limit") limit: String,

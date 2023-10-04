@@ -176,10 +176,15 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       if (isEskillsVersion) {
-        GamesBundle(
+        EskillsGamesBundle(
           items = viewModel.gamesList.value,
           dialog = { launchAppViewFragment(gameClicked) }
-        ) { viewModel.fetchGamesListing() }
+        ) { viewModel.fetchEskillsGamesListing() }
+      }
+      else {
+        GamesBundle(
+          items = viewModel.gamesList.value,
+          ) { viewModel.fetchGamesListing() }
       }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
@@ -468,7 +473,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   private fun launchAppViewFragment(gamePackage: String) {
-    val dialog = AppViewFragment(gamePackage)
+    val dialog = AppViewFragment.newInstance(gamePackage)
     dialog.show(childFragmentManager, dialog.tag)
   }
 }

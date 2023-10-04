@@ -115,6 +115,7 @@ constructor(
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
   private val getGamesListingUseCase: GetGamesListingUseCase,
+  private val getEskillsGamesListingUseCase: GetEskillsGamesListingUseCase,
   private val isEskillsVersionUseCase: IsEskillsVersionUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
@@ -339,6 +340,11 @@ constructor(
       .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
   }
 
+  fun fetchEskillsGamesListing() {
+    getEskillsGamesListingUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .scopedSubscribe({gamesList.value = it}, {e -> e.printStackTrace()})
+  }
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
