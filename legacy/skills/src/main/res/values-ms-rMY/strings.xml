@@ -11,8 +11,8 @@
   <string name="get_button">Dapatkan</string>
   <string name="got_it_button">Berjaya</string>
   <string name="install_button">Pasang</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Cuba lagi</string>
+  <string name="restart_button">Mula semula</string>
   <string name="provide_wallet_creating_wallet_header">Mencipta alama dompet&#8230;</string>
   <string name="processing_loading_title">Mendapatkan tiket masuk anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>

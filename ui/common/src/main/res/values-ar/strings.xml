@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">قيد الانتظار</string>
   <string name="transaction_status_failed">فشل</string>
   <string name="transaction_status_reverted">راجعة</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">جائزة التحدّي</string>
+  <string name="transaction_type_challenge_reward_rejected">جائزة التحدي المرفوضة</string>
+  <string name="transaction_type_challenge_reward_reverted">جائزة التحدي المرفوضة</string>
   <string name="transaction_type_iab">شراء داخل التطبيق</string>
   <string name="transaction_type_poa">الجوائز</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
   <string name="download_button">تنزيل</string>
-  <string name="done">Done!</string>
+  <string name="done">تم!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -1292,8 +1292,8 @@
   <string name="verify_card_code_enter_title">أدخل الرمز من 4 أرقام</string>
   <string name="verify_card_code_refund_body">سيتم إعادة %s خلال 24 ساعة بعد تأكيد الرمز.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">جائزة التحدي</string>
+  <string name="challenge_reward_card_body">أكمل التحدي لتحصل على رصيد AppCoins.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">تمتع برصيد %s AppCoins Credits قي محفظتك</string>
 </resources>

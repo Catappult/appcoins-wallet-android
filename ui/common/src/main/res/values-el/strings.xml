@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Διαχείριση wallet</string>
   <string name="log_out_button">Αποσύνδεση</string>
   <string name="download_button">Λήψη</string>
-  <string name="done">Done!</string>
+  <string name="done">Τέλος!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
