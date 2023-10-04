@@ -11,23 +11,26 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.core.utils.properties.MiscProperties
+import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
+import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
-import com.asf.wallet.BuildConfig
-import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
-import com.asfoundation.wallet.app_start.AppStartProbe
-import com.asfoundation.wallet.app_start.AppStartUseCase
-import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.identification.IdsRepository
-import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.properties.MiscProperties
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.InitilizeDataAnalytics
+import com.asfoundation.wallet.app_start.AppStartProbe
+import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
+import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -48,7 +51,7 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.liulishuo.filedownloader.FileDownloader
 import java.security.Provider
 import java.security.Security
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 
@@ -114,6 +117,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var ewtObtainer: EwtAuthenticatorService
+
+  @Inject
+  lateinit var partnerAddressService: PartnerAddressService
 
   companion object {
     private val TAG = App::class.java.name
@@ -254,5 +260,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun rxSchedulers() = rxSchedulers
 
   override fun ewtObtainer() = ewtObtainer
+
+  override fun partnerAddressService() = partnerAddressService
 
 }

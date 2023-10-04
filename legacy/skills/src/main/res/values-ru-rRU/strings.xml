@@ -11,7 +11,7 @@
   <string name="get_button">Получить</string>
   <string name="got_it_button">Ясно</string>
   <string name="install_button">Установить</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">Попробовать снова</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
   <string name="processing_loading_title">Получаем ваш входной билет...</string>
@@ -97,9 +97,9 @@
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="few">Minutes</item>
-    <item quantity="many">Minutes</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="few">Минуты</item>
+    <item quantity="many">Минуты</item>
+    <item quantity="other">Минуты</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>

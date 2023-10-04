@@ -13,6 +13,7 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:walletServices"))
   implementation(project(":core:network:base"))
+  implementation(project(":core:analytics"))
 
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)
