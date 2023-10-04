@@ -74,6 +74,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun RemoveWalletView() {
+    viewModel.getWallets(false)
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -94,7 +95,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
           }
 
         ManageWalletViewModel.UiState.WalletDeleted -> navigateToManageWallet()
-
         else -> {}
       }
     }
@@ -115,7 +115,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { AlertCard() }
 
-      item { ActionButtons(walletInfo.wallet) }
+      item { ActionButtons(walletInfo.wallet, walletInfo.name) }
     }
   }
 
@@ -147,10 +147,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
       Card(
         modifier = Modifier.padding(vertical = 24.dp),
         colors =
-        CardDefaults.cardColors(
-          containerColor =
-          WalletColors.styleguide_blue_secondary
-        )
+        CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
       ) {
         Column(
           modifier = Modifier
@@ -180,7 +177,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
             currency = ethBalance.token.symbol
           )
         }
-
       }
     }
   }
@@ -230,12 +226,16 @@ class RemoveWalletFragment : BasePageViewFragment() {
     Card(
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
       border = BorderStroke(1.dp, styleguide_pink),
-      modifier = Modifier.padding(horizontal = 16.dp)
+      modifier = Modifier
+        .padding(horizontal = 16.dp)
+        .fillMaxWidth()
     ) {
       Column(
         verticalArrangement = Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)
+        modifier = Modifier
+          .padding(vertical = 24.dp, horizontal = 16.dp)
+          .fillMaxWidth()
       ) {
         Image(
           painterResource(R.drawable.ic_alert_circle),
@@ -255,7 +255,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActionButtons(address: String) {
+  fun ActionButtons(address: String, name: String) {
     Column(
       verticalArrangement = Arrangement.spacedBy(16.dp),
       modifier = Modifier
@@ -264,7 +264,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
     ) {
       ButtonWithText(
         label = stringResource(id = R.string.my_wallets_action_backup_wallet),
-        onClick = { myWalletsNavigator.navigateToBackupWallet(address) },
+        onClick = { myWalletsNavigator.navigateToBackup(address, name) },
         labelColor = styleguide_light_grey,
         backgroundColor = styleguide_pink,
         buttonType = ButtonType.LARGE
@@ -282,6 +282,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   private fun navigateToManageWallet() {
     setFragmentResult(ManageWalletFragment.MANAGE_WALLET_REQUEST_KEY, bundleOf())
-    requireActivity().onBackPressedDispatcher.onBackPressed()
+    myWalletsNavigator.navigateBack()
   }
 }

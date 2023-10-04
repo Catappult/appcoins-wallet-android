@@ -12,10 +12,10 @@ dependencies{
     exclude(group = "com.google.android", module = "flexbox")
   }
   implementation(project(":legacy:gamification"))
-  implementation(project(":legacy:billing"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:shared-preferences"))
+  implementation(project(":core:walletServices"))
 
   implementation(libs.bundles.result)
   implementation(libs.bundles.rx)

@@ -22,6 +22,8 @@ interface SubscriptionDetailsView {
 
   fun showLoading()
 
+  fun hideLoading()
+
   fun showNoNetworkError()
 
   fun showRenewError()

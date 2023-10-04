@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card.intro
 
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel

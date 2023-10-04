@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Começar</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="buy_button">Comprar</string>
   <string name="topup_button">Depositar</string>
+  <string name="downloading">Fazendo o download</string>
+  <string name="get_button">Obter</string>
+  <string name="got_it_button">Entendi</string>
+  <string name="install_button">Instalar</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Criando o endereço da sua carteira&#8230;</string>
   <string name="processing_loading_title">Obtendo seu ticket de entrada</string>
   <string name="finding_room_loading_title">Aguardando por oponentes</string>
@@ -32,21 +38,73 @@
   <string name="purchase_error_title">Opa, algo deu errado.</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="shared_room_waiting">Aguardando oponentes para entrar em %s</string>
-  <string name="rooted_device_blocked_body">Infelizmente, você não pode jogar jogos e-Skills com um dispositivo rooteado.</string>
-  <string name="top_up_needed_body">Por motivos de segurança, você precisa fazer pelo menos uma recarga em sua carteira para jogar jogos e-Skills.</string>
-  <string name="not_enough_funds_body">Você não tem fundos o suficiente! Por favor, recarregue para comprar o ticket de entrada.</string>
-  <string name="error_message_local_payment_method_body">Métodos de pagamento locais não são aceitos para comprar uma taxa de inscrição. Por favor, crie uma nova carteira e adquira créditos com um cartão bancário ou PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Versão da carteira não suportada!</string>
   <string name="update_not_supported_body">Atualize a AppCoins Wallet para a versão mais recente.</string>
   <string name="update_button">Atualizar</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Você e os amigos que convidar receberão um bônus de $%s. Você pode indicar até 5 amigos, e eles devem ser novos usuários. O bônus será creditado na sua carteira assim que eles usarem o seu código de convite em seu primeiro jogo e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Você e os amigos que convidar receberão um bônus de $%s. Você pode convidar até 5 amigos, e eles devem ser novos usuários. O bônus será creditado na sua carteira assim que eles usarem o seu código de convite em seu primeiro jogo e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Pronto para mostrar suas habilidades?</string>
   <string name="refer_a_friend_first_time_body">Derrote outros jogadores e ganhe um prêmio em dinheiro real! Vamos começar com um jogo de treino sem taxa de inscrição.</string>
   <string name="refer_a_friend_error_unavailable_body">Este recurso está indisponível no momento.</string>
   <string name="refer_a_friend_error_invalid_code_body">Código inválido!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Somente para novos jogadores!</string>
   <string name="refer_a_friend_first_time_tooltip">Com nosso Programa de Indicação, você receberá um bônus de $%s ao usar o código de seu amigo. Eles também receberão o mesmo valor como bônus para ser usado em compras no app ou tíquetes de entrada em e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Indique um Amigo!</string>
+  <string name="refer_a_friend_waiting_room_title">Convide um Amigo!</string>
   <string name="refer_a_friend_waiting_from_body">Receba um bônus por cada amigo que convidar.</string>
+  <string name="refer_a_friend_invitation_message">Você foi convidado para jogar %1$s! Use o código de convite %2$s após baixá-lo pala %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Os jogos e-Skills não podem ser jogados utilizando uma VPN ativa. Desative-a e tente novamente!</string>
+  <string name="top_up_needed_body">Por motivos de segurança, você precisa fazer pelo menos uma recarga em sua carteira para jogar jogos e-Skills.</string>
+  <string name="not_enough_funds_body">Você não tem fundos o suficiente! Por favor, recarregue para comprar o ticket de entrada.</string>
+  <string name="error_message_local_payment_method_body">Métodos de pagamento locais não são aceitos para comprar uma taxa de inscrição. Por favor, crie uma nova carteira e adquira créditos com um cartão bancário ou PayPal!</string>
+  <string name="rooted_device_blocked_body">Infelizmente, você não pode jogar jogos e-Skills com um dispositivo rooteado.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Aguardando os oponentes terminarem o jogo.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Ganhe Dinheiro</string>
+  <string name="eskills_carousel_body">Vença outros jogadores com o e-Skills</string>
+  <string name="eskills_game_1">Instale o jogo de e-Skills em que você acha que é melhor.</string>
+  <string name="carousel_game_2">Abra-o e adquira um ticket de entrada para iniciar uma partida contra outros jogadores.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Descrição</string>
 </resources>

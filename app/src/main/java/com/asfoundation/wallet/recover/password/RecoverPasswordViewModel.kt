@@ -54,7 +54,7 @@ class RecoverPasswordViewModel @Inject constructor(
       is FailedPasswordRecover -> Single.just(recoverResult)
       is SuccessfulPasswordRecover -> Completable.mergeArray(
         setDefaultWalletUseCase(recoverResult.address),
-        updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
+        updateWalletInfoUseCase(recoverResult.address)
       ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .andThen(Single.just(recoverResult))

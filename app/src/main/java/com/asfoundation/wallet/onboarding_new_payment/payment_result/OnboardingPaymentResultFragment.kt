@@ -148,9 +148,20 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         * the verification flow without leaving the first payment flow
         * */
         if (walletVerified) {
+
           showSpecificError(R.string.purchase_error_verify_card)
+          views.genericErrorLayout.errorVerifyWalletButton.visibility = View.GONE
+          views.genericErrorLayout.errorVerifyCardButton.visibility = View.VISIBLE
+          views.genericErrorLayout.errorVerifyCardButton.setOnClickListener {
+            navigator.navigateToVerifyWallet(walletVerified)
+          }
         } else {
+          views.genericErrorLayout.errorVerifyWalletButton.visibility = View.VISIBLE
+          views.genericErrorLayout.errorVerifyCardButton.visibility = View.GONE
           showSpecificError(R.string.purchase_error_verify_wallet)
+          views.genericErrorLayout.errorVerifyWalletButton.setOnClickListener {
+            navigator.navigateToVerifyWallet(walletVerified)
+          }
         }
       }
       refusalCode != null -> {

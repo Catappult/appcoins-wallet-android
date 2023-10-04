@@ -130,6 +130,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter
           android:autoVerify="true"
+          android:priority="10"
           tools:ignore="UnusedAttribute">
         <action android:name="android.intent.action.VIEW" />
 
@@ -179,7 +180,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.rating.RatingActivity"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow" />
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
@@ -259,9 +260,6 @@
         android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
-        android:label="@string/e_skills_withdraw_title" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
     <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->
@@ -300,16 +298,6 @@
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
         tools:node="remove">
-    </provider>
-    <!--Needed to share file in android P and above -->
-    <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="${applicationId}.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-      <meta-data
-          android:name="android.support.FILE_PROVIDER_PATHS"
-          android:resource="@xml/file_provider_paths" />
     </provider>
   </application>
 

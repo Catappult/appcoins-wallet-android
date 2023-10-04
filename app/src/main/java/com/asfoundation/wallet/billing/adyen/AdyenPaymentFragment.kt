@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -157,20 +156,31 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   // support_error_layout.xml
   private val error_message: TextView
     get() = bindingCreditCardLayout?.fragmentAdyenError?.errorMessage
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.errorMessage
       ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage
       ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorMessage!!
   private val error_verify_wallet_button: WalletButtonView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.errorVerifyWalletButton
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.errorVerifyWalletButton
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton!!
+
   private val error_verify_card_button: WalletButtonView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.errorVerifyCardButton
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.errorVerifyCardButton
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton!!
+
   private val layout_support_logo: ImageView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportLogo
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.layoutSupportLogo
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.layoutSupportLogo
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportLogo!!
   private val layout_support_icn: ImageView
-    get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportIcn
-      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn!!
+    get() = bindingCreditCardLayout?.fragmentAdyenError?.layoutSupportIcn
+      ?: bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.layoutSupportIcn
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn
+      ?: bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportIcn!!
 
   // view_purchase_bonus.xml
   private val bonus_value: TextView

@@ -2,6 +2,7 @@ plugins {
   id("appcoins.android.app")
   id("appcoins.room")
   id("appcoins.hilt")
+  id("appcoins.firebase")
   id("com.google.gms.google-services")
   id("androidx.navigation.safeargs.kotlin")
   id("de.mannodermaus.android-junit5")
@@ -10,8 +11,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 263
-    versionName = "2.12.1"
+    versionCode = 275
+    versionName = "3.2.0"
   }
 }
 
@@ -35,6 +36,7 @@ dependencies {
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:zendesk"))
+  implementation(project(":core:walletServices"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
@@ -97,9 +99,7 @@ dependencies {
     exclude(group = "org.bouncycastle", module = "bcprov-jdk15to18")
   }
   implementation(libs.firebase.messaging)
-  implementation(libs.intercom) {
-    exclude(group = "com.google.android", module = "flexbox")
-  }
+  implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
   implementation(libs.paranoid)
   implementation(libs.flexbox)
 

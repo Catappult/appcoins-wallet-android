@@ -1,5 +1,9 @@
 package com.asfoundation.wallet.transactions
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import androidx.compose.ui.text.style.TextDecoration
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.BURN
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_ENTRY_TICKET
@@ -45,9 +49,33 @@ data class TransactionCardInfo(
     val date: String,
     val from: String? = null,
     val to: String? = null,
-    val transactionUrl: String,
-    val failedMessage: Int? = null
+    val failedMessage: Int? = null,
+    val sku: String? = null,
+    val txId: String? = null,
+    val invoiceId: String? = null
 )
+
+object DownloadHelper {
+    private const val MIMETYPE_PDF = "application/pdf"
+    const val PDF_FORMAT = ".pdf"
+
+    fun downloadFile(
+        context: Context,
+        url: String,
+        fileName: String,
+        mimeType: String = MIMETYPE_PDF
+    ) {
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val uri = Uri.parse(url)
+
+        val request = DownloadManager.Request(uri)
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+        request.setMimeType(mimeType)
+        downloadManager.enqueue(request)
+    }
+}
 
 fun TransactionModel.cardInfoByType() =
     when (this.type) {
@@ -62,7 +90,9 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         TOPUP ->
@@ -73,7 +103,8 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         GIFTCARD ->
@@ -84,7 +115,7 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                invoiceId = invoiceId
             )
 
         EXTRA_BONUS ->
@@ -98,7 +129,9 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         PROMO_CODE_BONUS ->
@@ -109,7 +142,7 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                invoiceId = invoiceId
             )
 
         REVERTED_PURCHASE_BONUS ->
@@ -122,9 +155,10 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REVERTED_EXTRA_BONUS ->
@@ -138,8 +172,9 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REVERTED_PROMO_CODE_BONUS ->
@@ -153,8 +188,8 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                invoiceId = invoiceId
             )
 
         ESKILLS_REWARD ->
@@ -168,7 +203,9 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         ESKILLS_TICKET_REFUND ->
@@ -181,9 +218,10 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REJECTED_ESKILLS_TICKET ->
@@ -195,10 +233,11 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_rejected_body,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
-                textDecoration = TextDecoration.LineThrough
+                textDecoration = TextDecoration.LineThrough,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         FUNDS_SENT ->
@@ -209,9 +248,10 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 to = to,
-                from = from
+                from = from,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         FUNDS_RECEIVED ->
@@ -222,9 +262,10 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 from = from,
-                to = to
+                to = to,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         INAPP_PURCHASE ->
@@ -237,10 +278,12 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
-                from = from
+                from = from,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         PURCHASE_REFUND ->
@@ -253,9 +296,11 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REJECTED_PURCHASE ->
@@ -267,10 +312,12 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
-                failedMessage = R.string.transaction_rejected_body
+                failedMessage = R.string.transaction_rejected_body,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REVERTED_TOPUP ->
@@ -281,8 +328,9 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REJECTED_TOPUP ->
@@ -293,9 +341,10 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 textDecoration = TextDecoration.LineThrough,
-                failedMessage = R.string.transaction_rejected_body
+                failedMessage = R.string.transaction_rejected_body,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         SUBSCRIPTION_PAYMENT ->
@@ -307,10 +356,12 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
-                from = from
+                from = from,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         SUBSCRIPTION_REFUND ->
@@ -323,9 +374,11 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                failedMessage = R.string.transaction_reverted_body
+                failedMessage = R.string.transaction_reverted_body,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         REJECTED_SUBSCRIPTION_PURCHASE ->
@@ -337,10 +390,12 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_rejected_body,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         ESKILLS_ENTRY_TICKET ->
@@ -353,10 +408,12 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
                 id = orderId,
                 to = to,
-                from = from
+                from = from,
+                sku = sku,
+                txId = txId,
+                invoiceId = invoiceId
             )
 
         ESKILLS_WITHDRAW ->
@@ -368,7 +425,7 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
+                invoiceId = invoiceId
             )
 
         FEE,
@@ -384,7 +441,7 @@ fun TransactionModel.cardInfoByType() =
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl,
+                invoiceId = invoiceId
             )
         }
     }

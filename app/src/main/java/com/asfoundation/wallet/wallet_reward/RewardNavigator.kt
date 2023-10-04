@@ -1,13 +1,11 @@
 package com.asfoundation.wallet.wallet_reward
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
@@ -42,9 +40,10 @@ class RewardNavigator @Inject constructor(
   }
 
   fun navigateToWithdrawScreen() {
-    val intent = WithdrawActivity.newIntent(fragment.requireContext())
-      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
-    fragment.requireContext().startActivity(intent)
+    navigate(
+      navController,
+      RewardFragmentDirections.actionNavigateEskillsWithdraw()
+    )
   }
 
   fun navigateToGamification(cachedBonus: Double) {

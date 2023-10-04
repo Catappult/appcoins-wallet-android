@@ -3,16 +3,32 @@ package com.asfoundation.wallet.transfers
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import android.widget.Toast.LENGTH_SHORT
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,6 +37,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,17 +84,19 @@ import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NoNetwor
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.NotEnoughFundsError
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.Success
 import com.asfoundation.wallet.transfers.TransferFundsViewModel.UiState.UnknownError
+import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations
-import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.RECEIVE
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations.SEND
 import com.asfoundation.wallet.ui.transact.TransferFragmentNavigator
+import com.asfoundation.wallet.util.QRUri
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.vision.barcode.Barcode
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -86,6 +105,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   lateinit var transferNavigator: TransferFragmentNavigator
 
   private val viewModel: TransferFundsViewModel by viewModels()
+  private var addressTextValue: MutableState<String> = mutableStateOf("")
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -103,7 +123,7 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun TransferFundsView() {
     Scaffold(
       topBar = {
-        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        Surface { TopBar(onClickSupport = { viewModel.displayChat() }) }
       },
       containerColor = styleguide_blue,
     ) { padding ->
@@ -153,15 +173,14 @@ class TransferFundsFragment : BasePageViewFragment() {
 
   @Composable
   fun CenterContent() {
-    val uiState = viewModel.uiState.collectAsState().value
-    when (uiState) {
+    when (val uiState = viewModel.uiState.collectAsState().value) {
       is Success -> {
         Column(
           modifier = Modifier
             .fillMaxHeight(),
           verticalArrangement = Arrangement.SpaceBetween,
         ) {
-          when (viewModel.clickedTransferItem.value ?: TransferDestinations.SEND.ordinal) {
+          when (viewModel.clickedTransferItem.value ?: SEND.ordinal) {
             SEND.ordinal -> {
               Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 NavigationCurrencies()
@@ -212,7 +231,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -221,7 +240,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.error_invalid_amount),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -230,7 +249,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.error_invalid_address),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -239,7 +258,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.activity_iab_no_network_message),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -248,7 +267,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.p2p_send_error_not_enough_funds),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -257,7 +276,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),
-          Toast.LENGTH_SHORT
+          LENGTH_SHORT
         ).show()
         viewModel.getWalletInfo()
       }
@@ -301,7 +320,8 @@ class TransferFundsFragment : BasePageViewFragment() {
             backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
             labelColor = if (selected) styleguide_white else styleguide_medium_grey,
             onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
-            textStyle = MaterialTheme.typography.bodySmall
+            textStyle = MaterialTheme.typography.bodySmall,
+            buttonType = ButtonType.LARGE
           )
         }
       }
@@ -329,12 +349,13 @@ class TransferFundsFragment : BasePageViewFragment() {
       maxLines = 1,
       overflow = TextOverflow.Ellipsis
     )
+
   }
 
   @Preview
   @Composable
   fun AddressTextField() {
-    var address by rememberSaveable { mutableStateOf("") }
+    var address by rememberSaveable { addressTextValue }
     Text(
       modifier = Modifier.padding(horizontal = 8.dp),
       text = stringResource(R.string.p2p_send_body),
@@ -346,11 +367,12 @@ class TransferFundsFragment : BasePageViewFragment() {
         value = address,
         placeHolder = stringResource(R.string.hint_recipient_address),
         backgroundColor = styleguide_blue_secondary,
+        keyboardType = KeyboardType.Ascii,
         trailingIcon = {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
             contentDescription = R.string.scan_qr,
-            onClick = {},
+            onClick = { transferNavigator.showQrCodeScreen() },
             paddingIcon = 4.dp,
             background = styleguide_blue_secondary
           )
@@ -459,7 +481,7 @@ class TransferFundsFragment : BasePageViewFragment() {
       requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(ManageWalletFragment.ADDRESS_KEY, address)
     clipboard.setPrimaryClip(clip)
-    Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, R.string.copied_to_clipboard, LENGTH_SHORT).show()
   }
 
   private fun createQRImage(address: String): Bitmap? {
@@ -469,8 +491,28 @@ class TransferFundsFragment : BasePageViewFragment() {
       val barcodeEncoder = BarcodeEncoder()
       barcodeEncoder.createBitmap(bitMatrix)
     } catch (e: Exception) {
-      Toast.makeText(context, getString(R.string.error_fail_generate_qr), Toast.LENGTH_SHORT).show()
+      Toast.makeText(context, getString(R.string.error_fail_generate_qr), LENGTH_SHORT).show()
       null
+    }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == TransferFragmentNavigator.TRANSACTION_CONFIRMATION_REQUEST_CODE) {
+      transferNavigator.navigateBack()
+    } else if (resultCode == CommonStatusCodes.SUCCESS && requestCode == TransferFragmentNavigator.BARCODE_READER_REQUEST_CODE) {
+      data?.let { data ->
+        val barcode = data.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
+        QRUri.parse(barcode?.displayValue).let {
+          if (it.address != BarcodeCaptureActivity.ERROR_CODE) {
+            addressTextValue.value = it.address
+            viewModel.currentAddedAddress = it.address
+          } else {
+            Toast.makeText(context, R.string.toast_qr_code_no_address, LENGTH_SHORT)
+              .show()
+          }
+        }
+      }
     }
   }
 

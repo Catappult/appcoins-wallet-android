@@ -1,7 +1,7 @@
 package com.appcoins.wallet.feature.walletInfo.data.verification
 
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import io.reactivex.Completable

@@ -1,11 +1,13 @@
 package com.appcoins.wallet.core.network.eskills
 
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.eskills.api.BonusPrizeApi
+import com.appcoins.wallet.core.network.eskills.api.GeneralPlayerStatsApi
 import com.appcoins.wallet.core.network.eskills.annotations.EskillsCarouselRetrofit
 import com.appcoins.wallet.core.network.eskills.api.EskillsGamesApi
 import com.appcoins.wallet.core.network.eskills.api.RoomApi
 import com.appcoins.wallet.core.network.eskills.api.TicketApi
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -79,4 +81,19 @@ class EskillsApiModule {
   ): EskillsGamesApi {
     return retrofit.create(EskillsGamesApi::class.java)
   }
+
+  @Provides
+  fun providePlayerStats(
+    @Named("eskills-default") retrofit: Retrofit
+  ): GeneralPlayerStatsApi {
+    return retrofit.create(GeneralPlayerStatsApi::class.java)
+  }
+
+  @Provides
+  fun provideBonusPrize(
+    @Named("eskills-default") retrofit: Retrofit
+  ): BonusPrizeApi {
+    return retrofit.create(BonusPrizeApi::class.java)
+  }
+
 }

@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">AppCoins ウォレット</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">スタート</string>
   <string name="ok">わかりました</string>
   <string name="cancel">キャンセルする</string>
   <string name="buy_button">購入</string>
   <string name="topup_button">トップアップ</string>
+  <string name="downloading">ダウンロード中</string>
+  <string name="get_button">入手</string>
+  <string name="got_it_button">了解</string>
+  <string name="install_button">インストール</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="processing_loading_title">エントリーチケットを入手中</string>
   <string name="finding_room_loading_title">対戦相手を待っています</string>
@@ -32,21 +38,68 @@
   <string name="purchase_error_title">問題が発生しました。</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="shared_room_waiting">対戦相手が%sに参加するのを待っています</string>
-  <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
-  <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
-  <string name="not_enough_funds_body">資金が足りません。エントリーチケットを購入するためにチャージしてください。</string>
-  <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">ウォレットのバージョンに対応していません</string>
   <string name="update_not_supported_body">AppCoins Walletを最新バージョンに更新</string>
   <string name="update_button">アップデート</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">あなたと招待した友達は $%s ボーナスを受け取ることができます。 最大 5 人の友人を招待できますが、友人は新規ユーザーである必要があります。 最初の eスキルゲームで招待コードを使用すると、ボーナスがウォレットに入金されます。</string>
+  <string name="refer_a_friend_first_time_header">スキルを発揮する準備はいいですか？</string>
+  <string name="refer_a_friend_first_time_body">他のプレイヤーに勝ってリアルマネーの賞金を獲得しましょう！ まずは参加費無料の練習試合から始めましょう。</string>
+  <string name="refer_a_friend_error_unavailable_body">38 / 5,000
+この機能は現在利用できません。</string>
+  <string name="refer_a_friend_error_invalid_code_body">無効なコード!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">新規ユーザー限定！</string>
+  <string name="refer_a_friend_first_time_tooltip">紹介プログラムで友達コードを使用すると $%s ボーナスを受け取ることができます。 また、紹介された友達もアプリ内購入やeスキルのエントリー チケットに使用できる同額のボーナスも受け取ります。</string>
+  <string name="refer_a_friend_waiting_room_title">友達を招待！</string>
+  <string name="refer_a_friend_waiting_from_body">友達を招待するごとにボーナスをゲット。</string>
+  <string name="refer_a_friend_invitation_message">あなたは%1$sのプレイに招待されています！%3$sからダウンロードした後、招待コード%2$sを使用してください。</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skillsのゲームは、VPNが有効な状態ではプレイできません。無効にした上で、再度お試しください！</string>
+  <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
+  <string name="not_enough_funds_body">資金が足りません。エントリーチケットを購入するためにチャージしてください。</string>
+  <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
+  <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">対戦相手のゲーム終了を待っています</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">収入を得る</string>
+  <string name="eskills_carousel_body">e-Skillで他のプレイヤーに勝とう</string>
+  <string name="eskills_game_1">得意なe-Skillsゲームをインストール</string>
+  <string name="carousel_game_2">開くと、他のプレイヤーとの対戦を開始するためのエントリーチケットが手に入ります</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">内容</string>
 </resources>

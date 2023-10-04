@@ -4,10 +4,7 @@ import android.app.Application
 import com.appcoins.wallet.sharedpreferences.SupportPreferencesDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
+import com.google.firebase.messaging.FirebaseMessaging
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
@@ -59,13 +56,13 @@ class SupportRepository @Inject constructor(
   }
 
   private fun handleFirebaseToken() {
-    FirebaseInstanceId.getInstance()
-        .instanceId
-        .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
-          override fun onComplete(task: Task<InstanceIdResult?>) {
-            if (!task.isSuccessful) return
-            IntercomPushClient().sendTokenToIntercom(app, task.result?.token!!)
-          }
-        })
+    FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+      if (task.isSuccessful) {
+        val token = task.result
+        if (token != null) {
+          IntercomPushClient().sendTokenToIntercom(app, token)
+        }
+      }
+    }
   }
 }

@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">AppCoins 지갑</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">시작</string>
   <string name="ok">OK</string>
   <string name="cancel">취소</string>
   <string name="buy_button">구매</string>
   <string name="topup_button">충전</string>
+  <string name="downloading">다운로드 중</string>
+  <string name="get_button">얻기</string>
+  <string name="got_it_button">알겠습니다</string>
+  <string name="install_button">설치</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
@@ -32,21 +38,67 @@
   <string name="purchase_error_title">이런, 무언가 잘못되었습니다.</string>
   <string name="purchase_eskills_sku">입장권</string>
   <string name="shared_room_waiting">상대가 %s에 합류하기를 기다리는 중입니다</string>
-  <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-스킬 게임을 플레이하실 수 없습니다.\"</string>
-  <string name="top_up_needed_body">보안상의 이유로, e-Skills 게임을 하기 위해서는 지갑에 최소한 한 개 이상을 충전해야 합니다.</string>
-  <string name="not_enough_funds_body">자본이 부족합니다! 입장 티켓을 구매하여 충전하세요.</string>
-  <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">지원되지 않는 지갑 버전입니다!</string>
   <string name="update_not_supported_body">최신 버전으로 AppCoins 지갑 업데이트.</string>
   <string name="update_button">업데이트</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">당신과 당신이 초대한 친구들은 $%s의 보너스를 받을 것입니다. 친구는 최대 5명까지 조회 가능하며, 신규 사용자여야 합니다. 보너스는 그들이 첫 번째 e-Skills 게임에서 당신의 초대 코드를 사용하면 당신의 지갑에 입금될 것입니다.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">당신과 당신이 초대한 친구들은 $%s의 보너스를 받을 것입니다. 친구는 최대 5명까지 초대 가능하며, 신규 사용자여야 합니다. 보너스는 첫 번째 e-Skills 게임에서 당신의 초대 코드를 사용하면 당신의 지갑에 입금될 것입니다.</string>
   <string name="refer_a_friend_first_time_header">실력을 보여줄 준비가 되셨나요?</string>
   <string name="refer_a_friend_first_time_body">다른 플레이어들을 이기고 진짜 돈으로 보상을 받으세요! 참가비가 없는 연습 경기부터 시작합시다.</string>
   <string name="refer_a_friend_error_unavailable_body">이 기능은 현재 사용할 수 없습니다.</string>
   <string name="refer_a_friend_error_invalid_code_body">잘못된 코드!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">신규 사용자 전용!</string>
   <string name="refer_a_friend_first_time_tooltip">소개 프로그램을 사용하면 친구 코드를 사용할 때 $%s 보너스를 받을 수 있습니다. 또한 앱 내 구매나 e-Skills 입장권에 사용될 보너스와 같은 금액을 받습니다.</string>
-  <string name="refer_a_friend_waiting_room_title">친구에게 소개하세요!</string>
+  <string name="refer_a_friend_waiting_room_title">친구 초대하기!</string>
   <string name="refer_a_friend_waiting_from_body">친구를 초대할 때마다 보너스를 받으세요.</string>
+  <string name="refer_a_friend_invitation_message">%1$s 플레이에 초대 받았습니다! %3$s에서 다운로드 후 %2$s 초대 코드를 사용하세요.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills 게임은 VPN을 활성화 후 플레이할 수 없습니다. 비활성화 후 다시 시도해 주세요!</string>
+  <string name="top_up_needed_body">보안상의 이유로, e-Skills 게임을 하기 위해서는 지갑에 최소한 한 개 이상을 충전해야 합니다.</string>
+  <string name="not_enough_funds_body">자본이 부족합니다! 입장 티켓을 구매하여 충전하세요.</string>
+  <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
+  <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-Skills 게임을 플레이하실 수 없습니다.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">상대의 게임 종료를 기다리는 중입니다.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">돈 벌기</string>
+  <string name="eskills_carousel_body">e-Skills로 다른 플레이어들을 무찌르세요</string>
+  <string name="eskills_game_1">잘한다고 판단되는 e-Skills 게임을 설치하세요.</string>
+  <string name="carousel_game_2">게임을 열고 다른 플레이어들과 시합을 시작할 수 있는 티켓을 얻습니다.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">설명</string>
 </resources>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    >
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/countdown_timer_spacing"
+      android:layout_weight="1"
+      android:orientation="horizontal"
+      app:cardBackgroundColor="@color/styleguide_white"
+      app:cardCornerRadius="8dp"
+      android:id="@+id/countdown_days_container">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:padding="@dimen/countdown_timer_padding">
+
+      <TextView
+          android:id="@+id/countdown_days"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="00"
+          style="@style/CountdownTimer.Time"
+          />
+
+      <TextView
+          android:id="@+id/days_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="Days"
+          style="@style/CountdownTimer.Text" />
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/countdown_timer_spacing"
+      android:layout_weight="1"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/countdown_timer_padding">
+
+      <TextView
+          android:id="@+id/countdown_hours"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="00"
+          style="@style/CountdownTimer.Time"  />
+
+      <TextView
+          android:id="@+id/tv_hour_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="Hours"
+          style="@style/CountdownTimer.Text" />
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="6dp"
+      android:layout_weight="1"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/countdown_timer_padding">
+
+      <TextView
+          android:id="@+id/countdown_minutes"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="00"
+          style="@style/CountdownTimer.Time"  />
+
+      <TextView
+          android:id="@+id/tv_minute_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="Minutes"
+          style="@style/CountdownTimer.Text" />
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginStart="6dp"
+      app:cardBackgroundColor="@color/styleguide_white"
+      android:orientation="horizontal"
+      app:cardCornerRadius="8dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/countdown_timer_padding">
+
+      <TextView
+          android:id="@+id/countdown_seconds"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="00"
+          style="@style/CountdownTimer.Time"  />
+
+      <TextView
+          android:id="@+id/tv_second_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          tools:text="Seconds"
+          style="@style/CountdownTimer.Text" />
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -197,20 +197,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
     this@TopUpFragment.paymentMethods = paymentMethods
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
-      showPaypalLogout = showLogoutPaypal,
-      wasLoggedOut = { presenter.wasLoggedOut },
       logoutCallback = {
         presenter.removePaypalBillingAgreement()
-        presenter.wasLoggedOut = true
-        presenter.showingLogout = false
+        presenter.showPayPalLogout.onNext(false)
         setNextButton()
         showAsLoading()
-      }
+      },
+      disposables = presenter.disposables,
+      showPayPalLogout = presenter.showPayPalLogout
     )
     selectPaymentMethod(paymentMethods)
 
@@ -607,6 +606,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
           PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
         PaymentType.PAYPALV2.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.PAYPALV2, data.id, data.label, data.iconUrl)
+        PaymentType.GIROPAY.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.GIROPAY, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,

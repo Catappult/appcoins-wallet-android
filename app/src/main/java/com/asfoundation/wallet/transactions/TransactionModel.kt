@@ -7,7 +7,6 @@ import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.format18decimals
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
-import com.appcoins.wallet.core.utils.properties.HostProperties.TRANSACTION_DETAILS_HOST
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
@@ -33,7 +32,9 @@ data class TransactionModel(
   val amountSubtitle: String,
   val from: String,
   val to: String,
-  val transactionUrl: String
+  val sku: String?,
+  val txId: String?,
+  val invoiceId: String?,
 ) : Parcelable
 
 fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
@@ -51,7 +52,9 @@ fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
     else "${amount()} $amountCurrency",
     from = sender,
     to = receiver,
-    transactionUrl = "$TRANSACTION_DETAILS_HOST$txId"
+    sku = sku,
+    txId = txId,
+    invoiceId = invoiceId
   )
 }
 
@@ -74,10 +77,8 @@ private fun TransactionResponse.paidAmount(selectedCurrency: String): String? {
     ?: paidCurrencyAmount.formatMoney(paidCurrency.currencySymbol(), sign)
 }
 
-private fun TransactionResponse.amount() =
-  amount.format18decimals(sign = type.sign)
+private fun TransactionResponse.amount() = amount.format18decimals(sign = type.sign)
 
 fun String?.currencySymbol(): String =
   if (this != null && this.length == CURRENCY_CODE_LENGTH) Currency.getInstance(this).symbol
   else ""
-

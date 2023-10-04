@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
@@ -14,6 +15,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +30,8 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   lateinit var navigator: PromoCodeBottomSheetNavigator
 
   private val views by viewBinding(SettingsPromoCodeSuccessBottomSheetLayoutBinding::bind)
+
+  private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
   companion object {
 
@@ -53,7 +57,10 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
-    views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener { navigator.navigateBack() }
+    views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener {
+      rewardSharedViewModel.onBottomSheetDismissed()
+      navigator.navigateBack()
+    }
   }
 
   override fun onStart() {

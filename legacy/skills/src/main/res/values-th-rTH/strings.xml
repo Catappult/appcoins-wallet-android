@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">กระเป๋าสตางค์ AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">เริ่ม</string>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
   <string name="buy_button">ซื้อ</string>
   <string name="topup_button">เติม</string>
+  <string name="downloading">กำลังดาวน์โหลด</string>
+  <string name="get_button">รับ</string>
+  <string name="got_it_button">ได้รับ</string>
+  <string name="install_button">ติดตั้ง</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="processing_loading_title">รับบัตรเข้างาน</string>
   <string name="finding_room_loading_title">รอฝ่ายตรงข้าม</string>
@@ -32,21 +38,67 @@
   <string name="purchase_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <string name="shared_room_waiting">รอให้ฝ่ายตรงข้ามเข้าร่วม %s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
+  <string name="update_not_supported_title">ไม่รองรับเวอร์ชันกระเป๋าเงิน!</string>
+  <string name="update_not_supported_body">อัปเดตวอลเล็ต AppCoins เป็นเวอร์ชันล่าสุด</string>
+  <string name="update_button">อัพเดต</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">คุณและเพื่อนทั้งหมดที่คุณเชิญจะได้รับโบนัส $%s คุณสามารถเชิญเพื่อนได้สูงสุด 5 คน และพวกเขาจะต้องเป็นผู้ใช้ใหม่ โบนัสจะเข้ากระเป๋าเงินของคุณเมื่อพวกเขาใช้รหัสเชิญของคุณในเกม e-Skills เกมแรกของพวกเขา</string>
+  <string name="refer_a_friend_first_time_header">พร้อมที่จะแสดงทักษะของคุณ?</string>
+  <string name="refer_a_friend_first_time_body">เอาชนะผู้เล่นคนอื่นเพื่อรับรางวัลเป็นเงินจริง! เรามาเริ่มกันที่เกมแบบฝึกหัดที่ไม่มีค่าสมัคร</string>
+  <string name="refer_a_friend_error_unavailable_body">ฟีเจอร์นี้ไม่สามารถใช้งานได้ในขณะนี้</string>
+  <string name="refer_a_friend_error_invalid_code_body">ไม่มีรหัส!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">สำหรับผู้ใช้ใหม่เท่านั้น!</string>
+  <string name="refer_a_friend_first_time_tooltip">ด้วยโปรแกรมการแนะนำของเรา คุณจะได้รับโบนัส $%s เมื่อใช้รหัสเพื่อนของคุณ พวกเขายังจะได้รับโบนัสจำนวนเท่ากันเพื่อใช้กับการซื้อในแอปหรือตั๋วเข้า e-Skills</string>
+  <string name="refer_a_friend_waiting_room_title">เชิญเพื่อน!</string>
+  <string name="refer_a_friend_waiting_from_body">รับโบนัสสำหรับเพื่อนแต่ละคนที่คุณเชิญ</string>
+  <string name="refer_a_friend_invitation_message">คุณได้รับเชิญให้เล่น %1$s! ใช้รหัสคำเชิญ %2$s หลังจากดาวน์โหลดจาก %3$s</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">ไม่สามารถเล่นเกม e-Skills ด้วย VPN ที่ใช้งานอยู่ โปรดปิดการใช้งานและลองอีกครั้ง!</string>
+  <string name="top_up_needed_body">เพื่อความปลอดภัย คุณต้องเติมเงินอย่างน้อยหนึ่งครั้งในกระเป๋าเงินของคุณเพื่อเล่นเกมส์ e-Skills</string>
+  <string name="not_enough_funds_body">คุณมีเงินไม่พอ! กรุณาเติมเงินเพื่อซื้อบัตรเข้างาน</string>
+  <string name="error_message_local_payment_method_body">ไม่รับวิธีการชำระเงินในท้องถิ่นเพื่อซื้อค่าธรรมเนียมแรกเข้า โปรดสร้างกระเป๋าเงินใหม่และเติมเงินด้วยบัตรธนาคารหรือ PayPal!</string>
+  <string name="rooted_device_blocked_body">น่าเสียดาย คุณไม่สามารถเล่นเกม e-Skills กับอุปกรณ์ที่รูทได้</string>
+  <string name="unknown_error">เกิดข้อผิดพลาด</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">รอให้ฝ่ายตรงข้ามจบเกมส์ก่อน</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">วันนี้</string>
+  <string name="rankings_week">สัปดาห์</string>
+  <string name="rankings_all_time">เวลาทั้งหมด</string>
+  <string name="not_attributed_place_holder">ไม่ได้นำมาประกอบ</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">คุณแพ้!%1$s</string>
+  <plurals name="days">
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">ผู้ชนะคนสุดท้าย</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">อันดับของคุณ</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">ทำรายได้</string>
+  <string name="eskills_carousel_body">เอาชนะผู้เล่นคนอื่นด้วย e-Skills</string>
+  <string name="eskills_game_1">ติดตั้งเกมส์ e-Skills ที่คุณคิดว่าคุณถนัด</string>
+  <string name="carousel_game_2">เปิดและรับตั๋วเพื่อร่มต้นคู่แข่งขัน</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">รายละเอียด</string>
 </resources>

@@ -16,10 +16,16 @@ fun PaymentType.mapToAnalytics(): String =
   }
 
 fun PaymentType.mapToService(): AdyenPaymentRepository.Methods =
-  if (this.name == PaymentType.CARD.name) {
-    AdyenPaymentRepository.Methods.CREDIT_CARD
-  } else {
-    AdyenPaymentRepository.Methods.PAYPAL
+  when (this.name) {
+    PaymentType.CARD.name -> {
+      AdyenPaymentRepository.Methods.CREDIT_CARD
+    }
+    PaymentType.GIROPAY.name -> {
+      AdyenPaymentRepository.Methods.GIROPAY
+    }
+    else -> {
+      AdyenPaymentRepository.Methods.PAYPAL
+    }
   }
 
 fun ForecastBonusAndLevel.getPurchaseBonusMessage(formatter: CurrencyFormatUtils): String {

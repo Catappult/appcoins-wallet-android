@@ -15,7 +15,7 @@ androidx_navigation_version = "2.5.3"
 androidx_palette_version = "1.0.0"
 androidx_preference_version = "1.2.0"
 androidx_recyclerview_version = "1.1.0"
-androidx_room_version = "2.4.2"
+androidx_room_version = "2.5.2"
 androidx_vector_drawable_version = "1.0.1"
 androidx_viewpager_version = "1.0.0"
 appcoins_sdk_dev_version = "0.6.7.0.dev-SNAPSHOT"
@@ -39,7 +39,9 @@ epoxy_version = "4.5.0"
 erc681_version = "0.36"
 ethereumj_sdk_version = "0.5.0.0"
 espresso_version = "3.4.0"
-firebase_messaging = "20.2.1"
+firebase_bom = "32.2.3"
+firebase_crashlytics_plugin = "2.9.9"
+firebase_performance_plugin = "1.4.2"
 flurry_version = "14.0.0"
 flexbox_version = "3.0.0"
 glide_version = "4.12.0"
@@ -52,7 +54,7 @@ hilt_czerwinski_extensions_version = "1.3.0"
 hilt_version = "2.45"
 hilt_compose_navigation = "1.1.0-alpha01"
 indicative_version = "1.1.0"
-intercom_version = "12.4.3"
+intercom_version = "15.1.6"
 jackson_version = "2.10.3"
 jetbrains_annotations_version = "19.0.0"
 junit5_version = "5.7.2"
@@ -63,12 +65,11 @@ ksp_version = "1.8.10-1.0.9"
 ktx_version = "1.3.0"
 lottie_version = "6.0.0"
 material_version = "1.5.0"
-michel_bull_kotlin_result="1.1.16"
+michel_bull_kotlin_result = "1.1.16"
 mockito_version = "3.3.0"
 okhttp_version = "4.8.1"
 paranoid_version = "0.3.3"
 play_services_vision_version = "19.0.0"
-rakam_version = "2.7.14"
 referrer_version = "2.2"
 retrofit_version = "2.8.1"
 rxandroid_version = "2.1.1"
@@ -158,6 +159,11 @@ google-services = { module = "com.google.gms:google-services", version.ref = "go
 google-play-services = { module = "com.google.android.gms:play-services-vision", version.ref = "play_services_vision_version" }
 google-zxing = { module = "com.google.zxing:core", version.ref = "zxing_version" }
 zxing-android = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxing_android_version" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase_bom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt_version" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt_version" }
@@ -189,7 +195,6 @@ appcoins-sdk-communication = { module = "io.catappult:communication", version.re
 analytics-sentry = { module = "io.sentry:sentry-android", version.ref = "sentry_version" }
 analytics-indicative = { module = "com.indicative.client.android:Indicative-Android", version.ref = "indicative_version" }
 analytics-flurry = { module = "com.flurry.android:analytics", version.ref = "flurry_version" }
-analytics-rakam = { module = "io.rakam:android-sdk", version.ref = "rakam_version" }
 analytics-appsflyer = { module = "com.appsflyer:af-android-sdk", version.ref = "appsflyer_version" }
 
 viewbinding-delegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "viewBindingDelegate" }
@@ -203,7 +208,6 @@ lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie_version" 
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer_version" }
 epoxy = { module = "com.airbnb.android:epoxy", version.ref = "epoxy_version" }
 epoxy-processor = { module = "com.airbnb.android:epoxy-processor", version.ref = "epoxy_version" }
-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase_messaging" }
 cpp = { module = "com.hbb20:ccp", version.ref = "cpp_version" }
 android-installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "referrer_version" }
 android-support-annotations = { module = "com.android.support:support-annotations", version.ref = "support_annotations" }
@@ -241,6 +245,8 @@ gradlePlugin-ksp = { module = "com.google.devtools.ksp:com.google.devtools.ksp.g
 gradlePlugin-hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt_version" }
 gradlePlugin-junit5 = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "junit5_plugin_version" }
 gradlePlugin-bintray = { module = "com.jfrog.bintray.gradle:gradle-bintray-plugin", version.ref = "bintray_plugin_version" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebase_crashlytics_plugin" }
+firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebase_performance_plugin" }
 
 [bundles]
 androidx-room = ["androidx-room-runtime", "androidx-room-rxjava2", "androidx-room-ktx"]
@@ -250,7 +256,7 @@ androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui"
 coil = ["coil-kt", "coil-kt-compose", "coil-kt-svg"]
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
-analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-rakam", "analytics-appsflyer"]
+analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-appsflyer"]
 testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]
 hilt-implementation = ["hilt-android", "hilt-interface-extensions", "androidx-compose-hilt-navigation"]
@@ -260,6 +266,8 @@ result = ["kotlin-result-coroutines", "kotlin-result"]
 paging = ["paging", "paging_compose"]
 
 [plugins]
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase_performance_plugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase_crashlytics_plugin" }
 android-application = { id = "com.android.application", version.ref = "gradle_plugin_version" }
 android-library = { id = "com.android.library", version.ref = "gradle_plugin_version" }
 android-test = { id = "com.android.test", version.ref = "gradle_plugin_version" }

@@ -11,7 +11,6 @@ object HostProperties {
   const val BACKEND_HOST_NAME_PROD = "apichain.catappult.io"
   const val BACKEND_HOST_NAME_DEV = "apichain.dev.catappult.io"
   const val APTOIDE_WEB_SERVICES_AB_TEST_HOST = "https://abtest.aptoide.com/api/v1/"
-  const val RAKAM_BASE_HOST = "https://rakam-api.aptoide.com"
   const val FEEDBACK_ZENDESK_BASE_HOST = "https://aptoide.zendesk.com/api/v2/"
   const val ESKILLS_CAROUSEL_HOST = "https://ws2-cache.aptoide.com/api/7/"
 }

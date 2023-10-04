@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Почати</string>
   <string name="ok">ОК</string>
   <string name="cancel">Скасувати</string>
   <string name="buy_button">Купити</string>
   <string name="topup_button">Поповнити</string>
+  <string name="downloading">Завантаження</string>
+  <string name="get_button">Отримати</string>
+  <string name="got_it_button">Зрозуміло</string>
+  <string name="install_button">Встановити</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Створення адреси гаманця&#8230;</string>
   <string name="processing_loading_title">Отримання вхідного квитка</string>
   <string name="finding_room_loading_title">В очікуванні суперників</string>
@@ -32,21 +38,85 @@
   <string name="purchase_error_title">Упс. Щось пішло не так.</string>
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
-  <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на пристрої, який отримав рутинг.\"</string>
-  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
-  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
-  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Ця версія гаманця не підтримується!</string>
   <string name="update_not_supported_body">Оновіть AppCoins Wallet до останньої версії.</string>
   <string name="update_button">Оновити</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Ви та друзі, яких ви запросите, отримаєте бонус у розмірі $%s. Ви можете запросити до 5 друзів, які мають бути новими користувачами. Бонус буде зараховано на ваш гаманець після того, як вони скористуються вашим кодом запрошення у своїй першій грі e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Ви та друзі, яких ви запросите, отримаєте бонус у розмірі $%s. Можна запросити до 5 друзів, які мають бути новими користувачами. Бонус буде зараховано на ваш гаманець після того, як вони скористуються вашим кодом запрошення у своїй першій грі e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Готові показати свої навички?</string>
   <string name="refer_a_friend_first_time_body">Обіграйте інших гравців та отримайте приз у вигляді реальних грошей! Розпочнемо з тренувальної гри без вступного внеску.</string>
   <string name="refer_a_friend_error_unavailable_body">Ця функція наразі недоступна.</string>
   <string name="refer_a_friend_error_invalid_code_body">Невірний код!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Тільки для нових користувачів!</string>
   <string name="refer_a_friend_first_time_tooltip">З нашою реферальною програмою ви отримаєте бонус у розмірі $%s при використанні коду друзів. Вони також отримають стільки ж, скільки й бонус, який можна буде використати на покупки в додатку або вхідні квитки e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Приведи друга!</string>
+  <string name="refer_a_friend_waiting_room_title">Запросити друга!</string>
   <string name="refer_a_friend_waiting_from_body">Отримайте бонус за кожного запрошеного друга.</string>
+  <string name="refer_a_friend_invitation_message">Вас запрошено зіграти у %1$s! Використайте код запрошення %2$s, після завантаження з %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Грати в ігри e-Skills з активним VPN не можна. Будь ласка, вимкніть його і спробуйте ще раз!</string>
+  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
+  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
+  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на рутованому пристрої.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Чекаємо, поки опоненти закінчать гру.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="few">(%1$s did %2$d points)</item>
+    <item quantity="many">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="few">%1$d points</item>
+    <item quantity="many">%1$d points</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="few">Days</item>
+    <item quantity="many">Days</item>
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="few">Hours</item>
+    <item quantity="many">Hours</item>
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="few">Minutes</item>
+    <item quantity="many">Minutes</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="few">Seconds</item>
+    <item quantity="many">Seconds</item>
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Заробляйте гроші</string>
+  <string name="eskills_carousel_body">Перемагайте інших гравців з e-Skills</string>
+  <string name="eskills_game_1">Встановіть e-Skills гру, в яку ви граєте найкраще.</string>
+  <string name="carousel_game_2">Відкрийте та отримайте вхідний квиток, щоб розпочати гру проти інших гравців.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Опис</string>
 </resources>

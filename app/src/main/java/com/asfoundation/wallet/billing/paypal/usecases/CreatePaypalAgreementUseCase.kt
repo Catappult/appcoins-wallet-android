@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
 import io.reactivex.Single
@@ -12,11 +12,10 @@ class CreatePaypalAgreementUseCase @Inject constructor(
 ) {
 
   operator fun invoke(token: String): Single<PaypalCreateAgreement> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap { addressModel ->
+    return walletService.getWalletAddress()
+      .flatMap { address ->
         payPalV2Repository.createBillingAgreement(
-          walletAddress = addressModel.address,
-          walletSignature = addressModel.signedAddress,
+          walletAddress = address,
           token = token
         )
       }

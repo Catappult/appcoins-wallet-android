@@ -31,11 +31,15 @@
         android:id="@+id/action_navigate_to_qr_code"
         app:destination="@id/qr_code_activity" />
     <action
-        android:id="@+id/action_navigate_to_nfts"
-        app:destination="@id/nft_graph" />
+        android:id="@+id/action_navigate_to_manage_name_wallet_bottom_sheet"
+        app:destination="@id/manage_wallet_name_bottom_sheet" />
   </fragment>
 
-  <include app:graph="@navigation/nft_graph" />
+  <dialog
+      android:id="@+id/manage_wallet_name_bottom_sheet"
+      android:name="com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetFragment"
+      tools:layout="@layout/manage_wallet_name_bottom_sheet_layout">
+  </dialog>
 
   <dialog
       android:id="@+id/more_dialog_fragment"

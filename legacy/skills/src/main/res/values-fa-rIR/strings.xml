@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">کیف پول AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">شروع</string>
   <string name="ok">اوکی</string>
   <string name="cancel">لغو</string>
   <string name="buy_button">خرید</string>
   <string name="topup_button">افزایش اعتبار</string>
+  <string name="downloading">درحال دانلود</string>
+  <string name="get_button">دریافت</string>
+  <string name="got_it_button">متوجه شدم</string>
+  <string name="install_button">نصب</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
   <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
   <string name="finding_room_loading_title">انتظار برای حریف</string>
@@ -32,21 +38,73 @@
   <string name="purchase_error_title">اوه، مشکلی پیش آمده است.</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
-  <string name="rooted_device_blocked_body">متاسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
-  <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
-  <string name="not_enough_funds_body">سرمایه کافی ندارید! برای خرید بلیت ورودی شارژ کنید.</string>
-  <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">نسخه کیف پول قبل پشتیبانی نیست!</string>
   <string name="update_not_supported_body">کیف پول AppCoins خود را به آخرین نسخه بروزرسانی کنید.</string>
   <string name="update_button">بروزرسانی</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">شما و دوستی که دعوت می‌کنید، یک پاداش %s$ دریافت خواهد کرد. شما می‌توانید تا ۵ دوست دعوت کنید که کاربر تازه باشند. زمانیکه آن‌ها از کد دعوت شما در بازیهای e-Skills استفاده کنند، پاداش به کیف پول شما واریز می‌شود.</string>
+  <string name="refer_a_friend_first_time_header">آیا آماده نمایش مهارت‌های خود هستید؟</string>
+  <string name="refer_a_friend_first_time_body">سایر بازیکنان را شکست دهید تا پول واقعی ببرید! بیایید با یک بازی آموزشی بدین هزینه ورودی شروع کنیم.</string>
+  <string name="refer_a_friend_error_unavailable_body">این قابلیت درحال حاضر موجود نیست.</string>
+  <string name="refer_a_friend_error_invalid_code_body">کد نامعتبر!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">تنها برای کاربران جدید!</string>
+  <string name="refer_a_friend_first_time_tooltip">با برنامه معرفی ما، یک پاداش %s$ دریافت خواهید کرد با استفاده از کد دوستان خود. آن‌ها نیز پاداش مشابهی برای خریدهای داخل اپلیکیشنی و بلیت ورودی بازی‌های e-Skills دریافت خواهند کرد.</string>
+  <string name="refer_a_friend_waiting_room_title">دوستی را دعوت کنید!</string>
+  <string name="refer_a_friend_waiting_from_body">برای هر دوستی که دعوت می‌کنید، پاداش بگیرید.</string>
+  <string name="refer_a_friend_invitation_message">برای بازی %1$s دعوت شده‌اید! کد دعوت %2$s را پس از دانلود از %3$s استفاده کنید.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">بازی‌های e-Skills را با یک وی‌پی‌ان فعال نمی‌توان انجام داد. لطفا آن را غیرفعال و مجدد امتحان کنید!</string>
+  <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
+  <string name="not_enough_funds_body">سرمایه کافی ندارید! برای خرید بلیت ورودی شارژ کنید.</string>
+  <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
+  <string name="rooted_device_blocked_body">متأسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">درحال انتظار برای پایان بازی رقیب.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">پول درآوردید</string>
+  <string name="eskills_carousel_body">سایر بازیکنان را در e-Skills شکست دهید</string>
+  <string name="eskills_game_1">نصب بازی e-Skills که فکر می‌کنید در آن خوب هستید.</string>
+  <string name="carousel_game_2">آن را باز کنید و یک بلیت ورودی برای شروع بازی با سایر بازیکنان دریافت کنید.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">توضیحات</string>
 </resources>

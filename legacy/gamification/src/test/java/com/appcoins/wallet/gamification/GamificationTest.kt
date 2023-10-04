@@ -305,7 +305,7 @@ class GamificationTest {
     )
   }
 
-  // TODO - remove the next 3 tests once everything has been put in offline first logic
+  // TODO - remove the next 3 tests once everything has been put in offline first logic.
   @Test
   fun getLevelsOld() {
     api.levelsResponse = Single.just(
@@ -357,7 +357,7 @@ class GamificationTest {
   @Test
   fun getBonus() {
     api.bonusResponse = Single.just(
-      ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE)
+      ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE, "")
     )
     val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "", null)
       .test()

@@ -2,11 +2,17 @@
 <resources>
   <string name="appcoins_wallet">Dompet AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Mulai</string>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
   <string name="buy_button">Beli</string>
   <string name="topup_button">Isi Ulang</string>
+  <string name="downloading">Mengunduh</string>
+  <string name="get_button">Ambil</string>
+  <string name="got_it_button">Mengerti</string>
+  <string name="install_button">Instal</string>
+  <string name="retry_button">Retry</string>
+  <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
   <string name="processing_loading_title">Mengambil tiket masuk Anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
@@ -32,21 +38,67 @@
   <string name="purchase_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk bergabung di %s</string>
-  <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.\"</string>
-  <string name="top_up_needed_body">Karena alasan keamanan, Anda harus mengisi ulang dompet Anda setidaknya sekali agar tetap bisa memainkan game e-Skills.</string>
-  <string name="not_enough_funds_body">Dana Anda tidak cukup! Silakan isi ulang untuk membeli tiket masuk.</string>
-  <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
+  <string name="update_wallet">Update wallet</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Versi dompet tidak didukung!</string>
   <string name="update_not_supported_body">Perbarui Dompet AppCoins ke versi terbaru.</string>
   <string name="update_button">Perbarui</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Anda dan teman undangan Anda akan menerima bonus $%s. Anda bisa merujuk hingga 5 teman, dan mereka harus menjadi pengguna baru. Bonus akan dikreditkan ke dompet Anda setelah mereka menggunakan kode undangan Anda di game e-Skill pertama mereka.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Anda dan teman yang Anda undang akan menerima bonus sebesar $%s. Anda bisa mengundang maksimal 5 teman, dan mereka harus pengguna baru. Bonus akan dikreditkan ke dompet Anda setelah mereka menggunakan kode undangan Anda di game e-Skill pertama mereka.</string>
   <string name="refer_a_friend_first_time_header">Siap menunjukkan keahlian Anda?</string>
   <string name="refer_a_friend_first_time_body">Kalahkan pemain lain untuk mendapatkan hadiah berupa uang sungguhan! Yuk mulai dengan game latihan tanpa biaya masuk.</string>
   <string name="refer_a_friend_error_unavailable_body">Fitur ini saat ini tidak tersedia.</string>
   <string name="refer_a_friend_error_invalid_code_body">Kode tidak valid!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Khusus pengguna baru!</string>
   <string name="refer_a_friend_first_time_tooltip">Dengan Program Referral kami, Anda akan menerima bonus sebesar $%s saat menggunakan kode teman Anda. Dia juga akan menerima bonus dengan jumlah yang sama untuk digunakan pada pembelian dalam aplikasi atau tiket masuk e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Rujuk Teman!</string>
+  <string name="refer_a_friend_waiting_room_title">Undang Teman!</string>
   <string name="refer_a_friend_waiting_from_body">Dapatkan bonus untuk setiap teman yang Anda undang.</string>
+  <string name="refer_a_friend_invitation_message">Anda mendapatkan undangan untuk bermain %1$s! Gunakan kode undangan %2$s setelah mengunduhnya dari %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">Game e-Skills tidak bisa dimainkan dengan VPN aktif. Nonaktifkan VPN itu lalu coba lagi!</string>
+  <string name="top_up_needed_body">Karena alasan keamanan, Anda harus mengisi ulang dompet Anda setidaknya sekali agar tetap bisa memainkan game e-Skills.</string>
+  <string name="not_enough_funds_body">Dana Anda tidak cukup! Silakan isi ulang untuk membeli tiket masuk.</string>
+  <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
+  <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk menyelesaikan game.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">Seconds</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Leaderboards</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Raih Uang</string>
+  <string name="eskills_carousel_body">Kalahkan pemain lain dengan e-Skills</string>
+  <string name="eskills_game_1">Instal game e-Skills yang menurut Anda paling Anda kuasai.</string>
+  <string name="carousel_game_2">Buka dan dapatkan tiket masuk untuk mulai bertanding melawan pemain lain.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Deskripsi</string>
 </resources>

@@ -126,17 +126,34 @@ private fun CardItem(
         )
         Spacer(Modifier.weight(1f))
         Spacer(Modifier.weight(0.1f))
-        Text(
-          text = stringResource(id = R.string.get_button),
-          color = WalletColors.styleguide_pink,
-          fontSize = 16.sp,
-          fontWeight = FontWeight.Bold,
-          modifier = Modifier
-            .align(Alignment.Bottom)
-            .padding(bottom = 6.dp, end = 12.dp)
-        )
+        GetTextOrPlay(gameCardData.gamePackage)
       }
     }
+  }
+}
+
+@Composable
+fun GetTextOrPlay(packageName: String?) {
+  val hasGameInstall =
+    isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
+  if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
+    Text(
+      text = stringResource(id = R.string.play_button),
+      color = WalletColors.styleguide_pink,
+      fontSize = 16.sp,
+      fontWeight = FontWeight.Bold,
+      modifier = Modifier
+        .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
+    )
+  } else if (BuildConfig.FLAVOR != "gp") {
+    Text(
+      text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
+      color = WalletColors.styleguide_pink,
+      fontSize = 16.sp,
+      fontWeight = FontWeight.Bold,
+      modifier = Modifier
+        .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
+    )
   }
 }
 

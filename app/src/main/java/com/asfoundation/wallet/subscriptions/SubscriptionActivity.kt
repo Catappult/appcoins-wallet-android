@@ -4,16 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.widget.Toolbar
+import androidx.compose.ui.platform.ComposeView
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SubscriptionActivity : BaseActivity() {
+
+  @Inject
+  lateinit var displayChat: DisplayChatUseCase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,15 +33,12 @@ class SubscriptionActivity : BaseActivity() {
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar(): Toolbar {
-    val toolbar = findViewById<Toolbar>(R.id.toolbar)
-    toolbar!!.visibility = View.VISIBLE
-    if (toolbar != null) {
-      setSupportActionBar(toolbar)
-      toolbar.title = title
+  fun toolbar() {
+    findViewById<ComposeView>(R.id.app_bar).apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { displayChat() })
+      }
     }
-    enableDisplayHomeAsUp()
-    return toolbar
   }
 
   private fun showSubscriptionList() {
