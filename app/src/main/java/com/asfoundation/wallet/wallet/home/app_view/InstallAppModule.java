@@ -2,12 +2,9 @@ package com.asfoundation.wallet.wallet.home.app_view;
 
 import android.content.Context;
 import android.os.Environment;
-
 import com.appcoins.wallet.core.network.eskills.download.FileDownloadManagerProvider;
 import com.appcoins.wallet.core.network.eskills.download.Md5Comparator;
-
 import com.appcoins.wallet.core.network.eskills.install.AppInstallerStatusReceiver;
-
 import com.appcoins.wallet.core.network.eskills.packageinstaller.AppInstaller;
 import com.appcoins.wallet.core.network.eskills.utils.utils.FileUtils;
 import com.asfoundation.wallet.App;
@@ -22,16 +19,11 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import rx.subjects.PublishSubject;
 
-@InstallIn(SingletonComponent.class)
-@Module public class InstallAppModule {
+@InstallIn(SingletonComponent.class) @Module public class InstallAppModule {
 
   @Inject App application;
 
-
-
-
-  @Singleton @Provides AppInstaller providesAppInstaller(
-      @ApplicationContext Context context,
+  @Singleton @Provides AppInstaller providesAppInstaller(@ApplicationContext Context context,
       AppInstallerStatusReceiver appInstallerStatusReceiver) {
     return new AppInstaller(context,
         (installStatus) -> appInstallerStatusReceiver.onStatusReceived(installStatus));
@@ -40,8 +32,6 @@ import rx.subjects.PublishSubject;
   @Singleton @Provides AppInstallerStatusReceiver providesAppInstallerStatusReceiver() {
     return new AppInstallerStatusReceiver(PublishSubject.create());
   }
-
-
 
   @Singleton @Provides @Named("apkPath") String provideApkPath(
       @Named("cachePath") String cachePath) {
@@ -58,14 +48,8 @@ import rx.subjects.PublishSubject;
     return cachePath + "obb/";
   }
 
-
-
-
-
-
   @Provides @Singleton FileDownloadManagerProvider providesFileDownloaderProvider(
-      @Named("cachePath") String cachePath,
-      @ApplicationContext Context context,
+      @Named("cachePath") String cachePath, @ApplicationContext Context context,
       Md5Comparator md5Comparator) {
 
     FileUtils.createDir(cachePath);
@@ -77,12 +61,9 @@ import rx.subjects.PublishSubject;
     return new Md5Comparator(cachePath);
   }
 
-
-
   @Singleton @Provides FileUtils provideFileUtils() {
     return new FileUtils();
   }
-
 }
 
 
