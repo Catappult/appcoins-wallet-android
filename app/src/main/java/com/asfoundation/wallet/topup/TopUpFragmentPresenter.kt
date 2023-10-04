@@ -24,7 +24,6 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class TopUpFragmentPresenter(
   private val view: TopUpFragmentView,
@@ -39,15 +38,13 @@ class TopUpFragmentPresenter(
   private val formatter: CurrencyFormatUtils,
   private val selectedValue: String?,
   private val logger: Logger,
-  private val networkThread: Scheduler
+  private val networkThread: Scheduler,
+  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
 ) {
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
   var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
-
-  @Inject
-  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name

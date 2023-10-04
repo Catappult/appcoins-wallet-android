@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
@@ -70,6 +71,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -160,6 +164,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
+      challengeRewardAnalytics = challengeRewardAnalytics,
     )
   }
 
