@@ -10,7 +10,6 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalyt
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.reflect.KFunction0
 
 @HiltViewModel
 class InjectionsProvider @Inject constructor(
@@ -21,7 +20,7 @@ class InjectionsProvider @Inject constructor(
 fun challengeRewardNavigation(
   activity: Activity,
   flowPath: ChallengeRewardFlowPath,
-): KFunction0<Unit> {
+): () -> Unit {
   val injectionsProvider = hiltViewModel<InjectionsProvider>()
   val vm: ChallengeRewardViewModel = viewModel(
     key = flowPath.id,
@@ -35,5 +34,5 @@ fun challengeRewardNavigation(
       }
     }
   )
-  return { vm.sendChallengeRewardEvent(flowPath) } as KFunction0<Unit>
+  return { vm.sendChallengeRewardEvent(flowPath) }
 }
