@@ -41,11 +41,13 @@ import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.home.usecases.GetCardNotificationsUseCase
+import com.asfoundation.wallet.home.usecases.GetEskillsGamesListingUseCase
 import com.asfoundation.wallet.home.usecases.GetGamesListingUseCase
 import com.asfoundation.wallet.home.usecases.GetLastShownUserLevelUseCase
 import com.asfoundation.wallet.home.usecases.GetLevelsUseCase
 import com.asfoundation.wallet.home.usecases.GetUnreadConversationsCountEventsUseCase
 import com.asfoundation.wallet.home.usecases.GetUserLevelUseCase
+import com.asfoundation.wallet.home.usecases.IsEskillsVersionUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.RegisterSupportUserUseCase
 import com.asfoundation.wallet.home.usecases.ShouldOpenRatingDialogUseCase
@@ -75,7 +77,6 @@ import kotlinx.coroutines.rx2.rxSingle
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import javax.inject.Named
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -97,7 +98,7 @@ data class HomeState(
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
-  val hasBackup: Async<Boolean> = Async.Uninitialized
+  val hasBackup: Async<Boolean> = Async.Uninitialized,
   val eskillsVersion: Boolean = false,
 ) : ViewState
 
@@ -130,7 +131,6 @@ constructor(
   private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-  @Named("package-name") private val walletPackageName: String,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger
@@ -387,7 +387,7 @@ constructor(
   }
 
   private fun verifyEskillsVersion() {
-    isEskillsVersionUseCase(walletPackageName)
+    isEskillsVersionUseCase()
       .doOnSuccess { eskillsVersion ->
         setState { copy(eskillsVersion = eskillsVersion) }
       }
