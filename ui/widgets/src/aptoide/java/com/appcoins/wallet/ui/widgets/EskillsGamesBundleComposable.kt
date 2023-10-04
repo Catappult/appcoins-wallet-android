@@ -191,8 +191,6 @@ private fun CarouselTitle() {
         fontWeight = FontWeight.Medium
       )
     }
-
-
   }
 }
 
