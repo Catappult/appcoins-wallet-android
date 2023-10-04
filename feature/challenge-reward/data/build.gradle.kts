@@ -20,6 +20,7 @@ dependencies {
   implementation(project(":legacy:billing"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:analytics"))
+  implementation(project(":feature:wallet-info:data"))
 
   // FYBER
   implementation("com.fyber:fairbid-sdk:3.42.0")
