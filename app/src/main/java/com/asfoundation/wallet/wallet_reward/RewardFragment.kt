@@ -37,8 +37,6 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardPaymentMethodViewModel
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
 import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
@@ -144,12 +142,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
+    var challengeRewardNavigationFunc: (() -> Unit)? = null
     val checkChallengeRewardPaymentMethodViewModel =
       hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
     val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
-    val challengeRewardNavigation: (() -> Unit)? = if (hasChallengeReward) {
-      challengeRewardNavigation(activity = this.requireActivity(), flowPath = REWARDS)
-    } else null
+    if (hasChallengeReward) challengeRewardNavigationFunc =
+        challengeRewardNavigation(activity = this.requireActivity(), flowPath = REWARDS)
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
@@ -201,7 +199,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
             { navigator.showGiftCardFragment() },
-            challengeRewardNavigation,
+            challengeRewardNavigationFunc,
           )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
