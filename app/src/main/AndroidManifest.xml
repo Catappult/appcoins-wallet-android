@@ -294,7 +294,8 @@
     <provider
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
-        tools:node="remove"></provider>
+        tools:node="remove">
+    </provider>
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"
