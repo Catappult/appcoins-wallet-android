@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -142,7 +143,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
-    var challengeRewardNavigationFunc: (() -> Unit)? = null
+    var challengeRewardNavigationFunc: (() -> Unit)? by remember { mutableStateOf(null) }
     val checkChallengeRewardPaymentMethodViewModel =
       hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
     val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
