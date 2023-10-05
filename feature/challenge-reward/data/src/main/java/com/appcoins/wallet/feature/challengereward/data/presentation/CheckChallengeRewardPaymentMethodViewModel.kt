@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -26,13 +28,18 @@ class CheckChallengeRewardPaymentMethodViewModel @Inject constructor(
 
   init {
     viewModelScope.launch {
-      bdsRepository.getPaymentMethods(
-        currencyType = "fiat",
-        direct = true,
-      ).doOnSuccess { list ->
-        if (list.any { it.id == "challenge_reward" })
-          viewModelState.update { true }
+      viewModelState.update {
+        handleHasChallengeReward().blockingGet()
       }
     }
+  }
+
+  private fun handleHasChallengeReward(): Single<Boolean> {
+    return bdsRepository.getPaymentMethods(
+      currency = "fiat",
+      direct = true,
+    ).flatMap { methods ->
+      Single.just(methods.any { it.id == "challenge_reward" })
+    }.subscribeOn(Schedulers.io())
   }
 }
