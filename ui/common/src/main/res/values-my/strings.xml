@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">အမ်ားဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
   <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
