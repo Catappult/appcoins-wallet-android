@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
