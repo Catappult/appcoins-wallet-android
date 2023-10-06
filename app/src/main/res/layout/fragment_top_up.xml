@@ -21,161 +21,161 @@
         android:layout_height="wrap_content"
         >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_header_top_up"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/rectangle_blue_secondary_radius_16dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"
-        >
-      <TextView
-          android:id="@+id/main_currency_code"
-          style="@style/TopUpTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="32dp"
-          android:text="--"
-          android:textColor="@color/styleguide_light_grey"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          app:autoSizeStepGranularity="2sp"
-          app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/main_value"
-          tools:text="EUR"
-          />
-
-      <com.asfoundation.wallet.ui.widget.AutoFitEditText
-          android:id="@+id/main_value"
-          style="@style/TopUpTextStyle.MainHeaderValue"
-          android:layout_width="wrap_content"
-          android:minWidth="52dp"
-          android:layout_height="44dp"
-          android:layout_marginTop="24dp"
-          android:layout_marginEnd="32dp"
-          android:background="@null"
-          android:enabled="false"
-          android:focusable="true"
-          android:focusableInTouchMode="true"
-          android:gravity="center"
-          android:textColor="@color/styleguide_light_grey"
-          android:hint="0"
-          android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
-          android:inputType="numberDecimal"
-          android:maxWidth="152dp"
-          android:maxLength="152"
-          android:maxLines="1"
-          app:autoSizeStepGranularity="2sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/main_currency_code"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:text="123"
-          />
-
-      <View
-          android:id="@+id/header_top_up_divider"
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/layout_header_top_up"
           android:layout_width="match_parent"
-          android:layout_height="0.5dp"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="16dp"
           android:layout_marginTop="16dp"
-          android:alpha="0.3"
-          android:background="@color/styleguide_dark_grey"
-          app:layout_constraintTop_toBottomOf="@id/main_value"
-          />
-
-      <TextView
-          android:id="@+id/converted_value"
-          style="@style/TopUpTextStyle.ConvertedValue"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:text="--"
+          android:background="@drawable/rectangle_blue_secondary_radius_16dp"
+          android:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/main_value"
-          android:visibility="invisible"
-          />
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="visible"
+          >
+        <TextView
+            android:id="@+id/main_currency_code"
+            style="@style/TopUpTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="--"
+            android:textColor="@color/styleguide_light_grey"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintBottom_toBottomOf="@id/main_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main_value"
+            tools:text="EUR"
+            />
 
-      <ImageButton
-          android:id="@+id/swap_value_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginEnd="40dp"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:enabled="false"
-          android:src="@drawable/ic_swap"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="@id/main_value"
-          app:layout_constraintTop_toTopOf="@id/main_value"
-          />
+        <com.asfoundation.wallet.ui.widget.AutoFitEditText
+            android:id="@+id/main_value"
+            style="@style/TopUpTextStyle.MainHeaderValue"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:background="@null"
+            android:enabled="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:hint="0"
+            android:imeOptions="flagNoExtractUi|flagNoFullscreen|actionNext"
+            android:inputType="numberDecimal"
+            android:maxWidth="152dp"
+            android:maxLength="152"
+            android:maxLines="1"
+            android:minWidth="52dp"
+            android:textColor="@color/styleguide_light_grey"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_currency_code"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="123"
+            />
 
-      <TextView
-          android:id="@+id/swap_value_label"
-          style="@style/TopUpTextStyle.SwapCurrency"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="--"
-          android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="@id/swap_value_button"
-          app:layout_constraintStart_toStartOf="@id/swap_value_button"
-          app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-          />
+        <View
+            android:id="@+id/header_top_up_divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:alpha="0.3"
+            android:background="@color/styleguide_dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/main_value"
+            />
 
-      <ImageView
-          android:id="@+id/value_warning_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="40dp"
-          android:layout_marginEnd="16dp"
-          android:src="@drawable/ic_topup_error"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="@id/main_value"
-          app:layout_constraintEnd_toStartOf="@id/main_value"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/main_value"
-          />
+        <TextView
+            android:id="@+id/converted_value"
+            style="@style/TopUpTextStyle.ConvertedValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="--"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_value"
+            />
 
-      <include
-          android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus_dark"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="8dp"
-          android:layout_marginBottom="8dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/header_top_up_divider"
-          app:layout_constraintVertical_bias="0"
-          app:layout_constraintVertical_chainStyle="packed"
-          />
+        <ImageButton
+            android:id="@+id/swap_value_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:enabled="false"
+            android:src="@drawable/ic_swap"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/main_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="@id/main_value"
+            app:layout_constraintTop_toTopOf="@id/main_value"
+            />
 
-      <include
-          android:id="@+id/bonus_layout_skeleton"
-          layout="@layout/skeleton_rounded_rectangle_dark"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
-          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
-          app:layout_constraintTop_toTopOf="@id/bonus_layout"
-          />
+        <TextView
+            android:id="@+id/swap_value_label"
+            style="@style/TopUpTextStyle.SwapCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/swap_value_button"
+            app:layout_constraintStart_toStartOf="@id/swap_value_button"
+            app:layout_constraintTop_toBottomOf="@id/swap_value_button"
+            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/value_warning_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_topup_error"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/main_value"
+            app:layout_constraintEnd_toStartOf="@id/main_value"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main_value"
+            />
+
+        <include
+            android:id="@+id/bonus_layout"
+            layout="@layout/view_purchase_bonus_dark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginBottom="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_top_up_divider"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="packed"
+            />
+
+        <include
+            android:id="@+id/bonus_layout_skeleton"
+            layout="@layout/skeleton_rounded_rectangle_dark"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+            app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+            app:layout_constraintStart_toStartOf="@id/bonus_layout"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <View
           android:id="@+id/top_separator_topup"
@@ -266,35 +266,6 @@
           app:layout_constraintTop_toBottomOf="@id/payment_container"
           />
 
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginBottom="21dp"
-          android:gravity="center"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bot_separator"
-          app:layout_constraintVertical_bias="0"
-          />
-
-
-      <include
-          android:id="@+id/bonus_msg_skeleton"
-          layout="@layout/skeleton_rounded_rectangle_dark"
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_marginStart="80dp"
-          android:layout_marginEnd="80dp"
-          app:layout_constraintBottom_toBottomOf="@id/bonus_msg"
-          app:layout_constraintTop_toTopOf="@id/bonus_msg"
-          />
-
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/button"
           android:layout_width="match_parent"
@@ -308,7 +279,7 @@
           app:buttonText="@string/action_next"
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintTop_toBottomOf="@id/bot_separator"
           app:layout_constraintVertical_bias="1.0"
           />
 
