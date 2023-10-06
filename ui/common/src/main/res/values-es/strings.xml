@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">El valor mínimo de recarga es %s.</string>
   <string name="topup_no_method_available_title">¡No hay métodos de pago!</string>
   <string name="topup_no_method_available_body">En estos momentos no hay métodos de pago disponibles para hacer una recarga en tu país. ¡Vuelve pronto!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total en %s</string>
