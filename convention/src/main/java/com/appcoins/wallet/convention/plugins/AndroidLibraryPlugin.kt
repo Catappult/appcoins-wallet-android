@@ -31,6 +31,10 @@ class AndroidLibraryPlugin : Plugin<Project> {
           register("staging") {
             initWith(getByName("release"))
           }
+
+          release {
+            isMinifyEnabled = true
+          }
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
