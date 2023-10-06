@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Максимальна вартість поповнення – %s</string>
   <string name="topup_no_method_available_title">Немає способів оплати!</string>
   <string name="topup_no_method_available_body">На цей час у вашій країні немає доступних способів оплати для поповнення рахунку. Залишайтеся на зв\'язку!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Загальний баланс у %s</string>
