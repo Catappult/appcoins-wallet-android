@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">最高充值额为%s</string>
   <string name="topup_no_method_available_title">没有付款方式！</string>
   <string name="topup_no_method_available_body">你所在的国家/地区目前没有可用于充值的付款方式。敬请关注！</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
   <string name="balance_total_body">总余额(%s)</string>
