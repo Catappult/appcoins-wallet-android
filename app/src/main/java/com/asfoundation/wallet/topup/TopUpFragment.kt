@@ -268,9 +268,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     }
     binding.topSeparatorTopup.visibility = View.VISIBLE
     binding.botSeparator.visibility = View.VISIBLE
-    binding.swapValueButton.isEnabled = true
-    binding.swapValueButton.visibility = View.VISIBLE
-    binding.swapValueLabel.visibility = View.VISIBLE
     //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)
 
@@ -338,18 +335,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     super.onDestroy()
   }
 
-  override fun getChangeCurrencyClick(): Observable<Any> {
-    return RxView.clicks(binding.swapValueButton)
-  }
-
-  override fun disableSwapCurrencyButton() {
-    binding.swapValueButton.isEnabled = false
-  }
-
-  override fun enableSwapCurrencyButton() {
-    binding.swapValueButton.isEnabled = true
-  }
-
   override fun getValuesClicks() = valueSubject!!
 
   override fun getEditTextChanges(): Observable<TopUpData> {
@@ -391,7 +376,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         0.5f)
     rotateAnimation.duration = 250
     rotateAnimation.interpolator = AccelerateDecelerateInterpolator()
-    binding.swapValueButton.startAnimation(rotateAnimation)
   }
 
   override fun switchCurrencyData() {
@@ -594,7 +578,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       binding.mainValue.setText(mainValue)
       binding.mainValue.setSelection(binding.mainValue.text!!.length)
     }
-    binding.swapValueLabel.text = conversionCode
     binding.convertedValue.text = conversionValue
   }
 
