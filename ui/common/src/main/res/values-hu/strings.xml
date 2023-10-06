@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">A maximális kiegészítő érték %s</string>
   <string name="topup_no_method_available_title">Hiányzik fizetési mód!</string>
   <string name="topup_no_method_available_body">Az országodban jelenleg nincs a befizetésre alkalmas fizetési mód. Ez viszont még változhat!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Egyenleg</string>
   <string name="balance_total_body">Teljes egyenleg %s-ban</string>
