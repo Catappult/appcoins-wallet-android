@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Completable
@@ -91,8 +91,12 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun retrievePaymentMethods(fiatAmount: String, currency: String): Completable =
-    interactor.getPaymentMethods(fiatAmount, currency)
+  private fun retrievePaymentMethods(
+    fiatAmount: String,
+    currency: String,
+    packageName: String
+  ): Completable =
+    interactor.getPaymentMethods(fiatAmount, currency, packageName)
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess {
@@ -327,7 +331,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, currency)
+      retrievePaymentMethods(fiatAmount, currency, appPackage)
         .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {
       view.hideBonusAndSkeletons()

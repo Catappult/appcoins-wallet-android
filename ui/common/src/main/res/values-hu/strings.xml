@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Wallet kezelése</string>
   <string name="log_out_button">Kijelentkezés</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Kész!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>

@@ -41,18 +41,16 @@
   <color name="styleguide_black_transparent_80">#CC000000</color>
   <color name="styleguide_white_transparent_80">#CCFFFFFF</color>
   <color name="styleguide_white_transparent_20">#33FFFFFF</color>
-  <color name="styleguide_white_transparent_10">#1AFFFFFF</color>
   <color name="styleguide_medium_grey_transparent_50">#88DDDDDD</color>
-  <color name="styleguide_red_transparent_40">#66E02D3E</color>
   <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <!-- Default Android colors -->
   <color name="colorPrimary">@color/styleguide_blue</color> <!-- App bar -->
   <color name="colorPrimaryDark">@color/styleguide_blue</color> <!-- App bar dark -->
   <color name="colorAccent">@color/styleguide_pink</color> <!-- Default UI controls -->
-  <color name="textColorPrimary">@color/styleguide_black</color> <!-- Default text color -->
+  <!-- Default text color -->
   <color name="statusBarColor">@color/styleguide_blue  </color> <!-- Android system status bar -->
-  <color name="colorControlActivated">@color/styleguide_pink </color> <!-- Android controls -->
+  <!-- Android controls -->
 
   <!-- Still used, but to be replaced -->
   <!-- Used in gradient_progress, to replace with the new loading -->

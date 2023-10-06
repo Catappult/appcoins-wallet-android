@@ -11,7 +11,7 @@
   <string name="get_button">Get</string>
   <string name="got_it_button">Got it</string>
   <string name="install_button">安裝</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">重試</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">正在建立錢包地址&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>

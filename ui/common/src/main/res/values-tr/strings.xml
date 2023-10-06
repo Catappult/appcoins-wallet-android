@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Cüzdanı yönet</string>
   <string name="log_out_button">Çıkış yap</string>
   <string name="download_button">İndir</string>
-  <string name="done">Done!</string>
+  <string name="done">Bitti!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>

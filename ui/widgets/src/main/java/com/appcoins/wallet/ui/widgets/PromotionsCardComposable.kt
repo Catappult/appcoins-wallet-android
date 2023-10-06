@@ -1,13 +1,34 @@
 package com.appcoins.wallet.ui.widgets
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -18,7 +39,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil.compose.SubcomposeAsyncImage
@@ -105,7 +126,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
         )
         .zIndex(4f)
     ) {
-      Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
+      Column(modifier = Modifier.padding(8.dp)) {
         ImageWithTitleAndDescription(
           cardItem.imageUrl,
           cardItem.title,
@@ -129,7 +150,14 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               CountDownTimer(cardItem.promotionEndTime)
-              GetText(cardItem.action, 85.dp, cardItem.packageName)
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth(0.8f)
+                  .padding(start = 48.dp),
+                horizontalArrangement = Arrangement.End
+              ) {
+                GetText(cardItem.action, cardItem.packageName)
+              }
             }
           }
         } else {
@@ -144,7 +172,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              GetText(cardItem.action, 0.dp, cardItem.packageName)
+              GetText(cardItem.action, cardItem.packageName)
             }
           }
         }
@@ -260,30 +288,23 @@ fun IconWithText(text: String) {
 }
 
 @Composable
-fun GetText(action: () -> Unit, startPaddingValue: Dp, packageName: String?) {
+fun GetText(action: () -> Unit, packageName: String?) {
   val hasGameInstall =
     isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
-  if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
+  val text =
+    if (hasGameInstall) stringResource(id = R.string.play_button)
+    else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button)
+    else ""
+
+  TextButton(onClick = action) {
     Text(
-      text = stringResource(id = R.string.play_button),
+      text = text,
       fontWeight = FontWeight.Bold,
       color = WalletColors.styleguide_pink,
-      fontSize = 14.sp,
-      modifier = Modifier
-        .padding(end = 26.dp, start = startPaddingValue)
-        .clickable(onClick = action)
-    )
-  } else if (BuildConfig.FLAVOR != "gp") {
-    Text(
-      text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
-      fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_pink,
-      fontSize = 14.sp,
-      modifier = Modifier
-        .padding(end = 26.dp, start = startPaddingValue)
-        .clickable(onClick = action)
+      fontSize = 14.sp
     )
   }
+
 }
 
 
