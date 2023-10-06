@@ -2,7 +2,6 @@ package com.appcoins.wallet.feature.backup.ui.save_options
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -12,7 +11,6 @@ import com.appcoins.wallet.feature.backup.data.result.BackupResult
 import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SendBackupToEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
@@ -45,14 +43,13 @@ constructor(
   }
 
   fun sendBackupToEmail(text: String) {
-    viewModelScope.launch {
-      runCatching { sendBackupToEmailUseCase(walletAddress, password, text) }
-        .onSuccess {
-          backupSuccessLogUseCase(walletAddress)
-          sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
-        }
-        .onFailure { showError(it) }
-    }
+    sendBackupToEmailUseCase(walletAddress, password, text)
+      .andThen(backupSuccessLogUseCase(walletAddress))
+      .doOnComplete {
+        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
+      }
+      .doOnError { showError(it) }
+      .subscribe()
   }
 
   private fun showError(throwable: Throwable) {

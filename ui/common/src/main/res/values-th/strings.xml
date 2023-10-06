@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">จัดการวอลเล็ต</string>
   <string name="log_out_button">ลงชื่อออก</string>
   <string name="download_button">ดาวน์โหลด</string>
-  <string name="done">Done!</string>
+  <string name="done">เสร็จสิ้น!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -1104,26 +1104,6 @@
   <string name="appcoins_info_explorer_title">สำรวจ</string>
   <string name="appcoins_info_market_cap_title">มูลค่าตลาด</string>
   <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">คุณยังไม่มี NFT ในกระเป๋าเงินนี้!</string>
-  <string name="nfts_transact_button">ส่ง NFT นี้</string>
-  <string name="nfts_transact_button_send">ส่ง</string>
-  <string name="nfts_transact_button_next">ถัดไป</string>
-  <string name="nfts_transact_button_done">เสร็จ</string>
-  <string name="nfts_transact_button_success">ได้รับ</string>
-  <string name="nfts_transact_tip">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
-  <string name="nfts_transact_input_tip">ที่อยู่กระเป๋าเงินที่นี่...</string>
-  <string name="nfts_transact_done_mensage">%s ถูกส่งสำเร็จ!</string>
-  <string name="nfts_generic_error">อุ๊ปส์ มีบางอย่างผิดพลาด!</string>
-  <string name="nfts_transact_gas_title">คุณรีบร้อนใช่ไหม</string>
-  <string name="nfts_transact_gas_description">เลือกจำนวนเงินที่คุณต้องการชำระเป็นค่าธรรมเนียม ยิ่งค่าธรรมเนียมสูง ยิ่งทำธุรกรรมได้เร็ว</string>
-  <string name="nfts_transact_gas_price">ราคาแก๊ส</string>
-  <string name="nfts_transact_gas_limit">จำกัดแก๊ส</string>
-  <string name="nfts_transact_gas_fee_message">ค่าธรรมเนียมธุรกรรม</string>
-  <string name="nfts_transact_error_no_funds">เงินทุนไม่เพียงพอ! คุณมี ETH ไม่เพียงพอสำหรับชำระค่าธรรมเนียม</string>
-  <string name="nfts_transact_error_low_gas">แก๊สต่ำเกินไป! เพิ่มแก๊สของคุณเพื่อให้เครือข่ายยอมรับธุรกรรมของคุณ</string>
-  <string name="nfts_transact_error_already_in_progress">NFT นี้ถูกส่งไปแล้ว! การทำธุรกรรมก่อนหน้านี้กำลังดำเนินการอยู่</string>
   <!-- Gift Card -->
   <string name="gift_card_title">แลกรหัสบัตรของขวัญของคุณ</string>
   <string name="gift_card_field">รหัสการ์ดที่นี่...</string>
@@ -1216,7 +1196,6 @@
   <string name="rewards_promo_code_status">สถานะ:</string>
   <string name="rewards_promo_code_status_active">ใช้งาน</string>
   <string name="rewards_promo_code_status_expired">หมดอายุ</string>
-  <string name="home_nft_title">AppCoins Wallet รองรับ NFT แล้ว</string>
   <string name="home_appcoins_compatible_games_title">เกมส์ที่เข้ากันได้กับ AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>

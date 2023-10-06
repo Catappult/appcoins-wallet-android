@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Gestisci wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Fatto!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Capitalizzazione di mercato</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">Non hai ancora NFT in questo wallet!</string>
-  <string name="nfts_transact_button">Invia NFT</string>
-  <string name="nfts_transact_button_send">Invia</string>
-  <string name="nfts_transact_button_next">Successivo</string>
-  <string name="nfts_transact_button_done">Fatto</string>
-  <string name="nfts_transact_button_success">Ricevuto</string>
-  <string name="nfts_transact_tip">Inserisci l\'indirizzo del wallet del tuo amico</string>
-  <string name="nfts_transact_input_tip">Indirizzo wallet qui...</string>
-  <string name="nfts_transact_done_mensage">Invio %s effettuato con successo!</string>
-  <string name="nfts_generic_error">Ops! Qualcosa è andato storto!</string>
-  <string name="nfts_transact_gas_title">Hai fretta?</string>
-  <string name="nfts_transact_gas_description">Seleziona l\'importo della commissione che desideri versare. Più alta la commissione, più veloce sarà la transazione.</string>
-  <string name="nfts_transact_gas_price">Importo carburante</string>
-  <string name="nfts_transact_gas_limit">Limite carburante</string>
-  <string name="nfts_transact_gas_fee_message">Commissione di transazione</string>
-  <string name="nfts_transact_error_no_funds">Non hai abbastanza fondi! Non disponi di abbastanza ETH per coprire le commissioni.</string>
-  <string name="nfts_transact_error_low_gas">Il livello del gas è troppo basso! Aumenta il gas affinché la rete accetti la tua transazione.</string>
-  <string name="nfts_transact_error_already_in_progress">Questo NFT è già stato inviato! Al momento è in corso una transazione precedente.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Riscatta il tuo codice buono regalo</string>
   <string name="gift_card_field">Inserisci il codice del buono qui...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Stato:</string>
   <string name="rewards_promo_code_status_active">Attiva</string>
   <string name="rewards_promo_code_status_expired">Scaduto</string>
-  <string name="home_nft_title">L\'AppCoins Wallet supporta NFT!</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effettua il tuo primo acquisto su un gioco compatibile con AppCoins e sblocca un bonus su ogni acquisto.</string>

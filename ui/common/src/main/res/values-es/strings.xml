@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
   <string name="transaction_status_reverted">Revertida</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Recompensa por Reto</string>
+  <string name="transaction_type_challenge_reward_rejected">Recompensa por Reto rechazada</string>
+  <string name="transaction_type_challenge_reward_reverted">Recompensa por Reto revertida</string>
   <string name="transaction_type_iab">Compra in-app</string>
   <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Gestionar wallet</string>
   <string name="log_out_button">Cerrar sesión</string>
   <string name="download_button">Descargar</string>
-  <string name="done">Done!</string>
+  <string name="done">¡Hecho!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">Volumen (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">¡Todavía no tienes ningún NFT en esta wallet!</string>
-  <string name="nfts_transact_button">Enviar este NFT</string>
-  <string name="nfts_transact_button_send">Enviar</string>
-  <string name="nfts_transact_button_next">Siguiente</string>
-  <string name="nfts_transact_button_done">¡Hecho!</string>
-  <string name="nfts_transact_button_success">OK</string>
-  <string name="nfts_transact_tip">Introduce la dirección de la wallet de tu amigo</string>
-  <string name="nfts_transact_input_tip">Dirección de la wallet...</string>
-  <string name="nfts_transact_done_mensage">¡%s enviado correctamente!</string>
-  <string name="nfts_generic_error">¡Ups, algo no ha ido bien!</string>
-  <string name="nfts_transact_gas_title">¿Tienes prisa?</string>
-  <string name="nfts_transact_gas_description">Elige cuánto quieres pagar en tasas. Cuanto mayor sea la tasa, más rápida será la transacción.</string>
-  <string name="nfts_transact_gas_price">Precio del gas</string>
-  <string name="nfts_transact_gas_limit">Límite de gas</string>
-  <string name="nfts_transact_gas_fee_message">Tasa de la transacción</string>
-  <string name="nfts_transact_error_no_funds">¡No tienes suficientes fondos! No tienes suficiente ETH para pagar las tasas.</string>
-  <string name="nfts_transact_error_low_gas">¡El gas es muy bajo! Aumenta el gas para que la red acepte tu transacción.</string>
-  <string name="nfts_transact_error_already_in_progress">¡Este NFT ya se ha enviado! Una transacción anterior ya está siendo procesada.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Canjear código de tarjeta regalo</string>
   <string name="gift_card_field">El código aquí...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Estado:</string>
   <string name="rewards_promo_code_status_active">Activa</string>
   <string name="rewards_promo_code_status_expired">Caducada</string>
-  <string name="home_nft_title">La AppCoins Wallet ahora soporta NFTs</string>
   <string name="home_appcoins_compatible_games_title">Juegos Compatibles con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
@@ -1260,8 +1239,8 @@
   <string name="verify_card_code_enter_title">Introduce el código de 4 dígitos</string>
   <string name="verify_card_code_refund_body">Se devolverán %s en las 24 horas posteriores a la introducción del código.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Recompensa por Reto</string>
+  <string name="challenge_reward_card_body">Completa un reto para recibir AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Disfruta de %s AppCoins Credits en tu wallet</string>
 </resources>

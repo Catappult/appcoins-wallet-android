@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Управление кошельком</string>
   <string name="log_out_button">Выйти</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Готово!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -1129,26 +1129,6 @@
   <string name="appcoins_info_explorer_title">Проводник</string>
   <string name="appcoins_info_market_cap_title">Объём рынка</string>
   <string name="appcoins_info_volume_title">Сумма сделок (24 часа)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">У вас еще нет NFT в этом кошельке!</string>
-  <string name="nfts_transact_button">Отправить NFT</string>
-  <string name="nfts_transact_button_send">Отправить</string>
-  <string name="nfts_transact_button_next">Дальше</string>
-  <string name="nfts_transact_button_done">Готово</string>
-  <string name="nfts_transact_button_success">Ясно</string>
-  <string name="nfts_transact_tip">Введите адрес бумажника вашего друга</string>
-  <string name="nfts_transact_input_tip">Адрес кошелька здесь...</string>
-  <string name="nfts_transact_done_mensage">%s успешно отправлен!</string>
-  <string name="nfts_generic_error">Ой, что-то пошло не так!</string>
-  <string name="nfts_transact_gas_title">Вы торопитесь?</string>
-  <string name="nfts_transact_gas_description">Выберите, сколько комиссионных вы готовы платить. Чем выше комиссия, тем быстрее транзакция.</string>
-  <string name="nfts_transact_gas_price">Цена топлива</string>
-  <string name="nfts_transact_gas_limit">Лимит топлива</string>
-  <string name="nfts_transact_gas_fee_message">Комиссия за транзакцию</string>
-  <string name="nfts_transact_error_no_funds">Недостаточно средств! У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
-  <string name="nfts_transact_error_low_gas">Оплата за топливо слишком низкая! Увеличьте цену топлива, чтобы сеть приняла вашу транзакцию.</string>
-  <string name="nfts_transact_error_already_in_progress">Этот NFT уже отправляется! В настоящее время уже выполняется предыдущая транзакция.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Погасите ваш подарочный код</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
@@ -1253,7 +1233,6 @@
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
   <string name="rewards_promo_code_status_expired">Истёк</string>
-  <string name="home_nft_title">Кошелек AppCoins теперь поддерживает NFT</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>

@@ -11,8 +11,8 @@
   <string name="get_button">入手</string>
   <string name="got_it_button">了解</string>
   <string name="install_button">インストール</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">再試行</string>
+  <string name="restart_button">再起動</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="processing_loading_title">エントリーチケットを入手中</string>
   <string name="finding_room_loading_title">対戦相手を待っています</string>
@@ -65,36 +65,36 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">対戦相手のゲーム終了を待っています</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$sが%2$dポイント)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="other">%1$d points</item>
+    <item quantity="other">%1$dポイント</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">%1$.2f があなたのウォレットにクレジットされました。</string>
+  <string name="you_won">あなたの勝利です！%1$s</string>
+  <string name="you_lost_timeout">時間切れ、あなたの負けです！%1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="other">Days</item>
+    <item quantity="other">日</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">Hours</item>
+    <item quantity="other">時</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">Minutes</item>
+    <item quantity="other">分</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">Seconds</item>
+    <item quantity="other">秒</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">次のリワードまで：</string>
+  <string name="current_top_3">現在のトップ３</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">リーダーボード</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">収入を得る</string>
   <string name="eskills_carousel_body">e-Skillで他のプレイヤーに勝とう</string>
