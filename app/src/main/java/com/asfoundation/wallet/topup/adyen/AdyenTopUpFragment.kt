@@ -375,6 +375,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
+    binding.headerTopUpDivider.visibility = VISIBLE
     binding.bonusLayout.root.visibility = VISIBLE
   }
 
