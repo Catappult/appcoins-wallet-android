@@ -64,7 +64,7 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk tamat bermain.</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s raih %2$d poin)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
