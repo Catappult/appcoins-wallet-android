@@ -38,9 +38,10 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardPaymentMethodViewModel
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
-import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -106,6 +107,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     super.onResume()
     viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
+    viewModel.fetchWalletInfo()
     navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
@@ -117,6 +119,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     LaunchedEffect(key1 = dialogDismissed) {
       viewModel.fetchPromotions()
       viewModel.fetchGamificationStats()
+      viewModel.fetchWalletInfo()
     }
     Scaffold(
       topBar = {
@@ -148,7 +151,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
     val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
     if (hasChallengeReward) challengeRewardNavigationFunc =
-        challengeRewardNavigation(activity = this.requireActivity(), flowPath = REWARDS)
+      { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) }
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
@@ -233,6 +236,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onStateChanged(state: RewardState) {
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
+    instantiateChallengeReward(state.walletInfoAsync)
   }
 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
@@ -360,4 +364,15 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     return navHostFragment.navController
   }
 
+  private fun instantiateChallengeReward(walletInfoAsync: Async<WalletInfo>) {
+    when (walletInfoAsync) {
+      is Async.Success -> {
+        walletInfoAsync.value?.let {
+          if(it.wallet.isNotEmpty())
+            ChallengeRewardManager.create(requireActivity(), it.wallet)
+        }
+      }
+      else -> Unit
+    }
+  }
 }
