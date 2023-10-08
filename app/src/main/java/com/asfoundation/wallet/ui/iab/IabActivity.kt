@@ -589,6 +589,10 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
 
   override fun showTopupFlow() = startActivity(TopUpActivity.newIntent(this))
 
+  override fun createChallengeReward() {
+    ChallengeRewardManager.create(this)
+  }
+
   override fun onPause() {
     presenter.stop()
     super.onPause()

@@ -171,5 +171,7 @@ interface IabView {
 
   fun showTopupFlow()
 
+  fun createChallengeReward()
+
   var webViewResultCode: String?
 }

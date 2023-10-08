@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
+  private val activity: IabView?,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
   val disposables: CompositeDisposable,
@@ -84,6 +85,7 @@ class PaymentMethodsPresenter(
     handleSupportClicks()
     handleAuthenticationResult()
     handleTopupClicks()
+    handleChallengeRewardWalletAddress()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
@@ -1111,6 +1113,10 @@ class PaymentMethodsPresenter(
     val paymentMethod = loadedPaymentMethodEvent ?: return
     loadedPaymentMethodEvent = null
     analytics.stopTimingForTotalEvent(paymentMethod)
+  }
+
+  private fun handleChallengeRewardWalletAddress(){
+    activity?.createChallengeReward()
   }
 
   enum class ViewState {
