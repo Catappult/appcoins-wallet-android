@@ -171,7 +171,7 @@ interface IabView {
 
   fun showTopupFlow()
 
-  fun createChallengeReward()
+  fun createChallengeReward(walletAddress: String)
 
   var webViewResultCode: String?
 }

@@ -221,8 +221,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     PerkBonusAndGamificationService.buildService(this, address)
   }
 
-  override fun createChallengeReward() {
-    ChallengeRewardManager.create(this)
+  override fun createChallengeReward(walletAddress: String) {
+    ChallengeRewardManager.create(this, walletAddress)
   }
 
   override fun finishActivity(data: Bundle) {

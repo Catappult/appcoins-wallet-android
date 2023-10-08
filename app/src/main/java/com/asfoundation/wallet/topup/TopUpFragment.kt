@@ -32,6 +32,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -55,6 +56,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor
+
+  @Inject
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
   lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
@@ -153,6 +157,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       view = this,
       activity = topUpActivityView,
       interactor = interactor,
+      getWalletInfoUseCase = getWalletInfoUseCase,
       removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
       isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
       viewScheduler = AndroidSchedulers.mainThread(),

@@ -10,6 +10,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
@@ -29,6 +30,7 @@ class TopUpFragmentPresenter(
   private val view: TopUpFragmentView,
   private val activity: TopUpActivityView?,
   private val interactor: TopUpInteractor,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase,
   private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
   private val viewScheduler: Scheduler,
@@ -469,7 +471,14 @@ class TopUpFragmentPresenter(
   }
 
   private fun handleChallengeRewardWalletAddress() {
-    activity?.createChallengeReward()
+    disposables.add(
+      getWalletInfoUseCase(null, false)
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { activity?.createChallengeReward(it.wallet) },
+          { logger.log(TAG, "Error creating challenge reward") }
+        )
+    )
   }
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {

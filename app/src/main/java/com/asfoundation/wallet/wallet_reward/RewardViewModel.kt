@@ -12,6 +12,8 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -33,13 +35,15 @@ sealed class RewardSideEffect : SideEffect {
 data class RewardState(
   val showVipBadge: Boolean = false,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
+  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized,
+  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
   private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val gamificationInteractor: GamificationInteractor,
@@ -90,6 +94,13 @@ class RewardViewModel @Inject constructor(
     gamificationInteractor.getUserStats()
       .subscribeOn(rxSchedulers.io)
       .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
+      .scopedSubscribe()
+  }
+
+  fun fetchWalletInfo(){
+    getWalletInfoUseCase.invoke(null, false)
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState { copy(walletInfoAsync = it) }
       .scopedSubscribe()
   }
 
