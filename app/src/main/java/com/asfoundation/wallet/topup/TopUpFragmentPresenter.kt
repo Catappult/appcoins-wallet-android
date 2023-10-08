@@ -65,6 +65,7 @@ class TopUpFragmentPresenter(
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
+    handleChallengeRewardWalletAddress()
   }
 
   fun stop() {
@@ -465,6 +466,10 @@ class TopUpFragmentPresenter(
           }
         )
     )
+  }
+
+  private fun handleChallengeRewardWalletAddress() {
+    activity?.createChallengeReward()
   }
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {

@@ -50,4 +50,6 @@ interface TopUpActivityView {
   fun popBackStack()
 
   fun launchPerkBonusAndGamificationService(address: String)
+
+  fun createChallengeReward()
 }

@@ -32,7 +32,6 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -176,7 +175,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    ChallengeRewardManager.create(this.requireActivity())
     savedInstanceState?.let {
       if (savedInstanceState.containsKey(SELECTED_CURRENCY_PARAM)) {
         selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
