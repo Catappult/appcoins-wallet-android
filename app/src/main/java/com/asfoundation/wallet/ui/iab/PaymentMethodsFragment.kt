@@ -25,7 +25,6 @@ import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
@@ -155,6 +154,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
     presenter = PaymentMethodsPresenter(
       view = this,
+      activity = iabView,
       viewScheduler = AndroidSchedulers.mainThread(),
       networkThread = Schedulers.io(),
       disposables = CompositeDisposable(),
@@ -187,7 +187,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
     setBuyButtonText()
     presenter.present(savedInstanceState)
-    ChallengeRewardManager.create(this.requireActivity())
   }
 
   override fun onCreateView(
