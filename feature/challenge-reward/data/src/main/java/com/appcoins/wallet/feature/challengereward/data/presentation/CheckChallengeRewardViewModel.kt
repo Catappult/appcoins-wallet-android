@@ -27,19 +27,19 @@ class CheckChallengeRewardViewModel @Inject constructor(
     )
 
   init {
-    viewModelScope.launch {
-      viewModelState.update {
-        handleHasChallengeReward().blockingGet()
-      }
-    }
+    handleHasChallengeReward()
   }
 
-  private fun handleHasChallengeReward(): Single<Boolean> {
-    return bdsRepository.getPaymentMethods(
-      currency = "fiat",
-      direct = true,
-    ).flatMap { methods ->
-      Single.just(methods.any { it.id == "challenge_reward" })
-    }.subscribeOn(Schedulers.io())
+  fun handleHasChallengeReward() {
+    viewModelScope.launch {
+      viewModelState.update {
+        bdsRepository.getPaymentMethods(
+          currency = "fiat",
+          direct = true,
+        ).flatMap { methods ->
+          Single.just(methods.any { it.id == "challenge_reward" })
+        }.subscribeOn(Schedulers.io()).blockingGet()
+      }
+    }
   }
 }

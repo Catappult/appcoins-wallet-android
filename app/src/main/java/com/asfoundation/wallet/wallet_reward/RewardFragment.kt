@@ -57,6 +57,7 @@ import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
+import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.FutureItem
 import com.asfoundation.wallet.promotions.model.GamificationItem
@@ -84,6 +85,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private val df = DecimalFormat("###.#")
 
+  private lateinit var onboardingPaymentViewModel: CheckChallengeRewardViewModel
+
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
@@ -108,6 +111,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
     viewModel.fetchWalletInfo()
+    onboardingPaymentViewModel.handleHasChallengeReward()
     navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
@@ -146,9 +150,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
+    onboardingPaymentViewModel = hiltViewModel()
     var challengeRewardNavigationFunc: (() -> Unit)? by remember { mutableStateOf(null) }
-    val checkChallengeRewardPaymentMethodViewModel = hiltViewModel<CheckChallengeRewardViewModel>()
-    val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
+    val hasChallengeReward by onboardingPaymentViewModel.uiState.collectAsState()
     if (hasChallengeReward) challengeRewardNavigationFunc =
       { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) }
     LazyColumn(
