@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CheckChallengeRewardPaymentMethodViewModel @Inject constructor(
+class CheckChallengeRewardViewModel @Inject constructor(
   private val bdsRepository: BdsRepository,
 ) : ViewModel() {
   private val viewModelState = MutableStateFlow(false)
