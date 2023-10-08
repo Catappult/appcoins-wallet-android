@@ -39,8 +39,8 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardPaymentMethodViewModel
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
+import com.appcoins.wallet.feature.challengereward.data.presentation.CheckChallengeRewardViewModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -147,8 +147,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     padding: PaddingValues
   ) {
     var challengeRewardNavigationFunc: (() -> Unit)? by remember { mutableStateOf(null) }
-    val checkChallengeRewardPaymentMethodViewModel =
-      hiltViewModel<CheckChallengeRewardPaymentMethodViewModel>()
+    val checkChallengeRewardPaymentMethodViewModel = hiltViewModel<CheckChallengeRewardViewModel>()
     val hasChallengeReward by checkChallengeRewardPaymentMethodViewModel.uiState.collectAsState()
     if (hasChallengeReward) challengeRewardNavigationFunc =
       { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) }
