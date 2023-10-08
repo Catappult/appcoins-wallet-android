@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -218,6 +219,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun launchPerkBonusAndGamificationService(address: String) {
     PerkBonusAndGamificationService.buildService(this, address)
+  }
+
+  override fun createChallengeReward() {
+    ChallengeRewardManager.create(this)
   }
 
   override fun finishActivity(data: Bundle) {
