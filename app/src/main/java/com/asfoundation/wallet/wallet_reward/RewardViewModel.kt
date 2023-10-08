@@ -3,12 +3,15 @@ package com.asfoundation.wallet.wallet_reward
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -40,7 +43,8 @@ class RewardViewModel @Inject constructor(
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val gamificationInteractor: GamificationInteractor,
-  private val rxSchedulers: RxSchedulers
+  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
+  private val rxSchedulers: RxSchedulers,
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
@@ -89,4 +93,8 @@ class RewardViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
+  fun sendChallengeRewardEvent(flowPath: ChallengeRewardFlowPath) {
+    challengeRewardAnalytics.sendChallengeRewardEvent(flowPath.id)
+    ChallengeRewardManager.onNavigate()
+  }
 }
