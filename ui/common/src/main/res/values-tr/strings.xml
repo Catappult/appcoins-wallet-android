@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Cüzdanı yönet</string>
   <string name="log_out_button">Çıkış yap</string>
   <string name="download_button">İndir</string>
-  <string name="done">Done!</string>
+  <string name="done">Bitti!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Piyasa Değeri</string>
   <string name="appcoins_info_volume_title">Hacim (24 sa)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT\'ler</string>
-  <string name="nfts_no_nfts">Bu cüzdanda henüz NFT yok!</string>
-  <string name="nfts_transact_button">Bu NFT\'yi gönder</string>
-  <string name="nfts_transact_button_send">Gönder</string>
-  <string name="nfts_transact_button_next">İleri</string>
-  <string name="nfts_transact_button_done">Bitti</string>
-  <string name="nfts_transact_button_success">Anladım</string>
-  <string name="nfts_transact_tip">Arkadaşının cüzdan adresini gir</string>
-  <string name="nfts_transact_input_tip">Cüzdan adresi...</string>
-  <string name="nfts_transact_done_mensage">%s başarıyla gönderildi!</string>
-  <string name="nfts_generic_error">Hay aksi! Bir şeyler ters gitti!</string>
-  <string name="nfts_transact_gas_title">Acelen mi var?</string>
-  <string name="nfts_transact_gas_description">Ücret olarak ne kadar yatırmak istediğini seç. Ücret ne kadar yüksek olursa, işlem o kadar hızlı olur.</string>
-  <string name="nfts_transact_gas_price">Petrol Fiyatı</string>
-  <string name="nfts_transact_gas_limit">Petrol Limiti</string>
-  <string name="nfts_transact_gas_fee_message">İşlem Ücreti</string>
-  <string name="nfts_transact_error_no_funds">Yeterli para yok! Ücretleri ödemek için yeterli ETH\'n yok.</string>
-  <string name="nfts_transact_error_low_gas">Benzin azaldı! Ağın işlemini kabul edebilmesi için benzinini arttır.</string>
-  <string name="nfts_transact_error_already_in_progress">Bu NFT zaten gönderiliyor! Önceki işlem halen devam ediyor.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Hediye kartı kodunu kullan</string>
   <string name="gift_card_field">Kart kodu...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Durum:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Süresi doldu</string>
-  <string name="home_nft_title">AppCoins Cüzdan artık NFT destekliyor</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Uyumlu Oyunlar</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">İlk satın alma işlemini AppCoins uyumlu bir oyunla yap ve her satın alımda bir bonus aç.</string>

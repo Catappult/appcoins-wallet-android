@@ -7,7 +7,6 @@ import java.math.BigDecimal
 
 interface TopUpFragmentView {
 
-  fun getChangeCurrencyClick(): Observable<Any>
   fun getEditTextChanges(): Observable<TopUpData>
   fun getPaymentMethodClick(): Observable<String>
   fun getNextClick(): Observable<TopUpData>
@@ -29,8 +28,6 @@ interface TopUpFragmentView {
   fun changeMainValueText(value: String)
   fun getSelectedCurrency(): String
   fun paymentMethodsFocusRequest()
-  fun disableSwapCurrencyButton()
-  fun enableSwapCurrencyButton()
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>

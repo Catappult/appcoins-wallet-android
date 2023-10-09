@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">In de wachtrij</string>
   <string name="transaction_status_failed">Niet gelukt</string>
   <string name="transaction_status_reverted">Teruggedraaid</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_rejected">Afgewezen beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_reverted">Teruggedraaide beloning voor uitdaging</string>
   <string name="transaction_type_iab">In-app aankoop</string>
   <string name="transaction_type_poa">Beloning</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Wallet beheren</string>
   <string name="log_out_button">Uitloggen</string>
   <string name="download_button">Downloaden</string>
-  <string name="done">Done!</string>
+  <string name="done">Gelukt!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">Verkenner</string>
   <string name="appcoins_info_market_cap_title">Marktkapitalisatie</string>
   <string name="appcoins_info_volume_title">Volume (24 uur)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT\'s</string>
-  <string name="nfts_no_nfts">Deze wallet bevat nog geen NFT\'s!</string>
-  <string name="nfts_transact_button">Verstuur deze NFT</string>
-  <string name="nfts_transact_button_send">Sturen</string>
-  <string name="nfts_transact_button_next">Volgende</string>
-  <string name="nfts_transact_button_done">Gereed</string>
-  <string name="nfts_transact_button_success">Begrepen</string>
-  <string name="nfts_transact_tip">Wallet-adres van je vriend(in) invoeren</string>
-  <string name="nfts_transact_input_tip">Voer hier het wallet-adres in...</string>
-  <string name="nfts_transact_done_mensage">%s is met succes verstuurd!</string>
-  <string name="nfts_generic_error">Oeps, er is iets fout gegaan!</string>
-  <string name="nfts_transact_gas_title">Heb je weinig tijd?</string>
-  <string name="nfts_transact_gas_description">Kies welk bedrag je aan vergoedingen wilt betalen. Hoe hoger het bedrag, hoe sneller de transactie wordt verwerkt.</string>
-  <string name="nfts_transact_gas_price">Gasvergoeding</string>
-  <string name="nfts_transact_gas_limit">Gaslimiet</string>
-  <string name="nfts_transact_gas_fee_message">Transactiekosten</string>
-  <string name="nfts_transact_error_no_funds">Onvoldoende saldo! Je hebt niet genoeg ETH om de kosten te kunnen betalen.</string>
-  <string name="nfts_transact_error_low_gas">Gasvergoeding is te laag! Verhoog de gasvergoeding om ervoor te zorgen dat je transactie door het netwerk wordt geaccepteerd.</string>
-  <string name="nfts_transact_error_already_in_progress">Deze NFT wordt al verstuurd! Er wordt momenteel een eerdere transactie uitgevoerd.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Wissel je cadeaukaartcode in</string>
   <string name="gift_card_field">Voer hier je kaartcode in...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Actief</string>
   <string name="rewards_promo_code_status_expired">Verlopen</string>
-  <string name="home_nft_title">De AppCoins Wallet ondersteunt nu NFT\'s</string>
   <string name="home_appcoins_compatible_games_title">Games die compatibel met AppCoins zijn</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die AppCoins ondersteunt en krijg een bonus bij elke aankoop.</string>
@@ -1260,8 +1239,8 @@
   <string name="verify_card_code_enter_title">Voer de 4-cijferige code in</string>
   <string name="verify_card_code_refund_body">%s wordt terugbetaald binnen 24 uur nadat je de code hebt bevestigd.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Beloning voor uitdaging</string>
+  <string name="challenge_reward_card_body">Voltooi een uitdaging om AppCoins Credits te krijgen.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
 </resources>

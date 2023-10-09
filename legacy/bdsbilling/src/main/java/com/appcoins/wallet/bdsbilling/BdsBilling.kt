@@ -2,6 +2,7 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
@@ -10,17 +11,20 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
-class BdsBilling(private val repository: BillingRepository,
-                 private val walletService: WalletService,
-                 private val errorMapper: BillingThrowableCodeMapper) : Billing {
+class BdsBilling(
+  private val repository: BillingRepository,
+  private val walletService: WalletService,
+  private val errorMapper: BillingThrowableCodeMapper,
+  private val partnerAddressService: PartnerAddressService,
+) : Billing {
   override fun getWallet(packageName: String): Single<String> {
     return repository.getWallet(packageName)
   }
 
   override fun isInAppSupported(merchantName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP)
-        .map { map(it) }
-        .onErrorReturn { errorMapper.map(it) }
+      .map { map(it) }
+      .onErrorReturn { errorMapper.map(it) }
   }
 
   override fun isSubsSupported(merchantName: String): Single<Billing.BillingSupportType> {
@@ -96,12 +100,15 @@ class BdsBilling(private val repository: BillingRepository,
     transactionType: String,
     packageName: String
   ): Single<List<PaymentMethodEntity>> {
-    return repository.getPaymentMethods(
-      value,
-      currency,
-      transactionType = transactionType,
-      packageName = packageName
-    )
+    return partnerAddressService.getAttributionEntity(packageName).flatMap { attributionEntity ->
+      repository.getPaymentMethods(
+        value,
+        currency,
+        transactionType = transactionType,
+        packageName = packageName,
+        entityOemId = attributionEntity.oemId
+      )
+    }
   }
 
   private fun map(it: Boolean) =

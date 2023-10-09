@@ -304,6 +304,11 @@
     <item name="android:fontFamily">@font/roboto_bolt</item>
   </style>
 
+  <style name="BonusTextStyle.Value.Topup">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+  </style>
+
   <style name="GamificationCurrentLevelTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textColor">@color/level_text_color</item>

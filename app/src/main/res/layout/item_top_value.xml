@@ -5,19 +5,18 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:background="?android:attr/selectableItemBackground"
     >
 
   <TextView
       android:id="@+id/value"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="wrap_content"
-      android:layout_height="32dp"
+      android:layout_height="48dp"
       android:gravity="center"
       android:minWidth="80dp"
       android:paddingStart="@dimen/normal_margin"
       android:paddingEnd="@dimen/normal_margin"
-      android:textColor="@color/styleguide_dark_grey"
+      android:textColor="@color/styleguide_pink"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

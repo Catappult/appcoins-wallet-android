@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">قيد الانتظار</string>
   <string name="transaction_status_failed">فشل</string>
   <string name="transaction_status_reverted">راجعة</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">جائزة التحدّي</string>
+  <string name="transaction_type_challenge_reward_rejected">جائزة التحدي المرفوضة</string>
+  <string name="transaction_type_challenge_reward_reverted">جائزة التحدي المرفوضة</string>
   <string name="transaction_type_iab">شراء داخل التطبيق</string>
   <string name="transaction_type_poa">الجوائز</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
   <string name="download_button">تنزيل</string>
-  <string name="done">Done!</string>
+  <string name="done">تم!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -1148,26 +1148,6 @@
   <string name="appcoins_info_explorer_title">المتصفح</string>
   <string name="appcoins_info_market_cap_title">القيمة السوقية</string>
   <string name="appcoins_info_volume_title">الحجم (24س)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">لا يوجد لديك أي NFTs في هذه المحفظة بعد!</string>
-  <string name="nfts_transact_button">أرسل NFT هذا</string>
-  <string name="nfts_transact_button_send">إرسال</string>
-  <string name="nfts_transact_button_next">التالي</string>
-  <string name="nfts_transact_button_done">تمت</string>
-  <string name="nfts_transact_button_success">تمام</string>
-  <string name="nfts_transact_tip">أدخل عنوان محفظة صديقك</string>
-  <string name="nfts_transact_input_tip">عنوان المحفظة هنا...</string>
-  <string name="nfts_transact_done_mensage">تم إرسال %s بنجاح!</string>
-  <string name="nfts_generic_error">ييي! حدث خطأ!</string>
-  <string name="nfts_transact_gas_title">هل أنت مستعجِل؟</string>
-  <string name="nfts_transact_gas_description">اختر كم تريد أن تدفع في مصاريف التحويل. كلما ارتفعت المصاريف، كان التحويل أسرع.</string>
-  <string name="nfts_transact_gas_price">مصاريف جانبية</string>
-  <string name="nfts_transact_gas_limit">حد المصاريف الجانبية</string>
-  <string name="nfts_transact_gas_fee_message">مصاريف التحويل</string>
-  <string name="nfts_transact_error_no_funds">ليس لديك أموال كافية! ليس لديك ETH كافية لتدفع الرسوم.</string>
-  <string name="nfts_transact_error_low_gas">عمولة التحويل منخفضة جدًا! ارفع عمولة تحويلك للشبكة لقبول تحويلاتك.</string>
-  <string name="nfts_transact_error_already_in_progress">هذه الـ NFT مرسلة فعلًا! هناك تحويل سابق قيد التنفيذ حاليًا.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">استرداد رمز بطاقة هديتك</string>
   <string name="gift_card_field">رمز البطاقة هنا...</string>
@@ -1280,7 +1260,6 @@
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
-  <string name="home_nft_title">محفظة AppCoins Wallet الآن تدعم NFTs</string>
   <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
@@ -1313,8 +1292,8 @@
   <string name="verify_card_code_enter_title">أدخل الرمز من 4 أرقام</string>
   <string name="verify_card_code_refund_body">سيتم إعادة %s خلال 24 ساعة بعد تأكيد الرمز.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">جائزة التحدي</string>
+  <string name="challenge_reward_card_body">أكمل التحدي لتحصل على رصيد AppCoins.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">تمتع برصيد %s AppCoins Credits قي محفظتك</string>
 </resources>

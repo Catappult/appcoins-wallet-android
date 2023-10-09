@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Винагорода за челендж</string>
+  <string name="transaction_type_challenge_reward_rejected">Нагороду за челендж відхилено</string>
+  <string name="transaction_type_challenge_reward_reverted">Нагороду за челендж повернуто</string>
   <string name="transaction_type_iab">Покупка в додатку</string>
   <string name="transaction_type_poa">Винагорода</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -501,7 +501,7 @@
   <string name="manage_wallet_button">Керувати гаманцем</string>
   <string name="log_out_button">Вийти</string>
   <string name="download_button">Завантажити</string>
-  <string name="done">Done!</string>
+  <string name="done">Готово!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -1131,26 +1131,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Ринкова капіталізація</string>
   <string name="appcoins_info_volume_title">Тривалість(24 год)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">У вас ще немає NFT у цьому гаманці!</string>
-  <string name="nfts_transact_button">Надіслати ці NFT</string>
-  <string name="nfts_transact_button_send">Надіслати</string>
-  <string name="nfts_transact_button_next">Далі</string>
-  <string name="nfts_transact_button_done">Готово</string>
-  <string name="nfts_transact_button_success">Зрозуміло</string>
-  <string name="nfts_transact_tip">Введіть адресу гаманця вашого друга</string>
-  <string name="nfts_transact_input_tip">Адреса гаманця тут...</string>
-  <string name="nfts_transact_done_mensage">% успішно надіслано!</string>
-  <string name="nfts_generic_error">Упс! Щось пішло не так!</string>
-  <string name="nfts_transact_gas_title">Ви поспішаєте?</string>
-  <string name="nfts_transact_gas_description">Виберіть суму, яку ви хочете сплатити. Чим вище комісія, тим швидше буде здійснена транзакція.</string>
-  <string name="nfts_transact_gas_price">Ціна на газ</string>
-  <string name="nfts_transact_gas_limit">Ліміт газу</string>
-  <string name="nfts_transact_gas_fee_message">Комісія за транзакцію</string>
-  <string name="nfts_transact_error_no_funds">Не вистачає коштів! У вас недостатньо ETH для оплати комісій.</string>
-  <string name="nfts_transact_error_low_gas">Замало газу! Збільште обсяг газу, щоб мережа прийняла вашу транзакцію.</string>
-  <string name="nfts_transact_error_already_in_progress">Ці NFT уже надіслано! Наразі виконується попередня транзакція.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Активуйте код подарункової картки</string>
   <string name="gift_card_field">Код картки тут...</string>
@@ -1255,7 +1235,6 @@
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
   <string name="rewards_promo_code_status_expired">Термін дії закінчився</string>
-  <string name="home_nft_title">AppCoins Wallet тепер підтримує NFT</string>
   <string name="home_appcoins_compatible_games_title">Сумісні з AppCoins ігри</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
@@ -1288,8 +1267,8 @@
   <string name="verify_card_code_enter_title">Введіть 4-значний код</string>
   <string name="verify_card_code_refund_body">%s буде повернуто протягом 24 годин після підтвердження коду.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Винагорода за челендж</string>
+  <string name="challenge_reward_card_body">Пройдіть челендж, щоб отримати AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Насолоджуйтесь %s в AppCoins Credits на вашому гаманці</string>
 </resources>

@@ -19,10 +19,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogFragment
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogSideEffect
 import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogState
-import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceDialogViewModel
+import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceSideEffect
+import com.appcoins.wallet.feature.backup.ui.save_on_device.BackupSaveOnDeviceViewModel
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -33,7 +32,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
+  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceSideEffect> {
 
   @Inject
   lateinit var navigator: BackupSaveOnDeviceBottomSheetNavigator
@@ -42,7 +41,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
 
-  private val viewModel: BackupSaveOnDeviceDialogViewModel by viewModels()
+  private val viewModel: BackupSaveOnDeviceViewModel by viewModels()
   private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
 
   companion object {
@@ -52,7 +51,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(walletAddress: String, password: String) =
-      BackupSaveOnDeviceDialogFragment()
+      BackupSaveOnDeviceBottomSheetFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -71,7 +70,6 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
           lifecycleScope.launch {
                viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
           }
-          navigator.navigateToSuccessScreen(navController())
         }
       }
     }
@@ -82,7 +80,6 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
         lifecycleScope.launch {
              viewModel.saveBackupFile(views.fileNameInput.getText())
         }
-        navigator.navigateToSuccessScreen(navController())
       }
     }
   }
@@ -135,9 +132,12 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) {
+  override fun onSideEffect(sideEffect: BackupSaveOnDeviceSideEffect) {
     when (sideEffect) {
-      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess -> navigator.navigateBack()
+      BackupSaveOnDeviceSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen(
+        navController()
+      )
+
       else -> {}
     }
   }

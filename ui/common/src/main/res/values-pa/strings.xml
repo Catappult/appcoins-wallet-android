@@ -499,7 +499,7 @@
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">ਹੋ ਗਿਆ!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -1111,26 +1111,6 @@
   <string name="appcoins_info_explorer_title">ਐਕਸਪਲੋਰਰ</string>
   <string name="appcoins_info_market_cap_title">ਮਾਰਕਿਟ ਦਾ ਹਿੱਸਾ</string>
   <string name="appcoins_info_volume_title">ਵਾਲਿਊਮ (24 ਘੰਟੇ)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">ਐਨਐਫਟੀ</string>
-  <string name="nfts_no_nfts">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਵਿੱਚ ਕੋਈ ਐਨਐਫਟੀ ਨਹੀਂ ਹੈ!</string>
-  <string name="nfts_transact_button">ਇਹ ਐਨਐਫਟੀ ਭੇਜੋ</string>
-  <string name="nfts_transact_button_send">ਭੇਜੋ</string>
-  <string name="nfts_transact_button_next">ਅਗਲਾ</string>
-  <string name="nfts_transact_button_done">ਹੋ ਗਿਆ</string>
-  <string name="nfts_transact_button_success">ਮਿਲ ਗਿਆ</string>
-  <string name="nfts_transact_tip">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ|</string>
-  <string name="nfts_transact_input_tip">ਬਟੂਏ ਦਾ ਪਤਾ ਇੱਥੇ...</string>
-  <string name="nfts_transact_done_mensage">%s ਸਫਲਤਾਪੂਰਵਕ ਭੇਜਿਆ ਗਿਆ!</string>
-  <string name="nfts_generic_error">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ|</string>
-  <string name="nfts_transact_gas_title">ਕੀ ਤੁਸੀਂ ਜਲਦੀ ਵਿੱਚ ਹੋ?</string>
-  <string name="nfts_transact_gas_description">ਚੁਣੋ ਕਿ ਤੁਸੀਂ ਫੀਸਾਂ ਵਿੱਚ ਕਿੰਨਾ ਭੁਗਤਾਨ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ। ਫ਼ੀਸ ਜਿੰਨੀ ਜ਼ਿਆਦਾ ਹੋਵੇਗੀ, ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਓਨੀ ਹੀ ਤੇਜ਼ ਹੋਵੇਗੀ।</string>
-  <string name="nfts_transact_gas_price">ਗੈਸ ਦਾ ਮੁੱਲ</string>
-  <string name="nfts_transact_gas_limit">ਗੈਸ ਦੀ ਸੀਮਾ</string>
-  <string name="nfts_transact_gas_fee_message">ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਫੀ</string>
-  <string name="nfts_transact_error_no_funds">ਕਾਫ਼ੀ ਪੈਸੇ ਨਹੀਂ ਹਨ! ਤੁਹਾਡੇ ਕੋਲ ਫੀਸਾਂ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਈਟੀਐੱਚ ਨਹੀਂ ਹੈ।</string>
-  <string name="nfts_transact_error_low_gas">ਗੈਸ ਬਹੁਤ ਘੱਟ ਹੈ! ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਨੂੰ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਨੈੱਟਵਰਕ ਲਈ ਆਪਣੀ ਗੈਸ ਵਧਾਓ।</string>
-  <string name="nfts_transact_error_already_in_progress">ਇਹ ਐਨਐਫਟੀ ਪਹਿਲਾਂ ਹੀ ਭੇਜੀ ਜਾ ਰਹੀ ਹੈ! ਇੱਕ ਪਿਛਲਾ ਲੈਣ-ਦੇਣ ਵਰਤਮਾਨ ਵਿੱਚ ਪ੍ਰਗਤੀ ਵਿੱਚ ਹੈ।</string>
   <!-- Gift Card -->
   <string name="gift_card_title">ਆਪਣਾ ਗਿਫਟ ਕਾਰਡ ਕੋਡ ਰੀਡੀਮ ਕਰੋ</string>
   <string name="gift_card_field">ਕਾਰਡ ਕੋਡ ਇੱਥੇ...</string>
@@ -1227,7 +1207,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">ਐਕਟਿਵ</string>
   <string name="rewards_promo_code_status_expired">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
