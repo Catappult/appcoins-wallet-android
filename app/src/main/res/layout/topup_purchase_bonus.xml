@@ -82,7 +82,6 @@
         app:layout_constraintStart_toStartOf="@+id/bonus_placeholder"
         app:layout_constraintTop_toBottomOf="@id/bonus_placeholder"
         />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
