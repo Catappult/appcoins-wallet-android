@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
   <string name="topup_no_method_available_title">بدون روش پرداخت!</string>
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>

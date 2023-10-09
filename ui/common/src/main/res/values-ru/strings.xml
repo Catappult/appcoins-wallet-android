@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
   <string name="topup_no_method_available_title">Нет способов оплаты!</string>
   <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>

@@ -64,36 +64,36 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk tamat bermain.</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s raih %2$d poin)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="other">%1$d points</item>
+    <item quantity="other">%1$d poin</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f$ telah dikreditkan ke dompet anda)</string>
+  <string name="you_won">Anda menang! %1$s</string>
+  <string name="you_lost_timeout">Masa tamat. Anda tewas! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="other">Days</item>
+    <item quantity="other">Hari</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">Hours</item>
+    <item quantity="other">Jam</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">Minutes</item>
+    <item quantity="other">Minit</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">Seconds</item>
+    <item quantity="other">Saat</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Ganjaran seterusnya dlm masa</string>
+  <string name="current_top_3">3 Teratas Semasa</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Papan Juara</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Peroleh Wang</string>
   <string name="eskills_carousel_body">Tewaskan pemain lain dengan e-Skills</string>

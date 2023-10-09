@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Beklemede</string>
   <string name="transaction_status_failed">Başarısız</string>
   <string name="transaction_status_reverted">Geri Alındı</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Meydan Okuma Ödülü</string>
+  <string name="transaction_type_challenge_reward_rejected">Reddedilen Meydan Okuma Ödülü</string>
+  <string name="transaction_type_challenge_reward_reverted">Geri Alınan Meydan Okuma Ödülü</string>
   <string name="transaction_type_iab">Uygulama İçi Satın Alım</string>
   <string name="transaction_type_poa">Ödül</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
   <string name="topup_no_method_available_title">Ödeme yöntemi yok!</string>
   <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -1239,8 +1240,8 @@
   <string name="verify_card_code_enter_title">4 haneli kodu gir</string>
   <string name="verify_card_code_refund_body">%s kodu onayladıktan sonra 24 saat içinde iade edilecek.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Meydan Okuma Ödülü</string>
+  <string name="challenge_reward_card_body">AppCoins Kredileri kazanmak için bir meydan okumayı tamamla.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Cüzdanında %s AppCoins Kredisinin tadını çıkar</string>
 </resources>

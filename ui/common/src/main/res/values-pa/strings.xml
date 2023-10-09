@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">ਪੈਸੇ ਭਰਨ ਦਾ ਅਧਿਕਤਮ ਮੁੱਲ %s ਹੈ|</string>
   <string name="topup_no_method_available_title">ਭੁਗਤਾਨ ਦੇ ਕੋਈ ਢੰਗ ਨਹੀਂ!</string>
   <string name="topup_no_method_available_body">ਇਸ ਸਮੇਂ ਤੁਹਾਡੇ ਦੇਸ਼ ਵਿੱਚ ਟਾਪ ਅੱਪ ਕਰਨ ਲਈ ਕੋਈ ਭੁਗਤਾਨ ਵਿਧੀਆਂ ਉਪਲਬਧ ਨਹੀਂ ਹਨ। ਵੇਖਦੇ ਰਹੋ! </string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">ਰਕਮ</string>
   <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>

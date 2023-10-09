@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Valoarea maximă de alimentare este %s</string>
   <string name="topup_no_method_available_title">Fără metode de plată!</string>
   <string name="topup_no_method_available_body">Momentan, nu există metode de plată disponibile pentru încărcare în țara ta. Fii pe fază!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>

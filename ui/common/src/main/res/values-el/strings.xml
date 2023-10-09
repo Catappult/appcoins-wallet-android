@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Σε εκκρεμότητα</string>
   <string name="transaction_status_failed">Απέτυχε</string>
   <string name="transaction_status_reverted">Έγινε επαναφορά</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Ανταμοιβή Πρόκλησης</string>
+  <string name="transaction_type_challenge_reward_rejected">Ανταμοιβή Πρόκλησης Απορρίφθηκε</string>
+  <string name="transaction_type_challenge_reward_reverted">Ανταμοιβή Πρόκλησης Επαναφέρθηκε</string>
   <string name="transaction_type_iab">Αγορά Εντός Εφαρμογής</string>
   <string name="transaction_type_poa">Αμοιβή</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Η μέγιστη τιμή φόρτισης είναι %s</string>
   <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -1240,8 +1241,8 @@ Wallets</item>
   <string name="verify_card_code_enter_title">Εισαγάγετε τον κωδικό 4 ψηφίων</string>
   <string name="verify_card_code_refund_body">%s θα επιστραφούν εντός 24 ωρών από την επιβεβαίωση του κωδικού.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Ανταμοιβή Πρόκλησης</string>
+  <string name="challenge_reward_card_body">Ολοκληρώστε μια πρόκληση για να λάβετε AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Απολαύστε %s σε AppCoins Credits στο wallet σας</string>
 </resources>

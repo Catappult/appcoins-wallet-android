@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
   <string name="topup_no_method_available_title">لا توجد وسيلة دفع!</string>
   <string name="topup_no_method_available_body">لا تتوفر حاليًا أي وسائل دفع في بلدك لزيادة رصيدك. تابع باستمرار!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>

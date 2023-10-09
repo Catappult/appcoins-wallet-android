@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <string name="topup_no_method_available_title">No payment methods!</string>
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Balance</string>
   <string name="balance_total_body">Total Balance in %s</string>
