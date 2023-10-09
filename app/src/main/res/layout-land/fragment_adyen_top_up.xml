@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card_blue"
+    android:background="@color/styleguide_blue"
     android:theme="@style/AdyenMaterialAppTheme"
     >
 
@@ -44,13 +44,14 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
-          android:layout_marginTop="44dp"
+          android:layout_marginTop="16dp"
           android:background="@drawable/rectangle_blue_secondary_radius_16dp"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="@id/guideline_top_margin"
+          tools:visibility="visible"
           >
         <TextView
             android:id="@+id/main_currency_code"
@@ -129,7 +130,7 @@
           android:visibility="invisible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/layout_header_top_up"
+          app:layout_constraintTop_toTopOf="@id/guideline_top_margin"
           />
 
       <RelativeLayout
@@ -145,7 +146,7 @@
             android:id="@+id/credit_card_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="4dp"
             android:visibility="gone"
             tools:visibility="visible"
@@ -177,24 +178,6 @@
 
       </RelativeLayout>
 
-      <com.airbnb.lottie.LottieAnimationView
-          android:id="@+id/loading"
-          android:layout_width="128dp"
-          android:layout_height="128dp"
-          android:layout_marginTop="50dp"
-          android:layout_marginBottom="50dp"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/container"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
-          app:layout_constraintTop_toTopOf="@id/container"
-          app:lottie_autoPlay="true"
-          app:lottie_enableMergePathsForKitKatAndAbove="true"
-          app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_wallet"
-          tools:visibility="visible"
-          />
-
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/button"
           android:layout_width="0dp"
@@ -213,6 +196,24 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/container"
           app:layout_constraintVertical_bias="0"
+          />
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/loading"
+          android:layout_width="128dp"
+          android:layout_height="128dp"
+          android:layout_marginTop="50dp"
+          android:layout_marginBottom="50dp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/container"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintTop_toTopOf="@id/container"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_wallet"
+          tools:visibility="visible"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
