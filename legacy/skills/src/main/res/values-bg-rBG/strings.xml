@@ -11,7 +11,7 @@
   <string name="get_button">Get</string>
   <string name="got_it_button">Got it</string>
   <string name="install_button">Install</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">Опитай пак</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">Създаване на адрес на портфейла&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>

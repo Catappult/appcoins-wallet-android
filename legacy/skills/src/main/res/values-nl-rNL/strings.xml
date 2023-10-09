@@ -11,8 +11,8 @@
   <string name="get_button">Nemen</string>
   <string name="got_it_button">Begrepen</string>
   <string name="install_button">Installeren</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Opnieuw proberen</string>
+  <string name="restart_button">Herstarten</string>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
   <string name="processing_loading_title">Toegangsticket ophalen</string>
   <string name="finding_room_loading_title">Wachten op tegenstanders</string>
@@ -64,42 +64,42 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Wachten tot tegenstanders klaar zijn met de game.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="one">(%1$s heeft %2$d punt behaald)</item>
+    <item quantity="other">(%1$s heeft %2$d punten behaald)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="one">%1$d punt</item>
+    <item quantity="other">%1$d punten</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(Er is %1$.2f aan je wallet toegevoegd)</string>
+  <string name="you_won">Je hebt gewonnen! %1$s</string>
+  <string name="you_lost_timeout">De tijd is om, je hebt verloren! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="one">Dag</item>
+    <item quantity="other">Dagen</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="one">Uur</item>
+    <item quantity="other">Uur</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="one">Minuut</item>
+    <item quantity="other">Minuten</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="one">Seconde</item>
+    <item quantity="other">Seconden</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Volgende beloning over</string>
+  <string name="current_top_3">Huidige top 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Klassementen</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Verdien geld</string>
   <string name="eskills_carousel_body">Versla andere spelers met e-Skills</string>

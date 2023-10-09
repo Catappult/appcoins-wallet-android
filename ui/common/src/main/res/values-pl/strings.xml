@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Maksymalne doładowanie to %s</string>
   <string name="topup_no_method_available_title">Brak metod płatności!</string>
   <string name="topup_no_method_available_body">W tym momencie nie ma metod płatności pozwalających na doładowanie w Twoim kraju. Niebawem!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Stan konta</string>
   <string name="balance_total_body">Saldo w %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Zarządzaj portfelem</string>
   <string name="log_out_button">Wyloguj</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Zrobione!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>

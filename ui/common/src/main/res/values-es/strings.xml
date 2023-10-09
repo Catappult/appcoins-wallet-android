@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
   <string name="transaction_status_reverted">Revertida</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Recompensa por Reto</string>
+  <string name="transaction_type_challenge_reward_rejected">Recompensa por Reto rechazada</string>
+  <string name="transaction_type_challenge_reward_reverted">Recompensa por Reto revertida</string>
   <string name="transaction_type_iab">Compra in-app</string>
   <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">El valor mínimo de recarga es %s.</string>
   <string name="topup_no_method_available_title">¡No hay métodos de pago!</string>
   <string name="topup_no_method_available_body">En estos momentos no hay métodos de pago disponibles para hacer una recarga en tu país. ¡Vuelve pronto!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total en %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Gestionar wallet</string>
   <string name="log_out_button">Cerrar sesión</string>
   <string name="download_button">Descargar</string>
-  <string name="done">Done!</string>
+  <string name="done">¡Hecho!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -1239,8 +1240,8 @@
   <string name="verify_card_code_enter_title">Introduce el código de 4 dígitos</string>
   <string name="verify_card_code_refund_body">Se devolverán %s en las 24 horas posteriores a la introducción del código.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Recompensa por Reto</string>
+  <string name="challenge_reward_card_body">Completa un reto para recibir AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Disfruta de %s AppCoins Credits en tu wallet</string>
 </resources>

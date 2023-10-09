@@ -229,7 +229,7 @@
   <string name="activity_iab_approving_message">तपशील तपासत आहे: शिल्लक, वस्तु, नेटवर्क…</string>
   <string name="activity_iab_buying_message">तपशील तपासले \nआपली वस्तु मिळवित आहे…</string>
   <string name="activity_iab_change_card">कार्ड बदला</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">कार्ड बदला</string>
   <string name="activity_iab_fees">शुल्क</string>
   <string name="notification_ongoing_poa">आपले बक्षीस प्रक्रियारत आहे</string>
   <string name="notification_completed_poa">बक्षिस मिळाले!👌 अॅप वापरुन आणखीन बक्षिसे मिळविण्यासाठी आपल्याला %1$sतास%2$sमि. थांबावे लागेल👌!</string>
@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">प्रलंबित आहे</string>
   <string name="transaction_status_failed">होऊ शकले नाही</string>
   <string name="transaction_status_reverted">परत केले</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">आव्हान बक्षिस</string>
+  <string name="transaction_type_challenge_reward_rejected">नकारलेले आव्हान बक्षिस</string>
+  <string name="transaction_type_challenge_reward_reverted">पुन: स्थापित आव्हान बक्षिस</string>
   <string name="transaction_type_iab">इन-अॅप खरेदी</string>
   <string name="transaction_type_poa">बक्षिस</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -284,7 +284,7 @@
   <string name="transaction_order_reference_label">ऑर्डर आयडी</string>
   <string name="transaction_details_label">तपशील</string>
   <string name="transaction_to_label">प्रति</string>
-  <string name="transaction_invoice_label">Invoice</string>
+  <string name="transaction_invoice_label">इन्व्हॉइस</string>
   <string name="dialog_credit_card_remember">कार्ड ध्यानात ठेवा</string>
   <string name="notification_payment_refused">पेमेंट नाकारले</string>
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
@@ -314,7 +314,7 @@
   <string name="transaction_rejected_body">ही खरेदी अमान्य केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_reverted_body">ही खरेदी रक्कम परत केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_status_rejected">अमान्य</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">व्यवहार तपशील</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
   <string name="topup_no_method_available_title">पेमेंट पद्धत नाही!</string>
   <string name="topup_no_method_available_body">आपल्या देशात सध्यातरी कोणतीही पेमेंट पद्धत उपलब्ध नाही. पहात रहा!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -498,8 +499,8 @@
   <string name="play_button">खेळा</string>
   <string name="manage_wallet_button">वॉलेटचे व्यवस्थापन करा</string>
   <string name="log_out_button">लॉग आऊट</string>
-  <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="download_button">डाऊनलोड</string>
+  <string name="done">झाले!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -560,7 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">इतर पेमेंट पद्धती</string>
   <string name="purchase_appcoins_available_body">इटीएच ची छोटी रक्कम शुल्क भरण्यासाठी आपण वापराल.</string>
   <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
   <string name="purchase_no_eth_body">इंधनाचे मूल्य देण्याइतके इटीएच आपल्याकडे नाहीत.</string>
@@ -623,7 +624,7 @@
   <string name="error_blocked_wallet_body">सुरक्षा कारणांसाठी आपले वॉलेट अडवले गेले आहे. अधिक माहितीसाठी कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">अतिरिक्त शुल्क लागू होऊ शकते.</string>
   <string name="purchase_error_paypal">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
-  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_success_bonus_received_title">%s बोनस प्राप्त झाला.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -715,7 +716,7 @@
   <string name="import_wallet_button">वॉलेट परत मिळवा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">&#8230; इथे कोड पुन: प्राप्त करा</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
   <string name="backup_title">आपले वॉलेट आताच बॅकअप करा!</string>
@@ -748,9 +749,9 @@
   <string name="backup_popup_title">आपले वॉलेट आताच बॅकअप करा!</string>
   <string name="backup_popup_purchase_body">आपले पैसे नेहमीच सुरक्षित राखा.</string>
   <string name="backup_popup_gamification_body">आपले बोनस स्तर नेहमीच सुरक्षित राखा.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">आपली बॅकअप फाईल आम्ही बनवु शकलो नाही. नंतर पुन्हा प्रयत्न करा.</string>
+  <string name="backup_confirmation_save_device">आपला बॅकअप आपल्या डिव्हाईसवर आहे</string>
+  <string name="backup_confirmation_save_email">आपला बॅकअप आपल्या ई-मेलवर आहे</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
@@ -841,7 +842,7 @@
   <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
   <string name="subscriptions_cancel_no_button">नाही, परत जा</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">होय, रद्द करा</string>
   <string name="subscriptions_cancel_confirmation_title">सदस्यत्व रद्द केले!</string>
   <string name="subscriptions_cancel_confirmation_body">ह्या सदस्यत्वासाठी आपल्याला काहीही शुल्क लागू होणार नाही आणि आपण ह्याचा वापर %s पर्यंत करु शकता.</string>
   <string name="subscriptions_category_title">सदस्यत्व</string>
@@ -1221,14 +1222,14 @@
   <string name="intro_backup_card_body">आपले वॉलेट बॅकअप करुन नेहमीच सुरक्षित राखा.</string>
   <string name="rewards_spend_to_next_level_body">पुढच्या पातळीवर पोचण्यासाठी अधिक %1$s%2$s खर्च करा!</string>
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
-  <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_title">ई-स्किल्स</string>
+  <string name="rewards_eskills_card_body">आपली ई-स्किल्स कमाई काढा.</string>
   <string name="rewards_promo_code_card_title">प्रोमो कोडस</string>
   <string name="rewards_promo_code_card_body">खास सूट मिळविण्यासाठी प्रोमो कोड वापरा!</string>
   <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
   <string name="rewards_promo_code_status_expired">कालबाह्य</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">अॅपकॉईन्सशी सुसंगत खेळ</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
   <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%% बोनस मिळवा</string>
@@ -1236,32 +1237,32 @@
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
   <string name="manage_wallet_change_wallet_name_title">वॉलेटचे नाव बदला</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">आपल्या वॉलेटला नाव द्या</string>
+  <string name="manage_wallet_my_wallet_address_title">माझ्या वॉलेटचा पत्ता</string>
   <string name="manage_wallet_verify_title">पेमेंट पद्धत सत्यापित करा</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_verify_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_payment_method_title">पेमेंट पद्धत सत्यापित करा</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
+  <string name="verify_card_one_more_step_title">सत्यापनासाठी अजुन एक चरण</string>
+  <string name="verify_card_one_more_step_body">व्यवहार तपशीलात दिसणारा कोड घाला</string>
   <string name="verify_card_one_more_step_button">कोड घाला</string>
-  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_verified">पेमेंट पद्धत सत्यापित झाली!</string>
   <string name="verify_card_view_title">कार्ड सत्यापित करा</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_view_disclaimer">आम्ही आपल्या कार्डावर %s चार्ज करु आणि आपण कोडची पुष्टी केल्यानंतर ते परत केले जातील.</string>
+  <string name="verify_card_view_title_2">आपल्या बँक कार्डाचे तपशील भरा</string>
+  <string name="verify_card_get_a_code_button">कोड मिळवा</string>
+  <string name="verify_card_code_title">आपला कोड व्यवहार तपशीलातुन मिळवा</string>
   <string name="verify_card_code_body">आपण पुरविलेल्या कार्ड व्यवहार तपशीलात एक अनोखा कोड दिसेल.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_title">व्यवहार सारांशाचे उदाहरण</string>
+  <string name="verify_card_code_example_date">व्यवहार तारीख</string>
   <string name="verify_card_code_example_description">विवरण</string>
   <string name="verify_card_code_example_amount">रक्कम</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_enter_title">४ अंकी कोड घाला</string>
+  <string name="verify_card_code_refund_body">आपण कोडची पुष्टी केल्यानंतर २४ तासात %s परत केले जातील.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">आव्हान बक्षिस</string>
+  <string name="challenge_reward_card_body">अॅपकॉईन्स क्रेडीटस मिळविण्यासाठी आव्हान पूर्ण करा.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">आपल्या वॉलेटमध्ये जमा झालेल्या %s अॅपकॉईन्सचा आनंद लुटा</string>
 </resources>

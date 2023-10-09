@@ -2,16 +2,16 @@
 <resources>
   <string name="appcoins_wallet">AppCoins钱包</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">开始</string>
   <string name="ok">确定</string>
   <string name="cancel">取消</string>
   <string name="buy_button">购买</string>
   <string name="topup_button">充值</string>
-  <string name="downloading">Downloading</string>
+  <string name="downloading">下载中</string>
   <string name="get_button">Get</string>
   <string name="got_it_button">明白了</string>
   <string name="install_button">安装</string>
-  <string name="retry_button">Retry</string>
+  <string name="retry_button">重试</string>
   <string name="restart_button">Restart</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="processing_loading_title">获取入场券</string>
