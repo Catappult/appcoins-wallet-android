@@ -315,27 +315,28 @@
       android:id="@+id/bottom_separator"
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:layout_marginBottom="8dp"
-      android:background="@color/styleguide_light_grey"
+      android:background="@color/styleguide_blue_secondary"
       android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/rv_default_values"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      tools:visibility="visible"
       />
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_default_values"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
       android:orientation="horizontal"
       android:overScrollMode="never"
       android:visibility="gone"
+      android:background="@color/styleguide_topup_dark_grey"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       tools:listitem="@layout/item_top_value"
+      tools:visibility="visible"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,8 @@
   <color name="styleguide_topup_skeleton">#1D1E28</color>
   <color name="styleguide_topup_skeleton_secondary">#2E2D3B</color>
   <color name="styleguide_topup_skeleton_shimmer">#313040</color>
+  <color name="styleguide_topup_dark_grey">#28272C</color>
+
 
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
