@@ -11,7 +11,7 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 278
+    versionCode = 279
     versionName = "3.3.1"
   }
 }
