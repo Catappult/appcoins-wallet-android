@@ -28,7 +28,7 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.45"
+          app:layout_constraintGuide_percent="0.5"
           />
 
       <androidx.constraintlayout.widget.Guideline
@@ -57,9 +57,9 @@
             android:id="@+id/main_currency_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="32dp"
             android:textColor="@color/styleguide_light_grey"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:autoSizeStepGranularity="2sp"
             app:layout_constraintBottom_toBottomOf="@id/main_value"
@@ -71,9 +71,9 @@
         <com.asfoundation.wallet.ui.widget.AutoFitEditText
             android:id="@+id/main_value"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="36dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
             android:enabled="false"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -84,6 +84,7 @@
             android:maxWidth="152dp"
             android:maxLength="152"
             android:maxLines="1"
+            android:minWidth="52dp"
             android:textColor="@color/styleguide_light_grey"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -106,10 +107,10 @@
 
         <include
             android:id="@+id/bonus_layout"
-            layout="@layout/topup_purchase_bonus"
+            layout="@layout/view_purchase_bonus_dark"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -207,6 +208,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.3333333"
           app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"
