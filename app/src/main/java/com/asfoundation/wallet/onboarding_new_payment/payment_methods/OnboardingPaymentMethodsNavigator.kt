@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -100,8 +99,6 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
-
   fun navigateToLocalPayment(transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
                              currency: String
   ) {
@@ -119,4 +116,6 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   fun navigateToCarrierBilling() = Unit
 
   fun navigateToShareLinkPayment() = Unit
+
+  fun navigateToChallengeReward() = Unit
 }
