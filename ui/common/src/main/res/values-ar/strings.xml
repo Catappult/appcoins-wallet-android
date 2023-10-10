@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">تعبئة الرصيد التي أجريتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعمل لمزيد من المعلومات.</string>
   <string name="transaction_type_reverted_purchase_title">استرجاع مشتريات</string>
   <string name="transaction_type_reverted_purchase_body">المشتريات التي طلبتها على %s عادت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">عملية تحويل أصلية</string>
   <string name="transaction_onchain_completed_title">التحويل في الطريق!</string>
   <string name="transaction_onchain_completed_body">يمكنك تتبعه على Etherscan.</string>
