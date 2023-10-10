@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s tarihinde yaptığınız yükleme işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
   <string name="transaction_type_reverted_purchase_title">Satın Alma İadesi</string>
   <string name="transaction_type_reverted_purchase_body">%s tarihinde yaptığınız satın alma işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Asıl İşlem</string>
   <string name="transaction_onchain_completed_title">İşlem yolda!</string>
   <string name="transaction_onchain_completed_body">Etherscan\'de takip edebilirsiniz.</string>
