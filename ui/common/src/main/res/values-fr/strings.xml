@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Le supplément que vous avez versé le %s a été annulé. Contactez l\'assistance pour plus d\'informations.</string>
   <string name="transaction_type_reverted_purchase_title">Remboursement de l\'achat</string>
   <string name="transaction_type_reverted_purchase_body">L\'achat que vous avez fait le %s a été annulé. Contactez l\'assistance pour plus d\'informations.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transaction originale</string>
   <string name="transaction_onchain_completed_title">Transaction en cours !</string>
   <string name="transaction_onchain_completed_body">Vous pouvez suivre l\'évolution sur Etherscan.</string>
