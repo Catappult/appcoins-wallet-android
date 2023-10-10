@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s ह्यावर आपण केलेला टॉप-अप परवलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
   <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">मूळ व्यवहार</string>
   <string name="transaction_onchain_completed_title">व्यवहार येत आहे!</string>
   <string name="transaction_onchain_completed_body">इथरस्कॅनवर आपण ट्रॅक करु शकता.</string>
