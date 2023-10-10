@@ -15,6 +15,7 @@ val defaultBuildConfigList = mutableListOf(
   BuildConfigField("String", "AMPLITUDE_API_KEY"),
   BuildConfigField("String", "FEEDBACK_ZENDESK_API_KEY"),
   BuildConfigField("String", "APPSFLYER_KEY"),
+  BuildConfigField("String", "FYBER_APP_ID"),
 )
 
 val debugBuildConfigList = mutableListOf(
