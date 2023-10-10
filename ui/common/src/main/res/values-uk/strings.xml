@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Поповнення, яке ви зробили на %s, було скасовано. Зв’яжіться зі службою підтримки для отримання додаткової інформації.</string>
   <string name="transaction_type_reverted_purchase_title">Повернення коштів за покупку</string>
   <string name="transaction_type_reverted_purchase_body">Покупку, яку ви зробили на %s, було скасовано. Зв’яжіться зі службою підтримки для отримання додаткової інформації.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Оригінальна трансакція</string>
   <string name="transaction_onchain_completed_title">Транзакція в дорозі!</string>
   <string name="transaction_onchain_completed_body">Ви можете відстежити це на Etherscan.</string>
