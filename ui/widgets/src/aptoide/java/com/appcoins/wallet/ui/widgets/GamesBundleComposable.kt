@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
-
 @Composable
 fun GamesBundle(
   items: List<GameData>,
@@ -115,7 +114,7 @@ private fun CardItem(
         }
         Text(
           text = gameCardData.title,
-          fontSize = 16.sp,
+          style = MaterialTheme.typography.titleSmall,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
           lineHeight = 24.sp,
