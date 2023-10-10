@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ေငြျဖည့္မႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_type_reverted_purchase_title">ဝယ္ယူမႈ ေငြျပန္အမ္းျခင္း</string>
   <string name="transaction_type_reverted_purchase_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">မူလေငြလႊဲေျပာင္းမႈ</string>
   <string name="transaction_onchain_completed_title">ေငြလႊဲေျပာင္းမႈ ျပဳလုပ္ေနပါသည္။</string>
   <string name="transaction_onchain_completed_body">Etherscan တြင္ လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
