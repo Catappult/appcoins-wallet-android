@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Doładowanie z %s zostało cofnięte. W razie pytań, skontaktuj się z nami.</string>
   <string name="transaction_type_reverted_purchase_title">Zwrot</string>
   <string name="transaction_type_reverted_purchase_body">Zakup dokonany %s został cofnięty. W razie pytań, skontaktuj się z nami.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Pierwotna transakcja</string>
   <string name="transaction_onchain_completed_title">W trakcie realizacji... </string>
   <string name="transaction_onchain_completed_body">Możesz ją sprawdzić w Etherscan.</string>
