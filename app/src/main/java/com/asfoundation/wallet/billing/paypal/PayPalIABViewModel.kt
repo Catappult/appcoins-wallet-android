@@ -54,6 +54,20 @@ class PayPalIABViewModel @Inject constructor(
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
 
+  fun startPayment(
+    createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
+    transactionBuilder: TransactionBuilder, origin: String?
+  ) {
+    sendPaymentConfirmationEvent(transactionBuilder)
+    attemptTransaction(
+      createTokenIfNeeded = createTokenIfNeeded,
+      amount = amount,
+      currency = currency,
+      transactionBuilder = transactionBuilder,
+      origin = origin
+    )
+  }
+
   fun attemptTransaction(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
     transactionBuilder: TransactionBuilder, origin: String?
@@ -241,10 +255,26 @@ class PayPalIABViewModel @Inject constructor(
       .subscribeOn(viewScheduler)
       .observeOn(viewScheduler)
       .doOnError {
-        // TODO event
         _state.postValue(State.Error(R.string.unknown_error))
       }
       .subscribe()
+  }
+
+  private fun sendPaymentConfirmationEvent(transactionBuilder: TransactionBuilder) {
+    compositeDisposable.add(Single.just(transactionBuilder)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe { it ->
+        analytics.sendPaymentConfirmationEvent(
+          it.domain,
+          it.skuId,
+          it.amount().toString(),
+          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          it.type,
+          "buy"
+        )
+      }
+    )
   }
 
   private fun sendPaymentEvent(transactionBuilder: TransactionBuilder) {
