@@ -8,8 +8,8 @@ const val PLACEMENT_ID = "Wallet_Placement"
 
 object ChallengeRewardManager {
 
-  fun create(appId: String, activity: Activity) {
-    OfferWall.userId = "userId" // TODO Provide User ID
+  fun create(appId: String, activity: Activity, walletAddress: String) {
+    OfferWall.userId = walletAddress
     OfferWall.start(
       appId = appId,
       activity = activity,

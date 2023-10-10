@@ -239,8 +239,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     PerkBonusAndGamificationService.buildService(this, address)
   }
 
-  override fun createChallengeReward() =
-    ChallengeRewardManager.create(BuildConfig.FYBER_APP_ID, this)
+  override fun createChallengeReward(walletAddress: String) =
+    ChallengeRewardManager.create(
+      appId = BuildConfig.FYBER_APP_ID,
+      activity = this,
+      walletAddress = walletAddress,
+    )
 
   override fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
 

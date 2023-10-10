@@ -416,8 +416,12 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
       .commit()
   }
 
-  override fun createChallengeReward() =
-    ChallengeRewardManager.create(BuildConfig.FYBER_APP_ID, this)
+  override fun createChallengeReward(walletAddress: String) =
+    ChallengeRewardManager.create(
+      appId = BuildConfig.FYBER_APP_ID,
+      activity = this,
+      walletAddress = walletAddress,
+    )
 
   override fun showChallengeReward() = ChallengeRewardManager.onNavigate()
 

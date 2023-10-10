@@ -1125,7 +1125,14 @@ class PaymentMethodsPresenter(
   }
 
   private fun handleChallengeRewardWalletAddress(){
-    activity?.createChallengeReward()
+    disposables.add(
+      getWalletInfoUseCase(null, false)
+        .subscribeOn(networkThread)
+        .subscribe(
+          { activity?.createChallengeReward(it.wallet) },
+          { logger.log(TAG, "Error getting agreement") }
+        )
+    )
   }
 
   enum class ViewState {

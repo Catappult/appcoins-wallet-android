@@ -111,7 +111,7 @@ interface IabView {
     gamificationLevel: Int
   )
 
-  fun createChallengeReward()
+  fun createChallengeReward(walletAddress: String)
 
   fun showChallengeReward()
 
