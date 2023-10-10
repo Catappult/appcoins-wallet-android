@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s 에 받은 탑업이 복귀되었습니다. 상세 내용은 고객 센터로 연락 주세요.</string>
   <string name="transaction_type_reverted_purchase_title">구매 환불</string>
   <string name="transaction_type_reverted_purchase_body">%s 에 받은 구매가 복귀되었습니다. 상세 내용은 고객 센터로 연락 주세요.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">원시 거래</string>
   <string name="transaction_onchain_completed_title">거래 중입니다!</string>
   <string name="transaction_onchain_completed_body">이더스캔에서 추적할 수 있습니다.</string>
