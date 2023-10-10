@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Az általad tett kiegészítések %s dátumon lettek visszaállítva. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
   <string name="transaction_onchain_completed_title">A tranzakció már úton van!</string>
   <string name="transaction_onchain_completed_body">Kövesd nyomon az Etherscan oldalon.</string>
