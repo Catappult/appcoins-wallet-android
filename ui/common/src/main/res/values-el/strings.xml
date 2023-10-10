@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Η φόρτιση που πραγματοποιήσατε στις %s έχει υποστεί επαναφορά. Επικοινωνήστε με την Υποστήριξη για περισσότερες πληροφορίες.</string>
   <string name="transaction_type_reverted_purchase_title">Επιστροφή Αγοράς</string>
   <string name="transaction_type_reverted_purchase_body">Η αγορά που πραγματοποιήσατε στις %s έχει υποστεί επαναφορά. Επικοινωνήστε με την Υποστήριξη για περισσότερες πληροφορίες.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Αρχική Συναλλαγή</string>
   <string name="transaction_onchain_completed_title">Συναλλαγή καθ\' οδόν!</string>
   <string name="transaction_onchain_completed_body">Μπορείτε να την εντοπίσετε στο Etherscan.</string>
