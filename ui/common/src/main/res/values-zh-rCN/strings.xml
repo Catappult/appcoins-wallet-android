@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">您于%s进行的充值已还原。请联系支持团队以了解更多信息。</string>
   <string name="transaction_type_reverted_purchase_title">购买退款</string>
   <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
   <string name="transaction_onchain_completed_title">交易很快就会执行！</string>
   <string name="transaction_onchain_completed_body">你可以在Etherscan跟踪。</string>
