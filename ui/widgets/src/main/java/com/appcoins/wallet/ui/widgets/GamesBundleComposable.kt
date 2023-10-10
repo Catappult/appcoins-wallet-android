@@ -59,7 +59,7 @@ private fun CardItem(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, context) },
+    onClick = { GameClick(gameCardData.gamePackage, context) },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
@@ -132,31 +132,6 @@ private fun CardItem(
   }
 }
 
-@Composable
-fun GetTextOrPlay(packageName: String?) {
-  val hasGameInstall =
-    isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
-  if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
-    Text(
-      text = stringResource(id = R.string.play_button),
-      color = WalletColors.styleguide_pink,
-      fontSize = 16.sp,
-      fontWeight = FontWeight.Bold,
-      modifier = Modifier
-        .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
-    )
-  } else if (BuildConfig.FLAVOR != "gp") {
-    Text(
-      text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
-      color = WalletColors.styleguide_pink,
-      fontSize = 16.sp,
-      fontWeight = FontWeight.Bold,
-      modifier = Modifier
-        .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
-    )
-  }
-}
-
 data class GameData(
   val title: String,
   val gameIcon: String,
@@ -181,8 +156,7 @@ fun PreviewGamesBundle() {
         gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
         gamePackage = "com.igg.android.lordsmobile",
       )
-    ),
-    {}
-  )
+    )
+  ) {}
 }
 
