@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">最高チャージ額は%sです</string>
   <string name="topup_no_method_available_title">支払方法がありません!</string>
   <string name="topup_no_method_available_body">現在、あなたの国でトップアップできる支払い方法はありません。しばらくお待ちください！</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">残高</string>
   <string name="balance_total_body">総残高 %s</string>

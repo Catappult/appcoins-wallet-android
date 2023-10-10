@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Der maximale Aufladebetrag beträgt %s</string>
   <string name="topup_no_method_available_title">Keine Zahlungsmethoden!</string>
   <string name="topup_no_method_available_body">Zurzeit gibt es in deinem Land zum Aufladen keine Zahlungsmöglichkeiten. Bleib dran!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Guthaben</string>
   <string name="balance_total_body">Gesamguthaben in %s</string>

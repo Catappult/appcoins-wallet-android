@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
   <string name="topup_no_method_available_title">पेमेंट पद्धत नाही!</string>
   <string name="topup_no_method_available_body">आपल्या देशात सध्यातरी कोणतीही पेमेंट पद्धत उपलब्ध नाही. पहात रहा!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
