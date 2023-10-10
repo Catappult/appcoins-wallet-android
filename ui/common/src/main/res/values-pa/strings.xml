@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s ਨੂੰ ਕੀਤਾ ਟਾਪ ਅੱਪ ਵਾਪਸ ਲੈ ਲਿਆ ਗਿਆ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="transaction_type_reverted_purchase_title">ਖਰੀਦ ਦਾ ਰਿਫੰਡ</string>
   <string name="transaction_type_reverted_purchase_body">%s ਨੂੰ ਕੀਤੀ ਖਰੀਦ ਵਾਪਸ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ| ਵਧੇਰੀ ਜਾਣਕਾਰੀ ਲਈ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">ਅਸਲ ਲੈਣ-ਦੇਣ</string>
   <string name="transaction_onchain_completed_title">ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਰਸਤੇ ਵਿੱਚ ਹੈ!</string>
   <string name="transaction_onchain_completed_body">ਤੁਸੀਂ ਇਸਨੂੰ ਈਥਰਸਕੈਨ ਤੇ ਟ੍ਰੈਕ ਕਰ ਸਕਦੇ ਹੋ|</string>
