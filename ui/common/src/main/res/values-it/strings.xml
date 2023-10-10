@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
   <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transazione originale</string>
   <string name="transaction_onchain_completed_title">Transazione in corso!</string>
   <string name="transaction_onchain_completed_body">Puoi monitorare i progressi su Etherscan.</string>
