@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%sに行ったトップアップは元に戻されました。詳細はサポートにお問い合わせください。</string>
   <string name="transaction_type_reverted_purchase_title">購入代金の返金</string>
   <string name="transaction_type_reverted_purchase_body">%sの購入は返金されました。詳細はサポートにお問い合わせください。</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">元の購入取引</string>
   <string name="transaction_onchain_completed_title">決済処理中です</string>
   <string name="transaction_onchain_completed_body">イーサスキャンでトラッキングができます。</string>
