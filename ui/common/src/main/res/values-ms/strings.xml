@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Tambah nilai yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
   <string name="transaction_type_reverted_purchase_title">Bayar Balik Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Asal</string>
   <string name="transaction_onchain_completed_title">Transaksi sedang berlangsung!</string>
   <string name="transaction_onchain_completed_body">Anda boleh jejak menggunakan Etherscan.</string>
