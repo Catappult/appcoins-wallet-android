@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Giao dịch nạp tiền bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Giao dịch ban đầu</string>
   <string name="transaction_onchain_completed_title">Giao dịch đang được thực hiện!</string>
   <string name="transaction_onchain_completed_body">Bạn có thể theo dõi trên Etherscan.</string>
