@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Deine Aufladung bei %s wurde zurückerstattet. Für weitere Informationen nimm bitte Kontakt zum Kundensupport auf.</string>
   <string name="transaction_type_reverted_purchase_title">Zurückerstattung für Kauf</string>
   <string name="transaction_type_reverted_purchase_body">Dein Einkauf bei %s wurde zurückerstattet. Für weitere Informationen nimm bitte Kontakt zum Kundensupport auf.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Original-Transaktion</string>
   <string name="transaction_onchain_completed_title">Transaktion wird verarbeitet!</string>
   <string name="transaction_onchain_completed_body">Du kannst die Transaktion auf Etherscan verfolgen.</string>
