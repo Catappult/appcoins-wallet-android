@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Винагорода за завдання</string>
+  <string name="transaction_type_challenge_reward_rejected">Відхилена винагорода за завдання</string>
+  <string name="transaction_type_challenge_reward_reverted">Повернута винагорода за завдання</string>
   <string name="transaction_type_iab">Покупка в додатку</string>
   <string name="transaction_type_poa">Винагорода</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Максимальна вартість поповнення – %s</string>
   <string name="topup_no_method_available_title">Немає способів оплати!</string>
   <string name="topup_no_method_available_body">На цей час у вашій країні немає доступних способів оплати для поповнення рахунку. Залишайтеся на зв\'язку!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Загальний баланс у %s</string>
@@ -501,7 +502,7 @@
   <string name="manage_wallet_button">Керувати гаманцем</string>
   <string name="log_out_button">Вийти</string>
   <string name="download_button">Завантажити</string>
-  <string name="done">Done!</string>
+  <string name="done">Готово!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -1267,8 +1268,8 @@
   <string name="verify_card_code_enter_title">Введіть 4-значний код</string>
   <string name="verify_card_code_refund_body">%s буде повернуто протягом 24 годин після підтвердження коду.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Винагорода за завдання</string>
+  <string name="challenge_reward_card_body">Виконайте завдання, щоб отримати AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Насолоджуйтесь %s в AppCoins Credits на вашому гаманці</string>
 </resources>

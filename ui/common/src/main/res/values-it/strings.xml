@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">L\'importo massimo per la ricarica è %s</string>
   <string name="topup_no_method_available_title">Nessun metodo di pagamento!</string>
   <string name="topup_no_method_available_body">Al momento nel tuo Paese non sono disponibili metodi di pagamento per le ricariche. Continua a seguirci per le ultime novità!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo totale in %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Gestisci wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Fatto!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>

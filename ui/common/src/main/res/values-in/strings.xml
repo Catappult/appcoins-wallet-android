@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Nilai isi ulang maksimal adalah %s</string>
   <string name="topup_no_method_available_title">Tidak ada metode pembayaran!</string>
   <string name="topup_no_method_available_body">Saat ini tidak tersedia metode pembayaran untuk pengisian ulang di negara Anda. Pantau terus!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Kelola dompet</string>
   <string name="log_out_button">Keluar</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Selesai!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>

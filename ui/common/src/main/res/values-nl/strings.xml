@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">In de wachtrij</string>
   <string name="transaction_status_failed">Niet gelukt</string>
   <string name="transaction_status_reverted">Teruggedraaid</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_rejected">Afgewezen beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_reverted">Teruggedraaide beloning voor uitdaging</string>
   <string name="transaction_type_iab">In-app aankoop</string>
   <string name="transaction_type_poa">Beloning</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Maximale waarde voor opwaarderen is %s</string>
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Wallet beheren</string>
   <string name="log_out_button">Uitloggen</string>
   <string name="download_button">Downloaden</string>
-  <string name="done">Done!</string>
+  <string name="done">Gelukt!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -1239,8 +1240,8 @@
   <string name="verify_card_code_enter_title">Voer de 4-cijferige code in</string>
   <string name="verify_card_code_refund_body">%s wordt terugbetaald binnen 24 uur nadat je de code hebt bevestigd.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Beloning voor uitdaging</string>
+  <string name="challenge_reward_card_body">Voltooi een uitdaging om AppCoins Credits te krijgen.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
 </resources>

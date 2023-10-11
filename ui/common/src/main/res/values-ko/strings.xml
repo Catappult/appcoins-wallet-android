@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">대기중</string>
   <string name="transaction_status_failed">실패함</string>
   <string name="transaction_status_reverted">복귀됨</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">보상 도전</string>
+  <string name="transaction_type_challenge_reward_rejected">보상 도전 거절</string>
+  <string name="transaction_type_challenge_reward_reverted">되돌린 도전 보상</string>
   <string name="transaction_type_iab">앱내 구매</string>
   <string name="transaction_type_poa">보상</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
   <string name="topup_no_method_available_title">지불 방법 없음!</string>
   <string name="topup_no_method_available_body">현재 해당 국가에서 충전할 수 있는 결제 방법이 없습니다. 계속 주목해주세요!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">지갑 관리</string>
   <string name="log_out_button">로그아웃</string>
   <string name="download_button">다운로드</string>
-  <string name="done">Done!</string>
+  <string name="done">완료!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -1226,8 +1227,8 @@
   <string name="verify_card_code_enter_title">숫자 4자리를 입력하세요</string>
   <string name="verify_card_code_refund_body">코드 확인 후 24시간 이내에 %s 금액이 환불됩니다.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">보상 도전</string>
+  <string name="challenge_reward_card_body">AppCoins 크레딧 획득을 위하여 도전을 완료하세요.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
 </resources>

@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">O valor máximo de recarga é %s</string>
   <string name="topup_no_method_available_title">Nenhum método de pagamento!</string>
   <string name="topup_no_method_available_body">No momento, não há métodos de pagamento disponíveis para recarga em seu país. Fique ligado!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Gerenciar carteira</string>
   <string name="log_out_button">Sair</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Pronto!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>

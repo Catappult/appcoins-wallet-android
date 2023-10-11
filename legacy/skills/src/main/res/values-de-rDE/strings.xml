@@ -11,8 +11,8 @@
   <string name="get_button">Holen</string>
   <string name="got_it_button">Verstanden</string>
   <string name="install_button">Installieren</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Neuer Versuch</string>
+  <string name="restart_button">Erneut starten</string>
   <string name="provide_wallet_creating_wallet_header">Erstellen der Wallet-Adresse&#8230;</string>
   <string name="processing_loading_title">Erhalte dein Eintritts-Ticket</string>
   <string name="finding_room_loading_title">Warten auf Gegner</string>
@@ -89,7 +89,7 @@
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="other">Minuten</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>

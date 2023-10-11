@@ -426,6 +426,7 @@
   <string name="topup_maximum_value">Der maximale Aufladebetrag beträgt %s</string>
   <string name="topup_no_method_available_title">Keine Zahlungsmethoden!</string>
   <string name="topup_no_method_available_body">Zurzeit gibt es in deinem Land zum Aufladen keine Zahlungsmöglichkeiten. Bleib dran!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Guthaben</string>
   <string name="balance_total_body">Gesamguthaben in %s</string>
@@ -499,7 +500,7 @@
   <string name="manage_wallet_button">Wallet verwalten</string>
   <string name="log_out_button">Logout</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Erledigt!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s der AppCoins Wallet zu.</string>
   <string name="terms_and_conditions_error">Bitte akzeptiere unsere Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie, um fortzufahren</string>
