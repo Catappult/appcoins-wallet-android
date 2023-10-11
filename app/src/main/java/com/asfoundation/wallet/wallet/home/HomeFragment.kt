@@ -174,10 +174,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         EskillsGamesBundle(
           items = viewModel.gamesList.value,
           dialog = { launchAppViewFragment(gameClicked) }
-        ) { viewModel.fetchEskillsGamesListing() }
+        ) { viewModel.fetchGamesListing() }
       }
       else {
-        GamesBundle(items = viewModel.gamesList.value,) { viewModel.fetchGamesListing() }
+        GamesBundle(items = viewModel.gamesList.value, isEskillsVersion) { viewModel.fetchGamesListing()}
       }
       Spacer(modifier = Modifier.padding(40.dp))
     }

@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,17 +27,17 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  fetchFromApiCallback: () -> Unit
+  isEskills: Boolean,
+  fetchFromApiCallback: () -> Unit,
 ) {
   fetchFromApiCallback()
   if (items.isNotEmpty()) {
-    Text(
-      text = stringResource(id = R.string.home_appcoins_compatible_games_title),
-      fontSize = 14.sp,
-      fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_dark_grey,
-      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-    )
+    if(isEskills){
+      CarouselTitle()
+    }
+    else{
+      Title()
+    }
     LazyRow(
       modifier = Modifier.padding(
         top = 16.dp
@@ -52,7 +55,7 @@ fun GamesBundle(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameData
+  gameCardData: GameData,
 ) {
   val context = LocalContext.current
   Card(
@@ -132,6 +135,60 @@ private fun CardItem(
   }
 }
 
+@Composable
+private fun Title(){
+  Text(
+    text = stringResource(id = R.string.home_appcoins_compatible_games_title),
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold,
+    color = WalletColors.styleguide_dark_grey,
+    modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+  )
+}
+
+@Composable
+private fun CarouselTitle() {
+  Row(
+    modifier = Modifier
+      .padding(top = 27.dp, end = 13.dp, start = 24.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Card(
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue),
+      modifier = Modifier.size(48.dp)
+    ) {
+      Box(
+        modifier = Modifier.fillMaxSize(),
+      ) {
+        Image(painter = painterResource(R.drawable.eskills_cup), contentDescription = "Cup")
+        //REDO CONTENT DESCRIPTION STRINGS
+      }
+
+    }
+    Column(
+      modifier = Modifier
+        .padding(start = 8.dp),
+      verticalArrangement = Arrangement.Center
+    ) {
+      Text(
+        text = stringResource(id = R.string.eskills_carousel_title),
+        color = WalletColors.styleguide_golden,
+        fontSize = 14.sp,
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Bold
+      )
+      Text(
+        text = stringResource(id = R.string.eskills_carousel_body),
+        color = WalletColors.styleguide_light_grey,
+        fontSize = 12.sp,
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Medium
+      )
+    }
+  }
+}
+
 data class GameData(
   val title: String,
   val gameIcon: String,
@@ -155,8 +212,9 @@ fun PreviewGamesBundle() {
         gameIcon = "https://cdn6.aptoide.com/imgs/0/7/e/07eb83a511499243706f0c791b0b8969_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
         gamePackage = "com.igg.android.lordsmobile",
-      )
-    )
-  ) {}
+      ),
+    ),
+    false,
+  ){}
 }
 

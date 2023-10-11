@@ -350,13 +350,19 @@ constructor(
       .toObservable()
   }
 
-  fun fetchGamesListing() {
+  fun fetchGamesListing(){
+    if (state.eskillsVersion){
+      return fetchEskillsGamesListing()
+    }
+    return fetchAppcGamesListing()
+  }
+  private fun fetchAppcGamesListing() {
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
       .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
   }
 
-  fun fetchEskillsGamesListing() {
+  private fun fetchEskillsGamesListing() {
     getEskillsGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
       .scopedSubscribe({gamesList.value = it}, {e -> e.printStackTrace()})
