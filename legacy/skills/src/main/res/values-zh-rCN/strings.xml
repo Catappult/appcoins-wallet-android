@@ -8,11 +8,11 @@
   <string name="buy_button">购买</string>
   <string name="topup_button">充值</string>
   <string name="downloading">下载中</string>
-  <string name="get_button">Get</string>
+  <string name="get_button">获取</string>
   <string name="got_it_button">明白了</string>
   <string name="install_button">安装</string>
   <string name="retry_button">重试</string>
-  <string name="restart_button">Restart</string>
+  <string name="restart_button">重新开始</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="processing_loading_title">获取入场券</string>
   <string name="finding_room_loading_title">正在等待对手</string>
@@ -44,16 +44,16 @@
   <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
   <string name="update_button">更新</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">您和您邀请的朋友将获得%s的额定奖金。您最多可以邀请5位朋友，且他们必须是新用户。一旦他们在初次游戏中使用您的邀请码，奖金将计入您的钱包。</string>
   <string name="refer_a_friend_first_time_header">准备好展示技能了？</string>
   <string name="refer_a_friend_first_time_body">击败其他玩家获得真钱奖励！我们从无需入场费的练习游戏开始吧。</string>
   <string name="refer_a_friend_error_unavailable_body">此功能目前无法使用。</string>
   <string name="refer_a_friend_error_invalid_code_body">无效的代码！</string>
   <string name="refer_a_friend_error_user_not_eligible_body">仅限新用户！</string>
   <string name="refer_a_friend_first_time_tooltip">通过我们的推荐计划，你在使用好友代码时将获得$%s的奖励。他们还将收到奖励，数量与用于应用内购买或e-Skills入场券的奖励相同。</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">邀请好友！</string>
   <string name="refer_a_friend_waiting_from_body">每邀请一个好友均可获得奖励。</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">您收到了玩%1$s的邀请！从%3$s下载游戏后，请使用邀请码%2$s。</string>
   <!-- Error messages -->
   <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
   <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
