@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SideEffect
@@ -51,9 +53,9 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     views.recoveryWalletBottomButton.setOnClickListener {
       if (requireArguments().getSerializable(IS_FROM_ONBOARDING) as Boolean) {
-        navigator.navigateToMainHomeGraph()
+        navigator.navigateToMainHomeGraph(navController())
       } else {
-        navigator.navigateBack(true)
+        navigator.navigateBack()
       }
       dismiss()
     }
@@ -72,4 +74,11 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onStateChanged(state: ViewState) = Unit
 
   override fun onSideEffect(sideEffect: SideEffect) = Unit
+
+  private fun navController(): NavController {
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
+    return navHostFragment.navController
+  }
 }

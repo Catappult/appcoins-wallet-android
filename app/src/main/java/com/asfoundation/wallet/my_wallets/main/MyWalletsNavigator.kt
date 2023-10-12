@@ -112,10 +112,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navController.navigate(R.id.action_navigate_to_receive_funds, bundle)
   }
 
-  fun navigateToNfts() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToNfts())
-  }
-
   fun navigateToVerifyPicker() {
     navigate(navController, MyWalletsFragmentDirections.actionNavigateToVerifyPicker())
   }
@@ -138,5 +134,9 @@ constructor(private val fragment: Fragment, private val navController: NavContro
       )
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
+  }
+
+  fun navigateBack() {
+    navController.popBackStack()
   }
 }

@@ -9,17 +9,19 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
+import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 import com.appcoins.wallet.feature.backup.data.use_cases.SaveBackupFileUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Completable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-sealed class BackupSaveOnDeviceDialogSideEffect : SideEffect {
-  data class NavigateToSuccess(val walletAddress: String) : BackupSaveOnDeviceDialogSideEffect()
-  object ShowError : BackupSaveOnDeviceDialogSideEffect()
+sealed class BackupSaveOnDeviceSideEffect : SideEffect {
+  object NavigateToSuccess : BackupSaveOnDeviceSideEffect()
+  object ShowError : BackupSaveOnDeviceSideEffect()
 }
 
 data class BackupSaveOnDeviceDialogState(
@@ -30,26 +32,30 @@ data class BackupSaveOnDeviceDialogState(
 ) : ViewState
 
 @HiltViewModel
-class BackupSaveOnDeviceDialogViewModel
+class BackupSaveOnDeviceViewModel
 @Inject
 constructor(
   savedStateHandle: SavedStateHandle,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   walletInfoUseCase: GetWalletInfoUseCase,
   dispatchers: Dispatchers
 ) :
-  NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
+  NewBaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceSideEffect>(
     initialState(savedStateHandle)
   ) {
 
   companion object {
+    const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val PASSWORD_KEY = "password"
+
     private val downloadsPath =
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
     fun initialState(savedStateHandle: SavedStateHandle) =
       savedStateHandle.run {
-        val address = get<String>(BackupSaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!
-        val password = get<String>(BackupSaveOnDeviceDialogFragment.PASSWORD_KEY)!!
+        val address = get<String>(WALLET_ADDRESS_KEY)!!
+        val password = get<String>(PASSWORD_KEY)!!
         BackupSaveOnDeviceDialogState(
           Async.Loading("walletbackup${address}"),
           address,
@@ -74,17 +80,16 @@ constructor(
     fileName: String,
     filePath: DocumentFile? = downloadsPath?.let { DocumentFile.fromFile(it) }
   ) {
-    try {
-      viewModelScope.launch {
-        saveBackupFileUseCase(state.walletAddress, state.walletPassword, fileName, filePath)
-      }
-    } catch (e: Exception) {
-      showError(e)
-    }
+    saveBackupFileUseCase(state.walletAddress, state.walletPassword, fileName, filePath)
+      .andThen(Completable.defer { backupSuccessLogUseCase(state.walletAddress) })
+      .doOnComplete { sendSideEffect { BackupSaveOnDeviceSideEffect.NavigateToSuccess } }
+      .doOnError { showError(it) }
+      .subscribe()
   }
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    sendSideEffect { BackupSaveOnDeviceDialogSideEffect.ShowError }
+    sendSideEffect { BackupSaveOnDeviceSideEffect.ShowError }
   }
 }
+

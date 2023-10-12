@@ -7,10 +7,12 @@
   <string name="cancel">Annuler</string>
   <string name="buy_button">Acheter</string>
   <string name="topup_button">Recharger</string>
-  <string name="downloading">Downloading</string>
-  <string name="get_button">Get</string>
-  <string name="got_it_button">Got it</string>
-  <string name="install_button">Install</string>
+  <string name="downloading">Télécharger</string>
+  <string name="get_button">Obtenir</string>
+  <string name="got_it_button">Obtenu</string>
+  <string name="install_button">Installer</string>
+  <string name="retry_button">Réessayer</string>
+  <string name="restart_button">Redémarrer</string>
   <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
   <string name="processing_loading_title">Obtenir votre billet d\'entrée</string>
   <string name="finding_room_loading_title">En attente d\'adversaires</string>
@@ -58,35 +60,51 @@
   <string name="not_enough_funds_body">Vous n\'avez pas assez de fonds ! Veuillez recharger pour acheter le billet d\'entrée.</string>
   <string name="error_message_local_payment_method_body">Les méthodes de paiement locales ne sont pas acceptées pour acheter les frais d\'inscription. Veuillez créer un nouveau portefeuille et le recharger avec une carte bancaire ou PayPal !</string>
   <string name="rooted_device_blocked_body">Malheureusement, vous ne pouvez pas jouer aux jeux e-Skills avec un appareil rooté.</string>
-  <string name="restart_btn_text">Restart</string>
-  <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
-  <string name="opponent_details">(%1$s did %2$d points)</string>
-  <string name="retry_btn_text">RETRY</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">En attente d\'adversaires pour finir le jeu.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s a fait %2$d point)</item>
+    <item quantity="other">(%1$s a fait %2$d points)</item>
+  </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
-  <string name="rank_score_details">%1$d points</string>
-  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
-  <string name="you_won">You Won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ ont été crédités dans votre portefeuille)</string>
+  <string name="you_won">Vous avez gagné ! %1$s</string>
+  <string name="you_lost_timeout">Votre temps est terminé, vous avez perdu ! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="days">Days</string>
-  <string name="hours">Hours</string>
-  <string name="minutes">Minutes</string>
-  <string name="seconds">Seconds</string>
+  <plurals name="days">
+    <item quantity="one">Jour</item>
+    <item quantity="other">Jours</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Heure</item>
+    <item quantity="other">Heures</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">Minutes</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Seconde</item>
+    <item quantity="other">Secondes</item>
+  </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward attributed in</string>
-  <string name="current_top_3">Current top 3</string>
+  <string name="next_reward_text">Prochaine récompense dans</string>
+  <string name="current_top_3">Top 3 actuel</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="retry">RETRY</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
+  <string name="leaderboard_button">Classements</string>
   <!-- e-Skills Games Carrousel -->
-  <string name="eskills_carousel_title">Earn Money</string>
-  <string name="eskills_carousel_body">Beat other players with e-Skills</string>
-  <string name="eskills_game_1">Install the e-Skills game you think you\'re better at.</string>
-  <string name="carousel_game_2">Open it and get an entry ticket to start a match against other players.</string>
+  <string name="eskills_carousel_title">Gagnez de l\'argent</string>
+  <string name="eskills_carousel_body">Battez d\'autres joueurs avec e-Skills</string>
+  <string name="eskills_game_1">Installez le jeu e-Skills pour lequel vous pensez être le meilleur.</string>
+  <string name="carousel_game_2">Ouvrez-le et obtenez un ticket d\'entrée pour commencer un match contre d\'autres joueurs.</string>
   <string name="carousel_game_3">Veat them and get a real-money prize!</string>
   <string name="carousel_game_description_title">Description</string>
 </resources>

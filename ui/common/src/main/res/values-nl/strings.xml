@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="activity_iab_change_card">KAART WIJZIGEN</string>
+  <string name="activity_iab_change_card_lower_case_button">Kaart wijzigen</string>
   <string name="activity_iab_fees">Kosten</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen!👌 Je kunt over %1$s uur en %2$s min meer beloningen verdienen door apps te proberen⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">In de wachtrij</string>
   <string name="transaction_status_failed">Niet gelukt</string>
   <string name="transaction_status_reverted">Teruggedraaid</string>
+  <string name="transaction_type_challenge_reward">Beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_rejected">Afgewezen beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_reverted">Teruggedraaide beloning voor uitdaging</string>
   <string name="transaction_type_iab">In-app aankoop</string>
   <string name="transaction_type_poa">Beloning</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">Bestelnummer</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">Naar</string>
+  <string name="transaction_invoice_label">Factuur</string>
   <string name="dialog_credit_card_remember">Kaart onthouden</string>
   <string name="notification_payment_refused">Betaling geweigerd</string>
   <string name="dialog_credit_card_number">Kaartnummer</string>
@@ -309,7 +314,7 @@
   <string name="transaction_rejected_body">Deze aankoop is geweigerd.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_reverted_body">Deze aankoop is teruggedraaid.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_status_rejected">Geweigerd</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Transactiegegevens</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
@@ -421,6 +426,7 @@
   <string name="topup_maximum_value">Maximale waarde voor opwaarderen is %s</string>
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -493,6 +499,8 @@
   <string name="play_button">Spelen</string>
   <string name="manage_wallet_button">Wallet beheren</string>
   <string name="log_out_button">Uitloggen</string>
+  <string name="download_button">Downloaden</string>
+  <string name="done">Gelukt!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -553,6 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Het lijkt erop dat deze aankoop al wordt verwerkt. Wacht totdat de transactie is voltooid of neem contact op met ons ondersteuningsteam.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BETALINGSMETHODEN</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Andere betaalmethoden</string>
   <string name="purchase_appcoins_available_body">Er zal een klein bedrag ETH worden gebruikt om de kosten te betalen.</string>
   <string name="purchase_appcoins_noavailable_body">Je hebt niet genoeg AppCoins of Ether voor deze aankoop.</string>
   <string name="purchase_no_eth_body">Je hebt niet genoeg ETH om gas te betalen.</string>
@@ -615,6 +624,7 @@
   <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -706,6 +716,7 @@
   <string name="import_wallet_button">Wallet herstellen</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
+  <string name="import_code_here_field">Herstel de code hier&#8230;</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
   <string name="backup_title">Maak nu een back-up van je wallet!</string>
@@ -718,9 +729,9 @@
   <string name="backup_ready_email_button">Naar mailbox verzenden</string>
   <string name="backup_ready_device_button">Opslaan op apparaat</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
-  <string name="backup_confirmation_tips_1"><b>Bestand afdrukken</b> en op een veilige plek bewaren.</string>
-  <string name="backup_confirmation_tips_2"><b>Bestand opslaan</b> op een USB-stick.</string>
-  <string name="backup_confirmation_tips_3"><b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Bestand afdrukken</b> en op een veilige plek bewaren.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Bestand opslaan</b> op een USB-stick.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.]]></string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
   <string name="backup_tooltip_later_button">Misschien later</string>
   <string name="backup_tooltip_backup_button">Back-up maken</string>
@@ -738,7 +749,9 @@
   <string name="backup_popup_title">Maak nu een back-up van je wallet!</string>
   <string name="backup_popup_purchase_body">Zorg ervoor dat je saldo altijd is beveiligd.</string>
   <string name="backup_popup_gamification_body">Zorg ervoor dat je bonusniveau altijd is beveiligd.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">We kunnen je back-upbestand niet maken. Probeer het later opnieuw.</string>
+  <string name="backup_confirmation_save_device">De back-up staat op je apparaat</string>
+  <string name="backup_confirmation_save_email">De back-up staat in je e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Totale saldo in %s</string>
@@ -825,7 +838,7 @@
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
   <string name="subscriptions_cancel_no_button">Nee, teruggaan</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Ja, annuleren</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement geannuleerd!</string>
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
@@ -1099,26 +1112,6 @@
   <string name="appcoins_info_explorer_title">Verkenner</string>
   <string name="appcoins_info_market_cap_title">Marktkapitalisatie</string>
   <string name="appcoins_info_volume_title">Volume (24 uur)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT\'s</string>
-  <string name="nfts_no_nfts">Deze wallet bevat nog geen NFT\'s!</string>
-  <string name="nfts_transact_button">Verstuur deze NFT</string>
-  <string name="nfts_transact_button_send">Sturen</string>
-  <string name="nfts_transact_button_next">Volgende</string>
-  <string name="nfts_transact_button_done">Gereed</string>
-  <string name="nfts_transact_button_success">Begrepen</string>
-  <string name="nfts_transact_tip">Wallet-adres van je vriend(in) invoeren</string>
-  <string name="nfts_transact_input_tip">Voer hier het wallet-adres in...</string>
-  <string name="nfts_transact_done_mensage">%s is met succes verstuurd!</string>
-  <string name="nfts_generic_error">Oeps, er is iets fout gegaan!</string>
-  <string name="nfts_transact_gas_title">Heb je weinig tijd?</string>
-  <string name="nfts_transact_gas_description">Kies welk bedrag je aan vergoedingen wilt betalen. Hoe hoger het bedrag, hoe sneller de transactie wordt verwerkt.</string>
-  <string name="nfts_transact_gas_price">Gasvergoeding</string>
-  <string name="nfts_transact_gas_limit">Gaslimiet</string>
-  <string name="nfts_transact_gas_fee_message">Transactiekosten</string>
-  <string name="nfts_transact_error_no_funds">Onvoldoende saldo! Je hebt niet genoeg ETH om de kosten te kunnen betalen.</string>
-  <string name="nfts_transact_error_low_gas">Gasvergoeding is te laag! Verhoog de gasvergoeding om ervoor te zorgen dat je transactie door het netwerk wordt geaccepteerd.</string>
-  <string name="nfts_transact_error_already_in_progress">Deze NFT wordt al verstuurd! Er wordt momenteel een eerdere transactie uitgevoerd.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Wissel je cadeaukaartcode in</string>
   <string name="gift_card_field">Voer hier je kaartcode in...</string>
@@ -1209,14 +1202,13 @@
   <string name="rewards_spend_to_next_level_body">Besteed meer %1$s%2$s om het volgende niveau te bereiken!</string>
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Neem je verdiensten met e-Skills op.</string>
   <string name="rewards_promo_code_card_title">Actiecodes</string>
   <string name="rewards_promo_code_card_body">Gebruik een actiecode om speciale aanbiedingen te krijgen!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Actief</string>
   <string name="rewards_promo_code_status_expired">Verlopen</string>
-  <string name="home_nft_title">De AppCoins Wallet ondersteunt nu NFT\'s</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Games die compatibel met AppCoins zijn</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die AppCoins ondersteunt en krijg een bonus bij elke aankoop.</string>
   <string name="rewards_bonus_every_purchase_title">Geniet van een bonus van %s%% bij elke aankoop</string>
@@ -1224,27 +1216,32 @@
   <string name="manage_wallet_wallet_changed_title">Wallet gewijzigd</string>
   <string name="manage_wallet_change_active_wallet_title">Wil je deze wallet selecteren?</string>
   <string name="manage_wallet_change_wallet_name_title">Naam van wallet wijzigen</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">Stel een naam in voor je wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">Mijn wallet-adres</string>
+  <string name="manage_wallet_verify_title">Verifieer een betaalmethode</string>
+  <string name="manage_wallet_verify_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">Verifieer een betaalmethode</string>
+  <string name="verify_card_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
+  <string name="verify_card_one_more_step_title">Nog één stap om te verifiëren</string>
+  <string name="verify_card_one_more_step_body">Voer de code in die in de transactiegegevens wordt getoond</string>
+  <string name="verify_card_one_more_step_button">Code invoeren</string>
+  <string name="verify_card_verified">Betaalmethode geverifieerd!</string>
+  <string name="verify_card_view_title">Kaart verifiëren</string>
+  <string name="verify_card_view_disclaimer">We zullen via je kaart %s in rekening brengen. Dit bedrag wordt teruggestort als je de code hebt bevestigd.</string>
+  <string name="verify_card_view_title_2">Voer je bankpasgegevens in</string>
+  <string name="verify_card_get_a_code_button">Code aanvragen</string>
+  <string name="verify_card_code_title">Je kunt de code in de transactiegegevens vinden</string>
+  <string name="verify_card_code_body">Het transactieoverzicht dat wordt verstrekt door de uitgever van je kaart bevat een unieke code.</string>
+  <string name="verify_card_code_example_title">Voorbeeld van een transactieoverzicht</string>
+  <string name="verify_card_code_example_date">Transactiedatum</string>
+  <string name="verify_card_code_example_description">Beschrijving</string>
+  <string name="verify_card_code_example_amount">Bedrag</string>
+  <string name="verify_card_code_enter_title">Voer de 4-cijferige code in</string>
+  <string name="verify_card_code_refund_body">%s wordt terugbetaald binnen 24 uur nadat je de code hebt bevestigd.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Beloning voor uitdaging</string>
+  <string name="challenge_reward_card_body">Voltooi een uitdaging om AppCoins Credits te krijgen.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
 </resources>

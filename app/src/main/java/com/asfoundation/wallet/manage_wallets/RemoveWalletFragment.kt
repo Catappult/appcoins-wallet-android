@@ -282,6 +282,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   private fun navigateToManageWallet() {
     setFragmentResult(ManageWalletFragment.MANAGE_WALLET_REQUEST_KEY, bundleOf())
-    requireActivity().onBackPressedDispatcher.onBackPressed()
+    myWalletsNavigator.navigateBack()
   }
 }

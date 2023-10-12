@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
+  <string name="activity_iab_change_card_lower_case_button">Utilizează un alt card</string>
   <string name="activity_iab_fees">Comisioane</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită! 👌 Va trebui să aștepți %1$sh%2$sm ca să câștigi mai multe recompense încercând aplicații ⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">În așteptare</string>
   <string name="transaction_status_failed">Eșuată</string>
   <string name="transaction_status_reverted">Restituit</string>
+  <string name="transaction_type_challenge_reward">Recompensă provocare</string>
+  <string name="transaction_type_challenge_reward_rejected">Recompensă provocare respinsă</string>
+  <string name="transaction_type_challenge_reward_reverted">Recompensă provocare returnată</string>
   <string name="transaction_type_iab">Cumpărătură in-app</string>
   <string name="transaction_type_poa">Recompensă</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">ID comandă</string>
   <string name="transaction_details_label">Detalii</string>
   <string name="transaction_to_label">Către</string>
+  <string name="transaction_invoice_label">Factură</string>
   <string name="dialog_credit_card_remember">Ține minte card</string>
   <string name="notification_payment_refused">Plată refuzată</string>
   <string name="dialog_credit_card_number">Număr card</string>
@@ -309,8 +314,8 @@
   <string name="transaction_rejected_body">Această achiziție a fost respinsă.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_reverted_body">Această achiziție a fost restituită.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_status_rejected">Respinsă</string>
-  <string name="transaction_details_header">Transaction details</string>
-  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_header">Detalii tranzacție</string>
+  <string name="transaction_details_txid">ID tranz.</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
@@ -421,6 +426,7 @@
   <string name="topup_maximum_value">Valoarea maximă de alimentare este %s</string>
   <string name="topup_no_method_available_title">Fără metode de plată!</string>
   <string name="topup_no_method_available_body">Momentan, nu există metode de plată disponibile pentru încărcare în țara ta. Fii pe fază!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>
@@ -493,6 +499,8 @@
   <string name="play_button">Joacă</string>
   <string name="manage_wallet_button">Gestionează portofel</string>
   <string name="log_out_button">Deconectează-te</string>
+  <string name="download_button">Descarcă</string>
+  <string name="done">Gata!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -553,6 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
   <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Alte metode de plată</string>
   <string name="purchase_appcoins_available_body">Vei folosi o sumă mică de ETH ca să plătești comisioanele.</string>
   <string name="purchase_appcoins_noavailable_body">Nu ai suficienți AppCoins sau Ether pentru această cumpărătură.</string>
   <string name="purchase_no_eth_body">Nu ai suficienți ETH ca să plătești pentru benzină.</string>
@@ -615,6 +624,7 @@
   <string name="error_blocked_wallet_body">Din motive de securitate, portofelul tău a fost blocat. Te rugăm să ne contactezi pentru mai multe informații.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Este posibil să se aplice comisioane suplimentare.</string>
   <string name="purchase_error_paypal">Am întâmpinat o problemă cu plata ta PayPal. Încearcă din nou sau folosește o metodă de plată diferită.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -706,6 +716,7 @@
   <string name="import_wallet_button">Recuperează portofel</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
+  <string name="import_code_here_field">Recuperează codul aici&#8230;</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <string name="error_invalid_keystore">Keystore nevalid</string>
   <string name="backup_title">Fă o copie de rezervă a portofelului acum!</string>
@@ -718,9 +729,9 @@
   <string name="backup_ready_email_button">Trimite-o pe e-mail</string>
   <string name="backup_ready_device_button">Salvează pe dispozitiv</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
-  <string name="backup_confirmation_tips_1"><b>Printeaz-o</b> și păstreaz-o în siguranță.</string>
-  <string name="backup_confirmation_tips_2"><b>Salvează-o</b> pe un drive USB.</string>
-  <string name="backup_confirmation_tips_3"><b>Copiaz-o</b> într-un cloud de stocare privat și securizat.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Printeaz-o</b> și păstreaz-o în siguranță.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Salvează-o</b> pe un drive USB.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copiaz-o</b> într-un cloud de stocare privat și securizat.]]></string>
   <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
   <string name="backup_tooltip_later_button">Poate mai târziu</string>
   <string name="backup_tooltip_backup_button">Copie de rezervă</string>
@@ -738,7 +749,9 @@
   <string name="backup_popup_title">Fă o copie de rezervă a portofelului acum!</string>
   <string name="backup_popup_purchase_body">Păstrează-ți fondurile în siguranță tot timpul.</string>
   <string name="backup_popup_gamification_body">Păstrează-ți nivelul bonusului în siguranță tot timpul.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">Nu am putut crea un fișier de rezervă. Încearcă din nou mai târziu.</string>
+  <string name="backup_confirmation_save_device">Copia de rezervă este stocată în dispozitivul tău</string>
+  <string name="backup_confirmation_save_email">Copia de rezervă este în e-mailul tău</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portofele</string>
   <string name="wallets_total_balance_title">Balanță totală în %s</string>
@@ -826,7 +839,7 @@
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
   <string name="subscriptions_cancel_no_button">Nu, du-te înapoi</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Da, anulează</string>
   <string name="subscriptions_cancel_confirmation_title">Abonament anulat!</string>
   <string name="subscriptions_cancel_confirmation_body">Nu vei mai fi taxat pentru acest abonament și îl poți folosi până pe %s.</string>
   <string name="subscriptions_category_title">Abonament</string>
@@ -1108,26 +1121,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Capitalizare bursieră</string>
   <string name="appcoins_info_volume_title">Volum (24 h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT-uri</string>
-  <string name="nfts_no_nfts">Nu ai încă NFT-uri în acest portofel!</string>
-  <string name="nfts_transact_button">Trimite acest NFT</string>
-  <string name="nfts_transact_button_send">Trimite</string>
-  <string name="nfts_transact_button_next">Următorul</string>
-  <string name="nfts_transact_button_done">Gata</string>
-  <string name="nfts_transact_button_success">Am înțeles</string>
-  <string name="nfts_transact_tip">Introdu adresa portofelului prietenului tău</string>
-  <string name="nfts_transact_input_tip">Adresă portofel aici...</string>
-  <string name="nfts_transact_done_mensage">%s trimise cu succes!</string>
-  <string name="nfts_generic_error">Ups! Ceva nu a mers cum trebuie!</string>
-  <string name="nfts_transact_gas_title">Te grăbești?</string>
-  <string name="nfts_transact_gas_description">Alege cât de mult vrei să plătești pentru comisioane. Cu cât este mai mare comisionul, cu atât mai rapidă este tranzacția.</string>
-  <string name="nfts_transact_gas_price">Preț benzină</string>
-  <string name="nfts_transact_gas_limit">Limită benzină</string>
-  <string name="nfts_transact_gas_fee_message">Comision tranzacție</string>
-  <string name="nfts_transact_error_no_funds">Fonduri insuficiente! Nu ai destule ETH pentru a plăti comisioanele.</string>
-  <string name="nfts_transact_error_low_gas">Ai prea puțin gaz! Crește cantitatea de gaz pentru rețea ca să îți accepte tranzacția.</string>
-  <string name="nfts_transact_error_already_in_progress">Acest NFT se trimite deja! O tranzacție anterioară se află în curs de procesare.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Revendică-ți codul de card cadou</string>
   <string name="gift_card_field">Cod card aici...</string>
@@ -1222,14 +1215,13 @@
   <string name="rewards_spend_to_next_level_body">Cheltuiește mai mult %1$s%2$s pentru a trece la nivelul următor!</string>
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Retrage-ți câștigurile e-Skills.</string>
   <string name="rewards_promo_code_card_title">Coduri Promo</string>
   <string name="rewards_promo_code_card_body">Folosește un Cod Promo pentru oferte speciale!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Activ</string>
   <string name="rewards_promo_code_status_expired">Expirat</string>
-  <string name="home_nft_title">AppCoins Wallet este compatibil acum și cu NFT-uri</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Jocuri compatibile AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Fă prima achiziție într-un joc compatibil AppCoins și deblochează un bonus la fiecare achiziție.</string>
   <string name="rewards_bonus_every_purchase_title">Bucură-te de un bonus de %s%% la fiecare achiziție</string>
@@ -1237,27 +1229,32 @@
   <string name="manage_wallet_wallet_changed_title">Portofel modificat</string>
   <string name="manage_wallet_change_active_wallet_title">Vrei să selectezi acest portofel?</string>
   <string name="manage_wallet_change_wallet_name_title">Redenumește portofel</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">Alege un nume pentru portofelul tău</string>
+  <string name="manage_wallet_my_wallet_address_title">Adresa portofelului meu</string>
+  <string name="manage_wallet_verify_title">Verifică o metodă de plată</string>
+  <string name="manage_wallet_verify_body">Evită blocarea contului, verificându-ți o metodă de plată.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">Verifică o metodă de plată</string>
+  <string name="verify_card_body">Evită blocarea contului, verificându-ți o metodă de plată.</string>
+  <string name="verify_card_one_more_step_title">Încă un pas pentru verificare</string>
+  <string name="verify_card_one_more_step_body">Introdu codul care apare în detaliile tranzacției</string>
+  <string name="verify_card_one_more_step_button">Introdu cod</string>
+  <string name="verify_card_verified">Metodă de plată verificată!</string>
+  <string name="verify_card_view_title">Verifică card</string>
+  <string name="verify_card_view_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat ce confirmi codul.</string>
+  <string name="verify_card_view_title_2">Introdu detaliile cardului tău bancar</string>
+  <string name="verify_card_get_a_code_button">Obține un cod</string>
+  <string name="verify_card_code_title">Vei găsi codul în detaliile tranzacției</string>
+  <string name="verify_card_code_body">Un cod unic va apărea în rezumatul tranzacției, furnizat de emitentul cardului tău.</string>
+  <string name="verify_card_code_example_title">Exemplu de rezumat tranzacție</string>
+  <string name="verify_card_code_example_date">Dată tranz.</string>
+  <string name="verify_card_code_example_description">Descriere</string>
+  <string name="verify_card_code_example_amount">Sumă</string>
+  <string name="verify_card_code_enter_title">Introdu codul format din 4 cifre</string>
+  <string name="verify_card_code_refund_body">Suma de %s va fi rambursată într-un interval de 24 de ore, după confirmarea codului.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Recompensă provocare</string>
+  <string name="challenge_reward_card_body">Finalizează o provocare pentru a obține AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Bucură-te de %s în AppCoins Credits, în portofelul tău</string>
 </resources>

@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
   <string name="activity_iab_change_card">카드 변경</string>
+  <string name="activity_iab_change_card_lower_case_button">카드 변경</string>
   <string name="activity_iab_fees">수수료</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">보상을 받았습니다!👌 앱을 사용하여 더 많은 보상까지 %1$s시간%2$s분을 기다려주세요⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">대기중</string>
   <string name="transaction_status_failed">실패함</string>
   <string name="transaction_status_reverted">복귀됨</string>
+  <string name="transaction_type_challenge_reward">보상 도전</string>
+  <string name="transaction_type_challenge_reward_rejected">보상 도전 거절</string>
+  <string name="transaction_type_challenge_reward_reverted">되돌린 도전 보상</string>
   <string name="transaction_type_iab">앱내 구매</string>
   <string name="transaction_type_poa">보상</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">주문 ID</string>
   <string name="transaction_details_label">상세내용</string>
   <string name="transaction_to_label">수신</string>
+  <string name="transaction_invoice_label">청구서</string>
   <string name="dialog_credit_card_remember">카드 기억하기</string>
   <string name="notification_payment_refused">지불 거절됨</string>
   <string name="dialog_credit_card_number">카드번호</string>
@@ -309,7 +314,7 @@
   <string name="transaction_rejected_body">구매가 거부되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_reverted_body">이 구매는 반환되었습니다.\n자세한 내용은 지원팀에 문의하십시오.</string>
   <string name="transaction_status_rejected">거부됨</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">거래 상세</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
@@ -421,6 +426,7 @@
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
   <string name="topup_no_method_available_title">지불 방법 없음!</string>
   <string name="topup_no_method_available_body">현재 해당 국가에서 충전할 수 있는 결제 방법이 없습니다. 계속 주목해주세요!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
@@ -493,6 +499,8 @@
   <string name="play_button">플레이</string>
   <string name="manage_wallet_button">지갑 관리</string>
   <string name="log_out_button">로그아웃</string>
+  <string name="download_button">다운로드</string>
+  <string name="done">완료!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -553,6 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>
   <string name="purchase_more_payment_methods_button">다른 지불 방식</string>
+  <string name="purchase_more_payment_methods_lower_case_button">기타 결체 방법</string>
   <string name="purchase_appcoins_available_body">이 수수료 지불을 위해 적은 양의 ETH를 사용하게 됩니다.</string>
   <string name="purchase_appcoins_noavailable_body">이 구매를 하기 위한 AppCoins 또는 이더리움이 부족합니다.</string>
   <string name="purchase_no_eth_body">이 가스 지불을 위한 ETH이 부족합니다.</string>
@@ -615,6 +624,7 @@
   <string name="error_blocked_wallet_body">보안상의 이유로, 지갑이 차단되었습니다. 상세 내용은 지원팀에 문의해 주세요.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
+  <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -706,6 +716,7 @@
   <string name="import_wallet_button">지갑 복구</string>
   <string name="import_wallet_password_body">이 지갑의 비밀번호는 보호되어 있습니다!</string>
   <string name="import_wallet_wrong_password_body">이런, 잘못된 비밀번호입니다!</string>
+  <string name="import_code_here_field">여기&#8230; 에서 코드를 복구하세요</string>
   <string name="error_invalid_private_key">잘못된 비밀 키</string>
   <string name="error_invalid_keystore">잘못된 키 스토어</string>
   <string name="backup_title">지금 지갑 백업하기!</string>
@@ -718,9 +729,9 @@
   <string name="backup_ready_email_button">이메일로 전송합니다</string>
   <string name="backup_ready_device_button">디바이스에 저장합니다</string>
   <string name="backup_confirmation_tips_title">파일을 안전하게 보관하세요:</string>
-  <string name="backup_confirmation_tips_1"><b>출력</b>하고 다른 안전한 곳에 보관하세요.</string>
-  <string name="backup_confirmation_tips_2">USB 드라이브에 <b>저장</b>합니다.</string>
-  <string name="backup_confirmation_tips_3">개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>출력</b>하고 다른 안전한 곳에 보관하세요.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[USB 드라이브에 <b>저장</b>합니다.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다]]></string>
   <string name="backup_tooltip_body">지갑의 백업 만들기</string>
   <string name="backup_tooltip_later_button">다음 기회로</string>
   <string name="backup_tooltip_backup_button">백업</string>
@@ -738,7 +749,9 @@
   <string name="backup_popup_title">지금 지갑 백업하기!</string>
   <string name="backup_popup_purchase_body">자금을 항상 안전하게 보관하세요.</string>
   <string name="backup_popup_gamification_body">보너스 레벨을 항상 안전하게 보관하세요.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_error_body">백업 파일을 생성할 수 없었습니다. 나중에 다시 시도해 주세요.</string>
+  <string name="backup_confirmation_save_device">백업 파일이 디바이스에 있습니다</string>
+  <string name="backup_confirmation_save_email">백업 파일이 이메일에 있습니다</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
@@ -824,7 +837,7 @@
   <string name="subscriptions_cancel_title">구독 취소</string>
   <string name="subscriptions_cancel_body">이 구독을 취소하시겠습니까?</string>
   <string name="subscriptions_cancel_no_button">아니오, 뒤로 가기</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">네, 취소</string>
   <string name="subscriptions_cancel_confirmation_title">구축 취소됨!</string>
   <string name="subscriptions_cancel_confirmation_body">이 구독에 대하여 더 이상 과금되지 않으며, %s까지 사용할 수 있습니다.</string>
   <string name="subscriptions_category_title">구독</string>
@@ -1090,26 +1103,6 @@
   <string name="appcoins_info_explorer_title">탐색기</string>
   <string name="appcoins_info_market_cap_title">시가총액</string>
   <string name="appcoins_info_volume_title">거래량 (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">이 지갑에는 아직 NFT가 없습니다!</string>
-  <string name="nfts_transact_button">이 NFT 전송</string>
-  <string name="nfts_transact_button_send">전송</string>
-  <string name="nfts_transact_button_next">다음</string>
-  <string name="nfts_transact_button_done">완료</string>
-  <string name="nfts_transact_button_success">알겠습니다</string>
-  <string name="nfts_transact_tip">친구의 지갑 주소를 입력하세요</string>
-  <string name="nfts_transact_input_tip">지갑 주소 입력...</string>
-  <string name="nfts_transact_done_mensage">%s 를 성공적으로 보냈습니다!</string>
-  <string name="nfts_generic_error">이런, 무언가 잘못되었습니다!</string>
-  <string name="nfts_transact_gas_title">급하신가요?</string>
-  <string name="nfts_transact_gas_description">얼마를 수수료로 지불할지 선택하세요. 수수료가 높을수록 거래 속도가 빨라집니다.</string>
-  <string name="nfts_transact_gas_price">가스 가격</string>
-  <string name="nfts_transact_gas_limit">가스 한도</string>
-  <string name="nfts_transact_gas_fee_message">거래 수수료</string>
-  <string name="nfts_transact_error_no_funds">자금이 부족합니다! ETH가 부족하여 수수료를 지불할 수 없습니다.</string>
-  <string name="nfts_transact_error_low_gas">가스가 너무 적습니다! 네트워크가 거래를 수락할 수 있도록 가스를 늘립니다.</string>
-  <string name="nfts_transact_error_already_in_progress">이 NFT는 이미 전송 중입니다! 이전 거래가 현재 진행 중입니다.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
   <string name="gift_card_field">카드 코드 입력...</string>
@@ -1196,14 +1189,13 @@
   <string name="rewards_spend_to_next_level_body">순 수준에 도달하려면 %1$s%2$s를 더 지출하십시오!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">e-Skills 획득을 인출합니다.</string>
   <string name="rewards_promo_code_card_title">프로모션 코드</string>
   <string name="rewards_promo_code_card_body">프로모션 코드를 사용하여 특별한 혜택을 누리십시오!</string>
   <string name="rewards_promo_code_status">상태:</string>
   <string name="rewards_promo_code_status_active">활성</string>
   <string name="rewards_promo_code_status_expired">만료됨</string>
-  <string name="home_nft_title">이제 AppCoins 지갑이 NFT를 지원합니다</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins 호환 게임</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins 호환 게임에서 첫 구매를 하고 모든 구매 시 보너스 잠금을 해제합니다.</string>
   <string name="rewards_bonus_every_purchase_title">모든 구매에서 %s%% 보너스를 받으세요</string>
@@ -1211,27 +1203,32 @@
   <string name="manage_wallet_wallet_changed_title">지갑 변경됨</string>
   <string name="manage_wallet_change_active_wallet_title">이 지갑을 선택하시겠습니까?</string>
   <string name="manage_wallet_change_wallet_name_title">지갑 이름 변경</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_set_a_name_button">지갑 이름을 설정하세요.</string>
+  <string name="manage_wallet_my_wallet_address_title">내 지갑 주소</string>
+  <string name="manage_wallet_verify_title">지불 방식 검증</string>
+  <string name="manage_wallet_verify_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
-  <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_payment_method_title">지불 방식 검증</string>
+  <string name="verify_card_body">결제수단을 확인하여 블록을 방지합니다.</string>
+  <string name="verify_card_one_more_step_title">검증을 위한 추가적인 한 단계</string>
+  <string name="verify_card_one_more_step_body">거래 상세 내용에 있는 코드를 입력하세요</string>
+  <string name="verify_card_one_more_step_button">코드 입력</string>
+  <string name="verify_card_verified">지불 방식 검증됨!</string>
+  <string name="verify_card_view_title">카드 검증</string>
+  <string name="verify_card_view_disclaimer">카드에 %s 금액이 승인되며 코드가 확인되는 즉시 환불됩니다.</string>
+  <string name="verify_card_view_title_2">은행 카드 상세를 입력하세요</string>
+  <string name="verify_card_get_a_code_button">코드 받기</string>
+  <string name="verify_card_code_title">거래 상세에서 이 코드를 확인하세요</string>
+  <string name="verify_card_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
+  <string name="verify_card_code_example_title">거래 요약 예시</string>
+  <string name="verify_card_code_example_date">거래 일자</string>
+  <string name="verify_card_code_example_description">설명</string>
+  <string name="verify_card_code_example_amount">금액</string>
+  <string name="verify_card_code_enter_title">숫자 4자리를 입력하세요</string>
+  <string name="verify_card_code_refund_body">코드 확인 후 24시간 이내에 %s 금액이 환불됩니다.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">보상 도전</string>
+  <string name="challenge_reward_card_body">AppCoins 크레딧 획득을 위하여 도전을 완료하세요.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
 </resources>

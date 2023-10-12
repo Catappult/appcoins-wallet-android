@@ -127,6 +127,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter
           android:autoVerify="true"
+          android:priority="10"
           tools:ignore="UnusedAttribute">
         <action android:name="android.intent.action.VIEW" />
 

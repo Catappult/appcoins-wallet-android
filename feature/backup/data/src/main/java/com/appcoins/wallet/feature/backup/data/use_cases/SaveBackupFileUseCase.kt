@@ -1,9 +1,9 @@
 package com.appcoins.wallet.feature.backup.data.use_cases
 
 import androidx.documentfile.provider.DocumentFile
-import com.appcoins.wallet.core.utils.android_common.Dispatchers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.backup.data.repository.BackupRepository
-import kotlinx.coroutines.withContext
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class SaveBackupFileUseCase
@@ -11,16 +11,18 @@ class SaveBackupFileUseCase
 constructor(
   private val createBackupUseCase: CreateBackupUseCase,
   private val backupRepository: BackupRepository,
-  private val dispatchers: Dispatchers
+  private val schedulers: RxSchedulers
 ) {
-
-  suspend operator fun invoke(
+  operator fun invoke(
     walletAddress: String,
     password: String,
     fileName: String,
     filePath: DocumentFile?
-  ) {
-    val backupData = createBackupUseCase(walletAddress, password)
-    withContext(dispatchers.io) { backupRepository.saveFile(backupData, filePath, fileName) }
+  ): Completable {
+    return createBackupUseCase(walletAddress, password)
+      .observeOn(schedulers.io)
+      .flatMapCompletable { backupData ->
+        backupRepository.saveFile(backupData, filePath, fileName)
+      }
   }
 }

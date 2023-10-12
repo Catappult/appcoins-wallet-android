@@ -53,6 +53,7 @@ class AndroidAppPlugin : Plugin<Project> {
         buildTypes {
           debug {
             isMinifyEnabled = false
+            isShrinkResources = false
             enableUnitTestCoverage = true
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
@@ -66,7 +67,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
           release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false //TODO this should be true, but its false since 2017
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
