@@ -25,7 +25,7 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
       freeCompilerArgs = freeCompilerArgs + Config.jvm.freeCompilerArgs
     }
 
-    packagingOptions {
+    packaging {
 //      resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
       resources.excludes += "META-INF/NOTICE"
       resources.excludes += "META-INF/LICENSE"
