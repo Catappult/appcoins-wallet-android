@@ -8,6 +8,7 @@ androidx_compose = "1.5.3"
 androidx_compose_material3 = "1.1.2"
 androidx_compose_compiler = "1.5.3"
 androidx_ktx_version = "1.6.1"
+androidx_activity_version = "1.8.0"
 androidx_lifecycle_ktx_version = "2.6.2"
 androidx_lifecycle_version = "2.2.0"
 androidx_multidex_version = "2.0.1"
@@ -38,7 +39,7 @@ desugar_version = "2.0.3"
 epoxy_version = "4.5.0"
 erc681_version = "0.36"
 ethereumj_sdk_version = "0.5.0.0"
-espresso_version = "3.4.0"
+espresso_version = "3.5.1"
 firebase_bom = "32.3.1"
 firebase_crashlytics_plugin = "2.9.9"
 firebase_performance_plugin = "1.4.2"
@@ -51,7 +52,7 @@ gradle_version = "3.3.2"
 gradle_plugin_version = "8.1.2"
 gson_version = "2.10.1"
 hilt_czerwinski_extensions_version = "1.3.0"
-hilt_version = "2.47"
+hilt_version = "2.48"
 hilt_compose_navigation = "1.1.0-beta01"
 indicative_version = "1.1.0"
 intercom_version = "15.2.1"
@@ -99,7 +100,7 @@ androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragme
 androidx-navigation-safeargs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx_navigation_version" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx_ktx_version" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_ktx_version" }
-androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx_ktx_version" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx_activity_version" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "corektx_version" }
 
 androidx-appcompact = { module = "androidx.appcompat:appcompat", version.ref = "androidx_appcompat_version" }
@@ -143,7 +144,7 @@ compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_com
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx_compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "androidx_compose" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
-compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_activity_version" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx_compose_compiler" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie_version" }
 
