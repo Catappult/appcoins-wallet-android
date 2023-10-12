@@ -299,24 +299,24 @@
   <string name="transaction_type_topup">充值</string>
   <string name="transaction_type_reverted_purchase_bonus">恢复购买奖励</string>
   <string name="transaction_type_reverted_promo_code_bonus">恢复促销码奖励</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction details</string>
-  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_type_reverted_extra_bonus">恢复额外奖励</string>
+  <string name="transaction_type_reverted_topup">恢复充值</string>
+  <string name="transaction_type_rejected_topup">充值失败</string>
+  <string name="transaction_type_rejected_subscription_purchase">订阅购买失败</string>
+  <string name="transaction_type_rejected_purchase">购买失败</string>
+  <string name="transaction_type_rejected_eskills_ticket">电子技能券失效</string>
+  <string name="transaction_type_refund_subscription">订阅更新</string>
+  <string name="transaction_type_subscription_payment">订阅支付</string>
+  <string name="transaction_type_funds_sent">奖金已发送</string>
+  <string name="transaction_type_funds_received">奖金已收到</string>
+  <string name="transaction_type_gift_card">礼品卡</string>
+  <string name="transaction_date_label">日期</string>
+  <string name="transaction_more_details_label">详情</string>
+  <string name="transaction_rejected_body">购买失败。更多详细信息请联系相关支持部门。</string>
+  <string name="transaction_reverted_body">恢复购买。更多详细信息请联系相关支持部门。</string>
+  <string name="transaction_status_rejected">拒绝</string>
+  <string name="transaction_details_header">交易明细</string>
+  <string name="transaction_details_txid">交易ID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
@@ -414,7 +414,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">充值</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s AppCoins积分</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
   <string name="topup_bonus_message">你的钱包将额外获得%s AppCoins积金。</string>
   <string name="topup_completed_1">%s的AppCoins积金</string>
@@ -427,7 +427,7 @@
   <string name="topup_maximum_value">最高充值额为%s</string>
   <string name="topup_no_method_available_title">没有付款方式！</string>
   <string name="topup_no_method_available_body">你所在的国家/地区目前没有可用于充值的付款方式。敬请关注！</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">本次充值可获得%s奖金</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
   <string name="balance_total_body">总余额(%s)</string>
@@ -492,15 +492,15 @@
   <string name="skip_button">暂时跳过</string>
   <string name="understand_button">我明白</string>
   <string name="install_button">安装</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">获取</string>
+  <string name="see_all_button">浏览所有</string>
   <string name="transfer_button">转账</string>
   <string name="top_up_button">充值</string>
   <string name="back_up_button">备份钱包</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
-  <string name="download_button">Download</string>
+  <string name="play_button">进入游戏</string>
+  <string name="manage_wallet_button">钱包管理</string>
+  <string name="log_out_button">退出登录</string>
+  <string name="download_button">下载</string>
   <string name="done">完成！</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -511,7 +511,7 @@
   <string name="get_started">开始</string>
   <string name="existent_wallet">我已经有钱包了</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">购买您最喜欢的游戏，其他事情交给我们。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
@@ -545,11 +545,11 @@
   <string name="verification_notification_reward_already_received_body">此电话号码已被用于接收奖励😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">已使用此号码。</string>
   <string name="verification_insert_code_error_common">糟糕，出现错误。请重试！</string>
-  <string name="verification_settings_unverified_title">Verify Payment Method</string>
+  <string name="verification_settings_unverified_title">验证支付方式</string>
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
-  <string name="verification_settings_verifying_title">Verifying…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">验证中……</string>
+  <string name="verification_verified_paypal_description">退款马上到账。您的支付方式即将通过验证。</string>
   <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
   <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
@@ -562,7 +562,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">其他支付方式</string>
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
@@ -610,9 +610,9 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">交易已被拒绝。请尝试使用其他卡或与付款方式。</string>
-  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
+  <string name="purchase_error_verify_wallet">请您验证支付方式，以完成本次购买。</string>
+  <string name="purchase_error_verify_card">请您验证银行卡，以完成本次购买。</string>
+  <string name="purachse_error_verify_card_button">验证银行卡</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
   <string name="purchase_app_needed_body">你需要以下应用才能完成购买。</string>
@@ -621,11 +621,11 @@
   <string name="purchase_error_wrong_pin_body">你的pin出现问题。请重试。</string>
   <string name="purchase_error_3d_body">3D身份验证有问题。请重试。</string>
   <string name="purchase_error_generic_contact_us_body">糟糕，出现错误。请重试或联系我们。</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="error_blocked_wallet_title">钱包已冻结</string>
+  <string name="error_blocked_wallet_body">出于安全原因，您的钱包已被冻结。请联系我们了解更多详细信息。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
-  <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
-  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
+  <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -648,8 +648,8 @@
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
   <string name="referral_onboarding_body_no_connection">通过推介项目，您和您的好友可获得AppCoins积金！</string>
   <string name="referral_onboarding_redeem_button">我已被邀请</string>
-  <string name="referral_verification_title">Verify Payment Method</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_title">验证支付方式</string>
+  <string name="referral_verification_body">您需要验证支付方式才能参与推荐项目。我们将通过短信向您发送验证码。</string>
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
   <string name="referral_verification_confirmation_body">首次进行应用内购买，您可以获得价值%1$s的AppCoins积金。首次购买必须使用AppCoins积金之外的任何支付方式，且金额必须超过%2$s。</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
@@ -662,8 +662,8 @@
   <string name="referral_view_share_link_button">分享邀请链接</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">分享链接到：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">每位朋友将获得价值%s的AppCoins积分。首先，您需要验证支付方式。</string>
+  <string name="referral_view_verify_button">验证支付方式</string>
   <string name="referral_view_i_have_been_invited_button">我已被邀请</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
@@ -717,7 +717,7 @@
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">请在此处输入验证码&#8230;</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
   <string name="backup_title">立即备份你的钱包！</string>
@@ -750,9 +750,9 @@
   <string name="backup_popup_title">立即备份钱包！</string>
   <string name="backup_popup_purchase_body">始终确保资金安全。</string>
   <string name="backup_popup_gamification_body">始终保持奖励水平安全。</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">备份文件无法创建。请稍后重试。</string>
+  <string name="backup_confirmation_save_device">备份文件在您的设备上</string>
+  <string name="backup_confirmation_save_email">备份文件已发送至您的邮箱</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -838,7 +838,7 @@
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
   <string name="subscriptions_cancel_no_button">否，返回</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">确认取消</string>
   <string name="subscriptions_cancel_confirmation_title">已取消订购！</string>
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
