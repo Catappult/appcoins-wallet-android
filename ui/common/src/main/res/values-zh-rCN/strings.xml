@@ -285,7 +285,7 @@
   <string name="transaction_order_reference_label">订单ID</string>
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
-  <string name="transaction_invoice_label">Invoice</string>
+  <string name="transaction_invoice_label">交易明细</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
   <string name="notification_payment_refused">支付被拒绝</string>
   <string name="dialog_credit_card_number">卡号</string>
@@ -293,12 +293,12 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">信用卡/借记卡</string>
   <string name="dialog_expiry_date">到期日期</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
+  <string name="transaction_type_purchase_bonus">购买奖励</string>
+  <string name="transaction_type_promo_code_bonus">促销码奖励</string>
+  <string name="transaction_type_extra_bonus">额外奖励</string>
+  <string name="transaction_type_topup">充值</string>
+  <string name="transaction_type_reverted_purchase_bonus">恢复购买奖励</string>
+  <string name="transaction_type_reverted_promo_code_bonus">恢复促销码奖励</string>
   <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
   <string name="transaction_type_reverted_topup">Reverted Top-up</string>
   <string name="transaction_type_rejected_topup">Rejected Top-up</string>
