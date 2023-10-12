@@ -7,7 +7,7 @@
   <string name="cancel">Anuluj</string>
   <string name="buy_button">Kup</string>
   <string name="topup_button">Doładowanie</string>
-  <string name="downloading">Downloading</string>
+  <string name="downloading">Pobieranie</string>
   <string name="get_button">Pobierz</string>
   <string name="got_it_button">Rozumiem</string>
   <string name="install_button">Instaluj</string>
@@ -62,10 +62,10 @@
   <string name="rooted_device_blocked_body">Niestety nie można grać w gry e-Skills za pomocą zrootowanego urządzenia.</string>
   <string name="unknown_error">An error has occurred.</string>
   <!-- Rankings and finished games -->
-  <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
+  <string name="waiting_for_opponents_to_finish">Czekamy, aż przeciwnicy zakończą grę.</string>
   <plurals name="opponent_points_title">
     <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="few">(%1$s did %2$d points)</item>
+    <item quantity="few">(%1$s zdobyło %2$d punktów)</item>
     <item quantity="many">(%1$s did %2$d points)</item>
     <item quantity="other">(%1$s did %2$d points)</item>
   </plurals>
@@ -76,46 +76,46 @@
   <plurals name="rank_score_details">
     <item quantity="one">%1$d point</item>
     <item quantity="few">%1$d points</item>
-    <item quantity="many">%1$d points</item>
+    <item quantity="many">%1$d punktów</item>
     <item quantity="other">%1$d points</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f zostały zapisane do Twojego portfela)</string>
+  <string name="you_won">Wygrywasz! %1$s</string>
+  <string name="you_lost_timeout">Koniec czasu, przegrywasz! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
     <item quantity="one">Day</item>
     <item quantity="few">Days</item>
     <item quantity="many">Days</item>
-    <item quantity="other">Days</item>
+    <item quantity="other">Dni</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">Hour</item>
     <item quantity="few">Hours</item>
     <item quantity="many">Hours</item>
-    <item quantity="other">Hours</item>
+    <item quantity="other">Godzin</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
     <item quantity="few">Minutes</item>
     <item quantity="many">Minutes</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="other">Minut</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">Second</item>
     <item quantity="few">Seconds</item>
     <item quantity="many">Seconds</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="other">Sekund</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Kolejna nagroda za</string>
+  <string name="current_top_3">Obecne Top 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Leaderboardy</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Zarabiaj</string>
   <string name="eskills_carousel_body">Pokonaj innych graczy z e-Skills</string>
-  <string name="eskills_game_1">Install the e-Skills game you think you\'re better at.</string>
+  <string name="eskills_game_1">Pobierz e-Skills jeśli czujesz, że to dla Ciebie.</string>
   <string name="carousel_game_2">Open it and get an entry ticket to start a match against other players.</string>
   <string name="carousel_game_3">Veat them and get a real-money prize!</string>
   <string name="carousel_game_description_title">Opis</string>
