@@ -46,9 +46,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireArguments().getBoolean(ONBOARDING_LAYOUT, false)) {
-      isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-    }
+    isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
     views.recoverWalletPasswordButton.setOnClickListener {
       viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }

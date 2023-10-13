@@ -82,10 +82,6 @@ constructor(
     mainNavController.navigate(R.id.action_navigate_to_send_funds)
   }
 
-  fun navigateToNfts(mainNavController: NavController) {
-    mainNavController.navigate(R.id.action_navigate_to_nfts)
-  }
-
   fun navigateToSettings(mainNavController: NavController, turnOnFingerprint: Boolean = false) {
     val bundle = Bundle()
     bundle.putBoolean(SettingsFragment.TURN_ON_FINGERPRINT, turnOnFingerprint)

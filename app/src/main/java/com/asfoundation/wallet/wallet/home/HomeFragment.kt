@@ -169,8 +169,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
-      NftCard(onClick = { navigateToNft() })
-      Spacer(modifier = Modifier.padding(32.dp))
+      Spacer(modifier = Modifier.padding(40.dp))
     }
   }
 
@@ -230,7 +229,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           stickyHeader {
             Text(
               text = date,
-              color = WalletColors.styleguide_medium_grey,
+              color = WalletColors.styleguide_dark_grey,
               modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
               style = MaterialTheme.typography.bodySmall
             )
@@ -253,7 +252,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
         }
       }
-      TextButton(onClick = { viewModel.onSeeAllTransactionsClick() }) {
+      TextButton(
+        modifier = Modifier.padding(top = 8.dp, end = 8.dp),
+        onClick = { viewModel.onSeeAllTransactionsClick() }) {
         Text(
           text = stringResource(R.string.see_all_button),
           color = WalletColors.styleguide_pink,
@@ -396,8 +397,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private fun showVipBadge(shouldShow: Boolean) {
     isVip = shouldShow
   }
-
-  private fun navigateToNft() = navigator.navigateToNfts(navController())
 
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
     transactionsNavigator.navigateToTransactionDetails(navController(), transaction)

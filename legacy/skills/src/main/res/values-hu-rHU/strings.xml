@@ -11,6 +11,8 @@
   <string name="get_button">Megszerzés</string>
   <string name="got_it_button">Értem</string>
   <string name="install_button">Telepítés</string>
+  <string name="retry_button">Újrapróbálkozás</string>
+  <string name="restart_button">Újraindítás</string>
   <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
   <string name="processing_loading_title">Belépőjegy lehívása</string>
   <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
@@ -58,30 +60,46 @@
   <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
   <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
   <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.</string>
-  <string name="restart_btn_text">Újraindítás</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Várakozás míg az ellenfelek befejezik a játékot.</string>
-  <string name="opponent_details">(%1$s did %2$d points)</string>
-  <string name="retry_btn_text">RETRY</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s %2$d pontot ért el)</item>
+    <item quantity="other">(%1$s %2$d pontot ért el)</item>
+  </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
-  <string name="rank_score_details">%1$d points</string>
-  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
-  <string name="you_won">You Won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d pont</item>
+    <item quantity="other">%1$d pont</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f érkezett a pénztárcádba)</string>
+  <string name="you_won">Nyertél! %1$s</string>
+  <string name="you_lost_timeout">Lejárt az időd, vesztettél! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="days">Days</string>
-  <string name="hours">Hours</string>
-  <string name="minutes">Minutes</string>
-  <string name="seconds">Seconds</string>
+  <plurals name="days">
+    <item quantity="one">Nap</item>
+    <item quantity="other">Nap</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Óra</item>
+    <item quantity="other">Óra</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Perc</item>
+    <item quantity="other">Perc</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Másodperc</item>
+    <item quantity="other">Másodperc</item>
+  </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward attributed in</string>
-  <string name="current_top_3">Current top 3</string>
+  <string name="next_reward_text">Következő jutalom ekkor:</string>
+  <string name="current_top_3">Jelenlegi top 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="retry">ÚJRA</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
+  <string name="leaderboard_button">Ranglisták</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Keress pénzt</string>
   <string name="eskills_carousel_body">Verj meg más játékosokat e-Skillsen</string>

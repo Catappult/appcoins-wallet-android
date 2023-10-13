@@ -11,6 +11,8 @@
   <string name="get_button">Holen</string>
   <string name="got_it_button">Verstanden</string>
   <string name="install_button">Installieren</string>
+  <string name="retry_button">Neuer Versuch</string>
+  <string name="restart_button">Erneut starten</string>
   <string name="provide_wallet_creating_wallet_header">Erstellen der Wallet-Adresse&#8230;</string>
   <string name="processing_loading_title">Erhalte dein Eintritts-Ticket</string>
   <string name="finding_room_loading_title">Warten auf Gegner</string>
@@ -58,30 +60,46 @@
   <string name="not_enough_funds_body">Du hast nicht genug Geld! Bitte lade auf, um die Eintrittskarte zu kaufen.</string>
   <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
   <string name="rooted_device_blocked_body">Leider kannst du mit einem gerooteten Gerät keine e-Skills Spiele spielen.</string>
-  <string name="restart_btn_text">Erneut starten</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Warten, bis die Gegner das Spiel beendet haben.</string>
-  <string name="opponent_details">(%1$s did %2$d points)</string>
-  <string name="retry_btn_text">RETRY</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
-  <string name="rank_score_details">%1$d points</string>
-  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
-  <string name="you_won">You Won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
+  <string name="you_won">You won! %1$s</string>
+  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="days">Days</string>
-  <string name="hours">Hours</string>
-  <string name="minutes">Minutes</string>
-  <string name="seconds">Seconds</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="other">Days</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="other">Hours</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">Minuten</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="other">Seconds</item>
+  </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward attributed in</string>
-  <string name="current_top_3">Current top 3</string>
+  <string name="next_reward_text">Next reward in</string>
+  <string name="current_top_3">Current Top 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="retry">ERNEUT VERSUCHEN</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
+  <string name="leaderboard_button">Leaderboards</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Verdiene Geld</string>
   <string name="eskills_carousel_body">Schlage andere Spieler mit e-Skills</string>

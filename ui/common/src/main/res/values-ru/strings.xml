@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">В процессе</string>
   <string name="transaction_status_failed">Не удалось</string>
   <string name="transaction_status_reverted">Отменена</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">Встроенная покупка</string>
   <string name="transaction_type_poa">Награда</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -423,6 +426,7 @@
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
   <string name="topup_no_method_available_title">Нет способов оплаты!</string>
   <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>
@@ -496,6 +500,7 @@
   <string name="manage_wallet_button">Управление кошельком</string>
   <string name="log_out_button">Выйти</string>
   <string name="download_button">Download</string>
+  <string name="done">Готово!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -556,7 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Другие способы оплаты</string>
   <string name="purchase_appcoins_available_body">Вы используете небольшое количество ETH, чтобы оплатить операционные издержки.</string>
   <string name="purchase_appcoins_noavailable_body">У вас недостаточно AppCoins или эфира для совершения платежа.</string>
   <string name="purchase_no_eth_body">У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
@@ -1125,26 +1130,6 @@
   <string name="appcoins_info_explorer_title">Проводник</string>
   <string name="appcoins_info_market_cap_title">Объём рынка</string>
   <string name="appcoins_info_volume_title">Сумма сделок (24 часа)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">У вас еще нет NFT в этом кошельке!</string>
-  <string name="nfts_transact_button">Отправить NFT</string>
-  <string name="nfts_transact_button_send">Отправить</string>
-  <string name="nfts_transact_button_next">Дальше</string>
-  <string name="nfts_transact_button_done">Готово</string>
-  <string name="nfts_transact_button_success">Ясно</string>
-  <string name="nfts_transact_tip">Введите адрес бумажника вашего друга</string>
-  <string name="nfts_transact_input_tip">Адрес кошелька здесь...</string>
-  <string name="nfts_transact_done_mensage">%s успешно отправлен!</string>
-  <string name="nfts_generic_error">Ой, что-то пошло не так!</string>
-  <string name="nfts_transact_gas_title">Вы торопитесь?</string>
-  <string name="nfts_transact_gas_description">Выберите, сколько комиссионных вы готовы платить. Чем выше комиссия, тем быстрее транзакция.</string>
-  <string name="nfts_transact_gas_price">Цена топлива</string>
-  <string name="nfts_transact_gas_limit">Лимит топлива</string>
-  <string name="nfts_transact_gas_fee_message">Комиссия за транзакцию</string>
-  <string name="nfts_transact_error_no_funds">Недостаточно средств! У вас недостаточно ETH, чтобы оплатить транзакцию.</string>
-  <string name="nfts_transact_error_low_gas">Оплата за топливо слишком низкая! Увеличьте цену топлива, чтобы сеть приняла вашу транзакцию.</string>
-  <string name="nfts_transact_error_already_in_progress">Этот NFT уже отправляется! В настоящее время уже выполняется предыдущая транзакция.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Погасите ваш подарочный код</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
@@ -1249,7 +1234,6 @@
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
   <string name="rewards_promo_code_status_expired">Истёк</string>
-  <string name="home_nft_title">Кошелек AppCoins теперь поддерживает NFT</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
@@ -1260,25 +1244,30 @@
   <string name="manage_wallet_change_wallet_name_title">Изменить название кошелька</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_title">Подтвердить способ оплаты</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_payment_method_title">Подтвердить способ оплаты</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
-  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_one_more_step_body">Вставьте код, который появляется в деталях транзакции</string>
+  <string name="verify_card_one_more_step_button">Вставьте код</string>
   <string name="verify_card_verified">Payment method verified!</string>
-  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_title">Подтвердить карту</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>
   <string name="verify_card_get_a_code_button">Get a code</string>
   <string name="verify_card_code_title">Find your code in the transaction details</string>
-  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_body">Уникальный код появится в сводке транзакции, предоставленной эмитентом вашей карты.</string>
   <string name="verify_card_code_example_title">Example of transaction summary</string>
   <string name="verify_card_code_example_date">Trans Date</string>
-  <string name="verify_card_code_example_description">Description</string>
-  <string name="verify_card_code_example_amount">Amount</string>
+  <string name="verify_card_code_example_description">Описание</string>
+  <string name="verify_card_code_example_amount">Сумма</string>
   <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
   <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>

@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">Belum selesai</string>
   <string name="transaction_status_failed">Gagal</string>
   <string name="transaction_status_reverted">Dikembalikan</string>
+  <string name="transaction_type_challenge_reward">Ganjaran Cabaran</string>
+  <string name="transaction_type_challenge_reward_rejected">Ganjaran Cabaran Ditolak</string>
+  <string name="transaction_type_challenge_reward_reverted">Ganjaran Cabaran Dipulangkan</string>
   <string name="transaction_type_iab">Belian Dalam Aplikasi</string>
   <string name="transaction_type_poa">Ganjaran</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -423,6 +426,7 @@
   <string name="topup_maximum_value">Tambah nilai maksimum ialah %s</string>
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -496,6 +500,7 @@
   <string name="manage_wallet_button">Urus dompet</string>
   <string name="log_out_button">Log keluar</string>
   <string name="download_button">Muat turun</string>
+  <string name="done">Selesai!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -1098,26 +1103,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">Anda belum ada NFT dalam dompet ini!</string>
-  <string name="nfts_transact_button">Hantar NFT ini</string>
-  <string name="nfts_transact_button_send">Hantar</string>
-  <string name="nfts_transact_button_next">Seterusnya</string>
-  <string name="nfts_transact_button_done">Selesai</string>
-  <string name="nfts_transact_button_success">Berjaya</string>
-  <string name="nfts_transact_tip">Masukkan alamat dompet rakan anda</string>
-  <string name="nfts_transact_input_tip">Alamat dompet di sini...</string>
-  <string name="nfts_transact_done_mensage">%s berjaya dihantar!</string>
-  <string name="nfts_generic_error">Oops! Ada yang tak kena!</string>
-  <string name="nfts_transact_gas_title">Anda nak cepat?</string>
-  <string name="nfts_transact_gas_description">Pilih berapa banyak anda mahu bayar untuk fi. Lebih tinggi fi, lebih pantas transaksi.</string>
-  <string name="nfts_transact_gas_price">Harga Minyak</string>
-  <string name="nfts_transact_gas_limit">Had Minyak</string>
-  <string name="nfts_transact_gas_fee_message">Fi Transaksi</string>
-  <string name="nfts_transact_error_no_funds">Dana tidak cukup! ETH anda tidak cukup untuk bayar fi.</string>
-  <string name="nfts_transact_error_low_gas">Minyak terlalu sedikit! Tingkatkan minyak anda supaya rangkaian dapat menerima transaksi anda.</string>
-  <string name="nfts_transact_error_already_in_progress">NFT ini sedang dihantar! Transaksi sebelum ini sedang diproses.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Tebus kod kad hadiah anda</string>
   <string name="gift_card_field">Kod kad di sini...</string>
@@ -1210,7 +1195,6 @@
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
   <string name="rewards_promo_code_status_expired">Luput</string>
-  <string name="home_nft_title">Dompet AppCoins kini menyokong NFT</string>
   <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
@@ -1242,4 +1226,9 @@
   <string name="verify_card_code_example_amount">Amaun</string>
   <string name="verify_card_code_enter_title">Masukkan kod 4 digit</string>
   <string name="verify_card_code_refund_body">%s akan dikembalikan dalam masa 24 jam setelah anda sahkan kod.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Ganjaran Cabaran</string>
+  <string name="challenge_reward_card_body">Selesaikan cabaran untuk dapat Kredit AppCoins.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Nikmati %s berbentuk Kredit AppCoins dalam dompet anda</string>
 </resources>

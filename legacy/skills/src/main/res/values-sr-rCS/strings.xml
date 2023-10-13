@@ -11,6 +11,8 @@
   <string name="get_button">Preuzmi</string>
   <string name="got_it_button">Jasno</string>
   <string name="install_button">Instaliraj</string>
+  <string name="retry_button">Pokušaj ponovo</string>
+  <string name="restart_button">Pokreni ponovo</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="processing_loading_title">Vaša ulaznica je u pripremi</string>
   <string name="finding_room_loading_title">Čekaju se protivnici</string>
@@ -58,30 +60,52 @@
   <string name="not_enough_funds_body">Nemate dovoljno sredstava! Dopunite da biste kupili ulaznicu.</string>
   <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
   <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa „rutovanim” uređajem.</string>
-  <string name="restart_btn_text">Pokreni ponovo</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Čekaju se protivnici da završe igru.</string>
-  <string name="opponent_details">(%1$s did %2$d points)</string>
-  <string name="retry_btn_text">RETRY</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s je ostvario %2$d bod)</item>
+    <item quantity="few">(%1$s je ostvario %2$d bodova)</item>
+    <item quantity="other">(%1$s je ostvario %2$d bodova)</item>
+  </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
-  <string name="rank_score_details">%1$d points</string>
-  <string name="amount_won_details">(your wallet is now %1$.2f$ heavier)</string>
-  <string name="you_won">You Won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, You Lost! %1$s</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d bod</item>
+    <item quantity="few">%1$d boda</item>
+    <item quantity="other">%1$d bodova</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ je dodato u vaš novčanik)</string>
+  <string name="you_won">Pobedili ste! %1$s</string>
+  <string name="you_lost_timeout">Vreme je isteklo, izgubili ste! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="days">Days</string>
-  <string name="hours">Hours</string>
-  <string name="minutes">Minutes</string>
-  <string name="seconds">Seconds</string>
+  <plurals name="days">
+    <item quantity="one">Dan</item>
+    <item quantity="few">Dana</item>
+    <item quantity="other">Dana</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Sat</item>
+    <item quantity="few">Sata</item>
+    <item quantity="other">Sati</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minut</item>
+    <item quantity="few">Minuta</item>
+    <item quantity="other">Minuta</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Sekunda</item>
+    <item quantity="few">Sekunde</item>
+    <item quantity="other">Sekundi</item>
+  </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward attributed in</string>
-  <string name="current_top_3">Current top 3</string>
+  <string name="next_reward_text">Sledeća nagrada za</string>
+  <string name="current_top_3">Trenutna 3 najbolja</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="retry">POKUŠAJ PONOVO</string>
-  <string name="leaderboard_btn_text">Leaderboards</string>
+  <string name="leaderboard_button">Tabela</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Zaradite novac</string>
   <string name="eskills_carousel_body">Pobedite druge igrače sa e-Skills</string>

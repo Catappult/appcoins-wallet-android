@@ -250,6 +250,9 @@
   <string name="transaction_status_pending">대기중</string>
   <string name="transaction_status_failed">실패함</string>
   <string name="transaction_status_reverted">복귀됨</string>
+  <string name="transaction_type_challenge_reward">보상 도전</string>
+  <string name="transaction_type_challenge_reward_rejected">보상 도전 거절</string>
+  <string name="transaction_type_challenge_reward_reverted">되돌린 도전 보상</string>
   <string name="transaction_type_iab">앱내 구매</string>
   <string name="transaction_type_poa">보상</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -423,6 +426,7 @@
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
   <string name="topup_no_method_available_title">지불 방법 없음!</string>
   <string name="topup_no_method_available_body">현재 해당 국가에서 충전할 수 있는 결제 방법이 없습니다. 계속 주목해주세요!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
@@ -496,6 +500,7 @@
   <string name="manage_wallet_button">지갑 관리</string>
   <string name="log_out_button">로그아웃</string>
   <string name="download_button">다운로드</string>
+  <string name="done">완료!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -1098,26 +1103,6 @@
   <string name="appcoins_info_explorer_title">탐색기</string>
   <string name="appcoins_info_market_cap_title">시가총액</string>
   <string name="appcoins_info_volume_title">거래량 (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">이 지갑에는 아직 NFT가 없습니다!</string>
-  <string name="nfts_transact_button">이 NFT 전송</string>
-  <string name="nfts_transact_button_send">전송</string>
-  <string name="nfts_transact_button_next">다음</string>
-  <string name="nfts_transact_button_done">완료</string>
-  <string name="nfts_transact_button_success">알겠습니다</string>
-  <string name="nfts_transact_tip">친구의 지갑 주소를 입력하세요</string>
-  <string name="nfts_transact_input_tip">지갑 주소 입력...</string>
-  <string name="nfts_transact_done_mensage">%s 를 성공적으로 보냈습니다!</string>
-  <string name="nfts_generic_error">이런, 무언가 잘못되었습니다!</string>
-  <string name="nfts_transact_gas_title">급하신가요?</string>
-  <string name="nfts_transact_gas_description">얼마를 수수료로 지불할지 선택하세요. 수수료가 높을수록 거래 속도가 빨라집니다.</string>
-  <string name="nfts_transact_gas_price">가스 가격</string>
-  <string name="nfts_transact_gas_limit">가스 한도</string>
-  <string name="nfts_transact_gas_fee_message">거래 수수료</string>
-  <string name="nfts_transact_error_no_funds">자금이 부족합니다! ETH가 부족하여 수수료를 지불할 수 없습니다.</string>
-  <string name="nfts_transact_error_low_gas">가스가 너무 적습니다! 네트워크가 거래를 수락할 수 있도록 가스를 늘립니다.</string>
-  <string name="nfts_transact_error_already_in_progress">이 NFT는 이미 전송 중입니다! 이전 거래가 현재 진행 중입니다.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
   <string name="gift_card_field">카드 코드 입력...</string>
@@ -1210,7 +1195,6 @@
   <string name="rewards_promo_code_status">상태:</string>
   <string name="rewards_promo_code_status_active">활성</string>
   <string name="rewards_promo_code_status_expired">만료됨</string>
-  <string name="home_nft_title">이제 AppCoins 지갑이 NFT를 지원합니다</string>
   <string name="home_appcoins_compatible_games_title">AppCoins 호환 게임</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins 호환 게임에서 첫 구매를 하고 모든 구매 시 보너스 잠금을 해제합니다.</string>
@@ -1242,4 +1226,9 @@
   <string name="verify_card_code_example_amount">금액</string>
   <string name="verify_card_code_enter_title">숫자 4자리를 입력하세요</string>
   <string name="verify_card_code_refund_body">코드 확인 후 24시간 이내에 %s 금액이 환불됩니다.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">보상 도전</string>
+  <string name="challenge_reward_card_body">AppCoins 크레딧 획득을 위하여 도전을 완료하세요.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
 </resources>
