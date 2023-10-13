@@ -200,9 +200,8 @@ class SkillsEndgameFragment : Fragment() {
     }
     views.animationDescriptionText.text = descriptionText
     val winner: User = roomResponse.roomResult.winner
-    val opponentDetails = resources.getString(
-      R.string.opponent_details, winner.userName, winner.score
-    )
+    val opponentDetails =
+      requireContext().resources.getQuantityString(R.plurals.opponent_points_title,winner.score.toInt(), winner.userName, winner.score)
     views.secondaryMessage.text = opponentDetails
     views.secondaryMessage.visibility = View.VISIBLE
   }

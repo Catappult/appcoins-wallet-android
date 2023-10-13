@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.C;
+import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei;
@@ -18,6 +20,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -65,6 +68,21 @@ import javax.inject.Inject;
         .observe(this, this::onDefaultNetwork);
     viewModel.savedGasPreferences()
         .observe(this, this::onSavedGasSettings);
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

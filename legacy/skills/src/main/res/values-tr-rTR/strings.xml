@@ -7,6 +7,12 @@
   <string name="cancel">İptal et</string>
   <string name="buy_button">Satın Al</string>
   <string name="topup_button">Yükle</string>
+  <string name="downloading">İndiliriyor</string>
+  <string name="get_button">Al</string>
+  <string name="got_it_button">Anladım</string>
+  <string name="install_button">Yükle</string>
+  <string name="retry_button">Tekrar deneyin</string>
+  <string name="restart_button">Yeniden Başlat</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
@@ -54,4 +60,51 @@
   <string name="not_enough_funds_body">Yeterli bakiyen yok! Giriş bileti almak için lütfen yükleme yap.</string>
   <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
   <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Rakiplerin oyunu bitirmesi bekleniyor.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s, %2$d puan kazandı)</item>
+    <item quantity="other">(%1$s, %2$d puan kazandı)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d puan</item>
+    <item quantity="other">%1$d puan</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ cüzdanına eklendi)</string>
+  <string name="you_won">Kazandın! %1$s</string>
+  <string name="you_lost_timeout">Süren doldu, kaybettin! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Gün</item>
+    <item quantity="other">Gün</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Saat</item>
+    <item quantity="other">Saat</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Dakika</item>
+    <item quantity="other">Dakika</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Saniye</item>
+    <item quantity="other">Saniye</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Sonraki ödüle kalan süre:</string>
+  <string name="current_top_3">Şu anki Top 3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Lider Tablosu</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Para Kazan</string>
+  <string name="eskills_carousel_body">e-Skills ile diğer oyuncuları mağlup et</string>
+  <string name="eskills_game_1">İyi oynadığını düşündüğün e-Skills oyunlarını yükle.</string>
+  <string name="carousel_game_2">Aç ve diğer oyunculara karşı bir maç başlatmak için giriş bileti al.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Açıklama</string>
 </resources>

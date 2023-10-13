@@ -7,6 +7,12 @@
   <string name="cancel">रद्द करा</string>
   <string name="buy_button">खरेदी करा</string>
   <string name="topup_button">भरणा करा</string>
+  <string name="downloading">डाऊनलोड होत आहे</string>
+  <string name="get_button">मिळवा</string>
+  <string name="got_it_button">समजले</string>
+  <string name="install_button">इंस्टॉल</string>
+  <string name="retry_button">पुन्हा प्रयत्न करा</string>
+  <string name="restart_button">परत सुरु करा</string>
   <string name="provide_wallet_creating_wallet_header">वॉलेट पत्ता तयार करत आहे &#8230;</string>
   <string name="processing_loading_title">आपले प्रवेश तिकिट मिळविणे</string>
   <string name="finding_room_loading_title">प्रतिस्पर्ध्यांसाठी थांबत आहोत</string>
@@ -54,4 +60,51 @@
   <string name="not_enough_funds_body">पुरेसे पैसे नाहीत! प्रवेश तिकिट खरेदी करण्यासाठी कृपया टॉप अप करा.</string>
   <string name="error_message_local_payment_method_body">प्रवेश शुल्क भरण्यासाठी स्थानिक पेमेंट पद्धती अमान्य आहेत. कृपया नविन वॉलेट निर्माण करुन त्यात बँक कार्डाने वा पेपालने पैसे भरा!</string>
   <string name="rooted_device_blocked_body">दुर्दैवाने रुटेड डिव्हाईससह आपण ई-स्किल्स खेळ खेळु शकत नाहीत.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">विरोधकांनी खेळ संपविण्यासाठी थांबलो आहोत.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s नी %2$d पॉईंट केले)</item>
+    <item quantity="other">(%1$s did %2$d points)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d पॉईंटस</item>
+    <item quantity="other">%1$d points</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ आपल्या वॉलेटमध्ये जमा केलेत)</string>
+  <string name="you_won">आपण जिंकलात! %1$s</string>
+  <string name="you_lost_timeout">आपली वेळ संपली, आपण हरलात! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="other">दिवस</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="other">तास</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="other">मिनिटे</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="other">सेकंद</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">पुढील बक्षिस या वेळात</string>
+  <string name="current_top_3">सध्याचे टॉप ३</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">लीडरबोर्डस</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">पैसे कमवा</string>
+  <string name="eskills_carousel_body">ई-स्किल्स सह इतर खेळाडुंना मात द्या</string>
+  <string name="eskills_game_1">ज्यात आपले कौशल्य आहे असे ई-स्किल्स खेळ इंस्टॉल करा.</string>
+  <string name="carousel_game_2">उघडा आणि इतर खेळाडुंसह मॅच सुरु करण्याचे प्रवेश तिकिट मिळवा.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">विवरण</string>
 </resources>

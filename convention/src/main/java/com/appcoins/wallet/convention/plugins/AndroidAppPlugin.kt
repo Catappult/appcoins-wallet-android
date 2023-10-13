@@ -6,7 +6,6 @@ import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
-import com.appcoins.wallet.convention.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -55,6 +54,7 @@ class AndroidAppPlugin : Plugin<Project> {
         buildTypes {
           debug {
             isMinifyEnabled = false
+            isShrinkResources = false
             enableUnitTestCoverage = true
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
@@ -68,7 +68,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
           release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false //TODO this should be true, but its false since 2017
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
@@ -100,8 +101,8 @@ class AndroidAppPlugin : Plugin<Project> {
             enable = true
           }
           composeOptions {
-            kotlinCompilerExtensionVersion = "1.4.4"
-          }  // "1.1.0"
+            kotlinCompilerExtensionVersion = "1.4.3"
+          }
           compose = true
         }
 

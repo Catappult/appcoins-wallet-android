@@ -8,13 +8,13 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_gravity">center</item>
     <item name="android:animateLayoutChanges">true</item>
-    <item name="android:background">@drawable/background_card_white</item>
+    <item name="android:background">@drawable/background_card_blue</item>
   </style>
 
   <style name="Rating.Title">
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">19sp</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
 </resources>

@@ -7,6 +7,12 @@
   <string name="cancel">ยกเลิก</string>
   <string name="buy_button">ซื้อ</string>
   <string name="topup_button">เติม</string>
+  <string name="downloading">กำลังดาวน์โหลด</string>
+  <string name="get_button">รับ</string>
+  <string name="got_it_button">ได้รับ</string>
+  <string name="install_button">ติดตั้ง</string>
+  <string name="retry_button">ลอง</string>
+  <string name="restart_button">เริ่มใหม่</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="processing_loading_title">รับบัตรเข้างาน</string>
   <string name="finding_room_loading_title">รอฝ่ายตรงข้าม</string>
@@ -54,4 +60,45 @@
   <string name="not_enough_funds_body">คุณมีเงินไม่พอ! กรุณาเติมเงินเพื่อซื้อบัตรเข้างาน</string>
   <string name="error_message_local_payment_method_body">ไม่รับวิธีการชำระเงินในท้องถิ่นเพื่อซื้อค่าธรรมเนียมแรกเข้า โปรดสร้างกระเป๋าเงินใหม่และเติมเงินด้วยบัตรธนาคารหรือ PayPal!</string>
   <string name="rooted_device_blocked_body">น่าเสียดาย คุณไม่สามารถเล่นเกม e-Skills กับอุปกรณ์ที่รูทได้</string>
+  <string name="unknown_error">เกิดข้อผิดพลาด</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">รอให้ฝ่ายตรงข้ามจบเกมส์ก่อน</string>
+  <plurals name="opponent_points_title">
+    <item quantity="other">(%1$s ทำ %2$d คะแนน)</item>
+  </plurals>
+  <string name="rankings_today">วันนี้</string>
+  <string name="rankings_week">สัปดาห์</string>
+  <string name="rankings_all_time">เวลาทั้งหมด</string>
+  <string name="not_attributed_place_holder">ไม่ได้นำมาประกอบ</string>
+  <plurals name="rank_score_details">
+    <item quantity="other">%1$d คะแนน</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2$ ถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ)</string>
+  <string name="you_won">คุณชนะ!%1$s</string>
+  <string name="you_lost_timeout">เวลาของคุณหมดแล้ว คุณแพ้! %1$s</string>
+  <string name="you_lost">คุณแพ้!%1$s</string>
+  <plurals name="days">
+    <item quantity="other">วัน</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">ชั่วโมง</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">นาที</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">วินาที</item>
+  </plurals>
+  <string name="last_winners_title">ผู้ชนะคนสุดท้าย</string>
+  <string name="next_reward_text">รางวัลถัดไป</string>
+  <string name="current_top_3">3 อันดับแรกปัจจุบัน</string>
+  <string name="your_ranking_title">อันดับของคุณ</string>
+  <string name="leaderboard_button">ลีดเดอร์บอร์ด</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">ทำรายได้</string>
+  <string name="eskills_carousel_body">เอาชนะผู้เล่นคนอื่นด้วย e-Skills</string>
+  <string name="eskills_game_1">ติดตั้งเกมส์ e-Skills ที่คุณคิดว่าคุณถนัด</string>
+  <string name="carousel_game_2">เปิดและรับตั๋วเพื่อร่มต้นคู่แข่งขัน</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">รายละเอียด</string>
 </resources>

@@ -26,19 +26,19 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodsAdapter
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -197,20 +197,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
     this@TopUpFragment.paymentMethods = paymentMethods
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
-      showPaypalLogout = showLogoutPaypal,
-      wasLoggedOut = { presenter.wasLoggedOut },
       logoutCallback = {
         presenter.removePaypalBillingAgreement()
-        presenter.wasLoggedOut = true
-        presenter.showingLogout = false
+        presenter.showPayPalLogout.onNext(false)
         setNextButton()
         showAsLoading()
-      }
+      },
+      disposables = presenter.disposables,
+      showPayPalLogout = presenter.showPayPalLogout
     )
     selectPaymentMethod(paymentMethods)
 

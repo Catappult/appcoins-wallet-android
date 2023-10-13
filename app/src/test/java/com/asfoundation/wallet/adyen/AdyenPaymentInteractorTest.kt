@@ -2,31 +2,30 @@ package com.asfoundation.wallet.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.analytics.analytics.partners.AttributionEntity
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AttributionEntity
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
-import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import okhttp3.internal.wait
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -265,7 +264,10 @@ class AdyenPaymentInteractorTest {
   @Test
   fun convertToFiatTest() {
     val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
+    val expectedFiatValue = FiatValue(
+      BigDecimal(2),
+      TEST_FIAT_CURRENCY
+    )
     Mockito.`when`(inAppPurchaseInteractor.convertToFiat(2.0, TEST_FIAT_CURRENCY))
         .thenReturn(Single.just(expectedFiatValue))
 
@@ -311,7 +313,10 @@ class AdyenPaymentInteractorTest {
   @Test
   fun convertToLocalFiatTest() {
     val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
+    val expectedFiatValue = FiatValue(
+      BigDecimal(2),
+      TEST_FIAT_CURRENCY
+    )
     Mockito.`when`(inAppPurchaseInteractor.convertToLocalFiat(2.0))
         .thenReturn(Single.just(expectedFiatValue))
 

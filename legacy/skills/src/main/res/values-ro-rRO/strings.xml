@@ -7,6 +7,12 @@
   <string name="cancel">Anulează</string>
   <string name="buy_button">Cumpără</string>
   <string name="topup_button">Alimentează</string>
+  <string name="downloading">Se descarcă</string>
+  <string name="get_button">Obține</string>
+  <string name="got_it_button">Am înțeles</string>
+  <string name="install_button">Instalează</string>
+  <string name="retry_button">Reîncearcă</string>
+  <string name="restart_button">Repornește</string>
   <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
   <string name="processing_loading_title">Obținem biletul tău de intrare</string>
   <string name="finding_room_loading_title">Se așteaptă oponenții</string>
@@ -54,4 +60,57 @@
   <string name="not_enough_funds_body">Fonduri insuficiente! Te rugăm să alimentezi pentru a cumpăra un bilet de intrare.</string>
   <string name="error_message_local_payment_method_body">Metodele de plată locale nu sunt acceptate pentru achiziționarea unei taxe de intrare. Creează un portofel nou și alimentează folosind un card bancar sau PayPal!</string>
   <string name="rooted_device_blocked_body">Din păcate, nu poți juca jocuri e-Skills cu un dispozitiv cu Root.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Se așteaptă ca adversarii să finalizeze jocul.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s a obținut %2$d punct)</item>
+    <item quantity="few">(%1$s a obținut %2$d puncte)</item>
+    <item quantity="other">(%1$s a obținut %2$d puncte)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d punct</item>
+    <item quantity="few">%1$d puncte</item>
+    <item quantity="other">%1$d puncte</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ au fost creditați în portofelul tău)</string>
+  <string name="you_won">Ai câștigat! %1$s</string>
+  <string name="you_lost_timeout">Timpul tău a expirat, ai pierdut! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Zi</item>
+    <item quantity="few">Zile</item>
+    <item quantity="other">Zile</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Oră</item>
+    <item quantity="few">Ore</item>
+    <item quantity="other">Ore</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minut</item>
+    <item quantity="few">Minute</item>
+    <item quantity="other">Minute</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Secundă</item>
+    <item quantity="few">Secunde</item>
+    <item quantity="other">Secunde</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Următoarea recompensă în</string>
+  <string name="current_top_3">Top 3 în prezent</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Clasamente</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Câștigă bani</string>
+  <string name="eskills_carousel_body">Învinge alți jucători cu e-Skills</string>
+  <string name="eskills_game_1">Instalează jocul e-Skills la care te pricepi cel mai bine.</string>
+  <string name="carousel_game_2">Deschide-l și obține un bilet de intrare, pentru a începe o partidă împotriva altor jucători.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Descriere</string>
 </resources>

@@ -5,19 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedPasswordRecover
 import com.asfoundation.wallet.recover.result.RecoverPasswordResult
 import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,6 +32,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   private val viewModel: RecoverPasswordViewModel by viewModels()
   private val views by viewBinding(RecoverPasswordFragmentBinding::bind)
+  private var isFromOnboarding = false
 
   override fun onResume() {
     super.onResume()
@@ -43,15 +46,16 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireArguments().getBoolean(ONBOARDING_LAYOUT, false)) {
-      views.recoverWalletBackButton.visibility = View.GONE
-    }
-    views.recoverWalletBackButton.setOnClickListener {
-      navigator.navigateBack()
-    }
+    isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
     views.recoverWalletPasswordButton.setOnClickListener {
       viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }
+    views.recoverPasswordInfo.recoverPasswordInput.setColor(
+          ContextCompat.getColor(
+            requireContext(),
+            R.color.styleguide_blue
+      )
+    )
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -81,14 +85,14 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       requireArguments().getString(WALLET_BALANCE_KEY)
     views.recoverPasswordInfo.recoverWalletAddress.text =
       requireArguments().getString(WALLET_ADDRESS_KEY)
+    views.recoverPasswordInfo.recoverWalletName.text =
+      requireArguments().getString(WALLET_NAME_KEY)
   }
 
   private fun handleSuccessState(recoverResult: RecoverPasswordResult) {
     when (recoverResult) {
       is SuccessfulPasswordRecover -> {
-        navigator.navigateToCreateWalletDialog(
-          requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
-        )
+        navigator.navigateToSuccess(isFromOnboarding)
       }
       else -> handleErrorState(recoverResult)
     }
@@ -115,6 +119,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   companion object {
     const val KEYSTORE_KEY = "keystore"
     const val WALLET_BALANCE_KEY = "wallet_balance"
+    const val WALLET_NAME_KEY = "wallet_name"
     const val WALLET_ADDRESS_KEY = "wallet_address"
   }
 }

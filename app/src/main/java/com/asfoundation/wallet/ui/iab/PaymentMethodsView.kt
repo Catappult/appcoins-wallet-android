@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -12,7 +13,7 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean, showLogoutPaypal: Boolean
+    frequency: String?, isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(

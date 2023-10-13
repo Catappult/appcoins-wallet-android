@@ -7,6 +7,12 @@
   <string name="cancel">Ακύρωση</string>
   <string name="buy_button">Αγορά</string>
   <string name="topup_button">Φόρτιση</string>
+  <string name="downloading">Γίνεται λήψη</string>
+  <string name="get_button">Λήψη</string>
+  <string name="got_it_button">Το κατάλαβα</string>
+  <string name="install_button">Εγκατάσταση</string>
+  <string name="retry_button">Επανάληψη</string>
+  <string name="restart_button">Επανεκκίνηση</string>
   <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
   <string name="processing_loading_title">Παραλαβή του εισιτηρίου εισόδου σας</string>
   <string name="finding_room_loading_title">Αναμονή αντιπάλων</string>
@@ -54,4 +60,51 @@
   <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
   <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
   <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με «σπασμένη» συσκευή.</string>
+  <string name="unknown_error">Παρουσιάστηκε ένα σφάλμα.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Αναμονή αντιπάλων για να τελειώσουν το παιχνίδι.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(Ο/Η %1$s πέτυχε %2$d βαθμό)</item>
+    <item quantity="other">(Ο/Η %1$s πέτυχε %2$d βαθμούς)</item>
+  </plurals>
+  <string name="rankings_today">ΣΗΜΕΡΑ</string>
+  <string name="rankings_week">ΕΒΔΟΜΑΔΑ</string>
+  <string name="rankings_all_time">ΑΠΟ ΤΗΝ ΑΡΧΗ</string>
+  <string name="not_attributed_place_holder">Δεν έχει αποδοθεί</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d βαθμός</item>
+    <item quantity="other">%1$d βαθμοί</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ πιστώθηκαν στο wallet σας)</string>
+  <string name="you_won">Κερδίσατε! %1$s</string>
+  <string name="you_lost_timeout">Ο χρόνος σας έληξε, xάσατε! %1$s</string>
+  <string name="you_lost">Χάσατε! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Ημέρα</item>
+    <item quantity="other">Ημέρες</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Ώρα</item>
+    <item quantity="other">Ώρες</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Λεπτό</item>
+    <item quantity="other">Λεπτά</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Δευτερόλεπτο</item>
+    <item quantity="other">Δευτερόλεπτα</item>
+  </plurals>
+  <string name="last_winners_title">Τελευταίοι νικητές</string>
+  <string name="next_reward_text">Επόμενη ανταμοιβή σε</string>
+  <string name="current_top_3">Τρέχοντες Πρώτοι 3</string>
+  <string name="your_ranking_title">Η κατάταξή σας</string>
+  <string name="leaderboard_button">Πίνακες κατάταξης</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Κερδίστε χρήματα</string>
+  <string name="eskills_carousel_body">Νικήστε άλλους παίχτες με τα e-Skills</string>
+  <string name="eskills_game_1">Εγκαταστήστε το παιχνίδι e-Skills στο οποίο πιστεύετε ότι είστε καλύτερος/η.</string>
+  <string name="carousel_game_2">Ανοίξτε το και λάβετε ένα εισιτήριο εισόδου για να ξεκινήσετε έναν αγώνα ενάντια σε άλλους παίκτες.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Περιγραφή</string>
 </resources>

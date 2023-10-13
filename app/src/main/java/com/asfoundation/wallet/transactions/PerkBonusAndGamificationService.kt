@@ -17,10 +17,9 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
-import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
+import com.appcoins.wallet.core.utils.jvm_common.C
+import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.main.PendingIntentNavigator
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
@@ -57,7 +56,7 @@ class PerkBonusAndGamificationService :
   private lateinit var notificationManager: NotificationManager
 
   @Inject
-  lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  lateinit var getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 
   @Inject
   lateinit var backupTriggerPreferences: BackupTriggerPreferencesDataSource

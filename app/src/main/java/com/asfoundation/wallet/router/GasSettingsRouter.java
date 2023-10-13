@@ -2,7 +2,7 @@ package com.asfoundation.wallet.router;
 
 import android.app.Activity;
 import android.content.Intent;
-import com.asfoundation.wallet.C;
+import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;

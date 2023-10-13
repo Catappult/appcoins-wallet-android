@@ -2,11 +2,8 @@ package com.asfoundation.wallet.promo_code.bottom_sheet
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
-import com.asf.wallet.R
-import com.asfoundation.wallet.backup.skip.BackupSkipDialogFragment
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.success.PromoCodeSuccessBottomSheetFragment
-import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 

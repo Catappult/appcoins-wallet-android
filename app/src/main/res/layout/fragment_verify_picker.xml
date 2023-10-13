@@ -23,7 +23,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
-      app:cardBackgroundColor="@color/white"
+      app:cardBackgroundColor="@color/styleguide_blue_secondary"
       app:cardElevation="0dp"
       app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
@@ -51,7 +51,7 @@
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
           android:text="@string/verify_paypal_button"
-          android:textColor="@color/styleguide_blue"
+          android:textColor="@color/styleguide_white"
           android:textSize="16sp"
           />
     </LinearLayout>
@@ -62,7 +62,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="15dp"
       android:layout_marginBottom="15dp"
-      app:cardBackgroundColor="@color/white"
+      app:cardBackgroundColor="@color/styleguide_blue_secondary"
       app:cardElevation="0dp"
       app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
@@ -81,6 +81,7 @@
           android:layout_gravity="center_vertical"
           android:layout_marginStart="15dp"
           android:src="@drawable/ic_credit_card"
+          app:tint="@color/styleguide_white"
           />
       <TextView
           android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
           android:text="@string/verify_card_button"
-          android:textColor="@color/styleguide_blue"
+          android:textColor="@color/styleguide_white"
           android:textSize="16sp"
           />
     </LinearLayout>

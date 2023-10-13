@@ -7,6 +7,12 @@
   <string name="cancel">إلغاء</string>
   <string name="buy_button">شراء</string>
   <string name="topup_button">إضافة</string>
+  <string name="downloading">جاري التنزيل</string>
+  <string name="get_button">احصل</string>
+  <string name="got_it_button">حصلت</string>
+  <string name="install_button">تثبيت</string>
+  <string name="retry_button">حاول ثانية</string>
+  <string name="restart_button">إعادة التشغيل</string>
   <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
   <string name="processing_loading_title">الحصول على بطاقة دخولك</string>
   <string name="finding_room_loading_title">في انتظار الخصوم</string>
@@ -54,4 +60,75 @@
   <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
   <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
   <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك أن تلعب ألعاب e-Skills بجهاز تمت إعادة تشغيله.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">في انتظار الخَصْم لإنهاء اللعبة.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="zero">(%1$s حقق %2$d نقطة)</item>
+    <item quantity="one">(%1$s حقق %2$d نقطة)</item>
+    <item quantity="two">(%1$s حقق %2$d نقطتين)</item>
+    <item quantity="few">(%1$s حقق %2$d نقاط)</item>
+    <item quantity="many">(%1$s حقق %2$d نقطة)</item>
+    <item quantity="other">(%1$s حقق %2$d نقطة)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="zero">%1$d نقطة</item>
+    <item quantity="one">%1$d نقطة</item>
+    <item quantity="two">%1$d نقطتين</item>
+    <item quantity="few">%1$d نقاط</item>
+    <item quantity="many">%1$d نقطة</item>
+    <item quantity="other">%1$d نقطة</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ أُضيفت إلى محفظتك)</string>
+  <string name="you_won">لقد ربحت! %1$s</string>
+  <string name="you_lost_timeout">انتهى الوقت، لقد خسرت! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="zero">يوم</item>
+    <item quantity="one">يوم</item>
+    <item quantity="two">يومان</item>
+    <item quantity="few">أيام</item>
+    <item quantity="many">يومًا</item>
+    <item quantity="other">يومًا</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="zero">ساعة</item>
+    <item quantity="one">ساعة</item>
+    <item quantity="two">ساعتان</item>
+    <item quantity="few">ساعات</item>
+    <item quantity="many">ساعة</item>
+    <item quantity="other">ساعة</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="zero">دقيقة</item>
+    <item quantity="one">دقيقة</item>
+    <item quantity="two">دقيقتان</item>
+    <item quantity="few">دقائق</item>
+    <item quantity="many">دقيقة</item>
+    <item quantity="other">دقيقة</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="zero">ثانية</item>
+    <item quantity="one">ثانية</item>
+    <item quantity="two">ثانيتان</item>
+    <item quantity="few">ثوانٍ</item>
+    <item quantity="many">ثانية</item>
+    <item quantity="other">ثانية</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">الهدية التالية بـ</string>
+  <string name="current_top_3">أول 3 حاليًّا</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">لوحات القائد</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">اكسب المال</string>
+  <string name="eskills_carousel_body">اهزم اللاعبين الآخرين مع e-Skills</string>
+  <string name="eskills_game_1">ثبت لعبة e-Skills التي تعتقد أنها أنك تتقنها.</string>
+  <string name="carousel_game_2">افتحها واحصل على تذكرة دخول لتبدأ مباراة ضد لاعبين آخرين.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">الوصف</string>
 </resources>

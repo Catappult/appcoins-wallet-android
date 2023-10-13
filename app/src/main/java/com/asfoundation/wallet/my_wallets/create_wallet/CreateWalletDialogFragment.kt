@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,9 +48,6 @@ class CreateWalletDialogFragment : DialogFragment(),
     if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
       views.createWalletText.text = getText(R.string.provide_wallet_creating_wallet_header)
       viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
-    } else {
-      views.createWalletText.text = getText(R.string.import_wallet_recovering_body)
-      viewModel.recoverWallet()
     }
   }
 

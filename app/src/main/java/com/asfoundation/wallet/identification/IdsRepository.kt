@@ -3,8 +3,8 @@ package com.asfoundation.wallet.identification
 import android.content.Context
 import android.os.Build
 import android.provider.Settings
+import com.appcoins.wallet.core.analytics.analytics.partners.InstallerService
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
-import com.asfoundation.wallet.billing.partners.InstallerService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
