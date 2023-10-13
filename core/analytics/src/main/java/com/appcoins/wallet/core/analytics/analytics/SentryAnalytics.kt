@@ -2,37 +2,36 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.sentry.Breadcrumb
 import io.sentry.Sentry
-import io.sentry.event.Breadcrumb
-import io.sentry.event.BreadcrumbBuilder
-import io.sentry.event.User
+import io.sentry.SentryItemType
+import io.sentry.SentryLevel
+import io.sentry.protocol.User
 import org.json.JSONObject
-import javax.inject.Inject
 
-class SentryAnalytics @Inject constructor(
-    @ApplicationContext private val context: Context
-) :
-    AnalyticsSetup {
+class SentryAnalytics : AnalyticsSetup {
 
     override fun setUserId(walletAddress: String) {
-        val old = Sentry.getContext().user.id
-        Sentry.getContext().recordBreadcrumb(
-            BreadcrumbBuilder()
-                .setType(Breadcrumb.Type.USER)
-                .setLevel(Breadcrumb.Level.INFO)
-                .setMessage("Changing wallet from $old to $walletAddress")
-                .setCategory("wallet")
-                .build()
+        val old = User()
+        val user = User().apply {
+            id = walletAddress
+        }
+        Sentry.addBreadcrumb(
+            Breadcrumb("Changing wallet from $old to $walletAddress").apply {
+                type = SentryItemType.UserFeedback.itemType
+                level = SentryLevel.INFO
+                category = "wallet"
+            }
         )
-        Sentry.getContext().user = User(walletAddress, null, null, null)
+        Sentry.setUser(user)
     }
 
     override fun setGamificationLevel(level: Int) {
-        Sentry.getContext().addExtra(AnalyticsLabels.USER_LEVEL, level)
+        Sentry.setExtra(AnalyticsLabels.USER_LEVEL, level.toString())
     }
 
     override fun setWalletOrigin(origin: String) {
-        Sentry.getContext().addExtra(AnalyticsLabels.WALLET_ORIGIN, origin)
+        Sentry.setExtra(AnalyticsLabels.WALLET_ORIGIN, origin)
     }
 
     override fun setPromoCode(code: String?, bonus: Double?, validity: Int?, appName: String?) {
@@ -41,6 +40,6 @@ class SentryAnalytics @Inject constructor(
         promoCode.put("bonus", bonus)
         promoCode.put("validity", validity)
         promoCode.put("appName", appName)
-        Sentry.getContext().addExtra(AnalyticsLabels.PROMO_CODE, promoCode)
+        Sentry.setExtra(AnalyticsLabels.PROMO_CODE, promoCode.toString())
     }
 }

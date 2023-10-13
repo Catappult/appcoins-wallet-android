@@ -1,39 +1,33 @@
 package com.asfoundation.wallet.logging
 
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import io.sentry.Breadcrumb
 import io.sentry.Sentry
-import io.sentry.event.Breadcrumb
-import io.sentry.event.BreadcrumbBuilder
-import io.sentry.event.Event
-import io.sentry.event.EventBuilder
+import io.sentry.SentryItemType
+import io.sentry.SentryLevel
 
 class SentryReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     throwable?.let {
-      Sentry.capture(throwable)
+      Sentry.captureException(throwable)
     }
   }
 
   override fun log(tag: String?, message: String?, asError: Boolean, addToBreadcrumbs: Boolean) {
     message?.let {
       if (asError) {
-        val errorEvent = EventBuilder()
-        errorEvent.withLevel(Event.Level.ERROR)
-        errorEvent.withMessage(it)
-        Sentry.capture(errorEvent)
+        Sentry.captureMessage(it, SentryLevel.ERROR)
       } else {
-        Sentry.capture("$tag: $message")
+        Sentry.captureMessage("$tag: $message")
       }
       if (addToBreadcrumbs) {
-        Sentry.getContext().recordBreadcrumb(
-          BreadcrumbBuilder()
-            .setType(Breadcrumb.Type.DEFAULT)
-            .setLevel(Breadcrumb.Level.ERROR)
-            .setMessage(tag)
-            .setCategory(tag)
-            .setData(mapOf(Pair("error", message)))
-            .build()
+        Sentry.addBreadcrumb(
+          Breadcrumb(message).apply {
+            type = SentryItemType.Event.itemType
+            level = SentryLevel.ERROR
+            category = tag
+          }
         )
       }
     }
@@ -41,8 +35,8 @@ class SentryReceiver : LogReceiver {
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
     throwable?.let {
-      Sentry.capture("$tag: $message")
-      Sentry.capture(it)
+      Sentry.captureMessage("$tag: $message")
+      Sentry.captureException(it)
     }
   }
 }
