@@ -21,6 +21,7 @@ class PaymentMethodsMapper @Inject constructor(
       "merged_appcoins" -> SelectedPaymentMethod.MERGED_APPC
       "earn_appcoins" -> SelectedPaymentMethod.EARN_APPC
       "onebip" -> SelectedPaymentMethod.CARRIER_BILLING
+      "challenge_reward" -> SelectedPaymentMethod.CHALLENGE_REWARD
       "vk_pay" -> SelectedPaymentMethod.VKPAY
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
@@ -40,6 +41,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.CARRIER_BILLING -> "carrier_billing"
       SelectedPaymentMethod.GIROPAY -> "giropay"
+      SelectedPaymentMethod.CHALLENGE_REWARD -> "challenge_reward"
       SelectedPaymentMethod.VKPAY -> "vk_pay"
       SelectedPaymentMethod.ERROR -> ""
     }

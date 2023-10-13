@@ -12,6 +12,7 @@ import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreem
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -60,6 +61,7 @@ class TopUpFragmentPresenter(
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
+    handleChallengeRewardWalletAddress()
   }
 
   fun stop() {
@@ -254,6 +256,8 @@ class TopUpFragmentPresenter(
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
       .doOnNext {
+        if(it == PaymentMethodId.CHALLENGE_REWARD.id)
+          view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
         setNextButton(it)
       }
@@ -283,7 +287,8 @@ class TopUpFragmentPresenter(
     .doOnSuccess {
       if (interactor.isBonusValidAndActive(it)) {
         val scaledBonus = formatter.scaleFiat(it.amount)
-        view.showBonus(scaledBonus, it.currency)
+        if(view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
+          view.hideBonusAndSkeletons() else view.showBonus(scaledBonus, it.currency)
       } else {
         view.removeBonus()
       }
@@ -449,6 +454,10 @@ class TopUpFragmentPresenter(
     )
   }
 
+  private fun handleChallengeRewardWalletAddress() {
+    activity?.createChallengeReward()
+  }
+
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
@@ -476,7 +485,9 @@ class TopUpFragmentPresenter(
       PaymentType.VKPAY -> {
         activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
       }
-
+      PaymentType.CHALLENGE_REWARD -> {
+        activity?.navigateToChallengeReward()
+      }
       else -> {}
     }
   }

@@ -148,6 +148,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
     presenter = PaymentMethodsPresenter(
       view = this,
+      activity = iabView,
       viewScheduler = AndroidSchedulers.mainThread(),
       networkThread = Schedulers.io(),
       disposables = CompositeDisposable(),
@@ -223,6 +224,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     presenter.onResume(firstRun)
     super.onResume()
   }
+
+  override fun showChallengeReward() = iabView.showChallengeReward()
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,

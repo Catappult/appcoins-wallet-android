@@ -51,5 +51,9 @@ interface TopUpActivityView {
 
   fun launchPerkBonusAndGamificationService(address: String)
 
+  fun createChallengeReward()
+
+  fun navigateToChallengeReward()
+
   fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 }

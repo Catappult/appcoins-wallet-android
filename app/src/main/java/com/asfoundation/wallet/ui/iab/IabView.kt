@@ -111,6 +111,10 @@ interface IabView {
     gamificationLevel: Int
   )
 
+  fun createChallengeReward()
+
+  fun showChallengeReward()
+
   fun showPaymentMethodsView()
 
   fun showShareLinkPayment(

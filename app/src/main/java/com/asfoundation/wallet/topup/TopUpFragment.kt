@@ -366,6 +366,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     selectedPaymentMethodId = adapter.getSelectedItemData().id
   }
 
+  override fun getCurrentPaymentMethod(): String? = selectedPaymentMethodId
+
   override fun rotateChangeCurrencyButton() {
     val rotateAnimation = RotateAnimation(
         0f,
@@ -439,7 +441,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     showBonus()
   }
 
-  private fun showBonus() {
+  override fun showBonus() {
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.VISIBLE
   }
@@ -583,6 +585,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
           PaymentTypeInfo(PaymentType.GIROPAY, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
+        PaymentType.CHALLENGE_REWARD.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.CHALLENGE_REWARD, data.id, data.label, data.iconUrl)
         PaymentType.VKPAY.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.VKPAY, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,

@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
+  private val activity: IabView?,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
   val disposables: CompositeDisposable,
@@ -85,6 +86,7 @@ class PaymentMethodsPresenter(
     handleSupportClicks()
     handleAuthenticationResult()
     handleTopupClicks()
+    handleChallengeRewardWalletAddress()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
@@ -184,6 +186,7 @@ class PaymentMethodsPresenter(
                 cachedGamificationLevel
               )
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
+              CHALLENGE_REWARD -> view.showChallengeReward()
               else -> return@doOnNext
             }
           }
@@ -308,7 +311,7 @@ class PaymentMethodsPresenter(
         cachedFiatValue!!,
         paymentNavigationData.isPreselected
       )
-
+      CHALLENGE_REWARD -> view.showChallengeReward()
       else -> {
         showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -922,6 +925,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(EARN_APPC) -> view.replaceBonus()
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
+      paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
@@ -1117,6 +1121,10 @@ class PaymentMethodsPresenter(
     val paymentMethod = loadedPaymentMethodEvent ?: return
     loadedPaymentMethodEvent = null
     analytics.stopTimingForTotalEvent(paymentMethod)
+  }
+
+  private fun handleChallengeRewardWalletAddress(){
+    activity?.createChallengeReward()
   }
 
   enum class ViewState {
