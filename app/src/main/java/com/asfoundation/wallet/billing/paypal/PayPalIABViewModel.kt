@@ -15,6 +15,9 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -23,17 +26,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PayPalIABViewModel @Inject constructor(
-    private val createPaypalTransactionUseCase: CreatePaypalTransactionUseCase,
-    private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
-    private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
-    private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
-    private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
-    private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
-    private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val supportInteractor: SupportInteractor,
-    rxSchedulers: RxSchedulers,
-    private val analytics: BillingAnalytics,
-    private val paymentAnalytics: PaymentMethodsAnalytics
+  private val createPaypalTransactionUseCase: CreatePaypalTransactionUseCase,
+  private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
+  private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
+  private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
+  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
+  private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
+  private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val supportInteractor: SupportInteractor,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  rxSchedulers: RxSchedulers,
+  private val analytics: BillingAnalytics,
+  private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {
 
   sealed class State {
@@ -237,6 +241,9 @@ class PayPalIABViewModel @Inject constructor(
     purchaseUid: String?,
     transactionBuilder: TransactionBuilder
   ) {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+      PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id
+    )
     sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
     createSuccessBundleUseCase(
       transactionBuilder.type,

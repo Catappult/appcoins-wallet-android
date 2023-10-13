@@ -59,7 +59,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="2dp"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginEnd="36dp"
       android:text="@string/purchase_appcoins_credits_default_body"
       android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="@+id/payment_method_ic"
@@ -103,5 +103,23 @@
         />
 
   </LinearLayout>
+
+
+  <ImageButton
+      android:id="@+id/payment_more_logout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="Logout"
+      android:foregroundTint="@color/styleguide_payments_main_text"
+      android:src="@drawable/ic_more_dark"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
+      app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/styleguide_payments_main_text"
+      tools:visibility="visible"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
