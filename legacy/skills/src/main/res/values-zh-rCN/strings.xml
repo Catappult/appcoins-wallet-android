@@ -44,7 +44,7 @@
   <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
   <string name="update_button">更新</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">您和您邀请的朋友将获得%s的额定奖金。您最多可以邀请5位朋友，且他们必须是新用户。一旦他们在初次游戏中使用您的邀请码，奖金将计入您的钱包。</string>
+  <string name="refer_a_friend_waiting_room_tooltip">您和您邀请的朋友将获得%s的奖金。您最多可以邀请5位朋友，且他们必须是新用户。一旦他们在第一个 e-Skills 游戏中使用您的邀请码，奖金将记入您的钱包。</string>
   <string name="refer_a_friend_first_time_header">准备好展示技能了？</string>
   <string name="refer_a_friend_first_time_body">击败其他玩家获得真钱奖励！我们从无需入场费的练习游戏开始吧。</string>
   <string name="refer_a_friend_error_unavailable_body">此功能目前无法使用。</string>
