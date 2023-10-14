@@ -44,7 +44,7 @@
   <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
   <string name="update_button">更新</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">您和您邀请的朋友将获得%s的奖金。您最多可以邀请5位朋友，且他们必须是新用户。一旦他们在第一个 e-Skills 游戏中使用您的邀请码，奖金将记入您的钱包。</string>
+  <string name="refer_a_friend_waiting_room_tooltip">您和您邀请的朋友将获得$%s的奖金。您最多可以邀请5位朋友，且他们必须是新用户。一旦他们在第一个 e-Skills 游戏中使用您的邀请码，奖金将记入您的钱包。</string>
   <string name="refer_a_friend_first_time_header">准备好展示技能了？</string>
   <string name="refer_a_friend_first_time_body">击败其他玩家获得真钱奖励！我们从无需入场费的练习游戏开始吧。</string>
   <string name="refer_a_friend_error_unavailable_body">此功能目前无法使用。</string>
@@ -55,16 +55,16 @@
   <string name="refer_a_friend_waiting_from_body">每邀请一个好友均可获得奖励。</string>
   <string name="refer_a_friend_invitation_message">您收到了玩%1$s的邀请！从%3$s下载游戏后，请使用邀请码%2$s。</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">电子技能游戏不能使用活跃VPN进行。请禁用VPN后重试！</string>
+  <string name="error_vpn_not_permitted_title">e-Skills 游戏不能使用已激活的 VPN 进行。请禁用 VPN 后重试！</string>
   <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
   <string name="not_enough_funds_body">你的资金不足！请充值以购买入场券。</string>
   <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
-  <string name="rooted_device_blocked_body">很遗憾，您的设备已被破解，无法启动电子技能游戏。</string>
+  <string name="rooted_device_blocked_body">很遗憾，您不能使用根设备游玩e-Skills游戏。</string>
   <string name="unknown_error">An error has occurred.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">正在等待对手加入游戏。</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">(%1$s获得%2$d分)</item>
+    <item quantity="other">（%1$s获得%2$d分）</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
@@ -73,7 +73,7 @@
   <plurals name="rank_score_details">
     <item quantity="other">%1$d分</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f美金已计入您的钱包)</string>
+  <string name="amount_won_details">（%1$.2f$ 已记入您的钱包）</string>
   <string name="you_won">您胜利了！%1$s</string>
   <string name="you_lost_timeout">您的时间到了，您失败了！%1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
@@ -96,9 +96,9 @@
   <string name="leaderboard_button">排行榜</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">赚钱</string>
-  <string name="eskills_carousel_body">用电子技能击败其他玩家</string>
-  <string name="eskills_game_1">安装您认为自己更擅长的电子技能游戏。</string>
-  <string name="carousel_game_2">打开获得入场券，开启与其他玩家的竞赛之旅吧。</string>
+  <string name="eskills_carousel_body">游玩 e-Skills 游戏，击败其他玩家</string>
+  <string name="eskills_game_1">安装您认为自己更擅长的 e-Skills 游戏。</string>
+  <string name="carousel_game_2">打开它并获得入场券，开启与其他玩家的竞赛之旅吧。</string>
   <string name="carousel_game_3">Veat them and get a real-money prize!</string>
   <string name="carousel_game_description_title">说明</string>
 </resources>
