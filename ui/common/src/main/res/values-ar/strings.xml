@@ -1265,7 +1265,7 @@
   <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
-  <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
