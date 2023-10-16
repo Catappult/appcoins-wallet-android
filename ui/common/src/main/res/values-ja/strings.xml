@@ -1199,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins対応ゲーム</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
-  <string name="rewards_bonus_every_purchase_title">購入のたびに%s%% ボーナスをゲット</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
