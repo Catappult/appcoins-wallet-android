@@ -1199,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins အသုံးျပဳႏိုင္ေသာဂိမ္းမ်ား</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ပထမဆုံးဝယ္ယူမႈကို ျပဳလုပ္ကာ ဝယ္ယူမႈတိုင္းတြင္ ေဘာနပ္စ္တစ္ခုကို ပြင့္ေစလိုက္ပါ။</string>
-  <string name="rewards_bonus_every_purchase_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္တစ္ခုကို ခံစားလိုက္ပါ</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">ပိုက္ဆံအိတ္ကို ေျပာင္းလိုက္ပါသည္</string>
   <string name="manage_wallet_change_active_wallet_title">ဤပိုက္ဆံအိတ္ကို ေ႐ြးခ်ယ္လိုပါသလား။</string>
