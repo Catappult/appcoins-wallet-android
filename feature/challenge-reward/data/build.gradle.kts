@@ -1,19 +1,9 @@
 plugins {
-  id("appcoins.android.library")
+  id("appcoins.android.library.compose")
 }
 
 android {
   namespace = "com.appcoins.wallet.feature.challengereward.data"
-
-  @Suppress("UnstableApiUsage")
-  buildFeatures {
-    compose = true
-  }
-
-  @Suppress("UnstableApiUsage")
-  composeOptions {
-    kotlinCompilerExtensionVersion = "1.4.4"
-  }
 }
 
 dependencies {
