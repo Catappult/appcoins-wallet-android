@@ -1233,7 +1233,7 @@
   <string name="home_appcoins_compatible_games_title">अॅपकॉईन्सशी सुसंगत खेळ</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
-  <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%% बोनस मिळवा</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
