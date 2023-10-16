@@ -1225,7 +1225,7 @@
   <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
-  <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
