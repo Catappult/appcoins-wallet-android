@@ -55,10 +55,10 @@ private fun CardItem(
 ) {
   val context = LocalContext.current
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, context) },
+    onClick = { openGame(gameCardData.gamePackage, gameCardData.actionUrl, context) },
     modifier = Modifier
       .width(332.dp)
       .height(150.dp)
@@ -84,7 +84,7 @@ private fun CardItem(
               1F to WalletColors.styleguide_blue_secondary.copy(alpha = 0.99F)
             )
           )
-        )
+      )
       Row(
         modifier = Modifier
           .fillMaxWidth()
@@ -159,7 +159,8 @@ data class GameData(
   val title: String,
   val gameIcon: String,
   val gameBackground: String,
-  val gamePackage: String
+  val gamePackage: String,
+  val actionUrl: String?
 )
 
 @Preview
@@ -172,12 +173,14 @@ fun PreviewGamesBundle() {
         gameIcon = "https://cdn6.aptoide.com/imgs/b/3/e/b3e336be6c4874605cbc597d811d1822_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/e/e/0/ee0469bf46c9a4423baf41fe8dd59b43_screen.jpg",
         gamePackage = "com.mobile.legends",
+        actionUrl = "www.aptoide.com",
       ),
       GameData(
         title = "Lords Mobile",
         gameIcon = "https://cdn6.aptoide.com/imgs/0/7/e/07eb83a511499243706f0c791b0b8969_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
         gamePackage = "com.igg.android.lordsmobile",
+        actionUrl = "www.aptoide.com",
       )
     ),
     {}

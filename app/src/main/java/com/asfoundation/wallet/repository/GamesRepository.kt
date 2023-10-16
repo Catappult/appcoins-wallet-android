@@ -12,12 +12,14 @@ class GamesRepository @Inject constructor(private val gamesApi: GamesApi) :
 
   override fun getGamesListing(): Single<List<GameData>> {
     return gamesApi.getGamesListing()
-      .map { it.map {
+      .map {
+        it.map {
           GameData(
             title = it.appName,
             gameIcon = it.appIcon,
             gameBackground = it.background,
-            gamePackage = it.packageName
+            gamePackage = it.packageName,
+            actionUrl = it.actionUrl
           )
         }
       }
