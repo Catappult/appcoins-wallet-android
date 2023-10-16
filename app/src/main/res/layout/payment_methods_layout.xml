@@ -22,11 +22,11 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_wallet"
-        android:visibility="gone"
         />
 
     <LinearLayout
@@ -185,14 +185,14 @@
               android:layout_height="@dimen/small_button_height"
               android:layout_gravity="center_vertical"
               android:layout_marginTop="6dp"
-              android:layout_marginBottom="42dp"
+              android:layout_marginBottom="52dp"
               app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
               app:buttonType="text"
+              app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="1.0"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
-              app:layout_constraintBottom_toBottomOf="parent"
               />
 
           <androidx.constraintlayout.widget.Group
@@ -220,8 +220,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/styleguide_payments_background"
-            app:layout_constraintTop_toTopOf="@id/bonus_layout"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
             />
 
         <include
