@@ -1199,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">Trò chơi tương thích với AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
-  <string name="rewards_bonus_every_purchase_title">Tận hưởng %s%% tiền thưởng trong mỗi lần mua</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Đã thay đổi ví</string>
   <string name="manage_wallet_change_active_wallet_title">Bạn có muốn chọn ví này không?</string>
