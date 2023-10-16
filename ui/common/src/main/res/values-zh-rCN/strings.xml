@@ -1199,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins兼容的游戏</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">在与AppCoins兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
-  <string name="rewards_bonus_every_purchase_title">每次购买均可享有%s奖金</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">钱包更换</string>
   <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>
