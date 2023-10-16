@@ -1213,7 +1213,7 @@ Wallets</item>
   <string name="home_appcoins_compatible_games_title">Παιχνίδια Συμβατά με AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα παιχνίδι που είναι συμβατό με AppCoins και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>
-  <string name="rewards_bonus_every_purchase_title">Απολαύστε ένα %s%% bonus σε κάθε αγορά</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet αλλάχθηκε</string>
   <string name="manage_wallet_change_active_wallet_title">Θέλετε να επιλέξετε αυτό το wallet;</string>
