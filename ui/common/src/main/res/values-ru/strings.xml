@@ -1238,7 +1238,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
-  <string name="rewards_bonus_every_purchase_title">Наслаждайтесь бонусом в %s%% при каждой покупке</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>
