@@ -5,8 +5,6 @@
     android:id="@+id/recover_wallet_graph"
     app:startDestination="@id/recover_entry_fragment">
 
-  <include app:graph="@navigation/home_graph" />
-
   <fragment
       android:id="@+id/recover_entry_fragment"
       android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
@@ -25,11 +23,11 @@
         app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
-        android:id="@+id/action_navigate_to_home_graph"
-        app:destination="@id/home_graph"
+        android:id="@+id/action_navigate_to_nav_bar_fragment"
+        app:destination="@id/nav_bar_fragment"
         app:launchSingleTop="true"
         app:popUpTo="@id/recover_entry_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
   </fragment>
 
   <fragment
@@ -59,13 +57,6 @@
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
         app:destination="@id/nav_bar_fragment"
-        app:popUpTo="@id/recover_entry_fragment"
-        app:popUpToInclusive="true"/>
-
-    <action
-        android:id="@+id/action_navigate_to_home_graph"
-        app:destination="@id/home_graph"
-        app:launchSingleTop="true"
         app:popUpTo="@id/recover_entry_fragment"
         app:popUpToInclusive="true"/>
   </fragment>
