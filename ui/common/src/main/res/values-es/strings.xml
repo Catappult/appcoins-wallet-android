@@ -1212,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">Juegos Compatibles con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
-  <string name="rewards_bonus_every_purchase_title">Disfruta de un bonus del %s%% en todas las compras</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>
