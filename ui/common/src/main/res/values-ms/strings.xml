@@ -1199,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
-  <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% bagi setiap pembelian</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Dompet diubah</string>
   <string name="manage_wallet_change_active_wallet_title">Anda mahu pilih dompet ini?</string>
