@@ -1212,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Uyumlu Oyunlar</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">İlk satın alma işlemini AppCoins uyumlu bir oyunla yap ve her satın alımda bir bonus aç.</string>
-  <string name="rewards_bonus_every_purchase_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Cüzdan değiştirildi</string>
   <string name="manage_wallet_change_active_wallet_title">Bu cüzdanı seçmek istiyor musun?</string>
