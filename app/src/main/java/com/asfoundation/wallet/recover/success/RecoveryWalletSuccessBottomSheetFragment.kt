@@ -53,7 +53,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     views.recoveryWalletBottomButton.setOnClickListener {
       if (requireArguments().getSerializable(IS_FROM_ONBOARDING) as Boolean) {
-        navigator.navigateToMainHomeGraph(navController())
+        navigator.navigateToNavBarGraph(navController())
       } else {
         navigator.navigateBack()
       }
