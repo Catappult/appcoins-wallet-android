@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallet_name_bottom_sheet_layout"
+    android:theme="@style/MaterialAppTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
+  <TextView
+      android:id="@+id/manage_wallet_bottom_sheet_title"
+      style="@style/PromoCodeTitle"
+      android:textSize="16sp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:textColor="@color/styleguide_light_grey"
+      android:text="@string/manage_wallet_change_active_wallet_title"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/wallet_new_name_sheet_layout"
+      android:theme="@style/MaterialAppTheme"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/rectangle_text_default_promo_code"
+      app:layout_constraintTop_toBottomOf="@id/manage_wallet_bottom_sheet_title"
+      android:layout_marginTop="@dimen/mid_margin"
+      android:padding="@dimen/big_padding"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      >
+
+    <TextView
+        android:id="@+id/new_wallet_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="wallet name"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="12sp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/new_wallet_balance"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/new_wallet_balance"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/styleguide_dark_grey"
+        tools:text="$ 12.12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/manage_wallet_bottom_sheet_submit_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/wallet_view_activate_button"
+      app:buttonType="filled"
+      app:layout_constraintTop_toBottomOf="@id/wallet_new_name_sheet_layout"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <com.appcoins.wallet.ui.widgets.SystemView
+      android:id="@+id/manage_wallet_bottom_sheet_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/styleguide_blue"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_margin="26dp"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

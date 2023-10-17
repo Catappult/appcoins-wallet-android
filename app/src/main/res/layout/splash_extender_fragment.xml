@@ -39,7 +39,7 @@
       app:lottie_speed="2"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_repeatCount="0"
-      app:lottie_rawRes="@raw/vip_coin_flip"
+      app:lottie_rawRes="@raw/vip_coin_flip_dark"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"

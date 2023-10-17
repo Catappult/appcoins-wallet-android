@@ -7,6 +7,12 @@
   <string name="cancel">Скасувати</string>
   <string name="buy_button">Купити</string>
   <string name="topup_button">Поповнити</string>
+  <string name="downloading">Завантаження</string>
+  <string name="get_button">Отримати</string>
+  <string name="got_it_button">Зрозуміло</string>
+  <string name="install_button">Встановити</string>
+  <string name="retry_button">Повторіть спробу</string>
+  <string name="restart_button">Перезапустити</string>
   <string name="provide_wallet_creating_wallet_header">Створення адреси гаманця&#8230;</string>
   <string name="processing_loading_title">Отримання вхідного квитка</string>
   <string name="finding_room_loading_title">В очікуванні суперників</string>
@@ -54,4 +60,63 @@
   <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
   <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
   <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на рутованому пристрої.</string>
+  <string name="unknown_error">An error has occurred.</string>
+  <!-- Rankings and finished games -->
+  <string name="waiting_for_opponents_to_finish">Чекаємо, поки опоненти закінчать гру.</string>
+  <plurals name="opponent_points_title">
+    <item quantity="one">(%1$s did %2$d point)</item>
+    <item quantity="few">(%1$s did %2$d points)</item>
+    <item quantity="many">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s набрав(ла) %2$d бали)</item>
+  </plurals>
+  <string name="rankings_today">TODAY</string>
+  <string name="rankings_week">WEEK</string>
+  <string name="rankings_all_time">ALL TIME</string>
+  <string name="not_attributed_place_holder">Not attributed</string>
+  <plurals name="rank_score_details">
+    <item quantity="one">%1$d point</item>
+    <item quantity="few">%1$d points</item>
+    <item quantity="many">%1$d points</item>
+    <item quantity="other">%1$d бали</item>
+  </plurals>
+  <string name="amount_won_details">(%1$.2f$ зараховано на ваш гаманець)</string>
+  <string name="you_won">Ви виграли! %1$s</string>
+  <string name="you_lost_timeout">Ваш час вийшов, ви програли! %1$s</string>
+  <string name="you_lost">You Lost! %1$s</string>
+  <plurals name="days">
+    <item quantity="one">Day</item>
+    <item quantity="few">Days</item>
+    <item quantity="many">Days</item>
+    <item quantity="other">Дні</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="one">Hour</item>
+    <item quantity="few">Hours</item>
+    <item quantity="many">Hours</item>
+    <item quantity="other">Години</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="one">Minute</item>
+    <item quantity="few">Хвилин</item>
+    <item quantity="many">Хвилин</item>
+    <item quantity="other">Хвилини</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="one">Second</item>
+    <item quantity="few">Seconds</item>
+    <item quantity="many">Seconds</item>
+    <item quantity="other">Секунди</item>
+  </plurals>
+  <string name="last_winners_title">Last winners</string>
+  <string name="next_reward_text">Наступна нагорода через</string>
+  <string name="current_top_3">Поточний топ-3</string>
+  <string name="your_ranking_title">Your ranking</string>
+  <string name="leaderboard_button">Дошки лідерів</string>
+  <!-- e-Skills Games Carrousel -->
+  <string name="eskills_carousel_title">Заробляйте гроші</string>
+  <string name="eskills_carousel_body">Перемагайте інших гравців з e-Skills</string>
+  <string name="eskills_game_1">Встановіть e-Skills гру, в яку ви граєте найкраще.</string>
+  <string name="carousel_game_2">Відкрийте та отримайте вхідний квиток, щоб розпочати гру проти інших гравців.</string>
+  <string name="carousel_game_3">Veat them and get a real-money prize!</string>
+  <string name="carousel_game_description_title">Опис</string>
 </resources>

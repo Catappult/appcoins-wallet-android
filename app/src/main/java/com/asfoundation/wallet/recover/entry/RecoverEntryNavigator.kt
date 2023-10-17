@@ -7,11 +7,12 @@ import android.os.Build
 import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.entity.WalletKeyStore
-import com.asfoundation.wallet.recover.RecoverActivity
+import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
 import javax.inject.Inject
 
 class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
@@ -39,6 +40,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
     keystore: WalletKeyStore,
     walletBalance: String,
     walletAddress: String,
+    walletName: String?,
     isFromOnboarding: Boolean
   ) {
     navigate(
@@ -46,36 +48,28 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
       RecoverEntryFragmentDirections.actionNavigateToRecoverPassword(
         keystore,
         walletBalance,
-        walletAddress, isFromOnboarding
+        walletAddress, walletName ?: walletAddress, isFromOnboarding
       )
     )
   }
 
-  fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
-    navigate(
-      fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = false,
-        isFromOnboarding = isFromOnboarding
-      )
-    )
-  }
 
-  fun navigateBack(fromActivity: Boolean) {
-    if (fromActivity) {
+  fun navigateBack() {
       fragment.requireActivity().finish()
-    } else {
-      fragment.requireActivity().onBackPressed()
-    }
   }
 
-  fun navigateToNavigationBar() {
-    /* Temporary workaround for the RecoverActivity */
-    fragment.requireActivity()
-      .takeIf { it is RecoverActivity }?.finish()
-      ?: navigate(
-        fragment.findNavController(),
+  fun navigateToSuccess(isFromOnboarding: Boolean) {
+    val bottomSheet = RecoveryWalletSuccessBottomSheetFragment.newInstance(isFromOnboarding)
+    bottomSheet.isCancelable = false
+    bottomSheet.show(fragment.parentFragmentManager, "RecoveryWalletSuccess")
+  }
+
+  fun navigateToNavBarGraph(navController: NavController) {
+    with(navController) {
+      navigate(
+        this,
         RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
       )
+    }
   }
 }

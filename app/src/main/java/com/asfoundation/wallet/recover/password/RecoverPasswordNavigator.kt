@@ -2,9 +2,11 @@ package com.asfoundation.wallet.recover.password
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.recover.RecoverActivity
+import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
@@ -18,6 +20,11 @@ class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
         isFromOnboarding = isFromOnboarding
       )
     )
+  }
+
+  fun navigateToSuccess(isFromOnboarding: Boolean) {
+    val bottomSheet = RecoveryWalletSuccessBottomSheetFragment.newInstance(isFromOnboarding)
+    bottomSheet.show(fragment.parentFragmentManager, "RecoveryWalletSuccess")
   }
 
   fun navigateBack() {

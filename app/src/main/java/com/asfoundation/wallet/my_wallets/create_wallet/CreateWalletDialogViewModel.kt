@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -31,12 +31,5 @@ class CreateWalletDialogViewModel @Inject constructor(
         CreateWalletState::walletCreationAsync.name,
         Throwable::printStackTrace
       )
-  }
-
-  //Temporary bad code until this flow is refactored to the new design
-  fun recoverWallet() {
-    Completable.fromAction {}
-      .asAsyncToState { copy(walletCreationAsync = it) }
-      .scopedSubscribe()
   }
 }

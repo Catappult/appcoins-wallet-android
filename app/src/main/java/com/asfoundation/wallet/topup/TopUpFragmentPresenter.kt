@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Completable
@@ -17,6 +17,8 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -28,7 +30,7 @@ class TopUpFragmentPresenter(
   private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
+  val disposables: CompositeDisposable,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
   private val selectedValue: String?,
@@ -38,8 +40,7 @@ class TopUpFragmentPresenter(
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
-  var wasLoggedOut = false
-  var showingLogout = false
+  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -51,6 +52,7 @@ class TopUpFragmentPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
     }
+    handlePaypalBillingAgreement()
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
@@ -89,21 +91,18 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun retrievePaymentMethods(fiatAmount: String, currency: String): Completable =
-    Single.zip(
-      interactor.getPaymentMethods(fiatAmount, currency)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler),
-      isPaypalAgreementCreatedUseCase()
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-    ) { paymentMethods, showPaypalLogout -> Pair(paymentMethods, showPaypalLogout) }
-      .doOnSuccess { methodsAndLogout ->
-        if (methodsAndLogout.first.isNotEmpty()) {
-          showingLogout = (methodsAndLogout.second && !wasLoggedOut)
+  private fun retrievePaymentMethods(
+    fiatAmount: String,
+    currency: String,
+    packageName: String
+  ): Completable =
+    interactor.getPaymentMethods(fiatAmount, currency, packageName)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        if (it.isNotEmpty()) {
           view.setupPaymentMethods(
-            paymentMethods = methodsAndLogout.first,
-            showLogoutPaypal = showingLogout
+            paymentMethods = it
           )
         } else {
           view.showNoMethodsError()
@@ -257,7 +256,12 @@ class TopUpFragmentPresenter(
     ) {
       interactor.convertAppc(data.currency.appcValue).toObservable()
     } else {
-      Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      Observable.just(
+        FiatValue(
+          BigDecimal.ZERO,
+          ""
+        )
+      )
     }
 
   private fun handlePaymentMethodSelected() {
@@ -271,18 +275,22 @@ class TopUpFragmentPresenter(
   }
 
   private fun setNextButton(methodSelected: String?) {
-    if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && showingLogout) {
-      view.setTopupButton()
-    } else {
-      view.setNextButton()
-    }
+    disposables.add(
+      showPayPalLogout
+      .subscribe {
+        if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
+          view.setTopupButton()
+        } else {
+          view.setNextButton()
+        }
+      }
+    )
   }
 
   private fun loadBonusIntoView(
     appPackage: String, amount: String,
     currency: String
-  ): Completable = interactor.convertLocal(currency, amount, 18)
-    .flatMap { interactor.getEarningBonus(appPackage, it.amount) }
+  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
     .subscribeOn(networkScheduler)
     .observeOn(viewScheduler)
     .doOnSuccess {
@@ -323,7 +331,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, currency)
+      retrievePaymentMethods(fiatAmount, currency, appPackage)
         .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {
       view.hideBonusAndSkeletons()
@@ -439,10 +447,27 @@ class TopUpFragmentPresenter(
     )
   }
 
+  private fun handlePaypalBillingAgreement() {
+    disposables.add(
+      isPaypalAgreementCreatedUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          {
+            showPayPalLogout.onNext(it!!)
+          },
+          {
+            logger.log(TAG, "Error getting agreement")
+            showPayPalLogout.onNext(false)
+          }
+        )
+    )
+  }
+
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     if (paymentMethod.paymentType == PaymentType.CARD
       || paymentMethod.paymentType == PaymentType.PAYPAL
+      || paymentMethod.paymentType == PaymentType.GIROPAY
     ) {
       activity?.navigateToAdyenPayment(
         paymentType = paymentMethod.paymentType,

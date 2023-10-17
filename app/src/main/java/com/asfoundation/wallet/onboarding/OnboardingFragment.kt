@@ -18,13 +18,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
-import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -48,6 +48,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
+  }
+
+  override fun onResume() {
+    super.onResume()
     handleWalletCreationFragmentResult()
   }
 

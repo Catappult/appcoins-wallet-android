@@ -9,6 +9,7 @@ import javax.inject.Inject
 class CurrencyFormatUtils @Inject constructor() {
 
   companion object {
+    const val DEFAULT_SCALE = 2
     const val FIAT_SCALE = 2
     const val APPC_SCALE = 2
     const val CREDITS_SCALE = 2

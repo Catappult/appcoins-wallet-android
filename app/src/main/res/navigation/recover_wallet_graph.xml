@@ -25,8 +25,9 @@
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
         app:destination="@id/nav_bar_fragment"
+        app:launchSingleTop="true"
         app:popUpTo="@id/recover_entry_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
   </fragment>
 
   <fragment
@@ -41,6 +42,9 @@
         app:argType="string" />
     <argument
         android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="wallet_name"
         app:argType="string" />
     <argument
         android:name="onboarding_layout"

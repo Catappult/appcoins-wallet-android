@@ -5,10 +5,10 @@ import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.network.microservices.model.Transaction
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
@@ -68,7 +68,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                 startTransactionStatusTimer()
             }
             WebViewActivity.USER_CANCEL -> {
-                events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+                events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType)
                 sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
             }
         }
@@ -131,11 +131,13 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.COMPLETED -> {
                         stopTransactionStatusTimer()
                         events.sendPaymentConclusionEvents(
-                            BuildConfig.APPLICATION_ID,
-                            args.transactionBuilder.skuId,
-                            args.transactionBuilder.amount(),
-                            args.transactionBuilder.type,
-                            args.transactionBuilder.chainId.toString()
+                            packageName = BuildConfig.APPLICATION_ID,
+                            skuId = args.transactionBuilder.skuId,
+                            amount = args.transactionBuilder.amount(),
+                            type = args.transactionBuilder.type,
+                            paymentId = args.transactionBuilder.chainId.toString(),
+                            txId = uid,
+                            amountUsd = args.transactionBuilder.amountUsd
                         )
                         sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
                     }

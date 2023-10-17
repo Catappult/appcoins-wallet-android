@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.C.Key.TRANSACTION
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -24,13 +23,15 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -208,11 +209,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
-    isSubscription: Boolean,
-    showLogoutPaypal: Boolean
+    isSubscription: Boolean
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
-    setupPaymentMethods(paymentMethods, paymentMethodId, showLogoutPaypal)
+    setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
     }
@@ -227,8 +227,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
-    paymentMethodId: String,
-    showLogoutPaypal: Boolean
+    paymentMethodId: String
   ) {
     if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
       binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethods[0].showTopup
@@ -245,13 +244,13 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
           topupClick = topupClick,
-          showPaypalLogout = showLogoutPaypal,
-          wasLoggedOut = { presenter.wasLoggedOut },
           logoutCallback = {
             presenter.removePaypalBillingAgreement()
-            presenter.wasLoggedOut = true
+            presenter.showPayPalLogout.onNext(false)
             showProgressBarLoading()
-          }
+          },
+          disposables = presenter.disposables,
+          showPayPalLogout = presenter.showPayPalLogout
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
@@ -485,6 +484,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       fiatValue.currency,
       isBds,
       PaymentType.PAYPAL,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
+  override fun showGiroPay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.GIROPAY,
       bonusMessageValue,
       false,
       null,

@@ -2,11 +2,12 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -14,11 +15,12 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class OnChainBuyInteract @Inject constructor(
-    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val supportInteractor: SupportInteractor,
-    private val walletService: WalletService,
-    private val walletBlockedInteract: WalletBlockedInteract,
-    private val walletVerificationInteractor: WalletVerificationInteractor) {
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val supportInteractor: SupportInteractor,
+  private val walletService: WalletService,
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val walletVerificationInteractor: WalletVerificationInteractor
+) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)

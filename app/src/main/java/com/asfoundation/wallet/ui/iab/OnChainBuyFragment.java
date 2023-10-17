@@ -16,10 +16,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
 import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -65,6 +66,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
   private View supportIcon;
   private View supportLogo;
   private int gamificationLevel;
+
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
       TransactionBuilder transaction, String bonus, int gamificationLevel) {
@@ -170,10 +172,10 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
     iabView.close(data);
   }
 
-  @Override public void finish(Bundle data) {
+  @Override public void finish(Bundle data, String txId) {
     presenter.sendPaymentEvent();
     presenter.sendRevenueEvent();
-    presenter.sendPaymentSuccessEvent();
+    presenter.sendPaymentSuccessEvent(txId);
     data.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.APPC.getId());
     iabView.finish(data);

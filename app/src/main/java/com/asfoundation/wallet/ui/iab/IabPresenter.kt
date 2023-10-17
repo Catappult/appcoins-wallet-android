@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -19,18 +19,18 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class IabPresenter(
-  private val view: IabView,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
-  private val disposable: CompositeDisposable,
-  private val billingAnalytics: BillingAnalytics,
-  private val iabInteract: IabInteract,
-  private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
-  private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
-  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-  private val logger: Logger,
-  private val transaction: TransactionBuilder?,
-  private val errorFromReceiver: String? = null
+    private val view: IabView,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler,
+    private val disposable: CompositeDisposable,
+    private val billingAnalytics: BillingAnalytics,
+    private val iabInteract: IabInteract,
+    private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
+    private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
+    private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+    private val logger: Logger,
+    private val transaction: TransactionBuilder?,
+    private val errorFromReceiver: String? = null
 ) {
 
   private var firstImpression = true
@@ -57,7 +57,6 @@ class IabPresenter(
 
   fun onResume() {
     handleAutoUpdate()
-    handleUserRegistration()
     handleSupportClicks()
     handleErrorDismisses()
   }
@@ -73,7 +72,7 @@ class IabPresenter(
     disposable.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { iabInteract.showSupport() }
+      .flatMapCompletable { iabInteract.showSupport() }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -122,14 +121,14 @@ class IabPresenter(
             transaction?.domain, transaction?.skuId,
             transaction?.amount()
               .toString(), iabInteract.getPreSelectedPaymentMethod(),
-            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD
+            transaction?.type, BillingAnalytics.WALLET_PRESELECTED_PAYMENT_METHOD
           )
         } else {
           billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
             transaction?.domain,
             transaction?.skuId, transaction?.amount()
               .toString(), transaction?.type,
-            BillingAnalytics.RAKAM_PAYMENT_METHOD
+            BillingAnalytics.WALLET_PAYMENT_METHOD
           )
         }
         firstImpression = false
@@ -148,14 +147,6 @@ class IabPresenter(
       }
       .doOnSuccess { view.showUpdateRequiredView() }
       .subscribe({}, { it.printStackTrace() })
-    )
-  }
-
-  private fun handleUserRegistration() {
-    disposable.add(
-      iabInteract.registerUser()
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -225,7 +216,7 @@ class IabPresenter(
         }
         if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
           logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
-          iabInteract.showSupport()
+          iabInteract.showSupport().subscribe({}, { it.printStackTrace() })
         }
         view.showPaymentMethodsView()
       }

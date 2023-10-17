@@ -12,7 +12,8 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -208,8 +209,13 @@ class LocalPaymentPresenter(
     )
       .doOnSuccess {
         analytics.sendPaymentConclusionEvents(
-          data.packageName, data.skuId, data.appcAmount,
-          data.type, data.paymentId
+          packageName = data.packageName,
+          skuId = data.skuId,
+          amount = data.appcAmount,
+          type = data.type,
+          paymentId = data.paymentId,
+          txId = transaction.uid,
+          amountUsd = TransactionBuilder.convertAppcToUsd(data.appcAmount)
         )
         handleRevenueEvent()
       }
@@ -246,8 +252,13 @@ class LocalPaymentPresenter(
       Status.COMPLETED -> {
         Completable.fromAction {
           analytics.sendPaymentConclusionEvents(
-            data.packageName, data.skuId, data.appcAmount,
-            data.type, data.paymentId
+            packageName = data.packageName,
+            skuId = data.skuId,
+            amount = data.appcAmount,
+            type = data.type,
+            paymentId = data.paymentId,
+            txId = transaction.uid,
+            amountUsd = TransactionBuilder.convertAppcToUsd(data.appcAmount)
           )
           handleRevenueEvent()
         }

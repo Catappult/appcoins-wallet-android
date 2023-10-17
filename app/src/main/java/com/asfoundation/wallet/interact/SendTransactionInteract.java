@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.interact;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.repository.PasswordStore;
+import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;

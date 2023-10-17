@@ -31,7 +31,9 @@ data class DefaultItem(
   val appName: String?,
   override val startDate: Long?,
   override val endDate: Long,
-  override val detailsLink: String?
+  override val detailsLink: String?,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, detailsLink)
 
 data class FutureItem(
@@ -42,7 +44,9 @@ data class FutureItem(
   val appName: String?,
   override val startDate: Long?,
   override val endDate: Long,
-  override val detailsLink: String?
+  override val detailsLink: String?,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, detailsLink)
 
 data class ProgressItem(
@@ -102,5 +106,7 @@ data class PromoCodeItem(
   val appName: String?,
   val icon: String?,
   override val startDate: Long?,
-  override val endDate: Long
+  override val endDate: Long,
+  val actionUrl: String?,
+  val packageName: String?
 ) : PerkPromotion(id, gamificationStatus, startDate, endDate, null)

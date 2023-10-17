@@ -14,15 +14,16 @@ import com.appcoins.wallet.core.network.microservices.model.Gateway;
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.properties.MiscProperties;
+import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowSystemNotificationUseCase;
+import com.appcoins.wallet.feature.backup.data.use_cases.UpdateWalletPurchasesCountUseCase;
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.NotificationNeeded;
-import com.asfoundation.wallet.backup.use_cases.ShouldShowSystemNotificationUseCase;
-import com.asfoundation.wallet.backup.use_cases.UpdateWalletPurchasesCountUseCase;
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -79,7 +80,7 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
-    return getWalletInfoUseCase.invoke(null, true, false)
+    return getWalletInfoUseCase.invoke(null, true)
         .flatMap(walletInfo -> updateWalletPurchasesCountUseCase.invoke(walletInfo)
             .andThen(shouldShowSystemNotificationUseCase.invoke(walletInfo)
                 .flatMap(needed -> Single.just(
@@ -248,7 +249,7 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<BigDecimal> getRewardsBalance() {
-    return getWalletInfoUseCase.invoke(null, true, false)
+    return getWalletInfoUseCase.invoke(null, true)
         .map(walletInfo -> walletInfo.getWalletBalance()
             .getCreditsBalance()
             .getToken()

@@ -9,18 +9,20 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
 import com.asfoundation.wallet.router.Result
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
 import com.asfoundation.wallet.viewmodel.SendViewModel
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.textfield.TextInputLayout
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -75,6 +77,21 @@ class SendActivity : BaseActivity() {
       )
       startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
     }
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+   fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

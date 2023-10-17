@@ -39,7 +39,7 @@
   <string name="ok">ठीक</string>
   <string name="barcode_error_format">अमान्य बारकोड प्रारूप: %s</string>
   <string name="title_delete_account">आप निश्चित रूप से यह वॉलेट हटाना चाहते हैं?</string>
-  <string name="twitter">ट्विटर</string>
+  <string name="twitter">X</string>
   <string name="telegram">टेलीग्राम समूह</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">समुदाय</string>
@@ -229,6 +229,7 @@
   <string name="activity_iab_approving_message">सभी विवरण जाँच रहा है: शेष राशि, वस्तुएं, नेटवर्क…</string>
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
   <string name="activity_iab_change_card">कार्ड बदलें</string>
+  <string name="activity_iab_change_card_lower_case_button">Change card</string>
   <string name="activity_iab_fees">Fees</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ!👌 आपको ऐप्स परखते हुए इनाम जीतने के लिए %1$sघं%2$sमि तक प्रतीक्षा करनी होगी ⏰!</string>
@@ -249,6 +250,9 @@
   <string name="transaction_status_pending">लंबित</string>
   <string name="transaction_status_failed">विफल</string>
   <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_type_challenge_reward">Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
+  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
   <string name="transaction_type_iab">इन-एप्प खरीद</string>
   <string name="transaction_type_poa">इनाम</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -280,6 +284,7 @@
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">विवरण</string>
   <string name="transaction_to_label">को</string>
+  <string name="transaction_invoice_label">Invoice</string>
   <string name="dialog_credit_card_remember">कार्ड याद रखें</string>
   <string name="notification_payment_refused">भुगतान अस्वीकृत</string>
   <string name="dialog_credit_card_number">कार्ड नंबर</string>
@@ -287,7 +292,7 @@
   <string name="dialog_credit_card_cvv">सीवीवी</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_purchase_bonus">खरीद बोनस</string>
   <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
   <string name="transaction_type_extra_bonus">Extra Bonus</string>
   <string name="transaction_type_topup">Top-up</string>
@@ -309,7 +314,9 @@
   <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins प्राप्त करने के लिए पुष्टि करें कि आप एक मानव हैं</string>
   <string name="activity_airdrop_details">यह केवल एक सुरक्षा की बात है।</string>
   <string name="activity_airdrop_hint">छवि में दिए गए शब्द लिखें</string>
@@ -419,6 +426,7 @@
   <string name="topup_maximum_value">अधिकतम टॉप-अप मान %s है</string>
   <string name="topup_no_method_available_title">No payment methods!</string>
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">बैलेंस</string>
   <string name="balance_total_body">%s में कुल बैलेंस</string>
@@ -491,6 +499,8 @@
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
+  <string name="download_button">Download</string>
+  <string name="done">पूर्ण!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -551,6 +561,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_button">अन्य भुगतान विधि</string>
+  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
   <string name="purchase_appcoins_available_body">शुल्क भुगतान के लिए आप ETH की एक अल्प राशि का उपयोग करेंगे।</string>
   <string name="purchase_appcoins_noavailable_body">आपके पास इस खरीद के लिए पर्याप्त AppCoins या Ether नहीं हैं।</string>
   <string name="purchase_no_eth_body">You don\'t have enough ETH to pay for the gas.</string>
@@ -613,6 +624,7 @@
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
@@ -704,6 +716,7 @@
   <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">यह वॉलेट पासवर्ड से संरक्षित है!</string>
   <string name="import_wallet_wrong_password_body">अरे, गलत पासवर्ड!</string>
+  <string name="import_code_here_field">Recover code here&#8230;</string>
   <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
   <string name="backup_title">Backup your wallet now!</string>
@@ -716,9 +729,9 @@
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
   <string name="backup_confirmation_tips_title">फाइल को सुरक्षित रखें:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><![CDATA[<b>Print it</b> and store it somewhere safe.]]></string>
+  <string name="backup_confirmation_tips_2"><![CDATA[<b>Save it</b> on a USB drive.]]></string>
+  <string name="backup_confirmation_tips_3"><![CDATA[<b>Copy it</b> to a private and secure cloud storage.]]></string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">Maybe later</string>
   <string name="backup_tooltip_backup_button">Back up</string>
@@ -736,6 +749,9 @@
   <string name="backup_popup_title">Back up your wallet now!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
+  <string name="backup_confirmation_save_device">Your backup is on your device</string>
+  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट</string>
   <string name="wallets_total_balance_title">%s में कुल बैलेंस</string>
@@ -822,7 +838,7 @@
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
   <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
   <string name="subscriptions_category_title">Subscription</string>
@@ -1096,26 +1112,6 @@
   <string name="appcoins_info_explorer_title">Explorer</string>
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
-  <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">भेजें</string>
-  <string name="nfts_transact_button_next">आगे</string>
-  <string name="nfts_transact_button_done">पूर्ण</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">गैस मूल्य</string>
-  <string name="nfts_transact_gas_limit">गैस सीमा</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Redeem your gift card code</string>
   <string name="gift_card_field">Card code here...</string>
@@ -1205,14 +1201,13 @@
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Active</string>
   <string name="rewards_promo_code_status_expired">Expired</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
@@ -1223,4 +1218,30 @@
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
   <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
+  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <!-- Refactor Verify Payment Method -->
+  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
+  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_card_one_more_step_button">Insert code</string>
+  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_view_title">Verify Card</string>
+  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
+  <string name="verify_card_view_title_2">Insert your bank card details</string>
+  <string name="verify_card_get_a_code_button">Get a code</string>
+  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
+  <string name="verify_card_code_example_title">Example of transaction summary</string>
+  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_description">Description</string>
+  <string name="verify_card_code_example_amount">राशि</string>
+  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
+  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <!-- Challenge Reward -->
+  <string name="challenge_reward_card_title">Challenge Reward</string>
+  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <!-- First purchase -->
+  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
 </resources>

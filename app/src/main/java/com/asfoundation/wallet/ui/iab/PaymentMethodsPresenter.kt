@@ -20,13 +20,16 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.Single.zip
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import retrofit2.HttpException
 import java.math.BigDecimal
 import java.util.*
@@ -36,7 +39,7 @@ class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
-  private val disposables: CompositeDisposable,
+  val disposables: CompositeDisposable,
   private val analytics: PaymentMethodsAnalytics,
   private val transaction: TransactionBuilder,
   private val paymentMethodsMapper: PaymentMethodsMapper,
@@ -55,7 +58,7 @@ class PaymentMethodsPresenter(
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
   private var loadedPaymentMethodEvent: String? = null
-  var wasLoggedOut = false
+  var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
 
   companion object {
     val TAG = PaymentMethodsPresenter::class.java.name
@@ -92,6 +95,7 @@ class PaymentMethodsPresenter(
   }
 
   fun onResume(firstRun: Boolean) {
+    handlePaypalBillingAgreement()
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
@@ -144,6 +148,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
               PAYPAL_V2 -> view.showPaypalV2(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
+              GIROPAY -> view.showGiroPay(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
@@ -420,7 +430,7 @@ class PaymentMethodsPresenter(
       if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
     }
       .andThen(
-        getWalletInfoUseCase(null, cached = false, updateFiat = true)
+        getWalletInfoUseCase(null, cached = false)
           .subscribeOn(networkThread)
           .map { "" }
           .onErrorReturnItem("")
@@ -442,25 +452,22 @@ class PaymentMethodsPresenter(
         zip(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
-          interactor.getEarningBonus(transaction.domain,  transaction.amount(), null)
-            .subscribeOn(networkThread),
-          isPaypalAgreementCreatedUseCase()
+          interactor.getEarningBonus(transaction.domain, fiatValue.amount, fiatValue.currency)
             .subscribeOn(networkThread)
-        ) { paymentMethods, bonus, showPaypalLogout ->
-          Triple(paymentMethods, bonus, showPaypalLogout)
+        ) { paymentMethods, bonus ->
+          Pair(paymentMethods, bonus)
         }
           .observeOn(viewScheduler)
-          .flatMapCompletable { methodsAndBonusAndLogout ->
+          .flatMapCompletable { methodsAndBonus ->
             if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
             Completable.fromAction {
               if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
               view.updateProductName()
-              setupBonusInformation(methodsAndBonusAndLogout.second)
+              setupBonusInformation(methodsAndBonus.second)
               selectPaymentMethod(
-                paymentMethods = methodsAndBonusAndLogout.first,
+                paymentMethods = methodsAndBonus.first,
                 fiatValue = fiatValue,
-                isBonusActive = interactor.isBonusActiveAndValid(methodsAndBonusAndLogout.second),
-                showPaypalLogout = (methodsAndBonusAndLogout.third && !wasLoggedOut)
+                isBonusActive = interactor.isBonusActiveAndValid(methodsAndBonus.second)
               )
               if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
             }
@@ -513,8 +520,7 @@ class PaymentMethodsPresenter(
   private fun selectPaymentMethod(
     paymentMethods: List<PaymentMethod>,
     fiatValue: FiatValue,
-    isBonusActive: Boolean,
-    showPaypalLogout: Boolean
+    isBonusActive: Boolean
   ) {
     val fiatAmount = formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
     val appcAmount = formatter.formatPaymentCurrency(transaction.amount(), WalletCurrency.APPCOINS)
@@ -549,8 +555,7 @@ class PaymentMethodsPresenter(
           PaymentMethodId.CREDIT_CARD.id,
           fiatAmount,
           appcAmount,
-          paymentMethodsData.frequency,
-          showPaypalLogout
+          paymentMethodsData.frequency
         )
       } else {
         when (paymentMethod.id) {
@@ -598,8 +603,7 @@ class PaymentMethodsPresenter(
         paymentMethods[0].id,
         fiatAmount,
         appcAmount,
-        paymentMethodsData.frequency,
-        showPaypalLogout
+        paymentMethodsData.frequency
       )
     } else {
       val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
@@ -609,8 +613,7 @@ class PaymentMethodsPresenter(
         paymentMethodId,
         fiatAmount,
         appcAmount,
-        paymentMethodsData.frequency,
-        showPaypalLogout
+        paymentMethodsData.frequency
       )
     }
   }
@@ -651,8 +654,7 @@ class PaymentMethodsPresenter(
     paymentMethodId: String,
     fiatAmount: String,
     appcAmount: String,
-    frequency: String?,
-    showLogoutPaypal: Boolean
+    frequency: String?
   ) {
     var appcEnabled = false
     var creditsEnabled = false
@@ -681,8 +683,7 @@ class PaymentMethodsPresenter(
       appcEnabled,
       creditsEnabled,
       frequency,
-      paymentMethodsData.subscription,
-      showLogoutPaypal
+      paymentMethodsData.subscription
     )
     sendPaymentMethodsEvents()
   }
@@ -775,8 +776,7 @@ class PaymentMethodsPresenter(
                     paymentMethodId,
                     fiatAmount,
                     appcAmount,
-                    paymentMethodsData.frequency,
-                    (showPaypalLogout && !wasLoggedOut)
+                    paymentMethodsData.frequency
                   )
                 }
               }
@@ -1043,6 +1043,22 @@ class PaymentMethodsPresenter(
     )
   }
 
+  private fun handlePaypalBillingAgreement() {
+    disposables.add(
+      isPaypalAgreementCreatedUseCase()
+        .subscribeOn(networkThread)
+        .subscribe(
+          {
+            showPayPalLogout.onNext(it!!)
+          },
+          {
+            logger.log(TAG, "Error getting agreement")
+            showPayPalLogout.onNext(false)
+          }
+        )
+    )
+  }
+
 
   private fun getOriginalValue(): BigDecimal =
     if (transaction.originalOneStepValue.isNullOrEmpty()) {
@@ -1066,13 +1082,19 @@ class PaymentMethodsPresenter(
           appcValue
         }
     } else {
-      Single.just(FiatValue(transaction.amount(), "APPC"))
+      Single.just(
+        FiatValue(
+          transaction.amount(),
+          "APPC"
+        )
+      )
     }
 
   private fun setLoadedPayment(paymentMethodId: String) {
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+      PaymentMethodId.GIROPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC

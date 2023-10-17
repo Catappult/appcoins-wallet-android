@@ -1,13 +1,15 @@
 package com.asfoundation.wallet.verification.ui.paypal
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.ui.arch.*
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Error
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
@@ -47,7 +49,8 @@ class VerificationPaypalViewModel(
   fun launchVerificationPayment() {
     val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethod
     if (paymentMethod != null) {
-      makeVerificationPaymentUseCase(WalletVerificationInteractor.VerificationType.PAYPAL,
+      makeVerificationPaymentUseCase(
+          com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType.PAYPAL,
           paymentMethod, false, data.returnUrl).subscribeOn(Schedulers.io())
           .doOnSuccess { model ->
             val redirectUrl = model.redirectUrl
@@ -65,7 +68,8 @@ class VerificationPaypalViewModel(
   }
 
   fun successPayment() {
-    setCachedVerificationUseCase(VerificationStatus.VERIFYING).doOnComplete {
+    setCachedVerificationUseCase(
+        com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING).doOnComplete {
       setState { copy(verificationSubmitAsync = Async.Success(Unit)) }
     }
         .scopedSubscribe { e -> e.printStackTrace() }

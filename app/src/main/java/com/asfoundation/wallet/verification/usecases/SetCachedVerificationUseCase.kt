@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.verification.usecases
 
 import com.appcoins.wallet.core.walletservices.WalletService
-import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
-import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
+import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import io.reactivex.Completable
 import javax.inject.Inject
 

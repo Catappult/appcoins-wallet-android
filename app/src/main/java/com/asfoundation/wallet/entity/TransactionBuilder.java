@@ -7,10 +7,11 @@ import com.asfoundation.wallet.repository.TokenRepository;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
 
-import static com.asfoundation.wallet.C.ETHER_DECIMALS;
+import static com.appcoins.wallet.core.utils.jvm_common.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
   public static final long NO_CHAIN_ID = -1;
@@ -481,5 +482,13 @@ public class TransactionBuilder implements Parcelable {
 
   public void setTrialPeriod(String trialPeriod) {
     this.trialPeriod = trialPeriod;
+  }
+
+  public BigDecimal getAmountUsd() {
+    return convertAppcToUsd(this.amount);
+  }
+
+  public static BigDecimal convertAppcToUsd(BigDecimal amount) {
+    return amount.divide(new BigDecimal(100), RoundingMode.HALF_UP);
   }
 }

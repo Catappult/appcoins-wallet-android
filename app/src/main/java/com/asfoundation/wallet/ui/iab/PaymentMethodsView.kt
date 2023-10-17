@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -12,7 +13,7 @@ interface PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
     appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-    frequency: String?, isSubscription: Boolean, showLogoutPaypal: Boolean
+    frequency: String?, isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
@@ -58,6 +59,9 @@ interface PaymentMethodsView {
     gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
     isSubscription: Boolean
   )
+
+  fun showGiroPay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                  isSubscription: Boolean)
 
   fun showAdyen(
     fiatAmount: BigDecimal,
@@ -133,13 +137,14 @@ interface PaymentMethodsView {
   fun showTopupFlow()
 
   enum class SelectedPaymentMethod {
-    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
-    EARN_APPC, CARRIER_BILLING, ERROR
+    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
+    CARRIER_BILLING, ERROR, GIROPAY
   }
 
   enum class PaymentMethodId(val id: String) {
     PAYPAL("paypal"),
     PAYPAL_V2("paypal_v2"),
+    GIROPAY("giropay"),
     APPC("appcoins"),
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),

@@ -51,7 +51,8 @@ interface BillingRepository {
     currencyType: String? = null,
     direct: Boolean? = null,
     transactionType: String? = null,
-    packageName: String? = null
+    packageName: String? = null,
+    entityOemId: String? = null
   ): Single<List<PaymentMethodEntity>>
 
   fun getAppcoinsTransaction(

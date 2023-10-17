@@ -261,7 +261,8 @@ class RemoteRepository(
     currencyType: String?,
     direct: Boolean? = null,
     transactionType: String?,
-    packageName: String?
+    packageName: String?,
+    entityOemId: String?
   ): Single<List<PaymentMethodEntity>> =
     brokerBdsApi.getPaymentMethods(
       value = value,
@@ -269,7 +270,8 @@ class RemoteRepository(
       currencyType = currencyType,
       direct = direct,
       type = transactionType,
-      packageName = packageName
+      packageName = packageName,
+      entityOemId = entityOemId
     )
       .map { responseMapper.map(it) }
 
@@ -306,7 +308,7 @@ class RemoteRepository(
     signature: String,
     packageName: String,
     amount: BigDecimal
-  ): Completable =
+  ): Single<Transaction> =
     createTransaction(
       userWallet = toWallet,
       developerWallet = null,
@@ -326,7 +328,7 @@ class RemoteRepository(
       amount = amount.toPlainString(),
       currency = "APPC",
       productName = null
-    ).toCompletable()
+    )
 
   fun createLocalPaymentTransaction(
     paymentId: String,
@@ -423,7 +425,7 @@ class RemoteRepository(
             gateway = gateway,
             walletAddress = walletAddress,
             authorization = ewt,
-            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken)
+            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
           brokerBdsApi.createTransaction(

@@ -221,9 +221,14 @@ class RankingsContentFragment : Fragment() {
 
   private fun startCountDownTimer(timeLeftMillis: Long) {
     val daysView: TextView = countdownBinding.countdownDays
+    val daysText: TextView = countdownBinding.daysTitle
     val hoursView: TextView = countdownBinding.countdownHours
+    val hoursText: TextView = countdownBinding.tvHourTitle
     val minutesView: TextView = countdownBinding.countdownMinutes
+    val minutesText: TextView = countdownBinding.tvMinuteTitle
     val secondsView: TextView = countdownBinding.countdownSeconds
+    val secondsText: TextView = countdownBinding.tvSecondTitle
+
     countDownTimer = object : CountDownTimer(timeLeftMillis, COUNTDOWN_INTERVAL) {
       override fun onTick(millisUntilFinished: Long) {
         val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
@@ -231,9 +236,20 @@ class RankingsContentFragment : Fragment() {
         val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
         val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
         daysView.text = days.toString()
+        daysText.text = requireContext().resources.getQuantityString(R.plurals.days, days.toInt())
         hoursView.text = hours.toString()
+        hoursText.text =
+          requireContext().resources.getQuantityString(R.plurals.hours, hours.toInt())
         minutesView.text = minutes.toString()
+        minutesText.text = requireContext().resources.getQuantityString(
+          R.plurals.minutes,
+          minutes.toInt()
+        )
         secondsView.text = seconds.toString()
+        secondsText.text = requireContext().resources.getQuantityString(
+          R.plurals.seconds,
+          seconds.toInt()
+        )
       }
 
       override fun onFinish() {

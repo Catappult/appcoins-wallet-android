@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_manage_wallet_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_dark"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
+    android:theme="@style/MaterialAppTheme"
+    >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:src="@drawable/pull_up_home_bar"
+      android:importantForAccessibility="no"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/total_balance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/wallet_view_total_balance_title"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      />
+
+  <TextView
+      android:id="@+id/total_balance_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
+      tools:text="€76.23"
+      />
+
+  <TextView
+      android:id="@+id/total_balance_value_appcc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_value"
+      tools:text="8,533.83 appc-c"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/balance_appc_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="8dp"
+      android:background="@drawable/oval_styleguide_blue_background"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      app:layout_constraintBottom_toBottomOf="@id/balance_appc_credits_view"
+      app:layout_constraintEnd_toStartOf="@id/balance_appc_credits_view"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_value_appcc"
+      >
+
+    <ImageView
+        android:id="@+id/img_appc_token"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_appc_token"
+        android:importantForAccessibility="no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/title_balance_appc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/appc_token_name"
+        android:textStyle="bold"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_appc_token"
+        />
+
+    <TextView
+        android:id="@+id/title_balance_appc_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_balance_appc"
+        tools:text="1.2 APPC"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/balance_appc_credits_view"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="8dp"
+      android:background="@drawable/oval_styleguide_blue_background"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      app:layout_constraintEnd_toStartOf="@id/balance_ethereum_view"
+      app:layout_constraintStart_toEndOf="@id/balance_appc_view"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_value_appcc"
+      >
+
+    <ImageView
+        android:id="@+id/img_appc_credits_token"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:importantForAccessibility="no"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_appc_c_token"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/title_balance_appc_credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/appc_credits_token_name"
+        android:textStyle="bold"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_appc_credits_token"
+        />
+
+    <TextView
+        android:id="@+id/title_balance_appc_credits_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_balance_appc_credits"
+        tools:text="1.282.306,08 APPC-C"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/balance_ethereum_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="24dp"
+      android:background="@drawable/oval_styleguide_blue_background"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/balance_appc_credits_view"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_value_appcc"
+      app:layout_constraintBottom_toBottomOf="@id/balance_appc_credits_view"
+      >
+
+    <ImageView
+        android:id="@+id/img_ethereum_token"
+        android:layout_width="30dp"
+        android:layout_height="32dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_eth_token"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/title_ethereum_credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/ethereum_token_name"
+        android:textStyle="bold"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_ethereum_token"
+        />
+
+    <TextView
+        android:id="@+id/title_balance_ethereum_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/styleguide_medium_grey"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_ethereum_credits"
+        tools:text="1.2 APPC"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

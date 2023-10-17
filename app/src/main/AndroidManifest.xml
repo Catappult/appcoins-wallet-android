@@ -80,16 +80,13 @@
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
-        android:theme="@style/SplashTheme">
+        android:theme="@style/SplashTheme"
+        android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.settings.SettingsActivity"
-        android:label="@string/title_activity_settings" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label="" />
@@ -130,6 +127,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter
           android:autoVerify="true"
+          android:priority="10"
           tools:ignore="UnusedAttribute">
         <action android:name="android.intent.action.VIEW" />
 
@@ -162,9 +160,6 @@
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
     <activity
-        android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity"
-        android:label="@string/change_currency_title" />
-    <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:exported="true"
         android:launchMode="singleTask"
@@ -182,7 +177,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.rating.RatingActivity"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow" />
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
@@ -190,9 +185,6 @@
         android:screenOrientation="portrait"
         tools:ignore="LockedOrientationActivity" />
     <activity android:name="com.asfoundation.wallet.ui.gamification.GamificationActivity" />
-    <activity
-        android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
-        android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
@@ -242,7 +234,7 @@
         tools:ignore="LockedOrientationActivity" />
 
     <activity
-        android:name="com.asfoundation.wallet.backup.BackupActivity"
+        android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
         android:label="@string/action_backup_wallet"
         android:theme="@style/MaterialAppTheme" />
 
@@ -265,9 +257,6 @@
         android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
         android:label="@string/verification_settings_unverified_title"
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
-        android:label="@string/e_skills_withdraw_title" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
     <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->

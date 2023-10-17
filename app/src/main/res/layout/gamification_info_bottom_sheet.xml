@@ -4,7 +4,7 @@
     android:id="@+id/details_bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_white_card_top"
+    android:background="@drawable/background_card_active_wallet"
     android:orientation="vertical"
     android:paddingHorizontal="24dp"
     android:paddingBottom="36dp"

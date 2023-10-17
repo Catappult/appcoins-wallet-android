@@ -11,7 +11,6 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
-import com.appcoins.wallet.core.network.backend.api.NftApi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.GsonBuilder
@@ -136,14 +135,6 @@ class BackendApiModule {
 
   @Singleton
   @Provides
-  fun providesNftApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
-  ): NftApi {
-    return retrofit.create(NftApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun providesWalletInfoApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): WalletInfoApi {
@@ -196,5 +187,21 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): WithdrawApi {
     return retrofit.create(WithdrawApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun provideTransactionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): TransactionOverviewApi {
+    return retrofit.create(TransactionOverviewApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesGamesApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): GamesApi {
+    return retrofit.create(GamesApi::class.java)
   }
 }

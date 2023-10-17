@@ -3,8 +3,9 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.status
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -70,7 +71,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
-    return sendPaymentSuccessEvents()
+    return sendPaymentSuccessEvents(payment.uid)
         .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
         .andThen(Completable.fromAction { view.showFinishedTransaction() }
@@ -110,13 +111,19 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
     }
   }
 
-  private fun sendPaymentSuccessEvents(): Completable {
+  private fun sendPaymentSuccessEvents(txId: String): Completable {
     return carrierInteractor.convertToFiat(data.appcAmount
         .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
         .doOnSuccess { fiatValue ->
-          billingAnalytics.sendPaymentSuccessEvent(data.domain, data.skuId,
-              data.appcAmount
-                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType)
+          billingAnalytics.sendPaymentSuccessEvent(
+            packageName = data.domain,
+            skuDetails = data.skuId,
+            value = data.appcAmount.toString(),
+            purchaseDetails = BillingAnalytics.PAYMENT_METHOD_CARRIER,
+            transactionType = data.transactionType,
+            txId = txId,
+            valueUsd = TransactionBuilder.convertAppcToUsd(data.appcAmount).toString()
+          )
           billingAnalytics.sendPaymentEvent(data.domain, data.skuId,
               data.appcAmount
                   .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType)
