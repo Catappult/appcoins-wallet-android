@@ -1189,7 +1189,7 @@
   <string name="intro_transactions_header">ธุรกรรม</string>
   <string name="intro_backup_card_title">อย่าสูญเสียเงินของคุณ!</string>
   <string name="intro_backup_card_body">สำรองวอลเล็ตของคุณและเก็บอย่างปลอดภัย</string>
-  <string name="rewards_spend_to_next_level_body">ใช้จ่ายมากขึ้น %1$s%2$s เพื่อไปถึงระดับถัดไป!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">ถอนรายได้ e-Skills ของคุณ</string>
