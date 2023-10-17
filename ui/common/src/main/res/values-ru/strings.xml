@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Пополнение, которое вы сделали %s, было отменено. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
   <string name="transaction_type_reverted_purchase_title">Возврат за покупку</string>
   <string name="transaction_type_reverted_purchase_body">Покупка, которую вы сделали %s, была отменена. Свяжитесь с поддержкой, чтобы получить больше информации.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Оригинальная транзакция</string>
   <string name="transaction_onchain_completed_title">Транзакция в процессе!</string>
   <string name="transaction_onchain_completed_body">Вы можете отследить её в Etherscan.</string>
@@ -1237,7 +1238,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
-  <string name="rewards_bonus_every_purchase_title">Наслаждайтесь бонусом в %s%% при каждой покупке</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>

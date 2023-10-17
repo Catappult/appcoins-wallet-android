@@ -12,7 +12,7 @@
   <string name="got_it_button">متوجه شدم</string>
   <string name="install_button">نصب</string>
   <string name="retry_button">تلاش مجدد</string>
-  <string name="restart_button">Restart</string>
+  <string name="restart_button">راه اندازی مجدد</string>
   <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
   <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
   <string name="finding_room_loading_title">انتظار برای حریف</string>
@@ -64,42 +64,42 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">درحال انتظار برای پایان بازی رقیب.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="one">(%1$s ،%2$d امتیاز بدست آورد)</item>
+    <item quantity="other">(%1$s ،%2$d امتیاز بدست آورد)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="one">%1$d امتیاز</item>
+    <item quantity="other">%1$d امتیاز</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f به کیف پول شما افزوده شده است)</string>
+  <string name="you_won">برنده شدید! %1$s</string>
+  <string name="you_lost_timeout">زمان شما تمام شد، باختید! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="one">روز</item>
+    <item quantity="other">روز</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="one">ساعت</item>
+    <item quantity="other">ساعت</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="one">دقیقه</item>
+    <item quantity="other">دقیقه</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="one">ثانیه</item>
+    <item quantity="other">ثانیه</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">پاداش بعدی در</string>
+  <string name="current_top_3">۳تای اول</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">برد پیشتازان</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">پول درآوردید</string>
   <string name="eskills_carousel_body">سایر بازیکنان را در e-Skills شکست دهید</string>

@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">تعبئة الرصيد التي أجريتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعمل لمزيد من المعلومات.</string>
   <string name="transaction_type_reverted_purchase_title">استرجاع مشتريات</string>
   <string name="transaction_type_reverted_purchase_body">المشتريات التي طلبتها على %s عادت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">عملية تحويل أصلية</string>
   <string name="transaction_onchain_completed_title">التحويل في الطريق!</string>
   <string name="transaction_onchain_completed_body">يمكنك تتبعه على Etherscan.</string>
@@ -1264,7 +1265,7 @@
   <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
-  <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>

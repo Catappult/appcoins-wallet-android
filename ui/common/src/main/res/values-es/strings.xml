@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">La recarga que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
   <string name="transaction_type_reverted_purchase_title">Devolución de compra</string>
   <string name="transaction_type_reverted_purchase_body">La compra que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transacción original</string>
   <string name="transaction_onchain_completed_title">¡La compra está en camino!</string>
   <string name="transaction_onchain_completed_body">Puedes seguirla en Etherscan.</string>
@@ -1211,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">Juegos Compatibles con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
-  <string name="rewards_bonus_every_purchase_title">Disfruta de un bonus del %s%% en todas las compras</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>

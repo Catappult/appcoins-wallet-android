@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Az általad tett kiegészítések %s dátumon lettek visszaállítva. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
   <string name="transaction_onchain_completed_title">A tranzakció már úton van!</string>
   <string name="transaction_onchain_completed_body">Kövesd nyomon az Etherscan oldalon.</string>
@@ -1211,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins-kompatibilis játékok</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Végezd el az első vásárlásod egy AppCoins kompatibilis játékban és szerezz bónuszt minden vásárlásért cserébe.</string>
-  <string name="rewards_bonus_every_purchase_title">Élvezd ki a %s%% bónuszt minden vásárlás után</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Megváltozott a wallet</string>
   <string name="manage_wallet_change_active_wallet_title">Ezt a walletet választod ki?</string>

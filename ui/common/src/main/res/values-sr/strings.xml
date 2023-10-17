@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
   <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Prvobitna transakcija</string>
   <string name="transaction_onchain_completed_title">Transakcija je u putu!</string>
   <string name="transaction_onchain_completed_body">Možete je pratiti preko platforme Etherscan.</string>
@@ -1224,7 +1225,7 @@
   <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
-  <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
