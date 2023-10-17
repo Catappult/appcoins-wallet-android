@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -19,15 +20,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PayPalTopupViewModel @Inject constructor(
-    private val createPaypalTransactionTopupUseCase: CreatePaypalTransactionTopupUseCase,
-    private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
-    private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
-    private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
-    private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
-    private val billingMessagesMapper: BillingMessagesMapper,
-    private val supportInteractor: SupportInteractor,
-    private val topUpAnalytics: TopUpAnalytics,
-    rxSchedulers: RxSchedulers
+  private val createPaypalTransactionTopupUseCase: CreatePaypalTransactionTopupUseCase,
+  private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
+  private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
+  private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
+  private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
+  private val billingMessagesMapper: BillingMessagesMapper,
+  private val supportInteractor: SupportInteractor,
+  private val topUpAnalytics: TopUpAnalytics,
+  rxSchedulers: RxSchedulers
 ) : ViewModel() {
 
   sealed class State {
@@ -47,6 +48,23 @@ class PayPalTopupViewModel @Inject constructor(
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
+
+  fun startPayment(
+    createTokenIfNeeded: Boolean = true,
+    amount: String,
+    currency: String,
+  ) {
+    topUpAnalytics.sendConfirmationEvent(
+      amount.toDouble(),
+      "top_up",
+      PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+    )
+    attemptTransaction(
+      createTokenIfNeeded = createTokenIfNeeded,
+      amount = amount,
+      currency = currency,
+    )
+  }
 
   fun attemptTransaction(
     createTokenIfNeeded: Boolean = true, amount: String, currency: String

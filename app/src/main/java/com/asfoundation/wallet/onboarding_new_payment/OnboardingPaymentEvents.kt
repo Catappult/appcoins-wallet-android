@@ -29,7 +29,7 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
       transactionBuilder.type,
-      "buy",
+      BillingAnalytics.ACTION_BUY,
       isOnboardingPayment = true
     )
   }
@@ -204,7 +204,14 @@ class OnboardingPaymentEvents @Inject constructor(
   fun sendLocalNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
                                      paymentId: String) {
     billingAnalytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
-    billingAnalytics.sendPaymentConfirmationEvent(packageName, skuId, amount, paymentId, type, "buy")
+    billingAnalytics.sendPaymentConfirmationEvent(
+      packageName,
+      skuId,
+      amount,
+      paymentId,
+      type,
+      BillingAnalytics.ACTION_BUY
+    )
   }
 
   fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,

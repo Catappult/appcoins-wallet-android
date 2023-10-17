@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2C
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -49,13 +50,13 @@ data class OnboardingAdyenPaymentState(val paymentInfoModel: Async<PaymentInfoMo
 
 @HiltViewModel
 class OnboardingAdyenPaymentViewModel @Inject constructor(
-    private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val events: OnboardingPaymentEvents,
-    private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
-    private val transactionOriginUseCase: GetTransactionOriginUseCase,
-    private val supportInteractor: SupportInteractor,
-    private val rxSchedulers: RxSchedulers,
-    savedStateHandle: SavedStateHandle
+  private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val events: OnboardingPaymentEvents,
+  private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
+  private val transactionOriginUseCase: GetTransactionOriginUseCase,
+  private val supportInteractor: SupportInteractor,
+  private val rxSchedulers: RxSchedulers,
+  savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect>(
     OnboardingAdyenPaymentState()
@@ -70,7 +71,11 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   private fun handlePaymentInfo() {
-    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "buy")
+    events.sendPaymentMethodEvent(
+      args.transactionBuilder,
+      args.paymentType,
+      BillingAnalytics.ACTION_BUY
+    )
     getPaymentInfoModelUseCase(
       paymentType = args.paymentType.toString(),
       value = args.amount,
@@ -159,7 +164,11 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   fun handleBackButton() {
-    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "back")
+    events.sendPaymentMethodEvent(
+      args.transactionBuilder,
+      args.paymentType,
+      BillingAnalytics.ACTION_BACK
+    )
     sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
   }
 
@@ -211,9 +220,16 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
                 BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
               ) == true
             ) {
-              events.sendCarrierBillingConfirmationEvent(args.transactionBuilder, "cancel")
+              events.sendCarrierBillingConfirmationEvent(
+                args.transactionBuilder,
+                BillingAnalytics.ACTION_CANCEL
+              )
             } else {
-              events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType.mapToService().transactionType)
+              events.sendAdyenPaymentConfirmationEvent(
+                args.transactionBuilder,
+                BillingAnalytics.ACTION_CANCEL,
+                args.paymentType.mapToService().transactionType
+              )
             }
           }
           result.data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true -> {
@@ -224,8 +240,16 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       }
       WebViewActivity.SUCCESS -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
-          events.sendAdyenPaymentUrlEvent(args.transactionBuilder, result.data!!, args.paymentType.mapToService().transactionType)
-          events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "buy", args.paymentType.mapToService().transactionType)
+          events.sendAdyenPaymentUrlEvent(
+            args.transactionBuilder,
+            result.data!!,
+            args.paymentType.mapToService().transactionType
+          )
+          events.sendAdyenPaymentConfirmationEvent(
+            args.transactionBuilder,
+            BillingAnalytics.ACTION_BUY,
+            args.paymentType.mapToService().transactionType
+          )
         }
         sendSideEffect {
           result.data!!.data?.let { uri ->
@@ -235,8 +259,16 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       }
       WebViewActivity.USER_CANCEL -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
-          events.sendAdyenPaymentUrlEvent(args.transactionBuilder, result.data!!, args.paymentType.mapToService().transactionType)
-          events.sendAdyenPaymentConfirmationEvent(args.transactionBuilder, "cancel", args.paymentType.mapToService().transactionType)
+          events.sendAdyenPaymentUrlEvent(
+            args.transactionBuilder,
+            result.data!!,
+            args.paymentType.mapToService().transactionType
+          )
+          events.sendAdyenPaymentConfirmationEvent(
+            args.transactionBuilder,
+            BillingAnalytics.ACTION_CANCEL,
+            args.paymentType.mapToService().transactionType
+          )
         }
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
       }
