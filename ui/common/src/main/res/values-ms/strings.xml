@@ -1187,7 +1187,7 @@
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan hilang dana anda!</string>
   <string name="intro_backup_card_body">Sandarkan dompet anda dan pastikan ia selamat sepanjang masa.</string>
-  <string name="rewards_spend_to_next_level_body">Belanja sebanyak %1$s%2$s lagi untuk capai tahap seterusnya!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Keluarkan pendapatan e-Skills anda.</string>
