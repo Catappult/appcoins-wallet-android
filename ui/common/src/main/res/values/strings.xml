@@ -157,8 +157,6 @@
   <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
   <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
   <string name="new_intro_3_body">Available payment methods</string>
-  <string name="new_intro_recover_wallet_button"></string>
-  <string name="new_intro_"></string>
 
   <!-- Intro from game -->
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
