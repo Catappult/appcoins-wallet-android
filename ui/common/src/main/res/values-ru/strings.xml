@@ -1226,7 +1226,7 @@
   <string name="intro_transactions_header">Транзакции</string>
   <string name="intro_backup_card_title">Не потеряйте свои средства!</string>
   <string name="intro_backup_card_body">Сделайте бэкап кошелька и всегда держите его в безопасности.</string>
-  <string name="rewards_spend_to_next_level_body">Потратьте ещё %1$s%2$s, чтобы достичь следующего уровня!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
