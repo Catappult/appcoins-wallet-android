@@ -19,18 +19,18 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class IabPresenter(
-    private val view: IabView,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler,
-    private val disposable: CompositeDisposable,
-    private val billingAnalytics: BillingAnalytics,
-    private val iabInteract: IabInteract,
-    private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
-    private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
-    private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-    private val logger: Logger,
-    private val transaction: TransactionBuilder?,
-    private val errorFromReceiver: String? = null
+  private val view: IabView,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler,
+  private val disposable: CompositeDisposable,
+  private val billingAnalytics: BillingAnalytics,
+  private val iabInteract: IabInteract,
+  private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
+  private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
+  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+  private val logger: Logger,
+  private val transaction: TransactionBuilder?,
+  private val errorFromReceiver: String? = null
 ) {
 
   private var firstImpression = true
@@ -209,9 +209,9 @@ class IabPresenter(
               BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
             ) == true
           ) {
-            sendCarrierBillingConfirmationEvent("cancel")
+            sendCarrierBillingConfirmationEvent(BillingAnalytics.ACTION_CANCEL)
           } else {
-            sendPayPalConfirmationEvent("cancel")
+            sendPayPalConfirmationEvent(BillingAnalytics.ACTION_CANCEL)
           }
         }
         if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
@@ -223,7 +223,7 @@ class IabPresenter(
       WebViewActivity.SUCCESS -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)
-          sendPayPalConfirmationEvent("buy")
+          sendPayPalConfirmationEvent(BillingAnalytics.ACTION_BUY)
         }
         view.webViewResultCode = data?.let { getQueryParameter(it, "resultCode") }
         view.successWebViewResult(data!!.data)
@@ -231,7 +231,7 @@ class IabPresenter(
       WebViewActivity.USER_CANCEL -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)
-          sendPayPalConfirmationEvent("cancel")
+          sendPayPalConfirmationEvent(BillingAnalytics.ACTION_CANCEL)
         }
         view.showPaymentMethodsView()
       }

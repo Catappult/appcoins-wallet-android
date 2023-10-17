@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.intro
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -79,7 +80,7 @@ class VerificationIntroPresenter(
     disposable.add(
       view.getCancelClicks()
         .doOnNext {
-          analytics.sendInsertCardEvent("cancel")
+          analytics.sendInsertCardEvent(BillingAnalytics.ACTION_CANCEL)
           view.cancel()
         }
         .subscribe({}, { it.printStackTrace() })

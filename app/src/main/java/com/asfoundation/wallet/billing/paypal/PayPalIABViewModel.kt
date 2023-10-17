@@ -271,7 +271,7 @@ class PayPalIABViewModel @Inject constructor(
           it.amount().toString(),
           BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
           it.type,
-          "buy"
+          BillingAnalytics.ACTION_BUY
         )
       }
     )
