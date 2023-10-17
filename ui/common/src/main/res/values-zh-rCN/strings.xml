@@ -1187,7 +1187,7 @@
   <string name="intro_transactions_header">交易</string>
   <string name="intro_backup_card_title">保护您的资金安全！</string>
   <string name="intro_backup_card_body">请进行钱包备份，保护您的钱包安全。</string>
-  <string name="rewards_spend_to_next_level_body">只需再消费 %1$s%2$s ，即可进入下一级别！</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">每一次购买都将获得%s奖金</string>
   <string name="rewards_eskills_card_title">电子技能</string>
   <string name="rewards_eskills_card_body">游戏收入提现。</string>
