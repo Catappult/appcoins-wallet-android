@@ -129,7 +129,12 @@ class SkillsEndgameFragment : Fragment() {
   private fun setupRankingsButton() {
     views.rankingsButton.setOnClickListener {
       disposables.add(
-        Single.zip(viewModel.getWalletAddress(),viewModel.getRewardsPackages()
+        Single.zip(viewModel.getWalletAddress(),
+          viewModel.getRewardsPackages()
+            .onErrorReturn { throwable ->
+              throwable.printStackTrace()
+              emptyList()
+            }
         ) { walletAddress, rewardsPackages ->
           launchRankingsFragment(walletAddress, rewardsPackages)
         }
@@ -213,7 +218,12 @@ class SkillsEndgameFragment : Fragment() {
     views.animationDescriptionText.text = descriptionText
     val winner: User = roomResponse.roomResult.winner
     val opponentDetails =
-      requireContext().resources.getQuantityString(R.plurals.opponent_points_title,winner.score.toInt(), winner.userName, winner.score)
+      requireContext().resources.getQuantityString(
+        R.plurals.opponent_points_title,
+        winner.score.toInt(),
+        winner.userName,
+        winner.score
+      )
     views.secondaryMessage.text = opponentDetails
     views.secondaryMessage.visibility = View.VISIBLE
   }
@@ -224,6 +234,7 @@ class SkillsEndgameFragment : Fragment() {
     views.animationDescriptionText.text = resources.getString(R.string.unknown_error)
     views.retryButton.visibility = View.VISIBLE
     views.restartButton.visibility = View.GONE
+    views.rankingsButton.visibility = View.GONE
     views.restartButton.isEnabled = true
   }
 }
