@@ -26,7 +26,6 @@ interface InappBillingApi {
     @Query("payload") payload: String? = null
   ): Completable
 
-
   @GET("8.20200701/applications/{packageName}/inapp/consumables")
   fun getConsumables(
     @Path("packageName") packageName: String,
