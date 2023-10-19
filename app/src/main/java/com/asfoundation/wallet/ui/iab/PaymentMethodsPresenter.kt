@@ -19,10 +19,10 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
-import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

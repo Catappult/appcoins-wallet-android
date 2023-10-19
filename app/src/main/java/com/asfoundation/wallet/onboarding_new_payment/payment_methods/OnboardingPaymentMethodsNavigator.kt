@@ -116,4 +116,6 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   fun navigateToCarrierBilling() = Unit
 
   fun navigateToShareLinkPayment() = Unit
+
+  fun navigateToVkPayPayment() = Unit
 }

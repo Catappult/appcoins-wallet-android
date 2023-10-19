@@ -39,6 +39,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.CARRIER_BILLING -> "carrier_billing"
       SelectedPaymentMethod.GIROPAY -> "giropay"
+      SelectedPaymentMethod.VKPAY -> "vkpay"
       SelectedPaymentMethod.ERROR -> ""
     }
   }

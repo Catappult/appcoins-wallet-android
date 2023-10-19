@@ -100,6 +100,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                 )
                 is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
                 is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+                is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment()
                 PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
             }
         }
