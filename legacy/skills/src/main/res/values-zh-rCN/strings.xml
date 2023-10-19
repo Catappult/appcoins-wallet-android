@@ -64,7 +64,7 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">正在等待对手加入游戏。</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">（%1$s获得%2$d分）</item>
+    <item quantity="other">（%1$s获得了%2$d分）</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
