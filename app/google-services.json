@@ -1,3 +1,69 @@
 {
-  
+  "project_info": {
+    "project_number": "809352885480",
+    "firebase_url": "https://appcoins-wallet-dev-android.firebaseio.com",
+    "project_id": "appcoins-wallet-dev-android",
+    "storage_bucket": "appcoins-wallet-dev-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809352885480:android:dfcb6043f45003dbf0855d",
+        "android_client_info": {
+          "package_name": "com.appcoins.wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809352885480-vcgucod74b7hsru5ovolrkaihlq2n0sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr5xUG1vdRTmbWncTqUaJpGawy6c1D_Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809352885480-vcgucod74b7hsru5ovolrkaihlq2n0sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809352885480:android:da16dcfa581385aff0855d",
+        "android_client_info": {
+          "package_name": "com.appcoins.wallet.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809352885480-vcgucod74b7hsru5ovolrkaihlq2n0sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr5xUG1vdRTmbWncTqUaJpGawy6c1D_Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809352885480-vcgucod74b7hsru5ovolrkaihlq2n0sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }
