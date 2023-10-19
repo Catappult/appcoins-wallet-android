@@ -40,6 +40,10 @@ class AndroidAppPlugin : Plugin<Project> {
                 "${project.projectDir}/schemas"
             }
           }
+          manifestPlaceholders["VkExternalAuthRedirectScheme"] =
+            project.property("VK_EXTERNAL_AUTH_REDIRECT_SCHEME").toString()
+          manifestPlaceholders["VkExternalAuthRedirectHost"] =
+            project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }
 
         signingConfigs {

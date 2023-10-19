@@ -465,27 +465,33 @@ class TopUpFragmentPresenter(
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
-    if (paymentMethod.paymentType == PaymentType.CARD
-      || paymentMethod.paymentType == PaymentType.PAYPAL
-      || paymentMethod.paymentType == PaymentType.GIROPAY
-    ) {
-      activity?.navigateToAdyenPayment(
-        paymentType = paymentMethod.paymentType,
-        data = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
-    } else if (paymentMethod.paymentType == PaymentType.LOCAL_PAYMENTS) {
-      activity?.navigateToLocalPayment(
-        paymentId = paymentMethod.paymentId,
-        icon = paymentMethod.icon,
-        label = paymentMethod.label,
-        async = paymentMethod.async,
-        topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
-    } else if (paymentMethod.paymentType == PaymentType.PAYPALV2) {
-      activity?.navigateToPaypalV2(
-        paymentType = paymentMethod.paymentType,
-        data = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL, PaymentType.GIROPAY -> {
+        activity?.navigateToAdyenPayment(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.LOCAL_PAYMENTS -> {
+        activity?.navigateToLocalPayment(
+          paymentId = paymentMethod.paymentId,
+          icon = paymentMethod.icon,
+          label = paymentMethod.label,
+          async = paymentMethod.async,
+          topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.PAYPALV2 -> {
+        activity?.navigateToPaypalV2(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.VKPAY -> {
+        activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
+      }
+
+      else -> {}
     }
   }
 
