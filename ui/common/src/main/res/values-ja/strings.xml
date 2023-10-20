@@ -1187,7 +1187,7 @@
   <string name="intro_transactions_header">取引</string>
   <string name="intro_backup_card_title">資金を失わないようにしましょう！</string>
   <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
-  <string name="rewards_spend_to_next_level_body">ネットレベルに到達するために、さらに%1$s%2$sを使う！</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skillsの収益を引き出す</string>

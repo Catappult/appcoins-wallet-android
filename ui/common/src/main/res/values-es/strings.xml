@@ -269,7 +269,7 @@
   <string name="transaction_type_reverted_topup_body">La recarga que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
   <string name="transaction_type_reverted_purchase_title">Devolución de compra</string>
   <string name="transaction_type_reverted_purchase_body">La compra que hiciste el %s ha sido revertida. Ponte en contacto con nosotros para más información.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Este bonus ha sido revertido. Para más información, ponte en contacto con nosotros.</string>
   <string name="transaction_reverted_view_original_header">Transacción original</string>
   <string name="transaction_onchain_completed_title">¡La compra está en camino!</string>
   <string name="transaction_onchain_completed_body">Puedes seguirla en Etherscan.</string>
@@ -427,7 +427,7 @@
   <string name="topup_maximum_value">El valor mínimo de recarga es %s.</string>
   <string name="topup_no_method_available_title">¡No hay métodos de pago!</string>
   <string name="topup_no_method_available_body">En estos momentos no hay métodos de pago disponibles para hacer una recarga en tu país. ¡Vuelve pronto!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Recibe un bonus de %s con esta recarga</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total en %s</string>
@@ -1200,7 +1200,7 @@
   <string name="intro_transactions_header">Transacciones</string>
   <string name="intro_backup_card_title">¡No pierdas tus fondos!</string>
   <string name="intro_backup_card_body">Guarda tu wallet para que esté siempre segura.</string>
-  <string name="rewards_spend_to_next_level_body">¡Gasta %1$s%2$s más para alcanzar el siguiente nivel!</string>
+  <string name="rewards_spend_to_next_level_body">¡%1$s%2$s más para alcanzar el siguiente nivel!</string>
   <string name="rewards_current_bonus_title">%s%% de bonus en todas las compras</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retira tus premios de e-Skills.</string>
@@ -1212,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">Juegos Compatibles con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% de bonus en todas las compras</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>

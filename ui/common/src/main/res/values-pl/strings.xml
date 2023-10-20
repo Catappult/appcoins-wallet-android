@@ -1226,7 +1226,7 @@
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
   <string name="intro_backup_card_body">Zadbaj o kopię zapasową portfela i bezpieczeństwo.</string>
-  <string name="rewards_spend_to_next_level_body">Wydaj więcej %1$s%2$s, aby wejść wyżej!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonusu przy każdym zakupie</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Wypłać swoje zarobki z e-Skills.</string>

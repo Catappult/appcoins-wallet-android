@@ -1213,7 +1213,7 @@
   <string name="intro_transactions_header">Transakcije</string>
   <string name="intro_backup_card_title">Nemojte izgubiti svoja sredstva!</string>
   <string name="intro_backup_card_body">Napravite rezervnu kopiju novčanika i čuvajte je na sigurnom mestu u svako doba.</string>
-  <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>

@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">跳过&gt;</string>
   <string name="root_title">设备安全弱</string>
   <string name="root_body">任何“植根”应用可以访问AppCoins Wallet的密钥库数据和盗取你的钱包！立即擦除此钱包并在安全的设备上恢复。</string>
-  <string name="credits_purchase_value">%s AppCoins 积金</string>
+  <string name="credits_purchase_value">%s AppCoins 积分</string>
   <string name="buying">购买%s</string>
   <string name="action_buy">购买</string>
   <string name="empty"></string>
@@ -252,7 +252,7 @@
   <string name="transaction_status_reverted">已还原</string>
   <string name="transaction_type_challenge_reward">挑战奖励</string>
   <string name="transaction_type_challenge_reward_rejected">放弃的挑战奖励</string>
-  <string name="transaction_type_challenge_reward_reverted">恢复挑战奖励</string>
+  <string name="transaction_type_challenge_reward_reverted">撤回的挑战奖励</string>
   <string name="transaction_type_iab">应用内购买</string>
   <string name="transaction_type_poa">奖励</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,7 +269,7 @@
   <string name="transaction_type_reverted_topup_body">您于%s进行的充值已还原。请联系支持团队以了解更多信息。</string>
   <string name="transaction_type_reverted_purchase_title">购买退款</string>
   <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
-  <string name="transaction_bonus_reverted_body">奖金已恢复。更多详细信息请联系相关支持部门。</string>
+  <string name="transaction_bonus_reverted_body">奖金已撤回。有关更多详细信息，请联系支持团队。</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
   <string name="transaction_onchain_completed_title">交易很快就会执行！</string>
   <string name="transaction_onchain_completed_body">你可以在Etherscan跟踪。</string>
@@ -293,27 +293,27 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">信用卡/借记卡</string>
   <string name="dialog_expiry_date">到期日期</string>
-  <string name="transaction_type_purchase_bonus">购买奖励</string>
-  <string name="transaction_type_promo_code_bonus">促销码奖励</string>
-  <string name="transaction_type_extra_bonus">额外奖励</string>
+  <string name="transaction_type_purchase_bonus">购买奖金</string>
+  <string name="transaction_type_promo_code_bonus">促销码奖金</string>
+  <string name="transaction_type_extra_bonus">额外奖金</string>
   <string name="transaction_type_topup">充值</string>
-  <string name="transaction_type_reverted_purchase_bonus">恢复购买奖励</string>
-  <string name="transaction_type_reverted_promo_code_bonus">恢复促销码奖励</string>
-  <string name="transaction_type_reverted_extra_bonus">恢复额外奖励</string>
-  <string name="transaction_type_reverted_topup">恢复充值</string>
-  <string name="transaction_type_rejected_topup">充值失败</string>
-  <string name="transaction_type_rejected_subscription_purchase">订阅购买失败</string>
-  <string name="transaction_type_rejected_purchase">购买失败</string>
-  <string name="transaction_type_rejected_eskills_ticket">e-Skills 入场券无效</string>
-  <string name="transaction_type_refund_subscription">订阅已退款</string>
-  <string name="transaction_type_subscription_payment">订阅支付</string>
-  <string name="transaction_type_funds_sent">奖金已发送</string>
-  <string name="transaction_type_funds_received">奖金已收到</string>
+  <string name="transaction_type_reverted_purchase_bonus">撤回的购买奖金</string>
+  <string name="transaction_type_reverted_promo_code_bonus">撤回的促销码奖金</string>
+  <string name="transaction_type_reverted_extra_bonus">撤回的额外奖金</string>
+  <string name="transaction_type_reverted_topup">撤回的充值</string>
+  <string name="transaction_type_rejected_topup">拒绝的充值</string>
+  <string name="transaction_type_rejected_subscription_purchase">拒绝的订阅购买</string>
+  <string name="transaction_type_rejected_purchase">拒绝的购买</string>
+  <string name="transaction_type_rejected_eskills_ticket">拒绝的 e-Skills 入场券</string>
+  <string name="transaction_type_refund_subscription">已退款的订阅服务</string>
+  <string name="transaction_type_subscription_payment">订阅服务付款</string>
+  <string name="transaction_type_funds_sent">已发送奖金</string>
+  <string name="transaction_type_funds_received">已收到奖金</string>
   <string name="transaction_type_gift_card">礼品卡</string>
   <string name="transaction_date_label">日期</string>
   <string name="transaction_more_details_label">更多详情</string>
-  <string name="transaction_rejected_body">购买失败。\n有关更多详细信息，请联系相关支持部门。</string>
-  <string name="transaction_reverted_body">恢复购买。更多详细信息请联系相关支持部门。</string>
+  <string name="transaction_rejected_body">此次购买已被拒绝。\n有关更多详细信息，请联系支持团队。</string>
+  <string name="transaction_reverted_body">此次购买已撤回。\n有关更多详细信息，请联系支持团队。</string>
   <string name="transaction_status_rejected">失败</string>
   <string name="transaction_details_header">交易明细</string>
   <string name="transaction_details_txid">交易ID</string>
@@ -717,7 +717,7 @@
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
-  <string name="import_code_here_field">请在此处输入验证码&#8230;</string>
+  <string name="import_code_here_field">请在此处输入恢复验证码&#8230;</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
   <string name="backup_title">立即备份你的钱包！</string>
@@ -1163,12 +1163,12 @@
   <string name="vip_program_max_bonus_short">每次购买可获得%s%%奖金。</string>
   <string name="vip_program_referral_notification_title">VIP引荐代码可用！</string>
   <string name="vip_program_referral_notification_body">与社区分享该代码，这样大家就都可以一边游玩一边赚钱了！</string>
-  <string name="vip_program_title_vip_offer">VIP邀请</string>
+  <string name="vip_program_title_vip_offer">VIP 礼包</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
   <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>
-  <string name="intro_appcoins_games_header">与AppCoins一起探索更多游戏</string>
-  <string name="intro_active_promotions_header">近期优惠活动</string>
+  <string name="intro_appcoins_games_header">使用 AppCoins 探索更多游戏</string>
+  <string name="intro_active_promotions_header">进行中的优惠活动</string>
   <string name="topup_home_button">充值</string>
   <string name="intro_home_button">主页</string>
   <string name="intro_rewards_button">奖励</string>
@@ -1187,10 +1187,10 @@
   <string name="intro_transactions_header">交易</string>
   <string name="intro_backup_card_title">保护您的资金安全！</string>
   <string name="intro_backup_card_body">请进行钱包备份，保护您的钱包安全。</string>
-  <string name="rewards_spend_to_next_level_body">只需再消费 %1$s%2$s ，即可进入下一级别！</string>
-  <string name="rewards_current_bonus_title">每一次购买都将获得%s奖金</string>
-  <string name="rewards_eskills_card_title">电子技能</string>
-  <string name="rewards_eskills_card_body">游戏收入提现。</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_current_bonus_title">每一次购买都将获得%s%%的奖金</string>
+  <string name="rewards_eskills_card_title">e-Skills</string>
+  <string name="rewards_eskills_card_body">将您的 e-Skills 收益提现。</string>
   <string name="rewards_promo_code_card_title">促销码</string>
   <string name="rewards_promo_code_card_body">输入促销码，以获得特别优惠！</string>
   <string name="rewards_promo_code_status">状态:</string>
@@ -1214,9 +1214,9 @@
   <string name="verify_card_one_more_step_title">验证还差一步</string>
   <string name="verify_card_one_more_step_body">请输入交易明细中出现的验证码</string>
   <string name="verify_card_one_more_step_button">输入代码</string>
-  <string name="verify_card_verified">支付方式通过验证！</string>
+  <string name="verify_card_verified">支付方式已通过验证！</string>
   <string name="verify_card_view_title">验证卡</string>
-  <string name="verify_card_view_disclaimer">我们将向您的银行卡收取%s的费用，验证码确认后，我们将立即退款给您。</string>
+  <string name="verify_card_view_disclaimer">我们将向您的银行卡收取%s的费用，待验证码确认后，我们将立即退款给您。</string>
   <string name="verify_card_view_title_2">输入您的银行卡信息</string>
   <string name="verify_card_get_a_code_button">获取验证码</string>
   <string name="verify_card_code_title">请在交易明细中查看您的验证码</string>
@@ -1226,10 +1226,10 @@
   <string name="verify_card_code_example_description">说明</string>
   <string name="verify_card_code_example_amount">金额</string>
   <string name="verify_card_code_enter_title">输入4位数字密码</string>
-  <string name="verify_card_code_refund_body">%s 费用将在您确认验证码后的24小时内退还。</string>
+  <string name="verify_card_code_refund_body">%s 将在您确认验证码后的24小时内退还。</string>
   <!-- Challenge Reward -->
   <string name="challenge_reward_card_title">挑战奖励</string>
   <string name="challenge_reward_card_body">完成挑战，获得AppCoins积分。</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">在您的钱包中可享有%sAppCoins积分</string>
+  <string name="bonus_granted_body">在您的钱包中享用 %s AppCoins积分</string>
 </resources>

@@ -1187,7 +1187,7 @@
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
   <string name="intro_backup_card_body">သင့္ပိုက္ဆံအိတ္ကို အရံသိမ္းဆည္းကာ အခ်ိန္ျပည့္ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
-  <string name="rewards_spend_to_next_level_body">ေနာက္ထပ္အဆင့္သို႔ ေရာက္ရွိရန္ %1$s%2$s ပို၍ သုံးစြဲလိုက္ပါ။</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>

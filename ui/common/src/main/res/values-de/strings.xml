@@ -1200,7 +1200,7 @@
   <string name="intro_transactions_header">Transaktionen</string>
   <string name="intro_backup_card_title">Verliere dein Geld nicht!</string>
   <string name="intro_backup_card_body">Mach ein Backup deiner Wallet und halte sie jederzeit sicher.</string>
-  <string name="rewards_spend_to_next_level_body">Gib mehr %1$s%2$s aus, um das nächste Level zu erreichen!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus für jeden Einkauf</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Lass dir deine e-Skills-Verdienste auszahlen.</string>

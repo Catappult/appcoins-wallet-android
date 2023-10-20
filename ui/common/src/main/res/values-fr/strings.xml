@@ -1200,7 +1200,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Ne perdez pas vos fonds !</string>
   <string name="intro_backup_card_body">Sauvegardez votre portefeuille et conservez-le tout le temps en sécurité.</string>
-  <string name="rewards_spend_to_next_level_body">Dépensez plus de %1$s%2$s pour atteindre le niveau suivant !</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% de Bonus sur chaque achat</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retirez vos gains e-Skills.</string>

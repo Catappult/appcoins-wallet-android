@@ -1187,7 +1187,7 @@
   <string name="intro_transactions_header">거래</string>
   <string name="intro_backup_card_title">자본을 놓치지 마세요!</string>
   <string name="intro_backup_card_body">지갑을 백업하여 항상 안전하게 보관하세요.</string>
-  <string name="rewards_spend_to_next_level_body">순 수준에 도달하려면 %1$s%2$s를 더 지출하십시오!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skills 획득을 인출합니다.</string>

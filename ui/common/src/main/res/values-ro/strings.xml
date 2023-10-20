@@ -1213,7 +1213,7 @@
   <string name="intro_transactions_header">Tranzacții</string>
   <string name="intro_backup_card_title">Nu îți pierde fondurile!</string>
   <string name="intro_backup_card_body">Fă o copie de rezervă a portofelului pentru a-l păstra în siguranță.</string>
-  <string name="rewards_spend_to_next_level_body">Cheltuiește mai mult %1$s%2$s pentru a trece la nivelul următor!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retrage-ți câștigurile e-Skills.</string>
