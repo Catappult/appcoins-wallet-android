@@ -1388,10 +1388,10 @@
   <integer name="com_vk_sdk_AppId" translatable="false">51715794</integer>
 
   <!-- Your protected key from platform.vk.com !-->
-  <string name="vk_client_secret" translatable="false">@{vk_client_secret}</string>
+  <string name="vk_client_secret" translatable="false">y9HuWDTLhqktmpHXGS98</string>
 
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
-  <string name="vk_external_oauth_redirect_url" translatable="false">@{vk_external_url_redirect}</string>
+  <string name="vk_external_oauth_redirect_url" translatable="false">vk51715794://vk.com</string>
 
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
   <string name="vk_account_manager_id" translatable="false">com.asf.wallet.account.vk</string>

@@ -559,6 +559,25 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
+  override fun showVkPay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showVkPay(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.PAYPAL,
+      bonusMessageValue,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showCreditCard(
     gamificationLevel: Int,
     fiatValue: FiatValue,
