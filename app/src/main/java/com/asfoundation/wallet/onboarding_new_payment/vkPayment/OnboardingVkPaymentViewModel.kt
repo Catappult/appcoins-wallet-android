@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.vkPayment
+package com.asfoundation.wallet.onboarding_new_payment.vkPayment
 
 import android.text.format.DateUtils
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -13,6 +13,8 @@ import com.asfoundation.wallet.billing.vkpay.usecases.ChangeVkPayTransactionStat
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.topup.TopUpPaymentData
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpSideEffect
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,23 +26,23 @@ import java.util.TimerTask
 import javax.inject.Inject
 
 
-sealed class VkPaymentTopUpSideEffect : SideEffect {
-    object ShowLoading : VkPaymentTopUpSideEffect()
-    data class ShowError(val message: Int?) : VkPaymentTopUpSideEffect()
-    object ShowSuccess : VkPaymentTopUpSideEffect()
+sealed class OnboardingVkPaymentSideEffect : SideEffect {
+    object ShowLoading : OnboardingVkPaymentSideEffect()
+    data class ShowError(val message: Int?) : OnboardingVkPaymentSideEffect()
+    object ShowSuccess : OnboardingVkPaymentSideEffect()
 }
 
-data class VkPaymentTopUpState(
+data class OnboardingVkPaymentState(
     val vkTransaction: Async<VkPayTransaction> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
-class VkPaymentTopUpViewModel @Inject constructor(
+class OnboardingVkPaymentViewModel @Inject constructor(
     private val createVkPayTransactionTopUpUseCase: CreateVkPayTransactionTopUpUseCase,
     private val getTransactionStatusUseCase: GetTransactionStatusUseCase
 ) :
-    BaseViewModel<VkPaymentTopUpState, VkPaymentTopUpSideEffect>(
-        VkPaymentTopUpState()
+    BaseViewModel<OnboardingVkPaymentState, OnboardingVkPaymentSideEffect>(
+        OnboardingVkPaymentState()
     ) {
 
     private var transactionUid: String? = null
@@ -75,7 +77,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
             // Set up a CoroutineJob that will automatically cancel after 180 seconds
             jobTransactionStatus = scope.launch {
                 delay(JOB_TIMEOUT_MS)
-                sendSideEffect { VkPaymentTopUpSideEffect.ShowError(R.string.unknown_error) }
+                sendSideEffect { OnboardingVkPaymentSideEffect.ShowError(R.string.unknown_error) }
                 timerTransactionStatus.cancel()
             }
         }
@@ -95,7 +97,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
                 when (it.status) {
                     Transaction.Status.COMPLETED -> {
                         stopTransactionStatusTimer()
-                        sendSideEffect { VkPaymentTopUpSideEffect.ShowSuccess }
+                        sendSideEffect { OnboardingVkPaymentSideEffect.ShowSuccess }
                     }
                     Transaction.Status.INVALID_TRANSACTION,
                     Transaction.Status.FAILED,
@@ -103,7 +105,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
                     Transaction.Status.FRAUD -> {
                         stopTransactionStatusTimer()
                         sendSideEffect {
-                            VkPaymentTopUpSideEffect.ShowError(
+                            OnboardingVkPaymentSideEffect.ShowError(
                                 R.string.purchase_error_wallet_block_code_403
                             )
                         }

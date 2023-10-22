@@ -21,6 +21,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
+import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -287,6 +288,36 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
         )
       )
       .commit()
+  }
+
+  override fun showVkPay(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    val fragmentVk = VkPaymentIABFragment()
+    fragmentVk.arguments = Bundle().apply {
+      putString(VkPaymentIABFragment.PAYMENT_TYPE_KEY, paymentType.name)
+      putString(VkPaymentIABFragment.ORIGIN_KEY, getOrigin(isBds))
+      putParcelable(VkPaymentIABFragment.TRANSACTION_DATA_KEY, transaction!!)
+      putSerializable(VkPaymentIABFragment.AMOUNT_KEY, amount)
+      putString(VkPaymentIABFragment.CURRENCY_KEY, currency)
+      putString(VkPaymentIABFragment.BONUS_KEY, bonus)
+      putString(VkPaymentIABFragment.SKU_DESCRIPTION, getSkuDescription())
+      putBoolean(VkPaymentIABFragment.IS_SKILLS, intent.dataString?.contains("&skills") ?: false)
+      putString(VkPaymentIABFragment.FREQUENCY, frequency)
+    }
+    supportFragmentManager.beginTransaction()
+      .add(R.id.fragment_container, fragmentVk)
+      .addToBackStack(VkPaymentIABFragment::class.java.simpleName)
+      .commit()
+
   }
 
   override fun showCarrierBilling(

@@ -18,7 +18,7 @@ android {
 
 ext {
   //Use This value inside UI:Common for VK strings
-  val vk_client_secret = project.property("VK_CLIENT_SECRET").toString()
+  val vk_client_secret = project.properties["VK_CLIENT_SECRET"].toString()
   val vk_sdk_app_id = project.properties["VK_SDK_APP_ID"]
   val vk_external_url_redirect = project.properties["VK_EXTERNAL_URL_REDIRECT"].toString()
 }

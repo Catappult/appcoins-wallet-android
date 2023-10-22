@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.vkPayment
+package com.asfoundation.wallet.onboarding_new_payment.vkPayment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
 import com.asf.wallet.databinding.VkTopupPaymentLayoutBinding
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
@@ -40,11 +41,11 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class VkPaymentTopUpFragment : BasePageViewFragment(),
-  SingleStateFragment<VkPaymentTopUpState, VkPaymentTopUpSideEffect> {
+class OnboardingVkPaymentFragment : BasePageViewFragment(),
+  SingleStateFragment<OnboardingVkPaymentState, OnboardingVkPaymentSideEffect> {
 
-  private val viewModel: VkPaymentTopUpViewModel by viewModels()
-  private val binding by lazy { VkTopupPaymentLayoutBinding.bind(requireView()) }
+  private val viewModel: OnboardingVkPaymentViewModel by viewModels()
+  private val binding by lazy { OnboardingVkPaymentLayoutBinding.bind(requireView()) }
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -67,16 +68,16 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     initSuperAppKit()
-    return VkTopupPaymentLayoutBinding.inflate(inflater).root
+    return OnboardingVkPaymentLayoutBinding.inflate(inflater).root
 
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    if (arguments?.getSerializable(PAYMENT_DATA) != null) {
+    if (arguments?.getSerializable(LocalTopUpPaymentFragment.PAYMENT_DATA) != null) {
       viewModel.paymentData =
-        arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
+        arguments?.getSerializable(LocalTopUpPaymentFragment.PAYMENT_DATA) as TopUpPaymentData
     }
     viewModel.getPaymentLink()
   }
@@ -155,7 +156,7 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
   }
 
 
-  override fun onStateChanged(state: VkPaymentTopUpState) {
+  override fun onStateChanged(state: OnboardingVkPaymentState) {
     when (state.vkTransaction) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -176,22 +177,6 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     }
   }
 
-
-  private fun handleCompletePurchase(): Completable {
-    return Completable.fromAction {
-      //analytics.sendSuccessEvent(data.topUpData.appcValue.toDouble(), data.paymentId, "success")
-      val bundle = Bundle().apply {
-          putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-          putString(TOP_UP_AMOUNT, viewModel.paymentData.fiatValue)
-          putString(TOP_UP_CURRENCY, viewModel.paymentData.fiatCurrencyCode)
-          putString(BONUS, viewModel.paymentData.bonusValue.toString())
-          putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
-        }
-      /*val navigator = Navigator
-      Navigator.popView(bundle)*/
-    }
-  }
-
   fun showError() {
     binding.loading.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
@@ -200,19 +185,15 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     binding.errorView.root.visibility = View.VISIBLE
   }
 
-  override fun onSideEffect(sideEffect: VkPaymentTopUpSideEffect) {
+  override fun onSideEffect(sideEffect: OnboardingVkPaymentSideEffect) {
     when (sideEffect) {
-      is VkPaymentTopUpSideEffect.ShowError -> {} //showError(message = sideEffect.message)
-      VkPaymentTopUpSideEffect.ShowLoading -> {}
-      VkPaymentTopUpSideEffect.ShowSuccess -> { handleCompletePurchase()}
+      is OnboardingVkPaymentSideEffect.ShowError -> {} //showError(message = sideEffect.message)
+      OnboardingVkPaymentSideEffect.ShowLoading -> {}
+      OnboardingVkPaymentSideEffect.ShowSuccess -> { }
     }
   }
 
   companion object {
     const val PAYMENT_DATA = "data"
-    internal const val TOP_UP_AMOUNT = "top_up_amount"
-    internal const val TOP_UP_CURRENCY = "currency"
-    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
-    internal const val BONUS = "bonus"
   }
 }

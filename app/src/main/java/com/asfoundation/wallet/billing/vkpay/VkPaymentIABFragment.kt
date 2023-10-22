@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup.vkPayment
+package com.asfoundation.wallet.billing.vkpay
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,16 @@ import androidx.annotation.Nullable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
+import com.asf.wallet.databinding.VkPaymentIabLayoutBinding
 import com.asf.wallet.databinding.VkTopupPaymentLayoutBinding
+import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.vk.auth.api.models.AuthResult
@@ -35,16 +38,16 @@ import com.vk.superapp.vkpay.checkout.config.VkPayCheckoutConfigBuilder
 import com.vk.superapp.vkpay.checkout.data.VkCheckoutUserInfo
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
+import java.math.BigDecimal
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class VkPaymentTopUpFragment : BasePageViewFragment(),
-  SingleStateFragment<VkPaymentTopUpState, VkPaymentTopUpSideEffect> {
+class VkPaymentIABFragment : BasePageViewFragment(),
+  SingleStateFragment<VkPaymentIABState, VkPaymentIABSideEffect> {
 
-  private val viewModel: VkPaymentTopUpViewModel by viewModels()
-  private val binding by lazy { VkTopupPaymentLayoutBinding.bind(requireView()) }
+  private val viewModel: VkPaymentIABViewModel by viewModels()
+  private val binding by lazy { VkPaymentIabLayoutBinding.bind(requireView()) }
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -67,18 +70,29 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     initSuperAppKit()
-    return VkTopupPaymentLayoutBinding.inflate(inflater).root
+    return VkPaymentIabLayoutBinding.inflate(inflater).root
 
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    if (arguments?.getSerializable(PAYMENT_DATA) != null) {
-      viewModel.paymentData =
-        arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
+    bindArguments()
+  }
+
+  private fun bindArguments() {
+    if (requireArguments().containsKey(CURRENCY_KEY) &&
+      requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
+      requireArguments().containsKey(AMOUNT_KEY)
+    ) {
+      viewModel.getPaymentLink(
+        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
+        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+        requireArguments().getString(CURRENCY_KEY)!!
+      )
+    } else {
+      showError()
     }
-    viewModel.getPaymentLink()
   }
 
 
@@ -155,7 +169,7 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
   }
 
 
-  override fun onStateChanged(state: VkPaymentTopUpState) {
+  override fun onStateChanged(state: VkPaymentIABState) {
     when (state.vkTransaction) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -164,7 +178,9 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
 
       is Async.Success -> {
         if (SuperappKit.isInitialized()) {
-          binding.vkFastLoginButton.performClick()
+          //Change for this request after testes
+          //binding.vkFastLoginButton.performClick()
+          checkoutVkPay()
         }
       }
 
@@ -176,22 +192,6 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     }
   }
 
-
-  private fun handleCompletePurchase(): Completable {
-    return Completable.fromAction {
-      //analytics.sendSuccessEvent(data.topUpData.appcValue.toDouble(), data.paymentId, "success")
-      val bundle = Bundle().apply {
-          putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-          putString(TOP_UP_AMOUNT, viewModel.paymentData.fiatValue)
-          putString(TOP_UP_CURRENCY, viewModel.paymentData.fiatCurrencyCode)
-          putString(BONUS, viewModel.paymentData.bonusValue.toString())
-          putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
-        }
-      /*val navigator = Navigator
-      Navigator.popView(bundle)*/
-    }
-  }
-
   fun showError() {
     binding.loading.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
@@ -200,19 +200,23 @@ class VkPaymentTopUpFragment : BasePageViewFragment(),
     binding.errorView.root.visibility = View.VISIBLE
   }
 
-  override fun onSideEffect(sideEffect: VkPaymentTopUpSideEffect) {
+  override fun onSideEffect(sideEffect: VkPaymentIABSideEffect) {
     when (sideEffect) {
-      is VkPaymentTopUpSideEffect.ShowError -> {} //showError(message = sideEffect.message)
-      VkPaymentTopUpSideEffect.ShowLoading -> {}
-      VkPaymentTopUpSideEffect.ShowSuccess -> { handleCompletePurchase()}
+      is VkPaymentIABSideEffect.ShowError -> {} //showError(message = sideEffect.message)
+      VkPaymentIABSideEffect.ShowLoading -> {}
+      VkPaymentIABSideEffect.ShowSuccess -> {}
     }
   }
 
   companion object {
-    const val PAYMENT_DATA = "data"
-    internal const val TOP_UP_AMOUNT = "top_up_amount"
-    internal const val TOP_UP_CURRENCY = "currency"
-    internal const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
-    internal const val BONUS = "bonus"
+    const val PAYMENT_TYPE_KEY = "payment_type"
+    const val ORIGIN_KEY = "origin"
+    const val TRANSACTION_DATA_KEY = "transaction_data"
+    const val AMOUNT_KEY = "amount"
+    const val CURRENCY_KEY = "currency"
+    const val BONUS_KEY = "bonus"
+    const val IS_SKILLS = "is_skills"
+    const val FREQUENCY = "frequency"
+    const val SKU_DESCRIPTION = "sku_description"
   }
 }

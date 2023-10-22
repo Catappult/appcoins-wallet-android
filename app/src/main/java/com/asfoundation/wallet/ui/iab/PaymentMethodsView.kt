@@ -60,6 +60,11 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showVkPay(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun showGiroPay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                   isSubscription: Boolean)
 
@@ -151,6 +156,6 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
     ASK_FRIEND("ask_friend"),
-    VKPAY("vkpay")
+    VKPAY("vk_pay")
   }
 }

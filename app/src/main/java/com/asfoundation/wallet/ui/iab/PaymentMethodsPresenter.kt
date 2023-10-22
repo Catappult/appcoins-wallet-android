@@ -160,6 +160,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              VKPAY -> view.showVkPay(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
@@ -1100,6 +1106,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.CREDIT_CARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentMethodId.VKPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
       PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
