@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
