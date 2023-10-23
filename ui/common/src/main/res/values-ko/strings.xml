@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
