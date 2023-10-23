@@ -11,8 +11,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.StringRes
@@ -231,6 +230,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val fragment_credit_card_authorization_progress_bar: LottieAnimationView
     get() = bindingCreditCardPreSelected?.fragmentCreditCardAuthorizationProgressBar
       ?: bindingCreditCardLayout?.fragmentCreditCardAuthorizationProgressBar!!
+  private val making_purchase_text: TextView
+    get() = bindingCreditCardPreSelected?.makingPurchaseText
+      ?: bindingCreditCardLayout?.makingPurchaseText!!
   private val fiat_price_skeleton: ShimmerFrameLayout
     get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPriceSkeleton?.root
       ?: bindingCreditCardLayout?.paymentMethodsHeader?.fiatPriceSkeleton?.root!!
@@ -415,22 +417,28 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun showLoading() {
     fragment_credit_card_authorization_progress_bar.visibility = VISIBLE
     if (isPreSelected) {
-      payment_methods?.visibility = View.INVISIBLE
+      payment_methods?.visibility = INVISIBLE
     } else {
       if (bonus.isNotEmpty()) {
-        bonus_layout?.visibility = View.INVISIBLE
+        bonus_layout?.visibility = INVISIBLE
       }
-      adyen_card_form?.visibility = View.INVISIBLE
-      change_card_button?.visibility = View.INVISIBLE
-      cancel_button.visibility = View.INVISIBLE
-      buy_button.visibility = View.INVISIBLE
+      adyen_card_form?.visibility = INVISIBLE
+      change_card_button?.visibility = INVISIBLE
+      cancel_button.visibility = INVISIBLE
+      buy_button.visibility = INVISIBLE
       fiat_price_skeleton.visibility = GONE
       appc_price_skeleton.visibility = GONE
     }
   }
 
+  override fun showLoadingMakingPayment() {
+    showLoading()
+    making_purchase_text.visibility = VISIBLE
+  }
+
   override fun hideLoadingAndShowView() {
     fragment_credit_card_authorization_progress_bar.visibility = GONE
+    making_purchase_text.visibility = GONE
     if (isPreSelected) {
       payment_methods?.visibility = VISIBLE
     } else {
@@ -448,6 +456,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun showSuccess(renewal: Date?) {
     iab_activity_transaction_completed.visibility = VISIBLE
     fragment_credit_card_authorization_progress_bar.visibility = GONE
+    making_purchase_text.visibility = GONE
     if (isSubscription && renewal != null) {
       next_payment_date.visibility = VISIBLE
       setBonusMessage(renewal)
@@ -457,6 +466,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       main_view_pre_selected?.visibility = GONE
     } else {
       fragment_credit_card_authorization_progress_bar.visibility = GONE
+      making_purchase_text.visibility = GONE
       credit_card_info?.visibility = GONE
       lottie_transaction_success.visibility = VISIBLE
       fragment_adyen_error?.visibility = GONE
@@ -499,6 +509,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean) {
     fragment_credit_card_authorization_progress_bar.visibility = GONE
+    making_purchase_text.visibility = GONE
     cancel_button.visibility = GONE
     buy_button.visibility = GONE
     payment_methods?.visibility = VISIBLE

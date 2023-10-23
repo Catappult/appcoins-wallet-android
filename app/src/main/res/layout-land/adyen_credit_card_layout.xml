@@ -78,6 +78,21 @@
           tools:visibility="visible"
           />
 
+      <TextView
+          android:id="@+id/making_purchase_text"
+          style="@style/PaymentLoadingTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="0dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="Making purchase..."
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_separator"
+          app:layout_constraintTop_toBottomOf="@+id/fragment_credit_card_authorization_progress_bar"
+          />
+
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"

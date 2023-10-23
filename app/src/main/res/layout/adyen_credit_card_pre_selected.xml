@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
-    android:theme="@style/AdyenMaterialAppTheme"
     android:background="@drawable/background_content_payments"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
   <RelativeLayout
       android:id="@+id/main_view_pre_selected"
@@ -27,6 +27,21 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_wallet"
         tools:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/making_purchase_text"
+        style="@style/PaymentLoadingTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_credit_card_authorization_progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:paddingTop="80dp"
+        android:text="Making purchase..."
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -62,10 +77,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="23dp"
+            android:minHeight="194dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
-            android:minHeight="194dp"
             >
           <RelativeLayout
               android:layout_width="match_parent"
@@ -98,9 +113,9 @@
                 layout="@layout/support_error_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:paddingStart="0dp"
                 android:paddingEnd="16dp"
+                android:visibility="gone"
                 />
           </RelativeLayout>
         </ScrollView>
@@ -122,8 +137,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/big_margin"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

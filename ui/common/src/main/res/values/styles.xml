@@ -1369,4 +1369,10 @@
     <item name="android:itemBackground">@color/styleguide_payments_blue</item>
   </style>
 
+  <style name="PaymentLoadingTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/styleguide_payments_blue</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
 </resources>
