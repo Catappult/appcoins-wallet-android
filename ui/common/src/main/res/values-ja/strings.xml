@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
