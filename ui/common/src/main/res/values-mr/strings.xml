@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">अतिरिक्त शुल्क लागू होऊ शकते.</string>
   <string name="purchase_error_paypal">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
   <string name="purchase_success_bonus_received_title">%s बोनस प्राप्त झाला.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
