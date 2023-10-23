@@ -96,10 +96,12 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
+    binding.makingPurchaseText.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
     binding.loadingAnimation.visibility = View.GONE
+    binding.makingPurchaseText.visibility = View.GONE
   }
 
   override fun showNoNetworkError() {
@@ -159,6 +161,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
 
   override fun showTransactionCompleted() {
     binding.loadingAnimation.visibility = View.GONE
+    binding.makingPurchaseText.visibility = View.GONE
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
     binding.fragmentIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
