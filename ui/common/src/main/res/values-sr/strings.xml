@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
