@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">बोनसचा वापर कोणत्याही अॅप वा खेळात केला जाऊ शकतो.</string>
   <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
   <string name="intro_get_started_button">वॉलेट सुरु करा</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">वॉलेट&#8230; लाँच करीत आहोत</string>
   <string name="select_method_title">पेमेंट पद्धत निवडा</string>
@@ -1136,7 +1143,7 @@
   <string name="appcoins_info_market_cap_title">मार्केट कॅप</string>
   <string name="appcoins_info_volume_title">एकुण उलाढाल (२४ तास)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">कार्ड कोड इथे...</string>
   <string name="gift_card_done_title">कोड रिडीम झाला!</string>
   <string name="gift_card_done_body">आपल्या व्यवहारांची सूची तपासा.</string>
@@ -1222,7 +1229,7 @@
   <string name="intro_transactions_header">व्यवहार</string>
   <string name="intro_backup_card_title">पैसे घालवु नका!</string>
   <string name="intro_backup_card_body">आपले वॉलेट बॅकअप करुन नेहमीच सुरक्षित राखा.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
   <string name="rewards_eskills_card_title">ई-स्किल्स</string>
   <string name="rewards_eskills_card_body">आपली ई-स्किल्स कमाई काढा.</string>
