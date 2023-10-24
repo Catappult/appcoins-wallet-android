@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">ਬੋਨਸ ਕਿਸੇ ਵੀ ਐਪ ਜਾਂ ਗੇਮ ਵਿੱਚ ਵਰਤੇ ਜਾ ਸਕਦੇ ਹਨ।</string>
   <string name="intro_already_have_wallet_button">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
   <string name="intro_get_started_button">ਬਟੂਆ ਖੋਲੋ</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
   <string name="select_method_title">Choose a payment method</string>
@@ -1115,7 +1122,7 @@
   <string name="appcoins_info_market_cap_title">ਮਾਰਕਿਟ ਦਾ ਹਿੱਸਾ</string>
   <string name="appcoins_info_volume_title">ਵਾਲਿਊਮ (24 ਘੰਟੇ)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">ਆਪਣਾ ਗਿਫਟ ਕਾਰਡ ਕੋਡ ਰੀਡੀਮ ਕਰੋ</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">ਕਾਰਡ ਕੋਡ ਇੱਥੇ...</string>
   <string name="gift_card_done_title">ਕੋਡ ਰੀਡੀਮ ਕੀਤਾ ਗਿਆ!</string>
   <string name="gift_card_done_body">ਆਪਣੀ ਲੈਣ-ਦੇਣ ਸੂਚੀ ਦੀ ਜਾਂਚ ਕਰੋ।</string>
@@ -1201,7 +1208,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
