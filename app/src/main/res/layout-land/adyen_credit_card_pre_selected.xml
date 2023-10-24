@@ -41,7 +41,7 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:paddingTop="80dp"
-        android:text="Making purchase..."
+        android:text="@string/purchase_making_purchase_title"
         android:visibility="gone"
         />
 

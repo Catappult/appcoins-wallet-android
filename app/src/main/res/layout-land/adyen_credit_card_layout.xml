@@ -85,7 +85,7 @@
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="0dp"
           android:layout_marginEnd="@dimen/big_margin"
-          android:text="Making purchase..."
+          android:text="@string/purchase_making_purchase_title"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_separator"
