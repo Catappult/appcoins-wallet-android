@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Бонуси можна використовувати в будь-якому додатку або грі.</string>
   <string name="intro_already_have_wallet_button">У мене вже є гаманець</string>
   <string name="intro_get_started_button">Запустити гаманець</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Запуск гаманця&#8230;</string>
   <string name="select_method_title">Виберіть спосіб оплати</string>
@@ -1135,7 +1142,7 @@
   <string name="appcoins_info_market_cap_title">Ринкова капіталізація</string>
   <string name="appcoins_info_volume_title">Тривалість(24 год)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Активуйте код подарункової картки</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Код картки тут...</string>
   <string name="gift_card_done_title">Код активовано!</string>
   <string name="gift_card_done_body">Перевірте свій список транзакцій.</string>
@@ -1229,7 +1236,7 @@
   <string name="intro_transactions_header">Транзакції</string>
   <string name="intro_backup_card_title">Не втрачайте свої кошти!</string>
   <string name="intro_backup_card_body">Зробіть резервну копію свого гаманця і завжди тримайте його в безпеці.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Виведіть свій e-Skills дохід.</string>
