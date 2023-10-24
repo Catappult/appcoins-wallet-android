@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">I bonus possono essere utilizzati su qualsiasi app o gioco.</string>
   <string name="intro_already_have_wallet_button">Ho già un wallet</string>
   <string name="intro_get_started_button">Lancia il wallet</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Lancio del wallet in corso&#8230;</string>
   <string name="select_method_title">Scegli un metodo di pagamento</string>
@@ -1115,7 +1122,7 @@
   <string name="appcoins_info_market_cap_title">Capitalizzazione di mercato</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Riscatta il tuo codice buono regalo</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Inserisci il codice del buono qui...</string>
   <string name="gift_card_done_title">Codice riscattato!</string>
   <string name="gift_card_done_body">Controlla la lista delle transazioni.</string>
@@ -1201,7 +1208,7 @@
   <string name="intro_transactions_header">Transazioni</string>
   <string name="intro_backup_card_title">Non perdere i tuoi fondi!</string>
   <string name="intro_backup_card_body">Effettua il backup del tuo wallet per tenerlo sempre al sicuro.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% di bonus su ogni acquisto</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
