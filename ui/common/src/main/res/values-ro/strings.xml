@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Este posibil să se aplice comisioane suplimentare.</string>
   <string name="purchase_error_paypal">Am întâmpinat o problemă cu plata ta PayPal. Încearcă din nou sau folosește o metodă de plată diferită.</string>
   <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>

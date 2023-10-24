@@ -626,6 +626,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
   <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
