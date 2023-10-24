@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Bonus bisa digunakan di aplikasi atau game apa saja.</string>
   <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
   <string name="intro_get_started_button">Luncurkan dompet</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Meluncurkan dompet&#8230;</string>
   <string name="select_method_title">Pilih metode pembayaran</string>
@@ -1106,7 +1113,7 @@
   <string name="appcoins_info_market_cap_title">Kapitalisasi Pasar</string>
   <string name="appcoins_info_volume_title">Volume (24 jam)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Tukarkan kode kartu hadiah Anda</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Kode kartu disini...</string>
   <string name="gift_card_done_title">Kode sudah ditukar!</string>
   <string name="gift_card_done_body">Periksa daftar transaksi Anda.</string>
@@ -1188,7 +1195,7 @@
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan sampai dana Anda hilang!</string>
   <string name="intro_backup_card_body">Cadangkan dompet Anda dan jaga keamanannya setiap saat.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
