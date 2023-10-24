@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Bonussen kunnen in elke app of game worden gebruikt.</string>
   <string name="intro_already_have_wallet_button">Ik heb al een wallet</string>
   <string name="intro_get_started_button">Wallet openen</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Wallet openen&#8230;</string>
   <string name="select_method_title">Kies een betaalmethode</string>
@@ -1115,7 +1122,7 @@
   <string name="appcoins_info_market_cap_title">Marktkapitalisatie</string>
   <string name="appcoins_info_volume_title">Volume (24 uur)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Wissel je cadeaukaartcode in</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Voer hier je kaartcode in...</string>
   <string name="gift_card_done_title">Code is ingewisseld!</string>
   <string name="gift_card_done_body">Controleer je lijst met transacties.</string>
@@ -1201,7 +1208,7 @@
   <string name="intro_transactions_header">Transacties</string>
   <string name="intro_backup_card_title">Verlies je saldo niet!</string>
   <string name="intro_backup_card_body">Maak een back-up van je wallet om deze altijd veilig te bewaren.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Neem je verdiensten met e-Skills op.</string>
