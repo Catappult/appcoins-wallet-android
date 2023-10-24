@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Bonusy mogą zostać wykorzystane w dowolnej aplikacji lub grze.</string>
   <string name="intro_already_have_wallet_button">Mam już portfel</string>
   <string name="intro_get_started_button">Utwórz portfel</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Zakładam portfel&#8230;</string>
   <string name="select_method_title">Wybierz metodę płatnosci</string>
@@ -1133,7 +1140,7 @@
   <string name="appcoins_info_market_cap_title">Kapitalizacja</string>
   <string name="appcoins_info_volume_title">Wartość (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Odzyskaj kod prezentowy</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Wpisz kod karty</string>
   <string name="gift_card_done_title">Kod odzyskany!</string>
   <string name="gift_card_done_body">Sprawdź listę transakcji.</string>
@@ -1227,7 +1234,7 @@
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
   <string name="intro_backup_card_body">Zadbaj o kopię zapasową portfela i bezpieczeństwo.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonusu przy każdym zakupie</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Wypłać swoje zarobki z e-Skills.</string>
