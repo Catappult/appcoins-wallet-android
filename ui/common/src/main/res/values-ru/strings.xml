@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Бонусы можно использовать в любом приложении или игре.</string>
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
   <string name="intro_get_started_button">Запустить кошелёк</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Запускаем кошелёк&#8230;</string>
   <string name="select_method_title">Выберите способ оплаты</string>
@@ -1133,7 +1140,7 @@
   <string name="appcoins_info_market_cap_title">Объём рынка</string>
   <string name="appcoins_info_volume_title">Сумма сделок (24 часа)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Погасите ваш подарочный код</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
   <string name="gift_card_done_title">Код погашен!</string>
   <string name="gift_card_done_body">Проверьте ваш список транзакций.</string>
@@ -1227,7 +1234,7 @@
   <string name="intro_transactions_header">Транзакции</string>
   <string name="intro_backup_card_title">Не потеряйте свои средства!</string>
   <string name="intro_backup_card_body">Сделайте бэкап кошелька и всегда держите его в безопасности.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
