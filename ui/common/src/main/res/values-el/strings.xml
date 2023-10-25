@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Λεπτομέρειες</string>
   <string name="transaction_to_label">Προς</string>
   <string name="transaction_invoice_label">Τιμολόγιο</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Αποθήκευση Στοιχείων Κάρτας</string>
   <string name="notification_payment_refused">Η Πληρωμή Απορρίφθηκε</string>
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
