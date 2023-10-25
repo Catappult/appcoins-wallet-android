@@ -293,6 +293,7 @@
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
   <string name="transaction_invoice_label">交易明细</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
   <string name="notification_payment_refused">支付被拒绝</string>
   <string name="dialog_credit_card_number">卡号</string>
