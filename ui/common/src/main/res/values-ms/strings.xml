@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Bonus boleh digunakan dalam mana-mana aplikasi atau permainan.</string>
   <string name="intro_already_have_wallet_button">Saya sudah ada dompet</string>
   <string name="intro_get_started_button">Lancarkan dompet</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Melancarkan dompet&#8230;</string>
   <string name="select_method_title">Pilih kaedah pembayaran</string>
@@ -1106,7 +1113,7 @@
   <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Tebus kod kad hadiah anda</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">Kod kad di sini...</string>
   <string name="gift_card_done_title">Kod telah ditebus!</string>
   <string name="gift_card_done_body">Semak senarai transaksi anda.</string>
@@ -1188,7 +1195,7 @@
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan hilang dana anda!</string>
   <string name="intro_backup_card_body">Sandarkan dompet anda dan pastikan ia selamat sepanjang masa.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Keluarkan pendapatan e-Skills anda.</string>

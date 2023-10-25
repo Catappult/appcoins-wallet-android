@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">보너스는 앱 또는 게임에서 사용할 수 있습니다.</string>
   <string name="intro_already_have_wallet_button">지갑은 이미 있어요</string>
   <string name="intro_get_started_button">지갑 실행</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">런칭 지갑&#8230;</string>
   <string name="select_method_title">결제 방법을 선택하세요</string>
@@ -1106,7 +1113,7 @@
   <string name="appcoins_info_market_cap_title">시가총액</string>
   <string name="appcoins_info_volume_title">거래량 (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">카드 코드 입력...</string>
   <string name="gift_card_done_title">코드 교환!</string>
   <string name="gift_card_done_body">거래 목록을 확인하세요.</string>
@@ -1188,7 +1195,7 @@
   <string name="intro_transactions_header">거래</string>
   <string name="intro_backup_card_title">자본을 놓치지 마세요!</string>
   <string name="intro_backup_card_body">지갑을 백업하여 항상 안전하게 보관하세요.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skills 획득을 인출합니다.</string>

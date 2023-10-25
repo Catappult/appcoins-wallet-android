@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">ေဘာနပ္စ္မ်ားကို မည္သည့္အက္ပ္ သို႔မဟုတ္ ဂိမ္းတြင္မဆို အသုံးျပဳႏိုင္ပါသည္။</string>
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
   <string name="intro_get_started_button">ပိုက္ဆံအိတ္ကို ဖြင့္မည္</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">ပိုက္ဆံအိတ္ကို ဖြင့္ေနပါသည္ &#8230;</string>
   <string name="select_method_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
@@ -1106,7 +1113,7 @@
   <string name="appcoins_info_market_cap_title">ေစ်းကြက္တန္ဖိုး</string>
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">သင့္လက္ေဆာင္ကုဒ္ကို လဲလွယ္လိုက္ပါ</string>
+  <string name="gift_card_title">Redeem your gift card code.</string>
   <string name="gift_card_field">ကဒ္ကုဒ္ကို ဤေနရာတြင္...</string>
   <string name="gift_card_done_title">ကုဒ္ကို လဲလွယ္လိုက္ပါၿပီ။</string>
   <string name="gift_card_done_body">သင့္ေငြလႊဲေျပာင္းမႈ စာရင္းကို စစ္ေဆးပါ။</string>
@@ -1188,7 +1195,7 @@
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
   <string name="intro_backup_card_body">သင့္ပိုက္ဆံအိတ္ကို အရံသိမ္းဆည္းကာ အခ်ိန္ျပည့္ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
