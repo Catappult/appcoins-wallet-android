@@ -293,6 +293,7 @@
   <string name="transaction_details_label">বিস্তারিত</string>
   <string name="transaction_to_label">প্রতি</string>
   <string name="transaction_invoice_label">Invoice</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">স্মৃতি কার্ড</string>
   <string name="notification_payment_refused">মূল্য পরিশোধ প্রত্যাখাত</string>
   <string name="dialog_credit_card_number">কার্ড নম্বর</string>
