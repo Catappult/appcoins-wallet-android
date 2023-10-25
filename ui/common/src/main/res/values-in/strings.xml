@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Top-up yang Anda lakukan pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
   <string name="transaction_type_reverted_purchase_title">Pengembalian Dana Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang Anda lakukan pada %s sudah dikembalikan. Hubungi Tim Dukungan untuk informasi lebih lanjut.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Semula</string>
   <string name="transaction_onchain_completed_title">Transaksi sedang berlangsung!</string>
   <string name="transaction_onchain_completed_body">Anda bisa melacaknya di Etherscan.</string>
@@ -1186,7 +1187,7 @@
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan sampai dana Anda hilang!</string>
   <string name="intro_backup_card_body">Cadangkan dompet Anda dan jaga keamanannya setiap saat.</string>
-  <string name="rewards_spend_to_next_level_body">Habiskan %1$s%2$s lagi untuk mencapai level berikutnya!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
@@ -1198,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Lakukan pembelian pertama di game yang kompatibel dengan AppCoins dan dapatkan bonus di setiap pembelian.</string>
-  <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% di setiap pembelian</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Dompet sudah berubah</string>
   <string name="manage_wallet_change_active_wallet_title">Apakah Anda ingin memilih dompet ini?</string>

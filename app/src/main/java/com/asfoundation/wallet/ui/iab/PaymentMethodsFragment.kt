@@ -6,10 +6,9 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -245,9 +244,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethodClick = paymentMethodClick,
           topupClick = topupClick,
           logoutCallback = {
-            presenter.removePaypalBillingAgreement()
-            presenter.showPayPalLogout.onNext(false)
-            showProgressBarLoading()
+            logoutFromPaypal()
           },
           disposables = presenter.disposables,
           showPayPalLogout = presenter.showPayPalLogout
@@ -257,6 +254,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       paymentMethodList.addAll(paymentMethods)
       paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
     }
+  }
+
+  private fun logoutFromPaypal() {
+    presenter.removePaypalBillingAgreement()
+    presenter.showPayPalLogout.onNext(false)
+    showProgressBarLoading()
   }
 
   private fun updateHeaderInfo(
@@ -322,14 +325,33 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.layoutPreSelected.paymentMethodDescription.visibility = View.VISIBLE
     binding.layoutPreSelected.paymentMethodDescription.text = getPaymentMethodLabel(paymentMethod)
     binding.layoutPreSelected.paymentMethodDescriptionSingle.visibility = View.GONE
-    if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
-      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
-      if (isBonusActive) hideBonus()
-    } else {
-      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
-      if (isBonusActive) {
-        if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
-        else showBonus(R.string.gamification_purchase_body)
+    when (paymentMethod.id) {
+      PaymentMethodId.APPC_CREDITS.id -> {
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+        if (isBonusActive) hideBonus()
+      }
+      PaymentMethodId.PAYPAL_V2.id -> {
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
+          val wrapper: Context =  ContextThemeWrapper(context?.applicationContext, R.style.CustomLogoutPopUpStyle)
+          val popup = PopupMenu(wrapper, it)
+          popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+          popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+            logoutFromPaypal()
+            return@setOnMenuItemClickListener true
+          }
+          popup.show()
+        }
+      }
+      else -> {
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+        if (isBonusActive) {
+          if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
+          else showBonus(R.string.gamification_purchase_body)
+        }
       }
     }
     setupFee(paymentMethod.fee)

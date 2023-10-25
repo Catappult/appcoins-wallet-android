@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ေငြျဖည့္မႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_type_reverted_purchase_title">ဝယ္ယူမႈ ေငြျပန္အမ္းျခင္း</string>
   <string name="transaction_type_reverted_purchase_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">မူလေငြလႊဲေျပာင္းမႈ</string>
   <string name="transaction_onchain_completed_title">ေငြလႊဲေျပာင္းမႈ ျပဳလုပ္ေနပါသည္။</string>
   <string name="transaction_onchain_completed_body">Etherscan တြင္ လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
@@ -1186,7 +1187,7 @@
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
   <string name="intro_backup_card_body">သင့္ပိုက္ဆံအိတ္ကို အရံသိမ္းဆည္းကာ အခ်ိန္ျပည့္ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
-  <string name="rewards_spend_to_next_level_body">ေနာက္ထပ္အဆင့္သို႔ ေရာက္ရွိရန္ %1$s%2$s ပို၍ သုံးစြဲလိုက္ပါ။</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
@@ -1198,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins အသုံးျပဳႏိုင္ေသာဂိမ္းမ်ား</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ပထမဆုံးဝယ္ယူမႈကို ျပဳလုပ္ကာ ဝယ္ယူမႈတိုင္းတြင္ ေဘာနပ္စ္တစ္ခုကို ပြင့္ေစလိုက္ပါ။</string>
-  <string name="rewards_bonus_every_purchase_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္တစ္ခုကို ခံစားလိုက္ပါ</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">ပိုက္ဆံအိတ္ကို ေျပာင္းလိုက္ပါသည္</string>
   <string name="manage_wallet_change_active_wallet_title">ဤပိုက္ဆံအိတ္ကို ေ႐ြးခ်ယ္လိုပါသလား။</string>

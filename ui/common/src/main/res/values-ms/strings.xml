@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Tambah nilai yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
   <string name="transaction_type_reverted_purchase_title">Bayar Balik Pembelian</string>
   <string name="transaction_type_reverted_purchase_body">Pembelian yang anda buat pada %s telah dikembalikan. Hubungi Sokongan untuk maklumat lanjut.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transaksi Asal</string>
   <string name="transaction_onchain_completed_title">Transaksi sedang berlangsung!</string>
   <string name="transaction_onchain_completed_body">Anda boleh jejak menggunakan Etherscan.</string>
@@ -1186,7 +1187,7 @@
   <string name="intro_transactions_header">Transaksi</string>
   <string name="intro_backup_card_title">Jangan hilang dana anda!</string>
   <string name="intro_backup_card_body">Sandarkan dompet anda dan pastikan ia selamat sepanjang masa.</string>
-  <string name="rewards_spend_to_next_level_body">Belanja sebanyak %1$s%2$s lagi untuk capai tahap seterusnya!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Keluarkan pendapatan e-Skills anda.</string>
@@ -1198,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">Permainan Serasi AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Buat pembelian pertama anda dalam permainan serasi AppCoins dan dapatkan bonus bagi setiap pembelian.</string>
-  <string name="rewards_bonus_every_purchase_title">Nikmati bonus %s%% bagi setiap pembelian</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Dompet diubah</string>
   <string name="manage_wallet_change_active_wallet_title">Anda mahu pilih dompet ini?</string>

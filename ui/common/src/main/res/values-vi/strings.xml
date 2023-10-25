@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Giao dịch nạp tiền bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Giao dịch ban đầu</string>
   <string name="transaction_onchain_completed_title">Giao dịch đang được thực hiện!</string>
   <string name="transaction_onchain_completed_body">Bạn có thể theo dõi trên Etherscan.</string>
@@ -1186,7 +1187,7 @@
   <string name="intro_transactions_header">Giao dịch</string>
   <string name="intro_backup_card_title">Đừng để mất tiền của bạn!</string>
   <string name="intro_backup_card_body">Sao lưu ví của bạn và giữ nó an toàn mọi lúc.</string>
-  <string name="rewards_spend_to_next_level_body">Chi thêm %1$s%2$s để đạt cấp độ tiếp theo!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% tiền thưởng trên mỗi giao dịch mua</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Rút thu nhập e-Skills của bạn.</string>
@@ -1198,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">Trò chơi tương thích với AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
-  <string name="rewards_bonus_every_purchase_title">Tận hưởng %s%% tiền thưởng trong mỗi lần mua</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Đã thay đổi ví</string>
   <string name="manage_wallet_change_active_wallet_title">Bạn có muốn chọn ví này không?</string>

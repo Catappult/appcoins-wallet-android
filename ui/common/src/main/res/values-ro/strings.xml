@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Alimentarea efectuată în %s a fost restituită. Contactează Asistență pentru mai multe informații.</string>
   <string name="transaction_type_reverted_purchase_title">Rambursare achiziție</string>
   <string name="transaction_type_reverted_purchase_body">Achiziția efectuată în %s a fost restituită. Contactează Asistență pentru mai multe informații.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Tranzacție originală</string>
   <string name="transaction_onchain_completed_title">Tranzacție în curs de procesare!</string>
   <string name="transaction_onchain_completed_body">O poți urmări cu Etherscan.</string>
@@ -1212,7 +1213,7 @@
   <string name="intro_transactions_header">Tranzacții</string>
   <string name="intro_backup_card_title">Nu îți pierde fondurile!</string>
   <string name="intro_backup_card_body">Fă o copie de rezervă a portofelului pentru a-l păstra în siguranță.</string>
-  <string name="rewards_spend_to_next_level_body">Cheltuiește mai mult %1$s%2$s pentru a trece la nivelul următor!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retrage-ți câștigurile e-Skills.</string>
@@ -1224,7 +1225,7 @@
   <string name="home_appcoins_compatible_games_title">Jocuri compatibile AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Fă prima achiziție într-un joc compatibil AppCoins și deblochează un bonus la fiecare achiziție.</string>
-  <string name="rewards_bonus_every_purchase_title">Bucură-te de un bonus de %s%% la fiecare achiziție</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Portofel modificat</string>
   <string name="manage_wallet_change_active_wallet_title">Vrei să selectezi acest portofel?</string>

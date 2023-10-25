@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">跳过&gt;</string>
   <string name="root_title">设备安全弱</string>
   <string name="root_body">任何“植根”应用可以访问AppCoins Wallet的密钥库数据和盗取你的钱包！立即擦除此钱包并在安全的设备上恢复。</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s AppCoins 积分</string>
   <string name="buying">购买%s</string>
   <string name="action_buy">购买</string>
   <string name="empty"></string>
@@ -229,7 +229,7 @@
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="activity_iab_change_card">更换卡</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">更换卡</string>
   <string name="activity_iab_fees">服务费</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励！👌 你需要等待%1$s小时%2$s分钟才能使用应用来赢得更多奖励⏰！</string>
@@ -250,17 +250,17 @@
   <string name="transaction_status_pending">待处理</string>
   <string name="transaction_status_failed">失败</string>
   <string name="transaction_status_reverted">已还原</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">挑战奖励</string>
+  <string name="transaction_type_challenge_reward_rejected">放弃的挑战奖励</string>
+  <string name="transaction_type_challenge_reward_reverted">撤回的挑战奖励</string>
   <string name="transaction_type_iab">应用内购买</string>
   <string name="transaction_type_poa">奖励</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
   <string name="transaction_type_eskills_reward">e-Skills奖励</string>
-  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
-  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
+  <string name="transaction_type_eskills">e-Skills 入场券</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills 门票返还</string>
   <string name="transaction_type_voucher">电子优惠券</string>
   <string name="transaction_type_voucher_title">%s优惠券</string>
   <string name="transaction_type_reverted_bonus_title">已还原奖金</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">您于%s进行的充值已还原。请联系支持团队以了解更多信息。</string>
   <string name="transaction_type_reverted_purchase_title">购买退款</string>
   <string name="transaction_type_reverted_purchase_body">您于%s进行的购买已还原。请联系支持团队以了解更多信息。</string>
+  <string name="transaction_bonus_reverted_body">奖金已撤回。有关更多详细信息，请联系支持团队。</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
   <string name="transaction_onchain_completed_title">交易很快就会执行！</string>
   <string name="transaction_onchain_completed_body">你可以在Etherscan跟踪。</string>
@@ -284,7 +285,7 @@
   <string name="transaction_order_reference_label">订单ID</string>
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
-  <string name="transaction_invoice_label">Invoice</string>
+  <string name="transaction_invoice_label">交易明细</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
   <string name="notification_payment_refused">支付被拒绝</string>
   <string name="dialog_credit_card_number">卡号</string>
@@ -292,30 +293,30 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">信用卡/借记卡</string>
   <string name="dialog_expiry_date">到期日期</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction details</string>
-  <string name="transaction_details_txid">TxID</string>
+  <string name="transaction_type_purchase_bonus">购买奖金</string>
+  <string name="transaction_type_promo_code_bonus">促销码奖金</string>
+  <string name="transaction_type_extra_bonus">额外奖金</string>
+  <string name="transaction_type_topup">充值</string>
+  <string name="transaction_type_reverted_purchase_bonus">撤回的购买奖金</string>
+  <string name="transaction_type_reverted_promo_code_bonus">撤回的促销码奖金</string>
+  <string name="transaction_type_reverted_extra_bonus">撤回的额外奖金</string>
+  <string name="transaction_type_reverted_topup">撤回的充值</string>
+  <string name="transaction_type_rejected_topup">拒绝的充值</string>
+  <string name="transaction_type_rejected_subscription_purchase">拒绝的订阅购买</string>
+  <string name="transaction_type_rejected_purchase">拒绝的购买</string>
+  <string name="transaction_type_rejected_eskills_ticket">拒绝的 e-Skills 入场券</string>
+  <string name="transaction_type_refund_subscription">已退款的订阅服务</string>
+  <string name="transaction_type_subscription_payment">订阅服务付款</string>
+  <string name="transaction_type_funds_sent">已发送奖金</string>
+  <string name="transaction_type_funds_received">已收到奖金</string>
+  <string name="transaction_type_gift_card">礼品卡</string>
+  <string name="transaction_date_label">日期</string>
+  <string name="transaction_more_details_label">更多详情</string>
+  <string name="transaction_rejected_body">此次购买已被拒绝。\n有关更多详细信息，请联系支持团队。</string>
+  <string name="transaction_reverted_body">此次购买已撤回。\n有关更多详细信息，请联系支持团队。</string>
+  <string name="transaction_status_rejected">失败</string>
+  <string name="transaction_details_header">交易明细</string>
+  <string name="transaction_details_txid">交易ID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
@@ -413,7 +414,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">充值</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s AppCoins积分</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
   <string name="topup_bonus_message">你的钱包将额外获得%s AppCoins积金。</string>
   <string name="topup_completed_1">%s的AppCoins积金</string>
@@ -426,7 +427,7 @@
   <string name="topup_maximum_value">最高充值额为%s</string>
   <string name="topup_no_method_available_title">没有付款方式！</string>
   <string name="topup_no_method_available_body">你所在的国家/地区目前没有可用于充值的付款方式。敬请关注！</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">本次充值可获得%s奖金</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
   <string name="balance_total_body">总余额(%s)</string>
@@ -491,15 +492,15 @@
   <string name="skip_button">暂时跳过</string>
   <string name="understand_button">我明白</string>
   <string name="install_button">安装</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">获取</string>
+  <string name="see_all_button">浏览所有</string>
   <string name="transfer_button">转账</string>
   <string name="top_up_button">充值</string>
   <string name="back_up_button">备份钱包</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
-  <string name="download_button">Download</string>
+  <string name="play_button">进入游戏</string>
+  <string name="manage_wallet_button">钱包管理</string>
+  <string name="log_out_button">退出登录</string>
+  <string name="download_button">下载</string>
   <string name="done">完成！</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -510,7 +511,7 @@
   <string name="get_started">开始</string>
   <string name="existent_wallet">我已经有钱包了</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">购买您最喜欢的游戏，其他事情交给我们。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
@@ -544,11 +545,11 @@
   <string name="verification_notification_reward_already_received_body">此电话号码已被用于接收奖励😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">已使用此号码。</string>
   <string name="verification_insert_code_error_common">糟糕，出现错误。请重试！</string>
-  <string name="verification_settings_unverified_title">Verify Payment Method</string>
+  <string name="verification_settings_unverified_title">验证支付方式</string>
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
-  <string name="verification_settings_verifying_title">Verifying…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">验证中……</string>
+  <string name="verification_verified_paypal_description">退款马上到账。您的支付方式即将进行验证。</string>
   <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
   <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
@@ -561,7 +562,7 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
-  <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
+  <string name="purchase_more_payment_methods_lower_case_button">其他支付方式</string>
   <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
   <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
   <string name="purchase_no_eth_body">您的ETH不足，无法支付汽油费用。</string>
@@ -609,9 +610,9 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">交易已被拒绝。请尝试使用其他卡或与付款方式。</string>
-  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
+  <string name="purchase_error_verify_wallet">请您验证支付方式，以完成本次购买。</string>
+  <string name="purchase_error_verify_card">请您验证银行卡，以完成本次购买。</string>
+  <string name="purachse_error_verify_card_button">验证银行卡</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
   <string name="purchase_app_needed_body">你需要以下应用才能完成购买。</string>
@@ -620,11 +621,11 @@
   <string name="purchase_error_wrong_pin_body">你的pin出现问题。请重试。</string>
   <string name="purchase_error_3d_body">3D身份验证有问题。请重试。</string>
   <string name="purchase_error_generic_contact_us_body">糟糕，出现错误。请重试或联系我们。</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="error_blocked_wallet_title">钱包已冻结</string>
+  <string name="error_blocked_wallet_body">出于安全原因，您的钱包已被冻结。请联系我们了解更多详细信息。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
-  <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
-  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
+  <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -647,8 +648,8 @@
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
   <string name="referral_onboarding_body_no_connection">通过推介项目，您和您的好友可获得AppCoins积金！</string>
   <string name="referral_onboarding_redeem_button">我已被邀请</string>
-  <string name="referral_verification_title">Verify Payment Method</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_title">验证支付方式</string>
+  <string name="referral_verification_body">您需要验证支付方式才能参与推荐计划。我们将通过短信向您发送验证码。</string>
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
   <string name="referral_verification_confirmation_body">首次进行应用内购买，您可以获得价值%1$s的AppCoins积金。首次购买必须使用AppCoins积金之外的任何支付方式，且金额必须超过%2$s。</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
@@ -661,8 +662,8 @@
   <string name="referral_view_share_link_button">分享邀请链接</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">分享链接到：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">每位朋友将获得价值%s的AppCoins积分。首先，您需要验证支付方式。</string>
+  <string name="referral_view_verify_button">验证支付方式</string>
   <string name="referral_view_i_have_been_invited_button">我已被邀请</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
@@ -716,7 +717,7 @@
   <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">请在此处输入恢复验证码&#8230;</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
   <string name="backup_title">立即备份你的钱包！</string>
@@ -749,9 +750,9 @@
   <string name="backup_popup_title">立即备份钱包！</string>
   <string name="backup_popup_purchase_body">始终确保资金安全。</string>
   <string name="backup_popup_gamification_body">始终保持奖励水平安全。</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">备份文件无法创建。请稍后重试。</string>
+  <string name="backup_confirmation_save_device">备份文件在您的设备上</string>
+  <string name="backup_confirmation_save_email">备份文件已发送至您的邮箱</string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>
@@ -837,7 +838,7 @@
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
   <string name="subscriptions_cancel_no_button">否，返回</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">确认取消</string>
   <string name="subscriptions_cancel_confirmation_title">已取消订购！</string>
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
@@ -938,7 +939,7 @@
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="perks_title">促销</string>
   <string name="perks_body">敬请关注！我们为您推出了特别促销。</string>
-  <string name="promotion_ends_short_title">Promotion ends in</string>
+  <string name="promotion_ends_short_title">距离优惠结束还有</string>
   <plurals name="promotion_ends">
     <item quantity="other">促销%s天后结束。</item>
   </plurals>
@@ -997,7 +998,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
+  <string name="card_verification_body">验证您的信用卡/借记卡以进行付款。</string>
   <string name="card_verification_charde_disclaimer">我们会从你的卡里扣除%的费用，你确认了代码后，我们就会退款。 根据你的银行情况，这可能需要几分钟到几天的时间。</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
@@ -1015,17 +1016,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">使用另一张卡尝试</string>
   <string name="card_verification_code_wrong_error">代码错误</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">验证还差一步</string>
   <string name="card_verification_wallets_one_step_body">输入交易详细信息中出现的代码。</string>
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="wallet_verify_header">验证至少一种支付方式</string>
   <string name="verify_card_title">验证卡</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="verify_card_button">验证银行卡</string>
+  <string name="verify_paypal_button">验证PayPal账户</string>
+  <string name="card_verification_body_new">将从您的卡中扣除%s并立即退款。请查看您账单中的对应验证码，并在此处输入。</string>
+  <string name="card_verification_disclaimer_body">请注意，确认码可能会出现在退款通知中。</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">购买优惠券并获取</string>
   <string name="voucher_card_body_2">高达 %s%% 的奖励。</string>
@@ -1114,8 +1115,8 @@
   <string name="gift_card_error_new_users_title">这个代码仅适用于新用户！</string>
   <string name="gift_card_error_try_with_different_body">请重试不同的代码。</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">验证一种支付方式</string>
+  <string name="mywallet_unverified_body">确认支付方式，以防账户被冻结。</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
   <string name="mywallet_backup_again_button">再次备份</string>
   <string name="mywallet_verify_payment_method_button">验证新卡</string>
@@ -1162,73 +1163,73 @@
   <string name="vip_program_max_bonus_short">每次购买可获得%s%%奖金。</string>
   <string name="vip_program_referral_notification_title">VIP引荐代码可用！</string>
   <string name="vip_program_referral_notification_body">与社区分享该代码，这样大家就都可以一边游玩一边赚钱了！</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">VIP 礼包</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
   <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">使用 AppCoins 探索更多游戏</string>
+  <string name="intro_active_promotions_header">进行中的优惠活动</string>
   <string name="topup_home_button">充值</string>
-  <string name="intro_home_button">Home</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_home_button">主页</string>
+  <string name="intro_rewards_button">奖励</string>
   <plurals name="days">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">天</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">小时</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">分钟</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">秒</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="intro_transactions_header">交易</string>
+  <string name="intro_backup_card_title">保护您的资金安全！</string>
+  <string name="intro_backup_card_body">请进行钱包备份，保护您的钱包安全。</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_current_bonus_title">每一次购买都将获得%s%%的奖金</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_eskills_card_body">将您的 e-Skills 收益提现。</string>
+  <string name="rewards_promo_code_card_title">促销码</string>
+  <string name="rewards_promo_code_card_body">输入促销码，以获得特别优惠！</string>
   <string name="rewards_promo_code_status">状态:</string>
   <string name="rewards_promo_code_status_active">激活</string>
   <string name="rewards_promo_code_status_expired">已到期</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">AppCoins兼容的游戏</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">在与AppCoins兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
-  <string name="manage_wallet_verify_title">Verify a Payment Method</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_wallet_changed_title">钱包更换</string>
+  <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>
+  <string name="manage_wallet_change_wallet_name_title">更改钱包名称</string>
+  <string name="manage_wallet_set_a_name_button">设置您的钱包名称</string>
+  <string name="manage_wallet_my_wallet_address_title">我的钱包地址</string>
+  <string name="manage_wallet_verify_title">验证一种支付方式</string>
+  <string name="manage_wallet_verify_body">验证一种支付方式，以免账户被冻结。</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
-  <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
+  <string name="verify_payment_method_title">验证一种支付方式</string>
+  <string name="verify_card_body">验证一种支付方式，以免账户被冻结。</string>
+  <string name="verify_card_one_more_step_title">验证还差一步</string>
+  <string name="verify_card_one_more_step_body">请输入交易明细中出现的验证码</string>
   <string name="verify_card_one_more_step_button">输入代码</string>
-  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_verified">支付方式已通过验证！</string>
   <string name="verify_card_view_title">验证卡</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_view_disclaimer">我们将向您的银行卡收取%s的费用，待验证码确认后，我们将立即退款给您。</string>
+  <string name="verify_card_view_title_2">输入您的银行卡信息</string>
+  <string name="verify_card_get_a_code_button">获取验证码</string>
+  <string name="verify_card_code_title">请在交易明细中查看您的验证码</string>
   <string name="verify_card_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_title">交易摘要示例</string>
+  <string name="verify_card_code_example_date">交易日期</string>
   <string name="verify_card_code_example_description">说明</string>
   <string name="verify_card_code_example_amount">金额</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_enter_title">输入4位数字密码</string>
+  <string name="verify_card_code_refund_body">%s 将在您确认验证码后的24小时内退还。</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">挑战奖励</string>
+  <string name="challenge_reward_card_body">完成挑战，获得AppCoins积分。</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">在您的钱包中享用 %s AppCoins积分</string>
 </resources>

@@ -6,13 +6,13 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class CarrierFeePresenter(
-    private val disposables: CompositeDisposable,
-    private val view: CarrierFeeView,
-    private val data: CarrierFeeData,
-    private val navigator: CarrierFeeNavigator,
-    private val billingAnalytics: BillingAnalytics,
-    private val appInfoProvider: ApplicationInfoProvider,
-    private val viewScheduler: Scheduler
+  private val disposables: CompositeDisposable,
+  private val view: CarrierFeeView,
+  private val data: CarrierFeeData,
+  private val navigator: CarrierFeeNavigator,
+  private val billingAnalytics: BillingAnalytics,
+  private val appInfoProvider: ApplicationInfoProvider,
+  private val viewScheduler: Scheduler
 ) {
 
   fun present() {
@@ -57,7 +57,7 @@ class CarrierFeePresenter(
       view.cancelButtonEvent()
         .mergeWith(view.systemBackEvent())
         .doOnNext {
-          sendPaymentConfirmationEvent("back")
+          sendPaymentConfirmationEvent(BillingAnalytics.ACTION_BACK)
           navigator.navigateToPaymentMethods()
         }
         .retry()

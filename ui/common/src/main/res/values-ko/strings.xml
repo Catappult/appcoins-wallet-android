@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s 에 받은 탑업이 복귀되었습니다. 상세 내용은 고객 센터로 연락 주세요.</string>
   <string name="transaction_type_reverted_purchase_title">구매 환불</string>
   <string name="transaction_type_reverted_purchase_body">%s 에 받은 구매가 복귀되었습니다. 상세 내용은 고객 센터로 연락 주세요.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">원시 거래</string>
   <string name="transaction_onchain_completed_title">거래 중입니다!</string>
   <string name="transaction_onchain_completed_body">이더스캔에서 추적할 수 있습니다.</string>
@@ -1186,7 +1187,7 @@
   <string name="intro_transactions_header">거래</string>
   <string name="intro_backup_card_title">자본을 놓치지 마세요!</string>
   <string name="intro_backup_card_body">지갑을 백업하여 항상 안전하게 보관하세요.</string>
-  <string name="rewards_spend_to_next_level_body">순 수준에 도달하려면 %1$s%2$s를 더 지출하십시오!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skills 획득을 인출합니다.</string>
@@ -1198,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins 호환 게임</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins 호환 게임에서 첫 구매를 하고 모든 구매 시 보너스 잠금을 해제합니다.</string>
-  <string name="rewards_bonus_every_purchase_title">모든 구매에서 %s%% 보너스를 받으세요</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">지갑 변경됨</string>
   <string name="manage_wallet_change_active_wallet_title">이 지갑을 선택하시겠습니까?</string>

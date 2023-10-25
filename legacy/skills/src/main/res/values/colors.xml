@@ -27,7 +27,7 @@
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
-  <color name="statusBarColor">#154868</color>
+  <color name="statusBarColor">#1A1A24</color>
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="styleguide_bonus_yellow">#F9B622</color>
   <color name="btn_end_gradient_color">#ff578c</color>

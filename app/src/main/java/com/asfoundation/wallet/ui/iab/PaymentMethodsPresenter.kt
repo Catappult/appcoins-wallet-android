@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
@@ -732,7 +733,7 @@ class PaymentMethodsPresenter(
         .toString(),
       paymentMethod.id,
       transaction.type,
-      "cancel",
+      BillingAnalytics.ACTION_CANCEL,
       interactor.hasPreSelectedPaymentMethod()
     )
 
@@ -937,7 +938,7 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) "next" else "buy"
+      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) "next" else BillingAnalytics.ACTION_BUY
     if (interactor.hasPreSelectedPaymentMethod()) {
       analytics.sendPaymentMethodEvent(
         paymentMethodsData.appPackage, transaction.skuId, transaction.amount()

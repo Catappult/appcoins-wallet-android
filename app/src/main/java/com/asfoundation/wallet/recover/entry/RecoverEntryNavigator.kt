@@ -11,9 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asfoundation.wallet.entity.WalletKeyStore
-import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
 import javax.inject.Inject
 
@@ -66,11 +64,11 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
     bottomSheet.show(fragment.parentFragmentManager, "RecoveryWalletSuccess")
   }
 
-  fun navigateToMainHomeGraph(navController: NavController) {
+  fun navigateToNavBarGraph(navController: NavController) {
     with(navController) {
       navigate(
-       this,
-        RecoverEntryFragmentDirections.actionNavigateToHomeGraph()
+        this,
+        RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
       )
     }
   }

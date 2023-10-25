@@ -113,7 +113,7 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   }
 
   private fun startPayment() {
-    viewModel.attemptTransaction(
+    viewModel.startPayment(
       createTokenIfNeeded = true,
       amount = amount,
       currency = currency

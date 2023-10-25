@@ -158,6 +158,7 @@
       app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
       app:layout_constraintTop_toTopOf="parent"
       app:tint="@color/styleguide_payments_main_text"
+      tools:visibility="visible"
       />
 
   <LinearLayout

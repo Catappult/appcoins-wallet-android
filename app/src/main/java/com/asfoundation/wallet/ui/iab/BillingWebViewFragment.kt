@@ -158,7 +158,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
         if (!url.contains("/redirect")) {
           val timeout = timeoutReference.getAndSet(null)
           timeout?.cancel(false)
-          binding.webviewProgressBar.visibility = View.GONE
+          try {
+            binding.webviewProgressBar.visibility = View.GONE
+          } catch (exception: Exception) {
+            logger.log(TAG, exception)
+          }
         }
         if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
           asyncDetailsShown = true
