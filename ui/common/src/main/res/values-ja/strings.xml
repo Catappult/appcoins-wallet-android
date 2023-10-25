@@ -568,6 +568,7 @@
   <string name="unferified_tag">未認証のウォレット</string>
   <string name="verification_wallets_verify_button">認証</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_button">その他の支払方法</string>
   <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
