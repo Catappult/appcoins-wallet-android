@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Detalji</string>
   <string name="transaction_to_label">Za</string>
   <string name="transaction_invoice_label">Faktura</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Zapamti karticu</string>
   <string name="notification_payment_refused">Plaćanje je odbijeno</string>
   <string name="dialog_credit_card_number">Broj kartice</string>
