@@ -293,6 +293,7 @@
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
   <string name="transaction_invoice_label">ใบแจ้งหนี้</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
   <string name="notification_payment_refused">การชำระเงินถูกปฏิเสธ</string>
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
