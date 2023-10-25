@@ -293,6 +293,7 @@
   <string name="transaction_details_label">詳細</string>
   <string name="transaction_to_label">宛て</string>
   <string name="transaction_invoice_label">インボイス</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">リメンバーカード</string>
   <string name="notification_payment_refused">支払い拒否</string>
   <string name="dialog_credit_card_number">カード番号</string>
