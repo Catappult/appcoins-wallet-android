@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Typeface
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
@@ -675,7 +673,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun setupTransactionComplete() {
     if (bonus.isNotEmpty()) {
-      transaction_success_bonus_text.text = getString(R.string.purchase_success_bonus_received_title, bonus)
+      transaction_success_bonus_text.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
       bonus_success_layout.visibility = GONE
     }

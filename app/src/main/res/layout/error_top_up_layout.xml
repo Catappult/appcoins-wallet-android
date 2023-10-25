@@ -80,7 +80,6 @@
       android:text="@string/error_contac_us_body"
       android:textColor="@color/styleguide_dark_grey"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_dark_grey"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
