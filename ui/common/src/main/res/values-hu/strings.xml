@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Részletek</string>
   <string name="transaction_to_label">Címzett</string>
   <string name="transaction_invoice_label">Számla</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Kártyaadatok megjegyzése</string>
   <string name="notification_payment_refused">Kifizetés elutasítva</string>
   <string name="dialog_credit_card_number">Kártyaszám</string>
