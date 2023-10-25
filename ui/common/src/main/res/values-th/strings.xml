@@ -568,6 +568,7 @@
   <string name="unferified_tag">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
   <string name="verification_wallets_verify_button">ยืนยัน</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
   <string name="purchase_more_payment_methods_lower_case_button">วิธีการชำระเงินเพิ่มเติม</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
   <string name="purchase_success_bonus_received_title">%s โบนัสที่ได้รับ</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
