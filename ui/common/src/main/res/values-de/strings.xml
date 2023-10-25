@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">An</string>
   <string name="transaction_invoice_label">Invoice</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Karte merken</string>
   <string name="notification_payment_refused">Zahlung abgelehnt</string>
   <string name="dialog_credit_card_number">Kartennummer</string>
