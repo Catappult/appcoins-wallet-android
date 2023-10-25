@@ -271,7 +271,7 @@
   <include
       android:id="@+id/error_message"
       layout="@layout/iab_error_layout"
-      android:layout_width="match_parent"
+      android:layout_width="340dp"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       android:visibility="gone"

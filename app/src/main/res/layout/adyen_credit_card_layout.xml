@@ -112,15 +112,6 @@
               android:visibility="gone"
               />
 
-          <include
-              android:id="@+id/fragment_adyen_error"
-              layout="@layout/support_error_layout"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="8dp"
-              android:visibility="gone"
-              />
-
         </RelativeLayout>
 
       </ScrollView>
@@ -180,6 +171,18 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          />
+
+      <include
+          android:id="@+id/fragment_adyen_error"
+          layout="@layout/support_error_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons_cc"
+          android:visibility="gone"
           />
 
       <include
