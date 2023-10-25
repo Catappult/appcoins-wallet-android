@@ -293,6 +293,7 @@
   <string name="transaction_details_label">तपशील</string>
   <string name="transaction_to_label">प्रति</string>
   <string name="transaction_invoice_label">इन्व्हॉइस</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">कार्ड ध्यानात ठेवा</string>
   <string name="notification_payment_refused">पेमेंट नाकारले</string>
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
