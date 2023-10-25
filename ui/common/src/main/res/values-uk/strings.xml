@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Деталі</string>
   <string name="transaction_to_label">До</string>
   <string name="transaction_invoice_label">Рахунок</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Запам\'ятати картку</string>
   <string name="notification_payment_refused">У оплаті відмовлено</string>
   <string name="dialog_credit_card_number">Номер картки</string>

@@ -293,6 +293,7 @@
   <string name="transaction_details_label">ਵੇਰਵਾ</string>
   <string name="transaction_to_label">ਲਈ</string>
   <string name="transaction_invoice_label">Invoice</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
   <string name="notification_payment_refused">ਭੁਗਤਾਨ ਦੀ ਪ੍ਰਵਾਨਗੀ ਨਹੀਂ ਮਿਲੀ</string>
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>

@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Chi tiết</string>
   <string name="transaction_to_label">Đến</string>
   <string name="transaction_invoice_label">Hóa đơn</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Nhớ thẻ</string>
   <string name="notification_payment_refused">Từ chối thanh toán</string>
   <string name="dialog_credit_card_number">Số thẻ</string>

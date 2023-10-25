@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Rincian</string>
   <string name="transaction_to_label">Ke</string>
   <string name="transaction_invoice_label">Invoice</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Ingat Kartu</string>
   <string name="notification_payment_refused">Pembayaran Ditolak</string>
   <string name="dialog_credit_card_number">Nomor Kartu</string>

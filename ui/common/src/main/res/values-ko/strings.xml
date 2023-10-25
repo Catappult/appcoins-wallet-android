@@ -293,6 +293,7 @@
   <string name="transaction_details_label">상세내용</string>
   <string name="transaction_to_label">수신</string>
   <string name="transaction_invoice_label">청구서</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">카드 기억하기</string>
   <string name="notification_payment_refused">지불 거절됨</string>
   <string name="dialog_credit_card_number">카드번호</string>
