@@ -176,7 +176,7 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/bonus_msg"
           android:layout_marginTop="10dp"
-          app:layout_constraintBottom_toTopOf="@id/error_buttons"
+          app:layout_constraintBottom_toBottomOf="@id/error_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_msg"
@@ -187,13 +187,11 @@
           layout="@layout/dialog_buy_buttons_adyen_error"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@id/cc_info_view"
-          android:layout_marginTop="10dp"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/dialog_buy_buttons"
+          app:layout_constraintTop_toTopOf="@id/dialog_buy_buttons"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
