@@ -293,6 +293,7 @@
   <string name="transaction_details_label">Butiran</string>
   <string name="transaction_to_label">Kepada</string>
   <string name="transaction_invoice_label">Invois</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Ingat Kad</string>
   <string name="notification_payment_refused">Bayaran Ditolak</string>
   <string name="dialog_credit_card_number">Nombor Kad</string>
