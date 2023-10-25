@@ -978,7 +978,7 @@
   <string name="perks_end_today">La promoción termina hoy.</string>
   <string name="perks_end_today_short">Termina hoy.</string>
   <string name="perks_available_soon">Promoción disponible pronto.</string>
-  <string name="perks_available_soon_short">Proximamente</string>
+  <string name="perks_available_soon_short">Próximamente</string>
   <string name="perks_next_level_reward">¡Alcanza el siguiente nivel y recibe %s AppCoins Credits!</string>
   <string name="perks_notification">Recibiste un bonus de %s AppCoins Credits</string>
   <string name="perks_level_up_on_this_purchase">Sube de nivel con esta compra</string>
