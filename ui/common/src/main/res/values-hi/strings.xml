@@ -568,6 +568,7 @@
   <string name="unferified_tag">Unverified wallet</string>
   <string name="verification_wallets_verify_button">Verify</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">संभवतः यह खरीद पहले से ही संसाधित की जा रही है। कृपया लेनदेन पूरा होने तक होल्ड करें या हमारी सहायता टीम से संपर्क करें।</string>
   <string name="purchase_more_payment_methods_button">अन्य भुगतान विधि</string>
   <string name="purchase_more_payment_methods_lower_case_button">Other payment methods</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>

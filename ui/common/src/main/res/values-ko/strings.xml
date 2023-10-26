@@ -568,6 +568,7 @@
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>
   <string name="purchase_more_payment_methods_button">다른 지불 방식</string>
   <string name="purchase_more_payment_methods_lower_case_button">기타 결체 방법</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>

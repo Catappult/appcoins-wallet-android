@@ -568,6 +568,7 @@
   <string name="unferified_tag">کیف پول تاییدنشده</string>
   <string name="verification_wallets_verify_button">تایید</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
   <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
   <string name="purchase_more_payment_methods_lower_case_button">سایر روش‌های پرداخت</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">مشکلی با پرداخت پی‌پال شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
   <string name="purchase_success_bonus_received_title">%s پاداش دریافت شد.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>

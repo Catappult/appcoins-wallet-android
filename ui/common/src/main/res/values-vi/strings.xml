@@ -568,6 +568,7 @@
   <string name="unferified_tag">Ví chưa xác minh</string>
   <string name="verification_wallets_verify_button">Xác minh</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
   <string name="purchase_more_payment_methods_lower_case_button">Phương thức thanh toán khác</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">Đã xảy ra sự cố với khoản thanh toán PayPal của bạn. Vui lòng thử lại hoặc sử dụng một phương thức thanh toán khác.</string>
   <string name="purchase_success_bonus_received_title">%s tiền thưởng đã nhận.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>

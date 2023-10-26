@@ -570,6 +570,7 @@
   <string name="unferified_tag">Неперевірений гаманець</string>
   <string name="verification_wallets_verify_button">Перевірити</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>
   <string name="purchase_more_payment_methods_button">ІНШІ СПОСОБИ ОПЛАТИ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Інші способи оплати</string>
@@ -637,6 +638,8 @@
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>

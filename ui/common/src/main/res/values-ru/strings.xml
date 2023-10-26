@@ -568,6 +568,7 @@
   <string name="unferified_tag">Неподтвержденный бумажник</string>
   <string name="verification_wallets_verify_button">Подтвердить</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Кажется, покупка уже обрабатывается. Пожалуйста, подождите пока транзакция не завершится, или свяжитесь с командой поддержки.</string>
   <string name="purchase_more_payment_methods_button">ДРУГИЕ МЕТОДЫ ОПЛАТЫ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Другие способы оплаты</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
