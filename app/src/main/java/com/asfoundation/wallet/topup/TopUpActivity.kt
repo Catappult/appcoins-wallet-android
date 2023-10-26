@@ -7,16 +7,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -34,7 +37,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import java.util.Objects
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,6 +57,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var displayChatUseCase: DisplayChatUseCase
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
@@ -86,14 +92,19 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       AndroidSchedulers.mainThread(),
       Schedulers.io(),
       CompositeDisposable(),
-      logger
+      logger,
+      displayChatUseCase
     )
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-    views.topBar.barBackButton.setOnClickListener { super.onBackPressed() }
+    views.topBar.composeView.apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
+      }
+    }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

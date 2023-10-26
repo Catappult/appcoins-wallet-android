@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/styleguide_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -29,6 +30,7 @@
       android:layout_marginHorizontal="@dimen/big_margin"
       android:gravity="center_horizontal"
       android:text="@string/topup_completed_2_with_bonus"
+      android:textColor="@color/styleguide_light_grey"
       app:layout_constraintBottom_toTopOf="@id/button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
