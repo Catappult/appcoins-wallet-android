@@ -510,6 +510,7 @@
   <string name="log_out_button">Αποσύνδεση</string>
   <string name="download_button">Λήψη</string>
   <string name="done">Τέλος!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -915,6 +917,7 @@ Wallets</item>
   <string name="gamif_placeholder_unknown">σε έναν άγνωστο πλανήτη</string>
   <string name="gamif_distance_unkown">Άγνωστη τοποθεσία</string>
   <string name="gamif_placeholder_new_planet">σε έναν νέο πλανήτη</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Χρέωση μέσω παρόχου</string>
   <string name="carrier_billing_fees_disclaimer">Ενδέχεται να ισχύουν επιπλέον χρεώσεις</string>
@@ -1178,7 +1181,7 @@ Wallets</item>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
   <string name="vip_program_gamification_title">Ποιο είναι το επίπεδο bonus μου;</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus που αποκτήθηκε από τις αγορές σας.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus που αποκτήθηκε από συστάσεις</string>
   <string name="vip_program_max_bonus_title">Απολαύστε το %s%% bonus σας σε κάθε αγορά</string>
   <string name="vip_program_max_bonus_body">Φτάσατε στα όρια του ηλιακού συστήματος.</string>
