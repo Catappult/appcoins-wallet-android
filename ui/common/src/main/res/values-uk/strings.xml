@@ -138,8 +138,8 @@
   <string name="intro_already_have_wallet_button">У мене вже є гаманець</string>
   <string name="intro_get_started_button">Запустити гаманець</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_1_header">Ваш інструмент для покупок у додатку</string>
+  <string name="new_intro_1_body">Здійснюйте покупки в улюблених додатках та іграх за допомогою AppCoins Wallet.</string>
   <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
   <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
   <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
@@ -512,7 +512,7 @@
   <string name="log_out_button">Вийти</string>
   <string name="download_button">Завантажити</string>
   <string name="done">Готово!</string>
-  <string name="see_more_button">See more</string>
+  <string name="see_more_button">Побачити більше</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -571,7 +571,7 @@
   <string name="unferified_tag">Неперевірений гаманець</string>
   <string name="verification_wallets_verify_button">Перевірити</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">Всього %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>
   <string name="purchase_more_payment_methods_button">ІНШІ СПОСОБИ ОПЛАТИ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Інші способи оплати</string>
@@ -638,8 +638,8 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s комісія</string>
   <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
