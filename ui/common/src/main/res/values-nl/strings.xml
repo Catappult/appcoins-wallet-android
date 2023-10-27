@@ -637,7 +637,7 @@
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Aankoop verwerken&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s kosten</string>
+  <string name="purchase_fee_title">Kosten van %1$s%2$s</string>
   <string name="purchase_fee_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom worden er verwerkingskosten in rekening gebracht. Deze kosten zijn inbegrepen in het totaal dat je hierboven kunt vinden.</string>
   <string name="purchase_unknown_fee_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom kunnen er verwerkingskosten in rekening worden gebracht.</string>
   <!--Billing address in purchase flow-->
