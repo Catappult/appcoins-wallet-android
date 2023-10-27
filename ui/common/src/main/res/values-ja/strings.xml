@@ -510,6 +510,7 @@
   <string name="log_out_button">ログアウト</string>
   <string name="download_button">ダウンロード</string>
   <string name="done">完了</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -913,6 +915,7 @@
   <string name="gamif_placeholder_unknown">未知の惑星</string>
   <string name="gamif_distance_unkown">未知の場所</string>
   <string name="gamif_placeholder_new_planet">新たな惑星</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">キャリア課金</string>
   <string name="carrier_billing_fees_disclaimer">追加料金が発生する場合があります。</string>
@@ -1168,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
   <string name="vip_program_gamification_title">私のボーナスレベルは？</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">購入で受け取ったボーナス。</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">紹介によるボーナス</string>
   <string name="vip_program_max_bonus_title">購入のたびに%s%% ボーナスをゲット</string>
   <string name="vip_program_max_bonus_body">あなたは、太陽系の限界に達しました。</string>
