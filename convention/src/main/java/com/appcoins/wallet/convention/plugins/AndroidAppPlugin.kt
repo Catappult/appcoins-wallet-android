@@ -40,8 +40,7 @@ class AndroidAppPlugin : Plugin<Project> {
                 "${project.projectDir}/schemas"
             }
           }
-          manifestPlaceholders["VkExternalAuthRedirectScheme"] =
-            project.property("VK_EXTERNAL_AUTH_REDIRECT_SCHEME").toString()
+
           manifestPlaceholders["VkExternalAuthRedirectHost"] =
             project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }
@@ -68,6 +67,8 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
             manifestPlaceholders["paymentHost"] =
               project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
+            manifestPlaceholders["VkExternalAuthRedirectScheme"] =
+              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
           }
 
           release {
@@ -80,6 +81,8 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
             manifestPlaceholders["paymentHost"] =
               project.property("MANIFEST_PAYMENT_HOST").toString()
+            manifestPlaceholders["VkExternalAuthRedirectScheme"] =
+              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
           }
 
           register("staging") {

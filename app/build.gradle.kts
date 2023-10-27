@@ -18,9 +18,6 @@ android {
 
 ext {
   //Use This value inside UI:Common for VK strings
-  val vk_client_secret = project.properties["VK_CLIENT_SECRET"].toString()
-  val vk_sdk_app_id = project.properties["VK_SDK_APP_ID"]
-  val vk_external_url_redirect = project.properties["VK_EXTERNAL_URL_REDIRECT"].toString()
 }
 
 dependencies {
@@ -59,6 +56,7 @@ dependencies {
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":home"))
+  implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)

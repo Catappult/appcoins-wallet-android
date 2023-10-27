@@ -1394,7 +1394,7 @@
   <string name="vk_external_oauth_redirect_url" translatable="false">vk51715794://vk.com</string>
 
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
-  <string name="vk_account_manager_id" translatable="false">com.asf.wallet.account.vk</string>
-  
+  <string name="vk_account_manager_id" translatable="false">com.appcoins.wallet.account.vk</string>
+
 
 </resources>

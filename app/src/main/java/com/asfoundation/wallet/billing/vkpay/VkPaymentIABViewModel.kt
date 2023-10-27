@@ -8,12 +8,11 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
-import com.asfoundation.wallet.topup.TopUpPaymentData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,26 +37,43 @@ data class VkPaymentIABState(
 @HiltViewModel
 class VkPaymentIABViewModel @Inject constructor(
   private val createVkPayTransactionUseCase: CreateVkPayTransactionUseCase,
-  private val getTransactionStatusUseCase: GetTransactionStatusUseCase
+  private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) :
   BaseViewModel<VkPaymentIABState, VkPaymentIABSideEffect>(
     VkPaymentIABState()
   ) {
 
-  private var transactionUid: String? = null
+  var transactionUid: String? = null
+  var walletAddress: String = ""
   private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 180 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 100 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
 
-  fun getPaymentLink(transactionBuilder: TransactionBuilder, amount: String, fiatCurrencySymbol: String) {
+  fun getPaymentLink(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    fiatCurrencySymbol: String,
+    origin: String
+  ) {
     val price = VkPrice(value = amount, currency = fiatCurrencySymbol)
+    getCurrentWalletUseCase().doOnSuccess {
+      walletAddress = it.address
+    }.scopedSubscribe()
     createVkPayTransactionUseCase(
-      price = price, reference = transactionBuilder.orderReference, origin = transactionBuilder.origin, metadata = transactionBuilder.payload,
-      sku = transactionBuilder.skuId, callbackUrl = transactionBuilder.callbackUrl, transactionType = transactionBuilder.type,
-      developerWallet = transactionBuilder.toAddress(), referrerUrl = transactionBuilder.referrerUrl, packageName = transactionBuilder.domain
+      price = price,
+      reference = transactionBuilder.orderReference,
+      origin = origin,
+      metadata = transactionBuilder.payload,
+      sku = transactionBuilder.skuId,
+      callbackUrl = transactionBuilder.callbackUrl,
+      transactionType = transactionBuilder.type,
+      developerWallet = transactionBuilder.toAddress(),
+      referrerUrl = transactionBuilder.referrerUrl,
+      packageName = transactionBuilder.domain
     ).asAsyncToState {
       copy(vkTransaction = it)
     }.scopedSubscribe()

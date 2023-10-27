@@ -20,8 +20,8 @@ class VkPayRepository @Inject constructor(
     origin: String?, packageName: String?, metadata: String?, sku: String?,
     callbackUrl: String?, transactionType: String, developerWallet: String?,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
-    userWallet: String?, orderId: String,
-    referrerUrl: String?
+    userWallet: String?,
+    referrerUrl: String?, method: String?
   ): Single<VkPayTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -42,8 +42,8 @@ class VkPayRepository @Inject constructor(
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
             user = userWallet,
-            orderId = orderId,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            method = method
           )
         )
           .map { response: VkTransactionResponse ->
@@ -66,26 +66,6 @@ class VkPayRepository @Inject constructor(
               errorCode.toString(),
               errorContent ?: ""
             )
-          }
-      }
-  }
-
-  fun changeVkTransactionStatusDev(
-    walletAddress: String, orderId: String, status: String?
-  ): Single<Boolean> {
-    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-      .flatMap { ewt ->
-        vkPayApi.changeVkTransactionStatusDev(
-          walletAddress = walletAddress,
-          authorization = ewt,
-          transactionUid = orderId,
-          status = status
-        )
-          .map { response: Boolean ->
-           response
-          }
-          .onErrorReturn {
-           false
           }
       }
   }
