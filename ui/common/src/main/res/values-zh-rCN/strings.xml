@@ -637,7 +637,7 @@
   <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <string name="purchase_making_purchase_title">购买中&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_title">费用：%1$s%2$s</string>
   <string name="purchase_fee_disclaimer">该付款方式不支持您所使用的货币，因此会收取一笔手续费。您可以在页面最上方的区域看到包含这笔费用的总支付金额。</string>
   <string name="purchase_unknown_fee_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
   <!--Billing address in purchase flow-->
