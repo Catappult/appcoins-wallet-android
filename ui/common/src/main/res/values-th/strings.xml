@@ -1119,7 +1119,7 @@
   <string name="appcoins_info_market_cap_title">มูลค่าตลาด</string>
   <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">แลกรหัสบัตรของขวัญของคุณ.</string>
   <string name="gift_card_field">รหัสการ์ดที่นี่...</string>
   <string name="gift_card_done_title">แลกรหัส!</string>
   <string name="gift_card_done_body">ตรวจสอบรายการธุรกรรมของคุณ</string>
