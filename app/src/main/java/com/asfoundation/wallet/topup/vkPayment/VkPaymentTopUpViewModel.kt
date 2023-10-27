@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup.vkPayment
 
 import android.text.format.DateUtils
+import android.util.Log
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -8,8 +9,9 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.vkpay.usecases.ChangeVkPayTransactionStatusDevUseCase
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.topup.TopUpPaymentData
@@ -37,13 +39,15 @@ data class VkPaymentTopUpState(
 @HiltViewModel
 class VkPaymentTopUpViewModel @Inject constructor(
     private val createVkPayTransactionTopUpUseCase: CreateVkPayTransactionTopUpUseCase,
-    private val getTransactionStatusUseCase: GetTransactionStatusUseCase
+    private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) :
     BaseViewModel<VkPaymentTopUpState, VkPaymentTopUpSideEffect>(
         VkPaymentTopUpState()
     ) {
 
-    private var transactionUid: String? = null
+    var transactionUid: String? = null
+    var walletAddress: String = ""
     lateinit var paymentData: TopUpPaymentData
     private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
     private val JOB_TIMEOUT_MS = 180 * DateUtils.SECOND_IN_MILLIS
@@ -53,6 +57,9 @@ class VkPaymentTopUpViewModel @Inject constructor(
     val scope = CoroutineScope(Dispatchers.Main)
 
     fun getPaymentLink() {
+        getCurrentWalletUseCase().doOnSuccess {
+            walletAddress = it.address
+        }.scopedSubscribe()
         val price = VkPrice(value = paymentData.appcValue, currency = paymentData.fiatCurrencySymbol)
         createVkPayTransactionTopUpUseCase(
             price = price

@@ -37,14 +37,14 @@ class CreateVkPayTransactionUseCase @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          orderId = address,
-          referrerUrl = referrerUrl
+          referrerUrl = referrerUrl,
+          method = METHOD_VK_PAY
         )
       }
   }
 
   private companion object {
-    private const val TOP_UP_TRANSACTION_TYPE = "TOPUP"
+    private const val METHOD_VK_PAY = "vk_pay"
   }
 
 }

@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface VkPayApi {
 
-  @POST("8.20230920/gateways/vkpay/transactions")
+  @POST("8.20230921/gateways/vkpay/transactions")
   fun createTransaction(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
