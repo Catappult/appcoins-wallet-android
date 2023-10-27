@@ -510,6 +510,7 @@
   <string name="log_out_button">Uitloggen</string>
   <string name="download_button">Downloaden</string>
   <string name="done">Gelukt!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -914,6 +916,7 @@
   <string name="gamif_placeholder_unknown">een onbekende planeet</string>
   <string name="gamif_distance_unkown">Onbekende locatie</string>
   <string name="gamif_placeholder_new_planet">een nieuwe planeet</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Facturering via provider</string>
   <string name="carrier_billing_fees_disclaimer">Er kunnen extra kosten van toepassing zijn</string>
@@ -1177,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
   <string name="vip_program_gamification_title">Wat is mijn bonusniveau?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus ontvangen door jouw aankopen.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus ontvangen door verwijzingen</string>
   <string name="vip_program_max_bonus_title">Geniet van je %s%% bonus bij elke aankoop</string>
   <string name="vip_program_max_bonus_body">Je hebt de grens van het zonnestelsel bereikt.</string>
