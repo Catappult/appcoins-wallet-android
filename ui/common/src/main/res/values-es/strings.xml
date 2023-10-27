@@ -510,6 +510,7 @@
   <string name="log_out_button">Cerrar sesión</string>
   <string name="download_button">Descargar</string>
   <string name="done">¡Hecho!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">Bonus de %s recibido.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -914,6 +916,7 @@
   <string name="gamif_placeholder_unknown">un planeta desconocido</string>
   <string name="gamif_distance_unkown">Localización desconocida</string>
   <string name="gamif_placeholder_new_planet">un nuevo planeta</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Pagar con la operadora</string>
   <string name="carrier_billing_fees_disclaimer">Puede que se apliquen tasas adicionales</string>
@@ -1177,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Comparte este código con tus amigos</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganado de %3$s recomendaciones</string>
   <string name="vip_program_gamification_title">¿Cuál es mi nivel de bonus?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus recibido de tus compras.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus reicbido de recomendaciones</string>
   <string name="vip_program_max_bonus_title">Disfruta de un bonus del %s%% en todas las compras</string>
   <string name="vip_program_max_bonus_body">Has alcanzado los límites del sistema solar.</string>
