@@ -510,6 +510,7 @@
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
   <string name="done">ਹੋ ਗਿਆ!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -914,6 +916,7 @@
   <string name="gamif_placeholder_unknown">ਇੱਕ ਅਣਜਾਣ ਗ੍ਰਹਿ</string>
   <string name="gamif_distance_unkown">ਅਣਜਾਣ ਸਥਾਨ</string>
   <string name="gamif_placeholder_new_planet">ਇਕ ਨਵਾਂ ਗ੍ਰਹਿ</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">ਕੈਰੀਅਰ ਬਿਲਿੰਗ</string>
   <string name="carrier_billing_fees_disclaimer">ਵਾਧੂ ਫੀਸ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ</string>
@@ -1177,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">ਇਸ ਕੋਡ ਨੂੰ ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="vip_program_referral_page_earned_body">%3$s ਰੈਫਰਲ ਤੋਂ %1$s%2$s ਕਮਾਈ ਕੀਤੀ ਗਈ</string>
   <string name="vip_program_gamification_title">ਮੇਰਾ ਬੋਨਸ ਪੱਧਰ ਕੀ ਹੈ?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">ਤੁਹਾਡੀਆਂ ਖਰੀਦਾਂ ਤੋਂ ਪ੍ਰਾਪਤ ਬੋਨਸ।</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">ਰੈਫੇਰਲਾਂ ਤੋਂ ਪ੍ਰਾਪਤ ਬੋਨਸ</string>
   <string name="vip_program_max_bonus_title">ਹਰ ਖਰੀਦ ਤੇ %s%% ਬੋਨਸ ਕਮਾਓ</string>
   <string name="vip_program_max_bonus_body">ਤੁਸੀਂ ਸੂਰਜੀ ਪ੍ਰਣਾਲੀ ਦੀਆਂ ਸੀਮਾਵਾਂ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ।</string>
