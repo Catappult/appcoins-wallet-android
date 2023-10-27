@@ -1117,7 +1117,7 @@
   <string name="appcoins_info_market_cap_title">マーケットキャップ</string>
   <string name="appcoins_info_volume_title">取引高（24h）</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">ギフトカードコードを利用.</string>
   <string name="gift_card_field">カードコードをここに入力...</string>
   <string name="gift_card_done_title">コード使用可能！</string>
   <string name="gift_card_done_body">トランザクション・リストを確認</string>

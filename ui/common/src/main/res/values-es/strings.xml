@@ -1126,7 +1126,7 @@
   <string name="appcoins_info_market_cap_title">Market Cap</string>
   <string name="appcoins_info_volume_title">Volumen (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">Canjear código de tarjeta regalo.</string>
   <string name="gift_card_field">El código aquí...</string>
   <string name="gift_card_done_title">¡Código canjeado!</string>
   <string name="gift_card_done_body">Comprueba tu lista de transacciones.</string>

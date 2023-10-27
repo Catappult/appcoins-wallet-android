@@ -1127,7 +1127,7 @@ Wallets</item>
   <string name="appcoins_info_market_cap_title">Κεφαλαιοποίηση Αγοράς</string>
   <string name="appcoins_info_volume_title">Όγκος (24ω)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">Εξαργυρώστε τον κωδικό δωροκάρτας σας.</string>
   <string name="gift_card_field">Κωδικός δωροκάρτας εδώ...</string>
   <string name="gift_card_done_title">Κωδικός εξαργυρώθηκε!</string>
   <string name="gift_card_done_body">Ελέγξτε τη λίστα συναλλαγών σας.</string>

@@ -1126,7 +1126,7 @@
   <string name="appcoins_info_market_cap_title">Capitalizzazione di mercato</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">Riscatta il tuo codice buono regalo.</string>
   <string name="gift_card_field">Inserisci il codice del buono qui...</string>
   <string name="gift_card_done_title">Codice riscattato!</string>
   <string name="gift_card_done_body">Controlla la lista delle transazioni.</string>
