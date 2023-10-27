@@ -510,6 +510,7 @@
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
   <string name="done">完成！</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帳單地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -913,6 +915,7 @@
   <string name="gamif_placeholder_unknown">一顆未知行星</string>
   <string name="gamif_distance_unkown">未知位置</string>
   <string name="gamif_placeholder_new_planet">一顆新行星</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">電信代扣</string>
   <string name="carrier_billing_fees_disclaimer">可能會產生額外手續費</string>
@@ -1168,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
   <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
   <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
