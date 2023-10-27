@@ -1135,7 +1135,7 @@
   <string name="appcoins_info_market_cap_title">Tržišna vrednost</string>
   <string name="appcoins_info_volume_title">Obim (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">Iskoristite kod sa poklon-kartice.</string>
   <string name="gift_card_field">Kod sa kartice ovde...</string>
   <string name="gift_card_done_title">Kod je iskorišćen!</string>
   <string name="gift_card_done_body">Proverite listu transakcija.</string>
