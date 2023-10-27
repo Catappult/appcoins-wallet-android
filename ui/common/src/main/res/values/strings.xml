@@ -548,6 +548,7 @@
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
   <string name="done">Done!</string>
+  <string name="see_more_button">See more</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -997,6 +998,7 @@
   <string name="gamif_placeholder_unknown">an unknown planet</string>
   <string name="gamif_distance_unkown">Unknown location</string>
   <string name="gamif_placeholder_new_planet">a new planet</string>
+  <string name="gamif_header">Rewards</string>
 
 
   <!--Carrier Billing-->
@@ -1297,7 +1299,7 @@
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
   <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
   <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
