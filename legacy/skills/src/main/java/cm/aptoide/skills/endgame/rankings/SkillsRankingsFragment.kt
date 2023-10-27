@@ -20,16 +20,19 @@ class SkillsRankingsFragment : Fragment() {
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val SKU_KEY = "SKU_KEY"
     const val PACKAGE_NAME = "PACKAGE_NAME"
+    const val SUPPORTS_REWARDS_KEY = "SUPPORTS_REWARDS"
     fun newInstance(
       userWalletAddress: String,
       packageName: String,
-      sku: String
+      sku: String,
+      supportsRewards: Boolean,
     ): SkillsRankingsFragment {
       return SkillsRankingsFragment().apply {
         arguments = Bundle().apply {
           putString(WALLET_ADDRESS_KEY, userWalletAddress)
           putString(PACKAGE_NAME, packageName)
           putString(SKU_KEY, sku)
+          putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
         }
       }
     }
@@ -44,12 +47,14 @@ class SkillsRankingsFragment : Fragment() {
     var walletAddress: String? = null
     var packageName: String? = null
     var sku: String? = null
+    var supportsRewards: Boolean? = null
     if (arguments != null) {
       walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY)
       packageName = requireArguments().getString(PACKAGE_NAME)
       sku = requireArguments().getString(SKU_KEY).toString()
+      supportsRewards = requireArguments().getBoolean(SUPPORTS_REWARDS_KEY)
     }
-    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!)
+    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!, supportsRewards!!)
     val viewPager = view.findViewById<ViewPager2>(R.id.pager)
     viewPager.adapter = rankingsPagerAdapter
     val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
