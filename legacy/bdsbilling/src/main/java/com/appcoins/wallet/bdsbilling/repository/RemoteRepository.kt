@@ -19,6 +19,7 @@ import retrofit2.Response
 import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 
 class RemoteRepository(
   private val brokerBdsApi: BrokerBdsApi,
@@ -34,9 +35,8 @@ class RemoteRepository(
     private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     class DuplicateException(): Exception()
+    var executingAppcTransaction = AtomicBoolean(false)
   }
-
-  private var executingAppcTransaction = false
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> =
     inappApi.getPackage(packageName) // If it's not supported it returns an error that is handle in BdsBilling.kt
@@ -432,8 +432,7 @@ class RemoteRepository(
             creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
-          if(!executingAppcTransaction) {
-            executingAppcTransaction = true
+          if(executingAppcTransaction.compareAndSet(false, true)) {
             brokerBdsApi.createTransaction(
               gateway = gateway,
               origin = origin,
@@ -460,6 +459,6 @@ class RemoteRepository(
           }
         }
       }
-      .doOnSuccess { executingAppcTransaction = false }
-      .doOnError { executingAppcTransaction = false }
+      .doOnSuccess { executingAppcTransaction.set(false) }
+      .doOnError { executingAppcTransaction.set(false) }
 }
