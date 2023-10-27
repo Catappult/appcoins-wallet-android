@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
   <string name="intro_get_started_button">Iniciar carteira</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">Sua Ferramenta para Compras Dentro de Aplicativos</string>
+  <string name="new_intro_1_body">Faça compras em seus apps e jogos favoritos com a AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Até %s%% de Bônus em Todas as Compras</string>
+  <string name="new_intro_2_body">Receba fundos adicionais sempre que efetuar uma compra em um jogo compatível com AppCoins.</string>
+  <string name="new_intro_3_header">Seus Métodos de Pagamento Favoritos estão Aqui!</string>
+  <string name="new_intro_3_body">Métodos de pagamento disponíveis</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Abrir carteira&#8230;</string>
   <string name="select_method_title">Selecionar um método de pagamento</string>
@@ -236,7 +236,7 @@
   <string name="activity_iab_approving_message">Verificando todos os detalhes: saldo, itens, rede…</string>
   <string name="activity_iab_buying_message">Detalhes verificados \nRecebendo seu item…</string>
   <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">Alterar cartão</string>
   <string name="activity_iab_fees">Taxa</string>
   <string name="notification_ongoing_poa">Processando sua recompensa</string>
   <string name="notification_completed_poa">Recompensa recebida! 👌 Você terá que esperar %1$sh%2$sm para ganhar mais recompensas ao experimentar apps ⏰!</string>
@@ -257,9 +257,9 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_status_reverted">Revertido</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Prêmio por Desafio</string>
+  <string name="transaction_type_challenge_reward_rejected">Prêmio por Desafio Rejeitado</string>
+  <string name="transaction_type_challenge_reward_reverted">Prêmio de Desafio Revertido</string>
   <string name="transaction_type_iab">Compra no Aplicativo</string>
   <string name="transaction_type_poa">Recompensa</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">A recarga que você fez em %s foi reembolsada. Contate o Suporte para mais informações.</string>
   <string name="transaction_type_reverted_purchase_title">Reembolso de Compra</string>
   <string name="transaction_type_reverted_purchase_body">A compra que você fez em %s foi reembolsada. Contate o Suporte para mais informações.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Este bônus foi revertido. Para mais informações, entre em contato com o suporte.</string>
   <string name="transaction_reverted_view_original_header">Transação Original</string>
   <string name="transaction_onchain_completed_title">Transação em andamento!</string>
   <string name="transaction_onchain_completed_body">Você pode acompanhá-la em Etherscan.</string>
