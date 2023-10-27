@@ -510,6 +510,7 @@
   <string name="log_out_button">تسجيل خروج</string>
   <string name="download_button">تنزيل</string>
   <string name="done">تم!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -638,7 +639,8 @@
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -919,6 +921,7 @@
   <string name="gamif_placeholder_unknown">كوكب غير معروف</string>
   <string name="gamif_distance_unkown">موقع غير معروف</string>
   <string name="gamif_placeholder_new_planet">كوكب جديد</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">الدفع من خلال وسيط</string>
   <string name="carrier_billing_fees_disclaimer">تُطبّق تكاليف إضافية</string>
@@ -1214,7 +1217,7 @@
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
   <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">المكافآت التي حصلت عليها من مشترياتك.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">المكافآت التي حصلت عليها من الإحالات</string>
   <string name="vip_program_max_bonus_title">تمتع بمكافآتك %s%% في كل عملية شراء</string>
   <string name="vip_program_max_bonus_body">وصلت إلى الحد المسموح به من الطاقة الشمسية.</string>
