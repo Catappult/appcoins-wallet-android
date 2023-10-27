@@ -467,6 +467,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     view?.let { KeyboardUtils.hideKeyboard(it) }
   }
 
+  override fun shouldStoreCard(): Boolean {
+    return adyenCardView.cardSave
+  }
+
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()

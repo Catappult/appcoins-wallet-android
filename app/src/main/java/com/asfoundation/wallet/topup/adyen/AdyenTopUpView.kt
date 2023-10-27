@@ -88,4 +88,6 @@ interface AdyenTopUpView {
   fun setup3DSComponent()
 
   fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String)
+
+  fun shouldStoreCard(): Boolean
 }

@@ -245,7 +245,7 @@ class AdyenPaymentPresenter(
       .flatMapSingle { adyenCard ->
         handleBuyAnalytics(transactionBuilder)
         val billingAddressModel = view.retrieveBillingAddressData()
-        val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
+        val shouldStore = billingAddressModel?.remember ?: view.shouldStoreCard()
         if (skills) {
           skillsPaymentInteractor.makeSkillsPayment(
             returnUrl,
