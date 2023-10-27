@@ -510,6 +510,7 @@
   <string name="log_out_button">အေကာင့္ထြက္မည္</string>
   <string name="download_button">ေဒါင္းလုဒ္</string>
   <string name="done">ၿပီးပါၿပီ။</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%s ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ။</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -913,6 +915,7 @@
   <string name="gamif_placeholder_unknown">အမည္မသိၿဂိဳဟ္တစ္လံုး</string>
   <string name="gamif_distance_unkown">အမည္မသိ တည္ေနရာ</string>
   <string name="gamif_placeholder_new_planet">ၿဂိဳဟ္အသစ္တစ္လံုး</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">ဖုန္း၀န္ေဆာင္မႈေပးသူ ေငြေကာက္ခံျခင္း</string>
   <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
@@ -1168,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
   <string name="vip_program_gamification_title">ကြၽႏ္ုပ္၏ ေဘာနပ္စ္အဆင့္က ဘယ္ေလာက္လဲ။</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">သင့္ဝယ္ယူမႈမ်ားမွ ရရွိေသာ ေဘာနပ္စ္။</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">ရည္ၫႊန္းမႈမ်ားမွ ရရွိေသာ ေဘာနပ္စ္</string>
   <string name="vip_program_max_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ သင့္ %s%% ေဘာနပ္စ္ကို ခံစားလိုက္ပါ</string>
   <string name="vip_program_max_bonus_body">ေနစၾကာဝဠာ၏ အဆုံးသို႔ သင္ေရာက္ရွိသြားပါၿပီ။</string>
