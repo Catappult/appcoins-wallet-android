@@ -568,6 +568,7 @@
   <string name="unferified_tag">Portofel neverificat</string>
   <string name="verification_wallets_verify_button">Verifică</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
   <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Alte metode de plată</string>
@@ -635,6 +636,8 @@
   <string name="purchase_error_paypal">Am întâmpinat o problemă cu plata ta PayPal. Încearcă din nou sau folosește o metodă de plată diferită.</string>
   <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -1132,7 +1135,7 @@
   <string name="appcoins_info_market_cap_title">Capitalizare bursieră</string>
   <string name="appcoins_info_volume_title">Volum (24 h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">Revendică-ți codul de card cadou.</string>
   <string name="gift_card_field">Cod card aici...</string>
   <string name="gift_card_done_title">Cod revendicat!</string>
   <string name="gift_card_done_body">Verifică-ți lista de tranzacții.</string>
