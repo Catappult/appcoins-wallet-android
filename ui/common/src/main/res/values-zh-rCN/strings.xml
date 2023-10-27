@@ -1117,7 +1117,7 @@
   <string name="appcoins_info_market_cap_title">市值</string>
   <string name="appcoins_info_volume_title">数据（24小时）</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">兑换礼品卡代码.</string>
   <string name="gift_card_field">卡代码在这里输入......</string>
   <string name="gift_card_done_title">代码已兑换！</string>
   <string name="gift_card_done_body">检查交易列表。</string>
