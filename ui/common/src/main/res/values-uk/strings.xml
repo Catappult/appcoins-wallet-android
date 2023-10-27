@@ -140,10 +140,10 @@
   <!-- New Intro -->
   <string name="new_intro_1_header">Ваш інструмент для покупок у додатку</string>
   <string name="new_intro_1_body">Здійснюйте покупки в улюблених додатках та іграх за допомогою AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_2_header">Бонус до %s%% на всі покупки</string>
+  <string name="new_intro_2_body">Отримуйте додаткові кошти кожного разу, здійснюючи покупку в іграх, сумісних з AppCoins.</string>
+  <string name="new_intro_3_header">Ваші улюблені способи оплати тут!</string>
+  <string name="new_intro_3_body">Доступні способи оплати</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Запуск гаманця&#8230;</string>
   <string name="select_method_title">Виберіть спосіб оплати</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Поповнення, яке ви зробили на %s, було скасовано. Зв’яжіться зі службою підтримки для отримання додаткової інформації.</string>
   <string name="transaction_type_reverted_purchase_title">Повернення коштів за покупку</string>
   <string name="transaction_type_reverted_purchase_body">Покупку, яку ви зробили на %s, було скасовано. Зв’яжіться зі службою підтримки для отримання додаткової інформації.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Цей бонус було скасовано. Щоб отримати додаткову інформацію, зверніться до служби підтримки.</string>
   <string name="transaction_reverted_view_original_header">Оригінальна трансакція</string>
   <string name="transaction_onchain_completed_title">Транзакція в дорозі!</string>
   <string name="transaction_onchain_completed_body">Ви можете відстежити це на Etherscan.</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">Деталі</string>
   <string name="transaction_to_label">До</string>
   <string name="transaction_invoice_label">Рахунок</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">Кредитна/дебетова картка (VK Pay)</string>
   <string name="dialog_credit_card_remember">Запам\'ятати картку</string>
   <string name="notification_payment_refused">У оплаті відмовлено</string>
   <string name="dialog_credit_card_number">Номер картки</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">Максимальна вартість поповнення – %s</string>
   <string name="topup_no_method_available_title">Немає способів оплати!</string>
   <string name="topup_no_method_available_body">На цей час у вашій країні немає доступних способів оплати для поповнення рахунку. Залишайтеся на зв\'язку!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Отримайте бонус %s з цим поповненням</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Загальний баланс у %s</string>
@@ -640,8 +640,8 @@
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s комісія</string>
-  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_disclaimer">Даний спосіб оплати не підтримує вашу валюту, отже, стягується комісія за обробку платежу. Ця комісія включена в загальну суму, яку ви можете побачити у верхній частині.</string>
+  <string name="purchase_unknown_fee_disclaimer">Даний спосіб оплати не підтримує вашу валюту, тому може стягуватися комісія за обробку платежу.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>
@@ -920,7 +920,7 @@
   <string name="gamif_placeholder_unknown">невідома планета</string>
   <string name="gamif_distance_unkown">Невідоме місцезнаходження</string>
   <string name="gamif_placeholder_new_planet">нова планета</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">Винагороди</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Рахунки оператора</string>
   <string name="carrier_billing_fees_disclaimer">Можуть стягуватися додаткові збори</string>
@@ -1200,7 +1200,7 @@
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Бонус, отриманий від ваших покупок</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Бонус, отриманий від рефералів</string>
   <string name="vip_program_max_bonus_title">Насолоджуйтеся бонусом %s%% за кожну покупку</string>
   <string name="vip_program_max_bonus_body">Ви досягли меж сонячної системи.</string>
@@ -1243,7 +1243,7 @@
   <string name="intro_transactions_header">Транзакції</string>
   <string name="intro_backup_card_title">Не втрачайте свої кошти!</string>
   <string name="intro_backup_card_body">Зробіть резервну копію свого гаманця і завжди тримайте його в безпеці.</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Витратьте %1$s%2$s, щоб досягти наступного рівня!</string>
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Виведіть свій e-Skills дохід.</string>
@@ -1255,7 +1255,7 @@
   <string name="home_appcoins_compatible_games_title">Сумісні з AppCoins ігри</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">Бонус %s%% у кожній покупці</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Гаманець змінено</string>
   <string name="manage_wallet_change_active_wallet_title">Хочете обрати цей гаманець?</string>
