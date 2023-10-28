@@ -64,19 +64,19 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Warten, bis die Gegner das Spiel beendet haben.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="one">(%1$s erzielte %2$d Punkt)</item>
+    <item quantity="other">(%1$s erzielte %2$d Punkte)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="one">%1$d Punkt</item>
+    <item quantity="other">%1$d Punkte</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
+  <string name="amount_won_details">(%1$.2f$ wurden deiner Wallet gutgeschrieben)</string>
+  <string name="you_won">Du hast gewonnen! %1$s</string>
   <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
