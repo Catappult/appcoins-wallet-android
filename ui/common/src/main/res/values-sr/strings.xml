@@ -138,8 +138,8 @@
   <string name="intro_already_have_wallet_button">Već imam novčanik</string>
   <string name="intro_get_started_button">Pokrenite novčanik</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_1_header">Vaš alat za kupovine u aplikacijama</string>
+  <string name="new_intro_1_body">Obavite kupovine u omiljenim aplikacijama i igrama uz AppCoins Wallet.</string>
   <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
   <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
   <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
