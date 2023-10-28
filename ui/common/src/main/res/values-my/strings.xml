@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
   <string name="intro_get_started_button">ပိုက္ဆံအိတ္ကို ဖြင့္မည္</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">အက္ပ္အတြင္း ဝယ္ယူမႈမ်ားအတြက္ သင့္ကိရိယာ</string>
+  <string name="new_intro_1_body">AppCoins Wallet ျဖင့္ သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားတြင္ ဝယ္ယူမႈမ်ား ျပဳလုပ္လိုက္ပါ။</string>
+  <string name="new_intro_2_header">ဝယ္ယူမႈမ်ား အားလုံးတြင္ %s%% အထိေဘာနပ္စ္</string>
+  <string name="new_intro_2_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ဝယ္ယူမႈတစ္ခုကို သင္ျပဳလုပ္သည့္အႀကိမ္တိုင္း အပိုေငြေၾကးမ်ား ရယူလိုက္ပါ။</string>
+  <string name="new_intro_3_header">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းမ်ားမွာ ဤေနရာတြင္ ျဖစ္ပါသည္။</string>
+  <string name="new_intro_3_body">ရရွိႏိုင္ေသာ ေငြေပးေခ်မႈနည္းလမ္းမ်ား</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">ပိုက္ဆံအိတ္ကို ဖြင့္ေနပါသည္ &#8230;</string>
   <string name="select_method_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ေငြျဖည့္မႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_type_reverted_purchase_title">ဝယ္ယူမႈ ေငြျပန္အမ္းျခင္း</string>
   <string name="transaction_type_reverted_purchase_body">%s တြင္ သင္ျပဳလုပ္ခဲ့ေသာ ဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">ဤေဘာနပ္စ္ကို ျပန္ေျပာင္းလိုက္ပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_reverted_view_original_header">မူလေငြလႊဲေျပာင္းမႈ</string>
   <string name="transaction_onchain_completed_title">ေငြလႊဲေျပာင္းမႈ ျပဳလုပ္ေနပါသည္။</string>
   <string name="transaction_onchain_completed_body">Etherscan တြင္ လိုက္ၾကည့္ႏိုင္ပါသည္။</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">အေသးစိတ္မ်ား</string>
   <string name="transaction_to_label">သို႔</string>
   <string name="transaction_invoice_label">ကုန္ပို႔လႊာ</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ (VK Pay)</string>
   <string name="dialog_credit_card_remember">ကဒ္ကို သတိရပါ</string>
   <string name="notification_payment_refused">ေငြေပးေခ်မႈကို ျငင္းဆန္ခဲ့ပါသည္</string>
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">အမ်ားဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
   <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">ဤေငြျဖည့္မႈျဖင့္ %s ေဘာနပ္စ္ ရယူလိုက္ပါ</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
@@ -510,7 +510,7 @@
   <string name="log_out_button">အေကာင့္ထြက္မည္</string>
   <string name="download_button">ေဒါင္းလုဒ္</string>
   <string name="done">ၿပီးပါၿပီ။</string>
-  <string name="see_more_button">See more</string>
+  <string name="see_more_button">ပို၍ၾကည့္မည္</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -569,7 +569,7 @@
   <string name="unferified_tag">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="verification_wallets_verify_button">အတည္ျပဳမည္</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">စုစုေပါင္း %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_more_payment_methods_button">အျခား ေငြေပးေခ်ရန္နည္းလမ္းမ်ား</string>
   <string name="purchase_more_payment_methods_lower_case_button">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား</string>
@@ -636,10 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္။</string>
   <string name="purchase_error_paypal">သင့္ PayPal ေငြေပးေခ်မႈႏွင့္ ပတ္သက္၍ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အသုံးျပဳေပးပါ။</string>
   <string name="purchase_success_bonus_received_title">%s ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ။</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_making_purchase_title">ဝယ္ယူမႈကို ျပဳလုပ္ေနပါသည္&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s အခေၾကးေငြ</string>
+  <string name="purchase_fee_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္မည္ ျဖစ္ပါသည္။ ဤအခေၾကးေငြသည္ အေပၚဖက္ဧရိယာတြင္ ျမင္ႏိုင္သည့္ စုစုေပါင္းတြင္ ပါဝင္ပါသည္။</string>
+  <string name="purchase_unknown_fee_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -915,7 +915,7 @@
   <string name="gamif_placeholder_unknown">အမည္မသိၿဂိဳဟ္တစ္လံုး</string>
   <string name="gamif_distance_unkown">အမည္မသိ တည္ေနရာ</string>
   <string name="gamif_placeholder_new_planet">ၿဂိဳဟ္အသစ္တစ္လံုး</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">ဆုမ်ား</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">ဖုန္း၀န္ေဆာင္မႈေပးသူ ေငြေကာက္ခံျခင္း</string>
   <string name="carrier_billing_fees_disclaimer">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္</string>
@@ -1120,7 +1120,7 @@
   <string name="appcoins_info_market_cap_title">ေစ်းကြက္တန္ဖိုး</string>
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code.</string>
+  <string name="gift_card_title">သင့္လက္ေဆာင္ကုဒ္ကို လဲလွယ္လိုက္ပါ။</string>
   <string name="gift_card_field">ကဒ္ကုဒ္ကို ဤေနရာတြင္...</string>
   <string name="gift_card_done_title">ကုဒ္ကို လဲလွယ္လိုက္ပါၿပီ။</string>
   <string name="gift_card_done_body">သင့္ေငြလႊဲေျပာင္းမႈ စာရင္းကို စစ္ေဆးပါ။</string>
@@ -1171,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
   <string name="vip_program_gamification_title">ကြၽႏ္ုပ္၏ ေဘာနပ္စ္အဆင့္က ဘယ္ေလာက္လဲ။</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">သင့္ဝယ္ယူမႈမ်ားမွ ရရွိေသာ ေဘာနပ္စ္</string>
   <string name="vip_program_gamification_amoung_referral_bonus">ရည္ၫႊန္းမႈမ်ားမွ ရရွိေသာ ေဘာနပ္စ္</string>
   <string name="vip_program_max_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ သင့္ %s%% ေဘာနပ္စ္ကို ခံစားလိုက္ပါ</string>
   <string name="vip_program_max_bonus_body">ေနစၾကာဝဠာ၏ အဆုံးသို႔ သင္ေရာက္ရွိသြားပါၿပီ။</string>
@@ -1202,7 +1202,7 @@
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
   <string name="intro_backup_card_body">သင့္ပိုက္ဆံအိတ္ကို အရံသိမ္းဆည္းကာ အခ်ိန္ျပည့္ေဘးကင္းေအာင္ ထားလိုက္ပါ။</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">ေနာက္ထပ္အဆင့္သို႔ ေရာက္ရွိရန္ %1$s%2$s သုံးစြဲလိုက္ပါ။</string>
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
@@ -1214,7 +1214,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins အသုံးျပဳႏိုင္ေသာဂိမ္းမ်ား</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins အသုံးျပဳႏိုင္ေသာ ဂိမ္းတစ္ခုတြင္ ပထမဆုံးဝယ္ယူမႈကို ျပဳလုပ္ကာ ဝယ္ယူမႈတိုင္းတြင္ ေဘာနပ္စ္တစ္ခုကို ပြင့္ေစလိုက္ပါ။</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">ပိုက္ဆံအိတ္ကို ေျပာင္းလိုက္ပါသည္</string>
   <string name="manage_wallet_change_active_wallet_title">ဤပိုက္ဆံအိတ္ကို ေ႐ြးခ်ယ္လိုပါသလား။</string>
