@@ -77,29 +77,29 @@
   </plurals>
   <string name="amount_won_details">(%1$.2f$ wurden deiner Wallet gutgeschrieben)</string>
   <string name="you_won">Du hast gewonnen! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="you_lost_timeout">Deine Zeit ist abgelaufen, du hast verloren! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="one">Tag</item>
+    <item quantity="other">Tage</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="one">Stunde</item>
+    <item quantity="other">Stunden</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">Minute</item>
-    <item quantity="other">Minuten</item>
+    <item quantity="other">MinutenMinuten</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="one">Sekunde</item>
+    <item quantity="other">Sekunden</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Nächste Belohnung in</string>
+  <string name="current_top_3">Aktuelle Top-3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Ranglisten</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Verdiene Geld</string>
   <string name="eskills_carousel_body">Schlage andere Spieler mit e-Skills</string>
