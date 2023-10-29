@@ -92,7 +92,7 @@
     <item quantity="other">मिनिटे</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
+    <item quantity="one">सेकंद</item>
     <item quantity="other">सेकंद</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
