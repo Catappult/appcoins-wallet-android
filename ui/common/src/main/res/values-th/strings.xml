@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
   <string name="intro_get_started_button">เปิดกระเป๋าสตางค์</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">เครื่องมือของคุณสำหรับการซื้อในแอป</string>
+  <string name="new_intro_1_body">ซื้อสินค้าในแอพและเกมที่คุณชื่นชอบด้วย AppCoins Wallet</string>
+  <string name="new_intro_2_header">โบนัสสูงสุด %s%% ในการซื้อทั้งหมด</string>
+  <string name="new_intro_2_body">รับเงินพิเศษทุกครั้งที่คุณทำการซื้อในเกมที่รองรับ AppCoins</string>
+  <string name="new_intro_3_header">วิธีการชำระเงินที่คุณชื่นชอบอยู่ที่นี่แล้ว!</string>
+  <string name="new_intro_3_body">วิธีการชำระเงินที่ใช้ได้</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">เปิดกระเป๋าเงิน&#8230;</string>
   <string name="select_method_title">เลือกวิธีการชำระเงิน</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">การเติมเงินที่คุณทำใน %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
   <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">โบนัสนี้ถูกคืนแล้ว สำหรับข้อมูลเพิ่มเติมติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_reverted_view_original_header">ธุรกรรมต้นฉบับ</string>
   <string name="transaction_onchain_completed_title">กำลังทำธุรกรรม!</string>
   <string name="transaction_onchain_completed_body">คุณสามารถติดตามได้ใน Etherscan</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
   <string name="transaction_invoice_label">ใบแจ้งหนี้</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">บัตรเครดิต/เดบิต (VK Pay)</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
   <string name="notification_payment_refused">การชำระเงินถูกปฏิเสธ</string>
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">รับโบนัส %s ด้วยการเติมเงินนี้</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -510,6 +510,7 @@
   <string name="log_out_button">ลงชื่อออก</string>
   <string name="download_button">ดาวน์โหลด</string>
   <string name="done">เสร็จสิ้น!</string>
+  <string name="see_more_button">ดูเพิ่มเติม</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -568,7 +569,7 @@
   <string name="unferified_tag">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
   <string name="verification_wallets_verify_button">ยืนยัน</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">รวม %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
   <string name="purchase_more_payment_methods_lower_case_button">วิธีการชำระเงินเพิ่มเติม</string>
@@ -635,9 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">อาจมีค่าใช้จ่ายเพิ่มเติม.</string>
   <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
   <string name="purchase_success_bonus_received_title">%s โบนัสที่ได้รับ</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_making_purchase_title">กำลังทำการซื้อ&#8230;</string>
+  <string name="purchase_fee_title">ค่าธรรมเนียม %1$s%2$s</string>
+  <string name="purchase_fee_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจะเรียกเก็บค่าธรรมเนียมการดำเนินการ ค่าธรรมเนียมนี้รวมอยู่ในยอดรวมที่คุณเห็นด้านบน</string>
+  <string name="purchase_unknown_fee_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจึงอาจเรียกเก็บค่าธรรมเนียมการดำเนินการ</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -915,6 +917,7 @@
   <string name="gamif_placeholder_unknown">ดาวเคราะห์ที่ไม่รู้จัก</string>
   <string name="gamif_distance_unkown">ไม่ทราบที่ตั้ง</string>
   <string name="gamif_placeholder_new_planet">ดาวเคราะห์ใหม่</string>
+  <string name="gamif_header">รีวอร์ด</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">การชำระสินค้า</string>
   <string name="carrier_billing_fees_disclaimer">อาจมีค่าใช้จ่ายเพิ่มเติม</string>
@@ -1201,7 +1204,7 @@
   <string name="intro_transactions_header">ธุรกรรม</string>
   <string name="intro_backup_card_title">อย่าสูญเสียเงินของคุณ!</string>
   <string name="intro_backup_card_body">สำรองวอลเล็ตของคุณและเก็บอย่างปลอดภัย</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">ใช้จ่าย %1$s%2$s เพื่อก้าวไปสู่ระดับต่อไป!</string>
   <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">ถอนรายได้ e-Skills ของคุณ</string>
@@ -1213,7 +1216,7 @@
   <string name="home_appcoins_compatible_games_title">เกมส์ที่เข้ากันได้กับ AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">โบนัส %s%% ในทุกการซื้อ</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
   <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>

@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">我已经有钱包了。</string>
   <string name="intro_get_started_button">启动钱包</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">您进行应用内购买的工具</string>
+  <string name="new_intro_1_body">在您最喜欢的应用和游戏内使用 AppCoins 钱包消费。</string>
+  <string name="new_intro_2_header">每次购买均可获得高达 %s%% 的奖金！</string>
+  <string name="new_intro_2_body">在兼容 AppCoins 的游戏中，您每次消费后都会获得额外的奖金。</string>
+  <string name="new_intro_3_header">您首选的付款方式已准备就绪！</string>
+  <string name="new_intro_3_body">可选的付款方式</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">启动钱包&#8230;</string>
   <string name="select_method_title">选择付款方式</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
   <string name="transaction_invoice_label">交易明细</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">信用卡/借记卡 (VK Pay)</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
   <string name="notification_payment_refused">支付被拒绝</string>
   <string name="dialog_credit_card_number">卡号</string>
@@ -510,6 +510,7 @@
   <string name="log_out_button">退出登录</string>
   <string name="download_button">下载</string>
   <string name="done">完成！</string>
+  <string name="see_more_button">查看更多</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -568,7 +569,7 @@
   <string name="unferified_tag">钱包未验证</string>
   <string name="verification_wallets_verify_button">验证</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">总计 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
   <string name="purchase_more_payment_methods_button">其他付款方式</string>
   <string name="purchase_more_payment_methods_lower_case_button">其他支付方式</string>
@@ -635,9 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
   <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_making_purchase_title">购买中&#8230;</string>
+  <string name="purchase_fee_title">费用：%1$s%2$s</string>
+  <string name="purchase_fee_disclaimer">该付款方式不支持您所使用的货币，因此会收取一笔手续费。您可以在页面最上方的区域看到包含这笔费用的总支付金额。</string>
+  <string name="purchase_unknown_fee_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -913,6 +915,7 @@
   <string name="gamif_placeholder_unknown">未知星球</string>
   <string name="gamif_distance_unkown">未知位置</string>
   <string name="gamif_placeholder_new_planet">新星球</string>
+  <string name="gamif_header">奖励</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">运营商代扣</string>
   <string name="carrier_billing_fees_disclaimer">可能需要支付额外费用</string>
@@ -1117,7 +1120,7 @@
   <string name="appcoins_info_market_cap_title">市值</string>
   <string name="appcoins_info_volume_title">数据（24小时）</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">兑换礼品卡代码.</string>
+  <string name="gift_card_title">兑换礼品卡代码。</string>
   <string name="gift_card_field">卡代码在这里输入......</string>
   <string name="gift_card_done_title">代码已兑换！</string>
   <string name="gift_card_done_body">检查交易列表。</string>
@@ -1168,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>
   <string name="vip_program_gamification_title">我的奖金等级是多少？</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">通过你的购买获得的奖金。</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">通过您的购买获得的奖金</string>
   <string name="vip_program_gamification_amoung_referral_bonus">通过引荐获得的奖金</string>
   <string name="vip_program_max_bonus_title">你每次购买可享有%s%%奖金</string>
   <string name="vip_program_max_bonus_body">你已经达到了最高奖金限额。</string>
@@ -1199,7 +1202,7 @@
   <string name="intro_transactions_header">交易</string>
   <string name="intro_backup_card_title">保护您的资金安全！</string>
   <string name="intro_backup_card_body">请进行钱包备份，保护您的钱包安全。</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">只需消费 %1$s%2$s，即可进入下一级别！</string>
   <string name="rewards_current_bonus_title">每一次购买都将获得%s%%的奖金</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">将您的 e-Skills 收益提现。</string>
@@ -1211,7 +1214,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins兼容的游戏</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">在与AppCoins兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">每一次购买都将获得%s%%的奖金</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">钱包更换</string>
   <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>

@@ -510,6 +510,7 @@
   <string name="log_out_button">로그아웃</string>
   <string name="download_button">다운로드</string>
   <string name="done">완료!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -637,7 +638,8 @@
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -913,6 +915,7 @@
   <string name="gamif_placeholder_unknown">알려지지 않은 행성</string>
   <string name="gamif_distance_unkown">알 수 없는 위치</string>
   <string name="gamif_placeholder_new_planet">새로운 행성</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">통신사 과금</string>
   <string name="carrier_billing_fees_disclaimer">추가 수수료가 부과될 수 있습니다</string>
@@ -1168,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">구매로 받은 보너스</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">소개로 받은 보너스</string>
   <string name="vip_program_max_bonus_title">모든 구매에서 %s%% 보너스를 받으세요</string>
   <string name="vip_program_max_bonus_body">솔라 시스템의 최대치에 도달했습니다.</string>

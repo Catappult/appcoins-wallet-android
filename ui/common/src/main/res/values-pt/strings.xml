@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
   <string name="intro_get_started_button">Lançar wallet</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">A tua Ferramenta para Compras na App</string>
+  <string name="new_intro_1_body">Faz compras nas tuas apps e jogos favoritos com a AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Até %s%% de Bónus em Todas as Compras</string>
+  <string name="new_intro_2_body">Recebe fundos extra sempre que fizeres uma compra num jogo compatível com AppCoins.</string>
+  <string name="new_intro_3_header">Os Teus Métodos de Pagamento Favoritos Estão Aqui!</string>
+  <string name="new_intro_3_body">Métodos de pagamento disponíveis</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Lançar wallet&#8230;</string>
   <string name="select_method_title">Escolhe um método de pagamento</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">A recarga que fizeste em %s foi revertida. Contacta o Apoio para mais informações.</string>
   <string name="transaction_type_reverted_purchase_title">Reembolso da Compra</string>
   <string name="transaction_type_reverted_purchase_body">A compra que fizeste em %s foi revertida. Contacta o Apoio para mais informações.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Este bónus foi revertido. Para mais informações, contacta o apoio ao cliente.</string>
   <string name="transaction_reverted_view_original_header">Transação Original</string>
   <string name="transaction_onchain_completed_title">Transação a caminho!</string>
   <string name="transaction_onchain_completed_body">Pode segui-la no Etherscan.</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">Para</string>
   <string name="transaction_invoice_label">Fatura</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">Cartão de crédito/débito (VK Pay)</string>
   <string name="dialog_credit_card_remember">Memorizar Cartão</string>
   <string name="notification_payment_refused">Pagamento recusado</string>
   <string name="dialog_credit_card_number">Número do cartão</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">O valor máximo de carregamento é %s</string>
   <string name="topup_no_method_available_title">Sem métodos de pagamento!</string>
   <string name="topup_no_method_available_body">De momento não existem métodos de pagamento disponíveis para recarregar no teu país. Fica atento!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Recebe %s de bónus com esta recarga</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -510,6 +510,7 @@
   <string name="log_out_button">Terminar sessão</string>
   <string name="download_button">Download</string>
   <string name="done">Feito!</string>
+  <string name="see_more_button">Ver mais</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -635,9 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
   <string name="purchase_error_paypal">Ocorreu um problema com o teu pagamento PayPal. Tenta novamente ou utiliza um método de pagamento diferente.</string>
   <string name="purchase_success_bonus_received_title">%s de bónus recebido.</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_making_purchase_title">Efetuar a compra&#8230;</string>
+  <string name="purchase_fee_title">Taxa de %1$s%2$s</string>
+  <string name="purchase_fee_disclaimer">Este método de pagamento não é compatível com a tua moeda, por isso será cobrada uma taxa de processamento. Esta taxa está incluída no Total que podes ver na área de cima.</string>
+  <string name="purchase_unknown_fee_disclaimer">Este método de pagamento não é compatível com a tua moeda, pelo que poderá ser cobrada uma taxa de processamento.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
@@ -914,6 +916,7 @@
   <string name="gamif_placeholder_unknown">um planeta desconhecido</string>
   <string name="gamif_distance_unkown">Local desconhecido</string>
   <string name="gamif_placeholder_new_planet">um novo planeta</string>
+  <string name="gamif_header">Recompensas</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Pagamento pela operadora</string>
   <string name="carrier_billing_fees_disclaimer">Podem ser aplicadas taxas adicionais</string>
@@ -1177,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Partilha este código com os teus amigos</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganhos de %3$s referências</string>
   <string name="vip_program_gamification_title">Qual é o meu nível de bónus?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bónus recebido pelas tuas compras.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bónus recebido pelas tuas compras</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bónus recebido pelas referências</string>
   <string name="vip_program_max_bonus_title">Aproveita os teus %s%% de Bónus em cada compra</string>
   <string name="vip_program_max_bonus_body">Atingiste os limites do sistema solar.</string>
@@ -1212,7 +1215,7 @@
   <string name="intro_transactions_header">Transações</string>
   <string name="intro_backup_card_title">Não percas os teus fundos!</string>
   <string name="intro_backup_card_body">Faz back up da tua wallet para a manteres sempre segura.</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Gasta %1$s%2$s para atingires o próximo nível!</string>
   <string name="rewards_current_bonus_title">%s%% de Bónus em cada compra</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Levanta os teus ganhos e-Skills.</string>
@@ -1224,7 +1227,7 @@
   <string name="home_appcoins_compatible_games_title">Jogos Compatíveis com AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Faz a tua primeira compra num jogo compatível com AppCoins e desbloqueia um bónus em cada compra.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% de bónus em cada compra</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Queres selecionar esta wallet?</string>

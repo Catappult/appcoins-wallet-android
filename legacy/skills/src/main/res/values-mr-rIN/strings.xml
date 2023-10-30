@@ -65,7 +65,7 @@
   <string name="waiting_for_opponents_to_finish">विरोधकांनी खेळ संपविण्यासाठी थांबलो आहोत.</string>
   <plurals name="opponent_points_title">
     <item quantity="one">(%1$s नी %2$d पॉईंट केले)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s नी %2$d पॉईंट केले)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
@@ -73,14 +73,14 @@
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
     <item quantity="one">%1$d पॉईंटस</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="other">%1$d पॉईंटस</item>
   </plurals>
   <string name="amount_won_details">(%1$.2f$ आपल्या वॉलेटमध्ये जमा केलेत)</string>
   <string name="you_won">आपण जिंकलात! %1$s</string>
   <string name="you_lost_timeout">आपली वेळ संपली, आपण हरलात! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
+    <item quantity="one">दिवस</item>
     <item quantity="other">दिवस</item>
   </plurals>
   <plurals name="hours">
@@ -92,7 +92,7 @@
     <item quantity="other">मिनिटे</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
+    <item quantity="one">सेकंद</item>
     <item quantity="other">सेकंद</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>

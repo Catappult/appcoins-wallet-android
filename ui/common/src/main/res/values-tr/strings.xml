@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">Zaten cüzdanım var</string>
   <string name="intro_get_started_button">Cüzdanı başlat</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">Uygulama İçi Satın Alma Aracınız</string>
+  <string name="new_intro_1_body">AppCoins Wallet ile en sevdiğin uygulama ve oyunlarda satın alma işlemleri yap.</string>
+  <string name="new_intro_2_header">Tüm Satın Alma İşlemlerinde %s%% oranına varan Bonus</string>
+  <string name="new_intro_2_body">AppCoins uyumlu bir oyundaki her satın alma işleminde ekstra para kazan.</string>
+  <string name="new_intro_3_header">Favori Ödeme Yöntemlerin Burada!</string>
+  <string name="new_intro_3_body">Mevcut ödeme yöntemleri</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Cüzdan başlatılıyor&#8230;</string>
   <string name="select_method_title">Bir ödeme yöntemi seç</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">%s tarihinde yaptığınız yükleme işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
   <string name="transaction_type_reverted_purchase_title">Satın Alma İadesi</string>
   <string name="transaction_type_reverted_purchase_body">%s tarihinde yaptığınız satın alma işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Bu bonus geri alındı. Daha fazla bilgi için desteğe başvurun.</string>
   <string name="transaction_reverted_view_original_header">Asıl İşlem</string>
   <string name="transaction_onchain_completed_title">İşlem yolda!</string>
   <string name="transaction_onchain_completed_body">Etherscan\'de takip edebilirsiniz.</string>
@@ -293,7 +293,7 @@
   <string name="transaction_details_label">Bilgiler</string>
   <string name="transaction_to_label">Adres</string>
   <string name="transaction_invoice_label">Fatura</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="iab_payment_method_vkpay_title">Kredi/banka kartı (VK Pay)</string>
   <string name="dialog_credit_card_remember">Kartı Hatırla</string>
   <string name="notification_payment_refused">Ödeme Reddedildi</string>
   <string name="dialog_credit_card_number">Kart Numarası</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
   <string name="topup_no_method_available_title">Ödeme yöntemi yok!</string>
   <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Bu yüklemeyle %s bonus kazan</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -510,6 +510,7 @@
   <string name="log_out_button">Çıkış yap</string>
   <string name="download_button">İndir</string>
   <string name="done">Bitti!</string>
+  <string name="see_more_button">Daha fazlasını gör</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -568,7 +569,7 @@
   <string name="unferified_tag">Doğrulanmamış cüzdan</string>
   <string name="verification_wallets_verify_button">Doğrula</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">Toplam %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Bu satın alma işlemi zaten işlenmiş gibi görünüyor. Lütfen işlem tamamlanana kadar bekleyin veya Destek Ekibimizle iletişime geçin.</string>
   <string name="purchase_more_payment_methods_button">DİĞER ÖDEME YÖNTEMLERİ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Diğer ödeme yöntemleri</string>
@@ -635,9 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ek ücretler uygulanabilir.</string>
   <string name="purchase_error_paypal">PayPal ödemenle ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullanç</string>
   <string name="purchase_success_bonus_received_title">%s bonus alındı.</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This third-party payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_making_purchase_title">Satın alınıyor&#8230;</string>
+  <string name="purchase_fee_title">%2$s%1$s ücret</string>
+  <string name="purchase_fee_disclaimer">Bu ödeme yöntemi para birimini desteklemediğinden işlem ücreti alınabilir. Bu ücret, üst bölümde gösterilen Toplam tutara dahildir.</string>
+  <string name="purchase_unknown_fee_disclaimer">Bu ödeme yöntemi para birimini desteklemediğinden işlem ücreti alınabilir.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -914,6 +916,7 @@
   <string name="gamif_placeholder_unknown">bilinmeyen bir gezegen</string>
   <string name="gamif_distance_unkown">Bilinmeyen konum</string>
   <string name="gamif_placeholder_new_planet">yeni bir gezegen</string>
+  <string name="gamif_header">Ödüller</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Operatör faturalandırması</string>
   <string name="carrier_billing_fees_disclaimer">Ek ücretler uygulanabilir</string>
@@ -1177,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
   <string name="vip_program_gamification_title">Bonus seviyem ne?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Tavsiyelerden bonus kazanıldı</string>
   <string name="vip_program_max_bonus_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
   <string name="vip_program_max_bonus_body">Güneş sisteminin sınırlarına ulaştın.</string>
@@ -1212,7 +1215,7 @@
   <string name="intro_transactions_header">İşlemler</string>
   <string name="intro_backup_card_title">Paranı kaybetme!</string>
   <string name="intro_backup_card_body">Cüzdanını yedekle ve her zaman güvende tut.</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Sonraki seviyeye geçmek için %1$s%2$s harca!</string>
   <string name="rewards_current_bonus_title">her satın alma işleminde %s%% bonus</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skills kazançlarını çek.</string>
@@ -1224,7 +1227,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Uyumlu Oyunlar</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">İlk satın alma işlemini AppCoins uyumlu bir oyunla yap ve her satın alımda bir bonus aç.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">her satın alma işleminde %s%% bonus</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Cüzdan değiştirildi</string>
   <string name="manage_wallet_change_active_wallet_title">Bu cüzdanı seçmek istiyor musun?</string>
