@@ -229,7 +229,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           stickyHeader {
             Text(
               text = date,
-              color = WalletColors.styleguide_medium_grey,
+              color = WalletColors.styleguide_dark_grey,
               modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
               style = MaterialTheme.typography.bodySmall
             )
@@ -252,7 +252,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
         }
       }
-      TextButton(onClick = { viewModel.onSeeAllTransactionsClick() }) {
+      TextButton(
+        modifier = Modifier.padding(top = 8.dp, end = 8.dp),
+        onClick = { viewModel.onSeeAllTransactionsClick() }) {
         Text(
           text = stringResource(R.string.see_all_button),
           color = WalletColors.styleguide_pink,

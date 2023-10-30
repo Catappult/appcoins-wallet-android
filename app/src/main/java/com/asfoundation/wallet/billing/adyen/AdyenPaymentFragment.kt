@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Typeface
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -219,6 +219,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val lottie_transaction_success: LottieAnimationView
     get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.lottieTransactionSuccess
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.lottieTransactionSuccess!!
+  private val transaction_success_bonus_text: TextView
+    get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.transactionSuccessBonusText
+      ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.transactionSuccessBonusText!!
+  private val bonus_success_layout: LinearLayout
+    get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.bonusSuccessLayout
+      ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.bonusSuccessLayout!!
   private val next_payment_date: TextView
     get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.nextPaymentDate
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.nextPaymentDate!!
@@ -238,6 +244,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted!!
 
   // adyen_credit_card_layout.xml
+  private val adyen_credit_card_root: RelativeLayout? get() = bindingCreditCardLayout?.adyenCreditCardRoot
   private val main_view: RelativeLayout? get() = bindingCreditCardLayout?.mainView
   private val credit_card_info: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
   private val change_card_button: WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
@@ -306,6 +313,19 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setupUi()
+
+    val orientation = this.resources.configuration.orientation
+    val dpWidth = if (orientation == Configuration.ORIENTATION_LANDSCAPE) 592F else 340F
+
+    val dimensionInPixels = TypedValue.applyDimension(
+      TypedValue.COMPLEX_UNIT_DIP,
+      dpWidth,
+      resources.displayMetrics
+    ).toInt()
+    adyen_credit_card_root?.layoutParams?.width = dimensionInPixels
+    adyen_credit_card_root?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+
     presenter.present(savedInstanceState)
   }
 
@@ -324,7 +344,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun setupUi() {
     adyenCardView = AdyenCardView(adyen_card_form_pre_selected)
-    setupTransactionCompleteAnimation()
+    setupTransactionComplete()
     handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
     setupRedirectConfiguration()
@@ -376,7 +396,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun retrieveBillingAddressData() = billingAddressModel
 
-  override fun getAnimationDuration() = lottie_transaction_success.duration
+  override fun getAnimationDuration() = lottie_transaction_success.duration * 3
 
   override fun showProduct() {
     try {
@@ -657,19 +677,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(lottie_transaction_success)
-    textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    lottie_transaction_success.setTextDelegate(textDelegate)
-    lottie_transaction_success.setFontAssetDelegate(object : FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+  private fun setupTransactionComplete() {
+    if (bonus.isNotEmpty()) {
+      transaction_success_bonus_text.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
+    } else {
+      bonus_success_layout.visibility = GONE
+    }
   }
 
   private fun showBonus() {
@@ -742,8 +756,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation_new)
-      setupTransactionCompleteAnimation()
+      lottie_transaction_success.setAnimation(R.raw.success_animation)
+      setupTransactionComplete()
     } else {
       lottie_transaction_success.setAnimation(R.raw.success_animation)
     }

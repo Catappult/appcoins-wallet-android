@@ -50,7 +50,7 @@
           android:id="@+id/bonus_header_1"
           style="@style/BonusTextStyle"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
           android:layout_marginEnd="4dp"
           android:text="@string/gamification_purchase_header_part_1"
           android:textColor="@color/styleguide_pink"

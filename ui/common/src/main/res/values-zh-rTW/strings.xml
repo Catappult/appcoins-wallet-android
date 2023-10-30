@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">您在%s 上進行的儲值已退回。 請與支援部門聯繫以獲取更多資訊。</string>
   <string name="transaction_type_reverted_purchase_title">購買退款</string>
   <string name="transaction_type_reverted_purchase_body">您在%s 上進行的購買已退回。 請與支援部門聯繫以獲取更多資訊。</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">原始交易</string>
   <string name="transaction_onchain_completed_title">Transaction on the way!</string>
   <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">最高儲值金額是%s</string>
   <string name="topup_no_method_available_title">No payment methods!</string>
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">餘額</string>
   <string name="balance_total_body">帳戶餘額%s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">Manage wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">完成！</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -1185,7 +1187,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
@@ -1197,7 +1199,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>

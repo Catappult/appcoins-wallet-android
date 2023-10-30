@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">شارژی که در %s انجام دادید بازگردانده شد. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_type_reverted_purchase_title">برگشت خرید</string>
   <string name="transaction_type_reverted_purchase_body">خریدی که در %s انجام دادید بازگردانده شد. برای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">تراکنش اصلی</string>
   <string name="transaction_onchain_completed_title">تراکنش در راه است!</string>
   <string name="transaction_onchain_completed_body">شما می‌توانید آن را در Etherscan دنبال کنید.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
   <string name="topup_no_method_available_title">بدون روش پرداخت!</string>
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">مدیریت کیف‌پول</string>
   <string name="log_out_button">خروج از سیستم</string>
   <string name="download_button">دانلود</string>
-  <string name="done">Done!</string>
+  <string name="done">تمام!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -1198,7 +1200,7 @@
   <string name="intro_transactions_header">تراکنش‌ها</string>
   <string name="intro_backup_card_title">سرمایه خود را از دست ندهید!</string>
   <string name="intro_backup_card_body">ار کیف پول خود بک‌آپ بگیرید و همیشه آن را امن نگه دارید.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s بیشتر خرج کنید تا به مرحله بعدی برسید!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% پاداش برای هر خرید</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">برداشت درآمد e-Skills شما.</string>
@@ -1210,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">بازی‌های سازگار با AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">اولین خرید خود را در یک بازی سازگار با AppCoins انجام دهید و در هر خرید یک پاداش فعال کنید.</string>
-  <string name="rewards_bonus_every_purchase_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">کیف‌پول تغییر کرد</string>
   <string name="manage_wallet_change_active_wallet_title">آیا نمی‌خواهید این کیف پول را انتخاب کنید؟</string>

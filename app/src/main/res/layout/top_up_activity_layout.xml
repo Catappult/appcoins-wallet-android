@@ -12,7 +12,6 @@
       layout="@layout/error_top_up_layout"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginTop="-24dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/top_bar"
@@ -23,7 +22,6 @@
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginTop="-24dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/top_bar"
       />

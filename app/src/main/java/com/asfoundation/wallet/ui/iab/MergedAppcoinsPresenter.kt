@@ -130,7 +130,7 @@ class MergedAppcoinsPresenter(
         analytics.sendPaymentConfirmationEvent(
           paymentMethod.packageName,
           paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, "cancel"
+          paymentMethod.transactionType, BillingAnalytics.ACTION_CANCEL
         )
       }
       .observeOn(viewScheduler)
@@ -175,7 +175,7 @@ class MergedAppcoinsPresenter(
         analytics.sendPaymentConfirmationEvent(
           paymentMethod.packageName,
           paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, "buy"
+          paymentMethod.transactionType, BillingAnalytics.ACTION_BUY
         )
       }
       .observeOn(viewScheduler)

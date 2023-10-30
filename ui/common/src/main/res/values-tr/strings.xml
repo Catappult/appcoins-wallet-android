@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Beklemede</string>
   <string name="transaction_status_failed">Başarısız</string>
   <string name="transaction_status_reverted">Geri Alındı</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Meydan Okuma Ödülü</string>
+  <string name="transaction_type_challenge_reward_rejected">Reddedilen Meydan Okuma Ödülü</string>
+  <string name="transaction_type_challenge_reward_reverted">Geri Alınan Meydan Okuma Ödülü</string>
   <string name="transaction_type_iab">Uygulama İçi Satın Alım</string>
   <string name="transaction_type_poa">Ödül</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">%s tarihinde yaptığınız yükleme işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
   <string name="transaction_type_reverted_purchase_title">Satın Alma İadesi</string>
   <string name="transaction_type_reverted_purchase_body">%s tarihinde yaptığınız satın alma işlemi geri çevrildi. Daha fazla bilgi için Destek ile iletişime geçin.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Asıl İşlem</string>
   <string name="transaction_onchain_completed_title">İşlem yolda!</string>
   <string name="transaction_onchain_completed_body">Etherscan\'de takip edebilirsiniz.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
   <string name="topup_no_method_available_title">Ödeme yöntemi yok!</string>
   <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">Cüzdanı yönet</string>
   <string name="log_out_button">Çıkış yap</string>
   <string name="download_button">İndir</string>
-  <string name="done">Done!</string>
+  <string name="done">Bitti!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -1198,7 +1200,7 @@
   <string name="intro_transactions_header">İşlemler</string>
   <string name="intro_backup_card_title">Paranı kaybetme!</string>
   <string name="intro_backup_card_body">Cüzdanını yedekle ve her zaman güvende tut.</string>
-  <string name="rewards_spend_to_next_level_body">Sonraki seviyeye geçmek için %1$s%2$s daha harca!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">her satın alma işleminde %s%% bonus</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skills kazançlarını çek.</string>
@@ -1210,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Uyumlu Oyunlar</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">İlk satın alma işlemini AppCoins uyumlu bir oyunla yap ve her satın alımda bir bonus aç.</string>
-  <string name="rewards_bonus_every_purchase_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Cüzdan değiştirildi</string>
   <string name="manage_wallet_change_active_wallet_title">Bu cüzdanı seçmek istiyor musun?</string>
@@ -1239,8 +1241,8 @@
   <string name="verify_card_code_enter_title">4 haneli kodu gir</string>
   <string name="verify_card_code_refund_body">%s kodu onayladıktan sonra 24 saat içinde iade edilecek.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Meydan Okuma Ödülü</string>
+  <string name="challenge_reward_card_body">AppCoins Kredileri kazanmak için bir meydan okumayı tamamla.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Cüzdanında %s AppCoins Kredisinin tadını çıkar</string>
 </resources>

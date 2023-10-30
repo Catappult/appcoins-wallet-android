@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">In de wachtrij</string>
   <string name="transaction_status_failed">Niet gelukt</string>
   <string name="transaction_status_reverted">Teruggedraaid</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_rejected">Afgewezen beloning voor uitdaging</string>
+  <string name="transaction_type_challenge_reward_reverted">Teruggedraaide beloning voor uitdaging</string>
   <string name="transaction_type_iab">In-app aankoop</string>
   <string name="transaction_type_poa">Beloning</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">De opwaardering die je hebt uitgevoerd op %s is teruggedraaid. Neem voor meer informatie contact op met de klantenservice.</string>
   <string name="transaction_type_reverted_purchase_title">Terugbetaalde aankoop</string>
   <string name="transaction_type_reverted_purchase_body">De aankoop die je hebt uitgevoerd op %s is teruggedraaid. Neem voor meer informatie contact op met de klantenservice.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Oorspronkelijke transactie</string>
   <string name="transaction_onchain_completed_title">Transactie is in behandeling!</string>
   <string name="transaction_onchain_completed_body">Je kunt de transactie op Etherscan volgen.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">Maximale waarde voor opwaarderen is %s</string>
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">Wallet beheren</string>
   <string name="log_out_button">Uitloggen</string>
   <string name="download_button">Downloaden</string>
-  <string name="done">Done!</string>
+  <string name="done">Gelukt!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -1198,7 +1200,7 @@
   <string name="intro_transactions_header">Transacties</string>
   <string name="intro_backup_card_title">Verlies je saldo niet!</string>
   <string name="intro_backup_card_body">Maak een back-up van je wallet om deze altijd veilig te bewaren.</string>
-  <string name="rewards_spend_to_next_level_body">Besteed meer %1$s%2$s om het volgende niveau te bereiken!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Neem je verdiensten met e-Skills op.</string>
@@ -1210,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">Games die compatibel met AppCoins zijn</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die AppCoins ondersteunt en krijg een bonus bij elke aankoop.</string>
-  <string name="rewards_bonus_every_purchase_title">Geniet van een bonus van %s%% bij elke aankoop</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet gewijzigd</string>
   <string name="manage_wallet_change_active_wallet_title">Wil je deze wallet selecteren?</string>
@@ -1239,8 +1241,8 @@
   <string name="verify_card_code_enter_title">Voer de 4-cijferige code in</string>
   <string name="verify_card_code_refund_body">%s wordt terugbetaald binnen 24 uur nadat je de code hebt bevestigd.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Beloning voor uitdaging</string>
+  <string name="challenge_reward_card_body">Voltooi een uitdaging om AppCoins Credits te krijgen.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
 </resources>

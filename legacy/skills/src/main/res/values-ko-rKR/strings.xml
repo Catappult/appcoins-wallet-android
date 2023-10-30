@@ -11,8 +11,8 @@
   <string name="get_button">얻기</string>
   <string name="got_it_button">알겠습니다</string>
   <string name="install_button">설치</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">재시도</string>
+  <string name="restart_button">재시작</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
@@ -64,36 +64,36 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">상대의 게임 종료를 기다리는 중입니다.</string>
   <plurals name="opponent_points_title">
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="other">(%1$s 사용자가 %2$d 포인트)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
   <string name="rankings_week">WEEK</string>
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="other">%1$d points</item>
+    <item quantity="other">%1$d 포인트</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(지갑에 %1$.2f$ 크레디트 되었습니다)</string>
+  <string name="you_won">승리했습니다! %1$s</string>
+  <string name="you_lost_timeout">시간이 다 되었습니다. 패배했습니다! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="other">Days</item>
+    <item quantity="other">일</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">Hours</item>
+    <item quantity="other">시간</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">Minutes</item>
+    <item quantity="other">분</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">Seconds</item>
+    <item quantity="other">초</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">다음 보상 시간</string>
+  <string name="current_top_3">현재 탑 3</string>
   <string name="your_ranking_title">Your ranking</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">순위표</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">돈 벌기</string>
   <string name="eskills_carousel_body">e-Skills로 다른 플레이어들을 무찌르세요</string>

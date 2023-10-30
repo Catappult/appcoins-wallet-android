@@ -11,8 +11,8 @@
   <string name="get_button">Λήψη</string>
   <string name="got_it_button">Το κατάλαβα</string>
   <string name="install_button">Εγκατάσταση</string>
-  <string name="retry_button">Retry</string>
-  <string name="restart_button">Restart</string>
+  <string name="retry_button">Επανάληψη</string>
+  <string name="restart_button">Επανεκκίνηση</string>
   <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
   <string name="processing_loading_title">Παραλαβή του εισιτηρίου εισόδου σας</string>
   <string name="finding_room_loading_title">Αναμονή αντιπάλων</string>
@@ -64,42 +64,42 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Αναμονή αντιπάλων για να τελειώσουν το παιχνίδι.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="other">(%1$s did %2$d points)</item>
+    <item quantity="one">(Ο/Η %1$s πέτυχε %2$d βαθμό)</item>
+    <item quantity="other">(Ο/Η %1$s πέτυχε %2$d βαθμούς)</item>
   </plurals>
   <string name="rankings_today">ΣΗΜΕΡΑ</string>
   <string name="rankings_week">ΕΒΔΟΜΑΔΑ</string>
   <string name="rankings_all_time">ΑΠΟ ΤΗΝ ΑΡΧΗ</string>
   <string name="not_attributed_place_holder">Δεν έχει αποδοθεί</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="other">%1$d points</item>
+    <item quantity="one">%1$d βαθμός</item>
+    <item quantity="other">%1$d βαθμοί</item>
   </plurals>
-  <string name="amount_won_details">(%1$.2f$ have been credited to your wallet)</string>
-  <string name="you_won">You won! %1$s</string>
-  <string name="you_lost_timeout">Your time is up, you lost! %1$s</string>
+  <string name="amount_won_details">(%1$.2f$ πιστώθηκαν στο wallet σας)</string>
+  <string name="you_won">Κερδίσατε! %1$s</string>
+  <string name="you_lost_timeout">Ο χρόνος σας έληξε, xάσατε! %1$s</string>
   <string name="you_lost">Χάσατε! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
+    <item quantity="one">Ημέρα</item>
+    <item quantity="other">Ημέρες</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
+    <item quantity="one">Ώρα</item>
+    <item quantity="other">Ώρες</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
+    <item quantity="one">Λεπτό</item>
+    <item quantity="other">Λεπτά</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="other">Seconds</item>
+    <item quantity="one">Δευτερόλεπτο</item>
+    <item quantity="other">Δευτερόλεπτα</item>
   </plurals>
   <string name="last_winners_title">Τελευταίοι νικητές</string>
-  <string name="next_reward_text">Next reward in</string>
-  <string name="current_top_3">Current Top 3</string>
+  <string name="next_reward_text">Επόμενη ανταμοιβή σε</string>
+  <string name="current_top_3">Τρέχοντες Πρώτοι 3</string>
   <string name="your_ranking_title">Η κατάταξή σας</string>
-  <string name="leaderboard_button">Leaderboards</string>
+  <string name="leaderboard_button">Πίνακες κατάταξης</string>
   <!-- e-Skills Games Carrousel -->
   <string name="eskills_carousel_title">Κερδίστε χρήματα</string>
   <string name="eskills_carousel_body">Νικήστε άλλους παίχτες με τα e-Skills</string>

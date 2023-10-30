@@ -13,7 +13,7 @@ class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,
   private val partnerAddressService: PartnerAddressService
-  ) : EventSender {
+) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
     skuDetails: String?,
@@ -365,6 +365,9 @@ class BillingAnalytics @Inject constructor(
     private const val EVENT_URL = "url"
     private const val EVENT_ONBOARDING_PAYMENT = "onboarding_payment"
     private const val MAX_CHARACTERS = 100
+    const val ACTION_BUY = "buy"
+    const val ACTION_CANCEL = "cancel"
+    const val ACTION_BACK = "back"
   }
 
 }

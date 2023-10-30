@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">قيد الانتظار</string>
   <string name="transaction_status_failed">فشل</string>
   <string name="transaction_status_reverted">راجعة</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">جائزة التحدّي</string>
+  <string name="transaction_type_challenge_reward_rejected">جائزة التحدي المرفوضة</string>
+  <string name="transaction_type_challenge_reward_reverted">جائزة التحدي المرفوضة</string>
   <string name="transaction_type_iab">شراء داخل التطبيق</string>
   <string name="transaction_type_poa">الجوائز</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">تعبئة الرصيد التي أجريتها على %s رجعت إلى المصدر. يرجى التواصل مع الدعمل لمزيد من المعلومات.</string>
   <string name="transaction_type_reverted_purchase_title">استرجاع مشتريات</string>
   <string name="transaction_type_reverted_purchase_body">المشتريات التي طلبتها على %s عادت إلى المصدر. يرجى التواصل مع الدعم لمزيد من المعلومات.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">عملية تحويل أصلية</string>
   <string name="transaction_onchain_completed_title">التحويل في الطريق!</string>
   <string name="transaction_onchain_completed_body">يمكنك تتبعه على Etherscan.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
   <string name="topup_no_method_available_title">لا توجد وسيلة دفع!</string>
   <string name="topup_no_method_available_body">لا تتوفر حاليًا أي وسائل دفع في بلدك لزيادة رصيدك. تابع باستمرار!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">إدارة المحفظة</string>
   <string name="log_out_button">تسجيل خروج</string>
   <string name="download_button">تنزيل</string>
-  <string name="done">Done!</string>
+  <string name="done">تم!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -1251,7 +1253,7 @@
   <string name="intro_transactions_header">التحويلات</string>
   <string name="intro_backup_card_title">لا تخسر أموالك!</string>
   <string name="intro_backup_card_body">أنشئ نسخة احتياطية لمحفظتك واحتفظ بها في مكان آمن دائمًا.</string>
-  <string name="rewards_spend_to_next_level_body">أنفق أكثر من %1$s%2$s لتصل إلى المستوى التالي!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">سحب أرباحك من e-Skills.</string>
@@ -1263,7 +1265,7 @@
   <string name="home_appcoins_compatible_games_title">ألعاب متوافقة مع AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
-  <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
@@ -1292,8 +1294,8 @@
   <string name="verify_card_code_enter_title">أدخل الرمز من 4 أرقام</string>
   <string name="verify_card_code_refund_body">سيتم إعادة %s خلال 24 ساعة بعد تأكيد الرمز.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">جائزة التحدي</string>
+  <string name="challenge_reward_card_body">أكمل التحدي لتحصل على رصيد AppCoins.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">تمتع برصيد %s AppCoins Credits قي محفظتك</string>
 </resources>

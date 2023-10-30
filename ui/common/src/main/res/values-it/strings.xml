@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
   <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Transazione originale</string>
   <string name="transaction_onchain_completed_title">Transazione in corso!</string>
   <string name="transaction_onchain_completed_body">Puoi monitorare i progressi su Etherscan.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">L\'importo massimo per la ricarica è %s</string>
   <string name="topup_no_method_available_title">Nessun metodo di pagamento!</string>
   <string name="topup_no_method_available_body">Al momento nel tuo Paese non sono disponibili metodi di pagamento per le ricariche. Continua a seguirci per le ultime novità!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo totale in %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">Gestisci wallet</string>
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
-  <string name="done">Done!</string>
+  <string name="done">Fatto!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
@@ -1198,7 +1200,7 @@
   <string name="intro_transactions_header">Transazioni</string>
   <string name="intro_backup_card_title">Non perdere i tuoi fondi!</string>
   <string name="intro_backup_card_body">Effettua il backup del tuo wallet per tenerlo sempre al sicuro.</string>
-  <string name="rewards_spend_to_next_level_body">Spendi ancora %1$s%2$s per raggiungere il prossimo livello!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% di bonus su ogni acquisto</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
@@ -1210,7 +1212,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effettua il tuo primo acquisto su un gioco compatibile con AppCoins e sblocca un bonus su ogni acquisto.</string>
-  <string name="rewards_bonus_every_purchase_title">Sfrutta %s%% di bonus su ogni acquisto</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet modificato</string>
   <string name="manage_wallet_change_active_wallet_title">Vuoi selezionare questo wallet?</string>

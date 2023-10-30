@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">Na čekanju</string>
   <string name="transaction_status_failed">Nije uspelo</string>
   <string name="transaction_status_reverted">Vraćeno</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Nagrada za izazov</string>
+  <string name="transaction_type_challenge_reward_rejected">Nagrada za izazov je odbijena</string>
+  <string name="transaction_type_challenge_reward_reverted">Nagrada za izazov je vraćena</string>
   <string name="transaction_type_iab">Kupovina u aplikaciji</string>
   <string name="transaction_type_poa">Nagrada</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
   <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Prvobitna transakcija</string>
   <string name="transaction_onchain_completed_title">Transakcija je u putu!</string>
   <string name="transaction_onchain_completed_body">Možete je pratiti preko platforme Etherscan.</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">Najveća vrednost dopune je %s</string>
   <string name="topup_no_method_available_title">Nema načina za plaćanje!</string>
   <string name="topup_no_method_available_body">Trenutno nema načina za plaćanje dostupnih za dopunu u vašoj zemlji. Ostanite u toku!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">Upravljajte novčanikom</string>
   <string name="log_out_button">Odjava</string>
   <string name="download_button">Preuzmi</string>
-  <string name="done">Done!</string>
+  <string name="done">Gotovo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -1211,7 +1213,7 @@
   <string name="intro_transactions_header">Transakcije</string>
   <string name="intro_backup_card_title">Nemojte izgubiti svoja sredstva!</string>
   <string name="intro_backup_card_body">Napravite rezervnu kopiju novčanika i čuvajte je na sigurnom mestu u svako doba.</string>
-  <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>
@@ -1223,7 +1225,7 @@
   <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
-  <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
@@ -1252,8 +1254,8 @@
   <string name="verify_card_code_enter_title">Unesite kod od 4 cifre</string>
   <string name="verify_card_code_refund_body">%s će vam biti refundirano 24 sata nakon što potvrdite kod.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Nagrada za izazov</string>
+  <string name="challenge_reward_card_body">Dovršite izazov da biste dobili AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Uživajte u %s u AppCoins Credits u vašem novčaniku</string>
 </resources>

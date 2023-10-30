@@ -171,15 +171,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @SuppressLint("SetTextI18n")
   override fun showValues(value: String, currency: String) {
     binding.mainValue.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
     if (data.selectedCurrencyType == FIAT_CURRENCY) {
       binding.mainValue.setText(value)
       binding.mainCurrencyCode.text = currency
-      binding.convertedValue.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
       binding.mainValue.setText(formattedValue)
       binding.mainCurrencyCode.text = WalletCurrency.CREDITS.symbol
-      binding.convertedValue.text = "$value $currency"
     }
   }
 
@@ -234,8 +233,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.noNetwork.root.visibility = GONE
     binding.topUpContainer.visibility = VISIBLE
     binding.mainCurrencyCode.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
     binding.mainValue.visibility = VISIBLE
-    binding.convertedValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
     if (isStored) {
@@ -286,7 +285,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun getTryAgainClicks() = RxView.clicks(binding.fragmentAdyenError.tryAgain)
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(binding.fragmentAdyenError.layoutSupportLogo), RxView.clicks(binding.fragmentAdyenError.layoutSupportIcn))
+    return Observable.merge(
+      RxView.clicks(binding.fragmentAdyenError.layoutSupportLogo),
+      RxView.clicks(binding.fragmentAdyenError.layoutSupportIcn)
+    )
   }
 
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
@@ -376,8 +378,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
     buildBonusString(bonus, currency)
+    binding.headerTopUpDivider.visibility = VISIBLE
     binding.bonusLayout.root.visibility = VISIBLE
-    binding.bonusMsg.visibility = VISIBLE
   }
 
   override fun showVerification() = topUpView.showVerification()
@@ -385,9 +387,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
-    binding.bonusLayout.bonusHeader1.text = getString(R.string.topup_bonus_header_part_1)
     binding.bonusLayout.bonusValue.text = getString(
-      R.string.topup_bonus_header_part_2,
+      R.string.topup_bonus_amount_body,
       currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     )
   }
@@ -432,12 +433,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     if (paymentType == PaymentType.CARD.name) {
       binding.button.setText(getString(R.string.topup_home_button))
-      adyenCardView = AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
+      adyenCardView =
+        AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
       setupCardConfiguration()
     }
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
     binding.mainValue.visibility = INVISIBLE
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
     binding.button.visibility = VISIBLE
   }
 

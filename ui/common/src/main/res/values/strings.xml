@@ -285,6 +285,7 @@
   <string name="transaction_type_reverted_topup_body">The top-up you made on %s has been reverted. Contact Support for more information.</string>
   <string name="transaction_type_reverted_purchase_title">Purchase Refund</string>
   <string name="transaction_type_reverted_purchase_body">The purchase you made on %s has been reverted. Contact Support for more information.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Original Transaction</string>
   <string name="transaction_onchain_completed_title">Transaction on the way!</string>
   <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
@@ -449,6 +450,7 @@
   <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <string name="topup_no_method_available_title">No payment methods!</string>
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
 
   <!--Balance-->
   <string name="balance_title">Balance</string>
@@ -669,6 +671,7 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
 
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
@@ -1124,8 +1127,6 @@
   <string name="card_verification_no_attempts_title">Oops, you\'ve inserted a wrong code too many times so %1$s will be refunded to your card.</string>
   <string name="card_verification_no_attempts_body">Please, start the verification process again.</string>
   <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
   <string name="verify_paypal_button">Verify PayPal account</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
@@ -1329,7 +1330,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
@@ -1342,7 +1343,7 @@
 
  <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
@@ -1355,12 +1356,13 @@
 
 
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
   <string name="verify_card_one_more_step_title">One More Step to Verify</string>
   <string name="verify_card_one_more_step_body">Insert the code that appears in the transaction details</string>
   <string name="verify_card_one_more_step_button">Insert code</string>
   <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verify Card</string>
   <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
   <string name="verify_card_view_title_2">Insert your bank card details</string>

@@ -18,6 +18,7 @@
   <color name="styleguide_payments_skeleton">#E2E2E2</color>
   <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
   <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
+  <color name="styleguide_topup_dark_grey">#28272C</color>
 
   <color name="white">#FFFFFFFF</color>
   <color name="black">#000000</color>
@@ -26,7 +27,7 @@
   <color name="colorPrimary">#fc9d48</color>
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
-  <color name="statusBarColor">#154868</color>
+  <color name="statusBarColor">#1A1A24</color>
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="styleguide_bonus_yellow">#F9B622</color>
   <color name="btn_end_gradient_color">#ff578c</color>

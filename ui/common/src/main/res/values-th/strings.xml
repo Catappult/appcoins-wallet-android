@@ -250,9 +250,9 @@
   <string name="transaction_status_pending">ค้างอยู่</string>
   <string name="transaction_status_failed">ล้มเหลว</string>
   <string name="transaction_status_reverted">เปลี่ยนกลับ</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">รางวัลชาเลนจ์</string>
+  <string name="transaction_type_challenge_reward_rejected">ปฏิเสธรางวัลชาเลนจ์</string>
+  <string name="transaction_type_challenge_reward_reverted">ส่งคืนรางวัลชาเลนจ์</string>
   <string name="transaction_type_iab">ซื้อใน App</string>
   <string name="transaction_type_poa">รางวัล</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -269,6 +269,7 @@
   <string name="transaction_type_reverted_topup_body">การเติมเงินที่คุณทำใน %s ถูกเปลี่ยนกลับ ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
   <string name="transaction_type_reverted_purchase_title">การขอคืนเงิน</string>
   <string name="transaction_type_reverted_purchase_body">การซื้อที่คุณทำใน %s ถูกเปลี่ยนกลับแล้ว ติดต่อฝ่ายสนับสนุนสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">ธุรกรรมต้นฉบับ</string>
   <string name="transaction_onchain_completed_title">กำลังทำธุรกรรม!</string>
   <string name="transaction_onchain_completed_body">คุณสามารถติดตามได้ใน Etherscan</string>
@@ -426,6 +427,7 @@
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
+  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -499,7 +501,7 @@
   <string name="manage_wallet_button">จัดการวอลเล็ต</string>
   <string name="log_out_button">ลงชื่อออก</string>
   <string name="download_button">ดาวน์โหลด</string>
-  <string name="done">Done!</string>
+  <string name="done">เสร็จสิ้น!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -1187,7 +1189,7 @@
   <string name="intro_transactions_header">ธุรกรรม</string>
   <string name="intro_backup_card_title">อย่าสูญเสียเงินของคุณ!</string>
   <string name="intro_backup_card_body">สำรองวอลเล็ตของคุณและเก็บอย่างปลอดภัย</string>
-  <string name="rewards_spend_to_next_level_body">ใช้จ่ายมากขึ้น %1$s%2$s เพื่อไปถึงระดับถัดไป!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">ถอนรายได้ e-Skills ของคุณ</string>
@@ -1199,7 +1201,7 @@
   <string name="home_appcoins_compatible_games_title">เกมส์ที่เข้ากันได้กับ AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>
-  <string name="rewards_bonus_every_purchase_title">เพลิดเพลินกับโบนัส %s%% ในการซื้อทุกครั้ง</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
   <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>
@@ -1228,8 +1230,8 @@
   <string name="verify_card_code_enter_title">ป้อนรหัส 4หลัก</string>
   <string name="verify_card_code_refund_body">%s จะได้รับคืนภายใน ชั่วโมงหลังจากที่คุณยืนยันรหัส</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">รางวัลชาเลนจ์</string>
+  <string name="challenge_reward_card_body">ผ่านชาเลนจ์เพื่อรับเครดิต AppCoins</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">รับ%sใน AppCoins Credits ในวอลเล็ตของคุณ</string>
 </resources>
