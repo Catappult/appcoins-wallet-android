@@ -256,7 +256,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is FutureItem) {
@@ -271,7 +277,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               true,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is PromoCodeItem) {
@@ -282,7 +294,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.actionUrl,
               promotion.packageName,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.activePromoCode.value = cardItem
           }

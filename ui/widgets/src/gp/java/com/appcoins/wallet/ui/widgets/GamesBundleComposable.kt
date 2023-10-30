@@ -15,4 +15,5 @@ data class GameData(
   val gameIcon: String,
   val gameBackground: String,
   val gamePackage: String,
+  val actionUrl: String?,
 )

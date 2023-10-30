@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat.startActivity
 
 
-fun openGame(gamePackage: String?, context: Context) {
+fun openGame(gamePackage: String?, actionUrl: String?, context: Context) {
   try {
     val launchIntent: Intent? = gamePackage?.let {
       context.packageManager.getLaunchIntentForPackage(

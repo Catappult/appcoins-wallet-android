@@ -384,7 +384,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 hasFuturePromotion = false,
                 hasVerticalList = false,
                 action = {
-                  openGame(promotion.packageName ?: promotion.actionUrl, requireContext())
+                  openGame(
+                    promotion.packageName ?: promotion.actionUrl,
+                    promotion.actionUrl,
+                    requireContext()
+                  )
                 })
             viewModel.activePromotions.add(cardItem)
           }
