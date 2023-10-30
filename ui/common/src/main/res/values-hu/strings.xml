@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">Már van tárcám</string>
   <string name="intro_get_started_button">Tárca megnyitása</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">Az eszköz az alkalmazáson belüli vásárláshoz</string>
+  <string name="new_intro_1_body">Vásárolj a kedvenc appjaidban és játékaidban az AppCoins Wallettel.</string>
+  <string name="new_intro_2_header">Akár %s%% bónusz minden vásárlás után</string>
+  <string name="new_intro_2_body">Tegyél szert extra összegekre minden AppCoins-kompatibilis játékban történő vásárlás után.</string>
+  <string name="new_intro_3_header">Megjöttek a kedvenc fizetési módjaid!</string>
+  <string name="new_intro_3_body">Elérhető fizetési módok</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
   <string name="select_method_title">Fizetési mód kiválasztása</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Az általad tett kiegészítések %s dátumon lettek visszaállítva. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Ezt a bónuszt visszavonták. További információért vedd fel a kapcsolatot az ügyfélszolgálattal.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
   <string name="transaction_onchain_completed_title">A tranzakció már úton van!</string>
   <string name="transaction_onchain_completed_body">Kövesd nyomon az Etherscan oldalon.</string>
