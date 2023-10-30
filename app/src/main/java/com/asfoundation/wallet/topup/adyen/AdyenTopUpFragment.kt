@@ -186,6 +186,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = VISIBLE
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
+    binding.button.visibility = INVISIBLE
   }
 
   override fun hideLoading() {
@@ -193,6 +195,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
     binding.creditCardInfoContainer.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
   }
 
   override fun showNetworkError() {

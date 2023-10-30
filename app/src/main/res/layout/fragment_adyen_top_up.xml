@@ -82,8 +82,8 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="16dp"
             android:alpha="0.3"
-            android:visibility="gone"
             android:background="@color/styleguide_dark_grey"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/main_value"
             />
 
