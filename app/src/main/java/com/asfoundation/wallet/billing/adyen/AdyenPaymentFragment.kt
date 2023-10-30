@@ -635,6 +635,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
+  override fun shouldStoreCard(): Boolean {
+    return adyenCardView.cardSave
+  }
+
   private fun setupCardConfiguration() {
     cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
       .setEnvironment(adyenEnvironment).build()
