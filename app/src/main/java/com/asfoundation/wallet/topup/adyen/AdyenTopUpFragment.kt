@@ -293,6 +293,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
 
+  override fun otherMethodsClicked() = RxView.clicks(binding.morePaymentMethods)
+
   override fun getVerificationClicks() =
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
 
