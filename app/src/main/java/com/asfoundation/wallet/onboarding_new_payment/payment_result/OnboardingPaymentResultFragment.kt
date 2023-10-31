@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.ErrorInfo
@@ -14,6 +16,8 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
+import com.asf.wallet.databinding.OnboardingPaymentGameInfoBinding
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -31,6 +35,8 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
 
+
+
   @Inject
   lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
 
@@ -42,6 +48,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingPaymentResultNavigator
+
+
+
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -55,6 +64,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     args = OnboardingPaymentResultFragmentArgs.fromBundle(requireArguments())
     views.loadingAnimation.playAnimation()
     clickListeners()
+    // To hide the header inside other fragment OnboardingPaymentFragment
+    val sharedHeaderViewModel = ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
+    sharedHeaderViewModel.viewVisibility.value = View.INVISIBLE
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -69,10 +81,10 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(args.forecastBonus.level)
     }
-    views.successButtons.backToGameButton.setOnClickListener {
+    views.onboardingSuccessButtons.backToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
     }
-    views.successButtons.exploreWalletButton.setOnClickListener {
+    views.onboardingSuccessButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
     }
   }
@@ -182,16 +194,16 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.genericErrorLayout.root.visibility = View.GONE
     views.genericErrorButtons.root.visibility = View.GONE
     handleBonusAnimation()
-    views.genericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
-    views.successButtons.root.visibility = View.VISIBLE
-    views.onboardingPaymentMethodsLayout.visibility = View.GONE
+    views.onboardingGenericSuccessLayout.root.visibility = View.VISIBLE
+    views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
+    views.onboardingSuccessButtons.root.visibility = View.VISIBLE
   }
 
   private fun handleBonusAnimation() {
     val purchaseBonusMessage = args.forecastBonus.getPurchaseBonusMessage(formatter)
     if (StringUtils.isNotBlank(purchaseBonusMessage)) {
-      views.genericSuccessLayout.onboardingBonusSuccessLayout.visibility = View.VISIBLE
-      views.genericSuccessLayout.onboardingTransactionSuccessBonusText.text =
+      views.onboardingGenericSuccessLayout.onboardingBonusSuccessLayout.visibility = View.VISIBLE
+      views.onboardingGenericSuccessLayout.onboardingTransactionSuccessBonusText.text =
         String.format(getString(R.string.bonus_granted_body), purchaseBonusMessage)
     }
   }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,6 +17,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingSharedHeaderViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,6 +38,8 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+
+
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
@@ -49,6 +53,11 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     initInnerNavController()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     handlePaymentFinishResult()
+    val sharedHeaderViewModel = ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
+    // Observe the LiveData for visibility changes
+    sharedHeaderViewModel.viewVisibility.observe(viewLifecycleOwner) { visibility ->
+      views.onboardingPaymentHeaderLayout.root.visibility = visibility
+    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 

@@ -18,7 +18,7 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_autoPlay="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_regular_animation"
+      app:lottie_rawRes="@raw/loading_dark_animation"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
