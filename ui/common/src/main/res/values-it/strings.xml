@@ -764,9 +764,9 @@
   <string name="backup_popup_title">Effettua subito il backup del tuo wallet!</string>
   <string name="backup_popup_purchase_body">Mantieni al sicuro i tuoi fondi in qualsiasi momento.</string>
   <string name="backup_popup_gamification_body">Mantieni al sicuro il tuo livello bonus in qualsiasi momento.</string>
-  <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
-  <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_error_body">Non è stato possibile creare il tuo file di backup. Riprova più tardi.</string>
+  <string name="backup_confirmation_save_device">Il tuo backup è disponibile sul tuo dispositivo</string>
+  <string name="backup_confirmation_save_email">Il tuo backup è disponibile nella tua email</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallet</string>
   <string name="wallets_total_balance_title">Saldo totale in %s</string>
@@ -853,7 +853,7 @@
   <string name="subscriptions_cancel_title">Annulla abbonamento</string>
   <string name="subscriptions_cancel_body">Sei sicuro di voler annullare questo abbonamento?</string>
   <string name="subscriptions_cancel_no_button">No, indietro</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel</string>
+  <string name="subscriptions_cancel_yes_button">Sì, annulla</string>
   <string name="subscriptions_cancel_confirmation_title">Abbonamento annullato!</string>
   <string name="subscriptions_cancel_confirmation_body">Non ti verranno addebitati altri costi per questo abbonamento e potrai usarlo fino al giorno %s.</string>
   <string name="subscriptions_category_title">Abbonamento</string>
@@ -916,7 +916,7 @@
   <string name="gamif_placeholder_unknown">un pianeta sconosciuto</string>
   <string name="gamif_distance_unkown">Luogo sconosciuto</string>
   <string name="gamif_placeholder_new_planet">un nuovo pianeta</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">Premi</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Paga con l\'operatore</string>
   <string name="carrier_billing_fees_disclaimer">Possono essere applicati dei costi aggiuntivi</string>
@@ -1180,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Condividi questo codice con i tuoi amici</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s guadagnati con %3$s amici presentati</string>
   <string name="vip_program_gamification_title">Qual è il mio livello bonus?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus ricevuto grazie ai tuoi acquisti</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus ricevuto grazie agli amici presentati</string>
   <string name="vip_program_max_bonus_title">Sfrutta %s%% di bonus su ogni acquisto</string>
   <string name="vip_program_max_bonus_body">Hai raggiunto i limiti del sistema solare.</string>
@@ -1215,49 +1215,49 @@
   <string name="intro_transactions_header">Transazioni</string>
   <string name="intro_backup_card_title">Non perdere i tuoi fondi!</string>
   <string name="intro_backup_card_body">Effettua il backup del tuo wallet per tenerlo sempre al sicuro.</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spendi %1$s%2$s per raggiungere il prossimo livello!</string>
   <string name="rewards_current_bonus_title">%s%% di bonus su ogni acquisto</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
-  <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
+  <string name="rewards_eskills_card_body">Preleva i guadagni ottenuti con e-Skills.</string>
   <string name="rewards_promo_code_card_title">Codici promozionali</string>
   <string name="rewards_promo_code_card_body">Usa un codice promozionale per sfruttare offerte speciali!</string>
   <string name="rewards_promo_code_status">Stato:</string>
   <string name="rewards_promo_code_status_active">Attiva</string>
   <string name="rewards_promo_code_status_expired">Scaduto</string>
-  <string name="home_appcoins_compatible_games_title">AppCoins Compatible Games</string>
+  <string name="home_appcoins_compatible_games_title">Giochi compatibili con AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Effettua il tuo primo acquisto su un gioco compatibile con AppCoins e sblocca un bonus su ogni acquisto.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% di bonus su ogni acquisto</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet modificato</string>
   <string name="manage_wallet_change_active_wallet_title">Vuoi selezionare questo wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Cambia nome del wallet</string>
-  <string name="manage_wallet_set_a_name_button">Set a name for your wallet</string>
-  <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
+  <string name="manage_wallet_set_a_name_button">Scegli un nome per il tuo wallet</string>
+  <string name="manage_wallet_my_wallet_address_title">Indirizzo wallet</string>
   <string name="manage_wallet_verify_title">Verifica un metodo di pagamento</string>
-  <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_verify_body">Evita blocchi verificando un metodo di pagamento.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_payment_method_title">Verifica un metodo di pagamento</string>
-  <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
-  <string name="verify_card_one_more_step_title">One More Step to Verify</string>
+  <string name="verify_card_body">Evita blocchi verificando un metodo di pagamento.</string>
+  <string name="verify_card_one_more_step_title">Un ultimo passaggio per la verifica</string>
   <string name="verify_card_one_more_step_body">Inserisci il codice che appare nei dati della transazione</string>
   <string name="verify_card_one_more_step_button">Inserisci il codice</string>
-  <string name="verify_card_verified">Payment method verified!</string>
+  <string name="verify_card_verified">Metodo di pagamento verificato con successo!</string>
   <string name="verify_card_view_title">Verifica carta</string>
-  <string name="verify_card_view_disclaimer">We\'ll charge %s to your card, and it\'ll be refunded once you confirm the code.</string>
-  <string name="verify_card_view_title_2">Insert your bank card details</string>
-  <string name="verify_card_get_a_code_button">Get a code</string>
-  <string name="verify_card_code_title">Find your code in the transaction details</string>
+  <string name="verify_card_view_disclaimer">Applicheremo un pagamento di %s sulla tua carta e lo rimborseremo quando confermerai il codice.</string>
+  <string name="verify_card_view_title_2">Inserisci dati della carta</string>
+  <string name="verify_card_get_a_code_button">Ottieni un codice</string>
+  <string name="verify_card_code_title">Trova il codice nei dati della transazione</string>
   <string name="verify_card_code_body">Nel sommario della transazione apparirà un codice unico fornito dall\'ente emittente la tua carta.</string>
-  <string name="verify_card_code_example_title">Example of transaction summary</string>
-  <string name="verify_card_code_example_date">Trans Date</string>
+  <string name="verify_card_code_example_title">Esempio di sommario della transazione</string>
+  <string name="verify_card_code_example_date">Data trans.</string>
   <string name="verify_card_code_example_description">Descrizione</string>
   <string name="verify_card_code_example_amount">Importo</string>
-  <string name="verify_card_code_enter_title">Enter the 4 digits code</string>
-  <string name="verify_card_code_refund_body">%s will be refunded within 24 hours after you confirm the code.</string>
+  <string name="verify_card_code_enter_title">Inserisci il codice a 4 cifre</string>
+  <string name="verify_card_code_refund_body">L\'importo di %s sarà rimborsato entro 24 ore dalla conferma del codice.</string>
   <!-- Challenge Reward -->
-  <string name="challenge_reward_card_title">Challenge Reward</string>
-  <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
+  <string name="challenge_reward_card_title">Premio sfida</string>
+  <string name="challenge_reward_card_body">Completa una sfida per ricevere AppCoins Credits.</string>
   <!-- First purchase -->
-  <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <string name="bonus_granted_body">Sfrutta %s in AppCoins Credits sul tuo wallet</string>
 </resources>
