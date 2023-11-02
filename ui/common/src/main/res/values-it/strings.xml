@@ -138,12 +138,12 @@
   <string name="intro_already_have_wallet_button">Ho già un wallet</string>
   <string name="intro_get_started_button">Lancia il wallet</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
-  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
-  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
-  <string name="new_intro_3_body">Available payment methods</string>
+  <string name="new_intro_1_header">Lo strumento perfetto per gli acquisti in-app</string>
+  <string name="new_intro_1_body">Effettua acquisti sulle app e sui giochi che preferisci grazie all\'AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Fino al %s%% di bonus su tutti gli acquisti</string>
+  <string name="new_intro_2_body">Ricevi fondi extra ogni volta che effettui un acquisto su qualsiasi gioco compatibile con AppCoins.</string>
+  <string name="new_intro_3_header">I tuoi metodi di pagamento preferiti sono tutti disponibili!</string>
+  <string name="new_intro_3_body">Metodi di pagamento disponibili</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Lancio del wallet in corso&#8230;</string>
   <string name="select_method_title">Scegli un metodo di pagamento</string>
@@ -236,7 +236,7 @@
   <string name="activity_iab_approving_message">Verifica di tutti i dettagli: equilibrio, elementi, rete…</string>
   <string name="activity_iab_buying_message">Dettagli controllati \nRicezione del tuo articolo…</string>
   <string name="activity_iab_change_card">MODIFICA CARTA</string>
-  <string name="activity_iab_change_card_lower_case_button">Change card</string>
+  <string name="activity_iab_change_card_lower_case_button">Cambia carta</string>
   <string name="activity_iab_fees">Commissioni</string>
   <string name="notification_ongoing_poa">Elaborazione del tuo premio</string>
   <string name="notification_completed_poa">Premio ricevuto!👌 Dovrai attendere %1$s ore e %2$s minuti per ricevere altri premi provando app ⏰!</string>
@@ -257,9 +257,9 @@
   <string name="transaction_status_pending">In sospeso</string>
   <string name="transaction_status_failed">Non riuscito</string>
   <string name="transaction_status_reverted">Stornata</string>
-  <string name="transaction_type_challenge_reward">Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_rejected">Rejected Challenge Reward</string>
-  <string name="transaction_type_challenge_reward_reverted">Reverted Challenge Reward</string>
+  <string name="transaction_type_challenge_reward">Premio sfida</string>
+  <string name="transaction_type_challenge_reward_rejected">Premio sfida rifiutato</string>
+  <string name="transaction_type_challenge_reward_reverted">Premio sfida eliminato</string>
   <string name="transaction_type_iab">Acquisto in-App</string>
   <string name="transaction_type_poa">Premio</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
@@ -276,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">La ricarica che hai effettuato su %s è stata rimborsata. Contatta il servizio clienti per maggiori informazioni.</string>
   <string name="transaction_type_reverted_purchase_title">Rimborso acquisto</string>
   <string name="transaction_type_reverted_purchase_body">L\'acquisto che hai effettuato su %s è stato rimborsato. Contatta il servizio clienti per maggiori informazioni.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Questo bonus è stato eliminato. Per ulteriori informazioni, contattaci.</string>
   <string name="transaction_reverted_view_original_header">Transazione originale</string>
   <string name="transaction_onchain_completed_title">Transazione in corso!</string>
   <string name="transaction_onchain_completed_body">Puoi monitorare i progressi su Etherscan.</string>
@@ -292,8 +292,8 @@
   <string name="transaction_order_reference_label">ID ordine</string>
   <string name="transaction_details_label">Dettagli</string>
   <string name="transaction_to_label">A</string>
-  <string name="transaction_invoice_label">Invoice</string>
-  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
+  <string name="transaction_invoice_label">Fattura</string>
+  <string name="iab_payment_method_vkpay_title">Carta di credito/debito (VK Pay)</string>
   <string name="dialog_credit_card_remember">Ricorda la carta</string>
   <string name="notification_payment_refused">Pagamento rifiutato</string>
   <string name="dialog_credit_card_number">Numero di carta</string>
@@ -323,7 +323,7 @@
   <string name="transaction_rejected_body">Questo acquisto è stato rifiutato.\nPer ulteriori informazioni, contattaci.</string>
   <string name="transaction_reverted_body">Questo acquisto è stato eliminato.\nPer ulteriori informazioni, contattaci.</string>
   <string name="transaction_status_rejected">Rifiutato</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Dettagli transazione</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
@@ -435,7 +435,7 @@
   <string name="topup_maximum_value">L\'importo massimo per la ricarica è %s</string>
   <string name="topup_no_method_available_title">Nessun metodo di pagamento!</string>
   <string name="topup_no_method_available_body">Al momento nel tuo Paese non sono disponibili metodi di pagamento per le ricariche. Continua a seguirci per le ultime novità!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Ricevi %s di bonus con questa ricarica</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo totale in %s</string>
@@ -510,7 +510,7 @@
   <string name="log_out_button">Log out</string>
   <string name="download_button">Download</string>
   <string name="done">Fatto!</string>
-  <string name="see_more_button">See more</string>
+  <string name="see_more_button">Scopri di più</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
@@ -569,7 +569,7 @@
   <string name="unferified_tag">Wallet non verificato</string>
   <string name="verification_wallets_verify_button">Verifica</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">Totale %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Sembra che questo acquisto sia già stato processato. Attendi il completamento della transazione o contatta il nostro servizio clienti.</string>
   <string name="purchase_more_payment_methods_button">ALTRI METODI DI PAGAMENTO</string>
   <string name="purchase_more_payment_methods_lower_case_button">Altri metodi di pagamento</string>
@@ -635,11 +635,11 @@
   <string name="error_blocked_wallet_body">Per ragioni di sicurezza, il tuo wallet è stato bloccato. Per ulteriori informazioni, contattaci.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Potrebbero essere applicati dei costi aggiuntivi.</string>
   <string name="purchase_error_paypal">Sì è verificato un problema con il tuo pagamento PayPal. Ritenta o cambia metodo di pagamento.</string>
-  <string name="purchase_success_bonus_received_title">%s bonus received.</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_success_bonus_received_title">Bonus di %s ricevuto.</string>
+  <string name="purchase_making_purchase_title">Acquisto in corso&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s di commissione</string>
+  <string name="purchase_fee_disclaimer">Questo metodo di pagamento non supporta la tua valuta, pertanto verrà applicata una tassa di elaborazione. Tale commissione è inclusa nell\'importo totale indicato in alto.</string>
+  <string name="purchase_unknown_fee_disclaimer">Questo metodo di pagamento non supporta la tua valuta, pertanto potrebbe essere applicata una tassa di elaborazione.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
@@ -731,7 +731,7 @@
   <string name="import_wallet_button">Recupera wallet</string>
   <string name="import_wallet_password_body">Questo wallet è protetto da password!</string>
   <string name="import_wallet_wrong_password_body">Password errata!</string>
-  <string name="import_code_here_field">Recover code here&#8230;</string>
+  <string name="import_code_here_field">Recupera codice qui&#8230;</string>
   <string name="error_invalid_private_key">Chiave privata non valida</string>
   <string name="error_invalid_keystore">Keystore non valido</string>
   <string name="backup_title">Effettua subito il backup del tuo wallet!</string>
