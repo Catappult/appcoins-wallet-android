@@ -335,6 +335,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_PAYPAL = "PAYPAL"
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
+    const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"

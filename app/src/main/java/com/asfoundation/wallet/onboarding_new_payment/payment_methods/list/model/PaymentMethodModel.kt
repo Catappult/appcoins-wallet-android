@@ -66,6 +66,9 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.GIROPAY -> {
         clickListener?.invoke(PaymentMethodClick.GiroPayAdyenClick)
       }
+      PaymentMethodsView.SelectedPaymentMethod.SANDBOX -> {
+        clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
+      }
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit
       PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> Unit

@@ -88,6 +88,14 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  fun providesSandboxApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): SandboxApi {
+    return retrofit.create(SandboxApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesBrokerBdsApi(
     @BrokerBlockchainRetrofit retrofit: Retrofit
   ): BrokerBdsApi {

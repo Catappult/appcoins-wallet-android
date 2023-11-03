@@ -533,6 +533,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showSandbox(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showSandbox(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.SANDBOX,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
 
   override fun showAdyen(
     fiatAmount: BigDecimal,

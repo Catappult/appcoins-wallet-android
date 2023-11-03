@@ -10,7 +10,8 @@ public enum PaymentType {
   PAYPALV2(Collections.singletonList("paypal_v2")),
   GIROPAY(Collections.singletonList("giropay")),
   LOCAL_PAYMENTS(Collections.singletonList("localPayments")),
-  CARRIER_BILLING(Collections.singletonList("carrier_billing"));
+  CARRIER_BILLING(Collections.singletonList("carrier_billing")),
+  SANDBOX(Collections.singletonList("sandbox"));
 
   private final List<String> subTypes;
 

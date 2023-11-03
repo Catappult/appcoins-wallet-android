@@ -92,6 +92,11 @@ interface PaymentMethodsView {
     gamificationLevel: Int
   )
 
+  fun showSandbox(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
   fun onBackPressed(): Observable<Any>
@@ -138,7 +143,7 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR, GIROPAY
+    CARRIER_BILLING, ERROR, GIROPAY, SANDBOX
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -150,6 +155,7 @@ interface PaymentMethodsView {
     MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
+    SANDBOX("sandbox"),
     ASK_FRIEND("ask_friend")
   }
 }
