@@ -35,7 +35,12 @@ data class TransactionModel(
   val sku: String?,
   val txId: String?,
   val invoiceId: String?,
-) : Parcelable
+  val method: String?
+) : Parcelable {
+  companion object {
+    val METHOD_SANDBOX = "sandbox"
+  }
+}
 
 fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
   return TransactionModel(
@@ -54,7 +59,8 @@ fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
     to = receiver,
     sku = sku,
     txId = txId,
-    invoiceId = invoiceId
+    invoiceId = invoiceId,
+    method = method
   )
 }
 
