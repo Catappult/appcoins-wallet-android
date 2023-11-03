@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Tiền thưởng có thể được sử dụng trong bất kỳ ứng dụng hoặc trò chơi nào.</string>
   <string name="intro_already_have_wallet_button">Tôi đã có ví rồi</string>
   <string name="intro_get_started_button">Khởi chạy ví</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Đang khởi chạy ví&#8230;</string>
   <string name="select_method_title">Chọn phương thức thanh toán</string>
@@ -269,6 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Giao dịch nạp tiền bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
   <string name="transaction_type_reverted_purchase_title">Hoàn trả tiền mua</string>
   <string name="transaction_type_reverted_purchase_body">Giao dịch mua bạn đã thực hiện vào %s đã được hoàn nguyên. Vui lòng liên hệ với bộ phận hỗ trợ để biết thêm thông tin chi tiết.</string>
+  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
   <string name="transaction_reverted_view_original_header">Giao dịch ban đầu</string>
   <string name="transaction_onchain_completed_title">Giao dịch đang được thực hiện!</string>
   <string name="transaction_onchain_completed_body">Bạn có thể theo dõi trên Etherscan.</string>
@@ -285,6 +293,7 @@
   <string name="transaction_details_label">Chi tiết</string>
   <string name="transaction_to_label">Đến</string>
   <string name="transaction_invoice_label">Hóa đơn</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Nhớ thẻ</string>
   <string name="notification_payment_refused">Từ chối thanh toán</string>
   <string name="dialog_credit_card_number">Số thẻ</string>
@@ -501,6 +510,7 @@
   <string name="log_out_button">Đăng xuất</string>
   <string name="download_button">Tải về</string>
   <string name="done">Hoàn thành!</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -559,6 +569,7 @@
   <string name="unferified_tag">Ví chưa xác minh</string>
   <string name="verification_wallets_verify_button">Xác minh</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
   <string name="purchase_more_payment_methods_lower_case_button">Phương thức thanh toán khác</string>
@@ -625,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Phí bổ sung có thể được áp dụng.</string>
   <string name="purchase_error_paypal">Đã xảy ra sự cố với khoản thanh toán PayPal của bạn. Vui lòng thử lại hoặc sử dụng một phương thức thanh toán khác.</string>
   <string name="purchase_success_bonus_received_title">%s tiền thưởng đã nhận.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -900,6 +915,7 @@
   <string name="gamif_placeholder_unknown">một hành tinh không xác định</string>
   <string name="gamif_distance_unkown">Vị trí không xác định</string>
   <string name="gamif_placeholder_new_planet">một hành tinh mới</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Thanh toán thông qua tài khoản điện thoại</string>
   <string name="carrier_billing_fees_disclaimer">Phí bổ sung có thể được áp dụng</string>
@@ -1104,7 +1120,7 @@
   <string name="appcoins_info_market_cap_title">Vốn hóa thị trường</string>
   <string name="appcoins_info_volume_title">Khối lượng (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Đổi mã thẻ quà tặng của bạn</string>
+  <string name="gift_card_title">Đổi mã thẻ quà tặng của bạn.</string>
   <string name="gift_card_field">Mã thẻ tại đây...</string>
   <string name="gift_card_done_title">Đã đổi mã!</string>
   <string name="gift_card_done_body">Kiểm tra danh sách giao dịch của bạn.</string>
@@ -1155,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
   <string name="vip_program_gamification_title">Mức tiền thưởng của tôi là bao nhiêu?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Tiền thưởng nhận được từ việc mua hàng của bạn.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Tiền thưởng nhận được từ giới thiệu</string>
   <string name="vip_program_max_bonus_title">Tận hưởng %s%% tiền thưởng của bạn trên mỗi giao dịch mua</string>
   <string name="vip_program_max_bonus_body">Bạn đã đạt đến hạn mức của hệ thống.</string>
@@ -1186,7 +1202,7 @@
   <string name="intro_transactions_header">Giao dịch</string>
   <string name="intro_backup_card_title">Đừng để mất tiền của bạn!</string>
   <string name="intro_backup_card_body">Sao lưu ví của bạn và giữ nó an toàn mọi lúc.</string>
-  <string name="rewards_spend_to_next_level_body">Chi thêm %1$s%2$s để đạt cấp độ tiếp theo!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% tiền thưởng trên mỗi giao dịch mua</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Rút thu nhập e-Skills của bạn.</string>
@@ -1198,7 +1214,7 @@
   <string name="home_appcoins_compatible_games_title">Trò chơi tương thích với AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
-  <string name="rewards_bonus_every_purchase_title">Tận hưởng %s%% tiền thưởng trong mỗi lần mua</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Đã thay đổi ví</string>
   <string name="manage_wallet_change_active_wallet_title">Bạn có muốn chọn ví này không?</string>

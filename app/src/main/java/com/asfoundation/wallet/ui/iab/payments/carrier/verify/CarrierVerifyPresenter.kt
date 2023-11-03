@@ -20,18 +20,19 @@ import java.math.BigDecimal
 import java.util.*
 
 class CarrierVerifyPresenter(
-    private val disposables: CompositeDisposable,
-    private val view: CarrierVerifyView,
-    private val data: CarrierVerifyData,
-    private val navigator: CarrierVerifyNavigator,
-    private val interactor: CarrierInteractor,
-    private val billingAnalytics: BillingAnalytics,
-    private val appInfoProvider: ApplicationInfoProvider,
-    private val stringProvider: StringProvider,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler) {
+  private val disposables: CompositeDisposable,
+  private val view: CarrierVerifyView,
+  private val data: CarrierVerifyData,
+  private val navigator: CarrierVerifyNavigator,
+  private val interactor: CarrierInteractor,
+  private val billingAnalytics: BillingAnalytics,
+  private val appInfoProvider: ApplicationInfoProvider,
+  private val stringProvider: StringProvider,
+  private val formatter: CurrencyFormatUtils,
+  private val logger: Logger,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler
+) {
 
   fun present() {
     initializeView()
@@ -45,98 +46,107 @@ class CarrierVerifyPresenter(
 
   private fun handleAvailableCountryList() {
     disposables.add(interactor.retrieveAvailableCountries()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          if (it.shouldFilter()) {
-            view.filterCountries(it.convertListToString(), it.defaultCountry)
-          }
-          val phoneNumber = interactor.retrievePhoneNumber()
-          if (phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
-          else view.hideSavedPhoneNumber()
-          view.showPhoneNumberLayout()
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        if (it.shouldFilter()) {
+          view.filterCountries(it.convertListToString(), it.defaultCountry)
         }
-        .subscribe({}, { it.printStackTrace() }))
+        val phoneNumber = interactor.retrievePhoneNumber()
+        if (phoneNumber != null) view.showSavedPhoneNumber(phoneNumber)
+        else view.hideSavedPhoneNumber()
+        view.showPhoneNumberLayout()
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun initializeView() {
-    view.initializeView(data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
-        data.bonusAmount, data.preselected)
+    view.initializeView(
+      data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
+      data.bonusAmount, data.preselected
+    )
     disposables.add(
-        appInfoProvider.getApplicationInfo(data.domain)
-            .observeOn(viewScheduler)
-            .doOnSuccess { ai ->
-              view.setAppDetails(ai.appName, ai.icon)
-            }
-            .subscribe({}, { e -> e.printStackTrace() })
+      appInfoProvider.getApplicationInfo(data.domain)
+        .observeOn(viewScheduler)
+        .doOnSuccess { ai ->
+          view.setAppDetails(ai.appName, ai.icon)
+        }
+        .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 
   private fun handleChangeButtonClick() {
     disposables.add(
-        view.changeButtonClick()
-            .observeOn(viewScheduler)
-            .doOnNext { _ ->
-              interactor.forgetPhoneNumber()
-              view.hideSavedPhoneNumber(true)
-              view.focusOnPhoneNumber()
-            }
-            .subscribe({}, { e -> e.printStackTrace() })
+      view.changeButtonClick()
+        .observeOn(viewScheduler)
+        .doOnNext { _ ->
+          interactor.forgetPhoneNumber()
+          view.hideSavedPhoneNumber(true)
+          view.focusOnPhoneNumber()
+        }
+        .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 
   private fun handlePhoneNumberChange() {
     disposables.add(
-        view.phoneNumberChangeEvent()
-            .doOnNext { event ->
-              view.setNextButtonEnabled(event.second)
-              view.removePhoneNumberFieldError()
-            }
-            .subscribe({}, { e -> e.printStackTrace() })
+      view.phoneNumberChangeEvent()
+        .doOnNext { event ->
+          view.setNextButtonEnabled(event.second)
+          view.removePhoneNumberFieldError()
+        }
+        .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 
   private fun handleNextButton() {
     disposables.add(
-        view.nextClickEvent()
-            .doOnNext {
-              view.lockRotation()
-              view.setLoading()
-              billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain,
-                  data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                  data.transactionType,
-                  "next")
-            }
-            .flatMap { phoneNumber ->
-              interactor.createPayment(phoneNumber, data.domain, data.origin, data.transactionData,
-                  data.transactionType, data.currency, data.fiatAmount.toString())
-                  .observeOn(viewScheduler)
-                  .flatMapObservable { paymentModel ->
-                    view.unlockRotation()
-                    var completable = Completable.complete()
-                    if (paymentModel.error !is NoError) {
-                      completable = handleError(paymentModel)
-                    } else if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
-                      completable = handleUnknownFeeOrCarrier()
-                      safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
-                        fee.cost?.let { cost ->
-                          completable = Completable.fromAction {
-                            navigator.navigateToFee(paymentModel.uid, data.domain,
-                                data.transactionData, data.transactionType,
-                                paymentModel.paymentUrl!!, data.currency, data.fiatAmount,
-                                data.appcAmount, data.bonusAmount, data.skuDescription,
-                                data.skuId, cost.value, carrier.name, carrier.icon, phoneNumber)
-                          }
-                        }
-                      }
-                    }
-                    return@flatMapObservable completable.andThen(Observable.just(paymentModel))
-                  }
-            }
+      view.nextClickEvent()
+        .doOnNext {
+          view.lockRotation()
+          view.setLoading()
+          billingAnalytics.sendActionPaymentMethodDetailsActionEvent(
+            data.domain,
+            data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+            data.transactionType,
+            "next"
+          )
+        }
+        .flatMap { phoneNumber ->
+          interactor.createPayment(
+            phoneNumber, data.domain, data.origin, data.transactionData,
+            data.transactionType, data.currency, data.fiatAmount.toString()
+          )
             .observeOn(viewScheduler)
-            .doOnError { handleException(it) }
-            .retry()
-            .subscribe({}, { handleException(it) })
+            .flatMapObservable { paymentModel ->
+              view.unlockRotation()
+              var completable = Completable.complete()
+              if (paymentModel.error !is NoError) {
+                completable = handleError(paymentModel)
+              } else if (paymentModel.status == TransactionStatus.PENDING_USER_PAYMENT) {
+                completable = handleUnknownFeeOrCarrier()
+                safeLet(paymentModel.carrier, paymentModel.fee) { carrier, fee ->
+                  fee.cost?.let { cost ->
+                    completable = Completable.fromAction {
+                      navigator.navigateToFee(
+                        paymentModel.uid, data.domain,
+                        data.transactionData, data.transactionType,
+                        paymentModel.paymentUrl!!, data.currency, data.fiatAmount,
+                        data.appcAmount, data.bonusAmount, data.skuDescription,
+                        data.skuId, cost.value, carrier.name, carrier.icon, phoneNumber
+                      )
+                    }
+                  }
+                }
+              }
+              return@flatMapObservable completable.andThen(Observable.just(paymentModel))
+            }
+        }
+        .observeOn(viewScheduler)
+        .doOnError { handleException(it) }
+        .retry()
+        .subscribe({}, { handleException(it) })
     )
   }
 
@@ -164,15 +174,21 @@ class CarrierVerifyPresenter(
           InvalidPriceError.BoundType.LOWER -> {
             return Completable.fromAction {
               navigator.navigateToError(
-                  stringProvider.getString(R.string.purchase_carrier_error_minimum,
-                      formatFiatValue(error.value, data.currency)))
+                stringProvider.getString(
+                  R.string.purchase_carrier_error_minimum,
+                  formatFiatValue(error.value, data.currency)
+                )
+              )
             }
           }
           InvalidPriceError.BoundType.UPPER -> {
             return Completable.fromAction {
               navigator.navigateToError(
-                  stringProvider.getString(R.string.purchase_carrier_error_maximum,
-                      formatFiatValue(error.value, data.currency)))
+                stringProvider.getString(
+                  R.string.purchase_carrier_error_maximum,
+                  formatFiatValue(error.value, data.currency)
+                )
+              )
             }
           }
         }
@@ -182,7 +198,8 @@ class CarrierVerifyPresenter(
         return if (error.type == ForbiddenType.BLOCKED) handleFraudFlow()
         else Completable.fromAction {
           navigator.navigateToError(
-              stringProvider.getString(R.string.subscriptions_error_already_subscribed))
+            stringProvider.getString(R.string.subscriptions_error_already_subscribed)
+          )
         }
       }
       is GenericError -> {
@@ -196,27 +213,29 @@ class CarrierVerifyPresenter(
 
   private fun handleFraudFlow(): Completable {
     return interactor.getWalletStatus()
-        .observeOn(viewScheduler)
-        .doOnSuccess { walletStatus ->
-          if (walletStatus.blocked) {
-            if (walletStatus.verified) {
-              navigator.navigateToError(
-                  stringProvider.getString(R.string.purchase_error_wallet_block_code_403))
-            } else {
-              navigator.navigateToVerification()
-            }
-          } else {
+      .observeOn(viewScheduler)
+      .doOnSuccess { walletStatus ->
+        if (walletStatus.blocked) {
+          if (walletStatus.verified) {
             navigator.navigateToError(
-                stringProvider.getString(R.string.purchase_error_wallet_block_code_403))
+              stringProvider.getString(R.string.purchase_error_wallet_block_code_403)
+            )
+          } else {
+            navigator.navigateToVerification()
           }
+        } else {
+          navigator.navigateToError(
+            stringProvider.getString(R.string.purchase_error_wallet_block_code_403)
+          )
         }
-        .ignoreElement()
+      }
+      .ignoreElement()
   }
 
   private fun formatFiatValue(value: BigDecimal, currencyCode: String): String {
     val currencySymbol = Currency.getInstance(currencyCode).symbol
     var scaledBonus = value.stripTrailingZeros()
-        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currencySymbol
     if (scaledBonus < BigDecimal("0.01")) {
       newCurrencyString = "~$currencySymbol"
@@ -229,39 +248,45 @@ class CarrierVerifyPresenter(
 
   private fun handleBackButton() {
     disposables.add(
-        view.backEvent()
-            .doOnNext {
-              if (data.preselected) {
-                billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,
-                    data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                    data.transactionType, "cancel")
-                navigator.finishActivityWithError()
-              } else {
-                billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain, data.skuId,
-                    data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                    data.transactionType,
-                    "back")
-                navigator.navigateBack()
-              }
-            }
-            .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
+      view.backEvent()
+        .doOnNext {
+          if (data.preselected) {
+            billingAnalytics.sendActionPaymentMethodDetailsActionEvent(
+              data.domain, data.skuId,
+              data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+              data.transactionType, BillingAnalytics.ACTION_CANCEL
+            )
+            navigator.finishActivityWithError()
+          } else {
+            billingAnalytics.sendActionPaymentMethodDetailsActionEvent(
+              data.domain, data.skuId,
+              data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+              data.transactionType,
+              BillingAnalytics.ACTION_BACK
+            )
+            navigator.navigateBack()
+          }
+        }
+        .retry()
+        .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 
   private fun handleOtherPaymentsButton() {
     disposables.add(
-        view.otherPaymentMethodsEvent()
-            .doOnNext {
-              billingAnalytics.sendActionPaymentMethodDetailsActionEvent(data.domain,
-                  data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-                  data.transactionType,
-                  "other_payments")
-              interactor.removePreSelectedPaymentMethod()
-              navigator.navigateBack()
-            }
-            .retry()
-            .subscribe({}, { e -> e.printStackTrace() })
+      view.otherPaymentMethodsEvent()
+        .doOnNext {
+          billingAnalytics.sendActionPaymentMethodDetailsActionEvent(
+            data.domain,
+            data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+            data.transactionType,
+            "other_payments"
+          )
+          interactor.removePreSelectedPaymentMethod()
+          navigator.navigateBack()
+        }
+        .retry()
+        .subscribe({}, { e -> e.printStackTrace() })
     )
   }
 

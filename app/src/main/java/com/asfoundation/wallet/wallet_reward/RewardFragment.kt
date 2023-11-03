@@ -55,6 +55,9 @@ import com.asfoundation.wallet.promotions.model.FutureItem
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.APTOIDE
+import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER
+import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -142,7 +145,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     ) {
       item {
         with(viewModel.gamificationHeaderModel.value) {
-          if (this != null && this.bonusPercentage >= 10.0) {
+          if (this != null && walletOrigin == APTOIDE) {
             GamificationHeader(
               onClick = {
                 navigator.navigateToGamification(
@@ -176,7 +179,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 )
               }
             }
-          } else if (this != null && this.bonusPercentage > 0.0 && this.bonusPercentage < 10.0) {
+          } else if (this != null && walletOrigin == PARTNER) {
             GamificationHeaderPartner(
               df.format(this.bonusPercentage)
             )
@@ -253,7 +256,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is FutureItem) {
@@ -268,7 +277,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               true,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is PromoCodeItem) {
@@ -279,7 +294,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.actionUrl,
               promotion.packageName,
               true,
-              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext()
+                )
+              }
             )
             viewModel.activePromoCode.value = cardItem
           }
@@ -307,6 +328,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     ) {
       val gamificationItem: GamificationItem? =
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
+      val gamificationStatus =
+        promotionsGamificationStats.value?.gamificationStatus ?: GamificationStatus.NONE
 
       if (gamificationItem != null) {
         viewModel.gamificationHeaderModel.value =
@@ -323,8 +346,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             else
               null,
             bonusPercentage = gamificationItem.bonus,
-            isVip = gamificationItem.level >= 8,
-            isMaxVip = gamificationItem.level >= 9
+            isVip = gamificationStatus == GamificationStatus.VIP,
+            isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
+            walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
           )
       } else {
         viewModel.gamificationHeaderModel.value = null

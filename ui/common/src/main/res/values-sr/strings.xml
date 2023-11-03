@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Bonusi se mogu iskoristiti u bilo kojoj aplikaciji ili igri.</string>
   <string name="intro_already_have_wallet_button">Već imam novčanik</string>
   <string name="intro_get_started_button">Pokrenite novčanik</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Vaš alat za kupovine u aplikacijama</string>
+  <string name="new_intro_1_body">Obavite kupovine u omiljenim aplikacijama i igrama uz AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Do %s%% bonusa za svaku kupovinu</string>
+  <string name="new_intro_2_body">Preuzmite dodatna sredstva svaki put kada obavite kupovinu u igri koja je kompatibilna sa AppCoins.</string>
+  <string name="new_intro_3_header">Stigle su vaši omiljeni načini plaćanja!</string>
+  <string name="new_intro_3_body">Dostupni načini plaćanja</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Pokretanje novčanika&#8230;</string>
   <string name="select_method_title">Odaberite način plaćanja</string>
@@ -269,6 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
   <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
+  <string name="transaction_bonus_reverted_body">Bonus je vraćen. Za više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_view_original_header">Prvobitna transakcija</string>
   <string name="transaction_onchain_completed_title">Transakcija je u putu!</string>
   <string name="transaction_onchain_completed_body">Možete je pratiti preko platforme Etherscan.</string>
@@ -285,6 +293,7 @@
   <string name="transaction_details_label">Detalji</string>
   <string name="transaction_to_label">Za</string>
   <string name="transaction_invoice_label">Faktura</string>
+  <string name="iab_payment_method_vkpay_title">Kreditna/debitna kartica (VK Pay)</string>
   <string name="dialog_credit_card_remember">Zapamti karticu</string>
   <string name="notification_payment_refused">Plaćanje je odbijeno</string>
   <string name="dialog_credit_card_number">Broj kartice</string>
@@ -426,7 +435,7 @@
   <string name="topup_maximum_value">Najveća vrednost dopune je %s</string>
   <string name="topup_no_method_available_title">Nema načina za plaćanje!</string>
   <string name="topup_no_method_available_body">Trenutno nema načina za plaćanje dostupnih za dopunu u vašoj zemlji. Ostanite u toku!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Preuzmite %s bonusa uz ovu dopunu</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -501,6 +510,7 @@
   <string name="log_out_button">Odjava</string>
   <string name="download_button">Preuzmi</string>
   <string name="done">Gotovo!</string>
+  <string name="see_more_button">Pogledajte više</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -559,6 +569,7 @@
   <string name="unferified_tag">Nepotvrđeni novčanik</string>
   <string name="verification_wallets_verify_button">Potvrdi</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Ukupno %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
   <string name="purchase_more_payment_methods_lower_case_button">Drugi načini plaćanja</string>
@@ -625,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
+  <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
+  <string name="purchase_fee_title">Naknada %2$s%1$s</string>
+  <string name="purchase_fee_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada je uključena u Ukupnoj ceni koju možete videti u gornjem delu.</string>
+  <string name="purchase_unknown_fee_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -902,6 +917,7 @@
   <string name="gamif_placeholder_unknown">nepoznata planeta</string>
   <string name="gamif_distance_unkown">Nepoznata lokacija</string>
   <string name="gamif_placeholder_new_planet">nova planeta</string>
+  <string name="gamif_header">Nagrade</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Naplata preko operatera</string>
   <string name="carrier_billing_fees_disclaimer">Možda se primenjuju dodatne naknade</string>
@@ -1122,7 +1138,7 @@
   <string name="appcoins_info_market_cap_title">Tržišna vrednost</string>
   <string name="appcoins_info_volume_title">Obim (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Iskoristite kod sa poklon-kartice</string>
+  <string name="gift_card_title">Iskoristite kod sa poklon-kartice.</string>
   <string name="gift_card_field">Kod sa kartice ovde...</string>
   <string name="gift_card_done_title">Kod je iskorišćen!</string>
   <string name="gift_card_done_body">Proverite listu transakcija.</string>
@@ -1173,7 +1189,7 @@
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
   <string name="vip_program_gamification_title">Koji je moj bonus nivo?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Ostvaren bonus od kupovina.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Ostvaren bonus od kupovina</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Ostvareni bonusi od preporuka</string>
   <string name="vip_program_max_bonus_title">Uživajte u bonusu od %s%% za svaku kupovinu</string>
   <string name="vip_program_max_bonus_body">Dostigli ste ograničenje Sunčevog sistema.</string>
@@ -1212,7 +1228,7 @@
   <string name="intro_transactions_header">Transakcije</string>
   <string name="intro_backup_card_title">Nemojte izgubiti svoja sredstva!</string>
   <string name="intro_backup_card_body">Napravite rezervnu kopiju novčanika i čuvajte je na sigurnom mestu u svako doba.</string>
-  <string name="rewards_spend_to_next_level_body">Potrošite više od %1$s%2$s da biste dostigli sledeći nivo!</string>
+  <string name="rewards_spend_to_next_level_body">Potrošite %2$s%1$s da biste dostigli sledeći nivo!</string>
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>
@@ -1224,7 +1240,7 @@
   <string name="home_appcoins_compatible_games_title">Igre kompatibilne sa AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
-  <string name="rewards_bonus_every_purchase_title">Uživajte u bonusu od %s%% prilikom svake kupovine</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonusa za svaku kupovinu</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
