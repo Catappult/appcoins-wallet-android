@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">प्रलंबित आहे</string>
   <string name="transaction_status_failed">होऊ शकले नाही</string>
   <string name="transaction_status_reverted">परत केले</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">आव्हान बक्षिस</string>
   <string name="transaction_type_challenge_reward_rejected">नकारलेले आव्हान बक्षिस</string>
   <string name="transaction_type_challenge_reward_reverted">पुन: स्थापित आव्हान बक्षिस</string>
