@@ -273,7 +273,7 @@ fun TransactionModel.cardInfoByType() =
                 appIcon = appIcon,
                 title =
                 if (method == TransactionModel.METHOD_SANDBOX)
-                    R.string.ok /*TODO string*/
+                    R.string.transcation_type_sandbox
                 else
                     R.string.transaction_type_iab,
                 amount = amount,
