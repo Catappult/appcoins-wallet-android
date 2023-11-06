@@ -79,8 +79,8 @@
   <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
   <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <strin name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <strin name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
