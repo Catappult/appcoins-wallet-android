@@ -55,25 +55,32 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   lateinit var vkDataPreferencesDataSource: VkDataPreferencesDataSource
 
   private lateinit var iabView: IabView
-  var navigatorIAB: Navigator? = null
+  private var navigatorIAB: Navigator? = null
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
       vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
+      viewModel.hasVkUserAuthenticated = true
       startVkCheckoutPay()
     }
   }
 
   private var observeCheckoutResults: VkCheckoutResultDisposable =
-    VkPayCheckout.observeCheckoutResult { result
-      ->
-      handleCheckoutResult(result)
-    }
+    VkPayCheckout.observeCheckoutResult { _ -> handleCheckoutResult() }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(context is IabView) { "Vk payment fragment must be attached to IAB activity" }
     iabView = context
+  }
+
+  override fun onResume() {
+    super.onResume()
+    if (SuperappKit.isInitialized()) {
+      if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty() && viewModel.hasVkUserAuthenticated) {
+        startVkCheckoutPay()
+      }
+    }
   }
 
 
@@ -82,11 +89,17 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(BuildConfig.VK_APP_NAME, BuildConfig.VK_CLIENT_SECRET, requireContext(), R.mipmap.ic_launcher, BuildConfig.VK_SDK_APP_ID, activity)
+    VkPayManager.initSuperAppKit(
+      BuildConfig.VK_APP_NAME,
+      BuildConfig.VK_CLIENT_SECRET,
+      requireContext(),
+      R.mipmap.ic_launcher,
+      BuildConfig.VK_SDK_APP_ID,
+      activity
+    )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return VkPaymentIabLayoutBinding.inflate(inflater).root
-
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
@@ -106,8 +119,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
         (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
-      requireArguments().getString(ORIGIN_KEY)!!,
+        requireArguments().getString(ORIGIN_KEY)!!,
       )
+      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
     } else {
       showError()
     }
@@ -128,17 +142,16 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       resources.getString(R.string.gamification_purchase_completed_bonus_received)
     )
     binding.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    binding.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object : FontAssetDelegate() {
+    binding.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
+      FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
         return Typeface.create("sans-serif-medium", Typeface.BOLD)
       }
     })
   }
 
-  private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
-    if (vkCheckoutResult.orderId.isNotEmpty()) {
-      viewModel.startTransactionStatusTimer()
-    }
+  private fun handleCheckoutResult() {
+    viewModel.startTransactionStatusTimer()
   }
 
   private fun startVkCheckoutPay() {
@@ -146,13 +159,20 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
-      VkPayManager.checkoutVkPay(hash, uidTransaction, viewModel.walletAddress , amount, BuildConfig.VK_MERCHANT_ID.toInt(), BuildConfig.VK_SDK_APP_ID.toInt(), requireFragmentManager())
+      VkPayManager.checkoutVkPay(
+        hash,
+        uidTransaction,
+        viewModel.walletAddress,
+        amount,
+        BuildConfig.VK_MERCHANT_ID.toInt(),
+        BuildConfig.VK_SDK_APP_ID.toInt(),
+        requireFragmentManager()
+      )
     } else {
       showError()
     }
-    observeCheckoutResults = VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+    observeCheckoutResults = VkPayCheckout.observeCheckoutResult { handleCheckoutResult() }
   }
-
 
 
   override fun onStateChanged(state: VkPaymentIABState) {
@@ -182,33 +202,52 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   fun showError() {
+    viewModel.sendPaymentErrorEvent("", "",  requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!)
     binding.loading.visibility = View.GONE
+    binding.loadingHintTextView.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
     binding.noNetwork.root.visibility = View.GONE
-    binding.errorView.errorMessage.text = getString(R.string.unknown_error)
+    binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
+    binding.errorTryAgainVk.visibility = View.VISIBLE
+    binding.errorTryAgainVk.setOnClickListener {
+      iabView.navigateBack()
+    }
   }
 
   override fun onSideEffect(sideEffect: VkPaymentIABSideEffect) {
     when (sideEffect) {
-      is VkPaymentIABSideEffect.ShowError -> {showError()}
+      is VkPaymentIABSideEffect.ShowError -> {
+        showError()
+      }
+
       VkPaymentIABSideEffect.ShowLoading -> {}
-      VkPaymentIABSideEffect.ShowSuccess -> {showSuccessAnimation()}
+      VkPaymentIABSideEffect.ShowSuccess -> {
+        showSuccessAnimation()
+      }
     }
   }
 
   private fun showSuccessAnimation() {
+    viewModel.sendPaymentSuccessEvent( requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!, viewModel.transactionUid!!)
     binding.loading.visibility = View.GONE
+    binding.loadingHintTextView.visibility = View.GONE
     binding.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
   }
 
   private fun handleCompletePurchase() {
     val bundle = Bundle().apply {
       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      putString(VkPaymentTopUpFragment.TOP_UP_AMOUNT, (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString())
-      putString(VkPaymentTopUpFragment.TOP_UP_CURRENCY,requireArguments().getString(CURRENCY_KEY))
+      putString(
+        VkPaymentTopUpFragment.TOP_UP_AMOUNT,
+        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString()
+      )
+      putString(VkPaymentTopUpFragment.TOP_UP_CURRENCY, requireArguments().getString(CURRENCY_KEY))
       putString(VkPaymentTopUpFragment.BONUS, requireArguments().getString(BONUS_KEY))
-      putString(VkPaymentTopUpFragment.TOP_UP_CURRENCY_SYMBOL, requireArguments().getString(CURRENCY_KEY))
+      putString(
+        VkPaymentTopUpFragment.TOP_UP_CURRENCY_SYMBOL,
+        requireArguments().getString(CURRENCY_KEY)
+      )
     }
     navigatorIAB?.popView(bundle)
   }

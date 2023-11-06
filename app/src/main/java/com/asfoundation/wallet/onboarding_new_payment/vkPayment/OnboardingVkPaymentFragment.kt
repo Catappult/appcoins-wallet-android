@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.vkPayment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,15 +59,15 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
   ): View {
+    //Build Vk Pay SuperApp Kit
+    VkPayManager.initSuperAppKit(BuildConfig.VK_APP_NAME, BuildConfig.VK_CLIENT_SECRET, requireContext(), R.mipmap.ic_launcher, BuildConfig.VK_SDK_APP_ID, activity)
+    VkClientAuthLib.addAuthCallback(authVkCallback)
     return OnboardingVkPaymentLayoutBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
-    //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(BuildConfig.VK_APP_NAME, BuildConfig.VK_CLIENT_SECRET, requireContext(), R.mipmap.ic_launcher, BuildConfig.VK_SDK_APP_ID, activity)
-    VkClientAuthLib.addAuthCallback(authVkCallback)
     viewModel.getPaymentLink()
   }
 
@@ -93,7 +94,6 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     when (state.vkTransaction) {
       Async.Uninitialized,
       is Async.Loading -> {
-
       }
 
       is Async.Success -> {
@@ -117,9 +117,8 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   fun showError() {
     binding.loading.visibility = View.GONE
-    binding.mainContent.visibility = View.GONE
     binding.noNetwork.root.visibility = View.GONE
-    binding.errorView.errorMessage.text = getString(R.string.unknown_error)
+    binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
   }
 

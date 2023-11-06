@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment.vkPayment
 
 import android.text.format.DateUtils
 import androidx.lifecycle.SavedStateHandle
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -12,7 +13,9 @@ import com.appcoins.wallet.core.network.microservices.model.VkPrice
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
+import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,7 +41,7 @@ data class OnboardingVkPaymentState(
 
 @HiltViewModel
 class OnboardingVkPaymentViewModel @Inject constructor(
-    private val createVkPayTransactionTopUpUseCase: CreateVkPayTransactionTopUpUseCase,
+    private val createVkPayTransactionUseCase: CreateVkPayTransactionUseCase,
     private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
     private val events: OnboardingPaymentEvents,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
@@ -64,8 +67,17 @@ class OnboardingVkPaymentViewModel @Inject constructor(
         getCurrentWalletUseCase().doOnSuccess {
             walletAddress = it.address
         }.scopedSubscribe()
-        createVkPayTransactionTopUpUseCase(
-            price = price
+        createVkPayTransactionUseCase(
+            price = price,
+            reference = args.transactionBuilder.orderReference,
+            origin = args.transactionBuilder.origin,
+            metadata = args.transactionBuilder.payload,
+            sku = args.transactionBuilder.skuId,
+            callbackUrl = args.transactionBuilder.callbackUrl,
+            transactionType = args.transactionBuilder.type,
+            developerWallet = args.transactionBuilder.toAddress(),
+            referrerUrl = args.transactionBuilder.referrerUrl,
+            packageName = args.transactionBuilder.domain
         ).asAsyncToState {
             copy(vkTransaction = it)
         }.scopedSubscribe()
@@ -95,6 +107,11 @@ class OnboardingVkPaymentViewModel @Inject constructor(
         jobTransactionStatus?.cancel()
         timerTransactionStatus.cancel()
         isTimerRunning = false
+        events.sendAdyenPaymentConfirmationEvent(
+            args.transactionBuilder,
+            BillingAnalytics.ACTION_CANCEL,
+            PaymentType.VKPAY.name
+        )
     }
 
     private fun getTransactionStatus() {

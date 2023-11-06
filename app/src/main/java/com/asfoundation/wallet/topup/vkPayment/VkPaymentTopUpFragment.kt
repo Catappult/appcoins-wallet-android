@@ -142,7 +142,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     binding.loading.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
     binding.noNetwork.root.visibility = View.GONE
-    binding.errorView.errorMessage.text = getString(R.string.unknown_error)
+    binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
   }
 

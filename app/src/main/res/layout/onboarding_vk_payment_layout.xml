@@ -2,26 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/onboarding_vk_payment_layout"
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/main_content"
-      android:layout_width="match_parent"
+
+  <com.vk.auth.ui.fastloginbutton.VkFastLoginButton
+      android:id="@+id/vk_fast_login_button"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginHorizontal="30dp"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      >
+      />
 
-    <com.vk.auth.ui.fastloginbutton.VkFastLoginButton
-        android:id="@+id/vk_fast_login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="30dp"/>
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <ProgressBar
       android:id="@+id/loading"
@@ -41,8 +36,11 @@
       android:layout_width="match_parent"
       android:layout_height="336dp"
       android:background="@drawable/background_card"
-      android:gravity="center"
       android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <include
         android:id="@+id/fragment_iab_transaction_completed"
@@ -64,7 +62,7 @@
 
   <include
       android:id="@+id/error_view"
-      layout="@layout/error_top_up_layout"
+      layout="@layout/support_error_layout"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:visibility="gone"
