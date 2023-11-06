@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">Ausstehend</string>
   <string name="transaction_status_failed">Fehlgeschlagen</string>
   <string name="transaction_status_reverted">Zurückgeleitet</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Challenge-Belohnung</string>
   <string name="transaction_type_challenge_reward_rejected">Abgelehnte Challenge-Belohnung</string>
   <string name="transaction_type_challenge_reward_reverted">Rückgängig gemachte Challenge-Belohnung</string>
