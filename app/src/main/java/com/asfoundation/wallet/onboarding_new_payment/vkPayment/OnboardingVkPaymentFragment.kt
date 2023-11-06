@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.vkPayment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +59,14 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(BuildConfig.VK_APP_NAME, BuildConfig.VK_CLIENT_SECRET, requireContext(), R.mipmap.ic_launcher, BuildConfig.VK_SDK_APP_ID, activity)
+    VkPayManager.initSuperAppKit(
+      BuildConfig.VK_APP_NAME,
+      BuildConfig.VK_CLIENT_SECRET,
+      requireContext(),
+      R.mipmap.ic_launcher,
+      BuildConfig.VK_SDK_APP_ID,
+      activity
+    )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     return OnboardingVkPaymentLayoutBinding.inflate(inflater).root
   }
@@ -82,7 +88,15 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
-      VkPayManager.checkoutVkPay(hash, uidTransaction, viewModel.walletAddress,  amount, BuildConfig.VK_MERCHANT_ID.toInt(), BuildConfig.VK_SDK_APP_ID.toInt(), requireFragmentManager())
+      VkPayManager.checkoutVkPay(
+        hash,
+        uidTransaction,
+        viewModel.walletAddress,
+        amount,
+        BuildConfig.VK_MERCHANT_ID.toInt(),
+        BuildConfig.VK_SDK_APP_ID.toInt(),
+        requireFragmentManager()
+      )
     } else {
       showError()
     }
@@ -99,11 +113,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       is Async.Success -> {
         if (SuperappKit.isInitialized()) {
           viewModel.transactionUid = state.vkTransaction.value?.uid
-          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
-            binding.vkFastLoginButton.performClick()
-          } else {
-            startVkCheckoutPay()
-          }
+          binding.vkFastLoginButton.performClick()
         }
       }
 
@@ -126,15 +136,21 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.loading.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.VISIBLE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+      View.VISIBLE
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
   }
 
   override fun onSideEffect(sideEffect: OnboardingVkPaymentSideEffect) {
     when (sideEffect) {
-      is OnboardingVkPaymentSideEffect.ShowError -> { showError()}
+      is OnboardingVkPaymentSideEffect.ShowError -> {
+        showError()
+      }
+
       OnboardingVkPaymentSideEffect.ShowLoading -> {}
-      OnboardingVkPaymentSideEffect.ShowSuccess -> { showCompletedPayment()}
+      OnboardingVkPaymentSideEffect.ShowSuccess -> {
+        showCompletedPayment()
+      }
     }
   }
 

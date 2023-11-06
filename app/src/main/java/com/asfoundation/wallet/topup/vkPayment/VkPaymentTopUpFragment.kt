@@ -65,7 +65,14 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(BuildConfig.VK_APP_NAME, BuildConfig.VK_CLIENT_SECRET, requireContext(), R.mipmap.ic_launcher, BuildConfig.VK_SDK_APP_ID, activity)
+    VkPayManager.initSuperAppKit(
+      BuildConfig.VK_APP_NAME,
+      BuildConfig.VK_CLIENT_SECRET,
+      requireContext(),
+      R.mipmap.ic_launcher,
+      BuildConfig.VK_SDK_APP_ID,
+      activity
+    )
     VkClientAuthLib.addAuthCallback(authVkCallback)
     return VkTopupPaymentLayoutBinding.inflate(inflater).root
 
@@ -92,7 +99,15 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
-      VkPayManager.checkoutVkPay(hash, uidTransaction, viewModel.walletAddress, amount, BuildConfig.VK_MERCHANT_ID.toInt(), BuildConfig.VK_SDK_APP_ID.toInt(), requireFragmentManager())
+      VkPayManager.checkoutVkPay(
+        hash,
+        uidTransaction,
+        viewModel.walletAddress,
+        amount,
+        BuildConfig.VK_MERCHANT_ID.toInt(),
+        BuildConfig.VK_SDK_APP_ID.toInt(),
+        requireFragmentManager()
+      )
     } else {
       showError()
     }
@@ -148,9 +163,14 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: VkPaymentTopUpSideEffect) {
     when (sideEffect) {
-      is VkPaymentTopUpSideEffect.ShowError -> {showError()}
+      is VkPaymentTopUpSideEffect.ShowError -> {
+        showError()
+      }
+
       VkPaymentTopUpSideEffect.ShowLoading -> {}
-      VkPaymentTopUpSideEffect.ShowSuccess -> { handleCompletePurchase()}
+      VkPaymentTopUpSideEffect.ShowSuccess -> {
+        handleCompletePurchase()
+      }
     }
   }
 
