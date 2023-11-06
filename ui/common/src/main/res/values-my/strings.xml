@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
   <string name="transaction_status_reverted">ျပန္ပို႔ခဲ့သည္</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_rejected">ျငင္းပယ္ခဲ့ေသာ စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_reverted">ျပန္ေျပာင္းခဲ့ေသာ စိန္ေခၚမႈဆု</string>
