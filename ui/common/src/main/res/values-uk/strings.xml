@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_rejected">Відхилена винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_reverted">Повернута винагорода за завдання</string>
