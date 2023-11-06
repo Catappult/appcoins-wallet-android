@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">Pendente</string>
   <string name="transaction_status_failed">Falhou</string>
   <string name="transaction_status_reverted">Revertida</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Recompensa do Desafio</string>
   <string name="transaction_type_challenge_reward_rejected">Recompensa do Desafio Rejeitada</string>
   <string name="transaction_type_challenge_reward_reverted">Recompensa do Desafio Revertida</string>
