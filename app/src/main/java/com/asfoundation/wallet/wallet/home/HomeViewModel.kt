@@ -21,7 +21,6 @@ import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
@@ -83,7 +82,7 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToBackup(val walletAddress: String, val walletName: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
 
-  object NavigateToChangeCurrency : HomeSideEffect()
+  data class NavigateToBalanceDetails(val balance: WalletBalance) : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
   object NavigateToTransactionsList : HomeSideEffect()
@@ -135,7 +134,6 @@ constructor(
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
-  val balance = mutableStateOf(FiatValue())
   val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
@@ -148,6 +146,9 @@ constructor(
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
+
+  private val _uiBalanceState = MutableStateFlow<UiBalanceState>(UiBalanceState.Idle)
+  var uiBalanceState: StateFlow<UiBalanceState> = _uiBalanceState
 
   init {
     handleWalletData()
@@ -402,8 +403,8 @@ constructor(
     }
   }
 
-  fun onCurrencySelectorClick() {
-    sendSideEffect { HomeSideEffect.NavigateToChangeCurrency }
+  fun onBalanceArrowClick(balance: WalletBalance) {
+    sendSideEffect { HomeSideEffect.NavigateToBalanceDetails(balance) }
   }
 
   fun onSettingsClick() {
@@ -451,9 +452,19 @@ constructor(
       }
   }
 
+  fun updateBalance(uiBalanceState: UiBalanceState) {
+    _uiBalanceState.value = uiBalanceState
+  }
+
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
     data class Success(val transactions: Map<String, List<TransactionModel>>) : UiState()
+  }
+
+  sealed class UiBalanceState {
+    object Idle : UiBalanceState()
+    object Loading : UiBalanceState()
+    data class Success(val balance: WalletBalance) : UiBalanceState()
   }
 }
