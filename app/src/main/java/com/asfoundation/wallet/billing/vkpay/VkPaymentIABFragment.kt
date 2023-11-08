@@ -73,6 +73,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     super.onAttach(context)
     check(context is IabView) { "Vk payment fragment must be attached to IAB activity" }
     iabView = context
+    iabView.lockRotation()
   }
 
   override fun onResume() {

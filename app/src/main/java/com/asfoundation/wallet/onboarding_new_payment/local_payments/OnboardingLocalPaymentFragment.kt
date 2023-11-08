@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,9 +49,10 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
     override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         args = OnboardingLocalPaymentFragmentArgs.fromBundle(requireArguments())
+        viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
         createResultLauncher()
         clickListeners()
-        viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     }
 
     override fun onStateChanged(state: OnboardingLocalPaymentState) {

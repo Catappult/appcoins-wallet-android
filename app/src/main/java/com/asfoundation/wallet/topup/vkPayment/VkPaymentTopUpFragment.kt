@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup.vkPayment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.VkTopupPaymentLayoutBinding
+import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.vk.auth.api.models.AuthResult
@@ -36,6 +38,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   private val viewModel: VkPaymentTopUpViewModel by viewModels()
   private val binding by lazy { VkTopupPaymentLayoutBinding.bind(requireView()) }
+  private var topUpActivityView: TopUpActivityView? = null
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -76,6 +79,14 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     return VkTopupPaymentLayoutBinding.inflate(inflater).root
 
   }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is TopUpActivityView) { "Vk Pay topup fragment must be attached to Topup activity" }
+    topUpActivityView = context
+    topUpActivityView?.lockOrientation()
+  }
+
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
