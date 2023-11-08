@@ -96,13 +96,15 @@ private fun ChangeFiatCurrencyList(
           .padding(horizontal = 16.dp, vertical = 16.dp),
       )
     }
-    item {
-      CurrencyItem(
-        currencyItem = selectedItem!!,
-        isSelected = true,
-        onExitClick = onExitClick,
-        bottomSheetState = bottomSheetState,
-      )
+    selectedItem?.let {
+      item {
+        CurrencyItem(
+          currencyItem = selectedItem,
+          isSelected = true,
+          onExitClick = onExitClick,
+          bottomSheetState = bottomSheetState,
+        )
+      }
     }
     items(model.list) { currencyItem ->
       if (selectedItem != currencyItem) {

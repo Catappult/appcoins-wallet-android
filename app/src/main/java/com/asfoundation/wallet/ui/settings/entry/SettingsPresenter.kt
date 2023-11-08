@@ -143,23 +143,22 @@ class SettingsPresenter(
     settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
   private fun setCurrencyPreference() {
-    disposables.add(rxSingle { getChangeFiatCurrencyModelUseCase() }
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .subscribe({ result ->
-        result.get()?.let {
-          for (fiatCurrency in it.list) {
-            if (fiatCurrency.currency == it.selectedCurrency) {
-              view.setCurrencyPreference(fiatCurrency)
-              break
+    disposables.add(
+      rxSingle { getChangeFiatCurrencyModelUseCase() }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .subscribe(
+          { result ->
+            val selectedFiatCurrency = result.get()?.let { model ->
+              model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
             }
+            view.setCurrencyPreference(selectedFiatCurrency)
+          },
+          { throwable ->
+            view.setCurrencyPreference(null)
+            handleError(throwable)
           }
-        }
-      },
-        { throwable ->
-          handleError(throwable)
-        }
-      )
+        )
     )
   }
 
