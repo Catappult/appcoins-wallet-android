@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
@@ -19,7 +21,7 @@ import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
 import com.vk.superapp.SuperappKit
 import com.vk.superapp.vkpay.checkout.VkCheckoutResult
-import com.vk.superapp.vkpay.checkout.VkCheckoutResultDisposable
+import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +30,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingVkPaymentFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingVkPaymentState, OnboardingVkPaymentSideEffect> {
+  SingleStateFragment<OnboardingVkPaymentStates, OnboardingVkPaymentSideEffect> {
 
   private val viewModel: OnboardingVkPaymentViewModel by viewModels()
   private val binding by lazy { OnboardingVkPaymentLayoutBinding.bind(requireView()) }
@@ -45,13 +47,12 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
       startVkCheckoutPay()
     }
-  }
 
-  private var observeCheckoutResults: VkCheckoutResultDisposable =
-    VkPayCheckout.observeCheckoutResult { result
-      ->
-      handleCheckoutResult(result)
+    override fun onCancel() {
+      super.onCancel()
+      showError()
     }
+  }
 
 
   override fun onCreateView(
@@ -75,11 +76,17 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
     viewModel.getPaymentLink()
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
-    if (vkCheckoutResult.orderId.isNotEmpty()) {
-      viewModel.startTransactionStatusTimer()
+    when (vkCheckoutResult) {
+      is VkCheckoutSuccess -> {
+        viewModel.startTransactionStatusTimer()
+      }
+      else -> {
+        showError()
+      }
     }
   }
 
@@ -100,16 +107,17 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     } else {
       showError()
     }
-    observeCheckoutResults = VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+    VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+  }
+
+  private fun clearVkPayCheckout() {
+    VkPayCheckout.releaseResultObserver()
+    VkPayCheckout.finish()
   }
 
 
-  override fun onStateChanged(state: OnboardingVkPaymentState) {
+  override fun onStateChanged(state: OnboardingVkPaymentStates) {
     when (state.vkTransaction) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-      }
-
       is Async.Success -> {
         if (SuperappKit.isInitialized()) {
           viewModel.transactionUid = state.vkTransaction.value?.uid
@@ -130,6 +138,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.noNetwork.root.visibility = View.GONE
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
+    clearVkPayCheckout()
   }
 
   private fun showCompletedPayment() {
@@ -139,6 +148,10 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
       View.VISIBLE
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.errorTryAgainVk.setOnClickListener {
+      findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
+    }
+    clearVkPayCheckout()
   }
 
   override fun onSideEffect(sideEffect: OnboardingVkPaymentSideEffect) {

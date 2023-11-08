@@ -33,7 +33,7 @@ import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
 import com.vk.superapp.SuperappKit
 import com.vk.superapp.vkpay.checkout.VkCheckoutResult
-import com.vk.superapp.vkpay.checkout.VkCheckoutResultDisposable
+import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,13 +60,14 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
       vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
-      viewModel.hasVkUserAuthenticated = true
       startVkCheckoutPay()
     }
-  }
 
-  private var observeCheckoutResults: VkCheckoutResultDisposable =
-    VkPayCheckout.observeCheckoutResult { _ -> handleCheckoutResult() }
+    override fun onCancel() {
+      super.onCancel()
+      showError()
+    }
+  }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -76,10 +77,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    if (SuperappKit.isInitialized()) {
-      if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty() && viewModel.hasVkUserAuthenticated) {
-        startVkCheckoutPay()
-      }
+    if (SuperappKit.isInitialized() && vkDataPreferencesDataSource.getAuthVk()
+        .isNullOrEmpty() && viewModel.hasVkUserAuthenticated
+    ) {
+      startVkCheckoutPay()
     }
   }
 
@@ -150,8 +151,16 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     })
   }
 
-  private fun handleCheckoutResult() {
-    viewModel.startTransactionStatusTimer()
+  private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
+    when (vkCheckoutResult) {
+      is VkCheckoutSuccess -> {
+        viewModel.startTransactionStatusTimer()
+      }
+
+      else -> {
+        showError()
+      }
+    }
   }
 
   private fun startVkCheckoutPay() {
@@ -171,17 +180,12 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     } else {
       showError()
     }
-    observeCheckoutResults = VkPayCheckout.observeCheckoutResult { handleCheckoutResult() }
+    VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
   }
 
 
   override fun onStateChanged(state: VkPaymentIABState) {
     when (state.vkTransaction) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-
-      }
-
       is Async.Success -> {
         if (SuperappKit.isInitialized()) {
           viewModel.transactionUid = state.vkTransaction.value?.uid
@@ -202,7 +206,11 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   fun showError() {
-    viewModel.sendPaymentErrorEvent("", "",  requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!)
+    viewModel.sendPaymentErrorEvent(
+      "",
+      "",
+      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!
+    )
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
@@ -210,6 +218,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
     binding.errorTryAgainVk.visibility = View.VISIBLE
+    clearVkPayCheckout()
     binding.errorTryAgainVk.setOnClickListener {
       iabView.navigateBack()
     }
@@ -228,11 +237,21 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     }
   }
 
+  private fun clearVkPayCheckout() {
+    VkPayCheckout.releaseResultObserver()
+    VkPayCheckout.finish()
+  }
+
+
   private fun showSuccessAnimation() {
-    viewModel.sendPaymentSuccessEvent( requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!, viewModel.transactionUid!!)
+    viewModel.sendPaymentSuccessEvent(
+      requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
+      viewModel.transactionUid!!
+    )
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
     binding.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    clearVkPayCheckout()
   }
 
   private fun handleCompletePurchase() {

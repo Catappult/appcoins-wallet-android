@@ -28,14 +28,13 @@ import java.util.Timer
 import java.util.TimerTask
 import javax.inject.Inject
 
-
 sealed class OnboardingVkPaymentSideEffect : SideEffect {
   object ShowLoading : OnboardingVkPaymentSideEffect()
-  data class ShowError(val message: Int?) : OnboardingVkPaymentSideEffect()
+  object ShowError : OnboardingVkPaymentSideEffect()
   object ShowSuccess : OnboardingVkPaymentSideEffect()
 }
 
-data class OnboardingVkPaymentState(
+data class OnboardingVkPaymentStates(
   val vkTransaction: Async<VkPayTransaction> = Async.Uninitialized
 ) : ViewState
 
@@ -47,8 +46,8 @@ class OnboardingVkPaymentViewModel @Inject constructor(
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   savedStateHandle: SavedStateHandle
 ) :
-  BaseViewModel<OnboardingVkPaymentState, OnboardingVkPaymentSideEffect>(
-    OnboardingVkPaymentState()
+  BaseViewModel<OnboardingVkPaymentStates, OnboardingVkPaymentSideEffect>(
+    OnboardingVkPaymentStates()
   ) {
 
   var transactionUid: String? = null
@@ -97,7 +96,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 180 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
-        sendSideEffect { OnboardingVkPaymentSideEffect.ShowError(R.string.unknown_error) }
+        sendSideEffect { OnboardingVkPaymentSideEffect.ShowError }
         timerTransactionStatus.cancel()
       }
     }
@@ -140,9 +139,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
               PaymentType.VKPAY.name
             )
             sendSideEffect {
-              OnboardingVkPaymentSideEffect.ShowError(
-                R.string.purchase_error_wallet_block_code_403
-              )
+              OnboardingVkPaymentSideEffect.ShowError
             }
           }
 

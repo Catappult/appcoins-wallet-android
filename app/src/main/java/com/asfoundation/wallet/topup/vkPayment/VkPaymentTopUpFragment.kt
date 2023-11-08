@@ -8,9 +8,9 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
@@ -23,7 +23,7 @@ import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
 import com.vk.superapp.SuperappKit
 import com.vk.superapp.vkpay.checkout.VkCheckoutResult
-import com.vk.superapp.vkpay.checkout.VkCheckoutResultDisposable
+import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,13 +51,12 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
       startVkCheckoutPay()
     }
-  }
 
-  private var observeCheckoutResults: VkCheckoutResultDisposable =
-    VkPayCheckout.observeCheckoutResult { result
-      ->
-      handleCheckoutResult(result)
+    override fun onCancel() {
+      super.onCancel()
+      showError()
     }
+  }
 
 
   override fun onCreateView(
@@ -89,8 +88,13 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
   }
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
-    if (vkCheckoutResult.orderId.isNotEmpty()) {
-      viewModel.startTransactionStatusTimer()
+    when (vkCheckoutResult) {
+      is VkCheckoutSuccess -> {
+        viewModel.startTransactionStatusTimer()
+      }
+      else -> {
+        showError()
+      }
     }
   }
 
@@ -111,17 +115,12 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     } else {
       showError()
     }
-    observeCheckoutResults = VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+    VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
   }
 
 
   override fun onStateChanged(state: VkPaymentTopUpState) {
     when (state.vkTransaction) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-
-      }
-
       is Async.Success -> {
         if (SuperappKit.isInitialized()) {
           viewModel.transactionUid = state.vkTransaction.value?.uid
@@ -150,6 +149,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       putString(BONUS, viewModel.paymentData.bonusValue.toString())
       putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
     }
+    clearVkPayCheckout()
     navigator.popView(bundle)
   }
 
@@ -159,6 +159,15 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     binding.noNetwork.root.visibility = View.GONE
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
+    clearVkPayCheckout()
+    binding.errorView.tryAgain.setOnClickListener {
+      navigator.navigateBack()
+    }
+  }
+
+  private fun clearVkPayCheckout() {
+    VkPayCheckout.releaseResultObserver()
+    VkPayCheckout.finish()
   }
 
   override fun onSideEffect(sideEffect: VkPaymentTopUpSideEffect) {

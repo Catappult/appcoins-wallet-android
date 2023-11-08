@@ -72,4 +72,17 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_try_again_vk"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      app:layout_constraintTop_toBottomOf="@id/error_view"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="24dp"
+      android:visibility="gone"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,10 +16,6 @@ android {
   }
 }
 
-ext {
-  //Use This value inside UI:Common for VK strings
-}
-
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":legacy:tn"))
