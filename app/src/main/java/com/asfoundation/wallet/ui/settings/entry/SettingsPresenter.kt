@@ -144,8 +144,9 @@ class SettingsPresenter(
 
   private fun setCurrencyPreference() {
     disposables.add(rxSingle { getChangeFiatCurrencyModelUseCase() }
+      .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .doOnSuccess { result ->
+      .subscribe({ result ->
         result.get()?.let {
           for (fiatCurrency in it.list) {
             if (fiatCurrency.currency == it.selectedCurrency) {
@@ -154,9 +155,12 @@ class SettingsPresenter(
             }
           }
         }
-      }
-      .subscribeOn(networkScheduler)
-      .subscribe())
+      },
+        { throwable ->
+          handleError(throwable)
+        }
+      )
+    )
   }
 
   fun displayChat() = displayChatUseCase()
