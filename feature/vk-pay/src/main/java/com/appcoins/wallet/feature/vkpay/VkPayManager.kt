@@ -15,8 +15,16 @@ import com.vk.superapp.vkpay.checkout.api.dto.model.VkTransactionInfo
 import com.vk.superapp.vkpay.checkout.config.VkPayCheckoutConfig
 import com.vk.superapp.vkpay.checkout.config.VkPayCheckoutConfigBuilder
 import com.vk.superapp.vkpay.checkout.data.VkCheckoutUserInfo
+import javax.inject.Inject
 
-object VkPayManager {
+
+class VkPayManager @Inject constructor() {
+
+  companion object {
+    const val APP_VK_VERSION = "1.232"
+    internal const val SERVICE_USER_AGREEMENT = "https://id.vk.com/terms"
+    internal const val SERVICE_PRIVACY_POLICY = "https://id.vk.com/privacy"
+  }
 
   fun initSuperAppKit(
     appName: String,
@@ -30,7 +38,7 @@ object VkPayManager {
     val appInfo = SuperappConfig.AppInfo(
       appName,
       vkSdkAppId,
-      "1.232"
+      APP_VK_VERSION
     )
 
     val config = activity?.let {
@@ -38,8 +46,8 @@ object VkPayManager {
         .setAuthModelData(clientSecret)
         .setAuthUiManagerData(VkClientUiInfo(icon, appName))
         .setLegalInfoLinks(
-          serviceUserAgreement = "https://id.vk.com/terms",
-          servicePrivacyPolicy = "https://id.vk.com/privacy"
+          serviceUserAgreement = SERVICE_USER_AGREEMENT,
+          servicePrivacyPolicy = SERVICE_PRIVACY_POLICY
         )
         .setApplicationInfo(appInfo)
         .setUseCodeFlow(true)

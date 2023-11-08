@@ -54,6 +54,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   @Inject
   lateinit var vkDataPreferencesDataSource: VkDataPreferencesDataSource
 
+  @Inject
+  lateinit var vkPayManager: VkPayManager
+
   private lateinit var iabView: IabView
   private var navigatorIAB: Navigator? = null
 
@@ -91,7 +94,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(
+    vkPayManager.initSuperAppKit(
       BuildConfig.VK_APP_NAME,
       BuildConfig.VK_CLIENT_SECRET,
       requireContext(),
@@ -169,7 +172,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
-      VkPayManager.checkoutVkPay(
+      vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         viewModel.walletAddress,

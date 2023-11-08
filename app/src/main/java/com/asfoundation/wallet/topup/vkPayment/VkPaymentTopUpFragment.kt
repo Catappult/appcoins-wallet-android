@@ -47,6 +47,9 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
   lateinit var navigator: TopUpNavigator
 
   @Inject
+  lateinit var vkPayManager: VkPayManager
+
+  @Inject
   lateinit var vkDataPreferencesDataSource: VkDataPreferencesDataSource
 
   private val authVkCallback = object : VkClientAuthCallback {
@@ -67,7 +70,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     @Nullable savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
-    VkPayManager.initSuperAppKit(
+    vkPayManager.initSuperAppKit(
       BuildConfig.VK_APP_NAME,
       BuildConfig.VK_CLIENT_SECRET,
       requireContext(),
@@ -114,7 +117,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
-      VkPayManager.checkoutVkPay(
+      vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
         viewModel.walletAddress,
