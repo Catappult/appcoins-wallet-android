@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Les bonus peuvent être utilisés dans n\'importe quelle application ou jeu.</string>
   <string name="intro_already_have_wallet_button">J\'ai déjà un portefeuille</string>
   <string name="intro_get_started_button">Lancement du portefeuille</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
+  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
+  <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
+  <string name="new_intro_3_body">Available payment methods</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Lancement du portefeuille&#8230;</string>
   <string name="select_method_title">Choisissez un mode de paiement</string>
@@ -286,6 +293,7 @@
   <string name="transaction_details_label">Détails</string>
   <string name="transaction_to_label">À</string>
   <string name="transaction_invoice_label">Facture</string>
+  <string name="iab_payment_method_vkpay_title">Credit/debit card (VK Pay)</string>
   <string name="dialog_credit_card_remember">Enregistrer carte</string>
   <string name="notification_payment_refused">Paiement refusé</string>
   <string name="dialog_credit_card_number">Numéro de carte</string>
@@ -502,6 +510,7 @@
   <string name="log_out_button">Déconnexion</string>
   <string name="download_button">Télécharger</string>
   <string name="done">Terminé !</string>
+  <string name="see_more_button">See more</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -560,6 +569,7 @@
   <string name="unferified_tag">Portefeuille non vérifié</string>
   <string name="verification_wallets_verify_button">Vérifier</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Il semble que cet achat soit déjà en cours de traitement. Veuillez patienter jusqu\'à ce que la transaction soit terminée ou contactez notre équipe de support.</string>
   <string name="purchase_more_payment_methods_button">AUTRES METHODES DE PAIEMENT</string>
   <string name="purchase_more_payment_methods_lower_case_button">Autres moyens de paiement</string>
@@ -626,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Des frais supplémentaires peuvent s\'appliquer.</string>
   <string name="purchase_error_paypal">Il y a eu un problème avec votre paiement PayPal. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
   <string name="purchase_success_bonus_received_title">%s bonus reçu.</string>
+  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -902,6 +916,7 @@
   <string name="gamif_placeholder_unknown">une planète inconnue</string>
   <string name="gamif_distance_unkown">Lieu inconnu</string>
   <string name="gamif_placeholder_new_planet">une nouvelle planète</string>
+  <string name="gamif_header">Rewards</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Facturation par l\'opérateur</string>
   <string name="carrier_billing_fees_disclaimer">Des frais supplémentaires peuvent s\'appliquer</string>
@@ -1114,7 +1129,7 @@
   <string name="appcoins_info_market_cap_title">Capitalisation boursière</string>
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Utilisez le code de votre carte cadeau</string>
+  <string name="gift_card_title">Utilisez le code de votre carte cadeau.</string>
   <string name="gift_card_field">Code de la carte ici...</string>
   <string name="gift_card_done_title">Code utilisé !</string>
   <string name="gift_card_done_body">Vérifiez votre liste de transactions.</string>
@@ -1165,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Partagez ce code avec vos amis</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s gagnés avec %3$s références</string>
   <string name="vip_program_gamification_title">Quel est le niveau de mon bonus ?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus reçus de vos achats.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus reçu des référencés</string>
   <string name="vip_program_max_bonus_title">Profitez de votre bonus de %s%% sur chaque achat</string>
   <string name="vip_program_max_bonus_body">Vous avez atteint les limites du système solaire.</string>
@@ -1200,7 +1215,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Ne perdez pas vos fonds !</string>
   <string name="intro_backup_card_body">Sauvegardez votre portefeuille et conservez-le tout le temps en sécurité.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% de Bonus sur chaque achat</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retirez vos gains e-Skills.</string>

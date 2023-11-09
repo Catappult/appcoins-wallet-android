@@ -222,7 +222,7 @@ class AdyenTopUpPresenter(
       .observeOn(networkScheduler)
       .flatMapSingle {
         val billingAddressModel = view.retrieveBillingAddressData()
-        val shouldStore = billingAddressModel?.remember ?: it.shouldStoreCard
+        val shouldStore = billingAddressModel?.remember ?: view.shouldStoreCard()
         topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
         adyenPaymentInteractor.makeTopUpPayment(
           adyenPaymentMethod = it.cardPaymentMethod,

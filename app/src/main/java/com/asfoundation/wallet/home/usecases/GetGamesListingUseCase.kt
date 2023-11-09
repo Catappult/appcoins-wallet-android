@@ -11,6 +11,6 @@ class GetGamesListingUseCase @Inject constructor(
 
   operator fun invoke(): Single<List<GameData>> {
     return gamesRepositoryType.getGamesListing()
-    }
+  }
 
 }

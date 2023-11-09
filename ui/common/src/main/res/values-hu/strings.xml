@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">A bónuszokat bármely appban vagy játékban felhasználhatod.</string>
   <string name="intro_already_have_wallet_button">Már van tárcám</string>
   <string name="intro_get_started_button">Tárca megnyitása</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Az eszköz az alkalmazáson belüli vásárláshoz</string>
+  <string name="new_intro_1_body">Vásárolj a kedvenc appjaidban és játékaidban az AppCoins Wallettel.</string>
+  <string name="new_intro_2_header">Akár %s%% bónusz minden vásárlás után</string>
+  <string name="new_intro_2_body">Tegyél szert extra összegekre minden AppCoins-kompatibilis játékban történő vásárlás után.</string>
+  <string name="new_intro_3_header">Megjöttek a kedvenc fizetési módjaid!</string>
+  <string name="new_intro_3_body">Elérhető fizetési módok</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
   <string name="select_method_title">Fizetési mód kiválasztása</string>
@@ -269,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Az általad tett kiegészítések %s dátumon lettek visszaállítva. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
   <string name="transaction_type_reverted_purchase_title">Vásárlás visszatérítés</string>
   <string name="transaction_type_reverted_purchase_body">A %s napon lebonyolított vásárlást visszavonták. Lépj kapcsolatba az Ügyfélszolgálattal, ha szeretnél erről többet megtudni.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Ezt a bónuszt visszavonták. További információért vedd fel a kapcsolatot az ügyfélszolgálattal.</string>
   <string name="transaction_reverted_view_original_header">Eredeti tranzakció</string>
   <string name="transaction_onchain_completed_title">A tranzakció már úton van!</string>
   <string name="transaction_onchain_completed_body">Kövesd nyomon az Etherscan oldalon.</string>
@@ -286,6 +293,7 @@
   <string name="transaction_details_label">Részletek</string>
   <string name="transaction_to_label">Címzett</string>
   <string name="transaction_invoice_label">Számla</string>
+  <string name="iab_payment_method_vkpay_title">Hitel/bankkártya (VK Pay)</string>
   <string name="dialog_credit_card_remember">Kártyaadatok megjegyzése</string>
   <string name="notification_payment_refused">Kifizetés elutasítva</string>
   <string name="dialog_credit_card_number">Kártyaszám</string>
@@ -427,7 +435,7 @@
   <string name="topup_maximum_value">A maximális kiegészítő érték %s</string>
   <string name="topup_no_method_available_title">Hiányzik fizetési mód!</string>
   <string name="topup_no_method_available_body">Az országodban jelenleg nincs a befizetésre alkalmas fizetési mód. Ez viszont még változhat!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">%s Bónuszt kaphatsz ezzel a feltöltéssel</string>
   <!--Balance-->
   <string name="balance_title">Egyenleg</string>
   <string name="balance_total_body">Teljes egyenleg %s-ban</string>
@@ -502,6 +510,7 @@
   <string name="log_out_button">Kijelentkezés</string>
   <string name="download_button">Letöltés</string>
   <string name="done">Kész!</string>
+  <string name="see_more_button">Részletek</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -560,6 +569,7 @@
   <string name="unferified_tag">Hitelesítetlen tárca</string>
   <string name="verification_wallets_verify_button">Hitelesítés</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Összesen %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>
   <string name="purchase_more_payment_methods_button">MÁS FIZETÉSI MÓDOK</string>
   <string name="purchase_more_payment_methods_lower_case_button">Egyéb fizetési módok</string>
@@ -626,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">További költségek léphetnek fel.</string>
   <string name="purchase_error_paypal">Probléma merült fel a PayPales fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
   <string name="purchase_success_bonus_received_title">%s bónusz érkezett.</string>
+  <string name="purchase_making_purchase_title">Vásárlás végrehajtása&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s díj</string>
+  <string name="purchase_fee_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat fog felszámolni. A fenti részben látható Végösszeg már tartalmazza ezt a díjat.</string>
+  <string name="purchase_unknown_fee_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat számíthat fel.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -902,6 +916,7 @@
   <string name="gamif_placeholder_unknown">egy ismeretlen bolygó</string>
   <string name="gamif_distance_unkown">Ismeretlen helyszín</string>
   <string name="gamif_placeholder_new_planet">egy új bolygó</string>
+  <string name="gamif_header">Jutalmak</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Mobilszámlázás</string>
   <string name="carrier_billing_fees_disclaimer">További költségek léphetnek fel</string>
@@ -1114,7 +1129,7 @@
   <string name="appcoins_info_market_cap_title">Piaci érték</string>
   <string name="appcoins_info_volume_title">Mennyiség (24 óra)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Ajándékutalvány kódjának beváltása</string>
+  <string name="gift_card_title">Ajándékutalvány kódjának beváltása.</string>
   <string name="gift_card_field">A kártya kódja ide...</string>
   <string name="gift_card_done_title">Kód beváltva!</string>
   <string name="gift_card_done_body">Nézd meg a tranzakciók listáját.</string>
@@ -1165,7 +1180,7 @@
   <string name="vip_program_referral_page_share_title">Oszd meg ezt a kódot a barátaiddal</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s összeget szereztél %3$s ajánlásból</string>
   <string name="vip_program_gamification_title">Mi az én bónuszszintem?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Megkaptad a vásárlásod után járó bónuszt.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Megkaptad a vásárlásodért járó bónuszt</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Az ajánlásokból befolyó bónusz</string>
   <string name="vip_program_max_bonus_title">Élvezd ki a %s%% bónuszt minden vásárlás után</string>
   <string name="vip_program_max_bonus_body">Elérted a naprendszer határait.</string>
@@ -1200,7 +1215,7 @@
   <string name="intro_transactions_header">Tranzakciók</string>
   <string name="intro_backup_card_title">Ne veszítsd el a pénzed!</string>
   <string name="intro_backup_card_body">Készíts biztonsági mentést a tárcádról, hogy az mindenkor biztonságban maradjon.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">%1$s%2$s elköltésével juthatsz el a következő szintre!</string>
   <string name="rewards_current_bonus_title">%s%% bónusz minden vásárlás után</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Az e-Skill jutalmak felvétele.</string>
@@ -1212,7 +1227,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins-kompatibilis játékok</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Végezd el az első vásárlásod egy AppCoins kompatibilis játékban és szerezz bónuszt minden vásárlásért cserébe.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bónusz minden vásárlás után</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Megváltozott a wallet</string>
   <string name="manage_wallet_change_active_wallet_title">Ezt a walletet választod ki?</string>

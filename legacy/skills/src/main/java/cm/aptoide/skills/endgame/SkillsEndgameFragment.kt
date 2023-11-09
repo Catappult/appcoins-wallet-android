@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.network.eskills.model.User
 import com.appcoins.wallet.core.network.eskills.model.UserStatus
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -128,18 +129,34 @@ class SkillsEndgameFragment : Fragment() {
   private fun setupRankingsButton() {
     views.rankingsButton.setOnClickListener {
       disposables.add(
-        viewModel.getWalletAddress().subscribeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess { walletAddress ->
-            requireActivity().supportFragmentManager.beginTransaction().replace(
-              R.id.fragment_container, SkillsRankingsFragment.newInstance(
-                walletAddress, requireArguments().getString(PACKAGE_NAME)!!, GLOBAL_LEADERBOARD_SKU
-              )
-            )
-              .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
-              .commit()
-          }.subscribe()
+        Single.zip(viewModel.getWalletAddress(),
+          viewModel.getRewardsPackages()
+            .onErrorReturn { throwable ->
+              throwable.printStackTrace()
+              emptyList()
+            }
+        ) { walletAddress, rewardsPackages ->
+          launchRankingsFragment(walletAddress, rewardsPackages)
+        }
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSubscribe { showLoading() }
+          .subscribe()
       )
     }
+  }
+
+
+  private fun launchRankingsFragment(walletAddress: String, rewardsPackages: List<String>) {
+    val packageName = requireArguments().getString(PACKAGE_NAME)!!
+    requireActivity().supportFragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container, SkillsRankingsFragment.newInstance(
+          walletAddress,
+          packageName, GLOBAL_LEADERBOARD_SKU, rewardsPackages.contains(packageName)
+        )
+      )
+      .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
+      .commit()
   }
 
   private fun buildRecyclerView() {
@@ -201,7 +218,12 @@ class SkillsEndgameFragment : Fragment() {
     views.animationDescriptionText.text = descriptionText
     val winner: User = roomResponse.roomResult.winner
     val opponentDetails =
-      requireContext().resources.getQuantityString(R.plurals.opponent_points_title,winner.score.toInt(), winner.userName, winner.score)
+      requireContext().resources.getQuantityString(
+        R.plurals.opponent_points_title,
+        winner.score.toInt(),
+        winner.userName,
+        winner.score
+      )
     views.secondaryMessage.text = opponentDetails
     views.secondaryMessage.visibility = View.VISIBLE
   }
@@ -212,6 +234,7 @@ class SkillsEndgameFragment : Fragment() {
     views.animationDescriptionText.text = resources.getString(R.string.unknown_error)
     views.retryButton.visibility = View.VISIBLE
     views.restartButton.visibility = View.GONE
+    views.rankingsButton.visibility = View.GONE
     views.restartButton.isEnabled = true
   }
 }

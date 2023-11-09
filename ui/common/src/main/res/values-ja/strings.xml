@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">ボーナスは、どのアプリやゲームでも使用することができます。</string>
   <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
   <string name="intro_get_started_button">ウォレットを起動</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">アプリ内課金ツール</string>
+  <string name="new_intro_1_body">AppCoins Walletを使ってお気に入りのアプリやゲームで買い物をしましょう。</string>
+  <string name="new_intro_2_header">すべての購入で最大%s%のボーナス</string>
+  <string name="new_intro_2_body">AppCoins対応ゲームで購入するたびに、追加資金を獲得できます。</string>
+  <string name="new_intro_3_header">お気に入りの支払い方法がここにあります！</string>
+  <string name="new_intro_3_body">ご利用可能なお支払い方法</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">ウォレットを起動中 &amp;#8230</string>
   <string name="select_method_title">支払い方法を選択</string>
@@ -269,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">%sに行ったトップアップは元に戻されました。詳細はサポートにお問い合わせください。</string>
   <string name="transaction_type_reverted_purchase_title">購入代金の返金</string>
   <string name="transaction_type_reverted_purchase_body">%sの購入は返金されました。詳細はサポートにお問い合わせください。</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">このボーナスは取り消されました。詳しくはサポートまでお問い合わせください。</string>
   <string name="transaction_reverted_view_original_header">元の購入取引</string>
   <string name="transaction_onchain_completed_title">決済処理中です</string>
   <string name="transaction_onchain_completed_body">イーサスキャンでトラッキングができます。</string>
@@ -286,6 +293,7 @@
   <string name="transaction_details_label">詳細</string>
   <string name="transaction_to_label">宛て</string>
   <string name="transaction_invoice_label">インボイス</string>
+  <string name="iab_payment_method_vkpay_title">クレジットカード/デビットカード (VK Pay)</string>
   <string name="dialog_credit_card_remember">リメンバーカード</string>
   <string name="notification_payment_refused">支払い拒否</string>
   <string name="dialog_credit_card_number">カード番号</string>
@@ -427,7 +435,7 @@
   <string name="topup_maximum_value">最高チャージ額は%sです</string>
   <string name="topup_no_method_available_title">支払方法がありません!</string>
   <string name="topup_no_method_available_body">現在、あなたの国でトップアップできる支払い方法はありません。しばらくお待ちください！</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">このトップアップで%sボーナスを受け取る</string>
   <!--Balance-->
   <string name="balance_title">残高</string>
   <string name="balance_total_body">総残高 %s</string>
@@ -502,6 +510,7 @@
   <string name="log_out_button">ログアウト</string>
   <string name="download_button">ダウンロード</string>
   <string name="done">完了</string>
+  <string name="see_more_button">もっと見る</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -560,6 +569,7 @@
   <string name="unferified_tag">未認証のウォレット</string>
   <string name="verification_wallets_verify_button">認証</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">合計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
   <string name="purchase_more_payment_methods_button">その他の支払方法</string>
   <string name="purchase_more_payment_methods_lower_case_button">他の支払い方法</string>
@@ -626,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
+  <string name="purchase_making_purchase_title">購入中：&#8230;</string>
+  <string name="purchase_fee_title">手数料：%1$s</string>
+  <string name="purchase_fee_disclaimer">この支払い方法はあなたの通貨をサポートしていないため、処理手数料がかかります。この手数料はトップエリアに表示される合計金額に含まれています。</string>
+  <string name="purchase_unknown_fee_disclaimer">この支払い方法はお客様の通貨をサポートしていないため、手数料がかかる場合があります。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -901,6 +915,7 @@
   <string name="gamif_placeholder_unknown">未知の惑星</string>
   <string name="gamif_distance_unkown">未知の場所</string>
   <string name="gamif_placeholder_new_planet">新たな惑星</string>
+  <string name="gamif_header">リワード</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">キャリア課金</string>
   <string name="carrier_billing_fees_disclaimer">追加料金が発生する場合があります。</string>
@@ -1105,7 +1120,7 @@
   <string name="appcoins_info_market_cap_title">マーケットキャップ</string>
   <string name="appcoins_info_volume_title">取引高（24h）</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">ギフトカードコードを利用</string>
+  <string name="gift_card_title">ギフトカードコードを利用.</string>
   <string name="gift_card_field">カードコードをここに入力...</string>
   <string name="gift_card_done_title">コード使用可能！</string>
   <string name="gift_card_done_body">トランザクション・リストを確認</string>
@@ -1156,7 +1171,7 @@
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
   <string name="vip_program_gamification_title">私のボーナスレベルは？</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">購入で受け取ったボーナス。</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">購入で受け取ったボーナス</string>
   <string name="vip_program_gamification_amoung_referral_bonus">紹介によるボーナス</string>
   <string name="vip_program_max_bonus_title">購入のたびに%s%% ボーナスをゲット</string>
   <string name="vip_program_max_bonus_body">あなたは、太陽系の限界に達しました。</string>
@@ -1187,7 +1202,7 @@
   <string name="intro_transactions_header">取引</string>
   <string name="intro_backup_card_title">資金を失わないようにしましょう！</string>
   <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">さらに%1$s%2$sを使うと次のレベルに到達</string>
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skillsの収益を引き出す</string>
@@ -1199,7 +1214,7 @@
   <string name="home_appcoins_compatible_games_title">AppCoins対応ゲーム</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">購入毎に%s%%のボーナス</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>

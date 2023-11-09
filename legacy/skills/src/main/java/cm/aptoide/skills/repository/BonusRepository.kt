@@ -20,4 +20,8 @@ class BonusRepository @Inject constructor(
   fun getNextBonusSchedule(timeFrame: TimeFrame): Single<NextPrizeSchedule> {
     return bonusPrizeApi.getTimeUntilNextBonus(timeFrame.name)
   }
+
+  fun getRewardsPackages(): Single<List<String>> {
+    return bonusPrizeApi.getRewardsPackages()
+  }
 }

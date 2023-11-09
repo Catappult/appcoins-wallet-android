@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.network.microservices.model.*
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -18,6 +19,7 @@ import retrofit2.Response
 import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 
 class RemoteRepository(
   private val brokerBdsApi: BrokerBdsApi,
@@ -33,6 +35,8 @@ class RemoteRepository(
     private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     private const val TOP_UP_TYPE = "TOPUP"
+    class DuplicateException(): Exception()
+    var executingAppcTransaction = AtomicBoolean(false)
   }
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> =
@@ -430,27 +434,33 @@ class RemoteRepository(
             creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
-          brokerBdsApi.createTransaction(
-            gateway = gateway,
-            origin = origin,
-            domain = packageName,
-            priceValue = amount,
-            priceCurrency = currency,
-            product = productName,
-            type = type,
-            userWallet = userWallet,
-            walletsDeveloper = developerWallet,
-            entityOemId = entityOemId,
-            entityDomain = entityDomain,
-            entityPromoCode = null,
-            token = token,
-            developerPayload = developerPayload,
-            callback = callback,
-            orderReference = orderReference,
-            referrerUrl = referrerUrl,
-            walletAddress = walletAddress,
-            authorization = ewt
-          )
+          if(executingAppcTransaction.compareAndSet(false, true)) {
+            brokerBdsApi.createTransaction(
+              gateway = gateway,
+              origin = origin,
+              domain = packageName,
+              priceValue = amount,
+              priceCurrency = currency,
+              product = productName,
+              type = type,
+              userWallet = userWallet,
+              walletsDeveloper = developerWallet,
+              entityOemId = entityOemId,
+              entityDomain = entityDomain,
+              entityPromoCode = null,
+              token = token,
+              developerPayload = developerPayload,
+              callback = callback,
+              orderReference = orderReference,
+              referrerUrl = referrerUrl,
+              walletAddress = walletAddress,
+              authorization = ewt
+            )
+          } else {
+            Single.error(DuplicateException())
+          }
         }
       }
+      .doOnSuccess { executingAppcTransaction.set(false) }
+      .doOnError { executingAppcTransaction.set(false) }
 }
