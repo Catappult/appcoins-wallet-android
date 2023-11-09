@@ -82,8 +82,8 @@
             android:layout_height="0.5dp"
             android:layout_marginTop="16dp"
             android:alpha="0.3"
-            android:visibility="gone"
             android:background="@color/styleguide_dark_grey"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/main_value"
             />
 
@@ -159,12 +159,14 @@
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
               >
+
             <include
                 android:id="@+id/adyen_card_form"
                 layout="@layout/selected_payment_method_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+
             <com.appcoins.wallet.ui.widgets.WalletButtonView
                 android:id="@+id/change_card_button"
                 android:layout_width="wrap_content"
@@ -172,13 +174,29 @@
                 android:layout_below="@id/adyen_card_form"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="6dp"
-                android:layout_marginEnd="-16dp"
+                android:layout_marginEnd="-4dp"
                 android:visibility="gone"
                 app:buttonColor="@color/styleguide_pink"
                 app:buttonText="@string/activity_iab_change_card_lower_case_button"
                 app:buttonType="text"
                 tools:visibility="visible"
                 />
+
+            <com.appcoins.wallet.ui.widgets.WalletButtonView
+                android:id="@+id/more_payment_methods"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/small_button_height"
+                android:layout_below="@id/change_card_button"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="-4dp"
+                android:visibility="visible"
+                app:buttonColor="@color/styleguide_pink"
+                app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+                app:buttonType="text"
+                tools:visibility="visible"
+                />
+
           </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

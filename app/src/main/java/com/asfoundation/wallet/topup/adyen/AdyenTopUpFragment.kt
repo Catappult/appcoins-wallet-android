@@ -186,6 +186,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = VISIBLE
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
+    binding.layoutHeaderTopUp.visibility = INVISIBLE
+    binding.button.visibility = INVISIBLE
   }
 
   override fun hideLoading() {
@@ -193,6 +195,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
     binding.creditCardInfoContainer.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
   }
 
   override fun showNetworkError() {
@@ -292,6 +296,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
+
+  override fun otherMethodsClicked() = RxView.clicks(binding.morePaymentMethods)
 
   override fun getVerificationClicks() =
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
