@@ -268,9 +268,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     }
     binding.topSeparatorTopup.visibility = View.VISIBLE
     binding.botSeparator.visibility = View.VISIBLE
-    binding.swapValueButton.isEnabled = true
-    binding.swapValueButton.visibility = View.VISIBLE
-    binding.swapValueLabel.visibility = View.VISIBLE
     //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)
 
@@ -338,18 +335,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     super.onDestroy()
   }
 
-  override fun getChangeCurrencyClick(): Observable<Any> {
-    return RxView.clicks(binding.swapValueButton)
-  }
-
-  override fun disableSwapCurrencyButton() {
-    binding.swapValueButton.isEnabled = false
-  }
-
-  override fun enableSwapCurrencyButton() {
-    binding.swapValueButton.isEnabled = true
-  }
-
   override fun getValuesClicks() = valueSubject!!
 
   override fun getEditTextChanges(): Observable<TopUpData> {
@@ -391,7 +376,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         0.5f)
     rotateAnimation.duration = 250
     rotateAnimation.interpolator = AccelerateDecelerateInterpolator()
-    binding.swapValueButton.startAnimation(rotateAnimation)
   }
 
   override fun switchCurrencyData() {
@@ -438,20 +422,16 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun hideBonus() {
     binding.bonusLayout.root.visibility = View.INVISIBLE
-    binding.bonusMsg.visibility = View.INVISIBLE
   }
 
   override fun hideBonusAndSkeletons() {
     hideBonus()
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
-    binding.bonusMsgSkeleton.root.visibility = View.GONE
   }
 
   override fun removeBonus() {
     binding.bonusLayout.root.visibility = View.GONE
-    binding.bonusMsg.visibility = View.GONE
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
-    binding.bonusMsgSkeleton.root.visibility = View.GONE
   }
 
   override fun showBonus(bonus: BigDecimal, currency: String) {
@@ -461,33 +441,31 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private fun showBonus() {
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
-    binding.bonusMsgSkeleton.root.visibility = View.GONE
-    binding.bonusMsg.visibility = View.VISIBLE
     binding.bonusLayout.root.visibility = View.VISIBLE
   }
 
   override fun showMaxValueWarning(value: String) {
-    binding.valueWarningText.text = getString(R.string.topup_maximum_value, value)
+    binding.valueWarningText?.text = getString(R.string.topup_maximum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText.visibility = View.VISIBLE
+    binding.valueWarningText?.visibility = View.VISIBLE
   }
 
   override fun showMinValueWarning(value: String) {
-    binding.valueWarningText.text = getString(R.string.topup_minimum_value, value)
+    binding.valueWarningText?.text = getString(R.string.topup_minimum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText.visibility = View.VISIBLE
+    binding.valueWarningText?.visibility = View.VISIBLE
   }
 
   override fun hideValueInputWarning() {
     binding.valueWarningIcon.visibility = View.INVISIBLE
-    binding.valueWarningText.visibility = View.INVISIBLE
+    binding.valueWarningText?.visibility = View.INVISIBLE
   }
 
   override fun changeMainValueColor(isValid: Boolean) {
     if (isValid) {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_blue_transparent_90))
+      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     } else {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_medium_grey))
+      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_dark_grey))
     }
   }
 
@@ -519,14 +497,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun showSkeletons() {
     binding.paymentsSkeleton.visibility = View.VISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
-    binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
   override fun showBonusSkeletons() {
-    binding.bonusMsg.visibility = View.INVISIBLE
     binding.bonusLayout.root.visibility = View.INVISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
-    binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
   override fun hidePaymentMethods() {
@@ -567,8 +542,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
     bonusValue = scaledBonus
-    binding.bonusLayout.bonusHeader1.text = getString(R.string.topup_bonus_header_part_1)
-    binding.bonusLayout.bonusValue.text = getString(R.string.topup_bonus_header_part_2,
+    binding.bonusLayout.bonusValue.text = getString(R.string.topup_bonus_amount_body,
         currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
   }
 
@@ -594,7 +568,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       binding.mainValue.setText(mainValue)
       binding.mainValue.setSelection(binding.mainValue.text!!.length)
     }
-    binding.swapValueLabel.text = conversionCode
     binding.convertedValue.text = conversionValue
   }
 

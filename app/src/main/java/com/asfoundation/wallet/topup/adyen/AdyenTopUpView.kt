@@ -53,6 +53,8 @@ interface AdyenTopUpView {
 
   fun topUpButtonClicked(): Observable<Any>
 
+  fun otherMethodsClicked(): Observable<Any>
+
   fun billingAddressInput(): Observable<Boolean>
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>

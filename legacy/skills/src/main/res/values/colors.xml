@@ -18,6 +18,7 @@
   <color name="styleguide_payments_skeleton">#E2E2E2</color>
   <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
   <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
+  <color name="styleguide_topup_dark_grey">#28272C</color>
 
   <color name="white">#FFFFFFFF</color>
   <color name="black">#000000</color>

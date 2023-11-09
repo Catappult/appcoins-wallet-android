@@ -7,32 +7,33 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:clipToPadding="false"
     android:focusable="true"
     android:minHeight="60dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:clipToPadding="false"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
     >
 
   <View
       android:id="@+id/selected_background"
       android:layout_width="match_parent"
       android:layout_height="0dp"
+      android:background="@drawable/topup_background_method_selected"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       android:layout_marginTop="-8dp"
       android:layout_marginBottom="-8dp"
-      android:background="@drawable/background_method_selected"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
+      android:visibility="visible"
+    />
 
   <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
       android:clickable="false"
       android:scaleX="0.8"
       android:scaleY="0.8"
@@ -42,6 +43,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:useMaterialThemeColors="false"
+      android:layout_marginStart="8dp"
       />
 
   <ImageView
@@ -64,7 +66,8 @@
       android:layout_marginStart="17dp"
       android:ellipsize="end"
       android:gravity="start"
-      android:textColor="@color/styleguide_payments_main_text"
+      android:textSize="14sp"
+      android:textColor="@color/styleguide_light_grey"
       app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
       app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
       app:layout_constraintHorizontal_bias="0"
@@ -141,6 +144,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/payment_method_description"
       app:layout_constraintTop_toTopOf="parent"
+
       />
 
   <ImageButton
@@ -150,14 +154,13 @@
       android:layout_marginEnd="@dimen/normal_margin"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="Logout"
-      android:foregroundTint="@color/styleguide_payments_main_text"
-      android:src="@drawable/ic_more_dark"
+      android:foregroundTint="@color/styleguide_light_grey"
+      android:src="@drawable/ic_more"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
       app:layout_constraintTop_toTopOf="parent"
-      app:tint="@color/styleguide_payments_main_text"
-      tools:visibility="visible"
+      app:tint="@color/styleguide_light_grey"
       />
 
   <LinearLayout
@@ -171,7 +174,7 @@
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/payment_method_description"
       app:layout_constraintTop_toTopOf="@+id/payment_method_description"
-      tools:visibility="visible"
+
       >
 
     <TextView
@@ -182,7 +185,6 @@
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="11sp"
         tools:text="23 €"
-        tools:visibility="visible"
         />
 
     <TextView
