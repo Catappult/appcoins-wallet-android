@@ -13,6 +13,7 @@
   <string name="install_button">Instaluj</string>
   <string name="retry_button">Spróbuj ponownie</string>
   <string name="restart_button">Restart</string>
+  <string name="update_button">Aktualizuj</string>
   <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
   <string name="processing_loading_title">Drukowanie biletu</string>
   <string name="finding_room_loading_title">Czekanie na przeciwnika</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Ta wersja portfela nie jest obsługiwana!</string>
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
-  <string name="update_button">Aktualizuj</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Ty i zaproszeni znajomi otrzymacie bonus $%s. Możesz zaprosić do 5 znajomych, którzy muszą być nowymi użytkownikami. Bonus zostanie zaksięgowany w portfelu, gdy użyją kodu zaproszenia w pierwszej grze e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Gotów pokazać, co potrafisz?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
   <string name="rooted_device_blocked_body">Niestety nie można grać w gry e-Skills za pomocą zrootowanego urządzenia.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Czekamy, aż przeciwnicy zakończą grę.</string>
   <plurals name="opponent_points_title">
