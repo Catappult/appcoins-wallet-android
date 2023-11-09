@@ -13,6 +13,7 @@
   <string name="install_button">ติดตั้ง</string>
   <string name="retry_button">ลอง</string>
   <string name="restart_button">เริ่มใหม่</string>
+  <string name="update_button">อัพเดต</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="processing_loading_title">รับบัตรเข้างาน</string>
   <string name="finding_room_loading_title">รอฝ่ายตรงข้าม</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">ไม่รองรับเวอร์ชันกระเป๋าเงิน!</string>
   <string name="update_not_supported_body">อัปเดตวอลเล็ต AppCoins เป็นเวอร์ชันล่าสุด</string>
-  <string name="update_button">อัพเดต</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">คุณและเพื่อนทั้งหมดที่คุณเชิญจะได้รับโบนัส $%s คุณสามารถเชิญเพื่อนได้สูงสุด 5 คน และพวกเขาจะต้องเป็นผู้ใช้ใหม่ โบนัสจะเข้ากระเป๋าเงินของคุณเมื่อพวกเขาใช้รหัสเชิญของคุณในเกม e-Skills เกมแรกของพวกเขา</string>
   <string name="refer_a_friend_first_time_header">พร้อมที่จะแสดงทักษะของคุณ?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">ไม่รับวิธีการชำระเงินในท้องถิ่นเพื่อซื้อค่าธรรมเนียมแรกเข้า โปรดสร้างกระเป๋าเงินใหม่และเติมเงินด้วยบัตรธนาคารหรือ PayPal!</string>
   <string name="rooted_device_blocked_body">น่าเสียดาย คุณไม่สามารถเล่นเกม e-Skills กับอุปกรณ์ที่รูทได้</string>
   <string name="unknown_error">เกิดข้อผิดพลาด</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">รอให้ฝ่ายตรงข้ามจบเกมส์ก่อน</string>
   <plurals name="opponent_points_title">
