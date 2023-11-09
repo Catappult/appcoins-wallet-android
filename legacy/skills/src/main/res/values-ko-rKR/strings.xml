@@ -13,6 +13,7 @@
   <string name="install_button">설치</string>
   <string name="retry_button">재시도</string>
   <string name="restart_button">재시작</string>
+  <string name="update_button">업데이트</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">지원되지 않는 지갑 버전입니다!</string>
   <string name="update_not_supported_body">최신 버전으로 AppCoins 지갑 업데이트.</string>
-  <string name="update_button">업데이트</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">당신과 당신이 초대한 친구들은 $%s의 보너스를 받을 것입니다. 친구는 최대 5명까지 초대 가능하며, 신규 사용자여야 합니다. 보너스는 첫 번째 e-Skills 게임에서 당신의 초대 코드를 사용하면 당신의 지갑에 입금될 것입니다.</string>
   <string name="refer_a_friend_first_time_header">실력을 보여줄 준비가 되셨나요?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
   <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-Skills 게임을 플레이하실 수 없습니다.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">상대의 게임 종료를 기다리는 중입니다.</string>
   <plurals name="opponent_points_title">
