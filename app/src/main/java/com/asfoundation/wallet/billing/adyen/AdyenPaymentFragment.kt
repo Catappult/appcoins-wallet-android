@@ -13,7 +13,10 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
@@ -24,7 +27,9 @@ import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
+import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -65,7 +70,6 @@ import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
@@ -245,6 +249,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val main_view: RelativeLayout? get() = bindingCreditCardLayout?.mainView
   private val credit_card_info: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
   private val change_card_button: WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
+  private val bonus_msg: TextView? get() = bindingCreditCardLayout?.bonusMsg
   private val bonus_layout: ConstraintLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
   private val adyen_card_form: ConstraintLayout? get() = bindingCreditCardLayout?.adyenCardForm?.root
   private val fragment_adyen_error: ConstraintLayout? get() = bindingCreditCardLayout?.fragmentAdyenError?.root
@@ -418,6 +423,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     } else {
       if (bonus.isNotEmpty()) {
         bonus_layout?.visibility = View.INVISIBLE
+        bonus_msg?.visibility = View.INVISIBLE
       }
       adyen_card_form?.visibility = View.INVISIBLE
       change_card_button?.visibility = View.INVISIBLE
@@ -503,6 +509,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     payment_methods?.visibility = VISIBLE
     bonus_layout_pre_selected?.visibility = GONE
     bonus_layout?.visibility = GONE
+    bonus_msg?.visibility = GONE
     more_payment_methods?.visibility = GONE
     adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
@@ -688,10 +695,15 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     if (bonus.isNotEmpty()) {
       bonus_layout?.visibility = VISIBLE
       bonus_layout_pre_selected?.visibility = VISIBLE
+      bonus_msg?.visibility = VISIBLE
       bonus_value.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+      frequency?.let {
+        bonus_msg?.text = getString(R.string.subscriptions_bonus_body)
+      }
     } else {
       bonus_layout?.visibility = GONE
       bonus_layout_pre_selected?.visibility = GONE
+      bonus_msg?.visibility = GONE
     }
   }
 

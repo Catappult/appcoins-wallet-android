@@ -85,8 +85,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       )
 
       binding.paymentMoreLogout.setOnClickListener {
-        var wrapper: Context =  ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
-        val popup = PopupMenu(wrapper, it)
+        val popup = PopupMenu(itemView.context.applicationContext, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
           binding.paymentMoreLogout.visibility = View.GONE
