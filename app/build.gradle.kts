@@ -51,6 +51,7 @@ dependencies {
   implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
+  implementation(project(":feature:settings:ui"))
   implementation(project(":home"))
   implementation(project(":feature:vk-pay"))
 

@@ -100,7 +100,7 @@
 
   <fragment
       android:id="@+id/settings_fragment"
-      android:name="com.asfoundation.wallet.ui.settings.entry.SettingsFragment" />
+      android:name="com.appcoins.wallet.feature.settings.ui.SettingsFragment" />
 
   <include app:graph="@navigation/transactions_graph" />
 
