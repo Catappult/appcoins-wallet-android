@@ -165,9 +165,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setCurrencyPreference(selectedCurrency: FiatCurrency) {
+  override fun setCurrencyPreference(selectedCurrency: FiatCurrency?) {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
-    settingsCurrencyPreference?.setCurrency(selectedCurrency)
+    selectedCurrency?.let {
+      settingsCurrencyPreference?.setCurrency(selectedCurrency)
+    }
     settingsCurrencyPreference?.setOnPreferenceClickListener {
       presenter.onChangeCurrencyPreferenceClick(navController())
       false
