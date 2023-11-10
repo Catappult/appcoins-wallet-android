@@ -64,8 +64,8 @@
       android:inputType="text"
       android:maxLength="50"
       android:maxLines="1"
-      android:textColorHint="@color/styleguide_payments_main_text"
-      app:layout_constraintBottom_toBottomOf="@id/bottom_separator"
+      android:textColorHint="@color/styleguide_black_transparent_80"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/mid_guideline"
       app:layout_constraintTop_toBottomOf="@id/share_link_title"
@@ -98,7 +98,6 @@
       app:layout_constraintEnd_toStartOf="@id/share_btn"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -118,7 +117,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
