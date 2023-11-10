@@ -78,7 +78,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
-    viewModel.getPaymentLink()
+    if (viewModel.isFirstGetPaymentLink) {
+      viewModel.getPaymentLink()
+    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -121,17 +123,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingVkPaymentStates) {
     when (state.vkTransaction) {
-      is Async.Success -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = state.vkTransaction.value?.uid
-          binding.vkFastLoginButton.performClick()
-        }
-      }
-
       is Async.Fail -> {
         showError()
       }
-
       else -> {}
     }
   }
@@ -166,6 +160,13 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       OnboardingVkPaymentSideEffect.ShowLoading -> {}
       OnboardingVkPaymentSideEffect.ShowSuccess -> {
         showCompletedPayment()
+      }
+
+      OnboardingVkPaymentSideEffect.PaymentLinkSuccess -> {
+        if (SuperappKit.isInitialized()) {
+          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+          binding.vkFastLoginButton.performClick()
+        }
       }
     }
   }

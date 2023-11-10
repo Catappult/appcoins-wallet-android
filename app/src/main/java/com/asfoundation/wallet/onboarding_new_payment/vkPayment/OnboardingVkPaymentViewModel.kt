@@ -18,6 +18,7 @@ import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopU
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpSideEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,7 @@ sealed class OnboardingVkPaymentSideEffect : SideEffect {
   object ShowLoading : OnboardingVkPaymentSideEffect()
   object ShowError : OnboardingVkPaymentSideEffect()
   object ShowSuccess : OnboardingVkPaymentSideEffect()
+  object PaymentLinkSuccess : OnboardingVkPaymentSideEffect()
 }
 
 data class OnboardingVkPaymentStates(
@@ -58,10 +60,12 @@ class OnboardingVkPaymentViewModel @Inject constructor(
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
+  var isFirstGetPaymentLink = true
   private var args: OnboardingVkPaymentFragmentArgs =
     OnboardingVkPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
   fun getPaymentLink() {
+    isFirstGetPaymentLink = false
     val price = VkPrice(value = args.amount, currency = args.currency)
     getCurrentWalletUseCase().doOnSuccess {
       walletAddress = it.address
@@ -79,6 +83,8 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       packageName = args.transactionBuilder.domain
     ).asAsyncToState {
       copy(vkTransaction = it)
+    }.doOnSuccess {
+      sendSideEffect { OnboardingVkPaymentSideEffect.PaymentLinkSuccess }
     }.scopedSubscribe()
   }
 

@@ -15,6 +15,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpSideEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -32,6 +33,7 @@ sealed class VkPaymentIABSideEffect : SideEffect {
   object ShowLoading : VkPaymentIABSideEffect()
   data class ShowError(val message: Int?) : VkPaymentIABSideEffect()
   object ShowSuccess : VkPaymentIABSideEffect()
+  object PaymentLinkSuccess : VkPaymentIABSideEffect()
 }
 
 data class VkPaymentIABState(
@@ -59,6 +61,7 @@ class VkPaymentIABViewModel @Inject constructor(
   private var isTimerRunning = false
   val scope = CoroutineScope(Dispatchers.Main)
   var hasVkUserAuthenticated: Boolean = false
+  var isFirstGetPaymentLink = true
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
   fun getPaymentLink(
@@ -67,6 +70,7 @@ class VkPaymentIABViewModel @Inject constructor(
     fiatCurrencySymbol: String,
     origin: String
   ) {
+    isFirstGetPaymentLink = false
     val price = VkPrice(value = amount, currency = fiatCurrencySymbol)
     getCurrentWalletUseCase().doOnSuccess {
       walletAddress = it.address
@@ -84,6 +88,8 @@ class VkPaymentIABViewModel @Inject constructor(
       packageName = transactionBuilder.domain
     ).asAsyncToState {
       copy(vkTransaction = it)
+    }.doOnSuccess {
+      sendSideEffect { VkPaymentIABSideEffect.PaymentLinkSuccess }
     }.scopedSubscribe()
   }
 

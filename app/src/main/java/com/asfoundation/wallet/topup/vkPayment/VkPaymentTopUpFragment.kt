@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +18,6 @@ import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.VkTopupPaymentLayoutBinding
-import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.vk.auth.api.models.AuthResult
@@ -38,7 +38,6 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   private val viewModel: VkPaymentTopUpViewModel by viewModels()
   private val binding by lazy { VkTopupPaymentLayoutBinding.bind(requireView()) }
-  private var topUpActivityView: TopUpActivityView? = null
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -83,14 +82,6 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    check(context is TopUpActivityView) { "Vk Pay topup fragment must be attached to Topup activity" }
-    topUpActivityView = context
-    topUpActivityView?.lockOrientation()
-  }
-
-
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -98,7 +89,11 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       viewModel.paymentData =
         arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     }
-    viewModel.getPaymentLink()
+    val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    imm?.hideSoftInputFromWindow(view.windowToken, 0)
+    if(viewModel.isFirstGetPaymentLink) {
+      viewModel.getPaymentLink()
+    }
   }
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
@@ -135,21 +130,9 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   override fun onStateChanged(state: VkPaymentTopUpState) {
     when (state.vkTransaction) {
-      is Async.Success -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = state.vkTransaction.value?.uid
-          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
-            binding.vkFastLoginButton.performClick()
-          } else {
-            startVkCheckoutPay()
-          }
-        }
-      }
-
       is Async.Fail -> {
         showError()
       }
-
       else -> {}
     }
   }
@@ -193,6 +176,17 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       VkPaymentTopUpSideEffect.ShowLoading -> {}
       VkPaymentTopUpSideEffect.ShowSuccess -> {
         handleCompletePurchase()
+      }
+
+      VkPaymentTopUpSideEffect.PaymentLinkSuccess -> {
+        if (SuperappKit.isInitialized()) {
+          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
+            binding.vkFastLoginButton.performClick()
+          } else {
+            startVkCheckoutPay()
+          }
+        }
       }
     }
   }

@@ -72,20 +72,20 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     }
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    check(context is IabView) { "Vk payment fragment must be attached to IAB activity" }
-    iabView = context
-    iabView.lockRotation()
-  }
-
   override fun onResume() {
     super.onResume()
     if (SuperappKit.isInitialized() && vkDataPreferencesDataSource.getAuthVk()
-        .isNullOrEmpty() && viewModel.hasVkUserAuthenticated
+        .isNullOrEmpty() && viewModel.hasVkUserAuthenticated && viewModel.isFirstGetPaymentLink
     ) {
       startVkCheckoutPay()
     }
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
+    iabView = context
+    iabView.lockRotation()
   }
 
 
@@ -115,20 +115,21 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun bindArguments() {
-    if (requireArguments().containsKey(CURRENCY_KEY) &&
-      requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
-      requireArguments().containsKey(AMOUNT_KEY) &&
-      requireArguments().containsKey(ORIGIN_KEY)
-    ) {
-      viewModel.getPaymentLink(
-        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
-        requireArguments().getString(CURRENCY_KEY)!!,
-        requireArguments().getString(ORIGIN_KEY)!!,
-      )
-      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
-    } else {
-      showError()
+    if(viewModel.isFirstGetPaymentLink) {
+      if (requireArguments().containsKey(CURRENCY_KEY) &&
+        requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
+        requireArguments().containsKey(AMOUNT_KEY) &&
+        requireArguments().containsKey(ORIGIN_KEY)) {
+        viewModel.getPaymentLink(
+          requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
+          (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+          requireArguments().getString(CURRENCY_KEY)!!,
+          requireArguments().getString(ORIGIN_KEY)!!,
+        )
+        viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+      } else {
+        showError()
+      }
     }
   }
 
@@ -190,17 +191,6 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: VkPaymentIABState) {
     when (state.vkTransaction) {
-      is Async.Success -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = state.vkTransaction.value?.uid
-          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
-            binding.vkFastLoginButton.performClick()
-          } else {
-            startVkCheckoutPay()
-          }
-        }
-      }
-
       is Async.Fail -> {
         showError()
       }
@@ -237,6 +227,17 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       VkPaymentIABSideEffect.ShowLoading -> {}
       VkPaymentIABSideEffect.ShowSuccess -> {
         showSuccessAnimation()
+      }
+
+      VkPaymentIABSideEffect.PaymentLinkSuccess -> {
+        if (SuperappKit.isInitialized()) {
+          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
+            binding.vkFastLoginButton.performClick()
+          } else {
+            startVkCheckoutPay()
+          }
+        }
       }
     }
   }

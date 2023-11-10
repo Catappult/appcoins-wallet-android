@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup.vkPayment
 
 import android.text.format.DateUtils
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -10,6 +11,7 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
@@ -17,6 +19,7 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionSt
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -31,6 +34,7 @@ sealed class VkPaymentTopUpSideEffect : SideEffect {
   object ShowLoading : VkPaymentTopUpSideEffect()
   data class ShowError(val message: Int?) : VkPaymentTopUpSideEffect()
   object ShowSuccess : VkPaymentTopUpSideEffect()
+  object PaymentLinkSuccess : VkPaymentTopUpSideEffect()
 }
 
 data class VkPaymentTopUpState(
@@ -56,9 +60,11 @@ class VkPaymentTopUpViewModel @Inject constructor(
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
+  var isFirstGetPaymentLink = true
   val scope = CoroutineScope(Dispatchers.Main)
 
   fun getPaymentLink() {
+    isFirstGetPaymentLink = false
     getCurrentWalletUseCase().doOnSuccess {
       walletAddress = it.address
     }.scopedSubscribe()
@@ -67,10 +73,13 @@ class VkPaymentTopUpViewModel @Inject constructor(
       price = price
     ).asAsyncToState {
       copy(vkTransaction = it)
+    }.doOnSuccess {
+      sendSideEffect { VkPaymentTopUpSideEffect.PaymentLinkSuccess }
     }.scopedSubscribe()
   }
 
   fun startTransactionStatusTimer() {
+    Log.d("STATEEEE", "state vkTransaction:  startTransactionStatusTimer?")
     // Set up a Timer to call getTransactionStatus() every 20 seconds
     if (!isTimerRunning) {
       timerTransactionStatus.schedule(object : TimerTask() {
