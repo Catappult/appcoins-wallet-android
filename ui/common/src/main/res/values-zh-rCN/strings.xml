@@ -154,6 +154,9 @@
   <string name="bonus_received_body">你的钱包收到了%s的奖励。</string>
   <string name="back_to_the_game_button">返回游戏</string>
   <string name="other_payment_methos_title">其他支付方式：</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -512,6 +515,7 @@
   <string name="download_button">下载</string>
   <string name="done">完成！</string>
   <string name="see_more_button">查看更多</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
