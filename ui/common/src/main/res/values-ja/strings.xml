@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">処理中</string>
   <string name="transaction_status_failed">失敗</string>
   <string name="transaction_status_reverted">返金</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">リワード・チャレンジ</string>
   <string name="transaction_type_challenge_reward_rejected">却下されたチャレンジのリワード</string>
   <string name="transaction_type_challenge_reward_reverted">チャレンジリワードの差し戻し</string>

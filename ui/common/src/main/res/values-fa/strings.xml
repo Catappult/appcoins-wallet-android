@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">در حال انتظار</string>
   <string name="transaction_status_failed">انجام نشد</string>
   <string name="transaction_status_reverted">برگشت داده شد</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">چالش پاداش</string>
   <string name="transaction_type_challenge_reward_rejected">چالش پاداش رد شده</string>
   <string name="transaction_type_challenge_reward_reverted">چالش پاداش پس داده شده</string>

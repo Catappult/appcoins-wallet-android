@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">Chờ xử lý</string>
   <string name="transaction_status_failed">Thất bại</string>
   <string name="transaction_status_reverted">Đã hoàn nguyên</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Phần thưởng thử thách</string>
   <string name="transaction_type_challenge_reward_rejected">Phần thưởng thử thách bị từ chối</string>
   <string name="transaction_type_challenge_reward_reverted">Phần thưởng thử thách đã hoàn nguyên</string>

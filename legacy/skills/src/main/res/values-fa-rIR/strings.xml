@@ -13,6 +13,7 @@
   <string name="install_button">نصب</string>
   <string name="retry_button">تلاش مجدد</string>
   <string name="restart_button">راه اندازی مجدد</string>
+  <string name="update_button">بروزرسانی</string>
   <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
   <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
   <string name="finding_room_loading_title">انتظار برای حریف</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">نسخه کیف پول قبل پشتیبانی نیست!</string>
   <string name="update_not_supported_body">کیف پول AppCoins خود را به آخرین نسخه بروزرسانی کنید.</string>
-  <string name="update_button">بروزرسانی</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">شما و دوستی که دعوت می‌کنید، یک پاداش %s$ دریافت خواهد کرد. شما می‌توانید تا ۵ دوست دعوت کنید که کاربر تازه باشند. زمانیکه آن‌ها از کد دعوت شما در بازیهای e-Skills استفاده کنند، پاداش به کیف پول شما واریز می‌شود.</string>
   <string name="refer_a_friend_first_time_header">آیا آماده نمایش مهارت‌های خود هستید؟</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
   <string name="rooted_device_blocked_body">متأسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">باید این بازی را به آخرین نسخه بروزرسانی کنید!</string>
+  <string name="error_game_not_supported_body">به نظر می‌رسد که این بازی در حال حاضر موجود نیست.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">درحال انتظار برای پایان بازی رقیب.</string>
   <plurals name="opponent_points_title">

@@ -13,6 +13,7 @@
   <string name="install_button">ထည့္သြင္းပါ</string>
   <string name="retry_button">ျပန္ႀကိဳးစားမည္</string>
   <string name="restart_button">ျပန္စမည္</string>
+  <string name="update_button">အပ္ဒိတ္</string>
   <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
   <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">ပိုက္ဆံအိတ္ ဗားရွင္းကို ပံ့ပိုးမႈ မေပးပါ။</string>
   <string name="update_not_supported_body">AppCoins Wallet ကို ေနာက္ဆုံးထြက္ျဖစ္ေအာင္ အပ္ဒိတ္လုပ္ပါ။</string>
-  <string name="update_button">အပ္ဒိတ္</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">သင္ႏွင့္ သင္ၫႊန္ေပးထားေသာ သူငယ္ခ်င္းမ်ားသည္ $%s ေဘာနပ္စ္တစ္ခုကို ရရွိပါမည္။ သူငယ္ခ်င္း 5 ဦးအထိ သင္ၫႊန္ေပးႏိုင္ၿပီး ၎တို႔သည္ သုံးစြဲသူအသစ္မ်ား ျဖစ္ရပါမည္။ ၎တို႔၏ ပထမဆုံး e-Skills ဂိမ္းတြင္ သင့္ဖိတ္ေခၚသည့္ကုဒ္ကို အသုံးျပဳလိုက္သည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ ေဘာနပ္စ္ကို ထည့္ေပးပါမည္။</string>
   <string name="refer_a_friend_first_time_header">အရည္အေသြးေတြျပဖို႔ အသင့္ပဲလား။</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">ဝင္ေၾကးကို ဝယ္ယူရန္ ေဒသတြင္း ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို လက္မခံပါ။ ပိုက္ဆံအိတ္အသစ္ တစ္ခုျပဳလုပ္ကာ ဘဏ္ကဒ္ သို႔မဟုတ္ PayPal ျဖင့္ ေငြျဖည့္ေပးပါ။</string>
   <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">ဂိမ္းကိုအဆုံးသတ္ရန္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္။</string>
   <plurals name="opponent_points_title">

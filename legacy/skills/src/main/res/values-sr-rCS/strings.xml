@@ -13,6 +13,7 @@
   <string name="install_button">Instaliraj</string>
   <string name="retry_button">Pokušaj ponovo</string>
   <string name="restart_button">Pokreni ponovo</string>
+  <string name="update_button">Ažuriraj</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="processing_loading_title">Vaša ulaznica je u pripremi</string>
   <string name="finding_room_loading_title">Čekaju se protivnici</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Verzija novčanika nije podržana!</string>
   <string name="update_not_supported_body">Ažurirajte AppCoins Wallet na najnoviju verziju.</string>
-  <string name="update_button">Ažuriraj</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Vi i prijatelji koje ste pozvali ćete osvojiti bonus od %s$. Možete pozvati do 5 prijatelja i oni moraju biti novi korisnici. Bonus će biti primenjen na vaš novčanik kada oni iskoriste pozivni kod u svojoj prvoj e-Skills igri.</string>
   <string name="refer_a_friend_first_time_header">Spremni da pokažete svoje znanje?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
   <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa „rutovanim” uređajem.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Čekaju se protivnici da završe igru.</string>
   <plurals name="opponent_points_title">

@@ -13,6 +13,7 @@
   <string name="install_button">Installieren</string>
   <string name="retry_button">Neuer Versuch</string>
   <string name="restart_button">Erneut starten</string>
+  <string name="update_button">Update</string>
   <string name="provide_wallet_creating_wallet_header">Erstellen der Wallet-Adresse&#8230;</string>
   <string name="processing_loading_title">Erhalte dein Eintritts-Ticket</string>
   <string name="finding_room_loading_title">Warten auf Gegner</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Wallet-Version nicht unterstützt!</string>
   <string name="update_not_supported_body">Aktualisiere die AppCoins Wallet auf die neueste Version.</string>
-  <string name="update_button">Update</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Du und die Freunde, die du einlädst, erhalten einen Bonus von $%s. Du kannst bis zu 5 Freunde einladen, die neue Benutzer sein müssen. Der Bonus wird dir gutgeschrieben, sobald sie deinen Einladungscode in ihrem ersten e-Skills Spiel verwenden.</string>
   <string name="refer_a_friend_first_time_header">Bist du bereit, dein Können zu zeigen?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
   <string name="rooted_device_blocked_body">Leider kannst du mit einem gerooteten Gerät keine e-Skills Spiele spielen.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Warten, bis die Gegner das Spiel beendet haben.</string>
   <plurals name="opponent_points_title">

@@ -13,6 +13,7 @@
   <string name="install_button">Installeren</string>
   <string name="retry_button">Opnieuw proberen</string>
   <string name="restart_button">Herstarten</string>
+  <string name="update_button">Bijwerken</string>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
   <string name="processing_loading_title">Toegangsticket ophalen</string>
   <string name="finding_room_loading_title">Wachten op tegenstanders</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Wallet-versie wordt niet ondersteund!</string>
   <string name="update_not_supported_body">Update de AppCoins Wallet naar de nieuwste versie.</string>
-  <string name="update_button">Bijwerken</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Jij en de vrienden die je uitnodigt, ontvangen een bonus van $ %s. Je kunt maximaal 5 vrienden uitnodigen en dit moeten nieuwe gebruikers zijn. De bonus wordt aan je wallet toegevoegd zodra ze jouw uitnodigingscode in hun eerste e-Skills game gebruiken.</string>
   <string name="refer_a_friend_first_time_header">Klaar om je vaardigheden te tonen?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
   <string name="rooted_device_blocked_body">Helaas kun je geen e-Skills games spelen met een geroot apparaat.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Wachten tot tegenstanders klaar zijn met de game.</string>
   <plurals name="opponent_points_title">

@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">W trakcie</string>
   <string name="transaction_status_failed">Nie udało się</string>
   <string name="transaction_status_reverted">Cofnięto</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Challenge Reward</string>
   <string name="transaction_type_challenge_reward_rejected">Odmowa Challenge Reward</string>
   <string name="transaction_type_challenge_reward_reverted">Cofnięta Challenge Reward</string>

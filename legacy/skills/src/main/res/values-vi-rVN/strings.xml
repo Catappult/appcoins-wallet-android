@@ -13,6 +13,7 @@
   <string name="install_button">Cài đặt</string>
   <string name="retry_button">Thử lại</string>
   <string name="restart_button">Khởi động lại</string>
+  <string name="update_button">Cập nhật</string>
   <string name="provide_wallet_creating_wallet_header">Đang tạo địa chỉ ví&#8230;</string>
   <string name="processing_loading_title">Tải vé tham gia của bạn</string>
   <string name="finding_room_loading_title">Chờ đối thủ</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Phiên bản ví không được hỗ trợ!</string>
   <string name="update_not_supported_body">Cập nhật Ví AppCoins lên phiên bản mới nhất.</string>
-  <string name="update_button">Cập nhật</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Bạn và những người bạn mà bạn đã mời đều sẽ nhận được $%s tiền thưởng. Bạn có thể mời tối đa 5 người và họ phải là người dùng mới. Phần thưởng sẽ được ghi có vào ví của bạn ngay khi họ sử dụng mã mời của bạn trong trò chơi e-Skills đầu tiên của họ.</string>
   <string name="refer_a_friend_first_time_header">Sẵn sàng để thể hiện kỹ năng của bạn?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Phương thức thanh toán địa phương không được chấp nhận. Vui lòng tạo một ví mới và nạp tiền bằng thẻ ngân hàng hoặc PayPal!</string>
   <string name="rooted_device_blocked_body">Rất tiếc, bạn không thể chơi trò chơi e-Skills bằng thiết bị đã root.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Chờ đối thủ kết thúc trò chơi.</string>
   <plurals name="opponent_points_title">

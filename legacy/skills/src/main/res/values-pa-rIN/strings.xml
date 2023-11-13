@@ -13,6 +13,7 @@
   <string name="install_button">ਇੰਸਟਾਲ</string>
   <string name="retry_button">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="restart_button">Restart</string>
+  <string name="update_button">ਅੱਪਡੇਟ</string>
   <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="processing_loading_title">ਆਪਣੀ ਐਂਟਰੀ ਟਿਕਟ ਪ੍ਰਾਪਤ ਕਰਨਾ</string>
   <string name="finding_room_loading_title">ਵਿਰੋਧੀਆਂ ਦੀ ਉਡੀਕ ਕਰਨਾ</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">ਬਟੂਆ ਸੰਸਕਰਣ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ!</string>
   <string name="update_not_supported_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਨਵੀਨਤਮ ਸੰਸਕਰਣ ਵਿੱਚ ਅੱਪਡੇਟ ਕਰੋ।</string>
-  <string name="update_button">ਅੱਪਡੇਟ</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">ਐਂਟਰੀ ਫੀਸ ਖਰੀਦਣ ਲਈ ਸਥਾਨਕ ਭੁਗਤਾਨ ਵਿਧੀਆਂ ਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਨਵਾਂ ਬਟੂਆ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਬੈਂਕ ਕਾਰਡ ਜਾਂ ਪੇਪਾਲ ਨਾਲ ਰੀਚਾਰਜ ਕਰੋ!</string>
   <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Waiting for opponents to finish game.</string>
   <plurals name="opponent_points_title">

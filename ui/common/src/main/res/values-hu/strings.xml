@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">Folyamatban</string>
   <string name="transaction_status_failed">Sikertelen</string>
   <string name="transaction_status_reverted">Visszavonva</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Kihívásért járó jutalom</string>
   <string name="transaction_type_challenge_reward_rejected">Kihívásért járó jutalom elutasítva</string>
   <string name="transaction_type_challenge_reward_reverted">Kihívásért járó jutalom visszavonva</string>

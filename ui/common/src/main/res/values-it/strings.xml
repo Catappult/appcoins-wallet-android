@@ -257,6 +257,7 @@
   <string name="transaction_status_pending">In sospeso</string>
   <string name="transaction_status_failed">Non riuscito</string>
   <string name="transaction_status_reverted">Stornata</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Premio sfida</string>
   <string name="transaction_type_challenge_reward_rejected">Premio sfida rifiutato</string>
   <string name="transaction_type_challenge_reward_reverted">Premio sfida eliminato</string>

@@ -13,6 +13,7 @@
   <string name="install_button">تثبيت</string>
   <string name="retry_button">حاول ثانية</string>
   <string name="restart_button">إعادة التشغيل</string>
+  <string name="update_button">تحديث</string>
   <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
   <string name="processing_loading_title">الحصول على بطاقة دخولك</string>
   <string name="finding_room_loading_title">في انتظار الخصوم</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">نسخة المحفظة غير مدعومة!</string>
   <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
-  <string name="update_button">تحديث</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">أنت والأصدقاء الذين تدعوهم ستحصلون على $%s مكافأة. يمكنك دعوة حتى 5 أصدقاء، ويجب أن يكونوا مستخدمين جددًا. ستنزل المكافأة في حسابك حالما يستخدمون كود الدعوة في لعبة e-Skills الأولى لديهم.</string>
   <string name="refer_a_friend_first_time_header">جاهز لاستعراض مهاراتك؟</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
   <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك أن تلعب ألعاب e-Skills بجهاز تمت إعادة تشغيله.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">في انتظار الخَصْم لإنهاء اللعبة.</string>
   <plurals name="opponent_points_title">
