@@ -5,6 +5,7 @@
     android:id="@+id/onboarding_adyen_payment_buttons_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_card_blue"
     android:layout_marginVertical="@dimen/big_margin"
     >
 
@@ -17,9 +18,9 @@
       app:cardElevation="0dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/adyen_payment_buy_button"
-      app:rippleColor="@color/styleguide_blue"
+      app:rippleColor="@color/styleguide_white"
       app:shapeAppearance="@style/Home.PillShape"
-      app:strokeColor="@color/styleguide_blue"
+      app:strokeColor="@color/styleguide_white"
       app:strokeWidth="1dp"
       >
     <ImageView
@@ -27,12 +28,13 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_back_button"
-        app:tint="@color/styleguide_blue"
+        app:tint="@color/styleguide_white"
         />
   </com.google.android.material.card.MaterialCardView>
   <TextView
       android:id="@+id/adyen_payment_back_description"
       style="@style/TextS"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:maxWidth="100dp"

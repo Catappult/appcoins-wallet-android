@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/onboarding_payment_methods_layout"
+    android:id="@+id/onboarding_payment_result_fragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_card_blue"
     >
   <ScrollView
       android:id="@+id/scroll_view"
@@ -32,12 +33,12 @@
           app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_regular_animation"
+          app:lottie_rawRes="@raw/loading_dark_animation"
           />
 
       <include
           android:id="@+id/generic_error_layout"
-          layout="@layout/support_error_layout"
+          layout="@layout/onboarding_support_error_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
@@ -60,8 +61,8 @@
           />
 
       <include
-          android:id="@+id/generic_success_layout"
-          layout="@layout/fragment_iab_transaction_completed"
+          android:id="@+id/onboarding_generic_success_layout"
+          layout="@layout/onboading_fragment_transaction_completed"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
@@ -71,14 +72,14 @@
           />
 
       <include
-          android:id="@+id/success_buttons"
+          android:id="@+id/onboarding_success_buttons"
           layout="@layout/onboarding_payment_success_buttons"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/generic_success_layout"
+          app:layout_constraintTop_toBottomOf="@id/onboarding_generic_success_layout"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>

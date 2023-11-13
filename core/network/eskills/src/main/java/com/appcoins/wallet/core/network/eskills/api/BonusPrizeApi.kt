@@ -18,4 +18,8 @@ interface BonusPrizeApi {
   fun getTimeUntilNextBonus(
     @Query("time_frame") time_frame: String
   ): Single<NextPrizeSchedule>
+
+  @GET("room/bonus/packages")
+  fun getRewardsPackages(
+  ): Single<List<String>>
 }

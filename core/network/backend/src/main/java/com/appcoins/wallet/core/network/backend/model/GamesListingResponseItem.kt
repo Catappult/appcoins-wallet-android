@@ -7,4 +7,5 @@ data class GamesListingResponseItem(
   @SerializedName("app_name") val appName: String,
   @SerializedName("app_icon") val appIcon: String,
   @SerializedName("background") val background: String,
-  )
+  @SerializedName("action_url") val actionUrl: String?,
+)

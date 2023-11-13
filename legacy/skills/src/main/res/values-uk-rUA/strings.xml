@@ -64,9 +64,9 @@
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Чекаємо, поки опоненти закінчать гру.</string>
   <plurals name="opponent_points_title">
-    <item quantity="one">(%1$s did %2$d point)</item>
-    <item quantity="few">(%1$s did %2$d points)</item>
-    <item quantity="many">(%1$s did %2$d points)</item>
+    <item quantity="one">(%1$s набрав(ла) %2$d бал)</item>
+    <item quantity="few">(%1$s набрав(ла) %2$d бали)</item>
+    <item quantity="many">(%1$s набрав(ла) %2$d балів)</item>
     <item quantity="other">(%1$s набрав(ла) %2$d бали)</item>
   </plurals>
   <string name="rankings_today">TODAY</string>
@@ -74,9 +74,9 @@
   <string name="rankings_all_time">ALL TIME</string>
   <string name="not_attributed_place_holder">Not attributed</string>
   <plurals name="rank_score_details">
-    <item quantity="one">%1$d point</item>
-    <item quantity="few">%1$d points</item>
-    <item quantity="many">%1$d points</item>
+    <item quantity="one">%1$d бал</item>
+    <item quantity="few">%1$d бали</item>
+    <item quantity="many">%1$d балів</item>
     <item quantity="other">%1$d бали</item>
   </plurals>
   <string name="amount_won_details">(%1$.2f$ зараховано на ваш гаманець)</string>
@@ -84,27 +84,27 @@
   <string name="you_lost_timeout">Ваш час вийшов, ви програли! %1$s</string>
   <string name="you_lost">You Lost! %1$s</string>
   <plurals name="days">
-    <item quantity="one">Day</item>
-    <item quantity="few">Days</item>
-    <item quantity="many">Days</item>
+    <item quantity="one">День</item>
+    <item quantity="few">Дні</item>
+    <item quantity="many">Днів</item>
     <item quantity="other">Дні</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">Hour</item>
-    <item quantity="few">Hours</item>
-    <item quantity="many">Hours</item>
+    <item quantity="one">Година</item>
+    <item quantity="few">Години</item>
+    <item quantity="many">Годин</item>
     <item quantity="other">Години</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">Minute</item>
-    <item quantity="few">Хвилин</item>
+    <item quantity="one">Хвилина</item>
+    <item quantity="few">Хвилини</item>
     <item quantity="many">Хвилин</item>
     <item quantity="other">Хвилини</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">Second</item>
-    <item quantity="few">Seconds</item>
-    <item quantity="many">Seconds</item>
+    <item quantity="one">Секунда</item>
+    <item quantity="few">Секунди</item>
+    <item quantity="many">Секунд</item>
     <item quantity="other">Секунди</item>
   </plurals>
   <string name="last_winners_title">Last winners</string>

@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">Τα bonus μπορούν να χρησιμοποιηθούν σε οποιαδήποτε εφαρμογή ή παιχνίδι.</string>
   <string name="intro_already_have_wallet_button">Έχω ήδη ένα wallet</string>
   <string name="intro_get_started_button">Wallet εκκίνησης</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">Το Εργαλείο σας για Αγορές εντός Εφαρμογών</string>
+  <string name="new_intro_1_body">Κάντε αγορές στις αγαπημένες σας εφαρμογές και παιχνίδια με το AppCoins Wallet.</string>
+  <string name="new_intro_2_header">Έως %s%% Bonus σε Όλες τις Αγορές</string>
+  <string name="new_intro_2_body">Λάβετε επιπρόσθετη πίστωση κάθε φορά που κάνετε μία αγορά σε ένα παιχνίδι που είναι συμβατό με AppCoins.</string>
+  <string name="new_intro_3_header">Οι Αγαπημένες Σας Μέθοδοι Πληρωμής Είναι Εδώ!</string>
+  <string name="new_intro_3_body">Διαθέσιμες μέθοδοι πληρωμής</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Εκκίνηση wallet&#8230;</string>
   <string name="select_method_title">Επιλέξτε μία μέθοδο πληρωμής</string>
@@ -269,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">Η φόρτιση που πραγματοποιήσατε στις %s έχει υποστεί επαναφορά. Επικοινωνήστε με την Υποστήριξη για περισσότερες πληροφορίες.</string>
   <string name="transaction_type_reverted_purchase_title">Επιστροφή Αγοράς</string>
   <string name="transaction_type_reverted_purchase_body">Η αγορά που πραγματοποιήσατε στις %s έχει υποστεί επαναφορά. Επικοινωνήστε με την Υποστήριξη για περισσότερες πληροφορίες.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">Αυτό το bonus απορρίφθηκε. Για περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_reverted_view_original_header">Αρχική Συναλλαγή</string>
   <string name="transaction_onchain_completed_title">Συναλλαγή καθ\' οδόν!</string>
   <string name="transaction_onchain_completed_body">Μπορείτε να την εντοπίσετε στο Etherscan.</string>
@@ -286,6 +293,7 @@
   <string name="transaction_details_label">Λεπτομέρειες</string>
   <string name="transaction_to_label">Προς</string>
   <string name="transaction_invoice_label">Τιμολόγιο</string>
+  <string name="iab_payment_method_vkpay_title">Πιστωτική/χρεωστική κάρτα (VK Pay)</string>
   <string name="dialog_credit_card_remember">Αποθήκευση Στοιχείων Κάρτας</string>
   <string name="notification_payment_refused">Η Πληρωμή Απορρίφθηκε</string>
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
@@ -427,7 +435,7 @@
   <string name="topup_maximum_value">Η μέγιστη τιμή φόρτισης είναι %s</string>
   <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">Λάβετε %s μπόνους μ\' αυτή τη φόρτιση</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -502,6 +510,7 @@
   <string name="log_out_button">Αποσύνδεση</string>
   <string name="download_button">Λήψη</string>
   <string name="done">Τέλος!</string>
+  <string name="see_more_button">Δείτε περισσότερα</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -560,6 +569,7 @@
   <string name="unferified_tag">Μη επαληθευμένο wallet</string>
   <string name="verification_wallets_verify_button">Επαλήθευση</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">Σύνολο %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
   <string name="purchase_more_payment_methods_lower_case_button">Άλλες μέθοδοι πληρωμής</string>
@@ -626,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ενδέχεται να ισχύουν επιπλέον χρεώσεις.</string>
   <string name="purchase_error_paypal">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω PayPal. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
+  <string name="purchase_making_purchase_title">Πραγματοποίηση αγοράς&#8230;</string>
+  <string name="purchase_fee_title">%1$s%2$s χρέωση</string>
+  <string name="purchase_fee_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας. Αυτό το τέλος περιλαμβάνεται στο Σύνολο που βλέπετε στην πάνω περιοχή.</string>
+  <string name="purchase_unknown_fee_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -903,6 +917,7 @@ Wallets</item>
   <string name="gamif_placeholder_unknown">σε έναν άγνωστο πλανήτη</string>
   <string name="gamif_distance_unkown">Άγνωστη τοποθεσία</string>
   <string name="gamif_placeholder_new_planet">σε έναν νέο πλανήτη</string>
+  <string name="gamif_header">Ανταμοιβές</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Χρέωση μέσω παρόχου</string>
   <string name="carrier_billing_fees_disclaimer">Ενδέχεται να ισχύουν επιπλέον χρεώσεις</string>
@@ -1115,7 +1130,7 @@ Wallets</item>
   <string name="appcoins_info_market_cap_title">Κεφαλαιοποίηση Αγοράς</string>
   <string name="appcoins_info_volume_title">Όγκος (24ω)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Εξαργυρώστε τον κωδικό δωροκάρτας σας</string>
+  <string name="gift_card_title">Εξαργυρώστε τον κωδικό δωροκάρτας σας.</string>
   <string name="gift_card_field">Κωδικός δωροκάρτας εδώ...</string>
   <string name="gift_card_done_title">Κωδικός εξαργυρώθηκε!</string>
   <string name="gift_card_done_body">Ελέγξτε τη λίστα συναλλαγών σας.</string>
@@ -1166,7 +1181,7 @@ Wallets</item>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
   <string name="vip_program_gamification_title">Ποιο είναι το επίπεδο bonus μου;</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus που αποκτήθηκε από τις αγορές σας.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus που αποκτήθηκε από τις αγορές σας</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus που αποκτήθηκε από συστάσεις</string>
   <string name="vip_program_max_bonus_title">Απολαύστε το %s%% bonus σας σε κάθε αγορά</string>
   <string name="vip_program_max_bonus_body">Φτάσατε στα όρια του ηλιακού συστήματος.</string>
@@ -1201,7 +1216,7 @@ Wallets</item>
   <string name="intro_transactions_header">Συναλλαγές</string>
   <string name="intro_backup_card_title">Μην χάσετε τα χρήματά σας!</string>
   <string name="intro_backup_card_body">Δημιουργήστε αντίγραφο του wallet σας και κρατήστε το πάντα ασφαλές.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Ξοδέψτε %1$s%2$s για να φτάσετε στο επόμενο επίπεδο!</string>
   <string name="rewards_current_bonus_title">%s%% bonus σε κάθε αγορά</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Κάντε ανάληψη των κερδών σας e-Skills.</string>
@@ -1213,7 +1228,7 @@ Wallets</item>
   <string name="home_appcoins_compatible_games_title">Παιχνίδια Συμβατά με AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Κάντε την πρώτη αγορά σας σε ένα παιχνίδι που είναι συμβατό με AppCoins και ξεκλειδώστε ένα μπόνους σε κάθε αγορά.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonus σε κάθε αγορά</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Wallet αλλάχθηκε</string>
   <string name="manage_wallet_change_active_wallet_title">Θέλετε να επιλέξετε αυτό το wallet;</string>

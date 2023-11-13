@@ -137,6 +137,13 @@
   <string name="intro_welcome_body_2">बोनसचा वापर कोणत्याही अॅप वा खेळात केला जाऊ शकतो.</string>
   <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
   <string name="intro_get_started_button">वॉलेट सुरु करा</string>
+  <!-- New Intro -->
+  <string name="new_intro_1_header">अॅपमधील खरेदीसाठी आपले टूल</string>
+  <string name="new_intro_1_body">अॅपकॉईन्स वॉलेटसह आपल्या आवडत्या खेळातील तसेच अॅपमधील खरेदी करा.</string>
+  <string name="new_intro_2_header">सर्व खरेदींवर %s%% पर्यंत बोनस</string>
+  <string name="new_intro_2_body">अॅपकॉईन्स सुसंगत खेळातील प्रत्येक खरेदीवर अधिक रक्कम मिळवा.</string>
+  <string name="new_intro_3_header">आपल्या आवडत्या पेमेंट पद्धती इथे आहेत!</string>
+  <string name="new_intro_3_body">उपलब्ध पेमेंट पद्धती</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">वॉलेट&#8230; लाँच करीत आहोत</string>
   <string name="select_method_title">पेमेंट पद्धत निवडा</string>
@@ -269,7 +276,7 @@
   <string name="transaction_type_reverted_topup_body">%s ह्यावर आपण केलेला टॉप-अप परवलाय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
   <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
-  <string name="transaction_bonus_reverted_body">This bonus has been reverted. For more information contact support.</string>
+  <string name="transaction_bonus_reverted_body">हे बोनस परत घेतलेत. अधिक माहितीसाठी सपोर्टशी संपर्क साधा.</string>
   <string name="transaction_reverted_view_original_header">मूळ व्यवहार</string>
   <string name="transaction_onchain_completed_title">व्यवहार येत आहे!</string>
   <string name="transaction_onchain_completed_body">इथरस्कॅनवर आपण ट्रॅक करु शकता.</string>
@@ -286,6 +293,7 @@
   <string name="transaction_details_label">तपशील</string>
   <string name="transaction_to_label">प्रति</string>
   <string name="transaction_invoice_label">इन्व्हॉइस</string>
+  <string name="iab_payment_method_vkpay_title">क्रेडीट/डेबिट कार्ड (व्हीके पे)</string>
   <string name="dialog_credit_card_remember">कार्ड ध्यानात ठेवा</string>
   <string name="notification_payment_refused">पेमेंट नाकारले</string>
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
@@ -427,7 +435,7 @@
   <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
   <string name="topup_no_method_available_title">पेमेंट पद्धत नाही!</string>
   <string name="topup_no_method_available_body">आपल्या देशात सध्यातरी कोणतीही पेमेंट पद्धत उपलब्ध नाही. पहात रहा!</string>
-  <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_bonus_amount_body">ह्या टॉप-अपसह %s बोनस मिळवा</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -502,6 +510,7 @@
   <string name="log_out_button">लॉग आऊट</string>
   <string name="download_button">डाऊनलोड</string>
   <string name="done">झाले!</string>
+  <string name="see_more_button">अधिक पहा</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -560,6 +569,7 @@
   <string name="unferified_tag">असत्यापित वॉलेट</string>
   <string name="verification_wallets_verify_button">सत्यापित करा</string>
   <!--Purchase Flow-->
+  <string name="purchase_total_header">एकुण %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
   <string name="purchase_more_payment_methods_lower_case_button">इतर पेमेंट पद्धती</string>
@@ -626,6 +636,10 @@
   <string name="purchase_paypal_additional_fees_disclaimer_body">अतिरिक्त शुल्क लागू होऊ शकते.</string>
   <string name="purchase_error_paypal">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
   <string name="purchase_success_bonus_received_title">%s बोनस प्राप्त झाला.</string>
+  <string name="purchase_making_purchase_title">&#8230; ची खरेदी करणे</string>
+  <string name="purchase_fee_title">%1$s%2$s शुल्क</string>
+  <string name="purchase_fee_disclaimer">ही पेमेंट पद्धत आपल्या चलनास समर्थन करीत नाही, म्हणुन ह्यावर आपणांस प्रक्रिया शुल्क लावले जाईल. वरील भागात दिसणार्‍या एकुण रकमेत हे शुल्क सम्मिलित केलेले आहे.</string>
+  <string name="purchase_unknown_fee_disclaimer">ही पेमेंट पद्धत आपल्या चलनास समर्थन करीत नाही, म्हणुन ह्यावर आपणांस प्रक्रिया शुल्क लावले जाईल.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -906,6 +920,7 @@
   <string name="gamif_placeholder_unknown">माहिती नसलेला ग्रह</string>
   <string name="gamif_distance_unkown">माहिती नसलेले ठिकाण</string>
   <string name="gamif_placeholder_new_planet">ऩविन ग्रह</string>
+  <string name="gamif_header">बक्षिसे</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">कॅरियर बिलींग</string>
   <string name="carrier_billing_fees_disclaimer">अतिरिक्त शुल्क लागू होऊ शकते</string>
@@ -1135,7 +1150,7 @@
   <string name="appcoins_info_market_cap_title">मार्केट कॅप</string>
   <string name="appcoins_info_volume_title">एकुण उलाढाल (२४ तास)</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
+  <string name="gift_card_title">आपले गिफ्ट कार्ड कोड रिडिम करा.</string>
   <string name="gift_card_field">कार्ड कोड इथे...</string>
   <string name="gift_card_done_title">कोड रिडीम झाला!</string>
   <string name="gift_card_done_body">आपल्या व्यवहारांची सूची तपासा.</string>
@@ -1186,7 +1201,7 @@
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
   <string name="vip_program_gamification_title">माझी बोनस पातळी काय आहे?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">आपल्या खरेदीतुन मिळालेला बोनस.</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">आपल्या खरेदीवर बोनस मिळाला</string>
   <string name="vip_program_gamification_amoung_referral_bonus">संदर्भातुन मिळालेला बोनस</string>
   <string name="vip_program_max_bonus_title">प्रत्येक खरेदीवर आपल्या %s%% बोनसचा मजा घ्या</string>
   <string name="vip_program_max_bonus_body">आपण सूर्यमालिकेच्या अंतापर्यंत पोचला आहात.</string>
@@ -1221,7 +1236,7 @@
   <string name="intro_transactions_header">व्यवहार</string>
   <string name="intro_backup_card_title">पैसे घालवु नका!</string>
   <string name="intro_backup_card_body">आपले वॉलेट बॅकअप करुन नेहमीच सुरक्षित राखा.</string>
-  <string name="rewards_spend_to_next_level_body">%1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">पुढील पातळीवर जाण्यासाठी %1$s%2$s खर्च करा!</string>
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
   <string name="rewards_eskills_card_title">ई-स्किल्स</string>
   <string name="rewards_eskills_card_body">आपली ई-स्किल्स कमाई काढा.</string>
@@ -1233,7 +1248,7 @@
   <string name="home_appcoins_compatible_games_title">अॅपकॉईन्सशी सुसंगत खेळ</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%%</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
