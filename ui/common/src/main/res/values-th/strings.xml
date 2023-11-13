@@ -154,6 +154,9 @@
   <string name="bonus_received_body">คุณได้รับโบนัส%sในวอลเล็ตของคุณ</string>
   <string name="back_to_the_game_button">กลับสู่เกมส์</string>
   <string name="other_payment_methos_title">วิธีการชำระเงินเพิ่มเติม:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -512,6 +515,7 @@
   <string name="download_button">ดาวน์โหลด</string>
   <string name="done">เสร็จสิ้น!</string>
   <string name="see_more_button">ดูเพิ่มเติม</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
