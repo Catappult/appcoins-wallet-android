@@ -9,6 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,8 @@ class OnboardingFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingNavigator
+
+  lateinit var args: OnboardingFragmentArgs
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
@@ -76,6 +79,8 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    args = OnboardingFragmentArgs.fromBundle(requireArguments())
+    Log.d("onboarding_backup", args.backup)
     setClickListeners()
     setStringWithLinks()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -107,6 +112,10 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
     }
+  }
+
+  private fun showRecoverGuestWallet() { // TODO use in state
+    // TODO
   }
 
   private fun showValuesScreen() {
