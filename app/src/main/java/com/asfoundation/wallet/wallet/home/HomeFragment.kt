@@ -3,7 +3,6 @@ package com.asfoundation.wallet.wallet.home
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -134,7 +133,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           TopBar(
             isMainBar = true,
             isVip = isVip,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen(false) },
           )

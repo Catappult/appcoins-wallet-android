@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.wallet_reward
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -121,7 +120,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           TopBar(
             isMainBar = true,
             isVip = isVip,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen(false) },
           )
