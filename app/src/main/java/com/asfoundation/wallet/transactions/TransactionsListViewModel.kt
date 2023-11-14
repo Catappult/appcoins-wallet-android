@@ -11,7 +11,7 @@ import androidx.paging.map
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryPagingUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.github.michaelbull.result.unwrap
@@ -22,8 +22,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
 

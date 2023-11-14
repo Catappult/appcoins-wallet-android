@@ -3,7 +3,7 @@ package com.asfoundation.wallet.viewmodel
 import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.router.ExternalBrowserRouter

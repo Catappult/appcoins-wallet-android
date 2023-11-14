@@ -2,8 +2,8 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
+import com.appcoins.wallet.core.utils.android_common.BuildUpdateIntentUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -34,7 +34,7 @@ import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase

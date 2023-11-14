@@ -17,6 +17,7 @@ dependencies {
   implementation(project(":ui:widgets"))
   implementation(project(":core:legacy-base"))
   implementation(project(":core:analytics"))
+  implementation(project(":feature:support:data"))
   implementation(libs.bundles.androidx.compose)
   implementation(libs.bundles.rx)
   implementation(libs.androidx.fragment.ktx)

@@ -1,6 +1,5 @@
-package com.asfoundation.wallet.home.usecases
+package com.wallet.appcoins.feature.support.data
 
-import com.wallet.appcoins.feature.support.data.SupportRepository
 import io.intercom.android.sdk.Intercom
 import javax.inject.Inject
 

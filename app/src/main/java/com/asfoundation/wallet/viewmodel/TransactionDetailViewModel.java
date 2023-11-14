@@ -12,7 +12,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionsDetailsModel;
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase;
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase;
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase;
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;

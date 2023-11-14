@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.compose.ui.platform.ComposeView
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
 import com.wallet.appcoins.core.legacy_base.BaseActivity

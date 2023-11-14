@@ -15,7 +15,7 @@ import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkExcep
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asf.wallet.R
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.main.nav_bar.CurrencyNavigationItem
 import com.asfoundation.wallet.main.nav_bar.TransferNavigationItem
 import com.asfoundation.wallet.ui.bottom_navigation.CurrencyDestinations

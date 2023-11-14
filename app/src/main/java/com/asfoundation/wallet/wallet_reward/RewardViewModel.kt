@@ -11,7 +11,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo

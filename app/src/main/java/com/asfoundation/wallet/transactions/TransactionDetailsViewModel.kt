@@ -7,7 +7,7 @@ import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.GetInvoiceByIdUseCase
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState.ApiError
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.InvoiceState.Idle
