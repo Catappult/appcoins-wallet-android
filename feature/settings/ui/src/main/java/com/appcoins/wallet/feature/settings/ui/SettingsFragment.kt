@@ -21,8 +21,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -134,9 +140,13 @@ fun SettingsItem(
           Text(
             text = title,
             color = WalletColors.styleguide_light_grey,
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.bodyLarge
           )
-          if (subtitle != null) Text(text = subtitle, color = WalletColors.styleguide_dark_grey)
+          if (subtitle != null) Text(
+            text = subtitle,
+            color = WalletColors.styleguide_dark_grey,
+            style = MaterialTheme.typography.bodySmall
+          )
         }
       }
       content()
@@ -145,7 +155,39 @@ fun SettingsItem(
 }
 
 @Composable
+fun CurrentCurrencySubItem(currency: String, icon: Painter) {
+  Row(verticalAlignment = Alignment.CenterVertically) {
+    Icon(painter = icon, contentDescription = null, modifier = Modifier.size(24.dp))
+    Text(
+      text = currency,
+      color = WalletColors.styleguide_medium_grey,
+      modifier = Modifier.padding(horizontal = 8.dp)
+    )
+  }
+}
+
+@Composable
+fun FingerprintSwitch(switchON: Boolean, onCheckedChange: (Boolean) -> Unit) {
+  Switch(
+    checked = switchON,
+    onCheckedChange = onCheckedChange,
+    colors =
+    SwitchDefaults.colors(
+      checkedThumbColor = WalletColors.styleguide_pink,
+      uncheckedThumbColor = WalletColors.styleguide_light_grey,
+      checkedTrackColor = WalletColors.styleguide_grey_blue,
+      uncheckedTrackColor = WalletColors.styleguide_grey_blue,
+      checkedBorderColor = Color.Transparent,
+      uncheckedBorderColor = Color.Transparent
+    )
+  )
+}
+
+
+@Composable
 fun SettingsItems() {
+  var switchON by rememberSaveable { mutableStateOf(false) }
+
   SettingsItem(
     icon = painterResource(R.drawable.ic_manage_wallet),
     title = stringResource(R.string.manage_wallet_button),
@@ -157,11 +199,17 @@ fun SettingsItems() {
   SettingsItem(
     icon = painterResource(R.drawable.ic_currency),
     title = stringResource(R.string.change_currency_settings_title),
-    action = {})
+    action = {}) {
+    CurrentCurrencySubItem("EUR", painterResource(R.drawable.ic_currency)) //TODO
+  }
   SettingsItem(
     icon = painterResource(R.drawable.ic_settings_fingerprint),
     title = stringResource(R.string.fingerprint_settings),
-    action = {})
+    action = { switchON = !switchON }) {
+    FingerprintSwitch(switchON = switchON) { changedSwitch ->
+      switchON = changedSwitch
+    }
+  }
   SettingsItem(
     icon = painterResource(R.drawable.ic_updates),
     title = stringResource(R.string.check_updates_settings_title),
@@ -221,20 +269,15 @@ fun DevelopmentSettingsItems() {
 fun PreviewSettingsCategories() {
   SettingsCategories("Title") {
     SettingsItem(
-      icon = painterResource(R.drawable.ic_manage_wallet),
-      title = stringResource(R.string.manage_wallet_button),
-      action = {})
+      icon = painterResource(R.drawable.ic_currency),
+      title = stringResource(R.string.change_currency_title),
+      action = {}) {
+      CurrentCurrencySubItem(currency = "EUR", painterResource(R.drawable.ic_currency))
+    }
     SettingsItem(
-      icon = painterResource(R.drawable.ic_manage_wallet),
-      title = stringResource(R.string.manage_wallet_button),
+      icon = painterResource(R.drawable.ic_updates),
+      title = stringResource(R.string.check_updates_settings_title),
+      subtitle = "Current version: 2.8.7.0.0",
       action = {})
-  }
-}
-
-@Preview
-@Composable
-fun PreviewSettingsItem() {
-  SettingsItem(painterResource(id = R.drawable.ic_settings_fingerprint), "Title", "subtitle", {}) {
-    Text(text = "Content")
   }
 }
