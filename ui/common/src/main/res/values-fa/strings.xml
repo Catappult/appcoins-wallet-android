@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">کد اشتباهی را به دفعات وارد کرده اید پس %1$s به کارت شما بازگردانده خواهد شد.</string>
   <string name="card_verification_no_attempts_body">لطفا پروسه تایید هویت را مجدد شروع کنید.</string>
   <string name="wallet_verify_header">حداقل یک روش پرداخت را تایید کنید</string>
-  <string name="verify_card_title">تایید کارت</string>
-  <string name="verify_card_button">تایید کارت بانکی</string>
   <string name="verify_paypal_button">تایید حساب پی‌پال</string>
   <string name="card_verification_body_new">%s به از کارت شما شارژ شده و فورا بازگردانده می‌شود. صورتحساب کارت خود را برای دریافت کد تایید بررسی کرده و آن کد را در اینجا وارد کنید.</string>
   <string name="card_verification_disclaimer_body">بدانید که ممکن است کد تایید در اعلامیه بازپرداخت دیده شود.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">تایید یک روش پرداخت</string>
   <string name="manage_wallet_verify_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">تایید یک روش پرداخت</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <string name="verify_card_one_more_step_title">یک قدم دیگر تا تایید</string>
   <string name="verify_card_one_more_step_body">کدی را که در جزییات تراکنش است را وارد کنید</string>
   <string name="verify_card_one_more_step_button">وارد کردن کد</string>
   <string name="verify_card_verified">روش پرداخت تایید شد!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">تایید کارت</string>
   <string name="verify_card_view_disclaimer">ما %s از کارت شما شارژ خواهیم کرد و پس از تایید کد توسط شما آن را باز می‌گردانیم.</string>
   <string name="verify_card_view_title_2">اطلاعات کارت بانکی خود را وارد کنید</string>
