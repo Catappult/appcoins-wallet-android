@@ -12,10 +12,28 @@
   <color name="styleguide_white">#FFFFFFFF</color>
   <color name="styleguide_black">#000000</color>
 
+  <color name="styleguide_payments_blue">#1D1E28</color>
+  <color name="styleguide_payments_blue_secondary">#282937</color>
+  <color name="styleguide_payments_adyen_field">#919191</color>
+  <color name="styleguide_payments_background">#F5F5FA</color>
+  <color name="styleguide_payments_main_text">#1A1A23</color>
+  <color name="styleguide_payments_separator">#DDDDDD</color>
+  <color name="styleguide_payments_skeleton">#E2E2E2</color>
+  <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
+  <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>
+
+  <color name="styleguide_topup_skeleton">#1D1E28</color>
+  <color name="styleguide_topup_skeleton_secondary">#2E2D3B</color>
+  <color name="styleguide_topup_skeleton_shimmer">#313040</color>
+  <color name="styleguide_topup_dark_grey">#28272C</color>
+
+
   <!-- Secondary style guide colors -->
   <color name="styleguide_green">#3CBD8F</color>
+  <color name="styleguide_green2">#64BA92</color>
   <color name="styleguide_red">#E02D3E</color>
   <color name="styleguide_vip_yellow">#EFA226</color>
+  <color name="styleguide_bonus_yellow">#F9B622</color>
   <color name="styleguide_orange">#f86d00</color>
   <color name="styleguide_info_blue">#243566</color>
 
@@ -30,6 +48,7 @@
   <color name="styleguide_white_transparent_80">#CCFFFFFF</color>
   <color name="styleguide_white_transparent_20">#33FFFFFF</color>
   <color name="styleguide_medium_grey_transparent_50">#88DDDDDD</color>
+  <color name="styleguide_dark_grey_transparent_50">#804A4A4A</color>
 
   <!-- Default Android colors -->
   <color name="colorPrimary">@color/styleguide_blue</color> <!-- App bar -->

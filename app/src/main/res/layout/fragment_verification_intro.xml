@@ -14,111 +14,139 @@
       android:fillViewport="true"
       >
 
+  <androidx.constraintlayout.widget.ConstraintLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="36dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.0"
+      >
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/info_container"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_info_card"
+        android:padding="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         >
 
-      <TextView
-          android:id="@+id/title"
-          style="@style/VerifyWallet.Title"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
-          android:layout_marginTop="27dp"
-          android:layout_marginEnd="41dp"
-          app:layout_constraintEnd_toEndOf="parent"
+      <ImageView
+          android:id="@+id/info_image"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/ic_info_new"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:text="@string/card_verification_body_new"
           />
-
-      <RelativeLayout
-          android:id="@+id/cc_container"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="30dp"
-          android:paddingStart="@dimen/normal_margin"
-          android:paddingEnd="@dimen/normal_margin"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/title"
-          >
-
-        <include
-            android:id="@+id/adyen_card_form"
-            layout="@layout/selected_payment_method_cc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <com.appcoins.wallet.ui.widgets.WalletButtonView
-            android:id="@+id/change_card_button"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/small_button_height"
-            android:layout_below="@id/adyen_card_form"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="6dp"
-            android:visibility="gone"
-            app:buttonIsAllCaps="true"
-            app:buttonText="@string/activity_iab_change_card"
-            app:buttonType="text"
-            tools:visibility="visible"
-            />
-
-      </RelativeLayout>
 
       <TextView
-          android:id="@+id/description"
-          style="@style/VerifyWallet.Description"
+          android:id="@+id/info_description"
+          style="@style/VerifyWallet.Info"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="24dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:paddingStart="@dimen/big_margin"
-          android:paddingTop="13dp"
-          android:paddingEnd="@dimen/big_margin"
-          android:paddingBottom="@dimen/normal_margin"
-          android:text="@string/card_verification_disclaimer_body"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/cc_container"
-          />
-
-      <com.appcoins.wallet.ui.widgets.WalletButtonView
-          android:id="@+id/submit"
-          android:layout_width="0dp"
-          android:layout_height="@dimen/small_button_height"
-          android:layout_alignParentBottom="true"
-          android:layout_gravity="center_vertical"
-          android:layout_marginEnd="24dp"
-          android:layout_marginBottom="18dp"
-          android:enabled="false"
-          app:buttonText="@string/get_code_button"
-          app:buttonType="filled"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="0dp"
+          android:layout_marginEnd="0dp"
+          android:textColor="@color/styleguide_light_grey"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/description"
-          app:layout_constraintVertical_bias="1"
-          />
-
-      <com.appcoins.wallet.ui.widgets.WalletButtonView
-          android:id="@+id/cancel"
-          android:layout_width="0dp"
-          android:layout_height="@dimen/small_button_height"
-          android:layout_gravity="center_vertical"
-          android:layout_marginEnd="6dp"
-          android:layout_marginBottom="18dp"
-          android:enabled="false"
-          app:buttonText="@string/cancel"
-          app:buttonType="text"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/submit"
-          app:layout_constraintVertical_bias="0"
+          app:layout_constraintStart_toEndOf="@+id/info_image"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="@string/verify_card_view_disclaimer"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/fields_subtitle"
+        style="@style/VerifyWallet.Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/verify_card_view_title_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_container"
+        />
+
+    <RelativeLayout
+        android:id="@+id/cc_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fields_subtitle"
+        >
+
+      <include
+          android:id="@+id/adyen_card_form"
+          layout="@layout/selected_payment_method_cc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/change_card_button"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_below="@id/adyen_card_form"
+          android:layout_alignParentEnd="true"
+          android:layout_marginTop="6dp"
+          android:visibility="gone"
+          app:buttonColor="@color/styleguide_pink"
+          app:buttonText="@string/activity_iab_change_card_lower_case_button"
+          app:buttonType="text"
+          tools:visibility="visible"
+          />
+
+    </RelativeLayout>
+
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
+        android:id="@+id/submit"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/large_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="false"
+        app:buttonText="@string/get_code_button"
+        app:buttonType="filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cc_container"
+        app:layout_constraintVertical_bias="1"
+        />
+
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
+        android:id="@+id/cancel"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/large_button_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="18dp"
+        android:enabled="false"
+        app:buttonText="@string/cancel"
+        app:buttonType="outlined"
+        app:buttonColor="@color/styleguide_light_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/submit"
+        app:layout_constraintVertical_bias="0"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
 

@@ -4,17 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     tools:context="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
     >
 
-  <include
-      android:id="@+id/app_bar"
-      layout="@layout/layout_app_bar"
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/app_bar_verify"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/title_verify"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="24dp"
+      android:text="@string/verification_settings_unverified_title"
+      android:textColor="@color/styleguide_white"
+      android:textSize="24sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/app_bar_verify"
       />
 
   <ProgressBar
@@ -25,7 +41,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_bar"
+      app:layout_constraintTop_toBottomOf="@id/title_verify"
       />
 
   <FrameLayout
@@ -35,7 +51,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_bar"
+      app:layout_constraintTop_toBottomOf="@id/title_verify"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

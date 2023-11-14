@@ -3,34 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generic_purchase_error_layout"
+    android:background="@color/styleguide_blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/topup_error_animation"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
+      android:layout_width="72dp"
+      android:layout_height="72dp"
+      android:layout_marginBottom="16dp"
+      android:importantForAccessibility="no"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/guideline_top"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
+      android:src="@drawable/ic_error_pink"
+      app:layout_constraintBottom_toTopOf="@id/error_title"
       />
 
   <TextView
       android:id="@+id/error_title"
-      style="@style/TextXL"
+      style="@style/TextL"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
       android:text="@string/error_general"
       android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
+      android:textStyle="bold"
       android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/topup_error_animation"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.43"
       tools:visibility="visible"
       />
 
@@ -39,16 +43,12 @@
       style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="8dp"
+      android:layout_marginTop="8dp"
       android:textAlignment="center"
-      app:layout_constraintBottom_toTopOf="@+id/contact_us"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toStartOf="@id/end_guideline"
       app:layout_constraintTop_toBottomOf="@+id/error_title"
-      app:layout_constraintVertical_bias="0"
+      app:layout_constraintStart_toEndOf="@id/start_guideline"
       tools:text="@string/purchase_card_error_general_2"
       />
 
@@ -75,7 +75,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.7"
+      app:layout_constraintGuide_percent="0.8"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -83,7 +83,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.34"
+      app:layout_constraintGuide_percent="0.2"
       />
 
 
@@ -92,34 +92,39 @@
       style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="40dp"
+      android:layout_marginStart="72dp"
       android:layout_marginEnd="40dp"
+      android:layout_marginTop="48dp"
+      android:layout_marginBottom="8dp"
       android:text="@string/error_contac_us_body"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/start_guideline"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/error_verify_wallet_button"
+      app:layout_constraintBottom_toTopOf="@id/layout_support_logo"
       />
-  <ImageView
+
+  <ImageButton
       android:id="@+id/layout_support_logo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="40dp"
-      android:src="@drawable/ic_logo_appc_support"
-      app:layout_constraintBottom_toBottomOf="@+id/contact_us"
-      app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-      app:layout_constraintStart_toEndOf="@+id/start_guideline"
-      app:layout_constraintTop_toTopOf="@+id/contact_us"
+      android:layout_marginBottom="16dp"
+      android:background="@color/transparent"
+      android:src="@drawable/ic_logo_appc_support_light"
+      android:contentDescription="@string/title_support"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="@id/contact_us"
       />
 
-  <ImageView
+  <ImageButton
       android:id="@+id/layout_support_icn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="8dp"
       android:src="@drawable/ic_open_in_24"
+      android:background="@color/transparent"
+      android:contentDescription="@string/title_support"
       app:layout_constraintBottom_toBottomOf="@id/layout_support_logo"
       app:layout_constraintStart_toEndOf="@id/layout_support_logo"
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
@@ -131,23 +136,13 @@
       android:layout_height="@dimen/large_button_height"
       android:layout_alignParentBottom="true"
       android:layout_marginStart="8dp"
-      android:layout_marginEnd="23dp"
+      android:layout_marginEnd="72dp"
+      android:layout_marginBottom="24dp"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
-      app:layout_constraintBottom_toBottomOf="@+id/layout_support_logo"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/end_guideline"
-      app:layout_constraintTop_toTopOf="@+id/layout_support_logo"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline_top"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.1"
-      />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
   

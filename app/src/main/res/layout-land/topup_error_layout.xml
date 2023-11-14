@@ -6,20 +6,20 @@
     android:id="@+id/topup_error_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/validation_success_animation"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:src="@drawable/ic_error_pink"
+      android:importantForAccessibility="no"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.2"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
@@ -32,6 +32,7 @@
       android:layout_marginEnd="@dimen/big_margin"
       android:textAlignment="center"
       android:text="@string/topup_no_method_available_title"
+      android:textColor="@color/styleguide_light_grey"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/validation_success_animation"
@@ -48,6 +49,7 @@
       android:layout_marginEnd="@dimen/big_margin"
       android:text="@string/topup_no_method_available_body"
       android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_title"

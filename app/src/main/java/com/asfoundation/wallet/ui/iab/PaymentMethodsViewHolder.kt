@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Context
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
+import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -42,6 +44,8 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
     handleDescription(data, selected, data.isEnabled)
     handleFee(data.fee, data.isEnabled)
+
+    binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
@@ -104,10 +108,10 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.paymentMethodDescription.text = data.label
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
-        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
+        ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
       binding.paymentMethodDescription.typeface =
-        Typeface.create("sans-serif", Typeface.BOLD)
+        Typeface.create("sans-serif-medium", Typeface.BOLD)
     } else {
       binding.paymentMethodDescription.setTextColor(  //
         ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
@@ -116,7 +120,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     }
     if(!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
-        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+        ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }

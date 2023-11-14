@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:background="@drawable/background_content_payments"
     android:theme="@style/AppTheme"
     >
 
@@ -15,13 +16,18 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       >
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/gradient_progress"
         android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_wallet"
+        tools:visibility="visible"
         />
 
     <LinearLayout
@@ -41,7 +47,7 @@
           android:gravity="center"
           android:lineSpacingExtra="8sp"
           android:text="@string/activity_aib_loading_title"
-          android:textColor="@color/styleguide_black_transparent_80"
+          android:textColor="@color/styleguide_payments_main_text"
           android:textSize="24sp"
           />
       <TextView
@@ -94,36 +100,32 @@
           app:layout_constraintTop_toTopOf="parent"
           />
 
+      <View
+          android:id="@+id/bonus_background"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:background="@color/styleguide_payments_background"
+          app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
+          app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
+          />
+
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginTop="4dp"
+          android:layout_marginBottom="4dp"
           android:visibility="invisible"
-          tools:visibility="visible"
-          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+          app:layout_constraintBottom_toBottomOf="@id/dialog_buy_buttons_payment_methods"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
-          app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
+          app:layout_constraintTop_toTopOf="@id/dialog_buy_buttons_payment_methods"
 
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/bonus_layout"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:gravity="center"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
           tools:visibility="visible"
-          app:layout_constraintTop_toBottomOf="@id/bonus_layout"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toStartOf="@id/mid_guideline"/>
+          />
 
       <ImageView
           android:id="@+id/mid_separator"
@@ -144,7 +146,7 @@
           android:orientation="vertical"
           android:overScrollMode="never"
           android:paddingStart="16dp"
-          android:paddingTop="8dp"
+          android:paddingTop="2dp"
           android:paddingEnd="16dp"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constrainedHeight="true"
@@ -161,7 +163,7 @@
           android:id="@+id/payments_skeleton"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="5dp"
+          android:layout_marginStart="8dp"
           android:layout_marginEnd="14dp"
           android:orientation="vertical"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
@@ -172,25 +174,19 @@
         <include
             layout="@layout/skeleton_payments"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="58dp"
             />
         <include
             layout="@layout/skeleton_payments"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="8dp"
             />
         <include
             layout="@layout/skeleton_payments"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
-            />
-        <include
-            layout="@layout/skeleton_payments"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="2dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="8dp"
             />
       </LinearLayout>
       <include
@@ -214,9 +210,7 @@
           android:layout_height="@dimen/small_button_height"
           android:layout_gravity="center_vertical"
           android:layout_marginTop="6dp"
-          app:buttonImageRight="@drawable/ic_arrow_right"
-          app:buttonIsAllCaps="true"
-          app:buttonText="@string/purchase_more_payment_methods_button"
+          app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
           app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
@@ -246,7 +240,7 @@
           android:id="@+id/dialog_buy_buttons_payment_methods"
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
-          android:layout_height="48dp"
+          android:layout_height="64dp"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -278,8 +272,8 @@
   <include
       android:id="@+id/error_message"
       layout="@layout/iab_error_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_width="460dp"
+      android:layout_height="300dp"
       android:layout_centerInParent="true"
       android:visibility="gone"
       />

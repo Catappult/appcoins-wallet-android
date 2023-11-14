@@ -5,18 +5,19 @@
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_content_payments"
+    android:paddingTop="64dp"
+    android:paddingBottom="40dp"
     >
 
-  <com.airbnb.lottie.LottieAnimationView
+  <ImageView
       android:id="@+id/validation_success_animation"
-      android:layout_width="66dp"
-      android:layout_height="66dp"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:src="@drawable/ic_error_pink"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
@@ -28,7 +29,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="16dp"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_dark_grey"
+      android:textColor="@color/styleguide_payments_main_text"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -38,18 +39,17 @@
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_verify_wallet_button"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/small_button_height"
+      android:layout_width="wrap_content"
+      android:layout_height="40dp"
       android:layout_alignParentBottom="true"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="42dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="76dp"
+      android:layout_marginTop="16dp"
       android:visibility="gone"
+      app:buttonColor="@color/styleguide_pink"
       app:buttonText="@string/referral_view_verify_button"
-      app:buttonType="outlined"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/error_message"
-      app:layout_constraintVertical_bias="1"
+      tools:visibility="visible"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -58,10 +58,11 @@
       android:layout_height="@dimen/small_button_height"
       android:layout_alignParentBottom="true"
       android:layout_marginStart="32dp"
-      android:layout_marginTop="42dp"
+      android:layout_marginTop="16dp"
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="76dp"
       android:visibility="gone"
+      app:buttonColor="@color/styleguide_payments_blue"
       app:buttonText="@string/referral_view_verify_button"
       app:buttonType="outlined"
       app:layout_constraintTop_toBottomOf="@id/error_message"
@@ -76,7 +77,7 @@
       android:layout_marginTop="32dp"
       android:text="@string/error_contac_us_body"
       android:textAlignment="center"
-      android:textColor="@color/styleguide_black_transparent_80"
+      android:textColor="@color/styleguide_dark_grey"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +97,7 @@
       android:id="@+id/layout_support_logo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="18dp"
+      android:layout_marginTop="8dp"
       android:layout_marginEnd="@dimen/small_margin"
       android:src="@drawable/ic_logo_appc_support"
       app:layout_constraintEnd_toStartOf="@id/layout_support_icn"

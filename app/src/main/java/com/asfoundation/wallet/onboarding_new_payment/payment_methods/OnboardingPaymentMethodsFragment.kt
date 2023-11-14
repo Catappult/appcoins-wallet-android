@@ -140,14 +140,12 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         paymentMethodsList: List<PaymentMethod>?,
         otherPaymentMethodsList: List<PaymentMethod>
     ) {
-        views.onboardingPaymentMethodsTitle.visibility = View.VISIBLE
         views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
         views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
         controller.setData(paymentMethodsList, otherPaymentMethodsList, paymentMethodsMapper)
     }
 
     private fun handleNoPaymentMethodsError() {
-        views.onboardingPaymentMethodsTitle.visibility = View.GONE
         views.onboardingPaymentMethodsRv.visibility = View.GONE
         views.onboardingPaymentTermsConditions.root.visibility = View.GONE
         views.noPaymentMethodsError.root.startAnimation(

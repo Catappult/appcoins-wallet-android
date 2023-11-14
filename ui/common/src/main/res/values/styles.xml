@@ -214,7 +214,7 @@
   <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_blue</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium" parent="TextAppearance.AppCompat.Body1">
@@ -230,7 +230,7 @@
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto" parent="TextAppearance.AppCompat.Body1">
-    <item name="android:textColor">@color/styleguide_blue</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
     <item name="android:lineSpacingExtra">8sp</item>
   </style>
 
@@ -295,13 +295,18 @@
   </style>
 
   <style name="BonusTextStyle">
-    <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textColor">@color/styleguide_white</item>
-    <item name="android:textSize">10sp</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="BonusTextStyle.Value">
     <item name="android:fontFamily">@font/roboto_bolt</item>
+  </style>
+
+  <style name="BonusTextStyle.Value.Topup">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="GamificationCurrentLevelTextStyle">
@@ -336,18 +341,19 @@
 
   <style name="ShareLinkTextStyle.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="ShareLinkTextStyle.Title.Landscape">
     <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>
-    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
-    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">13sp</item>
   </style>
 
   <style name="TopUpTextStyle.Small">
@@ -357,6 +363,11 @@
   <style name="TopUpTextStyle.MainValue">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">40sp</item>
+  </style>
+
+  <style name="TopUpTextStyle.MainHeaderValue">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">24sp</item>
   </style>
 
   <style name="TopUpTextStyle.MainValueCurrency">
@@ -379,6 +390,10 @@
 
   <style name="TopUpTextStyle.Small.BonusText">
     <item name="android:textColor">@color/styleguide_dark_grey</item>
+  </style>
+
+  <style name="TopUpTextStyle.Small.BonusTextPayment">
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
   <style name="TopUpTextStyle.BonusText">
@@ -481,7 +496,7 @@
     <!-- reference our hint & error styles -->
     <item name="hintTextAppearance">@style/HintText</item>
     <item name="errorTextAppearance">@style/ErrorText</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="colorControlNormal">@color/styleguide_dark_grey</item>
     <item name="colorControlActivated">@color/colorAccent</item>
@@ -498,20 +513,44 @@
   </style>
 
   <style name="EditTextCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
-    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlActivated">@color/styleguide_payments_adyen_field</item>
   </style>
 
   <style name="AppcoinsTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">@color/styleguide_black</item>
-    <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
+    <item name="android:textColorHint">@color/styleguide_payments_adyen_field</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+    <item name="boxCornerRadiusBottomEnd">6dp</item>
+    <item name="boxCornerRadiusBottomStart">6dp</item>
+    <item name="boxCornerRadiusTopEnd">6dp</item>
+    <item name="boxCornerRadiusTopStart">6dp</item>
+    <item name="boxBackgroundColor">@color/transparent</item>
+    <item name="boxStrokeColor">@color/styleguide_payments_main_text</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">@color/styleguide_black</item>
-    <item name="colorControlActivated">@color/styleguide_black</item>
-    <item name="colorControlNormal">@color/styleguide_black</item>
-    <item name="colorControlHighlight">@color/styleguide_black</item>
+    <item name="hintTextColor">@color/styleguide_payments_adyen_field</item>
+    <item name="colorControlActivated">@color/styleguide_dark_grey</item>
+    <item name="colorControlNormal">@color/styleguide_dark_grey</item>
+    <item name="colorControlHighlight">@color/styleguide_dark_grey</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
+    <item name="android:textColorPrimary">@color/styleguide_payments_main_text</item>
+    <!--    this removes the floating hint, but also messes with the normal hint color... -->
+    <!--    <item name="hintEnabled">false</item>-->
+  </style>
+
+  <style name="editTextStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+    <item name="android:textColorPrimary">@color/styleguide_light_grey</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textColorSecondary">@color/styleguide_light_grey</item>
+    <item name="android:editTextColor">@color/styleguide_light_grey</item>
+    <item name="android:textAppearance">@style/TextS</item>
+  </style>
+
+  <style name="editTextPaymentStyle" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+    <item name="android:textColorPrimary">@color/styleguide_payments_main_text</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+    <item name="android:textColorSecondary">@color/styleguide_payments_main_text</item>
+    <item name="android:editTextColor">@color/styleguide_payments_main_text</item>
+    <item name="android:textAppearance">@style/TextS</item>
   </style>
 
   <style name="BillingAddressTextInputLayout" parent="AppcoinsTextInputLayout">
@@ -526,17 +565,17 @@
 
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">@color/styleguide_black</item>
-    <item name="colorControlActivated">@color/styleguide_black</item>
-    <item name="colorControlNormal">@color/styleguide_black</item>
-    <item name="colorControlHighlight">@color/styleguide_black</item>
+    <item name="hintTextColor">@color/styleguide_payments_main_text</item>
+    <item name="colorControlActivated">@color/styleguide_payments_main_text</item>
+    <item name="colorControlNormal">@color/styleguide_payments_main_text</item>
+    <item name="colorControlHighlight">@color/styleguide_payments_main_text</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
-    <item name="endIconTint">@color/edit_text_stroke_color</item>
+    <item name="endIconTint">@color/styleguide_light_grey</item>
   </style>
 
 
@@ -553,7 +592,13 @@
   <style name="TransactionSuccessTextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+  </style>
+
+  <style name="TransactionOnboardingSuccessTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
   </style>
 
   <style name="GamificationBottomPeekTextStyle">
@@ -859,10 +904,12 @@
     <item name="cardBackgroundColor">@color/styleguide_black_transparent_80</item>
     <item name="cardCornerRadius">14dp</item>
   </style>
+
   <style name="VipRefButtonText" parent="TextM">
     <item name="android:fontFamily">@font/roboto_medium</item>
     <item name="android:textColor">@color/styleguide_vip_yellow</item>
   </style>
+
   <style name="VipRefButtonSubText" parent="TextS">
     <item name="android:textColor">@color/styleguide_white</item>
   </style>
@@ -943,7 +990,7 @@
   </style>
 
   <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
     <item name="android:textSize">14sp</item>
   </style>
 
@@ -1019,11 +1066,12 @@
 
   <style name="VerifyWallet" />
 
-  <style name="VerifyWallet.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
-    <item name="android:textSize">16sp</item>
+  <style name="VerifyWallet.Text" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">14sp</item>
     <item name="android:gravity">start</item>
     <item name="android:letterSpacing">0.01</item>
+    <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
@@ -1035,6 +1083,14 @@
     <item name="android:lineSpacingExtra">4sp</item>
   </style>
 
+  <style name="VerifyWallet.Info" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:gravity">start</item>
+    <item name="android:letterSpacing">0.01</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
   <style name="VerifyWallet.CodeError" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textColor">@color/colorPrimaryDark</item>
     <item name="android:textSize">10sp</item>
@@ -1043,8 +1099,8 @@
   </style>
 
   <style name="VerifyWallet.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:background">@color/styleguide_green_transparent_20</item>
-    <item name="android:textColor">@color/styleguide_green</item>
+    <item name="android:background">@color/styleguide_green2</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:lineSpacingExtra">4sp</item>
@@ -1062,16 +1118,17 @@
 
   <style name="VerifyWallet.Code.EditText" parent="@style/Widget.AppCompat.EditText">
     <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1.Roboto.Regular</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">16sp</item>
     <item name="android:inputType">number</item>
     <item name="android:gravity">start|center_vertical</item>
     <item name="android:paddingStart">12dp</item>
-    <item name="android:paddingTop">6dp</item>
-    <item name="android:paddingBottom">7dp</item>
+    <item name="android:paddingTop">12dp</item>
+    <item name="android:paddingBottom">12dp</item>
     <item name="android:paddingEnd">12dp</item>
     <item name="android:lineSpacingExtra">3sp</item>
     <item name="android:letterSpacing">0.01</item>
+    <item name="android:textCursorDrawable">@drawable/cursor</item>
   </style>
 
   <style name="VerifyWallet.Cancel.Button" parent="@style/Widget.MaterialComponents.Button.TextButton">
@@ -1084,13 +1141,14 @@
   </style>
 
   <style name="VerifyWallet.Example.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_dark_grey</item>
-    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
+    <item name="android:textSize">12sp</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:lineSpacingExtra">6sp</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="VerifyWallet.Example.Summary.Title" parent="VerifyWallet.Title">
+  <style name="VerifyWallet.Example.Summary.Title" parent="VerifyWallet.Text">
     <item name="android:textSize">12sp</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textStyle">bold</item>
@@ -1105,15 +1163,15 @@
   </style>
 
   <style name="VerifyWallet.Example.Disclaimer" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/styleguide_black</item>
-    <item name="android:textSize">9sp</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
     <item name="android:lineSpacingExtra">3sp</item>
   </style>
 
   <style name="VerifyWallet.Success" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">19sp</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:textStyle">normal</item>
@@ -1137,7 +1195,7 @@
     <item name="android:letterSpacing">0.03</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textAlignment">center</item>
-    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textSize">16sp</item>
   </style>
 
@@ -1321,4 +1379,16 @@
     <item name="android:textSize">16sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
+
+  <style name="CustomLogoutPopUpStyle" parent="Widget.AppCompat.PopupMenu">
+    <item name="android:textColor">@color/styleguide_light_grey</item>
+    <item name="android:itemBackground">@color/styleguide_payments_blue</item>
+  </style>
+
+  <style name="PaymentLoadingTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/styleguide_payments_blue</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
 </resources>
