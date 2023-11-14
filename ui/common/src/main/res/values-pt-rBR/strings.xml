@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Ops, você inseriu um código errado muitas vezes, por isso, %1$s s será reembolsado em seu cartão.</string>
   <string name="card_verification_no_attempts_body">Por favor, reinicie o processo de verificação.</string>
   <string name="wallet_verify_header">Verifique pelo menos um método de pagamento</string>
-  <string name="verify_card_title">Verificar Cartão</string>
-  <string name="verify_card_button">Verificar cartão bancário</string>
   <string name="verify_paypal_button">Verificar conta do PayPal</string>
   <string name="card_verification_body_new">%s será cobrado no seu cartão e imediatamente reembolsado. Verifique o extrato do seu cartão para obter o código de validação e insira-o aqui.</string>
   <string name="card_verification_disclaimer_body">Observe que o código de confirmação pode aparecer na notificação de reembolso.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Verificar um Método de Pagamento</string>
   <string name="manage_wallet_verify_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verificar um Método de Pagamento</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <string name="verify_card_one_more_step_title">Mais Uma Etapa para Verificar</string>
   <string name="verify_card_one_more_step_body">Insira o código que aparece nos detalhes da transação</string>
   <string name="verify_card_one_more_step_button">Inserir código</string>
   <string name="verify_card_verified">Método de pagamento verificado!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verificar Cartão</string>
   <string name="verify_card_view_disclaimer">Faremos uma cobrança de %s em seu cartão, que será reembolsado assim que você confirmar o código.</string>
   <string name="verify_card_view_title_2">Insira os dados do seu cartão bancário</string>
