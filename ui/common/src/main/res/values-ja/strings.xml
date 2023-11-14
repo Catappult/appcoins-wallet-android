@@ -154,6 +154,9 @@
   <string name="bonus_received_body">ウォレットに%sのボーナスが入りました。</string>
   <string name="back_to_the_game_button">ゲームに戻る</string>
   <string name="other_payment_methos_title">他の支払い方法:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -512,6 +515,7 @@
   <string name="download_button">ダウンロード</string>
   <string name="done">完了</string>
   <string name="see_more_button">もっと見る</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>

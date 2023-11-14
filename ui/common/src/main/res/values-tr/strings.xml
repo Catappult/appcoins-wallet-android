@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Cüzdanına %s bonus aldın.</string>
   <string name="back_to_the_game_button">Oyuna geri dön</string>
   <string name="other_payment_methos_title">Diğer ödeme yöntemleri:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -512,6 +515,7 @@
   <string name="download_button">İndir</string>
   <string name="done">Bitti!</string>
   <string name="see_more_button">Daha fazlasını gör</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
