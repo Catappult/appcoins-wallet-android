@@ -22,11 +22,11 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading_wallet"
-        android:visibility="gone"
         tools:visibility="visible"
         />
 
@@ -105,10 +105,10 @@
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:background="@color/styleguide_payments_background"
-          app:layout_constraintTop_toTopOf="@id/bonus_layout"
           app:layout_constraintBottom_toBottomOf="@id/bonus_layout"
-          app:layout_constraintStart_toStartOf="@id/bonus_layout"
           app:layout_constraintEnd_toEndOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="@id/bonus_layout"
+          app:layout_constraintTop_toTopOf="@id/bonus_layout"
           />
 
       <include
@@ -272,8 +272,8 @@
   <include
       android:id="@+id/error_message"
       layout="@layout/iab_error_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_width="460dp"
+      android:layout_height="300dp"
       android:layout_centerInParent="true"
       android:visibility="gone"
       />

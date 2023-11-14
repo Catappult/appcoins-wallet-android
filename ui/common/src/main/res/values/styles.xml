@@ -524,7 +524,7 @@
     <item name="boxCornerRadiusTopEnd">6dp</item>
     <item name="boxCornerRadiusTopStart">6dp</item>
     <item name="boxBackgroundColor">@color/transparent</item>
-    <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
+    <item name="boxStrokeColor">@color/styleguide_payments_main_text</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
     <item name="hintTextColor">@color/styleguide_payments_adyen_field</item>
@@ -1383,6 +1383,12 @@
   <style name="CustomLogoutPopUpStyle" parent="Widget.AppCompat.PopupMenu">
     <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:itemBackground">@color/styleguide_payments_blue</item>
+  </style>
+
+  <style name="PaymentLoadingTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/styleguide_payments_blue</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
 </resources>

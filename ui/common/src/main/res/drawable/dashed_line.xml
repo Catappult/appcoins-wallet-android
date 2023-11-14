@@ -7,5 +7,5 @@
       android:color="@color/styleguide_payments_separator"
       android:dashWidth="2dp"
       android:dashGap="3dp" />
-  
+
 </shape>

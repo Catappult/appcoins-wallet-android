@@ -220,8 +220,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/styleguide_payments_background"
-            app:layout_constraintTop_toTopOf="@id/bonus_layout"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
             />
 
         <include
@@ -271,7 +273,7 @@
   <include
       android:id="@+id/error_message"
       layout="@layout/iab_error_layout"
-      android:layout_width="match_parent"
+      android:layout_width="340dp"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       android:visibility="gone"
