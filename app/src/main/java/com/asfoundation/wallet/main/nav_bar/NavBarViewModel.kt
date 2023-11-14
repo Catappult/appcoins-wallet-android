@@ -88,7 +88,7 @@ class NavBarViewModel @Inject constructor(
           sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         }
         is StartMode.RestoreGuestWalletFlow -> {
-          Log.d("startMode", "backup: ${startMode.backup}")   //TODO testar log
+          Log.d("startMode", "backup: ${startMode.backup}")
           sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
         }
         else -> Unit

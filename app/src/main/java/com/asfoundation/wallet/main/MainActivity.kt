@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(
         navController
       )
-      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->  //TODO dar trigger
+      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
         navigator.navigateToOnboardingRecoverGuestWallet(
           navController,
           sideEffect.backup

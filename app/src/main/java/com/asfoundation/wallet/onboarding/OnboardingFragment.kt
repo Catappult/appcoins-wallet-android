@@ -80,15 +80,20 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingFragmentArgs.fromBundle(requireArguments())
-    Log.d("onboarding_backup", args.backup)
     setClickListeners()
     setStringWithLinks()
+    if (!args.backup.isBlank()) showRecoverGuestWallet()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+    views.onboardingRecoverGuestButton?.setOnClickListener {
+      viewModel.handleRecoverGuestWalletClick(
+        args.backup
+      )
+    }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -111,11 +116,26 @@ class OnboardingFragment : BasePageViewFragment(),
       }
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
+      OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
     }
   }
 
-  private fun showRecoverGuestWallet() { // TODO use in state
-    // TODO
+  private fun showRecoverGuestWallet() {
+    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingRecoverGuestWallet?.visibility = View.VISIBLE
+    views.onboardingRecoverText2?.text = getString(
+      R.string.monetary_amount_with_symbol,
+      "$", //TODO
+      "2.50"  // TODO
+    )
+    views.onboardingRecoverText5?.visibility = View.INVISIBLE
+    views.loadingAnimation?.visibility = View.INVISIBLE
+  }
+
+  private fun showRecoveringGuestWalletLoading() {
+    views.onboardingRecoverText5?.visibility = View.VISIBLE
+    views.loadingAnimation?.visibility = View.VISIBLE
+    views.onboardingRecoverGuestButton?.visibility = View.INVISIBLE
   }
 
   private fun showValuesScreen() {
