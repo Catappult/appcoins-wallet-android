@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
@@ -22,7 +23,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 fun TopBar(
   isMainBar: Boolean,
   isVip: Boolean = false,
-  onClickNotifications: () -> Unit = {},
   onClickSettings: () -> Unit = {},
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null
@@ -80,20 +80,24 @@ fun TopBar(
 }
 
 @Composable
+fun TopBarTitle(title: String) {
+  Text(
+    text = title,
+    modifier = Modifier
+      .padding(start = 24.dp, top = 8.dp, bottom = 24.dp)
+      .fillMaxWidth(),
+    style = MaterialTheme.typography.headlineSmall,
+    fontWeight = FontWeight.Bold,
+    color = WalletColors.styleguide_light_grey,
+  )
+}
+
+@Composable
 fun WalletLogo() {
   Image(
     painter = painterResource(R.drawable.ic_app_logo),
     null,
     modifier = Modifier.heightIn(max = 24.dp)
-  )
-}
-
-@Composable
-fun NotificationsButton(onClickNotifications: () -> Unit = {}) {
-  ActionButton(
-    imagePainter = painterResource(R.drawable.ic_notifications),
-    description = "Notifications",
-    onClick = onClickNotifications
   )
 }
 
@@ -160,4 +164,10 @@ fun TopBarPreview() {
     isMainBar = true,
     isVip = true,
   )
+}
+
+@Preview
+@Composable
+fun TopBarTitlePreview() {
+  TopBarTitle("Title")
 }
