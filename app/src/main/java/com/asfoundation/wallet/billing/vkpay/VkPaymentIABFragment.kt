@@ -63,7 +63,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
       vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
-      startVkCheckoutPay()
+      viewModel.hasVkUserAuthenticated = true
     }
 
     override fun onCancel() {
@@ -74,9 +74,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    if (SuperappKit.isInitialized() && vkDataPreferencesDataSource.getAuthVk()
-        .isNullOrEmpty() && viewModel.hasVkUserAuthenticated && viewModel.isFirstGetPaymentLink
-    ) {
+    if (viewModel.hasVkUserAuthenticated && (viewModel.isFirstGetPaymentLink || !viewModel.hasVkPayAlreadyOpened)) {
       startVkCheckoutPay()
     }
   }
@@ -169,9 +167,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun startVkCheckoutPay() {
-    val hash = viewModel.state.vkTransaction.value?.hash
-    val uidTransaction = viewModel.state.vkTransaction.value?.uid
-    val amount = viewModel.state.vkTransaction.value?.amount
+    val hash = viewModel.transactionVkData.value?.hash
+    val uidTransaction = viewModel.transactionVkData.value?.uid
+    val amount = viewModel.transactionVkData.value?.amount
     if (hash != null && uidTransaction != null && amount != null) {
       vkPayManager.checkoutVkPay(
         hash,
@@ -182,6 +180,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
         requireFragmentManager()
       )
+      viewModel.hasVkPayAlreadyOpened = true
     } else {
       showError()
     }
