@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.update_required.use_cases
+package com.appcoins.wallet.core.utils.android_common
 
 import android.content.Intent
 import android.net.Uri

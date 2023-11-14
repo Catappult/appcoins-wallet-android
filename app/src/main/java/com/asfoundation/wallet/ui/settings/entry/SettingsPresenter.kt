@@ -5,8 +5,8 @@ import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.wallet.appcoins.feature.support.data.DisplayChatUseCase
+import com.appcoins.wallet.core.utils.android_common.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single

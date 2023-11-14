@@ -15,7 +15,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWal
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletsModelUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
-import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.appcoins.wallet.core.utils.android_common.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView

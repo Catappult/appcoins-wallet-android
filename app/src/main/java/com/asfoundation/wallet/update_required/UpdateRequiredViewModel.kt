@@ -7,7 +7,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletsModelUseCase
-import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.appcoins.wallet.core.utils.android_common.BuildUpdateIntentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
