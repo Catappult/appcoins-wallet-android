@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Hoppá, túl sokszor adtál meg helytelen kódot, ezért visszautaljuk a(z) %1$s összeget a kártyádra.</string>
   <string name="card_verification_no_attempts_body">Kezdd újra a hitelesítési eljárást.</string>
   <string name="wallet_verify_header">Hitelesíts legalább egy fizetési módot</string>
-  <string name="verify_card_title">Kártya hitelesítése</string>
-  <string name="verify_card_button">Bankkártya hitelesítése</string>
   <string name="verify_paypal_button">PayPal fiók hitelesítése</string>
   <string name="card_verification_body_new">%s összeget vonunk le a kártyádról, majd azonnal visszatérítjük azt. A hitelesítési kódot keresd a kártyakimutatáson, majd illeszd be ide.</string>
   <string name="card_verification_disclaimer_body">A megerősítő kód lehet, hogy a visszatérítési értesítésben fog megjelenni.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Hitelesítsd a fizetési módot</string>
   <string name="manage_wallet_verify_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Hitelesítsd a fizetési módot</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <string name="verify_card_one_more_step_title">Még egy lépés maradt hátra a hitelesítésből</string>
   <string name="verify_card_one_more_step_body">Add meg a tranzakció részletekben megjelenő kódot</string>
   <string name="verify_card_one_more_step_button">Kód megadása</string>
   <string name="verify_card_verified">Fizetési mód hitelesítve!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Kártya hitelesítése</string>
   <string name="verify_card_view_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
   <string name="verify_card_view_title_2">Add meg a bankkártya adatokat</string>
