@@ -135,6 +135,10 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.noNetwork.root.visibility = View.GONE
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
+    binding.errorTryAgainVk.visibility = View.VISIBLE
+    binding.errorTryAgainVk.setOnClickListener {
+      findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
+    }
     clearVkPayCheckout()
   }
 
@@ -145,9 +149,6 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
       View.VISIBLE
     binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
-    binding.errorTryAgainVk.setOnClickListener {
-      findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
-    }
     clearVkPayCheckout()
   }
 

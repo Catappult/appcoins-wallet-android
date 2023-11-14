@@ -211,9 +211,13 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
     binding.errorTryAgainVk.visibility = View.VISIBLE
+    binding.errorCancelVk.visibility = View.VISIBLE
     clearVkPayCheckout()
     binding.errorTryAgainVk.setOnClickListener {
       iabView.navigateBack()
+    }
+    binding.errorCancelVk.setOnClickListener {
+      iabView.close(bundle = null)
     }
   }
 

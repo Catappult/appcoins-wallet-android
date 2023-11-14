@@ -68,7 +68,7 @@ class VkPaymentTopUpViewModel @Inject constructor(
     getCurrentWalletUseCase().doOnSuccess {
       walletAddress = it.address
     }.scopedSubscribe()
-    val price = VkPrice(value = paymentData.appcValue, currency = paymentData.fiatCurrencySymbol)
+    val price = VkPrice(value = paymentData.fiatValue, currency = paymentData.fiatCurrencySymbol)
     createVkPayTransactionTopUpUseCase(
       price = price
     ).asAsyncToState {
