@@ -21,11 +21,17 @@ class SettingsViewModel @Inject constructor(
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
 
-  fun displayChat() {
-    displayChatUseCase()
+  fun buildIntentToStore() = buildUpdateIntentUseCase()
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    _uiState.value = UiState.Error
   }
 
+  fun displayChat() = displayChatUseCase()
+
   sealed class UiState {
+    object Error : UiState()
     object Idle : UiState()
     object Loading : UiState()
     object Success : UiState()

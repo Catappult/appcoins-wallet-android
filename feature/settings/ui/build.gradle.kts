@@ -13,6 +13,7 @@ dependencies {
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
+  implementation(project(":core:utils:properties"))
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
   implementation(project(":core:legacy-base"))
