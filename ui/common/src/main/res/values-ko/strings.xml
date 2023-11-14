@@ -1042,8 +1042,6 @@
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
   <string name="wallet_verify_header">하나 이상의 지급 방식을 검증하십시오</string>
-  <string name="verify_card_title">카드 검증</string>
-  <string name="verify_card_button">직불 카드 검증</string>
   <string name="verify_paypal_button">PayPal 계정 검증</string>
   <string name="card_verification_body_new">%s은(는) 카드에 청구되며 즉시 환불됩니다. 카드 명세서에서 유효성 검사 코드를 확인하고 여기에 삽입합니다.</string>
   <string name="card_verification_disclaimer_body">환불 알림에 확인 코드가 표시될 수 있습니다.</string>
@@ -1229,12 +1227,13 @@
   <string name="manage_wallet_verify_title">지불 방식 검증</string>
   <string name="manage_wallet_verify_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">지불 방식 검증</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <string name="verify_card_one_more_step_title">검증을 위한 추가적인 한 단계</string>
   <string name="verify_card_one_more_step_body">거래 상세 내용에 있는 코드를 입력하세요</string>
   <string name="verify_card_one_more_step_button">코드 입력</string>
   <string name="verify_card_verified">지불 방식 검증됨!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">카드 검증</string>
   <string name="verify_card_view_disclaimer">카드에 %s 금액이 승인되며 코드가 확인되는 즉시 환불됩니다.</string>
   <string name="verify_card_view_title_2">은행 카드 상세를 입력하세요</string>
