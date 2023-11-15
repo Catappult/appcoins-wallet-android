@@ -25,6 +25,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.common.theme.shapes
+import com.appcoins.wallet.ui.widgets.NoNetworkAlert
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import kotlinx.coroutines.launch
@@ -38,11 +39,7 @@ fun ChangeFiatCurrencyRoute(
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
   Scaffold(
-    topBar = {
-      Surface {
-        TopBar(isMainBar = false, onClickSupport = { onChatClick() })
-      }
-    },
+    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
     modifier = Modifier
   ) { padding ->
     ChangeFiatCurrencyScreen(
@@ -59,22 +56,30 @@ fun ChangeFiatCurrencyScreen(
   changeFiatCurrencyState: ChangeFiatCurrencyState,
   onExitClick: () -> Unit
 ) {
-  when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
-    Async.Uninitialized,
-    is Async.Loading -> Unit
-    is Async.Success -> ChangeFiatCurrencyList(
-      scaffoldPadding = scaffoldPadding,
-      model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
-      onExitClick = onExitClick
-    )
-    is Async.Fail -> Unit
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .padding(scaffoldPadding)
+  ) {
+    when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> CircularProgressIndicator()
+
+
+      is Async.Success ->
+        ChangeFiatCurrencyList(
+          model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
+          onExitClick = onExitClick
+        )
+
+      is Async.Fail -> NoNetworkAlert()
+    }
   }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ChangeFiatCurrencyList(
-  scaffoldPadding: PaddingValues,
   model: ChangeFiatCurrency,
   onExitClick: () -> Unit
 ) {
@@ -83,26 +88,27 @@ private fun ChangeFiatCurrencyList(
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
   LazyColumn(
-    modifier = Modifier
+    modifier =
+    Modifier
       .fillMaxSize()
-      .padding(top = scaffoldPadding.calculateTopPadding())
       .padding(horizontal = 16.dp)
   ) {
     item {
       Text(
         text = stringResource(id = CommonR.string.change_currency_title),
         style = WalletTypography.bold.sp22,
-        modifier = Modifier
-          .padding(horizontal = 16.dp, vertical = 16.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
       )
     }
-    item {
-      CurrencyItem(
-        currencyItem = selectedItem!!,
-        isSelected = true,
-        onExitClick = onExitClick,
-        bottomSheetState = bottomSheetState,
-      )
+    selectedItem?.let {
+      item {
+        CurrencyItem(
+          currencyItem = selectedItem,
+          isSelected = true,
+          onExitClick = onExitClick,
+          bottomSheetState = bottomSheetState,
+        )
+      }
     }
     items(model.list) { currencyItem ->
       if (selectedItem != currencyItem) {
@@ -137,8 +143,7 @@ private fun CurrencyItem(
     onClick = {
       chosenCurrency = currencyItem
       openBottomSheet = !openBottomSheet
-    }
-  ) {
+    }) {
     Row(
       modifier = Modifier
         .fillMaxWidth()
@@ -146,31 +151,20 @@ private fun CurrencyItem(
       verticalAlignment = Alignment.CenterVertically,
     ) {
       WalletImage(
-        data = currencyItem.flag,
-        modifier = Modifier
+        data = currencyItem.flag, modifier = Modifier
           .clip(CircleShape)
           .size(50.dp)
       )
-      Column(
-        modifier = Modifier
-          .padding(start = 16.dp)
-      ) {
-        Text(
-          text = currencyItem.currency,
-          style = WalletTypography.medium.sp22
-        )
-        Text(
-          text = currencyItem.label!!,
-          style = WalletTypography.medium.sp14
-        )
+      Column(modifier = Modifier.padding(start = 16.dp)) {
+        Text(text = currencyItem.currency, style = WalletTypography.medium.sp22)
+        Text(text = currencyItem.label!!, style = WalletTypography.medium.sp14)
       }
       if (isSelected) {
         Spacer(modifier = Modifier.weight(1f))
         WalletImage(
           data = CommonR.drawable.ic_check_mark_pink,
           contentScale = ContentScale.FillWidth,
-          modifier = Modifier
-            .size(16.dp)
+          modifier = Modifier.size(16.dp)
         )
       }
     }
@@ -188,11 +182,13 @@ private fun CurrencyItem(
         ChooseCurrencyRoute(
           chosenCurrency = chosenCurrency,
           bottomSheetStateHandle = {
-            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
-              openBottomSheet = !openBottomSheet
-              chosenCurrency = null
-              onExitClick()
-            }
+            scope
+              .launch { bottomSheetState.hide() }
+              .invokeOnCompletion {
+                openBottomSheet = !openBottomSheet
+                chosenCurrency = null
+                onExitClick()
+              }
           },
         )
       }
@@ -205,25 +201,28 @@ private fun CurrencyItem(
 private fun ChangeFiatCurrencyListPreview() {
   WalletTheme(darkTheme = false) {
     ChangeFiatCurrencyList(
-      model = ChangeFiatCurrency(
+      model =
+      ChangeFiatCurrency(
         selectedCurrency = "EUR",
-        list = listOf(
+        list =
+        listOf(
           FiatCurrency(
             currency = "EUR",
             label = "Euro",
-            flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
+            flag =
+            "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
             sign = "€",
           ),
           FiatCurrency(
             currency = "USD",
             label = "United States Dollar",
-            flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
+            flag =
+            "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
             sign = "$",
           )
         )
       ),
       onExitClick = {},
-      scaffoldPadding = PaddingValues(0.dp)
     )
   }
 }

@@ -41,7 +41,9 @@ class FiatCurrenciesRepository @Inject constructor(
   suspend fun getCurrenciesList(): DataResult<List<FiatCurrency>> =
     withContext(dispatchers.io) {
       val versionCode = context.packageManager.getPackageInfo(context.packageName, 0).versionCode
-      if (fiatCurrenciesPreferencesDataSource.getCurrencyListLastVersion() != versionCode) {
+      if (fiatCurrenciesPreferencesDataSource.getCurrencyListLastVersion() != versionCode ||
+        fiatCurrenciesDao.getFiatCurrencies().isEmpty()
+      ) {
         fiatCurrenciesPreferencesDataSource.setCurrencyListLastVersion(versionCode)
         return@withContext fetchCurrenciesList()
       } else {
