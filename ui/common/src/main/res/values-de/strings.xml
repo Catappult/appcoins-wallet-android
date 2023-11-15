@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Hoppla, du hast zu oft einen falschen Code eingegeben, also werden dir %1$s auf deine Karte zurückerstattet.</string>
   <string name="card_verification_no_attempts_body">Bitte starte den Verifizierungsprozess erneut.</string>
   <string name="wallet_verify_header">Verifiziere mindestens eine Zahlungsmethode</string>
-  <string name="verify_card_title">Karte verifizieren</string>
-  <string name="verify_card_button">Bankkarte verifizieren</string>
   <string name="verify_paypal_button">PayPal-Konto verifizieren</string>
   <string name="card_verification_body_new">%s werden von deiner Karte abgebucht und umgehend zurückerstattet. Überprüfe deine Kartenabrechnung auf den Validierungscode und gib ihn hier ein.</string>
   <string name="card_verification_disclaimer_body">Bitte beachte, dass der Bestätigungscode in der Rückerstattungsbenachrichtigung erscheinen kann.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Eine Zahlungsmethode verifizieren</string>
   <string name="manage_wallet_verify_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Eine Zahlungsmethode verifizieren</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
   <string name="verify_card_one_more_step_title">Ein zusätzlicher Schritt zur Verifizierung</string>
   <string name="verify_card_one_more_step_body">Gib den Code ein, der in den Transaktionsdetails erscheint</string>
   <string name="verify_card_one_more_step_button">Code eingeben</string>
   <string name="verify_card_verified">Zahlungsmethode verifiziert!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Karte verifizieren</string>
   <string name="verify_card_view_disclaimer">Wir belasten deine Karte mit %s und erstatten dir den Betrag, sobald du den Code bestätigt hast.</string>
   <string name="verify_card_view_title_2">Gib deine Bankkartendaten ein</string>

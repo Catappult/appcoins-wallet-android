@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Oups, vous avez inséré un code erroné trop souvent, %1$s seront donc remboursés sur votre carte.</string>
   <string name="card_verification_no_attempts_body">Veuillez recommencer le processus de vérification.</string>
   <string name="wallet_verify_header">Vérifier au moins une méthode de paiement</string>
-  <string name="verify_card_title">Vérifier la carte</string>
-  <string name="verify_card_button">Vérifiez la carte bancaire</string>
   <string name="verify_paypal_button">Vérifier le compte PayPal</string>
   <string name="card_verification_body_new">%s seront débités de votre carte et immédiatement remboursés. Vérifiez le code de validation sur votre relevé de carte et saisissez-le ici.</string>
   <string name="card_verification_disclaimer_body">Veuillez noter que le code de confirmation peut apparaître dans la notification de remboursement.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Vérifier un mode de paiement</string>
   <string name="manage_wallet_verify_body">Évitez les blocages en vérifiant un mode de paiement.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Vérifier un mode de paiement</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Évitez les blocages en vérifiant un mode de paiement.</string>
   <string name="verify_card_one_more_step_title">Une étape supplémentaire pour vérifier</string>
   <string name="verify_card_one_more_step_body">Insérer le code qui apparaît dans les détails de la transaction</string>
   <string name="verify_card_one_more_step_button">Insérer le code</string>
   <string name="verify_card_verified">Mode de paiement vérifié !</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Vérifier la carte</string>
   <string name="verify_card_view_disclaimer">Nous prélèverons %s sur votre carte et nous vous rembourserons une fois que vous aurez confirmé le code.</string>
   <string name="verify_card_view_title_2">Insérez les données de votre carte bancaire</string>

@@ -1071,8 +1071,6 @@
   <string name="card_verification_no_attempts_title">На жаль, ви занадто багато разів вставили неправильний код, тому %1$s буде повернено на вашу картку.</string>
   <string name="card_verification_no_attempts_body">Будь ласка, почніть процес перевірки знову.</string>
   <string name="wallet_verify_header">Підтвердьте принаймні один спосіб оплати</string>
-  <string name="verify_card_title">Підтвердити карту</string>
-  <string name="verify_card_button">Підтвердити банківську карту</string>
   <string name="verify_paypal_button">Підтвердити акаунт PayPal</string>
   <string name="card_verification_body_new">%s буде списано з вашої картки та негайно повернуто. Перевірте виписку своєї карти на наявність коду підтвердження та введіть його тут.</string>
   <string name="card_verification_disclaimer_body">Зверніть увагу, що код підтвердження може з\'явитися в повідомленні про повернення коштів.</string>
@@ -1270,12 +1268,13 @@
   <string name="manage_wallet_verify_title">Підтвердити спосіб оплати</string>
   <string name="manage_wallet_verify_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Підтвердити спосіб оплати</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
   <string name="verify_card_one_more_step_title">Ще один крок для підтвердження</string>
   <string name="verify_card_one_more_step_body">Вставте код, який знаходиться в деталях транзакції</string>
   <string name="verify_card_one_more_step_button">Вставте код</string>
   <string name="verify_card_verified">Спосіб оплати підтверджено!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Підтвердити карту</string>
   <string name="verify_card_view_disclaimer">Ми знімемо з вашої картки %s, і ці кошти будуть повернуті, як тільки ви підтвердите код.</string>
   <string name="verify_card_view_title_2">Введіть дані вашої банківської картки</string>

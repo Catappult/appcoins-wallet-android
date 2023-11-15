@@ -1088,8 +1088,6 @@
   <string name="card_verification_no_attempts_title">يييي، لقد أدخلت رمزًا خاطئًا مرات عديدة لذلك سنعيد %1$s إلى بطاقتك.</string>
   <string name="card_verification_no_attempts_body">لطفًا، ابدأ عملية التحقق من جديد.</string>
   <string name="wallet_verify_header">وثّق وسيلة دفع واحدة على الأقل</string>
-  <string name="verify_card_title">توثيق البطاقة</string>
-  <string name="verify_card_button">توثيق بطاقة البنك</string>
   <string name="verify_paypal_button">توثيق حساب PayPal</string>
   <string name="card_verification_body_new">سيتم خصم %s من بطاقتك وستسترجعها في الحال. تحقق من بيان بطاقتك وابحث عن رمز التوثيق وانقله هنا.</string>
   <string name="card_verification_disclaimer_body">يرجى ملاحظة أن رمز التأكيد يمكن أن يظهر في إشعارات استرجاع الأموال.</string>
@@ -1295,12 +1293,13 @@
   <string name="manage_wallet_verify_title">وثّق وسيلة دفع</string>
   <string name="manage_wallet_verify_body">تجنب الانقطاعات بتوثيق وسيلة الدفع.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">وثّق وسيلة دفع</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">تجنب الانقطاعات بتوثيق وسيلة دفع.</string>
   <string name="verify_card_one_more_step_title">خطوة واحدة أخيرة للتوثيق</string>
   <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>
   <string name="verify_card_one_more_step_button">أدخل الرمز</string>
   <string name="verify_card_verified">تم توثيق وسيلة الدفع!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">توثيق البطاقة</string>
   <string name="verify_card_view_disclaimer">سنسحب %s من بطاقتك، وستستعيدها بعد تأكيد الرمز.</string>
   <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>

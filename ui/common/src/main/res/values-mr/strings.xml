@@ -1072,8 +1072,6 @@
   <string name="card_verification_no_attempts_title">अरेरे, आपण चुकीचा कोड खूप वेळा घातल्याने %1$s आपल्या कार्डावर रिफंड केले जातील.</string>
   <string name="card_verification_no_attempts_body">कृपया सत्यापन प्रक्रिया पुन्हा सुरु करा.</string>
   <string name="wallet_verify_header">किमान एक पेमेंट पद्धत सत्यापित करा</string>
-  <string name="verify_card_title">कार्ड सत्यापित करा</string>
-  <string name="verify_card_button">बँक कार्ड सत्यापित करा</string>
   <string name="verify_paypal_button">पेपाल खाते सत्यापित करा</string>
   <string name="card_verification_body_new">%s रक्कम आपल्या कार्डावर लावली जाऊन लगेच परतावा दिला जाईल. आपल्या कार्ड स्टेटमेंटवर सत्यापन कोड तपासुन इथे घाला.</string>
   <string name="card_verification_disclaimer_body">परतावा सूचनेत पुष्टी कोड दिसेल.</string>
@@ -1263,12 +1261,13 @@
   <string name="manage_wallet_verify_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="manage_wallet_verify_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">पेमेंट पद्धत सत्यापित करा</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
   <string name="verify_card_one_more_step_title">सत्यापनासाठी अजुन एक चरण</string>
   <string name="verify_card_one_more_step_body">व्यवहार तपशीलात दिसणारा कोड घाला</string>
   <string name="verify_card_one_more_step_button">कोड घाला</string>
   <string name="verify_card_verified">पेमेंट पद्धत सत्यापित झाली!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">कार्ड सत्यापित करा</string>
   <string name="verify_card_view_disclaimer">आम्ही आपल्या कार्डावर %s चार्ज करु आणि आपण कोडची पुष्टी केल्यानंतर ते परत केले जातील.</string>
   <string name="verify_card_view_title_2">आपल्या बँक कार्डाचे तपशील भरा</string>

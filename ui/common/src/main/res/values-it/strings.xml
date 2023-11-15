@@ -1051,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Hai inserito un codice errato troppe volte, pertanto rimborseremo l\'importo di %1$s sulla tua carta.</string>
   <string name="card_verification_no_attempts_body">Ricomincia la procedura di verifica.</string>
   <string name="wallet_verify_header">Verifica almeno un metodo di pagamento</string>
-  <string name="verify_card_title">Verifica carta</string>
-  <string name="verify_card_button">Verifica carta</string>
   <string name="verify_paypal_button">Verifica conto PayPal</string>
   <string name="card_verification_body_new">Addebiteremo un importo di %s sulla tua carta, che verrà rimborsato immediatamente. Sull\'estratto conto della carta troverai il codice di verifica da inserire qui.</string>
   <string name="card_verification_disclaimer_body">Il codice di conferma potrebbe apparire nella notifica di rimborso.</string>
@@ -1242,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Verifica un metodo di pagamento</string>
   <string name="manage_wallet_verify_body">Evita blocchi verificando un metodo di pagamento.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verifica un metodo di pagamento</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Evita blocchi verificando un metodo di pagamento.</string>
   <string name="verify_card_one_more_step_title">Un ultimo passaggio per la verifica</string>
   <string name="verify_card_one_more_step_body">Inserisci il codice che appare nei dati della transazione</string>
   <string name="verify_card_one_more_step_button">Inserisci il codice</string>
   <string name="verify_card_verified">Metodo di pagamento verificato con successo!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verifica carta</string>
   <string name="verify_card_view_disclaimer">Applicheremo un pagamento di %s sulla tua carta e lo rimborseremo quando confermerai il codice.</string>
   <string name="verify_card_view_title_2">Inserisci dati della carta</string>

@@ -1060,8 +1060,6 @@
   <string name="card_verification_no_attempts_title">Ups, uneli ste pogrešan kod previše puta, tako da će vam %1$s biti refundirano na karticu.</string>
   <string name="card_verification_no_attempts_body">Započnite proces potvrde ponovo.</string>
   <string name="wallet_verify_header">Potvrdite bar jedan način plaćanja</string>
-  <string name="verify_card_title">Potvrdite karticu</string>
-  <string name="verify_card_button">Potvrdite bankovnu karticu</string>
   <string name="verify_paypal_button">Potvrdite PayPal nalog</string>
   <string name="card_verification_body_new">Sa kartice će vam biti naplaćeno %s i smesta refundirano. Na izvodu kartice ćete naći kod za potvrdu, te ga unesite ovde.</string>
   <string name="card_verification_disclaimer_body">Imajte u vidu da se kod za potvdu može pojaviti u obaveštenju za refundaciju.</string>
@@ -1255,12 +1253,13 @@
   <string name="manage_wallet_verify_title">Potvrdite način plaćanja</string>
   <string name="manage_wallet_verify_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Potvrdite način plaćanja</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
   <string name="verify_card_one_more_step_title">Još jedan korak za potvrdu</string>
   <string name="verify_card_one_more_step_body">Unesite kod koji se pojavljuje u detaljima transakcije</string>
   <string name="verify_card_one_more_step_button">Unesite kod</string>
   <string name="verify_card_verified">Način plaćanja je potvrđen!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Potvrdite karticu</string>
   <string name="verify_card_view_disclaimer">Zadužićemo vašu karticu za %s i refundiraćemo vam novac čim potvrdite kod.</string>
   <string name="verify_card_view_title_2">Unesite detalje o bankovnoj kartici</string>

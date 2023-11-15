@@ -1044,8 +1044,6 @@
   <string name="card_verification_no_attempts_title">อ๊ะ คุณใส่รหัสผิดหลายครั้งเกินไปดังนั้น %1$s จะได้รับเงินคืนไปยังบัตรของคุณ</string>
   <string name="card_verification_no_attempts_body">โปรดเริ่มการตรวจสอบอีกครั้ง</string>
   <string name="wallet_verify_header">ตรวจสอบวิธีการชำระเงินอย่างน้อยหนึ่งวิธี</string>
-  <string name="verify_card_title">ตรวจสอบบัตร</string>
-  <string name="verify_card_button">ตรวจสอบบัตรธนาคาร</string>
   <string name="verify_paypal_button">ตรวจสอบบัญชี Paypal</string>
   <string name="card_verification_body_new">%s จะถูกหักจากบัตรของคุณและคืนเงินทันที ตรวจสอบใบแจ้งยอดบัตรของคุณสำหรับรหัสการตรวจสอบและใส่ที่นี่</string>
   <string name="card_verification_disclaimer_body">โปรดทราบว่ารหัสยืนยันอาจปรากฏในการแจ้งเตือนการคืนเงิน</string>
@@ -1231,12 +1229,13 @@
   <string name="manage_wallet_verify_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="manage_wallet_verify_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">ตรวจสอบวิธีการชำระเงิน</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <string name="verify_card_one_more_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
   <string name="verify_card_one_more_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>
   <string name="verify_card_one_more_step_button">ใส่รหัส</string>
   <string name="verify_card_verified">วิธีการชำระเงินที่ได้รับการยืนยัน!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">ตรวจสอบบัตร</string>
   <string name="verify_card_view_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
   <string name="verify_card_view_title_2">ใส่รายละเอียดบัตรธนาคารของคุณ</string>

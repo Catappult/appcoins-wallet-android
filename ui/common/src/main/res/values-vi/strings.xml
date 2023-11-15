@@ -1042,8 +1042,6 @@
   <string name="card_verification_no_attempts_title">Rất tiếc, bạn đã chèn sai mã quá nhiều lần nên %1$s sẽ được hoàn lại vào thẻ của bạn.</string>
   <string name="card_verification_no_attempts_body">Vui lòng bắt đầu lại quá trình xác minh.</string>
   <string name="wallet_verify_header">Xác minh ít nhất một phương thức thanh toán</string>
-  <string name="verify_card_title">Xác minh thẻ</string>
-  <string name="verify_card_button">Xác minh thẻ ngân hàng</string>
   <string name="verify_paypal_button">Xác minh tài khoản PayPal</string>
   <string name="card_verification_body_new">%s sẽ được tính vào thẻ của bạn và được hoàn trả ngay lập tức. Kiểm tra sao kê thẻ của bạn để biết mã xác thực và chèn mã vào đây.</string>
   <string name="card_verification_disclaimer_body">Xin lưu ý rằng mã xác nhận có thể xuất hiện trong thông báo hoàn tiền.</string>
@@ -1229,12 +1227,13 @@
   <string name="manage_wallet_verify_title">Xác minh một phương thức thanh toán</string>
   <string name="manage_wallet_verify_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Xác minh một phương thức thanh toán</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
   <string name="verify_card_one_more_step_title">Một bước nữa để xác minh</string>
   <string name="verify_card_one_more_step_body">Chèn mã hiển thị trong chi tiết giao dịch</string>
   <string name="verify_card_one_more_step_button">Nhập mã</string>
   <string name="verify_card_verified">Phương thức thanh toán đã được xác minh!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Xác minh thẻ</string>
   <string name="verify_card_view_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và số tiền này sẽ được hoàn lại sau khi bạn xác nhận mã.</string>
   <string name="verify_card_view_title_2">Nhập thông tin thẻ ngân hàng của bạn</string>
