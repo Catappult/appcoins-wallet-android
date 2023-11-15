@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,6 +43,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.ComposeView
@@ -48,15 +51,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TopBarTitle
+import com.appcoins.wallet.ui.widgets.WalletImage
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -100,13 +106,6 @@ class SettingsFragment : BasePageViewFragment() {
         }
       }
     }
-
-    when (viewModel.uiState.collectAsState().value) {
-      SettingsViewModel.UiState.Error -> ShowError()
-      SettingsViewModel.UiState.Loading -> CircularProgressIndicator()
-      SettingsViewModel.UiState.Success -> {}
-      else -> {}
-    }
   }
 
   @Composable
@@ -139,33 +138,40 @@ class SettingsFragment : BasePageViewFragment() {
     Button(
       onClick = action,
       colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-      shape = RoundedCornerShape(8.dp)
+      shape = RoundedCornerShape(8.dp),
+      modifier = Modifier.height(64.dp)
     ) {
       Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-          .padding(vertical = 16.dp)
           .fillMaxWidth()
       ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier.weight(1f)
+        ) {
           Icon(
             painter = icon,
             contentDescription = null,
             tint = WalletColors.styleguide_pink,
             modifier = Modifier.size(24.dp)
           )
-          Column(modifier = Modifier.padding(start = 24.dp)) {
+          Column(modifier = Modifier.padding(start = 24.dp, end = 8.dp)) {
             Text(
               text = title,
               color = WalletColors.styleguide_light_grey,
-              style = MaterialTheme.typography.bodyLarge
+              style = MaterialTheme.typography.bodyLarge,
+              maxLines = 2,
+              overflow = TextOverflow.Ellipsis
             )
-            if (subtitle != null) Text(
-              text = subtitle,
-              color = WalletColors.styleguide_dark_grey,
-              style = MaterialTheme.typography.bodySmall
-            )
+            if (subtitle != null) {
+              Text(
+                text = subtitle,
+                color = WalletColors.styleguide_dark_grey,
+                style = MaterialTheme.typography.bodySmall
+              )
+            }
           }
         }
         content()
@@ -174,29 +180,42 @@ class SettingsFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun CurrentCurrencySubItem(currency: String, icon: Painter) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-      Icon(painter = icon, contentDescription = null, modifier = Modifier.size(24.dp))
-      Text(
-        text = currency,
-        color = WalletColors.styleguide_medium_grey,
-        modifier = Modifier.padding(horizontal = 8.dp)
-      )
+  fun CurrentCurrencySubItem(currency: FiatCurrency) {
+    Column {
+      Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(2f)) {
+        WalletImage(
+          data = currency.flag,
+          modifier = Modifier
+            .clip(CircleShape)
+            .size(24.dp)
+        )
+        Text(
+          text = currency.currency,
+          color = WalletColors.styleguide_medium_grey,
+          modifier = Modifier.padding(horizontal = 8.dp)
+        )
+      }
     }
   }
 
   @Composable
   fun FingerprintSwitch(switchON: Boolean, onCheckedChange: (Boolean) -> Unit) {
-    Switch(
-      checked = switchON, onCheckedChange = onCheckedChange, colors = SwitchDefaults.colors(
-        checkedThumbColor = WalletColors.styleguide_pink,
-        uncheckedThumbColor = WalletColors.styleguide_light_grey,
-        checkedTrackColor = WalletColors.styleguide_grey_blue,
-        uncheckedTrackColor = WalletColors.styleguide_grey_blue,
-        checkedBorderColor = Color.Transparent,
-        uncheckedBorderColor = Color.Transparent
+    Column {
+      Switch(
+        checked = switchON,
+        onCheckedChange = onCheckedChange,
+        colors = SwitchDefaults.colors(
+          checkedThumbColor = WalletColors.styleguide_pink,
+          uncheckedThumbColor = WalletColors.styleguide_light_grey,
+          checkedTrackColor = WalletColors.styleguide_grey_blue,
+          uncheckedTrackColor = WalletColors.styleguide_grey_blue,
+          checkedBorderColor = Color.Transparent,
+          uncheckedBorderColor = Color.Transparent
+        ),
+        modifier = Modifier.weight(2f)
       )
-    )
+    }
+
   }
 
   @OptIn(ExperimentalMaterial3Api::class)
@@ -239,8 +258,12 @@ class SettingsFragment : BasePageViewFragment() {
       action = {})
     SettingsItem(icon = painterResource(R.drawable.ic_currency),
       title = stringResource(R.string.change_currency_settings_title),
-      action = {}) {
-      CurrentCurrencySubItem("EUR", painterResource(R.drawable.ic_currency)) // TODO
+      action = { viewModel.navigateToChangeCurrency() }) {
+      when (val uiCurrencyState = viewModel.uiCurrencyState.collectAsState().value) {
+        SettingsViewModel.UiCurrencyState.Error -> ShowError()
+        SettingsViewModel.UiCurrencyState.Loading -> CircularProgressIndicator()
+        is SettingsViewModel.UiCurrencyState.Success -> CurrentCurrencySubItem(uiCurrencyState.currency)
+      }
     }
     SettingsItem(icon = painterResource(R.drawable.ic_settings_fingerprint),
       title = stringResource(R.string.fingerprint_settings),
@@ -321,7 +344,14 @@ class SettingsFragment : BasePageViewFragment() {
       SettingsItem(icon = painterResource(R.drawable.ic_currency),
         title = "Long text to test if layout brokes lorem ipsum dolor sit amet",
         action = {}) {
-        CurrentCurrencySubItem(currency = "EUR", painterResource(R.drawable.ic_currency))
+        CurrentCurrencySubItem(
+          FiatCurrency(
+            "USD",
+            "USD",
+            "https://www.countryflags.io/us/flat/64.png",
+            null
+          )
+        )
       }
       SettingsItem(icon = painterResource(R.drawable.ic_updates),
         title = stringResource(R.string.check_updates_settings_title),
