@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">اولین خرید خود را در یک اپلیکیشن سازگار با AppCoins انجام دهید تا پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="perks_empty_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل با اثرانگشت</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
@@ -1181,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">پیشنهاد تشویقی ویژه برای شما</string>
   <string name="vip_program_promo_code_tag">کد پرومو</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
-  <string name="vip_program_referral_page_body">این کد پرومورا با دوستان خود به اشتراک بگذارید تا در حین بازی درآمد داشته باشند. برای همه خرید داخل اپلیکیشنی آنها می‌توانید هردوی <b>شما و دوستان شما %s%% پاداشت دریافت کنید</b> و علاوه بر آن پیشنهادات تخفیفی دیگری نیز در ماه بدست آورید!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">این کد را با دوستان خود به شاتراک بگذارید</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
   <string name="vip_program_gamification_title">درجه پاداش من چقدر است؟</string>
