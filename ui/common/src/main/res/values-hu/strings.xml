@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Ujjlenyomatos zár</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Sikertelen hitelesítés!</string>
   <string name="fingerprint_failed_body">Próbáld újra %s másodperc múlva.</string>
   <string name="fingerprint_authentication_required_title">Hitelesítés szükséges!</string>
@@ -1181,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">Különleges promóciók számodra</string>
   <string name="vip_program_promo_code_tag">Promóciós kód</string>
   <string name="vip_program_referral_page_title">VIP ajánlási program</string>
-  <string name="vip_program_referral_page_body">Oszd meg ezt a promóciós kódot a közösségeddel és a barátaiddal, hogy mindenki kereshessen játék közben. Minden alkalmazáson belüli vásárlás után <b> te és a barátaid is %s%% bónuszt kaptok</b> az éppen aktív promóció mellé egy egész hónapon át!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Oszd meg ezt a kódot a barátaiddal</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s összeget szereztél %3$s ajánlásból</string>
   <string name="vip_program_gamification_title">Mi az én bónuszszintem?</string>
