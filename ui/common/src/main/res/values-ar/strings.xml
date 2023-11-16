@@ -1031,7 +1031,7 @@
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل البصمة</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
@@ -1218,7 +1218,7 @@
   <string name="vip_program_promotions_list_title">ترقيات مميزة من أجلك</string>
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع معارفك وأصدقائك ليربح الجميع بينما يلعبون. في كل عملية شراء يُجرونها داخل التطبيق، ستصلك <b>أنت وأصدقاءك %s%% مكافأة</b> إضافية مع كل الترقيات المفعّلة ولمدة شهر كامل!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
   <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
