@@ -997,7 +997,7 @@
   <string name="perks_empty_state_first_purchase_body">ดำเนินการซื้อครั้งแรกของคุณในแอพที่รองรับ AppCoins เพื่อปลดล็อกโปรโมชั่นที่เรามีให้คุณ!</string>
   <string name="perks_empty_body">ในขณะนี้ไม่มีโปรโมชั่น</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">ล็อกลายนิ้วมือ</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">การรับรองความถูกต้องล้มเหลว!</string>
   <string name="fingerprint_failed_body">โปรดลองอีกครั้งใน %s วินาที</string>
   <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
@@ -1174,7 +1174,7 @@
   <string name="vip_program_promotions_list_title">โปรโมชั่นพิเศษสำหรับคุณ</string>
   <string name="vip_program_promo_code_tag">เปลี่ยน</string>
   <string name="vip_program_referral_page_title">โปรแกรมการแนะนำ VIP</string>
-  <string name="vip_program_referral_page_body">แบ่งปันรหัสโปรโมชั่นนี้กับชุมชนและเพื่อนของคุณเพื่อให้ทุกคนได้รับเงินขณะเล่น สำหรับการซื้อในแอปทุกครั้งที่ทำ ทั้ง <b>คุณและเพื่อนของคุณจะได้รับ %s%% โบนัส</b> เพิ่มเติมจากโปรโมชั่นอื่นๆ ที่ใช้งานอยู่และตลอดทั้งเดือน!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">แบ่งปันโค๊ดกับเพื่อนของคุณ</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$sที่ได้จาก%3$sกา่รแนะนำ</string>
   <string name="vip_program_gamification_title">โบนัสของฉันอยู่ในระดับใด</string>
