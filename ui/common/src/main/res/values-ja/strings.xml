@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoinsに対応したアプリで初めてのお買い物をすると、お得なキャンペーンをご利用いただけます。</string>
   <string name="perks_empty_body">現在、プロモーションはありません。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">指紋認証ロック</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">認証に失敗しました！</string>
   <string name="fingerprint_failed_body">%s秒後に再度お試しください。</string>
   <string name="fingerprint_authentication_required_title">認証が必要です。</string>
@@ -1172,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">特別なプロモーション</string>
   <string name="vip_program_promo_code_tag">プロモーションコード</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
-  <string name="vip_program_referral_page_body">このプロモコードをあなたのコミュニティや友人と共有して、みんなで遊びながら稼ぎましょう。アプリ内課金をするたびに、<b>あなたとお友達の両方に、他のアクティブなプロモーションに加えて%s%% のボーナスが1ヶ月間与えられます!</b></string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
   <string name="vip_program_gamification_title">私のボーナスレベルは？</string>
