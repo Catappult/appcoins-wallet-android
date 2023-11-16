@@ -4,24 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_payment_methods_layout"
     android:layout_width="match_parent"
+    android:background="@drawable/background_card_blue"
     android:layout_height="match_parent"
     >
-
-  <TextView
-      android:id="@+id/onboarding_payment_methods_title"
-      style="@style/TextM"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/big_margin"
-      android:text="@string/select_method_title"
-      android:visibility="gone"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_payment_methods_rv"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_chainStyle="packed"
-      tools:visibility="visible"
-      />
 
   <com.airbnb.epoxy.EpoxyRecyclerView
       android:id="@+id/onboarding_payment_methods_rv"
@@ -34,7 +19,7 @@
       app:layout_constraintBottom_toTopOf="@+id/onboarding_incomplete_payment_methods"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/onboarding_payment_methods_title"
+      app:layout_constraintTop_toTopOf="parent"
       tools:listitem="@layout/onboarding_payment_option_item"
       tools:visibility="visible"
       />

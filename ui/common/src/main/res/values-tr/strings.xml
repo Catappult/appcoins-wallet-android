@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Cüzdanına %s bonus aldın.</string>
   <string name="back_to_the_game_button">Oyuna geri dön</string>
   <string name="other_payment_methos_title">Diğer ödeme yöntemleri:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Beklemede</string>
   <string name="transaction_status_failed">Başarısız</string>
   <string name="transaction_status_reverted">Geri Alındı</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Meydan Okuma Ödülü</string>
   <string name="transaction_type_challenge_reward_rejected">Reddedilen Meydan Okuma Ödülü</string>
   <string name="transaction_type_challenge_reward_reverted">Geri Alınan Meydan Okuma Ödülü</string>
@@ -511,6 +515,7 @@
   <string name="download_button">İndir</string>
   <string name="done">Bitti!</string>
   <string name="see_more_button">Daha fazlasını gör</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -1046,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Hay aksi, çok kez yanlış kod girdiniz, dolayısıyla %1$s kartınıza iade edilecek.</string>
   <string name="card_verification_no_attempts_body">Lütfen doğrulama sürecine tekrar başlayın.</string>
   <string name="wallet_verify_header">En az bir ödeme yöntemi doğrula</string>
-  <string name="verify_card_title">Kartı Doğrula</string>
-  <string name="verify_card_button">Banka kartını doğrula</string>
   <string name="verify_paypal_button">PayPal hesabını doğrula</string>
   <string name="card_verification_body_new">Kartından %s ücret alınacak ve hemen iade edilecek. Doğrulama kodu için kart geçmişini kontrol et ve kodu buraya ekle.</string>
   <string name="card_verification_disclaimer_body">Onay kodunun geri ödeme bildiriminde görünebileceğini lütfen unutma.</string>
@@ -1237,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Bir Ödeme Yöntemi Doğrula</string>
   <string name="manage_wallet_verify_body">Bir ödeme yöntemini doğrulayarak kısıtlamaları önle.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Bir Ödeme Yöntemi Doğrula</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Bir ödeme yöntemini doğrulayarak kısıtlamaları önle.</string>
   <string name="verify_card_one_more_step_title">Doğrulamak için Son Bir Adım</string>
   <string name="verify_card_one_more_step_body">İşlem detaylarında görünen kodu ekle</string>
   <string name="verify_card_one_more_step_button">Kodu gir</string>
   <string name="verify_card_verified">Ödeme yöntemi doğrulandı!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Kartı Doğrula</string>
   <string name="verify_card_view_disclaimer">Kartından %s tutarında çekim yapacağız, kodu onayladıktan sonra bu iade edilecek.</string>
   <string name="verify_card_view_title_2">Banka kartı bilgilerini gir</string>

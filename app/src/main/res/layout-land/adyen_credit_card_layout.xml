@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adyen_credit_card_root"
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:background="@drawable/background_content_payments"
     android:maxHeight="300dp"
     android:theme="@style/AdyenMaterialAppTheme"
     >
@@ -62,8 +64,8 @@
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
-          android:layout_width="56dp"
-          android:layout_height="56dp"
+          android:layout_width="112dp"
+          android:layout_height="112dp"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
@@ -71,8 +73,23 @@
           app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_regular_animation"
+          app:lottie_rawRes="@raw/loading_wallet"
           tools:visibility="visible"
+          />
+
+      <TextView
+          android:id="@+id/making_purchase_text"
+          style="@style/PaymentLoadingTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="0dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:text="@string/purchase_making_purchase_title"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/mid_separator"
+          app:layout_constraintTop_toBottomOf="@+id/fragment_credit_card_authorization_progress_bar"
           />
 
       <include
@@ -81,30 +98,14 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="19dp"
+          android:layout_marginTop="4dp"
           android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="4dp"
           android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          app:layout_constraintBottom_toBottomOf="@+id/dialog_buy_buttons"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+          app:layout_constraintTop_toTopOf="@+id/dialog_buy_buttons"
           tools:visibility="visible"
-          />
-
-      <TextView
-          android:id="@+id/bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="11dp"
-          android:layout_marginEnd="@dimen/big_margin"
-          android:layout_marginBottom="11dp"
-          android:gravity="center_vertical"
-          android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           />
 
       <ScrollView
@@ -114,7 +115,6 @@
           android:layout_marginTop="16dp"
           android:overScrollMode="never"
           android:paddingStart="@dimen/big_margin"
-          android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             >
 
           <include
@@ -144,21 +144,12 @@
               android:layout_gravity="center_vertical"
               android:layout_marginEnd="0dp"
               android:visibility="gone"
-              app:buttonColor="@color/styleguide_dark_grey"
-              app:buttonIsAllCaps="true"
-              app:buttonText="@string/activity_iab_change_card"
+              app:buttonColor="@color/styleguide_pink"
+              app:buttonText="@string/activity_iab_change_card_lower_case_button"
               app:buttonType="text"
               tools:visibility="visible"
               />
 
-          <include
-              android:id="@+id/fragment_adyen_error"
-              layout="@layout/support_error_layout"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="8dp"
-              android:visibility="gone"
-              />
 
         </RelativeLayout>
 
@@ -188,7 +179,7 @@
           android:id="@+id/dialog_buy_buttons"
           layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_height="64dp"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -196,14 +187,25 @@
           />
 
       <include
+          android:id="@+id/fragment_adyen_error"
+          layout="@layout/support_error_layout"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          android:visibility="gone"
+          />
+
+      <include
           android:id="@+id/error_buttons"
           layout="@layout/dialog_buy_buttons_adyen_error"
-          android:layout_width="0dp"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
 
@@ -212,9 +214,15 @@
 
     <include
         android:id="@+id/fragment_iab_transaction_completed"
-        layout="@layout/fragment_iab_transaction_completed" />
+        layout="@layout/fragment_iab_transaction_completed"
+        android:layout_width="@dimen/payment_methods_width_landscape"
+        android:layout_height="280dp"
+        android:layout_centerInParent="true"
+        />
 
   </RelativeLayout>
+
+
 
   <include
       android:id="@+id/fragment_iab_error"

@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Bạn đã nhận được %s tiền thưởng trong ví của mình.</string>
   <string name="back_to_the_game_button">Quay lại trò chơi</string>
   <string name="other_payment_methos_title">Phương thức thanh toán khác:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Chờ xử lý</string>
   <string name="transaction_status_failed">Thất bại</string>
   <string name="transaction_status_reverted">Đã hoàn nguyên</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Phần thưởng thử thách</string>
   <string name="transaction_type_challenge_reward_rejected">Phần thưởng thử thách bị từ chối</string>
   <string name="transaction_type_challenge_reward_reverted">Phần thưởng thử thách đã hoàn nguyên</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Tải về</string>
   <string name="done">Hoàn thành!</string>
   <string name="see_more_button">Xem thêm</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -1037,8 +1042,6 @@
   <string name="card_verification_no_attempts_title">Rất tiếc, bạn đã chèn sai mã quá nhiều lần nên %1$s sẽ được hoàn lại vào thẻ của bạn.</string>
   <string name="card_verification_no_attempts_body">Vui lòng bắt đầu lại quá trình xác minh.</string>
   <string name="wallet_verify_header">Xác minh ít nhất một phương thức thanh toán</string>
-  <string name="verify_card_title">Xác minh thẻ</string>
-  <string name="verify_card_button">Xác minh thẻ ngân hàng</string>
   <string name="verify_paypal_button">Xác minh tài khoản PayPal</string>
   <string name="card_verification_body_new">%s sẽ được tính vào thẻ của bạn và được hoàn trả ngay lập tức. Kiểm tra sao kê thẻ của bạn để biết mã xác thực và chèn mã vào đây.</string>
   <string name="card_verification_disclaimer_body">Xin lưu ý rằng mã xác nhận có thể xuất hiện trong thông báo hoàn tiền.</string>
@@ -1224,12 +1227,13 @@
   <string name="manage_wallet_verify_title">Xác minh một phương thức thanh toán</string>
   <string name="manage_wallet_verify_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Xác minh một phương thức thanh toán</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
   <string name="verify_card_one_more_step_title">Một bước nữa để xác minh</string>
   <string name="verify_card_one_more_step_body">Chèn mã hiển thị trong chi tiết giao dịch</string>
   <string name="verify_card_one_more_step_button">Nhập mã</string>
   <string name="verify_card_verified">Phương thức thanh toán đã được xác minh!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Xác minh thẻ</string>
   <string name="verify_card_view_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và số tiền này sẽ được hoàn lại sau khi bạn xác nhận mã.</string>
   <string name="verify_card_view_title_2">Nhập thông tin thẻ ngân hàng của bạn</string>

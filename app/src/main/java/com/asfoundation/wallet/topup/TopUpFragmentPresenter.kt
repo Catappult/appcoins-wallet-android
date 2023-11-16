@@ -54,7 +54,6 @@ class TopUpFragmentPresenter(
     }
     handlePaypalBillingAgreement()
     setupUi()
-    handleChangeCurrencyClick()
     handleNextClick()
     handleRetryClick()
     handleManualAmountChange(appPackage)
@@ -140,18 +139,6 @@ class TopUpFragmentPresenter(
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
-  }
-
-  private fun handleChangeCurrencyClick() {
-    disposables.add(view.getChangeCurrencyClick()
-      .doOnNext {
-        view.toggleSwitchCurrencyOn()
-        view.rotateChangeCurrencyButton()
-        view.switchCurrencyData()
-        view.toggleSwitchCurrencyOff()
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
   }
 
   private fun handleNextClick() {
@@ -405,7 +392,6 @@ class TopUpFragmentPresenter(
   private fun handleValuesClicks() {
     disposables.add(view.getValuesClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .doOnNext { view.disableSwapCurrencyButton() }
       .doOnNext {
         if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
           view.changeMainValueText(it.amount.toString())
@@ -414,7 +400,7 @@ class TopUpFragmentPresenter(
         }
       }
       .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
-      .doOnNext { view.enableSwapCurrencyButton() }
+      .doOnNext { }
       .subscribe({}, { it.printStackTrace() })
     )
   }

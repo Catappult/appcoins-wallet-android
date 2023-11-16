@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Er is een bonus van %s aan je wallet toegevoegd.</string>
   <string name="back_to_the_game_button">Terug naar de game</string>
   <string name="other_payment_methos_title">Andere betaalmethoden:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">In de wachtrij</string>
   <string name="transaction_status_failed">Niet gelukt</string>
   <string name="transaction_status_reverted">Teruggedraaid</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Beloning voor uitdaging</string>
   <string name="transaction_type_challenge_reward_rejected">Afgewezen beloning voor uitdaging</string>
   <string name="transaction_type_challenge_reward_reverted">Teruggedraaide beloning voor uitdaging</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Downloaden</string>
   <string name="done">Gelukt!</string>
   <string name="see_more_button">Meer bekijken</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -1046,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Oeps. Je hebt te vaak een verkeerde code ingevoerd. Daarom wordt er %1$s op je kaart teruggestort.</string>
   <string name="card_verification_no_attempts_body">Start het verificatieproces opnieuw.</string>
   <string name="wallet_verify_header">Verifieer minimaal één betaalmethode</string>
-  <string name="verify_card_title">Kaart verifiëren</string>
-  <string name="verify_card_button">Bankpas verifiëren</string>
   <string name="verify_paypal_button">PayPal-account verifiëren</string>
   <string name="card_verification_body_new">Er wordt %s van je kaart afgeschreven en meteen terugbetaald. Controleer de verificatiecode op het afschrift van je kaart en voer deze hier in.</string>
   <string name="card_verification_disclaimer_body">Houd er rekening mee dat de bevestigingscode in de melding van de terugbetaling kan worden getoond.</string>
@@ -1237,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Verifieer een betaalmethode</string>
   <string name="manage_wallet_verify_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verifieer een betaalmethode</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
   <string name="verify_card_one_more_step_title">Nog één stap om te verifiëren</string>
   <string name="verify_card_one_more_step_body">Voer de code in die in de transactiegegevens wordt getoond</string>
   <string name="verify_card_one_more_step_button">Code invoeren</string>
   <string name="verify_card_verified">Betaalmethode geverifieerd!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Kaart verifiëren</string>
   <string name="verify_card_view_disclaimer">We zullen via je kaart %s in rekening brengen. Dit bedrag wordt teruggestort als je de code hebt bevestigd.</string>
   <string name="verify_card_view_title_2">Voer je bankpasgegevens in</string>

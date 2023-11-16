@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Anda menerima bonus %s di dompet Anda.</string>
   <string name="back_to_the_game_button">Kembali ke game</string>
   <string name="other_payment_methos_title">Metode pembayaran lain:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Ditangguhkan</string>
   <string name="transaction_status_failed">Gagal</string>
   <string name="transaction_status_reverted">Dikembalikan</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Hadiah Tantangan</string>
   <string name="transaction_type_challenge_reward_rejected">Hadiah Tantangan yang Ditolak</string>
   <string name="transaction_type_challenge_reward_reverted">Hadiah Tantangan yang Dikembalikan</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Download</string>
   <string name="done">Selesai!</string>
   <string name="see_more_button">Lihat lainnya</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -1037,8 +1042,6 @@
   <string name="card_verification_no_attempts_title">Ups, Anda terlalu banyak memasukkan kode yang salah, jadi dana sebesar %1$s akan dikembalikan ke kartu Anda.</string>
   <string name="card_verification_no_attempts_body">Silakan mulai lagi proses verifikasinya.</string>
   <string name="wallet_verify_header">Verifikasi setidaknya satu metode pembayaran</string>
-  <string name="verify_card_title">Verifikasi Kartu</string>
-  <string name="verify_card_button">Verifikasi kartu bank</string>
   <string name="verify_paypal_button">Verifikasi akun PayPal</string>
   <string name="card_verification_body_new">%s akan dibebankan ke kartu Anda dan segera dikembalikan. Cari kode validasi di keterangan kartu Anda, lalu masukkan kode itu di sini.</string>
   <string name="card_verification_disclaimer_body">Harap diperhatikan bahwa kode konfirmasi mungkin akan muncul dalam pemberitahuan pengembalian dana.</string>
@@ -1224,12 +1227,13 @@
   <string name="manage_wallet_verify_title">Verifikasi Metode Pembayaran</string>
   <string name="manage_wallet_verify_body">Hindari pemblokiran dengan memverifikasi metode pembayaran.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verifikasi Metode Pembayaran</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Hindari pemblokiran dengan memverifikasi metode pembayaran.</string>
   <string name="verify_card_one_more_step_title">Satu Langkah Lagi untuk Verifikasi</string>
   <string name="verify_card_one_more_step_body">Masukkan kode yang muncul dalam rincian transaksi</string>
   <string name="verify_card_one_more_step_button">Masukkan kode</string>
   <string name="verify_card_verified">Metode pembayaran terverifikasi!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verifikasi Kartu</string>
   <string name="verify_card_view_disclaimer">Kami akan mengenakan %s ke kartu Anda, dan jumlah tersebut akan dikembalikan setelah Anda mengkonfirmasi kodenya.</string>
   <string name="verify_card_view_title_2">Masukkan detail kartu bank Anda</string>

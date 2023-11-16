@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:color="@color/styleguide_pink" android:state_enabled="true" />
-  <item android:color="@color/styleguide_medium_grey" android:state_enabled="false" />
+  <item android:color="@color/styleguide_pink" android:state_checked="true" android:state_enabled="true" />
+  <item android:color="@color/styleguide_dark_grey" android:state_checked="false" android:state_enabled="true" />
+  <item android:color="@color/styleguide_dark_grey_transparent_50" android:state_enabled="false" />
 </selector>

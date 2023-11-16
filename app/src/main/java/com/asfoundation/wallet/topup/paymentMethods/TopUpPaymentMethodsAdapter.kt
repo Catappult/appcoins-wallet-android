@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
-import com.asfoundation.wallet.ui.iab.PaymentMethodsViewHolder
+import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -19,7 +19,7 @@ class TopUpPaymentMethodsAdapter(
   private val disposables: CompositeDisposable,
   private val showPayPalLogout: Subject<Boolean>
 ) :
-  RecyclerView.Adapter<PaymentMethodsViewHolder>() {
+  RecyclerView.Adapter<TopupPaymentMethodsViewHolder>() {
   private var selectedItem = 0
 
   fun setSelectedItem(position: Int) {
@@ -27,16 +27,16 @@ class TopUpPaymentMethodsAdapter(
     notifyDataSetChanged()
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
-    return PaymentMethodsViewHolder(
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopupPaymentMethodsViewHolder {
+    return TopupPaymentMethodsViewHolder(
       LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_payment_method, parent, false)
+        .inflate(R.layout.item_topup_payment_method, parent, false)
     )
   }
 
   override fun getItemCount() = paymentMethods.size
 
-  override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
+  override fun onBindViewHolder(holder: TopupPaymentMethodsViewHolder, position: Int) {
     holder.bind(
       data = paymentMethods[position],
       checked = selectedItem == position,

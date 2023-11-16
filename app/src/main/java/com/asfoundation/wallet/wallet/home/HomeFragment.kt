@@ -43,6 +43,7 @@ import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
+import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
@@ -60,7 +61,6 @@ import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
-import java.math.BigDecimal
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -154,24 +154,33 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      with(viewModel.balance.value) {
-        BalanceCard(
-          newWallet = viewModel.newWallet.value,
-          showBackup = viewModel.showBackup.value,
-          balance = symbol + formatter.formatCurrency(amount, FIAT),
-          currencyCode = currency,
-          onClickCurrencies = { viewModel.onCurrencySelectorClick() },
-          onClickTransfer = { viewModel.onTransferClick() },
-          onClickBackup = { viewModel.onBackupClick() },
-          onClickTopUp = { viewModel.onTopUpClick() },
-          onClickMenuOptions = { navigator.navigateToManageBottomSheet() })
-      }
+      BalanceCard(
+        newWallet = viewModel.newWallet.value,
+        showBackup = viewModel.showBackup.value,
+        balanceContent = { BalanceContent() },
+        onClickTransfer = { viewModel.onTransferClick() },
+        onClickBackup = { viewModel.onBackupClick() },
+        onClickTopUp = { viewModel.onTopUpClick() },
+        onClickMenuOptions = { navigator.navigateToManageBottomSheet() })
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
+
+  @Composable
+  fun BalanceContent() =
+    when (val state = viewModel.uiBalanceState.collectAsState().value) {
+      is HomeViewModel.UiBalanceState.Success -> with(state.balance.creditsOnlyFiat) {
+        BalanceValue(
+          symbol + formatter.formatCurrency(amount, FIAT),
+          currency
+        ) { viewModel.onBalanceArrowClick(state.balance) }
+      }
+
+      else -> CircularProgressIndicator()
+    }
 
   @Composable
   fun TransactionsCard(transactionsState: UiState) {
@@ -294,13 +303,14 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
-      HomeSideEffect.NavigateToChangeCurrency ->
-        navigator.navigateToCurrencySelector(navController())
-
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
       HomeSideEffect.NavigateToTransactionsList ->
         transactionsNavigator.navigateToTransactionsList(navController())
+
+      is HomeSideEffect.NavigateToBalanceDetails -> navigator.navigateToBalanceBottomSheet(
+        sideEffect.balance
+      )
     }
   }
 
@@ -336,12 +346,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (balanceAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
-        // TODO loading
+        viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
       }
 
       is Async.Success ->
-        with(balanceAsync().walletBalance.creditsOnlyFiat) {
-          if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
+        balanceAsync.value.let { globalBalance ->
+          if (globalBalance != null) {
+            viewModel.updateBalance(
+              HomeViewModel.UiBalanceState.Success(globalBalance.walletBalance)
+            )
+          }
         }
 
       else -> Unit
@@ -354,7 +368,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         // TODO loading
       }
-
       is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
       else -> Unit
     }

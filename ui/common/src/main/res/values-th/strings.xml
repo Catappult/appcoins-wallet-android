@@ -154,6 +154,9 @@
   <string name="bonus_received_body">คุณได้รับโบนัส%sในวอลเล็ตของคุณ</string>
   <string name="back_to_the_game_button">กลับสู่เกมส์</string>
   <string name="other_payment_methos_title">วิธีการชำระเงินเพิ่มเติม:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">ค้างอยู่</string>
   <string name="transaction_status_failed">ล้มเหลว</string>
   <string name="transaction_status_reverted">เปลี่ยนกลับ</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">รางวัลชาเลนจ์</string>
   <string name="transaction_type_challenge_reward_rejected">ปฏิเสธรางวัลชาเลนจ์</string>
   <string name="transaction_type_challenge_reward_reverted">ส่งคืนรางวัลชาเลนจ์</string>
@@ -511,6 +515,7 @@
   <string name="download_button">ดาวน์โหลด</string>
   <string name="done">เสร็จสิ้น!</string>
   <string name="see_more_button">ดูเพิ่มเติม</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -1039,8 +1044,6 @@
   <string name="card_verification_no_attempts_title">อ๊ะ คุณใส่รหัสผิดหลายครั้งเกินไปดังนั้น %1$s จะได้รับเงินคืนไปยังบัตรของคุณ</string>
   <string name="card_verification_no_attempts_body">โปรดเริ่มการตรวจสอบอีกครั้ง</string>
   <string name="wallet_verify_header">ตรวจสอบวิธีการชำระเงินอย่างน้อยหนึ่งวิธี</string>
-  <string name="verify_card_title">ตรวจสอบบัตร</string>
-  <string name="verify_card_button">ตรวจสอบบัตรธนาคาร</string>
   <string name="verify_paypal_button">ตรวจสอบบัญชี Paypal</string>
   <string name="card_verification_body_new">%s จะถูกหักจากบัตรของคุณและคืนเงินทันที ตรวจสอบใบแจ้งยอดบัตรของคุณสำหรับรหัสการตรวจสอบและใส่ที่นี่</string>
   <string name="card_verification_disclaimer_body">โปรดทราบว่ารหัสยืนยันอาจปรากฏในการแจ้งเตือนการคืนเงิน</string>
@@ -1226,12 +1229,13 @@
   <string name="manage_wallet_verify_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="manage_wallet_verify_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">ตรวจสอบวิธีการชำระเงิน</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <string name="verify_card_one_more_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
   <string name="verify_card_one_more_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>
   <string name="verify_card_one_more_step_button">ใส่รหัส</string>
   <string name="verify_card_verified">วิธีการชำระเงินที่ได้รับการยืนยัน!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">ตรวจสอบบัตร</string>
   <string name="verify_card_view_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณและเราจะคืนเงินให้ เมื่อคุณยืนยันรหัส</string>
   <string name="verify_card_view_title_2">ใส่รายละเอียดบัตรธนาคารของคุณ</string>

@@ -99,8 +99,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       verificationIntroModel.verificationInfoModel.value,
       WalletCurrency.FIAT
     )
-    views.title.text = getString(
-      R.string.card_verification_body_new,
+    views.infoDescription.text = getString(
+      R.string.verify_card_view_disclaimer,
       "${verificationIntroModel.verificationInfoModel.symbol}$amount"
     )
   }
@@ -172,7 +172,10 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun retryClick() = RxView.clicks(views.noNetwork.retryButton)
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(views.fragmentAdyenError.layoutSupportLogo), RxView.clicks(views.fragmentAdyenError.layoutSupportIcn))
+    return Observable.merge(
+      RxView.clicks(views.fragmentAdyenError.layoutSupportLogo),
+      RxView.clicks(views.fragmentAdyenError.layoutSupportIcn)
+    )
   }
 
   override fun showLoading() {

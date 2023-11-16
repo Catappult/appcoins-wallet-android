@@ -40,9 +40,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 
 @Composable
 fun BalanceCard(
-  balance: String,
-  currencyCode: String,
-  onClickCurrencies: () -> Unit,
+  balanceContent: @Composable () -> Unit,
   onClickTransfer: () -> Unit,
   onClickTopUp: () -> Unit,
   onClickBackup: () -> Unit,
@@ -53,9 +51,7 @@ fun BalanceCard(
   BoxWithConstraints {
     if (expanded()) {
       BalanceCardExpanded(
-        balance = balance,
-        currencyCode = currencyCode,
-        onClickCurrencies = onClickCurrencies,
+        balanceContent = balanceContent,
         onClickTransfer = onClickTransfer,
         onClickTopUp = onClickTopUp,
         onClickBackup = onClickBackup,
@@ -81,7 +77,7 @@ fun BalanceCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
               ) {
-                BalanceValue(balance, currencyCode, onClickCurrencies)
+                balanceContent()
                 VectorIconButton(
                   imageVector = Icons.Default.MoreVert,
                   contentDescription = R.string.action_more_details,
@@ -249,9 +245,7 @@ fun BalanceCardNewUser(onClickTopUp: () -> Unit) {
 @Composable
 fun PreviewBalanceCard() {
   BalanceCard(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur") {} },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},
@@ -265,9 +259,7 @@ fun PreviewBalanceCard() {
 @Composable
 fun PreviewBalanceCardWithoutBackup() {
   BalanceCard(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur") {} },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},
@@ -281,9 +273,7 @@ fun PreviewBalanceCardWithoutBackup() {
 @Composable
 fun PreviewNewWalletBalanceCard() {
   BalanceCard(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur") {} },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},

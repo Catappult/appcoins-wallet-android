@@ -49,7 +49,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
     if (bonusValue != null) {
       views.completePaymentView.lottieTransactionSuccess.setAnimation(
-          R.raw.transaction_complete_bonus_animation)
+          R.raw.transaction_complete_bonus_animation_new)
       val textDelegate = TextDelegate(views.completePaymentView.lottieTransactionSuccess)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
       textDelegate.setText("bonus_received",

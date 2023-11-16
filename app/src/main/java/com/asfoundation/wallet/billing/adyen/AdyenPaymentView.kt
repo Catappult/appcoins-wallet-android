@@ -18,6 +18,8 @@ interface AdyenPaymentView {
 
   fun showLoading()
 
+  fun showLoadingMakingPayment()
+
   fun errorDismisses(): Observable<Any>
 
   fun buyButtonClicked(): Observable<Any>

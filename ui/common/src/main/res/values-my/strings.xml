@@ -154,6 +154,9 @@
   <string name="bonus_received_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ေဘာနပ္စ္တစ္ခုကို ရရွိခဲ့ပါသည္။</string>
   <string name="back_to_the_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
   <string name="other_payment_methos_title">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား -</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
   <string name="transaction_status_reverted">ျပန္ပို႔ခဲ့သည္</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_rejected">ျငင္းပယ္ခဲ့ေသာ စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_reverted">ျပန္ေျပာင္းခဲ့ေသာ စိန္ေခၚမႈဆု</string>
@@ -511,6 +515,7 @@
   <string name="download_button">ေဒါင္းလုဒ္</string>
   <string name="done">ၿပီးပါၿပီ။</string>
   <string name="see_more_button">ပို၍ၾကည့္မည္</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -1037,8 +1042,6 @@
   <string name="card_verification_no_attempts_title">အိုး သင္က မွားယြင္းေသာကုဒ္တစ္ခုကို အႀကိမ္မ်ားစြာ ထည့္သြင္းခဲ့ေသာေၾကာင့္ %1$s ကို သင့္ကဒ္သို႔ ေငြျပန္အမ္းေပးမည္ ျဖစ္ပါသည္။</string>
   <string name="card_verification_no_attempts_body">အတည္ျပဳသည့္ လုပ္ငန္းစဥ္ကို ျပန္လည္စတင္ေပးပါ။</string>
   <string name="wallet_verify_header">ေငြေပးေခ်မႈနည္းလမ္း အနည္းဆုံးတစ္ခုကို အတည္ျပဳပါ</string>
-  <string name="verify_card_title">ကဒ္ကိုအတည္ျပဳမည္</string>
-  <string name="verify_card_button">ဘဏ္ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="verify_paypal_button">PayPal အေကာင့္ကို အတည္ျပဳမည္</string>
   <string name="card_verification_body_new">သင့္ကဒ္မွ %s ကိုေကာက္ခံကာ ခ်က္ခ်င္းျပန္အမ္းေပးပါမည္။ အတည္ျပဳကုဒ္အတြက္ သင့္ကဒ္၏ ေငြစာရင္းရွင္းတမ္းကိုၾကည့္ကာ ၎ကိုဤေနရာတြင္ ထည့္ေပးပါ။</string>
   <string name="card_verification_disclaimer_body">အတည္ျပဳကုဒ္သည္ ေငြျပန္အမ္းမႈ အသိေပးခ်က္တြင္ ေပၚလာျခင္းရွိႏိုင္သည္ကို သတိျပဳေပးပါ။</string>
@@ -1224,12 +1227,13 @@
   <string name="manage_wallet_verify_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
   <string name="manage_wallet_verify_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <string name="verify_card_one_more_step_title">အတည္ျပဳရန္ ေနာက္ထပ္တစ္ဆင့္</string>
   <string name="verify_card_one_more_step_body">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားတြင္ ျမင္ရေသာကုဒ္ကိုထည့္ပါ</string>
   <string name="verify_card_one_more_step_button">ကုဒ္ကိုထည့္ပါ</string>
   <string name="verify_card_verified">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳလိုက္ပါသည္။</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">ကဒ္ကိုအတည္ျပဳမည္</string>
   <string name="verify_card_view_disclaimer">သင့္ကဒ္တြင္ %s ကို ကြၽႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။</string>
   <string name="verify_card_view_title_2">သင့္ဘဏ္ကဒ္ အေသးစိတ္အခ်က္မ်ားကိုထည့္ပါ</string>

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -29,6 +30,7 @@
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="@dimen/backup_success_text_margin_top"
       android:text="@string/activity_iab_transaction_completed_title"
+      android:textColor="@color/styleguide_payments_main_text"
       app:layout_constraintBottom_toTopOf="@id/description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +46,7 @@
       android:layout_marginTop="8dp"
       android:text="@string/verification_verified_paypal_description"
       android:textSize="16sp"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toTopOf="@+id/button_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentTop="true"
-        android:background="@color/styleguide_light_grey"
+        android:background="@color/transparent"
         />
 
     <com.appcoins.wallet.ui.widgets.WalletButtonView

@@ -5,7 +5,8 @@
     android:id="@+id/onboarding_payment_header_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dashed_grey"
+    android:paddingBottom="8dp"
+    android:background="@drawable/background_card_dotted"
     >
   <ImageView
       android:id="@+id/onboarding_payment_game_icon"
@@ -20,13 +21,13 @@
 
   <TextView
       android:id="@+id/onboarding_payment_game_name"
-      style="@style/TextL"
+      style="@style/TextM"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/big_margin"
       app:layout_constraintBottom_toTopOf="@id/onboarding_payment_game_item"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_payment_bonus_fiat_amount"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/onboarding_payment_game_icon"
       app:layout_constraintTop_toTopOf="@id/onboarding_payment_game_icon"
@@ -39,10 +40,10 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/small_margin"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginEnd="4dp"
       android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="@id/onboarding_payment_game_icon"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_payment_bonus_fiat_amount"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/onboarding_payment_game_icon"
       app:layout_constraintStart_toStartOf="@id/onboarding_payment_game_name"
@@ -50,16 +51,27 @@
       tools:text="120 Diamonds"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/onboarding_payment_value_container"
-      android:layout_width="match_parent"
+  <TextView
+      android:id="@+id/onboarding_payment_bonus_fiat_amount"
+      style="@style/TextXL"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/big_margin"
-      android:background="@drawable/background_card_active_wallet"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"
-      >
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_name"
+      tools:text="€12.73"
+      />
+
+  <ImageView
+      android:id="@+id/divider_image"
+      android:layout_width="match_parent"
+      android:layout_height="6dp"
+      android:layout_marginTop="8dp"
+      android:src="@drawable/dotted"
+      android:layerType="software"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"/>
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_payment_bonus_animation"
@@ -67,44 +79,54 @@
         android:layout_height="40dp"
         android:layout_marginVertical="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_image"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/bonus_gift_animation"
         />
-    <TextView
-        android:id="@+id/onboarding_payment_bonus_text"
-        style="@style/TextM"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:paddingVertical="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/half_large_margin"
-        android:lineSpacingMultiplier="0.6"
-        android:textColor="@color/styleguide_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/onboarding_payment_bonus_fiat_amount"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/onboarding_payment_bonus_animation"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/bonus_body"
-        />
 
-    <TextView
-        android:id="@+id/onboarding_payment_bonus_fiat_amount"
-        style="@style/TextXL"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:textColor="@color/styleguide_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="€12.73"
-        />
+  <TextView
+      android:id="@+id/onboarding_payment_bonus_title"
+      style="@style/TextS"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:layout_marginStart="@dimen/normal_margin"
+      android:textColor="@color/styleguide_bonus_yellow"
+      app:layout_constraintStart_toEndOf="@id/onboarding_payment_bonus_animation"
+      app:layout_constraintTop_toTopOf="@id/onboarding_payment_bonus_animation"
+      android:text="@string/gamification_purchase_header_part_1"
+      />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <TextView
+      android:id="@+id/onboarding_payment_bonus_text"
+      style="@style/TextS"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginEnd="24dp"
+      android:layout_marginTop="4dp"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/onboarding_payment_bonus_title"
+      app:layout_constraintTop_toTopOf="@id/onboarding_payment_bonus_animation"
+      tools:text="@string/gamification_purchase_header_part_2"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_payment_bonus_description"
+      android:textSize="10sp"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/normal_margin"
+      android:layout_marginEnd="24dp"
+      android:textColor="@color/styleguide_dark_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/onboarding_payment_bonus_animation"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_bonus_text"
+      android:text="@string/gamification_purchase_body"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

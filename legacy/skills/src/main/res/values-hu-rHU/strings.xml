@@ -13,6 +13,7 @@
   <string name="install_button">Telepítés</string>
   <string name="retry_button">Újrapróbálkozás</string>
   <string name="restart_button">Újraindítás</string>
+  <string name="update_button">Frissítés</string>
   <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
   <string name="processing_loading_title">Belépőjegy lehívása</string>
   <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Nem támogatjuk a Wallet ezen verzióját!</string>
   <string name="update_not_supported_body">Szerezd be az AppCoins Wallet legújabb verzióját.</string>
-  <string name="update_button">Frissítés</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Te és a meghívott barátod is $%s bónuszt kaptok. Legfeljebb 5 barátot hívhatsz meg, ők pedig legyenek új felhasználók. A bónusz akkor érkezik meg a tárcádba, amikor a te kódodat használják az első e-Skills játékuk során.</string>
   <string name="refer_a_friend_first_time_header">Készen állsz, hogy megmutasd, mit tudsz?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
   <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Várakozás míg az ellenfelek befejezik a játékot.</string>
   <plurals name="opponent_points_title">

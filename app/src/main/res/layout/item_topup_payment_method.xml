@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:minHeight="60dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:clipToPadding="false"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    >
+
+  <View
+      android:id="@+id/selected_background"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:background="@drawable/topup_background_method_selected"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="-8dp"
+      android:layout_marginBottom="-8dp"
+      android:visibility="visible"
+    />
+
+  <com.google.android.material.radiobutton.MaterialRadioButton
+      android:id="@+id/radio_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="false"
+      android:scaleX="0.8"
+      android:scaleY="0.8"
+      android:textAppearance="@style/RadioButton.TextAppearance"
+      app:buttonTint="@color/radio_button_color"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:useMaterialThemeColors="false"
+      android:layout_marginStart="8dp"
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_ic"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="10dp"
+      android:scaleType="centerInside"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/radio_button"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_payment_method_paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_description"
+      style="@style/TopUpTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="17dp"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:textSize="14sp"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
+      tools:text="Paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_reason"
+      style="@style/TopUpTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="17dp"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="11sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_info_image"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_description"
+      tools:text="You need ETH to pay for the gas."
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_info_image"
+      android:layout_width="12dp"
+      android:layout_height="12dp"
+      android:layout_marginStart="17dp"
+      android:layout_marginTop="6dp"
+      android:scaleType="centerInside"
+      android:src="@drawable/ic_info_message"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_reason"
+      app:tint="@color/styleguide_dark_grey"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_info"
+      style="@style/TopUpTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:text="@string/purchase_paypal_additional_fees_disclaimer_body"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="10sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_info_image"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_info_image"
+      app:layout_constraintTop_toTopOf="@id/payment_method_info_image"
+      tools:ignore="SmallSp"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/checkout_topup_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="8dp"
+      android:visibility="gone"
+      app:buttonText="@string/topup_home_button"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/payment_method_description"
+      app:layout_constraintTop_toTopOf="parent"
+
+      />
+
+  <ImageButton
+      android:id="@+id/payment_more_logout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="Logout"
+      android:foregroundTint="@color/styleguide_light_grey"
+      android:src="@drawable/ic_more"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
+      app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/styleguide_light_grey"
+      />
+
+  <LinearLayout
+      android:id="@+id/payment_method_fee"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@id/payment_method_description"
+      app:layout_constraintTop_toTopOf="@+id/payment_method_description"
+
+      >
+
+    <TextView
+        android:id="@+id/payment_method_fee_value"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="11sp"
+        tools:text="23 €"
+        />
+
+    <TextView
+        android:id="@+id/payment_method_fee_label"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="end"
+        android:text="@string/activity_iab_fees"
+        android:textColor="@color/styleguide_dark_grey"
+        android:textSize="11sp"
+        />
+
+  </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

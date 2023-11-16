@@ -13,6 +13,7 @@
   <string name="install_button">Instalează</string>
   <string name="retry_button">Reîncearcă</string>
   <string name="restart_button">Repornește</string>
+  <string name="update_button">Actualizează</string>
   <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
   <string name="processing_loading_title">Obținem biletul tău de intrare</string>
   <string name="finding_room_loading_title">Se așteaptă oponenții</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Versiunea portofelului nu este acceptată!</string>
   <string name="update_not_supported_body">Actualizează AppCoins Wallet cu ultima versiune.</string>
-  <string name="update_button">Actualizează</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Tu și prietenii pe care îi inviți veți primi un bonus de %s$. Poți invita până la 5 prieteni, iar aceștia trebuie să fie utilizatori noi. Bonusul va fi creditat în portofelul tău, după ce aceștia vor folosi codul tău de invitație, în primul lor joc e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Ești pregătit să îți demonstrezi abilitățile?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Metodele de plată locale nu sunt acceptate pentru achiziționarea unei taxe de intrare. Creează un portofel nou și alimentează folosind un card bancar sau PayPal!</string>
   <string name="rooted_device_blocked_body">Din păcate, nu poți juca jocuri e-Skills cu un dispozitiv cu Root.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Se așteaptă ca adversarii să finalizeze jocul.</string>
   <plurals name="opponent_points_title">

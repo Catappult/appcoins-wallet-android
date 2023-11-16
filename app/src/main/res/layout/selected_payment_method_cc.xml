@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="0dp"
+    android:paddingEnd="16dp"
     >
 
   <com.adyen.checkout.card.CardView
@@ -26,7 +28,7 @@
       app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/ic_payment_method_credit_card"
+      tools:src="@drawable/ic_credit_card"
       />
 
   <TextView

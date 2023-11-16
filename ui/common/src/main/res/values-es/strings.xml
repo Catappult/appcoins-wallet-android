@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Has recibido un bonus de %s en tu wallet.</string>
   <string name="back_to_the_game_button">Volver al juego</string>
   <string name="other_payment_methos_title">Otros métodos de pago:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Desde</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
   <string name="transaction_status_reverted">Revertida</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Recompensa por Reto</string>
   <string name="transaction_type_challenge_reward_rejected">Recompensa por Reto rechazada</string>
   <string name="transaction_type_challenge_reward_reverted">Recompensa por Reto revertida</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Descargar</string>
   <string name="done">¡Hecho!</string>
   <string name="see_more_button">Ver más</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -1046,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Oops, has introudcido un código erróneo demasiadas veces así que reembolsaremos %1$s a tu tarjeta.</string>
   <string name="card_verification_no_attempts_body">Por favor, inicia el proceso de verificación de nuevo.</string>
   <string name="wallet_verify_header">Verifica al menos un método de pago</string>
-  <string name="verify_card_title">Verificación de tarjeta</string>
-  <string name="verify_card_button">Verificar tarjeta</string>
   <string name="verify_paypal_button">Verificar PayPal</string>
   <string name="card_verification_body_new">Se cobrará %s a tu tarjeta y se devolverá de forma inmediata. Inserta aquí el código de validación que encontrarás en el extracto de la tarjeta.</string>
   <string name="card_verification_disclaimer_body">El código de validación puede aparecer en la notificación del reembolso.</string>
@@ -1237,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verificación de método de pago</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>
   <string name="verify_card_one_more_step_title">Un paso más para verificar</string>
   <string name="verify_card_one_more_step_body">Introduce el código que aparece en el detalle de la transacción</string>
   <string name="verify_card_one_more_step_button">Introducir código</string>
   <string name="verify_card_verified">¡Método de pago verificado!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verificación de tarjeta</string>
   <string name="verify_card_view_disclaimer">Cobraremos %s a tu tarjeta y te lo devolveremos cuando confirmes el código.</string>
   <string name="verify_card_view_title_2">Inserta los datos de la tarjeta</string>

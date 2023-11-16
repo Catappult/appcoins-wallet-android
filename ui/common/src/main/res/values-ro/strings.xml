@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Ai primit un bonus de %s în portofelul tău.</string>
   <string name="back_to_the_game_button">Înapoi la joc</string>
   <string name="other_payment_methos_title">Alte metode de plată:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">În așteptare</string>
   <string name="transaction_status_failed">Eșuată</string>
   <string name="transaction_status_reverted">Restituit</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Recompensă provocare</string>
   <string name="transaction_type_challenge_reward_rejected">Recompensă provocare respinsă</string>
   <string name="transaction_type_challenge_reward_reverted">Recompensă provocare returnată</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Descarcă</string>
   <string name="done">Gata!</string>
   <string name="see_more_button">Vezi mai multe</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -1055,8 +1060,6 @@
   <string name="card_verification_no_attempts_title">Ups, ai introdus greșit codul de prea multe ori, astfel că suma de %1$s va fi rambursată pe cardul tău.</string>
   <string name="card_verification_no_attempts_body">Te rugăm să reîncepi procesul de verificare.</string>
   <string name="wallet_verify_header">Verifică cel puțin o metodă de plată</string>
-  <string name="verify_card_title">Verifică card</string>
-  <string name="verify_card_button">Verifică card bancar</string>
   <string name="verify_paypal_button">Verifică cont PayPal</string>
   <string name="card_verification_body_new">Cardul tău va fi debitat cu %s, dar suma va fi rambursată imediat. Verifică extrasul de card pentru codul de validare și introdu-l aici.</string>
   <string name="card_verification_disclaimer_body">Codul de confirmare poate apărea în notificarea de rambursare.</string>
@@ -1250,12 +1253,13 @@
   <string name="manage_wallet_verify_title">Verifică o metodă de plată</string>
   <string name="manage_wallet_verify_body">Evită blocarea contului, verificându-ți o metodă de plată.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verifică o metodă de plată</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Evită blocarea contului, verificându-ți o metodă de plată.</string>
   <string name="verify_card_one_more_step_title">Încă un pas pentru verificare</string>
   <string name="verify_card_one_more_step_body">Introdu codul care apare în detaliile tranzacției</string>
   <string name="verify_card_one_more_step_button">Introdu cod</string>
   <string name="verify_card_verified">Metodă de plată verificată!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verifică card</string>
   <string name="verify_card_view_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat ce confirmi codul.</string>
   <string name="verify_card_view_title_2">Introdu detaliile cardului tău bancar</string>

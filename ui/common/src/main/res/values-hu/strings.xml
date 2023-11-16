@@ -154,6 +154,9 @@
   <string name="bonus_received_body">%s bónusz érkezett a tárcádba.</string>
   <string name="back_to_the_game_button">Vissza a játékhoz</string>
   <string name="other_payment_methos_title">Egyéb fizetési módok:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Feladó</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Folyamatban</string>
   <string name="transaction_status_failed">Sikertelen</string>
   <string name="transaction_status_reverted">Visszavonva</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Kihívásért járó jutalom</string>
   <string name="transaction_type_challenge_reward_rejected">Kihívásért járó jutalom elutasítva</string>
   <string name="transaction_type_challenge_reward_reverted">Kihívásért járó jutalom visszavonva</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Letöltés</string>
   <string name="done">Kész!</string>
   <string name="see_more_button">Részletek</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -1046,8 +1051,6 @@
   <string name="card_verification_no_attempts_title">Hoppá, túl sokszor adtál meg helytelen kódot, ezért visszautaljuk a(z) %1$s összeget a kártyádra.</string>
   <string name="card_verification_no_attempts_body">Kezdd újra a hitelesítési eljárást.</string>
   <string name="wallet_verify_header">Hitelesíts legalább egy fizetési módot</string>
-  <string name="verify_card_title">Kártya hitelesítése</string>
-  <string name="verify_card_button">Bankkártya hitelesítése</string>
   <string name="verify_paypal_button">PayPal fiók hitelesítése</string>
   <string name="card_verification_body_new">%s összeget vonunk le a kártyádról, majd azonnal visszatérítjük azt. A hitelesítési kódot keresd a kártyakimutatáson, majd illeszd be ide.</string>
   <string name="card_verification_disclaimer_body">A megerősítő kód lehet, hogy a visszatérítési értesítésben fog megjelenni.</string>
@@ -1237,12 +1240,13 @@
   <string name="manage_wallet_verify_title">Hitelesítsd a fizetési módot</string>
   <string name="manage_wallet_verify_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Hitelesítsd a fizetési módot</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <string name="verify_card_one_more_step_title">Még egy lépés maradt hátra a hitelesítésből</string>
   <string name="verify_card_one_more_step_body">Add meg a tranzakció részletekben megjelenő kódot</string>
   <string name="verify_card_one_more_step_button">Kód megadása</string>
   <string name="verify_card_verified">Fizetési mód hitelesítve!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Kártya hitelesítése</string>
   <string name="verify_card_view_disclaimer">%s összeget vonunk le a kártyádról, majd visszafizetjük miután megerősíted a kódot.</string>
   <string name="verify_card_view_title_2">Add meg a bankkártya adatokat</string>
