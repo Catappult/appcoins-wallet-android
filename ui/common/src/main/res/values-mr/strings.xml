@@ -1023,7 +1023,7 @@
   <string name="perks_empty_state_first_purchase_body">अॅपकॉइन्स कंपॅटिबल अॅपमध्ये आपली पहिली खरेदी करुन आम्ही आपल्यासाठी आणलेले प्रमोशन अनलॉक करा!</string>
   <string name="perks_empty_body">सध्यातरी कोणतीही प्रमोशन्स उपलब्ध नाहीत.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">फिंगरप्रिंट लॉक</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
   <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
@@ -1202,7 +1202,7 @@
   <string name="vip_program_promotions_list_title">आपल्यासाठी खास जाहिराती</string>
   <string name="vip_program_promo_code_tag">प्रोमो कोड</string>
   <string name="vip_program_referral_page_title">व्हीआयपी संदर्भ कार्यक्रम</string>
-  <string name="vip_program_referral_page_body">सर्वांना खेळताना कमविण्यासाठी ह्या प्रोमो कोडला आपल्या समुदायात आणि मित्रात सामायिक करा. त्यांनी केलेल्या प्रत्येक अॅपमधील खरेदीवर इतर सक्रिय जाहिरातींसोबत दोघांनाही म्हणजे <b>आपण आणि आपल्या मित्रांना %s%% बोनस</b> मिळेल आणि तोही पूर्ण महिनाभर!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
   <string name="vip_program_gamification_title">माझी बोनस पातळी काय आहे?</string>
