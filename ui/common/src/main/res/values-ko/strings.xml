@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoins 호환 앱에서 첫 번째 구매를 하고 당신을 위해 준비한 프로모션의 잠금을 해제하세요!</string>
   <string name="perks_empty_body">현재 사용할 수 있는 프로모션이 없습니다.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">지문 자금</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">인증 실패!</string>
   <string name="fingerprint_failed_body">%s 초후에 다시 시도해 주세요.</string>
   <string name="fingerprint_authentication_required_title">인증 필요!</string>
@@ -1172,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">당신을 위한 특별 프로모션</string>
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
-  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%의 보너스</b>를 한 달 동안 받게 됩니다!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
