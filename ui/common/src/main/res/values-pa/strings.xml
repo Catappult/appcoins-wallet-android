@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">ਇੱਕ ਐਪ ਸਿੱਕੇ ਅਨੁਕੂਲ ਐਪ ਵਿੱਚ ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰੋ ਅਤੇ ਸਾਨੂੰ ਤੁਹਾਡੇ ਲਈ ਮਿਲੀਆਂ ਆਫਰਾਂ ਨੂੰ ਖੋਲੋ!</string>
   <string name="perks_empty_body">ਇਸ ਸਮੇਂ ਕੋਈ ਆਫਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ!</string>
   <string name="fingerprint_failed_body">%s ਸਕਿੰਟਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.</string>
   <string name="fingerprint_authentication_required_title">ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ!</string>
@@ -1181,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਪ੍ਰੋਮੋਸ਼ਨ</string>
   <string name="vip_program_promo_code_tag">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="vip_program_referral_page_title">ਵੀਆਈਪੀ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ</string>
-  <string name="vip_program_referral_page_body">ਇਸ ਪ੍ਰੋਮੋ ਕੋਡ ਨੂੰ ਆਪਣੇ ਭਾਈਚਾਰੇ ਅਤੇ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਤਾਂ ਜੋ ਹਰ ਕੋਈ ਖੇਡਦੇ ਸਮੇਂ ਕਮਾਈ ਕਰ ਸਕੇ। ਉਹਨਾਂ ਦੁਆਰਾ ਕੀਤੀ ਹਰ ਐਪ-ਵਿੱਚ ਖਰੀਦ ਲਈ, <b>ਤੁਹਾਨੂੰ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤਾਂ ਦੋਵਾਂ ਨੂੰ ਹੋਰ ਸਰਗਰਮ ਪ੍ਰੋਮੋਸ਼ਨਾਂ ਦੇ ਸਿਖਰ ਤੇ ਪੂਰੇ ਮਹੀਨੇ ਲਈ %s%% ਬੋਨਸ</b> ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">ਇਸ ਕੋਡ ਨੂੰ ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="vip_program_referral_page_earned_body">%3$s ਰੈਫਰਲ ਤੋਂ %1$s%2$s ਕਮਾਈ ਕੀਤੀ ਗਈ</string>
   <string name="vip_program_gamification_title">ਮੇਰਾ ਬੋਨਸ ਪੱਧਰ ਕੀ ਹੈ?</string>
