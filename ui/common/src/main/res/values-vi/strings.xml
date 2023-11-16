@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Khóa vân tay</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
@@ -1172,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">Khuyến mãi đặc biệt dành cho bạn</string>
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
-  <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này đến cộng đồng và bạn bè của mình để mọi người đều nhận được phần thưởng khi chơi. Đối với mỗi giao dịch mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn của bạn đều sẽ nhận được %s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khả dụng khác và trong suốt cả tháng!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
   <string name="vip_program_gamification_title">Mức tiền thưởng của tôi là bao nhiêu?</string>
