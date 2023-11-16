@@ -1003,7 +1003,7 @@ Wallets</item>
   <string name="perks_empty_state_first_purchase_body">Κάντε την πρώτη σας αγορά σε μία εφαρμογή συμβατή με AppCoins, ώστε να ξεκλειδώσετε τις προωθήσεις που έχουμε για εσάς!</string>
   <string name="perks_empty_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Κλείδωμα με αποτύπωμα</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
   <string name="fingerprint_failed_body">Παρακαλούμε προσπαθήστε ξανά σε %s δευτερόλεπτα.</string>
   <string name="fingerprint_authentication_required_title">Απαιτείται επαλήθευση!</string>
@@ -1182,7 +1182,7 @@ Wallets</item>
   <string name="vip_program_promotions_list_title">Ειδικές προσφορές για εσάς</string>
   <string name="vip_program_promo_code_tag">Κωδικός προσφοράς</string>
   <string name="vip_program_referral_page_title">VIP Πρόγραμμα Σύστασης</string>
-  <string name="vip_program_referral_page_body">Μοιραστείτε αυτόν τον κωδικό προσφοράς με την κοινότητα και τους φίλους σας για να κερδίσουν όλοι ενώ παίζουν. Για κάθε αγορά εντός της εφαρμογής που θα κάνουν, τόσο <b>εσείς όσο και οι φίλοι σας θα λάβετε %s%% μπόνους</b> επιπρόσθετα από άλλες ενεργές προσφορές και για έναν ολόκληρο μήνα!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
   <string name="vip_program_gamification_title">Ποιο είναι το επίπεδο bonus μου;</string>
