@@ -61,7 +61,8 @@ class PromotionsVipReferralFragment: BasePageViewFragment(),
     promoReferral = getString(PROMO_REFERRAL) ?: ""
     earnedValue = getString(EARNED_VALUE) ?: ""
     earnedTotal = getString(EARNED_TOTAL) ?: ""
-    views.descriptionTv.text = context?.getString(R.string.vip_program_referral_page_body, bonusPercent)
+    views.descriptionTv.text =
+      context?.getString(R.string.vip_program_referral_page_body, bonusPercent, "")
     views.codeTv?.text = promoReferral
     views.earnedTv?.text = context?.getString(R.string.vip_program_referral_page_earned_body, "$", earnedValue, earnedTotal)
   }
