@@ -1287,4 +1287,8 @@
   <string name="challenge_reward_card_body">अॅपकॉईन्स क्रेडीटस मिळविण्यासाठी आव्हान पूर्ण करा.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">आपल्या वॉलेटमध्ये जमा झालेल्या %s अॅपकॉईन्सचा आनंद लुटा</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>
