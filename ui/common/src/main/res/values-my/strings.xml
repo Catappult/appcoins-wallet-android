@@ -1253,4 +1253,8 @@
   <string name="challenge_reward_card_body">AppCoins Credits မ်ားကို ရယူရန္ စိန္ေခၚမႈတစ္ခုကို ၿပီးေအာင္လုပ္ပါ။</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ကို AppCoins Credits ျဖင့္ရယူလိုက္ပါ</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

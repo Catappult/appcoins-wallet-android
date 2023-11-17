@@ -1267,4 +1267,8 @@ Wallets</item>
   <string name="challenge_reward_card_body">Ολοκληρώστε μια πρόκληση για να λάβετε AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Απολαύστε %s σε AppCoins Credits στο wallet σας</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

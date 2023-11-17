@@ -1292,4 +1292,8 @@
   <string name="challenge_reward_card_body">Завершите вызов и получите AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Получите %s в кредитах AppCoins на ваш кошелек</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>
