@@ -7,16 +7,17 @@ data class VipReferralResponse(
   @SerializedName("earned_usd_amount") val earnedUsdAmount: String,
   @SerializedName("referrals") val referrals: String,
   @SerializedName("active") val active: Boolean,
-  @SerializedName("revenue_share") val vipBonus: String
+  @SerializedName("revenue_share") val vipBonus: String,
+  @SerializedName("end_date") val endDate: String
 ) {
-
   companion object {
     val invalidReferral = VipReferralResponse(
-      "",
-      "",
-      "",
+      code = "",
+      earnedUsdAmount = "",
+      referrals = "",
       active = false,
-      ""
+      vipBonus = "",
+      endDate = ""
     )
   }
 }

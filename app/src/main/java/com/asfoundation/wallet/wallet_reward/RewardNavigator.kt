@@ -55,6 +55,7 @@ class RewardNavigator @Inject constructor(
     code: String,
     totalEarned: String,
     numberReferrals: String,
+    endDate: String,
     mainNavController: NavController
   ) {
     val bundle = Bundle()
@@ -62,6 +63,7 @@ class RewardNavigator @Inject constructor(
     bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
     bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
     bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
+    bundle.putString(PromotionsVipReferralFragment.END_DATE, endDate)
     mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
   }
 

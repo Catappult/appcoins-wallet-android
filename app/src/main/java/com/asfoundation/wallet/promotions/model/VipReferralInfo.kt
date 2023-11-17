@@ -4,5 +4,6 @@ data class VipReferralInfo(
   val vipBonus: String,
   val vipCode: String,
   val totalEarned: String,
-  val numberReferrals: String
+  val numberReferrals: String,
+  val endDate: String
 )
