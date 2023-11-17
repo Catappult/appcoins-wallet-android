@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
@@ -1172,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="vip_program_promo_code_tag">ပ႐ိုမိုကုဒ္</string>
   <string name="vip_program_referral_page_title">VIP ရည္ၫႊန္းအစီအစဥ္</string>
-  <string name="vip_program_referral_page_body">ကစားစဉ်အတွင်း လူတိုင်းရရှိနိုင်ရန် ဤပရိုမိုကုဒ်ကို သင့်အပေါင်းအသင်း အသိုက်အဝန်းနှင့် မျှဝေလိုက်ပါ။ ယင်းတို့ပြုလုပ်သော အက်ပ်အတွင်း ဝယ်ယူမှုတိုင်းအတွက် <b>သင်နှင့် သင့်သူငယ်ချင်းများသည် အခြားလက်ရှိ ပရိုမိုးရှင်းများအပြင် %s%% ဘောနပ်စ်ကို</b> တစ်လလုံး ရရှိမည် ဖြစ်ပါသည်။</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
   <string name="vip_program_gamification_title">ကြၽႏ္ုပ္၏ ေဘာနပ္စ္အဆင့္က ဘယ္ေလာက္လဲ။</string>

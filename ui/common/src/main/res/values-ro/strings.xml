@@ -1009,7 +1009,7 @@
   <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
   <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Blocare cu amprentă</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
@@ -1190,7 +1190,7 @@
   <string name="vip_program_promotions_list_title">Promoții speciale pentru tine</string>
   <string name="vip_program_promo_code_tag">Cod promo</string>
   <string name="vip_program_referral_page_title">Program de referință VIP</string>
-  <string name="vip_program_referral_page_body">Distribuie acest cod promo comunității și prietenilor tăi, pentru ca toată lumea să câștige în timp ce se joacă. Pentru fiecare achiziție în aplicație, <b>atât tu, cât și prietenii tăi veți primi bonus %s%% </b>, pe lângă alte promoții active, timp de o lună!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Distribuie acest cod prietenilor tăi</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s câștigați din %3$s referințe</string>
   <string name="vip_program_gamification_title">Care este nivelul meu bonus?</string>

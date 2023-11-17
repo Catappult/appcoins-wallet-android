@@ -1016,7 +1016,7 @@
   <string name="perks_empty_state_first_purchase_body">Сделайте свою первую покупку в приложении, совместимом с AppCoins, и откройте специальные акции, которые мы приготовили для вас!</string>
   <string name="perks_empty_body">На данный момент акций нет.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Открывать отпечатком</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Аутентификация не удалась!</string>
   <string name="fingerprint_failed_body">Пожалуйста, попробуйте снова через %s секунд.</string>
   <string name="fingerprint_authentication_required_title">Необходима аутентификация!</string>
@@ -1199,7 +1199,7 @@
   <string name="vip_program_promotions_list_title">Специальные акции для вас</string>
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
-  <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %s%%</b> в дополнение к другим активным акциям в течение всего месяца!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
   <string name="vip_program_gamification_title">Какой у меня уровень бонуса?</string>

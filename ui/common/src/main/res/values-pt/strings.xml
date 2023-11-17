@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Faz a tua primeira compra numa app compatível com AppCoins para desbloquear as promoções que temos para ti!</string>
   <string name="perks_empty_body">De momento não há promoções disponíveis.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Bloqueio por Impressão Digital</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">A autenticação falhou!</string>
   <string name="fingerprint_failed_body">Tenta novamente em %s segundos.</string>
   <string name="fingerprint_authentication_required_title">Autenticação necessária!</string>
@@ -1181,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">Promoções especiais para ti</string>
   <string name="vip_program_promo_code_tag">Código Promocional</string>
   <string name="vip_program_referral_page_title">Programa de Referência VIP</string>
-  <string name="vip_program_referral_page_body">Partilha este código promocional com a tua comunidade e amigos para que todos ganhem enquanto jogam. Por cada compra in-app que eles fizerem, <b>tu e os teus amigos vão receber um bónus de %s%% </b> além de outras promoções ativas e durante um mês inteiro!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Partilha este código com os teus amigos</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganhos de %3$s referências</string>
   <string name="vip_program_gamification_title">Qual é o meu nível de bónus?</string>

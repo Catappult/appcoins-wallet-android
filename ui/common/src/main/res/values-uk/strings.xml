@@ -1018,7 +1018,7 @@
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Блокування відбитком пальця</string>
+  <string name="fingerprint_settings">Biometrick Lock</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
   <string name="fingerprint_failed_body">Спробуйте ще раз через %s сек.</string>
   <string name="fingerprint_authentication_required_title">Потрібна аутентифікація!</string>
@@ -1201,7 +1201,7 @@
   <string name="vip_program_promotions_list_title">Спеціальні акції для вас</string>
   <string name="vip_program_promo_code_tag">Промокод</string>
   <string name="vip_program_referral_page_title">VIP реферальна програма</string>
-  <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб кожен міг заробляти під час гри. За кожну покупку в додатку, яку вони зроблять, <b>ви та ваші друзі отримуватимете %s%% бонус</b> на додаток до інших активних рекламних акцій протягом цілого місяця!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
