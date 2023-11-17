@@ -1253,4 +1253,8 @@
   <string name="challenge_reward_card_body">AppCoins 크레딧 획득을 위하여 도전을 완료하세요.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>
