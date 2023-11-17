@@ -92,6 +92,8 @@ jacoco_version = "0.8.8"
 mockk_version = "1.13.3"
 paging_version = "3.1.1"
 paging_compose_version = "1.0.0-alpha19"
+vk_pay_version = "0.112-beta24429"
+vk_pay_checkout_version = "0.112-beta24429"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -238,6 +240,10 @@ test-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params",
 test-junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5_version" }
 test-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine_version" }
 
+vk-pay-oauth =  { module = "com.vk:oauth-vk", version.ref = "vk_pay_version" }
+vk-sdk-pub =  { module = "com.vk:vksdk-pub", version.ref = "vk_pay_version" }
+vk-checkout =  { module = "com.vk:vkpay-checkout", version.ref = "vk_pay_checkout_version" }
+
 # Dependencies of the included build-logic
 gradlePlugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle_plugin_version" }
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin_version" }
@@ -264,6 +270,7 @@ hilt-kapt = ["hilt-compiler", "hilt-interface-extensions-processor"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
 result = ["kotlin-result-coroutines", "kotlin-result"]
 paging = ["paging", "paging_compose"]
+vk = ["vk-pay-oauth", "vk-sdk-pub", "vk-checkout"]
 
 [plugins]
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase_performance_plugin" }

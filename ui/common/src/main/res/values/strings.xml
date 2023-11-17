@@ -172,7 +172,7 @@
   <!-- Intro from web payment -->
   <string name="intro_from_web_payment_already_have_title">You already have</string>
   <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
-  
+
 
 
   <!-- Menus -->
@@ -1412,6 +1412,18 @@
 
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+
+  <!-- platform.vk.com !-->
+  <integer name="com_vk_sdk_AppId" translatable="false">12</integer>
+
+  <!-- Your protected key from platform.vk.com !-->
+  <string name="vk_client_secret" translatable="false">324</string>
+
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <string name="vk_external_oauth_redirect_url" translatable="false">434://vk.com</string>
+
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
+  <string name="vk_account_manager_id" translatable="false">com.appcoins.wallet.account.vk</string>
 
 
 </resources>

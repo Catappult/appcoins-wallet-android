@@ -8,5 +8,7 @@ sealed class PaymentMethodClick {
   data class LocalPaymentClick(val idItem: String) : PaymentMethodClick()
   object CarrierBillingClick : PaymentMethodClick()
   object ShareLinkPaymentClick : PaymentMethodClick()
+  object VkPayPaymentClick : PaymentMethodClick()
+
   object OtherPaymentMethods : PaymentMethodClick()
 }

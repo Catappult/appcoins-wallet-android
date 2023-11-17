@@ -88,6 +88,14 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  fun providesVkPayApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): VkPayApi {
+    return retrofit.create(VkPayApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesBrokerBdsApi(
     @BrokerBlockchainRetrofit retrofit: Retrofit
   ): BrokerBdsApi {

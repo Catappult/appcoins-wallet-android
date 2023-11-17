@@ -23,6 +23,11 @@ val debugBuildConfigList = mutableListOf(
   BuildConfigField("String", "ADYEN_PUBLIC_KEY", "ADYEN_PUBLIC_KEY_DEV"),
   BuildConfigField("String", "SENTRY_DSN_KEY", "SENTRY_DSN_KEY_DEV"),
   BuildConfigField("String", "INDICATIVE_API_KEY", "INDICATIVE_API_KEY_DEV"),
+  BuildConfigField("String", "VK_CLIENT_SECRET", "VK_CLIENT_SECRET_DEV"),
+  BuildConfigField("String", "VK_SDK_APP_ID", "VK_SDK_APP_ID_DEV"),
+  BuildConfigField("String", "VK_EXTERNAL_URL_REDIRECT", "VK_EXTERNAL_URL_REDIRECT_DEV"),
+  BuildConfigField("String", "VK_APP_NAME", "VK_APP_NAME_DEV"),
+  BuildConfigField("String", "VK_MERCHANT_ID", "VK_MERCHANT_ID_DEV"),
 )
 
 val releaseBuildConfigList = mutableListOf(
@@ -31,6 +36,11 @@ val releaseBuildConfigList = mutableListOf(
   BuildConfigField("String", "ADYEN_PUBLIC_KEY"),
   BuildConfigField("String", "SENTRY_DSN_KEY"),
   BuildConfigField("String", "INDICATIVE_API_KEY"),
+  BuildConfigField("String", "VK_CLIENT_SECRET"),
+  BuildConfigField("String", "VK_SDK_APP_ID"),
+  BuildConfigField("String", "VK_EXTERNAL_URL_REDIRECT"),
+  BuildConfigField("String", "VK_APP_NAME"),
+  BuildConfigField("String", "VK_MERCHANT_ID"),
 )
 
 internal fun ApplicationDefaultConfig.buildConfigFields(project: Project, rootDir: File) {
