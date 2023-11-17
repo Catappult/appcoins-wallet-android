@@ -25,7 +25,6 @@ class AndroidAppPlugin : Plugin<Project> {
 
       extensions.configure<BaseAppModuleExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = Config.android.buildToolsVersion
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
           targetSdk = Config.android.targetSdk

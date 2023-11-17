@@ -7,7 +7,6 @@ object Config {
     minSdk = 21,
     targetSdk = 34,
     compileSdkVersion = 34,
-    buildToolsVersion = "30.0.3",
     ndkVersion = "21.3.6528147"
   )
   val jvm = JvmConfig(
@@ -24,7 +23,6 @@ object Config {
     val minSdk: Int,
     val targetSdk: Int,
     val compileSdkVersion: Int,
-    val buildToolsVersion: String,
     val ndkVersion: String,
   )
 
