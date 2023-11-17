@@ -151,7 +151,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
   }
 
   fun showError() {
-    binding.loading.visibility = View.GONE
+    binding.loadingAuthorizationAnimation.visibility = View.GONE
     binding.mainContent.visibility = View.GONE
     binding.noNetwork.root.visibility = View.GONE
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
