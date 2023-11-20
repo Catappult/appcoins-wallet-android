@@ -128,6 +128,7 @@ class AndroidAppPlugin : Plugin<Project> {
             kotlinCompilerExtensionVersion = "1.4.3"
           }
           compose = true
+          aidl = true
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
