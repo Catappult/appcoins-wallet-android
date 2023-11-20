@@ -173,6 +173,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                       code = this.vipCode,
                       totalEarned = this.totalEarned,
                       numberReferrals = this.numberReferrals,
+                      endDate = this.endDate,
                       mainNavController = navController()
                     )
                   }, this.vipBonus
