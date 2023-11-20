@@ -37,6 +37,8 @@ import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -113,40 +115,41 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun bindArguments() {
-    if(viewModel.isFirstGetPaymentLink) {
-      if (requireArguments().containsKey(CURRENCY_KEY) &&
-        requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
-        requireArguments().containsKey(AMOUNT_KEY) &&
-        requireArguments().containsKey(ORIGIN_KEY)) {
-        viewModel.getPaymentLink(
-          requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-          (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
-          requireArguments().getString(CURRENCY_KEY)!!,
-          requireArguments().getString(ORIGIN_KEY)!!,
-        )
-        viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
-      } else {
-        showError()
-      }
+    if (viewModel.isFirstGetPaymentLink &&
+      requireArguments().containsKey(CURRENCY_KEY) &&
+      requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
+      requireArguments().containsKey(AMOUNT_KEY) &&
+      requireArguments().containsKey(ORIGIN_KEY)
+    ) {
+      viewModel.getPaymentLink(
+        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
+        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+        requireArguments().getString(CURRENCY_KEY)!!,
+        requireArguments().getString(ORIGIN_KEY)!!,
+      )
+      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+    } else {
+      showError()
     }
   }
 
   private fun setupTransactionCompleteAnimation() {
-    binding.successContainer.lottieTransactionSuccess
+    binding.successContainerVk.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+    binding.successContainerVk.lottieTransactionSuccess
       .addAnimatorListener(object : Animator.AnimatorListener {
         override fun onAnimationRepeat(animation: Animator) = Unit
         override fun onAnimationEnd(animation: Animator) = handleCompletePurchase()
         override fun onAnimationCancel(animation: Animator) = Unit
         override fun onAnimationStart(animation: Animator) = Unit
       })
-    val textDelegate = TextDelegate(binding.successContainer.lottieTransactionSuccess)
+    val textDelegate = TextDelegate(binding.successContainerVk.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", requireArguments().getString(BONUS_KEY))
     textDelegate.setText(
       "bonus_received",
       resources.getString(R.string.gamification_purchase_completed_bonus_received)
     )
-    binding.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    binding.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
+    binding.successContainerVk.lottieTransactionSuccess.setTextDelegate(textDelegate)
+    binding.successContainerVk.lottieTransactionSuccess.setFontAssetDelegate(object :
       FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
         return Typeface.create("sans-serif-medium", Typeface.BOLD)
@@ -256,9 +259,16 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
       viewModel.transactionUid!!
     )
+    val bonus = requireArguments().getString(BONUS_KEY)
+    if (!bonus.isNullOrEmpty()) {
+      binding.successContainerVk.transactionSuccessBonusText.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
+    } else {
+      binding.successContainerVk.bonusSuccessLayout.visibility = View.GONE
+    }
     binding.loading.visibility = View.GONE
     binding.loadingHintTextView.visibility = View.GONE
-    binding.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.successContainerVk.iabActivityTransactionCompleted.visibility = View.VISIBLE
     clearVkPayCheckout()
   }
 
@@ -276,7 +286,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         requireArguments().getString(CURRENCY_KEY)
       )
     }
-    navigatorIAB?.popView(bundle)
+    viewLifecycleOwner.lifecycleScope.launch {
+      delay(1500L)
+      navigatorIAB?.popView(bundle)
+    }
   }
 
   companion object {

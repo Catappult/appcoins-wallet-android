@@ -126,11 +126,17 @@
         app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
 
     <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
         android:name="amount"
         app:argType="string" />
     <argument
         android:name="currency"
         app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
 
     <action
         android:id="@+id/action_navigate_to_onboarding_payment_result"

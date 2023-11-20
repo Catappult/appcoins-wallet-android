@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_card"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,17 +17,18 @@
         android:id="@+id/vk_fast_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="30dp"/>
+        />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading"
-      android:layout_width="56dp"
-      android:layout_height="56dp"
+      android:layout_width="128dp"
+      android:layout_height="128dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_regular_animation"
+      app:lottie_rawRes="@raw/loading_wallet"
       tools:visibility="visible"
       />
 
@@ -44,14 +45,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/purchase_making_purchase_title"
-      app:layout_constraintTop_toBottomOf="@id/loading"
-      app:layout_constraintStart_toStartOf="parent"
+      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
-      android:visibility="visible"
-    />
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/loading"
+      />
 
   <include
-      android:id="@+id/success_container"
+      android:id="@+id/success_container_vk"
       layout="@layout/fragment_iab_transaction_completed"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -77,9 +78,9 @@
       android:id="@+id/error_view"
       layout="@layout/support_error_layout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="0dp"
       android:visibility="gone"
-      android:layout_marginTop="24dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -90,26 +91,27 @@
       android:id="@+id/error_cancel_vk"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
-      app:layout_constraintTop_toBottomOf="@id/error_view"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toStartOf="@id/error_try_again_vk"
-      android:layout_marginTop="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
       android:visibility="gone"
-      app:buttonText="@string/button_cancel"
-      app:buttonType="outlined"
+      app:buttonColor="@color/styleguide_dark_grey"
+      app:buttonText="@string/cancel_button"
+      app:buttonType="text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/error_try_again_vk"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_try_again_vk"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
-      app:layout_constraintTop_toBottomOf="@id/error_view"
-      app:layout_constraintStart_toEndOf="@id/error_cancel_vk"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:layout_marginTop="24dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="16dp"
       android:visibility="gone"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

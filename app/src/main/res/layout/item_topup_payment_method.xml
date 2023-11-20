@@ -169,11 +169,13 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:visibility="gone"
+      android:layout_marginEnd="8dp"
       app:layout_constraintBottom_toBottomOf="@id/payment_method_description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/payment_method_description"
       app:layout_constraintTop_toTopOf="@+id/payment_method_description"
+      tools:visibility="visible"
 
       >
 

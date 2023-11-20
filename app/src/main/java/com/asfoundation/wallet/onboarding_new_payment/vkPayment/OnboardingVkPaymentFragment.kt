@@ -16,6 +16,9 @@ import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
+import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
+import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentNavigator
+import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
@@ -44,6 +47,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var vkPayManager: VkPayManager
+
+  @Inject
+  lateinit var navigator: OnboardingVkPaymentNavigator
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
@@ -131,7 +137,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   }
 
   fun showError() {
-    binding.loading.visibility = View.GONE
+    binding.loadingAuthorizationAnimation.visibility = View.GONE
     binding.noNetwork.root.visibility = View.GONE
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
@@ -143,12 +149,20 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   }
 
   private fun showCompletedPayment() {
-    binding.loading.visibility = View.GONE
+    binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+    val bonus = args.forecastBonus.getPurchaseBonusMessage(formatter)
+    if (!bonus.isNullOrEmpty()) {
+      binding.fragmentFirstIabTransactionCompleted.transactionSuccessBonusText.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
+    } else {
+      binding.fragmentFirstIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
+    }
+    binding.loadingAuthorizationAnimation.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.VISIBLE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+    binding.fragmentFirstIabTransactionCompleted.iabFirstActivityTransactionCompleted.visibility =
       View.VISIBLE
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
     clearVkPayCheckout()
   }
 

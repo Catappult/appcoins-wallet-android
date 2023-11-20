@@ -28,6 +28,11 @@ data class PaymentModel(
     Status.FAILED, null, null, error
   )
 
+  constructor() : this(
+    "", null, null, null, "", "", "", null, "", "", emptyList(),
+    Status.COMPLETED, null, null
+  )
+
   constructor(response: TransactionResponse, status: Status) : this(
     "", null, null, null, "", "",
     response.uid, null, response.hash, response.orderReference, emptyList(), status,

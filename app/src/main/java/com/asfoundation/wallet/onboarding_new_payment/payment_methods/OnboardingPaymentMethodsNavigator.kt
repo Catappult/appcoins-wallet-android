@@ -121,14 +121,17 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   fun navigateToVkPayPayment(
     transactionBuilder: TransactionBuilder,
     amount: String,
-    currency: String
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
   ) {
     navigate(
       fragment.findNavController(),
       OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingVkPayment(
         transactionBuilder,
+        PaymentType.VKPAY,
         amount,
-        currency
+        currency,
+        forecastBonus
       )
     )
   }
