@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.util.Locale
 import javax.inject.Inject
 
 interface TransactionsHistoryRepository {
@@ -36,7 +37,10 @@ class DefaultTransactionsHistoryRepository @Inject constructor(private val api: 
       emit(
         handleApi {
           api.getTransactionHistory(
-            wallet = wallet, defaultCurrency = currency, limit = limit
+            wallet = wallet,
+            defaultCurrency = currency,
+            limit = limit,
+            languageCode = Locale.getDefault().language
           )
         })
     }

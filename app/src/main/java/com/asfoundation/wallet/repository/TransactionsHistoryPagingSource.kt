@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.network.backend.api.TransactionsApi
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.Locale
 
 
 class TransactionsHistoryPagingSource(
@@ -19,7 +20,8 @@ class TransactionsHistoryPagingSource(
         wallet = wallet,
         endingDate = params.key,
         limit = params.loadSize,
-        defaultCurrency = currency
+        defaultCurrency = currency,
+        languageCode = Locale.getDefault().language
       ).body()
 
       LoadResult.Page(
