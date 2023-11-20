@@ -115,22 +115,21 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun bindArguments() {
-    if (viewModel.isFirstGetPaymentLink) {
-      if (requireArguments().containsKey(CURRENCY_KEY) &&
-        requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
-        requireArguments().containsKey(AMOUNT_KEY) &&
-        requireArguments().containsKey(ORIGIN_KEY)
-      ) {
-        viewModel.getPaymentLink(
-          requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
-          (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
-          requireArguments().getString(CURRENCY_KEY)!!,
-          requireArguments().getString(ORIGIN_KEY)!!,
-        )
-        viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
-      } else {
-        showError()
-      }
+    if (viewModel.isFirstGetPaymentLink &&
+      requireArguments().containsKey(CURRENCY_KEY) &&
+      requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
+      requireArguments().containsKey(AMOUNT_KEY) &&
+      requireArguments().containsKey(ORIGIN_KEY)
+    ) {
+      viewModel.getPaymentLink(
+        requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
+        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
+        requireArguments().getString(CURRENCY_KEY)!!,
+        requireArguments().getString(ORIGIN_KEY)!!,
+      )
+      viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
+    } else {
+      showError()
     }
   }
 
