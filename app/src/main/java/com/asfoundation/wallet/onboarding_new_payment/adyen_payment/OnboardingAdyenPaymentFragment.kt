@@ -97,6 +97,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setOnClickListener {
       viewModel.handleBuyClick(
         adyenCardWrapper,
+        shouldStoreCard(),
         RedirectComponent.getReturnUrl(requireContext())
       )
     }
@@ -194,6 +195,10 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun initOuterNavController() {
     outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
+  }
+
+  fun shouldStoreCard(): Boolean {
+    return adyenCardView.cardSave
   }
 
   private fun showLoading(shouldShow: Boolean) {

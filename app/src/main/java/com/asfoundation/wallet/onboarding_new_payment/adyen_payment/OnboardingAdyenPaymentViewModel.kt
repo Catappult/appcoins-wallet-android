@@ -85,7 +85,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
     }.scopedSubscribe()
   }
 
-  fun handleBuyClick(adyenCard: AdyenCardWrapper, returnUrl: String) {
+  fun handleBuyClick(adyenCard: AdyenCardWrapper, shouldStoreCard:Boolean, returnUrl: String) {
     sendSideEffect { OnboardingAdyenPaymentSideEffect.ShowLoading }
     transactionOriginUseCase(args.transactionBuilder)
       .flatMap { origin ->
@@ -93,7 +93,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
         events.sendPaymentConfirmationEvent(args.transactionBuilder, args.paymentType)
         adyenPaymentInteractor.makePayment(
           adyenPaymentMethod = adyenCard.cardPaymentMethod,
-          shouldStoreMethod = adyenCard.shouldStoreCard,
+          shouldStoreMethod = shouldStoreCard,
           hasCvc = adyenCard.hasCvc,
           supportedShopperInteraction = adyenCard.supportedShopperInteractions,
           returnUrl = returnUrl,
