@@ -1009,7 +1009,7 @@
   <string name="perks_empty_state_first_purchase_body">Obavite prvu kupovinu u aplikaciji koja je kompatibilna sa AppCoins kako bi otključali promocije koje smo spremili za vas!</string>
   <string name="perks_empty_body">Trenutno nema dostupnih promocija.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
