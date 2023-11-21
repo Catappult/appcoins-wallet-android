@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoinsに対応したアプリで初めてのお買い物をすると、お得なキャンペーンをご利用いただけます。</string>
   <string name="perks_empty_body">現在、プロモーションはありません。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">認証に失敗しました！</string>
   <string name="fingerprint_failed_body">%s秒後に再度お試しください。</string>
   <string name="fingerprint_authentication_required_title">認証が必要です。</string>
