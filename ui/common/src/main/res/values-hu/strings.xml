@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Sikertelen hitelesítés!</string>
   <string name="fingerprint_failed_body">Próbáld újra %s másodperc múlva.</string>
   <string name="fingerprint_authentication_required_title">Hitelesítés szükséges!</string>
