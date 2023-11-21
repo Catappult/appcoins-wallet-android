@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
