@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Sblocca le promozioni che abbiamo in serbo per te effettuando il tuo primo acquisto su un\'app compatibile con gli AppCoins!</string>
   <string name="perks_empty_body">Al momento non ci sono promozioni disponibili.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Autenticazione fallita!</string>
   <string name="fingerprint_failed_body">Ritenta fra %s secondi.</string>
   <string name="fingerprint_authentication_required_title">Autenticazione necessaria!</string>
