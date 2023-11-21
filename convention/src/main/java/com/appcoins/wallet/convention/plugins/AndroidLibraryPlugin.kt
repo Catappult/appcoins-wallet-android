@@ -5,11 +5,14 @@ import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.get
 import com.appcoins.wallet.convention.extensions.libs
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidLibraryPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -20,6 +23,12 @@ class AndroidLibraryPlugin : Plugin<Project> {
         apply("kotlin-kapt")
         apply<HiltPlugin>()
         apply<JacocoLibraryPlugin>()
+      }
+
+      tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+          jvmTarget = JavaVersion.VERSION_17.toString()
+        }
       }
 
       extensions.configure<LibraryExtension> {
