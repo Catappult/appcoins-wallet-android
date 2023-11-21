@@ -1023,7 +1023,7 @@
   <string name="perks_empty_state_first_purchase_body">अॅपकॉइन्स कंपॅटिबल अॅपमध्ये आपली पहिली खरेदी करुन आम्ही आपल्यासाठी आणलेले प्रमोशन अनलॉक करा!</string>
   <string name="perks_empty_body">सध्यातरी कोणतीही प्रमोशन्स उपलब्ध नाहीत.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
   <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>
