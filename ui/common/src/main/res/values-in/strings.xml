@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">Lakukan pembelian pertama Anda di aplikasi yang kompatibel dengan AppCoins untuk membuka promosi yang kami sediakan untuk Anda!</string>
   <string name="perks_empty_body">Tidak tersedia promosi saat ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
   <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
   <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>
