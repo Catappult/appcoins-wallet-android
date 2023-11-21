@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
