@@ -47,21 +47,24 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/generic_error_buttons"
+          android:layout_marginTop="32dp"
           tools:visibility="visible"
           />
 
-      <include
-          android:id="@+id/generic_error_buttons"
-          layout="@layout/dialog_buy_buttons_adyen_error"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/small_margin"
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/generic_error_button"
+          android:layout_width="0dp"
+          android:layout_height="48dp"
+          android:layout_gravity="center_vertical"
+          android:layout_margin="32dp"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
+          app:buttonColor="@color/styleguide_pink"
+          app:buttonText="@string/try_again"
+          app:buttonType="filled"
           tools:visibility="visible"
           />
 
