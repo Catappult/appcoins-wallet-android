@@ -202,14 +202,12 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun showGenericError() = showSpecificError(R.string.unknown_error)
 
   override fun showNetworkError() {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.contentContainer.visibility = View.GONE
     views.noNetwork.root.visibility = View.VISIBLE
   }
 
   override fun showSpecificError(stringRes: Int) {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.contentContainer.visibility = View.GONE
 
@@ -219,7 +217,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   override fun showCvvError() {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.submit.isEnabled = false
     if (isStored) {

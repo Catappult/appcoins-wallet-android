@@ -29,6 +29,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
     handleLaterClicks()
     handleRetryClick()
     handleAnotherCardClicks()
+    view.lockRotation()
   }
 
   private fun initializeView(savedInstanceState: Bundle?) {
@@ -46,7 +47,6 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
         .observeOn(viewScheduler)
         .doOnNext {
           view.showVerificationCode()
-          view.unlockRotation()
         }
         .subscribe({}, { it.printStackTrace() }))
   }
@@ -140,7 +140,6 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
 
   private fun hideLoading() {
     view.hideLoading()
-    view.unlockRotation()
   }
 
   private fun showLoading() {
