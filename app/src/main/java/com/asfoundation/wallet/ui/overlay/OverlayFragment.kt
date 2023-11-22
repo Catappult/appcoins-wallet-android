@@ -101,10 +101,6 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
     return RxView.clicks(binding.overlayContainer)
   }
 
-  override fun navigateToPromotions() {
-    navBarFragmentNavigator.navigateToPromotions()
-  }
-
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,6 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
-import com.asf.wallet.databinding.OnboardingPaymentGameInfoBinding
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -66,7 +63,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     clickListeners()
     // To hide the header inside other fragment OnboardingPaymentFragment
     val sharedHeaderViewModel = ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
-    sharedHeaderViewModel.viewVisibility.value = View.INVISIBLE
+    sharedHeaderViewModel.viewVisibility.value = View.GONE
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 

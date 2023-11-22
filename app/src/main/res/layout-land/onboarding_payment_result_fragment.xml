@@ -4,13 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_payment_result_fragment"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/background_card_blue"
     >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_gravity="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_dark_animation"
+      />
+
   <ScrollView
       android:id="@+id/scroll_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:fillViewport="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -21,21 +38,6 @@
         android:layout_height="wrap_content"
         >
 
-      <com.airbnb.lottie.LottieAnimationView
-          android:id="@+id/loading_animation"
-          android:layout_width="70dp"
-          android:layout_height="70dp"
-          android:layout_gravity="center"
-          android:layout_marginTop="@dimen/large_margin"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:lottie_autoPlay="true"
-          app:lottie_enableMergePathsForKitKatAndAbove="true"
-          app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_dark_animation"
-          />
-
       <include
           android:id="@+id/generic_error_layout"
           layout="@layout/onboarding_support_error_layout"
@@ -45,6 +47,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/generic_error_buttons"
           tools:visibility="visible"
           />
 
@@ -57,7 +60,9 @@
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
+          tools:visibility="visible"
           />
 
       <include
@@ -69,6 +74,8 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/onboarding_success_buttons"
+          tools:visibility="visible"
           />
 
       <include
@@ -80,6 +87,8 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/onboarding_generic_success_layout"
+          app:layout_constraintBottom_toBottomOf="parent"
+          tools:visibility="visible"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>

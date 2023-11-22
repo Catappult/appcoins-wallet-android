@@ -3,9 +3,9 @@ package com.asfoundation.wallet.onboarding.pending_payment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.core.arch.data.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
@@ -29,5 +29,9 @@ class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragm
       putSerializable("forecast_bonus", forecastBonus)
     }
     navController.setGraph(R.navigation.inner_payment_graph, bundle)
+  }
+
+  fun navigateToNavBar(navController: NavController) {
+    while (fragment.parentFragmentManager.backStackEntryCount > 1) navController.popBackStack()
   }
 }

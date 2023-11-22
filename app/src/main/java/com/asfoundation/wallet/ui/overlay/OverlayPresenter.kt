@@ -16,7 +16,6 @@ class OverlayPresenter(private val view: OverlayView,
     disposable.add(view.discoverClick()
         .doOnNext {
           interactor.setHasSeenPromotionTooltip()
-          view.navigateToPromotions()
         }
         .subscribe({}, { it.printStackTrace() }))
   }
