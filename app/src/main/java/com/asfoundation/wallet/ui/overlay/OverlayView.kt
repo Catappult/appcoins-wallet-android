@@ -8,6 +8,8 @@ interface OverlayView {
 
   fun dismissClick(): Observable<Any>
 
+  fun navigateToPromotions()
+
   fun dismissView()
 
   fun overlayClick(): Observable<Any>
