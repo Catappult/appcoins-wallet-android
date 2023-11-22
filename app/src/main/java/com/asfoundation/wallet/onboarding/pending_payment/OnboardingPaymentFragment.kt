@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
+import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +19,13 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingSharedHeaderViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -39,7 +45,6 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
   lateinit var formatter: CurrencyFormatUtils
 
 
-
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
@@ -53,7 +58,8 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     initInnerNavController()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     handlePaymentFinishResult()
-    val sharedHeaderViewModel = ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
+    val sharedHeaderViewModel =
+      ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
     // Observe the LiveData for visibility changes
     sharedHeaderViewModel.viewVisibility.observe(viewLifecycleOwner) { visibility ->
       views.onboardingPaymentHeaderLayout.root.visibility = visibility
@@ -67,7 +73,18 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
       this
     ) { _, _ ->
       views.root.visibility = View.GONE
+      context?.let { restart(it) }
     }
+  }
+
+  private fun restart(context: Context) {
+    val packageManager: PackageManager = context.packageManager
+    val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+    val componentName = intent!!.component
+    val mainIntent = Intent.makeRestartActivityTask(componentName)
+    mainIntent.setPackage(context.packageName)
+    context.startActivity(mainIntent)
+    Runtime.getRuntime().exit(0)
   }
 
   private fun editToolbar() {
