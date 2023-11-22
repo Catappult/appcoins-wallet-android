@@ -53,7 +53,11 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
-      vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
+      vkDataPreferencesDataSource.saveAuthVk(
+        accessToken = authResult.accessToken,
+        email = authResult.personalData?.email ?: "",
+        phone = authResult.personalData?.phone ?: ""
+      )
       startVkCheckoutPay()
     }
 
@@ -109,6 +113,8 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
+        vkDataPreferencesDataSource.getEmailVK() ?: "",
+        vkDataPreferencesDataSource.getPhoneVK() ?: "",
         viewModel.walletAddress,
         amount,
         BuildConfig.VK_MERCHANT_ID.toInt(),

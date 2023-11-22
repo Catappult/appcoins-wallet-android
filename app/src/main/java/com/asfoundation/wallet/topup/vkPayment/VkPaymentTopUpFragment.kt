@@ -53,7 +53,11 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
-      vkDataPreferencesDataSource.saveAuthVk(authResult.accessToken)
+      vkDataPreferencesDataSource.saveAuthVk(
+        accessToken = authResult.accessToken,
+        email = authResult.personalData?.email ?: "",
+        phone = authResult.personalData?.phone ?: ""
+      )
       startVkCheckoutPay()
     }
 
@@ -89,9 +93,10 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       viewModel.paymentData =
         arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     }
-    val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+    val imm =
+      requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     imm?.hideSoftInputFromWindow(view.windowToken, 0)
-    if(viewModel.isFirstGetPaymentLink) {
+    if (viewModel.isFirstGetPaymentLink) {
       viewModel.getPaymentLink()
     }
   }
@@ -115,6 +120,8 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
+        vkDataPreferencesDataSource.getEmailVK() ?: "",
+        vkDataPreferencesDataSource.getPhoneVK() ?: "",
         viewModel.walletAddress,
         amount,
         BuildConfig.VK_MERCHANT_ID.toInt(),

@@ -2,6 +2,7 @@ package com.appcoins.wallet.feature.vkpay
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.vk.auth.main.VkClientUiInfo
@@ -62,6 +63,8 @@ class VkPayManager @Inject constructor() {
   fun checkoutVkPay(
     hash: String,
     uidTransaction: String,
+    email: String,
+    phone: String,
     walletAddress: String,
     amount: Int,
     vkMerchantId: Int,
@@ -70,7 +73,12 @@ class VkPayManager @Inject constructor() {
   ) {
     val transaction = VkTransactionInfo(
       amount,
-      uidTransaction, VkTransactionInfo.Currency.RUB
+      createVKData(
+        uid = uidTransaction,
+        phone = phone,
+        email = email
+      ),
+      VkTransactionInfo.Currency.RUB
     )
     val merchantInfo = VkMerchantInfo(
       vkMerchantId,
@@ -95,4 +103,6 @@ class VkPayManager @Inject constructor() {
     VkPayCheckout.startCheckout(fragmentManager, transaction, config)
 
   }
+
+  fun createVKData(uid: String, phone: String, email: String) = "$uid;$phone;$email"
 }
