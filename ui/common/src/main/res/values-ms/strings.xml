@@ -995,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">Buat pembelian pertama anda dalam aplikasi serasi AppCoins dan peroleh promosi yang kami tawarkan kepada anda!</string>
   <string name="perks_empty_body">Tiada promosi buat masa ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
   <string name="fingerprint_failed_body">Sila cuba lagi dalam masa %s saat.</string>
   <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>

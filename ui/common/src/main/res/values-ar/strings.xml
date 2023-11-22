@@ -1031,7 +1031,7 @@
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>

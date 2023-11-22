@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Sizin için hazırladığımız promosyonların kilidini açmak için AppCoins uyumlu bir uygulamada ilk satın alma işleminizi gerçekleştirin!</string>
   <string name="perks_empty_body">Şu anda uygun promosyon yok.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Kimlik doğrulama başarısız!</string>
   <string name="fingerprint_failed_body">Lütfen %s saniye içinde tekrar deneyin.</string>
   <string name="fingerprint_authentication_required_title">Kimlik doğrulama gerekli!</string>

@@ -1009,7 +1009,7 @@
   <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
   <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>

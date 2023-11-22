@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Tätige deinen ersten Einkauf in einer AppCoins kompatiblen App und schalte die Aktionen frei, die wir für dich erstellt haben!</string>
   <string name="perks_empty_body">Derzeit sind keine Aktionen verfügbar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Authentifizierung fehlgeschlagen!</string>
   <string name="fingerprint_failed_body">Bitte versuche es in %s Sekunden erneut.</string>
   <string name="fingerprint_authentication_required_title">Authentifizierung erforderlich!</string>

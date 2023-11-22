@@ -1018,7 +1018,7 @@
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
   <string name="fingerprint_failed_body">Спробуйте ще раз через %s сек.</string>
   <string name="fingerprint_authentication_required_title">Потрібна аутентифікація!</string>

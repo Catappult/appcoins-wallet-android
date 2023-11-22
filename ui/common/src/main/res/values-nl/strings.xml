@@ -1002,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">Doe je eerste aankoop in een app die AppCoins ondersteunt om de acties die we voor je hebben te ontgrendelen!</string>
   <string name="perks_empty_body">Er zijn momenteel geen acties beschikbaar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometrick Lock</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Authenticatie is mislukt!</string>
   <string name="fingerprint_failed_body">Probeer het over %s seconden opnieuw.</string>
   <string name="fingerprint_authentication_required_title">Authenticatie is vereist!</string>
