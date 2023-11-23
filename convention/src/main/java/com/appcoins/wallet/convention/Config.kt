@@ -10,8 +10,8 @@ object Config {
     ndkVersion = "21.3.6528147"
   )
   val jvm = JvmConfig(
-    javaVersion = JavaVersion.VERSION_17,
-    kotlinJvm = JavaVersion.VERSION_17.toString(),
+    javaVersion = JavaVersion.VERSION_11,
+    kotlinJvm = JavaVersion.VERSION_11.toString(),
     freeCompilerArgs = listOf(
       "-opt-in=kotlin.RequiresOptIn",
       "-opt-in=kotlin.Experimental",
