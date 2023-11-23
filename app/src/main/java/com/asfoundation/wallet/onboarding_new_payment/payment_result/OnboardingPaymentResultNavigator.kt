@@ -41,7 +41,6 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateBackToPaymentMethods() {
-    fragment.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     fragment.findNavController()
       .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }
