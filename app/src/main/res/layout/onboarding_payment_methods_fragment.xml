@@ -46,7 +46,6 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
-      android:layout_marginTop="@dimen/half_large_margin"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

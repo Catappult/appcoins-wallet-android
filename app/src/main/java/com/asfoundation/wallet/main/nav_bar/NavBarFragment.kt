@@ -235,6 +235,7 @@ class NavBarFragment : BasePageViewFragment(),
       when (menuItem.itemId) {
         R.id.home_graph -> {
         }
+
         R.id.promotions_graph -> {
           viewModel.removePromotionsBadge()
           if (views.vipPromotionsCallout.vipCalloutLayout.isVisible) {
@@ -242,8 +243,10 @@ class NavBarFragment : BasePageViewFragment(),
             viewModel.vipPromotionsSeen()
           }
         }
+
         R.id.my_wallets_graph -> {
         }
+
         else -> {
         }
       }

@@ -210,7 +210,6 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   }
 
   override fun showNetworkError() {
-    unlockRotation()
     views.progressBar.visibility = View.GONE
     views.contentContainer.visibility = View.GONE
     views.noNetwork.root.visibility = View.VISIBLE

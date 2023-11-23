@@ -249,12 +249,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     binding.creditCardInfoContainer.visibility = VISIBLE
     binding.fragmentAdyenError.root.visibility = GONE
-
     topUpView.unlockRotation()
   }
 
   override fun showSpecificError(@StringRes stringRes: Int) {
-    topUpView.unlockRotation()
     viewModelStore.clear()
     binding.loading.visibility = GONE
     binding.topUpContainer.visibility = GONE

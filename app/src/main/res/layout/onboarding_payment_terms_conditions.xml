@@ -10,7 +10,7 @@
 
   <TextView
       android:id="@+id/terms_conditions_body"
-      style="@style/TextM"
+      style="@style/TextSMedium"
       android:textColor="@color/styleguide_white_transparent_80"
       android:layout_width="0dp"
       android:layout_height="wrap_content"

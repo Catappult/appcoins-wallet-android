@@ -132,10 +132,13 @@
           android:layout_gravity="end"
           android:layout_marginStart="-32dp"
           android:layout_marginTop="26dp"
+          android:layout_marginBottom="16dp"
           app:buttonText="@string/card_verification_code_other_card_button"
           app:buttonType="text"
+          app:layout_constraintBottom_toTopOf="@+id/confirm"
           app:layout_constraintStart_toStartOf="@+id/code"
           app:layout_constraintTop_toBottomOf="@+id/code"
+          app:layout_constraintVertical_bias="0.0"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -151,7 +154,6 @@
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintVertical_bias="1"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView

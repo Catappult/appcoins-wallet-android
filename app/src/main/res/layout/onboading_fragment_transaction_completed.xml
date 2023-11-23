@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_activity_transaction_completed"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/background_card_blue"
     android:visibility="gone"
@@ -13,12 +13,13 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/onboarding_lottie_transaction_success"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_width="88dp"
+      android:layout_height="88dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginTop="40dp"
+      app:layout_constraintBottom_toTopOf="@id/transaction_success_text"
       app:layout_constraintVertical_bias="0.36"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -33,8 +34,11 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:text="@string/done"
+      android:textSize="16sp"
+      android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_bonus_success_layout"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_lottie_transaction_success"
       />
 
@@ -45,16 +49,18 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/transaction_success_text"
+      android:layout_marginBottom="40dp"
       android:layout_marginTop="8dp"
       android:visibility="gone"
       tools:visibility="visible"
       android:gravity="center"
-    >
+      app:layout_constraintBottom_toBottomOf="parent"
+      >
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/onboarding_lottie_bonus_success"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginEnd="8dp"
         app:lottie_autoPlay="true"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -68,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bonus_granted_body"
-        android:textSize="14sp"
+        android:textSize="12sp"
         />
 
   </LinearLayout>

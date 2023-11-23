@@ -1,14 +1,13 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.ErrorInfo
@@ -16,8 +15,6 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
-import com.asf.wallet.databinding.OnboardingPaymentGameInfoBinding
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -32,10 +29,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()
+  private val sharedViewModel: OnboardingSharedHeaderViewModel by activityViewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
-
-
 
   @Inject
   lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
@@ -48,9 +44,6 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingPaymentResultNavigator
-
-
-
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -65,18 +58,15 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.loadingAnimation.playAnimation()
     clickListeners()
     // To hide the header inside other fragment OnboardingPaymentFragment
-    val sharedHeaderViewModel = ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
-    sharedHeaderViewModel.viewVisibility.value = View.INVISIBLE
+    sharedViewModel.viewVisibility.value = View.GONE
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun clickListeners() {
     //try again and back needs to be separated later
-    views.genericErrorButtons.errorTryAgain.setOnClickListener {
+    views.genericErrorButton.setOnClickListener {
+      sharedViewModel.viewVisibility.value = View.VISIBLE
       navigator.navigateBackToPaymentMethods()
-    }
-    views.genericErrorButtons.errorCancel.setOnClickListener {
-      viewModel.handleExploreWalletClick()
     }
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(args.forecastBonus.level)
@@ -185,14 +175,14 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   fun showSpecificError(@StringRes errorMessageRes: Int) {
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.VISIBLE
-    views.genericErrorButtons.root.visibility = View.VISIBLE
+    views.genericErrorButton.visibility = View.VISIBLE
     views.genericErrorLayout.errorMessage.text = getString(errorMessageRes)
   }
 
   private fun handleSuccess() {
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.GONE
-    views.genericErrorButtons.root.visibility = View.GONE
+    views.genericErrorButton.visibility = View.GONE
     handleBonusAnimation()
     views.onboardingGenericSuccessLayout.root.visibility = View.VISIBLE
     views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
