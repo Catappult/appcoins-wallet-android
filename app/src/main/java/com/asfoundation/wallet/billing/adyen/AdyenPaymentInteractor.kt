@@ -8,14 +8,13 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
-import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
@@ -37,13 +36,10 @@ class AdyenPaymentInteractor @Inject constructor(
   private val supportInteractor: SupportInteractor,
   private val walletBlockedInteract: WalletBlockedInteract,
   private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val billingAddressRepository: BillingAddressRepository,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers
 ) {
-
-  fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

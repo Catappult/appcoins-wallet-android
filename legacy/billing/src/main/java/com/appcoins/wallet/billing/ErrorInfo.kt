@@ -7,7 +7,6 @@ data class ErrorInfo(
 ) {
 
   enum class ErrorType {
-    BILLING_ADDRESS,
     BLOCKED,
     SUB_ALREADY_OWNED,
     CONFLICT, UNKNOWN,

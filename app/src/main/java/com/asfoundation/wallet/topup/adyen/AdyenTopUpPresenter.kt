@@ -5,18 +5,21 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
-import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
-import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.CANCELED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.FAILED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMENT
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -28,12 +31,8 @@ import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.google.gson.JsonObject
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -209,7 +208,7 @@ class AdyenTopUpPresenter(
 
   //Called if is card
   private fun handleTopUpClick() {
-    disposables.add(Observable.merge(view.topUpButtonClicked(), view.billingAddressInput())
+    disposables.add(view.topUpButtonClicked()
       .flatMapSingle {
         view.retrievePaymentData()
           .firstOrError()
@@ -221,8 +220,7 @@ class AdyenTopUpPresenter(
       }
       .observeOn(networkScheduler)
       .flatMapSingle {
-        val billingAddressModel = view.retrieveBillingAddressData()
-        val shouldStore = billingAddressModel?.remember ?: view.shouldStoreCard()
+        val shouldStore = view.shouldStoreCard()
         topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
         adyenPaymentInteractor.makeTopUpPayment(
           adyenPaymentMethod = it.cardPaymentMethod,
@@ -234,8 +232,7 @@ class AdyenTopUpPresenter(
           currency = retrievedCurrency,
           paymentType = mapPaymentToService(paymentType).transactionType,
           transactionType = transactionType,
-          packageName = appPackage,
-          billingAddress = mapToAdyenBillingAddress(billingAddressModel)
+          packageName = appPackage
         )
       }
       .observeOn(viewScheduler)
@@ -287,7 +284,6 @@ class AdyenTopUpPresenter(
         )
           .observeOn(viewScheduler)
           .doOnSuccess {
-            adyenPaymentInteractor.forgetBillingAddress()
             view.hideLoading()
             if (it.error.hasError) {
               if (it.error.isNetworkError) view.showNetworkError()
@@ -409,12 +405,7 @@ class AdyenTopUpPresenter(
         )
       }
       paymentModel.error.hasError -> Completable.fromAction {
-        if (isBillingAddressError(paymentModel.error)) {
-          view.setFinishingPurchase(false)
-          view.navigateToBillingAddress(retrievedAmount, retrievedCurrency)
-        } else {
-          handleErrors(paymentModel, appcValue.toDouble())
-        }
+        handleErrors(paymentModel, appcValue.toDouble())
       }
       paymentModel.status == CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(
@@ -466,10 +457,6 @@ class AdyenTopUpPresenter(
           )
         }
       }
-  }
-
-  private fun isBillingAddressError(error: Error): Boolean {
-    return error.errorInfo?.errorType == ErrorType.BILLING_ADDRESS
   }
 
   private fun handleSuccessTransaction(): Completable {
@@ -568,14 +555,6 @@ class AdyenTopUpPresenter(
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
-    }
-  }
-
-  private fun mapToAdyenBillingAddress(
-    billingAddressModel: BillingAddressModel?
-  ): AdyenBillingAddress? {
-    return billingAddressModel?.let {
-      AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
   }
 
