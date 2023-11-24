@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.utils.jvm_common.WalletUtils
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
+import com.appcoins.wallet.feature.walletInfo.data.Web3jKeystoreAccountService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.SignDataStandardNormalizer
@@ -15,7 +16,9 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import it.czerwinski.android.hilt.annotations.BoundTo
+import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Keys.toChecksumAddress
+import java.math.BigInteger
 import javax.inject.Inject
 
 @BoundTo(supertype = WalletService::class)
@@ -27,6 +30,9 @@ class AccountWalletService @Inject constructor(
     private val syncScheduler: ExecutorScheduler
 ) : WalletService {
 
+  private val PRIVATE_RADIX = 16
+  private val N_VALUE = 1 shl 9
+  private val P_VALUE = 1
   private val normalizer = SignDataStandardNormalizer()
   private var stringECKeyPair: Pair<String, ECKey>? = null
 
@@ -101,6 +107,22 @@ class AccountWalletService @Inject constructor(
   interface ContentNormalizer {
     fun normalize(content: String): String
   }
+
+  fun getAddressFromPrivate(key: String): Single<String> {
+    val private = BigInteger(key, PRIVATE_RADIX)
+    val keypair = ECKeyPair.create(private)
+    return passwordStore.generatePassword()
+      .map {
+        val addressIncompl = org.web3j.crypto.Wallet.create(
+          it,
+          keypair,
+          N_VALUE,
+          P_VALUE
+        ).address
+        "0x$addressIncompl"
+      }
+  }
+
 }
 
 enum class WalletGetterStatus { CREATING }

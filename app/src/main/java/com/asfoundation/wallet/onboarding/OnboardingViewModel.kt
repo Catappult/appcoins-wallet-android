@@ -9,11 +9,13 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.entity.WalletKeyStore
+import com.asfoundation.wallet.main.use_cases.GetBonusGuestWalletUseCase
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
@@ -36,6 +38,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
+  data class UpdateGuestBonus(val bonus: FiatValue): OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -54,6 +57,7 @@ class OnboardingViewModel @Inject constructor(
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+  private val getBonusGuestWalletUseCase: GetBonusGuestWalletUseCase,
   private val walletsEventSender: WalletsEventSender,
   appStartUseCase: AppStartUseCase
 ) :
@@ -151,4 +155,19 @@ class OnboardingViewModel @Inject constructor(
   private fun updateWalletBackupState() {
     updateBackupStateFromRecoverUseCase().scopedSubscribe()
   }
+
+  fun getGuestWalletBonus(key: String) {
+    getBonusGuestWalletUseCase(key)
+      .doOnSuccess {
+        sendSideEffect { OnboardingSideEffect.UpdateGuestBonus(it) } 
+      }
+      .doOnError {
+        walletsEventSender.sendWalletCompleteRestoreEvent(
+          WalletsAnalytics.STATUS_FAIL,
+          "getGuestWalletBonus: ${it.message}"
+        )
+      }
+      .scopedSubscribe()
+  }
+
 }

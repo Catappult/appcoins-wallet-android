@@ -22,6 +22,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
@@ -82,7 +83,7 @@ class OnboardingFragment : BasePageViewFragment(),
     args = OnboardingFragmentArgs.fromBundle(requireArguments())
     setClickListeners()
     setStringWithLinks()
-    if (!args.backup.isBlank()) showRecoverGuestWallet()
+    handleRecoverGuestWallet()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -107,6 +108,13 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
+  private fun handleRecoverGuestWallet() {
+    if (!args.backup.isBlank()) {
+      viewModel.getGuestWalletBonus(args.backup)
+      showRecoverGuestWallet()
+    }
+  }
+
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
@@ -117,25 +125,42 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
+      is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
     }
   }
 
   private fun showRecoverGuestWallet() {
     views.onboardingAction.visibility = View.INVISIBLE
-    views.onboardingRecoverGuestWallet?.visibility = View.VISIBLE
-    views.onboardingRecoverText2?.text = getString(
+    views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
+    views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol,
-      "$", //TODO
-      "2.50"  // TODO
+      "$",
+      "0.00"
     )
-    views.onboardingRecoverText5?.visibility = View.INVISIBLE
-    views.loadingAnimation?.visibility = View.INVISIBLE
+    views.onboardingRecoverText2.visibility = View.INVISIBLE
+    views.onboardingRecoverText3.visibility = View.INVISIBLE
+    views.onboardingBonusImage.visibility = View.INVISIBLE
+    views.bonusLoading.visibility = View.VISIBLE
+    views.onboardingRecoverText5.visibility = View.INVISIBLE
+    views.loadingAnimation.visibility = View.INVISIBLE
   }
 
   private fun showRecoveringGuestWalletLoading() {
-    views.onboardingRecoverText5?.visibility = View.VISIBLE
-    views.loadingAnimation?.visibility = View.VISIBLE
-    views.onboardingRecoverGuestButton?.visibility = View.INVISIBLE
+    views.onboardingRecoverText5.visibility = View.VISIBLE
+    views.loadingAnimation.visibility = View.VISIBLE
+    views.onboardingRecoverGuestButton.visibility = View.INVISIBLE
+  }
+
+  private fun showGuestBonus(bonus: FiatValue) {
+    views.onboardingRecoverText2.text = getString(
+      R.string.monetary_amount_with_symbol,
+      bonus.symbol,
+      bonus.amount.toString()
+    )
+    views.onboardingRecoverText2.visibility = View.VISIBLE
+    views.onboardingRecoverText3.visibility = View.VISIBLE
+    views.onboardingBonusImage.visibility = View.VISIBLE
+    views.bonusLoading.visibility = View.INVISIBLE
   }
 
   private fun showValuesScreen() {
