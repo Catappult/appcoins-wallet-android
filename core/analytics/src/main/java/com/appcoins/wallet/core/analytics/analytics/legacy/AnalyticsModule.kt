@@ -58,6 +58,7 @@ class AnalyticsModule {
       WALLET_CALLOUT_PROMOTIONS_CLICK,
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
+      WALLET_ONBOARDING_RECOVER_WEB,
       ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
     )
 
@@ -94,6 +95,7 @@ class AnalyticsModule {
       WALLET_CALLOUT_PROMOTIONS_CLICK,
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
+      WALLET_ONBOARDING_RECOVER_WEB,
       ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
     )
 
@@ -144,6 +146,7 @@ class AnalyticsModule {
     const val WALLET_CALLOUT_PROMOTIONS_CLICK = "wallet_callout_promotions_click" //NavBarAnalytics
     const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION = "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
     const val ONBOARDING_PAYMENT = "onboarding_payment"
+    const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
     const val APPLICATION_ID = "com.appcoins.wallet.dev"
   }

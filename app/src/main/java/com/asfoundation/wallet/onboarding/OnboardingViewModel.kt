@@ -59,6 +59,7 @@ class OnboardingViewModel @Inject constructor(
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val getBonusGuestWalletUseCase: GetBonusGuestWalletUseCase,
   private val walletsEventSender: WalletsEventSender,
+  private val onboardingAnalytics: OnboardingAnalytics,
   appStartUseCase: AppStartUseCase
 ) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
@@ -68,6 +69,8 @@ class OnboardingViewModel @Inject constructor(
       return OnboardingState()
     }
   }
+
+  private var guestBonus = FiatValue()
 
   init {
     handleLaunchMode(appStartUseCase)
@@ -139,10 +142,10 @@ class OnboardingViewModel @Inject constructor(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
         )
+        onboardingAnalytics.sendRecoverGuestWalletEvent(guestBonus.amount.toString(), guestBonus.currency)
         sendSideEffect { OnboardingSideEffect.NavigateToFinish }
       }
       is FailedEntryRecover.InvalidPassword -> {
-
       }
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
@@ -159,7 +162,8 @@ class OnboardingViewModel @Inject constructor(
   fun getGuestWalletBonus(key: String) {
     getBonusGuestWalletUseCase(key)
       .doOnSuccess {
-        sendSideEffect { OnboardingSideEffect.UpdateGuestBonus(it) } 
+        guestBonus = it
+        sendSideEffect { OnboardingSideEffect.UpdateGuestBonus(it) }
       }
       .doOnError {
         walletsEventSender.sendWalletCompleteRestoreEvent(
