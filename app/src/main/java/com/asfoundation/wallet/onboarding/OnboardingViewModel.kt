@@ -15,6 +15,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletN
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.entity.WalletKeyStore
+import com.asfoundation.wallet.main.use_cases.DeleteCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.GetBonusGuestWalletUseCase
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
@@ -58,6 +59,7 @@ class OnboardingViewModel @Inject constructor(
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val getBonusGuestWalletUseCase: GetBonusGuestWalletUseCase,
+  private val deleteCachedGuestWalletUseCase: DeleteCachedGuestWalletUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val onboardingAnalytics: OnboardingAnalytics,
   appStartUseCase: AppStartUseCase
@@ -137,11 +139,11 @@ class OnboardingViewModel @Inject constructor(
   private fun handleRecoverResult(recoverResult: RecoverEntryResult) =
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
-//        updateWalletBackupState()
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
         )
+        deleteCachedGuest()
         onboardingAnalytics.sendRecoverGuestWalletEvent(guestBonus.amount.toString(), guestBonus.currency)
         sendSideEffect { OnboardingSideEffect.NavigateToFinish }
       }
@@ -172,6 +174,10 @@ class OnboardingViewModel @Inject constructor(
         )
       }
       .scopedSubscribe()
+  }
+
+  private fun deleteCachedGuest() {
+    deleteCachedGuestWalletUseCase().scopedSubscribe()
   }
 
 }

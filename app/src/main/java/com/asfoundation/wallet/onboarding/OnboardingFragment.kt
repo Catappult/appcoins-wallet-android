@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.onboarding
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -20,6 +23,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -28,6 +33,8 @@ import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +43,9 @@ class OnboardingFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingNavigator
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   lateinit var args: OnboardingFragmentArgs
 
@@ -122,10 +132,23 @@ class OnboardingFragment : BasePageViewFragment(),
         hideContent()
         navigator.navigateToCreateWalletDialog()
       }
-      OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
+      OnboardingSideEffect.NavigateToFinish -> context?.let { restart(it) } //.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
+    }
+  }
+
+  private fun restart(context: Context) {
+    lifecycleScope.launch {
+      delay(1000)
+      val packageManager: PackageManager = context.packageManager
+      val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+      val componentName = intent!!.component
+      val mainIntent = Intent.makeRestartActivityTask(componentName)
+      mainIntent.setPackage(context.packageName)
+      context.startActivity(mainIntent)
+      Runtime.getRuntime().exit(0)
     }
   }
 
@@ -155,7 +178,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol,
       bonus.symbol,
-      bonus.amount.toString()
+      formatter.formatCurrency(bonus.amount, WalletCurrency.FIAT)
     )
     views.onboardingRecoverText2.visibility = View.VISIBLE
     views.onboardingRecoverText3.visibility = View.VISIBLE
