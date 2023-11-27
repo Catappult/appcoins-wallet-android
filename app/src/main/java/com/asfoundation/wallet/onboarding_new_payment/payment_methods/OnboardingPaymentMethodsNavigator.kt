@@ -118,6 +118,8 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
 
   fun navigateToShareLinkPayment() = Unit
 
+  fun navigateToChallengeReward() = Unit
+
   fun navigateToVkPayPayment(
     transactionBuilder: TransactionBuilder,
     amount: String,

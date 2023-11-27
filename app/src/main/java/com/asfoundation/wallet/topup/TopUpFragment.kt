@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
@@ -31,6 +32,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -56,6 +58,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   lateinit var interactor: TopUpInteractor
 
   @Inject
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+
+  @Inject
   lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
 
   @Inject
@@ -69,6 +74,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -149,6 +157,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       view = this,
       activity = topUpActivityView,
       interactor = interactor,
+      getWalletInfoUseCase = getWalletInfoUseCase,
       removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
       isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
       viewScheduler = AndroidSchedulers.mainThread(),
@@ -159,6 +168,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
+      challengeRewardAnalytics = challengeRewardAnalytics,
     )
   }
 
@@ -366,6 +376,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     selectedPaymentMethodId = adapter.getSelectedItemData().id
   }
 
+  override fun getCurrentPaymentMethod(): String? = selectedPaymentMethodId
+
   override fun rotateChangeCurrencyButton() {
     val rotateAnimation = RotateAnimation(
         0f,
@@ -439,7 +451,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     showBonus()
   }
 
-  private fun showBonus() {
+  override fun showBonus() {
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.VISIBLE
   }
@@ -583,6 +595,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
           PaymentTypeInfo(PaymentType.GIROPAY, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
+        PaymentType.CHALLENGE_REWARD.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.CHALLENGE_REWARD, data.id, data.label, data.iconUrl)
         PaymentType.VKPAY.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.VKPAY, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,

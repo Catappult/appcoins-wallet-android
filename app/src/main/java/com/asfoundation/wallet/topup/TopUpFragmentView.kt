@@ -20,6 +20,7 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOff()
   fun hideBonus()
   fun hideBonusAndSkeletons()
+  fun showBonus()
   fun showBonus(bonus: BigDecimal, currency: String)
   fun showMaxValueWarning(value: String)
   fun showMinValueWarning(value: String)
@@ -28,6 +29,7 @@ interface TopUpFragmentView {
   fun changeMainValueText(value: String)
   fun getSelectedCurrency(): String
   fun paymentMethodsFocusRequest()
+  fun getCurrentPaymentMethod(): String?
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>

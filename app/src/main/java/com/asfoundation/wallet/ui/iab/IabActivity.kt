@@ -14,6 +14,8 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -413,6 +415,15 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
       )
       .commit()
   }
+
+  override fun createChallengeReward(walletAddress: String) =
+    ChallengeRewardManager.create(
+      appId = BuildConfig.FYBER_APP_ID,
+      activity = this,
+      walletAddress = walletAddress,
+    )
+
+  override fun showChallengeReward() = ChallengeRewardManager.onNavigate()
 
   override fun showPaymentMethodsView() {
     val isDonation =

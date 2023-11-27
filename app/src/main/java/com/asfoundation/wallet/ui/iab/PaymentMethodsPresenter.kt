@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
+  private val activity: IabView?,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
   val disposables: CompositeDisposable,
@@ -85,6 +86,7 @@ class PaymentMethodsPresenter(
     handleSupportClicks()
     handleAuthenticationResult()
     handleTopupClicks()
+    handleChallengeRewardWalletAddress()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
@@ -184,6 +186,7 @@ class PaymentMethodsPresenter(
                 cachedGamificationLevel
               )
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
+              CHALLENGE_REWARD -> view.showChallengeReward()
               else -> return@doOnNext
             }
           }
@@ -308,7 +311,7 @@ class PaymentMethodsPresenter(
         cachedFiatValue!!,
         paymentNavigationData.isPreselected
       )
-
+      CHALLENGE_REWARD -> view.showChallengeReward()
       else -> {
         showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -922,6 +925,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(EARN_APPC) -> view.replaceBonus()
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
+      paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
@@ -1109,6 +1113,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.VKPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
       PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
+      PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }
@@ -1117,6 +1122,17 @@ class PaymentMethodsPresenter(
     val paymentMethod = loadedPaymentMethodEvent ?: return
     loadedPaymentMethodEvent = null
     analytics.stopTimingForTotalEvent(paymentMethod)
+  }
+
+  private fun handleChallengeRewardWalletAddress(){
+    disposables.add(
+      getWalletInfoUseCase(null, false)
+        .subscribeOn(networkThread)
+        .subscribe(
+          { activity?.createChallengeReward(it.wallet) },
+          { logger.log(TAG, "Error getting agreement") }
+        )
+    )
   }
 
   enum class ViewState {
