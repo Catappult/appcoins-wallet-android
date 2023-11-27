@@ -5,14 +5,14 @@ import com.asfoundation.wallet.onboarding.CachedBackupRepository
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-interface RestoreGuestWalletFlowUseCase {
+interface RestoreGuestWalletUseCase {
   operator fun invoke(): StartMode.RestoreGuestWalletFlow?
 }
 
-@BoundTo(supertype = RestoreGuestWalletFlowUseCase::class)
-class RestoreGuestWalletFlowUseCaseImpl @Inject constructor(
+@BoundTo(supertype = RestoreGuestWalletUseCase::class)
+class RestoreGuestWalletUseCaseImpl @Inject constructor(
   private val cachedBackup: CachedBackupRepository
-) : RestoreGuestWalletFlowUseCase {
+) : RestoreGuestWalletUseCase {
   override operator fun invoke(): StartMode.RestoreGuestWalletFlow? {
     val cachedBackupKey = cachedBackup.getCachedBackup().blockingGet()
     return if (cachedBackupKey != null) {

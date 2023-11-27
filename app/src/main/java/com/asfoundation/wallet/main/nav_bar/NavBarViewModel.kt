@@ -81,14 +81,10 @@ class NavBarViewModel @Inject constructor(
   private fun handleOnboardingFromGameScreen() {
     viewModelScope.launch {
       when (val startMode = appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow -> {
+        is StartMode.PendingPurchaseFlow ->
           sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
-        }
-        is StartMode.GPInstall -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
-        }
+        is StartMode.GPInstall -> sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         is StartMode.RestoreGuestWalletFlow -> {
-          Log.d("startMode", "backup: ${startMode.backup}")
           sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
         }
         else -> Unit

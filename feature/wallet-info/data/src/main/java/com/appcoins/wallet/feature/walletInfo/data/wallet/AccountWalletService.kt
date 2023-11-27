@@ -108,7 +108,7 @@ class AccountWalletService @Inject constructor(
     fun normalize(content: String): String
   }
 
-  fun getAddressFromPrivate(key: String): Single<String> {
+  fun getAddressFromPrivateKey(key: String): Single<String> {
     val private = BigInteger(key, PRIVATE_RADIX)
     val keypair = ECKeyPair.create(private)
     return passwordStore.generatePassword()

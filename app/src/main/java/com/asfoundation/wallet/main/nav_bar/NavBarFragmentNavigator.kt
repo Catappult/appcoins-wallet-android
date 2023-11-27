@@ -71,6 +71,6 @@ class NavBarFragmentNavigator @Inject constructor(
   }
 
   fun showOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
-    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph()) // (backup))
+    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 }

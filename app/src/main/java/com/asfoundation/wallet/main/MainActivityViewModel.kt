@@ -68,7 +68,6 @@ class MainActivityViewModel @Inject constructor(
                   }
               }
               .doOnError {
-                Log.d("MainActivity", it.stackTraceToString() ?: "")
                 sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
               }
               .scopedSubscribe()

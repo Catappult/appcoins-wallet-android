@@ -10,6 +10,4 @@ interface CachedBackupApi {
   @GET("/appc/guest_wallet/cached_values")
   fun getCachedBackup(): Single<CachedBackupResponse>
 
-
-
 }

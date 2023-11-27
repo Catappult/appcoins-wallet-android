@@ -194,15 +194,15 @@
               android:id="@+id/bonus_loading"
               android:layout_width="64dp"
               android:layout_height="64dp"
-              app:layout_constraintTop_toTopOf="parent"
+              android:visibility="visible"
               app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
               app:lottie_autoPlay="true"
               app:lottie_enableMergePathsForKitKatAndAbove="true"
               app:lottie_loop="true"
               app:lottie_rawRes="@raw/three_dots_loading"
-              android:visibility="visible"
               tools:visibility="visible"
               />
 
@@ -258,15 +258,15 @@
           style="@style/OnboardingRecoverGuestBodyTextStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="28dp"
           android:gravity="center"
           android:text="@string/launching_wallet_body"
           android:textColor="@color/styleguide_medium_grey"
           android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintBottom_toBottomOf="@+id/loading_animation"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toEndOf="@+id/loading_animation"
+          app:layout_constraintTop_toTopOf="@+id/loading_animation"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

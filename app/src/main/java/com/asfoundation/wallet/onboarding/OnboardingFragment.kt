@@ -23,6 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
@@ -141,14 +142,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun restart(context: Context) {
     lifecycleScope.launch {
-      delay(1000)
-      val packageManager: PackageManager = context.packageManager
-      val intent = packageManager.getLaunchIntentForPackage(context.packageName)
-      val componentName = intent!!.component
-      val mainIntent = Intent.makeRestartActivityTask(componentName)
-      mainIntent.setPackage(context.packageName)
-      context.startActivity(mainIntent)
-      Runtime.getRuntime().exit(0)
+      AppUtils.restartApp(context)
     }
   }
 

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.app_start
 import app.cash.turbine.testIn
 import com.asfoundation.wallet.gherkin.coScenario
 import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseFlowUseCase
-import com.asfoundation.wallet.onboarding.use_cases.RestoreGuestWalletFlowUseCase
+import com.asfoundation.wallet.onboarding.use_cases.RestoreGuestWalletUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -36,7 +36,7 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.RestoreGuestWalletFlowUseCase,
+      data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
     m And "subscribed for modes"
@@ -64,7 +64,7 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.RestoreGuestWalletFlowUseCase,
+      data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -94,7 +94,7 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.RestoreGuestWalletFlowUseCase,
+      data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -267,7 +267,7 @@ internal class AppStartUseCaseTest {
     val repository: AppStartRepositoryMock = AppStartRepositoryMock(),
     val GPInstallUseCase: GPInstallUseCase = GPInstallUseCaseMock(),
     val PendingPurchaseFlowUseCase: PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(),
-    val RestoreGuestWalletFlowUseCase: RestoreGuestWalletFlowUseCase = RestoreGuestWalletFlowUseCaseMock(),
+    val RestoreGuestWalletUseCase: RestoreGuestWalletUseCase = RestoreGuestWalletUseCaseMock(),
   )
 
   internal data class ThenData(
@@ -322,9 +322,9 @@ class PendingPurchaseFlowUseCaseMock(
   }
 }
 
-class RestoreGuestWalletFlowUseCaseMock(
+class RestoreGuestWalletUseCaseMock(
   private val restoreGuestWallet: StartMode.RestoreGuestWalletFlow? = null
-) : RestoreGuestWalletFlowUseCase {
+) : RestoreGuestWalletUseCase {
   override operator fun invoke(): StartMode.RestoreGuestWalletFlow? {
     return restoreGuestWallet
   }

@@ -12,7 +12,7 @@ class GetBonusGuestWalletUseCase @Inject constructor(
 ) {
 
   operator fun invoke(key: String): Single<FiatValue> {
-    return accountWalletService.getAddressFromPrivate(key)
+    return accountWalletService.getAddressFromPrivateKey(key)
       .flatMap {address ->
         walletInfoRepository.getLatestWalletInfo(address)
           .map {
