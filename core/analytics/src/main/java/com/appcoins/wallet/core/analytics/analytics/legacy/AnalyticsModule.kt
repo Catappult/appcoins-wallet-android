@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import dagger.Module
@@ -59,7 +60,7 @@ class AnalyticsModule {
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
       WALLET_ONBOARDING_RECOVER_WEB,
-      ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
+      CHALLENGE_REWARD_EVENT,
     )
 
   @Singleton
@@ -96,7 +97,7 @@ class AnalyticsModule {
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
       WALLET_ONBOARDING_RECOVER_WEB,
-      ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
+      CHALLENGE_REWARD_EVENT,
     )
 
   @Singleton
