@@ -71,6 +71,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
       ExternalAppEnum.PHONEPE.uriScheme,
       ExternalAppEnum.PAYTM.uriScheme,
       ExternalAppEnum.BHIM.uriScheme,
+      ExternalAppEnum.DANA.uriScheme,
     )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA = "https://airtime.codapayments.com/epcgw/dlocal/"
