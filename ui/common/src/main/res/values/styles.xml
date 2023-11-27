@@ -553,16 +553,6 @@
     <item name="android:textAppearance">@style/TextS</item>
   </style>
 
-  <style name="BillingAddressTextInputLayout" parent="AppcoinsTextInputLayout">
-    <item name="android:textSize">14sp</item>
-  </style>
-
-  <style name="BillingAddressInputEditText">
-    <item name="android:imeOptions">flagNoExtractUi|flagNoFullscreen</item>
-    <item name="android:maxLines">1</item>
-    <item name="android:textSize">14sp</item>
-  </style>
-
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="android:textColor">@color/styleguide_light_grey</item>
@@ -987,11 +977,6 @@
     <item name="android:textColor">@color/styleguide_pink</item>
     <item name="android:textSize">12sp</item>
     <item name="textAllCaps">true</item>
-  </style>
-
-  <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/styleguide_payments_main_text</item>
-    <item name="android:textSize">14sp</item>
   </style>
 
   <style name="PasswordEditText">

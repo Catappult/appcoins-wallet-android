@@ -9,7 +9,6 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -85,12 +84,12 @@ class AdyenPaymentInteractor @Inject constructor(
     paymentType: String, origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
     developerWallet: String?,
-    referrerUrl: String?,
-    billingAddress: AdyenBillingAddress? = null
+    referrerUrl: String?
   ): Single<PaymentModel> {
-    return Single.zip(walletService.getAndSignCurrentWalletAddress(),
-      partnerAddressService.getAttributionEntity(packageName),
-      { address, attributionEntity -> Pair(address, attributionEntity) })
+    return Single.zip(
+      walletService.getAndSignCurrentWalletAddress(),
+      partnerAddressService.getAttributionEntity(packageName)
+    ) { address, attributionEntity -> Pair(address, attributionEntity) }
       .flatMap { pair ->
         val addressModel = pair.first
         val attrEntity = pair.second
@@ -102,7 +101,8 @@ class AdyenPaymentInteractor @Inject constructor(
             transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
             promoCode.code,
             addressModel.address,
-            addressModel.signedAddress, billingAddress, referrerUrl
+            addressModel.signedAddress,
+            referrerUrl
           )
         }
       }
@@ -112,8 +112,7 @@ class AdyenPaymentInteractor @Inject constructor(
     adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
     supportedShopperInteraction: List<String>, returnUrl: String, value: String,
     currency: String, paymentType: String, transactionType: String,
-    packageName: String,
-    billingAddress: AdyenBillingAddress? = null
+    packageName: String
   ): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap {
@@ -122,7 +121,7 @@ class AdyenPaymentInteractor @Inject constructor(
           supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
           it.address, null, packageName, null, null, null, transactionType, null, null, null,
           null,
-          null, it.signedAddress, billingAddress, null
+          null, it.signedAddress, null
         )
       }
   }
