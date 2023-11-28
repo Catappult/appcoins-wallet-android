@@ -25,6 +25,7 @@
     <package android:name="net.one97.paytm" />
     <package android:name="com.phonepe.app" />
     <package android:name="in.org.npci.upiapp" />
+    <package android:name="id.dana" />
   </queries>
 
   <application
