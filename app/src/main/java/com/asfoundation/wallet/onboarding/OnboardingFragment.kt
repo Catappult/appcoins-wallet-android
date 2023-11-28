@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
@@ -63,6 +64,7 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
+    lockRotation()
   }
 
   override fun onResume() {
@@ -133,7 +135,10 @@ class OnboardingFragment : BasePageViewFragment(),
         hideContent()
         navigator.navigateToCreateWalletDialog()
       }
-      OnboardingSideEffect.NavigateToFinish -> context?.let { restart(it) } //.navigateToNavBar()
+      OnboardingSideEffect.NavigateToFinish -> {
+        unlockRotation()
+        context?.let { restart(it) }
+      }
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
@@ -239,4 +244,13 @@ class OnboardingFragment : BasePageViewFragment(),
       indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
   }
+
+  fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  fun unlockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
 }
