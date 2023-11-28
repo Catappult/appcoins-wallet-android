@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(
         navController
       )
+      is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
+        navigator.navigateToOnboardingRecoverGuestWallet(
+          navController,
+          sideEffect.backup
+        )
       MainActivitySideEffect.NavigateToNavigationBar -> navigator.navigateToNavBarFragment(
         navController
       )

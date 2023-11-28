@@ -23,6 +23,9 @@ class AppStartProbe @Inject constructor(
         SOURCE to startMode.source,
         SKU to startMode.sku,
       )
+      is StartMode.RestoreGuestWalletFlow -> mapOf(
+        BACKUP to startMode.backup
+      )
       else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "other", SOURCE to "", SKU to "")
     }
     analyticsManager.logEvent(
@@ -40,5 +43,6 @@ class AppStartProbe @Inject constructor(
     const val INTEGRATION_FLOW = "integration_flow"
     const val SOURCE = "source"
     const val SKU = "sku"
+    const val BACKUP = "backup"
   }
 }
