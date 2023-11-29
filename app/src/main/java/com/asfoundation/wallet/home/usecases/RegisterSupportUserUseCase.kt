@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.home.usecases
 
+import androidx.annotation.Keep
 import com.wallet.appcoins.feature.support.data.SupportRepository
 import io.intercom.android.sdk.Intercom
 import java.util.Locale
 import javax.inject.Inject
 
+@Keep
 class RegisterSupportUserUseCase @Inject constructor(
   private val supportRepository: SupportRepository
 ) {
