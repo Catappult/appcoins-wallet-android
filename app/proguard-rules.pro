@@ -18,7 +18,7 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
@@ -26,3 +26,5 @@
     -keep class com.google.android.gms.ads.** { *; }
     -dontwarn okio.**
     -keep class com.google.crypto.tink.** { *; }
+    -keep class org.bouncycastle.** { *; }
+    -keep class java.security.KeyStore { *; }
