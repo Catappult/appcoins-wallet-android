@@ -151,14 +151,6 @@ class BackendApiModule {
 
   @Singleton
   @Provides
-  fun providesCachedBackupApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
-  ): CachedBackupApi {
-    return retrofit.create(CachedBackupApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun providesBackupLogApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): BackupLogApi {
@@ -187,14 +179,6 @@ class BackendApiModule {
     @BackendShortTimeoutRetrofit retrofit: Retrofit
   ): AutoUpdateApi {
     return retrofit.create(AutoUpdateApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun provideCachedGuestWalletApi(
-    @BackendShortTimeoutRetrofit retrofit: Retrofit
-  ): CachedGuestWalletApi {
-    return retrofit.create(CachedGuestWalletApi::class.java)
   }
 
   @Singleton

@@ -57,7 +57,6 @@ class NavBarFragment : BasePageViewFragment(),
 
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment
-  private lateinit var mainHostFragment: NavHostFragment
 
   private val views by viewBinding(NavBarFragmentBinding::bind)
   private val viewModel: NavBarViewModel by activityViewModels()
@@ -164,9 +163,6 @@ class NavBarFragment : BasePageViewFragment(),
     fullHostFragment = childFragmentManager.findFragmentById(
       R.id.full_host_container
     ) as NavHostFragment
-    mainHostFragment = activity?.supportFragmentManager?.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
   }
 
   override fun onStateChanged(state: NavBarState) {
@@ -181,8 +177,6 @@ class NavBarFragment : BasePageViewFragment(),
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
-      is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
-        showOnboardingRecoverGuestWallet(sideEffect.backup)
     }
   }
 
@@ -214,11 +208,6 @@ class NavBarFragment : BasePageViewFragment(),
   private fun showOnboardingPayment() {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
-  }
-
-  private fun showOnboardingRecoverGuestWallet(backup: String) {
-    views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
   }
 
   @SuppressLint("SetTextI18n", "ResourceType")

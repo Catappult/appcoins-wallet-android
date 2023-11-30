@@ -470,12 +470,6 @@
     <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
-  <style name="OnboardingRecoverGuestBodyTextStyle">
-    <item name="android:fontFamily">@font/roboto_bolt</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/styleguide_white</item>
-  </style>
-
   <style name="TokenDetailsTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textColor">@color/styleguide_black</item>
   </style>

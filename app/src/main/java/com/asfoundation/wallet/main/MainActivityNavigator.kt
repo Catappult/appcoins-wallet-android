@@ -2,12 +2,10 @@ package com.asfoundation.wallet.main
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.asf.wallet.R
 import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject
@@ -18,14 +16,6 @@ class MainActivityNavigator @Inject constructor() :
   fun navigateToOnboarding(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
-
-  fun navigateToOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
-    val bundle = Bundle().apply {
-      putString("backup", backup)
-    }
-    navController.setGraph(R.navigation.onboarding_graph, bundle)
-  }
-
 
   fun showAuthenticationActivity(
     context: Context,
