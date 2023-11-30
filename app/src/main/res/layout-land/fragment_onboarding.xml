@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -13,15 +12,15 @@
       android:layout_width="90dp"
       android:layout_height="90dp"
       android:layout_gravity="center"
-      android:visibility="gone"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_dark_animation"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_dark_animation"
+      android:visibility="gone"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,182 +78,4 @@
         app:layout_constraintTop_toTopOf="parent"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <androidx.cardview.widget.CardView
-      android:id="@+id/onboarding_recover_guest_wallet"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="16dp"
-      android:layout_marginBottom="16dp"
-      android:backgroundTint="@color/styleguide_blue_secondary"
-      android:visibility="invisible"
-      app:cardCornerRadius="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      tools:visibility="visible"
-      >
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-      <TextView
-          android:id="@+id/onboarding_recover_text1"
-          style="@style/OnboardingValuesBodyTextStyle"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:gravity="center"
-          android:text="@string/intro_from_web_payment_already_have_title"
-          app:layout_constraintBottom_toBottomOf="@+id/onboarding_recover_guest_button"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@+id/onboarding_recover_guest_button"
-          />
-
-      <com.google.android.material.card.MaterialCardView
-          android:id="@+id/onboarding_bonus_layout"
-          android:layout_width="wrap_content"
-          android:layout_height="38dp"
-          android:layout_marginStart="8dp"
-          android:background="@color/transparent"
-          android:theme="@style/MaterialAppTheme"
-          app:cardBackgroundColor="@color/styleguide_blue"
-          app:cardElevation="0dp"
-          app:layout_constraintBottom_toBottomOf="@+id/onboarding_recover_guest_button"
-          app:layout_constraintStart_toEndOf="@+id/onboarding_recover_text1"
-          app:layout_constraintTop_toTopOf="@+id/onboarding_recover_guest_button"
-          app:rippleColor="@color/styleguide_white"
-          app:shapeAppearance="@style/Home.PillShape"
-          app:strokeWidth="0dp"
-          >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            >
-
-          <ImageView
-              android:id="@+id/onboarding_bonus_image"
-              android:layout_width="36dp"
-              android:layout_height="36dp"
-              android:layout_marginStart="12dp"
-              android:layout_marginTop="8dp"
-              android:layout_marginBottom="8dp"
-              android:src="@drawable/ic_guest_wallet_bonus"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              />
-
-          <TextView
-              android:id="@+id/onboarding_recover_text2"
-              style="@style/OnboardingRecoverGuestBodyTextStyle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="4dp"
-              android:text="@string/monetary_amount_with_symbol"
-              android:textSize="12sp"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintStart_toEndOf="@+id/onboarding_bonus_image"
-              app:layout_constraintTop_toTopOf="parent"
-              />
-
-          <TextView
-              android:id="@+id/onboarding_recover_text3"
-              style="@style/OnboardingRecoverGuestBodyTextStyle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="4dp"
-              android:layout_marginEnd="12dp"
-              android:text="@string/transaction_type_bonus"
-              android:textSize="12sp"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toEndOf="@+id/onboarding_recover_text2"
-              app:layout_constraintTop_toTopOf="parent"
-              />
-
-          <com.airbnb.lottie.LottieAnimationView
-              android:id="@+id/bonus_loading"
-              android:layout_width="64dp"
-              android:layout_height="64dp"
-              android:visibility="visible"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:lottie_autoPlay="true"
-              app:lottie_enableMergePathsForKitKatAndAbove="true"
-              app:lottie_loop="true"
-              app:lottie_rawRes="@raw/three_dots_loading"
-              tools:visibility="visible"
-              />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-      </com.google.android.material.card.MaterialCardView>
-
-      <TextView
-          android:id="@+id/onboarding_recover_text4"
-          style="@style/OnboardingValuesBodyTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="8dp"
-          android:gravity="center"
-          android:text="@string/intro_from_web_payment_to_spend_body"
-          app:layout_constraintBottom_toBottomOf="@+id/onboarding_recover_guest_button"
-          app:layout_constraintEnd_toStartOf="@+id/onboarding_recover_guest_button"
-          app:layout_constraintHorizontal_bias="0.03"
-          app:layout_constraintStart_toEndOf="@+id/onboarding_bonus_layout"
-          app:layout_constraintTop_toTopOf="@+id/onboarding_recover_guest_button"
-          />
-
-      <com.appcoins.wallet.ui.widgets.WalletButtonView
-          android:id="@+id/onboarding_recover_guest_button"
-          android:layout_width="198dp"
-          android:layout_height="@dimen/onboarding_button_height"
-          android:layout_marginEnd="16dp"
-          app:buttonText="@string/intro_get_started_button"
-          app:buttonType="filled"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <com.airbnb.lottie.LottieAnimationView
-          android:id="@+id/loading_animation"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="@+id/onboarding_recover_guest_button"
-          app:lottie_autoPlay="true"
-          app:lottie_enableMergePathsForKitKatAndAbove="true"
-          app:lottie_loop="true"
-          app:lottie_rawRes="@raw/loading_wallet"
-          tools:visibility="visible"
-          />
-
-      <TextView
-          android:id="@+id/onboarding_recover_text5"
-          style="@style/OnboardingRecoverGuestBodyTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="@string/launching_wallet_body"
-          android:textColor="@color/styleguide_medium_grey"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.0"
-          app:layout_constraintStart_toEndOf="@+id/loading_animation"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:visibility="visible"
-          />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-  </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

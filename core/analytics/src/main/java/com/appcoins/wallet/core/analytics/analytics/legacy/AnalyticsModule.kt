@@ -1,7 +1,6 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import dagger.Module
@@ -59,8 +58,7 @@ class AnalyticsModule {
       WALLET_CALLOUT_PROMOTIONS_CLICK,
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
-      WALLET_ONBOARDING_RECOVER_WEB,
-      CHALLENGE_REWARD_EVENT,
+      ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
     )
 
   @Singleton
@@ -96,8 +94,7 @@ class AnalyticsModule {
       WALLET_CALLOUT_PROMOTIONS_CLICK,
       EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       ONBOARDING_PAYMENT,
-      WALLET_ONBOARDING_RECOVER_WEB,
-      CHALLENGE_REWARD_EVENT,
+      ChallengeRewardAnalytics.CHALLENGE_REWARD_EVENT,
     )
 
   @Singleton
@@ -147,7 +144,6 @@ class AnalyticsModule {
     const val WALLET_CALLOUT_PROMOTIONS_CLICK = "wallet_callout_promotions_click" //NavBarAnalytics
     const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION = "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
     const val ONBOARDING_PAYMENT = "onboarding_payment"
-    const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
     const val APPLICATION_ID = "com.appcoins.wallet.dev"
   }

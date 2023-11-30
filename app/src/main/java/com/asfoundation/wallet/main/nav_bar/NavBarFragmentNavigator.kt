@@ -9,7 +9,6 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
@@ -68,9 +67,5 @@ class NavBarFragmentNavigator @Inject constructor(
 
   fun showOnboardingPaymentScreen(navController: NavController) {
     navigate(navController, NavBarGraphDirections.actionNavigateToFirstPaymentFragment())
-  }
-
-  fun showOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
-    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 }

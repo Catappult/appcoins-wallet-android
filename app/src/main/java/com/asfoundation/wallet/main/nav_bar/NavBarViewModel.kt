@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
@@ -25,7 +24,6 @@ sealed class NavBarSideEffect : SideEffect {
   object ShowPromotionsTooltip : NavBarSideEffect()
   object ShowOnboardingGPInstall : NavBarSideEffect()
   object ShowOnboardingPendingPayment : NavBarSideEffect()
-  data class ShowOnboardingRecoverGuestWallet(val backup: String) : NavBarSideEffect()
 }
 
 data class NavBarState(
@@ -80,12 +78,12 @@ class NavBarViewModel @Inject constructor(
 
   private fun handleOnboardingFromGameScreen() {
     viewModelScope.launch {
-      when (val startMode = appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow ->
+      when (appStartUseCase.startModes.first()) {
+        is StartMode.PendingPurchaseFlow -> {
           sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
-        is StartMode.GPInstall -> sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
-        is StartMode.RestoreGuestWalletFlow -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
+        }
+        is StartMode.GPInstall -> {
+          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         }
         else -> Unit
       }

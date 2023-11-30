@@ -16,7 +16,6 @@ import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
@@ -74,8 +73,18 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
       this
     ) { _, _ ->
       views.root.visibility = View.GONE
-      context?.let { AppUtils.restartApp(it) }
+      context?.let { restart(it) }
     }
+  }
+
+  private fun restart(context: Context) {
+    val packageManager: PackageManager = context.packageManager
+    val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+    val componentName = intent!!.component
+    val mainIntent = Intent.makeRestartActivityTask(componentName)
+    mainIntent.setPackage(context.packageName)
+    context.startActivity(mainIntent)
+    Runtime.getRuntime().exit(0)
   }
 
   private fun editToolbar() {

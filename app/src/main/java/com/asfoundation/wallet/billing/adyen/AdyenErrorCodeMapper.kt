@@ -9,7 +9,7 @@ class AdyenErrorCodeMapper @Inject constructor() {
   @StringRes
   internal fun map(errorCode: Int): Int {
     return when (errorCode) {
-      REFUSED, BLOCKED_CARD, TRANSACTION_NOT_PERMITTED, REVOCATION_OF_AUTH, DECLINED_NON_GENERIC, ISSUER_SUSPECTED_FRAUD -> R.string.purchase_card_error_general_2
+      DECLINED, BLOCKED_CARD, TRANSACTION_NOT_PERMITTED, REVOCATION_OF_AUTH, DECLINED_NON_GENERIC, ISSUER_SUSPECTED_FRAUD -> R.string.purchase_card_error_general_2
       REFERRAL, ACQUIRER_ERROR, ISSUER_UNAVAILABLE -> R.string.purchase_card_error_general_1
       EXPIRED_CARD -> R.string.purchase_card_error_expired
       INVALID_AMOUNT, NOT_ENOUGH_BALANCE, WITHDRAW_AMOUNT_EXCEEDED, RESTRICTED_CARD -> R.string.purchase_card_error_no_funds
@@ -31,7 +31,7 @@ class AdyenErrorCodeMapper @Inject constructor() {
 
   companion object {
 
-    const val REFUSED = 2
+    const val DECLINED = 2
     const val REFERRAL = 3
     const val ACQUIRER_ERROR = 4
     const val BLOCKED_CARD = 5

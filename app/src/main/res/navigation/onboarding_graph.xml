@@ -11,9 +11,8 @@
       tools:layout="@layout/fragment_onboarding">
 
     <argument
-        android:name="backup"
-        app:argType="string"
-        android:defaultValue=""/>
+        android:name="from_iap"
+        app:argType="boolean" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"
