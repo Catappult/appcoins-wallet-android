@@ -54,8 +54,8 @@ class OnboardingVkPaymentViewModel @Inject constructor(
 
   var transactionUid: String? = null
   var walletAddress: String = ""
-  private val JOB_UPDATE_INTERVAL_MS = 15 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 600 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
@@ -64,7 +64,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
   private var args: OnboardingVkPaymentFragmentArgs =
     OnboardingVkPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
-  fun getPaymentLink() {
+  fun getPaymentLink(email: String, phone: String) {
     isFirstGetPaymentLink = false
     val price = VkPrice(value = args.amount, currency = args.currency)
     getCurrentWalletUseCase().doOnSuccess {
@@ -80,7 +80,9 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       transactionType = args.transactionBuilder.type,
       developerWallet = args.transactionBuilder.toAddress(),
       referrerUrl = args.transactionBuilder.referrerUrl,
-      packageName = args.transactionBuilder.domain
+      packageName = args.transactionBuilder.domain,
+      email = email,
+      phone = phone
     ).asAsyncToState {
       copy(vkTransaction = it)
     }.doOnSuccess {
@@ -89,7 +91,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
   }
 
   fun startTransactionStatusTimer() {
-    // Set up a Timer to call getTransactionStatus() every 20 seconds
+    // Set up a Timer to call getTransactionStatus() every 5 seconds
     if (!isTimerRunning) {
       timerTransactionStatus.schedule(object : TimerTask() {
         override fun run() {
@@ -99,7 +101,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
         }
       }, 0L, JOB_UPDATE_INTERVAL_MS)
       isTimerRunning = true
-      // Set up a CoroutineJob that will automatically cancel after 180 seconds
+      // Set up a CoroutineJob that will automatically cancel after 600 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
         sendSideEffect { OnboardingVkPaymentSideEffect.ShowError }

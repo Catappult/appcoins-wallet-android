@@ -19,6 +19,8 @@ data class VkPayPaymentRequest(
   @SerializedName("wallets.user") val user: String?,
   @SerializedName("referrer_url") val referrerUrl: String?,
   @SerializedName("method") val method: String?,
+  @SerializedName("email") val email: String?,
+  @SerializedName("phone_number") val phone: String?,
 )
 
 data class VkPrice(

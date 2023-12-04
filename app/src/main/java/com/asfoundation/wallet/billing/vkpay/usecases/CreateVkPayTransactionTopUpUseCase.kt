@@ -14,7 +14,9 @@ class CreateVkPayTransactionTopUpUseCase @Inject constructor(
 ) {
 
   operator fun invoke(
-    price: VkPrice
+    price: VkPrice,
+    email: String,
+    phone: String
   ): Single<VkPayTransaction> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -34,7 +36,9 @@ class CreateVkPayTransactionTopUpUseCase @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           referrerUrl = null,
-          method = METHOD_VK_PAY
+          method = METHOD_VK_PAY,
+          email = email,
+          phone = phone
         )
       }
   }

@@ -28,6 +28,8 @@ import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -53,12 +55,14 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
+      val email = authResult.personalData?.email ?: ""
+      val phone = authResult.personalData?.phone ?: ""
       vkDataPreferencesDataSource.saveAuthVk(
         accessToken = authResult.accessToken,
-        email = authResult.personalData?.email ?: "",
-        phone = authResult.personalData?.phone ?: ""
+        email = email,
+        phone = phone
       )
-      startVkCheckoutPay()
+      startTransaction(email, phone)
     }
 
     override fun onCancel() {
@@ -88,17 +92,31 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
-    if (viewModel.isFirstGetPaymentLink) {
-      viewModel.getPaymentLink()
-    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    lifecycleScope.launch {
+      delay(500)  // necessary delay to ensure the superappKit is actually ready.
+      if (SuperappKit.isInitialized()) {
+        if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
+          binding.vkFastLoginButton.performClick()
+        } else {
+          startTransaction(
+            email = vkDataPreferencesDataSource.getEmailVK() ?: "",
+            phone = vkDataPreferencesDataSource.getPhoneVK() ?: ""
+          )
+        }
+      }
+    }
+  }
+
+  private fun startTransaction(email: String, phone: String) {
+    if (viewModel.isFirstGetPaymentLink) {
+      viewModel.getPaymentLink(email, phone)
+    }
   }
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
-      is VkCheckoutSuccess -> {
-        viewModel.startTransactionStatusTimer()
-      }
+      is VkCheckoutSuccess -> {}
       else -> {
         showError()
       }
@@ -124,7 +142,10 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     } else {
       showError()
     }
-    VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+    // this callback from VK Pay sdk stopped working:
+    VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
+    // so we are forcing the transaction status check even before completing the payment:
+    viewModel.startTransactionStatusTimer()
   }
 
   private fun clearVkPayCheckout() {
@@ -184,10 +205,8 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       }
 
       OnboardingVkPaymentSideEffect.PaymentLinkSuccess -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
-          binding.vkFastLoginButton.performClick()
-        }
+        viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+        startVkCheckoutPay()
       }
     }
   }

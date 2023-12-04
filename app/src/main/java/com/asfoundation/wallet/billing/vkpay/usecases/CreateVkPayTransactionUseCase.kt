@@ -18,7 +18,9 @@ class CreateVkPayTransactionUseCase @Inject constructor(
     origin: String?, metadata: String?, packageName: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
     developerWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    email: String,
+    phone: String
   ): Single<VkPayTransaction> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -38,7 +40,9 @@ class CreateVkPayTransactionUseCase @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           referrerUrl = referrerUrl,
-          method = METHOD_VK_PAY
+          method = METHOD_VK_PAY,
+          email = email,
+          phone = phone
         )
       }
   }
