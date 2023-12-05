@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpSideEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +35,8 @@ sealed class OnboardingVkPaymentSideEffect : SideEffect {
   object ShowError : OnboardingVkPaymentSideEffect()
   object ShowSuccess : OnboardingVkPaymentSideEffect()
   object PaymentLinkSuccess : OnboardingVkPaymentSideEffect()
+  data class NavigateBackToGame(val appPackageName: String) : OnboardingVkPaymentSideEffect()
+  object NavigateToExploreWallet : OnboardingVkPaymentSideEffect()
 }
 
 data class OnboardingVkPaymentStates(
@@ -161,4 +164,15 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       }.scopedSubscribe()
     }
   }
+
+  fun handleBackToGameClick() {
+    events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.BACK_TO_THE_GAME)
+    sendSideEffect { OnboardingVkPaymentSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
+  }
+
+  fun handleExploreWalletClick() {
+    events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.EXPLORE_WALLET)
+    sendSideEffect { OnboardingVkPaymentSideEffect.NavigateToExploreWallet }
+  }
+
 }

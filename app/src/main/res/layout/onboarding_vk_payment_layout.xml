@@ -5,7 +5,7 @@
     android:id="@+id/onboarding_vk_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue"
+    android:background="@color/styleguide_blue_secondary"
     >
 
   <com.vk.auth.ui.fastloginbutton.VkFastLoginButton
@@ -38,13 +38,15 @@
   <FrameLayout
       android:id="@+id/complete_payment_view"
       android:layout_width="match_parent"
-      android:layout_height="336dp"
-      android:background="@color/styleguide_blue"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="32dp"
+      android:background="@color/styleguide_blue_secondary"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.36"
       >
     <include
         android:id="@+id/fragment_first_iab_transaction_completed"
@@ -52,6 +54,17 @@
         />
   </FrameLayout>
 
+  <include
+      android:id="@+id/onboarding_success_vk_buttons"
+      layout="@layout/onboarding_payment_success_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
 
   <include
       android:id="@+id/no_network"

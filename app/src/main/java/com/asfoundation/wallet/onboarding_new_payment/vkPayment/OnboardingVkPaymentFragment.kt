@@ -19,6 +19,7 @@ import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentNavigator
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
@@ -106,6 +107,12 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
         }
       }
     }
+    binding.onboardingSuccessVkButtons.backToGameButton.setOnClickListener {
+      viewModel.handleBackToGameClick()
+    }
+    binding.onboardingSuccessVkButtons.exploreWalletButton.setOnClickListener {
+      viewModel.handleExploreWalletClick()
+    }
   }
 
   private fun startTransaction(email: String, phone: String) {
@@ -190,6 +197,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.fragmentFirstIabTransactionCompleted.iabFirstActivityTransactionCompleted.visibility =
       View.VISIBLE
     binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.onboardingSuccessVkButtons.root.visibility = View.VISIBLE
     clearVkPayCheckout()
   }
 
@@ -198,16 +206,18 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       is OnboardingVkPaymentSideEffect.ShowError -> {
         showError()
       }
-
       OnboardingVkPaymentSideEffect.ShowLoading -> {}
       OnboardingVkPaymentSideEffect.ShowSuccess -> {
         showCompletedPayment()
       }
-
       OnboardingVkPaymentSideEffect.PaymentLinkSuccess -> {
         viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
         startVkCheckoutPay()
       }
+      is OnboardingVkPaymentSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
+        sideEffect.appPackageName
+      )
+      OnboardingVkPaymentSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
     }
   }
 
