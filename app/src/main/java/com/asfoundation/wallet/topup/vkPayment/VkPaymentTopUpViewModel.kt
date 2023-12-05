@@ -55,31 +55,37 @@ class VkPaymentTopUpViewModel @Inject constructor(
   var transactionUid: String? = null
   var walletAddress: String = ""
   lateinit var paymentData: TopUpPaymentData
-  private val JOB_UPDATE_INTERVAL_MS = 15 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 600 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
   var isFirstGetPaymentLink = true
   val scope = CoroutineScope(Dispatchers.Main)
 
-  fun getPaymentLink() {
-    isFirstGetPaymentLink = false
-    getCurrentWalletUseCase().doOnSuccess {
-      walletAddress = it.address
-    }.scopedSubscribe()
-    val price = VkPrice(value = paymentData.fiatValue, currency = paymentData.fiatCurrencySymbol)
-    createVkPayTransactionTopUpUseCase(
-      price = price
-    ).asAsyncToState {
-      copy(vkTransaction = it)
-    }.doOnSuccess {
-      sendSideEffect { VkPaymentTopUpSideEffect.PaymentLinkSuccess }
-    }.scopedSubscribe()
+  fun getPaymentLink(
+    email: String,
+    phone: String
+  ) {
+    if (isFirstGetPaymentLink) {
+      isFirstGetPaymentLink = false
+      getCurrentWalletUseCase().doOnSuccess {
+        walletAddress = it.address
+      }.scopedSubscribe()
+      val price = VkPrice(value = paymentData.fiatValue, currency = paymentData.fiatCurrencySymbol)
+      createVkPayTransactionTopUpUseCase(
+        price = price,
+        email = email,
+        phone = phone
+      ).asAsyncToState {
+        copy(vkTransaction = it)
+      }.doOnSuccess {
+        sendSideEffect { VkPaymentTopUpSideEffect.PaymentLinkSuccess }
+      }.scopedSubscribe()
+    }
   }
 
   fun startTransactionStatusTimer() {
-    Log.d("STATEEEE", "state vkTransaction:  startTransactionStatusTimer?")
     // Set up a Timer to call getTransactionStatus() every 20 seconds
     if (!isTimerRunning) {
       timerTransactionStatus.schedule(object : TimerTask() {
@@ -103,10 +109,6 @@ class VkPaymentTopUpViewModel @Inject constructor(
     jobTransactionStatus?.cancel()
     timerTransactionStatus.cancel()
     isTimerRunning = false
-  }
-
-  fun sendConfirmationEvent(amout: Double, paymentId: String) {
-
   }
 
   private fun getTransactionStatus() {

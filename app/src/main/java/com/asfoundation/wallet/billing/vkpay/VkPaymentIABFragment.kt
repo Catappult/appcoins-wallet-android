@@ -64,12 +64,15 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
+      val email = authResult.personalData?.email ?: ""
+      val phone = authResult.personalData?.phone ?: ""
       vkDataPreferencesDataSource.saveAuthVk(
         accessToken = authResult.accessToken,
-        email = authResult.personalData?.email ?: "",
-        phone = authResult.personalData?.phone ?: ""
+        email = email,
+        phone = phone
       )
       viewModel.hasVkUserAuthenticated = true
+      startTransaction(email, phone)
     }
 
     override fun onCancel() {
@@ -80,9 +83,6 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    if (viewModel.hasVkUserAuthenticated && (viewModel.isFirstGetPaymentLink || !viewModel.hasVkPayAlreadyOpened)) {
-      startVkCheckoutPay()
-    }
   }
 
   override fun onAttach(context: Context) {
@@ -114,11 +114,23 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    bindArguments()
     setupTransactionCompleteAnimation()
+    lifecycleScope.launch {
+      delay(500)  // necessary delay to ensure the superappKit is actually ready.
+      if (SuperappKit.isInitialized()) {
+        if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
+          binding.vkFastLoginButton.performClick()
+        } else {
+          startTransaction(
+            email = vkDataPreferencesDataSource.getEmailVK(),
+            phone = vkDataPreferencesDataSource.getPhoneVK()
+          )
+        }
+      }
+    }
   }
 
-  private fun bindArguments() {
+  private fun startTransaction(email: String, phone: String) {
     if (viewModel.isFirstGetPaymentLink &&
       requireArguments().containsKey(CURRENCY_KEY) &&
       requireArguments().containsKey(TRANSACTION_DATA_KEY) &&
@@ -130,6 +142,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
         requireArguments().getString(ORIGIN_KEY)!!,
+        email,
+        phone
       )
       viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
     } else {
@@ -163,10 +177,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
-      is VkCheckoutSuccess -> {
-        viewModel.startTransactionStatusTimer()
-      }
-
+      is VkCheckoutSuccess -> {}
       else -> {
         showError()
       }
@@ -193,7 +204,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     } else {
       showError()
     }
+    // this callback from VK Pay sdk stopped working:
     VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
+    // so we are forcing the transaction status check even before completing the payment:
+    viewModel.startTransactionStatusTimer()
   }
 
 
@@ -242,14 +256,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       }
 
       VkPaymentIABSideEffect.PaymentLinkSuccess -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
-          if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
-            binding.vkFastLoginButton.performClick()
-          } else {
-            startVkCheckoutPay()
-          }
-        }
+        viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+        startVkCheckoutPay()
       }
     }
   }

@@ -54,8 +54,8 @@ class VkPaymentIABViewModel @Inject constructor(
 
   var transactionUid: String? = null
   var walletAddress: String = ""
-  private val JOB_UPDATE_INTERVAL_MS = 15 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 600 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
@@ -70,7 +70,9 @@ class VkPaymentIABViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder,
     amount: String,
     fiatCurrencySymbol: String,
-    origin: String
+    origin: String,
+    email: String,
+    phone: String
   ) {
     isFirstGetPaymentLink = false
     val price = VkPrice(value = amount, currency = fiatCurrencySymbol)
@@ -87,7 +89,9 @@ class VkPaymentIABViewModel @Inject constructor(
       transactionType = transactionBuilder.type,
       developerWallet = transactionBuilder.toAddress(),
       referrerUrl = transactionBuilder.referrerUrl,
-      packageName = transactionBuilder.domain
+      packageName = transactionBuilder.domain,
+      email = email,
+      phone = phone
     ).asAsyncToState {
       copy(vkTransaction = it)
     }.doOnSuccess {
@@ -97,7 +101,7 @@ class VkPaymentIABViewModel @Inject constructor(
   }
 
   fun startTransactionStatusTimer() {
-    // Set up a Timer to call getTransactionStatus() every 20 seconds
+    // Set up a Timer to call getTransactionStatus() every 5 seconds
     if (!isTimerRunning) {
       timerTransactionStatus.schedule(object : TimerTask() {
         override fun run() {
@@ -107,7 +111,7 @@ class VkPaymentIABViewModel @Inject constructor(
         }
       }, 0L, JOB_UPDATE_INTERVAL_MS)
       isTimerRunning = true
-      // Set up a CoroutineJob that will automatically cancel after 180 seconds
+      // Set up a CoroutineJob that will automatically cancel after 600 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
         sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
@@ -125,19 +129,19 @@ class VkPaymentIABViewModel @Inject constructor(
   fun sendPaymentSuccessEvent(transactionBuilder: TransactionBuilder, txId: String) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .observeOn(rxSchedulers.io)
-      .doOnSuccess { transaction ->
-        analytics.sendPaymentSuccessEvent(
-          packageName = transactionBuilder.domain,
-          skuDetails = transaction.skuId,
-          value = transaction.amount().toString(),
-          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_VK_PAY,
-          transactionType = transaction.type,
-          txId = txId,
-          valueUsd = transaction.amountUsd.toString()
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess { transaction ->
+          analytics.sendPaymentSuccessEvent(
+            packageName = transactionBuilder.domain,
+            skuDetails = transaction.skuId,
+            value = transaction.amount().toString(),
+            purchaseDetails = BillingAnalytics.PAYMENT_METHOD_VK_PAY,
+            transactionType = transaction.type,
+            txId = txId,
+            valueUsd = transaction.amountUsd.toString()
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -157,20 +161,20 @@ class VkPaymentIABViewModel @Inject constructor(
   ) {
     compositeDisposable.add(
       Single.just(transactionBuilder)
-      .observeOn(rxSchedulers.io)
-      .doOnSuccess { transaction ->
-        analytics.sendPaymentErrorWithDetailsAndRiskEvent(
-          transaction.domain,
-          transaction.skuId,
-          transaction.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_VK_PAY,
-          transaction.type,
-          errorCode ?: "",
-          errorMessage ?: "",
-          ""
-        )
-      }
-      .subscribe({}, { it.printStackTrace() })
+        .observeOn(rxSchedulers.io)
+        .doOnSuccess { transaction ->
+          analytics.sendPaymentErrorWithDetailsAndRiskEvent(
+            transaction.domain,
+            transaction.skuId,
+            transaction.amount().toString(),
+            BillingAnalytics.PAYMENT_METHOD_VK_PAY,
+            transaction.type,
+            errorCode ?: "",
+            errorMessage ?: "",
+            ""
+          )
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

@@ -19,6 +19,7 @@ import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentNavigator
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
@@ -28,6 +29,8 @@ import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -53,12 +56,14 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
 
   private val authVkCallback = object : VkClientAuthCallback {
     override fun onAuth(authResult: AuthResult) {
+      val email = authResult.personalData?.email ?: ""
+      val phone = authResult.personalData?.phone ?: ""
       vkDataPreferencesDataSource.saveAuthVk(
         accessToken = authResult.accessToken,
-        email = authResult.personalData?.email ?: "",
-        phone = authResult.personalData?.phone ?: ""
+        email = email,
+        phone = phone
       )
-      startVkCheckoutPay()
+      startTransaction(email, phone)
     }
 
     override fun onCancel() {
@@ -88,17 +93,37 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingVkPaymentFragmentArgs.fromBundle(requireArguments())
-    if (viewModel.isFirstGetPaymentLink) {
-      viewModel.getPaymentLink()
-    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    lifecycleScope.launch {
+      delay(500)  // necessary delay to ensure the superappKit is actually ready.
+      if (SuperappKit.isInitialized()) {
+        if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
+          binding.vkFastLoginButton.performClick()
+        } else {
+          startTransaction(
+            email = vkDataPreferencesDataSource.getEmailVK(),
+            phone = vkDataPreferencesDataSource.getPhoneVK()
+          )
+        }
+      }
+    }
+    binding.onboardingSuccessVkButtons.backToGameButton.setOnClickListener {
+      viewModel.handleBackToGameClick()
+    }
+    binding.onboardingSuccessVkButtons.exploreWalletButton.setOnClickListener {
+      viewModel.handleExploreWalletClick()
+    }
+  }
+
+  private fun startTransaction(email: String, phone: String) {
+    if (viewModel.isFirstGetPaymentLink) {
+      viewModel.getPaymentLink(email, phone)
+    }
   }
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
-      is VkCheckoutSuccess -> {
-        viewModel.startTransactionStatusTimer()
-      }
+      is VkCheckoutSuccess -> {}
       else -> {
         showError()
       }
@@ -124,7 +149,10 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     } else {
       showError()
     }
-    VkPayCheckout.observeCheckoutResult { handleCheckoutResult(it) }
+    // this callback from VK Pay sdk stopped working:
+    VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
+    // so we are forcing the transaction status check even before completing the payment:
+    viewModel.startTransactionStatusTimer()
   }
 
   private fun clearVkPayCheckout() {
@@ -169,6 +197,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.fragmentFirstIabTransactionCompleted.iabFirstActivityTransactionCompleted.visibility =
       View.VISIBLE
     binding.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.onboardingSuccessVkButtons.root.visibility = View.VISIBLE
     clearVkPayCheckout()
   }
 
@@ -177,18 +206,18 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       is OnboardingVkPaymentSideEffect.ShowError -> {
         showError()
       }
-
       OnboardingVkPaymentSideEffect.ShowLoading -> {}
       OnboardingVkPaymentSideEffect.ShowSuccess -> {
         showCompletedPayment()
       }
-
       OnboardingVkPaymentSideEffect.PaymentLinkSuccess -> {
-        if (SuperappKit.isInitialized()) {
-          viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
-          binding.vkFastLoginButton.performClick()
-        }
+        viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
+        startVkCheckoutPay()
       }
+      is OnboardingVkPaymentSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
+        sideEffect.appPackageName
+      )
+      OnboardingVkPaymentSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
     }
   }
 
