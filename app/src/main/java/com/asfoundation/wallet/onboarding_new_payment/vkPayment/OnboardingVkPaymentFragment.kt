@@ -100,8 +100,8 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
           binding.vkFastLoginButton.performClick()
         } else {
           startTransaction(
-            email = vkDataPreferencesDataSource.getEmailVK() ?: "",
-            phone = vkDataPreferencesDataSource.getPhoneVK() ?: ""
+            email = vkDataPreferencesDataSource.getEmailVK(),
+            phone = vkDataPreferencesDataSource.getPhoneVK()
           )
         }
       }

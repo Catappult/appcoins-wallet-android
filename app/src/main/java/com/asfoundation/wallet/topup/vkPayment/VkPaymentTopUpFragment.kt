@@ -107,8 +107,8 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
           binding.vkFastLoginButton.performClick()
         } else {
           viewModel.getPaymentLink(
-            email = vkDataPreferencesDataSource.getEmailVK() ?: "",
-            phone = vkDataPreferencesDataSource.getPhoneVK() ?: ""
+            email = vkDataPreferencesDataSource.getEmailVK(),
+            phone = vkDataPreferencesDataSource.getPhoneVK()
           )
         }
       }

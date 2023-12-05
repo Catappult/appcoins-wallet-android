@@ -14,9 +14,9 @@ class VkDataPreferencesDataSource @Inject constructor(
 
   fun getAuthVk() = sharedPreferences.getString(VK_LOGIN_AUTH, null)
 
-  fun getEmailVK() = sharedPreferences.getString(VK_LOGIN_EMAIL, "")
+  fun getEmailVK() = sharedPreferences.getString(VK_LOGIN_EMAIL, "") ?: ""
 
-  fun getPhoneVK() = sharedPreferences.getString(VK_LOGIN_PHONE, "")
+  fun getPhoneVK() = sharedPreferences.getString(VK_LOGIN_PHONE, "") ?: ""
 
   fun saveAuthVk(accessToken: String, email: String, phone: String) {
     val editPreferences = sharedPreferences.edit()
