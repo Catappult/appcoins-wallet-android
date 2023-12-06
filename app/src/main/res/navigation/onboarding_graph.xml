@@ -51,6 +51,11 @@
         android:name="is_from_onboarding"
         android:defaultValue="true"
         app:argType="boolean" />
+    <argument
+        android:name="is_payment"
+        android:defaultValue="false"
+        app:argType="boolean" />
+
 
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"

@@ -131,9 +131,9 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
-      OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
+      is OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
         hideContent()
-        navigator.navigateToCreateWalletDialog()
+        navigator.navigateToCreateWalletDialog(isPayment = sideEffect.isPayment)
       }
       OnboardingSideEffect.NavigateToFinish -> {
         unlockRotation()

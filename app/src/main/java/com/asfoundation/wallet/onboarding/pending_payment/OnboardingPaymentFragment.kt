@@ -74,7 +74,11 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
       this
     ) { _, _ ->
       views.root.visibility = View.GONE
-      context?.let { AppUtils.restartApp(it) }
+      context?.let {
+        lifecycleScope.launch {
+          AppUtils.restartApp(it)
+        }
+      }
     }
   }
 

@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 sealed class OnboardingSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingSideEffect()
-  object NavigateToWalletCreationAnimation : OnboardingSideEffect()
+  data class NavigateToWalletCreationAnimation(val isPayment: Boolean) : OnboardingSideEffect()
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
@@ -81,8 +81,12 @@ class OnboardingViewModel @Inject constructor(
   private fun handleLaunchMode(appStartUseCase: AppStartUseCase) {
     viewModelScope.launch {
       when (appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
-        is StartMode.GPInstall -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
+        is StartMode.PendingPurchaseFlow -> sendSideEffect {
+          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
+        }
+        is StartMode.GPInstall -> sendSideEffect {
+          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
+        }
         else -> setState { copy(pageContent = OnboardingContent.VALUES) }
       }
     }
@@ -97,7 +101,7 @@ class OnboardingViewModel @Inject constructor(
           if (it) {
             OnboardingSideEffect.NavigateToFinish
           } else {
-            OnboardingSideEffect.NavigateToWalletCreationAnimation
+            OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
           }
         }
       }

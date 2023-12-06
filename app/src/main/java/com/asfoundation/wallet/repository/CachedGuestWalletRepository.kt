@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.repository
 
-import android.util.Log
 import com.appcoins.wallet.core.network.backend.api.CachedGuestWalletApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
 import kotlinx.coroutines.rx2.rxSingle
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 class CachedGuestWalletRepository @Inject constructor(
