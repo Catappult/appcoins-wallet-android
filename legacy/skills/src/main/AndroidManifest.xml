@@ -14,6 +14,7 @@
     </activity>
     <service
         android:name="cm.aptoide.skills.games.BackgroundGameService"
+        android:foregroundServiceType="dataSync"
         android:exported="false" />
   </application>
 
