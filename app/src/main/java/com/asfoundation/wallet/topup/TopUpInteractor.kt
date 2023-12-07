@@ -70,10 +70,10 @@ class TopUpInteractor @Inject constructor(
         }
     }
 
-  fun convertAppc(value: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertAppc(value: String): Single<FiatValue> =
     conversionService.getAppcToLocalFiat(value, 2)
 
-  fun convertLocal(currency: String, value: String, scale: Int): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> =
     conversionService.getFiatToAppc(currency, value, scale)
 
   private fun mapPaymentMethods(
@@ -144,7 +144,7 @@ class TopUpInteractor @Inject constructor(
   fun isBonusValidAndActive(forecastBonusAndLevel: ForecastBonusAndLevel): Boolean =
     gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
 
-  private fun cacheChipValues(chipValues: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
+  private fun cacheChipValues(chipValues: List<FiatValue>) {
     for (index in chipValues.indices) {
       chipValueIndexMap[chipValues[index]] = index
     }

@@ -35,6 +35,10 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
+import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
@@ -48,6 +52,7 @@ import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -103,6 +108,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     super.onResume()
     viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
+    viewModel.fetchWalletInfo()
     navBarViewModel.clickedItem.value = Destinations.REWARDS.ordinal
   }
 
@@ -114,6 +120,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     LaunchedEffect(key1 = dialogDismissed) {
       viewModel.fetchPromotions()
       viewModel.fetchGamificationStats()
+      viewModel.fetchWalletInfo()
     }
     Scaffold(
       topBar = {
@@ -140,6 +147,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   internal fun RewardScreenContent(
     padding: PaddingValues
   ) {
+    val challengeRewardNavigation = challengeRewardNavigation(
+      navigation = { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) },
+    )
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
@@ -173,6 +183,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                       code = this.vipCode,
                       totalEarned = this.totalEarned,
                       numberReferrals = this.numberReferrals,
+                      endDate = this.endDate,
                       mainNavController = navController()
                     )
                   }, this.vipBonus
@@ -187,9 +198,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderNoPurchases()
           }
 
-          RewardsActions({ navigator.navigateToWithdrawScreen() },
+          RewardsActions(
+            { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() })
+            { navigator.showGiftCardFragment() },
+            challengeRewardNavigation,
+          )
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
       }
@@ -221,6 +235,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onStateChanged(state: RewardState) {
     showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
+    instantiateChallengeReward(state.walletInfoAsync)
   }
 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
@@ -369,4 +384,19 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     return navHostFragment.navController
   }
 
+  private fun instantiateChallengeReward(walletInfoAsync: Async<WalletInfo>) {
+    when (walletInfoAsync) {
+      is Async.Success -> {
+        walletInfoAsync.value?.let {
+          if(it.wallet.isNotEmpty())
+            ChallengeRewardManager.create(
+              appId = BuildConfig.FYBER_APP_ID,
+              activity = requireActivity(),
+              walletAddress = it.wallet,
+            )
+        }
+      }
+      else -> Unit
+    }
+  }
 }

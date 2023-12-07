@@ -50,4 +50,10 @@ interface TopUpActivityView {
   fun popBackStack()
 
   fun launchPerkBonusAndGamificationService(address: String)
+
+  fun createChallengeReward(walletAddress: String)
+
+  fun navigateToChallengeReward()
+
+  fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 }

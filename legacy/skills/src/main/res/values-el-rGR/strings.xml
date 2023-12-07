@@ -13,6 +13,7 @@
   <string name="install_button">Εγκατάσταση</string>
   <string name="retry_button">Επανάληψη</string>
   <string name="restart_button">Επανεκκίνηση</string>
+  <string name="update_button">Ενημέρωση</string>
   <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
   <string name="processing_loading_title">Παραλαβή του εισιτηρίου εισόδου σας</string>
   <string name="finding_room_loading_title">Αναμονή αντιπάλων</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Μη υποστηριζόμενη έκδοση wallet!</string>
   <string name="update_not_supported_body">Ενημερώστε το AppCoins Wallet στην τελευταία έκδοση.</string>
-  <string name="update_button">Ενημέρωση</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Εσείς και οι φίλοι που προσκαλείτε θα λάβετε ένα μπόνους $%s. Μπορείτε να προσκαλέσετε μέχρι 5 φίλους, και πρέπει να είναι νέοι χρήστες. Το μπόνους θα πιστωθεί στο wallet σας μόλις χρησιμοποιήσουν τον κωδικό πρόσκλησής τους στο πρώτο τους παιχνίδι e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Ετοιμαστήκατε να δείξετε τις ικανότητές σας;</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
   <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με «σπασμένη» συσκευή.</string>
   <string name="unknown_error">Παρουσιάστηκε ένα σφάλμα.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Αναμονή αντιπάλων για να τελειώσουν το παιχνίδι.</string>
   <plurals name="opponent_points_title">

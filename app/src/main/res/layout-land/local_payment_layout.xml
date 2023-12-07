@@ -11,7 +11,7 @@
       android:id="@+id/progress_bar"
       android:layout_width="match_parent"
       android:layout_height="276dp"
-      android:background="@drawable/background_card"
+      android:background="@drawable/background_card_active_wallet"
       android:gravity="center"
       android:visibility="gone"
       tools:visibility="gone"
@@ -38,7 +38,7 @@
       android:id="@+id/complete_payment_view"
       android:layout_width="match_parent"
       android:layout_height="276dp"
-      android:background="@drawable/background_card"
+      android:background="@drawable/background_card_active_wallet"
       android:gravity="center"
       android:visibility="gone"
       >

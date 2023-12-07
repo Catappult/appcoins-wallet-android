@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/big_margin"
+    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -25,6 +26,7 @@
   <TextView
       android:id="@+id/error_title"
       style="@style/TextXL"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/half_large_margin"
@@ -40,6 +42,7 @@
   <TextView
       android:id="@+id/error_message"
       style="@style/TextM"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"

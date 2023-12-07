@@ -154,6 +154,9 @@
   <string name="bonus_received_body">Has recibido un bonus de %s en tu wallet.</string>
   <string name="back_to_the_game_button">Volver al juego</string>
   <string name="other_payment_methos_title">Otros métodos de pago:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Desde</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
   <string name="transaction_status_reverted">Revertida</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Recompensa por Reto</string>
   <string name="transaction_type_challenge_reward_rejected">Recompensa por Reto rechazada</string>
   <string name="transaction_type_challenge_reward_reverted">Recompensa por Reto revertida</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Descargar</string>
   <string name="done">¡Hecho!</string>
   <string name="see_more_button">Ver más</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">Bonus de %s recibido.</string>
   <string name="purchase_making_purchase_title">Haciendo compra&#8230;</string>
   <string name="purchase_fee_title">Tasa de %2$s %1$s</string>
-  <string name="purchase_fee_disclaimer">Este método de pago no acepta tu moneda, por lo que cargará una comisión. El total que se muestra en el área superior incluye esta comisión.</string>
-  <string name="purchase_unknown_fee_disclaimer">Este método de pago no acepta tu moneda, por lo que cobrará una comisión.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -995,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">¡Haz tu primera compra en un juego o app y desbloquea todas las promociones que tenemos para ti!</string>
   <string name="perks_empty_body">No hay promociones disponibles en estos momentos.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Bloqueo con huella</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">¡La autenticación falló!</string>
   <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
   <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>
@@ -1046,8 +1053,6 @@
   <string name="card_verification_no_attempts_title">Oops, has introudcido un código erróneo demasiadas veces así que reembolsaremos %1$s a tu tarjeta.</string>
   <string name="card_verification_no_attempts_body">Por favor, inicia el proceso de verificación de nuevo.</string>
   <string name="wallet_verify_header">Verifica al menos un método de pago</string>
-  <string name="verify_card_title">Verificación de tarjeta</string>
-  <string name="verify_card_button">Verificar tarjeta</string>
   <string name="verify_paypal_button">Verificar PayPal</string>
   <string name="card_verification_body_new">Se cobrará %s a tu tarjeta y se devolverá de forma inmediata. Inserta aquí el código de validación que encontrarás en el extracto de la tarjeta.</string>
   <string name="card_verification_disclaimer_body">El código de validación puede aparecer en la notificación del reembolso.</string>
@@ -1176,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">Promociones especiales para ti</string>
   <string name="vip_program_promo_code_tag">Código Promocional</string>
   <string name="vip_program_referral_page_title">Programa de Recomendación VIP</string>
-  <string name="vip_program_referral_page_body">Comparte este código con tu comunidad y amigos para que todos ganen al jugar. Por cada compra que hagan, <b>tanto tú como tus amigos recibiréis un bonus del %s%%</b> además de las otras promociones... ¡durante un mes!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Comparte este código con tus amigos</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganado de %3$s recomendaciones</string>
   <string name="vip_program_gamification_title">¿Cuál es mi nivel de bonus?</string>
@@ -1237,12 +1242,13 @@
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Verificación de método de pago</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>
   <string name="verify_card_one_more_step_title">Un paso más para verificar</string>
   <string name="verify_card_one_more_step_body">Introduce el código que aparece en el detalle de la transacción</string>
   <string name="verify_card_one_more_step_button">Introducir código</string>
   <string name="verify_card_verified">¡Método de pago verificado!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Verificación de tarjeta</string>
   <string name="verify_card_view_disclaimer">Cobraremos %s a tu tarjeta y te lo devolveremos cuando confirmes el código.</string>
   <string name="verify_card_view_title_2">Inserta los datos de la tarjeta</string>
@@ -1260,4 +1266,8 @@
   <string name="challenge_reward_card_body">Completa un reto para recibir AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Disfruta de %s AppCoins Credits en tu wallet</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

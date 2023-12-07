@@ -77,6 +77,18 @@ interface IabView {
     frequency: String?
   )
 
+  fun showVkPay(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
   fun showCarrierBilling(
     currency: String?,
     amount: BigDecimal,
@@ -111,6 +123,10 @@ interface IabView {
     referralUrl: String?,
     gamificationLevel: Int
   )
+
+  fun createChallengeReward(walletAddress: String)
+
+  fun showChallengeReward()
 
   fun showPaymentMethodsView()
 

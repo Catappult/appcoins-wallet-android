@@ -50,6 +50,7 @@
       android:text="@string/carrier_billing_insert_phone_body"
       app:layout_constraintLeft_toLeftOf="@id/payment_methods_header"
       app:layout_constraintTop_toBottomOf="@+id/line_separator"
+      android:textColor="@color/styleguide_payments_main_text"
       />
 
   <TextView
@@ -95,8 +96,9 @@
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         app:ccpDialog_background="@drawable/ccp_background"
-        app:ccpDialog_textColor="@color/styleguide_black"
-        app:ccp_arrowColor="@color/styleguide_black_transparent_80"
+        app:ccpDialog_textColor="@color/styleguide_payments_main_text"
+        app:ccp_arrowColor="@color/styleguide_dark_grey"
+        app:ccp_contentColor="@color/styleguide_payments_main_text"
         app:ccp_arrowSize="16dp"
         app:ccp_autoDetectCountry="true"
         app:ccp_rememberLastSelection="true"
@@ -180,7 +182,7 @@
       style="@style/PaymentMethods.Error.OtherPaymentsButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/purchase_more_payment_methods_button"
+      android:text="@string/purchase_more_payment_methods_lower_case_button"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="@+id/phone_number_layout"
       app:layout_constraintTop_toBottomOf="@+id/field_error_text"

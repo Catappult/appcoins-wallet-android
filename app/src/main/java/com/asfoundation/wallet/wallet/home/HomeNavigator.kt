@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment.Companion.WALLET_NAME
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletBalanceBottomSheetFragment
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
@@ -69,8 +71,15 @@ constructor(
     fragment.requireContext().startActivity(intent)
   }
 
-  fun navigateToCurrencySelector(mainNavController: NavController) {
-    mainNavController.navigate(R.id.action_navigate_to_change_fiat_currency)
+  fun navigateToBalanceBottomSheet(walletBalance: WalletBalance) {
+    val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
+    val bundle = Bundle()
+    bundle.putSerializable(
+      ManageWalletBalanceBottomSheetFragment.WALLET_BALANCE_MODEL,
+      walletBalance
+    )
+    bottomSheet.arguments = bundle
+    bottomSheet.show(fragment.parentFragmentManager, "HomeBalanceWallet")
   }
 
   fun navigateToManageBottomSheet() {

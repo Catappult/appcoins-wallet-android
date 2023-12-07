@@ -29,6 +29,7 @@ interface TransactionsApi {
     @Query("from") startingDate: String? = null,
     @Query("to") endingDate: String? = null,
     @Query("default_currency") defaultCurrency: String,
+    @Query("lang_code") languageCode: String
   ): Response<List<TransactionResponse>>
 
   fun getTransactionsById(

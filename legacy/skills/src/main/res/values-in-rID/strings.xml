@@ -13,6 +13,7 @@
   <string name="install_button">Instal</string>
   <string name="retry_button">Coba lagi</string>
   <string name="restart_button">Restart</string>
+  <string name="update_button">Perbarui</string>
   <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
   <string name="processing_loading_title">Mengambil tiket masuk Anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Versi dompet tidak didukung!</string>
   <string name="update_not_supported_body">Perbarui Dompet AppCoins ke versi terbaru.</string>
-  <string name="update_button">Perbarui</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Anda dan teman yang Anda undang akan menerima bonus sebesar $%s. Anda bisa mengundang maksimal 5 teman, dan mereka harus pengguna baru. Bonus akan dikreditkan ke dompet Anda setelah mereka menggunakan kode undangan Anda di game e-Skill pertama mereka.</string>
   <string name="refer_a_friend_first_time_header">Siap menunjukkan keahlian Anda?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
   <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk menyelesaikan game.</string>
   <plurals name="opponent_points_title">

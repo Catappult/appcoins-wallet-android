@@ -1,10 +1,18 @@
 package com.asfoundation.wallet.promotions.model
 
-import com.appcoins.wallet.core.network.backend.model.*
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.GenericResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.ISO_8601_DATE_TIME_FORMAT
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.MONTH_DAY_YEAR_FORMAT
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDate
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import java.util.concurrent.TimeUnit
@@ -77,7 +85,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       map(userStats.walletOrigin),
       map(userStats.error),
       levels.fromCache && userStats.fromCache,
-      map(vipReferralResponse)
+      vipReferralResponse.map()
     )
   }
 
@@ -99,16 +107,19 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun map(vipReferralResponse: VipReferralResponse): VipReferralInfo? {
-    return if (vipReferralResponse.active) VipReferralInfo(
-      vipReferralResponse.vipBonus,
-      vipReferralResponse.code,
-      vipReferralResponse.earnedUsdAmount,
-      vipReferralResponse.referrals
+  private fun VipReferralResponse.map() =
+    if (active) VipReferralInfo(
+      vipBonus,
+      code,
+      earnedUsdAmount,
+      referrals,
+      transformDate(
+        date = endDate,
+        fromPattern = ISO_8601_DATE_TIME_FORMAT,
+        toPattern = MONTH_DAY_YEAR_FORMAT
+      )
     )
-    else
-      null
-  }
+    else null
 
   private fun mapToGamificationLinkItem(
     promotions: MutableList<Promotion>,

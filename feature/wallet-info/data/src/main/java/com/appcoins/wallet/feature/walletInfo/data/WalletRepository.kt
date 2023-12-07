@@ -109,7 +109,7 @@ class WalletRepository @Inject constructor(
     return Observable.create(
         ObservableOnSubscribe { emitter: ObservableEmitter<String> ->
           val listener =
-              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String ->
+              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String? ->
                 if (key == CURRENT_ACCOUNT_ADDRESS_KEY) {
                   emitWalletAddress(emitter)
                 }

@@ -60,6 +60,11 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showVkPay(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun showGiroPay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                   isSubscription: Boolean)
 
@@ -141,9 +146,11 @@ interface PaymentMethodsView {
 
   fun showTopupFlow()
 
+  fun showChallengeReward()
+
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR, GIROPAY, SANDBOX
+    CARRIER_BILLING, ERROR, GIROPAY, SANDBOX, CHALLENGE_REWARD, VKPAY
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -156,6 +163,8 @@ interface PaymentMethodsView {
     CREDIT_CARD("credit_card"),
     CARRIER_BILLING("onebip"),
     SANDBOX("sandbox"),
-    ASK_FRIEND("ask_friend")
+    ASK_FRIEND("ask_friend"),
+    CHALLENGE_REWARD("challenge_reward"),
+    VKPAY("vk_pay")
   }
 }

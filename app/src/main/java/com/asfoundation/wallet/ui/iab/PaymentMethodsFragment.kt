@@ -6,14 +6,14 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
@@ -24,6 +24,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -108,6 +109,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   @Inject
   lateinit var logger: Logger
 
+  @Inject
+  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
+
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
   private lateinit var compositeDisposable: CompositeDisposable
@@ -149,6 +153,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
     presenter = PaymentMethodsPresenter(
       view = this,
+      activity = iabView,
       viewScheduler = AndroidSchedulers.mainThread(),
       networkThread = Schedulers.io(),
       disposables = CompositeDisposable(),
@@ -225,6 +230,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     super.onResume()
   }
 
+  override fun showChallengeReward() {
+    challengeRewardAnalytics.sendChallengeRewardEvent(IAP.id)
+    iabView.showChallengeReward()
+  }
+
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
     paymentMethodId: String
@@ -245,9 +255,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethodClick = paymentMethodClick,
           topupClick = topupClick,
           logoutCallback = {
-            presenter.removePaypalBillingAgreement()
-            presenter.showPayPalLogout.onNext(false)
-            showProgressBarLoading()
+            logoutFromPaypal()
           },
           disposables = presenter.disposables,
           showPayPalLogout = presenter.showPayPalLogout
@@ -257,6 +265,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       paymentMethodList.addAll(paymentMethods)
       paymentMethodClick.accept(paymentMethodsAdapter.getSelectedItem())
     }
+  }
+
+  private fun logoutFromPaypal() {
+    presenter.removePaypalBillingAgreement()
+    presenter.showPayPalLogout.onNext(false)
+    showProgressBarLoading()
   }
 
   private fun updateHeaderInfo(
@@ -322,14 +336,33 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.layoutPreSelected.paymentMethodDescription.visibility = View.VISIBLE
     binding.layoutPreSelected.paymentMethodDescription.text = getPaymentMethodLabel(paymentMethod)
     binding.layoutPreSelected.paymentMethodDescriptionSingle.visibility = View.GONE
-    if (paymentMethod.id == PaymentMethodId.APPC_CREDITS.id) {
-      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
-      if (isBonusActive) hideBonus()
-    } else {
-      binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
-      if (isBonusActive) {
-        if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
-        else showBonus(R.string.gamification_purchase_body)
+    when (paymentMethod.id) {
+      PaymentMethodId.APPC_CREDITS.id -> {
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+        if (isBonusActive) hideBonus()
+      }
+      PaymentMethodId.PAYPAL_V2.id -> {
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
+        binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
+          val wrapper: Context =  ContextThemeWrapper(context?.applicationContext, R.style.CustomLogoutPopUpStyle)
+          val popup = PopupMenu(wrapper, it)
+          popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+          popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+            binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+            logoutFromPaypal()
+            return@setOnMenuItemClickListener true
+          }
+          popup.show()
+        }
+      }
+      else -> {
+        binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
+        binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
+        if (isBonusActive) {
+          if (isSubscription) showBonus(R.string.subscriptions_bonus_body)
+          else showBonus(R.string.gamification_purchase_body)
+        }
       }
     }
     setupFee(paymentMethod.fee)
@@ -401,7 +434,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showProgressBarLoading() {
     binding.paymentMethods.visibility = View.INVISIBLE
-    binding.loadingView.visibility = View.VISIBLE
+    binding.loadingAnimation.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
@@ -417,13 +450,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       if (isPreSelected) {
         binding.preSelectedPaymentMethodGroup.visibility = View.VISIBLE
         binding.paymentMethodsListGroup.visibility = View.GONE
-        binding.bottomSeparator?.visibility = View.INVISIBLE
         binding.layoutPreSelected.root.visibility = View.VISIBLE
       } else {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
         binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
-      binding.loadingView.visibility = View.GONE
+      binding.loadingAnimation.visibility = View.GONE
     }
   }
 
@@ -579,6 +611,25 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
+  override fun showVkPay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showVkPay(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.PAYPAL,
+      bonusMessageValue,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showCreditCard(
     gamificationLevel: Int,
     fiatValue: FiatValue,
@@ -683,7 +734,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
-    binding.bonusLayout.bonusValue.text = context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+    binding.bonusLayout.bonusValue.text =
+      context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
   override fun onBackPressed(): Observable<Any> =
@@ -729,19 +781,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showBonus(@StringRes bonusText: Int) {
     changeBonusVisibility(View.VISIBLE)
-    binding.bonusMsg.text = context?.getString(bonusText)
   }
 
   override fun removeBonus() {
-   bonusMessageValue = ""
+    bonusMessageValue = ""
     bonusValue = null
     changeBonusVisibility(View.GONE)
   }
 
   private fun changeBonusVisibility(visibility: Int) {
     binding.bonusLayout.root.visibility = visibility
-    binding.bottomSeparator?.visibility = visibility
-    binding.bonusMsg.visibility = visibility
+    binding.bonusBackground.visibility = visibility
   }
 
   override fun hideBonus() {
@@ -750,8 +800,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun replaceBonus() {
     changeBonusVisibility(View.INVISIBLE)
-    binding.bonusMsg.text = context?.getString(R.string.purchase_poa_body)
-    binding.bonusMsg.visibility = View.VISIBLE
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()

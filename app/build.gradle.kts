@@ -11,8 +11,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 282
-    versionName = "3.3.3"
+    versionCode = 290
+    versionName = "3.7.2"
   }
 }
 
@@ -44,6 +44,7 @@ dependencies {
   implementation(project(":core:legacy-base"))
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
+  implementation(project(":feature:challenge-reward:data"))
   implementation(project(":feature:change-currency:data"))
   implementation(project(":feature:change-currency:ui"))
   implementation(project(":feature:wallet-info:data"))
@@ -52,6 +53,7 @@ dependencies {
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":home"))
+  implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
   implementation(libs.kotlin.coroutines.rx2)
@@ -92,6 +94,8 @@ dependencies {
   implementation(libs.google.play.services)
   implementation(libs.google.zxing)
   implementation(libs.zxing.android)
+
+  implementation(libs.bundles.vk)
 
   implementation(libs.bundles.adyen) {
     exclude(group = "io.michaelrocks", module = "paranoid-core")

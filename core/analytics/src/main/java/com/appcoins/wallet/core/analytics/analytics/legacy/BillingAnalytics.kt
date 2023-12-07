@@ -3,7 +3,6 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.gameshub.GamesHubBroadcastService
-import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -12,7 +11,6 @@ import javax.inject.Inject
 class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,
-  private val partnerAddressService: PartnerAddressService
 ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
@@ -190,15 +188,15 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_SUCCESS, isOnboardingPayment
     )
-    if (partnerAddressService.isGameFromGamesHub()) {
-      GamesHubBroadcastService.sendSuccessPaymentBroadcast(
-        context,
-        txId,
-        packageName = packageName,
-        usdAmount = valueUsd,
-        appcAmount = value
-      )
-    }
+
+    GamesHubBroadcastService.sendSuccessPaymentBroadcast(
+      context,
+      txId,
+      packageName = packageName,
+      usdAmount = valueUsd,
+      appcAmount = value
+    )
+
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -334,6 +332,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_REWARDS = "REWARDS"
     const val PAYMENT_METHOD_PAYPAL = "PAYPAL"
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
+    const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"

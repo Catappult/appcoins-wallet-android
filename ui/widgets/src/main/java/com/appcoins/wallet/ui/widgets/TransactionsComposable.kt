@@ -363,6 +363,15 @@ fun PreviewTransactionCardHeader() {
 
 @Preview
 @Composable
+fun PreviewTransactionDetailLinkedHeader() {
+  TransactionDetailLinkedHeader(
+    description = "Reverted Purchase Bonus test used to verify UI",
+    appIcon = ""
+  )
+}
+
+@Preview
+@Composable
 fun PreviewTransactionDetailItem() {
   TransactionDetailItem(
     label = "Order ID",

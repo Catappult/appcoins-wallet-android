@@ -154,6 +154,9 @@
   <string name="bonus_received_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ေဘာနပ္စ္တစ္ခုကို ရရွိခဲ့ပါသည္။</string>
   <string name="back_to_the_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
   <string name="other_payment_methos_title">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား -</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
   <string name="transaction_status_failed">မေအာင္ျမင္ပါ</string>
   <string name="transaction_status_reverted">ျပန္ပို႔ခဲ့သည္</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_rejected">ျငင္းပယ္ခဲ့ေသာ စိန္ေခၚမႈဆု</string>
   <string name="transaction_type_challenge_reward_reverted">ျပန္ေျပာင္းခဲ့ေသာ စိန္ေခၚမႈဆု</string>
@@ -511,6 +515,7 @@
   <string name="download_button">ေဒါင္းလုဒ္</string>
   <string name="done">ၿပီးပါၿပီ။</string>
   <string name="see_more_button">ပို၍ၾကည့္မည္</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">%s ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ။</string>
   <string name="purchase_making_purchase_title">ဝယ္ယူမႈကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s အခေၾကးေငြ</string>
-  <string name="purchase_fee_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္မည္ ျဖစ္ပါသည္။ ဤအခေၾကးေငြသည္ အေပၚဖက္ဧရိယာတြင္ ျမင္ႏိုင္သည့္ စုစုေပါင္းတြင္ ပါဝင္ပါသည္။</string>
-  <string name="purchase_unknown_fee_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -988,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
@@ -1037,8 +1044,6 @@
   <string name="card_verification_no_attempts_title">အိုး သင္က မွားယြင္းေသာကုဒ္တစ္ခုကို အႀကိမ္မ်ားစြာ ထည့္သြင္းခဲ့ေသာေၾကာင့္ %1$s ကို သင့္ကဒ္သို႔ ေငြျပန္အမ္းေပးမည္ ျဖစ္ပါသည္။</string>
   <string name="card_verification_no_attempts_body">အတည္ျပဳသည့္ လုပ္ငန္းစဥ္ကို ျပန္လည္စတင္ေပးပါ။</string>
   <string name="wallet_verify_header">ေငြေပးေခ်မႈနည္းလမ္း အနည္းဆုံးတစ္ခုကို အတည္ျပဳပါ</string>
-  <string name="verify_card_title">ကဒ္ကိုအတည္ျပဳမည္</string>
-  <string name="verify_card_button">ဘဏ္ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="verify_paypal_button">PayPal အေကာင့္ကို အတည္ျပဳမည္</string>
   <string name="card_verification_body_new">သင့္ကဒ္မွ %s ကိုေကာက္ခံကာ ခ်က္ခ်င္းျပန္အမ္းေပးပါမည္။ အတည္ျပဳကုဒ္အတြက္ သင့္ကဒ္၏ ေငြစာရင္းရွင္းတမ္းကိုၾကည့္ကာ ၎ကိုဤေနရာတြင္ ထည့္ေပးပါ။</string>
   <string name="card_verification_disclaimer_body">အတည္ျပဳကုဒ္သည္ ေငြျပန္အမ္းမႈ အသိေပးခ်က္တြင္ ေပၚလာျခင္းရွိႏိုင္သည္ကို သတိျပဳေပးပါ။</string>
@@ -1167,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="vip_program_promo_code_tag">ပ႐ိုမိုကုဒ္</string>
   <string name="vip_program_referral_page_title">VIP ရည္ၫႊန္းအစီအစဥ္</string>
-  <string name="vip_program_referral_page_body">ကစားစဉ်အတွင်း လူတိုင်းရရှိနိုင်ရန် ဤပရိုမိုကုဒ်ကို သင့်အပေါင်းအသင်း အသိုက်အဝန်းနှင့် မျှဝေလိုက်ပါ။ ယင်းတို့ပြုလုပ်သော အက်ပ်အတွင်း ဝယ်ယူမှုတိုင်းအတွက် <b>သင်နှင့် သင့်သူငယ်ချင်းများသည် အခြားလက်ရှိ ပရိုမိုးရှင်းများအပြင် %s%% ဘောနပ်စ်ကို</b> တစ်လလုံး ရရှိမည် ဖြစ်ပါသည်။</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
   <string name="vip_program_gamification_title">ကြၽႏ္ုပ္၏ ေဘာနပ္စ္အဆင့္က ဘယ္ေလာက္လဲ။</string>
@@ -1224,12 +1229,13 @@
   <string name="manage_wallet_verify_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
   <string name="manage_wallet_verify_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <string name="verify_card_one_more_step_title">အတည္ျပဳရန္ ေနာက္ထပ္တစ္ဆင့္</string>
   <string name="verify_card_one_more_step_body">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားတြင္ ျမင္ရေသာကုဒ္ကိုထည့္ပါ</string>
   <string name="verify_card_one_more_step_button">ကုဒ္ကိုထည့္ပါ</string>
   <string name="verify_card_verified">ေငြေပးေခ်မႈနည္းလမ္းကို အတည္ျပဳလိုက္ပါသည္။</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">ကဒ္ကိုအတည္ျပဳမည္</string>
   <string name="verify_card_view_disclaimer">သင့္ကဒ္တြင္ %s ကို ကြၽႏ္ုပ္တို႔ေကာက္ခံကာ ကုဒ္ကိုအတည္ျပဳၿပီးသည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။</string>
   <string name="verify_card_view_title_2">သင့္ဘဏ္ကဒ္ အေသးစိတ္အခ်က္မ်ားကိုထည့္ပါ</string>
@@ -1247,4 +1253,8 @@
   <string name="challenge_reward_card_body">AppCoins Credits မ်ားကို ရယူရန္ စိန္ေခၚမႈတစ္ခုကို ၿပီးေအာင္လုပ္ပါ။</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ကို AppCoins Credits ျဖင့္ရယူလိုက္ပါ</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

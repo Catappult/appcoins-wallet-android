@@ -154,6 +154,9 @@
   <string name="bonus_received_body"> Λάβατε ένα μπόνους %s στο wallet σας.</string>
   <string name="back_to_the_game_button">Επιστροφή στο παιχνίδι</string>
   <string name="other_payment_methos_title">Άλλες μέθοδοι πληρωμής:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Από</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">Σε εκκρεμότητα</string>
   <string name="transaction_status_failed">Απέτυχε</string>
   <string name="transaction_status_reverted">Έγινε επαναφορά</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">Ανταμοιβή Πρόκλησης</string>
   <string name="transaction_type_challenge_reward_rejected">Ανταμοιβή Πρόκλησης Απορρίφθηκε</string>
   <string name="transaction_type_challenge_reward_reverted">Ανταμοιβή Πρόκλησης Επαναφέρθηκε</string>
@@ -511,6 +515,7 @@
   <string name="download_button">Λήψη</string>
   <string name="done">Τέλος!</string>
   <string name="see_more_button">Δείτε περισσότερα</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <string name="purchase_making_purchase_title">Πραγματοποίηση αγοράς&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s χρέωση</string>
-  <string name="purchase_fee_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας. Αυτό το τέλος περιλαμβάνεται στο Σύνολο που βλέπετε στην πάνω περιοχή.</string>
-  <string name="purchase_unknown_fee_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -996,7 +1003,7 @@ Wallets</item>
   <string name="perks_empty_state_first_purchase_body">Κάντε την πρώτη σας αγορά σε μία εφαρμογή συμβατή με AppCoins, ώστε να ξεκλειδώσετε τις προωθήσεις που έχουμε για εσάς!</string>
   <string name="perks_empty_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Κλείδωμα με αποτύπωμα</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
   <string name="fingerprint_failed_body">Παρακαλούμε προσπαθήστε ξανά σε %s δευτερόλεπτα.</string>
   <string name="fingerprint_authentication_required_title">Απαιτείται επαλήθευση!</string>
@@ -1047,8 +1054,6 @@ Wallets</item>
   <string name="card_verification_no_attempts_title">Φαίνεται πως έχετε εισαγάγει επανειλημμένα λανθασμένο κωδικό. %1$s θα επιστραφούν στην κάρτα σας.</string>
   <string name="card_verification_no_attempts_body">Παρακαλούμε, ξεκινήστε εκ νέου τη διαδικασία επαλήθευσης.</string>
   <string name="wallet_verify_header">Επαληθεύστε τουλάχιστον μία μέθοδο πληρωμής</string>
-  <string name="verify_card_title">Επαλήθευση Κάρτας</string>
-  <string name="verify_card_button">Επαλήθευση Τραπεζικής Κάρτας</string>
   <string name="verify_paypal_button">Επαλήθευση λογαριασμού PayPal</string>
   <string name="card_verification_body_new">%s θα χρεωθεί στην κάρτα σας και θα επιστραφεί άμεσα. Ελέγξτε τις κινήσεις τις κάρτας σας για τον κωδικό επαλήθευσης και συμπληρώστε τον εδώ.</string>
   <string name="card_verification_disclaimer_body">Παρακαλούμε λάβετε υπόψη ότι ο κωδικός επαλήθευσης ενδέχεται να εμφανιστεί στην ειδοποίηση επιστροφής.</string>
@@ -1177,7 +1182,7 @@ Wallets</item>
   <string name="vip_program_promotions_list_title">Ειδικές προσφορές για εσάς</string>
   <string name="vip_program_promo_code_tag">Κωδικός προσφοράς</string>
   <string name="vip_program_referral_page_title">VIP Πρόγραμμα Σύστασης</string>
-  <string name="vip_program_referral_page_body">Μοιραστείτε αυτόν τον κωδικό προσφοράς με την κοινότητα και τους φίλους σας για να κερδίσουν όλοι ενώ παίζουν. Για κάθε αγορά εντός της εφαρμογής που θα κάνουν, τόσο <b>εσείς όσο και οι φίλοι σας θα λάβετε %s%% μπόνους</b> επιπρόσθετα από άλλες ενεργές προσφορές και για έναν ολόκληρο μήνα!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">Μοιραστείτε αυτόν τον κωδικό με τους φίλους σας</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s αποκτήθηκαν από %3$s συστάσεις</string>
   <string name="vip_program_gamification_title">Ποιο είναι το επίπεδο bonus μου;</string>
@@ -1238,12 +1243,13 @@ Wallets</item>
   <string name="manage_wallet_verify_title">Επαληθεύστε μία Μέθοδο Πληρωμής</string>
   <string name="manage_wallet_verify_body">Αποφύγετε κωλύματα επαληθεύοντας μία μέθοδο πληρωμής.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">Επαληθεύστε μία Μέθοδο Πληρωμής</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Αποφύγετε κωλύματα επαληθεύοντας μία μέθοδο πληρωμής.</string>
   <string name="verify_card_one_more_step_title">Ένα ακόμη βήμα για επαλήθευση</string>
   <string name="verify_card_one_more_step_body">Εισαγάγετε τον κωδικό που εμφανίζεται στις λεπτομέρειες συναλλαγής</string>
   <string name="verify_card_one_more_step_button">Εισαγάγετε τον κωδικό</string>
   <string name="verify_card_verified">Η μέθοδος πληρωμής επαληθεύτηκε!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">Επαλήθευση Κάρτας</string>
   <string name="verify_card_view_disclaimer">Η κάρτα σας θα χρεωθεί κατά %s, τα οποία θα επιστραφούν όταν επιβεβαιώσετε τον κωδικό.</string>
   <string name="verify_card_view_title_2">Συμπληρώστε τα στοιχεία της τραπεζικής σας κάρτας</string>
@@ -1261,4 +1267,8 @@ Wallets</item>
   <string name="challenge_reward_card_body">Ολοκληρώστε μια πρόκληση για να λάβετε AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Απολαύστε %s σε AppCoins Credits στο wallet σας</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

@@ -35,7 +35,7 @@ interface BrokerBdsApi {
    * if null no filter is applied by transactionType
    *
    */
-  @GET("8.20231027/methods")
+  @GET("8.20231128/methods")
   fun getPaymentMethods(
     @Query("price.value") value: String? = null,
     @Query("price.currency") currency: String? = null,
@@ -43,6 +43,7 @@ interface BrokerBdsApi {
     @Query("direct") direct: Boolean? = null,
     @Query("transaction.type") type: String?,
     @Query("domain") packageName: String?,
+    @Query("dark_theme") darkTheme: Boolean = false,
     @Query("oem_id") entityOemId: String?,
     @Query("wallet.address") walletAddress: String?
   ): Single<GetMethodsResponse>

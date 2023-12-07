@@ -237,7 +237,7 @@ class AdyenPaymentPresenter(
       }
       .observeOn(viewScheduler)
       .doOnNext {
-        view.showLoading()
+        view.showLoadingMakingPayment()
         view.hideKeyboard()
         view.lockRotation()
       }

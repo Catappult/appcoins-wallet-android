@@ -279,11 +279,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun showLoading() {
     binding.paymentMethods.visibility = INVISIBLE
-    binding.loadingView.visibility = VISIBLE
+    binding.loadingAnimation.visibility = VISIBLE
   }
 
   override fun hideLoading() {
-    binding.loadingView.visibility = GONE
+    binding.loadingAnimation.visibility = GONE
     binding.paymentMethods.visibility = VISIBLE
   }
 

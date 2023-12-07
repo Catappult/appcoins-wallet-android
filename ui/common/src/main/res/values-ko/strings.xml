@@ -154,6 +154,9 @@
   <string name="bonus_received_body">지갑에 %s 보너스가 들어 있습니다.</string>
   <string name="back_to_the_game_button">게임으로 돌아가기</string>
   <string name="other_payment_methos_title">기타 결제 방법:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">대기중</string>
   <string name="transaction_status_failed">실패함</string>
   <string name="transaction_status_reverted">복귀됨</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">보상 도전</string>
   <string name="transaction_type_challenge_reward_rejected">보상 도전 거절</string>
   <string name="transaction_type_challenge_reward_reverted">되돌린 도전 보상</string>
@@ -511,6 +515,7 @@
   <string name="download_button">다운로드</string>
   <string name="done">완료!</string>
   <string name="see_more_button">더 보기</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">구매하기&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s 수수료</string>
-  <string name="purchase_fee_disclaimer">이 결제수단은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과됩니다. 이 수수료는 상단 영역에서 볼 수 있는 총 금액에 포함되어 있습니다.</string>
-  <string name="purchase_unknown_fee_disclaimer">이 결제 방법은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과될 수 있습니다.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -988,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoins 호환 앱에서 첫 번째 구매를 하고 당신을 위해 준비한 프로모션의 잠금을 해제하세요!</string>
   <string name="perks_empty_body">현재 사용할 수 있는 프로모션이 없습니다.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">지문 자금</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">인증 실패!</string>
   <string name="fingerprint_failed_body">%s 초후에 다시 시도해 주세요.</string>
   <string name="fingerprint_authentication_required_title">인증 필요!</string>
@@ -1037,8 +1044,6 @@
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
   <string name="wallet_verify_header">하나 이상의 지급 방식을 검증하십시오</string>
-  <string name="verify_card_title">카드 검증</string>
-  <string name="verify_card_button">직불 카드 검증</string>
   <string name="verify_paypal_button">PayPal 계정 검증</string>
   <string name="card_verification_body_new">%s은(는) 카드에 청구되며 즉시 환불됩니다. 카드 명세서에서 유효성 검사 코드를 확인하고 여기에 삽입합니다.</string>
   <string name="card_verification_disclaimer_body">환불 알림에 확인 코드가 표시될 수 있습니다.</string>
@@ -1167,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">당신을 위한 특별 프로모션</string>
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
-  <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 벌 수 있도록 하십시오. 모든 앱 내 구매에 대해 <b>귀하와 귀하의 친구 모두 다른 활성 프로모션과 함께 %s%의 보너스</b>를 한 달 동안 받게 됩니다!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
@@ -1224,12 +1229,13 @@
   <string name="manage_wallet_verify_title">지불 방식 검증</string>
   <string name="manage_wallet_verify_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">지불 방식 검증</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <string name="verify_card_one_more_step_title">검증을 위한 추가적인 한 단계</string>
   <string name="verify_card_one_more_step_body">거래 상세 내용에 있는 코드를 입력하세요</string>
   <string name="verify_card_one_more_step_button">코드 입력</string>
   <string name="verify_card_verified">지불 방식 검증됨!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">카드 검증</string>
   <string name="verify_card_view_disclaimer">카드에 %s 금액이 승인되며 코드가 확인되는 즉시 환불됩니다.</string>
   <string name="verify_card_view_title_2">은행 카드 상세를 입력하세요</string>
@@ -1247,4 +1253,8 @@
   <string name="challenge_reward_card_body">AppCoins 크레딧 획득을 위하여 도전을 완료하세요.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

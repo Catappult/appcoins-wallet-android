@@ -154,6 +154,9 @@
   <string name="bonus_received_body">你的钱包收到了%s的奖励。</string>
   <string name="back_to_the_game_button">返回游戏</string>
   <string name="other_payment_methos_title">其他支付方式：</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">待处理</string>
   <string name="transaction_status_failed">失败</string>
   <string name="transaction_status_reverted">已还原</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">挑战奖励</string>
   <string name="transaction_type_challenge_reward_rejected">放弃的挑战奖励</string>
   <string name="transaction_type_challenge_reward_reverted">撤回的挑战奖励</string>
@@ -511,6 +515,7 @@
   <string name="download_button">下载</string>
   <string name="done">完成！</string>
   <string name="see_more_button">查看更多</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <string name="purchase_making_purchase_title">购买中&#8230;</string>
   <string name="purchase_fee_title">费用：%1$s%2$s</string>
-  <string name="purchase_fee_disclaimer">该付款方式不支持您所使用的货币，因此会收取一笔手续费。您可以在页面最上方的区域看到包含这笔费用的总支付金额。</string>
-  <string name="purchase_unknown_fee_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -988,7 +995,7 @@
   <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
   <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">指纹锁</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">身份验证失败！</string>
   <string name="fingerprint_failed_body">请在%s秒后重试。</string>
   <string name="fingerprint_authentication_required_title">需要身份验证！</string>
@@ -1037,8 +1044,6 @@
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
   <string name="wallet_verify_header">验证至少一种支付方式</string>
-  <string name="verify_card_title">验证卡</string>
-  <string name="verify_card_button">验证银行卡</string>
   <string name="verify_paypal_button">验证PayPal账户</string>
   <string name="card_verification_body_new">将从您的卡中扣除%s并立即退款。请查看您账单中的对应验证码，并在此处输入。</string>
   <string name="card_verification_disclaimer_body">请注意，确认码可能会出现在退款通知中。</string>
@@ -1167,7 +1172,7 @@
   <string name="vip_program_promotions_list_title">为你提供的特别促销</string>
   <string name="vip_program_promo_code_tag">促销代码</string>
   <string name="vip_program_referral_page_title">VIP引荐计划</string>
-  <string name="vip_program_referral_page_body">与社区和好友分享此促销代码，让每个人都能一边游玩一边赚钱。对于他们进行的每一次应用内购买，<b>你和你的好友都将在其他有效促销的基础上持续一个月获得%s%%奖金</b>！</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>
   <string name="vip_program_gamification_title">我的奖金等级是多少？</string>
@@ -1224,12 +1229,13 @@
   <string name="manage_wallet_verify_title">验证一种支付方式</string>
   <string name="manage_wallet_verify_body">验证一种支付方式，以免账户被冻结。</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">验证一种支付方式</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">验证一种支付方式，以免账户被冻结。</string>
   <string name="verify_card_one_more_step_title">验证还差一步</string>
   <string name="verify_card_one_more_step_body">请输入交易明细中出现的验证码</string>
   <string name="verify_card_one_more_step_button">输入代码</string>
   <string name="verify_card_verified">支付方式已通过验证！</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">验证卡</string>
   <string name="verify_card_view_disclaimer">我们将向您的银行卡收取%s的费用，待验证码确认后，我们将立即退款给您。</string>
   <string name="verify_card_view_title_2">输入您的银行卡信息</string>
@@ -1247,4 +1253,8 @@
   <string name="challenge_reward_card_body">完成挑战，获得AppCoins积分。</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">在您的钱包中享用 %s AppCoins积分</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

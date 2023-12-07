@@ -3,12 +3,17 @@ package com.asfoundation.wallet.wallet_reward
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -30,17 +35,20 @@ sealed class RewardSideEffect : SideEffect {
 data class RewardState(
   val showVipBadge: Boolean = false,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
+  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized,
+  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
   private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val gamificationInteractor: GamificationInteractor,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
@@ -89,4 +97,15 @@ class RewardViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
+  fun fetchWalletInfo(){
+    getWalletInfoUseCase.invoke(null, false)
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState { copy(walletInfoAsync = it) }
+      .scopedSubscribe()
+  }
+
+  fun sendChallengeRewardEvent(flowPath: ChallengeRewardFlowPath) {
+    challengeRewardAnalytics.sendChallengeRewardEvent(flowPath.id)
+    ChallengeRewardManager.onNavigate()
+  }
 }

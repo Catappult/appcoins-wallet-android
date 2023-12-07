@@ -13,6 +13,7 @@
   <string name="install_button">Установить</string>
   <string name="retry_button">Попробовать снова</string>
   <string name="restart_button">Перезапуск</string>
+  <string name="update_button">Обновить</string>
   <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
   <string name="processing_loading_title">Получаем ваш входной билет...</string>
   <string name="finding_room_loading_title">Ожидание противников...</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Ваша версия кошелька не поддерживается!</string>
   <string name="update_not_supported_body">Обновите AppCoins Wallet до последней версии.</string>
-  <string name="update_button">Обновить</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Вы и друзья, которых вы пригласили, получите бонус $%s. Вы можете пригласить до 5 друзей, и они должны быть новыми пользователями. Бонус будет зачислен на ваш кошелек, как только они воспользуются вашим пригласительным кодом в своей первой игре e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Готовы показать свой скилл?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Местные способы оплаты не принимаются для оплаты вступительного взноса. Пожалуйста, создайте новый кошелек и пополните его с помощью банковской карты или PayPal!</string>
   <string name="rooted_device_blocked_body">К сожалению, вы не можете играть в игры e-Skills на устройстве с правами суперпользователя.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Ожидание пока ваши противники закончат игру.</string>
   <plurals name="opponent_points_title">

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import android.R.attr.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -7,21 +8,27 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
@@ -34,8 +41,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import java.util.Objects
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
@@ -54,6 +62,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var displayChatUseCase: DisplayChatUseCase
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
@@ -86,14 +97,19 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       AndroidSchedulers.mainThread(),
       Schedulers.io(),
       CompositeDisposable(),
-      logger
+      logger,
+      displayChatUseCase
     )
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-    views.topBar.barBackButton.setOnClickListener { super.onBackPressed() }
+    views.topBar.composeView.apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
+      }
+    }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -126,7 +142,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(views.layoutError.layoutSupportLogo), RxView.clicks(views.layoutError.layoutSupportIcn))
+    return Observable.merge(
+      RxView.clicks(views.layoutError.layoutSupportLogo),
+      RxView.clicks(views.layoutError.layoutSupportIcn)
+    )
   }
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
@@ -218,6 +237,26 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun launchPerkBonusAndGamificationService(address: String) {
     PerkBonusAndGamificationService.buildService(this, address)
+  }
+
+  override fun createChallengeReward(walletAddress: String) =
+    ChallengeRewardManager.create(
+      appId = BuildConfig.FYBER_APP_ID,
+      activity = this,
+      walletAddress = walletAddress,
+    )
+
+  override fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
+
+  override fun navigateToVkPayPayment(topUpData: TopUpPaymentData) {
+    val fragmentVk = VkPaymentTopUpFragment()
+    val args = Bundle()
+    args.putSerializable(VkPaymentTopUpFragment.PAYMENT_DATA, topUpData)
+    fragmentVk.arguments = args
+    supportFragmentManager.beginTransaction()
+      .add(R.id.fragment_container, fragmentVk)
+      .addToBackStack(VkPaymentTopUpFragment::class.java.simpleName)
+      .commit()
   }
 
   override fun finishActivity(data: Bundle) {

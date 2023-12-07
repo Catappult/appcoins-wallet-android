@@ -31,9 +31,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 
 @Composable
 fun BalanceCardExpanded(
-  balance: String,
-  currencyCode: String,
-  onClickCurrencies: () -> Unit,
+  balanceContent: @Composable () -> Unit,
   onClickTransfer: () -> Unit,
   onClickTopUp: () -> Unit,
   onClickBackup: () -> Unit,
@@ -61,7 +59,7 @@ fun BalanceCardExpanded(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
           ) {
-            BalanceValue(balance, currencyCode, onClickCurrencies)
+            balanceContent()
             Row {
               ButtonWithIcon(
                 icon = R.drawable.ic_transfer,
@@ -150,9 +148,7 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
 @Composable
 fun PreviewLandscapeBalanceCard() {
   BalanceCardExpanded(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},
@@ -166,9 +162,7 @@ fun PreviewLandscapeBalanceCard() {
 @Composable
 fun PreviewLandscapeBalanceCardWithoutBackup() {
   BalanceCardExpanded(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},
@@ -182,9 +176,7 @@ fun PreviewLandscapeBalanceCardWithoutBackup() {
 @Composable
 fun PreviewLandscapeNewWalletBalanceCard() {
   BalanceCardExpanded(
-    balance = "€ 30.12",
-    currencyCode = "Eur",
-    onClickCurrencies = {},
+    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {},

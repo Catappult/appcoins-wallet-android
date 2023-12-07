@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -28,6 +29,7 @@ fun BalanceValue(
     Row {
       Text(
         text = balance,
+        modifier = Modifier.clickable(onClick = onClick),
         color = WalletColors.styleguide_white,
         fontSize = 28.sp,
         fontWeight = FontWeight.Bold

@@ -324,7 +324,6 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
     modifier =
     Modifier
       .fillMaxWidth()
-      .height(96.dp)
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
       .clickable { onClick() },
@@ -334,6 +333,7 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
         .fillMaxWidth()
         .padding(16.dp),
       horizontalArrangement = Arrangement.Start,
+      verticalAlignment = Alignment.CenterVertically
     ) {
       Image(
         painter = painterResource(R.drawable.ic_vip_symbol),
@@ -344,7 +344,6 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
           .align(Alignment.CenterVertically)
       )
       Column(modifier = Modifier
-        .fillMaxSize()
         .weight(1f)) {
         Text(
           text = stringResource(R.string.vip_program_referral_button_title),
@@ -352,7 +351,6 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
           color = WalletColors.styleguide_white,
           modifier = Modifier
             .padding(horizontal = 20.dp)
-            .weight(1f, fill = false)
         )
         Text(
           text = stringResource(R.string.vip_program_referral_button_body, vipBonus),
@@ -360,7 +358,6 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
           color = WalletColors.styleguide_dark_grey,
           modifier = Modifier
             .padding(horizontal = 20.dp)
-            .weight(1f, fill = false)
         )
       }
       Image(
@@ -369,7 +366,6 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
         modifier = Modifier
           .height(36.dp)
           .width(36.dp)
-          .align(Alignment.CenterVertically)
       )
     }
   }

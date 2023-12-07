@@ -69,6 +69,12 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.SANDBOX -> {
         clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
       }
+      PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD -> {
+        clickListener?.invoke(PaymentMethodClick.ChallengeRewardClick)
+      }
+      PaymentMethodsView.SelectedPaymentMethod.VKPAY -> {
+        clickListener?.invoke(PaymentMethodClick.VkPayPaymentClick)
+      }
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit
       PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> Unit

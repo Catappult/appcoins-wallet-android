@@ -90,6 +90,7 @@ class AdyenTopUpPresenter(
     handleAdyen3DSErrors()
     handlePaymentDetails()
     handleVerificationClick()
+    handleOtherPaymentMethodsClick()
   }
 
   private fun handleViewState() {
@@ -249,6 +250,19 @@ class AdyenTopUpPresenter(
         view.showSpecificError(R.string.unknown_error)
         logger.log(TAG, it)
       })
+    )
+  }
+
+  private fun handleOtherPaymentMethodsClick() {
+    disposables.add(view.otherMethodsClicked()
+      .observeOn(viewScheduler)
+      .doOnNext { view.cancelPayment() }
+      .subscribe(
+        {},
+        {
+          handleSpecificError(R.string.unknown_error, it)
+        }
+      )
     )
   }
 

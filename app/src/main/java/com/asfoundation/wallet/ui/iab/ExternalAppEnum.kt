@@ -35,4 +35,12 @@ enum class ExternalAppEnum(val appName: String, val uriScheme: String, val appIc
     "market://details?id=in.org.npci.upiapp",
     "https://play.google.com/store/apps/details?id=in.org.npci.upiapp"
   ),
+  DANA(
+    "Dana",
+    "danaid://",
+    R.drawable.ic_dana,
+    R.color.styleguide_blue,
+    "market://details?id=id.dana",
+    "https://play.google.com/store/apps/details?id=id.dana"
+  ),
 }
