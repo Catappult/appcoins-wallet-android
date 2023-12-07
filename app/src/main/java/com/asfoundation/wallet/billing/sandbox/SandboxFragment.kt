@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -28,6 +29,8 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -123,7 +126,10 @@ class SandboxFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    navigatorIAB?.popView(successBundle)
+    viewLifecycleOwner.lifecycleScope.launch{
+      delay(1500L)
+      navigatorIAB?.popView(successBundle)
+    }
   }
 
   private fun handleSuccess(bundle: Bundle) {
@@ -158,12 +164,8 @@ class SandboxFragment() : BasePageViewFragment() {
   private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
-    if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
-      setupTransactionCompleteAnimation()
-    } else {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
-    }
+    views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      views.successContainer.bonusSuccessLayout.visibility = View.GONE
   }
 
   private fun setupTransactionCompleteAnimation() {
