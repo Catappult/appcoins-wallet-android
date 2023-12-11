@@ -73,7 +73,7 @@ class BackgroundGameService : Service(), GameStateListener {
         getString(R.string.playing_game_notification_body)
       )
       try {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
           this.startForeground(NOTIFICATION_SERVICE_ID, notification,
             ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         }
