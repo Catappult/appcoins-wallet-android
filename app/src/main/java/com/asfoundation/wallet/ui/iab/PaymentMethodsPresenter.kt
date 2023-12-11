@@ -948,18 +948,12 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) "next" else BillingAnalytics.ACTION_BUY
-    if (interactor.hasPreSelectedPaymentMethod()) {
-      analytics.sendPaymentMethodEvent(
-        paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action
-      )
-    } else {
-      analytics.sendPaymentMethodEvent(
-        paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action
-      )
-    }
+      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) BillingAnalytics.ACTION_NEXT
+      else BillingAnalytics.ACTION_BUY
+    analytics.sendPaymentMethodEvent(
+      paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
+        .toString(), selectedPaymentMethod.id, transaction.type, action
+    )
   }
 
   private fun getPurchases(type: BillingSupportedType): Single<List<Purchase>> =
@@ -1124,7 +1118,7 @@ class PaymentMethodsPresenter(
     analytics.stopTimingForTotalEvent(paymentMethod)
   }
 
-  private fun handleChallengeRewardWalletAddress(){
+  private fun handleChallengeRewardWalletAddress() {
     disposables.add(
       getWalletInfoUseCase(null, false)
         .subscribeOn(networkThread)

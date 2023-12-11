@@ -40,7 +40,7 @@ class CarrierFeePresenter(
     disposables.add(
       view.nextClickEvent()
         .doOnNext {
-          sendPaymentConfirmationEvent("next")
+          sendPaymentConfirmationEvent(BillingAnalytics.ACTION_NEXT)
           navigator.navigateToPayment(
             data.domain, data.transactionData, data.transactionType,
             data.skuId, data.paymentUrl, data.appcAmount, data.currency, data.bonusAmount,
