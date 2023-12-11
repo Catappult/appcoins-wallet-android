@@ -154,6 +154,9 @@
   <string name="bonus_received_body">شما %s پاداش دریافت کردید.</string>
   <string name="back_to_the_game_button">بازگشت به بازی</string>
   <string name="other_payment_methos_title">سایر روش‌های پرداخت:</string>
+  <!-- Intro from web payment -->
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">از</string>
@@ -257,6 +260,7 @@
   <string name="transaction_status_pending">در حال انتظار</string>
   <string name="transaction_status_failed">انجام نشد</string>
   <string name="transaction_status_reverted">برگشت داده شد</string>
+  <string name="transcation_type_sandbox">Sandbox</string>
   <string name="transaction_type_challenge_reward">چالش پاداش</string>
   <string name="transaction_type_challenge_reward_rejected">چالش پاداش رد شده</string>
   <string name="transaction_type_challenge_reward_reverted">چالش پاداش پس داده شده</string>
@@ -511,6 +515,7 @@
   <string name="download_button">دانلود</string>
   <string name="done">تمام!</string>
   <string name="see_more_button">See more</string>
+  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -638,8 +643,10 @@
   <string name="purchase_success_bonus_received_title">%s پاداش دریافت شد.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
-  <string name="purchase_fee_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_unknown_fee_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -995,7 +1002,7 @@
   <string name="perks_empty_state_first_purchase_body">اولین خرید خود را در یک اپلیکیشن سازگار با AppCoins انجام دهید تا پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="perks_empty_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل با اثرانگشت</string>
+  <string name="fingerprint_settings">Biometric Lock</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>
@@ -1046,8 +1053,6 @@
   <string name="card_verification_no_attempts_title">کد اشتباهی را به دفعات وارد کرده اید پس %1$s به کارت شما بازگردانده خواهد شد.</string>
   <string name="card_verification_no_attempts_body">لطفا پروسه تایید هویت را مجدد شروع کنید.</string>
   <string name="wallet_verify_header">حداقل یک روش پرداخت را تایید کنید</string>
-  <string name="verify_card_title">تایید کارت</string>
-  <string name="verify_card_button">تایید کارت بانکی</string>
   <string name="verify_paypal_button">تایید حساب پی‌پال</string>
   <string name="card_verification_body_new">%s به از کارت شما شارژ شده و فورا بازگردانده می‌شود. صورتحساب کارت خود را برای دریافت کد تایید بررسی کرده و آن کد را در اینجا وارد کنید.</string>
   <string name="card_verification_disclaimer_body">بدانید که ممکن است کد تایید در اعلامیه بازپرداخت دیده شود.</string>
@@ -1176,7 +1181,7 @@
   <string name="vip_program_promotions_list_title">پیشنهاد تشویقی ویژه برای شما</string>
   <string name="vip_program_promo_code_tag">کد پرومو</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
-  <string name="vip_program_referral_page_body">این کد پرومورا با دوستان خود به اشتراک بگذارید تا در حین بازی درآمد داشته باشند. برای همه خرید داخل اپلیکیشنی آنها می‌توانید هردوی <b>شما و دوستان شما %s%% پاداشت دریافت کنید</b> و علاوه بر آن پیشنهادات تخفیفی دیگری نیز در ماه بدست آورید!</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_share_title">این کد را با دوستان خود به شاتراک بگذارید</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
   <string name="vip_program_gamification_title">درجه پاداش من چقدر است؟</string>
@@ -1237,12 +1242,13 @@
   <string name="manage_wallet_verify_title">تایید یک روش پرداخت</string>
   <string name="manage_wallet_verify_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_payment_method_title">تایید یک روش پرداخت</string>
+  <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <string name="verify_card_one_more_step_title">یک قدم دیگر تا تایید</string>
   <string name="verify_card_one_more_step_body">کدی را که در جزییات تراکنش است را وارد کنید</string>
   <string name="verify_card_one_more_step_button">وارد کردن کد</string>
   <string name="verify_card_verified">روش پرداخت تایید شد!</string>
+  <string name="verify_card_button">Verify credit/debit card</string>
   <string name="verify_card_view_title">تایید کارت</string>
   <string name="verify_card_view_disclaimer">ما %s از کارت شما شارژ خواهیم کرد و پس از تایید کد توسط شما آن را باز می‌گردانیم.</string>
   <string name="verify_card_view_title_2">اطلاعات کارت بانکی خود را وارد کنید</string>
@@ -1260,4 +1266,8 @@
   <string name="challenge_reward_card_body">یک چالش را کامل کنید تا AppCoins Credits دریافت کنید.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <!-- platform.vk.com !-->
+  <!-- Your protected key from platform.vk.com !-->
+  <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
+  <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
 </resources>

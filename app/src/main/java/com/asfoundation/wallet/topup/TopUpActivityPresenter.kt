@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -19,7 +20,8 @@ class TopUpActivityPresenter(
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
-  private val logger: Logger
+  private val logger: Logger,
+  private val displayChatUseCase: DisplayChatUseCase,
 ) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
@@ -30,7 +32,8 @@ class TopUpActivityPresenter(
   }
 
   private fun handleSupportClicks() {
-    disposables.add(view.getSupportClicks()
+    disposables.add(
+      view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
       .flatMapCompletable { topUpInteractor.showSupport() }
@@ -111,6 +114,8 @@ class TopUpActivityPresenter(
       .subscribe({ }, { it.printStackTrace() })
     )
   }
+
+  fun displayChat() = displayChatUseCase()
 
   companion object {
     private val TAG = TopUpActivityPresenter::class.java.name

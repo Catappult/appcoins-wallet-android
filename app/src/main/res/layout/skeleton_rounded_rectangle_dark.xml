@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shimmer_base_alpha="1"
+    app:shimmer_base_color="@color/styleguide_topup_skeleton"
+    app:shimmer_colored="true"
+    app:shimmer_duration="1000"
+    app:shimmer_highlight_color="@color/styleguide_topup_skeleton_shimmer"
+    >
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/skeleton_row"
+      />
+</com.facebook.shimmer.ShimmerFrameLayout>

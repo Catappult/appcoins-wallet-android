@@ -1,17 +1,15 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.SingleStateFragment
@@ -31,6 +29,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()
+  private val sharedViewModel: OnboardingSharedHeaderViewModel by activityViewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
 
@@ -58,24 +57,24 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     args = OnboardingPaymentResultFragmentArgs.fromBundle(requireArguments())
     views.loadingAnimation.playAnimation()
     clickListeners()
+    // To hide the header inside other fragment OnboardingPaymentFragment
+    sharedViewModel.viewVisibility.value = View.GONE
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun clickListeners() {
     //try again and back needs to be separated later
-    views.genericErrorButtons.errorTryAgain.setOnClickListener {
+    views.genericErrorButton.setOnClickListener {
+      sharedViewModel.viewVisibility.value = View.VISIBLE
       navigator.navigateBackToPaymentMethods()
-    }
-    views.genericErrorButtons.errorCancel.setOnClickListener {
-      viewModel.handleExploreWalletClick()
     }
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(args.forecastBonus.level)
     }
-    views.successButtons.backToGameButton.setOnClickListener {
+    views.onboardingSuccessButtons.backToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
     }
-    views.successButtons.exploreWalletButton.setOnClickListener {
+    views.onboardingSuccessButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
     }
   }
@@ -176,43 +175,27 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   fun showSpecificError(@StringRes errorMessageRes: Int) {
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.VISIBLE
-    views.genericErrorButtons.root.visibility = View.VISIBLE
+    views.genericErrorButton.visibility = View.VISIBLE
     views.genericErrorLayout.errorMessage.text = getString(errorMessageRes)
   }
 
   private fun handleSuccess() {
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.GONE
-    views.genericErrorButtons.root.visibility = View.GONE
-    views.genericSuccessLayout.root.visibility = View.VISIBLE
-    views.successButtons.root.visibility = View.VISIBLE
+    views.genericErrorButton.visibility = View.GONE
     handleBonusAnimation()
+    views.onboardingGenericSuccessLayout.root.visibility = View.VISIBLE
+    views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
+    views.onboardingSuccessButtons.root.visibility = View.VISIBLE
   }
 
   private fun handleBonusAnimation() {
     val purchaseBonusMessage = args.forecastBonus.getPurchaseBonusMessage(formatter)
     if (StringUtils.isNotBlank(purchaseBonusMessage)) {
-      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
-      setupTransactionCompleteAnimation(purchaseBonusMessage)
-    } else {
-      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      views.onboardingGenericSuccessLayout.onboardingBonusSuccessLayout.visibility = View.VISIBLE
+      views.onboardingGenericSuccessLayout.onboardingTransactionSuccessBonusText.text =
+        String.format(getString(R.string.bonus_granted_body), purchaseBonusMessage)
     }
-    views.genericSuccessLayout.lottieTransactionSuccess.playAnimation()
   }
 
-  private fun setupTransactionCompleteAnimation(purchaseBonusMessage: String) {
-    val textDelegate = TextDelegate(views.genericSuccessLayout.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", purchaseBonusMessage)
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    views.genericSuccessLayout.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.genericSuccessLayout.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
-  }
 }

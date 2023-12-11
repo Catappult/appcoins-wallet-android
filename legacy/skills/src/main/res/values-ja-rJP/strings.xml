@@ -13,6 +13,7 @@
   <string name="install_button">インストール</string>
   <string name="retry_button">再試行</string>
   <string name="restart_button">再起動</string>
+  <string name="update_button">アップデート</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="processing_loading_title">エントリーチケットを入手中</string>
   <string name="finding_room_loading_title">対戦相手を待っています</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">ウォレットのバージョンに対応していません</string>
   <string name="update_not_supported_body">AppCoins Walletを最新バージョンに更新</string>
-  <string name="update_button">アップデート</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">あなたと招待した友達は $%s ボーナスを受け取ることができます。 最大 5 人の友人を招待できますが、友人は新規ユーザーである必要があります。 最初の eスキルゲームで招待コードを使用すると、ボーナスがウォレットに入金されます。</string>
   <string name="refer_a_friend_first_time_header">スキルを発揮する準備はいいですか？</string>
@@ -62,6 +62,8 @@
   <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
   <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">対戦相手のゲーム終了を待っています</string>
   <plurals name="opponent_points_title">

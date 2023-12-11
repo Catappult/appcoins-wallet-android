@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/normal_margin"
-    android:background="@drawable/rectangle_outline_medium_grey_radius_8dp"
+    android:background="@drawable/background_card_payment_active"
     >
 
   <ImageView
@@ -24,6 +24,7 @@
   <TextView
       android:id="@+id/payment_option_item_title"
       style="@style/TextS"
+      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"

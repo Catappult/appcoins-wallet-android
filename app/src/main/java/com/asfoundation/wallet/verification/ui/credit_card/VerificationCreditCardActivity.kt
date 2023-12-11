@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
@@ -33,6 +36,9 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   }
 
   @Inject
+  lateinit var displayChat: DisplayChatUseCase
+
+  @Inject
   lateinit var presenter: VerificationCreditCardActivityPresenter
 
   private val toolbarBackPressSubject = PublishSubject.create<String>()
@@ -45,7 +51,7 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
         if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
-    setTitle(title)
+    setTitle("")
     toolbar()
     presenter.present(savedInstanceState)
   }
@@ -54,15 +60,12 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar(): Toolbar? {
-    val toolbar = findViewById<Toolbar>(R.id.toolbar)
-    toolbar!!.visibility = View.VISIBLE
-    if (toolbar != null) {
-      setSupportActionBar(toolbar)
-      toolbar.title = title
+   fun toolbar() {
+    findViewById<ComposeView>(R.id.app_bar_verify).apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { displayChat() })
+      }
     }
-    enableDisplayHomeAsUp()
-    return toolbar
   }
 
   override fun onBackPressed() {

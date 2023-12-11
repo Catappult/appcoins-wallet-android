@@ -13,6 +13,7 @@
   <string name="install_button">Avvia l\'installazione</string>
   <string name="retry_button">Riprova</string>
   <string name="restart_button">Riavvia</string>
+  <string name="update_button">Aggiorna</string>
   <string name="provide_wallet_creating_wallet_header">Creazione indirizzo wallet in corso&#8230;</string>
   <string name="processing_loading_title">Ottieni il tuo biglietto d\'ingresso</string>
   <string name="finding_room_loading_title">In attesa di avversari</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Versione wallet non supportata!</string>
   <string name="update_not_supported_body">Aggiorna l\'AppCoins Wallet all\'utima versione disponibile.</string>
-  <string name="update_button">Aggiorna</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Tu e gli amici da te invitati riceverete un bonus di $%s ciascuno. Puoi presentare fino a 5 amici, che devono essere nuovi utenti. Il bonus verrà accreditato sul tuo wallet una volta che avranno utilizzato il tuo codice d\'invito sul loro primo gioco e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Sei pronto a mostrare le tue abilità?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">I metodi di pagamento locali non sono validi per l\'acquisto di un biglietto d\'ingresso. Crea un nuovo wallet e ricaricalo con una carta o con PayPal!</string>
   <string name="rooted_device_blocked_body">Purtroppo non è possibile usare i giochi e-Skills da un dispositivo con permesso di root.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">In attesa che gli avversari finiscano di giocare.</string>
   <plurals name="opponent_points_title">

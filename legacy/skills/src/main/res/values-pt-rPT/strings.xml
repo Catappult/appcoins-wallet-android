@@ -13,6 +13,7 @@
   <string name="install_button">Instalar</string>
   <string name="retry_button">Tentar novamente</string>
   <string name="restart_button">Reiniciar</string>
+  <string name="update_button">Atualizar</string>
   <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
   <string name="processing_loading_title">A obter o teu bilhete de entrada</string>
   <string name="finding_room_loading_title">À espera de adversários</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Versão da wallet não suportada!</string>
   <string name="update_not_supported_body">Atualiza a AppCoins Wallet para a versão mais recente.</string>
-  <string name="update_button">Atualizar</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Tu e os amigos que convidares vão receber um bónus de $%s. Podes convidar até 5 amigos, e têm de ser novos utilizadores. O bónus será creditado na tua wallet assim que eles usem o teu código de convite no seu primeiro jogo e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Pronto para mostrares as tuas skills?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Os métodos de pagamento locais não são aceites para a compra de um bilhete de entrada. Por favor, cria uma nova wallet e recarregue-a com um cartão bancário ou PayPal!</string>
   <string name="rooted_device_blocked_body">Infelizmente, não podes jogar jogos de e-Skills com um dispositivo enraizado.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">À espera que os adversários terminem o jogo.</string>
   <plurals name="opponent_points_title">

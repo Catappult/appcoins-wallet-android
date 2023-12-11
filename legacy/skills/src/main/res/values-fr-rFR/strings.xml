@@ -13,6 +13,7 @@
   <string name="install_button">Installer</string>
   <string name="retry_button">Réessayer</string>
   <string name="restart_button">Redémarrer</string>
+  <string name="update_button">Mise à jour</string>
   <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
   <string name="processing_loading_title">Obtenir votre billet d\'entrée</string>
   <string name="finding_room_loading_title">En attente d\'adversaires</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">La version Wallet n\'est pas prise en charge !</string>
   <string name="update_not_supported_body">Mettez à jour le AppCoins Wallet vers la dernière version.</string>
-  <string name="update_button">Mise à jour</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Vous et les amis que vous invitez recevrez un bonus de $%s. Vous pouvez inviter jusqu\'à 5 amis, qui doivent être de nouveaux utilisateurs. Le bonus sera crédité dans votre portefeuille une fois qu\'ils auront utilisé votre code d\'invitation dans leur premier jeu e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Prêt à montrer vos compétences ?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Les méthodes de paiement locales ne sont pas acceptées pour acheter les frais d\'inscription. Veuillez créer un nouveau portefeuille et le recharger avec une carte bancaire ou PayPal !</string>
   <string name="rooted_device_blocked_body">Malheureusement, vous ne pouvez pas jouer aux jeux e-Skills avec un appareil rooté.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">En attente d\'adversaires pour finir le jeu.</string>
   <plurals name="opponent_points_title">

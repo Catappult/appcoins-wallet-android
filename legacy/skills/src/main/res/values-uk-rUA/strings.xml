@@ -13,6 +13,7 @@
   <string name="install_button">Встановити</string>
   <string name="retry_button">Повторіть спробу</string>
   <string name="restart_button">Перезапустити</string>
+  <string name="update_button">Оновити</string>
   <string name="provide_wallet_creating_wallet_header">Створення адреси гаманця&#8230;</string>
   <string name="processing_loading_title">Отримання вхідного квитка</string>
   <string name="finding_room_loading_title">В очікуванні суперників</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Ця версія гаманця не підтримується!</string>
   <string name="update_not_supported_body">Оновіть AppCoins Wallet до останньої версії.</string>
-  <string name="update_button">Оновити</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Ви та друзі, яких ви запросите, отримаєте бонус у розмірі $%s. Можна запросити до 5 друзів, які мають бути новими користувачами. Бонус буде зараховано на ваш гаманець після того, як вони скористуються вашим кодом запрошення у своїй першій грі e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Готові показати свої навички?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
   <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на рутованому пристрої.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Чекаємо, поки опоненти закінчать гру.</string>
   <plurals name="opponent_points_title">

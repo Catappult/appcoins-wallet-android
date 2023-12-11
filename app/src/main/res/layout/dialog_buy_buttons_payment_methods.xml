@@ -16,17 +16,18 @@
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/cancel_button"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
+      android:layout_height="40dp"
       android:layout_gravity="center_vertical"
       android:layout_marginEnd="6dp"
       app:buttonText="@string/cancel"
       app:buttonType="text"
+      app:buttonColor="@color/styleguide_dark_grey"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/buy_button"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
+      android:layout_height="40dp"
       android:layout_gravity="center_vertical"
       app:buttonText="@string/buy_button"
       app:buttonType="filled"

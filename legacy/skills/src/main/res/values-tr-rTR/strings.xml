@@ -13,6 +13,7 @@
   <string name="install_button">Yükle</string>
   <string name="retry_button">Tekrar deneyin</string>
   <string name="restart_button">Yeniden Başlat</string>
+  <string name="update_button">Güncelle</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
@@ -42,7 +43,6 @@
   <!-- Update wallet -->
   <string name="update_not_supported_title">Cüzdan sürümü desteklenmiyor!</string>
   <string name="update_not_supported_body">AppCoins Cüzdanı son sürüme güncelle.</string>
-  <string name="update_button">Güncelle</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">Sen ve davet ettiğin arkadaşların $%s bonus kazanacak. En fazla 5 arkadaşını davet edebilirsin ve bunlar yeni kullanıcı olmalıdır. Davet kodunu ilk e-Skills oyunlarında kullandıkları anda bonus cüzdanına yüklenecektir.</string>
   <string name="refer_a_friend_first_time_header">Yeteneklerini göstermeye hazır mısın?</string>
@@ -61,6 +61,8 @@
   <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
   <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.</string>
   <string name="unknown_error">An error has occurred.</string>
+  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
+  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Rakiplerin oyunu bitirmesi bekleniyor.</string>
   <plurals name="opponent_points_title">

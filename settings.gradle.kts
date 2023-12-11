@@ -23,6 +23,8 @@ dependencyResolutionManagement {
     maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots") }
     // needed for pincode Lollipin
     maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
+    // VK ID and Vk Pay
+    maven { url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/") }
   }
 }
 
@@ -67,10 +69,12 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
           projects += newName
           it.find("$newName:", includeModules = false)
         }
+
         it.isModule() && includeModules -> {
           modules += ":$newName"
           it.find("$newName:")
         }
+
         else -> it.find("$newName:")
       }
     }
@@ -82,10 +86,3 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
   val formattedProjects = projects.map { it.replace(":", "/") }.toSet()
   return Pair(formattedProjects, modules)
 }
-include(":feature:promo-code:data")
-include(":feature:backup:data")
-include(":feature:authentication:data")
-include(":feature:backup:ui")
-include(":core:legacy-base")
-include(":feature:support:data")
-include(":core:walletServices")

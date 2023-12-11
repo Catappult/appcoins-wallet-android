@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/styleguide_white"
+    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -18,7 +18,7 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_autoPlay="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_regular_animation"
+      app:lottie_rawRes="@raw/loading_dark_animation"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintStart_toStartOf="@id/onboarding_payment_fragment_container"
       app:layout_constraintEnd_toEndOf="@id/onboarding_payment_fragment_container"

@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetEarningBonusUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTransactionBuilderUseCase
@@ -32,6 +33,7 @@ class OnboardingPaymentViewModel @Inject constructor(
   private val bdsRepository: BdsRepository,
   private val cachedTransactionRepository: CachedTransactionRepository,
   private val getEarningBonusUseCase: GetEarningBonusUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val events: OnboardingPaymentEvents
 ) :
   BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
@@ -86,6 +88,10 @@ class OnboardingPaymentViewModel @Inject constructor(
         sendSideEffect { OnboardingPaymentSideEffect.ShowPaymentMethods(it) }
       }
       .scopedSubscribe()
+  }
+
+  fun setOnboardingCompleted() {
+    setOnboardingCompletedUseCase()
   }
 }
 

@@ -19,10 +19,10 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
-import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -38,6 +38,7 @@ import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
   private val view: PaymentMethodsView,
+  private val activity: IabView?,
   private val viewScheduler: Scheduler,
   private val networkThread: Scheduler,
   val disposables: CompositeDisposable,
@@ -85,6 +86,7 @@ class PaymentMethodsPresenter(
     handleSupportClicks()
     handleAuthenticationResult()
     handleTopupClicks()
+    handleChallengeRewardWalletAddress()
     if (paymentMethodsData.isBds) handlePaymentSelection()
   }
 
@@ -160,6 +162,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              VKPAY -> view.showVkPay(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
@@ -178,6 +186,7 @@ class PaymentMethodsPresenter(
                 cachedGamificationLevel
               )
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
+              CHALLENGE_REWARD -> view.showChallengeReward()
               else -> return@doOnNext
             }
           }
@@ -302,7 +311,7 @@ class PaymentMethodsPresenter(
         cachedFiatValue!!,
         paymentNavigationData.isPreselected
       )
-
+      CHALLENGE_REWARD -> view.showChallengeReward()
       else -> {
         showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -916,6 +925,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(EARN_APPC) -> view.replaceBonus()
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
+      paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
@@ -1100,8 +1110,10 @@ class PaymentMethodsPresenter(
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.CREDIT_CARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentMethodId.VKPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_VKPAY
       PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
+      PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }
@@ -1110,6 +1122,17 @@ class PaymentMethodsPresenter(
     val paymentMethod = loadedPaymentMethodEvent ?: return
     loadedPaymentMethodEvent = null
     analytics.stopTimingForTotalEvent(paymentMethod)
+  }
+
+  private fun handleChallengeRewardWalletAddress(){
+    disposables.add(
+      getWalletInfoUseCase(null, false)
+        .subscribeOn(networkThread)
+        .subscribe(
+          { activity?.createChallengeReward(it.wallet) },
+          { logger.log(TAG, "Error getting agreement") }
+        )
+    )
   }
 
   enum class ViewState {

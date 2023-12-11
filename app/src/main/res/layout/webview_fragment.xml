@@ -51,7 +51,7 @@
 
       <include
           android:id="@+id/warning_header"
-          layout="@layout/appcoins_header"
+          layout="@layout/wallet_logo_layout"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
           android:layout_marginRight="36dp"
           android:gravity="center"
           android:text="@string/purchase_app_needed_body"
-          android:textColor="@color/styleguide_black_transparent_80"
+          android:textColor="@color/styleguide_dark_grey"
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
           android:layout_marginTop="24dp"
           android:gravity="center"
           android:text="Gojek"
-          android:textColor="@color/styleguide_black_transparent_80"
+          android:textColor="@color/styleguide_payments_main_text"
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -138,16 +138,13 @@
           android:id="@+id/warning_cancel_bt"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
-          android:layout_marginTop="@dimen/normal_margin"
-          android:layout_marginEnd="0dp"
           android:layout_marginBottom="24dp"
-          app:buttonColor="@color/styleguide_dark_grey"
+          android:layout_marginEnd="16dp"
           app:buttonIsAllCaps="true"
-          app:buttonText="@string/cancel"
-          app:buttonType="text"
+          app:buttonText="@string/button_ok"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,21 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -26,6 +30,7 @@ class TopUpFragmentPresenter(
   private val view: TopUpFragmentView,
   private val activity: TopUpActivityView?,
   private val interactor: TopUpInteractor,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase,
   private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
   private val viewScheduler: Scheduler,
@@ -35,7 +40,8 @@ class TopUpFragmentPresenter(
   private val formatter: CurrencyFormatUtils,
   private val selectedValue: String?,
   private val logger: Logger,
-  private val networkThread: Scheduler
+  private val networkThread: Scheduler,
+  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
 ) {
 
   private var cachedGamificationLevel = 0
@@ -54,13 +60,13 @@ class TopUpFragmentPresenter(
     }
     handlePaypalBillingAgreement()
     setupUi()
-    handleChangeCurrencyClick()
     handleNextClick()
     handleRetryClick()
     handleManualAmountChange(appPackage)
     handlePaymentMethodSelected()
     handleValuesClicks()
     handleKeyboardEvents()
+    handleChallengeRewardWalletAddress()
   }
 
   fun stop() {
@@ -140,18 +146,6 @@ class TopUpFragmentPresenter(
   private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (throwable.isNoNetworkException()) view.showNoNetworkError()
-  }
-
-  private fun handleChangeCurrencyClick() {
-    disposables.add(view.getChangeCurrencyClick()
-      .doOnNext {
-        view.toggleSwitchCurrencyOn()
-        view.rotateChangeCurrencyButton()
-        view.switchCurrencyData()
-        view.toggleSwitchCurrencyOff()
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
   }
 
   private fun handleNextClick() {
@@ -267,6 +261,8 @@ class TopUpFragmentPresenter(
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
       .doOnNext {
+        if(it == PaymentMethodId.CHALLENGE_REWARD.id)
+          view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
         setNextButton(it)
       }
@@ -296,7 +292,8 @@ class TopUpFragmentPresenter(
     .doOnSuccess {
       if (interactor.isBonusValidAndActive(it)) {
         val scaledBonus = formatter.scaleFiat(it.amount)
-        view.showBonus(scaledBonus, it.currency)
+        if(view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
+          view.hideBonusAndSkeletons() else view.showBonus(scaledBonus, it.currency)
       } else {
         view.removeBonus()
       }
@@ -405,7 +402,6 @@ class TopUpFragmentPresenter(
   private fun handleValuesClicks() {
     disposables.add(view.getValuesClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .doOnNext { view.disableSwapCurrencyButton() }
       .doOnNext {
         if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
           view.changeMainValueText(it.amount.toString())
@@ -414,7 +410,7 @@ class TopUpFragmentPresenter(
         }
       }
       .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
-      .doOnNext { view.enableSwapCurrencyButton() }
+      .doOnNext { }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -463,29 +459,48 @@ class TopUpFragmentPresenter(
     )
   }
 
+  private fun handleChallengeRewardWalletAddress() {
+    disposables.add(
+      getWalletInfoUseCase(null, false)
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { activity?.createChallengeReward(it.wallet) },
+          { logger.log(TAG, "Error creating challenge reward") }
+        )
+    )
+  }
+
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
-    if (paymentMethod.paymentType == PaymentType.CARD
-      || paymentMethod.paymentType == PaymentType.PAYPAL
-      || paymentMethod.paymentType == PaymentType.GIROPAY
-    ) {
-      activity?.navigateToAdyenPayment(
-        paymentType = paymentMethod.paymentType,
-        data = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
-    } else if (paymentMethod.paymentType == PaymentType.LOCAL_PAYMENTS) {
-      activity?.navigateToLocalPayment(
-        paymentId = paymentMethod.paymentId,
-        icon = paymentMethod.icon,
-        label = paymentMethod.label,
-        async = paymentMethod.async,
-        topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
-    } else if (paymentMethod.paymentType == PaymentType.PAYPALV2) {
-      activity?.navigateToPaypalV2(
-        paymentType = paymentMethod.paymentType,
-        data = mapTopUpPaymentData(topUpData, gamificationLevel)
-      )
+    when (paymentMethod.paymentType) {
+      PaymentType.CARD, PaymentType.PAYPAL, PaymentType.GIROPAY -> {
+        activity?.navigateToAdyenPayment(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.LOCAL_PAYMENTS -> {
+        activity?.navigateToLocalPayment(
+          paymentId = paymentMethod.paymentId,
+          icon = paymentMethod.icon,
+          label = paymentMethod.label,
+          async = paymentMethod.async,
+          topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.PAYPALV2 -> {
+        activity?.navigateToPaypalV2(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
+      PaymentType.VKPAY -> {
+        activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
+      }
+      PaymentType.CHALLENGE_REWARD -> {
+        activity?.navigateToChallengeReward()
+      }
+      else -> {}
     }
   }
 

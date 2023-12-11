@@ -36,9 +36,9 @@ class PromotionsVipReferralFragment: BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  lateinit var promoReferral: String
-  lateinit var earnedValue: String
-  lateinit var earnedTotal: String
+  private lateinit var promoReferral: String
+  private lateinit var earnedValue: String
+  private lateinit var earnedTotal: String
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -58,10 +58,12 @@ class PromotionsVipReferralFragment: BasePageViewFragment(),
 
   private fun setupView() = requireArguments().run {
     val bonusPercent = getString(BONUS_PERCENT) ?: ""
+    val endDate = getString(END_DATE) ?: ""
     promoReferral = getString(PROMO_REFERRAL) ?: ""
     earnedValue = getString(EARNED_VALUE) ?: ""
     earnedTotal = getString(EARNED_TOTAL) ?: ""
-    views.descriptionTv.text = context?.getString(R.string.vip_program_referral_page_body, bonusPercent)
+    views.descriptionTv.text =
+      context?.getString(R.string.vip_program_referral_page_body, bonusPercent, endDate)
     views.codeTv?.text = promoReferral
     views.earnedTv?.text = context?.getString(R.string.vip_program_referral_page_earned_body, "$", earnedValue, earnedTotal)
   }
@@ -126,6 +128,7 @@ class PromotionsVipReferralFragment: BasePageViewFragment(),
     internal const val PROMO_REFERRAL = "vip_code"
     internal const val EARNED_VALUE = "total_earned"
     internal const val EARNED_TOTAL = "number_referrals"
+    internal const val END_DATE = "end_date"
   }
 
 }

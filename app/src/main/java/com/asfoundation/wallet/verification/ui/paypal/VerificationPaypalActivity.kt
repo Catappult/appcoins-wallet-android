@@ -14,7 +14,6 @@ class VerificationPaypalActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_paypal_verification)
 
-    setTitle(R.string.verification_settings_unverified_title)
     toolbar()
 
     if (savedInstanceState == null) {

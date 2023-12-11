@@ -39,7 +39,7 @@ interface SettingsView {
 
   fun setVersionPreference()
 
-  fun setCurrencyPreference(selectedCurrency: FiatCurrency)
+  fun setCurrencyPreference(selectedCurrency: FiatCurrency? = null)
 
   fun setManageWalletPreference()
 

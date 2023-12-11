@@ -41,6 +41,7 @@ class VerificationIntroPresenter(
     handleRetryClick()
     handleTryAgainClicks()
     handleSupportClicks()
+    view.lockRotation()
   }
 
   private fun handleViewState(savedInstanceState: Bundle?) {
@@ -260,7 +261,6 @@ class VerificationIntroPresenter(
   }
 
   private fun hideLoading() {
-    view.unlockRotation()
     view.hideLoading()
   }
 
