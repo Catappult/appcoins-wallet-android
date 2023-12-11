@@ -69,6 +69,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
   }
 
   private fun handlePaymentFinishResult() {
+    viewModel.setOnboardingCompleted()
     innerNavHostFragment.childFragmentManager.setFragmentResultListener(
       ONBOARDING_PAYMENT_CONCLUSION,
       this
