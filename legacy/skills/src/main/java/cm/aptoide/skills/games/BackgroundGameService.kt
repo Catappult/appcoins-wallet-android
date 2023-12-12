@@ -3,8 +3,10 @@ package cm.aptoide.skills.games
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import cm.aptoide.skills.R
 import cm.aptoide.skills.repository.RoomRepository
@@ -14,6 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackgroundGameService : Service(), GameStateListener {
   companion object {
+    private const val TAG = "NotificationService"
     private const val NOTIFICATION_SERVICE_ID = 77798
     private const val CHANNEL_ID = "game_notification_channel_id"
     private const val CHANNEL_NAME = "Game Notification Channel"
@@ -69,7 +72,18 @@ class BackgroundGameService : Service(), GameStateListener {
         getString(R.string.playing_game_notification_title),
         getString(R.string.playing_game_notification_body)
       )
-      this.startForeground(NOTIFICATION_SERVICE_ID, notification)
+      try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+          this.startForeground(NOTIFICATION_SERVICE_ID, notification,
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        }
+        else {
+            this.startForeground(NOTIFICATION_SERVICE_ID, notification)
+          }
+      }
+      catch(exception: Exception){
+        Log.e(TAG, "onStartCommand: Issue starting Notification Service ")
+      }
     }
     return super.onStartCommand(intent, flags, startId)
   }
