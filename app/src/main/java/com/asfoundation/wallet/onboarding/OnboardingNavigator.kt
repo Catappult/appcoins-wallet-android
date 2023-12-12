@@ -28,11 +28,12 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
     )
   }
 
-  fun navigateToCreateWalletDialog() {
+  fun navigateToCreateWalletDialog(isPayment: Boolean) {
     navigate(
       fragment.findNavController(),
       OnboardingFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = true
+        needsWalletCreation = true,
+        isPayment = isPayment
       )
     )
   }

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.my_wallets.create_wallet
 
 import android.animation.Animator
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,9 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.AppUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -73,11 +76,17 @@ class CreateWalletDialogFragment : DialogFragment(),
         }
 
         if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
-          navigator.navigateBack()
+          if (requireArguments().getBoolean(IS_PAYMENT))
+            navigator.navigateBack()
+          else
+            restart(requireContext())
+
         } else {
           views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator) = Unit
-            override fun onAnimationEnd(animation: Animator) = navigator.navigateBack()
+            override fun onAnimationEnd(animation: Animator) = run {
+              restart(requireContext())
+            }
             override fun onAnimationCancel(animation: Animator) = Unit
             override fun onAnimationStart(animation: Animator) = Unit
           })
@@ -89,11 +98,18 @@ class CreateWalletDialogFragment : DialogFragment(),
     }
   }
 
+  private fun restart(context: Context) {
+    lifecycleScope.launch {
+      AppUtils.restartApp(context)
+    }
+  }
+
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit
 
   companion object {
     const val CREATE_WALLET_DIALOG_COMPLETE = "create_wallet_dialog_complete"
     const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
     const val IS_FROM_ONBOARDING = "is_from_onboarding"
+    const val IS_PAYMENT = "is_payment"
   }
 }

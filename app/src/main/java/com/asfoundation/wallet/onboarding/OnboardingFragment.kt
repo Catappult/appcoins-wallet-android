@@ -1,5 +1,9 @@
 package com.asfoundation.wallet.onboarding
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +13,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +24,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.AppUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +45,11 @@ class OnboardingFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingNavigator
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
+
+  lateinit var args: OnboardingFragmentArgs
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
@@ -48,6 +64,7 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
+    lockRotation()
   }
 
   override fun onResume() {
@@ -76,14 +93,21 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    args = OnboardingFragmentArgs.fromBundle(requireArguments())
     setClickListeners()
     setStringWithLinks()
+    handleRecoverGuestWallet()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+    views.onboardingRecoverGuestButton?.setOnClickListener {
+      viewModel.handleRecoverGuestWalletClick(
+        args.backup
+      )
+    }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -97,16 +121,68 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
+  private fun handleRecoverGuestWallet() {
+    if (!args.backup.isBlank()) {
+      viewModel.getGuestWalletBonus(args.backup)
+      showRecoverGuestWallet()
+    }
+  }
+
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
-      OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
+      is OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
         hideContent()
-        navigator.navigateToCreateWalletDialog()
+        navigator.navigateToCreateWalletDialog(isPayment = sideEffect.isPayment)
       }
-      OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
+      OnboardingSideEffect.NavigateToFinish -> {
+        unlockRotation()
+        context?.let { restart(it) }
+      }
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
+      OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
+      is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
     }
+  }
+
+  private fun restart(context: Context) {
+    lifecycleScope.launch {
+      AppUtils.restartApp(context)
+    }
+  }
+
+  private fun showRecoverGuestWallet() {
+    views.onboardingAction.visibility = View.INVISIBLE
+    views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
+    views.onboardingRecoverText2.text = getString(
+      R.string.monetary_amount_with_symbol,
+      "$",
+      "0.00"
+    )
+    views.onboardingRecoverText2.visibility = View.INVISIBLE
+    views.onboardingRecoverText3.visibility = View.INVISIBLE
+    views.onboardingBonusImage.visibility = View.INVISIBLE
+    views.bonusLoading.visibility = View.VISIBLE
+    views.onboardingRecoverText5.visibility = View.INVISIBLE
+    views.loadingAnimation.visibility = View.INVISIBLE
+  }
+
+  private fun showRecoveringGuestWalletLoading() {
+    views.onboardingRecoverText5.visibility = View.VISIBLE
+    views.loadingAnimation.visibility = View.VISIBLE
+    views.onboardingRecoverGuestButton.visibility = View.INVISIBLE
+  }
+
+  private fun showGuestBonus(bonus: FiatValue) {
+    views.onboardingRecoverText2.text = getString(
+      R.string.monetary_amount_with_symbol,
+      bonus.symbol,
+      formatter.formatCurrency(bonus.amount, WalletCurrency.FIAT)
+    )
+    views.onboardingRecoverText2.visibility = View.VISIBLE
+    views.onboardingRecoverText3.visibility = View.VISIBLE
+    views.onboardingBonusImage.visibility = View.VISIBLE
+    views.bonusLoading.visibility = View.INVISIBLE
   }
 
   private fun showValuesScreen() {
@@ -168,4 +244,13 @@ class OnboardingFragment : BasePageViewFragment(),
       indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
   }
+
+  fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  fun unlockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+  }
+
 }

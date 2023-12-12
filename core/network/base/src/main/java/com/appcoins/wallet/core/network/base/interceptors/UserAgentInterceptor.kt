@@ -7,6 +7,8 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import java.io.IOException
 import java.util.*
 
@@ -61,12 +63,15 @@ class UserAgentInterceptor(
       .build()
     val response = chain.proceed(requestWithUserAgent)
 
-    /*
-      // Throw specific Exceptions on HTTP 204 and HTTP 205 response codes, since Retrofit can't handle them
-      // see retrofit issue: https://github.com/square/retrofit/issues/2867
-      if (response.code == 204) throw NoContentException("HTTP 204. There is no content")
-      if (response.code == 205) throw ResetContentException("HTTP 205. The content was reset")
-    */
+    // Overrides 204 response with 200 to avoid retrofit crash
+    if (response.code == 204 && originalRequest.url.toUrl().path.toString()
+        .contains("appc/guest_wallet/cached_values")
+    ) {
+      return response.newBuilder()
+        .code(200)
+        .body("{\"private_key\":\"\"}".toResponseBody("application/json".toMediaTypeOrNull()))
+        .build()
+    }
     return response
   }
 
