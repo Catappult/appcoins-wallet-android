@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import android.os.Bundle
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
@@ -164,7 +165,7 @@ class TopUpFragmentPresenter(
           .doOnNext {
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
-              action = "next",
+              action = BillingAnalytics.ACTION_NEXT,
               paymentMethod = topUpData.paymentMethod!!.paymentType.name
             )
             navigateToPayment(topUpData, cachedGamificationLevel)
