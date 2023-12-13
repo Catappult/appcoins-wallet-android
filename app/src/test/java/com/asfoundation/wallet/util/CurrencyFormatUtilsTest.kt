@@ -21,7 +21,7 @@ class CurrencyFormatUtilsTest {
 
     Locale.setDefault(Locale.FRANCE)
     val formattedValueFr = formatter.formatCurrency(value, WalletCurrency.FIAT)
-    val expectedValueFr = "123 456 789,12"
+    val expectedValueFr = "123 456 789,12"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr = formatter.formatCurrency(value, WalletCurrency.FIAT)
@@ -40,7 +40,7 @@ class CurrencyFormatUtilsTest {
 
     Locale.setDefault(Locale.FRANCE)
     val formattedValueFr = formatter.formatCurrency(value, WalletCurrency.APPCOINS)
-    val expectedValueFr = "123 456 789,12"
+    val expectedValueFr = "123 456 789,12"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr = formatter.formatCurrency(value, WalletCurrency.APPCOINS)
@@ -52,14 +52,13 @@ class CurrencyFormatUtilsTest {
   }
 
   @Test
-  fun formatCredits() {
-    Locale.setDefault(Locale.US)
+  fun formatCredits() {    Locale.setDefault(Locale.US)
     val formattedValueUs = formatter.formatCurrency(value, WalletCurrency.CREDITS)
     val expectedValueUs = "123,456,789.12"
 
     Locale.setDefault(Locale.FRANCE)
     val formattedValueFr = formatter.formatCurrency(value, WalletCurrency.CREDITS)
-    val expectedValueFr = "123 456 789,12"
+    val expectedValueFr = "123 456 789,12"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr = formatter.formatCurrency(value, WalletCurrency.CREDITS)
@@ -78,7 +77,7 @@ class CurrencyFormatUtilsTest {
 
     Locale.setDefault(Locale.FRANCE)
     val formattedValueFr = formatter.formatCurrency(value, WalletCurrency.ETHEREUM)
-    val expectedValueFr = "123 456 789,1234"
+    val expectedValueFr = "123 456 789,1234"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr = formatter.formatCurrency(value, WalletCurrency.ETHEREUM)
@@ -105,7 +104,7 @@ class CurrencyFormatUtilsTest {
     Locale.setDefault(Locale.FRANCE)
     var formattedValueFr =
       formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
-    var expectedValueFr = "123 456 789,0123"
+    var expectedValueFr = "123 456 789,0123"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr =
@@ -172,7 +171,7 @@ class CurrencyFormatUtilsTest {
 
     Locale.setDefault(Locale.FRANCE)
     var formattedValueFr = formatter.formatGamificationValues(gamificationValueInt)
-    var expectedValueFr = "12 345"
+    var expectedValueFr = "12 345"
 
     Locale.setDefault(Locale("pt", "BR"))
     var formattedValueBr = formatter.formatGamificationValues(gamificationValueInt)
@@ -188,7 +187,7 @@ class CurrencyFormatUtilsTest {
 
     Locale.setDefault(Locale.FRANCE)
     formattedValueFr = formatter.formatGamificationValues(gamificationValueDecimal)
-    expectedValueFr = "12 345,12"
+    expectedValueFr = "12 345,12"
 
     Locale.setDefault(Locale("pt", "BR"))
     formattedValueBr = formatter.formatGamificationValues(gamificationValueDecimal)
