@@ -184,11 +184,11 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, null, null))
+        TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", "", "package", null, "sku", null, "INAPP", null, null, null)
+        TEST_FIAT_CURRENCY, null, "", "", "package", null, "sku", null, "INAPP", null, null)
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -206,11 +206,11 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, null, TEST_WALLET_SIGNATURE, null, null))
+        "TOPUP", null, null, null, null, null, TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makeTopUpPayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, "", "TOPUP", "wallet", null)
+        TEST_FIAT_CURRENCY, "", "TOPUP", "wallet")
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
