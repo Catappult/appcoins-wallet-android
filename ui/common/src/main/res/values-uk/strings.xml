@@ -155,7 +155,7 @@
   <string name="back_to_the_game_button">Повернутися до гри</string>
   <string name="other_payment_methos_title">Інші способи оплати:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
+  <string name="intro_from_web_payment_already_have_title"></string>
   <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -260,7 +260,7 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
-  <string name="transcation_type_sandbox">Sandbox</string>
+  <string name="transcation_type_sandbox">Пісочниця</string>
   <string name="transaction_type_challenge_reward">Винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_rejected">Відхилена винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_reverted">Повернута винагорода за завдання</string>
