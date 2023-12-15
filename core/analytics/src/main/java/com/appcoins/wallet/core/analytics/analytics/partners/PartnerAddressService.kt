@@ -30,7 +30,15 @@ class PartnerAddressService @Inject constructor(
     return suggestedOemAddress?.let { suggestedOemAddress } ?: defaultOemAddress
   }
 
-  override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {
+  override fun getAttribution(packageName: String): Single<AttributionEntity> {
+    return getAttributionClientCache(packageName)
+      .doOnSuccess {
+        Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
+        oemIdPreferencesDataSource.setCurrentOemId(it.oemId ?: "")
+      }
+  }
+
+  override fun getAttributionClientCache(packageName: String): Single<AttributionEntity> {
     return Single.zip(
       installerService.getInstallerPackageName(packageName),
       oemIdExtractorService.extractOemId(packageName)
@@ -51,9 +59,16 @@ class PartnerAddressService @Inject constructor(
             }
           }
       }
-      .doOnSuccess {
-        Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
-        oemIdPreferencesDataSource.setCurrentOemId(it.oemId ?: "")
+      .map { attribution ->
+        // if there is an oemId in the cache, use it instead of the one extracted from the game.
+        val oemIdFromCache = oemIdPreferencesDataSource.getOemIdForPackage(packageName)
+        if (oemIdFromCache.isBlank()) {
+          // save the oemId extracted from the game in the cache.
+          oemIdPreferencesDataSource.setOemIdForPackage(packageName, attribution.oemId ?: "")
+          attribution
+        } else {
+          AttributionEntity(oemIdFromCache, attribution.domain)
+        }
       }
   }
 

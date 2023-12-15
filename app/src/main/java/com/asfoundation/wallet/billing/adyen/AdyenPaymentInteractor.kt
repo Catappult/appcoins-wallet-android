@@ -93,7 +93,7 @@ class AdyenPaymentInteractor @Inject constructor(
     billingAddress: AdyenBillingAddress? = null
   ): Single<PaymentModel> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
-      partnerAddressService.getAttributionEntity(packageName),
+      partnerAddressService.getAttribution(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
         val addressModel = pair.first

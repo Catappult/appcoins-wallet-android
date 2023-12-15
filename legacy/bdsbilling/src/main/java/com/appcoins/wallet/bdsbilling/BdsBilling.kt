@@ -29,56 +29,68 @@ class BdsBilling(
 
   override fun isSubsSupported(merchantName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP_SUBSCRIPTION)
-        .map { map(it) }
-        .onErrorReturn { errorMapper.map(it) }
+      .map { map(it) }
+      .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getProducts(merchantName: String, skus: List<String>,
-                           type: BillingSupportedType): Single<List<Product>> {
+  override fun getProducts(
+    merchantName: String, skus: List<String>,
+    type: BillingSupportedType
+  ): Single<List<Product>> {
     return repository.getSkuDetails(merchantName, skus, type)
   }
 
   override fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction> {
     return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(scheduler)
-        .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
+      .observeOn(scheduler)
+      .flatMap { repository.getAppcoinsTransaction(uid, it.address, it.signedAddress) }
   }
 
-  override fun getSkuTransaction(merchantName: String, sku: String?,
-                                 scheduler: Scheduler,
-                                 type: BillingSupportedType): Single<Transaction> {
+  override fun getSkuTransaction(
+    merchantName: String, sku: String?,
+    scheduler: Scheduler,
+    type: BillingSupportedType
+  ): Single<Transaction> {
     return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(scheduler)
-        .flatMap {
-          repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
-        }
+      .observeOn(scheduler)
+      .flatMap {
+        repository.getSkuTransaction(merchantName, sku, it.address, it.signedAddress, type)
+      }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String?, purchaseUid: String?,
-                              scheduler: Scheduler, type: BillingSupportedType): Single<Purchase> {
+  override fun getSkuPurchase(
+    merchantName: String, sku: String?, purchaseUid: String?,
+    scheduler: Scheduler, type: BillingSupportedType
+  ): Single<Purchase> {
     return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(scheduler)
-        .flatMap {
-          repository.getSkuPurchase(merchantName, sku, purchaseUid, it.address, it.signedAddress,
-              type)
-        }
+      .observeOn(scheduler)
+      .flatMap {
+        repository.getSkuPurchase(
+          merchantName, sku, purchaseUid, it.address, it.signedAddress,
+          type
+        )
+      }
   }
 
-  override fun getPurchases(packageName: String, type: BillingSupportedType,
-                            scheduler: Scheduler): Single<List<Purchase>> {
+  override fun getPurchases(
+    packageName: String, type: BillingSupportedType,
+    scheduler: Scheduler
+  ): Single<List<Purchase>> {
     return if (isManagedType(type)) {
       walletService.getAndSignCurrentWalletAddress()
-          .observeOn(scheduler)
-          .flatMap {
-            repository.getPurchases(packageName, it.address, it.signedAddress, type)
-          }
-          .onErrorReturn { emptyList() }
+        .observeOn(scheduler)
+        .flatMap {
+          repository.getPurchases(packageName, it.address, it.signedAddress, type)
+        }
+        .onErrorReturn { emptyList() }
     } else Single.just(emptyList())
   }
 
-  override fun consumePurchases(merchantName: String, purchaseToken: String,
-                                scheduler: Scheduler,
-                                type: BillingSupportedType?): Single<Boolean> {
+  override fun consumePurchases(
+    merchantName: String, purchaseToken: String,
+    scheduler: Scheduler,
+    type: BillingSupportedType?
+  ): Single<Boolean> {
     return repository.consumePurchases(merchantName, purchaseToken, type)
       .observeOn(scheduler)
   }
@@ -100,7 +112,7 @@ class BdsBilling(
     transactionType: String,
     packageName: String
   ): Single<List<PaymentMethodEntity>> {
-    return partnerAddressService.getAttributionEntity(packageName).flatMap { attributionEntity ->
+    return partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
       repository.getPaymentMethods(
         value,
         currency,

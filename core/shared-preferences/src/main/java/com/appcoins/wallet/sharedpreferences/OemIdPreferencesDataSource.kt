@@ -27,8 +27,17 @@ class OemIdPreferencesDataSource @Inject constructor(
 
   fun getIsGameFromGameshub() = sharedPreferences.getBoolean(IS_GAME_FROM_GAMESHUB_KEY, false)
 
+  fun setOemIdForPackage(packageName: String, oemid: String) =
+    sharedPreferences.edit()
+      .putString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", oemid)
+      .apply()
+
+  fun getOemIdForPackage(packageName: String) =
+    sharedPreferences.getString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", "") ?: ""
+
   companion object {
     private const val CURRENT_OEMID = "current_oemid"
     private const val IS_GAME_FROM_GAMESHUB_KEY = "game_from_gameshub"
+    private const val CLIENT_SIDE_CACHED_OEMID = "client_side_cached_oemid"
   }
 }
