@@ -155,7 +155,7 @@
   <string name="back_to_the_game_button">Повернутися до гри</string>
   <string name="other_payment_methos_title">Інші способи оплати:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title"></string>
+  <string name="intro_from_web_payment_already_have_title">You already have</string>
   <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
   <!-- Menus -->
   <!-- Labels -->
