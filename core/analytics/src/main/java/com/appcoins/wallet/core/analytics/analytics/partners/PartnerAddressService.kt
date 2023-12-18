@@ -65,7 +65,7 @@ class PartnerAddressService @Inject constructor(
             listOf<String>()
           }
           .map { packagesForCaching ->
-            if (packagesForCaching.contains(packageName)) {
+            if (packagesForCaching.any{ it == packageName }) {
               // if there is an oemId in the cache, use it instead of the one extracted from the game.
               val oemIdFromCache = oemIdPreferencesDataSource.getOemIdForPackage(packageName)
               if (oemIdFromCache.isBlank()) {
