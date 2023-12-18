@@ -939,6 +939,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
       paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
+      paymentMethodsMapper.map(SANDBOX) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
