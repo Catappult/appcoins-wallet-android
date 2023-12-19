@@ -63,6 +63,19 @@ interface IabView {
     frequency: String?
   )
 
+  fun showSandbox(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
   fun showVkPay(
     amount: BigDecimal,
     currency: String?,
