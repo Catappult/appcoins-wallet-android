@@ -15,7 +15,6 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
-import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -72,9 +71,6 @@ class AdyenPaymentInteractorTest {
   lateinit var walletVerificationInteractor: WalletVerificationInteractor
 
   @Mock
-  lateinit var billingAddressRepository: BillingAddressRepository
-
-  @Mock
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   @Mock
@@ -85,17 +81,12 @@ class AdyenPaymentInteractorTest {
 
   @Before
   fun setup() {
-    interactor = AdyenPaymentInteractor(repository, inAppPurchaseInteractor, billingMessageMapper,
-        partnerAddressService, walletService, supportInteractor, walletBlockedInteractor,
-        walletVerificationInteractor, billingAddressRepository, getCurrentPromoCodeUseCase,
-        ewtObtainer, fakeSchedulers)
-  }
-
-  @Test
-  fun forgetBillingAddressTest() {
-    interactor.forgetBillingAddress()
-    Mockito.verify(billingAddressRepository)
-        .forgetBillingAddress()
+    interactor = AdyenPaymentInteractor(
+      repository, inAppPurchaseInteractor, billingMessageMapper,
+      partnerAddressService, walletService, supportInteractor, walletBlockedInteractor,
+      walletVerificationInteractor, getCurrentPromoCodeUseCase,
+      ewtObtainer, fakeSchedulers
+    )
   }
 
   @Test
@@ -193,11 +184,11 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, null, null))
+        TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", "", "package", null, "sku", null, "INAPP", null, null, null)
+        TEST_FIAT_CURRENCY, null, "", "", "package", null, "sku", null, "INAPP", null, null)
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -215,11 +206,11 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, null, TEST_WALLET_SIGNATURE, null, null))
+        "TOPUP", null, null, null, null, null, TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makeTopUpPayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, "", "TOPUP", "wallet", null)
+        TEST_FIAT_CURRENCY, "", "TOPUP", "wallet")
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()

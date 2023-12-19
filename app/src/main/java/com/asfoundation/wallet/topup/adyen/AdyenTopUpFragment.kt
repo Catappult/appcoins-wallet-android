@@ -27,16 +27,12 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
-import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
-import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUCCESS_CODE
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.*
 import com.jakewharton.rxbinding2.view.RxView
@@ -93,9 +89,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private var billingAddressInput: PublishSubject<Boolean>? = null
   private var isStored = false
-  private var billingAddressModel: BillingAddressModel? = null
 
   private val binding by viewBinding(FragmentAdyenTopUpBinding::bind)
 
@@ -104,7 +98,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     paymentDataSubject = ReplaySubject.createWithSize(1)
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
-    billingAddressInput = PublishSubject.create()
 
     presenter =
       AdyenTopUpPresenter(
@@ -145,15 +138,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun onResume() {
     super.onResume()
     hideKeyboard()
-  }
-
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode == BILLING_ADDRESS_REQUEST_CODE && resultCode == BILLING_ADDRESS_SUCCESS_CODE) {
-      val billingAddressModel =
-        data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
-      this.billingAddressModel = billingAddressModel
-      billingAddressInput?.onNext(true)
-    }
   }
 
   override fun setup3DSComponent() {
@@ -299,22 +283,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun getVerificationClicks() =
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
-
-  override fun billingAddressInput(): Observable<Boolean> {
-    return billingAddressInput!!
-  }
-
-  override fun retrieveBillingAddressData() = billingAddressModel
-
-  override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
-    topUpView.unlockRotation()
-    topUpView.navigateToBillingAddress(
-      data, fiatAmount, fiatCurrency, this, adyenCardView.cardSave, isStored
-    )
-    // To allow back behaviour when address input is needed
-    hideLoading()
-    binding.button.isEnabled = true
-  }
 
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
@@ -484,7 +452,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun onDestroy() {
     hideKeyboard()
-    billingAddressInput = null
     paymentDataSubject = null
     paymentDetailsSubject = null
     adyen3DSErrorSubject = null

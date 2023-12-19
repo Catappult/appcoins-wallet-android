@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
@@ -19,7 +18,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
-import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
@@ -252,7 +250,7 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
           gamificationLevel = gamificationLevel,
           skuDescription = getSkuDescription(),
           isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains("&skills") ?: false,
+          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
           frequency = frequency,
         )
       )
@@ -285,7 +283,7 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
           gamificationLevel = gamificationLevel,
           skuDescription = getSkuDescription(),
           isSubscription = isSubscription,
-          isSkills = intent.dataString?.contains("&skills") ?: false,
+          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
           frequency = frequency,
         )
       )
@@ -312,7 +310,7 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
       putString(VkPaymentIABFragment.CURRENCY_KEY, currency)
       putString(VkPaymentIABFragment.BONUS_KEY, bonus)
       putString(VkPaymentIABFragment.SKU_DESCRIPTION, getSkuDescription())
-      putBoolean(VkPaymentIABFragment.IS_SKILLS, intent.dataString?.contains("&skills") ?: false)
+      putBoolean(VkPaymentIABFragment.IS_SKILLS, intent.dataString?.contains(SKILLS_TAG) ?: false)
       putString(VkPaymentIABFragment.FREQUENCY, frequency)
     }
     supportFragmentManager.beginTransaction()
@@ -451,42 +449,6 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
           transaction?.subscriptionPeriod
         )
       )
-      .commit()
-  }
-
-  override fun showBillingAddress(
-    value: BigDecimal,
-    currency: String,
-    bonus: String,
-    appcAmount: BigDecimal,
-    targetFragment: Fragment,
-    shouldStoreCard: Boolean,
-    isStored: Boolean
-  ) {
-    val isDonation = TransactionData.TransactionType.DONATION.name
-      .equals(transaction?.type, ignoreCase = true)
-
-    val fragment = BillingAddressFragment.newInstance(
-      transaction!!.skuId,
-      getSkuDescription(),
-      transaction!!.type,
-      transaction!!.domain,
-      appcAmount,
-      bonus,
-      value,
-      currency,
-      isDonation,
-      shouldStoreCard,
-      isStored
-    )
-      .apply {
-        @Suppress("DEPRECATION")
-        setTargetFragment(targetFragment, TopUpActivity.BILLING_ADDRESS_REQUEST_CODE)
-      }
-
-    supportFragmentManager.beginTransaction()
-      .add(R.id.fragment_container, fragment)
-      .addToBackStack(BillingAddressFragment::class.java.simpleName)
       .commit()
   }
 
@@ -677,6 +639,7 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
     const val ERROR_RECEIVER = "error_receiver"
     const val ERROR_RECEIVER_NETWORK = "error_receiver_network"
     const val ERROR_RECEIVER_GENERIC = "error_receiver_generic"
+    const val SKILLS_TAG = "&skills"
 
     @JvmStatic
     fun newIntent(
