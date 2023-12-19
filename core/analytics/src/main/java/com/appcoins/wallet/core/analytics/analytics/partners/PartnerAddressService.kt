@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.util.Log
+import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import io.reactivex.Single
@@ -11,12 +12,10 @@ import javax.inject.Inject
 class PartnerAddressService @Inject constructor(
   private val installerService: InstallerService,
   private val oemIdExtractorService: OemIdExtractorService,
-  private val oemIdPreferencesDataSource: OemIdPreferencesDataSource
+  private val oemIdPreferencesDataSource: OemIdPreferencesDataSource,
+  private val partnerAttributionApi: PartnerAttributionApi
 ) :
   AddressService {
-
-  val DEFAULT_STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad"
-  val DEFAULT_OEM_ADDRESS = "DEFAULT_OEM_ADDRESS"
 
   private val defaultStoreAddress: String = DEFAULT_STORE_ADDRESS
   private val defaultOemAddress: String = DEFAULT_OEM_ADDRESS
@@ -30,7 +29,15 @@ class PartnerAddressService @Inject constructor(
     return suggestedOemAddress?.let { suggestedOemAddress } ?: defaultOemAddress
   }
 
-  override fun getAttributionEntity(packageName: String): Single<AttributionEntity> {
+  override fun getAttribution(packageName: String): Single<AttributionEntity> {
+    return getAttributionClientCache(packageName)
+      .doOnSuccess {
+        Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
+        oemIdPreferencesDataSource.setCurrentOemId(it.oemId ?: "")
+      }
+  }
+
+  override fun getAttributionClientCache(packageName: String): Single<AttributionEntity> {
     return Single.zip(
       installerService.getInstallerPackageName(packageName),
       oemIdExtractorService.extractOemId(packageName)
@@ -51,13 +58,56 @@ class PartnerAddressService @Inject constructor(
             }
           }
       }
-      .doOnSuccess {
-        Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
-        oemIdPreferencesDataSource.setCurrentOemId(it.oemId ?: "")
+      .flatMap { attribution ->
+        //if game's package is in the cached-apks list, use the oemId from cache.
+        getPackagesForClientSide()
+          .onErrorReturn {
+            listOf<String>()
+          }
+          .map { packagesForCaching ->
+            if (packagesForCaching.any{ it == packageName }) {
+              // if there is an oemId in the cache, use it instead of the one extracted from the game.
+              val oemIdFromCache = oemIdPreferencesDataSource.getOemIdForPackage(packageName)
+              if (oemIdFromCache.isBlank()) {
+                // save the oemId extracted from the game in the cache.
+                oemIdPreferencesDataSource.setOemIdForPackage(packageName, attribution.oemId ?: "")
+                attribution
+              } else {
+                AttributionEntity(oemIdFromCache, attribution.domain)
+              }
+            } else {
+              // don't use cache
+              attribution
+            }
+          }
       }
   }
+
+  fun getPackagesForClientSide(): Single<List<String?>> {
+    if (
+      oemIdPreferencesDataSource.getPackageListClientSide().isEmpty() ||
+      (System.currentTimeMillis() - oemIdPreferencesDataSource.getLastTimePackagesForCaching()) > MAX_AGE_CLIENT_SIDE_PACKAGE_LIST
+    ) {
+      return partnerAttributionApi.fetchPackagesForCaching()
+        .map { packagesForCaching ->
+          oemIdPreferencesDataSource.setPackageListClientSide(packagesForCaching)
+          oemIdPreferencesDataSource.setLastTimePackagesForCaching(System.currentTimeMillis())
+          packagesForCaching
+        }
+    } else {
+      return Single.just(oemIdPreferencesDataSource.getPackageListClientSide())
+    }
+  }
+
 
   fun isGameFromGamesHub(): Boolean {
     return oemIdPreferencesDataSource.getIsGameFromGameshub()
   }
+
+  companion object {
+    private const val DEFAULT_STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad"
+    private const val DEFAULT_OEM_ADDRESS = "DEFAULT_OEM_ADDRESS"
+    private const val MAX_AGE_CLIENT_SIDE_PACKAGE_LIST = 7 * 24 * 60 * 60 * 1000L // 1 week
+  }
+
 }

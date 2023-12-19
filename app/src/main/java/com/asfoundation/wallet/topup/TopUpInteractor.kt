@@ -45,7 +45,7 @@ class TopUpInteractor @Inject constructor(
     currency: String,
     packageName: String
   ): Single<List<PaymentMethod>> =
-    partnerAddressService.getAttributionEntity(packageName).flatMap { attributionEntity ->
+    partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
       repository.getPaymentMethods(
         value = value,
         currency = currency,
@@ -100,7 +100,7 @@ class TopUpInteractor @Inject constructor(
   private fun hasExtraFees(paymentMethod: PaymentMethodEntity, currency: String): Boolean {
     return (
         paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id &&
-        !PaypalSupportedCurrencies.currencies.contains(currency)
+            !PaypalSupportedCurrencies.currencies.contains(currency)
         )
   }
 
@@ -112,7 +112,11 @@ class TopUpInteractor @Inject constructor(
     }
   }
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal, currency: String): Single<ForecastBonusAndLevel> =
+  fun getEarningBonus(
+    packageName: String,
+    amount: BigDecimal,
+    currency: String
+  ): Single<ForecastBonusAndLevel> =
     getCurrentPromoCodeUseCase().flatMap {
       gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
     }

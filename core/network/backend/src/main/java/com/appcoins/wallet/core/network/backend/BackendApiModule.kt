@@ -220,4 +220,12 @@ class BackendApiModule {
   ): GamesApi {
     return retrofit.create(GamesApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun providesPartnerAttributionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): PartnerAttributionApi {
+    return retrofit.create(PartnerAttributionApi::class.java)
+  }
 }

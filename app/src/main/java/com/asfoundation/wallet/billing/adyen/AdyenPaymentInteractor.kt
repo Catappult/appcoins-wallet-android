@@ -86,10 +86,9 @@ class AdyenPaymentInteractor @Inject constructor(
     developerWallet: String?,
     referrerUrl: String?
   ): Single<PaymentModel> {
-    return Single.zip(
-      walletService.getAndSignCurrentWalletAddress(),
-      partnerAddressService.getAttributionEntity(packageName)
-    ) { address, attributionEntity -> Pair(address, attributionEntity) }
+    return Single.zip(walletService.getAndSignCurrentWalletAddress(),
+      partnerAddressService.getAttribution(packageName),
+      { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
         val addressModel = pair.first
         val attrEntity = pair.second
