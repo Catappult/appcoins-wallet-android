@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Los métodos de pago locales no son aceptados para comprar entradas. Por favor, crea una wallet nueva y haz una recarga con tarjeta bancaria o PayPal.</string>
   <string name="rooted_device_blocked_body">No puedes disfrutar de juegos e-Skills con un dispositivo rooteado.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">¡Tienes que actualizar este juego a la última versión!</string>
+  <string name="error_game_not_supported_body">Parece que este juego no está disponible en estos momentos.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Esperando adversarios para finalizar el juego.</string>
   <plurals name="opponent_points_title">
