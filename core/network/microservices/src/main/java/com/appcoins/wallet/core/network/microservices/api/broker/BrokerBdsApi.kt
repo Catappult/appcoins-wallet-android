@@ -44,7 +44,8 @@ interface BrokerBdsApi {
     @Query("transaction.type") type: String?,
     @Query("domain") packageName: String?,
     @Query("dark_theme") darkTheme: Boolean = false,
-    @Query("oem_id") entityOemId: String?
+    @Query("oem_id") entityOemId: String?,
+    @Query("wallet.address") walletAddress: String?
   ): Single<GetMethodsResponse>
 
   @FormUrlEncoded

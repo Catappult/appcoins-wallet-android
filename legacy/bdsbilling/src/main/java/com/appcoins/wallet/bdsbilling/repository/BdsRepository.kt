@@ -154,7 +154,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     direct: Boolean?,
     transactionType: String?,
     packageName: String?,
-    entityOemId: String?
+    entityOemId: String?,
+    address: String?,
   ): Single<List<PaymentMethodEntity>> = remoteRepository.getPaymentMethods(
     value,
     currency,
@@ -162,7 +163,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     direct,
     transactionType,
     packageName,
-    entityOemId
+    entityOemId,
+    address
   )
     .onErrorReturn {
       it.printStackTrace()

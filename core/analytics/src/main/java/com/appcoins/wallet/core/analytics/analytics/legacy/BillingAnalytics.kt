@@ -277,22 +277,6 @@ class BillingAnalytics @Inject constructor(
     analytics.logEvent(eventData, WALLET_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  fun sendBillingAddressActionEvent(
-    packageName: String,
-    skuDetails: String,
-    value: String,
-    purchaseDetails: String,
-    transactionType: String,
-    action: String,
-    isOnboardingPayment: Boolean = false
-  ) {
-    val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
-    )
-    analytics.logEvent(eventData, WALLET_PAYMENT_BILLING, AnalyticsManager.Action.CLICK, WALLET)
-  }
-
   private fun createBaseWalletEventMap(
     packageName: String?,
     skuDetails: String?,
@@ -345,6 +329,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
     const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
+    const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"

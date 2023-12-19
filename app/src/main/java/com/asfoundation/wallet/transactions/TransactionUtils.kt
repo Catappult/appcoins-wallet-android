@@ -275,7 +275,11 @@ fun TransactionModel.cardInfoByType() =
         INAPP_PURCHASE ->
             TransactionCardInfo(
                 appIcon = appIcon,
-                title = R.string.transaction_type_iab,
+                title =
+                if (method == TransactionModel.METHOD_SANDBOX)
+                    R.string.transcation_type_sandbox
+                else
+                    R.string.transaction_type_iab,
                 amount = amount,
                 description = description,
                 app = app,

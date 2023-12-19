@@ -113,13 +113,17 @@ class BdsBilling(
     packageName: String
   ): Single<List<PaymentMethodEntity>> {
     return partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
-      repository.getPaymentMethods(
-        value,
-        currency,
-        transactionType = transactionType,
-        packageName = packageName,
-        entityOemId = attributionEntity.oemId
-      )
+      walletService.getWalletAddress()
+        .flatMap {address ->
+          repository.getPaymentMethods(
+            value,
+            currency,
+            transactionType = transactionType,
+            packageName = packageName,
+            entityOemId = attributionEntity.oemId,
+            address = address
+          )
+        }
     }
   }
 

@@ -1,24 +1,24 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.arch.BaseViewModel
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.adyen.PaymentType.CARD
+import com.asfoundation.wallet.billing.adyen.PaymentType.PAYPAL
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.BACK_TO_THE_GAME
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.EXPLORE_WALLET
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import javax.inject.Inject
@@ -69,15 +69,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
         handlePaymentRefusal()
       }
       args.paymentModel.error.hasError -> {
-        when (args.paymentModel.error.errorInfo?.errorType) {
-          ErrorInfo.ErrorType.BILLING_ADDRESS -> {
-            //TODO handle billing address error
-          }
-          else -> {
-            events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
-            sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
-          }
-        }
+        events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
+        sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
       }
       args.paymentModel.status == PaymentModel.Status.CANCELED -> {
         sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods }
@@ -91,9 +84,13 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private fun handleAuthorisedPayment() {
     adyenPaymentInteractor.getAuthorisedTransaction(args.paymentModel.uid)
       .doOnNext { authorisedPaymentModel ->
-        when {
-          authorisedPaymentModel.status == PaymentModel.Status.COMPLETED -> {
-            events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType, authorisedPaymentModel.uid)
+        when (authorisedPaymentModel.status) {
+          PaymentModel.Status.COMPLETED -> {
+            events.sendPaymentSuccessEvent(
+              args.transactionBuilder,
+              args.paymentType,
+              authorisedPaymentModel.uid
+            )
             createBundle(
               authorisedPaymentModel.hash,
               authorisedPaymentModel.orderReference,
@@ -107,22 +104,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
                 )
               }
             }.subscribe()
-          }
-          isPaymentFailed(authorisedPaymentModel.status) -> {
-            events.sendPaymentErrorEvent(
-              args.transactionBuilder,
-              args.paymentType,
-              authorisedPaymentModel.error.errorInfo?.httpCode,
-              buildRefusalReason(
-                authorisedPaymentModel.status,
-                authorisedPaymentModel.error.errorInfo?.text
-              )
-            )
-            sendSideEffect {
-              OnboardingPaymentResultSideEffect.ShowPaymentError(
-                authorisedPaymentModel.error
-              )
-            }
           }
           else -> {
             events.sendPaymentErrorEvent(
@@ -183,9 +164,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       }.scopedSubscribe()
   }
 
-  private fun isPaymentFailed(status: PaymentModel.Status): Boolean =
-    status == PaymentModel.Status.FAILED || status == PaymentModel.Status.CANCELED || status == PaymentModel.Status.INVALID_TRANSACTION || status == PaymentModel.Status.FRAUD
-
   private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String =
     message?.let { "$status : $it" } ?: status.toString()
 
@@ -211,12 +189,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
     val bundle = purchaseBundleModel.bundle
-    if (args.paymentType == PaymentType.CARD) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        args.paymentType.mapToService().transactionType
-      )
-    } else if (args.paymentType == PaymentType.PAYPAL) {
+    if (args.paymentType == CARD || args.paymentType == PAYPAL) {
       bundle.putString(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         args.paymentType.mapToService().transactionType

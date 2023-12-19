@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
-import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
@@ -14,15 +13,14 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.ui.iab.*
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -114,7 +112,6 @@ class AdyenPaymentPresenter(
         )
           .observeOn(viewScheduler)
           .doOnSuccess {
-            adyenPaymentInteractor.forgetBillingAddress()
             view.hideLoadingAndShowView()
             if (it.error.hasError) {
               if (it.error.isNetworkError) view.showNetworkError()
@@ -229,7 +226,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
-    disposables.add(Observable.merge(view.buyButtonClicked(), view.billingAddressInput())
+    disposables.add(view.buyButtonClicked()
       .flatMapSingle {
         paymentAnalytics.startTimingForPurchaseEvent()
         view.retrievePaymentData()
@@ -244,8 +241,7 @@ class AdyenPaymentPresenter(
       .observeOn(networkScheduler)
       .flatMapSingle { adyenCard ->
         handleBuyAnalytics(transactionBuilder)
-        val billingAddressModel = view.retrieveBillingAddressData()
-        val shouldStore = billingAddressModel?.remember ?: view.shouldStoreCard()
+        val shouldStore = view.shouldStoreCard()
         if (skills) {
           skillsPaymentInteractor.makeSkillsPayment(
             returnUrl,
@@ -274,12 +270,11 @@ class AdyenPaymentPresenter(
             transactionType = transactionBuilder.type,
             developerWallet = transactionBuilder.toAddress(),
             referrerUrl = transactionBuilder.referrerUrl,
-            billingAddress = mapToAdyenBillingAddress(billingAddressModel)
           )
         }
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
+      .flatMapCompletable { handlePaymentResult(it) }
       .subscribe({}, {
         logger.log(TAG, it)
         view.showGenericError()
@@ -288,9 +283,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun handlePaymentResult(
-    paymentModel: PaymentModel,
-    priceAmount: BigDecimal? = null,
-    priceCurrency: String? = null
+    paymentModel: PaymentModel
   ): Completable = when {
     paymentModel.resultCode.equals("AUTHORISED", true) -> {
       adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
@@ -368,9 +361,6 @@ class AdyenPaymentPresenter(
       sendPaymentErrorEvent(paymentModel.refusalCode, errorDetails, riskRules)
     }
     paymentModel.error.hasError -> Completable.fromAction {
-      if (isBillingAddressError(paymentModel.error, priceAmount, priceCurrency)) {
-        view.showBillingAddress(priceAmount!!, priceCurrency!!)
-      } else {
         var errorDetails = paymentModel.error.errorInfo?.text
         if (errorDetails.isNullOrBlank()) {
           errorDetails = getWebViewResultCode()
@@ -380,7 +370,6 @@ class AdyenPaymentPresenter(
           errorDetails
         )
         handleErrors(paymentModel.error, paymentModel.refusalCode)
-      }
     }
     paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
       retrieveFailedReason(paymentModel.uid)
@@ -402,13 +391,6 @@ class AdyenPaymentPresenter(
   private fun getWebViewResultCode(): String {
     return "webView Result: ${iabView.webViewResultCode}" ?: ""
   }
-
-  private fun isBillingAddressError(
-    error: Error,
-    priceAmount: BigDecimal?,
-    priceCurrency: String?
-  ): Boolean =
-    error.errorInfo?.errorType == ErrorType.BILLING_ADDRESS && priceAmount != null && priceCurrency != null
 
   private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable =
     Completable.fromAction { view.showSuccess(purchaseBundleModel.renewal) }
@@ -712,11 +694,6 @@ class AdyenPaymentPresenter(
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
-    }
-
-  private fun mapToAdyenBillingAddress(billingAddressModel: BillingAddressModel?): AdyenBillingAddress? =
-    billingAddressModel?.let {
-      AdyenBillingAddress(it.address, it.city, it.zipcode, it.number, it.state, it.country)
     }
 
   private fun createBundle(

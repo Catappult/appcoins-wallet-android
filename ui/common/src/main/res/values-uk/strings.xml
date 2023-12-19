@@ -260,7 +260,7 @@
   <string name="transaction_status_pending">Очікування</string>
   <string name="transaction_status_failed">Не вдалося</string>
   <string name="transaction_status_reverted">Повернуто</string>
-  <string name="transcation_type_sandbox">Sandbox</string>
+  <string name="transcation_type_sandbox">Пісочниця</string>
   <string name="transaction_type_challenge_reward">Винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_rejected">Відхилена винагорода за завдання</string>
   <string name="transaction_type_challenge_reward_reverted">Повернута винагорода за завдання</string>
@@ -645,10 +645,10 @@
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s комісія</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тож стягується комісія за обробку платежу. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Цей спосіб оплати передбачає комісію за обробку цієї покупки. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тому може стягуватися комісія за обробку платежу.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Цей спосіб оплати передбачає комісію за обробку цієї покупки.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>
@@ -1018,7 +1018,7 @@
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Біометричний замок</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
   <string name="fingerprint_failed_body">Спробуйте ще раз через %s сек.</string>
   <string name="fingerprint_authentication_required_title">Потрібна аутентифікація!</string>
@@ -1201,7 +1201,7 @@
   <string name="vip_program_promotions_list_title">Спеціальні акції для вас</string>
   <string name="vip_program_promo_code_tag">Промокод</string>
   <string name="vip_program_referral_page_title">VIP реферальна програма</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб усі могли грати та заробляти. За кожну покупку в додатку &lt;b&gt;ви та ваші друзі отримуватимете бонус %1$s%%&lt;b&gt; додатково до інших активних промоакцій. &lt;b&gt;Діє до %2$s&lt;/b&gt;!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
@@ -1270,13 +1270,13 @@
   <string name="manage_wallet_verify_title">Підтвердити спосіб оплати</string>
   <string name="manage_wallet_verify_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Підтвердити спосіб оплати</string>
   <string name="verify_card_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
   <string name="verify_card_one_more_step_title">Ще один крок для підтвердження</string>
   <string name="verify_card_one_more_step_body">Вставте код, який знаходиться в деталях транзакції</string>
   <string name="verify_card_one_more_step_button">Вставте код</string>
   <string name="verify_card_verified">Спосіб оплати підтверджено!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Підтвердити кредитну/дебетову картку</string>
   <string name="verify_card_view_title">Підтвердити карту</string>
   <string name="verify_card_view_disclaimer">Ми знімемо з вашої картки %s, і ці кошти будуть повернуті, як тільки ви підтвердите код.</string>
   <string name="verify_card_view_title_2">Введіть дані вашої банківської картки</string>

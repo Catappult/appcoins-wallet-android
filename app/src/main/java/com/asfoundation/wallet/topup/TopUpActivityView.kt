@@ -3,7 +3,6 @@ package com.asfoundation.wallet.topup
 import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Observable
 
@@ -16,10 +15,6 @@ interface TopUpActivityView {
 
   fun navigateToLocalPayment(paymentId: String, icon: String, label: String, async: Boolean,
                              topUpData: TopUpPaymentData)
-
-  fun navigateToBillingAddress(topUpData: TopUpPaymentData, fiatAmount: String,
-                               fiatCurrency: String, targetFragment: Fragment,
-                               shouldStoreCard: Boolean, preSelected: Boolean)
 
   fun finish(data: Bundle)
 
