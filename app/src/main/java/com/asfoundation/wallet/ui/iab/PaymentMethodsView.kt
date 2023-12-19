@@ -102,6 +102,11 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
+  fun showGooglePayWeb(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
+
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
   fun onBackPressed(): Observable<Any>
@@ -150,7 +155,7 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR, GIROPAY, SANDBOX, CHALLENGE_REWARD, VKPAY
+    CARRIER_BILLING, ERROR, GIROPAY, SANDBOX, CHALLENGE_REWARD, VKPAY, GOOGLEPAY_WEB
   }
 
   enum class PaymentMethodId(val id: String) {
@@ -165,6 +170,7 @@ interface PaymentMethodsView {
     SANDBOX("sandbox"),
     ASK_FRIEND("ask_friend"),
     CHALLENGE_REWARD("challenge_reward"),
-    VKPAY("vk_pay")
+    VKPAY("vk_pay"),
+    GOOGLEPAY_WEB("googlepay_web"),
   }
 }
