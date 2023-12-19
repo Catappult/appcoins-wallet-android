@@ -11,7 +11,6 @@
       android:layout_width="42dp"
       android:layout_height="42dp"
       android:src="@drawable/ic_app_logo_icon"
-      app:layout_constraintBottom_toTopOf="@id/app_separator"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -27,6 +26,7 @@
       android:maxLines="1"
       android:textColor="@color/styleguide_payments_main_text"
       android:textSize="16sp"
+      android:textStyle="bold"
       app:layout_constrainedWidth="true"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0"
@@ -53,28 +53,18 @@
       tools:text="Item Name"
       />
 
-  <View
-      android:id="@+id/app_separator"
-      android:layout_width="0dp"
-      android:layout_height="1dp"
-      android:layout_marginTop="14dp"
-      android:background="@color/styleguide_payments_separator"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_icon"
-      />
-
   <TextView
       android:id="@+id/fiat_price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="11dp"
+      android:layout_marginTop="16dp"
       android:fontFamily="sans-serif-medium"
       android:textColor="@color/styleguide_payments_main_text"
-      android:textSize="15sp"
+      android:textSize="16sp"
       android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintTop_toBottomOf="@id/app_separator"
+      app:layout_constraintTop_toBottomOf="@id/app_icon"
       tools:text="0,99 EUR"
       />
 
@@ -86,6 +76,7 @@
       android:textColor="@color/styleguide_dark_grey"
       android:textSize="12sp"
       android:visibility="invisible"
+      android:fontFamily="@font/roboto_medium"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"

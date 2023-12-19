@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutPurchaseBonusBinding
 import java.math.BigDecimal
 
@@ -49,30 +49,6 @@ class PurchaseBonusView : FrameLayout {
 
   fun setPurchaseBonusHeaderValue(valueText: String) {
     binding.bonusValue.text = valueText
-  }
-
-  fun hidePurchaseBonusHeader() {
-    showHeader = false
-    binding.bonusLayout.visibility = View.INVISIBLE
-  }
-
-  fun showPurchaseBonusHeader() {
-    showHeader = true
-    binding.bonusLayout.visibility = View.VISIBLE
-  }
-
-  fun setPurchaseBonusDescription(description: Int) {
-    binding.bonusMsg.text = context.getString(description)
-    binding.bonusMsg.visibility = View.VISIBLE
-    binding.bonusLayout.visibility = View.INVISIBLE
-  }
-
-  fun showSkeleton() {
-    if (showHeader) {
-      binding.bonusLayout.visibility = View.INVISIBLE
-      binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
-    }
-    binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
   fun hideSkeleton() {

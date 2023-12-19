@@ -32,6 +32,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.ui.widgets.SeparatorView
 import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -261,6 +262,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val fragment_adyen_error_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
   private val dialog_buy_buttons_error: LinearLayout? get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.root
 
+  private val bottom_separator: SeparatorView? get() = bindingCreditCardLayout?.bottomSeparator
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -518,6 +520,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     layout_pre_selected?.visibility = GONE
     change_card_button?.visibility = GONE
     change_card_button_pre_selected?.visibility = GONE
+    bottom_separator?.visibility = GONE
 
     error_buttons?.visibility = VISIBLE
     dialog_buy_buttons_error?.visibility = VISIBLE
