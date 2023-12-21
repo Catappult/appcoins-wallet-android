@@ -35,9 +35,9 @@ class CreateVkPayTransactionUseCase @Inject constructor(
           callbackUrl = callbackUrl,
           transactionType = transactionType,
           developerWallet = developerWallet,
-          entityOemId = null,
-          entityDomain = null,
-          entityPromoCode = null,
+          entityOemId = null, // TODO
+          entityDomain = null, //TODO
+          entityPromoCode = null, //TODO
           userWallet = null,
           referrerUrl = referrerUrl,
           method = METHOD_VK_PAY,

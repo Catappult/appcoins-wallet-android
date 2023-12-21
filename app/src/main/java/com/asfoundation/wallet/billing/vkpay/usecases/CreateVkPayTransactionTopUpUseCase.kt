@@ -31,9 +31,9 @@ class CreateVkPayTransactionTopUpUseCase @Inject constructor(
           callbackUrl = null,
           transactionType = TOP_UP_TRANSACTION_TYPE,
           developerWallet = null,
-          entityOemId = null,
-          entityDomain = null,
-          entityPromoCode = null,
+          entityOemId = null,  //TODO
+          entityDomain = null,  //TODO
+          entityPromoCode = null,  //TODO
           userWallet = null,
           referrerUrl = null,
           method = METHOD_VK_PAY,
