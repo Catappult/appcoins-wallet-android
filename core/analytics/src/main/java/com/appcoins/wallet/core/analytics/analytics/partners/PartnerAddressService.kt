@@ -66,24 +66,25 @@ class PartnerAddressService @Inject constructor(
         }
       }
       .flatMap { attribution ->
-        //if game's package is in the cached-apks list, use the oemId from cache.
+        //if game's package is in the cached-apks list and there is no oemid in the game, then uses the oemId from cache.
         getPackagesForClientSide()
           .onErrorReturn {
             listOf<String>()
           }
           .map { packagesForCaching ->
-            if (packagesForCaching.any { it == packageName }) {
-              // if there is an oemId in the cache, use it instead of the one extracted from the game.
+            if (packagesForCaching.any { it == packageName } && attribution.oemId.isNullOrEmpty()) {
+              // uses oemId from cache, if there is one
               val oemIdFromCache = oemIdPreferencesDataSource.getOemIdForPackage(packageName)
               if (oemIdFromCache.isBlank()) {
-                // save the oemId extracted from the game in the cache.
+                // saves the oemId extracted from the game in the cache.
                 oemIdPreferencesDataSource.setOemIdForPackage(packageName, attribution.oemId ?: "")
                 attribution
               } else {
                 AttributionEntity(oemIdFromCache, attribution.domain)
               }
             } else {
-              // don't use cache
+              // saves to cache and uses the current extracted oemId
+              oemIdPreferencesDataSource.setOemIdForPackage(packageName, attribution.oemId ?: "")
               attribution
             }
           }
