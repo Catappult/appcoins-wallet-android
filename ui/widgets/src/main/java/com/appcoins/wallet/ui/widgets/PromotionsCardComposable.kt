@@ -364,12 +364,14 @@ fun ImageWithTitleAndDescription(
 @Composable
 fun SkeletonLoadingPromotionCard(hasVerticalList: Boolean) {
   val maxColumnWidth = if (hasVerticalList) 300.dp else 240.dp
+  val horizontalPadding = if (hasVerticalList) 0.dp else 16.dp
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     modifier =
     Modifier
       .fillMaxWidth()
       .width(maxColumnWidth)
+      .padding(horizontal = horizontalPadding)
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
     Column( modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
@@ -389,14 +391,14 @@ fun SkeletonLoadingPromotionCard(hasVerticalList: Boolean) {
         ) {
           Spacer(
             modifier = Modifier
-              .width(width = 100.dp)
+              .width(width = 130.dp)
               .height(height = 22.dp)
               .clip(RoundedCornerShape(5.dp))
               .background(brush = shimmerSkeleton()),
           )
           Spacer(
             modifier = Modifier
-              .width(width = 180.dp)
+              .width(width = 200.dp)
               .height(height = 27.dp)
               .padding(top = 5.dp, end = 16.dp)
               .clip(RoundedCornerShape(5.dp))

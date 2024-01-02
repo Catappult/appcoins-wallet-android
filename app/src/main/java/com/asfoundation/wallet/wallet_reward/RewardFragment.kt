@@ -49,6 +49,8 @@ import com.appcoins.wallet.ui.widgets.GamificationHeaderNoPurchases
 import com.appcoins.wallet.ui.widgets.GamificationHeaderPartner
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.RewardsActions
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
@@ -194,10 +196,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderPartner(
               df.format(this.bonusPercentage)
             )
-          } else {
+          } else if (this != null) {
             GamificationHeaderNoPurchases()
           }
-
+          else {
+            SkeletonLoadingGamificationCard()
+          }
+          
           RewardsActions(
             { navigator.navigateToWithdrawScreen() },
             { navigator.showPromoCodeFragment() },
@@ -213,8 +218,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           fontSize = 14.sp,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 16.dp, start = 24.dp)
+          modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
         )
+        if (viewModel.promotions.isEmpty()) {
+          SkeletonLoadingPromotionCard(hasVerticalList = false)
+        }
       }
       items(viewModel.promotions) { promotion ->
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
