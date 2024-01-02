@@ -16,21 +16,21 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AppcoinsRewardsBuyPresenter(
-    private val view: AppcoinsRewardsBuyView,
-    private val rewardsManager: RewardsManager,
-    private val viewScheduler: Scheduler,
-    private val networkScheduler: Scheduler,
-    private val disposables: CompositeDisposable,
-    private val packageName: String,
-    private val isBds: Boolean,
-    private val isPreSelected: Boolean,
-    private val analytics: BillingAnalytics,
-    private val paymentAnalytics: PaymentMethodsAnalytics,
-    private val transactionBuilder: TransactionBuilder,
-    private val formatter: CurrencyFormatUtils,
-    private val gamificationLevel: Int,
-    private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
-    private val logger: Logger
+  private val view: AppcoinsRewardsBuyView,
+  private val rewardsManager: RewardsManager,
+  private val viewScheduler: Scheduler,
+  private val networkScheduler: Scheduler,
+  private val disposables: CompositeDisposable,
+  private val packageName: String,
+  private val isBds: Boolean,
+  private val isPreSelected: Boolean,
+  private val analytics: BillingAnalytics,
+  private val paymentAnalytics: PaymentMethodsAnalytics,
+  private val transactionBuilder: TransactionBuilder,
+  private val formatter: CurrencyFormatUtils,
+  private val gamificationLevel: Int,
+  private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
+  private val logger: Logger
 ) {
 
   companion object {
@@ -117,7 +117,13 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { purchase ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
+                .andThen(
+                  Completable.timer(
+                    view.getAnimationDuration(),
+                    TimeUnit.MILLISECONDS,
+                    viewScheduler
+                  )
+                )
                 .andThen(Completable.fromAction { appcoinsRewardsBuyInteract.removeAsyncLocalPayment() })
                 .andThen(Completable.fromAction {
                   view.finish(purchase, transaction.orderReference)
@@ -136,8 +142,19 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { transactionModel ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-                .andThen(Completable.fromAction { view.finish(transactionModel.txId, transactionModel.txId ?: "") })
+                .andThen(
+                  Completable.timer(
+                    view.getAnimationDuration(),
+                    TimeUnit.MILLISECONDS,
+                    viewScheduler
+                  )
+                )
+                .andThen(Completable.fromAction {
+                  view.finish(
+                    transactionModel.txId,
+                    transactionModel.txId ?: ""
+                  )
+                })
             }
         }
       }
