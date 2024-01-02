@@ -384,7 +384,7 @@ fun SkeletonLoadingGamificationCard() {
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
-    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp)) {
       Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -395,14 +395,14 @@ fun SkeletonLoadingGamificationCard() {
         Column {
           Spacer(
             modifier = Modifier
-              .width(width = 170.dp)
+              .width(width = 150.dp)
               .height(height = 22.dp)
               .clip(RoundedCornerShape(5.dp))
               .background(brush = shimmerSkeleton()),
           )
           Spacer(
             modifier = Modifier
-              .width(width = 250.dp)
+              .width(width = 230.dp)
               .height(height = 30.dp)
               .padding(top = 8.dp)
               .clip(RoundedCornerShape(5.dp))
@@ -411,8 +411,8 @@ fun SkeletonLoadingGamificationCard() {
         }
         Spacer(
           modifier = Modifier
-            .size(70.dp)
-            .clip(RoundedCornerShape(35.dp))
+            .size(90.dp)
+            .clip(RoundedCornerShape(45.dp))
             .background(brush = shimmerSkeleton()),
         )
       }

@@ -196,11 +196,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderPartner(
               df.format(this.bonusPercentage)
             )
-          } else if (this != null) {
-            GamificationHeaderNoPurchases()
+          } else if (this != null && this.unInitialized) {
+            SkeletonLoadingGamificationCard()
           }
           else {
-            SkeletonLoadingGamificationCard()
+            GamificationHeaderNoPurchases()
           }
           
           RewardsActions(
@@ -372,6 +372,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isVip = gamificationStatus == GamificationStatus.VIP,
             isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
             walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
+            unInitialized = false
           )
       } else {
         viewModel.gamificationHeaderModel.value = null

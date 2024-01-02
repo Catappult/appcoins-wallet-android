@@ -52,7 +52,7 @@ class RewardViewModel @Inject constructor(
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
-  val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(null)
+  val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
   val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
 
