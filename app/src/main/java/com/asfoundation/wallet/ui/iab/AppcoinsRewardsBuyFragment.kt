@@ -127,6 +127,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   override fun finish(uid: String?, purchaseUid: String) {
+    presenter.sendPaymentConfirmationEvent()
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent(purchaseUid)
@@ -146,6 +147,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   override fun finish(purchase: Purchase, orderReference: String?) {
+    presenter.sendPaymentConfirmationEvent()
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent(purchase.uid)

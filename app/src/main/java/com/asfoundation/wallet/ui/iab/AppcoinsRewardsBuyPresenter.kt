@@ -220,6 +220,18 @@ class AppcoinsRewardsBuyPresenter(
     )
   }
 
+  fun sendPaymentConfirmationEvent() {
+    analytics.sendPaymentConfirmationEvent(
+      packageName = packageName,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_REWARDS,
+      transactionType = transactionBuilder.type,
+      action = BillingAnalytics.ACTION_BUY
+    )
+  }
+
+
   fun sendPaymentSuccessEvent(txId: String) {
     paymentAnalytics.stopTimingForPurchaseEvent(
       PaymentMethodsAnalytics.PAYMENT_METHOD_APPC,
