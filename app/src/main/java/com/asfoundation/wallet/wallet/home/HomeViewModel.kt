@@ -451,6 +451,9 @@ constructor(
         e.printStackTrace()
       }
   }
+  fun isLoadingOrIdleBalanceState(): Boolean {
+    return _uiBalanceState.value == UiBalanceState.Loading || _uiBalanceState.value == UiBalanceState.Idle
+  }
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState

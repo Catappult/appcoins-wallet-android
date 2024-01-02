@@ -78,6 +78,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
   private val navBarViewModel: NavBarViewModel by activityViewModels()
+  private val hasGetSomeValidBalanceResult = mutableStateOf(false)
 
   private val pushNotificationPermissionLauncher =
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
@@ -161,7 +162,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickTransfer = { viewModel.onTransferClick() },
         onClickBackup = { viewModel.onBackupClick() },
         onClickTopUp = { viewModel.onTopUpClick() },
-        onClickMenuOptions = { navigator.navigateToManageBottomSheet() })
+        onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
+        isLoading = viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value
+      )
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
@@ -204,27 +207,46 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             }
           }
       }
-      else -> {}
+      else -> {
+        Column(
+          modifier = Modifier
+            .heightIn(0.dp, 480.dp)
+            .padding(horizontal = 16.dp)
+        ) {
+          Text(
+            text = stringResource(R.string.intro_transactions_header),
+            modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey
+          )
+          SkeletonLoadingTransactionCard()
+        }
+      }
     }
   }
 
   @Composable
   fun PromotionsList() {
-    if (!viewModel.activePromotions.isEmpty()) {
-      Text(
-        text = getString(R.string.intro_active_promotions_header),
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Bold,
-        color = WalletColors.styleguide_dark_grey,
-        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-      )
-    }
+    Text(
+      text = getString(R.string.intro_active_promotions_header),
+      fontSize = 14.sp,
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_dark_grey,
+      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+    )
     LazyRow(
       contentPadding = PaddingValues(horizontal = 16.dp),
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-      items(viewModel.activePromotions) { promotion ->
-        PromotionsCardComposable(cardItem = promotion)
+      if (viewModel.activePromotions.isEmpty()) {
+        item {
+          SkeletonLoadingPromotionCard(hasVerticalList = true)
+        }
+      } else {
+        items(viewModel.activePromotions) { promotion ->
+          PromotionsCardComposable(cardItem = promotion)
+        }
       }
     }
   }
@@ -355,6 +377,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             viewModel.updateBalance(
               HomeViewModel.UiBalanceState.Success(globalBalance.walletBalance)
             )
+            hasGetSomeValidBalanceResult.value = true
           }
         }
 
@@ -368,6 +391,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         // TODO loading
       }
+
       is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
       else -> Unit
     }
@@ -379,6 +403,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         // TODO loading
       }
+
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -407,6 +432,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
         }
       }
+
       else -> Unit
     }
   }

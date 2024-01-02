@@ -71,6 +71,12 @@ private fun CardVerticalItemExample() {
   PromotionsCardComposable(cardItem = verticalCardItem)
 }
 
+@Preview
+@Composable
+private fun LoadingPromotionCard() {
+  SkeletonLoadingPromotionCard(hasVerticalList = true)
+}
+
 
 @Composable
 fun PromotionsCardComposable(cardItem: CardPromotionItem) {
@@ -349,6 +355,90 @@ fun ImageWithTitleAndDescription(
           style = MaterialTheme.typography.bodyMedium,
           color = WalletColors.styleguide_white,
           modifier = Modifier.padding(top = 4.dp, end = 8.dp)
+        )
+      }
+    }
+  }
+}
+
+@Composable
+fun SkeletonLoadingPromotionCard(hasVerticalList: Boolean) {
+  val maxColumnWidth = if (hasVerticalList) 300.dp else 240.dp
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .width(maxColumnWidth)
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Column( modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(56.dp)
+            .height(56.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Column(
+          modifier = Modifier
+            .width(240.dp)
+            .padding(start = 12.dp)
+        ) {
+          Spacer(
+            modifier = Modifier
+              .width(width = 100.dp)
+              .height(height = 22.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 180.dp)
+              .height(height = 27.dp)
+              .padding(top = 5.dp, end = 16.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+      }
+      Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 16.dp, end = 16.dp)) {
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(40.dp)
+            .height(40.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
         )
       }
     }
