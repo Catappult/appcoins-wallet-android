@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
@@ -99,6 +100,34 @@ class PartnerAddressService @Inject constructor(
     }
   }
 
+  fun getOrSetOemIDFromGamesHub(): Single<String> {
+    val ghOemIdIndicative = oemIdPreferencesDataSource.getGamesHubOemIdIndicative()
+    return if (ghOemIdIndicative.isEmpty()) {
+      if (installerService.isPackageInstalled(defaultGamesHubPackage)) {
+        //Try to extract OemID if Games Hun installed
+        getOemIdFromGamesHub().doOnSuccess {
+          oemIdPreferencesDataSource.setCurrentOemId(it)
+        }
+      } else {
+        //If Games hub not installed return this text
+        Single.just(GAMES_HUB_UNINSTALLED)
+      }
+    } else {
+      Single.just(ghOemIdIndicative)
+    }
+  }
+
+  private fun getOemIdFromGamesHub(): Single<String> {
+   return oemIdExtractorService.extractOemId(defaultGamesHubPackage)
+      .map { gamesHubOemId ->
+        if (gamesHubOemId.isEmpty()) {
+          MISSING_OEMID_FROM_GAMES_HUB
+        } else {
+          gamesHubOemId
+        }
+      }
+  }
+
 
   fun isGameFromGamesHub(): Boolean {
     return oemIdPreferencesDataSource.getIsGameFromGameshub()
@@ -108,6 +137,8 @@ class PartnerAddressService @Inject constructor(
     private const val DEFAULT_STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad"
     private const val DEFAULT_OEM_ADDRESS = "DEFAULT_OEM_ADDRESS"
     private const val MAX_AGE_CLIENT_SIDE_PACKAGE_LIST = 7 * 24 * 60 * 60 * 1000L // 1 week
+    private const val MISSING_OEMID_FROM_GAMES_HUB = "Games Hub installed but does not have oemID"
+    private const val GAMES_HUB_UNINSTALLED = "Games Hub not installed"
   }
 
 }

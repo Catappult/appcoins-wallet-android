@@ -6,6 +6,7 @@ import android.content.res.Configuration
 
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.BuildConfig
@@ -31,6 +32,7 @@ class InitilizeDataAnalytics @Inject constructor(
     private val logger: Logger,
     private val promotionsRepository: PromotionsRepository,
     private val indicativeAnalytics: IndicativeAnalytics,
+    private val partnerAddressService: PartnerAddressService,
     private val promoCodeLocalDataSource: com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
 ) {
 
@@ -74,16 +76,18 @@ class InitilizeDataAnalytics @Inject constructor(
                     Single.just(hasGms()),
                     Single.just(idsRepository.getActiveWalletAddress()),
                     promoCodeLocalDataSource.getSavedPromoCode(),
-                    Single.just(idsRepository.getDeviceInfo())
+                    Single.just(idsRepository.getDeviceInfo()),
+                    partnerAddressService.getOrSetOemIDFromGamesHub()
                 )
-                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode, deviceInfo: DeviceInformation ->
+                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode, deviceInfo: DeviceInformation, ghOemid: String ->
                     IndicativeInitializeWrapper(
                         installerPackage,
                         level,
                         hasGms,
                         walletAddress,
                         promoCode,
-                        deviceInfo
+                        deviceInfo,
+                        ghOemid
                     )
                 }
                     .flatMap {
@@ -92,18 +96,19 @@ class InitilizeDataAnalytics @Inject constructor(
                             it.promoCode.code
                         )
                             .doOnSuccess { walletOrigin ->
-                                indicativeAnalytics.setIndicativeSuperProperties(
-                                    it.installerPackage,
-                                    it.level,
-                                    it.walletAddress,
-                                    it.hasGms,
-                                    walletOrigin.name,
-                                    it.deviceInfo.osVersion,
-                                    it.deviceInfo.brand,
-                                    it.deviceInfo.model,
-                                    it.deviceInfo.language,
-                                    it.deviceInfo.isProbablyEmulator
-                                )
+                                    indicativeAnalytics.setIndicativeSuperProperties(
+                                        it.installerPackage,
+                                        it.level,
+                                        it.walletAddress,
+                                        it.hasGms,
+                                        walletOrigin.name,
+                                        it.deviceInfo.osVersion,
+                                        it.deviceInfo.brand,
+                                        it.deviceInfo.model,
+                                        it.deviceInfo.language,
+                                        it.deviceInfo.isProbablyEmulator,
+                                        it.ghOemId
+                                        )
                             }
                     }
             }

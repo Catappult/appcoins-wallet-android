@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.analytics.analytics
 import android.content.Context
 import android.content.res.Configuration
 import com.appcoins.wallet.core.analytics.BuildConfig
+import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import org.json.JSONObject
@@ -56,7 +57,8 @@ class IndicativeAnalytics @Inject constructor(
     brand: String,
     model: String,
     language: String,
-    isEmulator: Boolean
+    isEmulator: Boolean,
+    ghOemId: String
   ) {
 
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -79,6 +81,8 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.MODEL, model)
     superProperties.put(AnalyticsLabels.LANGUAGE, language)
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
+    superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
+
 
     if (userId.isNotEmpty()) this.usrId = userId
 
