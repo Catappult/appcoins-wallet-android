@@ -110,7 +110,7 @@ class PartnerAddressService @Inject constructor(
         }
       } else {
         //If Games hub not installed return this text
-        Single.just(GAMES_HUB_UNINSTALLED)
+        Single.just(GH_NOT_INSTALLED)
       }
     } else {
       Single.just(ghOemIdIndicative)
@@ -121,7 +121,7 @@ class PartnerAddressService @Inject constructor(
    return oemIdExtractorService.extractOemId(defaultGamesHubPackage)
       .map { gamesHubOemId ->
         if (gamesHubOemId.isEmpty()) {
-          MISSING_OEMID_FROM_GAMES_HUB
+          GH_INSTALLED_WITHOUT_OEMID
         } else {
           gamesHubOemId
         }
@@ -137,8 +137,8 @@ class PartnerAddressService @Inject constructor(
     private const val DEFAULT_STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad"
     private const val DEFAULT_OEM_ADDRESS = "DEFAULT_OEM_ADDRESS"
     private const val MAX_AGE_CLIENT_SIDE_PACKAGE_LIST = 7 * 24 * 60 * 60 * 1000L // 1 week
-    private const val MISSING_OEMID_FROM_GAMES_HUB = "Games Hub installed but does not have oemID"
-    private const val GAMES_HUB_UNINSTALLED = "Games Hub not installed"
+    private const val GH_INSTALLED_WITHOUT_OEMID = "gh_installed_without_oemid"
+    private const val GH_NOT_INSTALLED = "gh_not_installed"
   }
 
 }
