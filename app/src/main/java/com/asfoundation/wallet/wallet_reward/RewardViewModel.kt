@@ -108,4 +108,8 @@ class RewardViewModel @Inject constructor(
     challengeRewardAnalytics.sendChallengeRewardEvent(flowPath.id)
     ChallengeRewardManager.onNavigate()
   }
+
+  fun isLoadingOrIdlePromotionState(): Boolean {
+    return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
+  }
 }

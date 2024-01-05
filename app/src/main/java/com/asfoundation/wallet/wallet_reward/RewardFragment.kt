@@ -201,8 +201,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             )
           } else if (this != null && this.uninitialized) {
             SkeletonLoadingGamificationCard()
-          }
-          else {
+          } else {
             GamificationHeaderNoPurchases()
           }
           if (getLoadingStateChallengeReward()) {
@@ -220,14 +219,23 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         }
       }
       item {
-        Text(
-          text = getString(R.string.perks_title),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
-        )
+        if (viewModel.promotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
+          Text(
+            text = getString(R.string.perks_title),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey,
+            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
+          )
+        }
         if (viewModel.promotions.isEmpty()) {
+          Text(
+            text = getString(R.string.perks_title),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey,
+            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
+          )
           SkeletonLoadingPromotionCards(hasVerticalList = true)
         }
       }
@@ -270,6 +278,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       Async.Uninitialized,
       is Async.Loading -> {
       }
+
       is Async.Success -> {
         viewModel.promotions.clear()
         viewModel.activePromoCode.value = null
@@ -343,6 +352,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         }
 
       }
+
       else -> Unit
     }
   }
@@ -404,7 +414,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     when (walletInfoAsync) {
       is Async.Success -> {
         walletInfoAsync.value?.let {
-          if(it.wallet.isNotEmpty())
+          if (it.wallet.isNotEmpty())
             ChallengeRewardManager.create(
               appId = BuildConfig.FYBER_APP_ID,
               activity = requireActivity(),
@@ -412,6 +422,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             )
         }
       }
+
       else -> Unit
     }
   }
