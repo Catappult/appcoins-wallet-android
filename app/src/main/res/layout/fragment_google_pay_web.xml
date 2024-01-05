@@ -40,7 +40,7 @@
 
 
   <include
-      android:id="@+id/googlepay_error_layout"
+      android:id="@+id/google_pay_web_error_layout"
       layout="@layout/support_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
       />
 
   <include
-      android:id="@+id/googlepay_error_buttons"
+      android:id="@+id/google_pay_web_error_buttons"
       layout="@layout/dialog_buy_buttons_adyen_error"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/googlepay_error_layout"
+      app:layout_constraintTop_toBottomOf="@+id/google_pay_web_error_layout"
       app:layout_constraintVertical_bias="1.0"
       />
 

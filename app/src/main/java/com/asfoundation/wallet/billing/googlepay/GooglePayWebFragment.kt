@@ -36,9 +36,9 @@ import javax.inject.Inject
 class GooglePayWebFragment() : BasePageViewFragment() {
 
   @Inject
-  lateinit var navigator: GooglePayWebIABNavigator
+  lateinit var navigator: GooglePayWebNavigator
 
-  private val viewModel: GooglePayWebIABViewModel by viewModels()
+  private val viewModel: GooglePayWebViewModel by viewModels()
 
   private var binding: FragmentGooglePayWebBinding? = null
   private val views get() = binding!!
@@ -72,18 +72,13 @@ class GooglePayWebFragment() : BasePageViewFragment() {
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.data?.dataString?.contains(GooglePayWebReturnSchemas.RETURN.schema) == true) {
           Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.startBillingAgreement(
-            amount = amount,
-            currency = currency,
-            transactionBuilder = transactionBuilder,
-            origin = origin
-          )
+          // TODO
         } else if (
           result.resultCode == Activity.RESULT_CANCELED ||
           (result.data?.dataString?.contains(GooglePayWebReturnSchemas.CANCEL.schema) == true)
         ) {
           Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          viewModel.cancelToken()
+          // TODO handle cancel
         }
       }
   }
@@ -100,19 +95,16 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private fun setObserver() {
     viewModel.state.observe(viewLifecycleOwner) { state ->
       when (state) {
-        GooglePayWebIABViewModel.State.Start -> {
+        GooglePayWebViewModel.State.Start -> {
           showLoadingAnimation()
         }
-        is GooglePayWebIABViewModel.State.Error -> {
+        is GooglePayWebViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
-        is GooglePayWebIABViewModel.State.SuccessPurchase -> {
+        is GooglePayWebViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
-        GooglePayWebIABViewModel.State.TokenCanceled -> {
-          close()
-        }
-        is GooglePayWebIABViewModel.State.WebViewAuthentication -> {
+        is GooglePayWebViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }
       }

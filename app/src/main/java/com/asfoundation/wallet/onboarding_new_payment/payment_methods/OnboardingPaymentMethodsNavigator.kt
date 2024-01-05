@@ -137,4 +137,23 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       )
     )
   }
+
+  fun navigateToGooglePay(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    // TODO:
+//    navigate(
+//      fragment.findNavController(),
+//      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingGooglePay(
+//        transactionBuilder,
+//        PaymentType.GOOGLEPAY_WEB,
+//        amount,
+//        currency,
+//        forecastBonus
+//      )
+//    )
+  }
 }

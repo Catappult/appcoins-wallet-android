@@ -2,5 +2,6 @@ package com.asfoundation.wallet.billing.googlepay
 
 enum class GooglePayWebReturnSchemas(val schema: String) {
   RETURN("googlepaysuccess://"),
-  CANCEL("googlepaycancel://")
+  CANCEL("googlepaycancel://"),
+  ERROR("googlepayerror://")  //TODO
 }

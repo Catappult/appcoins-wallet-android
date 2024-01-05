@@ -34,7 +34,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_APPC = "appc_c"
     const val PAYMENT_METHOD_LOCAL = "local"
     const val PAYMENT_METHOD_SANDBOX = "sandbox"
-    const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay_web"
+    const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
     const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
 

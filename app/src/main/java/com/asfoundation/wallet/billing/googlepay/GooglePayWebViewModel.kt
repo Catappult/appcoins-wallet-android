@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
-import com.asfoundation.wallet.billing.googlepay.usecases.*
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.wallet.appcoins.feature.support.data.SupportInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.usecases.*
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
-import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -27,11 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class GooglePayWebViewModel @Inject constructor(
   private val createGooglePayWebTransactionUseCase: CreateGooglePayWebTransactionUseCase,
-  private val createGooglePayWebTokenUseCase: CreateGooglePayWebTokenUseCase,
-  private val createGooglePayWebAgreementUseCase: CreateGooglePayWebAgreementUseCase,
-  private val waitForSuccessGooglePayWebUseCase: WaitForSuccessGooglePayWebUseCase,
-  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
-  private val cancelGooglePayWebTokenUseCase: CancelGooglePayWebTokenUseCase,
+//  private val waitForSuccessGooglePayWebUseCase: WaitForSuccessGooglePayWebUseCase, // TODO
+  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,  //TODO check
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -45,7 +42,6 @@ class GooglePayWebViewModel @Inject constructor(
     data class Error(val stringRes: Int) : State()
     data class WebViewAuthentication(val url: String) : State()
     data class SuccessPurchase(val bundle: Bundle) : State()
-    object TokenCanceled : State()
   }
 
   private val _state = MutableLiveData<State>(State.Start)
@@ -63,8 +59,7 @@ class GooglePayWebViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder, origin: String?
   ) {
     sendPaymentConfirmationEvent(transactionBuilder)
-    attemptTransaction(
-      createTokenIfNeeded = createTokenIfNeeded,
+    createTransaction(
       amount = amount,
       currency = currency,
       transactionBuilder = transactionBuilder,
@@ -72,9 +67,11 @@ class GooglePayWebViewModel @Inject constructor(
     )
   }
 
-  fun attemptTransaction(
-    createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
-    transactionBuilder: TransactionBuilder, origin: String?
+  fun createTransaction(
+   amount: BigDecimal,
+   currency: String,
+   transactionBuilder: TransactionBuilder,
+   origin: String?
   ) {
     compositeDisposable.add(
       createGooglePayWebTransactionUseCase(
@@ -84,6 +81,7 @@ class GooglePayWebViewModel @Inject constructor(
         origin = origin,
         packageName = transactionBuilder.domain,
         metadata = transactionBuilder.payload,
+        method = PaymentType.GOOGLEPAY_WEB.name,
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
@@ -97,16 +95,6 @@ class GooglePayWebViewModel @Inject constructor(
             GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
-            GooglePayWebTransaction.GooglePayWebValidityState.NO_BILLING_AGREEMENT -> {
-              Log.d(TAG, "No billing agreement. Create new token? $createTokenIfNeeded ")
-              if (createTokenIfNeeded) {
-                createToken(transactionBuilder)
-              } else {
-                Log.d(TAG, "No googlePayWeb billing agreement")
-                sendPaymentErrorEvent(it.errorCode, it.errorMessage, transactionBuilder)
-                _state.postValue(State.Error(R.string.purchase_error_googlepay))
-              }
-            }
             GooglePayWebTransaction.GooglePayWebValidityState.PENDING -> {
               waitForSuccess(it.hash, it.uid, transactionBuilder)
             }
@@ -116,7 +104,7 @@ class GooglePayWebViewModel @Inject constructor(
                 errorMessage = "GooglePayWeb transaction error.",
                 transactionBuilder = transactionBuilder
               )
-              _state.postValue(State.Error(R.string.purchase_error_googlepay))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))   // TODO new error string
             }
             null -> {
               Log.d(TAG, "GooglePayWeb transaction error")
@@ -124,7 +112,7 @@ class GooglePayWebViewModel @Inject constructor(
                 errorMessage = "GooglePayWeb transaction error.",
                 transactionBuilder = transactionBuilder
               )
-              _state.postValue(State.Error(R.string.purchase_error_googlepay))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))   // TODO new error string
             }
           }
         }
@@ -134,105 +122,50 @@ class GooglePayWebViewModel @Inject constructor(
             errorMessage = "GooglePayWeb transaction error.",
             transactionBuilder = transactionBuilder
           )
-          _state.postValue(State.Error(R.string.purchase_error_googlepay))
+          _state.postValue(State.Error(R.string.purchase_error_paypal))  // TODO new error string
         })
     )
   }
 
-  fun createToken(transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(
-      createGooglePayWebTokenUseCase()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          authenticatedToken = it.token
-          _state.postValue(State.WebViewAuthentication(it.redirect.url))
-        }
-        .subscribe({}, {
-          Log.d(TAG, it.toString())
-          sendPaymentErrorEvent(
-            errorMessage = "Error on token creation",
-            transactionBuilder = transactionBuilder
-          )
-          _state.postValue(State.Error(R.string.unknown_error))
-        })
-    )
-  }
-
-  fun startBillingAgreement(
-    amount: BigDecimal, currency: String,
-    transactionBuilder: TransactionBuilder, origin: String?
-  ) {
-    authenticatedToken?.let { authenticatedToken ->
-      compositeDisposable.add(
-        createGooglePayWebAgreementUseCase(authenticatedToken)
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            // after creating the billing agreement, don't create a new token if it fails
-            attemptTransaction(
-              createTokenIfNeeded = false,
-              amount,
-              currency,
-              transactionBuilder,
-              origin
-            )
-          }
-          .subscribe({}, {
-            Log.d(TAG, it.toString())
-            sendPaymentErrorEvent(
-              errorMessage = "Error on billing agreement creation",
-              transactionBuilder = transactionBuilder
-            )
-            _state.postValue(State.Error(R.string.unknown_error))
-          })
-      )
-    }
-  }
-
-  fun cancelToken() {
-    authenticatedToken?.let {
-      cancelGooglePayWebTokenUseCase.invoke(it)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe {
-          _state.postValue(State.TokenCanceled)
-        }
-    }
-  }
-
-  private fun waitForSuccess(hash: String?, uid: String?, transactionBuilder: TransactionBuilder) {
-    compositeDisposable.add(
-      waitForSuccessGooglePayWebUseCase(uid ?: "")
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe(
-          {
-            when (it.status) {
-              PaymentModel.Status.COMPLETED -> {
-                getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
-              }
-              PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
-              PaymentModel.Status.INVALID_TRANSACTION -> {
-                Log.d(TAG, "Error on transaction on Settled transaction polling")
-                sendPaymentErrorEvent(
-                  errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
-                  transactionBuilder = transactionBuilder
-                )
-                _state.postValue(State.Error(R.string.unknown_error))
-              }
-              else -> { /* pending */
-              }
-            }
-          },
-          {
-            Log.d(TAG, "Error on Settled transaction polling")
-            sendPaymentErrorEvent(
-              errorMessage = "Error on Settled transaction polling",
-              transactionBuilder = transactionBuilder
-            )
-          })
-    )
+  private fun waitForSuccess(
+    hash: String?,
+    uid: String?,
+    transactionBuilder: TransactionBuilder
+  ) {  //TODO
+//    compositeDisposable.add(
+//      waitForSuccessGooglePayWebUseCase(uid ?: "")
+//        .subscribeOn(networkScheduler)
+//        .observeOn(viewScheduler)
+//        .subscribe(
+//          {
+//            when (it.status) {
+//              PaymentModel.Status.COMPLETED -> {
+//                getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
+//              }
+//              PaymentModel.Status.FAILED,
+//              PaymentModel.Status.FRAUD,
+//              PaymentModel.Status.CANCELED,
+//              PaymentModel.Status.INVALID_TRANSACTION -> {
+//                Log.d(TAG, "Error on transaction on Settled transaction polling")
+//                sendPaymentErrorEvent(
+//                  errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
+//                  transactionBuilder = transactionBuilder
+//                )
+//                _state.postValue(State.Error(R.string.unknown_error))
+//              }
+//              else -> { /* pending */
+//              }
+//            }
+//          },
+//          {
+//            Log.d(TAG, "Error on Settled transaction polling")
+//            sendPaymentErrorEvent(
+//              errorMessage = "Error on Settled transaction polling",
+//              transactionBuilder = transactionBuilder
+//            )
+//          }
+//        )
+//    )
   }
 
   fun getSuccessBundle(
@@ -242,7 +175,7 @@ class GooglePayWebViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder
   ) {
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
-      PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id
+      PaymentMethodsView.PaymentMethodId.GOOGLEPAY_WEB.id
     )
     sendPaymentSuccessEvent(transactionBuilder, purchaseUid ?: "")
     createSuccessBundleUseCase(
@@ -276,7 +209,7 @@ class GooglePayWebViewModel @Inject constructor(
           it.domain,
           it.skuId,
           it.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
           it.type,
           BillingAnalytics.ACTION_BUY
         )
@@ -294,7 +227,7 @@ class GooglePayWebViewModel @Inject constructor(
           it.domain,
           it.skuId,
           it.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
           it.type
         )
       }
@@ -330,7 +263,7 @@ class GooglePayWebViewModel @Inject constructor(
           packageName = transactionBuilder.domain,
           skuDetails = transaction.skuId,
           value = transaction.amount().toString(),
-          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          purchaseDetails = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
           transactionType = transaction.type,
           txId = txId,
           valueUsd = transaction.amountUsd.toString()
@@ -353,7 +286,7 @@ class GooglePayWebViewModel @Inject constructor(
           transaction.domain,
           transaction.skuId,
           transaction.amount().toString(),
-          BillingAnalytics.PAYMENT_METHOD_PAYPALV2,
+          BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
           transaction.type,
           errorCode ?: "",
           errorMessage ?: "",
@@ -366,7 +299,7 @@ class GooglePayWebViewModel @Inject constructor(
 
   private fun stopTimingForPurchaseEvent(success: Boolean) {
     paymentAnalytics.stopTimingForPurchaseEvent(
-      PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2,
+      PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB,
       success,
       false
     )

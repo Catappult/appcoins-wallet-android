@@ -102,10 +102,16 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                 is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
                 is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
                 is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
+                )
+                is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
                 )
                 PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
             }

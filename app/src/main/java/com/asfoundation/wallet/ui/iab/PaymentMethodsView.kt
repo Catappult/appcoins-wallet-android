@@ -171,6 +171,6 @@ interface PaymentMethodsView {
     ASK_FRIEND("ask_friend"),
     CHALLENGE_REWARD("challenge_reward"),
     VKPAY("vk_pay"),
-    GOOGLEPAY_WEB("googlepay_web"),
+    GOOGLEPAY_WEB("googlepay"),
   }
 }
