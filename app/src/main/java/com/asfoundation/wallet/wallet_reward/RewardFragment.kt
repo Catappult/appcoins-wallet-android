@@ -228,7 +228,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
           )
         }
-        if (viewModel.promotions.isEmpty()) {
+        if (viewModel.promotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
           Text(
             text = getString(R.string.perks_title),
             fontSize = 14.sp,

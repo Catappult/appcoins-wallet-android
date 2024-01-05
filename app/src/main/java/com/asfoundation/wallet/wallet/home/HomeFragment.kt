@@ -228,18 +228,29 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun PromotionsList() {
-    Text(
-      text = getString(R.string.intro_active_promotions_header),
-      fontSize = 14.sp,
-      fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_dark_grey,
-      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-    )
+    if (viewModel.activePromotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
+      Text(
+        text = getString(R.string.intro_active_promotions_header),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey,
+        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+      )
+    }
+    if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
+      Text(
+        text = getString(R.string.intro_active_promotions_header),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey,
+        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+      )
+    }
     LazyRow(
       contentPadding = PaddingValues(horizontal = 16.dp),
       horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-      if (viewModel.activePromotions.isEmpty()) {
+      if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
         item {
           SkeletonLoadingPromotionCards(hasVerticalList = false)
         }
