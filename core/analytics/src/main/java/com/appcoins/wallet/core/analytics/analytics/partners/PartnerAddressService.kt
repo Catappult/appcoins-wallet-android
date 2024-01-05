@@ -106,7 +106,7 @@ class PartnerAddressService @Inject constructor(
       if (installerService.isPackageInstalled(defaultGamesHubPackage)) {
         //Try to extract OemID if Games Hun installed
         getOemIdFromGamesHub().doOnSuccess {
-          oemIdPreferencesDataSource.setCurrentOemId(it)
+          oemIdPreferencesDataSource.setGamesHubOemIdIndicative(it)
         }
       } else {
         //If Games hub not installed return this text

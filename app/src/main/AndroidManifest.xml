@@ -26,6 +26,7 @@
     <package android:name="com.phonepe.app" />
     <package android:name="in.org.npci.upiapp" />
     <package android:name="id.dana" />
+    <package android:name="com.dti.folderlauncher" />
   </queries>
 
   <application
