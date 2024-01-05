@@ -163,7 +163,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickBackup = { viewModel.onBackupClick() },
         onClickTopUp = { viewModel.onTopUpClick() },
         onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
-        isLoading = viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value
+        isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) || !viewModel.isLoadingTransactions.value
       )
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
@@ -241,7 +241,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     ) {
       if (viewModel.activePromotions.isEmpty()) {
         item {
-          SkeletonLoadingPromotionCard(hasVerticalList = true)
+          SkeletonLoadingPromotionCards(hasVerticalList = false)
         }
       } else {
         items(viewModel.activePromotions) { promotion ->
@@ -387,11 +387,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   private fun setBackup(hasBackup: Async<Boolean>) {
     when (hasBackup) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        // TODO loading
-      }
-
       is Async.Success -> viewModel.showBackup.value = !(hasBackup.value ?: false)
       else -> Unit
     }
@@ -399,11 +394,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   private fun setPromotions(promotionsModel: Async<PromotionsModel>) {
     when (promotionsModel) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        // TODO loading
-      }
-
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -432,7 +422,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
         }
       }
-
       else -> Unit
     }
   }

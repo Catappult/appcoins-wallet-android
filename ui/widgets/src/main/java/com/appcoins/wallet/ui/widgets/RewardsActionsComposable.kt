@@ -3,11 +3,14 @@ package com.appcoins.wallet.ui.widgets
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -116,6 +120,71 @@ fun ActionCard(
   }
 }
 
+
+@Composable
+fun SkeletonLoadingRewardsActionsCard() {
+  val scrollState = rememberScrollState()
+  Row(
+    modifier = Modifier
+      .horizontalScroll(scrollState)
+      .padding(horizontal = 16.dp)
+      .padding(top = 24.dp),
+    horizontalArrangement = Arrangement.spacedBy(8.dp),
+  ) {
+    SkeletonLoadingRewardActionCard()
+    SkeletonLoadingRewardActionCard()
+    SkeletonLoadingRewardActionCard()
+  }
+}
+@Composable
+private fun SkeletonLoadingRewardActionCard() {
+  Card(
+    modifier = Modifier
+      .size(width = 160.dp, height = 208.dp),
+    shape = RoundedCornerShape(8.dp),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+  ) {
+    Column(
+      modifier = Modifier.padding(16.dp),
+      verticalArrangement = Arrangement.spacedBy(16.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      Spacer(
+        modifier = Modifier
+          .height(60.dp)
+          .width(60.dp)
+          .clip(RoundedCornerShape(30.dp))
+          .background(brush = shimmerSkeleton()),
+      )
+      Column( horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(
+          modifier = Modifier
+            .width(width = 110.dp)
+            .height(height = 20.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 16.dp)
+            .width(width = 160.dp)
+            .height(height = 17.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(width = 90.dp)
+            .height(height = 17.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(brush = shimmerSkeleton())
+        )
+      }
+    }
+  }
+}
+
 @Preview
 @Composable
 private fun PreviewRewardsActions() {
@@ -125,4 +194,11 @@ private fun PreviewRewardsActions() {
     { },
     { },
   )
+}
+
+
+@Preview
+@Composable
+private fun PreviewSkeletonRewardsActions() {
+  SkeletonLoadingRewardsActionsCard()
 }

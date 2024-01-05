@@ -74,7 +74,7 @@ private fun CardVerticalItemExample() {
 @Preview
 @Composable
 private fun LoadingPromotionCard() {
-  SkeletonLoadingPromotionCard(hasVerticalList = true)
+  SkeletonLoadingPromotionCards(hasVerticalList = false)
 }
 
 
@@ -362,16 +362,22 @@ fun ImageWithTitleAndDescription(
 }
 
 @Composable
-fun SkeletonLoadingPromotionCard(hasVerticalList: Boolean) {
-  val maxColumnWidth = if (hasVerticalList) 300.dp else 240.dp
-  val horizontalPadding = if (hasVerticalList) 0.dp else 16.dp
+fun SkeletonLoadingPromotionCards(hasVerticalList: Boolean) {
+  SkeletonLoadingPromotionCardItem(hasVerticalList)
+  SkeletonLoadingPromotionCardItem(hasVerticalList)
+  SkeletonLoadingPromotionCardItem(hasVerticalList)
+}
+
+@Composable
+private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
+  val maxColumnWidth = if (hasVerticalList) 320.dp else 300.dp
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     modifier =
     Modifier
       .fillMaxWidth()
       .width(maxColumnWidth)
-      .padding(horizontal = horizontalPadding)
+      .padding(top = 16.dp, start = if (hasVerticalList) 16.dp else 0.dp, end = if (hasVerticalList) 16.dp else 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
     Column( modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
@@ -391,7 +397,7 @@ fun SkeletonLoadingPromotionCard(hasVerticalList: Boolean) {
         ) {
           Spacer(
             modifier = Modifier
-              .width(width = 130.dp)
+              .width(width = 120.dp)
               .height(height = 22.dp)
               .clip(RoundedCornerShape(5.dp))
               .background(brush = shimmerSkeleton()),

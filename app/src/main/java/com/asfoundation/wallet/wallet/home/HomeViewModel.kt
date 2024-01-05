@@ -136,6 +136,7 @@ constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
+  val isLoadingTransactions =  mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
@@ -306,6 +307,7 @@ constructor(
           when (result) {
             is ApiSuccess -> {
               newWallet.value = result.data.isEmpty()
+              isLoadingTransactions.value = true
               _uiState.value =
                 Success(
                   result.data
@@ -318,8 +320,8 @@ constructor(
                     .groupBy { it.date.getDay() })
             }
 
-            is ApiFailure -> {}
-            is ApiException -> {}
+            is ApiFailure -> {isLoadingTransactions.value = true}
+            is ApiException -> {isLoadingTransactions.value = true}
             else -> {}
           }
         }

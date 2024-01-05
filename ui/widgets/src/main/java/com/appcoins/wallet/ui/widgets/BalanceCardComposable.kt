@@ -211,7 +211,7 @@ fun SkeletonLoadingBalanceCard() {
       )
       Spacer(
         modifier = Modifier
-          .padding(top = 14.dp)
+          .padding(top = 8.dp)
           .width(width = 120.dp)
           .height(height = 40.dp)
           .clip(RoundedCornerShape(50.dp))

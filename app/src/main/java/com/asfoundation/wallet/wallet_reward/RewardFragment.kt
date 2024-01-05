@@ -37,7 +37,9 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
+import com.appcoins.wallet.feature.challengereward.data.presentation.ChallengeRewardVisibilityViewModel
 import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
+import com.appcoins.wallet.feature.challengereward.data.presentation.getLoadingStateChallengeReward
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -50,7 +52,8 @@ import com.appcoins.wallet.ui.widgets.GamificationHeaderPartner
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
-import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCard
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
@@ -196,19 +199,23 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderPartner(
               df.format(this.bonusPercentage)
             )
-          } else if (this != null && this.unInitialized) {
+          } else if (this != null && this.uninitialized) {
             SkeletonLoadingGamificationCard()
           }
           else {
             GamificationHeaderNoPurchases()
           }
-          
-          RewardsActions(
-            { navigator.navigateToWithdrawScreen() },
-            { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() },
-            challengeRewardNavigation,
-          )
+          if (getLoadingStateChallengeReward()) {
+            SkeletonLoadingRewardsActionsCard()
+          } else {
+            RewardsActions(
+              { navigator.navigateToWithdrawScreen() },
+              { navigator.showPromoCodeFragment() },
+              { navigator.showGiftCardFragment() },
+              challengeRewardNavigation,
+            )
+          }
+
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
       }
@@ -221,7 +228,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
         )
         if (viewModel.promotions.isEmpty()) {
-          SkeletonLoadingPromotionCard(hasVerticalList = false)
+          SkeletonLoadingPromotionCards(hasVerticalList = true)
         }
       }
       items(viewModel.promotions) { promotion ->
@@ -372,7 +379,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isVip = gamificationStatus == GamificationStatus.VIP,
             isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
             walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
-            unInitialized = false
+            uninitialized = false
           )
       } else {
         viewModel.gamificationHeaderModel.value = null

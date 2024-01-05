@@ -13,7 +13,7 @@ data class GamificationHeaderModel(
   val isVip: Boolean,
   val isMaxVip: Boolean,
   val walletOrigin: WalletOrigin,
-  val unInitialized: Boolean,
+  val uninitialized: Boolean,
 ) {
 
   companion object {
