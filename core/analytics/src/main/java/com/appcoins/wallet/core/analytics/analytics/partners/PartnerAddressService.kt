@@ -109,10 +109,12 @@ class PartnerAddressService @Inject constructor(
           oemIdPreferencesDataSource.setGamesHubOemIdIndicative(it)
         }
       } else {
+        oemIdPreferencesDataSource.setGamesHubOemIdIndicative(GH_NOT_INSTALLED)
         //If Games hub not installed return this text
         Single.just(GH_NOT_INSTALLED)
       }
     } else {
+      oemIdPreferencesDataSource.setGamesHubOemIdIndicative(ghOemIdIndicative)
       Single.just(ghOemIdIndicative)
     }
   }
@@ -120,10 +122,8 @@ class PartnerAddressService @Inject constructor(
   private fun getOemIdFromGamesHub(): Single<String> {
    return oemIdExtractorService.extractOemId(defaultGamesHubPackage)
       .map { gamesHubOemId ->
-        if (gamesHubOemId.isEmpty()) {
+        gamesHubOemId.ifEmpty {
           GH_INSTALLED_WITHOUT_OEMID
-        } else {
-          gamesHubOemId
         }
       }
   }
