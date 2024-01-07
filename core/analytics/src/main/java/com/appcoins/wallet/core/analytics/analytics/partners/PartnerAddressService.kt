@@ -114,7 +114,6 @@ class PartnerAddressService @Inject constructor(
         Single.just(GH_NOT_INSTALLED)
       }
     } else {
-      oemIdPreferencesDataSource.setGamesHubOemIdIndicative(ghOemIdIndicative)
       Single.just(ghOemIdIndicative)
     }
   }
