@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
@@ -20,6 +21,15 @@ class InstallerSourceService @Inject constructor(@ApplicationContext val context
       return Single.just(context.packageManager.getInstallerPackageName(appPackageName) ?: "")
     } catch (e: IllegalArgumentException) {
       return Single.just("")
+    }
+  }
+
+  override fun isPackageInstalled(appPackageName: String): Boolean {
+    return try {
+      context.packageManager.getPackageInfo(appPackageName, 0)
+      true
+    } catch (e: PackageManager.NameNotFoundException) {
+      false
     }
   }
 }

@@ -18,8 +18,13 @@ class OemIdPreferencesDataSource @Inject constructor(
       .putString(CURRENT_OEMID, value)
       .apply()
 
-  fun getCurrentOemId() = sharedPreferences.getString(CURRENT_OEMID, "") ?: ""
+  fun getGamesHubOemIdIndicative() = sharedPreferences.getString(GAMES_HUB_INSTALLED_OEMID, "") ?: ""
+  fun setGamesHubOemIdIndicative(value: String?) =
+    sharedPreferences.edit()
+      .putString(GAMES_HUB_INSTALLED_OEMID, value)
+      .apply()
 
+  fun getCurrentOemId() = sharedPreferences.getString(CURRENT_OEMID, "") ?: ""
   fun setIsGameFromGameshub(value: Boolean) =
     sharedPreferences.edit()
       .putBoolean(IS_GAME_FROM_GAMESHUB_KEY, value)
@@ -57,5 +62,6 @@ class OemIdPreferencesDataSource @Inject constructor(
     private const val CLIENT_SIDE_CACHED_OEMID = "client_side_cached_oemid"
     private const val PACKAGES_CLIENT_SIDE = "packages_client_side"
     private const val LAST_TIMESTAMP_PACKAGES = "last_timestamp_packages"
+    private const val GAMES_HUB_INSTALLED_OEMID = "games_hub"
   }
 }
