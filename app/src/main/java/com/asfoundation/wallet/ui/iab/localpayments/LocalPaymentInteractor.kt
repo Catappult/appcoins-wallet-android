@@ -50,7 +50,7 @@ class LocalPaymentInteractor @Inject constructor(
   ): Single<String> {
     return walletService.getWalletAddress()
       .flatMap { address ->
-        partnerAddressService.getAttributionEntity(packageName)
+        partnerAddressService.getAttribution(packageName)
           .flatMap { attributionEntity ->
             getCurrentPromoCodeUseCase().flatMap { promoCode ->
               remoteRepository.createLocalPaymentTransaction(

@@ -25,7 +25,7 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
-    return partnerAddressService.getAttributionEntity(
+    return partnerAddressService.getAttribution(
       packageName = cachedTransaction.packageName ?: ""
     )
       .flatMap { attributionEntity ->

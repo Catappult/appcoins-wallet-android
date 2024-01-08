@@ -17,8 +17,6 @@ data class PaymentDetails(
   @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
   @SerializedName("payment.return_url") val returnUrl: String,
   @SerializedName("payment.shopper_interaction") val shopperInteraction: String?,
-  @SerializedName("payment.billing_address")
-  val billingAddress: AdyenBillingAddress?,
   @SerializedName("callback_url") val callbackUrl: String?,
   @SerializedName("domain") val domain: String?,
   @SerializedName("metadata") val metadata: String?,

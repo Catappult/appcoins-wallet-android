@@ -187,6 +187,12 @@ class PaymentMethodsPresenter(
               )
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
               CHALLENGE_REWARD -> view.showChallengeReward()
+              SANDBOX -> view.showSandbox(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               else -> return@doOnNext
             }
           }
@@ -312,6 +318,13 @@ class PaymentMethodsPresenter(
         paymentNavigationData.isPreselected
       )
       CHALLENGE_REWARD -> view.showChallengeReward()
+      SANDBOX -> view.showSandbox(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+
       else -> {
         showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -926,6 +939,7 @@ class PaymentMethodsPresenter(
       paymentMethodsMapper.map(MERGED_APPC) -> view.hideBonus()
       paymentMethodsMapper.map(APPC_CREDITS) -> view.hideBonus()
       paymentMethodsMapper.map(CHALLENGE_REWARD) -> view.hideBonus()
+      paymentMethodsMapper.map(SANDBOX) -> view.hideBonus()
       else -> if (paymentMethodsData.subscription) {
         view.showBonus(R.string.subscriptions_bonus_body)
       } else {
@@ -948,18 +962,12 @@ class PaymentMethodsPresenter(
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
-      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) "next" else BillingAnalytics.ACTION_BUY
-    if (interactor.hasPreSelectedPaymentMethod()) {
-      analytics.sendPaymentMethodEvent(
-        paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action
-      )
-    } else {
-      analytics.sendPaymentMethodEvent(
-        paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
-          .toString(), selectedPaymentMethod.id, transaction.type, action
-      )
-    }
+      if (selectedPaymentMethod.id == PaymentMethodId.MERGED_APPC.id) BillingAnalytics.ACTION_NEXT
+      else BillingAnalytics.ACTION_BUY
+    analytics.sendPaymentMethodEvent(
+      paymentMethodsData.appPackage, transaction.skuId, transaction.amount()
+        .toString(), selectedPaymentMethod.id, transaction.type, action
+    )
   }
 
   private fun getPurchases(type: BillingSupportedType): Single<List<Purchase>> =
@@ -1114,6 +1122,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
       PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
+      PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }
@@ -1124,7 +1133,7 @@ class PaymentMethodsPresenter(
     analytics.stopTimingForTotalEvent(paymentMethod)
   }
 
-  private fun handleChallengeRewardWalletAddress(){
+  private fun handleChallengeRewardWalletAddress() {
     disposables.add(
       getWalletInfoUseCase(null, false)
         .subscribeOn(networkThread)

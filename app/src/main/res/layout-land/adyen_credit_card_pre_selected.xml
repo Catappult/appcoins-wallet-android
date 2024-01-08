@@ -67,8 +67,8 @@
           layout="@layout/payment_methods_header"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="19dp"
+          android:layout_marginHorizontal="@dimen/big_margin"
+          android:layout_marginTop="16dp"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -84,9 +84,9 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:layout_marginBottom="4dp"
           android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="@+id/dialog_buy_buttons_payment_methods"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@+id/dialog_buy_buttons_payment_methods"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           tools:visibility="visible"
           />
 
@@ -94,10 +94,9 @@
           android:id="@+id/payment_scroll"
           android:layout_width="0dp"
           android:layout_height="0dp"
-          android:layout_marginStart="16dp"
           android:overScrollMode="never"
           android:scrollbars="none"
-          app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
@@ -114,6 +113,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />
+
           <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/change_card_button_pre_selected"
               android:layout_width="wrap_content"
@@ -128,30 +128,29 @@
               tools:visibility="visible"
               />
 
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
+              android:id="@+id/more_payment_methods"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/small_button_height"
+              android:layout_below="@id/change_card_button_pre_selected"
+              android:layout_alignParentEnd="true"
+              android:layout_marginBottom="@dimen/normal_margin"
+              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+              app:buttonType="text"
+              />
         </RelativeLayout>
       </ScrollView>
-
-      <com.appcoins.wallet.ui.widgets.WalletButtonView
-          android:id="@+id/more_payment_methods"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/small_button_height"
-          android:layout_marginTop="@dimen/normal_margin"
-          android:layout_marginBottom="16dp"
-          app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-          app:buttonType="text"
-          app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
-          app:layout_constraintEnd_toEndOf="parent"
-          />
 
       <View
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="232dp"
           android:background="@color/styleguide_payments_separator"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.8"
           />
 
       <androidx.constraintlayout.widget.Guideline

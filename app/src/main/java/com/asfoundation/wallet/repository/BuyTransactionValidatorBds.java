@@ -33,7 +33,7 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
             paymentTransaction.getTransactionBuilder()));
 
     Single<AttributionEntity> attributionEntity =
-        partnerAddressService.getAttributionEntity(packageName);
+        partnerAddressService.getAttribution(packageName);
 
     return Single.zip(getTransactionHash, attributionEntity,
         (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),

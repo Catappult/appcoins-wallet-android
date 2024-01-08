@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.gameshub.GamesHubBroadcastService
+import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
@@ -11,6 +12,7 @@ import javax.inject.Inject
 class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,
+  private val oemIdPreferencesDataSource: OemIdPreferencesDataSource,
 ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
@@ -86,6 +88,7 @@ class BillingAnalytics @Inject constructor(
     eventData[EVENT_VALUE] = value
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] =
       true
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, REVENUE, AnalyticsManager.Action.IMPRESSION, WALLET)
   }
 
@@ -97,6 +100,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(
       eventData, WALLET_PRESELECTED_PAYMENT_METHOD, AnalyticsManager.Action.CLICK,
       WALLET
@@ -111,6 +115,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, WALLET_PAYMENT_METHOD, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -122,6 +127,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails, transactionType,
       action, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(
       eventData, WALLET_PAYMENT_CONFIRMATION, AnalyticsManager.Action.CLICK,
       WALLET
@@ -141,6 +147,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     eventData[EVENT_ERROR_CODE] = errorCode
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
@@ -159,6 +166,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     eventData[EVENT_ERROR_CODE] = errorCode
     eventData[EVENT_ERROR_DETAILS] = errorDetails
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
@@ -173,6 +181,7 @@ class BillingAnalytics @Inject constructor(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_FAIL, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     eventData[EVENT_ERROR_CODE] = errorCode
     errorDetails?.let { eventData[EVENT_ERROR_DETAILS] = errorDetails }
     riskRules?.let { eventData[EVENT_CODE_RISK_RULES] = riskRules }
@@ -184,7 +193,7 @@ class BillingAnalytics @Inject constructor(
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
     txId: String, valueUsd: String
   ) {
-    val eventData: Map<String, Any?> = createConclusionWalletEventMap(
+    val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_SUCCESS, isOnboardingPayment
     )
@@ -196,7 +205,7 @@ class BillingAnalytics @Inject constructor(
       usdAmount = valueUsd,
       appcAmount = value
     )
-
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -204,10 +213,11 @@ class BillingAnalytics @Inject constructor(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean
   ) {
-    val eventData: Map<String, Any?> = createConclusionWalletEventMap(
+    val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
       packageName, skuDetails, value, purchaseDetails,
       transactionType, EVENT_PENDING, isOnboardingPayment
     )
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -257,6 +267,7 @@ class BillingAnalytics @Inject constructor(
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_PAYPAL_TYPE] = type
     eventData[EVENT_RESULT_CODE] = resultCode
+    eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     if (url?.length!! > MAX_CHARACTERS) {
       eventData[EVENT_URL] = url.substring(url.length - MAX_CHARACTERS)
     } else {
@@ -264,22 +275,6 @@ class BillingAnalytics @Inject constructor(
     }
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, WALLET_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
-  }
-
-  fun sendBillingAddressActionEvent(
-    packageName: String,
-    skuDetails: String,
-    value: String,
-    purchaseDetails: String,
-    transactionType: String,
-    action: String,
-    isOnboardingPayment: Boolean = false
-  ) {
-    val eventData = createBaseWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails, transactionType,
-      action, isOnboardingPayment
-    )
-    analytics.logEvent(eventData, WALLET_PAYMENT_BILLING, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   private fun createBaseWalletEventMap(
@@ -290,7 +285,7 @@ class BillingAnalytics @Inject constructor(
     transactionType: String?,
     action: String,
     isOnboardingPayment: Boolean = false
-  ): Map<String, Any?> {
+  ): MutableMap<String, Any?> {
     val eventData: MutableMap<String, Any?> = HashMap()
     eventData[EVENT_PACKAGE_NAME] = packageName
     eventData[EVENT_SKU] = skuDetails
@@ -334,6 +329,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
     const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
+    const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"
@@ -363,8 +359,10 @@ class BillingAnalytics @Inject constructor(
     private const val EVENT_RESULT_CODE = "result_code"
     private const val EVENT_URL = "url"
     private const val EVENT_ONBOARDING_PAYMENT = "onboarding_payment"
+    private const val EVENT_OEMID = "oem_id"
     private const val MAX_CHARACTERS = 100
     const val ACTION_BUY = "buy"
+    const val ACTION_NEXT = "next"
     const val ACTION_CANCEL = "cancel"
     const val ACTION_BACK = "back"
   }

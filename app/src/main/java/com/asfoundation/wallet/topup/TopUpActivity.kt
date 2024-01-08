@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.topup
 
-import android.R.attr.fragment
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -8,9 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -25,7 +22,6 @@ import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
-import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
@@ -188,24 +184,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
         )
       )
       .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
-      .commit()
-  }
-
-  override fun navigateToBillingAddress(
-    topUpData: TopUpPaymentData, fiatAmount: String,
-    fiatCurrency: String, targetFragment: Fragment,
-    shouldStoreCard: Boolean, preSelected: Boolean
-  ) {
-    val fragment = BillingAddressTopUpFragment.newInstance(
-      topUpData, fiatAmount, fiatCurrency,
-      shouldStoreCard, preSelected
-    )
-      .apply {
-        setTargetFragment(targetFragment, BILLING_ADDRESS_REQUEST_CODE)
-      }
-    supportFragmentManager.beginTransaction()
-      .add(R.id.fragment_container, fragment)
-      .addToBackStack(BillingAddressTopUpFragment::class.java.simpleName)
       .commit()
   }
 

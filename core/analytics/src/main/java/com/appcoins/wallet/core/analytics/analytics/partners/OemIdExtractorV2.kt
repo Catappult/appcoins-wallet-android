@@ -13,24 +13,25 @@ import java.io.File
 import javax.inject.Inject
 
 @BoundTo(supertype = IExtractOemId::class)
-class OemIdExtractorV2 @Inject constructor(@ApplicationContext private val context: Context,
-                                           private val extractor: IExtract,
-                                           private val sharedPreferences: OemIdPreferencesDataSource
-                                           ) : IExtractOemId {
+class OemIdExtractorV2 @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val extractor: IExtract,
+  private val sharedPreferences: OemIdPreferencesDataSource
+) : IExtractOemId {
 
   override fun extract(packageName: String): Single<String> {
     return Single.fromCallable {
       getPackageName(context, packageName)
     }
-        .flatMap { sourceDir ->
-          Single.fromCallable {
-            extractor.extract(
-                File(sourceDir),
-              if (BuildConfig.DEBUG) Environment.DEVELOPMENT else Environment.PRODUCTION,
-              ExtractorCache(sharedPreferences)
-            )
-          }
+      .flatMap { sourceDir ->
+        Single.fromCallable {
+          extractor.extract(
+            File(sourceDir),
+            if (BuildConfig.DEBUG) Environment.DEVELOPMENT else Environment.PRODUCTION,
+            ExtractorCache(sharedPreferences)
+          )
         }
+      }
       .map {
         it.split(",")[0]
       }
@@ -38,8 +39,7 @@ class OemIdExtractorV2 @Inject constructor(@ApplicationContext private val conte
 
   class ExtractorCache(private val sharedPreferences: OemIdPreferencesDataSource) :
     IExtractorCache {
-    override fun put(key: String?, value: String?) = sharedPreferences.putOemId(key, value)
-
-    override fun get(key: String?) = sharedPreferences.getOemId(key) ?: ""
+    override fun put(key: String?, value: String?) = sharedPreferences.putOemIdCache(key, value)
+    override fun get(key: String?) = sharedPreferences.getOemIdCache(key) ?: ""
   }
 }

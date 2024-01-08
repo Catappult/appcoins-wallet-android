@@ -22,7 +22,7 @@ class CreatePaypalTransactionUseCase @Inject constructor(
     referrerUrl: String?
   ): Single<PaypalTransaction> {
     return Single.zip(walletService.getWalletAddress(),
-      partnerAddressService.getAttributionEntity(packageName),
+      partnerAddressService.getAttribution(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
         val address = pair.first

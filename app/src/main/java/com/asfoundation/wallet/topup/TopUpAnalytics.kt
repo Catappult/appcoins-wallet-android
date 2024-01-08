@@ -99,21 +99,6 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     )
   }
 
-  fun sendBillingAddressActionEvent(
-    value: Double,
-    paymentMethod: String,
-    action: String
-  ) {
-    val map = topUpBaseMap(value, paymentMethod)
-
-    map[ACTION] = action
-
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
-  }
-
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
     val map = HashMap<String, Any>()
 

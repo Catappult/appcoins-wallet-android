@@ -24,7 +24,7 @@ class GetPaymentLinkUseCase @Inject constructor(
     ) : Single<Transaction> {
         return walletService.getWalletAddress()
             .flatMap { address ->
-                partnerAddressService.getAttributionEntity(packageName)
+                partnerAddressService.getAttribution(packageName)
                     .flatMap { attributionEntity ->
                         getCurrentPromoCodeUseCase().flatMap { promoCode ->
                             remoteRepository.createLocalPaymentTransaction(paymentType, packageName,

@@ -151,6 +151,14 @@ class BackendApiModule {
 
   @Singleton
   @Provides
+  fun providesCachedBackupApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): CachedBackupApi {
+    return retrofit.create(CachedBackupApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesBackupLogApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): BackupLogApi {
@@ -183,6 +191,14 @@ class BackendApiModule {
 
   @Singleton
   @Provides
+  fun provideCachedGuestWalletApi(
+    @BackendShortTimeoutRetrofit retrofit: Retrofit
+  ): CachedGuestWalletApi {
+    return retrofit.create(CachedGuestWalletApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun provideWithdrawApi(
     @BackendDefaultRetrofit retrofit: Retrofit
   ): WithdrawApi {
@@ -203,5 +219,13 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): GamesApi {
     return retrofit.create(GamesApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesPartnerAttributionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): PartnerAttributionApi {
+    return retrofit.create(PartnerAttributionApi::class.java)
   }
 }

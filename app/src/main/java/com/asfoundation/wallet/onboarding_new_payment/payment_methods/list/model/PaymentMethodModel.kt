@@ -66,6 +66,9 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.GIROPAY -> {
         clickListener?.invoke(PaymentMethodClick.GiroPayAdyenClick)
       }
+      PaymentMethodsView.SelectedPaymentMethod.SANDBOX -> {
+        clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
+      }
       PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD -> {
         clickListener?.invoke(PaymentMethodClick.ChallengeRewardClick)
       }

@@ -110,7 +110,7 @@ class CarrierVerifyPresenter(
             data.domain,
             data.skuId, data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
             data.transactionType,
-            "next"
+            BillingAnalytics.ACTION_NEXT
           )
         }
         .flatMap { phoneNumber ->

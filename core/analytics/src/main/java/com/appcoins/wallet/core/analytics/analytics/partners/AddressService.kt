@@ -7,5 +7,7 @@ interface AddressService {
 
   fun getOemAddress(suggestedOemAddress: String?): String
 
-  fun getAttributionEntity(packageName: String): Single<AttributionEntity>
+  fun getAttribution(packageName: String): Single<AttributionEntity>
+
+  fun getAttributionClientCache(packageName: String): Single<AttributionEntity>
 }

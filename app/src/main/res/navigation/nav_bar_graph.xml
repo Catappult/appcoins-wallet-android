@@ -30,6 +30,12 @@
       android:id="@+id/action_navigate_to_first_payment_fragment"
       app:destination="@id/onboarding_payment_fragment" />
 
+  <action
+      android:id="@+id/action_navigate_to_recover_guest_wallet"
+      app:destination="@id/onboarding_graph"
+      app:popUpTo="@+id/splash_extender_fragment"
+      app:popUpToInclusive="true" />
+
   <fragment
       android:id="@+id/onboarding_gp_install_fragment"
       android:name="com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallFragment"

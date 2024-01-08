@@ -18,7 +18,7 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
 
   open fun mapErrorInfo(httpCode: Int?, message: String?): ErrorInfo {
     val messageGson = gson.fromJson(message, ResponseErrorBaseBody::class.java)
-    val errorType = getErrorType(httpCode, messageGson.code, messageGson.text, messageGson.data)
+    val errorType = getErrorType(httpCode, messageGson.code, messageGson.data)
     return ErrorInfo(httpCode, messageGson.code, messageGson.text, errorType)
   }
 
@@ -32,11 +32,9 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
 
   private fun getErrorType(
     httpCode: Int?, messageCode: String?,
-    text: String?, data: Any?
+    data: Any?
   ): ErrorInfo.ErrorType {
     return when {
-      httpCode != null && httpCode == 400 && messageCode == FIELDS_MISSING_CODE
-          && text?.contains("payment.billing") == true -> ErrorInfo.ErrorType.BILLING_ADDRESS
       messageCode == NOT_ALLOWED_CODE -> ErrorInfo.ErrorType.SUB_ALREADY_OWNED
       messageCode == FORBIDDEN_CODE -> ErrorInfo.ErrorType.BLOCKED
       httpCode == CONFLICT_HTTP_CODE -> ErrorInfo.ErrorType.CONFLICT
