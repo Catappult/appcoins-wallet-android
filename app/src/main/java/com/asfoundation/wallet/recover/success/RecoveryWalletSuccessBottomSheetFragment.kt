@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.recover.success
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,11 +14,13 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.asf.wallet.databinding.RecoveryWalletSuccessBottomSheetLayoutBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,11 +57,17 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     views.recoveryWalletBottomButton.setOnClickListener {
       if (requireArguments().getSerializable(IS_FROM_ONBOARDING) as Boolean) {
-        navigator.navigateToNavBarGraph(navController())
+        restart(requireContext())
       } else {
         navigator.navigateBack()
+        dismiss()
       }
-      dismiss()
+    }
+  }
+
+  private fun restart(context: Context) {
+    lifecycleScope.launch {
+      AppUtils.restartApp(context)
     }
   }
 
