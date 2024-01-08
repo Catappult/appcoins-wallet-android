@@ -59,7 +59,8 @@ fun BalanceCard(
         onClickBackup = onClickBackup,
         onClickMenuOptions = onClickMenuOptions,
         showBackup = showBackup,
-        newWallet = newWallet
+        newWallet = newWallet,
+        isLoading = isLoading
       )
     } else if (isLoading) {
       SkeletonLoadingBalanceCard()
