@@ -456,6 +456,9 @@ constructor(
   fun isLoadingOrIdleBalanceState(): Boolean {
     return _uiBalanceState.value == UiBalanceState.Loading || _uiBalanceState.value == UiBalanceState.Idle
   }
+  fun isLoadingOrIdlePromotionState(): Boolean {
+    return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
+  }
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState
