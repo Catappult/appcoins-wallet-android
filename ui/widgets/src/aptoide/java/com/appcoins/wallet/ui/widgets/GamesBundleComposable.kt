@@ -27,15 +27,13 @@ fun GamesBundle(
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
-  if (items.isNotEmpty()) {
-    Text(
-      text = stringResource(id = R.string.home_appcoins_compatible_games_title),
-      fontSize = 14.sp,
-      fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_dark_grey,
-      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-    )
-  }
+  Text(
+    text = stringResource(id = R.string.home_appcoins_compatible_games_title),
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold,
+    color = WalletColors.styleguide_dark_grey,
+    modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+  )
   LazyRow(
     modifier = Modifier.padding(
       top = 16.dp
@@ -45,13 +43,6 @@ fun GamesBundle(
   ) {
     if (items.isEmpty()) {
       item {
-        Text(
-          text = stringResource(id = R.string.home_appcoins_compatible_games_title),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-        )
         SkeletonLoadingGamesBundleCard()
       }
     } else {
