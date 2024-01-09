@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -46,7 +47,8 @@ fun BalanceCard(
   onClickBackup: () -> Unit,
   onClickMenuOptions: () -> Unit,
   showBackup: Boolean = true,
-  newWallet: Boolean = true
+  newWallet: Boolean = true,
+  isLoading: Boolean = true,
 ) {
   BoxWithConstraints {
     if (expanded()) {
@@ -57,8 +59,11 @@ fun BalanceCard(
         onClickBackup = onClickBackup,
         onClickMenuOptions = onClickMenuOptions,
         showBackup = showBackup,
-        newWallet = newWallet
+        newWallet = newWallet,
+        isLoading = isLoading
       )
+    } else if (isLoading) {
+      SkeletonLoadingBalanceCard()
     } else {
       Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
@@ -171,6 +176,53 @@ fun TotalBalance(
 }
 
 @Composable
+fun SkeletonLoadingBalanceCard() {
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .padding(top = 16.dp, bottom = 0.dp, start = 16.dp, end = 16.dp)
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Column(modifier = Modifier.padding(32.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+      Spacer(
+        modifier = Modifier
+          .padding(top = 16.dp)
+          .width(width = 250.dp)
+          .height(height = 30.dp)
+          .clip(RoundedCornerShape(5.dp))
+          .background(brush = shimmerSkeleton()),
+      )
+      Spacer(
+        modifier = Modifier
+          .padding(top = 16.dp)
+          .width(width = 350.dp)
+          .height(height = 22.dp)
+          .clip(RoundedCornerShape(5.dp))
+          .background(brush = shimmerSkeleton()),
+      )
+      Spacer(
+        modifier = Modifier
+          .padding(bottom = 16.dp, top = 2.dp)
+          .width(width = 270.dp)
+          .height(height = 22.dp)
+          .clip(RoundedCornerShape(5.dp))
+          .background(brush = shimmerSkeleton()),
+      )
+      Spacer(
+        modifier = Modifier
+          .padding(top = 8.dp)
+          .width(width = 120.dp)
+          .height(height = 40.dp)
+          .clip(RoundedCornerShape(50.dp))
+          .background(brush = shimmerSkeleton())
+      )
+    }
+  }
+}
+
+@Composable
 fun BalanceItem(icon: Int, currencyName: Int, balance: String) {
   Card(
     colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
@@ -251,7 +303,8 @@ fun PreviewBalanceCard() {
     onClickTopUp = {},
     onClickMenuOptions = {},
     showBackup = true,
-    newWallet = false
+    newWallet = false,
+    isLoading = false
   )
 }
 
@@ -265,7 +318,8 @@ fun PreviewBalanceCardWithoutBackup() {
     onClickTopUp = {},
     onClickMenuOptions = {},
     showBackup = false,
-    newWallet = false
+    newWallet = false,
+    isLoading = false
   )
 }
 
@@ -279,7 +333,8 @@ fun PreviewNewWalletBalanceCard() {
     onClickTopUp = {},
     onClickMenuOptions = {},
     showBackup = true,
-    newWallet = true
+    newWallet = true,
+    isLoading = false
   )
 }
 
@@ -301,4 +356,9 @@ fun PreviewBalanceItems() {
     BalanceItem(R.drawable.ic_appc_c_token, R.string.appc_credits_token_name, "5244 APPC-C")
     BalanceItem(R.drawable.ic_eth_token, R.string.ethereum_token_name, "5244 ETH")
   }
+}
+@Preview
+@Composable
+fun PreviewSkeletonLoading() {
+  SkeletonLoadingBalanceCard()
 }
