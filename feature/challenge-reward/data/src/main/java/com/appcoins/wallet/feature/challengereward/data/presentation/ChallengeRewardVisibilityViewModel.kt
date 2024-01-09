@@ -17,6 +17,7 @@ class ChallengeRewardVisibilityViewModel(
   private val navigation: () -> Unit,
 ) : ViewModel() {
   private val viewModelState = MutableStateFlow<(() -> Unit)?>(null)
+  val isLoadingChallengerRewardCard = MutableStateFlow(true)
 
   val uiState = viewModelState
     .stateIn(
@@ -36,7 +37,9 @@ class ChallengeRewardVisibilityViewModel(
       }
         .subscribeOn(Schedulers.io())
         .subscribe(
-          { value -> viewModelState.update { value } },
+          { value ->
+            viewModelState.update { value }
+            isLoadingChallengerRewardCard.value = false},
           { Log.e("ChallengeReward", "Failed loading Payment Methods", it) }
         )
     }

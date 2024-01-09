@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,8 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -129,9 +132,11 @@ fun TransactionCard(
 
 @Composable
 fun TransactionSeparator(text: String) {
-  Row(modifier = Modifier
-    .fillMaxWidth()
-    .padding(top = 16.dp, bottom = 8.dp, start = 8.dp)) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 16.dp, bottom = 8.dp, start = 8.dp)
+  ) {
     Text(
       text = text,
       color = styleguide_dark_grey,
@@ -346,6 +351,117 @@ fun IconTextButton(text: String, iconId: Int, onClick: () -> Unit = {}) {
   }
 }
 
+@Composable
+fun SkeletonLoadingTransactionCard() {
+  Card(
+    colors = CardDefaults.cardColors(styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()) {
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(46.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Row(verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.SpaceBetween,
+          modifier = Modifier.fillMaxWidth()) {
+          Spacer(
+            modifier = Modifier
+              .width(width = 170.dp)
+              .height(height = 22.dp)
+              .padding(start = 8.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 90.dp)
+              .height(height = 22.dp)
+              .padding(end = 16.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+      }
+    }
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()) {
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(46.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Row(verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.SpaceBetween,
+          modifier = Modifier.fillMaxWidth()) {
+          Spacer(
+            modifier = Modifier
+              .width(width = 170.dp)
+              .height(height = 22.dp)
+              .padding(start = 8.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 90.dp)
+              .height(height = 22.dp)
+              .padding(end = 16.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+      }
+    }
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()) {
+        Spacer(
+          modifier = Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(46.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Row(verticalAlignment = Alignment.CenterVertically,
+          horizontalArrangement = Arrangement.SpaceBetween,
+          modifier = Modifier.fillMaxWidth()) {
+          Spacer(
+            modifier = Modifier
+              .width(width = 170.dp)
+              .height(height = 22.dp)
+              .padding(start = 8.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 90.dp)
+              .height(height = 22.dp)
+              .padding(end = 16.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+      }
+    }
+  }
+}
+
 @Preview
 @Composable
 fun PreviewTransactionCardHeader() {
@@ -407,4 +523,10 @@ fun PreviewTransactionSeparator() {
 @Composable
 fun PreviewDownloadButton() {
   IconTextButton(text = "Download", R.drawable.ic_download)
+}
+
+@Preview
+@Composable
+private fun LoadingTransactionCard() {
+  SkeletonLoadingTransactionCard()
 }

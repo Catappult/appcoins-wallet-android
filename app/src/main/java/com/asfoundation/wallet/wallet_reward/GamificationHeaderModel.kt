@@ -12,5 +12,24 @@ data class GamificationHeaderModel(
   val bonusPercentage: Double,
   val isVip: Boolean,
   val isMaxVip: Boolean,
-  val walletOrigin: WalletOrigin
-)
+  val walletOrigin: WalletOrigin,
+  val uninitialized: Boolean,
+) {
+
+  companion object {
+    fun emptySkeletonLoadingState() : GamificationHeaderModel {
+      return GamificationHeaderModel(
+        123,
+        null,
+        "",
+        1234,
+        null,
+        1.0,
+        false,
+        false,
+        WalletOrigin.UNKNOWN,
+        true
+      )
+    }
+  }
+}

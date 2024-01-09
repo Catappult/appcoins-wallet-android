@@ -52,7 +52,7 @@ class RewardViewModel @Inject constructor(
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
-  val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(null)
+  val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
   val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
 
@@ -107,5 +107,9 @@ class RewardViewModel @Inject constructor(
   fun sendChallengeRewardEvent(flowPath: ChallengeRewardFlowPath) {
     challengeRewardAnalytics.sendChallengeRewardEvent(flowPath.id)
     ChallengeRewardManager.onNavigate()
+  }
+
+  fun isLoadingOrIdlePromotionState(): Boolean {
+    return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
   }
 }

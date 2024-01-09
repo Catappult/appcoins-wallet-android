@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -26,21 +27,25 @@ fun GamesBundle(
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
-  if (items.isNotEmpty()) {
-    Text(
-      text = stringResource(id = R.string.home_appcoins_compatible_games_title),
-      fontSize = 14.sp,
-      fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_dark_grey,
-      modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-    )
-    LazyRow(
-      modifier = Modifier.padding(
-        top = 16.dp
-      ),
-      contentPadding = PaddingValues(horizontal = 16.dp),
-      horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
+  Text(
+    text = stringResource(id = R.string.home_appcoins_compatible_games_title),
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Bold,
+    color = WalletColors.styleguide_dark_grey,
+    modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+  )
+  LazyRow(
+    modifier = Modifier.padding(
+      top = 16.dp
+    ),
+    contentPadding = PaddingValues(horizontal = 16.dp),
+    horizontalArrangement = Arrangement.spacedBy(16.dp)
+  ) {
+    if (items.isEmpty()) {
+      item {
+        SkeletonLoadingGamesBundleCard()
+      }
+    } else {
       items(items) { item ->
         CardItem(gameCardData = item)
       }
@@ -163,6 +168,62 @@ data class GameData(
   val actionUrl: String?
 )
 
+@Composable
+fun SkeletonLoadingGamesBundleCard() {
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .clip(shape = RoundedCornerShape(8.dp))
+      .width(332.dp)
+      .height(150.dp)
+  ) {
+    Box(
+      modifier = Modifier.fillMaxSize()
+    ) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+      ) {
+        Spacer(
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(130.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+      }
+      Box(
+        modifier = Modifier
+          .align(Alignment.BottomStart)
+          .background(WalletColors.styleguide_blue_secondary)
+      ) {
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          verticalAlignment = Alignment.Bottom
+        ) {
+          Spacer(
+            modifier = Modifier
+              .padding(top = 8.dp, bottom = 8.dp, start = 8.dp)
+              .size(62.dp)
+              .clip(RoundedCornerShape(12.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 170.dp)
+              .height(height = 30.dp)
+              .padding(start = 8.dp, bottom = 8.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+      }
+    }
+  }
+}
+
 @Preview
 @Composable
 fun PreviewGamesBundle() {
@@ -185,4 +246,10 @@ fun PreviewGamesBundle() {
     ),
     {}
   )
+}
+
+@Preview
+@Composable
+fun PreviewSkeletonLoadingGamesBundle() {
+  SkeletonLoadingGamesBundleCard()
 }
