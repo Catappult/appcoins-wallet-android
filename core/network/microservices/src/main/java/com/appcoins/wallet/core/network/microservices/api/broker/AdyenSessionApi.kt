@@ -14,7 +14,7 @@ interface AdyenSessionApi {
   fun createSessionTransaction(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
-    @Body sessionPaymentDetails: SessionPaymentDetails
+    @Body sessionPaymentDetails: SessionPaymentDetails,
   ): Single<AdyenSessionResponse>
 
 }

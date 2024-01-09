@@ -8,6 +8,7 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayUrls
 import io.reactivex.Single
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -38,13 +39,16 @@ class GooglePayWebRepository @Inject constructor(
     entityDomain: String?,
     entityPromoCode: String?,
     userWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    returnUrl: String,
   ): Single<GooglePayWebTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io).flatMap { ewt ->
       adyenSessionbApi.createSessionTransaction(
           walletAddress = walletAddress,
           authorization = ewt,
           sessionPaymentDetails = SessionPaymentDetails(
+            returnUrl = returnUrl,
+            channel = "ANDROID",
             callbackUrl = callbackUrl,
             domain = packageName,
             metadata = metadata,
@@ -64,7 +68,12 @@ class GooglePayWebRepository @Inject constructor(
           )
         ).map { response: AdyenSessionResponse ->
             GooglePayWebTransaction(
-              response.uid, response.hash, response.status, response.mapValidity()
+              uid = response.uid,
+              hash = response.hash,
+              status = response.status,
+              validity = response.mapValidity(),
+              sessionId = response.session?.id,
+              sessionData = response.session?.sessionData,
             )
           }.onErrorReturn {
             val httpException = (it as? HttpException)
@@ -72,6 +81,13 @@ class GooglePayWebRepository @Inject constructor(
             val errorContent = httpException?.response()?.errorBody()?.string()
             handleCreateTransactionErrorCodes(errorCode, errorContent)
           }
+      }
+  }
+
+  fun getGooglePayUrl(): Single<GooglePayUrls> {
+    return brokerBdsApi.getGooglePayUrls()
+      .map {
+        GooglePayUrls(it.url, it.returnUrl)
       }
   }
 

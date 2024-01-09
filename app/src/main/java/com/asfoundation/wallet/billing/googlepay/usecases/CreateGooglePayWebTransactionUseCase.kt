@@ -21,7 +21,8 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
     origin: String?, packageName: String, metadata: String?, method: String,
     sku: String?, callbackUrl: String?, transactionType: String,
     developerWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    returnUrl: String,
   ): Single<GooglePayWebTransaction> {
     return Single.zip(walletService.getWalletAddress(),
       partnerAddressService.getAttribution(packageName),
@@ -47,7 +48,8 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
             userWallet = address,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            returnUrl = returnUrl,
           )
         }
       }

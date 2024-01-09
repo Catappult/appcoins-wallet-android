@@ -48,6 +48,9 @@ interface BrokerBdsApi {
     @Query("wallet.address") walletAddress: String?
   ): Single<GetMethodsResponse>
 
+  @GET("8.20231001/methods/googlepay/properties")
+  fun getGooglePayUrls(): Single<GetGooglePayUrlResponse>
+
   @FormUrlEncoded
   @PATCH("8.20200810/gateways/{gateway}/transactions/{uid}")
   fun patchTransaction(

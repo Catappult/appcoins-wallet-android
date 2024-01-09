@@ -5,6 +5,8 @@ data class GooglePayWebTransaction(
   val hash: String?,
   val status: TransactionStatus?,
   val validity: GooglePayWebValidityState?,
+  val sessionId: String?,
+  val sessionData: String?,
   val errorCode: String? = null,
   val errorMessage: String? = null
 ) {

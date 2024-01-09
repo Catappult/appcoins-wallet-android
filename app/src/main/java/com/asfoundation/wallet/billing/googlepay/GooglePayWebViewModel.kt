@@ -26,7 +26,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GooglePayWebViewModel @Inject constructor(
+  private val getGooglePayUrlUseCase: GetGooglePayUrlUseCase,
   private val createGooglePayWebTransactionUseCase: CreateGooglePayWebTransactionUseCase,
+  private val buildGooglePayUrlUseCase: BuildGooglePayUrlUseCase,
 //  private val waitForSuccessGooglePayWebUseCase: WaitForSuccessGooglePayWebUseCase, // TODO
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,  //TODO check
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
@@ -54,16 +56,44 @@ class GooglePayWebViewModel @Inject constructor(
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
 
+  var uid: String? = null
+
   fun startPayment(
     createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
     transactionBuilder: TransactionBuilder, origin: String?
   ) {
     sendPaymentConfirmationEvent(transactionBuilder)
-    createTransaction(
-      amount = amount,
-      currency = currency,
-      transactionBuilder = transactionBuilder,
-      origin = origin
+    compositeDisposable.add(
+      getGooglePayUrlUseCase()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMap { urls ->
+          createTransaction(
+            amount = amount,
+            currency = currency,
+            transactionBuilder = transactionBuilder,
+            origin = origin,
+            returnUrl = urls.returnUrl, // "https://wallet.dev.appcoins.io/app/googlepay/checkout",
+          )
+            .map { transaction ->
+              uid = transaction.uid
+              val googlePayUrl = buildGooglePayUrlUseCase(
+                url = urls.url,
+                sessionId = transaction.sessionId ?: "",
+                sessionData = transaction.sessionData ?: "",
+                isDarkMode = false,
+              )
+              _state.postValue(State.WebViewAuthentication(googlePayUrl))
+            }
+        }
+        .subscribe({}, {
+          Log.d(TAG, it.toString())
+          sendPaymentErrorEvent(
+            errorMessage = "GooglePayWeb transaction error.",
+            transactionBuilder = transactionBuilder
+          )
+          _state.postValue(State.Error(R.string.purchase_error_paypal))  // TODO new error string
+        })
     )
   }
 
@@ -71,22 +101,23 @@ class GooglePayWebViewModel @Inject constructor(
    amount: BigDecimal,
    currency: String,
    transactionBuilder: TransactionBuilder,
-   origin: String?
-  ) {
-    compositeDisposable.add(
-      createGooglePayWebTransactionUseCase(
+   origin: String?,
+   returnUrl: String,
+  ): Single<GooglePayWebTransaction> {
+      return createGooglePayWebTransactionUseCase(
         value = (amount.toString()),
         currency = currency,
         reference = transactionBuilder.orderReference,
         origin = origin,
         packageName = transactionBuilder.domain,
         metadata = transactionBuilder.payload,
-        method = PaymentType.GOOGLEPAY_WEB.name,
+        method = PaymentType.GOOGLEPAY_WEB.subTypes[0],
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
         developerWallet = transactionBuilder.toAddress(),
-        referrerUrl = transactionBuilder.referrerUrl
+        referrerUrl = transactionBuilder.referrerUrl,
+        returnUrl = returnUrl,
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -116,15 +147,6 @@ class GooglePayWebViewModel @Inject constructor(
             }
           }
         }
-        .subscribe({}, {
-          Log.d(TAG, it.toString())
-          sendPaymentErrorEvent(
-            errorMessage = "GooglePayWeb transaction error.",
-            transactionBuilder = transactionBuilder
-          )
-          _state.postValue(State.Error(R.string.purchase_error_paypal))  // TODO new error string
-        })
-    )
   }
 
   private fun waitForSuccess(
