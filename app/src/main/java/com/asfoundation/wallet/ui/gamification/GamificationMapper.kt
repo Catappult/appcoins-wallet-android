@@ -58,26 +58,6 @@ class GamificationMapper @Inject constructor(@ApplicationContext private val con
           getColor(R.color.gamification_blue),
           getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_neptune),
           getString(R.string.gamif_quote_neptune))
-      10 -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple),
-          getColor(R.color.gamification_purple),
-          getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
-          getString(R.string.gamif_quote_planetx))
-      11 -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_green),
-          getColor(R.color.gamification_green),
-          getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
-          getString(R.string.gamif_quote_planetx))
-      12 -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_brown),
-          getColor(R.color.gamification_brown),
-          getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
-          getString(R.string.gamif_quote_planetx))
-      13 -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_blue),
-          getColor(R.color.gamification_light_blue),
-          getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
-          getString(R.string.gamif_quote_planetx))
-      14 -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_red),
-          getColor(R.color.gamification_dark_red),
-          getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
-          getString(R.string.gamif_quote_planetx))
       else -> CurrentLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple),
           getColor(R.color.gamification_purple),
           getFullString(R.string.gamif_card_title, R.string.gamif_placeholder_unknown),
@@ -117,24 +97,11 @@ class GamificationMapper @Inject constructor(@ApplicationContext private val con
       9 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_neptune_reached),
           getFullString(R.string.gamif_achievement_reach, R.string.gamif_placeholder_neptune),
           getString(R.string.gamif_distance_neptune))
-      10 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getUnknownPlanetString(10),
-          getString(R.string.gamif_distance_unkown))
-      11 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_green_reached),
-          getUnknownPlanetString(11),
-          getString(R.string.gamif_distance_unkown))
-      12 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_brown_reached),
-          getUnknownPlanetString(12),
-          getString(R.string.gamif_distance_unkown))
-      13 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_blue_reached),
-          getUnknownPlanetString(13),
-          getString(R.string.gamif_distance_unkown))
-      14 -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_red_reached),
-          getUnknownPlanetString(14),
-          getString(R.string.gamif_distance_unkown))
-      else -> ReachedLevelInfo(getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
-          getUnknownPlanetString(15),
-          getString(R.string.gamif_distance_unkown))
+      else -> ReachedLevelInfo(
+        getDrawable(R.drawable.gamification_unknown_planet_purple_reached),
+        getUnknownPlanetString(level),
+        getString(R.string.gamif_distance_unkown)
+      )
     }
   }
 
