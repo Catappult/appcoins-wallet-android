@@ -6,8 +6,9 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:theme="@style/MaterialAppTheme"
-    android:background="@drawable/rounded_dialog_black"
+    android:background="@drawable/rounded_dialog_dark"
     >
+
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/success_animation"
       android:layout_width="80dp"
