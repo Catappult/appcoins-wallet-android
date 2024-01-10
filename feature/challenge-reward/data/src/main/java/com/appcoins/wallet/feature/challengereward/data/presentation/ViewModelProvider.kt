@@ -1,6 +1,7 @@
 package com.appcoins.wallet.feature.challengereward.data.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +39,6 @@ fun challengeRewardNavigation(navigation: () -> Unit): (() -> Unit)? {
   val uiState by _challengeRewardVisibilityViewModel.value!!.uiState.collectAsState()
   return uiState
 }
-fun getLoadingStateChallengeReward(): Boolean {
-  return _challengeRewardVisibilityViewModel.value?.isLoadingChallengerRewardCard?.value ?: true
+fun getLoadingStateChallengeReward(): MutableState<Boolean> {
+  return _challengeRewardVisibilityViewModel.value?.isLoadingChallengerRewardCard ?: mutableStateOf(true)
 }
