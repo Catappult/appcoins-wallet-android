@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -301,16 +300,12 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun NavigationCurrencies() {
     Row(
       modifier = Modifier
-        .background(shape = CircleShape, color = styleguide_blue_secondary)
-        .fillMaxWidth()
-        .padding(horizontal = 4.dp),
+        .background(shape = CircleShape, color = styleguide_blue_secondary),
       horizontalArrangement = Arrangement.SpaceEvenly
     ) {
       viewModel.currencyNavigationItems().forEach { item ->
         Box(
           modifier = Modifier
-            .weight(1f)
-            .fillMaxWidth()
             .clickable { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
           contentAlignment = Alignment.Center
         ) {
@@ -321,7 +316,7 @@ class TransferFundsFragment : BasePageViewFragment() {
             labelColor = if (selected) styleguide_white else styleguide_medium_grey,
             onClick = { viewModel.clickedCurrencyItem.value = item.destination.ordinal },
             textStyle = MaterialTheme.typography.bodySmall,
-            buttonType = ButtonType.LARGE
+            buttonType = ButtonType.DEFAULT
           )
         }
       }
