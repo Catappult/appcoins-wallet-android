@@ -40,7 +40,8 @@ class ChallengeRewardVisibilityViewModel(
           { value ->
             viewModelState.update { value }
             isLoadingChallengerRewardCard.value = false},
-          { Log.e("ChallengeReward", "Failed loading Payment Methods", it) }
+          { Log.e("ChallengeReward", "Failed loading Payment Methods", it)
+            isLoadingChallengerRewardCard.value = false}
         )
     }
   }
