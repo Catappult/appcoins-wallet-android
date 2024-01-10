@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -78,7 +79,9 @@ fun ButtonWithText(
   buttonType: ButtonType = DEFAULT,
   textStyle: TextStyle = MaterialTheme.typography.bodyMedium
 ) {
-  val modifier = if (buttonType == LARGE) Modifier.fillMaxWidth() else Modifier
+  val modifier = if (buttonType == LARGE) Modifier
+    .fillMaxWidth()
+    .height(48.dp) else Modifier
   Button(
     onClick = { onClick.invoke() },
     modifier = modifier.defaultMinSize(minHeight = 40.dp),
