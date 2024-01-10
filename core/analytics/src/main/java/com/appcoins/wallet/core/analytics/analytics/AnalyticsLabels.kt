@@ -15,4 +15,5 @@ object AnalyticsLabels {
   const val LANGUAGE = "language"
   const val IS_EMULATOR = "probably_emulator"
   const val DEVICE_ORIENTATION = "device_orientation"
+  const val GAMES_HUB_OEMID = "gh_oemid"
 }

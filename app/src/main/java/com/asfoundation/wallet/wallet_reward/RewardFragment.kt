@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,7 +38,9 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
+import com.appcoins.wallet.feature.challengereward.data.presentation.ChallengeRewardVisibilityViewModel
 import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
+import com.appcoins.wallet.feature.challengereward.data.presentation.getLoadingStateChallengeReward
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -49,6 +52,9 @@ import com.appcoins.wallet.ui.widgets.GamificationHeaderNoPurchases
 import com.appcoins.wallet.ui.widgets.GamificationHeaderPartner
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.RewardsActions
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingGamificationCard
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
 import com.appcoins.wallet.ui.widgets.openGame
@@ -194,27 +200,44 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             GamificationHeaderPartner(
               df.format(this.bonusPercentage)
             )
+          } else if (this != null && this.uninitialized) {
+            SkeletonLoadingGamificationCard()
           } else {
             GamificationHeaderNoPurchases()
           }
-
-          RewardsActions(
-            { navigator.navigateToWithdrawScreen() },
-            { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() },
-            challengeRewardNavigation,
-          )
+          if (remember { getLoadingStateChallengeReward() }.value) {
+            SkeletonLoadingRewardsActionsCard()
+          } else {
+            RewardsActions(
+              { navigator.navigateToWithdrawScreen() },
+              { navigator.showPromoCodeFragment() },
+              { navigator.showGiftCardFragment() },
+              challengeRewardNavigation,
+            )
+          }
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
         }
       }
       item {
-        Text(
-          text = getString(R.string.perks_title),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 16.dp, start = 24.dp)
-        )
+        if (viewModel.promotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
+          Text(
+            text = getString(R.string.perks_title),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey,
+            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
+          )
+        }
+        if (viewModel.promotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
+          Text(
+            text = getString(R.string.perks_title),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey,
+            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
+          )
+          SkeletonLoadingPromotionCards(hasVerticalList = true)
+        }
       }
       items(viewModel.promotions) { promotion ->
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -255,6 +278,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       Async.Uninitialized,
       is Async.Loading -> {
       }
+
       is Async.Success -> {
         viewModel.promotions.clear()
         viewModel.activePromoCode.value = null
@@ -328,6 +352,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         }
 
       }
+
       else -> Unit
     }
   }
@@ -364,6 +389,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isVip = gamificationStatus == GamificationStatus.VIP,
             isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
             walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
+            uninitialized = false
           )
       } else {
         viewModel.gamificationHeaderModel.value = null
@@ -388,7 +414,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     when (walletInfoAsync) {
       is Async.Success -> {
         walletInfoAsync.value?.let {
-          if(it.wallet.isNotEmpty())
+          if (it.wallet.isNotEmpty())
             ChallengeRewardManager.create(
               appId = BuildConfig.FYBER_APP_ID,
               activity = requireActivity(),
@@ -396,6 +422,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             )
         }
       }
+
       else -> Unit
     }
   }

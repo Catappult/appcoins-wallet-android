@@ -1,13 +1,16 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -37,7 +40,8 @@ fun BalanceCardExpanded(
   onClickBackup: () -> Unit,
   onClickMenuOptions: () -> Unit,
   showBackup: Boolean = true,
-  newWallet: Boolean = true
+  newWallet: Boolean = true,
+  isLoading: Boolean = true,
 ) {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
@@ -46,7 +50,10 @@ fun BalanceCardExpanded(
       .padding(16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
-    if (newWallet) {
+    if (isLoading) {
+      SkeletonLoadingBalanceCardExpanded()
+    }
+    else if (newWallet) {
       BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp)
     } else {
       Column {
@@ -143,6 +150,50 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
   }
 }
 
+@Composable
+fun SkeletonLoadingBalanceCardExpanded() {
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .padding(bottom = 0.dp, start = 16.dp, end = 16.dp)
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Row(
+      modifier = Modifier
+        .padding(32.dp)
+        .fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+      Column{
+        Spacer(
+          modifier = Modifier
+            .width(width = 250.dp)
+            .height(height = 30.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier = Modifier
+            .padding(top = 4.dp)
+            .width(width = 500.dp)
+            .height(height = 22.dp)
+            .clip(RoundedCornerShape(5.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+      }
+      Spacer(
+        modifier = Modifier
+          .width(width = 120.dp)
+          .height(height = 40.dp)
+          .clip(RoundedCornerShape(50.dp))
+          .background(brush = shimmerSkeleton())
+      )
+    }
+  }
+}
+
 
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
@@ -154,7 +205,8 @@ fun PreviewLandscapeBalanceCard() {
     onClickTopUp = {},
     onClickMenuOptions = {},
     showBackup = true,
-    newWallet = false
+    newWallet = false,
+    isLoading = false,
   )
 }
 
@@ -168,7 +220,8 @@ fun PreviewLandscapeBalanceCardWithoutBackup() {
     onClickTopUp = {},
     onClickMenuOptions = {},
     showBackup = false,
-    newWallet = false
+    newWallet = false,
+    isLoading = false
   )
 }
 
@@ -183,5 +236,22 @@ fun PreviewLandscapeNewWalletBalanceCard() {
     onClickMenuOptions = {},
     showBackup = true,
     newWallet = true,
+    isLoading = false
   )
 }
+
+@Preview(device = "spec:parent=pixel_5,orientation=landscape")
+@Composable
+fun PreviewSkeletonBalanceCardExpanded() {
+  BalanceCardExpanded(
+    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
+    onClickTransfer = {},
+    onClickBackup = {},
+    onClickTopUp = {},
+    onClickMenuOptions = {},
+    showBackup = true,
+    newWallet = true,
+    isLoading = true,
+  )
+}
+

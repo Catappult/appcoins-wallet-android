@@ -94,7 +94,8 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
 
   override fun showLoading() {
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.INVISIBLE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+      View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
     binding.makingPurchaseText.visibility = View.VISIBLE
   }
@@ -113,20 +114,24 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
 
   override fun getOkErrorClick() = RxView.clicks(binding.genericErrorLayout.errorDismiss)
 
-  override fun getSupportIconClick() = RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn)
+  override fun getSupportIconClick() =
+    RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn)
 
-  override fun getSupportLogoClick() = RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo)
+  override fun getSupportLogoClick() =
+    RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo)
 
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
   override fun showError(message: Int?) {
     binding.genericErrorLayout.errorDismiss.setText(getString(R.string.back_button))
-    binding.genericErrorLayout.genericErrorLayout.errorMessage.text = getString(message ?: R.string.activity_iab_error_message)
+    binding.genericErrorLayout.genericErrorLayout.errorMessage.text =
+      getString(message ?: R.string.activity_iab_error_message)
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
     hideLoading()
   }
 
   override fun finish(uid: String?, purchaseUid: String) {
+    presenter.sendPaymentConfirmationEvent()
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent(purchaseUid)
@@ -146,6 +151,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   override fun finish(purchase: Purchase, orderReference: String?) {
+    presenter.sendPaymentConfirmationEvent()
     presenter.sendPaymentEvent()
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent(purchase.uid)
@@ -163,11 +169,13 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     binding.loadingAnimation.visibility = View.GONE
     binding.makingPurchaseText.visibility = View.GONE
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+      View.VISIBLE
     binding.fragmentIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
   }
 
-  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration * 2
+  override fun getAnimationDuration() =
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration * 2
 
   override fun lockRotation() = iabView.lockRotation()
 
