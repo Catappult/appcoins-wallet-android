@@ -417,10 +417,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   private fun setupCardConfiguration() {
-    cardConfiguration = CardConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+    adyenPaymentInteractor.getCreditCardNeedCVC().map {
+      cardConfiguration = CardConfiguration
+        .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!it.needAskCvc)
+        .setEnvironment(adyenEnvironment)
+        .build()
+    }.subscribe()
   }
 
   private fun setupRedirectConfiguration() {
