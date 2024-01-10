@@ -95,4 +95,5 @@ interface AdyenPaymentView {
   fun setup3DSComponent()
 
   fun shouldStoreCard(): Boolean
+
 }
