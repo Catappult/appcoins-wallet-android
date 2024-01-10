@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +40,7 @@ fun GamesBundle(
       top = 16.dp
     ),
     contentPadding = PaddingValues(horizontal = 16.dp),
-    horizontalArrangement = Arrangement.spacedBy(16.dp)
+    horizontalArrangement = Arrangement.spacedBy(8.dp)
   ) {
     if (items.isEmpty()) {
       item {
@@ -65,8 +66,8 @@ private fun CardItem(
     shape = RoundedCornerShape(8.dp),
     onClick = { openGame(gameCardData.gamePackage, gameCardData.actionUrl, context) },
     modifier = Modifier
-      .width(332.dp)
-      .height(150.dp)
+      .width(280.dp)
+      .height(144.dp)
   ) {
 
     Box(
@@ -112,7 +113,7 @@ private fun CardItem(
               model = gameCardData.gameIcon,
               contentDescription = null,
               modifier = Modifier
-                .size(52.dp),
+                .size(56.dp),
               contentScale = ContentScale.Crop
             )
           }
@@ -122,11 +123,13 @@ private fun CardItem(
           style = MaterialTheme.typography.titleSmall,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
-          lineHeight = 24.sp,
+          lineHeight = 16.sp,
           modifier = Modifier
             .align(Alignment.Bottom)
             .weight(1f)
-            .padding(bottom = 6.dp, start = 20.dp, end = 20.dp)
+            .padding(bottom = 6.dp, start = 16.dp, end = 8.dp),
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
         )
         Spacer(Modifier.weight(0.1f))
         GetTextOrPlay(gameCardData.gamePackage)
@@ -143,7 +146,7 @@ fun GetTextOrPlay(packageName: String?) {
     Text(
       text = stringResource(id = R.string.play_button),
       color = WalletColors.styleguide_pink,
-      fontSize = 16.sp,
+      fontSize = 14.sp,
       fontWeight = FontWeight.Bold,
       modifier = Modifier
         .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
@@ -152,7 +155,7 @@ fun GetTextOrPlay(packageName: String?) {
     Text(
       text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
       color = WalletColors.styleguide_pink,
-      fontSize = 16.sp,
+      fontSize = 14.sp,
       fontWeight = FontWeight.Bold,
       modifier = Modifier
         .padding(top = 24.dp, bottom = 6.dp, end = 12.dp)
