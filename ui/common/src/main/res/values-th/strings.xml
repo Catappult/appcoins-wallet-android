@@ -1194,16 +1194,16 @@
   <string name="topup_home_button">เติม</string>
   <string name="intro_home_button">หน้าแรก</string>
   <string name="intro_rewards_button">รางวัล</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">วัน</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">ชั่วโมง</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">นาที</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">วินาที</item>
   </plurals>
   <string name="intro_transactions_header">ธุรกรรม</string>

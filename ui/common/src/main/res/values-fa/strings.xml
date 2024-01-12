@@ -1201,19 +1201,19 @@
   <string name="topup_home_button">افزایش اعتبار</string>
   <string name="intro_home_button">خانه</string>
   <string name="intro_rewards_button">پاداش‌ها</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">روز</item>
     <item quantity="other">روز</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ساعت</item>
     <item quantity="other">ساعت</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">دقیقه</item>
     <item quantity="other">دقیقه</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">ثانیه</item>
     <item quantity="other">ثانیه</item>
   </plurals>

@@ -1192,16 +1192,16 @@
   <string name="topup_home_button">충전</string>
   <string name="intro_home_button">홈</string>
   <string name="intro_rewards_button">보상</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">일</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">시간</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">분</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">초</item>
   </plurals>
   <string name="intro_transactions_header">거래</string>

@@ -1192,16 +1192,16 @@
   <string name="topup_home_button">Isi Ulang</string>
   <string name="intro_home_button">Beranda</string>
   <string name="intro_rewards_button">Hadiah</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">HARI</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">JAM</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">MENIT</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">DETIK</item>
   </plurals>
   <string name="intro_transactions_header">Transaksi</string>

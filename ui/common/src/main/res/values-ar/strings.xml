@@ -1238,7 +1238,7 @@
   <string name="topup_home_button">أعد تعبئة</string>
   <string name="intro_home_button">الرئيسية</string>
   <string name="intro_rewards_button">الجوائز</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="zero">يوم</item>
     <item quantity="one">يوم</item>
     <item quantity="two">يومان</item>
@@ -1246,7 +1246,7 @@
     <item quantity="many">يوم</item>
     <item quantity="other">يوم</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="zero">ساعة</item>
     <item quantity="one">ساعة</item>
     <item quantity="two">ساعتان</item>
@@ -1254,7 +1254,7 @@
     <item quantity="many">ساعة</item>
     <item quantity="other">ساعة</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="zero">دقيقة</item>
     <item quantity="one">دقيقة</item>
     <item quantity="two">دقيقتان</item>
@@ -1262,7 +1262,7 @@
     <item quantity="many">دقيقة</item>
     <item quantity="other">دقيقة</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="zero">ثانية</item>
     <item quantity="one">ثانية</item>
     <item quantity="two">ثانيتان</item>

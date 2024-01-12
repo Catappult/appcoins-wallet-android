@@ -1192,16 +1192,16 @@
   <string name="topup_home_button">トップアップします。</string>
   <string name="intro_home_button">ホーム</string>
   <string name="intro_rewards_button">リワード</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">日</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">時間</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">分</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">秒</item>
   </plurals>
   <string name="intro_transactions_header">取引</string>

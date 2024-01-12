@@ -1192,16 +1192,16 @@
   <string name="topup_home_button">Nạp tiền</string>
   <string name="intro_home_button">Trang chủ</string>
   <string name="intro_rewards_button">Phần thưởng</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">NGÀY</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">GIỜ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">PHÚT</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">GIÂY</item>
   </plurals>
   <string name="intro_transactions_header">Giao dịch</string>

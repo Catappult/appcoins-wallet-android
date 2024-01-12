@@ -1323,7 +1323,7 @@
   <string name="topup_home_button">Top Up</string>
   <string name="intro_home_button">Home</string>
   <string name="intro_rewards_button">Rewards</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="zero">DAYS</item>
     <item quantity="one">DAY</item>
     <item quantity="two">DAYS</item>
@@ -1331,7 +1331,7 @@
     <item quantity="many">DAYS</item>
     <item quantity="other">DAYS</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="zero">HOURS</item>
     <item quantity="one">HOUR</item>
     <item quantity="two">HOURS</item>
@@ -1339,7 +1339,7 @@
     <item quantity="many">HOURS</item>
     <item quantity="other">HOURS</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="zero">MINUTES</item>
     <item quantity="one">MINUTE</item>
     <item quantity="two">MINUTES</item>
@@ -1347,7 +1347,7 @@
     <item quantity="many">MINUTES</item>
     <item quantity="other">MINUTES</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="zero">SECONDS</item>
     <item quantity="one">SECOND</item>
     <item quantity="two">SECONDS</item>
@@ -1355,7 +1355,6 @@
     <item quantity="many">SECONDS</item>
     <item quantity="other">SECONDS</item>
   </plurals>
-
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>

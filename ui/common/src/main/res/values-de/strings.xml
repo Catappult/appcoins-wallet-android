@@ -1201,19 +1201,19 @@
   <string name="topup_home_button">Aufladen</string>
   <string name="intro_home_button">Startseite</string>
   <string name="intro_rewards_button">Belohnungen</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">TAG</item>
     <item quantity="other">TAGE</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">STUNDE</item>
     <item quantity="other">STUNDEN</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTE</item>
     <item quantity="other">MINUTEN</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SEKUNDE</item>
     <item quantity="other">SEKUNDEN</item>
   </plurals>

@@ -1201,19 +1201,19 @@
   <string name="topup_home_button">Yükle</string>
   <string name="intro_home_button">Ana Sayfa</string>
   <string name="intro_rewards_button">Ödüller</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">GÜN</item>
     <item quantity="other">GÜN</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">SAAT</item>
     <item quantity="other">SAAT</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">DAKİKA</item>
     <item quantity="other">DAKİKA</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SANİYE</item>
     <item quantity="other">SANİYE</item>
   </plurals>

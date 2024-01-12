@@ -1202,19 +1202,19 @@ Wallets</item>
   <string name="topup_home_button">Φόρτιση</string>
   <string name="intro_home_button">Σπίτι</string>
   <string name="intro_rewards_button">Ανταμοιβές</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">ΜΕΡΑ</item>
     <item quantity="other">ΜΕΡΕΣ</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ΩΡΑ</item>
     <item quantity="other">ΩΡΕΣ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">ΛΕΠΤΟ</item>
     <item quantity="other">ΛΕΠΤΑ</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">ΔΕΥΤΕΡΟΛΕΠΤΟ</item>
     <item quantity="other">ΔΕΥΤΕΡΟΛΕΠΤΑ</item>
   </plurals>

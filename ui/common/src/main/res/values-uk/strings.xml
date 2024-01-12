@@ -1221,25 +1221,25 @@
   <string name="topup_home_button">Поповнити</string>
   <string name="intro_home_button">На домашню</string>
   <string name="intro_rewards_button">Винагороди</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">ДЕНЬ</item>
     <item quantity="few">ДНІВ</item>
     <item quantity="many">ДНІВ</item>
     <item quantity="other">ДНІ</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ГОДИНА</item>
     <item quantity="few">ГОДИН</item>
     <item quantity="many">ГОДИН</item>
     <item quantity="other">ГОДИНИ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">ХВИЛИНА</item>
     <item quantity="few">ХВИЛИН</item>
     <item quantity="many">ХВИЛИН</item>
     <item quantity="other">ХВИЛИНИ</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">СЕКУНДА</item>
     <item quantity="few">СЕКУНД</item>
     <item quantity="many">СЕКУНД</item>
