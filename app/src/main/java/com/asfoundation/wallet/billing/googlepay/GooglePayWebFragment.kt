@@ -2,8 +2,10 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.animation.Animator
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +14,13 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentGooglePayWebBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
@@ -67,6 +71,12 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     iabView = context
   }
 
+  override fun onResume() {
+    super.onResume()
+    // check success or error or cancel
+    val googlePayResult = viewModel.processGooglePayResult()
+  }
+
   private fun registerWebViewResult() {
     resultAuthLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -105,10 +115,19 @@ class GooglePayWebFragment() : BasePageViewFragment() {
           handleSuccess(state.bundle)
         }
         is GooglePayWebViewModel.State.WebViewAuthentication -> {
-          startWebViewAuthorization(state.url)
+//          startWebViewAuthorization(state.url)
+          openUrlCustomTab(state.url)
         }
       }
     }
+  }
+
+  private fun openUrlCustomTab(url: String) {
+    val customTabsBuilder = CustomTabsIntent
+      .Builder()
+      .build()
+    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)  // TODO check if other browsers are needed
+    customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 
   private fun startPayment() {
@@ -149,7 +168,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch{
+    viewLifecycleOwner.lifecycleScope.launch {
       delay(1500L)
       navigatorIAB?.popView(successBundle)
     }
@@ -189,7 +208,8 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.transactionSuccessBonusText .text = getString(R.string.purchase_success_bonus_received_title, bonus)
+      views.successContainer.transactionSuccessBonusText.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
       views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
       views.successContainer.bonusSuccessLayout.visibility = View.GONE
@@ -260,6 +280,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
     private const val NAVIGATOR = "navigator"
+    private const val CHROME_PACKAGE_NAME = "com.android.chrome"
 
     @JvmStatic
     fun newInstance(

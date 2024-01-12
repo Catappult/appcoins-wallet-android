@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.billing.googlepay.usecases.*
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -31,6 +32,7 @@ class GooglePayWebViewModel @Inject constructor(
   private val buildGooglePayUrlUseCase: BuildGooglePayUrlUseCase,
 //  private val waitForSuccessGooglePayWebUseCase: WaitForSuccessGooglePayWebUseCase, // TODO
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,  //TODO check
+  private val getGooglePayResultUseCase: GetGooglePayResultUseCase,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -188,6 +190,28 @@ class GooglePayWebViewModel @Inject constructor(
 //          }
 //        )
 //    )
+  }
+
+  fun processGooglePayResult() {
+    val result = getGooglePayResultUseCase()
+    when (result) {
+      GooglePayResult.SUCCESS.key -> {
+        Log.d(TAG, "success")
+        //TODO
+      }
+      GooglePayResult.CANCEL.key -> {
+        Log.d(TAG, "cancel")
+        //TODO
+      }
+      GooglePayResult.ERROR.key -> {
+        Log.d(TAG, "error")
+        //TODO
+      }
+      else -> {
+        Log.d(TAG, "else")
+        //TODO
+      }
+    }
   }
 
   fun getSuccessBundle(

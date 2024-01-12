@@ -168,10 +168,8 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -195,15 +193,29 @@
         >
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
       </intent-filter>
     </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.billing.googlepay.GooglePayReturnActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:host="${applicationId}"
+            android:scheme="adyencheckout" />
+      </intent-filter>
+    </activity>
+
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
         android:label="@string/subscriptions_title" />
