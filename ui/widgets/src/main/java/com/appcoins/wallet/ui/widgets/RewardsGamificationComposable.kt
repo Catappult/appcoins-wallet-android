@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -343,8 +344,10 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
           .width(64.dp)
           .align(Alignment.CenterVertically)
       )
-      Column(modifier = Modifier
-        .weight(1f)) {
+      Column(
+        modifier = Modifier
+          .weight(1f)
+      ) {
         Text(
           text = stringResource(R.string.vip_program_referral_button_title),
           style = MaterialTheme.typography.titleMedium,
@@ -368,6 +371,63 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
           .width(36.dp)
       )
     }
+  }
+}
+
+@Composable
+fun SkeletonLoadingGamificationCard() {
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 16.dp)) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(top = 8.dp, start = 8.dp, end = 8.dp)
+      ) {
+        Column {
+          Spacer(
+            modifier = Modifier
+              .width(width = 150.dp)
+              .height(height = 22.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier = Modifier
+              .width(width = 230.dp)
+              .height(height = 30.dp)
+              .padding(top = 8.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+        }
+        Spacer(
+          modifier = Modifier
+            .size(90.dp)
+            .clip(RoundedCornerShape(45.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+      }
+    }
+    Row(
+      modifier = Modifier.fillMaxWidth()
+    ) {
+      Spacer(
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(50.dp)
+          .background(brush = shimmerSkeleton()),
+      )
+    }
+
   }
 }
 
@@ -421,4 +481,10 @@ fun PreviewRewardsGamificationPartner() {
 @Composable
 fun PreviewRewardsVip() {
   VipReferralCard({}, "5")
+}
+
+@Preview
+@Composable
+fun PreviewRewardsSkeletonLoading() {
+  SkeletonLoadingGamificationCard()
 }

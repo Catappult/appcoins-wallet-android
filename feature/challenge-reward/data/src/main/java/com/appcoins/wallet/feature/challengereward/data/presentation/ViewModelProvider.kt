@@ -1,8 +1,10 @@
 package com.appcoins.wallet.feature.challengereward.data.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
@@ -16,10 +18,13 @@ class InjectionsProvider @Inject constructor(
   val bdsRepository: BdsRepository,
 ) : ViewModel()
 
+private val _challengeRewardVisibilityViewModel = mutableStateOf<ChallengeRewardVisibilityViewModel?>(null)
+
+
 @Composable
 fun challengeRewardNavigation(navigation: () -> Unit): (() -> Unit)? {
   val injectionsProvider = hiltViewModel<InjectionsProvider>()
-  val vm: ChallengeRewardVisibilityViewModel = viewModel(
+  _challengeRewardVisibilityViewModel.value = viewModel(
     key = "challengeRewardNavigation",
     factory = object : Factory {
       override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -31,6 +36,9 @@ fun challengeRewardNavigation(navigation: () -> Unit): (() -> Unit)? {
       }
     }
   )
-  val uiState by vm.uiState.collectAsState()
+  val uiState by _challengeRewardVisibilityViewModel.value!!.uiState.collectAsState()
   return uiState
+}
+fun getLoadingStateChallengeReward(): MutableState<Boolean> {
+  return _challengeRewardVisibilityViewModel.value?.isLoadingChallengerRewardCard ?: mutableStateOf(true)
 }
