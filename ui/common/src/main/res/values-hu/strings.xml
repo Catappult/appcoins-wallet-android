@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Az érték nem lehet nulla</string>
   <string name="p2p_send_confirmation_header">Utalás részletei</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Valami hiba történt</string>
   <string name="error_missing_field">Kötelező mező</string>
   <string name="cancel_button">Mégse</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Felfedezés</string>
   <string name="retry_button">Újrapróbálkozás</string>
   <string name="do_it_later_button">Majd később</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
   <string name="common_or">VAGY</string>
   <string name="share_via">Megosztás ezen keresztül:</string>
