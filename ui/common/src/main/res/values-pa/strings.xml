@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">ਇਹ ਜ਼ੀਰੋ ਤੋਂ ਜਿਆਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ</string>
   <string name="p2p_send_confirmation_header">ਸੰਚਾਰ ਵੇਰਵਾ</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ</string>
   <string name="error_missing_field">ਜ਼ਰੂਰੀ ਫੀਲਡ</string>
   <string name="cancel_button">ਕੈਂਸਲ</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">ਖੋਜ</string>
   <string name="retry_button">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="do_it_later_button">ਬਾਅਦ ਵਿਚ ਕਰੋ</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="common_or">ਜਾਂ</string>
   <string name="share_via">ਇਸ ਦੁਆਰਾ ਸਾਂਝਾ ਕਰੋ:</string>
