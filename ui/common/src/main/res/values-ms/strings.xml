@@ -516,6 +516,9 @@
   <string name="done">Selesai!</string>
   <string name="see_more_button">Lihat selanjutnya</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">Start date:</string>
+  <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -647,6 +650,7 @@
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -1173,6 +1177,7 @@
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Kongsi kod ini dengan rakan anda</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh daripada rujukan %3$s</string>
   <string name="vip_program_gamification_title">Apa tahap bonus saya?</string>
