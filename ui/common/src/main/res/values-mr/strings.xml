@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">हे शून्यापेक्षा मोठे हवे</string>
   <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">काहीतरी चूक झाली</string>
   <string name="error_missing_field">अनिवार्य जागा</string>
   <string name="cancel_button">रद्द करा</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">शोधुन काढा</string>
   <string name="retry_button">पुन्हा प्रयत्न करा</string>
   <string name="do_it_later_button">नंतर करा</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <string name="common_or">किंवा</string>
   <string name="share_via">द्वारे सामायिक करा:</string>
