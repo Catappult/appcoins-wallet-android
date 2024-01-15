@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Betrag muss größer als Null sein</string>
   <string name="p2p_send_confirmation_header">Überweisungsdetails</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Etwas ist schief gelaufen</string>
   <string name="error_missing_field">Pflichtfeld</string>
   <string name="cancel_button">Abbrechen</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Los geht\'s</string>
   <string name="retry_button">Neuer Versuch</string>
   <string name="do_it_later_button">Später</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Es scheint, als wärst du nicht mit dem Internet verbunden. Überprüfe deine Verbindung und versuche es erneut!</string>
   <string name="common_or">ODER</string>
   <string name="share_via">Teilen über:</string>
