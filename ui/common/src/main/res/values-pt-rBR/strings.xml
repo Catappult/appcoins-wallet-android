@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Deve ser maior que zero</string>
   <string name="p2p_send_confirmation_header">Detalhes da Transferência</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Algo deu errado</string>
   <string name="error_missing_field">Campo obrigatório</string>
   <string name="cancel_button">Cancelar</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Descobrir</string>
   <string name="retry_button">Repetir</string>
   <string name="do_it_later_button">Fazer Depois</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="common_or">OU</string>
   <string name="share_via">Compartilhar via:</string>
