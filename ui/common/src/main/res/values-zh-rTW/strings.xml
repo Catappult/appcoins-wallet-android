@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">數量需大於0</string>
   <string name="p2p_send_confirmation_header">交易詳情</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">發生了一個錯誤</string>
   <string name="error_missing_field">必填欄位</string>
   <string name="cancel_button">取消</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">發現</string>
   <string name="retry_button">重試</string>
   <string name="do_it_later_button">稍後再做</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
   <string name="common_or">或者</string>
   <string name="share_via">分享至：</string>
