@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Bedrag dient meer dan nul te zijn</string>
   <string name="p2p_send_confirmation_header">Gegevens voor overdracht</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Er iets fout gegaan</string>
   <string name="error_missing_field">Dit veld is verplicht</string>
   <string name="cancel_button">Annuleren</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Ontdekken</string>
   <string name="retry_button">Opnieuw proberen</string>
   <string name="do_it_later_button">Later doen</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
   <string name="common_or">OF</string>
   <string name="share_via">Delen via:</string>
