@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">يجب أن تكون أكثر من صفر</string>
   <string name="p2p_send_confirmation_header">بيانات التحويل</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">حدث خطأ</string>
   <string name="error_missing_field">حقل إجباري</string>
   <string name="cancel_button">إلغاء</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">اطّلاع</string>
   <string name="retry_button">حاول ثانية</string>
   <string name="do_it_later_button">لاحقًا</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>

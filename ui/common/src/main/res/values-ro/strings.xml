@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Trebuie să fie mai mare de zero</string>
   <string name="p2p_send_confirmation_header">Detalii transfer</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Ceva nu a mers cum trebuie</string>
   <string name="error_missing_field">Câmp obligatoriu</string>
   <string name="cancel_button">Anulează</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Descoperă</string>
   <string name="retry_button">Reîncearcă</string>
   <string name="do_it_later_button">Amână</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
   <string name="common_or">SAU</string>
   <string name="share_via">Distribuie via:</string>

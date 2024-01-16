@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Số tiền phải nhiều hơn 0</string>
   <string name="p2p_send_confirmation_header">Chi tiết chuyển khoản</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Đã xảy ra lỗi</string>
   <string name="error_missing_field">Trường bắt buộc</string>
   <string name="cancel_button">Hủy</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Khám phá</string>
   <string name="retry_button">Thử lại</string>
   <string name="do_it_later_button">Để sau</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <string name="common_or">HOẶC</string>
   <string name="share_via">Chia sẻ qua:</string>

@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">ゼロ以上である必要があります。</string>
   <string name="p2p_send_confirmation_header">転送の詳細</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">エラーが起こりました</string>
   <string name="error_missing_field">必須項目</string>
   <string name="cancel_button">キャンセルする</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">発見する</string>
   <string name="retry_button">再試行</string>
   <string name="do_it_later_button">あとでする</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">インターネットに接続されていないようです。接続を確認して、もう一度試してみてください</string>
   <string name="common_or">もしくは</string>
   <string name="share_via">共有：</string>

@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Harus lebih dari nol</string>
   <string name="p2p_send_confirmation_header">Rincian Transfer</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Ada kesalahan</string>
   <string name="error_missing_field">Wajib diisi</string>
   <string name="cancel_button">Batal</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Temukan</string>
   <string name="retry_button">Coba lagi</string>
   <string name="do_it_later_button">Lakukan nanti</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Bagikan melalui:</string>

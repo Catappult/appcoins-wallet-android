@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Mesti lebih daripada sifar</string>
   <string name="p2p_send_confirmation_header">Butiran Pindahan</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Sesuatu tidak kena</string>
   <string name="error_missing_field">Ruang wajib diisi</string>
   <string name="cancel_button">Batal</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Ketahui</string>
   <string name="retry_button">Cuba lagi</string>
   <string name="do_it_later_button">Buat nanti</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Kongsi melalui:</string>
