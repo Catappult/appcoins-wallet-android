@@ -35,7 +35,7 @@ interface BrokerBdsApi {
    * if null no filter is applied by transactionType
    *
    */
-  @GET("8.20231128/methods")  //TODO version update
+  @GET("8.20240115/methods")
   fun getPaymentMethods(
     @Query("price.value") value: String? = null,
     @Query("price.currency") currency: String? = null,

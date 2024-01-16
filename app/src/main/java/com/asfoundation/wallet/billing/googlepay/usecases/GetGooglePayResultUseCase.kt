@@ -8,7 +8,7 @@ class GetGooglePayResultUseCase @Inject constructor(
 ) {
 
   operator fun invoke(): String {
-    return googlePayWebRepository.getChromeResult()
+    return googlePayWebRepository.consumeChromeResult()
   }
 
 }

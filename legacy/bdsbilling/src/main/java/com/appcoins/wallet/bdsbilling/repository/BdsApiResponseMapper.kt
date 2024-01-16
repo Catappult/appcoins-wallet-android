@@ -20,23 +20,7 @@ class BdsApiResponseMapper(private val subscriptionsMapper: SubscriptionsMapper,
   }
 
   fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethodEntity> {
-
-    //return gatewaysResponse.items    // TODO uncomment and remove the rest. for testing without MS integration
-
-    val items = mutableListOf<PaymentMethodEntity>()
-    items.addAll(gatewaysResponse.items)
-    //adds the google pay method to the list
-    val googlePay = PaymentMethodEntity(
-      "googlepay",
-      "Google Pay (Mock)",
-      "https://play-lh.googleusercontent.com/Q6_GqKzmB3y_p7iEK1xY4hxMQ9TCnO08HerDUpaGUHXR6Bplyfv5Z97Kri51cJPWG_i1=w240-h480-rw",
-      "AVAILABLE",
-      Gateway(Gateway.Name.adyen_v2,"",""),
-      false,
-      null
-    )
-    items.add(googlePay)
-    return items
+    return gatewaysResponse.items
   }
 
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {

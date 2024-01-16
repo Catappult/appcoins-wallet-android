@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.billing.googlepay.repository
 
-import android.content.SharedPreferences
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenSessionApi
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.AdyenSessionResponse
+import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
+import com.appcoins.wallet.core.network.microservices.model.SessionPaymentDetails
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.GooglePayDataSource
@@ -47,70 +48,68 @@ class GooglePayWebRepository @Inject constructor(
   ): Single<GooglePayWebTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io).flatMap { ewt ->
       adyenSessionbApi.createSessionTransaction(
-          walletAddress = walletAddress,
-          authorization = ewt,
-          sessionPaymentDetails = SessionPaymentDetails(
-            returnUrl = returnUrl,
-            channel = "ANDROID",
-            callbackUrl = callbackUrl,
-            domain = packageName,
-            metadata = metadata,
-            method = method,
-            origin = origin,
-            sku = sku,
-            reference = reference,
-            type = transactionType,
-            currency = currency,
-            value = value,
-            developer = developerWallet,
-            entityOemId = entityOemId,
-            entityDomain = entityDomain,
-            entityPromoCode = entityPromoCode,
-            user = userWallet,
-            referrerUrl = referrerUrl
-          )
-        ).map { response: AdyenSessionResponse ->
-            GooglePayWebTransaction(
-              uid = response.uid,
-              hash = response.hash,
-              status = response.status,
-              validity = response.mapValidity(),
-              sessionId = response.session?.id,
-              sessionData = response.session?.sessionData,
-            )
-          }.onErrorReturn {
-            val httpException = (it as? HttpException)
-            val errorCode = httpException?.code()
-            val errorContent = httpException?.response()?.errorBody()?.string()
-            handleCreateTransactionErrorCodes(errorCode, errorContent)
-          }
+        walletAddress = walletAddress,
+        authorization = ewt,
+        sessionPaymentDetails = SessionPaymentDetails(
+          returnUrl = returnUrl,
+          channel = "ANDROID",
+          callbackUrl = callbackUrl,
+          domain = packageName,
+          metadata = metadata,
+          method = method,
+          origin = origin,
+          sku = sku,
+          reference = reference,
+          type = transactionType,
+          currency = currency,
+          value = value,
+          developer = developerWallet,
+          entityOemId = entityOemId,
+          entityDomain = entityDomain,
+          entityPromoCode = entityPromoCode,
+          user = userWallet,
+          referrerUrl = referrerUrl
+        )
+      ).map { response: AdyenSessionResponse ->
+        GooglePayWebTransaction(
+          uid = response.uid,
+          hash = response.hash,
+          status = response.status,
+          validity = response.mapValidity(),
+          sessionId = response.session?.id,
+          sessionData = response.session?.sessionData,
+        )
+      }.onErrorReturn {
+        val httpException = (it as? HttpException)
+        val errorCode = httpException?.code()
+        val errorContent = httpException?.response()?.errorBody()?.string()
+        handleCreateTransactionErrorCodes(errorCode, errorContent)
       }
+    }
   }
 
   fun getGooglePayUrl(): Single<GooglePayUrls> {
-    return brokerBdsApi.getGooglePayUrls()
-      .map {
+    return brokerBdsApi.getGooglePayUrls().map {
         GooglePayUrls(it.url, it.returnUrl)
       }
   }
 
-  fun getTransaction(  //TODO new error mapping
+  fun getTransaction(
     uid: String, walletAddress: String, signedWalletAddress: String
   ): Single<PaymentModel> {
     return brokerBdsApi.getAppcoinsTransaction(
       uId = uid, walletAddress = walletAddress, walletSignature = signedWalletAddress
     ).map { adyenResponseMapper.map(it) }.onErrorReturn {
-        logger.log("AdyenPaymentRepository", it)
-        adyenResponseMapper.mapPaymentModelError(it)
-      }
+      logger.log("GooglePayRepository", it)
+      adyenResponseMapper.mapPaymentModelError(it)
+    }
   }
 
-  private fun handleCreateTransactionErrorCodes(  // TODO new error mapping
+  private fun handleCreateTransactionErrorCodes(
     errorCode: Int?, errorContent: String?
   ): GooglePayWebTransaction {
     val validity = when (errorCode) {
       404 -> GooglePayWebTransaction.GooglePayWebValidityState.ERROR
-      // TODO check if needed
       else -> GooglePayWebTransaction.GooglePayWebValidityState.ERROR
     }
     return GooglePayWebTransaction(
@@ -122,8 +121,8 @@ class GooglePayWebRepository @Inject constructor(
     googlePayDataSource.saveResult(result)
   }
 
-  fun getChromeResult(): String {
-    return googlePayDataSource.getResult()
+  fun consumeChromeResult(): String {
+    return googlePayDataSource.consumeResult()
   }
 
 }

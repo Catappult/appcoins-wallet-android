@@ -61,9 +61,6 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
     private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
     private var PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
-    private var GOOGLE_PAY_SUCCESS_SCHEMA = GooglePayWebReturnSchemas.RETURN.schema
-    private var GOOGLE_PAY_CANCEL_SCHEMA = GooglePayWebReturnSchemas.CANCEL.schema
-    private var GOOGLE_PAY_ERROR_SCHEMA = GooglePayWebReturnSchemas.ERROR.schema
     private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
       "picpay://",
       "shopeeid://",
@@ -133,8 +130,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
-              clickUrl.contains(GOOGLE_PAY_SUCCESS_SCHEMA)
+              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA)
           -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
@@ -153,10 +149,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
-          clickUrl.contains(CODAPAY_CANCEL_URL) ||
-              clickUrl.contains(GOOGLE_PAY_CANCEL_SCHEMA) ||
-              clickUrl.contains(GOOGLE_PAY_ERROR_SCHEMA)
-          -> finishWithFail(clickUrl)
+          clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
           else -> {

@@ -7,11 +7,13 @@ import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.billing.googlepay.repository.GooglePayWebRepository
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class GooglePayReturnActivity(
-  private val googlePayWebRepository: GooglePayWebRepository
-) : BaseActivity() {
+class GooglePayReturnActivity() : BaseActivity() {
+  @Inject
+  lateinit var googlePayWebRepository: GooglePayWebRepository
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val data = intent.data

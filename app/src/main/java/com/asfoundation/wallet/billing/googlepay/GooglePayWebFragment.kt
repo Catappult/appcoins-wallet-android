@@ -1,18 +1,14 @@
 package com.asfoundation.wallet.billing.googlepay
 
 import android.animation.Animator
-import android.app.Activity
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
@@ -20,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentGooglePayWebBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
@@ -54,13 +49,13 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private lateinit var iabView: IabView
   var navigatorIAB: Navigator? = null
 
+  var isFirstRun: Boolean = true
+
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     binding = FragmentGooglePayWebBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
-    registerWebViewResult()
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return views.root
   }
@@ -73,24 +68,12 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   override fun onResume() {
     super.onResume()
-    // check success or error or cancel
-    val googlePayResult = viewModel.processGooglePayResult()
-  }
-
-  private fun registerWebViewResult() {
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(GooglePayWebReturnSchemas.RETURN.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          // TODO
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED ||
-          (result.data?.dataString?.contains(GooglePayWebReturnSchemas.CANCEL.schema) == true)
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          // TODO handle cancel
-        }
-      }
+    if (isFirstRun) {
+      isFirstRun = false
+    } else {
+      // check success/error/cancel
+      viewModel.processGooglePayResult(transactionBuilder = transactionBuilder)
+    }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,14 +101,15 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 //          startWebViewAuthorization(state.url)
           openUrlCustomTab(state.url)
         }
+        GooglePayWebViewModel.State.GooglePayBack -> {
+          iabView.showPaymentMethodsView()
+        }
       }
     }
   }
 
   private fun openUrlCustomTab(url: String) {
-    val customTabsBuilder = CustomTabsIntent
-      .Builder()
-      .build()
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)  // TODO check if other browsers are needed
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
@@ -150,8 +134,8 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     views.googlePayWebErrorButtons.errorTryAgain.setOnClickListener {
       close()
     }
-    views.successContainer.lottieTransactionSuccess
-      .addAnimatorListener(object : Animator.AnimatorListener {
+    views.successContainer.lottieTransactionSuccess.addAnimatorListener(object :
+        Animator.AnimatorListener {
         override fun onAnimationRepeat(animation: Animator) = Unit
         override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
         override fun onAnimationCancel(animation: Animator) = Unit

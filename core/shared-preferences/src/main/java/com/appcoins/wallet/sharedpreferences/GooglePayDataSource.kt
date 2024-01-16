@@ -6,7 +6,12 @@ import javax.inject.Inject
 class GooglePayDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences
 ) {
-  fun getResult(): String = sharedPreferences.getString(RESULT_GOOGLE_PAY, "") ?: ""
+  fun consumeResult(): String {
+    val result = sharedPreferences.getString(RESULT_GOOGLE_PAY, "") ?: ""
+    return result.also {
+      saveResult("")
+    }
+  }
 
   fun saveResult(result: String) = sharedPreferences.edit()
     .putString(RESULT_GOOGLE_PAY, result)
