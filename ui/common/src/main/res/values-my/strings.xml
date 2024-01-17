@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">ယင္းသည္ သုညထက္ ပိုရပါမည္</string>
   <string name="p2p_send_confirmation_header">လႊဲေျပာင္းမႈ အေသးစိတ္မ်ား</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">တခုခု မွားသြားပါသည္</string>
   <string name="error_missing_field">လိုအပ္ေသာအကြက္</string>
   <string name="cancel_button">ပယ္ဖ်က္မည္</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">ရွာေဖြမည္</string>
   <string name="retry_button">ျပန္ႀကိဳးစားမည္</string>
   <string name="do_it_later_button">ေနာက္မွလုပ္မည္</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="common_or">သို႔မဟုတ္</string>
   <string name="share_via">မွ်ေ၀ရန္ -</string>
@@ -516,6 +518,9 @@
   <string name="done">ၿပီးပါၿပီ။</string>
   <string name="see_more_button">ပို၍ၾကည့္မည္</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">Start date:</string>
+  <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -647,6 +652,7 @@
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -1173,6 +1179,7 @@
   <string name="vip_program_promo_code_tag">ပ႐ိုမိုကုဒ္</string>
   <string name="vip_program_referral_page_title">VIP ရည္ၫႊန္းအစီအစဥ္</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">ဤကုဒ္ကို သင့္သူငယ္ခ်င္းမ်ားထံ မွ်ေဝလိုက္ပါ</string>
   <string name="vip_program_referral_page_earned_body">ရည္ၫႊန္းမႈ %3$s ခုမွ %1$s%2$s ရရွိပါသည္</string>
   <string name="vip_program_gamification_title">ကြၽႏ္ုပ္၏ ေဘာနပ္စ္အဆင့္က ဘယ္ေလာက္လဲ။</string>

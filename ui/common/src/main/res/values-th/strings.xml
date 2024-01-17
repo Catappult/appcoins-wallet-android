@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">มันต้องมากกว่าศูนย์</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
   <string name="error_missing_field">ฟิลด์บังคับ</string>
   <string name="cancel_button">ยกเลิก</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">เปิด</string>
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
@@ -516,6 +518,9 @@
   <string name="done">เสร็จสิ้น!</string>
   <string name="see_more_button">ดูเพิ่มเติม</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">Start date:</string>
+  <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -647,6 +652,7 @@
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -1175,6 +1181,7 @@
   <string name="vip_program_promo_code_tag">เปลี่ยน</string>
   <string name="vip_program_referral_page_title">โปรแกรมการแนะนำ VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">แบ่งปันโค๊ดกับเพื่อนของคุณ</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$sที่ได้จาก%3$sกา่รแนะนำ</string>
   <string name="vip_program_gamification_title">โบนัสของฉันอยู่ในระดับใด</string>
