@@ -1255,7 +1255,7 @@
   <string name="verify_card_one_more_step_body">Introduce el código que aparece en el detalle de la transacción</string>
   <string name="verify_card_one_more_step_button">Introducir código</string>
   <string name="verify_card_verified">¡Método de pago verificado!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Verificación de tarjeta bancaria</string>
   <string name="verify_card_view_title">Verificación de tarjeta</string>
   <string name="verify_card_view_disclaimer">Cobraremos %s a tu tarjeta y te lo devolveremos cuando confirmes el código.</string>
   <string name="verify_card_view_title_2">Inserta los datos de la tarjeta</string>
