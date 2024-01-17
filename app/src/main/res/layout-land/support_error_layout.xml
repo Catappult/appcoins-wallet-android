@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
-    android:layout_height="172dp"
+    android:layout_height="match_parent"
     android:background="@drawable/background_content_payments"
     android:paddingTop="32dp"
     android:paddingBottom="16dp"

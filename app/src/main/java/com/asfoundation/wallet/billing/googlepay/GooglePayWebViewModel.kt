@@ -186,15 +186,15 @@ class GooglePayWebViewModel @Inject constructor(
       GooglePayResult.ERROR.key -> {
         Log.d(TAG, "error")
         sendPaymentErrorEvent("","Error received from Web.", transactionBuilder)
-        _state.postValue(State.GooglePayBack)
+        _state.postValue(State.Error(R.string.unknown_error)) // TODO error string
       }
       GooglePayResult.CANCEL.key -> {
         Log.d(TAG, "cancel")
-        _state.postValue(State.GooglePayBack)
+        _state.postValue(State.Error(R.string.unknown_error))
       }
       else -> {
         Log.d(TAG, "else")
-        _state.postValue(State.GooglePayBack)
+        _state.postValue(State.Error(R.string.unknown_error))
 
       }
     }

@@ -82,6 +82,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     handleBonusAnimation()
     showLoadingAnimation()
     setObserver()
+    iabView.lockRotation()
     startPayment()
   }
 
@@ -98,7 +99,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
           handleSuccess(state.bundle)
         }
         is GooglePayWebViewModel.State.WebViewAuthentication -> {
-//          startWebViewAuthorization(state.url)
           openUrlCustomTab(state.url)
         }
         GooglePayWebViewModel.State.GooglePayBack -> {
@@ -126,13 +126,13 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   private fun setListeners() {
     views.googlePayWebErrorButtons.errorBack.setOnClickListener {
-      close()
+      iabView.showPaymentMethodsView()
     }
     views.googlePayWebErrorButtons.errorCancel.setOnClickListener {
       close()
     }
     views.googlePayWebErrorButtons.errorTryAgain.setOnClickListener {
-      close()
+      iabView.showPaymentMethodsView()
     }
     views.successContainer.lottieTransactionSuccess.addAnimatorListener(object :
         Animator.AnimatorListener {
@@ -144,11 +144,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     views.googlePayWebErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
-  }
-
-  private fun startWebViewAuthorization(url: String) {
-    val intent = WebViewActivity.newIntent(requireActivity(), url)
-    resultAuthLauncher.launch(intent)
   }
 
   private fun concludeWithSuccess() {

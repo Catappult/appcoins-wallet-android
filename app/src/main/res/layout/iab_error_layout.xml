@@ -10,8 +10,8 @@
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="340dp"
-      android:layout_height="400dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,6 @@
         layout="@layout/support_error_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +37,7 @@
         android:layout_marginBottom="8dp"
         app:buttonText="@string/button_ok"
         app:buttonType="filled"
+        app:layout_constraintTop_toBottomOf="@+id/generic_error_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible"
