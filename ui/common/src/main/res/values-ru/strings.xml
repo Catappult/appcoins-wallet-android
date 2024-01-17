@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">В целях безопасности ваш кошелек заблокирован. Пожалуйста, свяжитесь с нами для получения дополнительной информации.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Бонус в %s получен.</string>
   <string name="purchase_making_purchase_title">Покупка&#8230;</string>
   <string name="purchase_fee_title">Оплата %1$s%2$s</string>
