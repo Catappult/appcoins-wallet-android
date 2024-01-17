@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">सुरक्षा कारणांसाठी आपले वॉलेट अडवले गेले आहे. अधिक माहितीसाठी कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">अतिरिक्त शुल्क लागू होऊ शकते.</string>
   <string name="purchase_error_paypal">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s बोनस प्राप्त झाला.</string>
   <string name="purchase_making_purchase_title">&#8230; ची खरेदी करणे</string>
   <string name="purchase_fee_title">%1$s%2$s शुल्क</string>
