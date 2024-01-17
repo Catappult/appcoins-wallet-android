@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">Untuk tujuan keselamatan, dompet anda telah disekat. Sila hubungi kami untuk maklumat lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Caj tambahan mungkin dikenakan.</string>
   <string name="purchase_error_paypal">Ada masalah dengan pembayaran PayPal anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus diterima.</string>
   <string name="purchase_making_purchase_title">Membuat pembelian&#8230;</string>
   <string name="purchase_fee_title">caj %1$s%2$s</string>
