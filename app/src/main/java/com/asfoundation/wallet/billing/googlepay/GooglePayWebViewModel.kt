@@ -94,7 +94,7 @@ class GooglePayWebViewModel @Inject constructor(
           errorMessage = "GooglePayWeb transaction error.",
           transactionBuilder = transactionBuilder
         )
-        _state.postValue(State.Error(R.string.purchase_error_paypal))  // TODO new error string
+        _state.postValue(State.Error(R.string.purchase_error_google_pay))
       })
     )
   }
@@ -133,7 +133,7 @@ class GooglePayWebViewModel @Inject constructor(
               errorMessage = "GooglePayWeb transaction error.",
               transactionBuilder = transactionBuilder
             )
-            _state.postValue(State.Error(R.string.purchase_error_paypal))   // TODO new error string
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
           null -> {
             Log.d(TAG, "GooglePayWeb transaction error")
@@ -141,7 +141,7 @@ class GooglePayWebViewModel @Inject constructor(
               errorMessage = "GooglePayWeb transaction error.",
               transactionBuilder = transactionBuilder
             )
-            _state.postValue(State.Error(R.string.purchase_error_paypal))   // TODO new error string
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
         }
       }
@@ -186,11 +186,11 @@ class GooglePayWebViewModel @Inject constructor(
       GooglePayResult.ERROR.key -> {
         Log.d(TAG, "error")
         sendPaymentErrorEvent("","Error received from Web.", transactionBuilder)
-        _state.postValue(State.Error(R.string.unknown_error)) // TODO error string
+        _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
         Log.d(TAG, "cancel")
-        _state.postValue(State.Error(R.string.unknown_error))
+        _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
         Log.d(TAG, "else")
