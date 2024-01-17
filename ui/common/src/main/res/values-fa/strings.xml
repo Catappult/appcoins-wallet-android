@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">به دلایل امنیتی کیف پول شما مسدود شده‌است. برای اطلاعات بیشتر با ما تماس بگیرید.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">ممکن است هزینه‌های اضافی وارد شود.</string>
   <string name="purchase_error_paypal">مشکلی با پرداخت پی‌پال شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s پاداش دریافت شد.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s fee</string>
