@@ -1249,7 +1249,7 @@
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Verificación de método de pago</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>
   <string name="verify_card_one_more_step_title">Un paso más para verificar</string>
   <string name="verify_card_one_more_step_body">Introduce el código que aparece en el detalle de la transacción</string>
