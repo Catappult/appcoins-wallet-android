@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">Demi alasan keamanan, dompet Anda sudah diblokir. Silakan hubungi kami untuk informasi lebih lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Mungkin akan dikenakan biaya tambahan.</string>
   <string name="purchase_error_paypal">Terjadi masalah dengan pembayaran PayPal Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Bonus %s diterima.</string>
   <string name="purchase_making_purchase_title">Melakukan pembelian&#8230;</string>
   <string name="purchase_fee_title">Biaya %1$s%2$s</string>
