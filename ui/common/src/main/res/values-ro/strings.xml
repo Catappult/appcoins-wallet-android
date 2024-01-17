@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">Din motive de securitate, portofelul tău a fost blocat. Te rugăm să ne contactezi pentru mai multe informații.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Este posibil să se aplice comisioane suplimentare.</string>
   <string name="purchase_error_paypal">Am întâmpinat o problemă cu plata ta PayPal. Încearcă din nou sau folosește o metodă de plată diferită.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
   <string name="purchase_making_purchase_title">Se efectuează achiziția&#8230;</string>
   <string name="purchase_fee_title">Taxă de %1$s%2$s</string>
