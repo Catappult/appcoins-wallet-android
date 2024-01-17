@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">Por questões de segurança, sau carteira foi bloqueada. Por favor, entre em contato com o suporte para mais informações.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
   <string name="purchase_error_paypal">Houve um problema com o seu pagamento no PayPal. Por favor, tente novamente ou utilize um método de pagamento diferente.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">bônus recebido de %s.</string>
   <string name="purchase_making_purchase_title">Processando compra&#8230;</string>
   <string name="purchase_fee_title">taxa de %1$s%2$s</string>
