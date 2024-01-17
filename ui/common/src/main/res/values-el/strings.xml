@@ -645,6 +645,7 @@
   <string name="error_blocked_wallet_body">Για λόγους ασφαλείας, το wallet σας έχει αποκλειστεί. Παρακαλούμε επικοινωνήστε μαζί μας για περισσότερες λεπτομέρειες.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ενδέχεται να ισχύουν επιπλέον χρεώσεις.</string>
   <string name="purchase_error_paypal">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω PayPal. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <string name="purchase_making_purchase_title">Πραγματοποίηση αγοράς&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s χρέωση</string>
