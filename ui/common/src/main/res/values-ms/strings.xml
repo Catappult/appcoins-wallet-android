@@ -811,6 +811,8 @@
   <string name="remove_wallet_no_button">Tidak, kembali</string>
   <string name="remove_wallet_yes_button">Ya, alih keluar dompet</string>
   <string name="remove_wallet_removed_body">Dompet sudah dialih keluar!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Pindahan</string>
   <string name="transfer_title">Pindah Dana</string>
