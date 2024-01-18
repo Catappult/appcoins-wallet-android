@@ -813,6 +813,8 @@
   <string name="remove_wallet_no_button">Nu, du-te înapoi</string>
   <string name="remove_wallet_yes_button">Da, elimină portofel</string>
   <string name="remove_wallet_removed_body">Portofel eliminat!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transferă fonduri</string>
