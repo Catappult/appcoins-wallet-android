@@ -812,6 +812,8 @@
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">वॉलेट हटाया गया!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">अंतरण करें</string>
   <string name="transfer_title">फंड अंतरण करें</string>
