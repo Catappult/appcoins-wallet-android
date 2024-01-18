@@ -1200,6 +1200,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
   <string name="vip_program_gamification_title">Koji je moj bonus nivo?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Ostvaren bonus od kupovina</string>
