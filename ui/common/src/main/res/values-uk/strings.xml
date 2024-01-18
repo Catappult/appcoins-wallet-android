@@ -816,6 +816,8 @@
   <string name="remove_wallet_no_button">Ні, повернутися</string>
   <string name="remove_wallet_yes_button">Так, видалити гаманець</string>
   <string name="remove_wallet_removed_body">Гаманець видалено!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Переведення</string>
   <string name="transfer_title">Переказ коштів</string>
