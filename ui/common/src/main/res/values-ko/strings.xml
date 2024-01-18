@@ -811,6 +811,8 @@
   <string name="remove_wallet_no_button">아니오, 뒤로 가기</string>
   <string name="remove_wallet_yes_button">네, 지갑 제거</string>
   <string name="remove_wallet_removed_body">지갑이 제거되었습니다!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">전송</string>
   <string name="transfer_title">자금 전송</string>
