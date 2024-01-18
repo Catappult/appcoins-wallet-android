@@ -814,6 +814,8 @@
   <string name="remove_wallet_no_button">Nie, wróć</string>
   <string name="remove_wallet_yes_button">Tak, usuń portfel</string>
   <string name="remove_wallet_removed_body">Usunięto portfel!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Przelewy</string>
   <string name="transfer_title">Przelej środki</string>
