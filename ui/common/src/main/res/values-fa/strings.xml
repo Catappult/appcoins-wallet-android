@@ -812,6 +812,8 @@
   <string name="remove_wallet_no_button">خیر، بازگشت به قبل</string>
   <string name="remove_wallet_yes_button">بله، حذف کیف پول</string>
   <string name="remove_wallet_removed_body">کیف‌پول حذف شد!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">انتقال</string>
   <string name="transfer_title">انتقال وجه</string>
