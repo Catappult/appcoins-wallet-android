@@ -498,6 +498,12 @@ class TopUpFragmentPresenter(
       PaymentType.VKPAY -> {
         activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
       }
+      PaymentType.GOOGLEPAY_WEB -> {
+        activity?.navigateToGooglePay(
+          paymentType = paymentMethod.paymentType,
+          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+        )
+      }
       PaymentType.CHALLENGE_REWARD -> {
         activity?.navigateToChallengeReward()
       }

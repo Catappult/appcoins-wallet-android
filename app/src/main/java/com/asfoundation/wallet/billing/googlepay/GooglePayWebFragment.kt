@@ -43,7 +43,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private val views get() = binding!!
   private lateinit var compositeDisposable: CompositeDisposable
 
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
   private var successBundle: Bundle? = null
 
   private lateinit var iabView: IabView
@@ -64,6 +63,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     super.onAttach(context)
     check(context is IabView) { "GooglePayWeb payment fragment must be attached to IAB activity" }
     iabView = context
+    iabView.lockRotation()
   }
 
   override fun onResume() {
@@ -82,7 +82,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     handleBonusAnimation()
     showLoadingAnimation()
     setObserver()
-    iabView.lockRotation()
     startPayment()
   }
 
@@ -98,7 +97,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
         is GooglePayWebViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
-        is GooglePayWebViewModel.State.WebViewAuthentication -> {
+        is GooglePayWebViewModel.State.WebAuthentication -> {
           openUrlCustomTab(state.url)
         }
         GooglePayWebViewModel.State.GooglePayBack -> {
@@ -116,7 +115,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   private fun startPayment() {
     viewModel.startPayment(
-      createTokenIfNeeded = true,
       amount = amount,
       currency = currency,
       transactionBuilder = transactionBuilder,
@@ -258,8 +256,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
-    private const val NAVIGATOR = "navigator"
-    private const val CHROME_PACKAGE_NAME = "com.android.chrome"
+    const val CHROME_PACKAGE_NAME = "com.android.chrome"
 
     @JvmStatic
     fun newInstance(

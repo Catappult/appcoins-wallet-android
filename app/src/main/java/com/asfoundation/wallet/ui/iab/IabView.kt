@@ -88,7 +88,7 @@ interface IabView {
     frequency: String?
   )
 
-  fun showGooglePayWeb(   //TODO check fields for sessions
+  fun showGooglePayWeb(
     amount: BigDecimal,
     currency: String?,
     isBds: Boolean,

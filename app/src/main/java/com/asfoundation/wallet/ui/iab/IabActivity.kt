@@ -355,7 +355,7 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
 
   }
 
-  override fun showGooglePayWeb(  //TODO fields for session
+  override fun showGooglePayWeb(
     amount: BigDecimal,
     currency: String?,
     isBds: Boolean,

@@ -45,7 +45,7 @@ class GooglePayWebViewModel @Inject constructor(
   sealed class State {
     object Start : State()
     data class Error(val stringRes: Int) : State()
-    data class WebViewAuthentication(val url: String) : State()
+    data class WebAuthentication(val url: String) : State()
     data class SuccessPurchase(val bundle: Bundle) : State()
     object GooglePayBack : State()
   }
@@ -55,15 +55,12 @@ class GooglePayWebViewModel @Inject constructor(
 
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-  private var authenticatedToken: String? = null
-
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
 
   var uid: String? = null
 
   fun startPayment(
-    createTokenIfNeeded: Boolean = true,
     amount: BigDecimal,
     currency: String,
     transactionBuilder: TransactionBuilder,
@@ -77,7 +74,7 @@ class GooglePayWebViewModel @Inject constructor(
           currency = currency,
           transactionBuilder = transactionBuilder,
           origin = origin,
-          returnUrl = urls.returnUrl, // "https://wallet.dev.appcoins.io/app/googlepay/checkout",
+          returnUrl = urls.returnUrl,
         ).map { transaction ->
             uid = transaction.uid
             val googlePayUrl = buildGooglePayUrlUseCase(
@@ -86,7 +83,7 @@ class GooglePayWebViewModel @Inject constructor(
               sessionData = transaction.sessionData ?: "",
               isDarkMode = false,
             )
-            _state.postValue(State.WebViewAuthentication(googlePayUrl))
+            _state.postValue(State.WebAuthentication(googlePayUrl))
           }
       }.subscribe({}, {
         Log.d(TAG, it.toString())
@@ -120,7 +117,10 @@ class GooglePayWebViewModel @Inject constructor(
       developerWallet = transactionBuilder.toAddress(),
       referrerUrl = transactionBuilder.referrerUrl,
       returnUrl = returnUrl,
-    ).subscribeOn(networkScheduler).observeOn(viewScheduler).doOnSuccess {
+    )
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
         when (it?.validity) {
           GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
             getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
