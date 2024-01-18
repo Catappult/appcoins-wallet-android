@@ -813,6 +813,8 @@ Wallets</item>
   <string name="remove_wallet_no_button">Όχι, πήγαινε πίσω</string>
   <string name="remove_wallet_yes_button">Ναι, διάγραψε wallet</string>
   <string name="remove_wallet_removed_body">Το wallet αφαιρέθηκε!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Μεταφορά</string>
   <string name="transfer_title">Μεταφορά Χρημάτων</string>
