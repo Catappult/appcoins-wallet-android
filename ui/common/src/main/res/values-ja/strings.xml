@@ -811,6 +811,8 @@
   <string name="remove_wallet_no_button">いいえ、戻る</string>
   <string name="remove_wallet_yes_button">はい、ウォレットを削除します</string>
   <string name="remove_wallet_removed_body">ウォレットが削除されました！</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">移動</string>
   <string name="transfer_title">資金の移動</string>
