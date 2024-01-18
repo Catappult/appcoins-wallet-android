@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
@@ -10,26 +9,25 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
+import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
+import com.asfoundation.wallet.util.Period
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -180,7 +178,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
 
     setupAppNameAndIcon()
 
@@ -239,11 +236,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     paymentMethods: MutableList<PaymentMethod>,
     paymentMethodId: String
   ) {
-    if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
-      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethods[0].showTopup
-    } else {
-      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = null
-    }
     isPreSelected = false
     binding.preSelectedPaymentMethodGroup.visibility = View.GONE
     binding.midSeparator?.visibility = View.VISIBLE
@@ -253,7 +245,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethods = paymentMethods,
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
-          topupClick = topupClick,
           logoutCallback = {
             logoutFromPaypal()
           },
@@ -335,7 +326,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.midSeparator?.visibility = View.INVISIBLE
     binding.layoutPreSelected.paymentMethodDescription.visibility = View.VISIBLE
     binding.layoutPreSelected.paymentMethodDescription.text = getPaymentMethodLabel(paymentMethod)
-    binding.layoutPreSelected.paymentMethodDescriptionSingle.visibility = View.GONE
     when (paymentMethod.id) {
       PaymentMethodId.APPC_CREDITS.id -> {
         binding.layoutPreSelected.paymentMethodSecondary.visibility = View.VISIBLE
@@ -374,12 +364,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     if (fee?.isValidFee() == true) {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
-      binding.layoutPreSelected.paymentMethodFeeValue.text = "$formattedValue ${fee.currency}"
-
-      binding.layoutPreSelected.paymentMethodFeeValue.apply {
-        this.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
-        this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
-      }
+      binding.layoutPreSelected.paymentMethodFee.text =
+        context?.getString(R.string.purchase_fee_title, fee.currency, formattedValue)
     } else {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.GONE
     }

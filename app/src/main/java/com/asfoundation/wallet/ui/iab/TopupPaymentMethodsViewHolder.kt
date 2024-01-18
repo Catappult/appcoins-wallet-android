@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
-import com.asf.wallet.databinding.ItemPaymentMethodBinding
 import com.asf.wallet.databinding.ItemTopupPaymentMethodBinding
+import com.asfoundation.wallet.GlideApp
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -30,7 +29,6 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     data: PaymentMethod,
     checked: Boolean,
     listener: View.OnClickListener,
-    onClickListenerTopup: View.OnClickListener,
     onClickPaypalLogout: () -> Unit,
     disposables: CompositeDisposable,
     showPayPalLogout: Subject<Boolean>,
@@ -65,14 +63,6 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
 
       applyAlphaScale(binding.paymentMethodIc)
     }
-    binding.checkoutTopupButton.setOnClickListener(onClickListenerTopup)
-    if (data.showTopup) {
-      binding.checkoutTopupButton.visibility = View.VISIBLE
-      binding.radioButton.visibility = View.GONE
-    } else {
-      binding.checkoutTopupButton.visibility = View.GONE
-      binding.radioButton.visibility = View.VISIBLE
-    }
     if (data.showLogout) {
       disposables.add(
         showPayPalLogout
@@ -99,11 +89,6 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     } else {
       binding.paymentMoreLogout.visibility = View.GONE
     }
-    binding.paymentMethodInfo.visibility =
-      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
-    binding.paymentMethodInfoImage.visibility =
-      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
-
   }
 
   private fun handleDescription(data: PaymentMethod, selected: Boolean, isEnabled: Boolean) {
@@ -133,23 +118,8 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
         .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
-      binding.paymentMethodFeeValue.text = "$formattedValue ${fee.currency}"
-
-      binding.paymentMethodFeeValue.apply {
-        if (enabled) {
-          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_pink))
-          this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
-        } else {
-          this.setTextColor(
-            ContextCompat.getColor(
-              itemView.context,
-              R.color.styleguide_black_transparent_80
-            )
-          )
-          this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
-        }
-      }
-
+      binding.paymentMethodFee.text =
+        itemView.context.getString(R.string.purchase_fee_title, fee.currency, formattedValue)
     } else {
       binding.paymentMethodFee.visibility = View.GONE
     }

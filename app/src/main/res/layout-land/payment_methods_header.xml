@@ -84,6 +84,31 @@
       tools:text="0,09 APPC"
       />
 
+  <ImageView
+      android:layout_width="16dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:src="@drawable/ic_info_message"
+      app:layout_constraintBottom_toBottomOf="@id/info_fees"
+      app:layout_constraintEnd_toStartOf="@id/info_fees"
+      app:layout_constraintTop_toTopOf="@id/info_fees"
+      />
+
+  <TextView
+      android:id="@+id/info_fees"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/purchase_fee_included_body"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="12sp"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintTop_toBottomOf="@+id/fiat_price"
+      tools:visibility="visible"
+      />
+
   <include
       android:id="@+id/fiat_price_skeleton"
       layout="@layout/skeleton_rounded_rectangle"
