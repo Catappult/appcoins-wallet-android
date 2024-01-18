@@ -811,6 +811,8 @@
   <string name="remove_wallet_no_button">否，返回</string>
   <string name="remove_wallet_yes_button">是，删除钱包</string>
   <string name="remove_wallet_removed_body">钱包已删除！</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">转账</string>
   <string name="transfer_title">转移资金</string>
