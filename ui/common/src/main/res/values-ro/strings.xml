@@ -1217,22 +1217,22 @@
   <string name="topup_home_button">Alimentează</string>
   <string name="intro_home_button">Acasă</string>
   <string name="intro_rewards_button">Recompense</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">ZI</item>
     <item quantity="few">ZILE</item>
     <item quantity="other">ZILE</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ORĂ</item>
     <item quantity="few">ORE</item>
     <item quantity="other">ORE</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUT</item>
     <item quantity="few">MINUTE</item>
     <item quantity="other">MINUTE</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SECUNDĂ</item>
     <item quantity="few">SECUNDE</item>
     <item quantity="other">SECUNDE</item>

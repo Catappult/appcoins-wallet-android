@@ -1199,16 +1199,16 @@
   <string name="topup_home_button">ေငြျဖည့္မည္</string>
   <string name="intro_home_button">ပင္မ</string>
   <string name="intro_rewards_button">ဆုမ်ား</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">ေန႔</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">နာရီ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">မိနစ္</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">စကၠန႔္</item>
   </plurals>
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>

@@ -1226,25 +1226,25 @@
   <string name="topup_home_button">Пополнить</string>
   <string name="intro_home_button">Главная</string>
   <string name="intro_rewards_button">Награды</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">ДЕНЬ</item>
     <item quantity="few">ДНЯ</item>
     <item quantity="many">ДНЕЙ</item>
     <item quantity="other">ДНЕЙ</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ЧАС</item>
     <item quantity="few">ЧАСА</item>
     <item quantity="many">ЧАСОВ</item>
     <item quantity="other">ЧАСОВ</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">МИНУТА</item>
     <item quantity="few">МИНУТЫ</item>
     <item quantity="many">МИНУТ</item>
     <item quantity="other">МИНУТ</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">СЕКУНДА</item>
     <item quantity="few">СЕКУНДЫ</item>
     <item quantity="many">СЕКУНД</item>

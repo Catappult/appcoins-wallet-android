@@ -1229,19 +1229,19 @@
   <string name="topup_home_button">भरणा करा</string>
   <string name="intro_home_button">मुख्य पृष्ठ</string>
   <string name="intro_rewards_button">बक्षिसे</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">DAY</item>
     <item quantity="other">दिवस</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">दिवस</item>
     <item quantity="other">तास</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTE</item>
     <item quantity="other">मिनिटे</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SECOND</item>
     <item quantity="other">सेकंद</item>
   </plurals>

@@ -1226,25 +1226,25 @@
   <string name="topup_home_button">Doładuj</string>
   <string name="intro_home_button">Home</string>
   <string name="intro_rewards_button">Nagrody</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">Dzień</item>
     <item quantity="few">Dni</item>
     <item quantity="many">Dni</item>
     <item quantity="other">Dni</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">GODZINA</item>
     <item quantity="few">GODZIN</item>
     <item quantity="many">GODZINY</item>
     <item quantity="other">GODZIN</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTA</item>
     <item quantity="few">MINUTY</item>
     <item quantity="many">MINUT</item>
     <item quantity="other">MINUT</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SEKUNDA</item>
     <item quantity="few">SEKUNDY</item>
     <item quantity="many">SEKUND</item>

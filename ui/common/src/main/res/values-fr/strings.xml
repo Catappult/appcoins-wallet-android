@@ -1208,19 +1208,19 @@
   <string name="topup_home_button">Recharger</string>
   <string name="intro_home_button">Accueil</string>
   <string name="intro_rewards_button">Récompenses</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">JOUR</item>
     <item quantity="other">JOURS</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">HEURE</item>
     <item quantity="other">HEURES</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTE</item>
     <item quantity="other">MINUTES</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SECONDE</item>
     <item quantity="other">SECONDES</item>
   </plurals>
