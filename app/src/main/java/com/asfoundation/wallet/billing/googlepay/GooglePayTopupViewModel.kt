@@ -79,7 +79,10 @@ class GooglePayTopupViewModel @Inject constructor(
               sessionId = transaction.sessionId ?: "",
               sessionData = transaction.sessionData ?: "",
               isDarkMode = true,
+              price = amount,
+              currency = currency,
             )
+            Log.d("url", googlePayUrl)
             _state.postValue(State.WebAuthentication(googlePayUrl))
           }
         }.subscribe({}, {

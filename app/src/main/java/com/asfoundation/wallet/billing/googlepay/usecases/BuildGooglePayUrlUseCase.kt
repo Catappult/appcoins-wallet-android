@@ -10,8 +10,10 @@ class BuildGooglePayUrlUseCase @Inject constructor(
     sessionId: String,
     sessionData: String,
     isDarkMode: Boolean,
+    price: String,
+    currency: String
   ): String {
     val encodedSessionData = URLEncoder.encode(sessionData, "UTF-8")
-    return "$url?id=$sessionId&sessionData=$encodedSessionData&isDarkMode=$isDarkMode"
+    return "$url?id=$sessionId&sessionData=$encodedSessionData&isDarkMode=$isDarkMode&price=$price&currency=$currency"
   }
 }
