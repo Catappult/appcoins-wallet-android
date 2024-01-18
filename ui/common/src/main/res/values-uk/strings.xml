@@ -1211,6 +1211,7 @@
   <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб усі могли грати та заробляти. За кожну покупку в додатку &lt;b&gt;ви та ваші друзі отримуватимете бонус %1$s%%&lt;b&gt; додатково до інших активних промоакцій. &lt;b&gt;Діє до %2$s&lt;/b&gt;!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Бонус, отриманий від ваших покупок</string>
