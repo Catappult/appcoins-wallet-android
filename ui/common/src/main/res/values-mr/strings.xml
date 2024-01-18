@@ -1212,6 +1212,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
   <string name="vip_program_gamification_title">माझी बोनस पातळी काय आहे?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">आपल्या खरेदीवर बोनस मिळाला</string>
@@ -1232,7 +1233,7 @@
   <string name="intro_rewards_button">बक्षिसे</string>
   <plurals name="day">
     <item quantity="one">DAY</item>
-    <item quantity="other">दिवस</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
     <item quantity="one">दिवस</item>
@@ -1240,11 +1241,11 @@
   </plurals>
   <plurals name="minute">
     <item quantity="one">MINUTE</item>
-    <item quantity="other">मिनिटे</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
     <item quantity="one">SECOND</item>
-    <item quantity="other">सेकंद</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">व्यवहार</string>
   <string name="intro_backup_card_title">पैसे घालवु नका!</string>
