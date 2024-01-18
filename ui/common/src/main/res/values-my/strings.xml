@@ -811,6 +811,8 @@
   <string name="remove_wallet_no_button">မဟုတ္ပါ။ ျပန္သြားမည္</string>
   <string name="remove_wallet_yes_button">ဟုတ္ပါသည္။ ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_removed_body">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုက္ပါၿပီ။</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">လႊဲေျပာင္းမည္</string>
   <string name="transfer_title">ေငြကိုလႊဲေျပာင္းမည္</string>
