@@ -519,7 +519,7 @@
   <string name="see_more_button">See more</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">Początek:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
@@ -934,7 +934,7 @@
   <string name="gamif_placeholder_unknown">nieznana planeta</string>
   <string name="gamif_distance_unkown">Nieznane położenie</string>
   <string name="gamif_placeholder_new_planet">nowa planeta</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">Nagrody</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">Rachunek operatora</string>
   <string name="carrier_billing_fees_disclaimer">Możliwość dodatkowych opłat</string>
@@ -1214,7 +1214,7 @@
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s zarobił za %3$s poleceń</string>
   <string name="vip_program_gamification_title">Jaki mam bonus?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus otrzymany za zakupy</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus otrzymany za polecenia</string>
   <string name="vip_program_max_bonus_title">Ciesz się %s%% Bonusu przy każdym zakupie</string>
   <string name="vip_program_max_bonus_body">To już są wartości astronomiczne.</string>
@@ -1231,28 +1231,28 @@
   <string name="intro_home_button">Home</string>
   <string name="intro_rewards_button">Nagrody</string>
   <plurals name="day">
-    <item quantity="one">DAY</item>
-    <item quantity="few">DAYS</item>
-    <item quantity="many">DAYS</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="one">Dzień</item>
+    <item quantity="few">Dni</item>
+    <item quantity="many">Dni</item>
+    <item quantity="other">Dni</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">HOUR</item>
-    <item quantity="few">HOURS</item>
-    <item quantity="many">HOURS</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="one">GODZINA</item>
+    <item quantity="few">GODZIN</item>
+    <item quantity="many">GODZINY</item>
+    <item quantity="other">GODZINY</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUTE</item>
-    <item quantity="few">MINUTES</item>
-    <item quantity="many">MINUTES</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="one">MINUTA</item>
+    <item quantity="few">MINUTY</item>
+    <item quantity="many">MINUT</item>
+    <item quantity="other">MINUT</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SECOND</item>
-    <item quantity="few">SECONDS</item>
-    <item quantity="many">SECONDS</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="one">SEKUNDA</item>
+    <item quantity="few">SEKUNDY</item>
+    <item quantity="many">SEKUND</item>
+    <item quantity="other">SEKUND</item>
   </plurals>
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
@@ -1279,7 +1279,7 @@
   <string name="manage_wallet_verify_title">Zweryfikuj metodę płatności</string>
   <string name="manage_wallet_verify_body">Uniknij blokad weryfikując metodę płatności.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Zweryfikuj metodę płatności</string>
   <string name="verify_card_body">Uniknij blokad weryfikując metodę płatności.</string>
   <string name="verify_card_one_more_step_title">Ostatni krok weryfikacji</string>
   <string name="verify_card_one_more_step_body">Wpisz kod widoczny w szczegółach transakcji</string>
