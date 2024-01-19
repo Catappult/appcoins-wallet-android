@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">Trang chủ</string>
   <string name="intro_rewards_button">Phần thưởng</string>
   <plurals name="day">
-    <item quantity="other">NGÀY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">GIỜ</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">PHÚT</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">GIÂY</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Giao dịch</string>
   <string name="intro_backup_card_title">Đừng để mất tiền của bạn!</string>
