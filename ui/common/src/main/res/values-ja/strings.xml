@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">ホーム</string>
   <string name="intro_rewards_button">リワード</string>
   <plurals name="day">
-    <item quantity="other">日</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">時間</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">分</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">秒</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">取引</string>
   <string name="intro_backup_card_title">資金を失わないようにしましょう！</string>
