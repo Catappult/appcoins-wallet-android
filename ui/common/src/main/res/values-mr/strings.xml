@@ -1238,8 +1238,8 @@
     <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">दिवस</item>
-    <item quantity="other">तास</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
     <item quantity="one">MINUTE</item>
