@@ -519,7 +519,7 @@
   <string name="see_more_button">See more</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">تاریخ شروع:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
@@ -932,7 +932,7 @@
   <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
   <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
   <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">پاداش‌ها</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">پرداخت از طریق سرویس مخابراتی</string>
   <string name="carrier_billing_fees_disclaimer">ممکن است هزینه‌های جانبی وارد شود</string>
@@ -1196,7 +1196,7 @@
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
   <string name="vip_program_gamification_title">درجه پاداش من چقدر است؟</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">پاداش دریافتی از خریدهای شما</string>
   <string name="vip_program_gamification_amoung_referral_bonus">پاداش دریافتی از برنامه همکاری</string>
   <string name="vip_program_max_bonus_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
   <string name="vip_program_max_bonus_body">شما به حد کیهانی ما رسیده اید.</string>
@@ -1213,20 +1213,20 @@
   <string name="intro_home_button">خانه</string>
   <string name="intro_rewards_button">پاداش‌ها</string>
   <plurals name="day">
-    <item quantity="one">DAY</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="one">روز</item>
+    <item quantity="other">روز</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">HOUR</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="one">ساعت</item>
+    <item quantity="other">ساعت</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUTE</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="one">دقیقه</item>
+    <item quantity="other">دقیقه</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SECOND</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="one">ثانیه</item>
+    <item quantity="other">ثانیه</item>
   </plurals>
   <string name="intro_transactions_header">تراکنش‌ها</string>
   <string name="intro_backup_card_title">سرمایه خود را از دست ندهید!</string>
@@ -1253,7 +1253,7 @@
   <string name="manage_wallet_verify_title">تایید یک روش پرداخت</string>
   <string name="manage_wallet_verify_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">تایید یک روش پرداخت</string>
   <string name="verify_card_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <string name="verify_card_one_more_step_title">یک قدم دیگر تا تایید</string>
   <string name="verify_card_one_more_step_body">کدی را که در جزییات تراکنش است را وارد کنید</string>
