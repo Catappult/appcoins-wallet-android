@@ -1213,20 +1213,20 @@
   <string name="intro_home_button">Kezdőlap</string>
   <string name="intro_rewards_button">Jutalmak</string>
   <plurals name="day">
-    <item quantity="one">NAP</item>
-    <item quantity="other">NAPOK</item>
+    <item quantity="one">DAY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">ÓRA</item>
-    <item quantity="other">ÓRÁK</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">PERC</item>
-    <item quantity="other">PERCEK</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">MÁSODPERC</item>
-    <item quantity="other">MÁSODPERCEK</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Tranzakciók</string>
   <string name="intro_backup_card_title">Ne veszítsd el a pénzed!</string>
