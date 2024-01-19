@@ -1222,24 +1222,24 @@
   <string name="intro_home_button">Acasă</string>
   <string name="intro_rewards_button">Recompense</string>
   <plurals name="day">
-    <item quantity="one">ZI</item>
-    <item quantity="few">ZILE</item>
-    <item quantity="other">ZILE</item>
+    <item quantity="one">DAY</item>
+    <item quantity="few">DAYS</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">ORĂ</item>
-    <item quantity="few">ORE</item>
-    <item quantity="other">ORE</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="few">HOURS</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUT</item>
-    <item quantity="few">MINUTE</item>
-    <item quantity="other">MINUTE</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="few">MINUTES</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SECUNDĂ</item>
-    <item quantity="few">SECUNDE</item>
-    <item quantity="other">SECUNDE</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="few">SECONDS</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Tranzacții</string>
   <string name="intro_backup_card_title">Nu îți pierde fondurile!</string>
