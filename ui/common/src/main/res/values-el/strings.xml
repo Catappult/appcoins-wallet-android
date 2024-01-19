@@ -1214,20 +1214,20 @@ Wallets</item>
   <string name="intro_home_button">Σπίτι</string>
   <string name="intro_rewards_button">Ανταμοιβές</string>
   <plurals name="day">
-    <item quantity="one">ΜΕΡΑ</item>
-    <item quantity="other">ΜΕΡΕΣ</item>
+    <item quantity="one">DAY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">ΩΡΑ</item>
-    <item quantity="other">ΩΡΕΣ</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">ΛΕΠΤΟ</item>
-    <item quantity="other">ΛΕΠΤΑ</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">ΔΕΥΤΕΡΟΛΕΠΤΟ</item>
-    <item quantity="other">ΔΕΥΤΕΡΟΛΕΠΤΑ</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Συναλλαγές</string>
   <string name="intro_backup_card_title">Μην χάσετε τα χρήματά σας!</string>
