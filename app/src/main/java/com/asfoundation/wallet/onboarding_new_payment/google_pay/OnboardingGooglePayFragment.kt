@@ -61,7 +61,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     if (isFirstRun) {
       isFirstRun = false
     } else {
-      // check success/error/cancel
+      // checks success/error/cancel
       viewModel.processGooglePayResult(transactionBuilder = args.transactionBuilder)
     }
   }
@@ -78,7 +78,6 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     viewModel.state.observe(viewLifecycleOwner) { state ->
       when (state) {
         OnboardingGooglePayViewModel.State.Start -> {
-//          showLoadingAnimation()
         }
         is OnboardingGooglePayViewModel.State.Error -> {
           showError(getString(state.stringRes))

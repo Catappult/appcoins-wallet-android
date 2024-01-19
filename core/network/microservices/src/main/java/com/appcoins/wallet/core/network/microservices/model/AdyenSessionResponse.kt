@@ -10,7 +10,6 @@ data class AdyenSessionResponse(
   val session: MakePaymentSessionResponse?,
   val metadata: TransactionMetadata?
 ) {
-  // TODO check
   fun mapValidity(): GooglePayWebTransaction.GooglePayWebValidityState {
     return when(status) {
       TransactionStatus.PENDING -> GooglePayWebTransaction.GooglePayWebValidityState.PENDING

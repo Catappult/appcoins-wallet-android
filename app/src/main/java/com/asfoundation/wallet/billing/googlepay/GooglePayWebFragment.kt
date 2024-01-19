@@ -71,7 +71,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     if (isFirstRun) {
       isFirstRun = false
     } else {
-      // check success/error/cancel
+      // checks success/error/cancel
       viewModel.processGooglePayResult(transactionBuilder = transactionBuilder)
     }
   }
@@ -109,7 +109,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   private fun openUrlCustomTab(url: String) {
     val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)  // TODO check if other browsers are needed
+    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 

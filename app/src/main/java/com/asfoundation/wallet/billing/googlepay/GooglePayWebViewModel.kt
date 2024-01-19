@@ -167,8 +167,7 @@ class GooglePayWebViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.unknown_error))
           }
-          else -> { /* pending */
-          }
+          else -> { /* pending */ }
         }
       }, {
         Log.d(TAG, "Error on Settled transaction polling")

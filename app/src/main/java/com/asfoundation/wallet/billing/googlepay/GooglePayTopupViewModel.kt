@@ -25,7 +25,7 @@ import javax.inject.Inject
 class GooglePayTopupViewModel @Inject constructor(
   private val getGooglePayUrlUseCase: GetGooglePayUrlUseCase,
   private val buildGooglePayUrlUseCase: BuildGooglePayUrlUseCase,
-  private val createGooglePayTransactionTopupUseCase: CreateGooglePayTransactionTopupUseCase, // TODO specific topup
+  private val createGooglePayTransactionTopupUseCase: CreateGooglePayTransactionTopupUseCase,
   private val waitForSuccessUseCase: WaitForSuccessUseCase,
   private val getGooglePayResultUseCase: GetGooglePayResultUseCase,
   private val billingMessagesMapper: BillingMessagesMapper,
@@ -147,8 +147,7 @@ class GooglePayTopupViewModel @Inject constructor(
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> { /* pending */
-              }
+              else -> { /* pending */ }
             }
           },
           {

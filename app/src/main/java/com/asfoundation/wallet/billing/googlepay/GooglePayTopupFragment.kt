@@ -90,7 +90,7 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
           openUrlCustomTab(state.url)
         }
         GooglePayTopupViewModel.State.GooglePayBack -> {
-          close()  //TODO check behaviour
+          close()
         }
       }
     }
@@ -98,7 +98,7 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
   private fun openUrlCustomTab(url: String) {
     val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)  // TODO check if other browsers are needed
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 
