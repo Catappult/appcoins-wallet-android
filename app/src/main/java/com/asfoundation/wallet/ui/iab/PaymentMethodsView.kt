@@ -12,13 +12,13 @@ interface PaymentMethodsView {
   fun showPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
     currency: String, paymentMethodId: String, fiatAmount: String,
-    appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+    appcEnabled: Boolean, creditsEnabled: Boolean,
     frequency: String?, isSubscription: Boolean
   )
 
   fun showPreSelectedPaymentMethod(
     paymentMethod: PaymentMethod, currency: String,
-    fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
+    fiatAmount: String, isBonusActive: Boolean,
     frequency: String?, isSubscription: Boolean
   )
 
@@ -87,7 +87,7 @@ interface PaymentMethodsView {
 
   fun showShareLink(selectedPaymentMethod: String)
 
-  fun getPaymentSelection(): Observable<String>
+  fun getPaymentSelection(): Observable<PaymentMethod>
 
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
@@ -148,8 +148,11 @@ interface PaymentMethodsView {
 
   fun showChallengeReward()
 
+  fun showFee(hasFee: Boolean, cachedFiatValue: BigDecimal?, fee: BigDecimal)
+
   enum class SelectedPaymentMethod {
-    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
+    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
+    EARN_APPC,
     CARRIER_BILLING, ERROR, GIROPAY, SANDBOX, CHALLENGE_REWARD, VKPAY
   }
 

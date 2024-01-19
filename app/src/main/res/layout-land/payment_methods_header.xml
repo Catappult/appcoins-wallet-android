@@ -68,30 +68,16 @@
       tools:text="0,99 EUR"
       />
 
-  <TextView
-      android:id="@+id/appc_price"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="4dp"
-      android:textColor="@color/styleguide_dark_grey"
-      android:textSize="12sp"
-      android:visibility="invisible"
-      android:fontFamily="@font/roboto_medium"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintTop_toBottomOf="@+id/fiat_price"
-      tools:text="0,09 APPC"
-      />
-
   <ImageView
+      android:id="@+id/ic_info_fees"
       android:layout_width="16dp"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
+      android:layout_marginEnd="4dp"
       android:src="@drawable/ic_info_message"
       app:layout_constraintBottom_toBottomOf="@id/info_fees"
       app:layout_constraintEnd_toStartOf="@id/info_fees"
       app:layout_constraintTop_toTopOf="@id/info_fees"
+      android:importantForAccessibility="no"
       />
 
   <TextView
@@ -100,8 +86,10 @@
       android:layout_height="wrap_content"
       android:text="@string/purchase_fee_included_body"
       android:textColor="@color/styleguide_dark_grey"
-      android:textSize="12sp"
+      android:layout_marginTop="4dp"
       android:visibility="invisible"
+      android:textSize="11sp"
+      android:textStyle="bold"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
@@ -123,13 +111,21 @@
   <include
       android:id="@+id/appc_price_skeleton"
       layout="@layout/skeleton_rounded_rectangle"
-      android:layout_width="60dp"
+      android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginTop="4dp"
-      app:layout_constraintBottom_toBottomOf="@id/appc_price"
-      app:layout_constraintEnd_toEndOf="@id/appc_price"
-      app:layout_constraintTop_toTopOf="@id/appc_price"
-      tools:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@id/info_fees"
+      app:layout_constraintEnd_toEndOf="@id/info_fees"
+      app:layout_constraintStart_toStartOf="@id/ic_info_fees"
+      app:layout_constraintTop_toTopOf="@id/info_fees"
+      tools:visibility="visible"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/info_fees_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="invisible"
+      app:constraint_referenced_ids="info_fees, ic_info_fees"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

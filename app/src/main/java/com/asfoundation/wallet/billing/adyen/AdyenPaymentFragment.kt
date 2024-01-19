@@ -203,9 +203,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val fiat_price: TextView
     get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPrice
       ?: bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice!!
-  private val appc_price: TextView
-    get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPrice
-      ?: bindingCreditCardLayout?.paymentMethodsHeader?.appcPrice!!
 
   // fragment_iab_transaction_completed.xml
   private val lottie_transaction_success: LottieAnimationView
@@ -396,9 +393,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description.text = skuDescription
-    val appcValue =
-      formatter.formatPaymentCurrency(transactionBuilder.amount(), WalletCurrency.APPCOINS)
-    appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 
   override fun showLoading() {
@@ -589,13 +583,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatText)
         ?.let { fiatText = it }
-      appc_price.text = "~${appc_price.text}"
     }
     fiat_price.text = fiatText
     fiat_price_skeleton.visibility = GONE
     appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
-    appc_price.visibility = VISIBLE
   }
 
   override fun adyenErrorBackClicks() = RxView.clicks(error_try_again)

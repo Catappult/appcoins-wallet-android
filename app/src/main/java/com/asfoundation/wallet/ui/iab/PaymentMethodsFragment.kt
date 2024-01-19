@@ -207,13 +207,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     currency: String,
     paymentMethodId: String,
     fiatAmount: String,
-    appcAmount: String,
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
     isSubscription: Boolean
   ) {
-    updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
+    updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
     setupPaymentMethods(paymentMethods, paymentMethodId)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
@@ -230,6 +229,14 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showChallengeReward() {
     challengeRewardAnalytics.sendChallengeRewardEvent(IAP.id)
     iabView.showChallengeReward()
+  }
+
+  override fun showFee(hasFee: Boolean, fiatAmount: BigDecimal?, fee: BigDecimal) {
+    if (fiatAmount != null) {
+      binding.paymentMethodsHeader.fiatPrice.text =
+        formatter.formatPaymentCurrency(fiatAmount + fee, WalletCurrency.FIAT)
+    }
+    binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
   private fun setupPaymentMethods(
@@ -267,23 +274,18 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   private fun updateHeaderInfo(
     currency: String,
     fiatAmount: String,
-    appcAmount: String,
     frequency: String?,
     isSubscription: Boolean
   ) {
-    var appcPrice = appcAmount + " " + WalletCurrency.APPCOINS.symbol
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatPrice)
         ?.let { fiatPrice = it }
-      appcPrice = "~$appcPrice"
     }
-    binding.paymentMethodsHeader.appcPrice.text = appcPrice
     binding.paymentMethodsHeader.fiatPrice.text = fiatPrice
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = View.GONE
     binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = View.GONE
-    binding.paymentMethodsHeader.appcPrice.visibility = View.VISIBLE
     binding.paymentMethodsHeader.fiatPrice.visibility = View.VISIBLE
   }
 
@@ -297,13 +299,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     paymentMethod: PaymentMethod,
     currency: String,
     fiatAmount: String,
-    appcAmount: String,
     isBonusActive: Boolean,
     frequency: String?,
     isSubscription: Boolean
   ) {
     preSelectedPaymentMethod!!.onNext(paymentMethod)
-    updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
+    updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
 
     setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
 
@@ -669,12 +670,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
-  override fun getPaymentSelection(): Observable<String> =
+  override fun getPaymentSelection(): Observable<PaymentMethod> =
     Observable.merge(
       paymentMethodClick
         .filter { checkedRadioButtonId -> checkedRadioButtonId >= 0 }
-        .map { paymentMethodList[it].id },
-      preSelectedPaymentMethod!!.map(PaymentMethod::id)
+        .map { paymentMethodList[it] }, preSelectedPaymentMethod
     )
 
   override fun getMorePaymentMethodsClicks(): Observable<Any> =

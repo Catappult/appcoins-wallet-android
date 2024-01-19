@@ -108,11 +108,12 @@ class PaymentMethodsPresenter(
       .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
         if (interactor.isBonusActiveAndValid()) {
-          handleBonusVisibility(selectedPaymentMethod)
+          handleBonusVisibility(selectedPaymentMethod.id)
         } else {
           view.removeBonus()
         }
-        handlePositiveButtonText(selectedPaymentMethod)
+        handlePositiveButtonText(selectedPaymentMethod.id)
+        handleFeeVisibility(selectedPaymentMethod.fee)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -555,7 +556,6 @@ class PaymentMethodsPresenter(
             fiatValue,
             it,
             fiatAmount,
-            appcAmount,
             isBonusActive,
             paymentMethodsData.frequency
           )
@@ -610,7 +610,6 @@ class PaymentMethodsPresenter(
             fiatValue,
             paymentMethod,
             fiatAmount,
-            appcAmount,
             isBonusActive,
             paymentMethodsData.frequency
           )
@@ -702,7 +701,6 @@ class PaymentMethodsPresenter(
       symbol,
       paymentMethodId,
       fiatAmount,
-      appcAmount,
       appcEnabled,
       creditsEnabled,
       frequency,
@@ -715,7 +713,6 @@ class PaymentMethodsPresenter(
     fiatValue: FiatValue,
     paymentMethod: PaymentMethod,
     fiatAmount: String,
-    appcAmount: String,
     isBonusActive: Boolean,
     frequency: String?
   ) {
@@ -724,7 +721,6 @@ class PaymentMethodsPresenter(
       paymentMethod,
       mapCurrencyCodeToSymbol(fiatValue.currency),
       fiatAmount,
-      appcAmount,
       isBonusActive,
       frequency,
       paymentMethodsData.subscription
@@ -959,6 +955,14 @@ class PaymentMethodsPresenter(
     } else {
       view.showBuy()
     }
+
+  private fun handleFeeVisibility(fee: PaymentMethodFee?) {
+    view.showFee(
+      fee != null && fee.isValidFee(),
+      cachedFiatValue?.amount,
+      fee?.amount ?: BigDecimal.ZERO
+    )
+  }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
