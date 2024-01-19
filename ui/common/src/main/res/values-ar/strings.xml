@@ -519,7 +519,7 @@
   <string name="see_more_button">المزيد</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">من تاريخ:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
@@ -650,9 +650,9 @@
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s عمولة</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">وسيلة الدفع هذه لا تدعم عملتك، لذلك ستُخصم عمولة تشغيل. هذه العمولة ستكون متضمنة في المجموع الكلي الذي ستراه في الخانة العلوية.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -1250,36 +1250,36 @@
   <string name="intro_home_button">الرئيسية</string>
   <string name="intro_rewards_button">الجوائز</string>
   <plurals name="day">
-    <item quantity="zero">DAYS</item>
-    <item quantity="one">DAY</item>
-    <item quantity="two">DAYS</item>
-    <item quantity="few">DAYS</item>
-    <item quantity="many">DAYS</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="zero">أيام</item>
+    <item quantity="one">يوم</item>
+    <item quantity="two">يومان</item>
+    <item quantity="few">أيام</item>
+    <item quantity="many">أيام</item>
+    <item quantity="other">أيام</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="zero">HOURS</item>
-    <item quantity="one">HOUR</item>
-    <item quantity="two">HOURS</item>
-    <item quantity="few">HOURS</item>
-    <item quantity="many">HOURS</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="zero">ساعات</item>
+    <item quantity="one">ساعة</item>
+    <item quantity="two">ساعتان</item>
+    <item quantity="few">ساعات</item>
+    <item quantity="many">ساعات</item>
+    <item quantity="other">ساعات</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="zero">MINUTES</item>
-    <item quantity="one">MINUTE</item>
-    <item quantity="two">MINUTES</item>
-    <item quantity="few">MINUTES</item>
-    <item quantity="many">MINUTES</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="zero">دقائق</item>
+    <item quantity="one">دقيقة</item>
+    <item quantity="two">دقيقتان</item>
+    <item quantity="few">دقائق</item>
+    <item quantity="many">دقائق</item>
+    <item quantity="other">دقائق</item>
   </plurals>
   <plurals name="second">
-    <item quantity="zero">SECONDS</item>
-    <item quantity="one">SECOND</item>
-    <item quantity="two">SECONDS</item>
-    <item quantity="few">SECONDS</item>
-    <item quantity="many">SECONDS</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="zero">ثوانٍ</item>
+    <item quantity="one">ثانية</item>
+    <item quantity="two">ثانيتان</item>
+    <item quantity="few">ثوانٍ</item>
+    <item quantity="many">ثوانٍ</item>
+    <item quantity="other">ثوانٍ</item>
   </plurals>
   <string name="intro_transactions_header">التحويلات</string>
   <string name="intro_backup_card_title">لا تخسر أموالك!</string>
@@ -1306,7 +1306,7 @@
   <string name="manage_wallet_verify_title">وثّق وسيلة دفع</string>
   <string name="manage_wallet_verify_body">تجنب الانقطاعات بتوثيق وسيلة الدفع.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">وثّق وسيلة دفع</string>
   <string name="verify_card_body">تجنب الانقطاعات بتوثيق وسيلة دفع.</string>
   <string name="verify_card_one_more_step_title">خطوة واحدة أخيرة للتوثيق</string>
   <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>
