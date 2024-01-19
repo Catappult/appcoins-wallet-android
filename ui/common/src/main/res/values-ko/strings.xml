@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">홈</string>
   <string name="intro_rewards_button">보상</string>
   <plurals name="day">
-    <item quantity="other">일</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">시간</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">분</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">초</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">거래</string>
   <string name="intro_backup_card_title">자본을 놓치지 마세요!</string>
