@@ -303,7 +303,7 @@
   <string name="dialog_credit_card_number">कार्ड नंबर</string>
   <string name="dialog_credit_card_expiration">समाप्ति तिथि</string>
   <string name="dialog_credit_card_cvv">सीवीवी</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">क्रेडिट या डेबिट कार्ड</string>
   <string name="dialog_expiry_date">Expiry date</string>
   <string name="transaction_type_purchase_bonus">खरीद बोनस</string>
   <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
