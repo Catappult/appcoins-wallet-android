@@ -1213,20 +1213,20 @@
   <string name="intro_home_button">Ana Sayfa</string>
   <string name="intro_rewards_button">Ödüller</string>
   <plurals name="day">
-    <item quantity="one">GÜN</item>
-    <item quantity="other">GÜN</item>
+    <item quantity="one">DAY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">SAAT</item>
-    <item quantity="other">SAAT</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">DAKİKA</item>
-    <item quantity="other">DAKİKA</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SANİYE</item>
-    <item quantity="other">SANİYE</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">İşlemler</string>
   <string name="intro_backup_card_title">Paranı kaybetme!</string>
