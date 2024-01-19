@@ -1206,16 +1206,16 @@
   <string name="intro_home_button">หน้าแรก</string>
   <string name="intro_rewards_button">รางวัล</string>
   <plurals name="day">
-    <item quantity="other">วัน</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">ชั่วโมง</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">นาที</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">วินาที</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">ธุรกรรม</string>
   <string name="intro_backup_card_title">อย่าสูญเสียเงินของคุณ!</string>
