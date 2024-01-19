@@ -1208,19 +1208,19 @@
   <string name="topup_home_button">Befizetés</string>
   <string name="intro_home_button">Kezdőlap</string>
   <string name="intro_rewards_button">Jutalmak</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">NAP</item>
     <item quantity="other">NAPOK</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ÓRA</item>
     <item quantity="other">ÓRÁK</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">PERC</item>
     <item quantity="other">PERCEK</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">MÁSODPERC</item>
     <item quantity="other">MÁSODPERCEK</item>
   </plurals>

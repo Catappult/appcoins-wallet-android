@@ -1208,19 +1208,19 @@
   <string name="topup_home_button">Opwaarderen</string>
   <string name="intro_home_button">Start</string>
   <string name="intro_rewards_button">Beloningen</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">DAG</item>
     <item quantity="other">DAGEN</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">UUR</item>
     <item quantity="other">UUR</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUUT</item>
     <item quantity="other">MINUTEN</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SECONDE</item>
     <item quantity="other">SECONDEN</item>
   </plurals>

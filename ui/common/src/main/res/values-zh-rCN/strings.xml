@@ -1199,16 +1199,16 @@
   <string name="topup_home_button">充值</string>
   <string name="intro_home_button">主页</string>
   <string name="intro_rewards_button">奖励</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">天</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">小时</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">分钟</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">秒</item>
   </plurals>
   <string name="intro_transactions_header">交易</string>

@@ -1217,22 +1217,22 @@
   <string name="topup_home_button">Dopunite</string>
   <string name="intro_home_button">Početna stranica</string>
   <string name="intro_rewards_button">Nagrade</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">DAN</item>
     <item quantity="few">DANA</item>
     <item quantity="other">DANA</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">SAT</item>
     <item quantity="few">SATA</item>
     <item quantity="other">SATI</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUT</item>
     <item quantity="few">MINUTA</item>
     <item quantity="other">MINUTA</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SEKUNDA</item>
     <item quantity="few">SEKUNDE</item>
     <item quantity="other">SEKUNDI</item>

@@ -209,28 +209,28 @@ fun CountDownTimer(endDateTime: Long) {
     CardWithTextAndDetail(
       text = remainingTime.value.toDays().toString(),
       detail = pluralStringResource(
-        id = R.plurals.days,
+        id = R.plurals.day,
         count = remainingTime.value.toDays().toInt()
       )
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toHours() % 24).toString(),
       detail = pluralStringResource(
-        id = R.plurals.hours,
+        id = R.plurals.hour,
         count = (remainingTime.value.toHours() % 24).toInt()
       )
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toMinutes() % 60).toString(),
       detail = pluralStringResource(
-        id = R.plurals.minutes,
+        id = R.plurals.minute,
         count = (remainingTime.value.toMinutes() % 60).toInt()
       )
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.seconds % 60).toString(),
       detail = pluralStringResource(
-        id = R.plurals.seconds,
+        id = R.plurals.second,
         count = (remainingTime.value.seconds % 60).toInt()
       )
     )
@@ -380,7 +380,7 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
       .padding(
         top = 16.dp,
         start = if (hasVerticalList) 16.dp else 0.dp,
-        end = if (hasVerticalList) 16.dp else 16.dp
+        end = 16.dp
       )
       .clip(shape = RoundedCornerShape(8.dp))
   ) {

@@ -20,7 +20,7 @@ class PaymentMethodsAdapter(
   private val showPayPalLogout: Subject<Boolean>
 ) :
   RecyclerView.Adapter<PaymentMethodsViewHolder>() {
-  private var selectedItem = -1
+  private var selectedItem = 0
 
   init {
     paymentMethods.forEachIndexed { index, paymentMethod ->

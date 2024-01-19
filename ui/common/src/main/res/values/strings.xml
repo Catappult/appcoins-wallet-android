@@ -480,6 +480,7 @@
   <string name="my_wallets_action_backup_wallet">Backup wallet</string>
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  
 
 
   <!--Ask a friend for funds-->
@@ -888,6 +889,8 @@
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
 
 <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
@@ -1312,6 +1315,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
   <string name="vip_program_gamification_title">What\'s my bonus level?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
@@ -1331,7 +1335,7 @@
   <string name="topup_home_button">Top Up</string>
   <string name="intro_home_button">Home</string>
   <string name="intro_rewards_button">Rewards</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="zero">DAYS</item>
     <item quantity="one">DAY</item>
     <item quantity="two">DAYS</item>
@@ -1339,7 +1343,7 @@
     <item quantity="many">DAYS</item>
     <item quantity="other">DAYS</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="zero">HOURS</item>
     <item quantity="one">HOUR</item>
     <item quantity="two">HOURS</item>
@@ -1347,7 +1351,7 @@
     <item quantity="many">HOURS</item>
     <item quantity="other">HOURS</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="zero">MINUTES</item>
     <item quantity="one">MINUTE</item>
     <item quantity="two">MINUTES</item>
@@ -1355,7 +1359,7 @@
     <item quantity="many">MINUTES</item>
     <item quantity="other">MINUTES</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="zero">SECONDS</item>
     <item quantity="one">SECOND</item>
     <item quantity="two">SECONDS</item>
@@ -1363,7 +1367,6 @@
     <item quantity="many">SECONDS</item>
     <item quantity="other">SECONDS</item>
   </plurals>
-
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>

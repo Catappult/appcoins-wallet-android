@@ -1199,16 +1199,16 @@
   <string name="topup_home_button">Tambah Nilai</string>
   <string name="intro_home_button">Utama</string>
   <string name="intro_rewards_button">Ganjaran</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">HARI</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">JAM</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">MINIT</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">SAAT</item>
   </plurals>
   <string name="intro_transactions_header">Transaksi</string>
