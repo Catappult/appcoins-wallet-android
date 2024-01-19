@@ -78,7 +78,6 @@ class GooglePayTopupViewModel @Inject constructor(
               url = urls.url,
               sessionId = transaction.sessionId ?: "",
               sessionData = transaction.sessionData ?: "",
-              isDarkMode = true,
               price = amount,
               currency = currency,
             )
@@ -176,8 +175,7 @@ class GooglePayTopupViewModel @Inject constructor(
       }
       else -> {
         Log.d(TAG, "else")
-        _state.postValue(State.Error(R.string.unknown_error))
-
+        _state.postValue(State.GooglePayBack)
       }
     }
   }

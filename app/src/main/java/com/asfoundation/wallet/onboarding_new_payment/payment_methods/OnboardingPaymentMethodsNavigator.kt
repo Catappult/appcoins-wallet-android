@@ -144,16 +144,15 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
     currency: String,
     forecastBonus: ForecastBonusAndLevel
   ) {
-    // TODO:
-//    navigate(
-//      fragment.findNavController(),
-//      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingGooglePay(
-//        transactionBuilder,
-//        PaymentType.GOOGLEPAY_WEB,
-//        amount,
-//        currency,
-//        forecastBonus
-//      )
-//    )
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingGooglePay(
+        transactionBuilder,
+        PaymentType.GOOGLEPAY_WEB,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
   }
 }

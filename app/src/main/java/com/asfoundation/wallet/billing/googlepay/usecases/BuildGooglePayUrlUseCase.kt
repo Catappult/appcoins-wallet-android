@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.googlepay.usecases
 
 import java.net.URLEncoder
+import java.util.*
 import javax.inject.Inject
 
 class BuildGooglePayUrlUseCase @Inject constructor(
@@ -9,11 +10,11 @@ class BuildGooglePayUrlUseCase @Inject constructor(
     url: String,
     sessionId: String,
     sessionData: String,
-    isDarkMode: Boolean,
     price: String,
     currency: String
   ): String {
     val encodedSessionData = URLEncoder.encode(sessionData, "UTF-8")
-    return "$url?id=$sessionId&sessionData=$encodedSessionData&isDarkMode=$isDarkMode&price=$price&currency=$currency"
+    val currenySymbol = URLEncoder.encode(Currency.getInstance(currency).symbol, "UTF-8")
+    return "$url?id=$sessionId&sessionData=$encodedSessionData&price=$price&currency=$currenySymbol"
   }
 }

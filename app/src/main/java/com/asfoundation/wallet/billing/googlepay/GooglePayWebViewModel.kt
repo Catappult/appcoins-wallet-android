@@ -37,7 +37,7 @@ class GooglePayWebViewModel @Inject constructor(
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  rxSchedulers: RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {
@@ -81,7 +81,6 @@ class GooglePayWebViewModel @Inject constructor(
               url = urls.url,
               sessionId = transaction.sessionId ?: "",
               sessionData = transaction.sessionData ?: "",
-              isDarkMode = false,
               price = amount.toString(),
               currency = currency,
             )
@@ -197,8 +196,7 @@ class GooglePayWebViewModel @Inject constructor(
       }
       else -> {
         Log.d(TAG, "else")
-        _state.postValue(State.Error(R.string.unknown_error))
-
+        _state.postValue(State.GooglePayBack)
       }
     }
   }
