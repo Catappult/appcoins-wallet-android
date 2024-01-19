@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">ပင္မ</string>
   <string name="intro_rewards_button">ဆုမ်ား</string>
   <plurals name="day">
-    <item quantity="other">ေန႔</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">နာရီ</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">မိနစ္</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">စကၠန႔္</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
