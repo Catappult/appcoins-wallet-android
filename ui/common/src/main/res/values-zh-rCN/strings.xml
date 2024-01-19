@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">主页</string>
   <string name="intro_rewards_button">奖励</string>
   <plurals name="day">
-    <item quantity="other">天</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">小时</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">分钟</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">秒</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">交易</string>
   <string name="intro_backup_card_title">保护您的资金安全！</string>
