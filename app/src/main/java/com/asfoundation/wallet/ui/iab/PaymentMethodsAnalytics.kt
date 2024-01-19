@@ -9,10 +9,10 @@ import javax.inject.Singleton
 
 @Singleton
 class PaymentMethodsAnalytics @Inject constructor(
-    private val analyticsManager: AnalyticsManager,
-    private val billingAnalytics: BillingAnalytics,
-    private val analyticsSetup: AnalyticsSetup,
-    private val taskTimer: TaskTimer
+  private val analyticsManager: AnalyticsManager,
+  private val billingAnalytics: BillingAnalytics,
+  private val analyticsSetup: AnalyticsSetup,
+  private val taskTimer: TaskTimer
 ) {
 
   companion object {
@@ -80,7 +80,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     type: String?,
     action: String,
     isPreselected: Boolean = false,
-    isOnboardingPayment : Boolean = false
+    isOnboardingPayment: Boolean = false
   ) {
     if (isPreselected) {
       billingAnalytics.sendPreSelectedPaymentMethodEvent(
@@ -93,7 +93,15 @@ class PaymentMethodsAnalytics @Inject constructor(
         isOnboardingPayment
       )
     } else {
-      billingAnalytics.sendPaymentMethodEvent(appPackage, skuId, amount, paymentId, type, action, isOnboardingPayment)
+      billingAnalytics.sendPaymentMethodEvent(
+        appPackage,
+        skuId,
+        amount,
+        paymentId,
+        type,
+        action,
+        isOnboardingPayment
+      )
     }
   }
 

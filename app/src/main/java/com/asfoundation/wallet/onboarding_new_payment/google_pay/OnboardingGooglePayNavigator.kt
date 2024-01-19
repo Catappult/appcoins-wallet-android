@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.arch.data.Navigator

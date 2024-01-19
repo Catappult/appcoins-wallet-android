@@ -10,7 +10,6 @@ import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransact
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebViewModel
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
@@ -18,7 +17,6 @@ import com.asfoundation.wallet.billing.googlepay.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,8 +35,6 @@ class OnboardingGooglePayViewModel @Inject constructor(
   private val supportInteractor: SupportInteractor,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
   private val rxSchedulers: RxSchedulers,
-  private val analytics: BillingAnalytics,
-  private val paymentAnalytics: PaymentMethodsAnalytics,
   private val events: OnboardingPaymentEvents,
   savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -177,7 +173,8 @@ class OnboardingGooglePayViewModel @Inject constructor(
           )
           _state.postValue(State.Error(R.string.unknown_error))
         }
-        else -> { /* pending */ }
+        else -> { /* pending */
+        }
       }
     }, {
       Log.d(TAG, "Error on Settled transaction polling")
@@ -186,7 +183,8 @@ class OnboardingGooglePayViewModel @Inject constructor(
         transactionBuilder = transactionBuilder,
         paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
       )
-    }))
+    })
+    )
   }
 
   fun processGooglePayResult(transactionBuilder: TransactionBuilder) {
@@ -225,7 +223,10 @@ class OnboardingGooglePayViewModel @Inject constructor(
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
       PaymentMethodsView.PaymentMethodId.GOOGLEPAY_WEB.id
     )
-    events.sendGooglePaySuccessFinishEvents(transactionBuilder = transactionBuilder, purchaseUid ?: "")
+    events.sendGooglePaySuccessFinishEvents(
+      transactionBuilder = transactionBuilder,
+      purchaseUid ?: ""
+    )
     _state.postValue(State.SuccessPurchase)
   }
 

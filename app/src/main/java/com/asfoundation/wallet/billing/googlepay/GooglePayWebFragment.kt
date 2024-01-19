@@ -133,12 +133,12 @@ class GooglePayWebFragment() : BasePageViewFragment() {
       iabView.showPaymentMethodsView()
     }
     views.successContainer.lottieTransactionSuccess.addAnimatorListener(object :
-        Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator) = Unit
-        override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
-        override fun onAnimationCancel(animation: Animator) = Unit
-        override fun onAnimationStart(animation: Animator) = Unit
-      })
+      Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) = Unit
+    })
     views.googlePayWebErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }

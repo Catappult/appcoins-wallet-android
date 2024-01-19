@@ -147,7 +147,8 @@ class GooglePayTopupViewModel @Inject constructor(
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> { /* pending */ }
+              else -> { /* pending */
+              }
             }
           },
           {

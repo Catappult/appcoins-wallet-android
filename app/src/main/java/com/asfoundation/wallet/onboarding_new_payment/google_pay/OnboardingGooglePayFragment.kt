@@ -16,7 +16,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingGooglePayLayoutBinding
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
-import com.asfoundation.wallet.ui.iab.IabView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -89,7 +88,10 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
           openUrlCustomTab(state.url)
         }
         OnboardingGooglePayViewModel.State.GooglePayBack -> {
-          findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
+          findNavController().popBackStack(
+            R.id.onboarding_payment_methods_fragment,
+            inclusive = false
+          )
         }
         is OnboardingGooglePayViewModel.State.BackToGame -> {
           navigator.navigateBackToGame(state.domain)
