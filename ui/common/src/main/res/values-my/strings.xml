@@ -519,7 +519,7 @@
   <string name="see_more_button">ပို၍ၾကည့္မည္</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">စတင္သည့္ေန႔စြဲ -</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
@@ -649,9 +649,9 @@
   <string name="purchase_success_bonus_received_title">%s ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ။</string>
   <string name="purchase_making_purchase_title">ဝယ္ယူမႈကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="purchase_fee_title">%1$s%2$s အခေၾကးေငြ</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္မည္ ျဖစ္ပါသည္။ ဤအခေၾကးေငြသည္ အေပၚဖက္ဧရိယာတြင္ ျမင္ႏိုင္သည့္ စုစုေပါင္းတြင္ ပါဝင္ပါသည္။</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">ပင္မ</string>
   <string name="intro_rewards_button">ဆုမ်ား</string>
   <plurals name="day">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">ေန႔</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">နာရီ</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">မိနစ္</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">စကၠန႔္</item>
   </plurals>
   <string name="intro_transactions_header">ေငြလႊဲေျပာင္းမႈမ်ား</string>
   <string name="intro_backup_card_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
@@ -1240,7 +1240,7 @@
   <string name="manage_wallet_verify_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
   <string name="manage_wallet_verify_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳမည္</string>
   <string name="verify_card_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အတည္ျပဳျခင္းျဖင့္ ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္လိုက္ပါ။</string>
   <string name="verify_card_one_more_step_title">အတည္ျပဳရန္ ေနာက္ထပ္တစ္ဆင့္</string>
   <string name="verify_card_one_more_step_body">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားတြင္ ျမင္ရေသာကုဒ္ကိုထည့္ပါ</string>
