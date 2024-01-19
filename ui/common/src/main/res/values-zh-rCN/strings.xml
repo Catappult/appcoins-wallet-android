@@ -519,7 +519,7 @@
   <string name="see_more_button">查看更多</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">开始日期：</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -649,9 +649,9 @@
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <string name="purchase_making_purchase_title">购买中&#8230;</string>
   <string name="purchase_fee_title">费用：%1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">该付款方式不支持您所使用的货币，因此会收取一笔手续费。您可以在页面最上方的区域看到包含这笔费用的总支付金额。</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -1204,16 +1204,16 @@
   <string name="intro_home_button">主页</string>
   <string name="intro_rewards_button">奖励</string>
   <plurals name="day">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">天</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">小时</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">分钟</item>
   </plurals>
   <plurals name="second">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">秒</item>
   </plurals>
   <string name="intro_transactions_header">交易</string>
   <string name="intro_backup_card_title">保护您的资金安全！</string>
@@ -1240,7 +1240,7 @@
   <string name="manage_wallet_verify_title">验证一种支付方式</string>
   <string name="manage_wallet_verify_body">验证一种支付方式，以免账户被冻结。</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">验证一种支付方式</string>
   <string name="verify_card_body">验证一种支付方式，以免账户被冻结。</string>
   <string name="verify_card_one_more_step_title">验证还差一步</string>
   <string name="verify_card_one_more_step_body">请输入交易明细中出现的验证码</string>
