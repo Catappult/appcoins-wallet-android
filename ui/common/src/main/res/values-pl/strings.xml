@@ -1231,28 +1231,28 @@
   <string name="intro_home_button">Home</string>
   <string name="intro_rewards_button">Nagrody</string>
   <plurals name="day">
-    <item quantity="one">Dzień</item>
-    <item quantity="few">Dni</item>
-    <item quantity="many">Dni</item>
-    <item quantity="other">Dni</item>
+    <item quantity="one">DAY</item>
+    <item quantity="few">DAYS</item>
+    <item quantity="many">DAYS</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">GODZINA</item>
-    <item quantity="few">GODZIN</item>
-    <item quantity="many">GODZINY</item>
-    <item quantity="other">GODZIN</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="few">HOURS</item>
+    <item quantity="many">HOURS</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUTA</item>
-    <item quantity="few">MINUTY</item>
-    <item quantity="many">MINUT</item>
-    <item quantity="other">MINUT</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="few">MINUTES</item>
+    <item quantity="many">MINUTES</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SEKUNDA</item>
-    <item quantity="few">SEKUNDY</item>
-    <item quantity="many">SEKUND</item>
-    <item quantity="other">SEKUND</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="few">SECONDS</item>
+    <item quantity="many">SECONDS</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
