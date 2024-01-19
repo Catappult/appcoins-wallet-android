@@ -521,7 +521,7 @@
   <string name="see_more_button">Побачити більше</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">Дата початку:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
@@ -1233,28 +1233,28 @@
   <string name="intro_home_button">На домашню</string>
   <string name="intro_rewards_button">Винагороди</string>
   <plurals name="day">
-    <item quantity="one">DAY</item>
-    <item quantity="few">DAYS</item>
-    <item quantity="many">DAYS</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="one">ДЕНЬ</item>
+    <item quantity="few">ДНІВ</item>
+    <item quantity="many">ДНІВ</item>
+    <item quantity="other">ДНІ</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">HOUR</item>
-    <item quantity="few">HOURS</item>
-    <item quantity="many">HOURS</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="one">ГОДИНА</item>
+    <item quantity="few">ГОДИН</item>
+    <item quantity="many">ГОДИН</item>
+    <item quantity="other">ГОДИНИ</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUTE</item>
-    <item quantity="few">MINUTES</item>
-    <item quantity="many">MINUTES</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="one">ХВИЛИНА</item>
+    <item quantity="few">ХВИЛИН</item>
+    <item quantity="many">ХВИЛИН</item>
+    <item quantity="other">ХВИЛИНИ</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SECOND</item>
-    <item quantity="few">SECONDS</item>
-    <item quantity="many">SECONDS</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="one">СЕКУНДА</item>
+    <item quantity="few">СЕКУНД</item>
+    <item quantity="many">СЕКУНД</item>
+    <item quantity="other">СЕКУНДИ</item>
   </plurals>
   <string name="intro_transactions_header">Транзакції</string>
   <string name="intro_backup_card_title">Не втрачайте свої кошти!</string>
