@@ -71,14 +71,16 @@ class GooglePayWebRepository @Inject constructor(
           referrerUrl = referrerUrl
         )
       ).map { response: AdyenSessionResponse ->
-        GooglePayWebTransaction(
-          uid = response.uid,
-          hash = response.hash,
-          status = response.status,
-          validity = response.mapValidity(),
-          sessionId = response.session?.id,
-          sessionData = response.session?.sessionData,
-        )
+        with(response) {
+          GooglePayWebTransaction(
+            uid = uid,
+            hash = hash,
+            status = status,
+            validity = mapValidity(),
+            sessionId = session?.id,
+            sessionData = session?.sessionData,
+          )
+        }
       }.onErrorReturn {
         val httpException = (it as? HttpException)
         val errorCode = httpException?.code()

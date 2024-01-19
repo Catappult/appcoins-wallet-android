@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:minHeight="250dp"
+    android:minHeight="248dp"
     android:background="@color/styleguide_blue"
     >
 
@@ -31,7 +31,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.41000003"
+      app:layout_constraintVertical_bias="0.41"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"

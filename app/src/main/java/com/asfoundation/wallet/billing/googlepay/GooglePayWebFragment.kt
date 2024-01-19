@@ -61,7 +61,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is IabView) { "GooglePayWeb payment fragment must be attached to IAB activity" }
+    check(context is IabView) { "GooglePayWebFragment must be attached to IAB activity" }
     iabView = context
     iabView.lockRotation()
   }

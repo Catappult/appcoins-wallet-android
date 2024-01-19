@@ -25,15 +25,12 @@ class GooglePayReturnActivity() : BaseActivity() {
           googlePayWebRepository.saveChromeResult(GooglePayResult.SUCCESS.key)
         }
         GooglePayResult.CANCEL.key -> {
-          Log.d(TAG, "cancel")
           googlePayWebRepository.saveChromeResult(GooglePayResult.CANCEL.key)
         }
         GooglePayResult.ERROR.key -> {
-          Log.d(TAG, "error")
           googlePayWebRepository.saveChromeResult(GooglePayResult.ERROR.key)
         }
         else -> {
-          Log.d(TAG, "else")
           googlePayWebRepository.saveChromeResult(GooglePayResult.ERROR.key)
         }
       }

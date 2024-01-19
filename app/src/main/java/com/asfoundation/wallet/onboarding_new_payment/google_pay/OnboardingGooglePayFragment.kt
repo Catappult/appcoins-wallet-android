@@ -169,7 +169,4 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
-  companion object {
-    const val PAYMENT_DATA = "data"
-  }
 }

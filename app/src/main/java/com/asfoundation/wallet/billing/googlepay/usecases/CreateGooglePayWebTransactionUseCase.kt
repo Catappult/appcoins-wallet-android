@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransact
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.billing.googlepay.repository.GooglePayWebRepository
+import com.asfoundation.wallet.entity.TransactionBuilder
 
 import io.reactivex.Single
 import javax.inject.Inject
@@ -17,15 +18,15 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
 ) {
 
   operator fun invoke(
-    value: String, currency: String, reference: String?,
-    origin: String?, packageName: String, metadata: String?, method: String,
-    sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
-    referrerUrl: String?,
+    value: String,
+    currency: String,
+    origin: String?,
+    method: String,
     returnUrl: String,
+    transactionBuilder: TransactionBuilder,
   ): Single<GooglePayWebTransaction> {
     return Single.zip(walletService.getWalletAddress(),
-      partnerAddressService.getAttribution(packageName),
+      partnerAddressService.getAttribution(transactionBuilder.domain),
       { address, attributionEntity -> Pair(address, attributionEntity) })
       .flatMap { pair ->
         val address = pair.first
@@ -34,21 +35,21 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
           googlePayWebRepository.createTransaction(
             value = value,
             currency = currency,
-            reference = reference,
+            reference = transactionBuilder.orderReference,
             walletAddress = address,
             origin = origin,
-            packageName = packageName,
-            metadata = metadata,
+            packageName = transactionBuilder.domain,
+            metadata = transactionBuilder.payload,
             method = method,
-            sku = sku,
-            callbackUrl = callbackUrl,
-            transactionType = transactionType,
-            developerWallet = developerWallet,
+            sku = transactionBuilder.skuId,
+            callbackUrl = transactionBuilder.callbackUrl,
+            transactionType = transactionBuilder.type,
+            developerWallet = transactionBuilder.toAddress(),
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
             userWallet = address,
-            referrerUrl = referrerUrl,
+            referrerUrl = transactionBuilder.referrerUrl,
             returnUrl = returnUrl,
           )
         }

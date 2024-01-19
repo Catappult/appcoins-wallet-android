@@ -111,16 +111,9 @@ class OnboardingGooglePayViewModel @Inject constructor(
     return createGooglePayWebTransactionUseCase(
       value = (amount.toString()),
       currency = currency,
-      reference = transactionBuilder.orderReference,
+      transactionBuilder = transactionBuilder,
       origin = origin,
-      packageName = transactionBuilder.domain,
-      metadata = transactionBuilder.payload,
       method = PaymentType.GOOGLEPAY_WEB.subTypes[0],
-      sku = transactionBuilder.skuId,
-      callbackUrl = transactionBuilder.callbackUrl,
-      transactionType = transactionBuilder.type,
-      developerWallet = transactionBuilder.toAddress(),
-      referrerUrl = transactionBuilder.referrerUrl,
       returnUrl = returnUrl,
     )
       .subscribeOn(networkScheduler)
@@ -128,7 +121,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
       .doOnSuccess {
         when (it?.validity) {
           GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
-            handleSuccess(it.hash, null, it.uid, transactionBuilder)
+            handleSuccess(it.uid, transactionBuilder)
           }
           GooglePayWebTransaction.GooglePayWebValidityState.PENDING -> {
           }
@@ -162,7 +155,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
     ).observeOn(viewScheduler).subscribe({
       when (it.status) {
         PaymentModel.Status.COMPLETED -> {
-          handleSuccess(it.hash, null, it.uid, transactionBuilder)
+          handleSuccess(it.uid, transactionBuilder)
         }
         PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
           Log.d(TAG, "Error on transaction on Settled transaction polling")
@@ -194,7 +187,6 @@ class OnboardingGooglePayViewModel @Inject constructor(
         waitForSuccess(uid, transactionBuilder)
       }
       GooglePayResult.ERROR.key -> {
-        Log.d(TAG, "error")
         events.sendPaymentErrorMessageEvent(
           errorMessage = "Error received from Web",
           transactionBuilder = transactionBuilder,
@@ -203,11 +195,9 @@ class OnboardingGooglePayViewModel @Inject constructor(
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        Log.d(TAG, "cancel")
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
-        Log.d(TAG, "else")
         _state.postValue(State.GooglePayBack)
 
       }
@@ -215,8 +205,6 @@ class OnboardingGooglePayViewModel @Inject constructor(
   }
 
   fun handleSuccess(
-    hash: String?,
-    orderReference: String?,
     purchaseUid: String?,
     transactionBuilder: TransactionBuilder
   ) {

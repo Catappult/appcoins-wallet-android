@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
@@ -135,12 +136,11 @@ class GooglePayTopupViewModel @Inject constructor(
         .subscribe(
           {
             when (it.status) {
-              PaymentModel.Status.COMPLETED -> {
+              COMPLETED -> {
                 topUpAnalytics.sendGooglePaySuccessEvent(amount)
                 _state.postValue(State.SuccessPurchase(it.hash, it.uid))
               }
-              PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
-              PaymentModel.Status.INVALID_TRANSACTION -> {
+              FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
                 topUpAnalytics.sendGooglePayErrorEvent(
                   errorDetails = "Error on transaction on Settled transaction polling ${it.status.name}"
@@ -165,16 +165,13 @@ class GooglePayTopupViewModel @Inject constructor(
         waitForSuccess(uid, amount)
       }
       GooglePayResult.ERROR.key -> {
-        Log.d(TAG, "error")
         topUpAnalytics.sendGooglePayErrorEvent("", "Error received from Web.")
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        Log.d(TAG, "cancel")
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
-        Log.d(TAG, "else")
         _state.postValue(State.GooglePayBack)
       }
     }

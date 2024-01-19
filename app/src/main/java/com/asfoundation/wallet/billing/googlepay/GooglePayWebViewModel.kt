@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -108,16 +109,9 @@ class GooglePayWebViewModel @Inject constructor(
     return createGooglePayWebTransactionUseCase(
       value = (amount.toString()),
       currency = currency,
-      reference = transactionBuilder.orderReference,
+      transactionBuilder = transactionBuilder,
       origin = origin,
-      packageName = transactionBuilder.domain,
-      metadata = transactionBuilder.payload,
       method = PaymentType.GOOGLEPAY_WEB.subTypes[0],
-      sku = transactionBuilder.skuId,
-      callbackUrl = transactionBuilder.callbackUrl,
-      transactionType = transactionBuilder.type,
-      developerWallet = transactionBuilder.toAddress(),
-      referrerUrl = transactionBuilder.referrerUrl,
       returnUrl = returnUrl,
     )
       .subscribeOn(networkScheduler)
@@ -156,10 +150,10 @@ class GooglePayWebViewModel @Inject constructor(
       networkScheduler
     ).observeOn(viewScheduler).subscribe({
       when (it.status) {
-        PaymentModel.Status.COMPLETED -> {
+        COMPLETED -> {
           getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
         }
-        PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
+        FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
           Log.d(TAG, "Error on transaction on Settled transaction polling")
           sendPaymentErrorEvent(
             errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
@@ -187,16 +181,13 @@ class GooglePayWebViewModel @Inject constructor(
         waitForSuccess(uid, transactionBuilder)
       }
       GooglePayResult.ERROR.key -> {
-        Log.d(TAG, "error")
         sendPaymentErrorEvent("", "Error received from Web.", transactionBuilder)
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        Log.d(TAG, "cancel")
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
-        Log.d(TAG, "else")
         _state.postValue(State.GooglePayBack)
       }
     }
@@ -221,8 +212,7 @@ class GooglePayWebViewModel @Inject constructor(
       hash,
       networkScheduler
     ).doOnSuccess {
-      sendPaymentEvent(transactionBuilder)
-      sendRevenueEvent(transactionBuilder)
+      sendPaymentEndEvents(transactionBuilder)
       _state.postValue(State.SuccessPurchase(it.bundle))
     }.subscribeOn(viewScheduler).observeOn(viewScheduler).doOnError {
       _state.postValue(State.Error(R.string.unknown_error))
@@ -243,7 +233,7 @@ class GooglePayWebViewModel @Inject constructor(
       })
   }
 
-  private fun sendPaymentEvent(transactionBuilder: TransactionBuilder) {
+  private fun sendPaymentEndEvents(transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(Single.just(transactionBuilder).subscribeOn(networkScheduler)
       .observeOn(viewScheduler).subscribe { it ->
         stopTimingForPurchaseEvent(true)
@@ -255,9 +245,6 @@ class GooglePayWebViewModel @Inject constructor(
           it.type
         )
       })
-  }
-
-  private fun sendRevenueEvent(transactionBuilder: TransactionBuilder) {
     compositeDisposable.add(Single.just(transactionBuilder).observeOn(networkScheduler)
       .doOnSuccess {
         analytics.sendRevenueEvent(

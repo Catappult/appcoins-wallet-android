@@ -52,7 +52,7 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is TopUpActivityView) { "GooglePay topup fragment must be attached to Topup activity" }
+    check(context is TopUpActivityView) { "GooglePayTopupFragment must be attached to Topup activity" }
     topUpActivityView = context
     topUpActivityView?.lockOrientation()
   }
