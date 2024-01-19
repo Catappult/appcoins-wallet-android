@@ -15,6 +15,6 @@ class BuildGooglePayUrlUseCase @Inject constructor(
   ): String {
     val encodedSessionData = URLEncoder.encode(sessionData, "UTF-8")
     val currenySymbol = URLEncoder.encode(Currency.getInstance(currency).symbol, "UTF-8")
-    return "$url?id=$sessionId&sessionData=$encodedSessionData&price=$price&currency=$currenySymbol"
+    return "$url?id=$sessionId&sessionData=$encodedSessionData&price=$price&currency=$currenySymbol&language=${Locale.getDefault().language}"
   }
 }

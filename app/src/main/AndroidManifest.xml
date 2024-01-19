@@ -28,6 +28,7 @@
     <package android:name="in.org.npci.upiapp" />
     <package android:name="id.dana" />
     <package android:name="com.dti.folderlauncher" />
+    <package android:name="com.android.chrome" />
   </queries>
 
   <application

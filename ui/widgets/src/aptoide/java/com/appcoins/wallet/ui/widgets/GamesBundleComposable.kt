@@ -138,7 +138,7 @@ private fun CardItem(
 @Composable
 fun GetTextOrPlay(packageName: String?) {
   val hasGameInstall =
-    isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
+    isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
     Text(
       text = stringResource(id = R.string.play_button),
