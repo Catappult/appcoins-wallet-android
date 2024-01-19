@@ -1213,20 +1213,20 @@
   <string name="intro_home_button">Início</string>
   <string name="intro_rewards_button">Recompensas</string>
   <plurals name="day">
-    <item quantity="one">DIA</item>
-    <item quantity="other">DIAS</item>
+    <item quantity="one">DAY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">HORA</item>
-    <item quantity="other">HORAS</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUTO</item>
-    <item quantity="other">MINUTOS</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SEGUNDO</item>
-    <item quantity="other">SEGUNDOS</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Transações</string>
   <string name="intro_backup_card_title">Não perca os seus fundos!</string>
