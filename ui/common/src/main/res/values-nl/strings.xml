@@ -1213,20 +1213,20 @@
   <string name="intro_home_button">Start</string>
   <string name="intro_rewards_button">Beloningen</string>
   <plurals name="day">
-    <item quantity="one">DAG</item>
-    <item quantity="other">DAGEN</item>
+    <item quantity="one">DAY</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">UUR</item>
-    <item quantity="other">UUR</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUUT</item>
-    <item quantity="other">MINUTEN</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SECONDE</item>
-    <item quantity="other">SECONDEN</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Transacties</string>
   <string name="intro_backup_card_title">Verlies je saldo niet!</string>
