@@ -519,7 +519,7 @@
   <string name="see_more_button">अधिक पहा</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">सुरु केल्याची तारीख:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
@@ -649,9 +649,9 @@
   <string name="purchase_success_bonus_received_title">%s बोनस प्राप्त झाला.</string>
   <string name="purchase_making_purchase_title">&#8230; ची खरेदी करणे</string>
   <string name="purchase_fee_title">%1$s%2$s शुल्क</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">ही पेमेंट पद्धत आपल्या चलनास समर्थन करीत नाही, म्हणुन ह्यावर आपणांस प्रक्रिया शुल्क लावले जाईल. वरील भागात दिसणार्‍या एकुण रकमेत हे शुल्क सम्मिलित केलेले आहे.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ही पेमेंट पद्धत आपल्या चलनास समर्थन करीत नाही, म्हणुन ह्यावर आपणांस प्रक्रिया शुल्क लावले जाईल.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -1235,19 +1235,19 @@
   <string name="intro_rewards_button">बक्षिसे</string>
   <plurals name="day">
     <item quantity="one">DAY</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="other">दिवस</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">HOUR</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="one">दिवस</item>
+    <item quantity="other">तास</item>
   </plurals>
   <plurals name="minute">
     <item quantity="one">MINUTE</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">मिनिटे</item>
   </plurals>
   <plurals name="second">
     <item quantity="one">SECOND</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">सेकंद</item>
   </plurals>
   <string name="intro_transactions_header">व्यवहार</string>
   <string name="intro_backup_card_title">पैसे घालवु नका!</string>
@@ -1274,7 +1274,7 @@
   <string name="manage_wallet_verify_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="manage_wallet_verify_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="verify_card_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
   <string name="verify_card_one_more_step_title">सत्यापनासाठी अजुन एक चरण</string>
   <string name="verify_card_one_more_step_body">व्यवहार तपशीलात दिसणारा कोड घाला</string>
