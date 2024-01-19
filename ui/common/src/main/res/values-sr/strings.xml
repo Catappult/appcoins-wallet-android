@@ -1222,24 +1222,24 @@
   <string name="intro_home_button">Početna stranica</string>
   <string name="intro_rewards_button">Nagrade</string>
   <plurals name="day">
-    <item quantity="one">DAN</item>
-    <item quantity="few">DANA</item>
-    <item quantity="other">DANA</item>
+    <item quantity="one">DAY</item>
+    <item quantity="few">DAYS</item>
+    <item quantity="other">DAYS</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="one">SAT</item>
-    <item quantity="few">SATA</item>
-    <item quantity="other">SATI</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="few">HOURS</item>
+    <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="one">MINUT</item>
-    <item quantity="few">MINUTA</item>
-    <item quantity="other">MINUTA</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="few">MINUTES</item>
+    <item quantity="other">MINUTES</item>
   </plurals>
   <plurals name="second">
-    <item quantity="one">SEKUNDA</item>
-    <item quantity="few">SEKUNDE</item>
-    <item quantity="other">SEKUNDI</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="few">SECONDS</item>
+    <item quantity="other">SECONDS</item>
   </plurals>
   <string name="intro_transactions_header">Transakcije</string>
   <string name="intro_backup_card_title">Nemojte izgubiti svoja sredstva!</string>
