@@ -294,6 +294,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     this.isStored = paymentInfoModel.isStored
     prepareCardComponent(paymentInfoModel, forget)
     (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let { setStoredCardLayoutValues(it) }
+    setupCardConfiguration()
     handleLayoutVisibility(isStored)
     setStoredPaymentInformation(isStored)
   }
@@ -363,14 +364,15 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
     if (needCVC && isStored) {
-      binding.adyenCardForm.adyenCardFormPreSelected.visibility = VISIBLE
+      binding.adyenCardForm.root.visibility = VISIBLE
       binding.changeCardButton.visibility = VISIBLE
     } else if (isStored) {
-      binding.adyenCardForm.adyenCardFormPreSelected.visibility = GONE
+      binding.adyenCardForm.root.visibility = GONE
       binding.adyenSavedCard.root.visibility = VISIBLE
       binding.changeCardButton.visibility = GONE
     } else {
-      binding.adyenCardForm.adyenCardFormPreSelected.visibility = VISIBLE
+      binding.adyenCardForm.root.visibility = VISIBLE
+      binding.adyenSavedCard.root.visibility = GONE
       binding.changeCardButton.visibility = GONE
     }
   }
