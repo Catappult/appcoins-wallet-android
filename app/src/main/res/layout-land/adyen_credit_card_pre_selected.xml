@@ -93,10 +93,12 @@
       <ScrollView
           android:id="@+id/payment_scroll"
           android:layout_width="0dp"
-          android:layout_height="0dp"
+          android:layout_height="wrap_content"
           android:overScrollMode="never"
           android:scrollbars="none"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="packed"
+          app:layout_constraintBottom_toTopOf="@id/more_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
@@ -114,6 +116,18 @@
               android:layout_height="wrap_content"
               />
 
+          <include
+              android:id="@+id/adyen_saved_card"
+              layout="@layout/selected_payment_method_stored_cc"
+              android:layout_marginEnd="16dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginBottom="8dp"
+              android:layout_alignParentTop="true"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:visibility="gone"
+              />
+
           <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/change_card_button_pre_selected"
               android:layout_width="wrap_content"
@@ -127,19 +141,23 @@
               app:buttonType="text"
               tools:visibility="visible"
               />
-
-          <com.appcoins.wallet.ui.widgets.WalletButtonView
-              android:id="@+id/more_payment_methods"
-              android:layout_width="wrap_content"
-              android:layout_height="@dimen/small_button_height"
-              android:layout_below="@id/change_card_button_pre_selected"
-              android:layout_alignParentEnd="true"
-              android:layout_marginBottom="@dimen/normal_margin"
-              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-              app:buttonType="text"
-              />
         </RelativeLayout>
       </ScrollView>
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/more_payment_methods"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/small_button_height"
+          app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+          app:buttonType="text"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/payment_scroll"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          android:layout_marginBottom="16dp"
+          android:visibility="gone"
+          tools:visibility="visible"
+          />
 
       <View
           android:id="@+id/bottom_separator"
