@@ -681,6 +681,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun handleCreditCardNeedCVC(newState: Boolean) {
     needCVC = newState
+    setupCardConfiguration()
   }
 
   override fun shouldStoreCard(): Boolean {
@@ -688,10 +689,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupCardConfiguration() {
-    adyenPaymentInteractor.getCreditCardNeedCVC().map {
-      cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!it.needAskCvc)
+    cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!needCVC)
         .setEnvironment(adyenEnvironment).build()
-    }.subscribe()
   }
 
   private fun setupRedirectConfiguration() {
@@ -751,6 +750,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       layout_adyen_stored_card?.visibility = GONE
       layout_pre_selected?.visibility = VISIBLE
       adyen_card_form?.visibility = VISIBLE
+      more_payment_methods?.visibility = GONE
     }
     if (isStored) {
       view?.let { KeyboardUtils.showKeyboard(it) }

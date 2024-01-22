@@ -50,7 +50,7 @@
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/stored_change_card_button"
-      android:layout_width="wrap_content"
+      android:layout_width="100dp"
       android:layout_height="@dimen/small_button_height"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
