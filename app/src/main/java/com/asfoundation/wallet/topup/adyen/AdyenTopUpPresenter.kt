@@ -82,6 +82,7 @@ class AdyenTopUpPresenter(
     view.setupRedirectComponent()
     handleViewState()
     handleForgetCardClick()
+    handleForgetStoredCardClick()
     handleRetryClick()
     handleRedirectResponse()
     handleSupportClicks()
@@ -89,7 +90,7 @@ class AdyenTopUpPresenter(
     handleAdyen3DSErrors()
     handlePaymentDetails()
     handleVerificationClick()
-    handleOtherPaymentMethodsClick()
+    handleCreditCardNeedCVC()
   }
 
   private fun handleViewState() {
@@ -250,21 +251,47 @@ class AdyenTopUpPresenter(
     )
   }
 
-  private fun handleOtherPaymentMethodsClick() {
-    disposables.add(view.otherMethodsClicked()
+  private fun handleForgetCardClick() {
+    disposables.add(view.forgetCardClick()
       .observeOn(viewScheduler)
-      .doOnNext { view.cancelPayment() }
-      .subscribe(
-        {},
-        {
-          handleSpecificError(R.string.unknown_error, it)
+      .doOnNext { view.showLoading() }
+      .observeOn(networkScheduler)
+      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
+      .observeOn(viewScheduler)
+      .doOnNext { success ->
+        if (!success) {
+          handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
         }
-      )
+      }
+      .filter { it }
+      .observeOn(networkScheduler)
+      .flatMapSingle {
+        adyenPaymentInteractor.loadPaymentInfo(
+          mapPaymentToService(paymentType),
+          amount, currency
+        )
+          .observeOn(viewScheduler)
+          .doOnSuccess {
+            view.hideLoading()
+            if (it.error.hasError) {
+              if (it.error.isNetworkError) view.showNetworkError()
+              else {
+                handleSpecificError(
+                  R.string.unknown_error,
+                  logMessage = "Message: ${it.error.errorInfo?.text}, code: ${it.error.errorInfo?.httpCode}"
+                )
+              }
+            } else {
+              view.finishCardConfiguration(it, true)
+            }
+          }
+      }
+      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 
-  private fun handleForgetCardClick() {
-    disposables.add(view.forgetCardClick()
+  private fun handleForgetStoredCardClick() {
+    disposables.add(view.forgetStoredCardClick()
       .observeOn(viewScheduler)
       .doOnNext { view.showLoading() }
       .observeOn(networkScheduler)
@@ -493,6 +520,19 @@ class AdyenTopUpPresenter(
         }
       }
       .subscribe({}, { handleSpecificError(error, it) })
+    )
+  }
+
+  private fun handleCreditCardNeedCVC() {
+    disposables.add(adyenPaymentInteractor.getCreditCardNeedCVC()
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        view.handleCreditCardNeedCVC(it.needAskCvc)
+      }
+      .doOnError {
+        view.handleCreditCardNeedCVC(true)
+      }
+      .subscribe()
     )
   }
 

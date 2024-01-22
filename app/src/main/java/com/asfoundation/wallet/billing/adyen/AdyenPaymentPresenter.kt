@@ -71,6 +71,7 @@ class AdyenPaymentPresenter(
     handleBack()
     handleErrorDismissEvent()
     handleForgetCardClick()
+    handleForgetStoredCardClick()
     handleRedirectResponse()
     handlePaymentDetails()
     handleAdyenErrorBack()
@@ -79,6 +80,7 @@ class AdyenPaymentPresenter(
     handleSupportClicks()
     handle3DSErrors()
     handleVerificationClick()
+    handleCreditCardNeedCVC()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -96,6 +98,40 @@ class AdyenPaymentPresenter(
 
   private fun handleForgetCardClick() {
     disposables.add(view.forgetCardClick()
+      .observeOn(viewScheduler)
+      .doOnNext { view.showLoading() }
+      .observeOn(networkScheduler)
+      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
+      .observeOn(viewScheduler)
+      .doOnNext { success -> if (!success) view.showGenericError() }
+      .filter { it }
+      .observeOn(networkScheduler)
+      .flatMapSingle {
+        adyenPaymentInteractor.loadPaymentInfo(
+          mapPaymentToService(paymentType),
+          amount.toString(),
+          currency
+        )
+          .observeOn(viewScheduler)
+          .doOnSuccess {
+            view.hideLoadingAndShowView()
+            if (it.error.hasError) {
+              if (it.error.isNetworkError) view.showNetworkError()
+              else view.showGenericError()
+            } else {
+              view.finishCardConfiguration(it, true)
+            }
+          }
+      }
+      .subscribe({}, {
+        logger.log(TAG, it)
+        view.showGenericError()
+      })
+    )
+  }
+
+  private fun handleForgetStoredCardClick() {
+    disposables.add(view.forgetStoredCardClick()
       .observeOn(viewScheduler)
       .doOnNext { view.showLoading() }
       .observeOn(networkScheduler)
@@ -524,6 +560,19 @@ class AdyenPaymentPresenter(
       .observeOn(viewScheduler)
       .doOnNext { navigator.popViewWithError() }
       .subscribe({}, { navigator.popViewWithError() })
+    )
+  }
+
+  private fun handleCreditCardNeedCVC() {
+    disposables.add(adyenPaymentInteractor.getCreditCardNeedCVC()
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        view.handleCreditCardNeedCVC(it.needAskCvc)
+      }
+      .doOnError {
+        view.handleCreditCardNeedCVC(true)
+      }
+      .subscribe()
     )
   }
 

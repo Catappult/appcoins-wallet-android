@@ -40,6 +40,8 @@ interface AdyenTopUpView {
 
   fun forgetCardClick(): Observable<Any>
 
+  fun forgetStoredCardClick(): Observable<Any>
+
   fun submitUriResult(uri: Uri)
 
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel>
@@ -52,8 +54,6 @@ interface AdyenTopUpView {
 
   fun topUpButtonClicked(): Observable<Any>
 
-  fun otherMethodsClicked(): Observable<Any>
-
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 
   fun hideKeyboard()
@@ -63,6 +63,8 @@ interface AdyenTopUpView {
   fun getSupportClicks(): Observable<Any>
 
   fun getVerificationClicks(): Observable<Any>
+
+  fun handleCreditCardNeedCVC(needCVC: Boolean)
 
   fun lockRotation()
 

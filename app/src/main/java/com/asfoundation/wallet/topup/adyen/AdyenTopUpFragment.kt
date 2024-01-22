@@ -14,6 +14,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
@@ -90,6 +91,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private var isStored = false
+  private var needCVC = true
 
   private val binding by viewBinding(FragmentAdyenTopUpBinding::bind)
 
@@ -225,7 +227,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.mainValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
-    if (isStored) {
+    if (isStored && needCVC) {
       binding.changeCardButton.visibility = VISIBLE
     } else {
       binding.changeCardButton.visibility = GONE
@@ -256,7 +258,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     topUpView.unlockRotation()
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
-    if (isStored) {
+
+    if (isStored && needCVC) {
       binding.changeCardButton.visibility = VISIBLE
     } else {
       binding.changeCardButton.visibility = INVISIBLE
@@ -277,9 +280,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     )
   }
 
+  override fun handleCreditCardNeedCVC(newState: Boolean) {
+    needCVC = newState
+  }
+
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
 
-  override fun otherMethodsClicked() = RxView.clicks(binding.morePaymentMethods)
 
   override fun getVerificationClicks() =
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
@@ -287,6 +293,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     prepareCardComponent(paymentInfoModel, forget)
+    (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let { setStoredCardLayoutValues(it) }
     handleLayoutVisibility(isStored)
     setStoredPaymentInformation(isStored)
   }
@@ -327,10 +334,45 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
+  private fun setStoredCardLayoutValues(storedPaymentMethod: StoredPaymentMethod) {
+    binding.adyenSavedCard.txtSavedCardNumber.text = "**** ".plus(storedPaymentMethod.lastFour)
+    binding.adyenSavedCard.txtSavedCardExpiryDate.text =
+      getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
+        .plus("/").plus(storedPaymentMethod.expiryYear)
+    when (storedPaymentMethod.brand) {
+      "mc" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card)
+      }
+      "visa" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa)
+      }
+      "amex" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express)
+      }
+      "maestro" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro)
+      }
+      "diners" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club)
+      }
+      "discover" -> {
+        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover)
+      }
+    }
+  }
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
-    binding.changeCardButton.visibility = if (isStored) VISIBLE else GONE
-    //change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
+    if (needCVC && isStored) {
+      binding.adyenCardForm.adyenCardFormPreSelected.visibility = VISIBLE
+      binding.changeCardButton.visibility = VISIBLE
+    } else if (isStored) {
+      binding.adyenCardForm.adyenCardFormPreSelected.visibility = GONE
+      binding.adyenSavedCard.root.visibility = VISIBLE
+      binding.changeCardButton.visibility = GONE
+    } else {
+      binding.adyenCardForm.adyenCardFormPreSelected.visibility = VISIBLE
+      binding.changeCardButton.visibility = GONE
+    }
   }
 
   override fun setupRedirectComponent() {
@@ -371,9 +413,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun forgetCardClick(): Observable<Any> {
     return RxView.clicks(binding.changeCardButton)
-    //return if (change_card_button != null) RxView.clicks(change_card_button)
-    //else RxView.clicks(change_card_button_pre_selected)
   }
+
+  override fun forgetStoredCardClick(): Observable<Any> {
+      return RxView.clicks(binding.adyenSavedCard.storedChangeCardButton)
+  }
+
 
   // TODO: Refactor this to pass the whole Intent.
   // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
@@ -417,12 +462,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   private fun setupCardConfiguration() {
-    adyenPaymentInteractor.getCreditCardNeedCVC().map {
-      cardConfiguration = CardConfiguration
-        .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!it.needAskCvc)
+    cardConfiguration = CardConfiguration
+        .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(needCVC)
         .setEnvironment(adyenEnvironment)
         .build()
-    }.subscribe()
   }
 
   private fun setupRedirectConfiguration() {
