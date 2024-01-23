@@ -13,6 +13,7 @@ import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
+import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
@@ -86,6 +87,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
+  private lateinit var cardComponent: CardComponent
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
   private lateinit var redirectComponent: RedirectComponent
@@ -97,7 +99,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private var isStored = false
-  private var needCVC = true
+  private var askCVC = true
 
   private val binding by viewBinding(FragmentAdyenTopUpBinding::bind)
 
@@ -233,7 +235,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.mainValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
-    if (isStored && needCVC) {
+    if (isStored && askCVC) {
       binding.changeCardButton.visibility = VISIBLE
     } else {
       binding.changeCardButton.visibility = GONE
@@ -265,7 +267,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
 
-    if (isStored && needCVC) {
+    if (isStored && askCVC) {
       binding.changeCardButton.visibility = VISIBLE
     } else {
       binding.changeCardButton.visibility = INVISIBLE
@@ -287,7 +289,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun handleCreditCardNeedCVC(newState: Boolean) {
-    needCVC = newState
+    askCVC = newState
   }
 
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
@@ -298,11 +300,15 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
-    prepareCardComponent(paymentInfoModel, forget)
+    if (forget) {
+      setupCardConfiguration(hideCvcStoredCard = false)
+    } else {
+      setupCardConfiguration(!askCVC)
+    }
     (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let { setStoredCardLayoutValues(it) }
-    setupCardConfiguration()
     handleLayoutVisibility(isStored)
     setStoredPaymentInformation(isStored)
+    prepareCardComponent(paymentInfoModel, forget)
   }
 
   override fun lockRotation() = topUpView.lockOrientation()
@@ -318,7 +324,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       unregisterProvider(RedirectComponent::class.java.canonicalName)
       setupRedirectComponent()
     }
-    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     binding.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       if (it != null && it.isValid) {
@@ -377,7 +383,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
-    if (needCVC && isStored) {
+    if (askCVC && isStored) {
       binding.adyenCardForm.root.visibility = VISIBLE
       binding.changeCardButton.visibility = VISIBLE
     } else if (isStored) {
@@ -463,12 +469,11 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun setupUi() {
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
-
     if (paymentType == PaymentType.CARD.name) {
       binding.button.setText(getString(R.string.topup_home_button))
       adyenCardView =
         AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
-      setupCardConfiguration()
+      setupCardConfiguration(hideCvcStoredCard = false)
     }
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
@@ -477,9 +482,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.button.visibility = VISIBLE
   }
 
-  private fun setupCardConfiguration() {
+  private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(needCVC)
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(hideCvcStoredCard)
       .setEnvironment(adyenEnvironment)
       .build()
   }
