@@ -144,7 +144,9 @@ class GooglePayWebViewModel @Inject constructor(
   }
 
   private fun waitForSuccess(
-    uid: String?, transactionBuilder: TransactionBuilder
+    uid: String?,
+    transactionBuilder: TransactionBuilder,
+    wasNonSuccess: Boolean = false
   ) {
     compositeDisposable.add(waitForSuccessGooglePayWebUseCase(uid ?: "").subscribeOn(
       networkScheduler
@@ -185,10 +187,14 @@ class GooglePayWebViewModel @Inject constructor(
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        // TODO try to verify transaction state before error
+        waitForSuccess(uid, transactionBuilder, true)
+//        _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
-        _state.postValue(State.GooglePayBack)
+        waitForSuccess(uid, transactionBuilder, true)
+        // TODO try to verify transaction state before error
+//        _state.postValue(State.GooglePayBack)
       }
     }
   }
