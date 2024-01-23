@@ -78,6 +78,7 @@ class AdyenTopUpPresenter(
     view.setupUi()
     view.showLoading()
     retrieveSavedInstance(savedInstanceState)
+    handleCreditCardNeedCVC()
     view.setup3DSComponent()
     view.setupRedirectComponent()
     handleViewState()
@@ -90,7 +91,6 @@ class AdyenTopUpPresenter(
     handleAdyen3DSErrors()
     handlePaymentDetails()
     handleVerificationClick()
-    handleCreditCardNeedCVC()
   }
 
   private fun handleViewState() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_content_payments"
+    android:background="@drawable/backgroud_stored_card_corner_white"
     android:elevation="5dp"
     android:paddingVertical="8dp"
     android:paddingHorizontal="8dp"

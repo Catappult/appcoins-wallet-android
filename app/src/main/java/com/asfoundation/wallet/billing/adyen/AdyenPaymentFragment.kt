@@ -116,7 +116,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
   private var isStored = false
-  private var needCVC = false
+  private var askCVC = true
 
   private val bindingCreditCardPreSelected: AdyenCreditCardPreSelectedBinding? by lazy {
     if (isPreSelected) AdyenCreditCardPreSelectedBinding.bind(
@@ -686,7 +686,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun handleCreditCardNeedCVC(newState: Boolean) {
-    needCVC = newState
+    askCVC = newState
     setupCardConfiguration()
   }
 
@@ -695,7 +695,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupCardConfiguration() {
-    cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!needCVC)
+    cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(!askCVC)
         .setEnvironment(adyenEnvironment).build()
   }
 
@@ -740,7 +740,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
-    if (needCVC && isStored) {
+    if (askCVC && isStored) {
       change_card_button?.visibility = VISIBLE
       change_card_button_pre_selected?.visibility = VISIBLE
     } else if (isStored) {
