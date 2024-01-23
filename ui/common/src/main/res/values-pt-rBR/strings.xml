@@ -519,7 +519,7 @@
   <string name="see_more_button">Ver mais</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">Data de início:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
@@ -645,12 +645,13 @@
   <string name="error_blocked_wallet_body">Por questões de segurança, sau carteira foi bloqueada. Por favor, entre em contato com o suporte para mais informações.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
   <string name="purchase_error_paypal">Houve um problema com o seu pagamento no PayPal. Por favor, tente novamente ou utilize um método de pagamento diferente.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">bônus recebido de %s.</string>
   <string name="purchase_making_purchase_title">Processando compra&#8230;</string>
   <string name="purchase_fee_title">taxa de %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, será aplicada uma taxa de processamento. Essa taxa já está incluída no Total que você pode visualizar na parte superior.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, ele pode receber uma taxa de processamento.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -811,6 +812,8 @@
   <string name="remove_wallet_no_button">Não, voltar</string>
   <string name="remove_wallet_yes_button">Sim, remover wallet</string>
   <string name="remove_wallet_removed_body">Wallet removida!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transferir</string>
   <string name="transfer_title">Transferir Fundos</string>
@@ -1190,6 +1193,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Compartilhe esse código com seus amigos</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s recebidos de %3$s indicações</string>
   <string name="vip_program_gamification_title">Qual o meu nível de bônus?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bônus recebido de suas compras</string>
@@ -1249,7 +1253,7 @@
   <string name="manage_wallet_verify_title">Verificar um Método de Pagamento</string>
   <string name="manage_wallet_verify_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <string name="verify_card_one_more_step_title">Mais Uma Etapa para Verificar</string>
   <string name="verify_card_one_more_step_body">Insira o código que aparece nos detalhes da transação</string>

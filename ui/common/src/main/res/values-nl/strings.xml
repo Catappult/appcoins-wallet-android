@@ -519,7 +519,7 @@
   <string name="see_more_button">Meer bekijken</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
@@ -645,12 +645,13 @@
   <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Aankoop verwerken&#8230;</string>
   <string name="purchase_fee_title">Kosten van %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom worden er verwerkingskosten in rekening gebracht. Deze kosten zijn inbegrepen in het totaal dat je hierboven kunt vinden.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom kunnen er verwerkingskosten in rekening worden gebracht.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -811,6 +812,8 @@
   <string name="remove_wallet_no_button">Nee, teruggaan</string>
   <string name="remove_wallet_yes_button">Ja, wallet verwijderen</string>
   <string name="remove_wallet_removed_body">Wallet is verwijderd!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Overschrijven</string>
   <string name="transfer_title">Saldo overschrijven</string>
@@ -1190,6 +1193,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
   <string name="vip_program_gamification_title">Wat is mijn bonusniveau?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus ontvangen voor je aankopen</string>
@@ -1249,7 +1253,7 @@
   <string name="manage_wallet_verify_title">Verifieer een betaalmethode</string>
   <string name="manage_wallet_verify_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Verifieer een betaalmethode</string>
   <string name="verify_card_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
   <string name="verify_card_one_more_step_title">Nog één stap om te verifiëren</string>
   <string name="verify_card_one_more_step_body">Voer de code in die in de transactiegegevens wordt getoond</string>
