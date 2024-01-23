@@ -9,15 +9,6 @@
     app:cardCornerRadius="@dimen/card_view_corner_radius"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="460dp"
-      android:layout_height="300dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      >
-
     <include
         android:id="@+id/generic_error_layout"
         layout="@layout/support_error_layout"
@@ -42,8 +33,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible"
         />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 

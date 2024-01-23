@@ -10,28 +10,6 @@
     android:paddingBottom="@dimen/normal_margin"
     >
 
-  <FrameLayout
-      android:id="@+id/layout_error"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/background_card"
-      android:descendantFocusability="beforeDescendants"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:visibility="visible"
-      >
-
-    <include
-        android:id="@+id/iab_error_layout"
-        layout="@layout/iab_error_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-  </FrameLayout>
-
   <com.google.android.material.card.MaterialCardView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -65,6 +43,28 @@
           android:descendantFocusability="beforeDescendants"
           android:focusableInTouchMode="true"
           />
+
+      <FrameLayout
+          android:id="@+id/layout_error"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/background_card"
+          android:descendantFocusability="beforeDescendants"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="visible"
+          >
+
+        <include
+            android:id="@+id/iab_error_layout"
+            layout="@layout/iab_error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </FrameLayout>
 
     </LinearLayout>
   </com.google.android.material.card.MaterialCardView>

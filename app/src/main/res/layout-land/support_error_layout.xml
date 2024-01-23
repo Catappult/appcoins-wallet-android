@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
-    android:layout_height="172dp"
+    android:layout_height="match_parent"
     android:background="@drawable/background_content_payments"
     android:paddingTop="32dp"
     android:paddingBottom="16dp"
@@ -83,7 +83,7 @@
       android:text="@string/error_contac_us_body"
       android:textAlignment="center"
       android:textColor="@color/styleguide_dark_grey"
-      android:textSize="10sp"
+      android:textSize="11sp"
       app:layout_constraintBottom_toTopOf="@id/layout_support_logo"
       app:layout_constraintStart_toStartOf="parent"
 
