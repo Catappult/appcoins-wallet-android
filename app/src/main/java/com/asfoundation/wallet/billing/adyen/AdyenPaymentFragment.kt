@@ -37,6 +37,12 @@ import com.appcoins.wallet.ui.widgets.SeparatorView
 import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
 import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asf.wallet.databinding.AdyenCreditCardPreSelectedBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -380,22 +386,22 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         .plus("/").plus(storedPaymentMethod.expiryYear)
     when (storedPaymentMethod.brand) {
       "mc" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card)
+        img_stored_card_brand?.setImageResource(ic_card_brand_master_card)
       }
       "visa" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa)
+        img_stored_card_brand?.setImageResource(ic_card_brand_visa)
       }
       "amex" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express)
+        img_stored_card_brand?.setImageResource(ic_card_brand_american_express)
       }
       "maestro" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro)
+        img_stored_card_brand?.setImageResource(ic_card_branc_maestro)
       }
       "diners" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club)
+        img_stored_card_brand?.setImageResource(ic_card_brand_diners_club)
       }
       "discover" -> {
-        img_stored_card_brand?.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover)
+        img_stored_card_brand?.setImageResource(ic_card_brand_discover)
       }
     }
   }
