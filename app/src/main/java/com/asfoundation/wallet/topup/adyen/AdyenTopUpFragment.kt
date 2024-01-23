@@ -27,6 +27,12 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -340,27 +346,35 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.adyenSavedCard.txtSavedCardExpiryDate.text =
       getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
         .plus("/").plus(storedPaymentMethod.expiryYear)
-    when (storedPaymentMethod.brand) {
-      "mc" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card)
-      }
-      "visa" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa)
-      }
-      "amex" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express)
-      }
-      "maestro" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro)
-      }
-      "diners" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club)
-      }
-      "discover" -> {
-        binding.adyenSavedCard.imgCardBrand.setImageResource(com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover)
+    binding.adyenSavedCard.imgCardBrand.let { imageView ->
+      when (storedPaymentMethod.brand) {
+        "mc" -> {
+          imageView.setImageResource(ic_card_brand_master_card)
+        }
+
+        "visa" -> {
+          imageView.setImageResource(ic_card_brand_visa)
+        }
+
+        "amex" -> {
+          imageView.setImageResource(ic_card_brand_american_express)
+        }
+
+        "maestro" -> {
+          imageView.setImageResource(ic_card_branc_maestro)
+        }
+
+        "diners" -> {
+          imageView.setImageResource(ic_card_brand_diners_club)
+        }
+
+        "discover" -> {
+          imageView.setImageResource(ic_card_brand_discover)
+        }
       }
     }
   }
+
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
     if (needCVC && isStored) {
@@ -418,7 +432,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun forgetStoredCardClick(): Observable<Any> {
-      return RxView.clicks(binding.adyenSavedCard.storedChangeCardButton)
+    return RxView.clicks(binding.adyenSavedCard.storedChangeCardButton)
   }
 
 
@@ -465,9 +479,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun setupCardConfiguration() {
     cardConfiguration = CardConfiguration
-        .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(needCVC)
-        .setEnvironment(adyenEnvironment)
-        .build()
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(needCVC)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
   private fun setupRedirectConfiguration() {
