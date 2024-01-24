@@ -650,7 +650,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s комісія</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тож стягується комісія за обробку платежу. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">Цей спосіб оплати передбачає комісію за обробку цієї покупки. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тому може стягуватися комісія за обробку платежу.</string>

@@ -648,7 +648,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">bônus recebido de %s.</string>
   <string name="purchase_making_purchase_title">Processando compra&#8230;</string>
-  <string name="purchase_fee_title">taxa de %1$s%2$s</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, será aplicada uma taxa de processamento. Essa taxa já está incluída no Total que você pode visualizar na parte superior.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, ele pode receber uma taxa de processamento.</string>

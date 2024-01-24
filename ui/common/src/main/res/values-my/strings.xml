@@ -648,7 +648,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ။</string>
   <string name="purchase_making_purchase_title">ဝယ္ယူမႈကို ျပဳလုပ္ေနပါသည္&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s အခေၾကးေငြ</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္မည္ ျဖစ္ပါသည္။ ဤအခေၾကးေငြသည္ အေပၚဖက္ဧရိယာတြင္ ျမင္ႏိုင္သည့္ စုစုေပါင္းတြင္ ပါဝင္ပါသည္။</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>

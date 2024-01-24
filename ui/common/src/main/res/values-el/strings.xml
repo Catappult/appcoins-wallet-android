@@ -648,7 +648,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <string name="purchase_making_purchase_title">Πραγματοποίηση αγοράς&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s χρέωση</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας. Αυτό το τέλος περιλαμβάνεται στο Σύνολο που βλέπετε στην πάνω περιοχή.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας.</string>
