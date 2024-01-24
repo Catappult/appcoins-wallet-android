@@ -648,7 +648,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
-  <string name="purchase_fee_title">Naknada %2$s%1$s</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada je uključena u Ukupnoj ceni koju možete videti u gornjem delu.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
