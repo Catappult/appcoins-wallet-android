@@ -402,28 +402,31 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
         .plus("/").plus(storedPaymentMethod.expiryYear)
     when (storedPaymentMethod.brand) {
-      PaymentBrands.MASTERCARD.name -> {
+      PaymentBrands.MASTERCARD.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_master_card)
       }
 
-      PaymentBrands.VISA.name -> {
+      PaymentBrands.VISA.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_visa)
       }
 
-      PaymentBrands.AMEX.name -> {
+      PaymentBrands.AMEX.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_american_express)
       }
 
-      PaymentBrands.MAESTRO.name -> {
+      PaymentBrands.MAESTRO.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_branc_maestro)
       }
 
-      PaymentBrands.DINERS.name -> {
+      PaymentBrands.DINERS.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_diners_club)
       }
 
-      PaymentBrands.DISCOVER.name -> {
+      PaymentBrands.DISCOVER.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_discover)
+      }
+      else -> {
+        img_stored_card_brand?.setColorFilter(R.color.styleguide_dark_grey)
       }
     }
   }
