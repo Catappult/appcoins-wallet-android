@@ -8,6 +8,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 class ValidateUrlUseCase @Inject constructor(
+  private val retrievePackageVersionUseCase: RetrievePackageVersionUseCase,
 ) {
 
   operator fun invoke(uriString: String): UriValidationResult {
@@ -20,6 +21,11 @@ class ValidateUrlUseCase @Inject constructor(
 //      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
 //    }
     val paymentData = uri.parseStartGame()
+    val version = retrievePackageVersionUseCase(paymentData.packageName)
+    version?.let { (versionName, versionCode) ->
+      paymentData.versionName = versionName
+      paymentData.versionCode = versionCode
+    }
     return UriValidationResult.Valid(paymentData)
   }
 

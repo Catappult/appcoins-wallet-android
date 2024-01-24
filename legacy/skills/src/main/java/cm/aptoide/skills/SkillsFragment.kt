@@ -450,6 +450,17 @@ class SkillsFragment : Fragment(), PaymentView {
       }
 
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
+
+      ErrorStatus.PACKAGE_NAME_NOT_SUPPORTED -> {
+        showPackageNotSupported()
+        analytics.sendPaymentPackageNameErrorEvent(eSkillsPaymentData)
+      }
+
+      ErrorStatus.PACKAGE_VERSION_NOT_SUPPORTED -> {
+        showPackageVersionNotSupported()
+        analytics.sendPaymentPackageVersionErrorEvent(eSkillsPaymentData)
+      }
+
       ErrorStatus.GENERIC -> {
         showError(SkillsViewModel.RESULT_ERROR)
         analytics.sendPaymentCreateTicketFailError(eSkillsPaymentData)
@@ -524,6 +535,31 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
+  private fun showPackageNotSupported() {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.errorTitle.text = getString(R.string.error_game_not_supported_body)
+    views.geofencingLayout.errorMessage.visibility = View.GONE
+    views.geofencingLayout.okButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_PACKAGE_NAME_NOT_SUPPORTED)
+    }
+  }
+
+  private fun showPackageVersionNotSupported() {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.errorTitle.text = getString(R.string.error_update_needed_body)
+    views.geofencingLayout.errorMessage.visibility = View.GONE
+    views.geofencingLayout.okButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_PACKAGE_VERSION_NOT_SUPPORTED)
+    }
+  }
   private fun finishWithError(errorCode: Int) {
     requireActivity().setResult(errorCode)
     requireActivity().finish()

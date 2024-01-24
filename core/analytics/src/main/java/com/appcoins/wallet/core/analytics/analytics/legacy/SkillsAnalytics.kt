@@ -179,6 +179,24 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
     )
   }
 
+  fun sendPaymentPackageVersionErrorEvent(eskillsPaymentData: EskillsPaymentData) {
+    analytics.logEvent(
+      completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_PACKAGE_VERSION_ERROR),
+      ESKILLS_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendPaymentPackageNameErrorEvent(eskillsPaymentData: EskillsPaymentData) {
+    analytics.logEvent(
+      completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_PACKAGE_NAME_ERROR),
+      ESKILLS_PAYMENT_CONCLUSION,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
   fun sendPaymentCreateTicketFailError(eSkillsPaymentData: EskillsPaymentData) {
     analytics.logEvent(
       completedEventData(paymentEventData(eSkillsPaymentData), ESKILLS_PAYMENT_CREATE_TICKET_ERROR),
@@ -246,6 +264,8 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
     const val ESKILLS_PAYMENT_SUCCESS = "eskills_payment_success"
     const val ESKILLS_PAYMENT_VPN_ERROR = "eskills_payment_vpn_error"
     const val ESKILLS_PAYMENT_WALLET_VERSION_ERROR = "eskills_payment_wallet_version_error"
+    const val ESKILLS_PAYMENT_PACKAGE_VERSION_ERROR = "eskills_payment_package_version_error"
+    const val ESKILLS_PAYMENT_PACKAGE_NAME_ERROR = "eskills_payment_package_name_error"
     const val ESKILLS_PAYMENT_CREATE_TICKET_ERROR = "eskills_payment_create_ticket_fail_error"
     const val ESKILLS_PAYMENT_CANCEL = "eskills_payment_cancel"
     const val ESKILLS_PAYMENT_ERROR = "eskills_payment_fail_error"

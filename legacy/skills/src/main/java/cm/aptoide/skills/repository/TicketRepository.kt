@@ -37,7 +37,9 @@ class TicketRepository @Inject constructor(
     eskillsPaymentData.currency,
     eskillsPaymentData.product,
     eskillsPaymentData.timeout,
-    eskillsPaymentData.queueId?.id
+    eskillsPaymentData.queueId?.id,
+    eskillsPaymentData.versionName,
+    eskillsPaymentData.versionCode,
   )
 
   fun getTicket(ewt: String, ticketId: String, queueIdentifier: QueueIdentifier?): Single<Ticket> {
