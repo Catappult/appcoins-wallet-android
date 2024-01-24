@@ -30,7 +30,6 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.widgets.SeparatorView
 import com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -203,9 +202,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val fiat_price: TextView
     get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPrice
       ?: bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice!!
-  private val appc_price: TextView
-    get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPrice
-      ?: bindingCreditCardLayout?.paymentMethodsHeader?.appcPrice!!
 
   // fragment_iab_transaction_completed.xml
   private val lottie_transaction_success: LottieAnimationView
@@ -396,9 +392,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       e.printStackTrace()
     }
     app_sku_description.text = skuDescription
-    val appcValue =
-      formatter.formatPaymentCurrency(transactionBuilder.amount(), WalletCurrency.APPCOINS)
-    appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 
   override fun showLoading() {
@@ -589,13 +582,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatText)
         ?.let { fiatText = it }
-      appc_price.text = "~${appc_price.text}"
     }
-    fiat_price.text = fiatText
+    fiat_price.text = getString(R.string.purchase_total_header, amount, currencyCode)
     fiat_price_skeleton.visibility = GONE
     appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
-    appc_price.visibility = VISIBLE
   }
 
   override fun adyenErrorBackClicks() = RxView.clicks(error_try_again)

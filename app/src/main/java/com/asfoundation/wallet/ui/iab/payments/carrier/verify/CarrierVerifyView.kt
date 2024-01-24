@@ -6,8 +6,10 @@ import java.math.BigDecimal
 
 interface CarrierVerifyView {
 
-  fun initializeView(currency: String, fiatAmount: BigDecimal, appcAmount: BigDecimal,
-                     skuDescription: String, bonusAmount: BigDecimal?, preselected: Boolean)
+  fun initializeView(
+    currency: String, fiatAmount: BigDecimal,
+    skuDescription: String, bonusAmount: BigDecimal?, preselected: Boolean
+  )
 
   fun backEvent(): Observable<Any>
 

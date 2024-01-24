@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
-import java.util.*
+import java.util.Currency
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -86,11 +86,10 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
   }
 
   override fun initializeView(currency: String, fiatAmount: BigDecimal,
-                              appcAmount: BigDecimal,
                               skuDescription: String, bonusAmount: BigDecimal?,
                               preselected: Boolean) {
     binding.paymentMethodsHeader.setDescription(skuDescription)
-    binding.paymentMethodsHeader.setPrice(fiatAmount, appcAmount, currency)
+    binding.paymentMethodsHeader.setPrice(fiatAmount, currency)
     binding.paymentMethodsHeader.showPrice()
     binding.paymentMethodsHeader.hideSkeleton()
 
