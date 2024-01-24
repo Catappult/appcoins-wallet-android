@@ -354,27 +354,27 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         .plus("/").plus(storedPaymentMethod.expiryYear)
     binding.adyenSavedCard.imgCardBrand.let { imageView ->
       when (storedPaymentMethod.brand) {
-        "mc" -> {
+        PaymentBrands.MASTERCARD.name -> {
           imageView.setImageResource(ic_card_brand_master_card)
         }
 
-        "visa" -> {
+        PaymentBrands.VISA.name -> {
           imageView.setImageResource(ic_card_brand_visa)
         }
 
-        "amex" -> {
+        PaymentBrands.AMEX.name -> {
           imageView.setImageResource(ic_card_brand_american_express)
         }
 
-        "maestro" -> {
+        PaymentBrands.MAESTRO.name -> {
           imageView.setImageResource(ic_card_branc_maestro)
         }
 
-        "diners" -> {
+        PaymentBrands.DINERS.name -> {
           imageView.setImageResource(ic_card_brand_diners_club)
         }
 
-        "discover" -> {
+        PaymentBrands.DISCOVER.name -> {
           imageView.setImageResource(ic_card_brand_discover)
         }
       }
