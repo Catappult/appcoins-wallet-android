@@ -71,16 +71,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/cl_payment_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toTopOf="@id/bonus_layout_pre_selected"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+          >
+
         <ScrollView
             android:id="@+id/payment_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="23dp"
-            android:minHeight="194dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible"
             >
           <RelativeLayout
               android:layout_width="match_parent"
@@ -95,6 +108,7 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="64dp"
                 />
+
             <com.appcoins.wallet.ui.widgets.WalletButtonView
                 android:id="@+id/change_card_button_pre_selected"
                 android:layout_width="wrap_content"
@@ -109,19 +123,53 @@
                 tools:visibility="visible"
                 />
 
+            <com.appcoins.wallet.ui.widgets.WalletButtonView
+                android:id="@+id/more_payment_methods"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/small_button_height"
+                app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+                app:buttonType="text"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/change_card_button_pre_selected"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_alignParentEnd="true"
+                />
+
           </RelativeLayout>
         </ScrollView>
 
+        <include
+            android:id="@+id/adyen_saved_card"
+            layout="@layout/selected_payment_method_stored_cc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            />
+
         <com.appcoins.wallet.ui.widgets.WalletButtonView
-            android:id="@+id/more_payment_methods"
+            android:id="@+id/more_payment_stored_methods"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/small_button_height"
-            android:layout_marginTop="-16dp"
             app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
             app:buttonType="text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
+            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            tools:visibility="gone"
             />
+
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             android:id="@+id/bonus_layout_pre_selected"
@@ -134,7 +182,7 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/more_payment_methods"
+            app:layout_constraintTop_toBottomOf="@+id/cl_payment_container"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="packed"
             tools:visibility="visible"

@@ -105,16 +105,28 @@
           tools:visibility="visible"
           />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_payment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mid_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        >
+
       <ScrollView
           android:id="@+id/cc_info_view"
           android:layout_width="0dp"
-          android:layout_height="0dp"
+          android:layout_height="wrap_content"
           android:overScrollMode="never"
           android:scrollbars="none"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/mid_guideline"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          android:visibility="visible"
           >
 
         <RelativeLayout
@@ -138,14 +150,63 @@
               android:layout_alignParentEnd="true"
               android:layout_gravity="center_vertical"
               android:layout_marginEnd="0dp"
-              android:visibility="gone"
+              android:visibility="visible"
               app:buttonColor="@color/styleguide_pink"
               app:buttonText="@string/activity_iab_change_card_lower_case_button"
               app:buttonType="text"
               tools:visibility="visible"
               />
+
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
+              android:id="@+id/more_payment_methods"
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/small_button_height"
+              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+              app:buttonType="text"
+              android:layout_alignParentEnd="true"
+              android:layout_below="@id/change_card_button"
+              android:layout_gravity="center_vertical"
+              android:layout_marginBottom="8dp"
+              android:visibility="gone"
+              tools:visibility="visible"
+              />
+
         </RelativeLayout>
       </ScrollView>
+
+      <include
+          android:id="@+id/adyen_saved_card"
+          layout="@layout/selected_payment_method_stored_cc"
+          android:layout_marginBottom="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginTop="16dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          />
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/more_payment_stored_methods"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/small_button_height"
+          app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+          app:buttonType="text"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintVertical_bias="0"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="16dp"
+          android:visibility="gone"
+          tools:visibility="gone"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
       <com.appcoins.wallet.ui.widgets.SeparatorView
           android:id="@+id/bottom_separator"
