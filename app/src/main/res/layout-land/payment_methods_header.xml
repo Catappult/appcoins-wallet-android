@@ -122,6 +122,21 @@
       tools:visibility="visible"
       />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/price_transition_animation"
+      android:layout_width="72dp"
+      android:layout_height="32dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/fiat_price"
+      app:layout_constraintEnd_toEndOf="@id/fiat_price"
+      app:layout_constraintTop_toTopOf="@id/fiat_price"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/dots_transition_animation"
+      tools:visibility="visible"
+      />
+
   <androidx.constraintlayout.widget.Group
       android:id="@+id/info_fees_group"
       android:layout_width="wrap_content"
