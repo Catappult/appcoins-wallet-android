@@ -87,7 +87,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
-  private lateinit var cardComponent: CardComponent
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
   private lateinit var redirectComponent: RedirectComponent
@@ -301,13 +300,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     if (forget) {
-      setupCardConfiguration(hideCvcStoredCard = false)
-    } else {
-      setupCardConfiguration(!askCVC)
+      askCVC = true
     }
-    (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let { setStoredCardLayoutValues(it) }
+    setupCardConfiguration(!askCVC)
+    (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let {
+      setStoredCardLayoutValues(it)
+      setStoredPaymentInformation(it.lastFour)
+    }
     handleLayoutVisibility(isStored)
-    setStoredPaymentInformation(isStored)
     prepareCardComponent(paymentInfoModel, forget)
   }
 
@@ -324,7 +324,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       unregisterProvider(RedirectComponent::class.java.canonicalName)
       setupRedirectComponent()
     }
-    cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    var cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     binding.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       if (it != null && it.isValid) {
@@ -394,6 +394,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       binding.adyenCardForm.root.visibility = VISIBLE
       binding.adyenSavedCard.root.visibility = GONE
       binding.changeCardButton.visibility = GONE
+      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
+      binding.adyenCardForm.paymentMethodIc.visibility = GONE
     }
   }
 
@@ -454,16 +456,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(newState)
 
-  private fun setStoredPaymentInformation(isStored: Boolean) {
-    if (isStored) {
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.text = adyenCardView.cardNumber
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = VISIBLE
-      binding.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
-      view?.let { KeyboardUtils.showKeyboard(it) }
-    } else {
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
-      binding.adyenCardForm.paymentMethodIc.visibility = GONE
-    }
+  private fun setStoredPaymentInformation(lastFour: String?) {
+    binding.adyenCardForm.adyenCardFormPreSelectedNumber.text =
+      if (lastFour.isNullOrEmpty()) adyenCardView.cardNumber else "**** ".plus(lastFour)
+    binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = VISIBLE
+    binding.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
+    view?.let { KeyboardUtils.showKeyboard(it) }
   }
 
   override fun setupUi() {
@@ -484,7 +482,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY).setHideCvcStoredCard(hideCvcStoredCard)
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setHideCvcStoredCard(hideCvcStoredCard)
       .setEnvironment(adyenEnvironment)
       .build()
   }
@@ -546,6 +545,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     } else {
       throw IllegalArgumentException("Payment Type not found")
     }
+  }
+
+  override fun restartFragment() {
+    this.fragmentManager?.beginTransaction()?.replace(
+      R.id.fragment_container,
+      newInstance(PaymentType.CARD, data)
+    )?.commit()
   }
 
   companion object {

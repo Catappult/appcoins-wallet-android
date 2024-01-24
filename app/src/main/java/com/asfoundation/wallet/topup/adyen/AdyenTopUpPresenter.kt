@@ -290,6 +290,11 @@ class AdyenTopUpPresenter(
     )
   }
 
+  /**
+   * A function needs to be created due to a problem with adyen not enabling
+   *  the CVC in the same fragment as it was disabled
+   *  so we need to disable the payment and recreate the fragment
+   */
   private fun handleForgetStoredCardClick() {
     disposables.add(view.forgetStoredCardClick()
       .observeOn(viewScheduler)
@@ -300,30 +305,9 @@ class AdyenTopUpPresenter(
       .doOnNext { success ->
         if (!success) {
           handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
+        } else {
+          view.restartFragment()
         }
-      }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .flatMapSingle {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType),
-          amount, currency
-        )
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            view.hideLoading()
-            if (it.error.hasError) {
-              if (it.error.isNetworkError) view.showNetworkError()
-              else {
-                handleSpecificError(
-                  R.string.unknown_error,
-                  logMessage = "Message: ${it.error.errorInfo?.text}, code: ${it.error.errorInfo?.httpCode}"
-                )
-              }
-            } else {
-              view.finishCardConfiguration(it, true)
-            }
-          }
       }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
