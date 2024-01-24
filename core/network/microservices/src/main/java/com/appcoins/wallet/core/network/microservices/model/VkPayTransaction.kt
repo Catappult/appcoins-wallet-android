@@ -5,6 +5,7 @@ data class VkPayTransaction(
   val hash: String?,
   val status: TransactionStatus?,
   val amount: Int?,
+  val merchantId: String,
   val errorCode: String? = null,
-  val errorMessage: String? = null
+  val errorMessage: String? = null,
 )
