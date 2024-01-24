@@ -402,27 +402,27 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
         .plus("/").plus(storedPaymentMethod.expiryYear)
     when (storedPaymentMethod.brand) {
-      "mc" -> {
+      PaymentBrands.MASTERCARD.name -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_master_card)
       }
 
-      "visa" -> {
+      PaymentBrands.VISA.name -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_visa)
       }
 
-      "amex" -> {
+      PaymentBrands.AMEX.name -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_american_express)
       }
 
-      "maestro" -> {
+      PaymentBrands.MAESTRO.name -> {
         img_stored_card_brand?.setImageResource(ic_card_branc_maestro)
       }
 
-      "diners" -> {
+      PaymentBrands.DINERS.name -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_diners_club)
       }
 
-      "discover" -> {
+      PaymentBrands.DISCOVER.name -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_discover)
       }
     }
@@ -479,8 +479,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       }
       adyen_card_form?.visibility = INVISIBLE
       change_card_button?.visibility = INVISIBLE
-      layout_adyen_stored_card?.visibility = GONE
+      layout_adyen_stored_card?.visibility = INVISIBLE
       more_payment_methods?.visibility = GONE
+      more_payment_stored_methods?.visibility = INVISIBLE
       cancel_button.visibility = INVISIBLE
       buy_button.visibility = INVISIBLE
       fiat_price_skeleton.visibility = GONE
@@ -558,6 +559,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     bonus_layout_pre_selected?.visibility = GONE
     bonus_layout?.visibility = GONE
     more_payment_methods?.visibility = GONE
+    more_payment_stored_methods?.visibility = GONE
+    layout_adyen_stored_card?.visibility = GONE
     adyen_card_form?.visibility = GONE
     layout_pre_selected?.visibility = GONE
     change_card_button?.visibility = GONE
@@ -604,9 +607,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun showBackToCard() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
-    if (isStored) {
+    if (askCVC && isStored) {
       change_card_button?.visibility = VISIBLE
       change_card_button_pre_selected?.visibility = VISIBLE
+      more_payment_methods?.visibility = VISIBLE
+    } else if (isStored) {
+      layout_adyen_stored_card?.visibility = VISIBLE
+      more_payment_stored_methods?.visibility = VISIBLE
     }
     buy_button.visibility = VISIBLE
 //    buy_button?.isEnabled = false
@@ -654,12 +661,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     else RxView.clicks(change_card_button_pre_selected!!)
   }
 
-  override fun forgetStoredCardClick(): Observable<Any> {
-    return if (btn_stored_card_pre_selected_change_card != null) RxView.clicks(
-      btn_stored_card_pre_selected_change_card!!
-    )
-    else RxView.clicks(btn_stored_card_change_card!!)
-  }
+  override fun forgetStoredCardClick() =
+    RxView.clicks(btn_stored_card_pre_selected_change_card ?: btn_stored_card_change_card!!)
 
   @SuppressLint("SetTextI18n")
   override fun showProductPrice(amount: String, currencyCode: String) {
@@ -777,6 +780,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     } else {
       scroll_payment?.visibility = VISIBLE
       layout_adyen_stored_card?.visibility = GONE
+      change_card_button?.visibility =  GONE
+      change_card_button_pre_selected?.visibility = GONE
       adyen_card_form?.visibility = VISIBLE
       more_payment_methods?.visibility = if(isPreSelected) VISIBLE else GONE
       more_payment_stored_methods?.visibility = GONE

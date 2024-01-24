@@ -187,21 +187,6 @@
               app:buttonType="text"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toBottomOf="@id/cv_stored_card_layout"
-              app:layout_constraintTop_toTopOf="parent"
-              tools:visibility="visible"
-              />
-
-          <com.appcoins.wallet.ui.widgets.WalletButtonView
-              android:id="@+id/more_payment_methods"
-              android:layout_width="wrap_content"
-              android:layout_height="@dimen/small_button_height"
-              android:layout_marginTop="16dp"
-              android:visibility="gone"
-              app:buttonColor="@color/styleguide_pink"
-              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-              app:buttonType="text"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/change_card_button"
               tools:visibility="visible"
               />
 
