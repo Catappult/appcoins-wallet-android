@@ -40,9 +40,9 @@
       android:layout_width="match_parent"
       android:layout_height="40dp"
       android:layout_gravity="center_vertical"
-      app:buttonColor="@color/styleguide_pink"
+      app:buttonColor="@color/styleguide_payments_blue"
       app:buttonText="@string/try_again"
-      app:buttonType="filled"
+      app:buttonType="outlined"
       />
 
 </LinearLayout>
