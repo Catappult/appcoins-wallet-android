@@ -87,4 +87,6 @@ interface AdyenTopUpView {
   fun setup3DSComponent()
 
   fun shouldStoreCard(): Boolean
+
+  fun restartFragment()
 }

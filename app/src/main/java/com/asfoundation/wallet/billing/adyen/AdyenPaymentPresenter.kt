@@ -81,6 +81,7 @@ class AdyenPaymentPresenter(
     handle3DSErrors()
     handleVerificationClick()
     handleCreditCardNeedCVC()
+    handleMorePaymentsStoredClick()
     if (isPreSelected) handleMorePaymentsClick()
   }
 
@@ -130,6 +131,11 @@ class AdyenPaymentPresenter(
     )
   }
 
+  /**
+   * A function needs to be created due to a problem with adyen not enabling
+   *  the CVC in the same fragment as it was disabled
+   *  so we need to disable the payment and recreate the fragment
+   */
   private fun handleForgetStoredCardClick() {
     disposables.add(view.forgetStoredCardClick()
       .observeOn(viewScheduler)
@@ -137,25 +143,9 @@ class AdyenPaymentPresenter(
       .observeOn(networkScheduler)
       .flatMapSingle { adyenPaymentInteractor.disablePayments() }
       .observeOn(viewScheduler)
-      .doOnNext { success -> if (!success) view.showGenericError() }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .flatMapSingle {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType),
-          amount.toString(),
-          currency
-        )
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            view.hideLoadingAndShowView()
-            if (it.error.hasError) {
-              if (it.error.isNetworkError) view.showNetworkError()
-              else view.showGenericError()
-            } else {
-              view.finishCardConfiguration(it, true)
-            }
-          }
+      .doOnNext { success ->
+        if (success) view.restartFragment()
+        else view.showGenericError()
       }
       .subscribe({}, {
         logger.log(TAG, it)
@@ -193,9 +183,11 @@ class AdyenPaymentPresenter(
               handleBuyClick(it.priceAmount, it.priceCurrency)
               paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             }
+
             PaymentType.GIROPAY.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
+
             PaymentType.PAYPAL.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
@@ -338,6 +330,7 @@ class AdyenPaymentPresenter(
                 .observeOn(viewScheduler)
                 .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
             }
+
             isPaymentFailed(it.status) -> {
               if (paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name) {
                 retrieveFailedReason(paymentModel.uid)
@@ -356,6 +349,7 @@ class AdyenPaymentPresenter(
                   .subscribeOn(viewScheduler)
               }
             }
+
             else -> {
               var errorDetails = it.status.toString() + it.error.errorInfo?.text
               if (errorDetails.isBlank()) {
@@ -370,6 +364,7 @@ class AdyenPaymentPresenter(
           }
         }
     }
+
     paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
       Completable.fromAction {
         view.showLoading()
@@ -377,6 +372,7 @@ class AdyenPaymentPresenter(
         handleAdyenAction(paymentModel)
       }
     }
+
     paymentModel.refusalReason != null -> Completable.fromAction {
       var riskRules: String? = null
       paymentModel.refusalCode?.let { code ->
@@ -387,6 +383,7 @@ class AdyenPaymentPresenter(
             riskRules = paymentModel.fraudResultIds.sorted()
               .joinToString(separator = "-")
           }
+
           else -> handleErrors(paymentModel.error, code)
         }
       }
@@ -396,20 +393,23 @@ class AdyenPaymentPresenter(
       }
       sendPaymentErrorEvent(paymentModel.refusalCode, errorDetails, riskRules)
     }
+
     paymentModel.error.hasError -> Completable.fromAction {
-        var errorDetails = paymentModel.error.errorInfo?.text
-        if (errorDetails.isNullOrBlank()) {
-          errorDetails = getWebViewResultCode()
-        }
-        sendPaymentErrorEvent(
-          paymentModel.error.errorInfo?.httpCode,
-          errorDetails
-        )
-        handleErrors(paymentModel.error, paymentModel.refusalCode)
+      var errorDetails = paymentModel.error.errorInfo?.text
+      if (errorDetails.isNullOrBlank()) {
+        errorDetails = getWebViewResultCode()
+      }
+      sendPaymentErrorEvent(
+        paymentModel.error.errorInfo?.httpCode,
+        errorDetails
+      )
+      handleErrors(paymentModel.error, paymentModel.refusalCode)
     }
+
     paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
       retrieveFailedReason(paymentModel.uid)
     }
+
     paymentModel.status == CANCELED -> Completable.fromAction { view.showMoreMethods() }
     else -> Completable.fromAction {
       var errorDetails = "${paymentModel.status} ${paymentModel.error.errorInfo?.text}"
@@ -618,6 +618,16 @@ class AdyenPaymentPresenter(
     )
   }
 
+  private fun handleMorePaymentsStoredClick() {
+    disposables.add(view.getMorePaymentMethodsStoredClicks()
+      .observeOn(networkScheduler)
+      .doOnNext { handleMorePaymentsAnalytics(transactionBuilder) }
+      .observeOn(viewScheduler)
+      .doOnNext { showMoreMethods() }
+      .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
   private fun handleMorePaymentsAnalytics(transaction: TransactionBuilder): Unit =
     analytics.sendPreSelectedPaymentMethodEvent(
       transactionBuilder.domain,
@@ -737,9 +747,11 @@ class AdyenPaymentPresenter(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
+
       PaymentType.GIROPAY.name -> {
         AdyenPaymentRepository.Methods.GIROPAY
       }
+
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
@@ -858,6 +870,7 @@ class AdyenPaymentPresenter(
           navigator.navigateToUriForResult(paymentModel.redirectUrl)
           waitingResult = true
         }
+
         THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
           action3ds = type
           paymentAnalytics.send3dsStart(action3ds)
@@ -865,6 +878,7 @@ class AdyenPaymentPresenter(
           view.handle3DSAction(paymentModel.action!!)
           waitingResult = true
         }
+
         else -> {
           logger.log(TAG, "Unknown adyen action: $type")
           view.showGenericError()
@@ -897,16 +911,19 @@ class AdyenPaymentPresenter(
       error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> view.showSpecificError(
         R.string.purchase_error_payment_rejected
       )
+
       error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> view.showSpecificError(R.string.purchase_card_error_general_1)
       error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> view.showCvvError()
       error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(
         R.string.purchase_card_error_no_funds
       )
+
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
         if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
+
       else -> {
         val isBackToCardAction = adyenErrorCodeMapper.needsCardRepeat(code ?: 0)
         view.showSpecificError(adyenErrorCodeMapper.map(code ?: 0), isBackToCardAction)
