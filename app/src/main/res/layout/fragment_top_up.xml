@@ -77,49 +77,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_currency_code"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/payment_method_info"
             tools:text="123.75"
             />
-
-        <ImageView
-            android:id="@+id/payment_method_info_image"
-            android:layout_width="16dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_info_message"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/payment_method_info"
-            app:layout_constraintEnd_toStartOf="@id/payment_method_info"
-            app:layout_constraintTop_toTopOf="@id/payment_method_info"
-            app:tint="@color/styleguide_dark_grey"
-            tools:visibility="visible"
-            />
-
-        <TextView
-            android:id="@+id/payment_method_info"
-            style="@style/TopUpTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_fee_included_body"
-            android:textColor="@color/styleguide_medium_grey"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/header_top_up_divider"
-            app:layout_constraintEnd_toEndOf="@id/main_value"
-            app:layout_constraintTop_toBottomOf="@id/main_value"
-            tools:ignore="SmallSp"
-            tools:visibility="visible"
-            />
-
         <View
             android:id="@+id/header_top_up_divider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:alpha="0.3"
             android:background="@color/styleguide_dark_grey"
-            app:layout_constraintTop_toBottomOf="@id/payment_method_info"
+            app:layout_constraintTop_toBottomOf="@id/main_value"
             />
 
         <TextView

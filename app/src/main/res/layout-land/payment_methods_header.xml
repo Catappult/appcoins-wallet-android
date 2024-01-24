@@ -74,10 +74,12 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="4dp"
       android:src="@drawable/ic_info_message"
+      android:tooltipText="@string/purchase_fee_supported_currency_unknown_disclaimer"
       app:layout_constraintBottom_toBottomOf="@id/info_fees"
       app:layout_constraintEnd_toStartOf="@id/info_fees"
       app:layout_constraintTop_toTopOf="@id/info_fees"
       android:importantForAccessibility="no"
+      tools:ignore="UnusedAttribute"
       />
 
   <TextView

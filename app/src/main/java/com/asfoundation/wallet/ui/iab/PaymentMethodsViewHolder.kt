@@ -116,7 +116,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       val formattedValue = CurrencyFormatUtils()
         .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
-        itemView.context.getString(R.string.purchase_fee_title, fee.currency, formattedValue)
+        itemView.context.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
     } else {
       binding.paymentMethodFee.visibility = View.GONE
     }

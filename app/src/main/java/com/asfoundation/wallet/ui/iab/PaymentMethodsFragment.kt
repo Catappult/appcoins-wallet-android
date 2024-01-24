@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -140,32 +142,34 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     preSelectedPaymentMethod = BehaviorSubject.create()
     paymentMethodClick = PublishRelay.create()
     itemAlreadyOwnedError = arguments?.getBoolean(ITEM_ALREADY_OWNED, false) ?: false
-    val paymentMethodsData = PaymentMethodsData(
-      appPackage,
-      isBds,
-      getDeveloperPayload(),
-      getUri(),
-      transactionBuilder!!.skuId,
-      getFrequency(),
-      getIsSubscription()
-    )
-    presenter = PaymentMethodsPresenter(
-      view = this,
-      activity = iabView,
-      viewScheduler = AndroidSchedulers.mainThread(),
-      networkThread = Schedulers.io(),
-      disposables = CompositeDisposable(),
-      analytics = paymentMethodsAnalytics,
-      transaction = transactionBuilder!!,
-      paymentMethodsMapper = paymentMethodsMapper,
-      formatter = formatter,
-      getWalletInfoUseCase = getWalletInfoUseCase,
-      removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
-      isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
-      logger = logger,
-      interactor = paymentMethodsInteractor,
-      paymentMethodsData = paymentMethodsData
-    )
+    val paymentMethodsData =
+      PaymentMethodsData(
+        appPackage,
+        isBds,
+        getDeveloperPayload(),
+        getUri(),
+        transactionBuilder!!.skuId,
+        getFrequency(),
+        getIsSubscription()
+      )
+    presenter =
+      PaymentMethodsPresenter(
+        view = this,
+        activity = iabView,
+        viewScheduler = AndroidSchedulers.mainThread(),
+        networkThread = Schedulers.io(),
+        disposables = CompositeDisposable(),
+        analytics = paymentMethodsAnalytics,
+        transaction = transactionBuilder!!,
+        paymentMethodsMapper = paymentMethodsMapper,
+        formatter = formatter,
+        getWalletInfoUseCase = getWalletInfoUseCase,
+        removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
+        isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
+        logger = logger,
+        interactor = paymentMethodsInteractor,
+        paymentMethodsData = paymentMethodsData
+      )
   }
 
   override fun getTopupClicks(): Observable<String> {
@@ -231,12 +235,28 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     iabView.showChallengeReward()
   }
 
-  override fun showFee(hasFee: Boolean, fiatAmount: BigDecimal?, fee: BigDecimal) {
-    if (fiatAmount != null) {
+  override fun showFee(hasFee: Boolean, fiatValue: FiatValue?, fee: BigDecimal) {
+    if (hasFee) showPriceTransition()
+    if (fiatValue != null) {
       binding.paymentMethodsHeader.fiatPrice.text =
-        formatter.formatPaymentCurrency(fiatAmount + fee, WalletCurrency.FIAT)
+        getString(R.string.purchase_total_header, fiatValue.amount + fee, fiatValue.currency)
     }
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
+  }
+
+  fun showPriceTransition() {
+    with(binding.paymentMethodsHeader) {
+      priceTransitionAnimation?.playAnimation()
+      fiatPrice.visibility = View.INVISIBLE
+      priceTransitionAnimation?.visibility = View.VISIBLE
+      priceTransitionAnimation?.addAnimatorListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator) {
+          super.onAnimationEnd(animation)
+          priceTransitionAnimation.visibility = View.GONE
+          fiatPrice.visibility = View.VISIBLE
+        }
+      })
+    }
   }
 
   private fun setupPaymentMethods(
@@ -252,9 +272,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           paymentMethods = paymentMethods,
           paymentMethodId = paymentMethodId,
           paymentMethodClick = paymentMethodClick,
-          logoutCallback = {
-            logoutFromPaypal()
-          },
+          logoutCallback = { logoutFromPaypal() },
           disposables = presenter.disposables,
           showPayPalLogout = presenter.showPayPalLogout
         )
@@ -280,10 +298,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     var fiatPrice = "$fiatAmount $currency"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(requireContext(), fiatPrice)
-        ?.let { fiatPrice = it }
+      period?.mapToSubsFrequency(requireContext(), fiatPrice)?.let { fiatPrice = it }
     }
-    binding.paymentMethodsHeader.fiatPrice.text = fiatPrice
+    binding.paymentMethodsHeader.fiatPrice.text =
+      getString(R.string.purchase_total_header, fiatAmount, currency)
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = View.GONE
     binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = View.GONE
     binding.paymentMethodsHeader.fiatPrice.visibility = View.VISIBLE
@@ -336,7 +354,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentMethodId.PAYPAL_V2.id -> {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
-          val wrapper: Context =  ContextThemeWrapper(context?.applicationContext, R.style.CustomLogoutPopUpStyle)
+          val wrapper: Context =
+            ContextThemeWrapper(context?.applicationContext, R.style.CustomLogoutPopUpStyle)
           val popup = PopupMenu(wrapper, it)
           popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
           popup.setOnMenuItemClickListener { menuItem: MenuItem ->
@@ -366,25 +385,22 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.layoutPreSelected.paymentMethodFee.text =
-        context?.getString(R.string.purchase_fee_title, fee.currency, formattedValue)
+        context?.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
     } else {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.GONE
     }
   }
 
   private fun loadIcons(paymentMethod: PaymentMethod, view: ImageView?) {
-    compositeDisposable.add(Observable.fromCallable {
-      val context = context
-      GlideApp.with(context!!)
-        .asBitmap()
-        .load(paymentMethod.iconUrl)
-        .submit()
-        .get()
-    }
-      .subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnNext { view?.setImageBitmap(it) }
-      .subscribe({ }) { it.printStackTrace() })
+    compositeDisposable.add(
+      Observable.fromCallable {
+        val context = context
+        GlideApp.with(context!!).asBitmap().load(paymentMethod.iconUrl).submit().get()
+      }
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnNext { view?.setImageBitmap(it) }
+        .subscribe({}) { it.printStackTrace() })
   }
 
   override fun showError(message: Int) {
@@ -399,7 +415,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     iabView.disableBack()
     binding.errorMessage.errorDismiss.setText(getString(R.string.ok))
     binding.errorMessage.root.visibility = View.VISIBLE
-    binding.errorMessage.genericErrorLayout.errorMessage.setText(R.string.purchase_error_incomplete_transaction_body)
+    binding.errorMessage.genericErrorLayout.errorMessage.setText(
+      R.string.purchase_error_incomplete_transaction_body
+    )
     binding.errorMessage.genericErrorLayout.layoutSupportIcn.visibility = View.GONE
     binding.errorMessage.genericErrorLayout.layoutSupportLogo.visibility = View.GONE
     binding.errorMessage.genericErrorLayout.contactUs.visibility = View.GONE
@@ -428,7 +446,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     if (binding.processingLoading.visibility != View.VISIBLE) {
       binding.paymentMethods.visibility = View.VISIBLE
       removeSkeletons()
-      if (binding.dialogBuyButtonsPaymentMethods.buyButton.tag != null && binding.dialogBuyButtonsPaymentMethods.buyButton.tag is Boolean) {
+      if (binding.dialogBuyButtonsPaymentMethods.buyButton.tag != null &&
+        binding.dialogBuyButtonsPaymentMethods.buyButton.tag is Boolean
+      ) {
         binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled =
           binding.dialogBuyButtonsPaymentMethods.buyButton.tag as Boolean
       } else {
@@ -468,8 +488,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun close(bundle: Bundle) = iabView.close(bundle)
 
-  override fun errorDismisses(): Observable<Any> = RxView.clicks(binding.errorMessage.errorDismiss)
-    .map { itemAlreadyOwnedError }
+  override fun errorDismisses(): Observable<Any> =
+    RxView.clicks(binding.errorMessage.errorDismiss).map { itemAlreadyOwnedError }
 
   override fun getSupportLogoClicks() =
     RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportLogo)
@@ -572,7 +592,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
-
   override fun showAdyen(
     fiatAmount: BigDecimal,
     fiatCurrency: String,
@@ -622,43 +641,38 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
-  ) = iabView.showAdyenPayment(
-    fiatValue.amount,
-    fiatValue.currency,
-    isBds,
-    PaymentType.CARD,
-    bonusMessageValue,
-    false,
-    null,
-    gamificationLevel,
-    isSubscription,
-    frequency
-  )
+  ) =
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.CARD,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
 
   override fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder) =
     iabView.showOnChain(
-      transaction.amount(),
-      isBds,
-      bonusMessageValue,
-      gamificationLevel,
-      transaction
+      transaction.amount(), isBds, bonusMessageValue, gamificationLevel, transaction
     )
 
   override fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder) =
     iabView.showAppcoinsCreditsPayment(
-      transaction.amount(),
-      isPreSelected,
-      gamificationLevel,
-      transaction
+      transaction.amount(), isPreSelected, gamificationLevel, transaction
     )
 
   override fun showSubscribe() {
-    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.subscriptions_subscribe_button))
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(
+      getString(R.string.subscriptions_subscribe_button)
+    )
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
-    val isOneStep: Boolean = transactionBuilder!!.type
-      .equals("INAPP_UNMANAGED", ignoreCase = true)
+    val isOneStep: Boolean = transactionBuilder!!.type.equals("INAPP_UNMANAGED", ignoreCase = true)
     iabView.showShareLinkPayment(
       transactionBuilder!!.domain,
       transactionBuilder!!.skuId,
@@ -674,7 +688,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     Observable.merge(
       paymentMethodClick
         .filter { checkedRadioButtonId -> checkedRadioButtonId >= 0 }
-        .map { paymentMethodList[it] }, preSelectedPaymentMethod
+        .map { paymentMethodList[it] },
+      preSelectedPaymentMethod
     )
 
   override fun getMorePaymentMethodsClicks(): Observable<Any> =
@@ -688,30 +703,31 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     fiatAmount: String,
     fiatCurrency: String,
     gamificationLevel: Int
-  ) = iabView.showLocalPayment(
-    transactionBuilder!!.domain,
-    transactionBuilder!!.skuId,
-    fiatAmount,
-    fiatCurrency,
-    bonusMessageValue,
-    selectedPaymentMethod,
-    transactionBuilder!!.toAddress(),
-    transactionBuilder!!.type,
-    transactionBuilder!!.amount(),
-    transactionBuilder!!.callbackUrl,
-    transactionBuilder!!.orderReference,
-    transactionBuilder!!.payload,
-    transactionBuilder!!.origin,
-    iconUrl,
-    label,
-    async,
-    transactionBuilder!!.referrerUrl,
-    gamificationLevel
-  )
+  ) =
+    iabView.showLocalPayment(
+      transactionBuilder!!.domain,
+      transactionBuilder!!.skuId,
+      fiatAmount,
+      fiatCurrency,
+      bonusMessageValue,
+      selectedPaymentMethod,
+      transactionBuilder!!.toAddress(),
+      transactionBuilder!!.type,
+      transactionBuilder!!.amount(),
+      transactionBuilder!!.callbackUrl,
+      transactionBuilder!!.orderReference,
+      transactionBuilder!!.payload,
+      transactionBuilder!!.origin,
+      iconUrl,
+      label,
+      async,
+      transactionBuilder!!.referrerUrl,
+      gamificationLevel
+    )
 
   override fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int) {
-    var scaledBonus = bonus.stripTrailingZeros()
-      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+    var scaledBonus =
+      bonus.stripTrailingZeros().setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency
     if (scaledBonus < BigDecimal("0.01")) {
       newCurrencyString = "~$currency"
@@ -744,26 +760,28 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     transaction: TransactionBuilder,
     frequency: String?,
     isSubscription: Boolean
-  ) = iabView.showMergedAppcoins(
-    fiatValue.amount,
-    fiatValue.currency,
-    bonusMessageValue,
-    isBds,
-    isDonation,
-    gamificationLevel,
-    transaction,
-    isSubscription,
-    frequency
-  )
+  ) =
+    iabView.showMergedAppcoins(
+      fiatValue.amount,
+      fiatValue.currency,
+      bonusMessageValue,
+      isBds,
+      isDonation,
+      gamificationLevel,
+      transaction,
+      isSubscription,
+      frequency
+    )
 
   override fun lockRotation() = iabView.lockRotation()
 
-  override fun showEarnAppcoins() = iabView.showEarnAppcoins(
-    transactionBuilder!!.domain,
-    transactionBuilder!!.skuId,
-    transactionBuilder!!.amount(),
-    transactionBuilder!!.type
-  )
+  override fun showEarnAppcoins() =
+    iabView.showEarnAppcoins(
+      transactionBuilder!!.domain,
+      transactionBuilder!!.skuId,
+      transactionBuilder!!.amount(),
+      transactionBuilder!!.type
+    )
 
   override fun showBonus(@StringRes bonusText: Int) {
     changeBonusVisibility(View.VISIBLE)
@@ -796,16 +814,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         resources.getString(R.string.item_donation)
       binding.paymentMethodsHeader.appName.text = resources.getString(R.string.item_donation)
     } else {
-      compositeDisposable.add(Single.defer { Single.just(appPackage) }
-        .observeOn(Schedulers.io())
-        .map { packageName ->
-          Pair(
-            getApplicationName(packageName),
-            requireContext().packageManager.getApplicationIcon(packageName)
-          )
-        }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
+      compositeDisposable.add(
+        Single.defer { Single.just(appPackage) }
+          .observeOn(Schedulers.io())
+          .map { packageName ->
+            Pair(
+              getApplicationName(packageName),
+              requireContext().packageManager.getApplicationIcon(packageName)
+            )
+          }
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe({ setHeaderInfo(it.first, it.second) }) { it.printStackTrace() })
     }
   }
 
@@ -818,8 +837,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   private fun getApplicationName(packageName: String): String {
     val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
-    return packageManager.getApplicationLabel(packageInfo)
-      .toString()
+    return packageManager.getApplicationLabel(packageInfo).toString()
   }
 
   private val isBds: Boolean by lazy {

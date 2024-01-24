@@ -30,7 +30,6 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.widgets.SeparatorView
 import com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -584,7 +583,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       period?.mapToSubsFrequency(requireContext(), fiatText)
         ?.let { fiatText = it }
     }
-    fiat_price.text = fiatText
+    fiat_price.text = getString(R.string.purchase_total_header, amount, currencyCode)
     fiat_price_skeleton.visibility = GONE
     appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE

@@ -119,7 +119,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       val formattedValue = CurrencyFormatUtils()
         .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
-        itemView.context.getString(R.string.purchase_fee_title, fee.currency, formattedValue)
+        itemView.context.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
     } else {
       binding.paymentMethodFee.visibility = View.GONE
     }
