@@ -561,6 +561,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Start date:</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -627,6 +630,16 @@
   <string name="verified_tag">Verified</string>
   <string name="unferified_tag">Unverified wallet</string>
   <string name="verification_wallets_verify_button">Verify</string>
+
+
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+
  
 
 
