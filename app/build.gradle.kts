@@ -12,7 +12,7 @@ android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
     versionCode = 295
-    versionName = "3.11.1"
+    versionName = "3.11.2"
   }
 }
 
