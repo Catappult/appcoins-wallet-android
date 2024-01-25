@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
@@ -13,6 +14,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.billing.googlepay.usecases.*
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
@@ -24,6 +26,8 @@ import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -148,32 +152,41 @@ class GooglePayWebViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder,
     wasNonSuccess: Boolean = false
   ) {
-    compositeDisposable.add(waitForSuccessGooglePayWebUseCase(uid ?: "").subscribeOn(
-      networkScheduler
-    ).observeOn(viewScheduler).subscribe({
-      when (it.status) {
-        COMPLETED -> {
-          getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
+    val disposableSuccessCheck = waitForSuccessGooglePayWebUseCase(uid ?: "")
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe({
+        when (it.status) {
+          COMPLETED -> {
+            getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
+          }
+          FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
+            Log.d(TAG, "Error on transaction on Settled transaction polling")
+            sendPaymentErrorEvent(
+              errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
+              transactionBuilder = transactionBuilder
+            )
+            _state.postValue(State.Error(R.string.unknown_error))
+          }
+          else -> { /* pending */ }
         }
-        FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
-          Log.d(TAG, "Error on transaction on Settled transaction polling")
-          sendPaymentErrorEvent(
-            errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
-            transactionBuilder = transactionBuilder
-          )
-          _state.postValue(State.Error(R.string.unknown_error))
-        }
-        else -> { /* pending */
-        }
+      }, {
+        Log.d(TAG, "Error on Settled transaction polling")
+        sendPaymentErrorEvent(
+          errorMessage = "Error on Settled transaction polling",
+          transactionBuilder = transactionBuilder
+        )
+      })
+    // disposes the check after x seconds
+    viewModelScope.launch {
+      delay(GooglePayConst.GOOGLE_PAY_TIMEOUT)
+      try {
+        if (state.value !is State.SuccessPurchase && wasNonSuccess)
+          _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        disposableSuccessCheck.dispose()
+      } catch (_: Exception) {
       }
-    }, {
-      Log.d(TAG, "Error on Settled transaction polling")
-      sendPaymentErrorEvent(
-        errorMessage = "Error on Settled transaction polling",
-        transactionBuilder = transactionBuilder
-      )
-    })
-    )
+    }
   }
 
   fun processGooglePayResult(transactionBuilder: TransactionBuilder) {
@@ -187,14 +200,10 @@ class GooglePayWebViewModel @Inject constructor(
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        // TODO try to verify transaction state before error
         waitForSuccess(uid, transactionBuilder, true)
-//        _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       else -> {
         waitForSuccess(uid, transactionBuilder, true)
-        // TODO try to verify transaction state before error
-//        _state.postValue(State.GooglePayBack)
       }
     }
   }

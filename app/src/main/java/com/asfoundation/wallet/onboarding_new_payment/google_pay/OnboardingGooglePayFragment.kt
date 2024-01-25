@@ -40,6 +40,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   lateinit var navigator: OnboardingGooglePayNavigator
 
   var isFirstRun: Boolean = true
+  var runningCustomTab: Boolean = false
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -60,8 +61,11 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     if (isFirstRun) {
       isFirstRun = false
     } else {
-      // checks success/error/cancel
-      viewModel.processGooglePayResult(transactionBuilder = args.transactionBuilder)
+      if (runningCustomTab) {
+        runningCustomTab = false
+        // checks success/error/cancel
+        viewModel.processGooglePayResult(transactionBuilder = args.transactionBuilder)
+      }
     }
   }
 
@@ -104,6 +108,8 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   }
 
   private fun openUrlCustomTab(url: String) {
+    if (runningCustomTab) return
+    runningCustomTab = true
     val customTabsBuilder = CustomTabsIntent.Builder().build()
     customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
     customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
@@ -12,6 +13,7 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebViewModel
+import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
 import com.asfoundation.wallet.billing.googlepay.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -22,6 +24,8 @@ import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -148,36 +152,47 @@ class OnboardingGooglePayViewModel @Inject constructor(
   }
 
   private fun waitForSuccess(
-    uid: String?, transactionBuilder: TransactionBuilder
+    uid: String?,
+    transactionBuilder: TransactionBuilder,
+    wasNonSuccess: Boolean = false,
   ) {
-    compositeDisposable.add(waitForSuccessGooglePayWebUseCase(uid ?: "").subscribeOn(
-      networkScheduler
-    ).observeOn(viewScheduler).subscribe({
-      when (it.status) {
-        PaymentModel.Status.COMPLETED -> {
-          handleSuccess(it.uid, transactionBuilder)
+    val disposableSuccessCheck = waitForSuccessGooglePayWebUseCase(uid ?: "")
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .subscribe({
+        when (it.status) {
+          PaymentModel.Status.COMPLETED -> {
+            handleSuccess(it.uid, transactionBuilder)
+          }
+          PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
+            Log.d(TAG, "Error on transaction on Settled transaction polling")
+            events.sendPaymentErrorMessageEvent(
+              errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
+              transactionBuilder = transactionBuilder,
+              paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+            )
+            _state.postValue(State.Error(R.string.unknown_error))
+          }
+          else -> { /* pending */ }
         }
-        PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
-          Log.d(TAG, "Error on transaction on Settled transaction polling")
-          events.sendPaymentErrorMessageEvent(
-            errorMessage = "Error on transaction on Settled transaction polling ${it.status.name}",
-            transactionBuilder = transactionBuilder,
-            paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
-          )
-          _state.postValue(State.Error(R.string.unknown_error))
-        }
-        else -> { /* pending */
-        }
+      }, {
+        Log.d(TAG, "Error on Settled transaction polling")
+        events.sendPaymentErrorMessageEvent(
+          errorMessage = "Error on Settled transaction polling",
+          transactionBuilder = transactionBuilder,
+          paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+        )
+      })
+    // disposes the check after x seconds
+    viewModelScope.launch {
+      delay(GooglePayConst.GOOGLE_PAY_TIMEOUT)
+      try {
+        if (state.value !is State.SuccessPurchase && wasNonSuccess)
+          _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        disposableSuccessCheck.dispose()
+      } catch (_: Exception) {
       }
-    }, {
-      Log.d(TAG, "Error on Settled transaction polling")
-      events.sendPaymentErrorMessageEvent(
-        errorMessage = "Error on Settled transaction polling",
-        transactionBuilder = transactionBuilder,
-        paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
-      )
-    })
-    )
+    }
   }
 
   fun processGooglePayResult(transactionBuilder: TransactionBuilder) {
@@ -195,11 +210,10 @@ class OnboardingGooglePayViewModel @Inject constructor(
         _state.postValue(State.Error(R.string.purchase_error_google_pay))
       }
       GooglePayResult.CANCEL.key -> {
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        waitForSuccess(uid, transactionBuilder, true)
       }
       else -> {
-        _state.postValue(State.GooglePayBack)
-
+        waitForSuccess(uid, transactionBuilder, true)
       }
     }
   }
