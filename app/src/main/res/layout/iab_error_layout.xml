@@ -13,11 +13,12 @@
         android:id="@+id/generic_error_layout"
         layout="@layout/support_error_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/error_dismiss"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
         />
 
     <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -30,8 +31,10 @@
         app:buttonText="@string/button_ok"
         app:buttonType="filled"
         app:layout_constraintTop_toBottomOf="@+id/generic_error_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         tools:visibility="visible"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
