@@ -49,11 +49,10 @@ class VkPayRepository @Inject constructor(
         )
           .map { response: VkTransactionResponse ->
             VkPayTransaction(
-              uid = response.uid,
-              hash = response.hash,
-              status = response.status,
-              amount = response.amount,
-              merchantId = response.merchantId ?: "0",
+              response.uid,
+              response.hash,
+              response.status,
+              response.amount
             )
           }
           .onErrorReturn {
@@ -66,8 +65,7 @@ class VkPayRepository @Inject constructor(
               null,
               null,
               errorCode.toString(),
-              errorContent ?: "",
-              null,
+              errorContent ?: ""
             )
           }
       }
