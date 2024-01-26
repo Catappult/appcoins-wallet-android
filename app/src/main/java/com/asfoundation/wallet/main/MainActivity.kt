@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(),
   @Inject
   lateinit var navigator: MainActivityNavigator
   lateinit var navController: NavController
+
+  @Inject
+  lateinit var networkMonitor: NetworkMonitor
 
   private val viewModel: MainActivityViewModel by viewModels()
 
