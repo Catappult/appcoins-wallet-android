@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Повернутися до гри</string>
   <string name="other_payment_methos_title">Інші способи оплати:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">У вас вже є</string>
+  <string name="intro_from_web_payment_to_spend_body">які можна витратити на улюблені ігри.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Від</string>
@@ -478,7 +478,7 @@
   <string name="p2p_send_error_amount_zero">Він має бути більше нуля</string>
   <string name="p2p_send_confirmation_header">Деталі передачі</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Ой</string>
   <string name="error_general">Щось пішло не так</string>
   <string name="error_missing_field">Обов\'язкове поле</string>
   <string name="cancel_button">Скасувати</string>
@@ -491,7 +491,7 @@
   <string name="discover_button">Відкрити</string>
   <string name="retry_button">Повторіть спробу</string>
   <string name="do_it_later_button">Зробити це пізніше</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Немає підключення до Інтернету</string>
   <string name="connection_error_body">Здається, ви не підключені до Інтернету. Перевірте з’єднання та спробуйте ще раз!</string>
   <string name="common_or">АБО</string>
   <string name="share_via">Поділитися через:</string>
@@ -647,7 +647,7 @@
   <string name="error_blocked_wallet_body">Ваш гаманець заблоковано з міркувань безпеки. Зверніться до нас за додатковою інформацією.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Виникла проблема з Google Pay. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s fee</string>
@@ -816,7 +816,7 @@
   <string name="remove_wallet_no_button">Ні, повернутися</string>
   <string name="remove_wallet_yes_button">Так, видалити гаманець</string>
   <string name="remove_wallet_removed_body">Гаманець видалено!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_title">Ви впевнені?</string>
   <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Переведення</string>
@@ -1213,7 +1213,7 @@
   <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб усі могли грати та заробляти. За кожну покупку в додатку &lt;b&gt;ви та ваші друзі отримуватимете бонус %1$s%%&lt;b&gt; додатково до інших активних промоакцій. &lt;b&gt;Діє до %2$s&lt;/b&gt;!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Тільки для покупок у</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Бонус, отриманий від ваших покупок</string>
