@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
   <string name="rooted_device_blocked_body">Helaas kun je geen e-Skills games spelen met een geroot apparaat.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Je moet dit spel bijwerken naar de nieuwste versie!</string>
+  <string name="error_game_not_supported_body">Het lijkt erop dat dit spel momenteel niet beschikbaar is.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Wachten tot tegenstanders klaar zijn met de game.</string>
   <plurals name="opponent_points_title">
