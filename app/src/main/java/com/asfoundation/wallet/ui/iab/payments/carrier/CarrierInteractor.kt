@@ -50,13 +50,22 @@ class CarrierInteractor @Inject constructor(
       .flatMap { details ->
         getCurrentPromoCodeUseCase().flatMap { promoCode ->
           repository.makePayment(
-            details.addrs.userAddress,
-            phoneNumber, packageName, origin, details.builder.skuId,
-            details.builder.orderReference, transactionType, currency, value,
-            details.builder.toAddress(), details.addrs.entityOemId, details.addrs.entityDomain,
-            promoCode.code,
-            details.addrs.userAddress, details.builder.referrerUrl, details.builder.payload,
-            details.builder.callbackUrl
+            walletAddress = details.addrs.userAddress,
+            phoneNumber = phoneNumber,
+            packageName = packageName,
+            origin = origin,
+            sku = details.builder.skuId,
+            reference = details.builder.orderReference,
+            transactionType = transactionType,
+            currency = currency,
+            value = value,
+            entityOemId = details.addrs.entityOemId,
+            entityDomain = details.addrs.entityDomain,
+            entityPromoCode = promoCode.code,
+            userWallet = details.addrs.userAddress,
+            referrerUrl = details.builder.referrerUrl,
+            developerPayload = details.builder.payload,
+            callbackUrl = details.builder.callbackUrl
           )
         }
       }

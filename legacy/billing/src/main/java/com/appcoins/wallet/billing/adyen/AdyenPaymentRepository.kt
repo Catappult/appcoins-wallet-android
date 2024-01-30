@@ -50,7 +50,7 @@ class AdyenPaymentRepository @Inject constructor(
     supportedShopperInteractions: List<String>, returnUrl: String, value: String,
     currency: String, reference: String?, paymentType: String, walletAddress: String,
     origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
+    callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
     walletSignature: String,
@@ -68,10 +68,21 @@ class AdyenPaymentRepository @Inject constructor(
           )
             .map {
               TokenPayment(
-                adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-                callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, entityOemId, entityDomain, entityPromoCode, userWallet,
-                referrerUrl, it
+                adyenPaymentMethod = adyenPaymentMethod,
+                shouldStoreMethod = shouldStoreMethod,
+                returnUrl = returnUrl,
+                shopperInteraction = shopperInteraction,
+                callbackUrl = callbackUrl,
+                metadata = metadata,
+                method = paymentType,
+                origin = origin,
+                reference = reference,
+                entityOemId = entityOemId,
+                entityDomain = entityDomain,
+                entityPromoCode = entityPromoCode,
+                user = userWallet,
+                referrerUrl = referrerUrl,
+                token = it
               )
             }
             .flatMap {
@@ -107,7 +118,7 @@ class AdyenPaymentRepository @Inject constructor(
               type = transactionType,
               currency = currency,
               value = value,
-              developer = developerWallet,
+//              developer = developerWallet,
               entityOemId = entityOemId,
               entityDomain = entityDomain,
               entityPromoCode = entityPromoCode,

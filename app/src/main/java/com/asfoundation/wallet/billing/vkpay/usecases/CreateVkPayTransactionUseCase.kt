@@ -20,7 +20,6 @@ class CreateVkPayTransactionUseCase @Inject constructor(
     price: VkPrice, reference: String?,
     origin: String?, metadata: String?, packageName: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
     referrerUrl: String?,
     email: String,
     phone: String
@@ -43,7 +42,6 @@ class CreateVkPayTransactionUseCase @Inject constructor(
             sku = sku,
             callbackUrl = callbackUrl,
             transactionType = transactionType,
-            developerWallet = developerWallet,
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,

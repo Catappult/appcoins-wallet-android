@@ -78,7 +78,7 @@ class AppcoinsRewardsTest {
     ))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, BDS_ORIGIN, SKU, TYPE,
-        DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
+        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
         Single.just(TransactionCore(UID,
@@ -86,7 +86,7 @@ class AppcoinsRewardsTest {
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
-        DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
+        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
         Single.just(TransactionCore(UID,
@@ -94,7 +94,7 @@ class AppcoinsRewardsTest {
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
-        DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
+        STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
         Single.just(TransactionCore(UID,
@@ -133,7 +133,7 @@ class AppcoinsRewardsTest {
   fun makePayment() {
     val testObserver = TestObserver<Any>()
     appcoinsRewards.pay(
-        PRICE, BDS_ORIGIN, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PRICE, BDS_ORIGIN, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
         PACKAGE_NAME, null, null, null, null, null
     )
         .subscribe(testObserver)
@@ -165,7 +165,7 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNITY_ORIGIN
     appcoinsRewards.pay(
-        PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PRICE, origin, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
         PACKAGE_NAME, null, null, null, null, null
     )
         .subscribe(testObserver)
@@ -196,7 +196,7 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNKNOWN_ORIGIN
     appcoinsRewards.pay(
-        PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PRICE, origin, SKU, TYPE, STORE_ADDRESS, OEM_ADDRESS,
         PACKAGE_NAME, null, null, null, null, null
     )
         .subscribe(testObserver)

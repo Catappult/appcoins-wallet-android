@@ -39,7 +39,6 @@ class BillingService : Service() {
               dependenciesProvider.brokerBdsApi(),
               dependenciesProvider.inappApi(),
               BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-              dependenciesProvider.bdsApiSecondary(),
               dependenciesProvider.subscriptionsApi(),
               dependenciesProvider.ewtObtainer(),
               dependenciesProvider.rxSchedulers()
