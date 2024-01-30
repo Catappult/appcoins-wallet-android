@@ -645,14 +645,14 @@
   <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
-  <string name="purchase_error_google_pay">Er is een probleem met Google Pay opgetreden. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_error_google_pay">Er is een probleem met Google Pay. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Aankoop verwerken&#8230;</string>
   <string name="purchase_fee_title">Kosten: %1$s %2$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom worden er verwerkingskosten in rekening gebracht. Deze kosten zijn inbegrepen in het totaal dat je hierboven kunt vinden.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">Deze betaalmethode brengt verwerkingskosten voor deze aankoop in rekening. Deze kosten zijn inbegrepen in het totaal dat bovenaan wordt getoond.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Op een aankoop met deze betaalmethode zijn verwerkingskosten van toepassing. Deze kosten zijn inbegrepen in het totaal dat bovenaan wordt getoond.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom kunnen er verwerkingskosten in rekening worden gebracht.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">Deze betaalmethode brengt verwerkingskosten voor deze aankoop in rekening.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Op een aankoop met deze betaalmethode zijn verwerkingskosten van toepassing.</string>
   <string name="purchase_fee_included_body">inclusief kosten</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
@@ -1190,7 +1190,7 @@
   <string name="vip_program_promotions_list_title">Speciale acties voor jou</string>
   <string name="vip_program_promo_code_tag">Actiecode</string>
   <string name="vip_program_referral_page_title">VIP-verwijzingsprogramma</string>
-  <string name="vip_program_referral_page_body">Deel deze actiecode met je community en vrienden zodat iedereen geld kan verdienen tijdens het spelen. Voor elke in-app aankoop die ze doen, <b>ontvangen jij en je vrienden %1$s%% bonus</b> bovenop andere lopende acties! <b>Geldig tot %2$s</b>!</string>
+  <string name="vip_program_referral_page_body">Deel deze actiecode met je community en vrienden zodat iedereen geld kan verdienen tijdens het spelen. Voor elke in-app aankoop die ze doen, <b>ontvangen jij en je vrienden %1$s%% bonus</b> bovenop andere lopende acties. <b>Geldig tot %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">Jij en je vrienden krijgen gedurende 7 dagen een bonus van %s%% bij elke aankoop als deze code wordt gebruikt!</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_only_app_title">Alleen voor aankopen in</string>
