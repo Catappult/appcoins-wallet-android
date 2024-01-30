@@ -188,7 +188,6 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     val hash = viewModel.transactionVkData.value?.hash
     val uidTransaction = viewModel.transactionVkData.value?.uid
     val amount = viewModel.transactionVkData.value?.amount
-    val merchantId = viewModel.transactionVkData.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
       vkPayManager.checkoutVkPay(
         hash,
@@ -197,7 +196,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         vkDataPreferencesDataSource.getPhoneVK() ?: "",
         viewModel.walletAddress,
         amount,
-        merchantId.toInt(),
+        BuildConfig.VK_MERCHANT_ID.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
         requireFragmentManager()
       )

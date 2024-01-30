@@ -12,13 +12,22 @@ import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asf.wallet.BuildConfig
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpSideEffect
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.Timer
+import java.util.TimerTask
 import javax.inject.Inject
 
 sealed class OnboardingVkPaymentSideEffect : SideEffect {
