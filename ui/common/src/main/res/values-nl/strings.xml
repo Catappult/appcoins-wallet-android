@@ -1259,7 +1259,7 @@
   <string name="verify_card_one_more_step_body">Voer de code in die in de transactiegegevens wordt getoond</string>
   <string name="verify_card_one_more_step_button">Code invoeren</string>
   <string name="verify_card_verified">Betaalmethode geverifieerd!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Creditcard/betaalkaart verifiëren</string>
   <string name="verify_card_view_title">Kaart verifiëren</string>
   <string name="verify_card_view_disclaimer">We zullen via je kaart %s in rekening brengen. Dit bedrag wordt teruggestort als je de code hebt bevestigd.</string>
   <string name="verify_card_view_title_2">Voer je bankpasgegevens in</string>
