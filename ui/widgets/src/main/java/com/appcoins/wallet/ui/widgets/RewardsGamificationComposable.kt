@@ -139,7 +139,7 @@ fun GamificationHeader(
                     .clip(CircleShape)
                     .height(8.dp)
                     .fillMaxWidth(),
-                  color = if (isVip) styleguide_vip_yellow else indicatorColor,
+                  color = indicatorColor,
                   trackColor = styleguide_grey_blue,
                 )
 
@@ -176,7 +176,7 @@ fun GamificationHeader(
               modifier = Modifier
                 .size(96.dp)
                 .align(Alignment.Center)
-                .scale(1.1F)
+                .scale(1F)
             )
           }
         }

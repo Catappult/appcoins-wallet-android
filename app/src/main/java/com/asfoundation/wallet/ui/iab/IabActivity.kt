@@ -598,7 +598,6 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
     binding.fragmentContainer.visibility = View.GONE
     binding.layoutError.visibility = View.VISIBLE
     binding.iabErrorLayout.genericErrorLayout.errorMessage.text = getText(error)
-    binding.walletLogoLayout.root.visibility = View.GONE
   }
 
   override fun getSupportClicks(): Observable<Any> =

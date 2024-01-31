@@ -519,7 +519,7 @@
   <string name="see_more_button">もっと見る</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">開始日:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
@@ -645,12 +645,13 @@
   <string name="error_blocked_wallet_body">セキュリティ上の理由により、お客様のウォレットはブロックされています。お手数ですが、弊社までご連絡ください。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
   <string name="purchase_making_purchase_title">購入中：&#8230;</string>
-  <string name="purchase_fee_title">手数料：%1$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">この支払い方法はあなたの通貨をサポートしていないため、処理手数料がかかります。この手数料はトップエリアに表示される合計金額に含まれています。</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">この支払い方法はお客様の通貨をサポートしていないため、手数料がかかる場合があります。</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -810,6 +811,8 @@
   <string name="remove_wallet_no_button">いいえ、戻る</string>
   <string name="remove_wallet_yes_button">はい、ウォレットを削除します</string>
   <string name="remove_wallet_removed_body">ウォレットが削除されました！</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">移動</string>
   <string name="transfer_title">資金の移動</string>
@@ -1181,6 +1184,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
   <string name="vip_program_gamification_title">私のボーナスレベルは？</string>
   <string name="vip_program_gamification_amount_purchases_bonus">購入で受け取ったボーナス</string>
@@ -1236,7 +1240,7 @@
   <string name="manage_wallet_verify_title">支払い方法の確認</string>
   <string name="manage_wallet_verify_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">支払い方法の認証</string>
   <string name="verify_card_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
   <string name="verify_card_one_more_step_title">認証までのもう１ステップ</string>
   <string name="verify_card_one_more_step_body">取引詳細に表示されるコードを挿入</string>

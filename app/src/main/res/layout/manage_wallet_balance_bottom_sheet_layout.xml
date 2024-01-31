@@ -160,6 +160,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/appc_credits_token_name"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:textColor="@color/styleguide_medium_grey"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

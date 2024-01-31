@@ -279,7 +279,8 @@ class RemoteRepository(
       packageName = packageName,
       darkTheme = transactionType == TOP_UP_TYPE,
       entityOemId = entityOemId,
-      walletAddress = address
+      walletAddress = address,
+      language = Locale.getDefault().language,
     )
       .map { responseMapper.map(it) }
 

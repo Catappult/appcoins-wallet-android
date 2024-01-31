@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.microservices.model.CreditCardCVCResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -213,6 +214,10 @@ class AdyenPaymentInteractor @Inject constructor(
         || status == PaymentModel.Status.CANCELED
         || status == PaymentModel.Status.INVALID_TRANSACTION
         || status == PaymentModel.Status.FRAUD)
+  }
+
+  fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
+    return adyenPaymentRepository.getCreditCardNeedCVC().subscribeOn(rxSchedulers.io)
   }
 
   companion object {

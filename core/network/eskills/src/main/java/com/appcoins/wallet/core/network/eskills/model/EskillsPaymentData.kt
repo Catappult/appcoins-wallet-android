@@ -17,7 +17,9 @@ data class EskillsPaymentData(
   var metadata: Map<String, String>,
   var numberOfUsers: Int?,
   var timeout: Int?,
-  var queueId: QueueIdentifier? = null
+  var queueId: QueueIdentifier? = null,
+  var versionName: String? = null,
+  var versionCode: Long? = null
 ) {
 
   enum class MatchEnvironment {

@@ -45,7 +45,8 @@ interface BrokerBdsApi {
     @Query("domain") packageName: String?,
     @Query("dark_theme") darkTheme: Boolean = false,
     @Query("oem_id") entityOemId: String?,
-    @Query("wallet.address") walletAddress: String?
+    @Query("wallet.address") walletAddress: String?,
+    @Header("Accept-Language") language: String,
   ): Single<GetMethodsResponse>
 
   @GET("8.20231001/methods/googlepay/properties")

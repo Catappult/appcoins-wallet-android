@@ -6,23 +6,36 @@ import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
-import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.ui.PaymentNavigationData
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.PaymentNavigationData
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.EARN_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GIROPAY
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL_V2
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -33,7 +46,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
 import retrofit2.HttpException
 import java.math.BigDecimal
-import java.util.*
+import java.util.Currency
 import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
@@ -108,11 +121,12 @@ class PaymentMethodsPresenter(
       .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
         if (interactor.isBonusActiveAndValid()) {
-          handleBonusVisibility(selectedPaymentMethod)
+          handleBonusVisibility(selectedPaymentMethod.id)
         } else {
           view.removeBonus()
         }
-        handlePositiveButtonText(selectedPaymentMethod)
+        handlePositiveButtonText(selectedPaymentMethod.id)
+        handleFeeVisibility(selectedPaymentMethod.fee)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -567,7 +581,6 @@ class PaymentMethodsPresenter(
             fiatValue,
             it,
             fiatAmount,
-            appcAmount,
             isBonusActive,
             paymentMethodsData.frequency
           )
@@ -622,7 +635,6 @@ class PaymentMethodsPresenter(
             fiatValue,
             paymentMethod,
             fiatAmount,
-            appcAmount,
             isBonusActive,
             paymentMethodsData.frequency
           )
@@ -714,7 +726,6 @@ class PaymentMethodsPresenter(
       symbol,
       paymentMethodId,
       fiatAmount,
-      appcAmount,
       appcEnabled,
       creditsEnabled,
       frequency,
@@ -727,7 +738,6 @@ class PaymentMethodsPresenter(
     fiatValue: FiatValue,
     paymentMethod: PaymentMethod,
     fiatAmount: String,
-    appcAmount: String,
     isBonusActive: Boolean,
     frequency: String?
   ) {
@@ -736,7 +746,6 @@ class PaymentMethodsPresenter(
       paymentMethod,
       mapCurrencyCodeToSymbol(fiatValue.currency),
       fiatAmount,
-      appcAmount,
       isBonusActive,
       frequency,
       paymentMethodsData.subscription
@@ -971,6 +980,14 @@ class PaymentMethodsPresenter(
     } else {
       view.showBuy()
     }
+
+  private fun handleFeeVisibility(fee: PaymentMethodFee?) {
+    view.showFee(
+      hasFee = fee != null && fee.isValidFee(),
+      fiatValue = cachedFiatValue,
+      fee = fee?.amount ?: BigDecimal.ZERO
+    )
+  }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =

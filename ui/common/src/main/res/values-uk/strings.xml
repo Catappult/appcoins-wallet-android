@@ -521,7 +521,7 @@
   <string name="see_more_button">Побачити більше</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">Дата початку:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
@@ -647,9 +647,10 @@
   <string name="error_blocked_wallet_body">Ваш гаманець заблоковано з міркувань безпеки. Зверніться до нас за додатковою інформацією.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s комісія</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тож стягується комісія за обробку платежу. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">Цей спосіб оплати передбачає комісію за обробку цієї покупки. Комісія включена в загальну суму, яка вказана у верхній частині сторінки.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тому може стягуватися комісія за обробку платежу.</string>
@@ -815,6 +816,8 @@
   <string name="remove_wallet_no_button">Ні, повернутися</string>
   <string name="remove_wallet_yes_button">Так, видалити гаманець</string>
   <string name="remove_wallet_removed_body">Гаманець видалено!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Переведення</string>
   <string name="transfer_title">Переказ коштів</string>
@@ -1210,6 +1213,7 @@
   <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб усі могли грати та заробляти. За кожну покупку в додатку &lt;b&gt;ви та ваші друзі отримуватимете бонус %1$s%%&lt;b&gt; додатково до інших активних промоакцій. &lt;b&gt;Діє до %2$s&lt;/b&gt;!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
   <string name="vip_program_gamification_title">Який мій бонусний рівень?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Бонус, отриманий від ваших покупок</string>

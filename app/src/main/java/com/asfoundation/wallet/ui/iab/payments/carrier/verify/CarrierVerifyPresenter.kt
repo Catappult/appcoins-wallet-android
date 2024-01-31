@@ -63,7 +63,7 @@ class CarrierVerifyPresenter(
 
   private fun initializeView() {
     view.initializeView(
-      data.currency, data.fiatAmount, data.appcAmount, data.skuDescription,
+      data.currency, data.fiatAmount, data.skuDescription,
       data.bonusAmount, data.preselected
     )
     disposables.add(

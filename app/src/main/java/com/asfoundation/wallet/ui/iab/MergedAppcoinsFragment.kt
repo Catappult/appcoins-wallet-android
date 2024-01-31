@@ -640,22 +640,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
 
   private fun setPriceInformation() {
-    var appcText = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
-      .plus(" " + WalletCurrency.APPCOINS.symbol)
     var fiatText =
       formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatText)
         ?.let { fiatText = it }
-      appcText = "~$appcText"
     }
     binding.paymentMethodsHeader.fiatPrice.text = fiatText
-    binding.paymentMethodsHeader.appcPrice.text = appcText
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = GONE
     binding.paymentMethodsHeader.appcPriceSkeleton.root.visibility = GONE
     binding.paymentMethodsHeader.fiatPrice.visibility = VISIBLE
-    binding.paymentMethodsHeader.appcPrice.visibility = VISIBLE
   }
 
   private fun setButtonsText() {

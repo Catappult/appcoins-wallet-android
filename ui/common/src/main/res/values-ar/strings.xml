@@ -519,7 +519,7 @@
   <string name="see_more_button">المزيد</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
   <string name="ending_in_title">Ending in</string>
-  <string name="start_date_title">Start date:</string>
+  <string name="start_date_title">من تاريخ:</string>
   <string name="end_date_title">End date:</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
@@ -646,12 +646,13 @@
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s عمولة</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">وسيلة الدفع هذه لا تدعم عملتك، لذلك ستُخصم عمولة تشغيل. هذه العمولة ستكون متضمنة في المجموع الكلي الذي ستراه في الخانة العلوية.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
@@ -816,6 +817,8 @@
   <string name="remove_wallet_no_button">لا، عُد للخلف</string>
   <string name="remove_wallet_yes_button">نعم، احذف المحفظة</string>
   <string name="remove_wallet_removed_body">تمت إزالة المحفظة!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">تحويل</string>
   <string name="transfer_title">تحويل الأموال</string>
@@ -1227,6 +1230,7 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
   <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
   <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
   <string name="vip_program_gamification_amount_purchases_bonus">المكافآت التي تلقيتها من مشترياتك</string>
@@ -1246,36 +1250,36 @@
   <string name="intro_home_button">الرئيسية</string>
   <string name="intro_rewards_button">الجوائز</string>
   <plurals name="day">
-    <item quantity="zero">يوم</item>
+    <item quantity="zero">أيام</item>
     <item quantity="one">يوم</item>
     <item quantity="two">يومان</item>
     <item quantity="few">أيام</item>
-    <item quantity="many">يوم</item>
-    <item quantity="other">يوم</item>
+    <item quantity="many">أيام</item>
+    <item quantity="other">أيام</item>
   </plurals>
   <plurals name="hour">
-    <item quantity="zero">ساعة</item>
+    <item quantity="zero">ساعات</item>
     <item quantity="one">ساعة</item>
     <item quantity="two">ساعتان</item>
     <item quantity="few">ساعات</item>
-    <item quantity="many">ساعة</item>
-    <item quantity="other">ساعة</item>
+    <item quantity="many">ساعات</item>
+    <item quantity="other">ساعات</item>
   </plurals>
   <plurals name="minute">
-    <item quantity="zero">دقيقة</item>
+    <item quantity="zero">دقائق</item>
     <item quantity="one">دقيقة</item>
     <item quantity="two">دقيقتان</item>
     <item quantity="few">دقائق</item>
-    <item quantity="many">دقيقة</item>
-    <item quantity="other">دقيقة</item>
+    <item quantity="many">دقائق</item>
+    <item quantity="other">دقائق</item>
   </plurals>
   <plurals name="second">
-    <item quantity="zero">ثانية</item>
+    <item quantity="zero">ثوانٍ</item>
     <item quantity="one">ثانية</item>
     <item quantity="two">ثانيتان</item>
     <item quantity="few">ثوانٍ</item>
-    <item quantity="many">ثانية</item>
-    <item quantity="other">ثانية</item>
+    <item quantity="many">ثوانٍ</item>
+    <item quantity="other">ثوانٍ</item>
   </plurals>
   <string name="intro_transactions_header">التحويلات</string>
   <string name="intro_backup_card_title">لا تخسر أموالك!</string>
@@ -1302,7 +1306,7 @@
   <string name="manage_wallet_verify_title">وثّق وسيلة دفع</string>
   <string name="manage_wallet_verify_body">تجنب الانقطاعات بتوثيق وسيلة الدفع.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">وثّق وسيلة دفع</string>
   <string name="verify_card_body">تجنب الانقطاعات بتوثيق وسيلة دفع.</string>
   <string name="verify_card_one_more_step_title">خطوة واحدة أخيرة للتوثيق</string>
   <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>

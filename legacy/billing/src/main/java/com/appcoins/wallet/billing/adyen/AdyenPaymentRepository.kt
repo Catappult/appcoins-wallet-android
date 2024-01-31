@@ -167,6 +167,14 @@ class AdyenPaymentRepository @Inject constructor(
       }
   }
 
+  fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
+    return adyenApi.getCreditCardNeedCVC().map { it }
+      .doOnError { it.printStackTrace() }
+      .onErrorReturn {
+        CreditCardCVCResponse(needAskCvc = true)
+      }
+  }
+
   enum class Methods(val adyenType: String, val transactionType: String) {
     CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal"), GIROPAY("giropay", "giropay")
   }
