@@ -118,7 +118,6 @@ class AdyenPaymentRepository @Inject constructor(
               type = transactionType,
               currency = currency,
               value = value,
-//              developer = developerWallet,
               entityOemId = entityOemId,
               entityDomain = entityDomain,
               entityPromoCode = entityPromoCode,
