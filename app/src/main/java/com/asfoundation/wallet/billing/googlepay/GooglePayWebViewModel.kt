@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.CANCELED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.FAILED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.FRAUD
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.INVALID_TRANSACTION
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.GooglePayWebTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -16,7 +19,11 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
-import com.asfoundation.wallet.billing.googlepay.usecases.*
+import com.asfoundation.wallet.billing.googlepay.usecases.BuildGooglePayUrlUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.CreateGooglePayWebTransactionUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayResultUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayUrlUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -24,6 +31,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
@@ -319,6 +327,14 @@ class GooglePayWebViewModel @Inject constructor(
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
       supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  fun handleBack(backEvent: Observable<Any>) {
+    compositeDisposable.add(backEvent
+      .observeOn(networkScheduler)
+      .doOnNext { _state.postValue(State.GooglePayBack) }
+      .subscribe({}, { it.printStackTrace() })
     )
   }
 

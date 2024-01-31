@@ -2,13 +2,11 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.animation.Animator
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
@@ -21,7 +19,6 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -57,6 +54,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     binding = FragmentGooglePayWebBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
     navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
+    iabView.disableBack()
     return views.root
   }
 
@@ -87,6 +85,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     showLoadingAnimation()
     setObserver()
     startPayment()
+    viewModel.handleBack(iabView.backButtonPress())
   }
 
   private fun setObserver() {
@@ -185,8 +184,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     views.googlePayWebErrorLayout.root.visibility = View.VISIBLE
     views.googlePayWebErrorButtons.root.visibility = View.VISIBLE
   }
-
-  private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
