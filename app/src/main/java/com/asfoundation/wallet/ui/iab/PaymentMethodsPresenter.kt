@@ -36,6 +36,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.P
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
