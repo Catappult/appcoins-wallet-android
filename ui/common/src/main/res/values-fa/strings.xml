@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">باید بیش از صفر باشد</string>
   <string name="p2p_send_confirmation_header">جزییات انتقال‌ها</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">مشکلی پیش آمده است</string>
   <string name="error_missing_field">فیلد اجباری</string>
   <string name="cancel_button">لغو</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">کشف‌کردن</string>
   <string name="retry_button">تلاش مجدد</string>
   <string name="do_it_later_button">بعدا انجام شود</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <string name="common_or">یا</string>
   <string name="share_via">به اشتراک گذاری از طریق:</string>
@@ -516,6 +518,12 @@
   <string name="done">تمام!</string>
   <string name="see_more_button">See more</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">تاریخ شروع:</string>
+  <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
   <string name="verification_settings_verifying_title">درحال تایید...</string>
   <string name="verification_verified_paypal_description">مبلغ برداشتی فورا بازگردانده می‌شود. روش خرید شما بزودی تایید می‌شود.</string>
-  <string name="verification_verify_paypal_description">برای تایید حساب کاربری شما، یک تراکنش حداقل %s از حساب شما انجام می‌شود. فورا بازگردانده خواهد شد.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">تایید همین حالا</string>
   <string name="verification_settings_card_verified_title">کارت تایید شد</string>
   <string name="verification_settings_no_internet">نیاز به ارتباط با اینترنت دارید</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">تاییدشده</string>
   <string name="unferified_tag">کیف پول تاییدنشده</string>
   <string name="verification_wallets_verify_button">تایید</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">به دلایل امنیتی کیف پول شما مسدود شده‌است. برای اطلاعات بیشتر با ما تماس بگیرید.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">ممکن است هزینه‌های اضافی وارد شود.</string>
   <string name="purchase_error_paypal">مشکلی با پرداخت پی‌پال شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s پاداش دریافت شد.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s fee</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -805,6 +822,8 @@
   <string name="remove_wallet_no_button">خیر، بازگشت به قبل</string>
   <string name="remove_wallet_yes_button">بله، حذف کیف پول</string>
   <string name="remove_wallet_removed_body">کیف‌پول حذف شد!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">انتقال</string>
   <string name="transfer_title">انتقال وجه</string>
@@ -923,7 +942,7 @@
   <string name="gamif_placeholder_unknown">یک سیاره ناشناخته</string>
   <string name="gamif_distance_unkown">موقعیت ناشناخته</string>
   <string name="gamif_placeholder_new_planet">یک سیاره جدید</string>
-  <string name="gamif_header">Rewards</string>
+  <string name="gamif_header">پاداش‌ها</string>
   <!--Carrier Billing-->
   <string name="carrier_billing_payment_method_title">پرداخت از طریق سرویس مخابراتی</string>
   <string name="carrier_billing_fees_disclaimer">ممکن است هزینه‌های جانبی وارد شود</string>
@@ -1182,10 +1201,12 @@
   <string name="vip_program_promo_code_tag">کد پرومو</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">این کد را با دوستان خود به شاتراک بگذارید</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
   <string name="vip_program_gamification_title">درجه پاداش من چقدر است؟</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">پاداش دریافتی از خریدهای شما</string>
   <string name="vip_program_gamification_amoung_referral_bonus">پاداش دریافتی از برنامه همکاری</string>
   <string name="vip_program_max_bonus_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
   <string name="vip_program_max_bonus_body">شما به حد کیهانی ما رسیده اید.</string>
@@ -1201,19 +1222,19 @@
   <string name="topup_home_button">افزایش اعتبار</string>
   <string name="intro_home_button">خانه</string>
   <string name="intro_rewards_button">پاداش‌ها</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">روز</item>
     <item quantity="other">روز</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ساعت</item>
     <item quantity="other">ساعت</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">دقیقه</item>
     <item quantity="other">دقیقه</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">ثانیه</item>
     <item quantity="other">ثانیه</item>
   </plurals>
@@ -1242,7 +1263,7 @@
   <string name="manage_wallet_verify_title">تایید یک روش پرداخت</string>
   <string name="manage_wallet_verify_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">تایید یک روش پرداخت</string>
   <string name="verify_card_body">با تایید روش پرداخت از بلاک شدن جلوگیری کنید.</string>
   <string name="verify_card_one_more_step_title">یک قدم دیگر تا تایید</string>
   <string name="verify_card_one_more_step_body">کدی را که در جزییات تراکنش است را وارد کنید</string>

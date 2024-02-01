@@ -220,7 +220,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun ActiveWalletIndicator() {
-    Surface(color = styleguide_pink, shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)) {
+    Surface(color = styleguide_pink, shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp)) {
       Text(
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         text = stringResource(R.string.wallets_active_wallet_title),

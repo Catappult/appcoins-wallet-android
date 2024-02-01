@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">มันต้องมากกว่าศูนย์</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
   <string name="error_missing_field">ฟิลด์บังคับ</string>
   <string name="cancel_button">ยกเลิก</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">เปิด</string>
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
@@ -515,7 +517,13 @@
   <string name="download_button">ดาวน์โหลด</string>
   <string name="done">เสร็จสิ้น!</string>
   <string name="see_more_button">ดูเพิ่มเติม</string>
-  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="monetary_amount_with_symbol">%1$s %2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">วันที่เริ่มต้น:</string>
+  <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
   <string name="verification_settings_verifying_title">กำลังยืนยัน...</string>
   <string name="verification_verified_paypal_description">คุณจะได้รับเงินคืนทันที วอลเล็ตของคุณจะได้รับการยืนยันในไม่ช้า</string>
-  <string name="verification_verify_paypal_description">การทำธุรกรรมขั้นต่ำ %s จะทำเพื่อยืนยันบัญชีของคุณ เงินจะถูกคืนให้ทันที</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">ยืนยันตอนนี้</string>
   <string name="verification_settings_card_verified_title">บัตรได้รับการยืนยัน</string>
   <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">ยืนยัน</string>
   <string name="unferified_tag">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
   <string name="verification_wallets_verify_button">ยืนยัน</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">รวม %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">เหตุผลด้านความปลอดภัย วอลเล็ตของคุณถูกบล็อก กรุณาติดต่อเราสำหรับข้อมูลเพิ่มเติม</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">อาจมีค่าใช้จ่ายเพิ่มเติม.</string>
   <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s โบนัสที่ได้รับ</string>
   <string name="purchase_making_purchase_title">กำลังทำการซื้อ&#8230;</string>
-  <string name="purchase_fee_title">ค่าธรรมเนียม %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจะเรียกเก็บค่าธรรมเนียมการดำเนินการ ค่าธรรมเนียมนี้รวมอยู่ในยอดรวมที่คุณเห็นด้านบน</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจึงอาจเรียกเก็บค่าธรรมเนียมการดำเนินการ</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -806,6 +823,8 @@
   <string name="remove_wallet_no_button">ไม่ย้อนกลับ</string>
   <string name="remove_wallet_yes_button">ใช่ลบวอลเล็ต</string>
   <string name="remove_wallet_removed_body">ลบกระเป๋าสตางค์!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">โอน</string>
   <string name="transfer_title">โอนเงิน</string>
@@ -1175,7 +1194,9 @@
   <string name="vip_program_promo_code_tag">เปลี่ยน</string>
   <string name="vip_program_referral_page_title">โปรแกรมการแนะนำ VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">แบ่งปันโค๊ดกับเพื่อนของคุณ</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$sที่ได้จาก%3$sกา่รแนะนำ</string>
   <string name="vip_program_gamification_title">โบนัสของฉันอยู่ในระดับใด</string>
   <string name="vip_program_gamification_amount_purchases_bonus">โบนัสที่ได้รับจากการซื้อของคุณ</string>
@@ -1194,16 +1215,16 @@
   <string name="topup_home_button">เติม</string>
   <string name="intro_home_button">หน้าแรก</string>
   <string name="intro_rewards_button">รางวัล</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">วัน</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">ชั่วโมง</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">นาที</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">วินาที</item>
   </plurals>
   <string name="intro_transactions_header">ธุรกรรม</string>
@@ -1231,7 +1252,7 @@
   <string name="manage_wallet_verify_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="manage_wallet_verify_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="verify_card_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
   <string name="verify_card_one_more_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
   <string name="verify_card_one_more_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>

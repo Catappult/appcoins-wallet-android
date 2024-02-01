@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Az érték nem lehet nulla</string>
   <string name="p2p_send_confirmation_header">Utalás részletei</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Valami hiba történt</string>
   <string name="error_missing_field">Kötelező mező</string>
   <string name="cancel_button">Mégse</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Felfedezés</string>
   <string name="retry_button">Újrapróbálkozás</string>
   <string name="do_it_later_button">Majd később</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
   <string name="common_or">VAGY</string>
   <string name="share_via">Megosztás ezen keresztül:</string>
@@ -515,7 +517,13 @@
   <string name="download_button">Letöltés</string>
   <string name="done">Kész!</string>
   <string name="see_more_button">Részletek</string>
-  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="monetary_amount_with_symbol">%1$s %2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">Kezdő dátum:</string>
+  <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">Tárca hitelesítve</string>
   <string name="verification_settings_verifying_title">Hitelesítés…</string>
   <string name="verification_verified_paypal_description">A visszatérítés azonnal megtörténik. Rövid időn belül ellenőrizzük a fizetési módodat.</string>
-  <string name="verification_verify_paypal_description">Egy %s összegű minimális tranzakció szükséges a fiókod megerősítéséhez. Ez azonnal visszatérítésre kerül.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Visszaigazolás most</string>
   <string name="verification_settings_card_verified_title">Kártya hitelesítve</string>
   <string name="verification_settings_no_internet">Internetkapcsolat szükséges</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">Hitelesítve</string>
   <string name="unferified_tag">Hitelesítetlen tárca</string>
   <string name="verification_wallets_verify_button">Hitelesítés</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Összesen %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Úgy tűnik, hogy a vásárlás feldolgozás alatt áll. Kérjük, várj míg befejeződik a tranzakció vagy lépj kapcsolatba az Ügyfélszolgálattal.</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">A tárcádat blokkoltuk biztonsági okokból. További információért lépj velünk kapcsolatba.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">További költségek léphetnek fel.</string>
   <string name="purchase_error_paypal">Probléma merült fel a PayPales fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bónusz érkezett.</string>
   <string name="purchase_making_purchase_title">Vásárlás végrehajtása&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s díj</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat fog felszámolni. A fenti részben látható Végösszeg már tartalmazza ezt a díjat.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ez a fizetési mód nem támogatja a te valutádat, így tranzakciós díjat számíthat fel.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -805,6 +822,8 @@
   <string name="remove_wallet_no_button">Nem, vissza</string>
   <string name="remove_wallet_yes_button">Igen, eltávolítom a tárcát</string>
   <string name="remove_wallet_removed_body">Tárca eltávolítva!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Tranzakció</string>
   <string name="transfer_title">Pénzátutalás</string>
@@ -1182,7 +1201,9 @@
   <string name="vip_program_promo_code_tag">Promóciós kód</string>
   <string name="vip_program_referral_page_title">VIP ajánlási program</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Oszd meg ezt a kódot a barátaiddal</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s összeget szereztél %3$s ajánlásból</string>
   <string name="vip_program_gamification_title">Mi az én bónuszszintem?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Megkaptad a vásárlásodért járó bónuszt</string>
@@ -1201,19 +1222,19 @@
   <string name="topup_home_button">Befizetés</string>
   <string name="intro_home_button">Kezdőlap</string>
   <string name="intro_rewards_button">Jutalmak</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">NAP</item>
     <item quantity="other">NAPOK</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">ÓRA</item>
     <item quantity="other">ÓRÁK</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">PERC</item>
     <item quantity="other">PERCEK</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">MÁSODPERC</item>
     <item quantity="other">MÁSODPERCEK</item>
   </plurals>
@@ -1242,7 +1263,7 @@
   <string name="manage_wallet_verify_title">Hitelesítsd a fizetési módot</string>
   <string name="manage_wallet_verify_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Hitelesítsd a fizetési módot</string>
   <string name="verify_card_body">Kerüld el a blokkolást és hitelesíts egy fizetési módot.</string>
   <string name="verify_card_one_more_step_title">Még egy lépés maradt hátra a hitelesítésből</string>
   <string name="verify_card_one_more_step_body">Add meg a tranzakció részletekben megjelenő kódot</string>

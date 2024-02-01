@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.PaymentMethod
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.CompositeDisposable
@@ -45,7 +44,6 @@ class TopUpPaymentMethodsAdapter(
         paymentMethodClick.accept(paymentMethods[position].id)
         notifyDataSetChanged()
       },
-      onClickListenerTopup = { },
       onClickPaypalLogout = logoutCallback,
       disposables = disposables,
       showPayPalLogout = showPayPalLogout

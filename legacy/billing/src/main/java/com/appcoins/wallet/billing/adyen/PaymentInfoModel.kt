@@ -14,7 +14,7 @@ data class PaymentInfoModel(
   val isStored: Boolean = false,
   val priceAmount: BigDecimal,
   val priceCurrency: String,
-  val cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,
+  var cardComponent: ((Fragment, CardConfiguration) -> CardComponent)? = null,
   val supportedShopperInteractions: List<String> = emptyList(),
   val error: Error = Error()
 ) {

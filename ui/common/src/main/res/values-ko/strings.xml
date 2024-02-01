@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">0 이상 이어야 합니다</string>
   <string name="p2p_send_confirmation_header">세부 전송정보</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">무엇인가 잘못 되었습니다</string>
   <string name="error_missing_field">필수 필드</string>
   <string name="cancel_button">취소</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">알아보기</string>
   <string name="retry_button">재시도</string>
   <string name="do_it_later_button">나중에</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
   <string name="common_or">또는</string>
   <string name="share_via">다음을 통해 공유:</string>
@@ -516,6 +518,12 @@
   <string name="done">완료!</string>
   <string name="see_more_button">더 보기</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">시작 일자:</string>
+  <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">지갑 확인됨</string>
   <string name="verification_settings_verifying_title">검증 중…</string>
   <string name="verification_verified_paypal_description">즉시 환불해 드리겠습니다. 곧 지불 방식이 검증됩니다.</string>
-  <string name="verification_verify_paypal_description">계정을 확인하기 위해 최소 %s의 거래가 이루어집니다. 즉시 환불해 드리겠습니다.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">지금 확인</string>
   <string name="verification_settings_card_verified_title">카드 검증됨</string>
   <string name="verification_settings_no_internet">인터넷 연결이 필요합니다</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">확인됨</string>
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">총 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">보안상의 이유로, 지갑이 차단되었습니다. 상세 내용은 지원팀에 문의해 주세요.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">구매하기&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s 수수료</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">이 결제수단은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과됩니다. 이 수수료는 상단 영역에서 볼 수 있는 총 금액에 포함되어 있습니다.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">이 결제 방법은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -804,6 +821,8 @@
   <string name="remove_wallet_no_button">아니오, 뒤로 가기</string>
   <string name="remove_wallet_yes_button">네, 지갑 제거</string>
   <string name="remove_wallet_removed_body">지갑이 제거되었습니다!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">전송</string>
   <string name="transfer_title">자금 전송</string>
@@ -1173,7 +1192,9 @@
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
   <string name="vip_program_gamification_title">나의 보너스 레벨은 무엇인가요?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">구매로 받은 보너스</string>
@@ -1192,16 +1213,16 @@
   <string name="topup_home_button">충전</string>
   <string name="intro_home_button">홈</string>
   <string name="intro_rewards_button">보상</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="other">일</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="other">시간</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="other">분</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="other">초</item>
   </plurals>
   <string name="intro_transactions_header">거래</string>
@@ -1229,7 +1250,7 @@
   <string name="manage_wallet_verify_title">지불 방식 검증</string>
   <string name="manage_wallet_verify_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">지불 방식 검증</string>
   <string name="verify_card_body">결제수단을 확인하여 블록을 방지합니다.</string>
   <string name="verify_card_one_more_step_title">검증을 위한 추가적인 한 단계</string>
   <string name="verify_card_one_more_step_body">거래 상세 내용에 있는 코드를 입력하세요</string>

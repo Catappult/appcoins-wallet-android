@@ -40,4 +40,10 @@ data class TicketRequest(
 
   @SerializedName("queue_id")
   private val queue_id: String?,
+
+  @SerializedName("version_name")
+  private val versionName: String?,
+
+  @SerializedName("version_code")
+  private val versionCode: Long?,
 )

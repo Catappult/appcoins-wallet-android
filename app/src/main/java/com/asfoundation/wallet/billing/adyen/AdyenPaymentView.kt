@@ -44,6 +44,8 @@ interface AdyenPaymentView {
 
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
+  fun getMorePaymentMethodsStoredClicks(): Observable<Any>
+
   fun showMoreMethods()
 
   fun hideLoadingAndShowView()
@@ -72,6 +74,8 @@ interface AdyenPaymentView {
 
   fun forgetCardClick(): Observable<Any>
 
+  fun forgetStoredCardClick(): Observable<Any>
+
   fun hideKeyboard()
 
   fun adyenErrorCancelClicks(): Observable<Any>
@@ -90,9 +94,13 @@ interface AdyenPaymentView {
 
   fun handle3DSAction(action: Action)
 
+  fun handleCreditCardNeedCVC(needCVC: Boolean)
+
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
 
   fun shouldStoreCard(): Boolean
+  fun restartFragment()
+
 }

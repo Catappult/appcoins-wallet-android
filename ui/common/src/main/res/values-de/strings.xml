@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Zurück zum Spiel</string>
   <string name="other_payment_methos_title">Weitere Zahlungsmethoden:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Du hast bereits</string>
+  <string name="intro_from_web_payment_to_spend_body">die du für deine Lieblingsspiele ausgeben kannst.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Von</string>
@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Betrag muss größer als Null sein</string>
   <string name="p2p_send_confirmation_header">Überweisungsdetails</string>
   <!--Common-->
+  <string name="oops_title">Hoppla</string>
   <string name="error_general">Etwas ist schief gelaufen</string>
   <string name="error_missing_field">Pflichtfeld</string>
   <string name="cancel_button">Abbrechen</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Los geht\'s</string>
   <string name="retry_button">Neuer Versuch</string>
   <string name="do_it_later_button">Später</string>
+  <string name="connection_error_title">Keine Internetverbindung</string>
   <string name="connection_error_body">Es scheint, als wärst du nicht mit dem Internet verbunden. Überprüfe deine Verbindung und versuche es erneut!</string>
   <string name="common_or">ODER</string>
   <string name="share_via">Teilen über:</string>
@@ -515,7 +517,13 @@
   <string name="download_button">Herunterladen</string>
   <string name="done">Erledigt!</string>
   <string name="see_more_button">Mehr erfahren</string>
-  <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="monetary_amount_with_symbol">%1$s %2$s</string>
+  <string name="ending_in_title">Endet in</string>
+  <string name="start_date_title">Startdatum:</string>
+  <string name="end_date_title">Enddatum:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s der AppCoins Wallet zu.</string>
   <string name="terms_and_conditions_error">Bitte akzeptiere unsere Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie, um fortzufahren</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">Wallet verifiziert</string>
   <string name="verification_settings_verifying_title">Wird verifiziert…</string>
   <string name="verification_verified_paypal_description">Du erhältst umgehend eine Rückerstattung. Deine Zahlungsmethode wird in Kürze verifiziert.</string>
-  <string name="verification_verify_paypal_description">Zur Bestätigung deines Kontos wird eine minimale Transaktion von %s durchgeführt. Der Betrag wird dir sofort zurückerstattet.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Jetzt verifizieren</string>
   <string name="verification_settings_card_verified_title">Karte verifiziert</string>
   <string name="verification_settings_no_internet">Du benötigst eine Verbindung ins Internet</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">Verifiziert</string>
   <string name="unferified_tag">Nicht verifizierte Wallet</string>
   <string name="verification_wallets_verify_button">Verifiziert</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Insgesamt %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Wie es scheint, wurde dieser Einkauf bereits verarbeitet. Bitte warte ab, bis die Transaktion verarbeitet wurde oder kontaktiere unser Support-Team.</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">Aus Sicherheitsgründen wurde deine Wallet gesperrt. Bitte kontaktiere uns für weitere Informationen.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Es können zusätzliche Gebühren anfallen.</string>
   <string name="purchase_error_paypal">Es gab ein Problem mit deiner PayPal-Zahlung. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
+  <string name="purchase_error_google_pay">Es gab ein Problem mit Google Pay. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
   <string name="purchase_success_bonus_received_title">%s Bonus erhalten.</string>
   <string name="purchase_making_purchase_title">Einkäufe werden getätigt&#8230;</string>
-  <string name="purchase_fee_title">%1$s%2$s Gebühr</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_title">%2$s %1$s Gebühr</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Diese Zahlungsmethode unterstützt nicht deine Währung, daher wird eine Bearbeitungsgebühr erhoben. Diese Gebühr ist in der Gesamtsumme enthalten, die du im oberen Bereich sehen kannst.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Bei dieser Zahlungsmethode wird eine Bearbeitungsgebühr für diesen Kauf erhoben. Diese Gebühr ist in der oben angezeigten Gesamtsumme enthalten.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Diese Zahlungsmethode unterstützt nicht deine Währung, daher kann eine Bearbeitungsgebühr anfallen.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Bei dieser Zahlungsmethode wird eine Bearbeitungsgebühr für diesen Kauf erhoben.</string>
+  <string name="purchase_fee_included_body">inklusive Gebühren</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -805,6 +822,8 @@
   <string name="remove_wallet_no_button">Nein, zurückgehen</string>
   <string name="remove_wallet_yes_button">Ja, Wallet entfernen</string>
   <string name="remove_wallet_removed_body">Wallet entfernt!</string>
+  <string name="remove_wallet_extra_confirmation_title">Bist du sicher?</string>
+  <string name="remove_wallet_extra_confirmation_body">Vergiss nicht, dass du ohne Backup dein Guthaben und deine Bonusstufe verlierst.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Überweisen</string>
   <string name="transfer_title">Guthaben überweisen</string>
@@ -1002,7 +1021,7 @@
   <string name="perks_empty_state_first_purchase_body">Tätige deinen ersten Einkauf in einer AppCoins kompatiblen App und schalte die Aktionen frei, die wir für dich erstellt haben!</string>
   <string name="perks_empty_body">Derzeit sind keine Aktionen verfügbar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Biometrisches Schloss</string>
   <string name="fingerprint_failed_title">Authentifizierung fehlgeschlagen!</string>
   <string name="fingerprint_failed_body">Bitte versuche es in %s Sekunden erneut.</string>
   <string name="fingerprint_authentication_required_title">Authentifizierung erforderlich!</string>
@@ -1181,8 +1200,10 @@
   <string name="vip_program_promotions_list_title">Sonderaktionen für dich</string>
   <string name="vip_program_promo_code_tag">Promotion-Code</string>
   <string name="vip_program_referral_page_title">VIP-Empfehlungsprogramm</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body">Teile diesen Promo-Code mit deiner Community und deinen Freunden, damit jeder beim Spielen Geld verdienen kann. Für jeden In-App-Kauf, den sie tätigen, erhalten sowohl <b>du als auch deine Freunde %1$s%% Bonus</b> zusätzlich zu anderen aktiven Aktionen. <b>Gültig bis %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Du und deine Freunde erhalten 7 Tage lang %s%% Bonus auf alle Käufe, wenn ihr diesen Code benutzt!</string>
   <string name="vip_program_referral_page_share_title">Teile diesen Code mit deinen Freunden</string>
+  <string name="vip_program_referral_page_only_app_title">Nur für Käufe bei</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s erhalten für %3$s Empfehlungen</string>
   <string name="vip_program_gamification_title">Wie hoch ist mein Bonus-Level?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus aus deinen Einkäufen</string>
@@ -1201,19 +1222,19 @@
   <string name="topup_home_button">Aufladen</string>
   <string name="intro_home_button">Startseite</string>
   <string name="intro_rewards_button">Belohnungen</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">TAG</item>
     <item quantity="other">TAGE</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">STUNDE</item>
     <item quantity="other">STUNDEN</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTE</item>
     <item quantity="other">MINUTEN</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SEKUNDE</item>
     <item quantity="other">SEKUNDEN</item>
   </plurals>
@@ -1242,13 +1263,13 @@
   <string name="manage_wallet_verify_title">Eine Zahlungsmethode verifizieren</string>
   <string name="manage_wallet_verify_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Eine Zahlungsmethode verifizieren</string>
   <string name="verify_card_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
   <string name="verify_card_one_more_step_title">Ein zusätzlicher Schritt zur Verifizierung</string>
   <string name="verify_card_one_more_step_body">Gib den Code ein, der in den Transaktionsdetails erscheint</string>
   <string name="verify_card_one_more_step_button">Code eingeben</string>
   <string name="verify_card_verified">Zahlungsmethode verifiziert!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Kredit-/Debitkarte verifizieren</string>
   <string name="verify_card_view_title">Karte verifizieren</string>
   <string name="verify_card_view_disclaimer">Wir belasten deine Karte mit %s und erstatten dir den Betrag, sobald du den Code bestätigt hast.</string>
   <string name="verify_card_view_title_2">Gib deine Bankkartendaten ein</string>

@@ -276,7 +276,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       }
       true
     }
-    binding.topSeparatorTopup.visibility = View.VISIBLE
     binding.botSeparator.visibility = View.VISIBLE
     //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)

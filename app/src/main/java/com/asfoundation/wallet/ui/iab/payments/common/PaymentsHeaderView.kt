@@ -31,26 +31,20 @@ class PaymentsHeaderView : FrameLayout {
     binding.appSkuDescription.text = description
   }
 
-  fun setPrice(fiatAmount: BigDecimal, appcAmount: BigDecimal, currency: String) {
+  fun setPrice(fiatAmount: BigDecimal, currency: String) {
     val fiat = "${formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT)} $currency"
-    val appc = "${formatter.formatPaymentCurrency(appcAmount,
-        WalletCurrency.APPCOINS)} ${WalletCurrency.APPCOINS.symbol}"
     binding.fiatPrice.text = fiat
-    binding.appcPrice.text = appc
   }
 
   fun showPrice() {
     binding.fiatPrice.visibility = View.VISIBLE
-    binding.appcPrice.visibility = View.VISIBLE
   }
 
   fun hidePrice(remove: Boolean) {
     if (remove) {
       binding.fiatPrice.visibility = View.GONE
-      binding.appcPrice.visibility = View.GONE
     } else {
       binding.fiatPrice.visibility = View.INVISIBLE
-      binding.appcPrice.visibility = View.INVISIBLE
     }
   }
 

@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
   <string name="rooted_device_blocked_body">Leider kannst du mit einem gerooteten Gerät keine e-Skills Spiele spielen.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Du musst dieses Spiel auf die neueste Version aktualisieren!</string>
+  <string name="error_game_not_supported_body">Dieses Spiel scheint derzeit nicht verfügbar zu sein.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Warten, bis die Gegner das Spiel beendet haben.</string>
   <plurals name="opponent_points_title">

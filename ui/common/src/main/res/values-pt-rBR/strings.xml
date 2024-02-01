@@ -476,6 +476,7 @@
   <string name="p2p_send_error_amount_zero">Deve ser maior que zero</string>
   <string name="p2p_send_confirmation_header">Detalhes da Transferência</string>
   <!--Common-->
+  <string name="oops_title">Oops</string>
   <string name="error_general">Algo deu errado</string>
   <string name="error_missing_field">Campo obrigatório</string>
   <string name="cancel_button">Cancelar</string>
@@ -488,6 +489,7 @@
   <string name="discover_button">Descobrir</string>
   <string name="retry_button">Repetir</string>
   <string name="do_it_later_button">Fazer Depois</string>
+  <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="common_or">OU</string>
   <string name="share_via">Compartilhar via:</string>
@@ -516,6 +518,12 @@
   <string name="done">Pronto!</string>
   <string name="see_more_button">Ver mais</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
+  <string name="ending_in_title">Ending in</string>
+  <string name="start_date_title">Data de início:</string>
+  <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -564,7 +572,7 @@
   <string name="verification_settings_verified_title">Wallet Verificada</string>
   <string name="verification_settings_verifying_title">Verificando…</string>
   <string name="verification_verified_paypal_description">Você será reembolsado imediatamente. Seu método de pagamento será verificado em breve.</string>
-  <string name="verification_verify_paypal_description">Uma pequena transação de %s será feita para confirmar sua conta. O valor será devolvido imediatamente.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Verificar Agora</string>
   <string name="verification_settings_card_verified_title">Cartão Verificado</string>
   <string name="verification_settings_no_internet">Você precisa estar conectado à Internet</string>
@@ -573,6 +581,13 @@
   <string name="verified_tag">Verificado</string>
   <string name="unferified_tag">Wallet não verificada</string>
   <string name="verification_wallets_verify_button">Verificar</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Parece que esta compra já está sendo processada. Por favor, aguarde até que a transação seja concluída ou entre em contato com nossa equipe de suporte.</string>
@@ -640,13 +655,15 @@
   <string name="error_blocked_wallet_body">Por questões de segurança, sau carteira foi bloqueada. Por favor, entre em contato com o suporte para mais informações.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
   <string name="purchase_error_paypal">Houve um problema com o seu pagamento no PayPal. Por favor, tente novamente ou utilize um método de pagamento diferente.</string>
+  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">bônus recebido de %s.</string>
   <string name="purchase_making_purchase_title">Processando compra&#8230;</string>
-  <string name="purchase_fee_title">taxa de %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, será aplicada uma taxa de processamento. Essa taxa já está incluída no Total que você pode visualizar na parte superior.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, ele pode receber uma taxa de processamento.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_included_body">fees included</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Endereço de cobrança</string>
   <string name="purchase_address_address_field">Endereço</string>
@@ -805,6 +822,8 @@
   <string name="remove_wallet_no_button">Não, voltar</string>
   <string name="remove_wallet_yes_button">Sim, remover wallet</string>
   <string name="remove_wallet_removed_body">Wallet removida!</string>
+  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transferir</string>
   <string name="transfer_title">Transferir Fundos</string>
@@ -1182,7 +1201,9 @@
   <string name="vip_program_promo_code_tag">Código promocional</string>
   <string name="vip_program_referral_page_title">Programa de Indicação para VIPs</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
   <string name="vip_program_referral_page_share_title">Compartilhe esse código com seus amigos</string>
+  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s recebidos de %3$s indicações</string>
   <string name="vip_program_gamification_title">Qual o meu nível de bônus?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bônus recebido de suas compras</string>
@@ -1201,19 +1222,19 @@
   <string name="topup_home_button">Depositar</string>
   <string name="intro_home_button">Início</string>
   <string name="intro_rewards_button">Recompensas</string>
-  <plurals name="days">
+  <plurals name="day">
     <item quantity="one">DIA</item>
     <item quantity="other">DIAS</item>
   </plurals>
-  <plurals name="hours">
+  <plurals name="hour">
     <item quantity="one">HORA</item>
     <item quantity="other">HORAS</item>
   </plurals>
-  <plurals name="minutes">
+  <plurals name="minute">
     <item quantity="one">MINUTO</item>
     <item quantity="other">MINUTOS</item>
   </plurals>
-  <plurals name="seconds">
+  <plurals name="second">
     <item quantity="one">SEGUNDO</item>
     <item quantity="other">SEGUNDOS</item>
   </plurals>
@@ -1242,7 +1263,7 @@
   <string name="manage_wallet_verify_title">Verificar um Método de Pagamento</string>
   <string name="manage_wallet_verify_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <!-- Refactor Verify Payment Method -->
-  <string name="verify_card_title">Verify a Payment Method</string>
+  <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_body">Evite bloqueios ao verificar um método de pagamento.</string>
   <string name="verify_card_one_more_step_title">Mais Uma Etapa para Verificar</string>
   <string name="verify_card_one_more_step_body">Insira o código que aparece nos detalhes da transação</string>

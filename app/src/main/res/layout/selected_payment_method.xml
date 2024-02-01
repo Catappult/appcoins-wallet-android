@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/payment_method_background"
+    android:minHeight="60dp"
+    android:paddingVertical="8dp"
     >
 
   <ImageView
@@ -12,29 +14,11 @@
       android:layout_width="40dp"
       android:layout_height="40dp"
       android:layout_marginStart="8dp"
-      android:layout_marginTop="24dp"
-      android:layout_marginBottom="24dp"
       android:scaleType="fitCenter"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_payment_method_paypal"
-      />
-
-  <TextView
-      android:id="@+id/payment_method_description_single"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:textSize="16sp"
-      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
-      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
-      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
-      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
-      tools:text="APPC"
-      tools:visibility="gone"
       />
 
   <TextView
@@ -49,8 +33,9 @@
       android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@+id/payment_method_secondary"
       app:layout_constraintStart_toEndOf="@+id/payment_method_ic"
-      app:layout_constraintTop_toTopOf="@+id/payment_method_ic"
-      app:layout_constraintVertical_bias="1.0"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/payment_more_logout"
+      app:layout_constraintHorizontal_bias="0"
       tools:text="Paypal"
       />
   <TextView
@@ -59,51 +44,32 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="2dp"
-      android:layout_marginEnd="36dp"
+      android:layout_marginEnd="8dp"
       android:text="@string/purchase_appcoins_credits_default_body"
       android:textColor="@color/styleguide_dark_grey"
-      app:layout_constraintBottom_toBottomOf="@+id/payment_method_ic"
-      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_fee"
+      app:layout_constraintEnd_toStartOf="@id/payment_more_logout"
       app:layout_constraintStart_toStartOf="@+id/payment_method_description"
-      app:layout_constraintTop_toBottomOf="@+id/payment_method_description_single"
+      app:layout_constraintTop_toBottomOf="@+id/payment_method_description"
+      app:layout_constraintHorizontal_bias="0"
+      tools:visibility="visible"
       />
 
-  <LinearLayout
+  <TextView
       android:id="@+id/payment_method_fee"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:orientation="vertical"
+      android:text="@string/purchase_fee_title"
+      android:textColor="@color/styleguide_dark_grey"
+      android:textSize="12sp"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintTop_toTopOf="@+id/payment_method_ic"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/payment_more_logout"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toStartOf="@id/payment_method_description"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_secondary"
       tools:visibility="visible"
-      >
-
-    <TextView
-        android:id="@+id/payment_method_fee_value"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_gravity="end"
-        android:textColor="@color/styleguide_pink"
-        android:textSize="11sp"
-        tools:text="23 €"
-        />
-
-    <TextView
-        android:id="@+id/payment_method_fee_label"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_gravity="end"
-        android:text="@string/activity_iab_fees"
-        android:textColor="@color/styleguide_dark_grey"
-        android:textSize="11sp"
-        />
-
-  </LinearLayout>
-
+      />
 
   <ImageButton
       android:id="@+id/payment_more_logout"
@@ -116,7 +82,7 @@
       android:src="@drawable/ic_more_dark"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:tint="@color/styleguide_payments_main_text"
       tools:visibility="visible"
