@@ -7,13 +7,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.ui.widgets.NoNetworkCard
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabBinding
@@ -48,7 +53,7 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.lang.Thread.sleep
 import java.math.BigDecimal
-import java.util.*
+import java.util.Objects
 import javax.inject.Inject
 
 
@@ -75,6 +80,9 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var logger: Logger
+
+  @Inject
+  lateinit var networkMonitor: NetworkMonitor
 
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false
@@ -566,6 +574,22 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
     binding.iabErrorLayout.genericErrorLayout.errorMessage.text = getText(error)
   }
 
+  override fun showNoNetworkError() {
+    binding.fragmentContainer.visibility = View.GONE
+    binding.layoutError.visibility = View.VISIBLE
+    binding.walletLogoLayout.iapComposeView.visibility = View.GONE
+    binding.iabErrorLayout.genericErrorLayout.root.visibility = View.GONE
+    binding.iabErrorLayout.noNetworkErrorLayout.root.visibility = View.VISIBLE
+    binding.iabErrorLayout.errorDismiss.visibility = View.GONE
+    binding.iabErrorLayout.retryButton.visibility = View.VISIBLE
+  }
+
+  override fun handleConnectionObserver() {
+    binding.walletLogoLayout.iapComposeView.setContent {
+      ConnectionAlert(networkMonitor.isConnected.collectAsState(true).value)
+    }
+  }
+
   override fun getSupportClicks(): Observable<Any> =
     Observable.merge(
       RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo),
@@ -573,6 +597,8 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
     )
 
   override fun errorDismisses() = RxView.clicks(binding.iabErrorLayout.errorDismiss)
+
+  override fun errorTryAgain() = RxView.clicks(binding.iabErrorLayout.retryButton as View)
 
   override fun launchPerkBonusAndGamificationService(address: String) =
     PerkBonusAndGamificationService.buildService(this, address)
@@ -648,6 +674,11 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = authenticationResultSubject!!
+
+  @Composable
+  fun ConnectionAlert(isConnected: Boolean) {
+    if (!isConnected && !binding.iabErrorLayout.noNetworkErrorLayout.root.isVisible) NoNetworkCard()
+  }
 
   companion object {
 

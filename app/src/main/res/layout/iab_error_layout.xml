@@ -37,6 +37,34 @@
         app:layout_constraintHorizontal_bias="1"
         tools:visibility="visible"
         />
+
+    <include
+        android:id="@+id/no_network_error_layout"
+        layout="@layout/no_network_base_layout_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/retry_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
+        android:id="@+id/retry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/half_large_margin"
+        android:visibility="gone"
+        app:buttonColor="@color/styleguide_payments_main_text"
+        app:buttonText="@string/try_again"
+        app:buttonType="outlined"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/no_network_error_layout"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
   

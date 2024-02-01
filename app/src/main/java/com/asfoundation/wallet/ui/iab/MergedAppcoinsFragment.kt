@@ -8,7 +8,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -18,16 +20,16 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asf.wallet.R
+import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
-import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -546,7 +548,19 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     binding.mergedErrorLayout.root.visibility = VISIBLE
   }
 
+  override fun showNoNetworkError() {
+    binding.paymentMethodMainView.visibility = GONE
+    binding.mergedErrorLayout.errorDismiss.setText(getString(R.string.ok))
+    binding.mergedErrorLayout.root.visibility = VISIBLE
+    binding.mergedErrorLayout.genericErrorLayout.root.visibility = GONE
+    binding.mergedErrorLayout.noNetworkErrorLayout.root.visibility = VISIBLE
+    binding.mergedErrorLayout.errorDismiss.visibility = GONE
+    binding.mergedErrorLayout.retryButton.visibility = VISIBLE
+  }
+
   override fun errorDismisses() = RxView.clicks(binding.mergedErrorLayout.errorDismiss)
+
+  override fun errorTryAgain() = RxView.clicks(binding.mergedErrorLayout.retryButton)
 
   override fun getSupportLogoClicks() =
     RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)

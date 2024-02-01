@@ -3,11 +3,10 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -46,23 +45,32 @@ class IabPresenter(
       firstImpression = it.getBoolean(FIRST_IMPRESSION, firstImpression)
     }
     if (errorFromReceiver != null) {
-      view.showError(R.string.purchase_error_connection_issue)
+      view.showNoNetworkError()
       return
     }
     if (savedInstanceState == null) {
       handlePurchaseStartAnalytics(transaction)
       view.showPaymentMethodsView()
     }
+    view.handleConnectionObserver()
   }
 
   fun onResume() {
     handleAutoUpdate()
     handleSupportClicks()
     handleErrorDismisses()
+    handleTryAgain()
   }
 
   private fun handleErrorDismisses() {
     disposable.add(view.errorDismisses()
+      .doOnNext { view.close(Bundle()) }
+      .subscribe({ }, { view.close(Bundle()) })
+    )
+  }
+
+  private fun handleTryAgain() {
+    disposable.add(view.errorTryAgain()
       .doOnNext { view.close(Bundle()) }
       .subscribe({ }, { view.close(Bundle()) })
     )
