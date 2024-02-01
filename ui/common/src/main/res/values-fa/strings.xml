@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">تاریخ شروع:</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
   <string name="verification_settings_verifying_title">درحال تایید...</string>
   <string name="verification_verified_paypal_description">مبلغ برداشتی فورا بازگردانده می‌شود. روش خرید شما بزودی تایید می‌شود.</string>
-  <string name="verification_verify_paypal_description">برای تایید حساب کاربری شما، یک تراکنش حداقل %s از حساب شما انجام می‌شود. فورا بازگردانده خواهد شد.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">تایید همین حالا</string>
   <string name="verification_settings_card_verified_title">کارت تایید شد</string>
   <string name="verification_settings_no_internet">نیاز به ارتباط با اینترنت دارید</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">تاییدشده</string>
   <string name="unferified_tag">کیف پول تاییدنشده</string>
   <string name="verification_wallets_verify_button">تایید</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>

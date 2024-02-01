@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">开始日期：</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">已验证钱包</string>
   <string name="verification_settings_verifying_title">验证中……</string>
   <string name="verification_verified_paypal_description">退款马上到账。您的支付方式即将进行验证。</string>
-  <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
   <string name="verification_settings_no_internet">你需要连接到互联网</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">已验证</string>
   <string name="unferified_tag">钱包未验证</string>
   <string name="verification_wallets_verify_button">验证</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">总计 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>

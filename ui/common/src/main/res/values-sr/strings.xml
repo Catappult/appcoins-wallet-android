@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Datum početka:</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
   <string name="verification_settings_verifying_title">Potvrđivanje u toku…</string>
   <string name="verification_verified_paypal_description">Odmah će vam biti refundirana sredstva. Vaš način plaćanja će uskoro biti potvrđen.</string>
-  <string name="verification_verify_paypal_description">Obaviće se minimalna transakcija u iznosu od %s za potrdu vašeg naloga. Odmah će vam biti refundirana.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Potvrdi odmah</string>
   <string name="verification_settings_card_verified_title">Kartica je potvrđena</string>
   <string name="verification_settings_no_internet">Morate da budete povezani na internet</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">Potvrđeno</string>
   <string name="unferified_tag">Nepotvrđeni novčanik</string>
   <string name="verification_wallets_verify_button">Potvrdi</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Ukupno %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>

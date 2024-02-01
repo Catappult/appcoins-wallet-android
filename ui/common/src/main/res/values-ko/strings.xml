@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">시작 일자:</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">지갑 확인됨</string>
   <string name="verification_settings_verifying_title">검증 중…</string>
   <string name="verification_verified_paypal_description">즉시 환불해 드리겠습니다. 곧 지불 방식이 검증됩니다.</string>
-  <string name="verification_verify_paypal_description">계정을 확인하기 위해 최소 %s의 거래가 이루어집니다. 즉시 환불해 드리겠습니다.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">지금 확인</string>
   <string name="verification_settings_card_verified_title">카드 검증됨</string>
   <string name="verification_settings_no_internet">인터넷 연결이 필요합니다</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">확인됨</string>
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">총 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">이 구매는 이미 진행 중에 있습니다. 거래가 완료될 때까지 대기해 주시거나 지원 팀에 연락해 주세요.</string>

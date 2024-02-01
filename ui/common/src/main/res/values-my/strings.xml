@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">စတင္သည့္ေန႔စြဲ -</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးပါၿပီ</string>
   <string name="verification_settings_verifying_title">အတည္ျပဳေနပါသည္…</string>
   <string name="verification_verified_paypal_description">သင့္ကိုခ်က္ခ်င္း ေငြျပန္အမ္းေပးပါမည္။ သင့္ေငြေပးေခ်မႈနည္းလမ္းကို အခ်ိန္အနည္းငယ္အတြင္း အတည္ျပဳေပးပါမည္။</string>
-  <string name="verification_verify_paypal_description">သင့္အေကာင့္ကို အတည္ျပဳရန္ အနည္းဆုံး ေငြလႊဲေျပာင္းမႈျဖစ္သည့္ %s ကို ျပဳလုပ္ပါမည္။ ယင္းကို ခ်က္ခ်င္းေငြျပန္အမ္းေပးပါမည္။</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">ယခုပင္ အတည္ျပဳမည္</string>
   <string name="verification_settings_card_verified_title">ကဒ္ကိုအတည္ျပဳလိုက္ပါသည္</string>
   <string name="verification_settings_no_internet">အင္တာနက္ခ်ိတ္ဆက္ထားရန္ လိုအပ္ပါသည္</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">အတည္ျပဳထားေသာ</string>
   <string name="unferified_tag">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="verification_wallets_verify_button">အတည္ျပဳမည္</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">စုစုေပါင္း %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>

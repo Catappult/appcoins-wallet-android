@@ -521,6 +521,9 @@
   <string name="ending_in_title">終了まで</string>
   <string name="start_date_title">開始日:</string>
   <string name="end_date_title">終了日</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
   <string name="verification_settings_verifying_title">確認中...</string>
   <string name="verification_verified_paypal_description">すぐに返金されます。お客様のお支払い方法は、まもなく確認されます。</string>
-  <string name="verification_verify_paypal_description">アカウントの確認のため、%sの最小限の取引が行われます。これはすぐに返金されます。</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">今すぐ確認</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
   <string name="verification_settings_no_internet">インターネットに接続する必要があります</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">認証済み</string>
   <string name="unferified_tag">未認証のウォレット</string>
   <string name="verification_wallets_verify_button">認証</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">合計 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">この購入はすでに処理されているようです。お手数ですが、処理が完了するまでお待ちいただくか、サポートチームまでご連絡ください。</string>
