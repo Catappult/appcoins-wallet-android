@@ -24,6 +24,8 @@ interface PaymentMethodsView {
 
   fun showError(message: Int)
 
+  fun showNoNetworkError()
+
   fun showItemAlreadyOwnedError()
 
   fun finish(bundle: Bundle)
@@ -41,6 +43,8 @@ interface PaymentMethodsView {
   fun close(bundle: Bundle)
 
   fun errorDismisses(): Observable<Any>
+
+  fun errorTryAgain(): Observable<Any>
 
   fun setupUiCompleted(): Observable<Boolean>
 
