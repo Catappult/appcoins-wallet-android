@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +19,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -32,6 +35,7 @@ import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -39,6 +43,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
+import com.appcoins.wallet.ui.widgets.NoNetworkSnackBar
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
@@ -52,8 +57,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NavBarFragment : BasePageViewFragment(),
-  SingleStateFragment<NavBarState, NavBarSideEffect> {
+class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, NavBarSideEffect> {
 
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment
@@ -68,8 +72,12 @@ class NavBarFragment : BasePageViewFragment(),
   @Inject
   lateinit var navBarAnalytics: NavBarAnalytics
 
+  @Inject
+  lateinit var networkMonitor: NetworkMonitor
+
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View = NavBarFragmentBinding.inflate(inflater).root
 
@@ -86,8 +94,10 @@ class NavBarFragment : BasePageViewFragment(),
 
   @Composable
   fun BottomNavigationHome() {
-    BoxWithConstraints {
+    val connectionObserver = networkMonitor.isConnected.collectAsState(true).value
+    BoxWithConstraints(contentAlignment = Alignment.BottomStart) {
       if (expanded()) {
+        ConnectionAlert(isConnected = connectionObserver)
         Card(
           colors = CardDefaults.cardColors(containerColor = styleguide_blue),
           modifier = Modifier
@@ -103,19 +113,17 @@ class NavBarFragment : BasePageViewFragment(),
           }
         }
       } else {
-        BottomAppBar(
-          containerColor = styleguide_blue_secondary,
-          modifier = Modifier
-            .height(64.dp),
-          content = {
-            Row(
-              horizontalArrangement = Arrangement.SpaceEvenly,
-              modifier = Modifier.fillMaxWidth()
-            ) {
-              NavigationItems(styleguide_blue_secondary)
-            }
-          }
-        )
+        Column(modifier = Modifier.fillMaxWidth()) {
+          ConnectionAlert(isConnected = connectionObserver)
+          BottomAppBar(
+            containerColor = styleguide_blue_secondary,
+            modifier = Modifier.height(64.dp), content = {
+              Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+              ) { NavigationItems(styleguide_blue_secondary) }
+            })
+        }
       }
     }
   }
@@ -134,9 +142,13 @@ class NavBarFragment : BasePageViewFragment(),
         onClick = {
           viewModel.clickedItem.value = item.destination.ordinal
           navigateToDestination(item.destination)
-        }
-      )
+        })
     }
+  }
+
+  @Composable
+  fun ConnectionAlert(isConnected: Boolean) {
+    if (!isConnected) NoNetworkSnackBar()
   }
 
   @Preview
