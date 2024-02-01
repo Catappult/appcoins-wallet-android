@@ -8,9 +8,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -45,7 +46,8 @@ fun RewardsActions(
     modifier = Modifier
       .horizontalScroll(scrollState)
       .padding(horizontal = 16.dp)
-      .padding(top = 24.dp),
+      .padding(top = 24.dp)
+      .height(IntrinsicSize.Max),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
     onClickChallengeReward?.let {
@@ -86,7 +88,8 @@ fun ActionCard(
 ) {
   Card(
     modifier = Modifier
-      .size(width = 160.dp, height = 208.dp)
+      .width(width = 160.dp)
+      .fillMaxHeight()
       .clickable { onClick() },
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
