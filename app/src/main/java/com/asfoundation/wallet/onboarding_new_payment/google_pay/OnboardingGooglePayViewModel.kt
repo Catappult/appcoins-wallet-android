@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.onboarding_new_payment.google_pay
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,6 +15,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebViewModel
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
@@ -65,6 +69,9 @@ class OnboardingGooglePayViewModel @Inject constructor(
   val viewScheduler = rxSchedulers.main
 
   var uid: String? = null
+  var shouldStartPayment = true
+  var isFirstRun: Boolean = true
+  var runningCustomTab: Boolean = false
 
   fun startPayment(
     amount: BigDecimal,
@@ -72,37 +79,40 @@ class OnboardingGooglePayViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder,
     origin: String?
   ) {
-    events.sendPaymentConfirmationGooglePayEvent(transactionBuilder)
-    compositeDisposable.add(getGooglePayUrlUseCase().subscribeOn(networkScheduler)
-      .observeOn(viewScheduler).flatMap { urls ->
-        createTransaction(
-          amount = amount,
-          currency = currency,
-          transactionBuilder = transactionBuilder,
-          origin = origin,
-          returnUrl = urls.returnUrl,
-        ).map { transaction ->
-          uid = transaction.uid
-          val googlePayUrl = buildGooglePayUrlUseCase(
-            url = urls.url,
-            sessionId = transaction.sessionId ?: "",
-            sessionData = transaction.sessionData ?: "",
-            price = amount.toString(),
+    if (shouldStartPayment) {
+      shouldStartPayment = false
+      events.sendPaymentConfirmationGooglePayEvent(transactionBuilder)
+      compositeDisposable.add(getGooglePayUrlUseCase().subscribeOn(networkScheduler)
+        .observeOn(viewScheduler).flatMap { urls ->
+          createTransaction(
+            amount = amount,
             currency = currency,
+            transactionBuilder = transactionBuilder,
+            origin = origin,
+            returnUrl = urls.returnUrl,
+          ).map { transaction ->
+            uid = transaction.uid
+            val googlePayUrl = buildGooglePayUrlUseCase(
+              url = urls.url,
+              sessionId = transaction.sessionId ?: "",
+              sessionData = transaction.sessionData ?: "",
+              price = amount.toString(),
+              currency = currency,
+            )
+            Log.d("url", googlePayUrl)
+            _state.postValue(State.WebAuthentication(googlePayUrl))
+          }
+        }.subscribe({}, {
+          Log.d(TAG, it.toString())
+          events.sendPaymentErrorMessageEvent(
+            errorMessage = "GooglePayWeb transaction error.",
+            transactionBuilder = transactionBuilder,
+            paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
           )
-          Log.d("url", googlePayUrl)
-          _state.postValue(State.WebAuthentication(googlePayUrl))
-        }
-      }.subscribe({}, {
-        Log.d(TAG, it.toString())
-        events.sendPaymentErrorMessageEvent(
-          errorMessage = "GooglePayWeb transaction error.",
-          transactionBuilder = transactionBuilder,
-          paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
-        )
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
-      })
-    )
+          _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        })
+      )
+    }
   }
 
   fun createTransaction(
@@ -196,26 +206,44 @@ class OnboardingGooglePayViewModel @Inject constructor(
   }
 
   fun processGooglePayResult(transactionBuilder: TransactionBuilder) {
-    val result = getGooglePayResultUseCase()
-    when (result) {
-      GooglePayResult.SUCCESS.key -> {
-        waitForSuccess(uid, transactionBuilder)
-      }
-      GooglePayResult.ERROR.key -> {
-        events.sendPaymentErrorMessageEvent(
-          errorMessage = "Error received from Web",
-          transactionBuilder = transactionBuilder,
-          paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
-        )
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
-      }
-      GooglePayResult.CANCEL.key -> {
-        waitForSuccess(uid, transactionBuilder, true)
-      }
-      else -> {
-        waitForSuccess(uid, transactionBuilder, true)
+    if (isFirstRun) {
+      isFirstRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getGooglePayResultUseCase()
+        when (result) {
+          GooglePayResult.SUCCESS.key -> {
+            waitForSuccess(uid, transactionBuilder)
+          }
+
+          GooglePayResult.ERROR.key -> {
+            events.sendPaymentErrorMessageEvent(
+              errorMessage = "Error received from Web",
+              transactionBuilder = transactionBuilder,
+              paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+            )
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
+          }
+
+          GooglePayResult.CANCEL.key -> {
+            waitForSuccess(uid, transactionBuilder, true)
+          }
+
+          else -> {
+            waitForSuccess(uid, transactionBuilder, true)
+          }
+        }
       }
     }
+  }
+
+  fun openUrlCustomTab(context: Context, url: String) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, Uri.parse(url))
   }
 
   fun handleSuccess(

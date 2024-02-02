@@ -45,9 +45,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private lateinit var iabView: IabView
   var navigatorIAB: Navigator? = null
 
-  var isFirstRun: Boolean = true
-  var runningCustomTab: Boolean = false
-
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
@@ -67,15 +64,8 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   override fun onResume() {
     super.onResume()
-    if (isFirstRun) {
-      isFirstRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        // checks success/error/cancel
-        viewModel.processGooglePayResult(transactionBuilder = transactionBuilder)
-      }
-    }
+    // checks success/error/cancel
+    viewModel.processGooglePayResult(transactionBuilder = transactionBuilder)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,21 +91,13 @@ class GooglePayWebFragment() : BasePageViewFragment() {
           handleSuccess(state.bundle)
         }
         is GooglePayWebViewModel.State.WebAuthentication -> {
-          openUrlCustomTab(state.url)
+          viewModel.openUrlCustomTab(requireContext(), state.url)
         }
         GooglePayWebViewModel.State.GooglePayBack -> {
           iabView.showPaymentMethodsView()
         }
       }
     }
-  }
-
-  private fun openUrlCustomTab(url: String) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 
   private fun startPayment() {

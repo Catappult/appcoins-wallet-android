@@ -37,9 +37,6 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
   @Inject
   lateinit var navigator: TopUpNavigator
 
-  var isFirstRun: Boolean = true
-  var runningCustomTab: Boolean = false
-
   private val TAG = GooglePayTopupFragment::class.java.name
 
   override fun onCreateView(
@@ -60,15 +57,8 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
   override fun onResume() {
     super.onResume()
-    if (isFirstRun) {
-      isFirstRun = false
-    } else {
-      if (runningCustomTab) {
-        runningCustomTab = false
-        // checks success/error/cancel
-        viewModel.processGooglePayResult(amount)
-      }
-    }
+    // checks success/error/cancel
+    viewModel.processGooglePayResult(amount)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,21 +83,13 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
           handleSuccess()
         }
         is GooglePayTopupViewModel.State.WebAuthentication -> {
-          openUrlCustomTab(state.url)
+          viewModel.openUrlCustomTab(requireContext(), state.url)
         }
         GooglePayTopupViewModel.State.GooglePayBack -> {
           close()
         }
       }
     }
-  }
-
-  private fun openUrlCustomTab(url: String) {
-    if (runningCustomTab) return
-    runningCustomTab = true
-    val customTabsBuilder = CustomTabsIntent.Builder().build()
-    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
-    customTabsBuilder.launchUrl(requireContext(), Uri.parse(url))
   }
 
   private fun startPayment() {

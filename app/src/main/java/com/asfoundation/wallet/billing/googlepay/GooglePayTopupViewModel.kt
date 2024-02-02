@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.billing.googlepay
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -57,43 +60,49 @@ class GooglePayTopupViewModel @Inject constructor(
   val viewScheduler = rxSchedulers.main
 
   var uid: String? = null
+  var shouldStartPayment = true
+  var runningCustomTab = false
+  var isFirstRun: Boolean = true
 
   fun startPayment(
     amount: String,
     currency: String,
   ) {
-    topUpAnalytics.sendConfirmationEvent(
-      amount.toDouble(),
-      "top_up",
-      PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
-    )
-    compositeDisposable.add(
-      getGooglePayUrlUseCase()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .flatMap { urls ->
-          createTransaction(
-            amount = amount,
-            currency = currency,
-            returnUrl = urls.returnUrl,
-          ).map { transaction ->
-            uid = transaction.uid
-            val googlePayUrl = buildGooglePayUrlUseCase(
-              url = urls.url,
-              sessionId = transaction.sessionId ?: "",
-              sessionData = transaction.sessionData ?: "",
-              price = amount,
+    if (shouldStartPayment) {
+      shouldStartPayment = false
+      topUpAnalytics.sendConfirmationEvent(
+        amount.toDouble(),
+        "top_up",
+        PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+      )
+      compositeDisposable.add(
+        getGooglePayUrlUseCase()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMap { urls ->
+            createTransaction(
+              amount = amount,
               currency = currency,
-            )
-            Log.d("url", googlePayUrl)
-            _state.postValue(State.WebAuthentication(googlePayUrl))
-          }
-        }.subscribe({}, {
-          Log.d(TAG, it.toString())
-          topUpAnalytics.sendGooglePayErrorEvent(errorDetails = "GooglePay transaction error")
-          _state.postValue(State.Error(R.string.purchase_error_google_pay))
-        })
-    )
+              returnUrl = urls.returnUrl,
+            ).map { transaction ->
+              uid = transaction.uid
+              val googlePayUrl = buildGooglePayUrlUseCase(
+                url = urls.url,
+                sessionId = transaction.sessionId ?: "",
+                sessionData = transaction.sessionData ?: "",
+                price = amount,
+                currency = currency,
+              )
+              Log.d("url", googlePayUrl)
+              _state.postValue(State.WebAuthentication(googlePayUrl))
+            }
+          }.subscribe({}, {
+            Log.d(TAG, it.toString())
+            topUpAnalytics.sendGooglePayErrorEvent(errorDetails = "GooglePay transaction error")
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
+          })
+      )
+    }
   }
 
   fun createTransaction(
@@ -174,23 +183,41 @@ class GooglePayTopupViewModel @Inject constructor(
   }
 
   fun processGooglePayResult(amount: String) {
-    val result = getGooglePayResultUseCase()
-    when (result) {
-      GooglePayResult.SUCCESS.key -> {
-        waitForSuccess(uid, amount)
-      }
-      GooglePayResult.ERROR.key -> {
-        topUpAnalytics.sendGooglePayErrorEvent("", "Error received from Web.")
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
-      }
-      GooglePayResult.CANCEL.key -> {
-        waitForSuccess(uid, amount, true)
-      }
-      else -> {
-        waitForSuccess(uid, amount, true)
+    if (isFirstRun) {
+      isFirstRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getGooglePayResultUseCase()
+        when (result) {
+          GooglePayResult.SUCCESS.key -> {
+            waitForSuccess(uid, amount)
+          }
+
+          GooglePayResult.ERROR.key -> {
+            topUpAnalytics.sendGooglePayErrorEvent("", "Error received from Web.")
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
+          }
+
+          GooglePayResult.CANCEL.key -> {
+            waitForSuccess(uid, amount, true)
+          }
+
+          else -> {
+            waitForSuccess(uid, amount, true)
+          }
+        }
       }
     }
   }
+
+    fun openUrlCustomTab(context: Context, url: String) {
+      if (runningCustomTab) return
+      runningCustomTab = true
+      val customTabsBuilder = CustomTabsIntent.Builder().build()
+      customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+      customTabsBuilder.launchUrl(context, Uri.parse(url))
+    }
 
   fun createBundle(
     priceAmount: String, priceCurrency: String,

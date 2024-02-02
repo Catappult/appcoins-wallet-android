@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.billing.googlepay
 
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,6 +75,9 @@ class GooglePayWebViewModel @Inject constructor(
   val viewScheduler = rxSchedulers.main
 
   var uid: String? = null
+  var shouldStartPayment = true
+  var runningCustomTab = false
+  var isFirstRun: Boolean = true
 
   fun startPayment(
     amount: BigDecimal,
@@ -79,36 +85,39 @@ class GooglePayWebViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder,
     origin: String?
   ) {
-    sendPaymentConfirmationEvent(transactionBuilder)
-    compositeDisposable.add(getGooglePayUrlUseCase().subscribeOn(networkScheduler)
-      .observeOn(viewScheduler).flatMap { urls ->
-        createTransaction(
-          amount = amount,
-          currency = currency,
-          transactionBuilder = transactionBuilder,
-          origin = origin,
-          returnUrl = urls.returnUrl,
-        ).map { transaction ->
-          uid = transaction.uid
-          val googlePayUrl = buildGooglePayUrlUseCase(
-            url = urls.url,
-            sessionId = transaction.sessionId ?: "",
-            sessionData = transaction.sessionData ?: "",
-            price = amount.toString(),
+    if (shouldStartPayment) {
+      shouldStartPayment = false
+      sendPaymentConfirmationEvent(transactionBuilder)
+      compositeDisposable.add(getGooglePayUrlUseCase().subscribeOn(networkScheduler)
+        .observeOn(viewScheduler).flatMap { urls ->
+          createTransaction(
+            amount = amount,
             currency = currency,
+            transactionBuilder = transactionBuilder,
+            origin = origin,
+            returnUrl = urls.returnUrl,
+          ).map { transaction ->
+            uid = transaction.uid
+            val googlePayUrl = buildGooglePayUrlUseCase(
+              url = urls.url,
+              sessionId = transaction.sessionId ?: "",
+              sessionData = transaction.sessionData ?: "",
+              price = amount.toString(),
+              currency = currency,
+            )
+            Log.d("url", googlePayUrl)
+            _state.postValue(State.WebAuthentication(googlePayUrl))
+          }
+        }.subscribe({}, {
+          Log.d(TAG, it.toString())
+          sendPaymentErrorEvent(
+            errorMessage = "GooglePayWeb transaction error.",
+            transactionBuilder = transactionBuilder
           )
-          Log.d("url", googlePayUrl)
-          _state.postValue(State.WebAuthentication(googlePayUrl))
-        }
-      }.subscribe({}, {
-        Log.d(TAG, it.toString())
-        sendPaymentErrorEvent(
-          errorMessage = "GooglePayWeb transaction error.",
-          transactionBuilder = transactionBuilder
-        )
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
-      })
-    )
+          _state.postValue(State.Error(R.string.purchase_error_google_pay))
+        })
+      )
+    }
   }
 
   fun createTransaction(
@@ -198,22 +207,40 @@ class GooglePayWebViewModel @Inject constructor(
   }
 
   fun processGooglePayResult(transactionBuilder: TransactionBuilder) {
-    val result = getGooglePayResultUseCase()
-    when (result) {
-      GooglePayResult.SUCCESS.key -> {
-        waitForSuccess(uid, transactionBuilder)
-      }
-      GooglePayResult.ERROR.key -> {
-        sendPaymentErrorEvent("", "Error received from Web.", transactionBuilder)
-        _state.postValue(State.Error(R.string.purchase_error_google_pay))
-      }
-      GooglePayResult.CANCEL.key -> {
-        waitForSuccess(uid, transactionBuilder, true)
-      }
-      else -> {
-        waitForSuccess(uid, transactionBuilder, true)
+    if (isFirstRun) {
+      isFirstRun = false
+    } else {
+      if (runningCustomTab) {
+        runningCustomTab = false
+        val result = getGooglePayResultUseCase()
+        when (result) {
+          GooglePayResult.SUCCESS.key -> {
+            waitForSuccess(uid, transactionBuilder)
+          }
+
+          GooglePayResult.ERROR.key -> {
+            sendPaymentErrorEvent("", "Error received from Web.", transactionBuilder)
+            _state.postValue(State.Error(R.string.purchase_error_google_pay))
+          }
+
+          GooglePayResult.CANCEL.key -> {
+            waitForSuccess(uid, transactionBuilder, true)
+          }
+
+          else -> {
+            waitForSuccess(uid, transactionBuilder, true)
+          }
+        }
       }
     }
+  }
+
+  fun openUrlCustomTab(context: Context, url: String) {
+    if (runningCustomTab) return
+    runningCustomTab = true
+    val customTabsBuilder = CustomTabsIntent.Builder().build()
+    customTabsBuilder.intent.setPackage(GooglePayWebFragment.CHROME_PACKAGE_NAME)
+    customTabsBuilder.launchUrl(context, Uri.parse(url))
   }
 
   fun getSuccessBundle(
