@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">ไม่รับวิธีการชำระเงินในท้องถิ่นเพื่อซื้อค่าธรรมเนียมแรกเข้า โปรดสร้างกระเป๋าเงินใหม่และเติมเงินด้วยบัตรธนาคารหรือ PayPal!</string>
   <string name="rooted_device_blocked_body">น่าเสียดาย คุณไม่สามารถเล่นเกม e-Skills กับอุปกรณ์ที่รูทได้</string>
   <string name="unknown_error">เกิดข้อผิดพลาด</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">คุณจำเป็นต้องอัพเดตเกมส์นี้เป็นเวอร์ชั่นล่าสุด!</string>
+  <string name="error_game_not_supported_body">ดูเหมือนว่าเกมส์นี้จะไม่สามารถใช้ได้ในขณะนี้</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">รอให้ฝ่ายตรงข้ามจบเกมส์ก่อน</string>
   <plurals name="opponent_points_title">
