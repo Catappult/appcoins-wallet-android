@@ -28,6 +28,10 @@ class AppStartRepositoryImpl @Inject constructor(
 
   override suspend fun getLastUpdateTime() =
     packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
+
+  override fun saveIsFirstPayment(isFirstPayment: Boolean) =
+    appStartPreferencesDataSource.saveIsFirstPayment(isFirstPayment)
+
 }
 
 @BoundTo(supertype = GooglePlayInstallRepository::class)

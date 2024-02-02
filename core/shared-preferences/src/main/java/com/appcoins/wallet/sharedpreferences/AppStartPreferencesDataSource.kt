@@ -12,7 +12,14 @@ class AppStartPreferencesDataSource @Inject constructor(
     .putInt(RUNS_COUNT, count)
     .apply()
 
+  fun getIsFirstPayment(): Boolean = sharedPreferences.getBoolean(IS_FIRST_PAYMENT, true)
+
+  fun saveIsFirstPayment(isFirstPayment: Boolean) = sharedPreferences.edit()
+    .putBoolean(IS_FIRST_PAYMENT, isFirstPayment)
+    .apply()
+
   companion object {
     internal const val RUNS_COUNT = "AppStartRepository.RunsCount"
+    internal const val IS_FIRST_PAYMENT = "is_first_payment"
   }
 }
