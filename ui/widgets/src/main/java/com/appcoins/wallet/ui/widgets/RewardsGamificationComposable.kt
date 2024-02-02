@@ -139,7 +139,7 @@ fun GamificationHeader(
                     .clip(CircleShape)
                     .height(8.dp)
                     .fillMaxWidth(),
-                  color = indicatorColor,
+                  color = if (isVip) styleguide_vip_yellow else indicatorColor,
                   trackColor = styleguide_grey_blue,
                 )
 
@@ -319,7 +319,7 @@ fun GamificationHeaderPartner(bonusPercentage: String) {
 }
 
 @Composable
-fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
+fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     modifier =
@@ -332,7 +332,7 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
     Row(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(16.dp),
+        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
       horizontalArrangement = Arrangement.Start,
       verticalAlignment = Alignment.CenterVertically
     ) {
@@ -340,8 +340,7 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
         painter = painterResource(R.drawable.ic_vip_symbol),
         contentDescription = stringResource(R.string.vip),
         modifier = Modifier
-          .height(64.dp)
-          .width(64.dp)
+          .size(48.dp)
           .align(Alignment.CenterVertically)
       )
       Column(
@@ -350,14 +349,15 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
       ) {
         Text(
           text = stringResource(R.string.vip_program_referral_button_title),
-          style = MaterialTheme.typography.titleMedium,
+          style = MaterialTheme.typography.titleSmall,
           color = WalletColors.styleguide_white,
           modifier = Modifier
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
+          fontWeight = FontWeight.Bold,
         )
         Text(
           text = stringResource(R.string.vip_program_referral_button_body, vipBonus),
-          style = MaterialTheme.typography.bodyMedium,
+          style = MaterialTheme.typography.bodySmall,
           color = WalletColors.styleguide_dark_grey,
           modifier = Modifier
             .padding(horizontal = 20.dp)
@@ -367,9 +367,24 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String) {
         painter = painterResource(R.drawable.ic_arrow_right),
         contentDescription = null,
         modifier = Modifier
-          .height(36.dp)
-          .width(36.dp)
+          .size(32.dp)
       )
+    }
+    Row(
+      modifier = Modifier
+        .padding(bottom = 8.dp)
+        .fillMaxWidth()
+        .padding(horizontal = 24.dp),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Text(
+        text = stringResource(id = R.string.ending_in_title),
+        color = WalletColors.styleguide_light_grey,
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Bold,
+      )
+      CountDownTimer(endDateTime = endDateTime)
     }
   }
 }
@@ -480,7 +495,7 @@ fun PreviewRewardsGamificationPartner() {
 @Preview
 @Composable
 fun PreviewRewardsVip() {
-  VipReferralCard({}, "5")
+  VipReferralCard({}, "5", 0L)
 }
 
 @Preview

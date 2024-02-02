@@ -248,7 +248,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
     LazyRow(
       contentPadding = PaddingValues(horizontal = 16.dp),
-      horizontalArrangement = Arrangement.spacedBy(8.dp)
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+      verticalAlignment = Alignment.Bottom
     ) {
       if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
         item {

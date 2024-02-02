@@ -95,15 +95,13 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
           .background(WalletColors.styleguide_vip_yellow)
       ) {
         Text(
-          //Need string to Carlos Translator
           text = stringResource(id = R.string.vip_program_title_vip_offer),
           fontSize = 12.sp,
-          color = WalletColors.styleguide_light_grey,
+          color = WalletColors.styleguide_blue,
+          fontWeight = FontWeight.Bold,
           modifier = Modifier.padding(
-            top = 6.dp,
-            end = 14.dp,
-            start = 14.dp,
-            bottom = 6.dp
+            vertical = 4.dp,
+            horizontal = 16.dp
           )
         )
       }
@@ -144,7 +142,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
           Text(
             text = stringResource(id = R.string.promotion_ends_short_title),
             color = WalletColors.styleguide_light_grey,
-            fontSize = 10.sp
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold
           )
           Column(
             modifier = Modifier
@@ -258,6 +257,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         color = WalletColors.styleguide_light_grey,
+        maxLines = 1
       )
       Text(
         text = detail,
