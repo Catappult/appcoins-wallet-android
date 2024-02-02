@@ -7,7 +7,6 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -474,12 +473,13 @@ class TopUpFragmentPresenter(
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL, PaymentType.GIROPAY -> {
+      PaymentType.CARD, PaymentType.PAYPAL -> {
         activity?.navigateToAdyenPayment(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
       }
+
       PaymentType.LOCAL_PAYMENTS -> {
         activity?.navigateToLocalPayment(
           paymentId = paymentMethod.paymentId,

@@ -5,7 +5,12 @@ import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.AdyenPayment
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.CreditCardCVCResponse
+import com.appcoins.wallet.core.network.microservices.model.DisableWallet
+import com.appcoins.wallet.core.network.microservices.model.PaymentDetails
+import com.appcoins.wallet.core.network.microservices.model.TokenPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
@@ -176,6 +181,6 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {
-    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal"), GIROPAY("giropay", "giropay")
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
   }
 }

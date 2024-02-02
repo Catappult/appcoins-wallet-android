@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.onboarding_new_payment
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import java.math.BigDecimal
 
 fun PaymentType.mapToAnalytics(): String =
@@ -19,9 +19,6 @@ fun PaymentType.mapToService(): AdyenPaymentRepository.Methods =
   when (this.name) {
     PaymentType.CARD.name -> {
       AdyenPaymentRepository.Methods.CREDIT_CARD
-    }
-    PaymentType.GIROPAY.name -> {
-      AdyenPaymentRepository.Methods.GIROPAY
     }
     else -> {
       AdyenPaymentRepository.Methods.PAYPAL
