@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">กลับสู่เกมส์</string>
   <string name="other_payment_methos_title">วิธีการชำระเงินเพิ่มเติม:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">คุณมีแล้ว</string>
+  <string name="intro_from_web_payment_to_spend_body">เพื่อใช้ซื้อเกมส์ที่คุณชื่นชอบ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">มันต้องมากกว่าศูนย์</string>
   <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">อุ๊ปส์</string>
   <string name="error_general">มีบางสิ่งที่ผิด</string>
   <string name="error_missing_field">ฟิลด์บังคับ</string>
   <string name="cancel_button">ยกเลิก</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">เปิด</string>
   <string name="retry_button">ลอง</string>
   <string name="do_it_later_button">ทำภายหลัง</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">ไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="common_or">หรือ</string>
   <string name="share_via">แชร์ไปยัง:</string>
@@ -518,12 +518,12 @@
   <string name="done">เสร็จสิ้น!</string>
   <string name="see_more_button">ดูเพิ่มเติม</string>
   <string name="monetary_amount_with_symbol">%1$s %2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">สิ้นสุดภายใน:</string>
   <string name="start_date_title">วันที่เริ่มต้น:</string>
-  <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="end_date_title">วันสิ้นสุด:</string>
+  <string name="send_button">ส่ง</string>
+  <string name="resend_button">ส่งใหม่</string>
+  <string name="continue_button">ต่อ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -572,7 +572,7 @@
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
   <string name="verification_settings_verifying_title">กำลังยืนยัน...</string>
   <string name="verification_verified_paypal_description">คุณจะได้รับเงินคืนทันที วอลเล็ตของคุณจะได้รับการยืนยันในไม่ช้า</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">มีการทำธุรกรรมจำนวน %s เพื่อยืนยันบัญชีของคุณ คุณจะได้รับเงินคืนทันที</string>
   <string name="verification_verify_paypal_button">ยืนยันตอนนี้</string>
   <string name="verification_settings_card_verified_title">บัตรได้รับการยืนยัน</string>
   <string name="verification_settings_no_internet">คุณจำเป็นต้องเชื่อมต่ออินเตอร์เน็ต</string>
@@ -582,9 +582,9 @@
   <string name="unferified_tag">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
   <string name="verification_wallets_verify_button">ยืนยัน</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_home_one_step_card_title">อีกหนึ่งขั้นตอน!</string>
+  <string name="paypal_verification_home_one_step_card_body">ป้อนรหัสที่ส่งไปยังที่อยู่อีเมลของคุณเพื่อยืนยันบัญชี PayPal ของคุณ</string>
+  <string name="paypal_verification_header">การยืนยัน Paypal</string>
   <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
   <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
