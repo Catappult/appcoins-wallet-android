@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Oyuna geri dön</string>
   <string name="other_payment_methos_title">Diğer ödeme yöntemleri:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Ev sevdiğin oyunlarda harcamak için</string>
+  <string name="intro_from_web_payment_to_spend_body">hesabında bulunuyor.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">Sıfırın üzerinde olmalı</string>
   <string name="p2p_send_confirmation_header">Transfer Bilgileri</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Hay aksi</string>
   <string name="error_general">Bir şeyler ters gitti</string>
   <string name="error_missing_field">Zorunlu alan</string>
   <string name="cancel_button">İptal et</string>
@@ -572,7 +572,7 @@
   <string name="verification_settings_verified_title">Cüzdan Doğrulandı</string>
   <string name="verification_settings_verifying_title">Doğrulanıyor…</string>
   <string name="verification_verified_paypal_description">Anında iade alacaksın. Cüzdanın kısa süre içinde doğrulanacak.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Hesabını doğrulamak için %s tutarında bir işlem yapılacak. Bu tutar anında ilade edilecek.</string>
   <string name="verification_verify_paypal_button">Hemen Doğrula</string>
   <string name="verification_settings_card_verified_title">Kart Doğrulandı</string>
   <string name="verification_settings_no_internet">İnternete bağlı olmanız gerekiyor</string>
@@ -658,12 +658,12 @@
   <string name="purchase_error_google_pay">Google Pay ile ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullan.</string>
   <string name="purchase_success_bonus_received_title">%s bonus alındı.</string>
   <string name="purchase_making_purchase_title">Satın alınıyor&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">%1$s%2$s ücret</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Bu ödeme yöntemi para birimini desteklemediğinden işlem ücreti alınabilir. Bu ücret, üst bölümde gösterilen Toplam tutara dahildir.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Bu ödeme yöntemi, bu satın alma işlemi için işlem ücreti alır. Bu ücret, üstte görebileceğin Toplam tutara dahildir.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Bu ödeme yöntemi para birimini desteklemediğinden işlem ücreti alınabilir.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bu ödeme yöntemi, bu satın alma işlemi için bir işlem ücreti alır.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_included_body">ücretler dahil</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -823,7 +823,7 @@
   <string name="remove_wallet_yes_button">Evet, cüzdanı sil</string>
   <string name="remove_wallet_removed_body">Cüzdan kaldırıldı!</string>
   <string name="remove_wallet_extra_confirmation_title">Emin misin?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_body">Unutma, yedekleme olmazsa paranı ve bonus seviyeni kaybedebilirsin.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer et</string>
   <string name="transfer_title">Fon Transfer Et</string>
@@ -1021,7 +1021,7 @@
   <string name="perks_empty_state_first_purchase_body">Sizin için hazırladığımız promosyonların kilidini açmak için AppCoins uyumlu bir uygulamada ilk satın alma işleminizi gerçekleştirin!</string>
   <string name="perks_empty_body">Şu anda uygun promosyon yok.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Biyometrik Kilit</string>
   <string name="fingerprint_failed_title">Kimlik doğrulama başarısız!</string>
   <string name="fingerprint_failed_body">Lütfen %s saniye içinde tekrar deneyin.</string>
   <string name="fingerprint_authentication_required_title">Kimlik doğrulama gerekli!</string>
@@ -1200,10 +1200,10 @@
   <string name="vip_program_promotions_list_title">Sana özel promosyonlar</string>
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak <b>hem sen hem de arkadaşların %1$s%%</b> bonus kazanırsınız. <b>%2$s tarihine kadar geçerli</b>!</string>
+  <string name="vip_program_referral_page_body_2">Bu kodu kullanarak sen ve arkadaşların 7 gün boyunca tüm satın alma işlemlerinde %s%% bonus kazanırsınız!</string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Yalnızca şunlardaki satın alımlar için:</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
   <string name="vip_program_gamification_title">Bonus seviyem ne?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı</string>
