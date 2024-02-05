@@ -11,6 +11,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment
@@ -23,7 +24,8 @@ class OnboardingVkPaymentNavigator @Inject constructor(
   Navigator {
 
   fun navigateBack() {
-    fragment.findNavController().popBackStack()
+    fragment.findNavController()
+      .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }
 
   /**

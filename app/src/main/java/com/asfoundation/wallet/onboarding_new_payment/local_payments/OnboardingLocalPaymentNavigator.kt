@@ -20,7 +20,8 @@ class OnboardingLocalPaymentNavigator @Inject constructor(
     Navigator {
 
     fun navigateBack() {
-        fragment.findNavController().popBackStack()
+        fragment.findNavController()
+            .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
     }
 
     fun navigateToWebView(url: String, webViewLauncher: ActivityResultLauncher<Intent>) {
