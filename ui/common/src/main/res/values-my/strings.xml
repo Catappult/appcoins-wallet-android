@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
   <string name="other_payment_methos_title">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား -</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">သင့္တြင္ရွိထားၿပီး ျဖစ္ပါသည္</string>
+  <string name="intro_from_web_payment_to_spend_body">သင့္စိတ္ႀကိဳက္ဂိမ္းမ်ားတြင္ သုံးစြဲရန္။</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">ယင္းသည္ သုညထက္ ပိုရပါမည္</string>
   <string name="p2p_send_confirmation_header">လႊဲေျပာင္းမႈ အေသးစိတ္မ်ား</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">အိုး</string>
   <string name="error_general">တခုခု မွားသြားပါသည္</string>
   <string name="error_missing_field">လိုအပ္ေသာအကြက္</string>
   <string name="cancel_button">ပယ္ဖ်က္မည္</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">ရွာေဖြမည္</string>
   <string name="retry_button">ျပန္ႀကိဳးစားမည္</string>
   <string name="do_it_later_button">ေနာက္မွလုပ္မည္</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">အင္တာနက္ခ်ိတ္ဆက္မႈ မရွိပါ</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="common_or">သို႔မဟုတ္</string>
   <string name="share_via">မွ်ေ၀ရန္ -</string>
@@ -518,9 +518,9 @@
   <string name="done">ၿပီးပါၿပီ။</string>
   <string name="see_more_button">ပို၍ၾကည့္မည္</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">အဆုံးသတ္သည္မွာ</string>
   <string name="start_date_title">စတင္သည့္ေန႔စြဲ -</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">ကုန္ဆုံးေန႔စြဲ -</string>
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
