@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -112,6 +113,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     }
     binding.onboardingSuccessVkButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
+    }
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+      navigator.navigateBack()
     }
   }
 
