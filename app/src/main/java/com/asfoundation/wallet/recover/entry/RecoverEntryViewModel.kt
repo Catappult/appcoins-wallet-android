@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
@@ -39,6 +40,7 @@ class RecoverEntryViewModel @Inject constructor(
         private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
         private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
         private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+        private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
         private val walletsEventSender: WalletsEventSender,
         private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
@@ -99,6 +101,7 @@ class RecoverEntryViewModel @Inject constructor(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
         )
+        setIsFirstPaymentUseCase(false)
       }
       is FailedEntryRecover.InvalidPassword -> {
         setState { copy(recoverResultAsync = Async.Uninitialized) }
