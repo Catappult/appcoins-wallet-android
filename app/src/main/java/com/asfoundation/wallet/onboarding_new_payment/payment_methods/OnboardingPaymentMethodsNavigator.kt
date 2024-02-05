@@ -81,24 +81,6 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
     )
   }
 
-  fun navigateToGiroAdyen(
-    transactionBuilder: TransactionBuilder,
-    amount: String,
-    currency: String,
-    forecastBonus: ForecastBonusAndLevel
-  ) {
-    navigate(
-      fragment.findNavController(),
-      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
-        transactionBuilder,
-        PaymentType.GIROPAY,
-        amount,
-        currency,
-        forecastBonus
-      )
-    )
-  }
-
   fun navigateToLocalPayment(
     transactionBuilder: TransactionBuilder, paymentId: String, amount: String,
     currency: String

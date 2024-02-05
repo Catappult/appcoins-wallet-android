@@ -178,9 +178,6 @@ class AdyenTopUpPresenter(
               view.finishCardConfiguration(it, false)
               handleTopUpClick()
             }
-            PaymentType.GIROPAY.name -> {
-              launchPaypal(it.paymentMethod!!)
-            }
             PaymentType.PAYPAL.name -> {
               launchPaypal(it.paymentMethod!!)
             }
@@ -572,9 +569,6 @@ class AdyenTopUpPresenter(
     return when (paymentType) {
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
-      }
-      PaymentType.GIROPAY.name -> {
-        AdyenPaymentRepository.Methods.GIROPAY
       }
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
