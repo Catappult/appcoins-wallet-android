@@ -662,7 +662,7 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Metode pembayaran ini tidak mendukung mata uang Anda, jadi Anda akan dikenai biaya pemrosesan. Biaya ini sudah termasuk dalam jumlah total yang bisa Anda lihat di bagian atas.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">Dengan metode pembayaran ini, akan dikenakan biaya pemrosesan untuk pembelian ini. Biaya tersebut sudah termasuk dalam Total yang trercantum di bagian atas.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Metode pembayaran ini tidak mendukung mata uang Anda, jadi Anda mungkin akan dikenai biaya pemrosesan.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan metode pembayaran ini, akan dikenakan biaya pemrosesan untuk pembelian ini.</string>
   <string name="purchase_fee_included_body">sudah termasuk biaya</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
@@ -822,7 +822,7 @@
   <string name="remove_wallet_yes_button">Ya, hapus dompet</string>
   <string name="remove_wallet_removed_body">Dompet sudah dihapus!</string>
   <string name="remove_wallet_extra_confirmation_title">Apakah Anda yakin?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_body">Ingatlah bahwa, tanpa cadangan, dana dan tingkat bonus Anda mungkin akan hilang.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transfer Dana</string>
@@ -1191,8 +1191,8 @@
   <string name="vip_program_promotions_list_title">Promo spesial untuk kamu</string>
   <string name="vip_program_promo_code_tag">Kode promo</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">Bagikan kode promo ini dengan komunitas dan teman Anda agar semua orang bisa memperoleh penghasilan saat bermain. Untuk setiap pembelian dalam aplikasi yang mereka lakukan, <b>Anda dan teman Anda akan menerima bonus sebesar %1$s%%</b>, di samping promosi aktif lainnya, selama sebulan penuh. <b>Berlaku sampai %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Anda dan teman Anda mendapatkan bonus %s%% di semua pembelian selama 7 hari saat menggunakan kode ini!</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
