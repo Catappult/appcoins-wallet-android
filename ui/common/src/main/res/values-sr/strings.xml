@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Nazad u igru</string>
   <string name="other_payment_methos_title">Drugi načini plaćanja:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Već imate</string>
+  <string name="intro_from_web_payment_to_spend_body">da potrošite na svoje omiljene igre.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">Mora da bude više od nula</string>
   <string name="p2p_send_confirmation_header">Informacije o prenosu</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Ups</string>
   <string name="error_general">Došlo je do greške</string>
   <string name="error_missing_field">Obavezno polje</string>
   <string name="cancel_button">Otkaži</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">Otkrij</string>
   <string name="retry_button">Pokušaj ponovo</string>
   <string name="do_it_later_button">Pokušaj kasnije</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Nema internet veze</string>
   <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <string name="common_or">ILI</string>
   <string name="share_via">Podeli preko:</string>
@@ -518,12 +518,12 @@
   <string name="done">Gotovo!</string>
   <string name="see_more_button">Pogledajte više</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Završava se za</string>
   <string name="start_date_title">Datum početka:</string>
-  <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="end_date_title">Datum završetka:</string>
+  <string name="send_button">Pošalji</string>
+  <string name="resend_button">Pošalji ponovo</string>
+  <string name="continue_button">Nastavi</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -572,7 +572,7 @@
   <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
   <string name="verification_settings_verifying_title">Potvrđivanje u toku…</string>
   <string name="verification_verified_paypal_description">Odmah će vam biti refundirana sredstva. Vaš način plaćanja će uskoro biti potvrđen.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Obaviće se transakcija u iznosu od %s za potrdu vašeg naloga. Odmah će vam biti refundirana.</string>
   <string name="verification_verify_paypal_button">Potvrdi odmah</string>
   <string name="verification_settings_card_verified_title">Kartica je potvrđena</string>
   <string name="verification_settings_no_internet">Morate da budete povezani na internet</string>
@@ -582,12 +582,12 @@
   <string name="unferified_tag">Nepotvrđeni novčanik</string>
   <string name="verification_wallets_verify_button">Potvrdi</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_home_one_step_card_title">Deli vas jedan korak!</string>
+  <string name="paypal_verification_home_one_step_card_body">Unesite kod koji vam je poslat na adresu e-pošte da biste potvrdili PayPal nalog.</string>
+  <string name="paypal_verification_header">PayPal potvrda</string>
+  <string name="paypal_verification_insert_code_body">U nastavku unesite 4-cifreni kod koji vam je poslat na adresu e-pošte koja je povezana sa vašim PayPal nalogom.</string>
+  <string name="paypal_verification_didnt_receive_title">Niste ga dobili?</string>
+  <string name="paypal_verification_completed_body">Odmah ćete dobiti refundaciju i vaš PayPal nalog će biti uskoro potvrđen.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Ukupno %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
@@ -655,15 +655,15 @@
   <string name="error_blocked_wallet_body">Vaš novčanik je blokiran iz sigurnosnih razloga. Kontaktirajte nas za više informacija.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Došlo je do problema sa vašim Google Pay nalogom. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">Naknada %1$s%2$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada je uključena u Ukupnoj ceni koju možete videti u gornjem delu.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu. Naknada je uključena u odeljku Ukupno koji možete videti u gornjem delu.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu.</string>
+  <string name="purchase_fee_included_body">naknade su uključene</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -823,8 +823,8 @@
   <string name="remove_wallet_no_button">Ne, idi nazad</string>
   <string name="remove_wallet_yes_button">Da, ukloni novčanik</string>
   <string name="remove_wallet_removed_body">Novčanik je uklonjen!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">Jeste li sigurni?</string>
+  <string name="remove_wallet_extra_confirmation_body">Zapamtite da ćete bez rezerne kopije izgubiti svoja sredstva i bonus nivo.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Prenos</string>
   <string name="transfer_title">Prenesite sredstva</string>
@@ -1028,7 +1028,7 @@
   <string name="perks_empty_state_first_purchase_body">Obavite prvu kupovinu u aplikaciji koja je kompatibilna sa AppCoins kako bi otključali promocije koje smo spremili za vas!</string>
   <string name="perks_empty_body">Trenutno nema dostupnih promocija.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Biometrijsko zaključavanje</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
@@ -1209,10 +1209,10 @@
   <string name="vip_program_promotions_list_title">Posebne promocije za vas</string>
   <string name="vip_program_promo_code_tag">Promo kod</string>
   <string name="vip_program_referral_page_title">VIP program za preporuku</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">Podelite ovaj promo kod sa svojom zajednicom ili prijateljima kako bi svi mogli da zarade dok se igraju. Za svaku kupovinu u aplikaciji koju obave, i <b>vi i vaši prijatelji ćete dobiti %1$s%% bonusa</b> povrh ostalih aktivnih promocija. <b>Važi do %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Vi i vaši prijatelji ćete dobiti %s%% bonusa za svaku kupovinu tokom 7 dana uz ovaj kod!</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Samo za kupovine u</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
   <string name="vip_program_gamification_title">Koji je moj bonus nivo?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Ostvaren bonus od kupovina</string>
@@ -1282,7 +1282,7 @@
   <string name="verify_card_one_more_step_body">Unesite kod koji se pojavljuje u detaljima transakcije</string>
   <string name="verify_card_one_more_step_button">Unesite kod</string>
   <string name="verify_card_verified">Način plaćanja je potvrđen!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Potvrdite kreditnu/debitnu karticu</string>
   <string name="verify_card_view_title">Potvrdite karticu</string>
   <string name="verify_card_view_disclaimer">Zadužićemo vašu karticu za %s i refundiraćemo vam novac čim potvrdite kod.</string>
   <string name="verify_card_view_title_2">Unesite detalje o bankovnoj kartici</string>

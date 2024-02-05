@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
   <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa „rutovanim” uređajem.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Potrebno je da ažurirate ovu igru na najnoviju verziju!</string>
+  <string name="error_game_not_supported_body">Izgleda da ova igra nije trenutno dostupna.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Čekaju se protivnici da završe igru.</string>
   <plurals name="opponent_points_title">

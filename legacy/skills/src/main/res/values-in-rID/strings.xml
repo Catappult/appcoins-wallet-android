@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
   <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Game ini perlu Anda perbarui ke versi terbaru!</string>
+  <string name="error_game_not_supported_body">Sepertinya game ini tidak tersedia saat ini.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk menyelesaikan game.</string>
   <plurals name="opponent_points_title">
