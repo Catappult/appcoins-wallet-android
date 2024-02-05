@@ -194,12 +194,28 @@ class AdyenPaymentInteractorTest {
       repository.makePayment(
         payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
-        "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
+        "INAPP",  "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
         TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
-    interactor.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", "", "package", null, "sku", null, "INAPP", null, null)
+    interactor.makePayment(
+      adyenPaymentMethod = payment,
+      shouldStoreMethod = false,
+      hasCvc = false,
+      supportedShopperInteraction = emptyList(),
+      returnUrl = "",
+      value = TEST_FIAT_VALUE,
+      currency = TEST_FIAT_CURRENCY,
+      reference = null,
+      paymentType = "",
+      origin = "",
+      packageName = "package",
+      metadata = null,
+      sku = "sku",
+      callbackUrl = null,
+      transactionType = "INAPP",
+      referrerUrl = null
+    )
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -221,7 +237,7 @@ class AdyenPaymentInteractorTest {
       repository.makePayment(
         payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, null, TEST_WALLET_SIGNATURE, null))
+        "TOPUP", null, null, null, null, TEST_WALLET_SIGNATURE, null))
         .thenReturn(Single.just(expectedModel))
 
     interactor.makeTopUpPayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,

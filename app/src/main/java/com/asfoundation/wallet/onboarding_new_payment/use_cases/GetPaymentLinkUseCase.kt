@@ -10,35 +10,42 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetPaymentLinkUseCase @Inject constructor(
-    private val walletService: WalletService,
-    private val remoteRepository: RemoteRepository,
-    private val partnerAddressService: AddressService,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val walletService: WalletService,
+  private val remoteRepository: RemoteRepository,
+  private val partnerAddressService: AddressService,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
 ) {
-    operator fun invoke(
-        data: TransactionBuilder,
-        amount: String,
-        paymentType: String,
-        currency: String,
-        packageName: String,
-    ) : Single<Transaction> {
-        return walletService.getWalletAddress()
-            .flatMap { address ->
-                partnerAddressService.getAttribution(packageName)
-                    .flatMap { attributionEntity ->
-                        getCurrentPromoCodeUseCase().flatMap { promoCode ->
-                            remoteRepository.createLocalPaymentTransaction(paymentType, packageName,
-                                amount, currency, data.skuId, data.type, data.origin, data.toAddress(),
-                                attributionEntity.oemId, attributionEntity.domain, promoCode.code,
-                                data.payload,
-                                data.callbackUrl, data.orderReference,
-                                data.referrerUrl, address)
-                        }
-                    }
+  operator fun invoke(
+    data: TransactionBuilder,
+    amount: String,
+    paymentType: String,
+    currency: String,
+    packageName: String,
+  ): Single<Transaction> {
+    return walletService.getWalletAddress()
+      .flatMap { address ->
+        partnerAddressService.getAttribution(packageName)
+          .flatMap { attributionEntity ->
+            getCurrentPromoCodeUseCase().flatMap { promoCode ->
+              remoteRepository.createLocalPaymentTransaction(
+                paymentId = paymentType,
+                packageName = packageName,
+                price = amount,
+                currency = currency,
+                productName = data.skuId,
+                type = data.type,
+                origin = data.origin,
+                entityOemId = attributionEntity.oemId,
+                entityDomain = attributionEntity.domain,
+                entityPromoCode = promoCode.code,
+                developerPayload = data.payload,
+                callback = data.callbackUrl,
+                orderReference = data.orderReference,
+                referrerUrl = data.referrerUrl,
+                walletAddress = address
+              )
             }
-    }
+          }
+      }
+  }
 }
-
-
-
-

@@ -81,7 +81,6 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       sku = args.transactionBuilder.skuId,
       callbackUrl = args.transactionBuilder.callbackUrl,
       transactionType = args.transactionBuilder.type,
-      developerWallet = args.transactionBuilder.toAddress(),
       referrerUrl = args.transactionBuilder.referrerUrl,
       packageName = args.transactionBuilder.domain,
       email = email,

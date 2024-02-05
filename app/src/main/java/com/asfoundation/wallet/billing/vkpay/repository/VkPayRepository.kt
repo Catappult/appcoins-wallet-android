@@ -18,7 +18,7 @@ class VkPayRepository @Inject constructor(
   fun createTransaction(
     price: VkPrice, reference: String?, walletAddress: String,
     origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
+    callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?, referrerUrl: String?, method: String?, email: String, phone: String
   ): Single<VkPayTransaction> {
@@ -36,7 +36,6 @@ class VkPayRepository @Inject constructor(
             reference = reference,
             type = transactionType,
             price = price,
-            developer = developerWallet,
             entityOemId = entityOemId,
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,

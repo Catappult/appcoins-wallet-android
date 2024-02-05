@@ -205,9 +205,11 @@ public class InAppPurchaseInteractor {
     if (packageName == null) {
       return Single.just(false);
     }
-    return bdsInAppPurchaseInteractor.getWallet(packageName)
-        .map(wallet::equalsIgnoreCase)
-        .onErrorReturn(throwable -> false);
+    return Single.just(true);
+    //old logic to determine bds origin:
+//    return bdsInAppPurchaseInteractor.getWallet(packageName)
+//        .map(wallet::equalsIgnoreCase)
+//        .onErrorReturn(throwable -> false);
   }
 
   // uncomment to reactivate gas_price on payment flow:

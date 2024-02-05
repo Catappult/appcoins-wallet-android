@@ -18,7 +18,6 @@ class CreatePaypalTransactionUseCase @Inject constructor(
     value: String, currency: String, reference: String?,
     origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
     referrerUrl: String?
   ): Single<PaypalTransaction> {
     return Single.zip(walletService.getWalletAddress(),
@@ -39,7 +38,6 @@ class CreatePaypalTransactionUseCase @Inject constructor(
             sku = sku,
             callbackUrl = callbackUrl,
             transactionType = transactionType,
-            developerWallet = developerWallet,
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,

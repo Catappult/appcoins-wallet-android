@@ -87,7 +87,6 @@ class VkPaymentIABViewModel @Inject constructor(
       sku = transactionBuilder.skuId,
       callbackUrl = transactionBuilder.callbackUrl,
       transactionType = transactionBuilder.type,
-      developerWallet = transactionBuilder.toAddress(),
       referrerUrl = transactionBuilder.referrerUrl,
       packageName = transactionBuilder.domain,
       email = email,

@@ -13,7 +13,6 @@ data class TokenPayment(
   @SerializedName("method") val method: String?,
   @SerializedName("origin") val origin: String?,
   @SerializedName("reference") val reference: String?,
-  @SerializedName("wallets.developer") val developer: String?,
   @SerializedName("entity.oemid") val entityOemId: String?,
   @SerializedName("entity.domain") val entityDomain: String?,
   @SerializedName("entity.promo_code") val entityPromoCode: String?,

@@ -223,7 +223,6 @@ class AdyenPaymentPresenter(
         sku = transactionBuilder.skuId,
         callbackUrl = transactionBuilder.callbackUrl,
         transactionType = transactionBuilder.type,
-        developerWallet = transactionBuilder.toAddress(),
         referrerUrl = transactionBuilder.referrerUrl
       )
         .subscribeOn(networkScheduler)
@@ -296,7 +295,6 @@ class AdyenPaymentPresenter(
             sku = transactionBuilder.skuId,
             callbackUrl = transactionBuilder.callbackUrl,
             transactionType = transactionBuilder.type,
-            developerWallet = transactionBuilder.toAddress(),
             referrerUrl = transactionBuilder.referrerUrl,
           )
         }

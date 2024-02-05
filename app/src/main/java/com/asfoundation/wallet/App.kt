@@ -15,7 +15,6 @@ import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.base.MagnesUtils
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -84,9 +83,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var billingMessagesMapper: BillingMessagesMapper
-
-  @Inject
-  lateinit var bdsapiSecondary: BdsApiSecondary
 
   @Inject
   lateinit var idsRepository: IdsRepository
@@ -248,8 +244,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun proxyService() = proxyService
 
   override fun billingMessagesMapper() = billingMessagesMapper
-
-  override fun bdsApiSecondary() = bdsapiSecondary
 
   override fun subscriptionsApi() = subscriptionBillingApi
 

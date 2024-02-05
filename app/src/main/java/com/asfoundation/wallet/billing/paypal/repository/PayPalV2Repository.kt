@@ -31,7 +31,7 @@ class PayPalV2Repository @Inject constructor(
     value: String,
     currency: String, reference: String?, walletAddress: String,
     origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
+    callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
     referrerUrl: String?
@@ -53,7 +53,6 @@ class PayPalV2Repository @Inject constructor(
             type = transactionType,
             currency = currency,
             value = value,
-            developer = developerWallet,
             entityOemId = entityOemId,
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
