@@ -116,9 +116,6 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     views.errorTryAgainGooglePay.setOnClickListener {
       findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
     }
-    views.errorView.tryAgain.setOnClickListener {
-      findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
-    }
     views.errorView.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport()
     }

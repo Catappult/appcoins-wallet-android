@@ -82,7 +82,7 @@
 
   <include
       android:id="@+id/error_view"
-      layout="@layout/error_top_up_layout"
+      layout="@layout/onboarding_support_error_layout"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:visibility="gone"
@@ -94,15 +94,17 @@
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_try_again_google_pay"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/small_button_height"
-      android:layout_marginTop="24dp"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
       android:visibility="gone"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
+      android:layout_marginBottom="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginStart="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/error_view"
-      />
+      tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
