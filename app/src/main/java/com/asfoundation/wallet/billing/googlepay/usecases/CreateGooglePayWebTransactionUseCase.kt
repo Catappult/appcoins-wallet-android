@@ -44,7 +44,6 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
             sku = transactionBuilder.skuId,
             callbackUrl = transactionBuilder.callbackUrl,
             transactionType = transactionBuilder.type,
-            developerWallet = transactionBuilder.toAddress(),
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,
