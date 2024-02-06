@@ -80,6 +80,14 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
+  fun providesAdyenSessionApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): AdyenSessionApi {
+    return retrofit.create(AdyenSessionApi::class.java)
+  }
+
+  @Singleton
+  @Provides
   fun providesPaypalApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): PaypalV2Api {

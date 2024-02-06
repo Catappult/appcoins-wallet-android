@@ -20,6 +20,7 @@ import com.asf.wallet.databinding.ActivityIabBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
@@ -352,6 +353,39 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
       .addToBackStack(VkPaymentIABFragment::class.java.simpleName)
       .commit()
 
+  }
+
+  override fun showGooglePayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    supportFragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container,
+        GooglePayWebFragment.newInstance(
+          paymentType = paymentType,
+          origin = getOrigin(isBds),
+          transactionBuilder = transaction!!,
+          amount = amount,
+          currency = currency,
+          bonus = bonus,
+          isPreSelected = isPreselected,
+          gamificationLevel = gamificationLevel,
+          skuDescription = getSkuDescription(),
+          isSubscription = isSubscription,
+          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+          frequency = frequency,
+        )
+      )
+      .commit()
   }
 
   override fun showCarrierBilling(

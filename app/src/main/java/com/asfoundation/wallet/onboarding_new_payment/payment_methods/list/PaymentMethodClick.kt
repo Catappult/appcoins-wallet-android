@@ -9,6 +9,7 @@ sealed class PaymentMethodClick {
   object CarrierBillingClick : PaymentMethodClick()
   object ShareLinkPaymentClick : PaymentMethodClick()
   object VkPayPaymentClick : PaymentMethodClick()
+  object GooglePayClick : PaymentMethodClick()
 
   object OtherPaymentMethods : PaymentMethodClick()
 }

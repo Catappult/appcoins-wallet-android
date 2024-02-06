@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressServi
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.asfoundation.wallet.billing.googlepay.usecases.FilterValidGooglePayUseCase
 import com.asfoundation.wallet.onboarding.CachedTransaction
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class GetFirstPaymentMethodsUseCase @Inject constructor(
   private val bdsRepository: BdsRepository,
   private val partnerAddressService: PartnerAddressService,
+  private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
 ) {
 
   companion object {
@@ -45,6 +47,7 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(
                   .toList()
               }
           }
+          .map { filterValidGooglePayUseCase(it) }
       }
   }
 

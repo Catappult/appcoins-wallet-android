@@ -19,7 +19,7 @@ fun openGame(gamePackage: String?, actionUrl: String?, context: Context) {
   }
 }
 
-fun isPackageGameInstalled(packageName: String?, packageManager: PackageManager): Boolean {
+fun isPackageInstalled(packageName: String?, packageManager: PackageManager): Boolean {
   if (packageName == null) {
     return false
   }

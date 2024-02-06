@@ -10,6 +10,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyC
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
+import com.asfoundation.wallet.billing.googlepay.usecases.FilterValidGooglePayUseCase
 import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -32,8 +33,8 @@ class TopUpInteractor @Inject constructor(
   private var walletBlockedInteract: WalletBlockedInteract,
   private var inAppPurchaseInteractor: InAppPurchaseInteractor,
   private var supportInteractor: SupportInteractor,
-  private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
   private val partnerAddressService: PartnerAddressService
 ) {
 
@@ -55,6 +56,7 @@ class TopUpInteractor @Inject constructor(
         entityOemId = attributionEntity.oemId
       )
         .map { mapPaymentMethods(it, currency) }
+        .map { filterValidGooglePayUseCase(it) }
     }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()

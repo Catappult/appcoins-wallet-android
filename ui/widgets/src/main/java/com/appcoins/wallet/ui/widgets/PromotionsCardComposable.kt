@@ -296,7 +296,7 @@ fun IconWithText(text: String) {
 @Composable
 fun GetText(action: () -> Unit, packageName: String?) {
   val hasGameInstall =
-    isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
+    isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   val text =
     if (hasGameInstall) stringResource(id = R.string.play_button)
     else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button)
@@ -384,7 +384,7 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
       )
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
-    Column( modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Spacer(
           modifier = Modifier
@@ -416,7 +416,10 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
           )
         }
       }
-      Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 16.dp, end = 16.dp)) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 16.dp, end = 16.dp)
+      ) {
         Spacer(
           modifier = Modifier
             .padding(top = 8.dp)

@@ -23,6 +23,7 @@ class PaymentMethodsMapper @Inject constructor(
       "sandbox" -> SelectedPaymentMethod.SANDBOX
       "challenge_reward" -> SelectedPaymentMethod.CHALLENGE_REWARD
       "vk_pay" -> SelectedPaymentMethod.VKPAY
+      "googlepay" -> SelectedPaymentMethod.GOOGLEPAY_WEB
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
@@ -43,6 +44,7 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.SANDBOX -> "sandbox"
       SelectedPaymentMethod.CHALLENGE_REWARD -> "challenge_reward"
       SelectedPaymentMethod.VKPAY -> "vk_pay"
+      SelectedPaymentMethod.GOOGLEPAY_WEB -> "googlepay"
       SelectedPaymentMethod.ERROR -> ""
     }
   }
