@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
   <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-Skills 게임을 플레이하실 수 없습니다.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">이 게임을 최신 버전으로 업데이트해야 합니다!</string>
+  <string name="error_game_not_supported_body">이 게임은 현재 사용할 수 없습니다.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">상대의 게임 종료를 기다리는 중입니다.</string>
   <plurals name="opponent_points_title">
