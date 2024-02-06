@@ -95,7 +95,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   @Composable
   fun BottomNavigationHome() {
     val connectionObserver = networkMonitor.isConnected.collectAsState(true).value
-    BoxWithConstraints(contentAlignment = Alignment.BottomStart) {
+    BoxWithConstraints(contentAlignment = Alignment.BottomEnd) {
       if (expanded()) {
         ConnectionAlert(isConnected = connectionObserver)
         Card(
