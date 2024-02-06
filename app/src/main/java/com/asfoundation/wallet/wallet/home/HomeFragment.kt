@@ -110,7 +110,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       checkRoot()
       Intercom.client().handlePushMessage()
     } else {
-      requireActivity().finish()
+      viewModel.showSupportScreen(true)
     }
     viewModel.fetchPromotions()
   }

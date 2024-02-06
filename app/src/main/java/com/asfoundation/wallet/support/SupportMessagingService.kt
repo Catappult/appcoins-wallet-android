@@ -62,7 +62,7 @@ class SupportMessagingService : FirebaseMessagingService() {
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
-    val intent = com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.newIntent(context)
+    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
     return PendingIntent.getActivity(
       context,
