@@ -137,4 +137,22 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       )
     )
   }
+
+  fun navigateToTrustly(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
+        transactionBuilder,
+        PaymentType.TRUSTLY,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
 }

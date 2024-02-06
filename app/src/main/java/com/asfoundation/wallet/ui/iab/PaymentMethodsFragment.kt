@@ -628,6 +628,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showTrustly(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.TRUSTLY,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showGooglePayWeb(
     gamificationLevel: Int,
     fiatValue: FiatValue,

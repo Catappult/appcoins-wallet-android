@@ -36,6 +36,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.S
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.TRUSTLY
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -207,6 +208,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              TRUSTLY -> view.showTrustly(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               else -> return@doOnNext
             }
           }
@@ -339,6 +346,12 @@ class PaymentMethodsPresenter(
         paymentMethodsData.subscription
       )
       GOOGLEPAY_WEB -> view.showGooglePayWeb(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+      TRUSTLY -> view.showTrustly(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,

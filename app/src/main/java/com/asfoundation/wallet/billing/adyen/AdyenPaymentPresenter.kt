@@ -191,10 +191,13 @@ class AdyenPaymentPresenter(
               handleBuyClick(it.priceAmount, it.priceCurrency)
               paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             }
-
             PaymentType.PAYPAL.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
+            PaymentType.TRUSTLY.name -> {
+              launchTrustly(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+            }
+
           }
         }
       }
@@ -254,6 +257,44 @@ class AdyenPaymentPresenter(
       paymentAnalytics.startTimingForPurchaseEvent()
       handleAdyenAction(paymentModel)
     }
+  }
+
+  private fun launchTrustly(
+    paymentMethodInfo: ModelObject,
+    priceAmount: BigDecimal,
+    priceCurrency: String
+  ) {
+    disposables.add(
+      adyenPaymentInteractor.makePayment(
+        adyenPaymentMethod = paymentMethodInfo,
+        shouldStoreMethod = false,
+        hasCvc = false,
+        supportedShopperInteraction = emptyList(),
+        returnUrl = returnUrl,
+        value = priceAmount.toString(),
+        currency = priceCurrency,
+        reference = transactionBuilder.orderReference,
+        paymentType = mapPaymentToService(paymentType).transactionType,
+        origin = origin,
+        packageName = transactionBuilder.domain,
+        metadata = transactionBuilder.payload,
+        sku = transactionBuilder.skuId,
+        callbackUrl = transactionBuilder.callbackUrl,
+        transactionType = transactionBuilder.type,
+        referrerUrl = transactionBuilder.referrerUrl
+      )
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .filter { !waitingResult }
+        .doOnSuccess {
+          view.hideLoadingAndShowView()
+          handlePaymentModel(it)
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        })
+    )
   }
 
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
@@ -736,20 +777,19 @@ class AdyenPaymentPresenter(
   }
 
   private fun mapPaymentToAnalytics(paymentType: String): String =
-    if (paymentType == PaymentType.CARD.name) {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-    } else {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+    when (paymentType) {
+      PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentType.TRUSTLY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_TRUSTLY
+      else -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
     when (paymentType) {
-      PaymentType.CARD.name -> {
-        AdyenPaymentRepository.Methods.CREDIT_CARD
-      }
-      else -> {
-        AdyenPaymentRepository.Methods.PAYPAL
-      }
+      PaymentType.CARD.name -> AdyenPaymentRepository.Methods.CREDIT_CARD
+      PaymentType.PAYPAL.name -> AdyenPaymentRepository.Methods.PAYPAL
+      PaymentType.TRUSTLY.name -> AdyenPaymentRepository.Methods.TRUSTLY
+      else -> AdyenPaymentRepository.Methods.PAYPAL
     }
 
   private fun createBundle(
@@ -771,16 +811,22 @@ class AdyenPaymentPresenter(
 
   private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
     val bundle = purchaseBundleModel.bundle
-    if (paymentType == PaymentType.CARD.name) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
-      )
-    } else if (paymentType == PaymentType.PAYPAL.name) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.PAYPAL.id
-      )
+    when (paymentType) {
+      PaymentType.CARD.name ->
+        bundle.putString(
+          InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
+        )
+      PaymentType.PAYPAL.name ->
+        bundle.putString(
+          InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+          PaymentMethodsView.PaymentMethodId.PAYPAL.id
+        )
+      PaymentType.TRUSTLY.name ->
+        bundle.putString(
+          InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+          PaymentMethodsView.PaymentMethodId.TRUSTLY.id
+        )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }
@@ -923,8 +969,9 @@ class AdyenPaymentPresenter(
 
   private fun stopTimingForPurchaseEvent(success: Boolean) {
     val paymentMethod = when (paymentType) {
-      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentType.TRUSTLY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_TRUSTLY
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)

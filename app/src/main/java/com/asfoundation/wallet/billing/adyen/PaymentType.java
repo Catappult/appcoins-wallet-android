@@ -13,7 +13,8 @@ public enum PaymentType {
   LOCAL_PAYMENTS(Collections.singletonList("localPayments")),
   CARRIER_BILLING(Collections.singletonList("carrier_billing")),
   SANDBOX(Collections.singletonList("sandbox")),
-  GOOGLEPAY_WEB(Collections.singletonList("googlepay"));
+  GOOGLEPAY_WEB(Collections.singletonList("googlepay")),
+  TRUSTLY(Collections.singletonList("trustly"));
 
   private final List<String> subTypes;
 
