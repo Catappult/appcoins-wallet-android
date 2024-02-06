@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/styleguide_payments_background"
     app:cardCornerRadius="@dimen/card_view_corner_radius"
+    android:minHeight="240dp"
     >
 
   <include
