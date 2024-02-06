@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Местные способы оплаты не принимаются для оплаты вступительного взноса. Пожалуйста, создайте новый кошелек и пополните его с помощью банковской карты или PayPal!</string>
   <string name="rooted_device_blocked_body">К сожалению, вы не можете играть в игры e-Skills на устройстве с правами суперпользователя.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Вам необходимо обновить эту игру до последней версии!</string>
+  <string name="error_game_not_supported_body">Кажется, эта игра в данный момент недоступна.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Ожидание пока ваши противники закончат игру.</string>
   <plurals name="opponent_points_title">
