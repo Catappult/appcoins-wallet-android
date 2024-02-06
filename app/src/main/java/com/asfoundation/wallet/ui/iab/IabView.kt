@@ -182,9 +182,13 @@ interface IabView {
 
   fun showError(@StringRes error: Int)
 
+  fun showNoNetworkError()
+
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun errorTryAgain(): Observable<Any>
 
   fun launchPerkBonusAndGamificationService(address: String)
 
@@ -199,6 +203,8 @@ interface IabView {
   fun authenticationResult(success: Boolean)
 
   fun showTopupFlow()
+
+  fun handleConnectionObserver()
 
   var webViewResultCode: String?
 }

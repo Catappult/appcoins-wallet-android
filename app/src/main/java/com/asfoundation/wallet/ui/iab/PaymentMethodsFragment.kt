@@ -410,6 +410,15 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.errorMessage.genericErrorLayout.errorMessage.setText(message)
   }
 
+  override fun showNoNetworkError() {
+    binding.paymentMethodMainView.visibility = View.GONE
+    binding.errorMessage.root.visibility = View.VISIBLE
+    binding.errorMessage.genericErrorLayout.root.visibility = View.GONE
+    binding.errorMessage.noNetworkErrorLayout.root.visibility = View.VISIBLE
+    binding.errorMessage.errorDismiss.visibility = View.GONE
+    binding.errorMessage.retryButton.visibility = View.VISIBLE
+  }
+
   override fun showItemAlreadyOwnedError() {
     binding.paymentMethodMainView.visibility = View.GONE
     iabView.disableBack()
@@ -490,6 +499,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun errorDismisses(): Observable<Any> =
     RxView.clicks(binding.errorMessage.errorDismiss).map { itemAlreadyOwnedError }
+
+  override fun errorTryAgain(): Observable<Any> =
+    RxView.clicks(binding.errorMessage.retryButton).map { itemAlreadyOwnedError }
 
   override fun getSupportLogoClicks() =
     RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportLogo)

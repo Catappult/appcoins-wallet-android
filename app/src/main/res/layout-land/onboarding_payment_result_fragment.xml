@@ -51,6 +51,18 @@
           tools:visibility="visible"
           />
 
+      <include
+          android:id="@+id/no_network_error_layout"
+          layout="@layout/no_network_retry_only_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="32dp"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/generic_error_button"
           android:layout_width="0dp"

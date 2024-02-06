@@ -32,16 +32,16 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
 import com.appcoins.wallet.ui.widgets.SeparatorView
 import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
 import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asf.wallet.databinding.AdyenCreditCardPreSelectedBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -250,6 +250,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val bonus_layout: ConstraintLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
   private val adyen_card_form: ConstraintLayout? get() = bindingCreditCardLayout?.adyenCardForm?.root
   private val fragment_adyen_error: ConstraintLayout? get() = bindingCreditCardLayout?.fragmentAdyenError?.root
+  private val fragment_adyen_no_network_error: ConstraintLayout? get() = bindingCreditCardLayout?.noNetworkErrorLayout?.root
   private val error_buttons: LinearLayout? get() = bindingCreditCardLayout?.errorButtons?.root
 
   // adyen_credit_card_pre_selected.xml
@@ -266,6 +267,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val bonus_layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
   private val layout_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.layoutPreSelected?.root
   private val fragment_adyen_error_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
+  private val fragment_adyen_no_network_error_pre_selected: ConstraintLayout? get() = bindingCreditCardPreSelected?.noNetworkErrorLayout?.root
   private val dialog_buy_buttons_error: LinearLayout? get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.root
   private val img_stored_card_brand: ImageView?
     get() = bindingCreditCardPreSelected?.adyenSavedCard?.imgCardBrand
@@ -502,7 +504,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun showNetworkError() = showSpecificError(R.string.notification_no_network_poa)
+  override fun showNetworkError() = showNoNetworkError()
 
   override fun backEvent(): Observable<Any> =
     RxView.clicks(cancel_button).mergeWith(iabView.backButtonPress())
@@ -574,6 +576,36 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     error_message.text = message
     fragment_adyen_error?.visibility = VISIBLE
     fragment_adyen_error_pre_selected?.visibility = VISIBLE
+  }
+
+  override fun showNoNetworkError(backToCard: Boolean) {
+    fragment_credit_card_authorization_progress_bar.visibility = GONE
+    making_purchase_text.visibility = GONE
+    cancel_button.visibility = GONE
+    buy_button.visibility = GONE
+    payment_methods?.visibility = VISIBLE
+    bonus_layout_pre_selected?.visibility = GONE
+    bonus_layout?.visibility = GONE
+    more_payment_methods?.visibility = GONE
+    more_payment_stored_methods?.visibility = GONE
+    layout_adyen_stored_card?.visibility = GONE
+    adyen_card_form?.visibility = GONE
+    layout_pre_selected?.visibility = GONE
+    change_card_button?.visibility = GONE
+    change_card_button_pre_selected?.visibility = GONE
+    bottom_separator?.visibility = GONE
+
+    error_buttons?.visibility = VISIBLE
+    dialog_buy_buttons_error?.visibility = VISIBLE
+
+    error_back.visibility = if (backToCard) VISIBLE else GONE
+    error_try_again.visibility = if (backToCard) GONE else VISIBLE
+
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
+
+    fragment_adyen_no_network_error?.visibility = VISIBLE
+    fragment_adyen_no_network_error_pre_selected?.visibility = VISIBLE
   }
 
   override fun showVerificationError(isWalletVerified: Boolean) {

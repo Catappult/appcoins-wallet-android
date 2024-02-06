@@ -12,9 +12,16 @@ import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
+import com.appcoins.wallet.core.analytics.analytics.TaskTimer
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.utils.android_common.InternetManagerNetworkMonitor
+import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
+import com.appcoins.wallet.core.utils.properties.MiscProperties
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
 import com.aptoide.apk.injector.extractor.data.ExtractorV2
@@ -23,10 +30,7 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.jvm_common.C
-import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.repository.Web3jProvider
@@ -37,8 +41,6 @@ import com.asfoundation.wallet.ui.iab.ImageSaver
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
-import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -260,5 +262,11 @@ internal class AppModule {
     val headerJson = JsonObject()
     headerJson.addProperty("typ", "EWT")
     return EwtAuthenticatorService(walletService, headerJson.toString())
+  }
+
+  @Singleton
+  @Provides
+  fun providesNetworkMonitorManager(@ApplicationContext context: Context): NetworkMonitor {
+    return InternetManagerNetworkMonitor(context)
   }
 }

@@ -37,6 +37,17 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_card_blue"
         >
+      <include
+          android:id="@+id/no_network_error_layout"
+          layout="@layout/no_network_retry_only_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/generic_error_button"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
 
       <include
           android:id="@+id/generic_error_layout"

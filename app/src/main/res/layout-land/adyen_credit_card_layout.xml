@@ -280,6 +280,18 @@
         />
 
     <include
+        android:id="@+id/no_network_error_layout"
+        layout="@layout/no_network_base_layout_light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <include
         android:id="@+id/error_buttons"
         layout="@layout/dialog_buy_buttons_adyen_error"
         android:layout_width="match_parent"
