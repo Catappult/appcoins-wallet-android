@@ -13,31 +13,46 @@ interface BillingRepository {
 
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
 
-  fun getSkuDetails(packageName: String, skus: List<String>,
-                    type: BillingSupportedType): Single<List<Product>>
+  fun getSkuDetails(
+    packageName: String, skus: List<String>,
+    type: BillingSupportedType
+  ): Single<List<Product>>
 
-  fun getSkuPurchase(packageName: String, skuId: String?, purchaseUid: String?,
-                     walletAddress: String, walletSignature: String,
-                     type: BillingSupportedType): Single<Purchase>
+  fun getSkuPurchase(
+    packageName: String, skuId: String?, purchaseUid: String?,
+    walletAddress: String, walletSignature: String,
+    type: BillingSupportedType
+  ): Single<Purchase>
 
-  fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
-                        walletSignature: String, type: BillingSupportedType): Single<Transaction>
+  fun getSkuTransaction(
+    packageName: String, skuId: String?, walletAddress: String,
+    walletSignature: String, type: BillingSupportedType
+  ): Single<Transaction>
 
-  fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
-                   type: BillingSupportedType): Single<List<Purchase>>
+  fun getPurchases(
+    packageName: String, walletAddress: String, walletSignature: String,
+    type: BillingSupportedType
+  ): Single<List<Purchase>>
 
-  fun consumePurchases(packageName: String, purchaseToken: String, type: BillingSupportedType?): Single<Boolean>
+  fun consumePurchases(
+    packageName: String,
+    purchaseToken: String,
+    type: BillingSupportedType?
+  ): Single<Boolean>
 
-  fun getSubscriptionToken(packageName: String, skuId: String, walletAddress: String,
-                           walletSignature: String): Single<String>
+  fun getSubscriptionToken(
+    packageName: String, skuId: String, walletAddress: String,
+    walletSignature: String
+  ): Single<String>
 
-  fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
-                                 walletSignature: String, productName: String?, packageName: String,
-                                 priceValue: BigDecimal, developerWallet: String,
-                                 entityOemId: String?, entityDomainId: String?,
-                                 origin: String, type: String, developerPayload: String?,
-                                 callback: String?, orderReference: String?,
-                                 referrerUrl: String?
+  fun registerAuthorizationProof(
+    id: String, paymentType: String, walletAddress: String,
+    walletSignature: String, productName: String?, packageName: String,
+    priceValue: BigDecimal,
+    entityOemId: String?, entityDomainId: String?,
+    origin: String, type: String, developerPayload: String?,
+    callback: String?, orderReference: String?,
+    referrerUrl: String?
   ): Single<Transaction>
 
   fun registerPaymentProof(
@@ -61,5 +76,4 @@ interface BillingRepository {
     signedContent: String
   ): Single<Transaction>
 
-  fun getWallet(packageName: String): Single<String>
 }

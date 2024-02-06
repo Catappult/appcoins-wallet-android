@@ -12,7 +12,6 @@ data class VkPayPaymentRequest(
   @SerializedName("reference") val reference: String?,
   @SerializedName("type") val type: String?,
   @SerializedName("price") val price: VkPrice,
-  @SerializedName("wallets.developer") val developer: String?,
   @SerializedName("entity.oemid") val entityOemId: String?,
   @SerializedName("entity.domain") val entityDomain: String?,
   @SerializedName("entity.promo_code") val entityPromoCode: String?,

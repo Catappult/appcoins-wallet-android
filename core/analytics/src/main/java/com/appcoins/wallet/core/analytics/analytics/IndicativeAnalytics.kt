@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import com.appcoins.wallet.core.analytics.BuildConfig
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import org.json.JSONObject
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 @BoundTo(supertype = AnalyticsSetup::class)
 @Singleton
 class IndicativeAnalytics @Inject constructor(
-  @ApplicationContext private val context: Context
+  @ApplicationContext private val context: Context,
 ) : AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
@@ -23,6 +24,8 @@ class IndicativeAnalytics @Inject constructor(
     const val ORIENTATION_PORTRAIT = "portrait"
     const val ORIENTATION_LANDSCAPE = "landscape"
     const val ORIENTATION_OTHER = "other"
+    const val FIRST_PAYMENT = "first_payment"
+    const val REGULAR_PAYMENT = "regular"
   }
 
   override fun setUserId(walletAddress: String) {
@@ -45,7 +48,6 @@ class IndicativeAnalytics @Inject constructor(
     promoCode.put("appName", appName)
     superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
   }
-
 
   fun setIndicativeSuperProperties(
     installerPackage: String,
@@ -83,9 +85,7 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
 
-
     if (userId.isNotEmpty()) this.usrId = userId
-
 
   }
 

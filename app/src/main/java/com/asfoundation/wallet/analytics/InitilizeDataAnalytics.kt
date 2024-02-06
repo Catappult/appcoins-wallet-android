@@ -2,19 +2,17 @@ package com.asfoundation.wallet.analytics
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Configuration
-
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.DeviceInformation
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.SentryReceiver
-import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
-import com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.indicative.client.android.Indicative
@@ -33,7 +31,7 @@ class InitilizeDataAnalytics @Inject constructor(
     private val promotionsRepository: PromotionsRepository,
     private val indicativeAnalytics: IndicativeAnalytics,
     private val partnerAddressService: PartnerAddressService,
-    private val promoCodeLocalDataSource: com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
+    private val promoCodeLocalDataSource: PromoCodeLocalDataSource
 ) {
 
     fun initializeSentry(): Completable {
@@ -79,15 +77,15 @@ class InitilizeDataAnalytics @Inject constructor(
                     Single.just(idsRepository.getDeviceInfo()),
                     partnerAddressService.getOrSetOemIDFromGamesHub()
                 )
-                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode, deviceInfo: DeviceInformation, ghOemid: String ->
+                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode, deviceInfo: DeviceInformation, ghOemid: String ->
                     IndicativeInitializeWrapper(
-                        installerPackage,
-                        level,
-                        hasGms,
-                        walletAddress,
-                        promoCode,
-                        deviceInfo,
-                        ghOemid
+                        installerPackage = installerPackage,
+                        level = level,
+                        hasGms = hasGms,
+                        walletAddress = walletAddress,
+                        promoCode = promoCode,
+                        deviceInfo = deviceInfo,
+                        ghOemId = ghOemid,
                     )
                 }
                     .flatMap {
@@ -97,17 +95,17 @@ class InitilizeDataAnalytics @Inject constructor(
                         )
                             .doOnSuccess { walletOrigin ->
                                     indicativeAnalytics.setIndicativeSuperProperties(
-                                        it.installerPackage,
-                                        it.level,
-                                        it.walletAddress,
-                                        it.hasGms,
-                                        walletOrigin.name,
-                                        it.deviceInfo.osVersion,
-                                        it.deviceInfo.brand,
-                                        it.deviceInfo.model,
-                                        it.deviceInfo.language,
-                                        it.deviceInfo.isProbablyEmulator,
-                                        it.ghOemId
+                                        installerPackage = it.installerPackage,
+                                        userLevel = it.level,
+                                        userId = it.walletAddress,
+                                        hasGms = it.hasGms,
+                                        walletOrigin = walletOrigin.name,
+                                        osVersion = it.deviceInfo.osVersion,
+                                        brand = it.deviceInfo.brand,
+                                        model = it.deviceInfo.model,
+                                        language = it.deviceInfo.language,
+                                        isEmulator = it.deviceInfo.isProbablyEmulator,
+                                        ghOemId = it.ghOemId
                                         )
                             }
                     }

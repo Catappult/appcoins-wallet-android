@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
@@ -103,6 +104,9 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
     private fun clickListeners() {
         binding.errorView.errorDismiss.setOnClickListener {
             viewModel.handleBackButton()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            navigator.navigateBack()
         }
     }
 

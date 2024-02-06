@@ -28,7 +28,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.C
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.EARN_APPC
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GIROPAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
@@ -166,12 +165,6 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
               PAYPAL_V2 -> view.showPaypalV2(
-                cachedGamificationLevel,
-                cachedFiatValue!!,
-                paymentMethodsData.frequency,
-                paymentMethodsData.subscription
-              )
-              GIROPAY -> view.showGiroPay(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
@@ -1143,7 +1136,6 @@ class PaymentMethodsPresenter(
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-      PaymentMethodId.GIROPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC

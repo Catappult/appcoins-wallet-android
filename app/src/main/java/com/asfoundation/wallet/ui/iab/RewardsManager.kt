@@ -21,14 +21,14 @@ class RewardsManager @Inject constructor(
 ) {
 
   fun pay(
-    sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
+    sku: String?, amount: BigDecimal, packageName: String,
     origin: String?, type: String, payload: String?, callbackUrl: String?,
     orderReference: String?, referrerUrl: String?, productToken: String?
   ): Completable {
     return partnerAddressService.getAttribution(packageName)
       .flatMapCompletable { attrEntity ->
         appcoinsRewards.pay(
-          amount, origin, sku, type, developerAddress, attrEntity.oemId, attrEntity.domain,
+          amount, origin, sku, type, attrEntity.oemId, attrEntity.domain,
           packageName, payload, callbackUrl, orderReference, referrerUrl, productToken
         )
       }

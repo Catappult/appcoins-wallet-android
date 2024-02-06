@@ -8,7 +8,6 @@ public enum PaymentType {
   CARD(Arrays.asList("visa", "mastercard", "card", "credit_card")),
   PAYPAL(Collections.singletonList("paypal")),
   PAYPALV2(Collections.singletonList("paypal_v2")),
-  GIROPAY(Collections.singletonList("giropay")),
   CHALLENGE_REWARD(Collections.singletonList("challenge_reward")),
   VKPAY(Collections.singletonList("vk_pay")),
   LOCAL_PAYMENTS(Collections.singletonList("localPayments")),

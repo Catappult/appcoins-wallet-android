@@ -17,9 +17,6 @@ class BdsBilling(
   private val errorMapper: BillingThrowableCodeMapper,
   private val partnerAddressService: PartnerAddressService,
 ) : Billing {
-  override fun getWallet(packageName: String): Single<String> {
-    return repository.getWallet(packageName)
-  }
 
   override fun isInAppSupported(merchantName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP)
@@ -114,7 +111,7 @@ class BdsBilling(
   ): Single<List<PaymentMethodEntity>> {
     return partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
       walletService.getWalletAddress()
-        .flatMap {address ->
+        .flatMap { address ->
           repository.getPaymentMethods(
             value,
             currency,

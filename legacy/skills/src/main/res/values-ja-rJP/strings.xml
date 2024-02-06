@@ -62,8 +62,8 @@
   <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
   <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">このゲームを最新バージョンにアップデートする必要があります</string>
+  <string name="error_game_not_supported_body">このゲームは現在ご利用できないようです</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">対戦相手のゲーム終了を待っています</string>
   <plurals name="opponent_points_title">

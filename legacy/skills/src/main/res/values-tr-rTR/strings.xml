@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
   <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Bu oyunu en son sürüme güncellemen gerekiyor!</string>
+  <string name="error_game_not_supported_body">Görünüşe göre bu oyun şu anda mevcut değil.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Rakiplerin oyunu bitirmesi bekleniyor.</string>
   <plurals name="opponent_points_title">

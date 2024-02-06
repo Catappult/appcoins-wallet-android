@@ -4,7 +4,6 @@ import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -29,14 +28,12 @@ class BdsBillingModule {
     inappApi: InappBillingApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
-    bdsApi: BdsApiSecondary,
     ewtObtainer: EwtAuthenticatorService,
     rxSchedulers: RxSchedulers
   ): BillingPaymentProofSubmission =
     BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
       .setInappApi(inappApi)
-      .setBdsApiSecondary(bdsApi)
       .setWalletService(walletService)
       .setSubscriptionBillingService(subscriptionBillingApi)
       .setEwtObtainer(ewtObtainer)
@@ -59,7 +56,6 @@ class BdsBillingModule {
     subscriptionBillingApi: SubscriptionBillingApi,
     brokerBdsApi: BrokerBdsApi,
     inappApi: InappBillingApi,
-    api: BdsApiSecondary,
     ewtObtainer: EwtAuthenticatorService,
     rxSchedulers: RxSchedulers
   ): RemoteRepository =
@@ -67,7 +63,6 @@ class BdsBillingModule {
       brokerBdsApi,
       inappApi,
       BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-      api,
       subscriptionBillingApi,
       ewtObtainer,
       rxSchedulers

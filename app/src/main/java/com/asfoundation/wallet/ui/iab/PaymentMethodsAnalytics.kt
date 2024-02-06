@@ -28,7 +28,6 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_SELECTION = "selection"
     const val PAYMENT_METHOD_CC = "credit_card"
     const val PAYMENT_METHOD_PP = "paypal"
-    const val PAYMENT_METHOD_GIROPAY = "giro_pay"
     const val PAYMENT_METHOD_PP_V2 = "paypal_v2"
     const val PAYMENT_METHOD_VKPAY = "vk_pay"
     const val PAYMENT_METHOD_APPC = "appc_c"

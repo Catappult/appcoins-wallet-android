@@ -30,7 +30,6 @@ class CreateVkPayTransactionTopUpUseCase @Inject constructor(
           sku = null,
           callbackUrl = null,
           transactionType = TOP_UP_TRANSACTION_TYPE,
-          developerWallet = null,
           entityOemId = null,
           entityDomain = null,
           entityPromoCode = null,

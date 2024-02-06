@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">返回游戏</string>
   <string name="other_payment_methos_title">其他支付方式：</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">您已经有</string>
+  <string name="intro_from_web_payment_to_spend_body">可在您最爱的游戏上消费。</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">必须大于零</string>
   <string name="p2p_send_confirmation_header">转账详情</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">哎呀</string>
   <string name="error_general">出现错误</string>
   <string name="error_missing_field">必填字段</string>
   <string name="cancel_button">取消</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">发现</string>
   <string name="retry_button">重试</string>
   <string name="do_it_later_button"> 稍后重试</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">无网络连接</string>
   <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <string name="common_or">或</string>
   <string name="share_via">分享方式：</string>
@@ -518,9 +518,12 @@
   <string name="done">完成！</string>
   <string name="see_more_button">查看更多</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">结束倒计时</string>
   <string name="start_date_title">开始日期：</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">结束日期：</string>
+  <string name="send_button">发送</string>
+  <string name="resend_button">重新发送</string>
+  <string name="continue_button">继续</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">已验证钱包</string>
   <string name="verification_settings_verifying_title">验证中……</string>
   <string name="verification_verified_paypal_description">退款马上到账。您的支付方式即将进行验证。</string>
-  <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
+  <string name="verification_verify_paypal_description">我们将进行%s的交易以确认您的账户。我们会立即退款。</string>
   <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
   <string name="verification_settings_no_internet">你需要连接到互联网</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">已验证</string>
   <string name="unferified_tag">钱包未验证</string>
   <string name="verification_wallets_verify_button">验证</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">还剩最后一步啦！</string>
+  <string name="paypal_verification_home_one_step_card_body">请输入发送至您的电子邮箱的验证码来验证您的PayPal账户。</string>
+  <string name="paypal_verification_header">PayPal 验证</string>
+  <string name="paypal_verification_insert_code_body">请在下方输入4位数验证码（我们已将其发送至与您的PayPal账户相关联的电子邮箱）。</string>
+  <string name="paypal_verification_didnt_receive_title">仍未收到？</string>
+  <string name="paypal_verification_completed_body">您将很快收到退款，并且您的PayPal账户将很快完成验证。</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">总计 %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
@@ -645,15 +655,15 @@
   <string name="error_blocked_wallet_body">出于安全原因，您的钱包已被冻结。请联系我们了解更多详细信息。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
   <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">您的 Google Pay 出现了问题。请重试或使用其他支付方式。</string>
   <string name="purchase_success_bonus_received_title">%s 奖金已收到。</string>
   <string name="purchase_making_purchase_title">购买中&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">费用：%1$s%2$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">该付款方式不支持您所使用的货币，因此会收取一笔手续费。您可以在页面最上方的区域看到包含这笔费用的总支付金额。</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">若选择此种支付方式，则会在购买过程中收取一定的手续费。这笔费用会包含在您可以在顶部区域看到的总数中。</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">若选择此种支付方式，则会在购买过程中收取一定的手续费。</string>
+  <string name="purchase_fee_included_body">已包含相关费用</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -811,8 +821,8 @@
   <string name="remove_wallet_no_button">否，返回</string>
   <string name="remove_wallet_yes_button">是，删除钱包</string>
   <string name="remove_wallet_removed_body">钱包已删除！</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">您确定吗？</string>
+  <string name="remove_wallet_extra_confirmation_body">请记住，若您不进行备份，则可能会失去资金和奖金等级。</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">转账</string>
   <string name="transfer_title">转移资金</string>
@@ -1004,7 +1014,7 @@
   <string name="perks_empty_state_first_purchase_body">在AppCoins兼容应用内完成首次购买，即可解锁我们为您准备的促销！</string>
   <string name="perks_empty_body">目前没有可用的促销。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">生物识别锁</string>
   <string name="fingerprint_failed_title">身份验证失败！</string>
   <string name="fingerprint_failed_body">请在%s秒后重试。</string>
   <string name="fingerprint_authentication_required_title">需要身份验证！</string>
@@ -1181,10 +1191,10 @@
   <string name="vip_program_promotions_list_title">为你提供的特别促销</string>
   <string name="vip_program_promo_code_tag">促销代码</string>
   <string name="vip_program_referral_page_title">VIP引荐计划</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">与社区和好友分享此促销代码，让每个人都能一边游玩一边赚钱。对于他们进行的每一次应用内购买，<b>您和您的好友都将在其他有效促销的基础上额外获得%1$s%%奖金</b>！<b>该活动的有效期至%2$s</b>！</string>
+  <string name="vip_program_referral_page_body_2">当使用此促销代码后，对于7天内的所有应用内购买，您和您的朋友均会获得%s%%的奖金。</string>
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">该应用内购买促销活动仅适用于：</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>
   <string name="vip_program_gamification_title">我的奖金等级是多少？</string>
   <string name="vip_program_gamification_amount_purchases_bonus">通过您的购买获得的奖金</string>
@@ -1246,7 +1256,7 @@
   <string name="verify_card_one_more_step_body">请输入交易明细中出现的验证码</string>
   <string name="verify_card_one_more_step_button">输入代码</string>
   <string name="verify_card_verified">支付方式已通过验证！</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">验证信用卡/借记卡</string>
   <string name="verify_card_view_title">验证卡</string>
   <string name="verify_card_view_disclaimer">我们将向您的银行卡收取%s的费用，待验证码确认后，我们将立即退款给您。</string>
   <string name="verify_card_view_title_2">输入您的银行卡信息</string>

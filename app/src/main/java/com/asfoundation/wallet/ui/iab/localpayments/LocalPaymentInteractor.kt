@@ -43,8 +43,7 @@ class LocalPaymentInteractor @Inject constructor(
 
   fun getPaymentLink(
     paymentMethod: String, packageName: String, fiatAmount: String?, fiatCurrency: String?,
-    productName: String?, type: String, origin: String?,
-    walletDeveloper: String?, developerPayload: String?,
+    productName: String?, type: String, origin: String?, developerPayload: String?,
     callbackUrl: String?, orderReference: String?,
     referrerUrl: String?
   ): Single<String> {
@@ -54,12 +53,21 @@ class LocalPaymentInteractor @Inject constructor(
           .flatMap { attributionEntity ->
             getCurrentPromoCodeUseCase().flatMap { promoCode ->
               remoteRepository.createLocalPaymentTransaction(
-                paymentMethod, packageName,
-                fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
-                attributionEntity.oemId, attributionEntity.domain, promoCode.code,
-                developerPayload,
-                callbackUrl, orderReference,
-                referrerUrl, address
+                paymentId = paymentMethod,
+                packageName = packageName,
+                price = fiatAmount,
+                currency = fiatCurrency,
+                productName = productName,
+                type = type,
+                origin = origin,
+                entityOemId = attributionEntity.oemId,
+                entityDomain = attributionEntity.domain,
+                entityPromoCode = promoCode.code,
+                developerPayload = developerPayload,
+                callback = callbackUrl,
+                orderReference = orderReference,
+                referrerUrl = referrerUrl,
+                walletAddress = address
               )
             }
           }
@@ -75,10 +83,21 @@ class LocalPaymentInteractor @Inject constructor(
     return walletService.getWalletAddress()
       .flatMap { address ->
         remoteRepository.createLocalPaymentTransaction(
-          paymentMethod, packageName,
-          fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
-          null, null, null, null, null, null, null, null, null,
-          address
+          paymentId = paymentMethod,
+          packageName = packageName,
+          price = fiatAmount,
+          currency = fiatCurrency,
+          productName = productName,
+          type = TOP_UP_TRANSACTION_TYPE,
+          origin = null,
+          entityOemId = null,
+          entityDomain = null,
+          entityPromoCode = null,
+          developerPayload = null,
+          callback = null,
+          orderReference = null,
+          referrerUrl = null,
+          walletAddress = address
         )
       }
       .map { it.url }

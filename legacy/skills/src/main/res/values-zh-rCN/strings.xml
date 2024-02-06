@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
   <string name="rooted_device_blocked_body">很遗憾，您不能使用根设备游玩e-Skills游戏。</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">您需要将这款游戏升级到最新版本！</string>
+  <string name="error_game_not_supported_body">该游戏目前似乎不可用。</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">正在等待对手加入游戏。</string>
   <plurals name="opponent_points_title">

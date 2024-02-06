@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
@@ -101,6 +102,9 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         RedirectComponent.getReturnUrl(requireContext())
       )
     }
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+      navigator.navigateBack()
+    }
   }
 
   override fun onStateChanged(state: OnboardingAdyenPaymentState) {
@@ -116,9 +120,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
               prepareCardComponent(it)
             }
             PaymentType.PAYPAL -> {
-              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
-            }
-            PaymentType.GIROPAY -> {
               viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
             }
             else -> Unit

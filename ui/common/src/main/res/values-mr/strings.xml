@@ -521,6 +521,9 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">सुरु केल्याची तारीख:</string>
   <string name="end_date_title">End date:</string>
+  <string name="send_button">Send</string>
+  <string name="resend_button">Resend</string>
+  <string name="continue_button">Continue</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -569,7 +572,7 @@
   <string name="verification_settings_verified_title">वॉलेट सत्यापित झाले</string>
   <string name="verification_settings_verifying_title">सत्यापित करीत आहोत…</string>
   <string name="verification_verified_paypal_description">आपणांस लगेच परतावा मिळेल. आपली पेमेंट पद्धत थोड्याच वेळात सत्यापित केली जाईल.</string>
-  <string name="verification_verify_paypal_description">आपल्या खात्याची पुष्टी करण्यासाठी %s चा छोटासा व्यवहार केला जाईल. ते पैसे लगेच आपल्याला परत दिले जातील.</string>
+  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">आत्ताच सत्यापित करा</string>
   <string name="verification_settings_card_verified_title">कार्ड सत्यापित झाले</string>
   <string name="verification_settings_no_internet">आपण इंटरनेटशी जुडलेले हवेत</string>
@@ -578,6 +581,13 @@
   <string name="verified_tag">तपासले</string>
   <string name="unferified_tag">असत्यापित वॉलेट</string>
   <string name="verification_wallets_verify_button">सत्यापित करा</string>
+  <!--PayPal Verification-->
+  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
+  <string name="paypal_verification_header">PayPal Verification</string>
+  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
+  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">एकुण %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>

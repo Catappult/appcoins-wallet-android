@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">प्रवेश शुल्क भरण्यासाठी स्थानिक पेमेंट पद्धती अमान्य आहेत. कृपया नविन वॉलेट निर्माण करुन त्यात बँक कार्डाने वा पेपालने पैसे भरा!</string>
   <string name="rooted_device_blocked_body">दुर्दैवाने रुटेड डिव्हाईससह आपण ई-स्किल्स खेळ खेळु शकत नाहीत.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">आपणांस ह्या खेळाच्या नविनोत्तम आवृतीचे अद्यतन करावे लागेल!</string>
+  <string name="error_game_not_supported_body">हा खेळ आत्ता उपलब्ध नाहीसे दिसतेय.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">विरोधकांनी खेळ संपविण्यासाठी थांबलो आहोत.</string>
   <plurals name="opponent_points_title">

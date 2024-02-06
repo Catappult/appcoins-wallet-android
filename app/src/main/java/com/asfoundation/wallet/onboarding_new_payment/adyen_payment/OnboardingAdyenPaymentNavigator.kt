@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -18,7 +19,8 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
   Navigator {
 
   fun navigateBack() {
-    fragment.findNavController().popBackStack()
+    fragment.findNavController()
+      .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }
 
   fun navigateToWebView(url: String, webViewLauncher: ActivityResultLauncher<Intent>) {

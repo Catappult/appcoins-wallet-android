@@ -9,34 +9,30 @@ import com.asfoundation.wallet.ui.iab.Status
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AppCoinsCreditsPayment @Inject constructor(private val rewardsManager: RewardsManager,
-                             private val billing: Billing) {
-  fun pay(eskillsPaymentData: EskillsPaymentData,
-          ticket: CreatedTicket): Single<PaymentResult> {
-    return getDeveloperWalletAddress(eskillsPaymentData.packageName)
-        .flatMap { developerAddress: WalletAddress ->
-          rewardsManager.pay(
-              eskillsPaymentData.product, ticket.ticketPrice, developerAddress.address,
-              eskillsPaymentData.packageName, "BDS", "ESKILLS", null, ticket.callbackUrl,
-              ticket.ticketId, null, ticket.productToken
-          )
-              .andThen(
-                  rewardsManager.getPaymentStatus(
-                      eskillsPaymentData.packageName, eskillsPaymentData.product,
-                      ticket.ticketPrice
-                  )
-                      .skipWhile { it.status == Status.PROCESSING }
-              )
-              .firstOrError()
-              .flatMap { paymentStatus: RewardPayment ->
-                handlePaymentStatus(paymentStatus, eskillsPaymentData)
-              }
-        }
-  }
-
-  private fun getDeveloperWalletAddress(packageName: String): Single<WalletAddress> {
-    return billing.getWallet(packageName)
-        .map { WalletAddress.fromValue(it) }
+class AppCoinsCreditsPayment @Inject constructor(
+  private val rewardsManager: RewardsManager,
+  private val billing: Billing
+) {
+  fun pay(
+    eskillsPaymentData: EskillsPaymentData,
+    ticket: CreatedTicket
+  ): Single<PaymentResult> {
+    return rewardsManager.pay(
+      eskillsPaymentData.product, ticket.ticketPrice,
+      eskillsPaymentData.packageName, "BDS", "ESKILLS", null, ticket.callbackUrl,
+      ticket.ticketId, null, ticket.productToken
+    )
+      .andThen(
+        rewardsManager.getPaymentStatus(
+          eskillsPaymentData.packageName, eskillsPaymentData.product,
+          ticket.ticketPrice
+        )
+          .skipWhile { it.status == Status.PROCESSING }
+      )
+      .firstOrError()
+      .flatMap { paymentStatus: RewardPayment ->
+        handlePaymentStatus(paymentStatus, eskillsPaymentData)
+      }
   }
 
   private fun handlePaymentStatus(

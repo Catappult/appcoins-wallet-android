@@ -32,7 +32,7 @@ class CarrierBillingRepository @Inject constructor(
     walletAddress: String,
     phoneNumber: String, packageName: String, origin: String?, sku: String?,
     reference: String?, transactionType: String, currency: String,
-    value: String, developerWallet: String?, entityOemId: String?,
+    value: String, entityOemId: String?,
     entityDomain: String?, entityPromoCode: String?,
     userWallet: String?, referrerUrl: String?, developerPayload: String?,
     callbackUrl: String?
@@ -53,7 +53,6 @@ class CarrierBillingRepository @Inject constructor(
             type = transactionType,
             currency = currency,
             value = value,
-            developer = developerWallet,
             entityOemId = entityOemId,
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
