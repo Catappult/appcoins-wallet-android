@@ -10,7 +10,11 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.CANCELED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.COMPLETED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.FAILED
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.INVALID_TRANSACTION
+import com.appcoins.wallet.billing.adyen.PaymentModel.Status.PENDING_USER_PAYMENT
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -21,7 +25,11 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -182,10 +190,6 @@ class AdyenPaymentPresenter(
               view.finishCardConfiguration(it, false)
               handleBuyClick(it.priceAmount, it.priceCurrency)
               paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            }
-
-            PaymentType.GIROPAY.name -> {
-              launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
 
             PaymentType.PAYPAL.name -> {
@@ -734,8 +738,6 @@ class AdyenPaymentPresenter(
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
       PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-    } else if (paymentType == PaymentType.GIROPAY.name) {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
     } else {
       PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
@@ -745,11 +747,6 @@ class AdyenPaymentPresenter(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
-
-      PaymentType.GIROPAY.name -> {
-        AdyenPaymentRepository.Methods.GIROPAY
-      }
-
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
@@ -783,11 +780,6 @@ class AdyenPaymentPresenter(
       bundle.putString(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.PAYPAL.id
-      )
-    } else if (paymentType == PaymentType.GIROPAY.name) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.GIROPAY.id
       )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
@@ -933,7 +925,6 @@ class AdyenPaymentPresenter(
     val paymentMethod = when (paymentType) {
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-      PaymentType.GIROPAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)
