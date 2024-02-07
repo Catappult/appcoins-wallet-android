@@ -585,11 +585,11 @@
   <string name="verification_wallets_verify_button">Перевірити</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Залишився один крок!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_home_one_step_card_body">Введіть код, надісланий на вашу електронну адресу, щоб підтвердити ваш обліковий запис PayPal.</string>
+  <string name="paypal_verification_header">Верифікація PayPal</string>
+  <string name="paypal_verification_insert_code_body">Введіть нижче 4-значний код, надісланий на адресу електронної пошти, пов\'язану з вашим обліковим записом PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">Не отримали код?</string>
+  <string name="paypal_verification_completed_body">Вам буде негайно повернуто кошти, а ваш акаунт PayPal буде верифіковано найближчим часом.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Всього %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Схоже, ця покупка вже обробляється. Зачекайте, доки транзакція не буде завершена, або зв’яжіться з нашою командою підтримки.</string>
