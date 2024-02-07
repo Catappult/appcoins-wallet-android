@@ -299,7 +299,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.getAppAnalytics
                 )
               }
             )
@@ -320,7 +321,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.getAppAnalytics
                 )
               }
             )
@@ -337,7 +339,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.getAppAnalytics
                 )
               }
             )

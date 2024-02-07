@@ -171,7 +171,7 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     const val WALLET_MY_WALLETS_INTERACTION_EVENT = "wallet_my_wallets_interaction_event"
     const val CALL_TO_ACTION = "call_to_action"
     const val STATUS = "status"
-    private const val WALLET = "WALLET"
+    const val WALLET = "WALLET"
     private const val EVENT_ACTION = "action"
     private const val EVENT_CONTEXT = "context"
     private const val EVENT_STATUS = "status"

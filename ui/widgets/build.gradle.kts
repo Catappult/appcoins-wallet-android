@@ -19,6 +19,7 @@ android {
 dependencies {
   implementation(project(":ui:common"))
   implementation(project(":core:utils:android-common"))
+  implementation(project(":core:analytics"))
 
   implementation(libs.androidx.recyclerview)
   implementation(libs.androidx.navigation.ui)

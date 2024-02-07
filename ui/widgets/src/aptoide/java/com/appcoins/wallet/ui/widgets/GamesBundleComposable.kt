@@ -20,12 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  fetchFromApiCallback: () -> Unit
+  getAppAnalytics: GetAppAnalytics?,
+  fetchFromApiCallback: () -> Unit,
 ) {
   fetchFromApiCallback()
   Text(
@@ -48,7 +50,7 @@ fun GamesBundle(
       }
     } else {
       items(items) { item ->
-        CardItem(gameCardData = item)
+        CardItem(gameCardData = item, getAppAnalytics)
       }
     }
   }
@@ -57,14 +59,17 @@ fun GamesBundle(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameData
+  gameCardData: GameData,
+  getAppAnalytics: GetAppAnalytics?
 ) {
   val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, gameCardData.actionUrl, context) },
+    onClick = {
+      openGame(gameCardData.gamePackage, gameCardData.actionUrl, context, getAppAnalytics)
+    },
     modifier = Modifier
       .width(280.dp)
       .height(144.dp)
@@ -247,6 +252,7 @@ fun PreviewGamesBundle() {
         actionUrl = "www.aptoide.com",
       )
     ),
+    null,
     {}
   )
 }

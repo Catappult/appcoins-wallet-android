@@ -6,6 +6,7 @@ import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
@@ -102,7 +103,7 @@ data class HomeState(
 class HomeViewModel
 @Inject
 constructor(
-  private val analytics: HomeAnalytics,
+  val getAppAnalytics: GetAppAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
