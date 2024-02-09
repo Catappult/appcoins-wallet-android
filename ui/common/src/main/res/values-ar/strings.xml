@@ -1237,10 +1237,10 @@
   <string name="vip_program_promotions_list_title">ترقيات مميزة من أجلك</string>
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع مجتمعك وأصدقائك ومع الجميع لتكسب وأنت تلعب. في كل عملية شراء يقومون بها داخل التطبيق، كلاكما <b>أنت وصديقك ستكسبان %1$s%% مكافأة</b> إضافية مع أي رموز ترويجية أخرى. <b>صالح لغاية %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">ستحصل أنت وأصدقاؤك على %s%% مكافأة في كل عمليات الشراء عند استخدام الرمز!</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
   <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
   <string name="vip_program_gamification_amount_purchases_bonus">المكافآت التي تلقيتها من مشترياتك</string>
@@ -1322,7 +1322,7 @@
   <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>
   <string name="verify_card_one_more_step_button">أدخل الرمز</string>
   <string name="verify_card_verified">تم توثيق وسيلة الدفع!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">تأكيد بطاقة الائتمان/الدفع المسبق</string>
   <string name="verify_card_view_title">توثيق البطاقة</string>
   <string name="verify_card_view_disclaimer">سنسحب %s من بطاقتك، وستستعيدها بعد تأكيد الرمز.</string>
   <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>
