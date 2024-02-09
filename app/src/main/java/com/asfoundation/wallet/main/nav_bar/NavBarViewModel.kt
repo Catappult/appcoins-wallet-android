@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.core.utils.android_common.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
@@ -43,6 +42,7 @@ class NavBarViewModel @Inject constructor(
 ) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
 
   val clickedItem: MutableState<Int> = mutableStateOf(Destinations.HOME.ordinal)
+  val showVipWelcome: MutableState<Boolean> = mutableStateOf(false)
 
   init {
     handlePromotionUpdateNotification()

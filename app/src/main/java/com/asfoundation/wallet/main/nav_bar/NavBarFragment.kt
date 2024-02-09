@@ -5,25 +5,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -38,13 +47,16 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.NoNetworkSnackBar
+import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
@@ -89,7 +101,15 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setBottomNavListener()
     setVipCalloutClickListener()
-    views.composeView.setContent { MaterialTheme { BottomNavigationHome() } }
+    views.composeView.setContent {
+      MaterialTheme {
+        if (viewModel.showVipWelcome.value)
+          VipWelcomeScreen(onClick = {
+            viewModel.showVipWelcome.value = false
+          })
+        else BottomNavigationHome()
+      }
+    }
   }
 
   @Composable
@@ -149,6 +169,71 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   @Composable
   fun ConnectionAlert(isConnected: Boolean) {
     if (!isConnected) NoNetworkSnackBar()
+  }
+
+  @Preview
+  @Composable
+  fun VipWelcomeScreen(onClick: () -> Unit = {}) {
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .background(color = styleguide_blue),
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Image(
+        painter = painterResource(R.drawable.img_vip_onboarding),
+        contentDescription = null,
+        modifier = Modifier
+          .height(400.dp)
+          .widthIn(max = 400.dp)
+          .fillMaxWidth()
+      )
+      Image(
+        painter = painterResource(R.drawable.ic_vip_symbol),
+        contentDescription = null,
+        modifier = Modifier
+          .size(80.dp)
+          .padding(horizontal = 8.dp)
+      )
+      Text(
+        text = stringResource(R.string.vip_program_onboarding_header_1),
+        modifier = Modifier.padding(top = 32.dp),
+        style = MaterialTheme.typography.headlineLarge,
+        color = WalletColors.styleguide_light_grey,
+        fontWeight = FontWeight.Bold
+      )
+      Text(
+        text = stringResource(R.string.vip_program_onboarding_header_2),
+        modifier = Modifier.padding(vertical = 8.dp),
+        style = MaterialTheme.typography.titleLarge,
+        color = WalletColors.styleguide_vip_yellow,
+      )
+      Text(
+        text = stringResource(R.string.vip_program_onboarding_body),
+        modifier = Modifier
+          .padding(horizontal = 24.dp, vertical = 8.dp)
+          .widthIn(max = 400.dp),
+        style = MaterialTheme.typography.bodySmall,
+        color = WalletColors.styleguide_light_grey,
+        textAlign = TextAlign.Center,
+
+        )
+      Column(
+        modifier =
+        Modifier
+          .padding(top = 48.dp)
+          .padding(horizontal = 32.dp)
+          .widthIn(max = 360.dp)
+      ) {
+        ButtonWithText(
+          label = stringResource(R.string.got_it_button),
+          onClick = onClick,
+          labelColor = styleguide_blue,
+          backgroundColor = WalletColors.styleguide_vip_yellow,
+          buttonType = ButtonType.LARGE
+        )
+      }
+    }
   }
 
   @Preview

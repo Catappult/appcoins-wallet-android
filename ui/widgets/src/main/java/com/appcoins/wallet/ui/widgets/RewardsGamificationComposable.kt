@@ -75,7 +75,7 @@ fun GamificationHeader(
   ) {
     Column(
       modifier = Modifier
-        .padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
+        .padding(start = 16.dp, top = 16.dp),
       verticalArrangement = Arrangement.SpaceBetween
     ) {
       Row( // Top main content
@@ -156,74 +156,105 @@ fun GamificationHeader(
             }
           }
         }
-        Box(
-          modifier = Modifier
-            .weight(1F)
-        ) {
-          planetDrawable?.let {
-            val bitmap =
-              Bitmap.createBitmap(
-                planetDrawable.intrinsicWidth,
-                planetDrawable.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
-              )
-            val canvas = Canvas(bitmap)
-            planetDrawable.setBounds(0, 0, canvas.width, canvas.height)
-            planetDrawable.draw(canvas)
-            Image(
-              bitmap = bitmap.asImageBitmap(),
-              contentDescription = "Planet",
-              modifier = Modifier
-                .size(96.dp)
-                .align(Alignment.Center)
-                .scale(1F)
-            )
-          }
-        }
-      }
-    }
-    Row(
-      // Bottom main content
-      modifier =
-      Modifier
-        .fillMaxWidth()
-        .height(48.dp)
-        .background(styleguide_grey_blue_background)
-        .padding(horizontal = 16.dp),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically
-    ) {
-      Row() {
-        val composition by
-        rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
-        val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
-        LottieAnimation(
-          modifier = Modifier
-            .size(32.dp)
-            .align(Alignment.CenterVertically),
-          composition = composition,
-          progress = { progress })
-
-        Text(
-          text = stringResource(id = R.string.rewards_bonus_every_purchase_title, bonusValue),
-          style = MaterialTheme.typography.titleSmall,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey,
-          lineHeight = 24.sp,
-          modifier =
-          Modifier
-            .align(Alignment.CenterVertically)
-            .padding(start = 8.dp)
+        GamificationLevelIcon(
+          planetDrawable, isVip, isMaxVip,
+          modifier = Modifier.weight(1F)
         )
       }
+    }
+    GamificationBottomBar(bonusValue = bonusValue)
+  }
+}
 
-      Image(
-        painter = painterResource(R.drawable.ic_arrow_right),
-        contentDescription = null,
+@Composable
+fun GamificationBottomBar(bonusValue: String) {
+  Row(
+    // Bottom main content
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .height(48.dp)
+      .background(styleguide_grey_blue_background)
+      .padding(horizontal = 16.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Row {
+      val composition by
+      rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+      val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+      LottieAnimation(
         modifier = Modifier
-          .height(40.dp)
-          .scale(1.3F)
+          .size(32.dp)
+          .align(Alignment.CenterVertically),
+        composition = composition,
+        progress = { progress })
+
+      Text(
+        text = stringResource(id = R.string.rewards_bonus_every_purchase_title, bonusValue),
+        style = MaterialTheme.typography.titleSmall,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_light_grey,
+        lineHeight = 24.sp,
+        modifier =
+        Modifier
           .align(Alignment.CenterVertically)
+          .padding(start = 8.dp)
+      )
+    }
+
+    Image(
+      painter = painterResource(R.drawable.ic_arrow_right),
+      contentDescription = null,
+      modifier = Modifier
+        .height(40.dp)
+        .scale(1.3F)
+        .align(Alignment.CenterVertically)
+    )
+  }
+}
+
+@Composable
+fun GamificationLevelIcon(
+  planetDrawable: Drawable?,
+  isVip: Boolean,
+  isMaxVip: Boolean,
+  modifier: Modifier
+) {
+  Box(modifier = modifier, contentAlignment = Alignment.BottomCenter) {
+    val composition by
+    rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gamification_reached_vip))
+    val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+
+    if (isMaxVip || isVip) {
+      Image(
+        painter = painterResource(R.drawable.vip_background),
+        contentDescription = null,
+        modifier = Modifier.fillMaxWidth()
+      )
+      LottieAnimation(
+        modifier = Modifier
+          .width(80.dp)
+          .height(112.dp),
+        composition = composition,
+        progress = { progress })
+    } else planetDrawable?.let {
+      val bitmap =
+        Bitmap.createBitmap(
+          planetDrawable.intrinsicWidth,
+          planetDrawable.intrinsicHeight,
+          Bitmap.Config.ARGB_8888
+        )
+      val canvas = Canvas(bitmap)
+      planetDrawable.setBounds(0, 0, canvas.width, canvas.height)
+      planetDrawable.draw(canvas)
+      Image(
+        bitmap = bitmap.asImageBitmap(),
+        contentDescription = "Planet",
+        modifier = Modifier
+          .size(96.dp)
+          .align(Alignment.Center)
+          .scale(1F)
       )
     }
   }
@@ -370,22 +401,30 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
           .size(32.dp)
       )
     }
-    Row(
+    VipReferralEndCountDownTimer(
+      endDateTime = endDateTime,
       modifier = Modifier
         .padding(bottom = 8.dp)
         .fillMaxWidth()
-        .padding(horizontal = 24.dp),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically
-    ) {
-      Text(
-        text = stringResource(id = R.string.ending_in_title),
-        color = WalletColors.styleguide_light_grey,
-        fontSize = 10.sp,
-        fontWeight = FontWeight.Bold,
-      )
-      CountDownTimer(endDateTime = endDateTime)
-    }
+        .padding(horizontal = 24.dp)
+    )
+  }
+}
+
+@Composable
+fun VipReferralEndCountDownTimer(endDateTime: Long, modifier: Modifier = Modifier) {
+  Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    Text(
+      text = stringResource(id = R.string.ending_in_title),
+      color = WalletColors.styleguide_light_grey,
+      style = MaterialTheme.typography.bodySmall,
+      fontWeight = FontWeight.Bold,
+    )
+    CountDownTimer(endDateTime = endDateTime)
   }
 }
 

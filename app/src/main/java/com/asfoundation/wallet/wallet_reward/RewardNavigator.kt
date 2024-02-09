@@ -3,10 +3,10 @@ package com.asfoundation.wallet.wallet_reward
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
@@ -58,7 +58,7 @@ class RewardNavigator @Inject constructor(
     code: String,
     totalEarned: String,
     numberReferrals: String,
-    endDate: String,
+    endDate: Long,
     mainNavController: NavController
   ) {
     val bundle = Bundle()
@@ -66,7 +66,7 @@ class RewardNavigator @Inject constructor(
     bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
     bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
     bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
-    bundle.putString(PromotionsVipReferralFragment.END_DATE, endDate)
+    bundle.putLong(PromotionsVipReferralFragment.END_DATE, endDate)
     mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
   }
 
