@@ -1201,7 +1201,7 @@
   <string name="vip_program_promo_code_tag">Actiecode</string>
   <string name="vip_program_referral_page_title">VIP-verwijzingsprogramma</string>
   <string name="vip_program_referral_page_body">Deel deze actiecode met je community en vrienden zodat iedereen geld kan verdienen tijdens het spelen. Voor elke in-app aankoop die ze doen, <b>ontvangen jij en je vrienden %1$s%% bonus</b> bovenop andere lopende acties. <b>Geldig tot %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Jij en je vrienden krijgen gedurende 7 dagen een bonus van %s%% bij elke aankoop als deze code wordt gebruikt!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_only_app_title">Alleen voor aankopen in</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
