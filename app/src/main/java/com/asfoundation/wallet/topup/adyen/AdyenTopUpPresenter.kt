@@ -158,7 +158,7 @@ class AdyenTopUpPresenter(
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess {
-        view.hideLoading()
+        if (paymentType == PaymentType.CARD.name) view.hideLoading()
         if (fromError) view.hideErrorViews()
         if (it.error.hasError) {
           if (it.error.isNetworkError) view.showNetworkError()
@@ -180,6 +180,9 @@ class AdyenTopUpPresenter(
             }
             PaymentType.PAYPAL.name -> {
               launchPaypal(it.paymentMethod!!)
+            }
+            PaymentType.TRUSTLY.name -> {
+              launchTrustly(it.paymentMethod!!)
             }
           }
           loadBonusIntoView()
@@ -364,7 +367,9 @@ class AdyenTopUpPresenter(
 
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {
-      paymentModel.resultCode.equals("AUTHORISED", ignoreCase = true) -> {
+      paymentModel.resultCode.equals("AUTHORISED", ignoreCase = true) ||
+        (paymentModel.resultCode.equals("PENDING_SERVICE_AUTHORIZATION", true) &&
+          paymentType == PaymentType.TRUSTLY.name) -> {
         adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
@@ -555,6 +560,21 @@ class AdyenTopUpPresenter(
       .map(FiatValue::amount)
   }
 
+  private fun launchTrustly(paymentMethodInfo: ModelObject) {
+    disposables.add(
+      adyenPaymentInteractor.makeTopUpPayment(
+        paymentMethodInfo, false, false, emptyList(),
+        returnUrl, retrievedAmount, retrievedCurrency,
+        mapPaymentToService(paymentType).transactionType, transactionType, appPackage
+      )
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .filter { !waitingResult }
+        .doOnSuccess { handlePaymentModel(it) }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+    )
+  }
+
   private fun createBundle(
     priceAmount: String, priceCurrency: String,
     fiatCurrencySymbol: String
@@ -569,6 +589,12 @@ class AdyenTopUpPresenter(
     return when (paymentType) {
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.PAYPAL.name -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
+      PaymentType.TRUSTLY.name -> {
+        AdyenPaymentRepository.Methods.TRUSTLY
       }
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL

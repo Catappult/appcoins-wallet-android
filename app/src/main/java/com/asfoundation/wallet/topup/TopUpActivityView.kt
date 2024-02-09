@@ -53,4 +53,6 @@ interface TopUpActivityView {
   fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun navigateToTrustlyPayment(paymentType: PaymentType, data: TopUpPaymentData)
 }

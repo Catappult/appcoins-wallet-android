@@ -473,7 +473,7 @@ class TopUpFragmentPresenter(
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL -> {
+      PaymentType.CARD, PaymentType.PAYPAL, PaymentType.TRUSTLY -> {
         activity?.navigateToAdyenPayment(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)

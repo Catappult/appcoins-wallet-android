@@ -210,7 +210,9 @@ class AdyenPaymentInteractor @Inject constructor(
             )
               .toObservable()
           }
-          .filter { isEndingState(it.status) }
+          .filter {
+            isEndingState(it.status)
+          }
           .distinctUntilChanged { transaction -> transaction.status }
           .takeUntil { isEndingState(it.status) }
       }

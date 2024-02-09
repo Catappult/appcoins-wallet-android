@@ -467,11 +467,18 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun setupUi() {
     binding.creditCardInfoContainer.visibility = INVISIBLE
     binding.button.isEnabled = false
-    if (paymentType == PaymentType.CARD.name) {
-      binding.button.setText(getString(R.string.topup_home_button))
-      adyenCardView =
-        AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
-      setupCardConfiguration(hideCvcStoredCard = false)
+
+    when (paymentType) {
+      PaymentType.CARD.name -> {
+        binding.button.setText(getString(R.string.topup_home_button))
+        adyenCardView =
+          AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
+        setupCardConfiguration(hideCvcStoredCard = false)
+      }
+      PaymentType.PAYPAL.name -> { }
+      PaymentType.TRUSTLY.name -> {
+        showLoading()
+      }
     }
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()

@@ -191,9 +191,11 @@ class AdyenPaymentPresenter(
               handleBuyClick(it.priceAmount, it.priceCurrency)
               paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             }
+
             PaymentType.PAYPAL.name -> {
               launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
+
             PaymentType.TRUSTLY.name -> {
               launchTrustly(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
@@ -356,7 +358,10 @@ class AdyenPaymentPresenter(
   private fun handlePaymentResult(
     paymentModel: PaymentModel
   ): Completable = when {
-    paymentModel.resultCode.equals("AUTHORISED", true) -> {
+    paymentModel.resultCode.equals("AUTHORISED", true) ||
+        (paymentModel.resultCode.equals("PENDING_SERVICE_AUTHORIZATION", true) &&
+            paymentType == PaymentType.TRUSTLY.name)
+    -> {
       adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -817,11 +822,13 @@ class AdyenPaymentPresenter(
           InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id
         )
+
       PaymentType.PAYPAL.name ->
         bundle.putString(
           InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
           PaymentMethodsView.PaymentMethodId.PAYPAL.id
         )
+
       PaymentType.TRUSTLY.name ->
         bundle.putString(
           InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
