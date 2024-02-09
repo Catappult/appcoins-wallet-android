@@ -171,7 +171,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
     sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
   }
 
-  fun handlePaypal(paymentInfoModel: PaymentInfoModel, returnUrl: String) {
+  fun handleAdyenPayment(paymentInfoModel: PaymentInfoModel, returnUrl: String) {
     transactionOriginUseCase(args.transactionBuilder)
       .flatMap { origin ->
         events.startTimingForPurchaseEvent()
