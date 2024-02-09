@@ -1219,7 +1219,7 @@
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">При использовании этого кода вы и ваши друзья получаете бонус %s%% за все покупки в течение 7 дней!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
