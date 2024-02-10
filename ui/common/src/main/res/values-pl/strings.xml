@@ -585,11 +585,11 @@
   <string name="paypal_verification_home_one_step_card_title">Już prawie!</string>
   <string name="paypal_verification_home_one_step_card_body">Wprowadź kod otrzymany na adres email w celu weryfikacji konta PayPal.</string>
   <string name="paypal_verification_header">Weryfikacja PayPal</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_insert_code_body">Poniżej wprowadź 4-cyfrowy kod, który wysłaliśmy na Twój adres email połączony z kontem PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">Nie ma kodu?</string>
+  <string name="paypal_verification_completed_body">Od razu otrzymasz zwrot pieniędzy, a Twoje konto PayPal zostanie wkrótce zweryfikowane.</string>
   <!--Purchase Flow-->
-  <string name="purchase_total_header">Total %1$s %2$s</string>
+  <string name="purchase_total_header">W sumie %1$s%2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>
   <string name="purchase_more_payment_methods_button">INNE METODY PŁATNOŚCI</string>
   <string name="purchase_more_payment_methods_lower_case_button">Inne metody płatności</string>
@@ -655,11 +655,11 @@
   <string name="error_blocked_wallet_body">Ze względów bezpieczeństwa portfel został zablokowany. Skontaktuj się z nami, aby uzyskać więcej informacji.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Możliwe dodatkowe opłaty.</string>
   <string name="purchase_error_paypal">Wystąpił problem z płatnością PayPal. Spróbuj ponownie lub użyj innej metody płatności.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Wystąpił problem z płatnością Google Pay. Spróbuj ponownie lub użyj innej metody płatności.</string>
   <string name="purchase_success_bonus_received_title">Otrzymano %s bonusu.</string>
-  <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_making_purchase_title">Zakup w toku&#8230;</string>
+  <string name="purchase_fee_title">opłata %1$s%2$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ta metoda płatności nie obsługuje Twojej waluty, więc pobiera opłatę manipulacyjną. Ta opłata zawiera się w sumie, którą widzisz u góry.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
