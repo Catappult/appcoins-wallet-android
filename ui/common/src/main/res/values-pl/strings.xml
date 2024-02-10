@@ -825,7 +825,7 @@
   <string name="remove_wallet_yes_button">Tak, usuń portfel</string>
   <string name="remove_wallet_removed_body">Usunięto portfel!</string>
   <string name="remove_wallet_extra_confirmation_title">Na pewno?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_body">Pamiętaj, że bez kopii zapasowej stracisz fundusze i poziom bonusu.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Przelewy</string>
   <string name="transfer_title">Przelej środki</string>
@@ -1035,7 +1035,7 @@
   <string name="perks_empty_state_first_purchase_body">Dokonaj pierwszego zakupu w aplikacji z AppCoins - i odblokuj specjalne promocje!</string>
   <string name="perks_empty_body">Teraz nie ma tu żadnych promocji.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Blokada biometryczna</string>
   <string name="fingerprint_failed_title">Nie udało się!</string>
   <string name="fingerprint_failed_body">Spróbuj ponownie za %s sekund.</string>
   <string name="fingerprint_authentication_required_title">Wymagana autoryzacja!</string>
@@ -1218,10 +1218,10 @@
   <string name="vip_program_promotions_list_title">Specjalne promocje dla Ciebie</string>
   <string name="vip_program_promo_code_tag">Kod promocyjny</string>
   <string name="vip_program_referral_page_title">Program Poleceń VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body">Udostępnij ten kod promocyjny wśród swoich znajomych, by mogli zarabiać grając. Za każdy zakup w aplikacji, którego dokonają, <b>i Ty, i Twoi znajomi otrzymacie %1$s%% bonusu</b> poza wszystkimi innymi promocjami na cały miesiąc!<b>Ważne do %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Korzystając z tego kodu, Ty i Twoi znajomi otrzymujecie %s%% bonusu na wszystkie zakupy!</string>
   <string name="vip_program_referral_page_share_title">Udostępnij ten kod swoim znajomym</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Tylko na zakupy w</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s zarobił za %3$s poleceń</string>
   <string name="vip_program_gamification_title">Jaki mam bonus?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus otrzymany za zakupy</string>
@@ -1267,7 +1267,7 @@
   <string name="intro_transactions_header">Transakcje</string>
   <string name="intro_backup_card_title">Nie trać środków!</string>
   <string name="intro_backup_card_body">Zadbaj o kopię zapasową portfela i bezpieczeństwo.</string>
-  <string name="rewards_spend_to_next_level_body">Spend %1$s%2$s to reach the next level!</string>
+  <string name="rewards_spend_to_next_level_body">Wydaj %1$s%2$s, aby wejść wyżej!</string>
   <string name="rewards_current_bonus_title">%s%% bonusu przy każdym zakupie</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Wypłać swoje zarobki z e-Skills.</string>
@@ -1279,7 +1279,7 @@
   <string name="home_appcoins_compatible_games_title">Gry kompatybilne z AppCoins</string>
   <!-- Rewards Home -->
   <string name="rewards_make_first_purchase_body">Dokonaj pierwszego zakupu w grze kompatybilnej z AppCoins i odblokuj bonus przy każdym zakupie.</string>
-  <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
+  <string name="rewards_bonus_every_purchase_title">%s%% bonusu przy każdym zakupie</string>
   <!-- Refactor Manage Wallet -->
   <string name="manage_wallet_wallet_changed_title">Zmieniono portfel</string>
   <string name="manage_wallet_change_active_wallet_title">Chcesz wybrać ten portfel?</string>
@@ -1295,7 +1295,7 @@
   <string name="verify_card_one_more_step_body">Wpisz kod widoczny w szczegółach transakcji</string>
   <string name="verify_card_one_more_step_button">Wpisz kod</string>
   <string name="verify_card_verified">Zweryfikowane!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Zweryfikuj kartę kredytową/debetową</string>
   <string name="verify_card_view_title">Zweryfikuj kartę</string>
   <string name="verify_card_view_disclaimer">Obciążymy twoją kartę %s i zwrócimy tę kwotę, jak tylko potwierdzisz kod.</string>
   <string name="verify_card_view_title_2">Wpisz dane karty</string>
