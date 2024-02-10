@@ -660,10 +660,10 @@
   <string name="purchase_making_purchase_title">Zakup w toku&#8230;</string>
   <string name="purchase_fee_title">opłata %1$s%2$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Ta metoda płatności nie obsługuje Twojej waluty, więc pobiera opłatę manipulacyjną. Ta opłata zawiera się w sumie, którą widzisz u góry.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Ta metoda płatności wymaga opłaty manipulacyjnej za ten zakup. Zawiera się ona w sumie, którą widzisz u góry.</string>
+  <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ta metoda płatności nie obsługuje Twojej waluty, dlatego może pobrać opłatę manipulacyjną.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Ta metoda płatności pobiera opłatę manipulacyjną za ten zakup.</string>
+  <string name="purchase_fee_included_body">zawiera opłaty</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -824,7 +824,7 @@
   <string name="remove_wallet_no_button">Nie, wróć</string>
   <string name="remove_wallet_yes_button">Tak, usuń portfel</string>
   <string name="remove_wallet_removed_body">Usunięto portfel!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
+  <string name="remove_wallet_extra_confirmation_title">Na pewno?</string>
   <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Przelewy</string>
