@@ -77,8 +77,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, RewardSideEffect> {
 
-  @Inject
-  lateinit var navigator: RewardNavigator
+  @Inject lateinit var navigator: RewardNavigator
 
   private val navBarViewModel: NavBarViewModel by activityViewModels()
 
@@ -90,18 +89,14 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private val df = DecimalFormat("###.#")
 
-  @Inject
-  lateinit var currencyFormatUtils: CurrencyFormatUtils
+  @Inject lateinit var currencyFormatUtils: CurrencyFormatUtils
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
-    return ComposeView(requireContext()).apply {
-      setContent {
-        RewardScreen()
-      }
-    }
+    return ComposeView(requireContext()).apply { setContent { RewardScreen() } }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -119,7 +114,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   @Composable
   fun RewardScreen(
-    modifier: Modifier = Modifier,
+      modifier: Modifier = Modifier,
   ) {
     val dialogDismissed by rewardSharedViewModel.dialogDismissed
     LaunchedEffect(key1 = dialogDismissed) {
@@ -128,79 +123,67 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       viewModel.fetchWalletInfo()
     }
     Scaffold(
-      topBar = {
-        Surface {
-          TopBar(
-            isMainBar = true,
-            isVip = isVip,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
-            onClickSettings = { viewModel.onSettingsClick() },
-            onClickSupport = { viewModel.showSupportScreen(false) },
-          )
+        topBar = {
+          Surface {
+            TopBar(
+                isMainBar = true,
+                isVip = isVip,
+                onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
+                onClickSettings = { viewModel.onSettingsClick() },
+                onClickSupport = { viewModel.showSupportScreen(false) },
+            )
+          }
+        },
+        containerColor = WalletColors.styleguide_blue,
+        modifier = modifier) { padding ->
+          RewardScreenContent(padding = padding)
         }
-      },
-      containerColor = WalletColors.styleguide_blue,
-      modifier = modifier
-    ) { padding ->
-      RewardScreenContent(
-        padding = padding
-      )
-    }
   }
 
   @Composable
-  internal fun RewardScreenContent(
-    padding: PaddingValues
-  ) {
-    val challengeRewardNavigation = challengeRewardNavigation(
-      navigation = { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) },
-    )
+  internal fun RewardScreenContent(padding: PaddingValues) {
+    val challengeRewardNavigation =
+        challengeRewardNavigation(
+            navigation = { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) },
+        )
     LazyColumn(
-      modifier = Modifier.padding(padding),
+        modifier = Modifier.padding(padding),
     ) {
       item {
         with(viewModel.gamificationHeaderModel.value) {
           if (this != null && walletOrigin == APTOIDE) {
             GamificationHeader(
-              onClick = {
-                navigator.navigateToGamification(
-                  cachedBonus = this.bonusPercentage
-                )
-              },
-              indicatorColor = Color(
-                this.color
-              ),
-              valueSpendForNextLevel = this.spendMoreAmount,
-              currencySpend = " AppCoins Credits",
-              currentProgress = this.currentSpent,
-              maxProgress = this.nextLevelSpent ?: 0,
-              bonusValue = df.format(this.bonusPercentage),
-              planetDrawable = this.planetImage,
-              isVip = this.isVip,
-              isMaxVip = this.isMaxVip
-            )
+                onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
+                indicatorColor = Color(this.color),
+                valueSpendForNextLevel = this.spendMoreAmount,
+                currencySpend = " AppCoins Credits",
+                currentProgress = this.currentSpent,
+                maxProgress = this.nextLevelSpent ?: 0,
+                bonusValue = df.format(this.bonusPercentage),
+                planetDrawable = this.planetImage,
+                isVip = this.isVip,
+                isMaxVip = this.isMaxVip)
             with(viewModel.vipReferralModel.value) {
               if (this != null) {
                 VipReferralCard(
-                  {
-                    navigator.navigateToVipReferral(
-                      bonus = this.vipBonus,
-                      code = this.vipCode,
-                      totalEarned = this.totalEarned,
-                      numberReferrals = this.numberReferrals,
-                      endDate = this.endDate,
-                      mainNavController = navController()
-                    )
-                  },
-                  this.vipBonus,
-                  0L,//TODO change to real value
+                    {
+                      navigator.navigateToVipReferral(
+                          bonus = this.vipBonus,
+                          code = this.vipCode,
+                          totalEarned = this.totalEarned,
+                          numberReferrals = this.numberReferrals,
+                          endDate = this.endDate,
+                          mainNavController = navController(),
+                          app = this.app,
+                      )
+                    },
+                    this.vipBonus,
+                    this.endDate,
                 )
               }
             }
           } else if (this != null && walletOrigin == PARTNER) {
-            GamificationHeaderPartner(
-              df.format(this.bonusPercentage)
-            )
+            GamificationHeaderPartner(df.format(this.bonusPercentage))
           } else if (this != null && this.uninitialized) {
             SkeletonLoadingGamificationCard()
           } else {
@@ -210,10 +193,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             SkeletonLoadingRewardsActionsCard()
           } else {
             RewardsActions(
-              { navigator.navigateToWithdrawScreen() },
-              { navigator.showPromoCodeFragment() },
-              { navigator.showGiftCardFragment() },
-              challengeRewardNavigation,
+                { navigator.navigateToWithdrawScreen() },
+                { navigator.showPromoCodeFragment() },
+                { navigator.showGiftCardFragment() },
+                challengeRewardNavigation,
             )
           }
           viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
@@ -222,21 +205,19 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       item {
         if (viewModel.promotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
           Text(
-            text = getString(R.string.perks_title),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_dark_grey,
-            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
-          )
+              text = getString(R.string.perks_title),
+              fontSize = 14.sp,
+              fontWeight = FontWeight.Bold,
+              color = WalletColors.styleguide_dark_grey,
+              modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp))
         }
         if (viewModel.promotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
           Text(
-            text = getString(R.string.perks_title),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_dark_grey,
-            modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp)
-          )
+              text = getString(R.string.perks_title),
+              fontSize = 14.sp,
+              fontWeight = FontWeight.Bold,
+              color = WalletColors.styleguide_dark_grey,
+              modifier = Modifier.padding(top = 16.dp, start = 24.dp, bottom = 6.dp))
           SkeletonLoadingPromotionCards(hasVerticalList = true)
         }
       }
@@ -264,140 +245,126 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
     when (sideEffect) {
-      is RewardSideEffect.NavigateToSettings -> navigator.navigateToSettings(
-        navController(),
-        sideEffect.turnOnFingerprint
-      )
+      is RewardSideEffect.NavigateToSettings ->
+          navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
     }
   }
 
   private fun setPromotions(
-    promotionsModel: Async<PromotionsModel>,
-    promotionsGamificationStats: Async<PromotionsGamificationStats>
+      promotionsModel: Async<PromotionsModel>,
+      promotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
     when (promotionsModel) {
       Async.Uninitialized,
-      is Async.Loading -> {
-      }
-
+      is Async.Loading -> {}
       is Async.Success -> {
         viewModel.promotions.clear()
         viewModel.activePromoCode.value = null
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
-            val cardItem = CardPromotionItem(
-              promotion.appName,
-              promotion.description,
-              promotion.startDate,
-              promotion.endDate,
-              promotion.icon,
-              promotion.actionUrl,
-              promotion.packageName,
-              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-              false,
-              true,
-              action = {
-                openGame(
-                  promotion.packageName ?: promotion.actionUrl,
-                  promotion.actionUrl,
-                  requireContext()
-                )
-              }
-            )
+            val cardItem =
+                CardPromotionItem(
+                    promotion.appName,
+                    promotion.description,
+                    promotion.startDate,
+                    promotion.endDate,
+                    promotion.icon,
+                    promotion.actionUrl,
+                    promotion.packageName,
+                    promotion.gamificationStatus == GamificationStatus.VIP ||
+                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                    false,
+                    true,
+                    action = {
+                      openGame(
+                          promotion.packageName ?: promotion.actionUrl,
+                          promotion.actionUrl,
+                          requireContext())
+                    })
             viewModel.promotions.add(cardItem)
           } else if (promotion is FutureItem) {
-            val cardItem = CardPromotionItem(
-              promotion.appName,
-              promotion.description,
-              promotion.startDate,
-              promotion.endDate,
-              promotion.icon,
-              promotion.actionUrl,
-              promotion.packageName,
-              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-              true,
-              true,
-              action = {
-                openGame(
-                  promotion.packageName ?: promotion.actionUrl,
-                  promotion.actionUrl,
-                  requireContext()
-                )
-              }
-            )
+            val cardItem =
+                CardPromotionItem(
+                    promotion.appName,
+                    promotion.description,
+                    promotion.startDate,
+                    promotion.endDate,
+                    promotion.icon,
+                    promotion.actionUrl,
+                    promotion.packageName,
+                    promotion.gamificationStatus == GamificationStatus.VIP ||
+                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                    true,
+                    true,
+                    action = {
+                      openGame(
+                          promotion.packageName ?: promotion.actionUrl,
+                          promotion.actionUrl,
+                          requireContext())
+                    })
             viewModel.promotions.add(cardItem)
           } else if (promotion is PromoCodeItem) {
-            val cardItem = ActiveCardPromoCodeItem(
-              promotion.appName,
-              promotion.description,
-              promotion.icon,
-              promotion.actionUrl,
-              promotion.packageName,
-              true,
-              action = {
-                openGame(
-                  promotion.packageName ?: promotion.actionUrl,
-                  promotion.actionUrl,
-                  requireContext()
-                )
-              }
-            )
+            val cardItem =
+                ActiveCardPromoCodeItem(
+                    promotion.appName,
+                    promotion.description,
+                    promotion.icon,
+                    promotion.actionUrl,
+                    promotion.packageName,
+                    true,
+                    action = {
+                      openGame(
+                          promotion.packageName ?: promotion.actionUrl,
+                          promotion.actionUrl,
+                          requireContext())
+                    })
             viewModel.activePromoCode.value = cardItem
           }
         }
 
         setGamification(promotionsModel, promotionsGamificationStats)
 
-        promotionsModel.value!!.vipReferralInfo?.let {
-          viewModel.vipReferralModel.value = it
-        }
-
+        promotionsModel.value!!.vipReferralInfo?.let { viewModel.vipReferralModel.value = it }
       }
-
       else -> Unit
     }
   }
 
   private fun setGamification(
-    promotionsModel: Async<PromotionsModel>,
-    promotionsGamificationStats: Async<PromotionsGamificationStats>
+      promotionsModel: Async<PromotionsModel>,
+      promotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
 
-    if (
-      promotionsGamificationStats.value != null &&
-      promotionsModel.value?.promotions != null
-    ) {
+    if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
       val gamificationItem: GamificationItem? =
-        (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
+          (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
       val gamificationStatus =
-        promotionsGamificationStats.value?.gamificationStatus ?: GamificationStatus.NONE
+          promotionsGamificationStats.value?.gamificationStatus ?: GamificationStatus.NONE
 
       if (gamificationItem != null) {
         viewModel.gamificationHeaderModel.value =
-          GamificationHeaderModel(
-            color = gamificationItem.levelColor,
-            planetImage = gamificationItem.planet,
-            spendMoreAmount = if (gamificationItem.toNextLevelAmount != null)
-              currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount)
-            else
-              "",
-            currentSpent = promotionsGamificationStats.value!!.totalSpend.toInt(),
-            nextLevelSpent = if (promotionsGamificationStats.value!!.nextLevelAmount != null)
-              promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
-            else
-              null,
-            bonusPercentage = gamificationItem.bonus,
-            isVip = gamificationStatus == GamificationStatus.VIP,
-            isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
-            walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
-            uninitialized = false
-          )
+            GamificationHeaderModel(
+                color = gamificationItem.levelColor,
+                planetImage = gamificationItem.planet,
+                spendMoreAmount =
+                    if (gamificationItem.toNextLevelAmount != null)
+                        currencyFormatUtils.formatGamificationValues(
+                            gamificationItem.toNextLevelAmount)
+                    else "",
+                currentSpent = promotionsGamificationStats.value!!.totalSpend.toInt(),
+                nextLevelSpent =
+                    if (promotionsGamificationStats.value!!.nextLevelAmount != null)
+                        promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
+                    else null,
+                bonusPercentage = gamificationItem.bonus,
+                isVip = gamificationStatus == GamificationStatus.VIP,
+                isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
+                walletOrigin = promotionsModel.value?.walletOrigin ?: UNKNOWN,
+                uninitialized = false)
       } else {
         viewModel.gamificationHeaderModel.value = null
       }
-
     }
-
   }
 
   private fun showVipBadge(shouldShow: Boolean) {
@@ -405,9 +372,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 
@@ -416,14 +383,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       is Async.Success -> {
         walletInfoAsync.value?.let {
           if (it.wallet.isNotEmpty())
-            ChallengeRewardManager.create(
-              appId = BuildConfig.FYBER_APP_ID,
-              activity = requireActivity(),
-              walletAddress = it.wallet,
-            )
+              ChallengeRewardManager.create(
+                  appId = BuildConfig.FYBER_APP_ID,
+                  activity = requireActivity(),
+                  walletAddress = it.wallet,
+              )
         }
       }
-
       else -> Unit
     }
   }

@@ -26,24 +26,20 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"/>
+      android:importantForAccessibility="no"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/splash_vip_animation"
-      android:layout_width="170dp"
-      android:layout_height="170dp"
-      android:layout_marginBottom="17dp"
-      android:layout_marginStart="1dp"
-      app:lottie_autoPlay="true"
-      app:lottie_loop="false"
-      app:lottie_speed="2"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_repeatCount="0"
-      app:lottie_rawRes="@raw/vip_coin_flip_dark"
-      android:visibility="gone"
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/composeView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"/>
+      android:elevation="6dp"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

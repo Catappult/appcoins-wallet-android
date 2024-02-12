@@ -28,6 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
+import coil.compose.SubcomposeAsyncImage
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -53,24 +56,24 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PromotionsVipReferralFragment : BasePageViewFragment() {
 
-  @Inject
-  lateinit var navigator: PromotionsVipReferralNavigator
+  @Inject lateinit var navigator: PromotionsVipReferralNavigator
 
   private val viewModel: PromotionsVipReferralViewModel by viewModels()
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var promoReferral: String
   private lateinit var earnedValue: String
   private lateinit var earnedTotal: String
   private lateinit var bonusPercent: String
+  private lateinit var appName: String
+  private lateinit var appIconUrl: String
   private var endDate: Long = 0L
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { VipReferralProgramScreen() } }
   }
@@ -84,17 +87,16 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   @Composable
   fun VipReferralProgramScreen() {
     Scaffold(
-      topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
-      containerColor = WalletColors.styleguide_blue,
+        topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
+        containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       Column(
-        modifier =
-        Modifier
-          .padding(padding)
-          .padding(16.dp)
-          .fillMaxSize()
-          .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
+          modifier =
+              Modifier.padding(padding)
+                  .padding(16.dp)
+                  .fillMaxSize()
+                  .verticalScroll(rememberScrollState()),
+          horizontalAlignment = Alignment.CenterHorizontally,
       ) {
         VipReferralProgramContent(uiState = viewModel.uiState.collectAsState().value)
       }
@@ -108,14 +110,14 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
         val fiatAmount = formatter.formatCurrency(uiState.fiatValue!!.amount, WalletCurrency.FIAT)
         VipPresentation(bonusPercent)
         VipCard(
-          symbol = uiState.fiatValue.symbol,
-          fiatAmount = fiatAmount,
-          earnedTotal = earnedTotal,
-          referralCode = promoReferral,
-          endDate = endDate
-        )
+            symbol = uiState.fiatValue.symbol,
+            fiatAmount = fiatAmount,
+            earnedTotal = earnedTotal,
+            referralCode = promoReferral,
+            endDate = endDate,
+            appName = appName,
+            appIconUrl = appIconUrl)
       }
-
       else -> Loading()
     }
   }
@@ -123,190 +125,161 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   @Composable
   fun Loading() {
     Column(
-      modifier = Modifier.fillMaxSize(),
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.Center
-    ) {
-      CircularProgressIndicator()
-    }
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+          CircularProgressIndicator()
+        }
   }
 
   @Composable
   fun VipPresentation(bonusPercent: String) {
     Column(
-      modifier = Modifier
-        .widthIn(max = 480.dp)
-        .fillMaxWidth(),
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-      Image(
-        painter = painterResource(R.drawable.img_vip_referral),
-        contentDescription = null,
-        modifier = Modifier
-          .size(240.dp)
-          .padding(bottom = 16.dp)
-          .fillMaxWidth()
-      )
-      Text(
-        text = stringResource(R.string.vip_program_referral_page_title),
-        modifier = Modifier
-          .padding(start = 8.dp, bottom = 8.dp, end = 8.dp)
-          .fillMaxWidth(),
-        style = MaterialTheme.typography.headlineMedium,
-        color = WalletColors.styleguide_light_grey,
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Bold
-      )
-      Text(
-        text = stringResource(R.string.vip_program_referral_page_body_2, bonusPercent),
-        modifier = Modifier
-          .padding(start = 8.dp, bottom = 16.dp, end = 8.dp)
-          .fillMaxWidth(),
-        style = MaterialTheme.typography.bodyMedium,
-        color = WalletColors.styleguide_light_grey
-      )
-    }
+        modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+          Image(
+              painter = painterResource(R.drawable.img_vip_referral),
+              contentDescription = null,
+              modifier = Modifier.size(240.dp).padding(bottom = 16.dp).fillMaxWidth())
+          Text(
+              text = stringResource(R.string.vip_program_referral_page_title),
+              modifier = Modifier.padding(start = 8.dp, bottom = 8.dp, end = 8.dp).fillMaxWidth(),
+              style = MaterialTheme.typography.headlineMedium,
+              color = WalletColors.styleguide_light_grey,
+              fontFamily = FontFamily.SansSerif,
+              fontWeight = FontWeight.Bold)
+          Text(
+              text = stringResource(R.string.vip_program_referral_page_body_2, bonusPercent),
+              modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, end = 8.dp).fillMaxWidth(),
+              style = MaterialTheme.typography.bodyMedium,
+              color = WalletColors.styleguide_light_grey)
+        }
   }
 
   @Composable
   fun VipCard(
-    symbol: String,
-    fiatAmount: String,
-    earnedTotal: String,
-    referralCode: String,
-    endDate: Long
+      symbol: String,
+      fiatAmount: String,
+      earnedTotal: String,
+      referralCode: String,
+      endDate: Long,
+      appName: String,
+      appIconUrl: String,
   ) {
     Card(
-      modifier = Modifier
-        .widthIn(max = 480.dp)
-        .fillMaxWidth(),
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
-    ) {
-      Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        VipReferralEndCountDownTimer(
-          endDateTime = endDate,
-          modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-            .fillMaxWidth()
-        )
-        ShareCodeCard(referralCode)
-        EarnedCreditsInfo(symbol = symbol, fiatAmount = fiatAmount, earnedTotal = earnedTotal)
-      }
-    }
+        modifier = Modifier.widthIn(max = 480.dp).fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)) {
+          Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+            VipReferralEndCountDownTimer(
+                endDateTime = endDate,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp).fillMaxWidth())
+            ShareCodeCard(referralCode, appName, appIconUrl)
+            EarnedCreditsInfo(symbol = symbol, fiatAmount = fiatAmount, earnedTotal = earnedTotal)
+          }
+        }
   }
 
   @Composable
-  fun ShareCodeCard(referralCode: String) {
+  fun ShareCodeCard(referralCode: String, appName: String, appIconUrl: String) {
     Text(
-      text = stringResource(R.string.vip_program_referral_page_share_title),
-      modifier = Modifier.padding(8.dp),
-      style = MaterialTheme.typography.bodySmall,
-      color = WalletColors.styleguide_medium_grey,
+        text = stringResource(R.string.vip_program_referral_page_share_title),
+        modifier = Modifier.padding(8.dp),
+        style = MaterialTheme.typography.bodySmall,
+        color = WalletColors.styleguide_medium_grey,
     )
     Card(
-      modifier = Modifier.fillMaxWidth(),
-      colors =
-      CardDefaults.cardColors(
-        containerColor = WalletColors.styleguide_grey_blue_background
-      )
-    ) {
-      Column(modifier = Modifier.padding(16.dp)) {
-        GameHeaderCard()
-        ShareCodeCardButton(referralCode = referralCode, onClick = { shareCode() })
-      }
-    }
+        modifier = Modifier.fillMaxWidth(),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = WalletColors.styleguide_grey_blue_background)) {
+          Column(modifier = Modifier.padding(16.dp)) {
+            GameHeaderCard(appName, appIconUrl)
+            ShareCodeCardButton(referralCode = referralCode, onClick = { shareCode() })
+          }
+        }
   }
 
   @Composable
-  fun GameHeaderCard() {
+  fun GameHeaderCard(appName: String, appIconUrl: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-      Image(
-        painter = painterResource(R.drawable.ic_transaction_fallback),
-        contentDescription = null,
-        modifier = Modifier.size(32.dp)
+      SubcomposeAsyncImage(
+          model = appIconUrl,
+          contentDescription = null,
+          contentScale = ContentScale.Fit,
+          modifier = Modifier.size(32.dp).clip(shape = RoundedCornerShape(8.dp)),
+          loading = { CircularProgressIndicator() },
+          error = {
+            Image(
+                painter = painterResource(R.drawable.ic_transaction_fallback),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp))
+          },
       )
       Column(
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = Modifier.padding(start = 16.dp)
-      ) {
-        Text(
-          stringResource(R.string.vip_program_referral_page_only_app_title),
-          fontSize = 11.sp,
-          color = WalletColors.styleguide_dark_grey,
-        )
-        Text(
-          text = "Game example", //TODO remove it
-          style = MaterialTheme.typography.bodySmall,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey
-        )
-      }
+          verticalArrangement = Arrangement.spacedBy(4.dp),
+          modifier = Modifier.padding(start = 16.dp)) {
+            Text(
+                stringResource(R.string.vip_program_referral_page_only_app_title),
+                fontSize = 11.sp,
+                color = WalletColors.styleguide_dark_grey,
+            )
+            Text(
+                text = appName,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold,
+                color = WalletColors.styleguide_light_grey)
+          }
     }
   }
 
   @Composable
   fun ShareCodeCardButton(referralCode: String, onClick: () -> Unit = {}) {
     Card(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 16.dp),
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
-      shape =
-      RoundedCornerShape(
-        bottomStart = 16.dp, topStart = 16.dp, bottomEnd = 32.dp, topEnd = 32.dp
-      )
-    ) {
-      Row(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(vertical = 8.dp, horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        Text(
-          text = referralCode,
-          style = MaterialTheme.typography.titleMedium,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey
-        )
-        ButtonWithText(
-          label = stringResource(R.string.wallet_view_share_button),
-          onClick = onClick,
-          labelColor = WalletColors.styleguide_blue,
-          backgroundColor = WalletColors.styleguide_vip_yellow,
-        )
-      }
-    }
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+        colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
+        shape =
+            RoundedCornerShape(
+                bottomStart = 16.dp, topStart = 16.dp, bottomEnd = 32.dp, topEnd = 32.dp)) {
+          Row(
+              modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp, horizontal = 16.dp),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = referralCode,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = WalletColors.styleguide_light_grey)
+                ButtonWithText(
+                    label = stringResource(R.string.wallet_view_share_button),
+                    onClick = onClick,
+                    labelColor = WalletColors.styleguide_blue,
+                    backgroundColor = WalletColors.styleguide_vip_yellow,
+                )
+              }
+        }
   }
 
   @Composable
   fun EarnedCreditsInfo(symbol: String, fiatAmount: String, earnedTotal: String) {
     Row(
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-    ) {
-      Image(
-        painter = painterResource(R.drawable.ic_vip_ref_coins),
-        contentDescription = null,
-        modifier = Modifier
-          .height(32.dp)
-          .padding(horizontal = 8.dp)
-      )
-      Text(
-        text =
-        stringResource(
-          R.string.vip_program_referral_page_earned_body,
-          symbol,
-          fiatAmount,
-          earnedTotal
-        ),
-        color = WalletColors.styleguide_light_grey,
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.Bold
-      )
-    }
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)) {
+          Image(
+              painter = painterResource(R.drawable.ic_vip_ref_coins),
+              contentDescription = null,
+              modifier = Modifier.height(32.dp).padding(horizontal = 8.dp))
+          Text(
+              text =
+                  stringResource(
+                      R.string.vip_program_referral_page_earned_body,
+                      symbol,
+                      fiatAmount,
+                      earnedTotal),
+              color = WalletColors.styleguide_light_grey,
+              style = MaterialTheme.typography.titleSmall,
+              fontWeight = FontWeight.Bold)
+        }
   }
-
 
   @Preview
   @Composable
@@ -317,23 +290,32 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun PreviewVipCard() {
-    VipCard(symbol = "$", fiatAmount = "100", earnedTotal = "1000", "GH1TLF3456", endDate)
+    VipCard(
+        symbol = "$",
+        fiatAmount = "100",
+        earnedTotal = "1000",
+        "GH1TLF3456",
+        1234567L,
+        "Trivial Drive app",
+        "https://www.img.com")
   }
 
   private fun setupView() =
-    requireArguments().run {
-      bonusPercent = getString(BONUS_PERCENT) ?: ""
-      endDate = getLong(END_DATE)
-      promoReferral = getString(PROMO_REFERRAL) ?: ""
-      earnedValue = getString(EARNED_VALUE) ?: ""
-      earnedTotal = getString(EARNED_TOTAL) ?: ""
-    }
+      requireArguments().run {
+        bonusPercent = getString(BONUS_PERCENT) ?: ""
+        endDate = getLong(END_DATE)
+        promoReferral = getString(PROMO_REFERRAL) ?: ""
+        earnedValue = getString(EARNED_VALUE) ?: ""
+        earnedTotal = getString(EARNED_TOTAL) ?: ""
+        appName = getString(APP_NAME) ?: ""
+        appIconUrl = getString(APP_ICON_URL) ?: ""
+      }
 
   private fun shareCode() {
     ShareCompat.IntentBuilder(requireActivity())
-      .setText(promoReferral)
-      .setType("text/*")
-      .startChooser()
+        .setText(promoReferral)
+        .setType("text/*")
+        .startChooser()
   }
 
   companion object {
@@ -342,5 +324,7 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
     internal const val EARNED_VALUE = "total_earned"
     internal const val EARNED_TOTAL = "number_referrals"
     internal const val END_DATE = "end_date"
+    internal const val APP_NAME = "app_name"
+    internal const val APP_ICON_URL = "app_icon_url"
   }
 }
