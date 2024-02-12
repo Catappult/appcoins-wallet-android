@@ -24,7 +24,5 @@ class CompatibleAppsAnalytics @Inject constructor(
     const val WALLET_APP_ACTIVE_PROMOTION_CLICK = "wallet_app_active_promotion_click"
     const val PACKAGE_NAME = "package_name"
     const val GAME_ACTION = "game_action"
-    const val GET_ACTION = "get"
-    const val OPEN_ACTION = "open"
   }
 }

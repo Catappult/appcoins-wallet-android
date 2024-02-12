@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
-import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 
 fun openGame(
   gamePackage: String?,
@@ -21,7 +20,7 @@ fun openGame(
       )
     }
     if (launchIntent != null) {
-      sendPromotionClickEvent(gamePackage, CompatibleAppsAnalytics.OPEN_ACTION)
+      sendPromotionClickEvent(gamePackage, "open")
       startActivity(context, launchIntent, null)
     } else
       getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
@@ -48,7 +47,7 @@ private fun getGame(
   context: Context,
   sendPromotionClickEvent: (String?, String) -> Unit
 ) {
-  sendPromotionClickEvent(gamePackage, CompatibleAppsAnalytics.GET_ACTION)
+  sendPromotionClickEvent(gamePackage, "get")
   if (!actionUrl.isNullOrEmpty()) {
     getGameFromUrl(actionUrl, context)
   } else {

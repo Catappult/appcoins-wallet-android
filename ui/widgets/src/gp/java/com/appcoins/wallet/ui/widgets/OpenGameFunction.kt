@@ -4,14 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat.startActivity
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
 
 
 fun openGame(
   gamePackage: String?,
   actionUrl: String?,
   context: Context,
-  getAppAnalytics: GetAppAnalytics?
+  sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   try {
     val launchIntent: Intent? = gamePackage?.let {
@@ -20,7 +19,7 @@ fun openGame(
       )
     }
     if (launchIntent != null) {
-      getAppAnalytics?.sendGetAppAEvent(gamePackage, GetAppAnalytics.OPEN_ACTION)
+      sendPromotionClickEvent(gamePackage, "open")
       startActivity(context, launchIntent, null)
     }
   } catch (e: Throwable) {
