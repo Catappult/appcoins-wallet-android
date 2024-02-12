@@ -4,7 +4,7 @@ package com.asfoundation.wallet.wallet_reward
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -50,7 +50,7 @@ class RewardViewModel @Inject constructor(
   private val gamificationInteractor: GamificationInteractor,
   private val rxSchedulers: RxSchedulers,
   private val challengeRewardAnalytics: ChallengeRewardAnalytics,
-  val getAppAnalytics: GetAppAnalytics,
+  private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
@@ -113,5 +113,9 @@ class RewardViewModel @Inject constructor(
 
   fun isLoadingOrIdlePromotionState(): Boolean {
     return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
+  }
+
+  fun referenceSendPromotionClickEvent(): (String?,String) -> Unit {
+    return compatibleAppsAnalytics::sendPromotionClickEvent
   }
 }

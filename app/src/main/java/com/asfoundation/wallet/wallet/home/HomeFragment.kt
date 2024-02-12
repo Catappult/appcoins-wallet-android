@@ -35,7 +35,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
@@ -51,8 +50,6 @@ import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
-import com.asfoundation.wallet.transactions.Transaction.*
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
@@ -168,7 +165,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       )
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value, viewModel.getAppAnalytics) { viewModel.fetchGamesListing() }
+      GamesBundle(viewModel.gamesList.value, viewModel.referenceSendPromotionClickEvent()) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
@@ -428,7 +425,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                     promotion.packageName ?: promotion.actionUrl,
                     promotion.actionUrl,
                     requireContext(),
-                    viewModel.getAppAnalytics,
+                    viewModel.referenceSendPromotionClickEvent(),
                   )
                 })
             viewModel.activePromotions.add(cardItem)

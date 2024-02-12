@@ -2,7 +2,7 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource

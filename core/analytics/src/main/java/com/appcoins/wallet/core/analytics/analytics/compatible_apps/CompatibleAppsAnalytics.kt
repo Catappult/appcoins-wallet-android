@@ -1,13 +1,14 @@
-package com.appcoins.wallet.core.analytics.analytics.legacy
+package com.appcoins.wallet.core.analytics.analytics.compatible_apps
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import javax.inject.Inject
 
-class GetAppAnalytics @Inject constructor(
+class CompatibleAppsAnalytics @Inject constructor(
   private val analytics: AnalyticsManager
 ) {
 
-  fun sendGetAppAEvent(packageName: String?, action: String) {
+  fun sendPromotionClickEvent(packageName: String?, action: String) {
     val data = HashMap<String, Any>()
     packageName?.let{ data[PACKAGE_NAME] = packageName }
     data[GAME_ACTION] = action

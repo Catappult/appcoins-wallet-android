@@ -20,13 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  getAppAnalytics: GetAppAnalytics?,
+  sendPromotionClickEvent: (String?, String) -> Unit,
   fetchFromApiCallback: () -> Unit,
 ) {
   fetchFromApiCallback()
@@ -50,7 +49,7 @@ fun GamesBundle(
       }
     } else {
       items(items) { item ->
-        CardItem(gameCardData = item, getAppAnalytics)
+        CardItem(gameCardData = item, sendPromotionClickEvent)
       }
     }
   }
@@ -60,7 +59,7 @@ fun GamesBundle(
 @Composable
 private fun CardItem(
   gameCardData: GameData,
-  getAppAnalytics: GetAppAnalytics?
+  sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   val context = LocalContext.current
   Card(
@@ -68,7 +67,7 @@ private fun CardItem(
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
     onClick = {
-      openGame(gameCardData.gamePackage, gameCardData.actionUrl, context, getAppAnalytics)
+      openGame(gameCardData.gamePackage, gameCardData.actionUrl, context, sendPromotionClickEvent)
     },
     modifier = Modifier
       .width(280.dp)
@@ -252,7 +251,7 @@ fun PreviewGamesBundle() {
         actionUrl = "www.aptoide.com",
       )
     ),
-    null,
+    {_,_ -> },
     {}
   )
 }

@@ -38,7 +38,6 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
-import com.appcoins.wallet.feature.challengereward.data.presentation.ChallengeRewardVisibilityViewModel
 import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
 import com.appcoins.wallet.feature.challengereward.data.presentation.getLoadingStateChallengeReward
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
@@ -300,7 +299,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
                   requireContext(),
-                  viewModel.getAppAnalytics
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )
@@ -322,7 +321,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
                   requireContext(),
-                  viewModel.getAppAnalytics
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )
@@ -340,7 +339,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
                   requireContext(),
-                  viewModel.getAppAnalytics
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )

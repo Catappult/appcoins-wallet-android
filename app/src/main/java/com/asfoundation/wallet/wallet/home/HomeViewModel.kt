@@ -6,8 +6,7 @@ import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -103,7 +102,7 @@ data class HomeState(
 class HomeViewModel
 @Inject
 constructor(
-  val getAppAnalytics: GetAppAnalytics,
+  private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
@@ -463,6 +462,10 @@ constructor(
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState
+  }
+
+  fun referenceSendPromotionClickEvent(): (String?,String) -> Unit {
+    return compatibleAppsAnalytics::sendPromotionClickEvent
   }
 
   sealed class UiState {

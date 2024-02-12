@@ -6,14 +6,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
-import com.appcoins.wallet.core.analytics.analytics.legacy.GetAppAnalytics
-import okhttp3.internal.applyConnectionSpec
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 
 fun openGame(
   gamePackage: String?,
   actionUrl: String?,
   context: Context,
-  getAppAnalytics: GetAppAnalytics?
+  sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   try {
     val launchIntent: Intent? = gamePackage?.let {
@@ -22,12 +21,12 @@ fun openGame(
       )
     }
     if (launchIntent != null) {
-      getAppAnalytics?.sendGetAppAEvent(gamePackage, GetAppAnalytics.OPEN_ACTION)
+      sendPromotionClickEvent(gamePackage, CompatibleAppsAnalytics.OPEN_ACTION)
       startActivity(context, launchIntent, null)
     } else
-      getGame(gamePackage, actionUrl, context, getAppAnalytics)
+      getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
   } catch (e: Throwable) {
-    getGame(gamePackage, actionUrl, context, getAppAnalytics)
+    getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
   }
 }
 
@@ -47,9 +46,9 @@ private fun getGame(
   gamePackage: String?,
   actionUrl: String?,
   context: Context,
-  getAppAnalytics: GetAppAnalytics?
+  sendPromotionClickEvent: (String?, String) -> Unit
 ) {
-  getAppAnalytics?.sendGetAppAEvent(gamePackage, GetAppAnalytics.GET_ACTION)
+  sendPromotionClickEvent(gamePackage, CompatibleAppsAnalytics.GET_ACTION)
   if (!actionUrl.isNullOrEmpty()) {
     getGameFromUrl(actionUrl, context)
   } else {
