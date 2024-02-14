@@ -35,11 +35,11 @@ constructor(
   }
 
   private fun handleVipStatus() {
-    getCurrentWalletUseCase()
+    observeUserStatsUseCase()
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.main)
-        .flatMapObservable { wallet ->
-          observeUserStatsUseCase().doOnNext { gamificationStats ->
+        .flatMapSingle { gamificationStats ->
+          getCurrentWalletUseCase().doOnSuccess { wallet ->
             val isVipLevel =
                 gamificationStats.gamificationStatus == GamificationStatus.VIP ||
                     gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
@@ -48,6 +48,11 @@ constructor(
                   isVip = isVipLevel,
                   showVipOnboarding = shouldShowOnboardVipUseCase(isVipLevel, wallet.address))
             }
+          }
+        }
+        .doOnError {
+          sendSideEffect {
+            SplashExtenderSideEffect.ShowVipAnimation(isVip = false, showVipOnboarding = false)
           }
         }
         .scopedSubscribe()
