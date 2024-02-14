@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.password.RecoverPasswordFragment.Companion.KEYSTORE_KEY
@@ -32,14 +33,15 @@ data class RecoverPasswordState(
 
 @HiltViewModel
 class RecoverPasswordViewModel @Inject constructor(
-        private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
-        private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-        private val walletsEventSender: WalletsEventSender,
-        private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
-        private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-        private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-        private val savedStateHandle: SavedStateHandle,
+  private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+  private val walletsEventSender: WalletsEventSender,
+  private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+  private val savedStateHandle: SavedStateHandle,
 ) :
   BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
 
@@ -86,6 +88,7 @@ class RecoverPasswordViewModel @Inject constructor(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
         )
+        setIsFirstPaymentUseCase(false)
       }
       is FailedPasswordRecover.InvalidPassword -> {
         walletsEventSender.sendWalletPasswordRestoreEvent(

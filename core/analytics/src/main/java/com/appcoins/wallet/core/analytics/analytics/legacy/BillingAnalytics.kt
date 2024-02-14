@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.gameshub.GamesHubBroadcastService
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -13,6 +14,7 @@ class BillingAnalytics @Inject constructor(
   private val analytics: AnalyticsManager,
   @ApplicationContext private val context: Context,
   private val oemIdPreferencesDataSource: OemIdPreferencesDataSource,
+  private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
 ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
@@ -207,6 +209,7 @@ class BillingAnalytics @Inject constructor(
     )
     eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
+    appStartPreferencesDataSource.saveIsFirstPayment(isFirstPayment = false)
   }
 
   override fun sendPaymentPendingEvent(
@@ -327,6 +330,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_REWARDS = "REWARDS"
     const val PAYMENT_METHOD_PAYPAL = "PAYPAL"
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
+    const val PAYMENT_METHOD_GOOGLE_PAY_WEB = "GOOGLE_PAY"
     const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val PAYMENT_METHOD_SANDBOX = "SANDBOX"

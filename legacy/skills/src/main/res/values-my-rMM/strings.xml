@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">ဝင္ေၾကးကို ဝယ္ယူရန္ ေဒသတြင္း ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို လက္မခံပါ။ ပိုက္ဆံအိတ္အသစ္ တစ္ခုျပဳလုပ္ကာ ဘဏ္ကဒ္ သို႔မဟုတ္ PayPal ျဖင့္ ေငြျဖည့္ေပးပါ။</string>
   <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">ဤဂိမ္းကို ေနာက္ဆုံးထြက္ဗားရွင္းသို႔ အပ္ဒိတ္လုပ္ရန္ လိုအပ္ပါသည္။</string>
+  <string name="error_game_not_supported_body">ဤဂိမ္းကို လက္ရွိတြင္ မရရွိႏိုင္ပုံ ရပါသည္။</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">ဂိမ္းကိုအဆုံးသတ္ရန္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္။</string>
   <plurals name="opponent_points_title">

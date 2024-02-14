@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.asf.wallet">
 
-  <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
+  <uses-permission
+      android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS"
       tools:ignore="ProtectedPermissions" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,6 +28,7 @@
     <package android:name="in.org.npci.upiapp" />
     <package android:name="id.dana" />
     <package android:name="com.dti.folderlauncher" />
+    <package android:name="com.android.chrome" />
   </queries>
 
   <application
@@ -55,12 +57,12 @@
         android:exported="false" />
 
     <activity
-        android:taskAffinity=".invisible"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
         android:enabled="true"
-        android:exported="false" />
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:launchMode="singleTask"
+        android:taskAffinity=".invisible" />
 
     <receiver
         android:name="com.asfoundation.wallet.support.BootCompletedBroadcastReceiver"
@@ -72,12 +74,12 @@
     </receiver>
 
     <activity
-        android:taskAffinity=".invisible"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false" />
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:launchMode="singleTask"
+        android:taskAffinity=".invisible" />
 
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
@@ -168,10 +170,8 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -191,19 +191,40 @@
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
         android:label="@string/topup_title"
-        android:theme="@style/TopupTheme"
-        >
+        android:theme="@style/TopupTheme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
       </intent-filter>
     </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.billing.googlepay.GooglePayReturnActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data
+            android:host="${applicationId}"
+            android:scheme="googlepayresult" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="http" />
+        <data
+            android:host="wallet.dev.appcoins.io"
+            android:pathPrefix="/app/googlepay/result"
+            android:scheme="https" />
+      </intent-filter>
+    </activity>
+
     <activity
         android:name="com.asfoundation.wallet.subscriptions.SubscriptionActivity"
         android:label="@string/subscriptions_title" />
@@ -296,8 +317,7 @@
     <provider
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
-        tools:node="remove">
-    </provider>
+        tools:node="remove"/>
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"

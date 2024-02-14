@@ -68,36 +68,45 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         controller = PaymentMethodsController()
         controller.clickListener = { paymentMethodClick ->
             when (paymentMethodClick) {
-              is PaymentMethodClick.CreditCardClick -> navigator.navigateToAdyen(
-                args.transactionBuilder,
-                args.amount,
-                args.currency,
-                args.forecastBonus
-              )
-
-              is PaymentMethodClick.PaypalAdyenClick, PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
-                args.transactionBuilder,
-                args.amount,
-                args.currency,
-                args.forecastBonus
-              )
-
-              is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
-                args.transactionBuilder,
-                paymentMethodClick.idItem,
-                args.amount,
-                args.currency
-              )
-
-              is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
-              is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
-              is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
-              is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
-                args.transactionBuilder,
-                args.amount,
-                args.currency,
-                args.forecastBonus
-              )
+                is PaymentMethodClick.CreditCardClick -> navigator.navigateToAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
+                is PaymentMethodClick.PaypalAdyenClick -> navigator.navigateToPaypalAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
+                is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
+                    args.transactionBuilder,
+                    args.amount,
+                    args.currency,
+                    args.forecastBonus
+                )
+                is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
+                    args.transactionBuilder,
+                    paymentMethodClick.idItem,
+                    args.amount,
+                    args.currency
+                )
+                is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
+                is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+                is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
+                is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
+                )
+                is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
+                )
                 PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
             }
         }

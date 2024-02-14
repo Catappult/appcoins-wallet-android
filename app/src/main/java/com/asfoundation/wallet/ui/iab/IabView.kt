@@ -88,6 +88,19 @@ interface IabView {
     frequency: String?
   )
 
+  fun showGooglePayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
+
   fun showCarrierBilling(
     currency: String?,
     amount: BigDecimal,
@@ -169,9 +182,13 @@ interface IabView {
 
   fun showError(@StringRes error: Int)
 
+  fun showNoNetworkError()
+
   fun getSupportClicks(): Observable<Any>
 
   fun errorDismisses(): Observable<Any>
+
+  fun errorTryAgain(): Observable<Any>
 
   fun launchPerkBonusAndGamificationService(address: String)
 
@@ -186,6 +203,8 @@ interface IabView {
   fun authenticationResult(success: Boolean)
 
   fun showTopupFlow()
+
+  fun handleConnectionObserver()
 
   var webViewResultCode: String?
 }

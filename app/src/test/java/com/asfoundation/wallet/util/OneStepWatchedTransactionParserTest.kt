@@ -28,7 +28,6 @@ class OneStepWatchedTransactionParserTest {
   companion object {
     const val contractAddress = "contract_address"
     const val iabContractAddress = "iab_contract_address"
-    const val developerAddress = "developer_address"
     const val wrongDeveloperAddress = "wrong_developer_address"
     const val productName = "product_name"
     const val packageName = "package_name"
@@ -63,8 +62,6 @@ class OneStepWatchedTransactionParserTest {
     `when`<Single<FiatValue>>(conversionService.getAppcRate(anyString())).thenReturn(
         Single.just(FiatValue(BigDecimal("0.07"), "EUR")))
 
-    `when`(billing.getWallet(anyString())).thenReturn(
-        Single.just(developerAddress))
   }
 
   @Test
@@ -92,10 +89,6 @@ class OneStepWatchedTransactionParserTest {
     test.assertValue { transactionBuilder ->
       transactionBuilder.amount() == BigDecimal(
           priceValue).setScale(18)
-    }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
     }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
     test.assertValue { transactionBuilder -> transactionBuilder.type == paymentType }
@@ -129,10 +122,6 @@ class OneStepWatchedTransactionParserTest {
       transactionBuilder.amount() == BigDecimal(
           priceValue).setScale(18)
     }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
-    }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }
 
@@ -157,10 +146,6 @@ class OneStepWatchedTransactionParserTest {
 
     test.assertValue { transactionBuilder ->
       transactionBuilder.amount() == BigDecimal.ZERO
-    }
-    test.assertValue { transactionBuilder ->
-      transactionBuilder.toAddress()
-          .equals(developerAddress, ignoreCase = true)
     }
     test.assertValue { transactionBuilder -> transactionBuilder.chainId == 3L }
   }

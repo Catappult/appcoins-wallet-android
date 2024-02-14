@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.billing.vkpay.usecases
 
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.billing.vkpay.repository.VkPayRepository
 import io.reactivex.Single
@@ -20,7 +20,6 @@ class CreateVkPayTransactionUseCase @Inject constructor(
     price: VkPrice, reference: String?,
     origin: String?, metadata: String?, packageName: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
     referrerUrl: String?,
     email: String,
     phone: String
@@ -43,7 +42,6 @@ class CreateVkPayTransactionUseCase @Inject constructor(
             sku = sku,
             callbackUrl = callbackUrl,
             transactionType = transactionType,
-            developerWallet = developerWallet,
             entityOemId = attrEntity.oemId,
             entityDomain = attrEntity.domain,
             entityPromoCode = promoCode.code,

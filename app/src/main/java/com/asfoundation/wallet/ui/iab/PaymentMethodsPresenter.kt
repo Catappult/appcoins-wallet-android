@@ -35,6 +35,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.P
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -200,6 +201,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              GOOGLEPAY_WEB -> view.showGooglePayWeb(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               else -> return@doOnNext
             }
           }
@@ -326,6 +333,12 @@ class PaymentMethodsPresenter(
       )
       CHALLENGE_REWARD -> view.showChallengeReward()
       SANDBOX -> view.showSandbox(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+      GOOGLEPAY_WEB -> view.showGooglePayWeb(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
@@ -516,7 +529,7 @@ class PaymentMethodsPresenter(
     t.printStackTrace()
     logger.log(TAG, t)
     when {
-      t.isNoNetworkException() -> view.showError(R.string.notification_no_network_poa)
+      t.isNoNetworkException() -> view.showNoNetworkError()
       isItemAlreadyOwnedError(t) -> {
         viewState = ViewState.ITEM_ALREADY_OWNED
         view.showItemAlreadyOwnedError()
@@ -827,20 +840,21 @@ class PaymentMethodsPresenter(
   private fun close() = view.close(paymentMethodsMapper.mapCancellation())
 
   private fun handleErrorDismisses() {
-    disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
-      .flatMapCompletable {
-        if (viewState == ViewState.ITEM_ALREADY_OWNED) {
-          val type = BillingSupportedType.valueOfInsensitive(transaction.type)
-          getPurchases(type).doOnSuccess { purchases ->
-            val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
-            purchase?.let { finishItemAlreadyOwned(it) } ?: view.close(Bundle())
+    disposables.add(
+      Observable.merge(view.errorDismisses(), view.onBackPressed(), view.errorTryAgain())
+        .flatMapCompletable {
+          if (viewState == ViewState.ITEM_ALREADY_OWNED) {
+            val type = BillingSupportedType.valueOfInsensitive(transaction.type)
+            getPurchases(type).doOnSuccess { purchases ->
+              val purchase = getRequestedSkuPurchase(purchases, transaction.skuId)
+              purchase?.let { finishItemAlreadyOwned(it) } ?: view.close(Bundle())
+            }
+              .ignoreElement()
+          } else {
+            return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }
           }
-            .ignoreElement()
-        } else {
-          return@flatMapCompletable Completable.fromAction { view.close(Bundle()) }
         }
-      }
-      .subscribe({ }, { view.close(Bundle()) })
+        .subscribe({ }, { view.close(Bundle()) })
     )
   }
 
@@ -1132,6 +1146,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
       PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
+      PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }

@@ -12,4 +12,5 @@
   <dimen name="waiting_for_players_width_landscape">660dp</dimen>
   <dimen name="countdown_timer_spacing">12dp</dimen>
   <dimen name="countdown_timer_padding">6dp</dimen>
+  <dimen name="payment_screen_width">340dp</dimen>
 </resources>

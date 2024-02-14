@@ -4,6 +4,7 @@ import com.appcoins.wallet.core.analytics.analytics.*
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -107,11 +108,13 @@ class AnalyticsModule {
     @Named("bi_event_list") biEventList: List<String>,
     @Named("indicative_event_list") indicativeEventList: List<String>,
     @Named("sentry_event_list") sentryEventList: List<String>,
-    indicativeAnalytics: IndicativeAnalytics
+    indicativeAnalytics: IndicativeAnalytics,
+    appStartPreferencesDataSource: AppStartPreferencesDataSource,
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api, VERSION_CODE, APPLICATION_ID), biEventList)
-      .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
+      .addLogger(IndicativeEventLogger(indicativeAnalytics, appStartPreferencesDataSource),
+        indicativeEventList)
       .addLogger(SentryEventLogger(), sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())

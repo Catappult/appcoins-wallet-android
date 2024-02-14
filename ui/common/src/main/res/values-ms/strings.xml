@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Kembali ke permainan</string>
   <string name="other_payment_methos_title">Kaedah pembayaran lain:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Anda sudah ada</string>
+  <string name="intro_from_web_payment_to_spend_body">untuk dibelanjakan dalam permainan kegemaran.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Daripada</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">Ketahui</string>
   <string name="retry_button">Cuba lagi</string>
   <string name="do_it_later_button">Buat nanti</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Tiada sambungan Internet</string>
   <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
   <string name="common_or">ATAU</string>
   <string name="share_via">Kongsi melalui:</string>
@@ -518,12 +518,12 @@
   <string name="done">Selesai!</string>
   <string name="see_more_button">Lihat selanjutnya</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Tamat dalam masa</string>
   <string name="start_date_title">Tarikh mula:</string>
-  <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="end_date_title">Tarikh tamat:</string>
+  <string name="send_button">Hantar</string>
+  <string name="resend_button">Hantar semula</string>
+  <string name="continue_button">Teruskan</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -572,7 +572,7 @@
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
   <string name="verification_settings_verifying_title">Mengesahkan…</string>
   <string name="verification_verified_paypal_description">Wang anda akan dikembalikan segera. Kaedah bayaran anda akan disahkan sebentar lagi.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Transaksi sebanyak %s akan dibuat untuk mengesahkan akaun anda. Ia akan dikembalikan segera.</string>
   <string name="verification_verify_paypal_button">Sahkan Sekarang</string>
   <string name="verification_settings_card_verified_title">Kad Disahkan</string>
   <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
@@ -582,12 +582,12 @@
   <string name="unferified_tag">Dompet tidak disahkan</string>
   <string name="verification_wallets_verify_button">Sahkan</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_home_one_step_card_title">Satu langkah lagi!</string>
+  <string name="paypal_verification_home_one_step_card_body">Masukkan kod yang dihantar ke alamat e-mel anda untuk sahkan akaun PayPal anda.</string>
+  <string name="paypal_verification_header">Pengesahan PayPal</string>
+  <string name="paypal_verification_insert_code_body">Masukkan kod 4-digit di bawah yang dihantar ke alamat e-mel anda yang dihubungkan dengan Akaun Paypal anda.</string>
+  <string name="paypal_verification_didnt_receive_title">Tak terima?</string>
+  <string name="paypal_verification_completed_body">Wang anda akan dikembalikan dengan segera, dan akaun PayPal anda akan disahkan tak lama lagi.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Jumlah %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">Nampaknya pembelian ini sedang diproses. Sila tunggu sehingga transaksi selesai atau hubungi Pasukan Sokongan kami.</string>
@@ -655,15 +655,15 @@
   <string name="error_blocked_wallet_body">Untuk tujuan keselamatan, dompet anda telah disekat. Sila hubungi kami untuk maklumat lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Caj tambahan mungkin dikenakan.</string>
   <string name="purchase_error_paypal">Ada masalah dengan pembayaran PayPal anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Ada masalah dengan pembayaran Google Pay. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
   <string name="purchase_success_bonus_received_title">%s bonus diterima.</string>
   <string name="purchase_making_purchase_title">Membuat pembelian&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">yuran %2$s %1$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Kaedah bayaran ini tidak sokong mata wang anda. Jadi, ada caj pemprosesan dikenakan. Caj ini dikira sekali bersama Jumlah yang tertera di bahagian atas.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Kaedah bayaran ini mengecaj yuran pemprosesan untuk pembelian ini. Yuran ini dimasukkan ke dalam Jumlah yang boleh dilihat di sudut atas.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Kaedah bayaran ini tidak sokong mata wang anda. Jadi mungkin ada caj pemprosesan dikenakan.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Kaedah bayaran ini mengecaj yuran pemprosesan untuk pembelian ini.</string>
+  <string name="purchase_fee_included_body">termasuk yuran</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -821,8 +821,8 @@
   <string name="remove_wallet_no_button">Tidak, kembali</string>
   <string name="remove_wallet_yes_button">Ya, alih keluar dompet</string>
   <string name="remove_wallet_removed_body">Dompet sudah dialih keluar!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">Pasti?</string>
+  <string name="remove_wallet_extra_confirmation_body">Ingat, tanpa sandaran, anda boleh kehilangan dana dan tahap bonus.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Pindahan</string>
   <string name="transfer_title">Pindah Dana</string>
@@ -1014,7 +1014,7 @@
   <string name="perks_empty_state_first_purchase_body">Buat pembelian pertama anda dalam aplikasi serasi AppCoins dan peroleh promosi yang kami tawarkan kepada anda!</string>
   <string name="perks_empty_body">Tiada promosi buat masa ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Kunci Biometrik</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
   <string name="fingerprint_failed_body">Sila cuba lagi dalam masa %s saat.</string>
   <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>
@@ -1191,10 +1191,10 @@
   <string name="vip_program_promotions_list_title">Promosi istimewa untuk anda</string>
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">Kongsi kod promo ini dengan komuniti dan rakan anda agar mereka dapat manfaat sambil bermain. Bagi setiap pembelian dalam aplikasi yang dibuat, <b>anda dan rakan anda akan dapat bonus %1$s%%</b> dan juga nikmati promosi aktif lain sepanjang bulan.<b>Sah sehingga %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Kongsi kod ini dengan rakan anda</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh daripada rujukan %3$s</string>
   <string name="vip_program_gamification_title">Apa tahap bonus saya?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus diterima hasil pembelian anda</string>
@@ -1256,7 +1256,7 @@
   <string name="verify_card_one_more_step_body">Masukkan kod yang tertera pada butiran transaksi</string>
   <string name="verify_card_one_more_step_button">Masukkan kod</string>
   <string name="verify_card_verified">Kaedah bayaran disahkan!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Sahkan kad kredit/debit</string>
   <string name="verify_card_view_title">Sahkan Kad</string>
   <string name="verify_card_view_disclaimer">Kami akan mengenakan bayaran %s pada kad anda, dan ia akan dikembalikan setelah anda sahkan kod.</string>
   <string name="verify_card_view_title_2">Masukkan butiran kad bank anda</string>

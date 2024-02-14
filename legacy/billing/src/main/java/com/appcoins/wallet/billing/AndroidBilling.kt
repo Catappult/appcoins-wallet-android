@@ -16,8 +16,10 @@ class AndroidBilling(private val billing: Billing) {
     return billing.isSubsSupported(merchantName)
   }
 
-  fun getProducts(merchantName: String, skus: List<String>,
-                  type: BillingSupportedType): Single<List<Product>> {
+  fun getProducts(
+    merchantName: String, skus: List<String>,
+    type: BillingSupportedType
+  ): Single<List<Product>> {
     return billing.getProducts(merchantName, skus, type)
   }
 
@@ -25,13 +27,11 @@ class AndroidBilling(private val billing: Billing) {
     return billing.getPurchases(merchantName, type, Schedulers.io())
   }
 
-  fun consumePurchases(purchaseToken: String, merchantName: String,
-                       type: BillingSupportedType? = null): Single<Boolean> {
+  fun consumePurchases(
+    purchaseToken: String, merchantName: String,
+    type: BillingSupportedType? = null
+  ): Single<Boolean> {
     return billing.consumePurchases(merchantName, purchaseToken, Schedulers.io(), type)
-  }
-
-  fun getDeveloperAddress(packageName: String): Single<String> {
-    return billing.getWallet(packageName)
   }
 
 }

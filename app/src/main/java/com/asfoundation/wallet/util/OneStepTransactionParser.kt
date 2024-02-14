@@ -146,15 +146,7 @@ class OneStepTransactionParser @Inject constructor(
     if (domain == null && toAddressWallet == null) {
       return Single.error(MissingWalletException())
     }
-
-    return if (domain != null) {
-      billing.getWallet(domain)
-        .onErrorReturn {
-          toAddressWallet
-        }
-    } else {
-      Single.just(toAddressWallet)
-    }
+    return Single.just(toAddressWallet ?: "")
   }
 
   private fun getCallback(uri: OneStepUri): String? {

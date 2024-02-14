@@ -303,6 +303,9 @@ internal class AppStartRepositoryMock(
     delay(100)
     return InstallAgo + updatedAfter
   }
+
+  override fun saveIsFirstPayment(isFirstPayment: Boolean) {
+  }
 }
 
 class GPInstallUseCaseMock(

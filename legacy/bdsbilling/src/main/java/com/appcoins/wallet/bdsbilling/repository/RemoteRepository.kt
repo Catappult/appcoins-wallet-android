@@ -2,7 +2,6 @@ package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
@@ -11,7 +10,6 @@ import com.appcoins.wallet.core.network.microservices.model.*
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -25,7 +23,6 @@ class RemoteRepository(
   private val brokerBdsApi: BrokerBdsApi,
   private val inappApi: InappBillingApi,
   private val responseMapper: BdsApiResponseMapper,
-  private val bdsApiSecondary: BdsApiSecondary,
   private val subsApi: SubscriptionBillingApi,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
@@ -35,7 +32,9 @@ class RemoteRepository(
     private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     private const val TOP_UP_TYPE = "TOPUP"
-    class DuplicateException(): Exception()
+
+    class DuplicateException() : Exception()
+
     var executingAppcTransaction = AtomicBoolean(false)
   }
 
@@ -215,7 +214,6 @@ class RemoteRepository(
     productName: String?,
     packageName: String,
     priceValue: BigDecimal,
-    developerWallet: String,
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
@@ -224,7 +222,6 @@ class RemoteRepository(
   ): Single<Transaction> =
     createTransaction(
       userWallet = null,
-      developerWallet = developerWallet,
       entityOemId = entityOemId,
       entityDomain = entityDomainId,
       token = id,
@@ -295,19 +292,6 @@ class RemoteRepository(
       walletSignature = signedContent
     )
 
-  var ownerWalletCached: GetWalletResponse? = null
-  var packageNameCached: String? = null
-  fun getWallet(packageName: String, fromCache: Boolean = true): Single<GetWalletResponse> {
-    return if (fromCache && ownerWalletCached != null && packageNameCached == packageName)
-      Single.just(ownerWalletCached)
-    else
-      bdsApiSecondary.getWallet(packageName)
-        .doOnSuccess {
-          ownerWalletCached = it
-          packageNameCached = packageName
-        }
-  }
-
   fun transferCredits(
     toWallet: String,
     origin: String,
@@ -320,7 +304,6 @@ class RemoteRepository(
   ): Single<Transaction> =
     createTransaction(
       userWallet = toWallet,
-      developerWallet = null,
       entityOemId = null,
       entityDomain = null,
       token = null,
@@ -347,7 +330,6 @@ class RemoteRepository(
     productName: String?,
     type: String,
     origin: String?,
-    walletsDeveloper: String?,
     entityOemId: String?,
     entityDomain: String?,
     entityPromoCode: String?,
@@ -367,7 +349,6 @@ class RemoteRepository(
           product = productName,
           type = type,
           userWallet = walletAddress,
-          walletsDeveloper = walletsDeveloper,
           entityOemId = entityOemId,
           entityDomain = entityDomain,
           entityPromoCode = entityPromoCode,
@@ -409,7 +390,6 @@ class RemoteRepository(
 
   private fun createTransaction(
     userWallet: String?,
-    developerWallet: String?,
     entityOemId: String?,
     entityDomain: String?,
     token: String?,
@@ -437,7 +417,7 @@ class RemoteRepository(
             creditsPurchaseBody = CreditsPurchaseBody(callback, productToken, entityOemId)
           )
         } else {
-          if(executingAppcTransaction.compareAndSet(false, true)) {
+          if (executingAppcTransaction.compareAndSet(false, true)) {
             brokerBdsApi.createTransaction(
               gateway = gateway,
               origin = origin,
@@ -447,7 +427,6 @@ class RemoteRepository(
               product = productName,
               type = type,
               userWallet = userWallet,
-              walletsDeveloper = developerWallet,
               entityOemId = entityOemId,
               entityDomain = entityDomain,
               entityPromoCode = null,

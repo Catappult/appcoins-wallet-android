@@ -99,6 +99,28 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     )
   }
 
+  fun sendGooglePaySuccessEvent(value: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+    map[VALUE] = value
+    map[STATUS] = STATUS_SUCCESS
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendGooglePayErrorEvent(errorCode: String? = null, errorDetails: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    map[ERROR_DETAILS] = errorDetails
+    analyticsManager.logEvent(
+      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
     val map = HashMap<String, Any>()
 

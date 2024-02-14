@@ -78,4 +78,5 @@ interface AppStartRepository {
   suspend fun saveRunCount(count: Int)
   suspend fun getFirstInstallTime(): Long
   suspend fun getLastUpdateTime(): Long
+  fun saveIsFirstPayment(isFirstPayment: Boolean)
 }

@@ -1192,7 +1192,7 @@
   <string name="vip_program_promo_code_tag">プロモーションコード</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
   <string name="vip_program_referral_page_body">このプロモコードをあなたのコミュニティやお友達にシェアして、みんなでプレーしながら獲得しましょう。アプリ内課金をするごとに、<b>あなたとお友達の両方に、他のアクティブなプロモーションに加えて、%1$s%%ボーナス</b>が付与されます。<b>有効期限は %2$s</b> です！</string>
-  <string name="vip_program_referral_page_body_2">このコードを使用すると、あなたとお友達は7日間、すべてのお買い物で%s%%のボーナスを獲得できます！</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_only_app_title">次でのご購入に限ります</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>

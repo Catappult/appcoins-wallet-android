@@ -15,6 +15,7 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.asfoundation.wallet.billing.googlepay.usecases.FilterValidGooglePayUseCase
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -28,6 +29,7 @@ class PaymentMethodsInteractor @Inject constructor(
   private val gamificationInteractor: GamificationInteractor,
   private val walletBlockedInteract: WalletBlockedInteract,
   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
   private val fingerprintPreferences: FingerprintPreferencesDataSource,
   private val billing: Billing,
   private val errorMapper: ErrorMapper,
@@ -86,6 +88,8 @@ class PaymentMethodsInteractor @Inject constructor(
   fun getPaymentMethods(transaction: TransactionBuilder, transactionValue: String,
                         currency: String): Single<List<PaymentMethod>> =
       inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, currency)
+        .map { filterValidGooglePayUseCase(it) }
+
 
   fun mergeAppcoins(paymentMethods: List<PaymentMethod>): List<PaymentMethod> =
       inAppPurchaseInteractor.mergeAppcoins(paymentMethods)
