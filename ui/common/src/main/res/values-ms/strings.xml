@@ -1192,7 +1192,7 @@
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
   <string name="vip_program_referral_page_body">Kongsi kod promo ini dengan komuniti dan rakan anda agar mereka dapat manfaat sambil bermain. Bagi setiap pembelian dalam aplikasi yang dibuat, <b>anda dan rakan anda akan dapat bonus %1$s%%</b> dan juga nikmati promosi aktif lain sepanjang bulan.<b>Sah sehingga %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Anda dan rakan akan dapat bonus %s%% bagi semua pembelian selama 7 hari apabila guna kod ini!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Kongsi kod ini dengan rakan anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh daripada rujukan %3$s</string>
