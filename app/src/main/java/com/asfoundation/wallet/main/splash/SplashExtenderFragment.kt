@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -86,7 +88,10 @@ class SplashExtenderFragment :
   @Composable
   fun VipWelcomeScreen(onClick: () -> Unit = {}) {
     Column(
-        modifier = Modifier.fillMaxSize().background(color = WalletColors.styleguide_blue),
+        modifier =
+            Modifier.fillMaxSize()
+                .background(color = WalletColors.styleguide_blue)
+                .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally) {
           Image(
               painter = painterResource(R.drawable.img_vip_onboarding),
@@ -118,7 +123,7 @@ class SplashExtenderFragment :
           )
           Column(
               modifier =
-                  Modifier.padding(top = 48.dp).padding(horizontal = 32.dp).widthIn(max = 360.dp)) {
+                  Modifier.padding(vertical = 48.dp, horizontal = 32.dp).widthIn(max = 360.dp)) {
                 ButtonWithText(
                     label = stringResource(R.string.got_it_button),
                     onClick = onClick,
