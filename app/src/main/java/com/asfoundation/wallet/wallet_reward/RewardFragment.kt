@@ -5,9 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,7 +37,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
-import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
@@ -55,6 +58,7 @@ import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
+import com.appcoins.wallet.ui.widgets.expanded
 import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -209,8 +213,24 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       gamificationHeader: GamificationHeaderModel,
       vipReferralInfo: VipReferralInfo?
   ) {
-    GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
-    VipReferralCard(vipReferralInfo = vipReferralInfo)
+    BoxWithConstraints {
+      if (expanded()) {
+        Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+          Column(modifier = Modifier.weight(1f)) {
+            GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
+          }
+          if (vipReferralInfo != null)
+              Column(modifier = Modifier.weight(1f)) {
+                VipReferralCard(vipReferralInfo = vipReferralInfo)
+              }
+        }
+      } else {
+        Column {
+          GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
+          VipReferralCard(vipReferralInfo = vipReferralInfo)
+        }
+      }
+    }
   }
 
   @Composable
@@ -244,24 +264,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Composable
   fun RewardScreenPreview() {
     RewardScreen()
-  }
-
-  @Preview()
-  @Composable
-  fun PreviewGamificationContentAptoide() {
-    Row() {
-      GamificationHeaderAptoide(
-          gamificationHeader = GamificationHeaderModel.emptySkeletonLoadingState())
-      VipReferralCard(
-          vipReferralInfo =
-              VipReferralInfo(
-                  vipBonus = "10000",
-                  endDate = 123456789876543L,
-                  vipCode = "123456",
-                  numberReferrals = "10",
-                  totalEarned = "1000",
-                  app = PromoCodeBonusResponse.App("", "", "")))
-    }
   }
 
   override fun onStateChanged(state: RewardState) {

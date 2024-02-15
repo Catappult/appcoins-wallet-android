@@ -213,7 +213,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
               .clip(shape = RoundedCornerShape(3.dp))
               .zIndex(8f)) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
               Text(

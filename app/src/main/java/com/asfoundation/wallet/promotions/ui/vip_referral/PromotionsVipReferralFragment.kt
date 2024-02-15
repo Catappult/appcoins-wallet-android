@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,6 +44,7 @@ import androidx.fragment.app.viewModels
 import coil.compose.SubcomposeAsyncImage
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralEndCountDownTimer
@@ -90,35 +92,37 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
         topBar = { Surface { TopBar(onClickSupport = { viewModel.displayChat() }) } },
         containerColor = WalletColors.styleguide_blue,
     ) { padding ->
-      Column(
-          modifier =
-              Modifier.padding(padding)
-                  .padding(16.dp)
-                  .fillMaxSize()
-                  .verticalScroll(rememberScrollState()),
-          horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        VipReferralProgramContent(uiState = viewModel.uiState.collectAsState().value)
+      when (val uiState = viewModel.uiState.collectAsState().value) {
+        is UiState.Success -> {
+          VipReferralProgramContent(padding = padding, fiatValue = uiState.fiatValue!!)
+        }
+        else -> {
+          Loading()
+        }
       }
     }
   }
 
   @Composable
-  fun VipReferralProgramContent(uiState: UiState) {
-    when (uiState) {
-      is UiState.Success -> {
-        val fiatAmount = formatter.formatCurrency(uiState.fiatValue!!.amount, WalletCurrency.FIAT)
-        VipPresentation(bonusPercent)
-        VipCard(
-            symbol = uiState.fiatValue.symbol,
-            fiatAmount = fiatAmount,
-            earnedTotal = earnedTotal,
-            referralCode = promoReferral,
-            endDate = endDate,
-            appName = appName,
-            appIconUrl = appIconUrl)
-      }
-      else -> Loading()
+  fun VipReferralProgramContent(padding: PaddingValues, fiatValue: FiatValue) {
+    Column(
+        modifier =
+            Modifier.padding(padding)
+                .padding(16.dp)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      val fiatAmount = formatter.formatCurrency(fiatValue.amount, WalletCurrency.FIAT)
+      VipPresentation(bonusPercent)
+      VipCard(
+          symbol = fiatValue.symbol,
+          fiatAmount = fiatAmount,
+          earnedTotal = earnedTotal,
+          referralCode = promoReferral,
+          endDate = endDate,
+          appName = appName,
+          appIconUrl = appIconUrl)
     }
   }
 

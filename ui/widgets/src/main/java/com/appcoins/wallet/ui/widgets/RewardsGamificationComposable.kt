@@ -66,7 +66,7 @@ fun GamificationHeader(
 ) {
   Card(
       modifier =
-          Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp).fillMaxWidth().clickable {
+          Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp).fillMaxSize().clickable {
             onClick()
           },
       shape = RoundedCornerShape(8.dp),
@@ -293,42 +293,45 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
   Card(
       colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
       modifier =
-          Modifier.fillMaxWidth()
+          Modifier.fillMaxSize()
               .padding(start = 16.dp, end = 16.dp, top = 16.dp)
               .clip(shape = RoundedCornerShape(8.dp))
               .clickable { onClick() },
   ) {
-    Row(
-        modifier =
-            Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically) {
-          Image(
-              painter = painterResource(R.drawable.ic_vip_symbol),
-              contentDescription = stringResource(R.string.vip),
-              modifier = Modifier.size(48.dp).align(Alignment.CenterVertically))
-          Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = stringResource(R.string.vip_program_referral_button_title),
-                style = MaterialTheme.typography.titleSmall,
-                color = WalletColors.styleguide_white,
-                modifier = Modifier.padding(horizontal = 20.dp),
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = stringResource(R.string.vip_program_referral_button_body, vipBonus),
-                style = MaterialTheme.typography.bodySmall,
-                color = WalletColors.styleguide_dark_grey,
-                modifier = Modifier.padding(horizontal = 20.dp))
+    Column(verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxSize()) {
+      Row(
+          modifier =
+              Modifier.fillMaxWidth()
+                  .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
+          horizontalArrangement = Arrangement.Start,
+          verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(R.drawable.ic_vip_symbol),
+                contentDescription = stringResource(R.string.vip),
+                modifier = Modifier.size(48.dp).align(Alignment.CenterVertically))
+            Column(modifier = Modifier.weight(1f)) {
+              Text(
+                  text = stringResource(R.string.vip_program_referral_button_title),
+                  style = MaterialTheme.typography.titleSmall,
+                  color = WalletColors.styleguide_white,
+                  modifier = Modifier.padding(horizontal = 20.dp),
+                  fontWeight = FontWeight.Bold,
+              )
+              Text(
+                  text = stringResource(R.string.vip_program_referral_button_body, vipBonus),
+                  style = MaterialTheme.typography.bodySmall,
+                  color = WalletColors.styleguide_dark_grey,
+                  modifier = Modifier.padding(horizontal = 20.dp))
+            }
+            Image(
+                painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = null,
+                modifier = Modifier.size(32.dp))
           }
-          Image(
-              painter = painterResource(R.drawable.ic_arrow_right),
-              contentDescription = null,
-              modifier = Modifier.size(32.dp))
-        }
-    VipReferralEndCountDownTimer(
-        endDateTime = endDateTime,
-        modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth().padding(horizontal = 24.dp))
+      VipReferralEndCountDownTimer(
+          endDateTime = endDateTime,
+          modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth().padding(horizontal = 24.dp))
+    }
   }
 }
 
