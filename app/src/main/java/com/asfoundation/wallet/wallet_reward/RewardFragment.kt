@@ -17,9 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -35,6 +33,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
@@ -68,6 +67,7 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.APTOIDE
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
+import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,8 +84,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   private val viewModel: RewardViewModel by viewModels()
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
-
-  private var isVip by mutableStateOf(false)
 
   private val df = DecimalFormat("###.#")
 
@@ -127,7 +125,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           Surface {
             TopBar(
                 isMainBar = true,
-                isVip = isVip,
                 onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
                 onClickSettings = { viewModel.onSettingsClick() },
                 onClickSupport = { viewModel.showSupportScreen(false) },
@@ -151,43 +148,19 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     ) {
       item {
         with(viewModel.gamificationHeaderModel.value) {
-          if (this != null && walletOrigin == APTOIDE) {
-            GamificationHeader(
-                onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
-                indicatorColor = Color(this.color),
-                valueSpendForNextLevel = this.spendMoreAmount,
-                currencySpend = " AppCoins Credits",
-                currentProgress = this.currentSpent,
-                maxProgress = this.nextLevelSpent ?: 0,
-                bonusValue = df.format(this.bonusPercentage),
-                planetDrawable = this.planetImage,
-                isVip = this.isVip,
-                isMaxVip = this.isMaxVip)
-            with(viewModel.vipReferralModel.value) {
-              if (this != null) {
-                VipReferralCard(
-                    {
-                      navigator.navigateToVipReferral(
-                          bonus = this.vipBonus,
-                          code = this.vipCode,
-                          totalEarned = this.totalEarned,
-                          numberReferrals = this.numberReferrals,
-                          endDate = this.endDate,
-                          mainNavController = navController(),
-                          app = this.app,
-                      )
-                    },
-                    this.vipBonus,
-                    this.endDate,
-                )
-              }
+          when {
+            this != null && walletOrigin == APTOIDE -> {
+              GamificationContentAptoide(this, viewModel.vipReferralModel.value)
             }
-          } else if (this != null && walletOrigin == PARTNER) {
-            GamificationHeaderPartner(df.format(this.bonusPercentage))
-          } else if (this != null && this.uninitialized) {
-            SkeletonLoadingGamificationCard()
-          } else {
-            GamificationHeaderNoPurchases()
+            this != null && walletOrigin == PARTNER -> {
+              GamificationHeaderPartner(df.format(this.bonusPercentage))
+            }
+            this != null && this.uninitialized -> {
+              SkeletonLoadingGamificationCard()
+            }
+            else -> {
+              GamificationHeaderNoPurchases()
+            }
           }
           if (remember { getLoadingStateChallengeReward() }.value) {
             SkeletonLoadingRewardsActionsCard()
@@ -231,14 +204,67 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     }
   }
 
+  @Composable
+  fun GamificationContentAptoide(
+      gamificationHeader: GamificationHeaderModel,
+      vipReferralInfo: VipReferralInfo?
+  ) {
+    GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
+    VipReferralCard(vipReferralInfo = vipReferralInfo)
+  }
+
+  @Composable
+  fun GamificationHeaderAptoide(gamificationHeader: GamificationHeaderModel) {
+    with(gamificationHeader) {
+      GamificationHeader(
+          onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
+          indicatorColor = Color(color),
+          valueSpendForNextLevel = spendMoreAmount,
+          currencySpend = " AppCoins Credits",
+          currentProgress = currentSpent,
+          maxProgress = nextLevelSpent ?: 0,
+          bonusValue = df.format(bonusPercentage),
+          planetDrawable = planetImage,
+          isVip = isVip,
+          isMaxVip = isMaxVip)
+    }
+  }
+
+  @Composable
+  fun VipReferralCard(vipReferralInfo: VipReferralInfo?) {
+    if (vipReferralInfo != null)
+        VipReferralCard(
+            { navigator.navigateToVipReferral(vipReferralInfo, navController()) },
+            vipReferralInfo.vipBonus,
+            vipReferralInfo.endDate,
+        )
+  }
+
   @Preview(showBackground = true)
   @Composable
   fun RewardScreenPreview() {
     RewardScreen()
   }
 
+  @Preview()
+  @Composable
+  fun PreviewGamificationContentAptoide() {
+    Row() {
+      GamificationHeaderAptoide(
+          gamificationHeader = GamificationHeaderModel.emptySkeletonLoadingState())
+      VipReferralCard(
+          vipReferralInfo =
+              VipReferralInfo(
+                  vipBonus = "10000",
+                  endDate = 123456789876543L,
+                  vipCode = "123456",
+                  numberReferrals = "10",
+                  totalEarned = "1000",
+                  app = PromoCodeBonusResponse.App("", "", "")))
+    }
+  }
+
   override fun onStateChanged(state: RewardState) {
-    showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
     instantiateChallengeReward(state.walletInfoAsync)
   }
@@ -365,10 +391,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         viewModel.gamificationHeaderModel.value = null
       }
     }
-  }
-
-  private fun showVipBadge(shouldShow: Boolean) {
-    isVip = shouldShow
   }
 
   private fun navController(): NavController {
