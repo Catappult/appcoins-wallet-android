@@ -29,6 +29,7 @@ import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
+import com.asfoundation.wallet.billing.wallet_one.WalletOneFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -379,6 +380,39 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
       .replace(
         R.id.fragment_container,
         GooglePayWebFragment.newInstance(
+          paymentType = paymentType,
+          origin = getOrigin(isBds),
+          transactionBuilder = transaction!!,
+          amount = amount,
+          currency = currency,
+          bonus = bonus,
+          isPreSelected = isPreselected,
+          gamificationLevel = gamificationLevel,
+          skuDescription = getSkuDescription(),
+          isSubscription = isSubscription,
+          isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
+          frequency = frequency,
+        )
+      )
+      .commit()
+  }
+
+  override fun showWalletOne(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    supportFragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container,
+        WalletOneFragment.newInstance(
           paymentType = paymentType,
           origin = getOrigin(isBds),
           transactionBuilder = transaction!!,

@@ -648,6 +648,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showWalletOne(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showWalletOne(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.WALLET_ONE,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showCreditCard(
     gamificationLevel: Int,
     fiatValue: FiatValue,

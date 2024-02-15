@@ -34,7 +34,11 @@ class WebViewActivity() : AppCompatActivity() {
     lockCurrentPosition()
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
-      billingWebViewFragment = BillingWebViewFragment.newInstance(url)
+      val htmlData = intent.getStringExtra(HTML_DATA)
+      billingWebViewFragment = if (url.isNullOrEmpty())
+        BillingWebViewFragment.newInstanceFromData(htmlData)
+      else
+        BillingWebViewFragment.newInstance(url)
       supportFragmentManager.beginTransaction()
         .add(R.id.container, billingWebViewFragment)
         .commit()
@@ -78,11 +82,20 @@ class WebViewActivity() : AppCompatActivity() {
     const val FAIL = 0
     const val USER_CANCEL = 2
     private const val URL = "url"
+    private const val HTML_DATA = "html_data"
     const val USER_CANCEL_THROWABLE = "user_cancel"
 
     fun newIntent(activity: Activity?, url: String?): Intent {
       return Intent(activity, WebViewActivity::class.java).apply {
         putExtra(URL, url)
+        putExtra(HTML_DATA, "")
+      }
+    }
+
+    fun newIntentFromData(activity: Activity?, htmlData: String?): Intent {
+      return Intent(activity, WebViewActivity::class.java).apply {
+        putExtra(URL, "")
+        putExtra(HTML_DATA, htmlData)
       }
     }
   }
