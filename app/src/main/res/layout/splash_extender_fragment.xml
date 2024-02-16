@@ -17,27 +17,13 @@
       tools:layout="@layout/splash_extender_fragment"
       />
 
-  <ImageView
-      android:id="@+id/splash_logo"
-      android:layout_width="116dp"
-      android:layout_height="116dp"
-      android:layout_marginBottom="22dp"
-      android:src="@drawable/ic_app_logo_icon"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:importantForAccessibility="no"
-      app:layout_constraintStart_toStartOf="parent"
-      />
-
   <androidx.compose.ui.platform.ComposeView
-      android:id="@+id/composeView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:id="@+id/welcomeVipComposeView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:elevation="6dp"
-      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />

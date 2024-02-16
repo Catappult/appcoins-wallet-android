@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.main.splash
 
-import com.appcoins.wallet.core.arch.BaseViewModel
-import com.appcoins.wallet.core.arch.SideEffect
-import com.appcoins.wallet.core.arch.ViewState
+import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
@@ -11,13 +9,8 @@ import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingVipCompletedUse
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardVipUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-sealed class SplashExtenderSideEffect : SideEffect {
-  data class ShowVipAnimation(val isVip: Boolean, val showVipOnboarding: Boolean) :
-      SplashExtenderSideEffect()
-}
-
-object SplashExtenderState : ViewState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
 class SplashExtenderViewModel
@@ -27,41 +20,53 @@ constructor(
     private val rxSchedulers: RxSchedulers,
     private val shouldShowOnboardVipUseCase: ShouldShowOnboardVipUseCase,
     private val setOnboardingVipCompletedUseCase: SetOnboardingVipCompletedUseCase,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase
-) : BaseViewModel<SplashExtenderState, SplashExtenderSideEffect>(SplashExtenderState) {
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+) : ViewModel() {
+
+  private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
+  var uiState: StateFlow<UiState> = _uiState
 
   init {
     handleVipStatus()
   }
 
-  private fun handleVipStatus() {
-    observeUserStatsUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .observeOn(rxSchedulers.main)
-        .flatMapSingle { gamificationStats ->
-          getCurrentWalletUseCase().doOnSuccess { wallet ->
+  private fun handleVipStatus() =
+      observeUserStatsUseCase()
+          .subscribeOn(rxSchedulers.io)
+          .observeOn(rxSchedulers.main)
+          .flatMapSingle { gamificationStats ->
             val isVipLevel =
                 gamificationStats.gamificationStatus == GamificationStatus.VIP ||
                     gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
-            sendSideEffect {
-              SplashExtenderSideEffect.ShowVipAnimation(
-                  isVip = isVipLevel,
-                  showVipOnboarding = shouldShowOnboardVipUseCase(isVipLevel, wallet.address))
-            }
+
+            getCurrentWalletUseCase()
+                .map { wallet ->
+                  UiState.Success(
+                      isVip = isVipLevel,
+                      showVipOnboarding = shouldShowOnboardVipUseCase(isVipLevel, wallet.address))
+                }
+                .onErrorReturn { UiState.Success(isVip = false, showVipOnboarding = false) }
           }
-        }
-        .doOnError {
-          sendSideEffect {
-            SplashExtenderSideEffect.ShowVipAnimation(isVip = false, showVipOnboarding = false)
-          }
-        }
-        .scopedSubscribe()
-  }
+          .doOnSubscribe { _uiState.value = UiState.Loading() }
+          .doOnError { _uiState.value = UiState.Fail }
+          .subscribe(
+              { successState -> _uiState.value = successState },
+              { _ -> _uiState.value = UiState.Fail })
 
   fun completeVipOnboarding() {
     getCurrentWalletUseCase()
         .subscribeOn(rxSchedulers.io)
         .doOnSuccess { wallet -> setOnboardingVipCompletedUseCase(wallet.address) }
-        .scopedSubscribe()
+        .subscribe()
+  }
+
+  sealed class UiState {
+    object Idle : UiState()
+
+    data class Loading(val isVip: Boolean = false) : UiState()
+
+    object Fail : UiState()
+
+    data class Success(val isVip: Boolean, val showVipOnboarding: Boolean) : UiState()
   }
 }

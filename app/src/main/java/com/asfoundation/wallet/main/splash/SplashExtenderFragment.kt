@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,9 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.ButtonType
@@ -44,8 +43,7 @@ import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashExtenderFragment :
-    Fragment(), SingleStateFragment<SplashExtenderState, SplashExtenderSideEffect> {
+class SplashExtenderFragment : Fragment() {
 
   private val viewModel: SplashExtenderViewModel by viewModels()
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)
@@ -58,33 +56,45 @@ class SplashExtenderFragment :
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    views.composeView.setContent {
-      VipWelcomeScreen(
-          onClick = {
-            viewModel.completeVipOnboarding()
+    views.welcomeVipComposeView.setContent {
+      when (val uiState = viewModel.uiState.collectAsState().value) {
+        is SplashExtenderViewModel.UiState.Success -> {
+          if (uiState.showVipOnboarding)
+              VipWelcomeScreen(
+                  onClick = {
+                    viewModel.completeVipOnboarding()
+                    finishSplash()
+                  })
+          else {
+            SplashLogo(uiState.isVip)
             finishSplash()
-          })
-    }
-  }
-
-  override fun onStateChanged(state: SplashExtenderState) = Unit
-
-  override fun onSideEffect(sideEffect: SplashExtenderSideEffect) {
-    when (sideEffect) {
-      is SplashExtenderSideEffect.ShowVipAnimation -> {
-        showVipOnboarding(sideEffect.isVip, sideEffect.showVipOnboarding)
+          }
+        }
+        is SplashExtenderViewModel.UiState.Loading -> SplashLogo(uiState.isVip)
+        is SplashExtenderViewModel.UiState.Fail -> finishSplash()
+        else -> {
+          // Do nothing
+        }
       }
     }
   }
 
-  private fun showVipOnboarding(isVip: Boolean, showVipOnboarding: Boolean) {
-    if (isVip) views.splashLogo.setImageResource(R.drawable.ic_vip_symbol)
-    if (showVipOnboarding) views.composeView.visibility = View.VISIBLE else finishSplash()
-  }
-
   private fun finishSplash() {
     RxBus.publish(SplashFinishEvent())
+  }
+
+  @Composable
+  fun SplashLogo(isVip: Boolean = false) {
+    val logo = if (isVip) R.drawable.ic_vip_symbol else R.drawable.ic_app_logo_icon
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+          Image(
+              painter = painterResource(logo),
+              contentDescription = null,
+              modifier = Modifier.size(112.dp))
+        }
   }
 
   @Composable
@@ -152,5 +162,11 @@ class SplashExtenderFragment :
   @Composable
   fun PreviewVipWelcomeScreen() {
     VipWelcomeScreen()
+  }
+
+  @Preview
+  @Composable
+  fun PreviewSplashLogo() {
+    SplashLogo()
   }
 }
