@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -89,47 +91,53 @@ class SplashExtenderFragment :
   fun VipWelcomeScreen(onClick: () -> Unit = {}) {
     Column(
         modifier =
-            Modifier.fillMaxSize()
-                .background(color = WalletColors.styleguide_blue)
-                .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-          Box(contentAlignment = Alignment.BottomCenter) {
-            Image(
-                painter = painterResource(R.drawable.img_vip_onboarding),
-                contentDescription = null,
+            Modifier.background(color = WalletColors.styleguide_blue)
+                .verticalScroll(rememberScrollState())
+                .height(IntrinsicSize.Max),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween) {
+          Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(contentAlignment = Alignment.BottomCenter) {
+              Image(
+                  painter = painterResource(R.drawable.img_vip_onboarding),
+                  contentDescription = null,
+                  modifier =
+                      Modifier.padding(bottom = 32.dp)
+                          .height(400.dp)
+                          .widthIn(max = 400.dp)
+                          .fillMaxWidth())
+              Image(
+                  painter = painterResource(R.drawable.ic_vip_symbol),
+                  contentDescription = null,
+                  modifier = Modifier.size(88.dp).padding(horizontal = 8.dp))
+            }
+            Text(
+                text = stringResource(R.string.vip_program_onboarding_header_1),
+                modifier = Modifier.padding(top = 24.dp),
+                style = MaterialTheme.typography.headlineLarge,
+                color = WalletColors.styleguide_light_grey,
+                fontWeight = FontWeight.Bold)
+            Text(
+                text = stringResource(R.string.vip_program_onboarding_header_2),
+                modifier = Modifier.padding(vertical = 8.dp),
+                style = MaterialTheme.typography.titleLarge,
+                color = WalletColors.styleguide_vip_yellow,
+            )
+            Text(
+                text = stringResource(R.string.vip_program_onboarding_body),
                 modifier =
-                    Modifier.padding(bottom = 32.dp)
-                        .height(400.dp)
-                        .widthIn(max = 400.dp)
-                        .fillMaxWidth())
-            Image(
-                painter = painterResource(R.drawable.ic_vip_symbol),
-                contentDescription = null,
-                modifier = Modifier.size(88.dp).padding(horizontal = 8.dp))
+                    Modifier.padding(horizontal = 24.dp, vertical = 8.dp).widthIn(max = 400.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = WalletColors.styleguide_light_grey,
+                textAlign = TextAlign.Center,
+            )
           }
-          Text(
-              text = stringResource(R.string.vip_program_onboarding_header_1),
-              modifier = Modifier.padding(top = 24.dp),
-              style = MaterialTheme.typography.headlineLarge,
-              color = WalletColors.styleguide_light_grey,
-              fontWeight = FontWeight.Bold)
-          Text(
-              text = stringResource(R.string.vip_program_onboarding_header_2),
-              modifier = Modifier.padding(vertical = 8.dp),
-              style = MaterialTheme.typography.titleLarge,
-              color = WalletColors.styleguide_vip_yellow,
-          )
-          Text(
-              text = stringResource(R.string.vip_program_onboarding_body),
-              modifier =
-                  Modifier.padding(horizontal = 24.dp, vertical = 8.dp).widthIn(max = 400.dp),
-              style = MaterialTheme.typography.bodySmall,
-              color = WalletColors.styleguide_light_grey,
-              textAlign = TextAlign.Center,
-          )
           Column(
               modifier =
-                  Modifier.padding(vertical = 48.dp, horizontal = 32.dp).widthIn(max = 360.dp)) {
+                  Modifier.padding(vertical = 48.dp, horizontal = 32.dp)
+                      .widthIn(max = 360.dp)
+                      .fillMaxSize(),
+              verticalArrangement = Arrangement.Bottom) {
                 ButtonWithText(
                     label = stringResource(R.string.got_it_button),
                     onClick = onClick,
