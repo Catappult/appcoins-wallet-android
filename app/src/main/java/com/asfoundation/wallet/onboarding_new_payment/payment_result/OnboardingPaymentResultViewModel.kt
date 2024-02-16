@@ -63,9 +63,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private fun handlePaymentResult() {
     when {
-      args.paymentModel.resultCode.equals("AUTHORISED", true) ||
-        (args.paymentModel.resultCode.equals("Received", true) &&
-            args.paymentType.name == PaymentType.TRUSTLY.name) -> {
+      args.paymentModel.resultCode.equals(PaymentModel.ResultCode.AUTHORISED.key, true) ||
+        (args.paymentModel.resultCode.equals(PaymentModel.ResultCode.RECEIVED.key, true)
+            && args.paymentType.name == PaymentType.TRUSTLY.name) -> {
         handleAuthorisedPayment()
       }
       args.paymentModel.refusalCode != null -> {

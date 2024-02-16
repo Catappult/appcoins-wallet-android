@@ -367,8 +367,8 @@ class AdyenTopUpPresenter(
 
   private fun handlePaymentResult(paymentModel: PaymentModel): Completable {
     return when {
-      paymentModel.resultCode.equals("AUTHORISED", ignoreCase = true) ||
-        (paymentModel.resultCode.equals("Received", true) &&
+      paymentModel.resultCode.equals(PaymentModel.ResultCode.AUTHORISED.key, ignoreCase = true) ||
+        (paymentModel.resultCode.equals(PaymentModel.ResultCode.RECEIVED.key, true) &&
           paymentType == PaymentType.TRUSTLY.name) -> {
         adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
           .subscribeOn(networkScheduler)

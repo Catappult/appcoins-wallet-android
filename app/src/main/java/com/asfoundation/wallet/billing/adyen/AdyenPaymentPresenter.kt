@@ -358,8 +358,8 @@ class AdyenPaymentPresenter(
   private fun handlePaymentResult(
     paymentModel: PaymentModel
   ): Completable = when {
-    paymentModel.resultCode.equals("AUTHORISED", true) ||
-        (paymentModel.resultCode.equals("Received", true) &&
+    paymentModel.resultCode.equals(PaymentModel.ResultCode.AUTHORISED.key, true) ||
+        (paymentModel.resultCode.equals(PaymentModel.ResultCode.RECEIVED.key, true) &&
             paymentType == PaymentType.TRUSTLY.name)
     -> {
       adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
