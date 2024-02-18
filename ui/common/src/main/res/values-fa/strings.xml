@@ -138,9 +138,9 @@
   <string name="intro_already_have_wallet_button">از قبل کیف پول دارم</string>
   <string name="intro_get_started_button">راه‌اندازی کیف پول</string>
   <!-- New Intro -->
-  <string name="new_intro_1_header">Your Tool for In-App Purchases</string>
-  <string name="new_intro_1_body">Make purchases in your favorite apps and games with the AppCoins Wallet.</string>
-  <string name="new_intro_2_header">Up to %s%% Bonus in All Purchases</string>
+  <string name="new_intro_1_header">ابزار شما برای خریدهای داخل اپلیکیشنی</string>
+  <string name="new_intro_1_body">با AppCoins Wallet در اپلیکیشن‌ها و بازی‌های مورد علاقه خود خرید کنید.</string>
+  <string name="new_intro_2_header">تا %s%% بونوس در همه خریدها</string>
   <string name="new_intro_2_body">Get extra funds every time you make a purchase in an AppCoins compatible game.</string>
   <string name="new_intro_3_header">Your Favorite Payment Methods Are Here!</string>
   <string name="new_intro_3_body">Available payment methods</string>
