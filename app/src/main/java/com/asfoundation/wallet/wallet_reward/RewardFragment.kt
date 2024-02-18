@@ -108,6 +108,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    viewModel.updateNotificationBadge()
   }
 
   override fun onResume() {
@@ -137,6 +138,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen(false) },
+            hasNotificationBadge = viewModel.hasNotificationBadge.value
           )
         }
       },

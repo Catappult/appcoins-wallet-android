@@ -14,7 +14,7 @@ class CommonsPreferencesDataSource @Inject constructor(private val sharedPrefere
     //String was kept the same for legacy purposes
     private const val HAS_SEEN_PROMOTION_TOOLTIP = "first_time_on_transaction_activity"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
-    private const val UPDATE_SEEN_TIME = "update_seen_time"
+    private const val HAS_SEEN_NOTIFICATION_BADGE = "has_seen_notification_badge"
     private const val ANDROID_ID = "android_id"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val WALLET_ID = "wallet_id"
@@ -53,10 +53,10 @@ class CommonsPreferencesDataSource @Inject constructor(private val sharedPrefere
 
   fun getAutoUpdateCardDismissedVersion() = sharedPreferences.getInt(AUTO_UPDATE_VERSION, 0)
 
-  fun setUpdateNotificationSeenTime(currentTimeMillis: Long) =
-    sharedPreferences.edit().putLong(UPDATE_SEEN_TIME, currentTimeMillis).apply()
+  fun setUpdateNotificationBadge(hasNotification: Boolean) =
+    sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
 
-  fun getUpdateNotificationSeenTime() = sharedPreferences.getLong(UPDATE_SEEN_TIME, -1)
+  fun getUpdateNotificationBadge() = sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
 
   fun getAndroidId() = sharedPreferences.getString(ANDROID_ID, "").orEmpty()
 

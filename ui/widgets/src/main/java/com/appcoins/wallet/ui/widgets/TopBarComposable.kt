@@ -25,7 +25,8 @@ fun TopBar(
   onClickNotifications: () -> Unit = {},
   onClickSettings: () -> Unit = {},
   onClickSupport: () -> Unit = {},
-  onClickBack: (() -> Unit)? = null
+  onClickBack: (() -> Unit)? = null,
+  hasNotificationBadge: Boolean = false,
 ) {
   TopAppBar(
     modifier = Modifier
@@ -54,7 +55,7 @@ fun TopBar(
           if (isVip) VipBadge()
           SettingsButton(onClickSettings)
         }
-        SupportButton(onClickSupport)
+        SupportButton(onClickSupport, hasNotificationBadge)
       }
     })
 }
@@ -63,7 +64,8 @@ fun TopBar(
 @Composable
 fun TopBar(
   onClickSupport: () -> Unit = {},
-  onClickBack: (() -> Unit)? = null
+  onClickBack: (() -> Unit)? = null,
+  hasNotificationBadge: Boolean = false
 ) {
   Row(
     modifier = Modifier
@@ -75,7 +77,7 @@ fun TopBar(
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
     BackButton(onClickBack)
-    SupportButton(onClickSupport)
+    SupportButton(onClickSupport, hasNotificationBadge)
   }
 }
 
@@ -93,7 +95,8 @@ fun NotificationsButton(onClickNotifications: () -> Unit = {}) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_notifications),
     description = "Notifications",
-    onClick = onClickNotifications
+    onClick = onClickNotifications,
+    hasRedBadge = false
   )
 }
 
@@ -102,17 +105,20 @@ fun SettingsButton(onClickSettings: () -> Unit = {}) {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
     description = "Settings",
-    onClick = onClickSettings
+    onClick = onClickSettings,
+    hasRedBadge = false
   )
 }
 
 @Composable
-fun SupportButton(onClickSupport: () -> Unit = {}) {
-  ActionButton(
-    imagePainter = painterResource(R.drawable.ic_settings_support),
-    description = "Support",
-    onClick = onClickSupport
-  )
+fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean) {
+    ActionButton(
+      imagePainter = painterResource(R.drawable.ic_settings_support),
+      description = "Support",
+      onClick = onClickSupport,
+      hasRedBadge = hasNotificationBadge
+    )
+
 }
 
 @Composable
@@ -122,13 +128,15 @@ fun BackButton(
   if (onClickBack != null) ActionButton(
     imagePainter = painterResource(R.drawable.ic_arrow_back),
     description = "Back",
-    onClick = onClickBack
+    onClick = onClickBack,
+    hasRedBadge = false
   )
   else {
     val activity = LocalContext.current.getActivity()
     if (activity != null) ActionButton(imagePainter = painterResource(R.drawable.ic_arrow_back),
       description = "Back",
-      onClick = { activity.onBackPressed() })
+      onClick = { activity.onBackPressed() },
+      hasRedBadge = false)
   }
 }
 
@@ -159,5 +167,6 @@ fun TopBarPreview() {
   TopBar(
     isMainBar = true,
     isVip = true,
+    hasNotificationBadge = true
   )
 }
