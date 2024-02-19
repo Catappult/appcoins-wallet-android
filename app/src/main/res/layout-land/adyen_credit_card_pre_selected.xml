@@ -231,6 +231,18 @@
           />
 
       <include
+          android:id="@+id/no_network_error_layout"
+          layout="@layout/no_network_base_layout_light"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          />
+
+      <include
           android:id="@+id/dialog_buy_buttons_error"
           layout="@layout/dialog_buy_buttons_adyen_error"
           android:layout_width="0dp"

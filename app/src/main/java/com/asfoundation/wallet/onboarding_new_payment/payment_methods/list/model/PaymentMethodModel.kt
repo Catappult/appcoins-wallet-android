@@ -7,10 +7,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
@@ -63,9 +63,6 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING -> {
         clickListener?.invoke(PaymentMethodClick.CarrierBillingClick)
       }
-      PaymentMethodsView.SelectedPaymentMethod.GIROPAY -> {
-        clickListener?.invoke(PaymentMethodClick.GiroPayAdyenClick)
-      }
       PaymentMethodsView.SelectedPaymentMethod.SANDBOX -> {
         clickListener?.invoke(PaymentMethodClick.PaypalDirectClick)
       }
@@ -74,6 +71,9 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
       }
       PaymentMethodsView.SelectedPaymentMethod.VKPAY -> {
         clickListener?.invoke(PaymentMethodClick.VkPayPaymentClick)
+      }
+      PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB -> {
+        clickListener?.invoke(PaymentMethodClick.GooglePayClick)
       }
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit

@@ -84,7 +84,6 @@ class AdyenPaymentInteractor @Inject constructor(
     returnUrl: String, value: String, currency: String, reference: String?,
     paymentType: String, origin: String?, packageName: String, metadata: String?,
     sku: String?, callbackUrl: String?, transactionType: String,
-    developerWallet: String?,
     referrerUrl: String?
   ): Single<PaymentModel> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
@@ -95,14 +94,28 @@ class AdyenPaymentInteractor @Inject constructor(
         val attrEntity = pair.second
         getCurrentPromoCodeUseCase().flatMap { promoCode ->
           adyenPaymentRepository.makePayment(
-            adyenPaymentMethod, shouldStoreMethod, hasCvc,
-            supportedShopperInteraction, returnUrl, value, currency, reference, paymentType,
-            addressModel.address, origin, packageName, metadata, sku, callbackUrl,
-            transactionType, developerWallet, attrEntity.oemId, attrEntity.domain,
-            promoCode.code,
-            addressModel.address,
-            addressModel.signedAddress,
-            referrerUrl
+            adyenPaymentMethod = adyenPaymentMethod,
+            shouldStoreMethod = shouldStoreMethod,
+            hasCvc = hasCvc,
+            supportedShopperInteractions = supportedShopperInteraction,
+            returnUrl = returnUrl,
+            value = value,
+            currency = currency,
+            reference = reference,
+            paymentType = paymentType,
+            walletAddress = addressModel.address,
+            origin = origin,
+            packageName = packageName,
+            metadata = metadata,
+            sku = sku,
+            callbackUrl = callbackUrl,
+            transactionType = transactionType,
+            entityOemId = attrEntity.oemId,
+            entityDomain = attrEntity.domain,
+            entityPromoCode = promoCode.code,
+            userWallet = addressModel.address,
+            walletSignature = addressModel.signedAddress,
+            referrerUrl = referrerUrl
           )
         }
       }
@@ -117,11 +130,28 @@ class AdyenPaymentInteractor @Inject constructor(
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap {
         adyenPaymentRepository.makePayment(
-          adyenPaymentMethod, shouldStoreMethod, hasCvc,
-          supportedShopperInteraction, returnUrl, value, currency, null, paymentType,
-          it.address, null, packageName, null, null, null, transactionType, null, null, null,
-          null,
-          null, it.signedAddress, null
+          adyenPaymentMethod = adyenPaymentMethod,
+          shouldStoreMethod = shouldStoreMethod,
+          hasCvc = hasCvc,
+          supportedShopperInteractions = supportedShopperInteraction,
+          returnUrl = returnUrl,
+          value = value,
+          currency = currency,
+          reference = null,
+          paymentType = paymentType,
+          walletAddress = it.address,
+          origin = null,
+          packageName = packageName,
+          metadata = null,
+          sku = null,
+          callbackUrl = null,
+          transactionType = transactionType,
+          entityOemId = null,
+          entityDomain = null,
+          entityPromoCode = null,
+          userWallet = null,
+          walletSignature = it.signedAddress,
+          referrerUrl = null
         )
       }
   }

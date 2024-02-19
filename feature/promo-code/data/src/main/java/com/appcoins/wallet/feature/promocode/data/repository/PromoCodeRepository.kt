@@ -11,10 +11,10 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
-    private val promoCodeApi: PromoCodeApi,
-    private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
-    private val analyticsSetup: AnalyticsSetup,
-    private val rxSchedulers: RxSchedulers
+  private val promoCodeApi: PromoCodeApi,
+  private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
+  private val analyticsSetup: AnalyticsSetup,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {
@@ -22,10 +22,10 @@ class PromoCodeRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-            response.code,
-            response.bonus,
-            validity = ValidityState.ACTIVE.value,
-            response.app.appName
+          response.code,
+          response.bonus,
+          validity = ValidityState.ACTIVE.value,
+          response.app.appName
         )
         promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
       }
@@ -52,10 +52,11 @@ class PromoCodeRepository @Inject constructor(
             null,
             PromoCodeBonusResponse.App(null, null, null)
           ),
-            ValidityState.EXPIRED
+          ValidityState.EXPIRED
         ).subscribe()
         ValidityState.EXPIRED
       }
+
       404 -> ValidityState.ERROR
       else -> ValidityState.ERROR
     }

@@ -61,7 +61,6 @@ class AppcoinsRewardsBuyPresenter(
       .pay(
         transactionBuilder.skuId,
         transactionBuilder.amount(),
-        transactionBuilder.toAddress(),
         packageName,
         getOrigin(isBds, transactionBuilder),
         transactionBuilder.type,

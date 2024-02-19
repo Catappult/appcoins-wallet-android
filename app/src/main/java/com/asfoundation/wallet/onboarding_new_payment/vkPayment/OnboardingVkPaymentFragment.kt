@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -113,6 +114,9 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     binding.onboardingSuccessVkButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
     }
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+      navigator.navigateBack()
+    }
   }
 
   private fun startTransaction(email: String, phone: String) {
@@ -134,6 +138,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
     val hash = viewModel.state.vkTransaction.value?.hash
     val uidTransaction = viewModel.state.vkTransaction.value?.uid
     val amount = viewModel.state.vkTransaction.value?.amount
+    val merchantId = viewModel.state.vkTransaction.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
       vkPayManager.checkoutVkPay(
         hash,
@@ -142,7 +147,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
         vkDataPreferencesDataSource.getPhoneVK() ?: "",
         viewModel.walletAddress,
         amount,
-        BuildConfig.VK_MERCHANT_ID.toInt(),
+        merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
         requireFragmentManager()
       )

@@ -5,7 +5,12 @@ import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.AdyenPayment
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.CreditCardCVCResponse
+import com.appcoins.wallet.core.network.microservices.model.DisableWallet
+import com.appcoins.wallet.core.network.microservices.model.PaymentDetails
+import com.appcoins.wallet.core.network.microservices.model.TokenPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
@@ -50,7 +55,7 @@ class AdyenPaymentRepository @Inject constructor(
     supportedShopperInteractions: List<String>, returnUrl: String, value: String,
     currency: String, reference: String?, paymentType: String, walletAddress: String,
     origin: String?, packageName: String?, metadata: String?, sku: String?,
-    callbackUrl: String?, transactionType: String, developerWallet: String?,
+    callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
     walletSignature: String,
@@ -68,10 +73,21 @@ class AdyenPaymentRepository @Inject constructor(
           )
             .map {
               TokenPayment(
-                adyenPaymentMethod, shouldStoreMethod, returnUrl, shopperInteraction,
-                callbackUrl, metadata, paymentType, origin, reference,
-                developerWallet, entityOemId, entityDomain, entityPromoCode, userWallet,
-                referrerUrl, it
+                adyenPaymentMethod = adyenPaymentMethod,
+                shouldStoreMethod = shouldStoreMethod,
+                returnUrl = returnUrl,
+                shopperInteraction = shopperInteraction,
+                callbackUrl = callbackUrl,
+                metadata = metadata,
+                method = paymentType,
+                origin = origin,
+                reference = reference,
+                entityOemId = entityOemId,
+                entityDomain = entityDomain,
+                entityPromoCode = entityPromoCode,
+                user = userWallet,
+                referrerUrl = referrerUrl,
+                token = it
               )
             }
             .flatMap {
@@ -107,7 +123,6 @@ class AdyenPaymentRepository @Inject constructor(
               type = transactionType,
               currency = currency,
               value = value,
-              developer = developerWallet,
               entityOemId = entityOemId,
               entityDomain = entityDomain,
               entityPromoCode = entityPromoCode,
@@ -176,6 +191,6 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {
-    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal"), GIROPAY("giropay", "giropay")
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
   }
 }

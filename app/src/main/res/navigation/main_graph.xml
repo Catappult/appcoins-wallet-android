@@ -75,8 +75,7 @@
 
   <fragment
       android:id="@+id/promotions_vip_referral_fragment"
-      android:name="com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment"
-      tools:layout="@layout/fragment_vip_referral">
+      android:name="com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment">
 
   </fragment>
 

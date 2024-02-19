@@ -14,7 +14,6 @@ class PaymentMethodsMapper @Inject constructor(
       "ask_friend" -> SelectedPaymentMethod.SHARE_LINK
       "paypal" -> SelectedPaymentMethod.PAYPAL
       "paypal_v2" -> SelectedPaymentMethod.PAYPAL_V2
-      "giropay" -> SelectedPaymentMethod.GIROPAY
       "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
@@ -24,6 +23,7 @@ class PaymentMethodsMapper @Inject constructor(
       "sandbox" -> SelectedPaymentMethod.SANDBOX
       "challenge_reward" -> SelectedPaymentMethod.CHALLENGE_REWARD
       "vk_pay" -> SelectedPaymentMethod.VKPAY
+      "googlepay" -> SelectedPaymentMethod.GOOGLEPAY_WEB
       "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
@@ -41,10 +41,10 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.LOCAL_PAYMENTS -> "local_payments"
       SelectedPaymentMethod.EARN_APPC -> "earn_appcoins"
       SelectedPaymentMethod.CARRIER_BILLING -> "carrier_billing"
-      SelectedPaymentMethod.GIROPAY -> "giropay"
       SelectedPaymentMethod.SANDBOX -> "sandbox"
       SelectedPaymentMethod.CHALLENGE_REWARD -> "challenge_reward"
       SelectedPaymentMethod.VKPAY -> "vk_pay"
+      SelectedPaymentMethod.GOOGLEPAY_WEB -> "googlepay"
       SelectedPaymentMethod.ERROR -> ""
     }
   }

@@ -56,6 +56,8 @@ interface AdyenPaymentView {
 
   fun showSpecificError(stringRes: Int, backToCard: Boolean = false)
 
+  fun showNoNetworkError(backToCard: Boolean = false)
+
   fun showVerificationError(isWalletVerified: Boolean)
 
   fun showCvvError()

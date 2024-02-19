@@ -61,7 +61,6 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             dependenciesProvider.brokerBdsApi(),
             dependenciesProvider.inappApi(),
             BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-            dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionsApi(),
             dependenciesProvider.ewtObtainer(),
             dependenciesProvider.rxSchedulers()
@@ -182,18 +181,15 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       proxyService.getIabAddress(BuildConfig.DEBUG).subscribeOn(networkScheduler)
     val getSkuDetails =
       billing.getProducts(packageName, listOf(sku), type).subscribeOn(networkScheduler)
-    val getDeveloperAddress = billing.getDeveloperAddress(packageName).subscribeOn(networkScheduler)
 
     return createReturnBundle(
       Single.zip(
         getTokenContractAddress,
         getIabContractAddress,
         getSkuDetails,
-        getDeveloperAddress
       ) { tokenContractAddress: String,
           iabContractAddress: String,
-          skuDetails: List<Product>,
-          developerAddress: String ->
+          skuDetails: List<Product> ->
         try {
           val product = skuDetails[0]
           intentBuilder.buildBuyIntentBundle(
@@ -203,7 +199,6 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             developerPayload,
             true,
             packageName,
-            developerAddress,
             product.sku,
             BigDecimal(product.transactionPrice.appcoinsAmount),
             product.title,

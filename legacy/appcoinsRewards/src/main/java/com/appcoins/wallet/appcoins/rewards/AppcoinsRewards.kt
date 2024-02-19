@@ -24,7 +24,7 @@ class AppcoinsRewards(
   var lastPayTransaction: Transaction? = null
 
   fun pay(
-    amount: BigDecimal, origin: String?, sku: String?, type: String, developerAddress: String,
+    amount: BigDecimal, origin: String?, sku: String?, type: String,
     entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
     callbackUrl: String?, orderReference: String?, referrerUrl: String?,
     productToken: String?
@@ -32,7 +32,7 @@ class AppcoinsRewards(
     lastPayTransaction = Transaction(
       sku = sku,
       type = type,
-      developerAddress = developerAddress,
+      developerAddress = "",
       entityOemId = entityOemId,
       entityDomain = entityDomainId,
       packageName = packageName,
@@ -69,7 +69,7 @@ class AppcoinsRewards(
                     repository.pay(
                       walletAddress, signature, transaction.amount,
                       getOrigin(transaction), transaction.sku, transaction.type,
-                      transaction.developerAddress, transaction.entityOemId,
+                      transaction.entityOemId,
                       transaction.entityDomain, transaction.packageName,
                       transaction.payload, transaction.callback,
                       transaction.orderReference, transaction.referrerUrl,

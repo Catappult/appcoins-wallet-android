@@ -1201,7 +1201,7 @@
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak <b>hem sen hem de arkadaşların %1$s%%</b> bonus kazanırsınız. <b>%2$s tarihine kadar geçerli</b>!</string>
-  <string name="vip_program_referral_page_body_2">Bu kodu kullanarak sen ve arkadaşların 7 gün boyunca tüm satın alma işlemlerinde %s%% bonus kazanırsınız!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_only_app_title">Yalnızca şunlardaki satın alımlar için:</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>

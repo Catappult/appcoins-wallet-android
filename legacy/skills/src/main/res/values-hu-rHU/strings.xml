@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
   <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Töltsd le a játék legújabb verzióját!</string>
+  <string name="error_game_not_supported_body">Úgy tűnik, ez a játék most épp nem érhető el.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Várakozás míg az ellenfelek befejezik a játékot.</string>
   <plurals name="opponent_points_title">

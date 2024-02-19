@@ -102,7 +102,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   fun handleError(error: Error?, refusalCode: Int?, walletVerified: Boolean?) {
     when {
       error?.isNetworkError == true -> {
-        showSpecificError(R.string.notification_no_network_poa)
+        showNoNetworkError()
       }
       error?.errorInfo != null -> {
         when {
@@ -179,13 +179,21 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.genericErrorLayout.errorMessage.text = getString(errorMessageRes)
   }
 
+  fun showNoNetworkError() {
+    views.loadingAnimation.visibility = View.GONE
+    views.genericErrorLayout.root.visibility = View.GONE
+    views.genericErrorButton.visibility = View.GONE
+    views.noNetworkErrorLayout.root.visibility = View.VISIBLE
+  }
+
   private fun handleSuccess() {
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.GONE
     views.genericErrorButton.visibility = View.GONE
     handleBonusAnimation()
     views.onboardingGenericSuccessLayout.root.visibility = View.VISIBLE
-    views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility = View.VISIBLE
+    views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility =
+      View.VISIBLE
     views.onboardingSuccessButtons.root.visibility = View.VISIBLE
   }
 

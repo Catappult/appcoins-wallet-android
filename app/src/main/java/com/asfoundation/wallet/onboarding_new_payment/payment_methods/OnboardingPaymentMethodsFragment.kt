@@ -80,12 +80,6 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                     args.currency,
                     args.forecastBonus
                 )
-                is PaymentMethodClick.GiroPayAdyenClick -> navigator.navigateToGiroAdyen(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
-                )
                 is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
                     args.transactionBuilder,
                     args.amount,
@@ -102,10 +96,16 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                 is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
                 is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
                 is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
+                )
+                is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
+                  args.transactionBuilder,
+                  args.amount,
+                  args.currency,
+                  args.forecastBonus
                 )
                 PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
             }

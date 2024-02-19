@@ -2,7 +2,6 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
@@ -100,7 +99,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           productName,
           packageName,
           priceValue,
-          developerWallet,
           entityOemId,
           entityDomain,
           origin,
@@ -130,7 +128,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var networkScheduler: Scheduler = Schedulers.io()
     private var brokerBdsApi: BrokerBdsApi? = null
     private var inappApi: InappBillingApi? = null
-    private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionBillingApi: SubscriptionBillingApi? = null
     private var ewtObtainer: EwtAuthenticatorService? = null
     private var rxSchedulers: RxSchedulers? = null
@@ -140,9 +137,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
 
     fun setInappApi(inappApi: InappBillingApi) =
       apply { this.inappApi = inappApi }
-
-    fun setBdsApiSecondary(bdsApi: BdsApiSecondary) =
-      apply { bdsApiSecondary = bdsApi }
 
     fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
       apply { this.subscriptionBillingApi = subscriptionBillingApi }
@@ -165,29 +159,26 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           walletService?.let { walletService ->
             brokerBdsApi?.let { brokerBdsApi ->
               inappApi?.let { inappApi ->
-                bdsApiSecondary?.let { bdsApiSecondary ->
-                  subscriptionBillingApi?.let { subscriptionsApi ->
-                    BillingPaymentProofSubmissionImpl(
-                      walletService,
-                      BdsRepository(
-                        RemoteRepository(
-                          brokerBdsApi,
-                          inappApi,
-                          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-                          bdsApiSecondary,
-                          subscriptionsApi,
-                          ewtObtainer,
-                          rxSchedulers
-                        )
-                      ),
-                      networkScheduler,
-                      ConcurrentHashMap(),
-                      ConcurrentHashMap(),
-                      ewtObtainer,
-                      rxSchedulers
-                    )
-                  } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
-                } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
+                subscriptionBillingApi?.let { subscriptionsApi ->
+                  BillingPaymentProofSubmissionImpl(
+                    walletService,
+                    BdsRepository(
+                      RemoteRepository(
+                        brokerBdsApi,
+                        inappApi,
+                        BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                        subscriptionsApi,
+                        ewtObtainer,
+                        rxSchedulers
+                      )
+                    ),
+                    networkScheduler,
+                    ConcurrentHashMap(),
+                    ConcurrentHashMap(),
+                    ewtObtainer,
+                    rxSchedulers
+                  )
+                } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
               } ?: throw IllegalArgumentException("InappBdsApi not defined")
             } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
           } ?: throw IllegalArgumentException("WalletService not defined")

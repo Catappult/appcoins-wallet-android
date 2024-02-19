@@ -9,10 +9,10 @@ import javax.inject.Singleton
 
 @Singleton
 class PaymentMethodsAnalytics @Inject constructor(
-    private val analyticsManager: AnalyticsManager,
-    private val billingAnalytics: BillingAnalytics,
-    private val analyticsSetup: AnalyticsSetup,
-    private val taskTimer: TaskTimer
+  private val analyticsManager: AnalyticsManager,
+  private val billingAnalytics: BillingAnalytics,
+  private val analyticsSetup: AnalyticsSetup,
+  private val taskTimer: TaskTimer
 ) {
 
   companion object {
@@ -28,12 +28,12 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_SELECTION = "selection"
     const val PAYMENT_METHOD_CC = "credit_card"
     const val PAYMENT_METHOD_PP = "paypal"
-    const val PAYMENT_METHOD_GIROPAY = "giro_pay"
     const val PAYMENT_METHOD_PP_V2 = "paypal_v2"
     const val PAYMENT_METHOD_VKPAY = "vk_pay"
     const val PAYMENT_METHOD_APPC = "appc_c"
     const val PAYMENT_METHOD_LOCAL = "local"
     const val PAYMENT_METHOD_SANDBOX = "sandbox"
+    const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
     const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
 
@@ -79,7 +79,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     type: String?,
     action: String,
     isPreselected: Boolean = false,
-    isOnboardingPayment : Boolean = false
+    isOnboardingPayment: Boolean = false
   ) {
     if (isPreselected) {
       billingAnalytics.sendPreSelectedPaymentMethodEvent(
@@ -92,7 +92,15 @@ class PaymentMethodsAnalytics @Inject constructor(
         isOnboardingPayment
       )
     } else {
-      billingAnalytics.sendPaymentMethodEvent(appPackage, skuId, amount, paymentId, type, action, isOnboardingPayment)
+      billingAnalytics.sendPaymentMethodEvent(
+        appPackage,
+        skuId,
+        amount,
+        paymentId,
+        type,
+        action,
+        isOnboardingPayment
+      )
     }
   }
 

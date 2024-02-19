@@ -55,6 +55,25 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
+  fun sendPaymentErrorMessageEvent(
+    errorCode: String? = null,
+    errorMessage: String?,
+    transactionBuilder: TransactionBuilder,
+    paymentMethod: String,
+  ) {
+    billingAnalytics.sendPaymentErrorWithDetailsAndRiskEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      paymentMethod,
+      transactionBuilder.type,
+      errorCode ?: "",
+      errorMessage ?: "",
+      "",
+      isOnboardingPayment = true
+    )
+  }
+
   fun sendPaymentMethodEvent(
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType?,
@@ -212,6 +231,49 @@ class OnboardingPaymentEvents @Inject constructor(
       type,
       BillingAnalytics.ACTION_BUY
     )
+  }
+
+  fun sendPaymentConfirmationGooglePayEvent(
+    transactionBuilder: TransactionBuilder,
+  ) {
+    billingAnalytics.sendPaymentConfirmationEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionBuilder.type,
+      BillingAnalytics.ACTION_BUY,
+      isOnboardingPayment = true
+    )
+  }
+
+  fun sendGooglePaySuccessFinishEvents(
+    transactionBuilder: TransactionBuilder,
+    txId: String
+  ) {
+    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
+      paymentMethod = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      success = true,
+      isPreselected = false
+    )
+    billingAnalytics.sendPaymentSuccessEvent(
+      packageName = transactionBuilder.domain,
+      skuDetails = transactionBuilder.skuId,
+      value = transactionBuilder.amount().toString(),
+      purchaseDetails = BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionType = transactionBuilder.type,
+      txId = txId,
+      valueUsd = transactionBuilder.amountUsd.toString()
+    )
+    billingAnalytics.sendPaymentEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY_WEB,
+      transactionBuilder.type,
+      isOnboardingPayment = true
+    )
+    billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
   }
 
   fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    tools:background="@color/styleguide_payments_background"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/no_network_animation"
+      android:layout_width="104dp"
+      android:layout_height="104dp"
+      app:layout_constraintBottom_toTopOf="@id/no_network_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/no_network_animation_light"
+      tools:src="@drawable/ic_error_pink"
+      />
+
+  <TextView
+      android:id="@+id/no_network_title"
+      style="@style/TextXL"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_marginTop="24dp"
+      android:fontFamily="@font/roboto_bolt"
+      android:gravity="center"
+      android:lineSpacingExtra="4sp"
+      android:text="@string/oops_title"
+      android:textColor="@color/styleguide_payments_main_text"
+      app:layout_constraintBottom_toTopOf="@id/no_network_message"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/no_network_animation"
+      />
+
+  <TextView
+      android:id="@+id/no_network_message"
+      style="@style/TextM"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_marginTop="8dp"
+      android:gravity="center"
+      android:lineSpacingExtra="4sp"
+      android:text="@string/connection_error_body"
+      android:textColor="@color/styleguide_payments_main_text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/no_network_title"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
