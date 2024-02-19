@@ -136,7 +136,7 @@ constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
-  val isLoadingTransactions =  mutableStateOf(false)
+  val isLoadingTransactions = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
@@ -199,6 +199,9 @@ constructor(
       observeBackup()
     )
       .map {}
+      .doOnError {
+        it.printStackTrace()
+      }
       .subscribeOn(rxSchedulers.io)
   }
 
@@ -210,6 +213,9 @@ constructor(
       defaultCurrency = selectedCurrency.unwrap()
       fetchTransactions(wallet, defaultCurrency)
     }
+      .doOnError {
+        it.printStackTrace()
+      }
       .subscribe()
   }
 
@@ -219,6 +225,9 @@ constructor(
       .map { userLevel ->
         registerSupportUser(userLevel, wallet.address)
         true
+      }
+      .doOnError {
+        it.printStackTrace()
       }
       .ignoreElement()
       .subscribeOn(rxSchedulers.io)
@@ -320,8 +329,14 @@ constructor(
                     .groupBy { it.date.getDay() })
             }
 
-            is ApiFailure -> {isLoadingTransactions.value = true}
-            is ApiException -> {isLoadingTransactions.value = true}
+            is ApiFailure -> {
+              isLoadingTransactions.value = true
+            }
+
+            is ApiException -> {
+              isLoadingTransactions.value = true
+            }
+
             else -> {}
           }
         }
@@ -453,9 +468,11 @@ constructor(
         e.printStackTrace()
       }
   }
+
   fun isLoadingOrIdleBalanceState(): Boolean {
     return _uiBalanceState.value == UiBalanceState.Loading || _uiBalanceState.value == UiBalanceState.Idle
   }
+
   fun isLoadingOrIdlePromotionState(): Boolean {
     return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
   }
