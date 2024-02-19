@@ -2,10 +2,8 @@ package com.asfoundation.wallet.wallet_reward
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -34,9 +32,9 @@ sealed class RewardSideEffect : SideEffect {
 }
 
 data class RewardState(
-    val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-    val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized,
-    val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized,
+  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
+  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized,
+  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel
@@ -54,7 +52,7 @@ class RewardViewModel @Inject constructor(
 
   val promotions = mutableStateListOf<CardPromotionItem>()
   val gamificationHeaderModel =
-      mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
+    mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
   val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
 
@@ -78,32 +76,32 @@ class RewardViewModel @Inject constructor(
 
   fun fetchPromotions() {
     getPromotionsUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .asAsyncToState(RewardState::promotionsModelAsync) { copy(promotionsModelAsync = it) }
-        .doOnNext { promotionsModel ->
-          if (promotionsModel.error == null) {
-            setSeenPromotionsUseCase(promotionsModel.promotions, promotionsModel.wallet.address)
-          }
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(RewardState::promotionsModelAsync) { copy(promotionsModelAsync = it) }
+      .doOnNext { promotionsModel ->
+        if (promotionsModel.error == null) {
+          setSeenPromotionsUseCase(promotionsModel.promotions, promotionsModel.wallet.address)
         }
-        .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
-          e.printStackTrace()
-        }
+      }
+      .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
+        e.printStackTrace()
+      }
   }
 
   fun fetchGamificationStats() {
     gamificationInteractor
-        .getUserStats()
-        .subscribeOn(rxSchedulers.io)
-        .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
-        .scopedSubscribe()
+      .getUserStats()
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
+      .scopedSubscribe()
   }
 
   fun fetchWalletInfo() {
     getWalletInfoUseCase
-        .invoke(null, false)
-        .subscribeOn(rxSchedulers.io)
-        .asAsyncToState { copy(walletInfoAsync = it) }
-        .scopedSubscribe()
+      .invoke(null, false)
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState { copy(walletInfoAsync = it) }
+      .scopedSubscribe()
   }
 
   fun sendChallengeRewardEvent(flowPath: ChallengeRewardFlowPath) {
@@ -116,7 +114,7 @@ class RewardViewModel @Inject constructor(
         state.promotionsModelAsync == Async.Uninitialized
   }
 
-  fun referenceSendPromotionClickEvent(): (String?,String) -> Unit {
+  fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
     return compatibleAppsAnalytics::sendPromotionClickEvent
   }
 }
