@@ -28,6 +28,7 @@ fun GamesBundle(
   sendPromotionClickEvent: (String?, String) -> Unit,
   fetchFromApiCallback: () -> Unit,
 ) {
+  val context = LocalContext.current
   fetchFromApiCallback()
   Text(
     text = stringResource(id = R.string.home_appcoins_compatible_games_title),
@@ -49,7 +50,9 @@ fun GamesBundle(
       }
     } else {
       items(items) { item ->
-        CardItem(gameCardData = item, sendPromotionClickEvent)
+        CardItem(gameCardData = item, sendPromotionClickEvent) {
+          openGame(item.gamePackage, item.actionUrl, context, sendPromotionClickEvent)
+        }
       }
     }
   }
@@ -59,16 +62,14 @@ fun GamesBundle(
 @Composable
 private fun CardItem(
   gameCardData: GameData,
-  sendPromotionClickEvent: (String?, String) -> Unit
+  sendPromotionClickEvent: (String?, String) -> Unit,
+  onClick: () -> Unit,
 ) {
-  val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = {
-      openGame(gameCardData.gamePackage, gameCardData.actionUrl, context, sendPromotionClickEvent)
-    },
+    onClick = onClick,
     modifier = Modifier
       .width(280.dp)
       .height(144.dp)
