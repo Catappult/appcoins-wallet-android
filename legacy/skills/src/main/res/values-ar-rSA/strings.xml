@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
   <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك أن تلعب ألعاب e-Skills بجهاز تمت إعادة تشغيله.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">أنت بحاجة لتحديث هذه اللعبة إلى أحدث إصدار!</string>
+  <string name="error_game_not_supported_body">يبدو أن هذه اللعبة غير متوفرة حاليًّا.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">في انتظار الخَصْم لإنهاء اللعبة.</string>
   <plurals name="opponent_points_title">
