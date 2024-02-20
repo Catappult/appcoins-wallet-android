@@ -104,6 +104,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    viewModel.updateNotificationBadge()
   }
 
   override fun onResume() {
@@ -125,20 +126,21 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       viewModel.fetchWalletInfo()
     }
     Scaffold(
-        topBar = {
-          Surface {
-            TopBar(
-                isMainBar = true,
-                onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
-                onClickSettings = { viewModel.onSettingsClick() },
-                onClickSupport = { viewModel.showSupportScreen(false) },
-            )
-          }
-        },
-        containerColor = WalletColors.styleguide_blue,
-        modifier = modifier) { padding ->
-          RewardScreenContent(padding = padding)
+      topBar = {
+        Surface {
+          TopBar(
+            isMainBar = true,
+            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
+            onClickSettings = { viewModel.onSettingsClick() },
+            onClickSupport = { viewModel.showSupportScreen(false) },
+            hasNotificationBadge = viewModel.hasNotificationBadge.value
+          )
         }
+      },
+      containerColor = WalletColors.styleguide_blue,
+      modifier = modifier) { padding ->
+      RewardScreenContent(padding = padding)
+    }
   }
 
   @Composable

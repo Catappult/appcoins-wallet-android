@@ -29,6 +29,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -133,7 +134,8 @@ constructor(
     private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
     private val walletsEventSender: WalletsEventSender,
     private val rxSchedulers: RxSchedulers,
-    private val logger: Logger
+    private val logger: Logger,
+    private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -142,7 +144,8 @@ constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
-  val isLoadingTransactions = mutableStateOf(false)
+  val isLoadingTransactions =  mutableStateOf(false)
+  val hasNotificationBadge = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
@@ -164,6 +167,7 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
+    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -399,6 +403,7 @@ constructor(
   }
 
   fun showSupportScreen(fromNotification: Boolean) {
+    commonsPreferencesDataSource.setUpdateNotificationBadge(false)
     if (fromNotification) {
       displayConversationListOrChatUseCase
     } else {

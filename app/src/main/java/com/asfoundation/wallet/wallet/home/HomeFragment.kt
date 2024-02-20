@@ -122,7 +122,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       checkRoot()
       Intercom.client().handlePushMessage()
     } else {
-      requireActivity().finish()
+      viewModel.showSupportScreen(true)
     }
     viewModel.fetchPromotions()
   }
@@ -142,20 +142,22 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       modifier: Modifier = Modifier,
   ) {
     Scaffold(
-        topBar = {
-          Surface {
-            TopBar(
-                isMainBar = true,
-                onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
-                onClickSettings = { viewModel.onSettingsClick() },
-                onClickSupport = { viewModel.showSupportScreen(false) },
-            )
-          }
-        },
-        containerColor = WalletColors.styleguide_blue,
-        modifier = modifier) { padding ->
-          HomeScreenContent(padding = padding)
+      topBar = {
+        Surface {
+          TopBar(
+            isMainBar = true,
+            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
+            onClickSettings = { viewModel.onSettingsClick() },
+            onClickSupport = { viewModel.showSupportScreen(false) },
+            hasNotificationBadge = viewModel.hasNotificationBadge.value
+          )
         }
+      },
+      containerColor = WalletColors.styleguide_blue,
+      modifier = modifier
+    ) { padding ->
+      HomeScreenContent(padding = padding)
+    }
   }
 
   @Composable

@@ -1,14 +1,18 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Badge
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
@@ -19,21 +23,44 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ActionButton(
   imagePainter: Painter,
   description: String,
-  onClick: () -> Unit
+  onClick: () -> Unit,
+  hasRedBadge: Boolean
 ) {
-  IconButton(onClick = { onClick() }) {
-    Icon(
-      painter = imagePainter,
-      contentDescription = description,
-      tint = WalletColors.styleguide_white,
-      modifier = Modifier.scale(1.1F)
-    )
+  if (hasRedBadge) {
+    Box {
+      IconButton(onClick = { onClick() }) {
+        Icon(
+          painter = imagePainter,
+          contentDescription = description,
+          tint = WalletColors.styleguide_white,
+          modifier = Modifier.scale(1.1F)
+        )
+      }
+      Badge(
+        modifier = Modifier
+          .size(20.dp)
+          .align(Alignment.TopEnd)
+          .padding(end = 8.dp, top = 8.dp)
+          .zIndex(9f)
+      )
+    }
+  } else {
+    IconButton(onClick = { onClick() }) {
+      Icon(
+        painter = imagePainter,
+        contentDescription = description,
+        tint = WalletColors.styleguide_white,
+        modifier = Modifier.scale(1.1F)
+      )
+    }
   }
 }
 
@@ -106,5 +133,7 @@ fun PreviewActionButton() {
   ActionButton(
     imagePainter = painterResource(R.drawable.ic_notifications),
     description = "Back",
-    onClick = { })
+    onClick = { },
+    hasRedBadge = true
+  )
 }

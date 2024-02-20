@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.main
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -81,9 +80,7 @@ class MainActivityViewModel @Inject constructor(
 
   private fun handleSupportNotificationClick() {
     val fromSupportNotification = savedStateHandle.get<Boolean>(SUPPORT_NOTIFICATION_CLICK)
-    if (fromSupportNotification == true) {
-      displayConversationListOrChatUseCase()
-    } else {
+    if (fromSupportNotification == false) {
       // We only count a launch if it did not come from a notification
       increaseLaunchCount()
     }

@@ -13,6 +13,7 @@ import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -48,6 +49,7 @@ constructor(
     private val gamificationInteractor: GamificationInteractor,
     private val rxSchedulers: RxSchedulers,
     private val challengeRewardAnalytics: ChallengeRewardAnalytics,
+    private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) : BaseViewModel<RewardState, RewardSideEffect>(initialState()) {
 
   val promotions = mutableStateListOf<CardPromotionItem>()
@@ -55,6 +57,7 @@ constructor(
       mutableStateOf<GamificationHeaderModel?>(GamificationHeaderModel.emptySkeletonLoadingState())
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
   val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
+  val hasNotificationBadge = mutableStateOf(false)
 
   companion object {
     fun initialState(): RewardState {
@@ -67,6 +70,7 @@ constructor(
   }
 
   fun showSupportScreen(fromNotification: Boolean) {
+    commonsPreferencesDataSource.setUpdateNotificationBadge(false)
     if (fromNotification) {
       displayConversationListOrChatUseCase
     } else {
@@ -112,5 +116,10 @@ constructor(
   fun isLoadingOrIdlePromotionState(): Boolean {
     return state.promotionsModelAsync == Async.Loading(null) ||
         state.promotionsModelAsync == Async.Uninitialized
+  }
+
+  fun updateNotificationBadge() {
+    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
+
   }
 }
