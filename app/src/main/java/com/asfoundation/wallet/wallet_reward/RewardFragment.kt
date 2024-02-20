@@ -292,62 +292,66 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         viewModel.activePromoCode.value = null
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
-            val cardItem =
-                CardPromotionItem(
-                    promotion.appName,
-                    promotion.description,
-                    promotion.startDate,
-                    promotion.endDate,
-                    promotion.icon,
-                    promotion.actionUrl,
-                    promotion.packageName,
-                    promotion.gamificationStatus == GamificationStatus.VIP ||
-                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-                    false,
-                    true,
-                    action = {
-                      openGame(
-                          promotion.packageName ?: promotion.actionUrl,
-                          promotion.actionUrl,
-                          requireContext())
-                    })
+            val cardItem = CardPromotionItem(
+              promotion.appName,
+              promotion.description,
+              promotion.startDate,
+              promotion.endDate,
+              promotion.icon,
+              promotion.actionUrl,
+              promotion.packageName,
+              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+              false,
+              true,
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
+                )
+              }
+            )
             viewModel.promotions.add(cardItem)
           } else if (promotion is FutureItem) {
-            val cardItem =
-                CardPromotionItem(
-                    promotion.appName,
-                    promotion.description,
-                    promotion.startDate,
-                    promotion.endDate,
-                    promotion.icon,
-                    promotion.actionUrl,
-                    promotion.packageName,
-                    promotion.gamificationStatus == GamificationStatus.VIP ||
-                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-                    true,
-                    true,
-                    action = {
-                      openGame(
-                          promotion.packageName ?: promotion.actionUrl,
-                          promotion.actionUrl,
-                          requireContext())
-                    })
+            val cardItem = CardPromotionItem(
+              promotion.appName,
+              promotion.description,
+              promotion.startDate,
+              promotion.endDate,
+              promotion.icon,
+              promotion.actionUrl,
+              promotion.packageName,
+              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+              true,
+              true,
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
+                )
+              }
+            )
             viewModel.promotions.add(cardItem)
           } else if (promotion is PromoCodeItem) {
-            val cardItem =
-                ActiveCardPromoCodeItem(
-                    promotion.appName,
-                    promotion.description,
-                    promotion.icon,
-                    promotion.actionUrl,
-                    promotion.packageName,
-                    true,
-                    action = {
-                      openGame(
-                          promotion.packageName ?: promotion.actionUrl,
-                          promotion.actionUrl,
-                          requireContext())
-                    })
+            val cardItem = ActiveCardPromoCodeItem(
+              promotion.appName,
+              promotion.description,
+              promotion.icon,
+              promotion.actionUrl,
+              promotion.packageName,
+              true,
+              action = {
+                openGame(
+                  promotion.packageName ?: promotion.actionUrl,
+                  promotion.actionUrl,
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
+                )
+              }
+            )
             viewModel.activePromoCode.value = cardItem
           }
         }

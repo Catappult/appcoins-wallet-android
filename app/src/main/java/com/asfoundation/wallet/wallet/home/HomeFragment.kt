@@ -178,7 +178,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                   !viewModel.isLoadingTransactions.value)
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
+      GamesBundle(viewModel.gamesList.value, viewModel.referenceSendPromotionClickEvent()) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
@@ -392,24 +392,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
             val cardItem =
-                CardPromotionItem(
-                    promotion.appName,
-                    promotion.description,
-                    promotion.startDate,
-                    promotion.endDate,
-                    promotion.icon,
+              CardPromotionItem(
+                promotion.appName,
+                promotion.description,
+                promotion.startDate,
+                promotion.endDate,
+                promotion.icon,
+                promotion.actionUrl,
+                promotion.packageName,
+                promotion.gamificationStatus == GamificationStatus.VIP ||
+                    promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                hasFuturePromotion = false,
+                hasVerticalList = false,
+                action = {
+                  openGame(
+                    promotion.packageName ?: promotion.actionUrl,
                     promotion.actionUrl,
-                    promotion.packageName,
-                    promotion.gamificationStatus == GamificationStatus.VIP ||
-                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-                    hasFuturePromotion = false,
-                    hasVerticalList = false,
-                    action = {
-                      openGame(
-                          promotion.packageName ?: promotion.actionUrl,
-                          promotion.actionUrl,
-                          requireContext())
-                    })
+                    requireContext(),
+                    viewModel.referenceSendPromotionClickEvent(),
+                  )
+                })
             viewModel.activePromotions.add(cardItem)
           }
         }

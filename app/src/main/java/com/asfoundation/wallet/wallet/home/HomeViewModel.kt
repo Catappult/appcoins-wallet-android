@@ -6,7 +6,7 @@ import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -109,33 +109,33 @@ data class HomeState(
 class HomeViewModel
 @Inject
 constructor(
-    private val analytics: HomeAnalytics,
-    private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
-    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-    private val getWalletInfoUseCase: GetWalletInfoUseCase,
-    private val getPromotionsUseCase: GetPromotionsUseCase,
-    private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
-    private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
-    private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-    private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
-    private val getGamesListingUseCase: GetGamesListingUseCase,
-    private val getLevelsUseCase: GetLevelsUseCase,
-    private val getUserLevelUseCase: GetUserLevelUseCase,
-    private val observeUserStatsUseCase: ObserveUserStatsUseCase,
-    private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
-    private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
-    private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-    private val registerSupportUserUseCase: RegisterSupportUserUseCase,
-    private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
-    private val displayChatUseCase: DisplayChatUseCase,
-    private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
-    private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
-    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-    private val walletsEventSender: WalletsEventSender,
-    private val rxSchedulers: RxSchedulers,
-    private val logger: Logger,
-    private val commonsPreferencesDataSource: CommonsPreferencesDataSource
+  private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
+  private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val getPromotionsUseCase: GetPromotionsUseCase,
+  private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
+  private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
+  private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
+  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
+  private val getGamesListingUseCase: GetGamesListingUseCase,
+  private val getLevelsUseCase: GetLevelsUseCase,
+  private val getUserLevelUseCase: GetUserLevelUseCase,
+  private val observeUserStatsUseCase: ObserveUserStatsUseCase,
+  private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
+  private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
+  private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
+  private val registerSupportUserUseCase: RegisterSupportUserUseCase,
+  private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
+  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+  private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val walletsEventSender: WalletsEventSender,
+  private val rxSchedulers: RxSchedulers,
+  private val logger: Logger,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -477,6 +477,10 @@ constructor(
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState
+  }
+
+  fun referenceSendPromotionClickEvent(): (String?,String) -> Unit {
+    return compatibleAppsAnalytics::sendPromotionClickEvent
   }
 
   sealed class UiState {
