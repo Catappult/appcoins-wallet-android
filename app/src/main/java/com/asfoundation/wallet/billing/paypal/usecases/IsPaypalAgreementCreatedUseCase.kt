@@ -5,18 +5,16 @@ import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class IsPaypalAgreementCreatedUseCase @Inject constructor(
-  private val walletService: WalletService,
-  private val payPalV2Repository: PayPalV2Repository,
+class IsPaypalAgreementCreatedUseCase
+@Inject
+constructor(
+    private val walletService: WalletService,
+    private val payPalV2Repository: PayPalV2Repository,
 ) {
 
   operator fun invoke(): Single<Boolean> {
-    return walletService.getWalletAddress()
-      .flatMap { address ->
-        payPalV2Repository.getCurrentBillingAgreement(
-          walletAddress = address
-        )
-      }
+    return walletService.getWalletAddress().flatMap { address ->
+      payPalV2Repository.getCurrentBillingAgreement(walletAddress = address)
+    }
   }
-
 }

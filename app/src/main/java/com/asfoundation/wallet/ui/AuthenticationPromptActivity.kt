@@ -17,8 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
-  @Inject
-  lateinit var fingerprintInteractor: FingerprintInteractor
+  @Inject lateinit var fingerprintInteractor: FingerprintInteractor
 
   private lateinit var presenter: AuthenticationPromptPresenter
 
@@ -41,20 +40,23 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
     setContentView(R.layout.authentication_prompt_activity)
     retryClickSubject = PublishSubject.create<Any>()
     fingerprintResultSubject = PublishSubject.create<FingerprintAuthResult>()
-    presenter = AuthenticationPromptPresenter(this, AndroidSchedulers.mainThread(),
-        CompositeDisposable(), fingerprintInteractor)
+    presenter =
+        AuthenticationPromptPresenter(
+            this, AndroidSchedulers.mainThread(), CompositeDisposable(), fingerprintInteractor)
     presenter.present(savedInstanceState)
   }
 
   override fun createBiometricPrompt(): BiometricPrompt {
     val executor = ContextCompat.getMainExecutor(this)
-    return BiometricPrompt(this, executor,
+    return BiometricPrompt(
+        this,
+        executor,
         object : BiometricPrompt.AuthenticationCallback() {
           override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             fingerprintResultSubject?.onNext(
-                FingerprintAuthResult(errorCode, errString.toString(), null,
-                    FingerprintResult.ERROR))
+                FingerprintAuthResult(
+                    errorCode, errString.toString(), null, FingerprintResult.ERROR))
           }
 
           override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -70,8 +72,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
           }
         })
   }
-
-
 
   override fun onResume() {
     super.onResume()
@@ -92,20 +92,26 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
   }
 
   override fun showAuthenticationBottomSheet(timer: Long) {
-    supportFragmentManager.beginTransaction()
-        .setCustomAnimations(R.anim.fade_in_animation, R.anim.fragment_slide_down,
-            R.anim.fade_in_animation, R.anim.fragment_slide_down)
-        .replace(R.id.bottom_sheet_error_fragment_container,
+    supportFragmentManager
+        .beginTransaction()
+        .setCustomAnimations(
+            R.anim.fade_in_animation,
+            R.anim.fragment_slide_down,
+            R.anim.fade_in_animation,
+            R.anim.fragment_slide_down)
+        .replace(
+            R.id.bottom_sheet_error_fragment_container,
             AuthenticationErrorFragment.newInstance(timer))
         .commit()
   }
 
   override fun showPrompt(biometricPrompt: BiometricPrompt, deviceCredentialsAllowed: Boolean) {
-    val promptInfo = BiometricPrompt.PromptInfo.Builder()
-        .setTitle(getString(R.string.fingerprint_authentication_required_title))
-        .setSubtitle(getString(R.string.fingerprint_authentication_required_body))
-        .setDeviceCredentialAllowed(deviceCredentialsAllowed)
-        .build()
+    val promptInfo =
+        BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.fingerprint_authentication_required_title))
+            .setSubtitle(getString(R.string.fingerprint_authentication_required_body))
+            .setDeviceCredentialAllowed(deviceCredentialsAllowed)
+            .build()
     biometricPrompt.authenticate(promptInfo)
   }
 

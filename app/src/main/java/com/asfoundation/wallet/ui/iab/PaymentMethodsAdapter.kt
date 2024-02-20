@@ -8,16 +8,14 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 
-
 class PaymentMethodsAdapter(
-  private var paymentMethods: List<PaymentMethod>,
-  private var paymentMethodId: String,
-  private var paymentMethodClick: PublishRelay<Int>,
-  private val logoutCallback: () -> Unit,
-  private val disposables: CompositeDisposable,
-  private val showPayPalLogout: Subject<Boolean>
-) :
-  RecyclerView.Adapter<PaymentMethodsViewHolder>() {
+    private var paymentMethods: List<PaymentMethod>,
+    private var paymentMethodId: String,
+    private var paymentMethodClick: PublishRelay<Int>,
+    private val logoutCallback: () -> Unit,
+    private val disposables: CompositeDisposable,
+    private val showPayPalLogout: Subject<Boolean>
+) : RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = 0
 
   init {
@@ -30,26 +28,22 @@ class PaymentMethodsAdapter(
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
     return PaymentMethodsViewHolder(
-      LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_payment_method, parent, false)
-    )
+        LayoutInflater.from(parent.context).inflate(R.layout.item_payment_method, parent, false))
   }
 
   override fun getItemCount() = paymentMethods.size
 
   override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
     holder.bind(
-      data = paymentMethods[position],
-      checked = selectedItem == position,
-      listener = {
-        selectedItem = position
-        paymentMethodClick.accept(position)
-        notifyDataSetChanged()
-      },
-      onClickPaypalLogout = logoutCallback,
-      disposables = disposables,
-      showPayPalLogout = showPayPalLogout
-    )
+        data = paymentMethods[position],
+        checked = selectedItem == position,
+        listener = {
+          selectedItem = position
+          paymentMethodClick.accept(position)
+          notifyDataSetChanged()
+        },
+        onClickPaypalLogout = logoutCallback,
+        disposables = disposables,
+        showPayPalLogout = showPayPalLogout)
   }
-
 }

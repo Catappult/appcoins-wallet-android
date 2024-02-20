@@ -19,8 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupEntryChooseWalletFragment : Fragment(), BackupEntryChooseWalletView {
 
-  @Inject
-  lateinit var presenter: SettingsWalletsPresenter
+  @Inject lateinit var presenter: SettingsWalletsPresenter
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
 
   private val views by viewBinding(SettingsWalletsLayoutBinding::bind)
@@ -37,9 +36,9 @@ class BackupEntryChooseWalletFragment : Fragment(), BackupEntryChooseWalletView 
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return SettingsWalletsLayoutBinding.inflate(layoutInflater).root
   }
@@ -62,15 +61,15 @@ class BackupEntryChooseWalletFragment : Fragment(), BackupEntryChooseWalletView 
     walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     walletsBottomSheet.isFitToContents = true
     walletsBottomSheet.addBottomSheetCallback(
-      object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onStateChanged(bottomSheet: View, newState: Int) {
-          if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-            walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+              walletsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+            }
           }
-        }
 
-        override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-      })
+          override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+        })
   }
 
   override fun outsideOfBottomSheetClick() = RxView.clicks(views.fadedBackground)

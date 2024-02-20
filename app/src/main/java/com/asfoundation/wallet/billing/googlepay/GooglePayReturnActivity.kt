@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class GooglePayReturnActivity() : BaseActivity() {
-  @Inject
-  lateinit var googlePayWebRepository: GooglePayWebRepository
+  @Inject lateinit var googlePayWebRepository: GooglePayWebRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

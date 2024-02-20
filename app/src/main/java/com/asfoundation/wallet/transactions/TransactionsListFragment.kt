@@ -39,29 +39,27 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.TransactionSeparator
 import com.asf.wallet.R
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
-import com.asfoundation.wallet.transactions.TransactionsListViewModel.*
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiModel
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiModel.TransactionItem
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiState
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.WalletInfoModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class TransactionsListFragment : BasePageViewFragment() {
-  @Inject
-  lateinit var transactionsNavigator: TransactionsNavigator
+  @Inject lateinit var transactionsNavigator: TransactionsNavigator
 
   private val viewModel: TransactionsListViewModel by viewModels()
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
-      setContent {
-        TransactionsView(viewModel.uiState.collectAsState().value)
-      }
+      setContent { TransactionsView(viewModel.uiState.collectAsState().value) }
     }
   }
 
@@ -69,136 +67,111 @@ class TransactionsListFragment : BasePageViewFragment() {
   @Composable
   fun TransactionsView(uiState: UiState) {
     Scaffold(
-      topBar = {
-        Surface {
-          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
-        }
-      },
-      containerColor = WalletColors.styleguide_blue
-    ) { padding ->
-      when (uiState) {
-        is UiState.Success -> {
-          TransactionsList(
-            paddingValues = padding,
-            walletInfo = uiState.walletInfo
-          )
-        }
-
-        UiState.Loading -> {
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-          ) {
-            CircularProgressIndicator()
+        topBar = {
+          Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+        },
+        containerColor = WalletColors.styleguide_blue) { padding ->
+          when (uiState) {
+            is UiState.Success -> {
+              TransactionsList(paddingValues = padding, walletInfo = uiState.walletInfo)
+            }
+            UiState.Loading -> {
+              Row(
+                  modifier = Modifier.fillMaxSize(),
+                  verticalAlignment = Alignment.CenterVertically,
+                  horizontalArrangement = Arrangement.Center) {
+                    CircularProgressIndicator()
+                  }
+            }
+            else -> {}
           }
         }
-
-        else -> {}
-      }
-    }
   }
 
   @Composable
-  fun TransactionsList(
-    paddingValues: PaddingValues,
-    walletInfo: WalletInfoModel
-  ) {
+  fun TransactionsList(paddingValues: PaddingValues, walletInfo: WalletInfoModel) {
     val items = viewModel.fetchTransactions(walletInfo).collectAsLazyPagingItems()
 
     LazyColumn(
-      modifier = Modifier
-        .padding(
-          top = paddingValues.calculateTopPadding(),
-          bottom = paddingValues.calculateBottomPadding(),
-          start = 16.dp,
-          end = 16.dp
-        )
-        .fillMaxSize()
-    ) {
-      item {
-        Text(
-          text = stringResource(R.string.intro_transactions_header),
-          modifier = Modifier.padding(8.dp),
-          style = MaterialTheme.typography.headlineSmall,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_light_grey,
-        )
-      }
-
-      items(
-        count = items.itemCount,
-        key = items.itemKey(),
-        contentType = items.itemContentType { it }
-      ) { index ->
-        when (val uiModel = items[index]) {
-          is TransactionItem -> {
-            with(uiModel.transaction.cardInfoByType()) {
-              TransactionCard(
-                icon = icon,
-                appIcon = appIcon,
-                title = stringResource(id = title),
-                description = description ?: app,
-                amount = amount,
-                convertedAmount = amountSubtitle,
-                subIcon = subIcon,
-                onClick = { navigateToTransactionDetails(uiModel.transaction) },
-                textDecoration = textDecoration
-              )
-            }
-            Spacer(modifier = Modifier.padding(top = 4.dp))
-          }
-
-
-          is UiModel.SeparatorItem -> TransactionSeparator(uiModel.date.getDay())
-
-          null -> {}
-        }
-      }
-
-      when (items.loadState.refresh) {
-        is Loading -> {
+        modifier =
+            Modifier.padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding(),
+                    start = 16.dp,
+                    end = 16.dp)
+                .fillMaxSize()) {
           item {
-            Row(
-              modifier = Modifier.fillParentMaxSize(),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Center
-            ) {
-              CircularProgressIndicator()
+            Text(
+                text = stringResource(R.string.intro_transactions_header),
+                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                color = WalletColors.styleguide_light_grey,
+            )
+          }
+
+          items(
+              count = items.itemCount,
+              key = items.itemKey(),
+              contentType = items.itemContentType { it }) { index ->
+                when (val uiModel = items[index]) {
+                  is TransactionItem -> {
+                    with(uiModel.transaction.cardInfoByType()) {
+                      TransactionCard(
+                          icon = icon,
+                          appIcon = appIcon,
+                          title = stringResource(id = title),
+                          description = description ?: app,
+                          amount = amount,
+                          convertedAmount = amountSubtitle,
+                          subIcon = subIcon,
+                          onClick = { navigateToTransactionDetails(uiModel.transaction) },
+                          textDecoration = textDecoration)
+                    }
+                    Spacer(modifier = Modifier.padding(top = 4.dp))
+                  }
+                  is UiModel.SeparatorItem -> TransactionSeparator(uiModel.date.getDay())
+                  null -> {}
+                }
+              }
+
+          when (items.loadState.refresh) {
+            is Loading -> {
+              item {
+                Row(
+                    modifier = Modifier.fillParentMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center) {
+                      CircularProgressIndicator()
+                    }
+              }
             }
+            else -> {}
+          }
+
+          when (items.loadState.append) {
+            is Loading -> {
+              item {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(24.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center) {
+                      CircularProgressIndicator()
+                    }
+              }
+            }
+            else -> {}
           }
         }
-
-        else -> {}
-      }
-
-      when (items.loadState.append) {
-        is Loading -> {
-          item {
-            Row(
-              modifier = Modifier
-                .fillMaxWidth()
-                .padding(24.dp),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Center
-            ) {
-              CircularProgressIndicator()
-            }
-          }
-        }
-
-        else -> {}
-      }
-    }
   }
 
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
-    transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
+      transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
 
   private fun navController(): NavController {
     val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 }

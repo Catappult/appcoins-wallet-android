@@ -10,16 +10,19 @@ import retrofit2.http.*
 interface RoomApi {
 
   @GET("room/")
-  fun getRoom(@Header("authorization") authorization: String): Single<RoomResponse.SuccessfulRoomResponse>
+  fun getRoom(
+      @Header("authorization") authorization: String
+  ): Single<RoomResponse.SuccessfulRoomResponse>
 
   @PATCH("room/")
   fun patchRoom(
-    @Header("authorization") authorization: String, @Body patchRoomRequest: PatchRoomRequest
+      @Header("authorization") authorization: String,
+      @Body patchRoomRequest: PatchRoomRequest
   ): Single<RoomResponse.SuccessfulRoomResponse>
-
 
   @POST("room/authorization/login")
   fun login(
-    @Header("authorization") authorization: String, @Body loginRequest: LoginRequest
+      @Header("authorization") authorization: String,
+      @Body loginRequest: LoginRequest
   ): Single<LoginResponse>
 }

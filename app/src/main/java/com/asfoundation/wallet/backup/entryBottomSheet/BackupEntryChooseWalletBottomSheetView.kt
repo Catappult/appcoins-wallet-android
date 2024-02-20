@@ -8,6 +8,4 @@ interface BackupEntryChooseWalletBottomSheetView {
   fun setupUi(walletsBalance: List<WalletInfoSimple>)
 
   fun walletCardClicked(): Observable<String>
-
 }
-

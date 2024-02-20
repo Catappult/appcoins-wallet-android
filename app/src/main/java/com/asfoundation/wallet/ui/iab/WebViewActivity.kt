@@ -10,15 +10,15 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.Log
+import com.asf.wallet.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WebViewActivity() : AppCompatActivity() {
 
   override fun getAssets(): AssetManager {
-    //Workaround for crash when inflating the webView
+    // Workaround for crash when inflating the webView
     return if (Build.VERSION.SDK_INT > 22) {
       super.getAssets()
     } else {
@@ -35,23 +35,21 @@ class WebViewActivity() : AppCompatActivity() {
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
       billingWebViewFragment = BillingWebViewFragment.newInstance(url)
-      supportFragmentManager.beginTransaction()
-        .add(R.id.container, billingWebViewFragment)
-        .commit()
+      supportFragmentManager.beginTransaction().add(R.id.container, billingWebViewFragment).commit()
     }
   }
 
   override fun onBackPressed() {
-    if (!((this::billingWebViewFragment.isInitialized) && billingWebViewFragment.handleBackPressed())) {
+    if (!((this::billingWebViewFragment.isInitialized) &&
+        billingWebViewFragment.handleBackPressed())) {
       super.onBackPressed()
     }
   }
 
   @SuppressLint("SourceLockedOrientationActivity")
   private fun lockCurrentPosition() {
-    //setRequestedOrientation requires translucent and floating to be false to work in API 26
-    val rotation = windowManager.defaultDisplay
-      .rotation
+    // setRequestedOrientation requires translucent and floating to be false to work in API 26
+    val rotation = windowManager.defaultDisplay.rotation
     val orientation = resources.configuration.orientation
 
     if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
@@ -69,7 +67,6 @@ class WebViewActivity() : AppCompatActivity() {
     } else {
       Log.w("WebView", "Invalid orientation value: $orientation")
     }
-
   }
 
   companion object {
@@ -81,9 +78,7 @@ class WebViewActivity() : AppCompatActivity() {
     const val USER_CANCEL_THROWABLE = "user_cancel"
 
     fun newIntent(activity: Activity?, url: String?): Intent {
-      return Intent(activity, WebViewActivity::class.java).apply {
-        putExtra(URL, url)
-      }
+      return Intent(activity, WebViewActivity::class.java).apply { putExtra(URL, url) }
     }
   }
 }

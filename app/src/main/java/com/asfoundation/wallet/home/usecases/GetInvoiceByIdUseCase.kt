@@ -7,5 +7,5 @@ class GetInvoiceByIdUseCase
 @Inject
 constructor(private val transactionRepository: TransactionsHistoryRepository) {
   operator fun invoke(invoiceId: String, ewt: String) =
-    transactionRepository.getInvoiceUrl(invoiceId = invoiceId, ewt = ewt)
+      transactionRepository.getInvoiceUrl(invoiceId = invoiceId, ewt = ewt)
 }

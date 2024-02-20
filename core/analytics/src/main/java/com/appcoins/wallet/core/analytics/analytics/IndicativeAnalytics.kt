@@ -2,22 +2,21 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import com.appcoins.wallet.core.analytics.BuildConfig
-import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
-import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
-import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
+import org.json.JSONObject
 
 @BoundTo(supertype = AnalyticsSetup::class)
 @Singleton
-class IndicativeAnalytics @Inject constructor(
-  @ApplicationContext private val context: Context,
+class IndicativeAnalytics
+@Inject
+constructor(
+    @ApplicationContext private val context: Context,
 ) : AnalyticsSetup {
 
-  var usrId: String = ""  // wallet address
+  var usrId: String = "" // wallet address
   var superProperties: MutableMap<String, Any> = HashMap()
 
   companion object {
@@ -50,29 +49,24 @@ class IndicativeAnalytics @Inject constructor(
   }
 
   fun setIndicativeSuperProperties(
-    installerPackage: String,
-    userLevel: Int,
-    userId: String,
-    hasGms: Boolean,
-    walletOrigin: String,
-    osVersion: String,
-    brand: String,
-    model: String,
-    language: String,
-    isEmulator: Boolean,
-    ghOemId: String
+      installerPackage: String,
+      userLevel: Int,
+      userId: String,
+      hasGms: Boolean,
+      walletOrigin: String,
+      osVersion: String,
+      brand: String,
+      model: String,
+      language: String,
+      isEmulator: Boolean,
+      ghOemId: String
   ) {
 
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-    superProperties.put(
-      AnalyticsLabels.APTOIDE_PACKAGE,
-      packageInfo.packageName
-    )
+    superProperties.put(AnalyticsLabels.APTOIDE_PACKAGE, packageInfo.packageName)
     superProperties.put(AnalyticsLabels.VERSION_CODE, packageInfo.versionCode)
     superProperties.put(
-      AnalyticsLabels.ENTRY_POINT,
-      if (installerPackage.isEmpty()) "other" else installerPackage
-    )
+        AnalyticsLabels.ENTRY_POINT, if (installerPackage.isEmpty()) "other" else installerPackage)
     superProperties.put(AnalyticsLabels.USER_LEVEL, userLevel)
     superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
     superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
@@ -86,7 +80,6 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
 
     if (userId.isNotEmpty()) this.usrId = userId
-
   }
 
   fun findDeviceOrientation(): String {
@@ -97,5 +90,4 @@ class IndicativeAnalytics @Inject constructor(
       else -> ORIENTATION_OTHER
     }
   }
-
 }

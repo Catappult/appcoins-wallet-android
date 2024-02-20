@@ -13,12 +13,12 @@ constructor(private val commonsPreferencesDataSource: CommonsPreferencesDataSour
   operator fun invoke(walletInfo: WalletInfo): Completable {
     return if (walletInfo.hasBackup.not()) {
       Single.just(commonsPreferencesDataSource.getWalletPurchasesCount(walletInfo.wallet))
-        .map { it + 1 }
-        .flatMapCompletable {
-          Completable.fromAction {
-            commonsPreferencesDataSource.incrementWalletPurchasesCount(walletInfo.wallet, it)
+          .map { it + 1 }
+          .flatMapCompletable {
+            Completable.fromAction {
+              commonsPreferencesDataSource.incrementWalletPurchasesCount(walletInfo.wallet, it)
+            }
           }
-        }
     } else {
       Completable.complete()
     }

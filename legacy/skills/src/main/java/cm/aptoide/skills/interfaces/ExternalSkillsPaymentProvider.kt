@@ -10,11 +10,18 @@ import java.math.BigDecimal
 
 interface ExternalSkillsPaymentProvider {
   fun getBalance(): Single<BigDecimal>
+
   fun pay(eskillsPaymentData: EskillsPaymentData, ticket: CreatedTicket): Single<PaymentResult>
+
   fun getLocalFiatAmount(value: BigDecimal, currency: String): Single<Price>
+
   fun getFiatToAppcAmount(value: BigDecimal, currency: String): Single<Price>
+
   fun getFormattedAppcAmount(value: BigDecimal, currency: String): Single<String>
+
   fun sendUserToTopUpFlow(context: Context)
+
   fun sendUserToVerificationFlow(context: Context)
+
   fun isWalletVerified(): Single<Boolean>
 }

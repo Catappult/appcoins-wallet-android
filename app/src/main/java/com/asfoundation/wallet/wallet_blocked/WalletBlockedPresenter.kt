@@ -20,20 +20,11 @@ class WalletBlockedPresenter(
 
   private fun handleDismissCLicks() {
     disposables.add(
-        view.getDismissCLicks()
-            .observeOn(viewScheduler)
-            .doOnNext { view.dismiss() }
-            .subscribe()
-    )
+        view.getDismissCLicks().observeOn(viewScheduler).doOnNext { view.dismiss() }.subscribe())
   }
 
   private fun handleEmailClicks() {
     disposables.add(
-        view.getEmailClicks()
-            .observeOn(viewScheduler)
-            .doOnNext { view.openEmail() }
-            .subscribe()
-    )
+        view.getEmailClicks().observeOn(viewScheduler).doOnNext { view.openEmail() }.subscribe())
   }
-
 }

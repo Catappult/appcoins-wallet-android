@@ -22,8 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class QrCodeActivity : BaseActivity(), QrCodeView {
 
-  @Inject
-  lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  @Inject lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var presenter: QrCodePresenter
 
   private val binding by viewBinding(QrCodeLayoutBinding::bind)
@@ -36,8 +35,8 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
     setContentView(R.layout.qr_code_layout)
     binding.mainLayout.setOnClickListener { onBackPressed() }
     presenter =
-        QrCodePresenter(this, findDefaultWalletInteract, CompositeDisposable(),
-            AndroidSchedulers.mainThread())
+        QrCodePresenter(
+            this, findDefaultWalletInteract, CompositeDisposable(), AndroidSchedulers.mainThread())
     presenter.present()
   }
 
@@ -61,7 +60,8 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
       val mergedQrCode = walletAddress.generateQrCode(windowManager, logo!!)
       binding.qrImage.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
-      Snackbar.make(binding.mainLayout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
+      Snackbar.make(
+              binding.mainLayout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
           .show()
     }
   }

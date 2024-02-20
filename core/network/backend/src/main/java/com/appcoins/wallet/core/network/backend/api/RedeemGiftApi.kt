@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface RedeemGiftApi {
   @POST("gamification/giftcard/{giftcard_key}/redeem")
   fun redeemGiftCode(
-    @Path("giftcard_key") giftCode: String,
-    @Header("authorization") authorization: String
+      @Path("giftcard_key") giftCode: String,
+      @Header("authorization") authorization: String
   ): Completable
 }

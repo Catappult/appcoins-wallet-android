@@ -17,10 +17,19 @@ import io.reactivex.schedulers.Schedulers
 class RatingNegativeModule {
 
   @Provides
-  fun providesNegativePresenter(fragment: Fragment,
-                                interactor: RatingInteractor, navigator: RatingNavigator,
-                                analytics: RatingAnalytics): RatingNegativePresenter {
-    return RatingNegativePresenter(fragment as RatingNegativeView, interactor, navigator, analytics,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+  fun providesNegativePresenter(
+      fragment: Fragment,
+      interactor: RatingInteractor,
+      navigator: RatingNavigator,
+      analytics: RatingAnalytics
+  ): RatingNegativePresenter {
+    return RatingNegativePresenter(
+        fragment as RatingNegativeView,
+        interactor,
+        navigator,
+        analytics,
+        CompositeDisposable(),
+        AndroidSchedulers.mainThread(),
+        Schedulers.io())
   }
 }

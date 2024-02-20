@@ -14,11 +14,10 @@ class SettingsWalletsModule {
 
   @Provides
   fun providesSettingsWalletsPresenter(
-    fragment: Fragment,
-    navigator: SettingsWalletsNavigator
+      fragment: Fragment,
+      navigator: SettingsWalletsNavigator
   ): SettingsWalletsPresenter {
     return SettingsWalletsPresenter(
-      fragment as BackupEntryChooseWalletView, navigator, CompositeDisposable()
-    )
+        fragment as BackupEntryChooseWalletView, navigator, CompositeDisposable())
   }
 }

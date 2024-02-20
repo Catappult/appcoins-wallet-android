@@ -1,16 +1,18 @@
 package com.asfoundation.wallet.ui
 
+import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class GasSettingsInteractor @Inject constructor(
-  private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-  private val gasPreferencesRepository: GasPreferencesDataSource
+class GasSettingsInteractor
+@Inject
+constructor(
+    private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
+    private val gasPreferencesRepository: GasPreferencesDataSource
 ) {
 
   fun findDefaultNetwork(): Single<NetworkInfo> = findNetworkInfoUseCase()
@@ -27,7 +29,7 @@ class GasSettingsInteractor @Inject constructor(
   }
 
   fun getSavedGasPreferences(): GasSettings {
-    return GasSettings(gasPreferencesRepository.getSavedGasPrice(),
-        gasPreferencesRepository.getSavedGasLimit())
+    return GasSettings(
+        gasPreferencesRepository.getSavedGasPrice(), gasPreferencesRepository.getSavedGasLimit())
   }
 }

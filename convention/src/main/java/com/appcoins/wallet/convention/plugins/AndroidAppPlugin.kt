@@ -6,11 +6,11 @@ import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
+import kotlin.collections.set
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import kotlin.collections.set
 
 class AndroidAppPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -30,19 +30,17 @@ class AndroidAppPlugin : Plugin<Project> {
         defaultConfig {
           targetSdk = Config.android.targetSdk
           multiDexEnabled = true
-          lint {
-            abortOnError = false
-          }
+          lint { abortOnError = false }
           buildConfigFields(project, rootDir)
           javaCompileOptions {
             annotationProcessorOptions {
               annotationProcessorOptions.arguments["room.schemaLocation"] =
-                "${project.projectDir}/schemas"
+                  "${project.projectDir}/schemas"
             }
           }
 
           manifestPlaceholders["VkExternalAuthRedirectHost"] =
-            project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
+              project.property("VK_EXTERNAL_AUTH_REDIRECT_HOST").toString()
         }
 
         signingConfigs {
@@ -64,14 +62,18 @@ class AndroidAppPlugin : Plugin<Project> {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.DEBUG)
             manifestPlaceholders["legacyPaymentHost"] =
-              project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
+                project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
             manifestPlaceholders["paymentHost"] =
-              project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
+                project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
             manifestPlaceholders["VkExternalAuthRedirectScheme"] =
-              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
+                project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
             resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID_DEV").toString())
-            resValue("string", "vk_client_secret", project.property("VK_CLIENT_SECRET_DEV").toString())
-            resValue("string", "vk_external_oauth_redirect_url", project.property("VK_EXTERNAL_URL_REDIRECT_DEV").toString())
+            resValue(
+                "string", "vk_client_secret", project.property("VK_CLIENT_SECRET_DEV").toString())
+            resValue(
+                "string",
+                "vk_external_oauth_redirect_url",
+                project.property("VK_EXTERNAL_URL_REDIRECT_DEV").toString())
           }
 
           release {
@@ -81,14 +83,17 @@ class AndroidAppPlugin : Plugin<Project> {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
             manifestPlaceholders["legacyPaymentHost"] =
-              project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
+                project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
             manifestPlaceholders["paymentHost"] =
-              project.property("MANIFEST_PAYMENT_HOST").toString()
+                project.property("MANIFEST_PAYMENT_HOST").toString()
             manifestPlaceholders["VkExternalAuthRedirectScheme"] =
-              project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
+                project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
             resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID").toString())
             resValue("string", "vk_client_secret", project.property("VK_CLIENT_SECRET").toString())
-            resValue("string", "vk_external_oauth_redirect_url", project.property("VK_EXTERNAL_URL_REDIRECT").toString())
+            resValue(
+                "string",
+                "vk_external_oauth_redirect_url",
+                project.property("VK_EXTERNAL_URL_REDIRECT").toString())
           }
 
           register("staging") {
@@ -103,35 +108,22 @@ class AndroidAppPlugin : Plugin<Project> {
           val versionName = versionName
           val versionCode = versionCode
           val fileName = "AppCoins_Wallet_v$versionName$sep$versionCode$sep$buildType.apk"
-          outputs.all {
-            (this as BaseVariantOutputImpl).outputFileName = fileName
-          }
+          outputs.all { (this as BaseVariantOutputImpl).outputFileName = fileName }
         }
 
         buildFeatures {
           buildConfig = true
-          viewBinding {
-            enable = true
-          }
-          composeOptions {
-            kotlinCompilerExtensionVersion = "1.4.3"
-          }
+          viewBinding { enable = true }
+          composeOptions { kotlinCompilerExtensionVersion = "1.4.3" }
           compose = true
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
         productFlavors {
-          create(Config.googlePlayDistribution) {
-            dimension = Config.distributionFlavorDimension
-          }
-          create(Config.aptoidePlayDistribution) {
-            dimension = Config.distributionFlavorDimension
-          }
+          create(Config.googlePlayDistribution) { dimension = Config.distributionFlavorDimension }
+          create(Config.aptoidePlayDistribution) { dimension = Config.distributionFlavorDimension }
         }
-
       }
     }
   }
 }
-
-

@@ -10,11 +10,10 @@ import javax.inject.Inject
 
 @BoundTo(supertype = WalletAddressObtainer::class)
 class DefaultWalletAddressObtainer @Inject constructor(private val walletService: WalletService) :
-  WalletAddressObtainer {
+    WalletAddressObtainer {
 
   override fun getWalletAddress(): Single<WalletAddress> {
-    return walletService.getWalletAddress()
-        .map { WalletAddress.fromValue(it) }
+    return walletService.getWalletAddress().map { WalletAddress.fromValue(it) }
   }
 
   override fun getOrCreateWallet(): Observable<String> {

@@ -17,26 +17,24 @@ class GamesHubBroadcastService {
     const val GAMES_HUB_BROADCAST = "GamesHubBroadcast"
 
     fun sendSuccessPaymentBroadcast(
-      context: Context,
-      uid: String,
-      packageName: String,
-      usdAmount: String,
-      appcAmount: String
+        context: Context,
+        uid: String,
+        packageName: String,
+        usdAmount: String,
+        appcAmount: String
     ) {
       Log.d(
-        GAMES_HUB_BROADCAST,
-        "$KEY_UID = $uid, $KEY_PACKAGE_NAME = $packageName, $KEY_USD_AMOUNT = $usdAmount"
-      )
-      val intent = Intent(
-        "${MiscProperties.GAMESHUB_PACKAGE}.${MiscProperties.GAMESHUB_BROADCAST_IAP_ACTION}"
-      )
+          GAMES_HUB_BROADCAST,
+          "$KEY_UID = $uid, $KEY_PACKAGE_NAME = $packageName, $KEY_USD_AMOUNT = $usdAmount")
+      val intent =
+          Intent(
+              "${MiscProperties.GAMESHUB_PACKAGE}.${MiscProperties.GAMESHUB_BROADCAST_IAP_ACTION}")
       intent.setPackage(MiscProperties.GAMESHUB_PACKAGE)
       intent.putExtra(KEY_UID, uid)
       intent.putExtra(KEY_PACKAGE_NAME, packageName)
       intent.putExtra(KEY_USD_AMOUNT, usdAmount)
-//      intent.putExtra(KEY_APPC_AMOUNT, appcAmount)
+      //      intent.putExtra(KEY_APPC_AMOUNT, appcAmount)
       context.sendBroadcast(intent)
     }
   }
-
 }

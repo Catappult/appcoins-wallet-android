@@ -6,10 +6,11 @@ import javax.inject.Inject
 
 class ExtractWalletAddressUseCase @Inject constructor(private val gson: Gson) {
 
-  operator fun invoke(keystore: String): Single<String> = Single.create {
-    val parsedKeystore = gson.fromJson(keystore, Keystore::class.java)
-    it.onSuccess("0x" + parsedKeystore.address)
-  }
+  operator fun invoke(keystore: String): Single<String> =
+      Single.create {
+        val parsedKeystore = gson.fromJson(keystore, Keystore::class.java)
+        it.onSuccess("0x" + parsedKeystore.address)
+      }
 
   private data class Keystore(val address: String)
 }

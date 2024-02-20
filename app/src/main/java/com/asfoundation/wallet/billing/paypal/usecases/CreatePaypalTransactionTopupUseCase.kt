@@ -1,24 +1,25 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
-import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CreatePaypalTransactionTopupUseCase @Inject constructor(
-  private val walletService: WalletService,
-  private val payPalV2Repository: PayPalV2Repository,
+class CreatePaypalTransactionTopupUseCase
+@Inject
+constructor(
+    private val walletService: WalletService,
+    private val payPalV2Repository: PayPalV2Repository,
 ) {
 
   operator fun invoke(
-    value: String,
-    currency: String,
+      value: String,
+      currency: String,
   ): Single<PaypalTransaction> {
-    return walletService.getWalletAddress()
-      .flatMap { address ->
-        payPalV2Repository.createTransaction(
+    return walletService.getWalletAddress().flatMap { address ->
+      payPalV2Repository.createTransaction(
           value = value,
           currency = currency,
           reference = null,
@@ -33,13 +34,11 @@ class CreatePaypalTransactionTopupUseCase @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          referrerUrl = null
-        )
-      }
+          referrerUrl = null)
+    }
   }
 
   private companion object {
     private const val TOP_UP_TRANSACTION_TYPE = "TOPUP"
   }
-
 }

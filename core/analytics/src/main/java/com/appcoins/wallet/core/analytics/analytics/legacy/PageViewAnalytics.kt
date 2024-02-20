@@ -10,8 +10,7 @@ class PageViewAnalytics @Inject constructor(private val analyticsManager: Analyt
 
     eventData[CONTEXT] = context
 
-    analyticsManager.logEvent(eventData, WALLET_PAGE_VIEW,
-        AnalyticsManager.Action.CLICK, WALLET)
+    analyticsManager.logEvent(eventData, WALLET_PAGE_VIEW, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   companion object {

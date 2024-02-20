@@ -15,23 +15,23 @@ import javax.inject.Inject
 class BackupRepository
 @Inject
 constructor(
-  private val contentResolver: ContentResolver,
-  private val backupEmailApi: BackupEmailApi,
-  private val rxSchedulers: RxSchedulers,
-  private val walletService: WalletService,
-  private val backupLogApi: BackupLogApi
+    private val contentResolver: ContentResolver,
+    private val backupEmailApi: BackupEmailApi,
+    private val rxSchedulers: RxSchedulers,
+    private val walletService: WalletService,
+    private val backupLogApi: BackupLogApi
 ) {
   fun saveFile(content: String, filePath: DocumentFile?, fileName: String): Completable {
 
     // mimetype anything so that the file has the .bck extension alone.
     val file =
-      filePath?.createFile("anything", fileName + getDefaultBackupFileExtension())
-        ?: return Completable.error(Throwable("Error creating file"))
+        filePath?.createFile("anything", fileName + getDefaultBackupFileExtension())
+            ?: return Completable.error(Throwable("Error creating file"))
 
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
       outputStream?.run { write(content.toByteArray()) }
-        ?: return Completable.error(Throwable("Null outputStream"))
+          ?: return Completable.error(Throwable("Null outputStream"))
     } catch (e: IOException) {
       e.printStackTrace()
       return Completable.error(Throwable(e))
@@ -45,15 +45,14 @@ constructor(
 
   fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
     return walletService
-      .getAndSignSpecificWalletAddress(walletAddress)
-      .flatMapCompletable {
-        backupEmailApi.sendBackupEmail(
-          walletAddress = it.address,
-          walletSignature = it.signedAddress,
-          emailBody = EmailBody(email, keystore.convertToBase64())
-        )
-      }
-      .subscribeOn(rxSchedulers.io)
+        .getAndSignSpecificWalletAddress(walletAddress)
+        .flatMapCompletable {
+          backupEmailApi.sendBackupEmail(
+              walletAddress = it.address,
+              walletSignature = it.signedAddress,
+              emailBody = EmailBody(email, keystore.convertToBase64()))
+        }
+        .subscribeOn(rxSchedulers.io)
   }
 
   fun logBackupSuccess(ewt: String): Completable {

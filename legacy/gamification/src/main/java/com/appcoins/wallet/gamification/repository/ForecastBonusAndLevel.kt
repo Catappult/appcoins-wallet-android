@@ -8,4 +8,5 @@ data class ForecastBonusAndLevel(
     val amount: BigDecimal = BigDecimal.ZERO,
     val currency: String = "",
     val minAmount: BigDecimal = BigDecimal.ZERO,
-    val level: Int = 0) : Serializable
+    val level: Int = 0
+) : Serializable

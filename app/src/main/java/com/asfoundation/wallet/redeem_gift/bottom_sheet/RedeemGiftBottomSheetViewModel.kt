@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.redeem_gift.bottom_sheet
 
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.use_cases.RedeemGiftUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,15 +13,16 @@ sealed class RedeemGiftBottomSheetSideEffect : SideEffect {
   object NavigateBack : RedeemGiftBottomSheetSideEffect()
 }
 
-data class RedeemGiftBottomSheetState(val submitRedeemAsync: Async<RedeemCode> = Async.Uninitialized,
-                                      val shouldShowDefault: Boolean = false) :
-  ViewState
+data class RedeemGiftBottomSheetState(
+    val submitRedeemAsync: Async<RedeemCode> = Async.Uninitialized,
+    val shouldShowDefault: Boolean = false
+) : ViewState
 
 @HiltViewModel
-class RedeemGiftBottomSheetViewModel @Inject constructor(
-    private val redeemGiftUseCase: RedeemGiftUseCase
-  ) :
-  BaseViewModel<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect>(initialState()) {
+class RedeemGiftBottomSheetViewModel
+@Inject
+constructor(private val redeemGiftUseCase: RedeemGiftUseCase) :
+    BaseViewModel<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RedeemGiftBottomSheetState {
@@ -31,14 +32,11 @@ class RedeemGiftBottomSheetViewModel @Inject constructor(
 
   fun submitClick(redeemGiftString: String) {
     redeemGiftUseCase(redeemGiftString)
-      .asAsyncToState { async ->
-        copy(submitRedeemAsync = async)
-      }
-      .repeatableScopedSubscribe(RedeemGiftBottomSheetState::submitRedeemAsync.name) { e ->
-        e.printStackTrace()
-      }
+        .asAsyncToState { async -> copy(submitRedeemAsync = async) }
+        .repeatableScopedSubscribe(RedeemGiftBottomSheetState::submitRedeemAsync.name) { e ->
+          e.printStackTrace()
+        }
   }
 
   fun successGotItClick() = sendSideEffect { RedeemGiftBottomSheetSideEffect.NavigateBack }
-
 }

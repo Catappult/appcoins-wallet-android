@@ -6,4 +6,5 @@ data class AdyenCardWrapper(
     val cardPaymentMethod: CardPaymentMethod,
     val shouldStoreCard: Boolean,
     val hasCvc: Boolean,
-    val supportedShopperInteractions: List<String>)
+    val supportedShopperInteractions: List<String>
+)

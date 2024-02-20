@@ -21,9 +21,9 @@ import java.util.Enumeration
 import javax.inject.Inject
 
 @BoundTo(supertype = PasswordStore::class)
-class TrustPasswordStore @Inject constructor(@ApplicationContext private val context: Context,
-                                             private val logger: Logger
-) :
+class TrustPasswordStore
+@Inject
+constructor(@ApplicationContext private val context: Context, private val logger: Logger) :
     PasswordStore {
   companion object {
     private val TAG = TrustPasswordStore::class.java.simpleName
@@ -38,8 +38,7 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
       return
     }
-    val pref =
-        PreferenceManager.getDefaultSharedPreferences(context)
+    val pref = PreferenceManager.getDefaultSharedPreferences(context)
     val passwords = pref.all
     for (key in passwords.keys) {
       if (key.contains("-pwd")) {
@@ -47,8 +46,7 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
         try {
           KS.put(context, address.toLowerCase(), PasswordManager.getPassword(address, context))
         } catch (ex: Exception) {
-          Toast.makeText(context, "Could not process passwords.", Toast.LENGTH_LONG)
-              .show()
+          Toast.makeText(context, "Could not process passwords.", Toast.LENGTH_LONG).show()
           ex.printStackTrace()
         }
       }
@@ -57,12 +55,12 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
 
   override fun getPassword(address: String): Single<String> {
     return Single.fromCallable {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        return@fromCallable String(KS.get(context, address))
-      } else {
-        return@fromCallable PasswordManager.getPassword(address, context)
-      }
-    }
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return@fromCallable String(KS.get(context, address))
+          } else {
+            return@fromCallable PasswordManager.getPassword(address, context)
+          }
+        }
         .onErrorResumeNext { throwable: Throwable? ->
           logError(throwable)
           getPasswordFallBack(address)
@@ -100,31 +98,34 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
 
   private fun getPasswordFallBack(walletAddress: String): Single<String> {
     return Single.fromCallable {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        try {
-          return@fromCallable String(KS.get(context, DEFAULT_WALLET))
-        } catch (ex: Exception) {
-          logger.log(TAG, ex.message, ex)
-          val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the store.")
-          logError(exception)
-          throw exception
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+              return@fromCallable String(KS.get(context, DEFAULT_WALLET))
+            } catch (ex: Exception) {
+              logger.log(TAG, ex.message, ex)
+              val exception =
+                  ServiceErrorException(
+                      ServiceErrorException.KEY_STORE_ERROR,
+                      "Failed to get the password from the store.")
+              logError(exception)
+              throw exception
+            }
+          } else {
+            try {
+              return@fromCallable PasswordManager.getPassword(DEFAULT_WALLET, context)
+            } catch (ex: Exception) {
+              logger.log(TAG, ex.message, ex)
+              val exception =
+                  ServiceErrorException(
+                      ServiceErrorException.KEY_STORE_ERROR,
+                      "Failed to get the password from the password manager.")
+              logError(exception)
+              throw exception
+            }
+          }
         }
-      } else {
-        try {
-          return@fromCallable PasswordManager.getPassword(DEFAULT_WALLET, context)
-        } catch (ex: Exception) {
-          logger.log(TAG, ex.message, ex)
-          val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the password manager.")
-          logError(exception)
-          throw exception
-        }
-      }
-    }
         .flatMap { password: String ->
-          setPassword(walletAddress, password).andThen(
-              Single.just(password))
+          setPassword(walletAddress, password).andThen(Single.just(password))
         }
   }
 

@@ -11,11 +11,9 @@ import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
 import javax.inject.Inject
 
-
-class SupportRepository @Inject constructor(
-  private val preferences: SupportPreferencesDataSource,
-  val app: Application
-) {
+class SupportRepository
+@Inject
+constructor(private val preferences: SupportPreferencesDataSource, val app: Application) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
@@ -24,20 +22,19 @@ class SupportRepository @Inject constructor(
   private var currentUser: SupportUser = SupportUser()
 
   fun saveNewUser(walletAddress: String, level: Int) {
-    val userAttributes = UserAttributes.Builder()
-        .withName(walletAddress)
-        // We set level + 1 to help with readability for the support team
-        .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
-        .build()
-    val registration: Registration = Registration.create()
-        .withUserId(walletAddress)
-        .withUserAttributes(userAttributes)
+    val userAttributes =
+        UserAttributes.Builder()
+            .withName(walletAddress)
+            // We set level + 1 to help with readability for the support team
+            .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
+            .build()
+    val registration: Registration =
+        Registration.create().withUserId(walletAddress).withUserAttributes(userAttributes)
 
     val gpsAvailable = checkGooglePlayServices()
     if (gpsAvailable) handleFirebaseToken()
 
-    Intercom.client()
-        .registerIdentifiedUser(registration)
+    Intercom.client().registerIdentifiedUser(registration)
     currentUser = SupportUser(walletAddress, level)
   }
 

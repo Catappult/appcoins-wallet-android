@@ -16,13 +16,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
 
-  @Inject
-  lateinit var presenter: RatingPositivePresenter
+  @Inject lateinit var presenter: RatingPositivePresenter
 
   private val binding by viewBinding(FragmentRatingPositiveBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingPositiveBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentRatingPositiveBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

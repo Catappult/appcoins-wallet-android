@@ -13,17 +13,21 @@ import javax.inject.Inject
 
 sealed class UpdateRequiredSideEffect : SideEffect {
   data class UpdateActionIntent(val intent: Intent) : UpdateRequiredSideEffect()
+
   data class NavigateToBackup(val walletAddress: String) : UpdateRequiredSideEffect()
+
   data class ShowBackupOption(val walletsModel: WalletsModel) : UpdateRequiredSideEffect()
 }
 
 data class UpdateRequiredState(val walletsModel: Async<WalletsModel> = Async.Uninitialized) :
-  ViewState
+    ViewState
 
 @HiltViewModel
-class UpdateRequiredViewModel @Inject constructor(
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-  private val observeWalletsModelUseCase: ObserveWalletsModelUseCase
+class UpdateRequiredViewModel
+@Inject
+constructor(
+    private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+    private val observeWalletsModelUseCase: ObserveWalletsModelUseCase
 ) : BaseViewModel<UpdateRequiredState, UpdateRequiredSideEffect>(initialState()) {
 
   companion object {
@@ -33,11 +37,7 @@ class UpdateRequiredViewModel @Inject constructor(
   }
 
   fun checkBackupOption() {
-    observeWalletsModelUseCase()
-      .asAsyncToState {
-        copy(walletsModel = it)
-      }
-      .scopedSubscribe()
+    observeWalletsModelUseCase().asAsyncToState { copy(walletsModel = it) }.scopedSubscribe()
   }
 
   fun handleUpdateClick() {

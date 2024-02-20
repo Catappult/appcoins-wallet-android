@@ -17,13 +17,17 @@ class SetSeenPromotionsUseCase @Inject constructor(val promotionsRepository: Pro
           promotionsRepository.shownLevel(wallet, it.level, GamificationContext.SCREEN_PROMOTIONS)
           it.links.forEach { gamificationLinkItem ->
             promotionsRepository.setSeenGenericPromotion(
-                getPromotionIdKey(gamificationLinkItem.id, gamificationLinkItem.startDate,
-                    gamificationLinkItem.endDate), PromotionUpdateScreen.PROMOTIONS.name)
+                getPromotionIdKey(
+                    gamificationLinkItem.id,
+                    gamificationLinkItem.startDate,
+                    gamificationLinkItem.endDate),
+                PromotionUpdateScreen.PROMOTIONS.name)
           }
         }
-        is PerkPromotion -> promotionsRepository.setSeenGenericPromotion(
-            getPromotionIdKey(it.id, it.startDate, it.endDate),
-            PromotionUpdateScreen.PROMOTIONS.name)
+        is PerkPromotion ->
+            promotionsRepository.setSeenGenericPromotion(
+                getPromotionIdKey(it.id, it.startDate, it.endDate),
+                PromotionUpdateScreen.PROMOTIONS.name)
         else -> Unit
       }
     }

@@ -103,6 +103,6 @@ interface AdyenPaymentView {
   fun setup3DSComponent()
 
   fun shouldStoreCard(): Boolean
-  fun restartFragment()
 
+  fun restartFragment()
 }

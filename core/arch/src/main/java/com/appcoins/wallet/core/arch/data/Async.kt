@@ -3,8 +3,8 @@ package com.appcoins.wallet.core.arch.data
 /**
  * Sealed class that represents the state of an asynchronous operation on View State.
  *
- * It's a very common pattern to execute and observe the state of an asynchronous operation
- * (e.g. network call, database fetch...). This sealed class represents the common states of these
+ * It's a very common pattern to execute and observe the state of an asynchronous operation (e.g.
+ * network call, database fetch...). This sealed class represents the common states of these
  * operations.
  */
 sealed class Async<out T>(val value: T? = null) {
@@ -13,8 +13,7 @@ sealed class Async<out T>(val value: T? = null) {
 
   object Uninitialized : Async<Nothing>()
 
-  data class Loading<out T>(private val previousValue: T? = null) :
-      Async<T>(previousValue)
+  data class Loading<out T>(private val previousValue: T? = null) : Async<T>(previousValue)
 
   /**
    * Previous value should not be here, however due to the way our architecture is setup, this is

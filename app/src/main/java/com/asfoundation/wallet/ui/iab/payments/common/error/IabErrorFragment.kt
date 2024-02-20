@@ -17,14 +17,14 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IabErrorFragment : BasePageViewFragment(), IabErrorView {
 
-  @Inject
-  lateinit var presenter: IabErrorPresenter
+  @Inject lateinit var presenter: IabErrorPresenter
 
   private val binding by viewBinding(FragmentIabErrorBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentIabErrorBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +43,8 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
     binding.dialogBuyButtons.cancelButton.setText(getString(R.string.button_cancel))
   }
 
-  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.cancelButton)
+  override fun cancelClickEvent(): Observable<Any> =
+      RxView.clicks(binding.dialogBuyButtons.cancelButton)
 
   override fun backClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.buyButton)
 
@@ -66,35 +67,37 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
      * should be added to the backstack with a name and passed here so that it manages navigation
      * correctly.
      *
-     * The entry fragment of a payment is the first fragment of a payment when the user selects
-     * the payment in PaymentsMethod and navigates to it.
+     * The entry fragment of a payment is the first fragment of a payment when the user selects the
+     * payment in PaymentsMethod and navigates to it.
      *
      * @param errorMessage Message description in the error fragment
-     * @param entryBackStackName The backstack name given when adding the payment entry fragment
-     *                           to the backstack
+     * @param entryBackStackName The backstack name given when adding the payment entry fragment to
+     *   the backstack
      */
     @JvmStatic
     fun newInstance(errorMessage: String, entryBackStackName: String): IabErrorFragment {
       val fragment = IabErrorFragment()
 
-      fragment.arguments = Bundle().apply {
-        putString(ERROR_MESSAGE_STRING, errorMessage)
-        putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
-      }
+      fragment.arguments =
+          Bundle().apply {
+            putString(ERROR_MESSAGE_STRING, errorMessage)
+            putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+          }
       return fragment
     }
 
     @JvmStatic
     fun newInstance(
-      @StringRes errorMessageResource: Int,
-      entryBackStackName: String
+        @StringRes errorMessageResource: Int,
+        entryBackStackName: String
     ): IabErrorFragment {
       val fragment = IabErrorFragment()
 
-      fragment.arguments = Bundle().apply {
-        putInt(ERROR_MESSAGE_RESOURCE, errorMessageResource)
-        putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
-      }
+      fragment.arguments =
+          Bundle().apply {
+            putInt(ERROR_MESSAGE_RESOURCE, errorMessageResource)
+            putString(FEATURE_ENTRY_BACKSTACK_NAME, entryBackStackName)
+          }
       return fragment
     }
   }

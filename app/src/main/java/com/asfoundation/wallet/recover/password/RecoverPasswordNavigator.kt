@@ -6,20 +6,15 @@ import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
-  Navigator {
+class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) : Navigator {
 
   fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
     navigate(
-      fragment.findNavController(),
-      RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = false,
-        isFromOnboarding = isFromOnboarding
-      )
-    )
+        fragment.findNavController(),
+        RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog(
+            needsWalletCreation = false, isFromOnboarding = isFromOnboarding))
   }
 
   fun navigateToSuccess(isFromOnboarding: Boolean) {
@@ -33,11 +28,9 @@ class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
 
   fun navigateToNavigationBar() {
     /* Temporary workaround for the RecoverActivity */
-    fragment.requireActivity()
-      .takeIf { it is RecoverActivity }?.finish()
-      ?: navigate(
-        fragment.findNavController(),
-        RecoverPasswordFragmentDirections.actionNavigateToNavBarFragment()
-      )
+    fragment.requireActivity().takeIf { it is RecoverActivity }?.finish()
+        ?: navigate(
+            fragment.findNavController(),
+            RecoverPasswordFragmentDirections.actionNavigateToNavBarFragment())
   }
 }

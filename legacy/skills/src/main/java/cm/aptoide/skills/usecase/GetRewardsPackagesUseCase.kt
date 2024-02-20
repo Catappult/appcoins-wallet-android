@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class GetRewardsPackagesUseCase @Inject constructor(private val bonusRepository: BonusRepository) {
   fun getRewardsPackages(): Single<List<String>> {
-    return bonusRepository.getRewardsPackages()
-      .subscribeOn(Schedulers.io())
+    return bonusRepository.getRewardsPackages().subscribeOn(Schedulers.io())
   }
 }

@@ -13,10 +13,10 @@ import com.appcoins.wallet.feature.backup.data.Balance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 sealed class BackupEntrySideEffect : SideEffect
 
@@ -28,9 +28,9 @@ data class BackupEntryState(
 class BackupEntryViewModel
 @Inject
 constructor(
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val currencyFormatUtils: CurrencyFormatUtils,
-  private val dispatchers: Dispatchers,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val currencyFormatUtils: CurrencyFormatUtils,
+    private val dispatchers: Dispatchers,
 ) : NewBaseViewModel<BackupEntryState, BackupEntrySideEffect>(BackupEntryState()) {
   lateinit var walletAddress: String
   lateinit var walletName: String
@@ -41,9 +41,9 @@ constructor(
   fun showBalance(walletAddress: String) {
     viewModelScope.launch {
       val walletInfo =
-        withContext(dispatchers.io) { getWalletInfoUseCase(walletAddress, cached = true).await() }
+          withContext(dispatchers.io) { getWalletInfoUseCase(walletAddress, cached = true).await() }
       suspend { mapBalance(walletInfo.walletBalance) }
-        .mapSuspendToAsync(BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
+          .mapSuspendToAsync(BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
     }
   }
 

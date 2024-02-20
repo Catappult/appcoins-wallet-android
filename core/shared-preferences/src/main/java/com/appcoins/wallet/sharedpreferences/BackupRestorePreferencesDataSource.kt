@@ -3,11 +3,11 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class BackupRestorePreferencesDataSource @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class BackupRestorePreferencesDataSource
+@Inject
+constructor(private val sharedPreferences: SharedPreferences) {
   fun saveChosenUri(uri: String) =
-    sharedPreferences.edit()
-      .putString(KEYSTORE_DIRECTORY, uri)
-      .apply()
+      sharedPreferences.edit().putString(KEYSTORE_DIRECTORY, uri).apply()
 
   fun getChosenUri() = sharedPreferences.getString(KEYSTORE_DIRECTORY, null)
 

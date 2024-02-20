@@ -18,24 +18,28 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView {
 
-  @Inject
-  lateinit var presenter: VerificationErrorPresenter
+  @Inject lateinit var presenter: VerificationErrorPresenter
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
   private val views by viewBinding(ErrorVerificationLayoutBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = ErrorVerificationLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = ErrorVerificationLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
   }
 
-  override fun initializeView(errorType: VerificationCodeResult.ErrorType, amount: String,
-                              symbol: String) {
+  override fun initializeView(
+      errorType: VerificationCodeResult.ErrorType,
+      amount: String,
+      symbol: String
+  ) {
     when (errorType) {
       VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS -> {
         views.errorMessage.visibility = View.GONE
@@ -49,8 +53,7 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
         views.tryAgain.visibility = View.GONE
         views.attemptsGroup.visibility = View.VISIBLE
 
-        val amountWithCurrency =
-            "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
+        val amountWithCurrency = "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
         views.errorTitle2.text =
             getString(R.string.card_verification_no_attempts_title, amountWithCurrency)
       }
@@ -88,14 +91,18 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
     internal const val SYMBOL = "symbol"
 
     @JvmStatic
-    fun newInstance(errorType: VerificationCodeResult.ErrorType, verificationAmount: String?,
-                    symbol: String?): VerificationErrorFragment {
+    fun newInstance(
+        errorType: VerificationCodeResult.ErrorType,
+        verificationAmount: String?,
+        symbol: String?
+    ): VerificationErrorFragment {
       return VerificationErrorFragment().apply {
-        arguments = Bundle().apply {
-          putInt(ERROR_TYPE, errorType.ordinal)
-          putString(AMOUNT, verificationAmount)
-          putString(SYMBOL, symbol)
-        }
+        arguments =
+            Bundle().apply {
+              putInt(ERROR_TYPE, errorType.ordinal)
+              putString(AMOUNT, verificationAmount)
+              putString(SYMBOL, symbol)
+            }
       }
     }
   }

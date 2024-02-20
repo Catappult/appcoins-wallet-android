@@ -6,17 +6,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 
 @EpoxyModelClass
 abstract class IncompletePaymentMethodsModel :
-  EpoxyModelWithHolder<IncompletePaymentMethodsModel.OtherPaymentMethodLayoutHolder>() {
+    EpoxyModelWithHolder<IncompletePaymentMethodsModel.OtherPaymentMethodLayoutHolder>() {
 
-  @EpoxyAttribute
-  lateinit var otherPaymentMethods: List<PaymentMethod>
+  @EpoxyAttribute lateinit var otherPaymentMethods: List<PaymentMethod>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
@@ -29,14 +28,14 @@ abstract class IncompletePaymentMethodsModel :
   }
 
   private fun handleMethodsList(
-    holder: OtherPaymentMethodLayoutHolder,
-    otherPaymentMethods: List<PaymentMethod>
+      holder: OtherPaymentMethodLayoutHolder,
+      otherPaymentMethods: List<PaymentMethod>
   ) {
     val methodsString = StringBuilder()
     for (paymentMethod in otherPaymentMethods) {
       methodsString.append(paymentMethod.label).append(", ")
     }
-    methodsString.setLength((methodsString.length - 2).coerceAtLeast(0));
+    methodsString.setLength((methodsString.length - 2).coerceAtLeast(0))
     holder.methodsTextList.text = methodsString
   }
 

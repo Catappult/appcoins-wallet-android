@@ -12,11 +12,9 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 /**
- * AS a PO,
- * I WANT to experiment on top up default values,
- * FOR analysing it's impact on top up amounts
+ * AS a PO, I WANT to experiment on top up default values, FOR analysing it's impact on top up
+ * amounts
  */
-
 @ExperimentalCoroutinesApi
 internal class TopUpDefaultValueUseCaseTest {
 
@@ -26,11 +24,9 @@ internal class TopUpDefaultValueUseCaseTest {
     m Given "feature flag repository that returns null"
     val repository = FeatureFlagsRepositoryMock(mutableListOf(null))
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant"
     val variant = useCase.getVariant()
@@ -47,17 +43,13 @@ internal class TopUpDefaultValueUseCaseTest {
   @Test
   fun testVariant() = coScenario { scope ->
     m Given "feature flag repository that returns a new one"
-    val repository = FeatureFlagsRepositoryMock(
-      mutableListOf(
-        FeatureFlag(isNew = true, variant = "A", payload = "1")
-      )
-    )
+    val repository =
+        FeatureFlagsRepositoryMock(
+            mutableListOf(FeatureFlag(isNew = true, variant = "A", payload = "1")))
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant"
     val variant = useCase.getVariant()
@@ -74,17 +66,13 @@ internal class TopUpDefaultValueUseCaseTest {
   @Test
   fun testCachedVariant() = coScenario { scope ->
     m Given "feature flag repository that returns a new one"
-    val repository = FeatureFlagsRepositoryMock(
-      mutableListOf(
-        FeatureFlag(isNew = true, variant = "A", payload = "1")
-      )
-    )
+    val repository =
+        FeatureFlagsRepositoryMock(
+            mutableListOf(FeatureFlag(isNew = true, variant = "A", payload = "1")))
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant twice"
     val variant1 = useCase.getVariant()
@@ -103,17 +91,13 @@ internal class TopUpDefaultValueUseCaseTest {
   @Test
   fun testWrongVariant() = coScenario { scope ->
     m Given "feature flag repository that returns a new one"
-    val repository = FeatureFlagsRepositoryMock(
-      mutableListOf(
-        FeatureFlag(isNew = true, variant = "A", payload = "f")
-      )
-    )
+    val repository =
+        FeatureFlagsRepositoryMock(
+            mutableListOf(FeatureFlag(isNew = true, variant = "A", payload = "f")))
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant"
     val variant = useCase.getVariant()
@@ -132,20 +116,16 @@ internal class TopUpDefaultValueUseCaseTest {
     m Given "feature flag repository that returns a new one"
     val repository = FeatureFlagsRepositoryMock(mutableListOf())
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant"
     useCase.setImpressed()
 
     m Then "one impressions sent"
     assertEquals(
-      listOf(SentImpression(flagId = FEATURE_FLAG_ID, userId = "User")),
-      repository.impressions
-    )
+        listOf(SentImpression(flagId = FEATURE_FLAG_ID, userId = "User")), repository.impressions)
     m And "no events sent"
     assertTrue(repository.events.isEmpty())
   }
@@ -156,27 +136,19 @@ internal class TopUpDefaultValueUseCaseTest {
     m Given "feature flag repository that returns a new one"
     val repository = FeatureFlagsRepositoryMock(mutableListOf())
     m And "use case with the given repository"
-    val useCase = TopUpDefaultValueUseCase(
-      repository,
-      AndroidIdRepositoryMock(),
-      StandardTestDispatcher(scope.testScheduler)
-    )
+    val useCase =
+        TopUpDefaultValueUseCase(
+            repository, AndroidIdRepositoryMock(), StandardTestDispatcher(scope.testScheduler))
 
     m When "get variant"
     useCase.setTopUpWith(35.9)
 
     m Then "one event sent"
     assertEquals(
-      listOf(
-        SentEvent(
-          flagId = FEATURE_FLAG_ID,
-          userId = "User",
-          name = TOP_UP_EVENT,
-          payload = "35.9"
-        )
-      ),
-      repository.events
-    )
+        listOf(
+            SentEvent(
+                flagId = FEATURE_FLAG_ID, userId = "User", name = TOP_UP_EVENT, payload = "35.9")),
+        repository.events)
     m And "no impressions sent"
     assertTrue(repository.impressions.isEmpty())
   }
@@ -184,10 +156,10 @@ internal class TopUpDefaultValueUseCaseTest {
   internal data class SentImpression(val flagId: String, val userId: String)
 
   internal data class SentEvent(
-    val flagId: String,
-    val userId: String,
-    val name: String,
-    val payload: String
+      val flagId: String,
+      val userId: String,
+      val name: String,
+      val payload: String
   )
 
   internal class AndroidIdRepositoryMock : AndroidIdRepository {
@@ -195,14 +167,14 @@ internal class TopUpDefaultValueUseCaseTest {
   }
 
   internal class FeatureFlagsRepositoryMock(private val data: MutableList<FeatureFlag?>) :
-    FeatureFlagsRepository {
+      FeatureFlagsRepository {
     internal val impressions: MutableList<SentImpression> = mutableListOf()
     internal val events: MutableList<SentEvent> = mutableListOf()
 
     override suspend fun getFeatureFlag(
-      flagId: String,
-      userId: String,
-      profileData: Map<String, Any>
+        flagId: String,
+        userId: String,
+        profileData: Map<String, Any>
     ): FeatureFlag? {
       return data.removeFirst()
     }
@@ -211,12 +183,7 @@ internal class TopUpDefaultValueUseCaseTest {
       impressions.add(SentImpression(flagId, userId))
     }
 
-    override suspend fun sendAction(
-      flagId: String,
-      userId: String,
-      name: String,
-      payload: String
-    ) {
+    override suspend fun sendAction(flagId: String, userId: String, name: String, payload: String) {
       events.add(SentEvent(flagId, userId, name, payload))
     }
   }

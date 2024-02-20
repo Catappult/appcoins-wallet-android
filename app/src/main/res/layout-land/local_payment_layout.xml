@@ -44,7 +44,8 @@
       >
     <include
         android:id="@+id/fragment_iab_transaction_completed"
-        layout="@layout/fragment_iab_transaction_completed" />
+        layout="@layout/fragment_iab_transaction_completed"
+        />
   </FrameLayout>
 
   <include

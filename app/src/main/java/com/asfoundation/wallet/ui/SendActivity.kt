@@ -30,8 +30,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SendActivity : BaseActivity() {
-  @Inject
-  lateinit var sendViewModelFactory: SendViewModelFactory
+  @Inject lateinit var sendViewModelFactory: SendViewModelFactory
   lateinit var viewModel: SendViewModel
   lateinit var toAddressText: EditText
   lateinit var amountText: EditText
@@ -51,39 +50,25 @@ class SendActivity : BaseActivity() {
     toAddressText = findViewById(R.id.send_to_address)
     amountInputLayout = findViewById(R.id.amount_input_layout)
     amountText = findViewById(R.id.send_amount)
-    viewModel = ViewModelProvider(this, sendViewModelFactory)
-      .get(SendViewModel::class.java)
-    viewModel.init(
-      intent.getParcelableExtra(C.EXTRA_TRANSACTION_BUILDER),
-      intent.data
-    )
-    viewModel.symbol()
-      .observe(this) { symbol: String? -> onSymbol(symbol) }
-    viewModel.amount()
-      .observe(this) { bigDecimal: BigDecimal -> onAmount(bigDecimal) }
-    viewModel.toAddress()
-      .observe(this) { toAddress: String -> onToAddress(toAddress) }
-    viewModel.onTransactionSucceed()
-      .observe(this) { result: Result ->
-        onFinishWithResult(
-          result
-        )
-      }
+    viewModel = ViewModelProvider(this, sendViewModelFactory).get(SendViewModel::class.java)
+    viewModel.init(intent.getParcelableExtra(C.EXTRA_TRANSACTION_BUILDER), intent.data)
+    viewModel.symbol().observe(this) { symbol: String? -> onSymbol(symbol) }
+    viewModel.amount().observe(this) { bigDecimal: BigDecimal -> onAmount(bigDecimal) }
+    viewModel.toAddress().observe(this) { toAddress: String -> onToAddress(toAddress) }
+    viewModel.onTransactionSucceed().observe(this) { result: Result -> onFinishWithResult(result) }
     val scanBarcodeButton = findViewById<ImageButton>(R.id.scan_barcode_button)
     scanBarcodeButton.setOnClickListener { view: View? ->
-      val intent = Intent(
-        applicationContext,
-        BarcodeCaptureActivity::class.java
-      )
+      val intent = Intent(applicationContext, BarcodeCaptureActivity::class.java)
       startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
     }
   }
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -107,24 +92,21 @@ class SendActivity : BaseActivity() {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (!viewModel.onActivityResult(requestCode, resultCode, data)
-      && requestCode == BARCODE_READER_REQUEST_CODE
-    ) {
+    if (!viewModel.onActivityResult(requestCode, resultCode, data) &&
+        requestCode == BARCODE_READER_REQUEST_CODE) {
       if (resultCode == CommonStatusCodes.SUCCESS) {
         if (data != null) {
           val barcode: Barcode? = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject)
           if (!viewModel.extractFromQR(barcode)) {
-            Toast.makeText(this, R.string.toast_qr_code_no_address, Toast.LENGTH_SHORT)
-              .show()
+            Toast.makeText(this, R.string.toast_qr_code_no_address, Toast.LENGTH_SHORT).show()
           }
         }
       } else {
         e(
-          "SEND", String.format(
-            getString(R.string.barcode_error_format),
-            CommonStatusCodes.getStatusCodeString(resultCode)
-          )
-        )
+            "SEND",
+            String.format(
+                getString(R.string.barcode_error_format),
+                CommonStatusCodes.getStatusCodeString(resultCode)))
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data)
@@ -139,10 +121,7 @@ class SendActivity : BaseActivity() {
   }
 
   private fun onAmount(bigDecimal: BigDecimal) {
-    amountText!!.setText(
-      NumberFormat.getInstance()
-        .format(bigDecimal)
-    )
+    amountText!!.setText(NumberFormat.getInstance().format(bigDecimal))
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -153,10 +132,8 @@ class SendActivity : BaseActivity() {
   private fun onNext() {
     // Validate input fields
     var hasError = false
-    val to = toAddressText!!.text
-      .toString()
-    val amount = amountText!!.text
-      .toString()
+    val to = toAddressText!!.text.toString()
+    val amount = amountText!!.text.toString()
     if (!viewModel.setToAddress(to)) {
       toInputLayout!!.error = getString(R.string.error_invalid_address)
       hasError = true
@@ -180,13 +157,13 @@ class SendActivity : BaseActivity() {
   private fun onSymbol(symbol: String?) {
     if (symbol != null) {
       setTitle(String.format(getString(R.string.title_send_with_token), symbol))
-      amountInputLayout!!.hint =
-        String.format(getString(R.string.hint_amount_with_token), symbol)
+      amountInputLayout!!.hint = String.format(getString(R.string.hint_amount_with_token), symbol)
     }
   }
 
   companion object {
     private const val BARCODE_READER_REQUEST_CODE = 1
+
     fun newIntent(context: Context?, previousIntent: Intent): Intent {
       val intent = Intent(context, IabActivity::class.java)
       intent.data = previousIntent.data

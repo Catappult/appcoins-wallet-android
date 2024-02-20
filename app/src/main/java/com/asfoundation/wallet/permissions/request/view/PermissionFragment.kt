@@ -36,23 +36,26 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
     private const val PERMISSION_KEY = "permission_key"
     private const val APK_SIGNATURE_KEY = "apk_signature_key"
 
-    fun newInstance(callingPackage: String, apkSignature: String,
-                    permission: PermissionName): PermissionFragment {
+    fun newInstance(
+        callingPackage: String,
+        apkSignature: String,
+        permission: PermissionName
+    ): PermissionFragment {
 
       return PermissionFragment().apply {
-        arguments = Bundle().apply {
-          putString(CALLING_PACKAGE, callingPackage)
-          putString(APK_SIGNATURE_KEY, apkSignature)
-          putSerializable(PERMISSION_KEY, permission)
-        }
+        arguments =
+            Bundle().apply {
+              putString(CALLING_PACKAGE, callingPackage)
+              putString(APK_SIGNATURE_KEY, apkSignature)
+              putSerializable(PERMISSION_KEY, permission)
+            }
       }
     }
   }
 
   private lateinit var appInfoProvider: ApplicationInfoProvider
 
-  @Inject
-  lateinit var permissionsInteractor: PermissionsInteractor
+  @Inject lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var navigator: PermissionFragmentNavigator
   private lateinit var presenter: PermissionsFragmentPresenter
   private var disposable: Disposable? = null
@@ -62,14 +65,22 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val permission: PermissionName = arguments?.getSerializable(PERMISSION_KEY) as PermissionName
-    presenter = PermissionsFragmentPresenter(this, permissionsInteractor,
-        arguments?.getString(CALLING_PACKAGE)!!, permission,
-        arguments?.getString(APK_SIGNATURE_KEY)!!, CompositeDisposable(),
-        AndroidSchedulers.mainThread())
+    presenter =
+        PermissionsFragmentPresenter(
+            this,
+            permissionsInteractor,
+            arguments?.getString(CALLING_PACKAGE)!!,
+            permission,
+            arguments?.getString(APK_SIGNATURE_KEY)!!,
+            CompositeDisposable(),
+            AndroidSchedulers.mainThread())
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentPermissionsLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentPermissionsLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -79,31 +90,38 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
 
   override fun showAppData(packageName: String) {
     disposable?.dispose()
-    disposable = Single.zip(Single.timer(500, TimeUnit.MILLISECONDS),
-        Single.fromCallable { appInfoProvider.getAppInfo(packageName) },
-        BiFunction { _: Long, app: ApplicationInfoModel -> app })
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess { app ->
-          views.provideWalletAlwaysAllowWalletAppsLayout.provideWalletAlwaysAllowAppIcon.setImageDrawable(app.icon)
+    disposable =
+        Single.zip(
+                Single.timer(500, TimeUnit.MILLISECONDS),
+                Single.fromCallable { appInfoProvider.getAppInfo(packageName) },
+                BiFunction { _: Long, app: ApplicationInfoModel -> app })
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { app ->
+              views.provideWalletAlwaysAllowWalletAppsLayout.provideWalletAlwaysAllowAppIcon
+                  .setImageDrawable(app.icon)
 
-          val message = getString(R.string.provide_wallet_body, app.appName)
-          val spannedMessage = SpannableString(message)
-          val walletAppName = "AppCoins Wallet"
+              val message = getString(R.string.provide_wallet_body, app.appName)
+              val spannedMessage = SpannableString(message)
+              val walletAppName = "AppCoins Wallet"
 
-          if (message.indexOf(walletAppName) > -1) {
-            spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(walletAppName),
-                message.indexOf(walletAppName) + walletAppName.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-          }
-          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName),
-              message.indexOf(app.appName) + app.appName.length,
-              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-          views.provideWalletAlwaysAllowBody.text = spannedMessage
-          views.progress.visibility = View.GONE
-          views.mainView.visibility = View.VISIBLE
-        }
-        .subscribe()
+              if (message.indexOf(walletAppName) > -1) {
+                spannedMessage.setSpan(
+                    StyleSpan(BOLD),
+                    message.indexOf(walletAppName),
+                    message.indexOf(walletAppName) + walletAppName.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+              }
+              spannedMessage.setSpan(
+                  StyleSpan(BOLD),
+                  message.indexOf(app.appName),
+                  message.indexOf(app.appName) + app.appName.length,
+                  Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+              views.provideWalletAlwaysAllowBody.text = spannedMessage
+              views.progress.visibility = View.GONE
+              views.mainView.visibility = View.VISIBLE
+            }
+            .subscribe()
   }
 
   override fun showWalletAddress(wallet: String) {
@@ -133,8 +151,9 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
         navigator = context
         appInfoProvider = ApplicationInfoProvider(context)
       }
-      else -> throw IllegalArgumentException(
-          "${PermissionFragment::class} has to be attached to an activity that implements ${PermissionFragmentNavigator::class}")
+      else ->
+          throw IllegalArgumentException(
+              "${PermissionFragment::class} has to be attached to an activity that implements ${PermissionFragmentNavigator::class}")
     }
   }
 

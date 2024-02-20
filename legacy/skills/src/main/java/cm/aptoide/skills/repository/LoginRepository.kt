@@ -8,13 +8,10 @@ import javax.inject.Inject
 class LoginRepository @Inject constructor(private val roomApi: RoomApi) {
 
   fun login(
-    ewt: String,
-    roomId: String,
-    ticketId: String
+      ewt: String,
+      roomId: String,
+      ticketId: String
   ): Single<com.appcoins.wallet.core.network.eskills.model.LoginResponse> {
-    return roomApi.login(
-      ewt,
-      LoginRequest(roomId, ticketId)
-    )
+    return roomApi.login(ewt, LoginRequest(roomId, ticketId))
   }
 }

@@ -2,13 +2,11 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.content.Context
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
@@ -21,8 +19,8 @@ import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
+import org.apache.commons.lang3.StringUtils
 
 @AndroidEntryPoint
 class GooglePayTopupFragment() : BasePageViewFragment() {
@@ -30,18 +28,20 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
   private val viewModel: GooglePayTopupViewModel by viewModels()
 
   private var binding: FragmentGooglePayTopupBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   private lateinit var compositeDisposable: CompositeDisposable
   private var topUpActivityView: TopUpActivityView? = null
 
-  @Inject
-  lateinit var navigator: TopUpNavigator
+  @Inject lateinit var navigator: TopUpNavigator
 
   private val TAG = GooglePayTopupFragment::class.java.name
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentGooglePayTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -50,7 +50,9 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is TopUpActivityView) { "GooglePayTopupFragment must be attached to Topup activity" }
+    check(context is TopUpActivityView) {
+      "GooglePayTopupFragment must be attached to Topup activity"
+    }
     topUpActivityView = context
     topUpActivityView?.lockOrientation()
   }
@@ -93,22 +95,13 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
   }
 
   private fun startPayment() {
-    viewModel.startPayment(
-      amount = amount,
-      currency = currency
-    )
+    viewModel.startPayment(amount = amount, currency = currency)
   }
 
   private fun setListeners() {
-    views.googlePayErrorButtons.errorBack.setOnClickListener {
-      close()
-    }
-    views.googlePayErrorButtons.errorCancel.setOnClickListener {
-      close()
-    }
-    views.googlePayErrorButtons.errorTryAgain.setOnClickListener {
-      close()
-    }
+    views.googlePayErrorButtons.errorBack.setOnClickListener { close() }
+    views.googlePayErrorButtons.errorCancel.setOnClickListener { close() }
+    views.googlePayErrorButtons.errorTryAgain.setOnClickListener { close() }
     views.googlePayErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -149,7 +142,8 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
+      views.successContainer.lottieTransactionSuccess.setAnimation(
+          R.raw.transaction_complete_bonus_animation_new)
       setupTransactionCompleteAnimation()
     } else {
       views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
@@ -160,16 +154,15 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
     val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
+        "bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
     views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(
+        object : FontAssetDelegate() {
+          override fun fetchFont(fontFamily: String): Typeface {
+            return Typeface.create("sans-serif-medium", Typeface.BOLD)
+          }
+        })
   }
 
   private val amount: String by lazy {
@@ -223,23 +216,23 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
 
     @JvmStatic
     fun newInstance(
-      paymentType: PaymentType,
-      data: TopUpPaymentData,
-      amount: String,
-      currency: String?,
-      bonus: String?,
-      gamificationLevel: Int
-    ): GooglePayTopupFragment = GooglePayTopupFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
-        putString(BONUS_KEY, bonus)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-      }
-    }
-
+        paymentType: PaymentType,
+        data: TopUpPaymentData,
+        amount: String,
+        currency: String?,
+        bonus: String?,
+        gamificationLevel: Int
+    ): GooglePayTopupFragment =
+        GooglePayTopupFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(PAYMENT_TYPE_KEY, paymentType.name)
+                putSerializable(AMOUNT_KEY, amount)
+                putString(CURRENCY_KEY, currency)
+                putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
+                putString(BONUS_KEY, bonus)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+              }
+        }
   }
-
 }

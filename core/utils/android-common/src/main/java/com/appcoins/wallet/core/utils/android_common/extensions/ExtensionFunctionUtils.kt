@@ -10,14 +10,10 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
-/**
- *
- * Class file to create kotlin extension functions
- *
- */
-
+/** Class file to create kotlin extension functions */
 fun BigDecimal.scaleToString(scale: Int): String {
   val format = DecimalFormat("#.##")
   return format.format(this.setScale(scale, RoundingMode.FLOOR))
@@ -40,8 +36,10 @@ fun <T1 : Any, T2 : Any, R : Any> safeLet(p1: T1?, p2: T2?, block: (T1, T2) -> R
 }
 
 fun <T1 : Any, T2 : Any, T3 : Any, R : Any> safeLet(
-  p1: T1?, p2: T2?, p3: T3?,
-  block: (T1, T2, T3) -> R?
+    p1: T1?,
+    p2: T2?,
+    p3: T3?,
+    block: (T1, T2, T3) -> R?
 ): R? {
   return if (p1 != null && p2 != null && p3 != null) block(p1, p2, p3) else null
 }
@@ -58,9 +56,7 @@ inline fun <T : Any> guardLet(vararg elements: T?, closure: () -> Nothing): List
   }
 }
 
-/**
- * List by default can only destructure up to 5 components, this lets it go up to 6.
- */
+/** List by default can only destructure up to 5 components, this lets it go up to 6. */
 operator fun <T> List<T>.component6() = get(5)
 
 fun String.convertToBase64(): String {
@@ -68,8 +64,7 @@ fun String.convertToBase64(): String {
 }
 
 fun String?.isEmailValid(): Boolean {
-  return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
-    .matches()
+  return !this.isNullOrBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
 
 inline fun String.convertToDate(date: String): Date? {
@@ -78,18 +73,19 @@ inline fun String.convertToDate(date: String): Date? {
 }
 
 inline fun Fragment.requestPermission(
-  permission: String,
-  crossinline granted: (permission: String) -> Unit = {},
-  crossinline denied: (permission: String) -> Unit = {},
-  crossinline explained: (permission: String) -> Unit = {}
+    permission: String,
+    crossinline granted: (permission: String) -> Unit = {},
+    crossinline denied: (permission: String) -> Unit = {},
+    crossinline explained: (permission: String) -> Unit = {}
 ) {
   registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
-    when {
-      result -> granted.invoke(permission)
-      shouldShowRequestPermissionRationale(permission) -> denied.invoke(permission)
-      else -> explained.invoke(permission)
-    }
-  }.launch(permission)
+        when {
+          result -> granted.invoke(permission)
+          shouldShowRequestPermissionRationale(permission) -> denied.invoke(permission)
+          else -> explained.invoke(permission)
+        }
+      }
+      .launch(permission)
 }
 
 inline fun Context.getActivity(): Activity? {

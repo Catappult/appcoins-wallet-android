@@ -1,10 +1,6 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.billing"
-}
+android { namespace = "com.appcoins.wallet.billing" }
 
 dependencies {
   api(project(":legacy:bdsbilling"))

@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -35,11 +34,9 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
         }
   }
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
-  @Inject
-  lateinit var presenter: VerificationCreditCardActivityPresenter
+  @Inject lateinit var presenter: VerificationCreditCardActivityPresenter
 
   private val toolbarBackPressSubject = PublishSubject.create<String>()
 
@@ -50,7 +47,8 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
     setContentView(R.layout.activity_wallet_verification)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
-        if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
+        if (isWalletVerified) R.string.verify_card_title
+        else R.string.verification_settings_unverified_title
     setTitle("")
     toolbar()
     presenter.present(savedInstanceState)
@@ -58,13 +56,12 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar() {
+  fun toolbar() {
     findViewById<ComposeView>(R.id.app_bar_verify).apply {
-      setContent {
-        TopBar(isMainBar = false, onClickSupport = { displayChat() })
-      }
+      setContent { TopBar(isMainBar = false, onClickSupport = { displayChat() }) }
     }
   }
 

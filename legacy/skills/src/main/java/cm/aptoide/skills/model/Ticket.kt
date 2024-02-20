@@ -7,18 +7,21 @@ import java.math.BigDecimal
 sealed class Ticket
 
 data class CreatedTicket(
-  val ticketId: String,
-  val processingStatus: ProcessingStatus,
-  val walletAddress: WalletAddress,
-  val callbackUrl: String,
-  val ticketPrice: BigDecimal,
-  val priceCurrency: String,
-  val productToken: String,
-  val queueId: QueueIdentifier
+    val ticketId: String,
+    val processingStatus: ProcessingStatus,
+    val walletAddress: WalletAddress,
+    val callbackUrl: String,
+    val ticketPrice: BigDecimal,
+    val priceCurrency: String,
+    val productToken: String,
+    val queueId: QueueIdentifier
 ) : Ticket()
 
 enum class ProcessingStatus {
-  PENDING_PAYMENT, REFUNDING, REFUNDED, IN_QUEUE;
+  PENDING_PAYMENT,
+  REFUNDING,
+  REFUNDED,
+  IN_QUEUE;
 
   companion object {
     fun fromTicketStatus(status: TicketStatus): ProcessingStatus {
@@ -33,9 +36,7 @@ enum class ProcessingStatus {
   }
 }
 
-data class FailedTicket(
-  val status: ErrorStatus
-) : Ticket()
+data class FailedTicket(val status: ErrorStatus) : Ticket()
 
 enum class ErrorStatus {
   VPN_NOT_SUPPORTED,
@@ -48,9 +49,9 @@ enum class ErrorStatus {
 }
 
 data class PurchasedTicket(
-  val ticketId: String,
-  val walletAddress: WalletAddress,
-  val userId: String,
-  val roomId: String,
-  val queueId: QueueIdentifier
+    val ticketId: String,
+    val walletAddress: WalletAddress,
+    val userId: String,
+    val roomId: String,
+    val queueId: QueueIdentifier
 ) : Ticket()

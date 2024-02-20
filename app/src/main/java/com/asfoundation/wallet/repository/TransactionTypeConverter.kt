@@ -37,7 +37,9 @@ class TransactionTypeConverter {
 
   @TypeConverter
   fun convertFromSubType(type: String?): TransactionEntity.SubType? {
-    return type?.let { return TransactionEntity.SubType.valueOf(it) }
+    return type?.let {
+      return TransactionEntity.SubType.valueOf(it)
+    }
   }
 
   @TypeConverter
@@ -47,7 +49,9 @@ class TransactionTypeConverter {
 
   @TypeConverter
   fun convertFromPerk(perk: String?): TransactionEntity.Perk? {
-    return perk?.let { return TransactionEntity.Perk.valueOf(it) }
+    return perk?.let {
+      return TransactionEntity.Perk.valueOf(it)
+    }
   }
 
   @TypeConverter
@@ -73,8 +77,7 @@ class TransactionTypeConverter {
   @TypeConverter
   fun stringToPermissionsList(data: String?): List<OperationEntity>? {
     return data?.let {
-      val listType = object : TypeToken<List<OperationEntity>>() {
-      }.type
+      val listType = object : TypeToken<List<OperationEntity>>() {}.type
       return gson.fromJson(data, listType)
     }
   }

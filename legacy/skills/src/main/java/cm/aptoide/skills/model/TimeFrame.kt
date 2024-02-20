@@ -1,5 +1,7 @@
 package cm.aptoide.skills.model
 
 enum class TimeFrame {
-  TODAY, WEEK, ALL_TIME
+  TODAY,
+  WEEK,
+  ALL_TIME
 }

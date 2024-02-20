@@ -8,11 +8,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PaymentMethodsAnalytics @Inject constructor(
-  private val analyticsManager: AnalyticsManager,
-  private val billingAnalytics: BillingAnalytics,
-  private val analyticsSetup: AnalyticsSetup,
-  private val taskTimer: TaskTimer
+class PaymentMethodsAnalytics
+@Inject
+constructor(
+    private val analyticsManager: AnalyticsManager,
+    private val billingAnalytics: BillingAnalytics,
+    private val analyticsSetup: AnalyticsSetup,
+    private val taskTimer: TaskTimer
 ) {
 
   companion object {
@@ -57,7 +59,6 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val WALLET_3DS_START = "wallet_3ds_start"
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
-
   }
 
   var startedIntegration: String? = null
@@ -72,35 +73,21 @@ class PaymentMethodsAnalytics @Inject constructor(
   }
 
   fun sendPaymentMethodEvent(
-    appPackage: String,
-    skuId: String?,
-    amount: String,
-    paymentId: String,
-    type: String?,
-    action: String,
-    isPreselected: Boolean = false,
-    isOnboardingPayment: Boolean = false
+      appPackage: String,
+      skuId: String?,
+      amount: String,
+      paymentId: String,
+      type: String?,
+      action: String,
+      isPreselected: Boolean = false,
+      isOnboardingPayment: Boolean = false
   ) {
     if (isPreselected) {
       billingAnalytics.sendPreSelectedPaymentMethodEvent(
-        appPackage,
-        skuId,
-        amount,
-        paymentId,
-        type,
-        action,
-        isOnboardingPayment
-      )
+          appPackage, skuId, amount, paymentId, type, action, isOnboardingPayment)
     } else {
       billingAnalytics.sendPaymentMethodEvent(
-        appPackage,
-        skuId,
-        amount,
-        paymentId,
-        type,
-        action,
-        isOnboardingPayment
-      )
+          appPackage, skuId, amount, paymentId, type, action, isOnboardingPayment)
     }
   }
 
@@ -126,43 +113,38 @@ class PaymentMethodsAnalytics @Inject constructor(
     val aDuration = authDuration ?: 0L
     authDuration = null
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(
-        DURATION to duration - aDuration,
-        PAYMENT_METHOD to paymentMethod,
-        INTEGRATION to integration,
-        AUTH_DURATION to aDuration
-      ),
-      WALLET_PAYMENT_LOADING_TOTAL,
-      AnalyticsManager.Action.IMPRESSION,
-      WALLET
-    )
+        hashMapOf<String, Any>(
+            DURATION to duration - aDuration,
+            PAYMENT_METHOD to paymentMethod,
+            INTEGRATION to integration,
+            AUTH_DURATION to aDuration),
+        WALLET_PAYMENT_LOADING_TOTAL,
+        AnalyticsManager.Action.IMPRESSION,
+        WALLET)
   }
 
   fun stopTimingForStepEvent(stepId: String) {
     val duration = taskTimer.end(stepId) ?: return
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(DURATION to duration, STEP_ID to stepId),
-      WALLET_PAYMENT_LOADING_STEP,
-      AnalyticsManager.Action.IMPRESSION,
-      WALLET
-    )
+        hashMapOf<String, Any>(DURATION to duration, STEP_ID to stepId),
+        WALLET_PAYMENT_LOADING_STEP,
+        AnalyticsManager.Action.IMPRESSION,
+        WALLET)
   }
 
   fun stopTimingForPurchaseEvent(paymentMethod: String, success: Boolean, isPreselected: Boolean) {
     val duration = taskTimer.end(WALLET_PAYMENT_PROCESSING_TOTAL) ?: return
     val integration = startedIntegration ?: return
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(
-        DURATION to duration,
-        PAYMENT_METHOD to paymentMethod,
-        INTEGRATION to integration,
-        PRESELECTED to isPreselected,
-        SUCCESSFUL to success
-      ),
-      WALLET_PAYMENT_PROCESSING_TOTAL,
-      AnalyticsManager.Action.IMPRESSION,
-      WALLET
-    )
+        hashMapOf<String, Any>(
+            DURATION to duration,
+            PAYMENT_METHOD to paymentMethod,
+            INTEGRATION to integration,
+            PRESELECTED to isPreselected,
+            SUCCESSFUL to success),
+        WALLET_PAYMENT_PROCESSING_TOTAL,
+        AnalyticsManager.Action.IMPRESSION,
+        WALLET)
   }
 
   fun stopTimingForAuthEvent() {
@@ -171,29 +153,22 @@ class PaymentMethodsAnalytics @Inject constructor(
 
   fun send3dsStart(type: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(TYPE to (type ?: "")),
-      WALLET_3DS_START,
-      AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        hashMapOf<String, Any>(TYPE to (type ?: "")),
+        WALLET_3DS_START,
+        AnalyticsManager.Action.CLICK,
+        WALLET)
   }
 
   fun send3dsCancel() {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(),
-      WALLET_3DS_CANCEL,
-      AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        hashMapOf<String, Any>(), WALLET_3DS_CANCEL, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun send3dsError(error: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(ERROR to (error ?: "")),
-      WALLET_3DS_ERROR,
-      AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        hashMapOf<String, Any>(ERROR to (error ?: "")),
+        WALLET_3DS_ERROR,
+        AnalyticsManager.Action.CLICK,
+        WALLET)
   }
-
 }

@@ -5,7 +5,7 @@ import com.appcoins.wallet.core.arch.data.Navigator
 import javax.inject.Inject
 
 class CreateWalletDialogNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
 
   fun navigateBack() {
     navController.popBackStack()

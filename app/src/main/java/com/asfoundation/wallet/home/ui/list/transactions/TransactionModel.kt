@@ -10,15 +10,15 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import com.asf.wallet.R
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.C
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
+import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -33,17 +33,13 @@ import kotlin.math.pow
 @EpoxyModelClass
 abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.TransactionHolder>() {
 
-  @EpoxyAttribute
-  lateinit var tx: Transaction
+  @EpoxyAttribute lateinit var tx: Transaction
 
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var defaultAddress: String? = null
+  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var defaultAddress: String? = null
 
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var currency: String? = null
+  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var currency: String? = null
 
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  var formatter: CurrencyFormatUtils? = null
+  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) var formatter: CurrencyFormatUtils? = null
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((HomeListClick) -> Unit)? = null
@@ -55,13 +51,14 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
 
     val context = holder.itemView.context
     val isSent = tx.from.equals(defaultAddress, ignoreCase = true)
-    val uri: String? = tx.details?.icon?.let { icon ->
-      when (icon.type) {
-        TransactionDetails.Icon.Type.FILE -> "file:" + icon.uri
-        TransactionDetails.Icon.Type.URL -> icon.uri
-        null -> null
-      }
-    }
+    val uri: String? =
+        tx.details?.icon?.let { icon ->
+          when (icon.type) {
+            TransactionDetails.Icon.Type.FILE -> "file:" + icon.uri
+            TransactionDetails.Icon.Type.URL -> icon.uri
+            null -> null
+          }
+        }
     holder.revertMessage.visibility = View.GONE
 
     // Default values
@@ -72,10 +69,12 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     var description = tx.details?.description ?: ""
 
     when (tx.type) {
-      Transaction.TransactionType.IAP, Transaction.TransactionType.IAP_OFFCHAIN -> {
+      Transaction.TransactionType.IAP,
+      Transaction.TransactionType.IAP_OFFCHAIN -> {
         txTypeIcon = R.drawable.ic_transaction_iab
       }
-      Transaction.TransactionType.ADS, Transaction.TransactionType.ADS_OFFCHAIN -> {
+      Transaction.TransactionType.ADS,
+      Transaction.TransactionType.ADS_OFFCHAIN -> {
         txTypeIcon = R.drawable.ic_transaction_poa
         currencySymbol = WalletCurrency.CREDITS.symbol
       }
@@ -101,12 +100,13 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
         txTypeIcon = R.drawable.ic_chain
         description = context.getString(R.string.transaction_type_p2p)
         isTypeIconVisible = true
-        currencySymbol = when (tx.method) {
-          Transaction.Method.UNKNOWN,
-          Transaction.Method.APPC_C -> WalletCurrency.CREDITS.symbol
-          Transaction.Method.APPC -> WalletCurrency.APPCOINS.symbol
-          Transaction.Method.ETH -> WalletCurrency.ETHEREUM.symbol
-        }
+        currencySymbol =
+            when (tx.method) {
+              Transaction.Method.UNKNOWN,
+              Transaction.Method.APPC_C -> WalletCurrency.CREDITS.symbol
+              Transaction.Method.APPC -> WalletCurrency.APPCOINS.symbol
+              Transaction.Method.ETH -> WalletCurrency.ETHEREUM.symbol
+            }
       }
       Transaction.TransactionType.ETHER_TRANSFER -> {
         txTypeIcon = R.drawable.ic_chain
@@ -181,27 +181,39 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     valueTextView.text = valueStr
   }
 
-  private fun TransactionHolder.setIcons(uri: String?, txTypeIcon: Int,
-                                         txTypeIconVisible: Boolean) {
+  private fun TransactionHolder.setIcons(
+      uri: String?,
+      txTypeIcon: Int,
+      txTypeIconVisible: Boolean
+  ) {
     typeIconLayout.visibility = if (txTypeIconVisible) View.VISIBLE else View.GONE
 
     GlideApp.with(itemView.context)
         .load(uri)
-        .apply(RequestOptions.bitmapTransform(CircleCrop())
-            .error(txTypeIcon))
-        .listener(object : RequestListener<Drawable?> {
-          override fun onLoadFailed(e: GlideException?, model: Any, target: Target<Drawable?>,
-                                    isFirstResource: Boolean): Boolean {
-            typeIconLayout.visibility = View.GONE
-            return false
-          }
+        .apply(RequestOptions.bitmapTransform(CircleCrop()).error(txTypeIcon))
+        .listener(
+            object : RequestListener<Drawable?> {
+              override fun onLoadFailed(
+                  e: GlideException?,
+                  model: Any,
+                  target: Target<Drawable?>,
+                  isFirstResource: Boolean
+              ): Boolean {
+                typeIconLayout.visibility = View.GONE
+                return false
+              }
 
-          override fun onResourceReady(resource: Drawable?, model: Any, target: Target<Drawable?>,
-                                       dataSource: DataSource, isFirstResource: Boolean): Boolean {
-            typeIconImageView.setImageResource(txTypeIcon)
-            return false
-          }
-        })
+              override fun onResourceReady(
+                  resource: Drawable?,
+                  model: Any,
+                  target: Target<Drawable?>,
+                  dataSource: DataSource,
+                  isFirstResource: Boolean
+              ): Boolean {
+                typeIconImageView.setImageResource(txTypeIcon)
+                return false
+              }
+            })
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(srcImage)
   }
@@ -223,22 +235,30 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   }
 
   private fun isRevert(type: Transaction.TransactionType): Boolean {
-    return type == Transaction.TransactionType.IAP_REVERT
-        || type == Transaction.TransactionType.TOP_UP_REVERT
-        || type == Transaction.TransactionType.BONUS_REVERT
+    return type == Transaction.TransactionType.IAP_REVERT ||
+        type == Transaction.TransactionType.TOP_UP_REVERT ||
+        type == Transaction.TransactionType.BONUS_REVERT
   }
 
   private fun shouldShowFiat(paidAmount: String?, paidCurrency: String?): Boolean {
-    return (paidAmount != null && paidCurrency != "APPC" && paidCurrency != "APPC-C" && paidCurrency != "ETH")
+    return (paidAmount != null &&
+        paidCurrency != "APPC" &&
+        paidCurrency != "APPC-C" &&
+        paidCurrency != "ETH")
   }
 
-  private fun getScaledValue(valueStr: String, decimals: Long, currencySymbol: String,
-                             flipSign: Boolean): String {
+  private fun getScaledValue(
+      valueStr: String,
+      decimals: Long,
+      currencySymbol: String,
+      flipSign: Boolean
+  ): String {
     val sign = if (flipSign) -1 else 1
-    val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
-    val value = BigDecimal(valueStr).divide(BigDecimal(10.toDouble()
-        .pow(decimals.toDouble())))
-        .multiply(sign.toBigDecimal())
+    val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol)
+    val value =
+        BigDecimal(valueStr)
+            .divide(BigDecimal(10.toDouble().pow(decimals.toDouble())))
+            .multiply(sign.toBigDecimal())
     // In case of positive value, we need to explicitly put the "+" sign
     val signedString = if (value > BigDecimal.ZERO) "+" else ""
     return signedString + formatter!!.formatCurrency(value, walletCurrency)
@@ -252,17 +272,19 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
       val linkedTx = linkedTxs[0]
       when (tx.type) {
         Transaction.TransactionType.BONUS_REVERT -> {
-          message = itemView.context.getString(R.string.transaction_type_reverted_bonus_body,
-              getDate(linkedTx.timeStamp))
+          message =
+              itemView.context.getString(
+                  R.string.transaction_type_reverted_bonus_body, getDate(linkedTx.timeStamp))
         }
         Transaction.TransactionType.IAP_REVERT -> {
           message =
-              itemView.context.getString(R.string.transaction_type_reverted_purchase_body,
-                  getDate(linkedTx.timeStamp))
+              itemView.context.getString(
+                  R.string.transaction_type_reverted_purchase_body, getDate(linkedTx.timeStamp))
         }
         Transaction.TransactionType.TOP_UP_REVERT -> {
-          message = itemView.context.getString(R.string.transaction_type_reverted_topup_body,
-              getDate(linkedTx.timeStamp))
+          message =
+              itemView.context.getString(
+                  R.string.transaction_type_reverted_topup_body, getDate(linkedTx.timeStamp))
         }
         else -> {}
       }
@@ -274,12 +296,13 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
   private fun getDate(timeStampInSec: Long): String {
     val cal = Calendar.getInstance(Locale.getDefault())
     cal.timeInMillis = timeStampInSec
-    return DateFormat.format("MMM, dd yyyy", cal.time)
-        .toString()
+    return DateFormat.format("MMM, dd yyyy", cal.time).toString()
   }
 
-  private fun isTypeIconVisibleBasedOnDescription(details: TransactionDetails?,
-                                                  uri: String?): Boolean {
+  private fun isTypeIconVisibleBasedOnDescription(
+      details: TransactionDetails?,
+      uri: String?
+  ): Boolean {
     return !(uri == null || details?.sourceName == null)
   }
 

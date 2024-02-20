@@ -30,20 +30,49 @@ data class Transaction(
 
   @Parcelize
   enum class TransactionType : Parcelable {
-    STANDARD, IAP, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
-    BONUS_REVERT, TOP_UP_REVERT, IAP_REVERT, SUBS_OFFCHAIN, ESKILLS_REWARD, ESKILLS, TRANSFER,
+    STANDARD,
+    IAP,
+    ADS,
+    IAP_OFFCHAIN,
+    ADS_OFFCHAIN,
+    BONUS,
+    TOP_UP,
+    TRANSFER_OFF_CHAIN,
+    BONUS_REVERT,
+    TOP_UP_REVERT,
+    IAP_REVERT,
+    SUBS_OFFCHAIN,
+    ESKILLS_REWARD,
+    ESKILLS,
+    TRANSFER,
     ETHER_TRANSFER
   }
 
   @Parcelize
-  enum class Method : Parcelable { UNKNOWN, APPC, APPC_C, ETH }
+  enum class Method : Parcelable {
+    UNKNOWN,
+    APPC,
+    APPC_C,
+    ETH
+  }
 
   @Parcelize
-  enum class SubType : Parcelable { PERK_PROMOTION, UNKNOWN }
+  enum class SubType : Parcelable {
+    PERK_PROMOTION,
+    UNKNOWN
+  }
 
   @Parcelize
-  enum class Perk : Parcelable { GAMIFICATION_LEVEL_UP, PACKAGE_PERK, UNKNOWN }
+  enum class Perk : Parcelable {
+    GAMIFICATION_LEVEL_UP,
+    PACKAGE_PERK,
+    UNKNOWN
+  }
 
   @Parcelize
-  enum class TransactionStatus : Parcelable { SUCCESS, FAILED, PENDING }
+  enum class TransactionStatus : Parcelable {
+    SUCCESS,
+    FAILED,
+    PENDING
+  }
 }

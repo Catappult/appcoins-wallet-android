@@ -5,17 +5,16 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.GamificationLinkItem
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 
 @EpoxyModelClass
 abstract class GamificationLinkModel :
     EpoxyModelWithHolder<GamificationLinkModel.GamificationLinkHolder>() {
 
-  @EpoxyAttribute
-  lateinit var gamificationLinkItem: GamificationLinkItem
+  @EpoxyAttribute lateinit var gamificationLinkItem: GamificationLinkItem
 
   override fun bind(holder: GamificationLinkHolder) {
     GlideApp.with(holder.itemView.context)

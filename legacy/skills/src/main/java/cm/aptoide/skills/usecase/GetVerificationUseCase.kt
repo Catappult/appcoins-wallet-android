@@ -8,16 +8,18 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetVerificationUseCase @Inject constructor(
-  private val walletAddressObtainer: WalletAddressObtainer,
-  private val ewtObtainer: EwtObtainer,
-  private val ticketRepository: TicketRepository
-  ){
+class GetVerificationUseCase
+@Inject
+constructor(
+    private val walletAddressObtainer: WalletAddressObtainer,
+    private val ewtObtainer: EwtObtainer,
+    private val ticketRepository: TicketRepository
+) {
 
-  operator fun invoke(): Single<EskillsVerification>{
-    return walletAddressObtainer.getWalletAddress().flatMap {
-      ewtObtainer.getEWT()
-        .flatMap { ewt -> ticketRepository.getVerification(ewt) }
-    }.subscribeOn(Schedulers.io())
+  operator fun invoke(): Single<EskillsVerification> {
+    return walletAddressObtainer
+        .getWalletAddress()
+        .flatMap { ewtObtainer.getEWT().flatMap { ewt -> ticketRepository.getVerification(ewt) } }
+        .subscribeOn(Schedulers.io())
   }
 }

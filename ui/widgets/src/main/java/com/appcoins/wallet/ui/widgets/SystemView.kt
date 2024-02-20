@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,18 +26,20 @@ class SystemView : FrameLayout, View.OnClickListener {
   private var recyclerView: RecyclerView? = null
 
   constructor(context: Context) : super(context) {}
+
   constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-    context,
-    attrs,
-    defStyleAttr
-  ) {
-  }
+
+  constructor(
+      context: Context,
+      attrs: AttributeSet?,
+      defStyleAttr: Int
+  ) : super(context, attrs, defStyleAttr) {}
 
   override fun onFinishInflate() {
     super.onFinishInflate()
-    val view = LayoutInflater.from(context)
-      .inflate(com.appcoins.wallet.ui.widgets.R.layout.layout_system_view, this, false)
+    val view =
+        LayoutInflater.from(context)
+            .inflate(com.appcoins.wallet.ui.widgets.R.layout.layout_system_view, this, false)
     addView(view)
     progress = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.progress)
     errorBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.error_box)
@@ -83,9 +84,11 @@ class SystemView : FrameLayout, View.OnClickListener {
       return
     }
     if (shouldShow) {
-      if (swipeRefreshLayout != null && recyclerView != null && recyclerView!!.adapter != null && recyclerView!!.adapter!!
-          .itemCount > 0 && recyclerView!!.visibility == VISIBLE
-      ) {
+      if (swipeRefreshLayout != null &&
+          recyclerView != null &&
+          recyclerView!!.adapter != null &&
+          recyclerView!!.adapter!!.itemCount > 0 &&
+          recyclerView!!.visibility == VISIBLE) {
         hide()
       } else {
         hideAllComponents()
@@ -96,29 +99,24 @@ class SystemView : FrameLayout, View.OnClickListener {
     }
   }
 
-  fun showError(
-    message: String?,
-    onTryAgainClickListener: OnClickListener?
-  ) {
-    if (recyclerView != null && recyclerView!!.adapter != null && recyclerView!!.adapter!!
-        .itemCount > 0
-    ) {
+  fun showError(message: String?, onTryAgainClickListener: OnClickListener?) {
+    if (recyclerView != null &&
+        recyclerView!!.adapter != null &&
+        recyclerView!!.adapter!!.itemCount > 0) {
       hide()
       Snackbar.make(
-        this,
-        (if (TextUtils.isEmpty(message)) context.getString(R.string.unknown_error) else message)!!,
-        Snackbar.LENGTH_LONG
-      )
-        .show()
+              this,
+              (if (TextUtils.isEmpty(message)) context.getString(R.string.unknown_error)
+              else message)!!,
+              Snackbar.LENGTH_LONG)
+          .show()
     } else {
       hideAllComponents()
       errorBox!!.visibility = VISIBLE
       messageTxt!!.text = message
       this.onTryAgainClickListener = onTryAgainClickListener
-      messageTxt!!.visibility =
-        if (TextUtils.isEmpty(message)) GONE else VISIBLE
-      tryAgain!!.visibility =
-        if (this.onTryAgainClickListener == null) GONE else VISIBLE
+      messageTxt!!.visibility = if (TextUtils.isEmpty(message)) GONE else VISIBLE
+      tryAgain!!.visibility = if (this.onTryAgainClickListener == null) GONE else VISIBLE
     }
   }
 

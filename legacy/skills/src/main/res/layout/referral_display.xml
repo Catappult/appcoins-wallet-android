@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,29 +34,29 @@
       android:id="@+id/container_popup"
       android:layout_width="wrap_content"
       android:layout_height="120dp"
-      android:animateLayoutChanges="true"
       android:layout_marginHorizontal="@dimen/small_margin"
+      android:animateLayoutChanges="true"
       android:background="@drawable/background_referral"
-      app:layout_constraintVertical_bias="1.0"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/room_create_body"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:layout_marginTop="@dimen/big_margin"
         android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/big_margin"
         android:layout_marginEnd="125dp"
         android:visibility="visible"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         >
 
 
@@ -67,10 +66,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Insert your referral code \n(Optional)"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/action_button_tooltip_referral"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
           />
       <ImageButton
           android:id="@+id/action_button_tooltip_referral"
@@ -81,9 +80,9 @@
           android:contentDescription="@null"
           android:scaleType="centerCrop"
           android:src="@drawable/referral_onboarding_tooltip"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintStart_toEndOf="@id/insert_referral_text"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/insert_referral_text"
+          app:layout_constraintTop_toTopOf="parent"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -118,10 +117,10 @@
         style="@style/eSkills.Payment.TextInputEditText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="96dp"
         android:background="@null"
         android:hint="code here..."
         android:inputType="text"
-        android:layout_marginEnd="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@id/error_message"
@@ -133,8 +132,8 @@
         style="@style/eSkills.Payment.Error"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:visibility="gone"
         android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/referral_code"
         app:layout_constraintTop_toTopOf="parent"

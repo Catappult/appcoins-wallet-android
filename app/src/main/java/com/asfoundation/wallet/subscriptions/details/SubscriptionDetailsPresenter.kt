@@ -8,12 +8,14 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
-                                   private val navigator: SubscriptionDetailsNavigator,
-                                   private val data: SubscriptionDetailsData,
-                                   private val userSubscriptionsInteractor: UserSubscriptionsInteractor,
-                                   private val disposables: CompositeDisposable,
-                                   private val viewScheduler: Scheduler) {
+class SubscriptionDetailsPresenter(
+    private val view: SubscriptionDetailsView,
+    private val navigator: SubscriptionDetailsNavigator,
+    private val data: SubscriptionDetailsData,
+    private val userSubscriptionsInteractor: UserSubscriptionsInteractor,
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler
+) {
 
   fun present() {
     view.setupTransitionName(data.transitionName)
@@ -25,14 +27,14 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
 
   private fun handleRetryClicks() {
     disposables.add(
-        view.getRetryClicks()
+        view
+            .getRetryClicks()
             .observeOn(viewScheduler)
             .doOnEach {
               view.showDetails()
               setupUi()
             }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun setupUi() {
@@ -46,7 +48,8 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
 
   private fun handleCancelClicks() {
     disposables.add(
-        view.getCancelClicks()
+        view
+            .getCancelClicks()
             .observeOn(viewScheduler)
             .doOnNext {
               navigator.showCancelSubscription(data.subscriptionItem, view.retrieveSharedElement())
@@ -56,11 +59,13 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
 
   private fun handleRenewSubscriptionClicks() {
     disposables.add(
-        view.getRenewSubscriptionClicks()
+        view
+            .getRenewSubscriptionClicks()
             .flatMap {
               view.showLoading()
-              userSubscriptionsInteractor.activateSubscription(data.subscriptionItem.packageName,
-                  data.subscriptionItem.uid)
+              userSubscriptionsInteractor
+                  .activateSubscription(
+                      data.subscriptionItem.packageName, data.subscriptionItem.uid)
                   .subscribeOn(Schedulers.io())
                   .observeOn(viewScheduler)
                   .doOnComplete {

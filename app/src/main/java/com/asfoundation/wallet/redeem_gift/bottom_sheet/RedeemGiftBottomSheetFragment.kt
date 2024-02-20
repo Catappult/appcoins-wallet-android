@@ -10,26 +10,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
-import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.common.setReadOnly
+import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
+import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
+import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
+class RedeemGiftBottomSheetFragment :
+    BottomSheetDialogFragment(),
+    SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
 
-
-  @Inject
-  lateinit var navigator: RedeemGiftBottomSheetNavigator
+  @Inject lateinit var navigator: RedeemGiftBottomSheetNavigator
 
   private val viewModel: RedeemGiftBottomSheetViewModel by viewModels()
   private val views by viewBinding(SettingsRedeemGiftBottomSheetLayoutBinding::bind)
@@ -41,8 +40,11 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = SettingsRedeemGiftBottomSheetLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = SettingsRedeemGiftBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -53,17 +55,19 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetSuccessGotItButton.setOnClickListener {
       viewModel.successGotItClick()
     }
-    views.redeemGiftBottomSheetErrorButton.setOnClickListener {
-      showDefaultScreen()
-    }
+    views.redeemGiftBottomSheetErrorButton.setOnClickListener { showDefaultScreen() }
 
-    views.redeemGiftBottomSheetString.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.redeemGiftBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
-      }
-      override fun afterTextChanged(s: Editable) = Unit
-    })
+    views.redeemGiftBottomSheetString.addTextChangedListener(
+        object : TextWatcher {
+          override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
+              Unit
+
+          override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            views.redeemGiftBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
+          }
+
+          override fun afterTextChanged(s: Editable) = Unit
+        })
 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     views.redeemGiftBottomSheetSubmitButton.isEnabled = false
@@ -81,8 +85,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {
     when (val clickAsync = state.submitRedeemAsync) {
-      is Async.Uninitialized ->  {
-      }
+      is Async.Uninitialized -> {}
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
@@ -93,10 +96,8 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
       }
       is Async.Success -> {
         state.submitRedeemAsync.value?.let { redeemState ->
-          if (redeemState is SuccessfulRedeem)
-            showSuccess()
-          else
-            showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
+          if (redeemState is SuccessfulRedeem) showSuccess()
+          else showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
         }
       }
     }
@@ -112,18 +113,23 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.redeemGiftBottomSheetErrorImage.visibility = View.VISIBLE
-    when(error) {
-      FailedRedeem.OnlyNewUsersError ->{
-        views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_new_users_title)
-        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_try_with_different_body)
+    when (error) {
+      FailedRedeem.OnlyNewUsersError -> {
+        views.redeemGiftBottomSheetErrorTitle.text =
+            getString(R.string.gift_card_error_new_users_title)
+        views.redeemGiftBottomSheetErrorSubtitle.text =
+            getString(R.string.gift_card_error_try_with_different_body)
       }
-      FailedRedeem.AlreadyRedeemedError ->{
+      FailedRedeem.AlreadyRedeemedError -> {
         views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_used_title)
-        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_try_with_different_body)
+        views.redeemGiftBottomSheetErrorSubtitle.text =
+            getString(R.string.gift_card_error_try_with_different_body)
       }
-      is FailedRedeem.GenericError ->{
-        views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_general_title)
-        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_general_body)
+      is FailedRedeem.GenericError -> {
+        views.redeemGiftBottomSheetErrorTitle.text =
+            getString(R.string.gift_card_error_general_title)
+        views.redeemGiftBottomSheetErrorSubtitle.text =
+            getString(R.string.gift_card_error_general_body)
       }
     }
     views.redeemGiftBottomSheetErrorTitle.visibility = View.VISIBLE
@@ -153,7 +159,6 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetSuccessTitle.visibility = View.VISIBLE
     views.redeemGiftBottomSheetSuccessSubtitle.visibility = View.VISIBLE
     views.redeemGiftBottomSheetSuccessGotItButton.visibility = View.VISIBLE
-
   }
 
   private fun hideAll() {

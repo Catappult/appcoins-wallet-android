@@ -14,7 +14,9 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class BalanceInteractor @Inject constructor(
+class BalanceInteractor
+@Inject
+constructor(
     private val accountWalletService: AccountWalletService,
     private val walletVerificationInteractor: WalletVerificationInteractor,
     private val brokerVerificationRepository: BrokerVerificationRepository,
@@ -26,49 +28,51 @@ class BalanceInteractor @Inject constructor(
   }
 
   fun getSignedCurrentWalletAddress(): Single<WalletAddressModel> =
-    accountWalletService.getAndSignCurrentWalletAddress()
+      accountWalletService.getAndSignCurrentWalletAddress()
 
   fun observeCurrentWalletVerified(): Observable<BalanceVerificationModel> {
     return getSignedCurrentWalletAddress().flatMapObservable { addressModel ->
       Observable.mergeDelayError(
-        Observable.just(getCachedVerificationStatus(addressModel.address))
-          .map { verificationStatus ->
+          Observable.just(getCachedVerificationStatus(addressModel.address)).map {
+              verificationStatus ->
             mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
-          }, observeWalletVerification(addressModel.address, addressModel.signedAddress)
-      )
+          },
+          observeWalletVerification(addressModel.address, addressModel.signedAddress))
     }
   }
 
   fun observeWalletVerification(
-    address: String,
-    signedAddress: String
+      address: String,
+      signedAddress: String
   ): Observable<BalanceVerificationModel> {
     return Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
-      .timeInterval()
-      .flatMap {
-        brokerVerificationRepository.getVerificationStatus(address, signedAddress)
-          .toObservable()
-          .map { status ->
-            mapToBalanceVerificationModel(address, status, getCachedVerificationStatus(address))
-          }
-      }
-      .takeUntil { verificationModel -> verificationModel.cachedStatus != BalanceVerificationStatus.VERIFYING }
+        .timeInterval()
+        .flatMap {
+          brokerVerificationRepository
+              .getVerificationStatus(address, signedAddress)
+              .toObservable()
+              .map { status ->
+                mapToBalanceVerificationModel(address, status, getCachedVerificationStatus(address))
+              }
+        }
+        .takeUntil { verificationModel ->
+          verificationModel.cachedStatus != BalanceVerificationStatus.VERIFYING
+        }
   }
 
   private fun mapToBalanceVerificationModel(
-    address: String,
-    cachedVerificationStatus: VerificationStatus,
-    verificationStatus: VerificationStatus?
+      address: String,
+      cachedVerificationStatus: VerificationStatus,
+      verificationStatus: VerificationStatus?
   ): BalanceVerificationModel {
     return BalanceVerificationModel(
-      address,
-      mapToBalanceVerificationStatus(cachedVerificationStatus)!!,
-      mapToBalanceVerificationStatus(verificationStatus)
-    )
+        address,
+        mapToBalanceVerificationStatus(cachedVerificationStatus)!!,
+        mapToBalanceVerificationStatus(verificationStatus))
   }
 
   private fun mapToBalanceVerificationStatus(
-    verificationStatus: VerificationStatus?
+      verificationStatus: VerificationStatus?
   ): BalanceVerificationStatus? {
     if (verificationStatus == null) return null
     return when (verificationStatus) {
@@ -81,7 +85,6 @@ class BalanceInteractor @Inject constructor(
     }
   }
 
-
   fun getCachedVerificationStatus(address: String) =
-    walletVerificationInteractor.getCachedVerificationStatus(address)
+      walletVerificationInteractor.getCachedVerificationStatus(address)
 }

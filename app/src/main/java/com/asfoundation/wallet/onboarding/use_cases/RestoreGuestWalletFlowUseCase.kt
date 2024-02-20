@@ -10,14 +10,14 @@ interface RestoreGuestWalletUseCase {
 }
 
 @BoundTo(supertype = RestoreGuestWalletUseCase::class)
-class RestoreGuestWalletUseCaseImpl @Inject constructor(
-  private val cachedBackup: CachedBackupRepository
-) : RestoreGuestWalletUseCase {
+class RestoreGuestWalletUseCaseImpl
+@Inject
+constructor(private val cachedBackup: CachedBackupRepository) : RestoreGuestWalletUseCase {
   override operator fun invoke(): StartMode.RestoreGuestWalletFlow? {
     val cachedBackupKey = cachedBackup.getCachedBackup().blockingGet()
     return if (cachedBackupKey != null) {
       StartMode.RestoreGuestWalletFlow(
-        backup = cachedBackupKey,
+          backup = cachedBackupKey,
       )
     } else {
       null

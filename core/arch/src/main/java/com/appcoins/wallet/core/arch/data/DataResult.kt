@@ -5,8 +5,8 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 
 /**
- * Specification of operations result throughout the architecture stack.
- * Once we reach ViewModel / ViewState, we can map this to [Async]
+ * Specification of operations result throughout the architecture stack. Once we reach ViewModel /
+ * ViewState, we can map this to [Async]
  */
 typealias DataResult<T> = Result<T, Error>
 

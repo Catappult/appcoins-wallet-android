@@ -4,7 +4,8 @@ import java.util.concurrent.TimeUnit
 
 class RequestMocks {
   companion object {
-    val userStatsPromos = """{
+    val userStatsPromos =
+        """{
           "promotions": [
           {
             "id": "GAMIFICATION",
@@ -143,7 +144,8 @@ class RequestMocks {
           "wallet_origin": "APTOIDE"
         }"""
 
-    val userStatsPromosOrder = """{
+    val userStatsPromosOrder =
+        """{
   "promotions": [
     {
       "id": "GAMIFICATION",
@@ -367,6 +369,5 @@ class RequestMocks {
   ],
   "wallet_origin": "APTOIDE"
 }"""
-
   }
 }

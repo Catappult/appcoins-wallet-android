@@ -5,5 +5,6 @@ import android.content.Intent
 
 interface ExternalAuthenticationProvider {
   fun hasAuthenticationPermission(): Boolean
+
   fun getAuthenticationIntent(context: Context): Intent
 }

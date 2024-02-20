@@ -20,11 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UpdateRequiredFragment : BasePageViewFragment(),
-  SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
+class UpdateRequiredFragment :
+    BasePageViewFragment(), SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
 
-  @Inject
-  lateinit var navigator: UpdateRequiredNavigator
+  @Inject lateinit var navigator: UpdateRequiredNavigator
 
   private lateinit var listPopupWindow: ListPopupWindow
 
@@ -33,20 +32,18 @@ class UpdateRequiredFragment : BasePageViewFragment(),
   private val viewModel: UpdateRequiredViewModel by viewModels()
 
   companion object {
-    @JvmStatic
-    fun newInstance(): UpdateRequiredFragment = UpdateRequiredFragment()
+    @JvmStatic fun newInstance(): UpdateRequiredFragment = UpdateRequiredFragment()
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = UpdateRequiredFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.updateButton.setOnClickListener {
-      viewModel.handleUpdateClick()
-    }
+    views.updateButton.setOnClickListener { viewModel.handleUpdateClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -58,7 +55,8 @@ class UpdateRequiredFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: UpdateRequiredSideEffect) {
     when (sideEffect) {
       is UpdateRequiredSideEffect.UpdateActionIntent -> startActivity(sideEffect.intent)
-      is UpdateRequiredSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is UpdateRequiredSideEffect.NavigateToBackup ->
+          navigator.navigateToBackup(sideEffect.walletAddress)
       is UpdateRequiredSideEffect.ShowBackupOption -> handleBackupOption(sideEffect.walletsModel)
     }
   }
@@ -78,7 +76,7 @@ class UpdateRequiredFragment : BasePageViewFragment(),
 
   private fun handleBackupOption(walletsModel: WalletsModel) {
     views.updateRequiredBackupContainer.visibility =
-      if (walletsModel.totalWallets > 0) View.VISIBLE else View.GONE
+        if (walletsModel.totalWallets > 0) View.VISIBLE else View.GONE
 
     views.updateRequiredBackupButton.setOnClickListener {
       when (walletsModel.totalWallets) {
@@ -93,23 +91,20 @@ class UpdateRequiredFragment : BasePageViewFragment(),
     listPopupWindow = ListPopupWindow(requireContext(), null, R.attr.listPopupWindowStyle)
     listPopupWindow.anchorView = views.updateRequiredBackupButton
     listPopupWindow.setBackgroundDrawable(
-      AppCompatResources.getDrawable(
-        requireContext(),
-        R.drawable.update_required_backup_wallet_selection
-      )
-    )
+        AppCompatResources.getDrawable(
+            requireContext(), R.drawable.update_required_backup_wallet_selection))
 
-    val adapter = WalletSelectionAdapter(
-      requireContext(),
-      prepareWalletsList(walletsModel),
-      R.layout.wallet_selection_item,
-      arrayOf("wallet_name", "wallet_backup_date", "wallet_balance"),
-      intArrayOf(
-        R.id.wallet_selection_name,
-        R.id.wallet_selection_backup_date,
-        R.id.wallet_selection_balance,
-      )
-    )
+    val adapter =
+        WalletSelectionAdapter(
+            requireContext(),
+            prepareWalletsList(walletsModel),
+            R.layout.wallet_selection_item,
+            arrayOf("wallet_name", "wallet_backup_date", "wallet_balance"),
+            intArrayOf(
+                R.id.wallet_selection_name,
+                R.id.wallet_selection_backup_date,
+                R.id.wallet_selection_balance,
+            ))
     listPopupWindow.setAdapter(adapter)
 
     listPopupWindow.setOnItemClickListener { _, _, position, _ ->
@@ -126,10 +121,9 @@ class UpdateRequiredFragment : BasePageViewFragment(),
       hashMap["wallet_name"] = walletsModel.wallets[i].walletName
       hashMap["wallet_backup_date"] = walletsModel.wallets[i].backupDate.toString()
       hashMap["wallet_balance"] =
-        walletsModel.wallets[i].balance.symbol + walletsModel.wallets[i].balance.amount
+          walletsModel.wallets[i].balance.symbol + walletsModel.wallets[i].balance.amount
       arrayList.add(hashMap)
     }
     return arrayList
   }
 }
-

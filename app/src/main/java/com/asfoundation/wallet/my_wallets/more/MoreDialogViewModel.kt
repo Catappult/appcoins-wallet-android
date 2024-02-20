@@ -17,18 +17,22 @@ sealed class MoreDialogSideEffect : SideEffect {
   object NavigateBack : MoreDialogSideEffect()
 }
 
-data class MoreDialogStateItem constructor(
-  val isSelected: Boolean,
-  val walletName: String,
-  val walletAddress: String,
-  val fiatBalance: String
+data class MoreDialogStateItem
+constructor(
+    val isSelected: Boolean,
+    val walletName: String,
+    val walletAddress: String,
+    val fiatBalance: String
 ) {
-  constructor(walletAddress: String, walletInfoSimple: WalletInfoSimple) : this(
-    walletAddress == walletInfoSimple.walletAddress,
+  constructor(
+      walletAddress: String,
+      walletInfoSimple: WalletInfoSimple
+  ) : this(
+      walletAddress == walletInfoSimple.walletAddress,
       walletInfoSimple.walletName,
       walletInfoSimple.walletAddress,
-      walletInfoSimple.balance.symbol + currencyFormatUtils.formatCurrency(walletInfoSimple.balance.amount)
-  )
+      walletInfoSimple.balance.symbol +
+          currencyFormatUtils.formatCurrency(walletInfoSimple.balance.amount))
 
   companion object {
     private val currencyFormatUtils = CurrencyFormatUtils()
@@ -36,30 +40,32 @@ data class MoreDialogStateItem constructor(
 }
 
 data class MoreDialogState(
-  val walletAddress: String,
-  val totalFiatBalance: String,
-  val appcoinsBalance: String,
-  val creditsBalance: String,
-  val ethereumBalance: String,
-  val walletsAsync: Async<List<MoreDialogStateItem>> = Async.Uninitialized
+    val walletAddress: String,
+    val totalFiatBalance: String,
+    val appcoinsBalance: String,
+    val creditsBalance: String,
+    val ethereumBalance: String,
+    val walletsAsync: Async<List<MoreDialogStateItem>> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
-class MoreDialogViewModel @Inject constructor(
+class MoreDialogViewModel
+@Inject
+constructor(
     savedStateHandle: SavedStateHandle,
     private val walletsInteract: WalletsInteract,
     private val walletDetailsInteractor: WalletDetailsInteractor,
-) :
-  BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
+) : BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
 
   companion object {
-    fun initialState(savedStateHandle: SavedStateHandle): MoreDialogState = MoreDialogState(
-      savedStateHandle.get<String>(MoreDialogFragment.WALLET_ADDRESS_KEY)!!,
-      savedStateHandle.get<String>(MoreDialogFragment.FIAT_BALANCE_KEY)!!,
-      savedStateHandle.get<String>(MoreDialogFragment.APPC_BALANCE_KEY)!!,
-      savedStateHandle.get<String>(MoreDialogFragment.CREDITS_BALANCE_KEY)!!,
-      savedStateHandle.get<String>(MoreDialogFragment.ETHEREUM_BALANCE_KEY)!!,
-    )
+    fun initialState(savedStateHandle: SavedStateHandle): MoreDialogState =
+        MoreDialogState(
+            savedStateHandle.get<String>(MoreDialogFragment.WALLET_ADDRESS_KEY)!!,
+            savedStateHandle.get<String>(MoreDialogFragment.FIAT_BALANCE_KEY)!!,
+            savedStateHandle.get<String>(MoreDialogFragment.APPC_BALANCE_KEY)!!,
+            savedStateHandle.get<String>(MoreDialogFragment.CREDITS_BALANCE_KEY)!!,
+            savedStateHandle.get<String>(MoreDialogFragment.ETHEREUM_BALANCE_KEY)!!,
+        )
   }
 
   init {
@@ -67,20 +73,20 @@ class MoreDialogViewModel @Inject constructor(
   }
 
   fun refreshData() {
-    walletsInteract.observeWalletsModel()
-      .subscribeOn(Schedulers.io())
-      .map { walletsModel ->
-        walletsModel.wallets.map { MoreDialogStateItem(state.walletAddress, it) }
-      }
-      .asAsyncToState(MoreDialogState::walletsAsync) { wallets -> copy(walletsAsync = wallets) }
-      .repeatableScopedSubscribe(MoreDialogState::walletsAsync.name) { e ->
-        e.printStackTrace()
-      }
+    walletsInteract
+        .observeWalletsModel()
+        .subscribeOn(Schedulers.io())
+        .map { walletsModel ->
+          walletsModel.wallets.map { MoreDialogStateItem(state.walletAddress, it) }
+        }
+        .asAsyncToState(MoreDialogState::walletsAsync) { wallets -> copy(walletsAsync = wallets) }
+        .repeatableScopedSubscribe(MoreDialogState::walletsAsync.name) { e -> e.printStackTrace() }
   }
 
   fun changeActiveWallet(wallet: String) {
-    walletDetailsInteractor.setActiveWallet(wallet)
-      .doOnComplete { sendSideEffect { MoreDialogSideEffect.NavigateBack } }
-      .scopedSubscribe { it.printStackTrace() }
+    walletDetailsInteractor
+        .setActiveWallet(wallet)
+        .doOnComplete { sendSideEffect { MoreDialogSideEffect.NavigateBack } }
+        .scopedSubscribe { it.printStackTrace() }
   }
 }

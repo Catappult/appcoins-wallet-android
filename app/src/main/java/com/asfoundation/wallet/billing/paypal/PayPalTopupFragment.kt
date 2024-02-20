@@ -25,8 +25,8 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
+import org.apache.commons.lang3.StringUtils
 
 @AndroidEntryPoint
 class PayPalTopupFragment() : BasePageViewFragment() {
@@ -34,20 +34,22 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   private val viewModel: PayPalTopupViewModel by viewModels()
 
   private var binding: FragmentPaypalTopupBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   private lateinit var compositeDisposable: CompositeDisposable
   private var topUpActivityView: TopUpActivityView? = null
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
-  @Inject
-  lateinit var navigator: TopUpNavigator
+  @Inject lateinit var navigator: TopUpNavigator
 
   private val TAG = PayPalTopupFragment::class.java.name
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentPaypalTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -57,28 +59,25 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is TopUpActivityView) { "Paypal topup fragment must be attached to Topup activity" }
+    check(context is TopUpActivityView) {
+      "Paypal topup fragment must be attached to Topup activity"
+    }
     topUpActivityView = context
     topUpActivityView?.lockOrientation()
   }
 
   private fun registerWebViewResult() {
     resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.startBillingAgreement(
-            amount = amount,
-            currency = currency
-          )
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED ||
-          (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          viewModel.cancelToken()
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+          if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
+            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+            viewModel.startBillingAgreement(amount = amount, currency = currency)
+          } else if (result.resultCode == Activity.RESULT_CANCELED ||
+              (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)) {
+            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+            viewModel.cancelToken()
+          }
         }
-      }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,23 +112,13 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   }
 
   private fun startPayment() {
-    viewModel.startPayment(
-      createTokenIfNeeded = true,
-      amount = amount,
-      currency = currency
-    )
+    viewModel.startPayment(createTokenIfNeeded = true, amount = amount, currency = currency)
   }
 
   private fun setListeners() {
-    views.paypalErrorButtons.errorBack.setOnClickListener {
-      close()
-    }
-    views.paypalErrorButtons.errorCancel.setOnClickListener {
-      close()
-    }
-    views.paypalErrorButtons.errorTryAgain.setOnClickListener {
-      close()
-    }
+    views.paypalErrorButtons.errorBack.setOnClickListener { close() }
+    views.paypalErrorButtons.errorCancel.setOnClickListener { close() }
+    views.paypalErrorButtons.errorTryAgain.setOnClickListener { close() }
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -175,7 +164,8 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
+      views.successContainer.lottieTransactionSuccess.setAnimation(
+          R.raw.transaction_complete_bonus_animation_new)
       setupTransactionCompleteAnimation()
     } else {
       views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
@@ -186,16 +176,15 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
+        "bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
     views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(
+        object : FontAssetDelegate() {
+          override fun fetchFont(fontFamily: String): Typeface {
+            return Typeface.create("sans-serif-medium", Typeface.BOLD)
+          }
+        })
   }
 
   private val amount: String by lazy {
@@ -249,23 +238,23 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
     @JvmStatic
     fun newInstance(
-      paymentType: PaymentType,
-      data: TopUpPaymentData,
-      amount: String,
-      currency: String?,
-      bonus: String?,
-      gamificationLevel: Int
-    ): PayPalTopupFragment = PayPalTopupFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
-        putString(BONUS_KEY, bonus)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-      }
-    }
-
+        paymentType: PaymentType,
+        data: TopUpPaymentData,
+        amount: String,
+        currency: String?,
+        bonus: String?,
+        gamificationLevel: Int
+    ): PayPalTopupFragment =
+        PayPalTopupFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(PAYMENT_TYPE_KEY, paymentType.name)
+                putSerializable(AMOUNT_KEY, amount)
+                putString(CURRENCY_KEY, currency)
+                putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
+                putString(BONUS_KEY, bonus)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+              }
+        }
   }
-
 }

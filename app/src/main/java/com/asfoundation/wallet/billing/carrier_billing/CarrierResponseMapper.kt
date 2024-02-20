@@ -1,37 +1,57 @@
 package com.asfoundation.wallet.billing.carrier_billing
 
-import com.appcoins.wallet.billing.carrierbilling.*
-import com.appcoins.wallet.core.network.microservices.model.CarrierCreateTransactionResponse
+import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
+import com.appcoins.wallet.billing.carrierbilling.CarrierError
+import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
+import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
+import com.appcoins.wallet.billing.carrierbilling.GenericError
+import com.appcoins.wallet.billing.carrierbilling.InvalidPhoneNumber
+import com.appcoins.wallet.billing.carrierbilling.InvalidPriceError
+import com.appcoins.wallet.billing.carrierbilling.NoError
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.core.network.microservices.model.CountryListResponse
-import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
+import com.appcoins.wallet.core.network.microservices.model.CarrierCreateTransactionResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
+import com.appcoins.wallet.core.network.microservices.model.CountryListResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
+import javax.inject.Inject
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import javax.inject.Inject
 
-class CarrierResponseMapper @Inject constructor(
-  @BrokerDefaultRetrofit
-  private val retrofit: Retrofit,
-  private val billingErrorMapper: BillingErrorMapper
+class CarrierResponseMapper
+@Inject
+constructor(
+    @BrokerDefaultRetrofit private val retrofit: Retrofit,
+    private val billingErrorMapper: BillingErrorMapper
 ) {
 
   fun mapPayment(response: CarrierCreateTransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(
-      response.uid, null, null, response.url, response.fee,
-      response.carrier, null, response.status, NoError
-    )
+        response.uid,
+        null,
+        null,
+        response.url,
+        response.fee,
+        response.carrier,
+        null,
+        response.status,
+        NoError)
   }
 
   fun mapPayment(response: TransactionResponse): CarrierPaymentModel {
     return CarrierPaymentModel(
-      response.uid, response.hash, response.orderReference, null, null,
-        null, response.metadata?.purchaseUid, response.status, NoError
-    )
+        response.uid,
+        response.hash,
+        response.orderReference,
+        null,
+        null,
+        null,
+        response.metadata?.purchaseUid,
+        response.status,
+        NoError)
   }
 
   fun mapPaymentError(throwable: Throwable): CarrierPaymentModel {
@@ -43,14 +63,12 @@ class CarrierResponseMapper @Inject constructor(
 
     // If we retrieve a specific error from response body, specify the error
     if (throwable is HttpException) {
-      throwable.response()
-          ?.errorBody()
-          ?.let { body ->
-            val errorConverter: Converter<ResponseBody, CarrierErrorResponse> = retrofit
-                .responseBodyConverter(
-                  CarrierErrorResponse::class.java,
-                    arrayOfNulls<Annotation>(0))
-            val bodyErrorResponse = try {
+      throwable.response()?.errorBody()?.let { body ->
+        val errorConverter: Converter<ResponseBody, CarrierErrorResponse> =
+            retrofit.responseBodyConverter(
+                CarrierErrorResponse::class.java, arrayOfNulls<Annotation>(0))
+        val bodyErrorResponse =
+            try {
               errorConverter.convert(body)
             } catch (e: Exception) {
               e.printStackTrace()
@@ -58,16 +76,17 @@ class CarrierResponseMapper @Inject constructor(
             } finally {
               body.close()
             }
-            carrierError = mapErrorResponseToCarrierError(code, bodyErrorResponse)
-                ?: carrierError
-          }
+        carrierError = mapErrorResponseToCarrierError(code, bodyErrorResponse) ?: carrierError
+      }
     }
 
     return CarrierPaymentModel(carrierError)
   }
 
-  private fun mapErrorResponseToCarrierError(httpCode: Int?,
-                                             response: CarrierErrorResponse?): CarrierError? {
+  private fun mapErrorResponseToCarrierError(
+      httpCode: Int?,
+      response: CarrierErrorResponse?
+  ): CarrierError? {
     val errorType = billingErrorMapper.mapForbiddenCode(response?.code)
     if (errorType != null) {
       return ForbiddenError(httpCode, response?.text, errorType)
@@ -81,16 +100,16 @@ class CarrierResponseMapper @Inject constructor(
     when (response.code) {
       "Body.Fields.Invalid" -> {
         if (error.name == "phone_number") {
-          return InvalidPhoneNumber(httpCode,
-              error.messages?.technical)
+          return InvalidPhoneNumber(httpCode, error.messages?.technical)
         }
       }
       "Resource.Gateways.Dimoco.Transactions.InvalidPrice" -> {
-        val type = when (error.type) {
-          "UPPER_BOUND" -> InvalidPriceError.BoundType.UPPER
-          "LOWER_BOUND" -> InvalidPriceError.BoundType.LOWER
-          else -> null
-        }
+        val type =
+            when (error.type) {
+              "UPPER_BOUND" -> InvalidPriceError.BoundType.UPPER
+              "LOWER_BOUND" -> InvalidPriceError.BoundType.LOWER
+              else -> null
+            }
         if (type != null && error.value != null) {
           return InvalidPriceError(httpCode, response.text, type, error.value!!)
         }

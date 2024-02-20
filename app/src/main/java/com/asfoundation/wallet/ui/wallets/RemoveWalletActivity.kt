@@ -33,9 +33,10 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar(): Toolbar? {
+  fun toolbar(): Toolbar? {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -57,14 +58,18 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
+      if (binding.walletRemoveAnimation == null ||
+          binding.walletRemoveAnimation.visibility != View.VISIBLE)
+          super.onBackPressed()
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onBackPressed() {
-    if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
+    if (binding.walletRemoveAnimation == null ||
+        binding.walletRemoveAnimation.visibility != View.VISIBLE)
+        super.onBackPressed()
   }
 
   override fun onDestroy() {
@@ -73,25 +78,22 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   private fun navigateToInitialRemoveWalletView() {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        RemoveWalletFragment.newInstance(walletAddress, fiatBalance)
-      )
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container, RemoveWalletFragment.newInstance(walletAddress, fiatBalance))
+        .commit()
   }
 
   override fun navigateToWalletRemoveConfirmation() {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        WalletRemoveConfirmationFragment.newInstance(
-          walletAddress, fiatBalance,
-          appcoinsBalance, creditsBalance, ethereumBalance
-        )
-      )
-      .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container,
+            WalletRemoveConfirmationFragment.newInstance(
+                walletAddress, fiatBalance, appcoinsBalance, creditsBalance, ethereumBalance))
+        .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun finish() {
@@ -99,8 +101,9 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToBackUp(walletAddress: String) =
-    startActivity(
-        com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(this, walletAddress, false))
+      startActivity(
+          com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
+              this, walletAddress, false))
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -110,8 +113,10 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun showAuthentication() {
-    val intent = AuthenticationPromptActivity.newIntent(this)
-      .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    val intent =
+        AuthenticationPromptActivity.newIntent(this).apply {
+          intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
     startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
@@ -169,9 +174,12 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
     @JvmStatic
     fun newIntent(
-      context: Context, walletAddress: String, totalFiatBalance: String,
-      appcoinsBalance: String, creditsBalance: String,
-      ethereumBalance: String
+        context: Context,
+        walletAddress: String,
+        totalFiatBalance: String,
+        appcoinsBalance: String,
+        creditsBalance: String,
+        ethereumBalance: String
     ): Intent {
       val intent = Intent(context, RemoveWalletActivity::class.java)
       intent.putExtra(WALLET_ADDRESS_KEY, walletAddress)

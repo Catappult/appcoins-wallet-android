@@ -27,19 +27,18 @@ import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceSideEffect> {
+class BackupSaveOnDeviceBottomSheetFragment :
+    BottomSheetDialogFragment(),
+    SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceSideEffect> {
 
-  @Inject
-  lateinit var navigator: BackupSaveOnDeviceBottomSheetNavigator
+  @Inject lateinit var navigator: BackupSaveOnDeviceBottomSheetNavigator
 
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
-
 
   private val viewModel: BackupSaveOnDeviceViewModel by viewModels()
   private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
@@ -51,37 +50,35 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(walletAddress: String, password: String) =
-      BackupSaveOnDeviceBottomSheetFragment()
-        .apply {
-          arguments = Bundle().apply {
-            putString(WALLET_ADDRESS_KEY, walletAddress)
-            putString(PASSWORD_KEY, password)
-          }
+        BackupSaveOnDeviceBottomSheetFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(WALLET_ADDRESS_KEY, walletAddress)
+                putString(PASSWORD_KEY, password)
+              }
         }
   }
+
   private fun createLaunchers() {
-    openDocumentTreeResultLauncher = registerForActivityResult(
-      ActivityResultContracts.StartActivityForResult()
-    ) { activityResult ->
-      val data = activityResult.data
-      if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
-        data.data?.let {
-          val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
-          lifecycleScope.launch {
-               viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+    openDocumentTreeResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult
+          ->
+          val data = activityResult.data
+          if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
+            data.data?.let {
+              val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
+              lifecycleScope.launch {
+                viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+              }
+            }
           }
         }
-      }
-    }
-    requestPermissionsLauncher = registerForActivityResult(
-      ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-      if (isGranted) {
-        lifecycleScope.launch {
-             viewModel.saveBackupFile(views.fileNameInput.getText())
+    requestPermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+          if (isGranted) {
+            lifecycleScope.launch { viewModel.saveBackupFile(views.fileNameInput.getText()) }
+          }
         }
-      }
-    }
   }
 
   @SuppressLint("ResourceAsColor")
@@ -89,9 +86,10 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
     views.backupSave.setOnClickListener {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-          putExtra(FILE_NAME_EXTRA_KEY, views.fileNameInput.getText())
-        }
+        val intent =
+            Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+              putExtra(FILE_NAME_EXTRA_KEY, views.fileNameInput.getText())
+            }
         openDocumentTreeResultLauncher.launch(intent)
       } else {
         requestPermissionsLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -102,8 +100,9 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = BackupSaveOnDeviceDialogFragmentBinding.inflate(inflater).root
 
   private fun setFileName(fileName: String) = views.fileNameInput.setText(fileName)
@@ -118,13 +117,11 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
-    if(views.fileNameInput.getText().isEmpty()) {
+    if (views.fileNameInput.getText().isEmpty()) {
       state.fileName()?.also { setFileName(it) }
     }
-      setFilePath(state.downloadsPath)
+    setFilePath(state.downloadsPath)
   }
-
-
 
   override fun onStart() {
     val behavior = BottomSheetBehavior.from(requireView().parent as View)
@@ -134,10 +131,8 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: BackupSaveOnDeviceSideEffect) {
     when (sideEffect) {
-      BackupSaveOnDeviceSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen(
-        navController()
-      )
-
+      BackupSaveOnDeviceSideEffect.NavigateToSuccess ->
+          navigator.navigateToSuccessScreen(navController())
       else -> {}
     }
   }
@@ -148,19 +143,15 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
 
   fun showError() {
     Toast.makeText(
-      context,
-      com.appcoins.wallet.feature.backup.ui.R.string.error_export,
-      Toast.LENGTH_LONG
-    ).show()
+            context, com.appcoins.wallet.feature.backup.ui.R.string.error_export, Toast.LENGTH_LONG)
+        .show()
     requireActivity().finish()
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
-
 }
-

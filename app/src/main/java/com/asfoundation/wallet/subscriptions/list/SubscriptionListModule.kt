@@ -15,19 +15,26 @@ import io.reactivex.schedulers.Schedulers
 class SubscriptionListModule {
 
   @Provides
-  fun providesSubscriptionListPresenter(fragment: Fragment,
-                                        data: SubscriptionListData,
-                                        interactor: UserSubscriptionsInteractor,
-                                        navigator: SubscriptionListNavigator): SubscriptionListPresenter {
-    return SubscriptionListPresenter(fragment as SubscriptionListView, data, interactor, navigator,
-        CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+  fun providesSubscriptionListPresenter(
+      fragment: Fragment,
+      data: SubscriptionListData,
+      interactor: UserSubscriptionsInteractor,
+      navigator: SubscriptionListNavigator
+  ): SubscriptionListPresenter {
+    return SubscriptionListPresenter(
+        fragment as SubscriptionListView,
+        data,
+        interactor,
+        navigator,
+        CompositeDisposable(),
+        Schedulers.io(),
+        AndroidSchedulers.mainThread())
   }
 
   @Provides
   fun providesSubcriptionListData(fragment: Fragment): SubscriptionListData {
-    fragment.requireArguments()
-        .apply {
-          return SubscriptionListData(getBoolean(SubscriptionListFragment.FRESH_RELOAD_KEY))
-        }
+    fragment.requireArguments().apply {
+      return SubscriptionListData(getBoolean(SubscriptionListFragment.FRESH_RELOAD_KEY))
+    }
   }
 }

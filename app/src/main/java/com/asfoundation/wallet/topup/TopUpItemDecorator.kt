@@ -6,20 +6,24 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.ui.common.convertDpToPx
 
-
 class TopUpItemDecorator(private val size: Int, private val addMargin: Boolean) :
     RecyclerView.ItemDecoration() {
 
-  override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
-                              state: RecyclerView.State) {
+  override fun getItemOffsets(
+      outRect: Rect,
+      view: View,
+      parent: RecyclerView,
+      state: RecyclerView.State
+  ) {
     if (addMargin) {
       val position: Int = parent.getChildAdapterPosition(view)
       val spanCount = size
 
       val screenWidth =
-          TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, parent.measuredWidth.toFloat(),
-              parent.context.resources
-                  .displayMetrics)
+          TypedValue.applyDimension(
+                  TypedValue.COMPLEX_UNIT_PX,
+                  parent.measuredWidth.toFloat(),
+                  parent.context.resources.displayMetrics)
               .toInt()
       val viewWidth = 80.convertDpToPx(parent.context.resources)
 
@@ -41,5 +45,4 @@ class TopUpItemDecorator(private val size: Int, private val addMargin: Boolean) 
       }
     }
   }
-
 }

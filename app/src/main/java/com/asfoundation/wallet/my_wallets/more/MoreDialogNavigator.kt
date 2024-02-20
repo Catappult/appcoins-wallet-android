@@ -6,39 +6,31 @@ import com.appcoins.wallet.core.arch.data.navigate
 import javax.inject.Inject
 
 class MoreDialogNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
 
   fun navigateToCreateNewWallet() {
     navigate(
-      navController,
-      MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true)
-    )
+        navController,
+        MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true))
   }
 
   fun navigateToRestoreWallet() {
     navigate(
-      navController,
-      MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false)
-    )
+        navController,
+        MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false))
   }
 
   fun navigateToRemoveWallet(
-    walletAddress: String,
-    totalFiatBalance: String,
-    appcoinsBalance: String,
-    creditsBalance: String,
-    ethereumBalance: String
+      walletAddress: String,
+      totalFiatBalance: String,
+      appcoinsBalance: String,
+      creditsBalance: String,
+      ethereumBalance: String
   ) {
     navigate(
-      navController,
-      MoreDialogFragmentDirections.actionNavigateToRemoveWallet(
-        walletAddress,
-        totalFiatBalance,
-        appcoinsBalance,
-        creditsBalance,
-        ethereumBalance
-      )
-    )
+        navController,
+        MoreDialogFragmentDirections.actionNavigateToRemoveWallet(
+            walletAddress, totalFiatBalance, appcoinsBalance, creditsBalance, ethereumBalance))
   }
 
   fun navigateBack() {

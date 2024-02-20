@@ -5,12 +5,13 @@ import com.asfoundation.wallet.billing.googlepay.repository.GooglePayWebReposito
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetGooglePayUrlUseCase @Inject constructor(
-  private val googlePayWebRepository: GooglePayWebRepository,
+class GetGooglePayUrlUseCase
+@Inject
+constructor(
+    private val googlePayWebRepository: GooglePayWebRepository,
 ) {
 
   operator fun invoke(): Single<GooglePayUrls> {
     return googlePayWebRepository.getGooglePayUrl()
   }
-
 }

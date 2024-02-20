@@ -5,8 +5,12 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepos
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CreateBackupUseCase @Inject constructor(private val walletRepository: WalletRepositoryType,
-                                              private val passwordStore: PasswordStore) {
+class CreateBackupUseCase
+@Inject
+constructor(
+    private val walletRepository: WalletRepositoryType,
+    private val passwordStore: PasswordStore
+) {
 
   operator fun invoke(walletAddress: String, password: String): Single<String> {
     return Single.fromCallable {

@@ -7,19 +7,22 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
 
-class ValidateUrlUseCase @Inject constructor(
-  private val retrievePackageVersionUseCase: RetrievePackageVersionUseCase,
+class ValidateUrlUseCase
+@Inject
+constructor(
+    private val retrievePackageVersionUseCase: RetrievePackageVersionUseCase,
 ) {
 
   operator fun invoke(uriString: String): UriValidationResult {
     val uri: Uri = Uri.parse(uriString)
-//    Commented since this two verifications were giving problems, especially the username verification
-//    if (hasInvalidRequestStructure(uriString, uri)) {
-//      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_URL)
-//    }
-//    if (usernameContainsInvalidCharacters(uri)) {
-//      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
-//    }
+    //    Commented since this two verifications were giving problems, especially the username
+    // verification
+    //    if (hasInvalidRequestStructure(uriString, uri)) {
+    //      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_URL)
+    //    }
+    //    if (usernameContainsInvalidCharacters(uri)) {
+    //      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
+    //    }
     val paymentData = uri.parseStartGame()
     val version = retrievePackageVersionUseCase(paymentData.packageName)
     version?.let { (versionName, versionCode) ->
@@ -34,7 +37,6 @@ class ValidateUrlUseCase @Inject constructor(
     val username = eskillsUri.getQueryParameter("user_name")!!
     val matcher: Matcher = pattern.matcher(username)
     return matcher.find()
-
   }
 
   private fun hasInvalidRequestStructure(uriString: String, parsedUri: Uri): Boolean {

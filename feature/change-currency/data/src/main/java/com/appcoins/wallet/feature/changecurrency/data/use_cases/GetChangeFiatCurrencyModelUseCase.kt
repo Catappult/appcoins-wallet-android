@@ -7,33 +7,36 @@ import com.appcoins.wallet.feature.changecurrency.data.FiatCurrenciesRepository
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.github.michaelbull.result.binding
 import com.github.michaelbull.result.map
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class GetChangeFiatCurrencyModelUseCase @Inject constructor(
-  private val fiatCurrenciesRepository: FiatCurrenciesRepository,
-  private val conversionService: LocalCurrencyConversionService,
-  private val dispatchers: Dispatchers
+class GetChangeFiatCurrencyModelUseCase
+@Inject
+constructor(
+    private val fiatCurrenciesRepository: FiatCurrenciesRepository,
+    private val conversionService: LocalCurrencyConversionService,
+    private val dispatchers: Dispatchers
 ) {
 
   suspend operator fun invoke(): DataResult<ChangeFiatCurrency> {
     return withContext(dispatchers.io) {
       binding {
-        val selectedCurrency = async { fiatCurrenciesRepository.getSelectedCurrency().bind() }
-        val fiatCurrencyList = async { fiatCurrenciesRepository.getCurrenciesList().bind() }
-        async {
-          val selected = selectedCurrency.await()
-          val list = fiatCurrencyList.await()
-          if (selected.isEmpty()) {
-            val localCurrency = conversionService.localCurrency.await()
-            ChangeFiatCurrency(list, localCurrency.currency)
-          } else {
-            ChangeFiatCurrency(list, selected)
+            val selectedCurrency = async { fiatCurrenciesRepository.getSelectedCurrency().bind() }
+            val fiatCurrencyList = async { fiatCurrenciesRepository.getCurrenciesList().bind() }
+            async {
+              val selected = selectedCurrency.await()
+              val list = fiatCurrencyList.await()
+              if (selected.isEmpty()) {
+                val localCurrency = conversionService.localCurrency.await()
+                ChangeFiatCurrency(list, localCurrency.currency)
+              } else {
+                ChangeFiatCurrency(list, selected)
+              }
+            }
           }
-        }
-      }.map { it.await() }
+          .map { it.await() }
     }
   }
 }

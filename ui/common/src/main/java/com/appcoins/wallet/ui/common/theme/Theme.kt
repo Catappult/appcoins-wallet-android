@@ -9,23 +9,24 @@ val darkAndroidBackgroundTheme = BackgroundTheme(color = styleguide_blue)
 
 /**
  * App theme
+ *
  * @param darkTheme Whether the theme should use a dark color scheme (is dark by default).
  */
 @Composable
 fun WalletTheme(
-  darkTheme: Boolean = true,
-  content: @Composable () -> Unit,
+    darkTheme: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
   val colorScheme = if (darkTheme) darkWalletColorScheme else lightWalletColorScheme
   val backgroundTheme = if (darkTheme) darkAndroidBackgroundTheme else lightAndroidBackgroundTheme
 
   CompositionLocalProvider(
-    LocalBackgroundTheme provides backgroundTheme,
+      LocalBackgroundTheme provides backgroundTheme,
   ) {
     MaterialTheme(
-      colorScheme = colorScheme,
-      shapes = shapes,
-      content = content,
+        colorScheme = colorScheme,
+        shapes = shapes,
+        content = content,
     )
   }
 }

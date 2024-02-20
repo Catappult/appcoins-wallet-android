@@ -6,7 +6,7 @@ object HostProperties {
   val SKILLS_HOST = if (BuildConfig.DEBUG) BASE_HOST_SKILLS_DEV else BASE_HOST_SKILLS_PROD
   val MY_APPCOINS_HOST = if (BuildConfig.DEBUG) MY_APPCOINS_BASE_HOST_DEV else MY_APPCOINS_BASE_HOST
   val TRANSACTION_DETAILS_HOST =
-    if (BuildConfig.DEBUG) TRANSACTION_DETAILS_HOST_ROPSTEN else TRANSACTION_DETAILS_HOST_MAIN
+      if (BuildConfig.DEBUG) TRANSACTION_DETAILS_HOST_ROPSTEN else TRANSACTION_DETAILS_HOST_MAIN
   const val BACKEND_HOST_NAME_PROD = "apichain.catappult.io"
   const val BACKEND_HOST_NAME_DEV = "apichain.dev.catappult.io"
   const val APTOIDE_WEB_SERVICES_AB_TEST_HOST = "https://abtest.aptoide.com/api/v1/"

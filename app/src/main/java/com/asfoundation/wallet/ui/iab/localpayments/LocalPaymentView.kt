@@ -10,8 +10,11 @@ interface LocalPaymentView {
 
   fun hideLoading()
 
-  fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
-                             applicationIcon: Bitmap)
+  fun showPendingUserPayment(
+      paymentMethodLabel: String?,
+      paymentMethodIcon: Bitmap,
+      applicationIcon: Bitmap
+  )
 
   fun showCompletedPayment()
 
@@ -40,6 +43,10 @@ interface LocalPaymentView {
   fun setupUi(bonus: String?)
 
   enum class ViewState {
-    NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING
+    NONE,
+    COMPLETED,
+    PENDING_USER_PAYMENT,
+    ERROR,
+    LOADING
   }
 }

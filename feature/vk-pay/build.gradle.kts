@@ -1,11 +1,5 @@
-plugins {
-  id("appcoins.android.library.compose")
-}
+plugins { id("appcoins.android.library.compose") }
 
-android {
-  namespace = "com.appcoins.wallet.feature.vkpay"
-}
+android { namespace = "com.appcoins.wallet.feature.vkpay" }
 
-dependencies {
-  implementation(libs.bundles.vk)
-}
+dependencies { implementation(libs.bundles.vk) }

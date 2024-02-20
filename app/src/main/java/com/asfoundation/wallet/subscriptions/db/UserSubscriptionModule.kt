@@ -16,17 +16,18 @@ class UserSubscriptionModule {
   @Singleton
   @Provides
   fun providesUserSubscriptionsDatabase(
-      @ApplicationContext context: Context): UserSubscriptionsDatabase {
-    return Room.databaseBuilder(context, UserSubscriptionsDatabase::class.java,
-        "user_subscription_database")
+      @ApplicationContext context: Context
+  ): UserSubscriptionsDatabase {
+    return Room.databaseBuilder(
+            context, UserSubscriptionsDatabase::class.java, "user_subscription_database")
         .build()
   }
 
   @Singleton
   @Provides
   fun providesUserSubscriptionDao(
-      userSubscriptionsDatabase: UserSubscriptionsDatabase): UserSubscriptionsDao {
+      userSubscriptionsDatabase: UserSubscriptionsDatabase
+  ): UserSubscriptionsDao {
     return userSubscriptionsDatabase.subscriptionsDao()
   }
-
 }

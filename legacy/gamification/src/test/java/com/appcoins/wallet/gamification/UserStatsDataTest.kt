@@ -1,10 +1,10 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -19,8 +19,9 @@ class UserStatsDataTest : UserStatsLocalData {
   private var gamificationLevel: Int? = PromotionsGamificationStats.INVALID_LEVEL
 
   override fun saveShownLevel(
-    wallet: String, level: Int,
-    gamificationContext: GamificationContext
+      wallet: String,
+      level: Int,
+      gamificationContext: GamificationContext
   ) {
     this.wallet = wallet
     lastShownLevelResponse = Single.just(level)
@@ -32,8 +33,10 @@ class UserStatsDataTest : UserStatsLocalData {
     return aux
   }
 
-  override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
-      Single<Int> {
+  override fun getLastShownLevel(
+      wallet: String,
+      gamificationContext: GamificationContext
+  ): Single<Int> {
     val aux = lastShownLevelResponse!!
     lastShownLevelResponse = null
     return aux
@@ -54,7 +57,6 @@ class UserStatsDataTest : UserStatsLocalData {
   }
 
   override fun getGamificationLevel(): Int = PromotionsGamificationStats.INVALID_LEVEL
-
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     val aux = userStatusResponse!!
@@ -101,5 +103,4 @@ class UserStatsDataTest : UserStatsLocalData {
   override fun isReferralNotificationSeen(wallet: String): Boolean = false
 
   override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) = Unit
-
 }

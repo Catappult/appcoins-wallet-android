@@ -20,13 +20,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
 
-  @Inject
-  lateinit var presenter: RatingNegativePresenter
+  @Inject lateinit var presenter: RatingNegativePresenter
 
   private val views by viewBinding(FragmentRatingNegativeBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingNegativeBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentRatingNegativeBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -39,35 +41,40 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
     views.animation.setMinFrame(97)
     views.animation.setMaxFrame(123)
     views.animation.playAnimation()
-    views.animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(anim: Animator) = Unit
-      override fun onAnimationEnd(anim: Animator) {
-        if (views.animation.minFrame == 97f) {
-          views.animation.setMaxFrame(283)
-          views.animation.setMinFrame(219)
-          views.animation.playAnimation()
-        }
-      }
+    views.animation.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationRepeat(anim: Animator) = Unit
 
-      override fun onAnimationCancel(anim: Animator) = Unit
-      override fun onAnimationStart(anim: Animator) = Unit
-    })
+          override fun onAnimationEnd(anim: Animator) {
+            if (views.animation.minFrame == 97f) {
+              views.animation.setMaxFrame(283)
+              views.animation.setMinFrame(219)
+              views.animation.playAnimation()
+            }
+          }
+
+          override fun onAnimationCancel(anim: Animator) = Unit
+
+          override fun onAnimationStart(anim: Animator) = Unit
+        })
   }
 
   private fun setTextWatcher() {
-    views.feedbackInputText.addTextWatcher(object : TextWatcher {
-      override fun afterTextChanged(s: Editable?) {
-        if (!TextUtils.isEmpty(s)) views.feedbackInputText.reset()
-      }
+    views.feedbackInputText.addTextWatcher(
+        object : TextWatcher {
+          override fun afterTextChanged(s: Editable?) {
+            if (!TextUtils.isEmpty(s)) views.feedbackInputText.reset()
+          }
 
-      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-    })
+          override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+              Unit
+
+          override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+        })
   }
 
   override fun submitClickEvent(): Observable<String> {
-    return RxView.clicks(views.submitButton)
-        .map { views.feedbackInputText.getText() }
+    return RxView.clicks(views.submitButton).map { views.feedbackInputText.getText() }
   }
 
   override fun noClickEvent(): Observable<Any> {

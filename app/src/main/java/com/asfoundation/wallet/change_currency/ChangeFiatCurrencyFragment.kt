@@ -23,16 +23,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment() {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
   companion object {
     fun newInstance() = ChangeFiatCurrencyFragment()
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     handleOnBackPressedCallback()
@@ -41,11 +41,11 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             ChangeFiatCurrencyRoute(
-              onExitClick = { handleBackPress() },
-              onChatClick = {
-                unlockRotation()
-                displayChat() }
-            )
+                onExitClick = { handleBackPress() },
+                onChatClick = {
+                  unlockRotation()
+                  displayChat()
+                })
           }
         }
       }
@@ -58,12 +58,13 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
   }
 
   private fun handleOnBackPressedCallback() {
-    val onBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
-      override fun handleOnBackPressed() {
-        unlockRotation()
-        navController().popBackStack()
-      }
-    }
+    val onBackPressedCallback =
+        object : OnBackPressedCallback(true /* enabled by default */) {
+          override fun handleOnBackPressed() {
+            unlockRotation()
+            navController().popBackStack()
+          }
+        }
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
   }
 
@@ -72,9 +73,9 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 }

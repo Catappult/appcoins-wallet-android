@@ -8,21 +8,25 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.textfield.TextInputEditText
 
 class MultilineInputText : FrameLayout {
 
-  private val input_text : TextInputEditText
-  private val error_text : TextView
-  private val root_view : ConstraintLayout
-  private val error_layout : LinearLayout
+  private val input_text: TextInputEditText
+  private val error_text: TextView
+  private val root_view: ConstraintLayout
+  private val error_layout: LinearLayout
 
   constructor(context: Context) : this(context, null)
+
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
-      defStyleAttr) {
+
+  constructor(
+      context: Context,
+      attrs: AttributeSet?,
+      defStyleAttr: Int
+  ) : super(context, attrs, defStyleAttr) {
     inflate(context, R.layout.multiline_input_layout, this)
 
     input_text = findViewById(R.id.input_text)
@@ -41,10 +45,10 @@ class MultilineInputText : FrameLayout {
     error_layout.visibility = View.VISIBLE
   }
 
-
   fun setRootBackground(drawable: Drawable?) {
     root_view.background = drawable
   }
+
   fun setHintText(hintText: String) {
     input_text.hint = hintText
   }

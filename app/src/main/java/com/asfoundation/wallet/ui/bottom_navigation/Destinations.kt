@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.ui.bottom_navigation
 
 enum class Destinations {
-  HOME, REWARDS
+  HOME,
+  REWARDS
 }
 
 enum class TransferDestinations {
-  SEND, RECEIVE
+  SEND,
+  RECEIVE
 }
 
 enum class CurrencyDestinations {
-  APPC, APPC_C, ETHEREUM
+  APPC,
+  APPC_C,
+  ETHEREUM
 }

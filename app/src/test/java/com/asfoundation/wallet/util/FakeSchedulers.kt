@@ -8,8 +8,10 @@ class FakeSchedulers : RxSchedulers {
 
   override val main
     get() = testScheduler
+
   override val io
     get() = testScheduler
+
   override val computation
     get() = testScheduler
 }

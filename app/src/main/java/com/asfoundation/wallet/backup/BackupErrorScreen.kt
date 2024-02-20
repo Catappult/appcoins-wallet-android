@@ -36,45 +36,39 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 @Composable
 fun BackupErrorRoute(onClickBack: () -> Unit, onChatClick: () -> Unit, onCancelBackup: () -> Unit) {
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick) } },
-    modifier = Modifier
-  ) { padding ->
-    BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack)
-  }
+      topBar = { Surface { TopBar(isMainBar = false, onClickSupport = onChatClick) } },
+      modifier = Modifier) { padding ->
+        BackupErrorScreen(scaffoldPadding = padding, onCancelBackup = onCancelBackup, onClickBack)
+      }
 }
 
 @Composable
 fun BackupErrorScreen(
-  scaffoldPadding: PaddingValues,
-  onCancelBackup: () -> Unit,
-  onClickBack: () -> Unit
+    scaffoldPadding: PaddingValues,
+    onCancelBackup: () -> Unit,
+    onClickBack: () -> Unit
 ) {
   Column(
-    modifier =
-    Modifier
-      .fillMaxSize(1f)
-      .padding(scaffoldPadding)
-      .verticalScroll(rememberScrollState()),
+      modifier =
+          Modifier.fillMaxSize(1f).padding(scaffoldPadding).verticalScroll(rememberScrollState()),
   ) {
     Column(
-      modifier = Modifier.padding(start = 24.dp, top = 8.dp, end = 24.dp, bottom = 48.dp),
-      horizontalAlignment = Alignment.Start
-    ) {
-      Text(
-        style = WalletTypography.bold.sp22,
-        color = WalletColors.styleguide_light_grey,
-        text = stringResource(id = R.string.backup_title),
-        modifier =
-        Modifier.padding(
-          bottom = 20.dp,
-        )
-      )
-      Text(
-        text = stringResource(id = R.string.backup_body),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey,
-      )
-    }
+        modifier = Modifier.padding(start = 24.dp, top = 8.dp, end = 24.dp, bottom = 48.dp),
+        horizontalAlignment = Alignment.Start) {
+          Text(
+              style = WalletTypography.bold.sp22,
+              color = WalletColors.styleguide_light_grey,
+              text = stringResource(id = R.string.backup_title),
+              modifier =
+                  Modifier.padding(
+                      bottom = 20.dp,
+                  ))
+          Text(
+              text = stringResource(id = R.string.backup_body),
+              style = WalletTypography.medium.sp14,
+              color = WalletColors.styleguide_light_grey,
+          )
+        }
     BackupDialogCard(onCancelBackup = onCancelBackup, onClickBack)
   }
 }
@@ -82,56 +76,43 @@ fun BackupErrorScreen(
 @Composable
 fun BackupDialogCard(onCancelBackup: () -> Unit, onClickBack: () -> Unit) {
   Card(
-    shape = RoundedCornerShape(14.dp),
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
-  ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(40.dp)
-    ) {
-      WalletImage(Modifier.size(40.dp), data = R.drawable.ic_alert_circle)
-      Text(
-        text = stringResource(id = R.string.error_general),
-        style = WalletTypography.bold.sp22,
-        color = WalletColors.styleguide_light_grey,
-        modifier = Modifier.padding(top = 24.dp)
-      )
-      Text(
-        text = stringResource(R.string.backup_error_body),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey,
-        textAlign = TextAlign.Center
-      )
-    }
-    Row(
-      Modifier
-        .padding(top = 8.dp, bottom = 24.dp, end = 24.dp)
-        .fillMaxWidth(),
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.End
-    ) {
-      ButtonWithText(
-        label = stringResource(id = R.string.cancel_button),
-        onClick = { onCancelBackup() },
-        backgroundColor = Color.Transparent,
-        labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.DEFAULT
-      )
+      shape = RoundedCornerShape(14.dp),
+      modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+      colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth().padding(40.dp)) {
+              WalletImage(Modifier.size(40.dp), data = R.drawable.ic_alert_circle)
+              Text(
+                  text = stringResource(id = R.string.error_general),
+                  style = WalletTypography.bold.sp22,
+                  color = WalletColors.styleguide_light_grey,
+                  modifier = Modifier.padding(top = 24.dp))
+              Text(
+                  text = stringResource(R.string.backup_error_body),
+                  style = WalletTypography.medium.sp14,
+                  color = WalletColors.styleguide_light_grey,
+                  textAlign = TextAlign.Center)
+            }
+        Row(
+            Modifier.padding(top = 8.dp, bottom = 24.dp, end = 24.dp).fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End) {
+              ButtonWithText(
+                  label = stringResource(id = R.string.cancel_button),
+                  onClick = { onCancelBackup() },
+                  backgroundColor = Color.Transparent,
+                  labelColor = WalletColors.styleguide_white,
+                  buttonType = ButtonType.DEFAULT)
 
-      ButtonWithText(
-        label = stringResource(id = R.string.try_again),
-        onClick = { onClickBack() },
-        backgroundColor = WalletColors.styleguide_pink,
-        labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.DEFAULT
-      )
-    }
-  }
+              ButtonWithText(
+                  label = stringResource(id = R.string.try_again),
+                  onClick = { onClickBack() },
+                  backgroundColor = WalletColors.styleguide_pink,
+                  labelColor = WalletColors.styleguide_white,
+                  buttonType = ButtonType.DEFAULT)
+            }
+      }
 }
 
 @Preview

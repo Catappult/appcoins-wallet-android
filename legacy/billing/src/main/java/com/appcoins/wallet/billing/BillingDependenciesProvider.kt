@@ -29,5 +29,4 @@ interface BillingDependenciesProvider {
   fun ewtObtainer(): EwtAuthenticatorService
 
   fun partnerAddressService(): PartnerAddressService
-
 }

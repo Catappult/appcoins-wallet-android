@@ -5,12 +5,10 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import io.reactivex.Single
 import javax.inject.Inject
 
-class HasWalletUseCase @Inject constructor(
-    private val walletsInteract: WalletsInteract,
-    private val rxSchedulers: RxSchedulers
-) {
+class HasWalletUseCase
+@Inject
+constructor(private val walletsInteract: WalletsInteract, private val rxSchedulers: RxSchedulers) {
 
-  operator fun invoke(): Single<Boolean> = walletsInteract.getWalletsModel()
-    .subscribeOn(rxSchedulers.io)
-    .map { it.totalWallets > 0 }
+  operator fun invoke(): Single<Boolean> =
+      walletsInteract.getWalletsModel().subscribeOn(rxSchedulers.io).map { it.totalWallets > 0 }
 }

@@ -12,9 +12,7 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     val data = HashMap<String, Any>()
     data[CALL_TO_ACTION] = action
     analytics.logEvent(
-      data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendVerifyAction(action: String, status: String) {
@@ -22,22 +20,18 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     data[CALL_TO_ACTION] = action
     data[STATUS] = status
     analytics.logEvent(
-      data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        data, WALLET_MY_WALLETS_INTERACTION_EVENT, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendCreateBackupEvent(
-    action: String?, context: String,
-    status: String?
-  ) {
+  override fun sendCreateBackupEvent(action: String?, context: String, status: String?) {
     sendCreateBackupEvent(action, context, status, null)
   }
 
   override fun sendCreateBackupEvent(
-    action: String?, context: String,
-    status: String?,
-    errorDetails: String?
+      action: String?,
+      context: String,
+      status: String?,
+      errorDetails: String?
   ) {
     val eventData = HashMap<String, Any>()
     action?.let { eventData[EVENT_ACTION] = action }
@@ -47,99 +41,69 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     analytics.logEvent(eventData, WALLET_BACKUP_CREATE, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-//  override fun sendSaveBackupEvent(action: String) {
-//    val eventData: MutableMap<String, Any> =
-//      HashMap()
-//    eventData[EVENT_ACTION] = action
-//    analytics.logEvent(eventData, WALLET_SAVE_BACKUP, AnalyticsManager.Action.CLICK, WALLET)
-//  }
+  //  override fun sendSaveBackupEvent(action: String) {
+  //    val eventData: MutableMap<String, Any> =
+  //      HashMap()
+  //    eventData[EVENT_ACTION] = action
+  //    analytics.logEvent(eventData, WALLET_SAVE_BACKUP, AnalyticsManager.Action.CLICK, WALLET)
+  //  }
 
   override fun sendBackupInfoEvent(action: String, option: String) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_OPTION] = option
     analytics.logEvent(eventData, WALLET_BACKUP_INFO, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendBackupConfirmationEvent(action: String) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     analytics.logEvent(eventData, WALLET_BACKUP_CONFIRMATION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   override fun sendBackupConclusionEvent(action: String) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     analytics.logEvent(eventData, WALLET_BACKUP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletSaveFileEvent(
-    action: String, status: String,
-    errorDetails: String?
-  ) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+  override fun sendWalletSaveFileEvent(action: String, status: String, errorDetails: String?) {
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
     if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(
-      eventData, WALLET_BACKUP_CONFIRMATION,
-      AnalyticsManager.Action.CLICK, WALLET
-    )
+    analytics.logEvent(eventData, WALLET_BACKUP_CONFIRMATION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletRestoreEvent(
-    action: String, status: String,
-    errorDetails: String?
-  ) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+  override fun sendWalletRestoreEvent(action: String, status: String, errorDetails: String?) {
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
     if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(
-      eventData, WALLET_IMPORT_RESTORE,
-      AnalyticsManager.Action.CLICK, WALLET
-    )
+    analytics.logEvent(eventData, WALLET_IMPORT_RESTORE, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletPasswordRestoreEvent(
-    action: String,
-    status: String
-  ) {
+  override fun sendWalletPasswordRestoreEvent(action: String, status: String) {
     sendWalletPasswordRestoreEvent(action, status, null)
   }
 
   override fun sendWalletPasswordRestoreEvent(
-    action: String, status: String,
-    errorDetails: String?
+      action: String,
+      status: String,
+      errorDetails: String?
   ) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_ACTION] = action
     eventData[EVENT_STATUS] = status
     if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(
-      eventData, WALLET_PASSWORD_RESTORE,
-      AnalyticsManager.Action.CLICK, WALLET
-    )
+    analytics.logEvent(eventData, WALLET_PASSWORD_RESTORE, AnalyticsManager.Action.CLICK, WALLET)
   }
 
-  override fun sendWalletCompleteRestoreEvent(
-    status: String,
-    errorDetails: String?
-  ) {
-    val eventData: MutableMap<String, Any> =
-      HashMap()
+  override fun sendWalletCompleteRestoreEvent(status: String, errorDetails: String?) {
+    val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_STATUS] = status
     if (errorDetails != null) eventData[EVENT_ERROR_DETAILS] = errorDetails
-    analytics.logEvent(
-      eventData, WALLET_COMPLETE_RESTORE,
-      AnalyticsManager.Action.CLICK, WALLET
-    )
+    analytics.logEvent(eventData, WALLET_COMPLETE_RESTORE, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   companion object {
@@ -178,5 +142,4 @@ class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManag
     private const val EVENT_OPTION = "options"
     private const val EVENT_ERROR_DETAILS = "errorDetails"
   }
-
 }

@@ -1,17 +1,14 @@
 package com.asfoundation.wallet.billing.sandbox
 
 import android.animation.Animator
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,26 +22,25 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SandboxFragment() : BasePageViewFragment() {
 
-  @Inject
-  lateinit var navigator: SandboxNavigator
+  @Inject lateinit var navigator: SandboxNavigator
 
   private val viewModel: SandboxViewModel by viewModels()
 
   private var binding: FragmentSandboxBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   private lateinit var compositeDisposable: CompositeDisposable
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
@@ -54,8 +50,9 @@ class SandboxFragment() : BasePageViewFragment() {
   var navigatorIAB: Navigator? = null
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentSandboxBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -96,37 +93,33 @@ class SandboxFragment() : BasePageViewFragment() {
 
   private fun startPayment() {
     viewModel.startPayment(
-      amount = amount,
-      currency = currency,
-      transactionBuilder = transactionBuilder,
-      origin = origin
-    )
+        amount = amount,
+        currency = currency,
+        transactionBuilder = transactionBuilder,
+        origin = origin)
   }
 
   private fun setListeners() {
-    views.sandboxErrorButtons.errorBack.setOnClickListener {
-      close()
-    }
-    views.sandboxErrorButtons.errorCancel.setOnClickListener {
-      close()
-    }
-    views.sandboxErrorButtons.errorTryAgain.setOnClickListener {
-      close()
-    }
-    views.successContainer.lottieTransactionSuccess
-      .addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator) = Unit
-        override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
-        override fun onAnimationCancel(animation: Animator) = Unit
-        override fun onAnimationStart(animation: Animator) = Unit
-      })
+    views.sandboxErrorButtons.errorBack.setOnClickListener { close() }
+    views.sandboxErrorButtons.errorCancel.setOnClickListener { close() }
+    views.sandboxErrorButtons.errorTryAgain.setOnClickListener { close() }
+    views.successContainer.lottieTransactionSuccess.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationRepeat(animation: Animator) = Unit
+
+          override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+
+          override fun onAnimationCancel(animation: Animator) = Unit
+
+          override fun onAnimationStart(animation: Animator) = Unit
+        })
     views.sandboxErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
   }
 
   private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch{
+    viewLifecycleOwner.lifecycleScope.launch {
       delay(1500L)
       navigatorIAB?.popView(successBundle)
     }
@@ -149,7 +142,6 @@ class SandboxFragment() : BasePageViewFragment() {
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-
   }
 
   private fun showSpecificError(@StringRes stringRes: Int) {
@@ -165,23 +157,22 @@ class SandboxFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
-      views.successContainer.bonusSuccessLayout.visibility = View.GONE
+    views.successContainer.bonusSuccessLayout.visibility = View.GONE
   }
 
   private fun setupTransactionCompleteAnimation() {
     val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
+        "bonus_received",
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
     views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
-    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
-      FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(
+        object : FontAssetDelegate() {
+          override fun fetchFont(fontFamily: String): Typeface {
+            return Typeface.create("sans-serif-medium", Typeface.BOLD)
+          }
+        })
   }
 
   private val amount: BigDecimal by lazy {
@@ -232,7 +223,6 @@ class SandboxFragment() : BasePageViewFragment() {
     }
   }
 
-
   companion object {
 
     private const val PAYMENT_TYPE_KEY = "payment_type"
@@ -251,35 +241,35 @@ class SandboxFragment() : BasePageViewFragment() {
 
     @JvmStatic
     fun newInstance(
-      paymentType: PaymentType,
-      origin: String?,
-      transactionBuilder: TransactionBuilder,
-      amount: BigDecimal,
-      currency: String?,
-      bonus: String?,
-      isPreSelected: Boolean,
-      gamificationLevel: Int,
-      skuDescription: String,
-      isSubscription: Boolean,
-      isSkills: Boolean,
-      frequency: String?,
-    ): SandboxFragment = SandboxFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(ORIGIN_KEY, origin)
-        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putBoolean(PRE_SELECTED_KEY, isPreSelected)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putBoolean(IS_SKILLS, isSkills)
-        putString(FREQUENCY, frequency)
-      }
-    }
-
+        paymentType: PaymentType,
+        origin: String?,
+        transactionBuilder: TransactionBuilder,
+        amount: BigDecimal,
+        currency: String?,
+        bonus: String?,
+        isPreSelected: Boolean,
+        gamificationLevel: Int,
+        skuDescription: String,
+        isSubscription: Boolean,
+        isSkills: Boolean,
+        frequency: String?,
+    ): SandboxFragment =
+        SandboxFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(PAYMENT_TYPE_KEY, paymentType.name)
+                putString(ORIGIN_KEY, origin)
+                putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
+                putSerializable(AMOUNT_KEY, amount)
+                putString(CURRENCY_KEY, currency)
+                putString(BONUS_KEY, bonus)
+                putBoolean(PRE_SELECTED_KEY, isPreSelected)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+                putString(SKU_DESCRIPTION, skuDescription)
+                putBoolean(IS_SUBSCRIPTION, isSubscription)
+                putBoolean(IS_SKILLS, isSkills)
+                putString(FREQUENCY, frequency)
+              }
+        }
   }
-
 }

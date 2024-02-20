@@ -6,7 +6,5 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface AppDataApi {
-  @GET("app/getMeta")
-  fun getMeta( @Query("package_name") packageName: String): Single<AppInfo>
-
+  @GET("app/getMeta") fun getMeta(@Query("package_name") packageName: String): Single<AppInfo>
 }

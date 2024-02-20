@@ -10,8 +10,8 @@ import retrofit2.http.Path
 interface AnalyticsApi {
   @POST("user/addEvent/action={action}/context=WALLET/name={name}")
   fun registerEvent(
-    @Path("action") action: AnalyticsManager.Action?,
-    @Path("name") eventName: String?,
-    @Body body: AnalyticsBody?
+      @Path("action") action: AnalyticsManager.Action?,
+      @Path("name") eventName: String?,
+      @Body body: AnalyticsBody?
   ): Completable
 }

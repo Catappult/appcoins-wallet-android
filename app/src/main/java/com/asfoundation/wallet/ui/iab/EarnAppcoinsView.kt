@@ -5,7 +5,10 @@ import io.reactivex.Observable
 interface EarnAppcoinsView {
 
   fun backButtonClick(): Observable<Any>
+
   fun discoverButtonClick(): Observable<Any>
+
   fun navigateBack()
+
   fun backPressed(): Observable<Any>
 }

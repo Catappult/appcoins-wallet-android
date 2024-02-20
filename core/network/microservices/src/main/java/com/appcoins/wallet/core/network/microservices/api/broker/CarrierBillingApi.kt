@@ -8,19 +8,17 @@ import retrofit2.http.*
 interface CarrierBillingApi {
   @POST("8.20210329/gateways/dimoco/transactions")
   fun makePayment(
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
-    @Body carrierTransactionBody: CarrierTransactionBody
-  )
-      : Single<CarrierCreateTransactionResponse>
+      @Query("wallet.address") walletAddress: String,
+      @Header("authorization") authorization: String,
+      @Body carrierTransactionBody: CarrierTransactionBody
+  ): Single<CarrierCreateTransactionResponse>
 
   @GET("8.20210329/gateways/dimoco/transactions/{uid}")
   fun getPayment(
-    @Path("uid") uid: String,
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
+      @Path("uid") uid: String,
+      @Query("wallet.address") walletAddress: String,
+      @Header("authorization") authorization: String,
   ): Observable<TransactionResponse>
 
-  @GET("8.20210329/dimoco/countries")
-  fun getAvailableCountryList(): Single<CountryListResponse>
+  @GET("8.20210329/dimoco/countries") fun getAvailableCountryList(): Single<CountryListResponse>
 }

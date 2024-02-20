@@ -4,11 +4,12 @@ import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
-class VerificationErrorPresenter(private val view: VerificationErrorView,
-                                 private val data: VerificationErrorData,
-                                 private val navigator: VerificationErrorNavigator,
-                                 private val disposable: CompositeDisposable) {
-
+class VerificationErrorPresenter(
+    private val view: VerificationErrorView,
+    private val data: VerificationErrorData,
+    private val navigator: VerificationErrorNavigator,
+    private val disposable: CompositeDisposable
+) {
 
   fun present() {
     initializeView()
@@ -26,16 +27,15 @@ class VerificationErrorPresenter(private val view: VerificationErrorView,
                 navigator.navigateToCodeWalletVerification()
               }
             }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleMaybeLaterClicks() {
     disposable.add(
-        view.getMaybeLaterClicks()
+        view
+            .getMaybeLaterClicks()
             .doOnNext { navigator.cancel() }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun initializeView() {
@@ -43,5 +43,4 @@ class VerificationErrorPresenter(private val view: VerificationErrorView,
   }
 
   fun stop() = disposable.clear()
-
 }

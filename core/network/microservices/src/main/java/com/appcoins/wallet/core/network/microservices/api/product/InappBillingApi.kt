@@ -12,32 +12,32 @@ interface InappBillingApi {
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/consume")
   fun consumePurchase(
-    @Path("domain") domain: String,
-    @Path("uid") uid: String,
-    @Header("authorization") authorization: String,
-    @Query("payload") payload: String? = null
+      @Path("domain") domain: String,
+      @Path("uid") uid: String,
+      @Header("authorization") authorization: String,
+      @Query("payload") payload: String? = null
   ): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
   fun acknowledgePurchase(
-    @Path("domain") domain: String,
-    @Path("uid") uid: String,
-    @Header("authorization") authorization: String,
-    @Query("payload") payload: String? = null
+      @Path("domain") domain: String,
+      @Path("uid") uid: String,
+      @Header("authorization") authorization: String,
+      @Query("payload") payload: String? = null
   ): Completable
 
   @GET("8.20200701/applications/{packageName}/inapp/consumables")
   fun getConsumables(
-    @Path("packageName") packageName: String,
-    @Query("skus") names: String
+      @Path("packageName") packageName: String,
+      @Query("skus") names: String
   ): Single<DetailsResponseBody>
 
   @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")
   fun getPurchases(
-    @Path("packageName") packageName: String,
-    @Header("authorization") authorization: String,
-    @Query("type") type: String,
-    @Query("state") state: String = "PENDING",
-    @Query("sku") sku: String? = null,
+      @Path("packageName") packageName: String,
+      @Header("authorization") authorization: String,
+      @Query("type") type: String,
+      @Query("state") state: String = "PENDING",
+      @Query("sku") sku: String? = null,
   ): Single<GetPurchasesResponse>
 }

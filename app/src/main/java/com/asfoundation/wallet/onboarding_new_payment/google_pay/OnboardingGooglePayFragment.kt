@@ -2,19 +2,16 @@ package com.asfoundation.wallet.onboarding_new_payment.google_pay
 
 import android.content.Context
 import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingGooglePayLayoutBinding
-import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,26 +19,26 @@ import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class OnboardingGooglePayFragment : BasePageViewFragment() {
 
   private val viewModel: OnboardingGooglePayViewModel by viewModels()
   private var binding: OnboardingGooglePayLayoutBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   lateinit var args: OnboardingGooglePayFragmentArgs
 
   private lateinit var compositeDisposable: CompositeDisposable
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var navigator: OnboardingGooglePayNavigator
+  @Inject lateinit var navigator: OnboardingGooglePayNavigator
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View {
     binding = OnboardingGooglePayLayoutBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -70,8 +67,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   private fun setObserver() {
     viewModel.state.observe(viewLifecycleOwner) { state ->
       when (state) {
-        OnboardingGooglePayViewModel.State.Start -> {
-        }
+        OnboardingGooglePayViewModel.State.Start -> {}
         is OnboardingGooglePayViewModel.State.Error -> {
           showError(getString(state.stringRes))
         }
@@ -82,10 +78,8 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
           viewModel.openUrlCustomTab(requireContext(), state.url)
         }
         OnboardingGooglePayViewModel.State.GooglePayBack -> {
-          findNavController().popBackStack(
-            R.id.onboarding_payment_methods_fragment,
-            inclusive = false
-          )
+          findNavController()
+              .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
         }
         is OnboardingGooglePayViewModel.State.BackToGame -> {
           navigator.navigateBackToGame(state.domain)
@@ -99,11 +93,10 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
 
   private fun startPayment() {
     viewModel.startPayment(
-      amount = BigDecimal(args.amount),
-      currency = args.currency,
-      transactionBuilder = args.transactionBuilder,
-      origin = args.transactionBuilder.origin
-    )
+        amount = BigDecimal(args.amount),
+        currency = args.currency,
+        transactionBuilder = args.transactionBuilder,
+        origin = args.transactionBuilder.origin)
   }
 
   private fun setListeners() {
@@ -116,12 +109,8 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     views.errorTryAgainGooglePay.setOnClickListener {
       findNavController().popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
     }
-    views.errorView.layoutSupportIcn.setOnClickListener {
-      viewModel.showSupport()
-    }
-    views.errorView.layoutSupportLogo.setOnClickListener {
-      viewModel.showSupport()
-    }
+    views.errorView.layoutSupportIcn.setOnClickListener { viewModel.showSupport() }
+    views.errorView.layoutSupportLogo.setOnClickListener { viewModel.showSupport() }
   }
 
   fun showError(message: String) {
@@ -133,11 +122,12 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   }
 
   private fun handleSuccess() {
-    views.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+    views.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.setAnimation(
+        R.raw.success_animation)
     val bonus = args.forecastBonus.getPurchaseBonusMessage(formatter)
     if (!bonus.isNullOrEmpty()) {
       views.fragmentFirstIabTransactionCompleted.transactionSuccessBonusText.text =
-        getString(R.string.purchase_success_bonus_received_title, bonus)
+          getString(R.string.purchase_success_bonus_received_title, bonus)
     } else {
       views.fragmentFirstIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
     }
@@ -145,7 +135,7 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
     views.errorView.root.visibility = View.GONE
     views.completePaymentView.visibility = View.VISIBLE
     views.fragmentFirstIabTransactionCompleted.iabFirstActivityTransactionCompleted.visibility =
-      View.VISIBLE
+        View.VISIBLE
     views.fragmentFirstIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
     views.onboardingSuccessGooglePayButtons.root.visibility = View.VISIBLE
   }
@@ -153,5 +143,4 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   fun lockRotation() {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
-
 }

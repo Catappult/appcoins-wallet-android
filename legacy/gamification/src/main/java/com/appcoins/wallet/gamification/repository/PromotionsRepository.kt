@@ -1,9 +1,9 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.gamification.GamificationContext
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -11,8 +11,8 @@ import java.math.BigDecimal
 interface PromotionsRepository {
 
   fun getGamificationStats(
-    wallet: String,
-    promoCodeString: String?
+      wallet: String,
+      promoCodeString: String?
   ): Observable<PromotionsGamificationStats>
 
   fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int>
@@ -20,11 +20,11 @@ interface PromotionsRepository {
   fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels>
 
   fun getForecastBonus(
-    wallet: String,
-    packageName: String,
-    amount: BigDecimal,
-    promoCodeString: String?,
-    currency: String?
+      wallet: String,
+      packageName: String,
+      amount: BigDecimal,
+      promoCodeString: String?,
+      currency: String?
   ): Single<ForecastBonus>
 
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>
@@ -36,9 +36,9 @@ interface PromotionsRepository {
   fun setSeenGenericPromotion(id: String, screen: String)
 
   fun getUserStats(
-    wallet: String,
-    promoCodeString: String?,
-    offlineFirst: Boolean = true
+      wallet: String,
+      promoCodeString: String?,
+      offlineFirst: Boolean = true
   ): Observable<UserStats>
 
   fun getWalletOrigin(wallet: String, promoCodeString: String?): Single<WalletOrigin>
@@ -56,5 +56,4 @@ interface PromotionsRepository {
   fun isReferralNotificationToShow(wallet: String): Observable<Boolean>
 
   fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
-
 }

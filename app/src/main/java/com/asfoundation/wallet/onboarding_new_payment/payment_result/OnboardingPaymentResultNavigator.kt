@@ -3,7 +3,6 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_result
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -14,11 +13,10 @@ import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragm
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import javax.inject.Inject
 
-class OnboardingPaymentResultNavigator @Inject constructor(
-  private val fragment: Fragment,
-  private val packageManager: PackageManager
-) :
-  Navigator {
+class OnboardingPaymentResultNavigator
+@Inject
+constructor(private val fragment: Fragment, private val packageManager: PackageManager) :
+    Navigator {
 
   fun navigateBack() {
     fragment.findNavController().popBackStack()
@@ -26,9 +24,7 @@ class OnboardingPaymentResultNavigator @Inject constructor(
 
   fun navigateBackToGame(packageName: String) {
     try {
-      fragment.startActivity(
-        packageManager.getLaunchIntentForPackage(packageName)!!
-      )
+      fragment.startActivity(packageManager.getLaunchIntentForPackage(packageName)!!)
     } catch (e: Throwable) {
       e.printStackTrace()
       fragment.activity?.finishAffinity()
@@ -41,13 +37,18 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateBackToPaymentMethods() {
-    fragment.findNavController()
-      .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
+    fragment
+        .findNavController()
+        .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }
 
   fun navigateToVerifyWallet(isWalletVerified: Boolean) {
-      val intent = VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
-        .apply { fragment.activity?.intent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
-      fragment.startActivity(intent)
+    val intent =
+        VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
+            .apply {
+              fragment.activity?.intent?.flags =
+                  Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+    fragment.startActivity(intent)
   }
 }

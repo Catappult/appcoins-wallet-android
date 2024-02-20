@@ -3,9 +3,9 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class VkDataPreferencesDataSource @Inject constructor(
-  private val sharedPreferences: SharedPreferences
-) {
+class VkDataPreferencesDataSource
+@Inject
+constructor(private val sharedPreferences: SharedPreferences) {
   companion object {
     const val VK_LOGIN_AUTH = "VK_LOGIN_AUTH"
     const val VK_LOGIN_EMAIL = "VK_LOGIN_EMAIL"

@@ -5,26 +5,19 @@ import com.appcoins.wallet.core.walletservices.WalletService
 import com.google.gson.JsonObject
 import io.reactivex.Single
 
-
-/**
- * Variable representing in seconds the time to live interval of the authentication token.
- **/
+/** Variable representing in seconds the time to live interval of the authentication token. */
 private const val TTL_IN_SECONDS = 3600
 
-
-/**
- * This class is here temporarily only
- */
+/** This class is here temporarily only */
 class EwtAuthenticatorService(
-  private val walletService: WalletService,
-  private val header: String
+    private val walletService: WalletService,
+    private val header: String
 ) {
 
   private var cachedAuth: MutableMap<String, Pair<String, Long>> = HashMap()
 
   fun getEwtAuthentication(): Single<String> {
-    return walletService.getWalletAddress()
-      .map { address -> getEwtAuthentication(address) }
+    return walletService.getWalletAddress().map { address -> getEwtAuthentication(address) }
   }
 
   fun getEwtAuthenticationWithAddress(address: String): Single<String> {
@@ -33,8 +26,7 @@ class EwtAuthenticatorService(
 
   @Synchronized
   fun getEwtAuthentication(address: String): String {
-    return if (shouldBuildEwtAuth(address))
-      getNewEwtAuthentication(address)
+    return if (shouldBuildEwtAuth(address)) getNewEwtAuthentication(address)
     else {
       cachedAuth[address]!!.first
     }
@@ -50,10 +42,8 @@ class EwtAuthenticatorService(
 
   private fun shouldBuildEwtAuth(address: String): Boolean {
     val currentUnixTime = System.currentTimeMillis() / 1000L
-    return !cachedAuth.containsKey(address) || hasExpired(
-      currentUnixTime,
-      cachedAuth[address]?.second
-    )
+    return !cachedAuth.containsKey(address) ||
+        hasExpired(currentUnixTime, cachedAuth[address]?.second)
   }
 
   private fun hasExpired(currentUnixTime: Long, ttlUnixTime: Long?): Boolean {
@@ -63,8 +53,8 @@ class EwtAuthenticatorService(
   private fun buildEwtString(address: String, currentUnixTime: Long): String {
     val header = replaceInvalidCharacters(header.convertToBase64())
     val payload = replaceInvalidCharacters(getPayload(address, currentUnixTime))
-    val signedContent = walletService.signSpecificWalletAddressContent(address, payload)
-      .blockingGet()
+    val signedContent =
+        walletService.signSpecificWalletAddressContent(address, payload).blockingGet()
     return "Bearer $header.$payload.$signedContent".replace("[\n\r]", "")
   }
 
@@ -73,13 +63,10 @@ class EwtAuthenticatorService(
     payloadJson.addProperty("iss", walletAddress)
     val unixTimeWithTTL: Long = currentUnixTime + TTL_IN_SECONDS
     payloadJson.addProperty("exp", unixTimeWithTTL)
-    return payloadJson.toString()
-      .convertToBase64()
+    return payloadJson.toString().convertToBase64()
   }
 
   private fun replaceInvalidCharacters(ewtString: String): String {
-    return ewtString.replace("=", "")
-      .replace("+", "-")
-      .replace("/", "_")
+    return ewtString.replace("=", "").replace("+", "-").replace("/", "_")
   }
 }

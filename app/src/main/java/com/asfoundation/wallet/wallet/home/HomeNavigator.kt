@@ -23,7 +23,7 @@ import javax.inject.Inject
 class HomeNavigator
 @Inject
 constructor(
-  private val fragment: Fragment,
+    private val fragment: Fragment,
 ) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
@@ -45,9 +45,9 @@ constructor(
   }
 
   fun navigateToBackup(
-    walletAddress: String,
-    walletName: String,
-    mainNavController: NavController
+      walletAddress: String,
+      walletName: String,
+      mainNavController: NavController
   ) {
     val bundle = Bundle()
     bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -57,17 +57,17 @@ constructor(
 
   fun navigateToRecoverWallet() {
     val intent =
-      RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false).apply {
-        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }
+        RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false).apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
     openIntent(intent)
   }
 
   fun navigateToTopUp() {
     val intent =
-      TopUpActivity.newIntent(fragment.requireContext()).apply {
-        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-      }
+        TopUpActivity.newIntent(fragment.requireContext()).apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
     fragment.requireContext().startActivity(intent)
   }
 
@@ -75,9 +75,7 @@ constructor(
     val bottomSheet = ManageWalletBalanceBottomSheetFragment.newInstance()
     val bundle = Bundle()
     bundle.putSerializable(
-      ManageWalletBalanceBottomSheetFragment.WALLET_BALANCE_MODEL,
-      walletBalance
-    )
+        ManageWalletBalanceBottomSheetFragment.WALLET_BALANCE_MODEL, walletBalance)
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "HomeBalanceWallet")
   }

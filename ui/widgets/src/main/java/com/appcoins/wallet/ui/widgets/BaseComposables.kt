@@ -29,111 +29,102 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ActionButton(
-  imagePainter: Painter,
-  description: String,
-  onClick: () -> Unit,
-  hasRedBadge: Boolean
+    imagePainter: Painter,
+    description: String,
+    onClick: () -> Unit,
+    hasRedBadge: Boolean
 ) {
   if (hasRedBadge) {
     Box {
       IconButton(onClick = { onClick() }) {
         Icon(
-          painter = imagePainter,
-          contentDescription = description,
-          tint = WalletColors.styleguide_white,
-          modifier = Modifier.scale(1.1F)
-        )
+            painter = imagePainter,
+            contentDescription = description,
+            tint = WalletColors.styleguide_white,
+            modifier = Modifier.scale(1.1F))
       }
       Badge(
-        modifier = Modifier
-          .size(20.dp)
-          .align(Alignment.TopEnd)
-          .padding(end = 8.dp, top = 8.dp)
-          .zIndex(9f)
-      )
+          modifier =
+              Modifier.size(20.dp)
+                  .align(Alignment.TopEnd)
+                  .padding(end = 8.dp, top = 8.dp)
+                  .zIndex(9f))
     }
   } else {
     IconButton(onClick = { onClick() }) {
       Icon(
-        painter = imagePainter,
-        contentDescription = description,
-        tint = WalletColors.styleguide_white,
-        modifier = Modifier.scale(1.1F)
-      )
+          painter = imagePainter,
+          contentDescription = description,
+          tint = WalletColors.styleguide_white,
+          modifier = Modifier.scale(1.1F))
     }
   }
 }
 
 @Composable
 fun VectorIconButton(
-  imageVector: ImageVector,
-  contentDescription: Int,
-  onClick: () -> Unit,
-  paddingIcon: Dp = 8.dp,
-  background: Color = WalletColors.styleguide_blue
+    imageVector: ImageVector,
+    contentDescription: Int,
+    onClick: () -> Unit,
+    paddingIcon: Dp = 8.dp,
+    background: Color = WalletColors.styleguide_blue
 ) {
   IconButton(onClick = onClick) {
     Icon(
-      imageVector = imageVector,
-      contentDescription = stringResource(id = contentDescription),
-      tint = WalletColors.styleguide_white,
-      modifier =
-      Modifier
-        .size(32.dp)
-        .background(background, shape = RoundedCornerShape(8.dp))
-        .padding(paddingIcon)
-    )
+        imageVector = imageVector,
+        contentDescription = stringResource(id = contentDescription),
+        tint = WalletColors.styleguide_white,
+        modifier =
+            Modifier.size(32.dp)
+                .background(background, shape = RoundedCornerShape(8.dp))
+                .padding(paddingIcon))
   }
 }
 
 @Composable
 fun VectorIconButton(
-  painter: Painter,
-  contentDescription: Int,
-  onClick: () -> Unit,
-  paddingIcon: Dp = 8.dp,
-  background: Color = WalletColors.styleguide_blue
+    painter: Painter,
+    contentDescription: Int,
+    onClick: () -> Unit,
+    paddingIcon: Dp = 8.dp,
+    background: Color = WalletColors.styleguide_blue
 ) {
   IconButton(onClick = onClick) {
     Icon(
-      painter = painter,
-      contentDescription = stringResource(id = contentDescription),
-      tint = Color.White,
-      modifier =
-      Modifier
-        .size(32.dp)
-        .background(background, shape = RoundedCornerShape(8.dp))
-        .padding(paddingIcon)
-    )
+        painter = painter,
+        contentDescription = stringResource(id = contentDescription),
+        tint = Color.White,
+        modifier =
+            Modifier.size(32.dp)
+                .background(background, shape = RoundedCornerShape(8.dp))
+                .padding(paddingIcon))
   }
 }
-
 
 @Preview
 @Composable
 fun PreviewVectorIconButton() {
   VectorIconButton(
-    imageVector = Icons.Default.MoreVert,
-    contentDescription = R.string.action_more_details,
-    onClick = { })
+      imageVector = Icons.Default.MoreVert,
+      contentDescription = R.string.action_more_details,
+      onClick = {})
 }
 
 @Preview
 @Composable
 fun PreviewIconButton() {
   VectorIconButton(
-    painter = painterResource(R.drawable.ic_copy_to_clip),
-    contentDescription = R.string.action_more_details,
-    onClick = { })
+      painter = painterResource(R.drawable.ic_copy_to_clip),
+      contentDescription = R.string.action_more_details,
+      onClick = {})
 }
 
 @Preview
 @Composable
 fun PreviewActionButton() {
   ActionButton(
-    imagePainter = painterResource(R.drawable.ic_notifications),
-    description = "Back",
-    onClick = { },
-    hasRedBadge = true
-  )
+      imagePainter = painterResource(R.drawable.ic_notifications),
+      description = "Back",
+      onClick = {},
+      hasRedBadge = true)
 }

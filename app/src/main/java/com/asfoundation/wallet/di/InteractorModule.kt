@@ -3,10 +3,10 @@ package com.asfoundation.wallet.di
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.network.airdrop.AirdropService
-import com.asfoundation.wallet.Airdrop
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.asfoundation.wallet.Airdrop
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
@@ -35,47 +35,50 @@ class InteractorModule {
   @Provides
   @Named("APPROVE_SERVICE_ON_CHAIN")
   fun provideApproveService(
-    sendTransactionInteract: SendTransactionInteract,
-    paymentErrorMapper: PaymentErrorMapper,
-    noWaitPendingTransactionService: NotTrackTransactionService
+      sendTransactionInteract: SendTransactionInteract,
+      paymentErrorMapper: PaymentErrorMapper,
+      noWaitPendingTransactionService: NotTrackTransactionService
   ): ApproveService {
     return ApproveService(
-      WatchedTransactionService(
-        object : TransactionSender {
-          override fun send(transactionBuilder: TransactionBuilder): Single<String> {
-            return sendTransactionInteract.approve(transactionBuilder)
-          }
-        },
-        MemoryCache(
-          BehaviorSubject.create(),
-          ConcurrentHashMap()
-        ), paymentErrorMapper,
-        Schedulers.io(),
-        noWaitPendingTransactionService
-      ), NoValidateTransactionValidator()
-    )
+        WatchedTransactionService(
+            object : TransactionSender {
+              override fun send(transactionBuilder: TransactionBuilder): Single<String> {
+                return sendTransactionInteract.approve(transactionBuilder)
+              }
+            },
+            MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()),
+            paymentErrorMapper,
+            Schedulers.io(),
+            noWaitPendingTransactionService),
+        NoValidateTransactionValidator())
   }
 
   @Singleton
   @Provides
   @Named("ASF_BDS_IN_APP_INTERACTOR")
   fun provideAsfBdsInAppPurchaseInteractor(
-          @Named("IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
-          defaultWalletInteract: FindDefaultWalletInteract,
-          gasSettingsInteract: FetchGasSettingsInteract,
-          @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
-          billing: Billing, currencyConversionService: CurrencyConversionService,
-          bdsTransactionService: BdsTransactionService,
-          billingMessagesMapper: BillingMessagesMapper,
-          rxSchedulers: RxSchedulers
+      @Named("IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
+      defaultWalletInteract: FindDefaultWalletInteract,
+      gasSettingsInteract: FetchGasSettingsInteract,
+      @Named("payment-gas-limit") paymentGasLimit: BigDecimal,
+      parser: TransferParser,
+      billing: Billing,
+      currencyConversionService: CurrencyConversionService,
+      bdsTransactionService: BdsTransactionService,
+      billingMessagesMapper: BillingMessagesMapper,
+      rxSchedulers: RxSchedulers
   ): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(
-      inAppPurchaseService, defaultWalletInteract,
-      gasSettingsInteract, paymentGasLimit, parser, billingMessagesMapper, billing,
-      currencyConversionService,
-      bdsTransactionService,
-      rxSchedulers
-    )
+        inAppPurchaseService,
+        defaultWalletInteract,
+        gasSettingsInteract,
+        paymentGasLimit,
+        parser,
+        billingMessagesMapper,
+        billing,
+        currencyConversionService,
+        bdsTransactionService,
+        rxSchedulers)
   }
 
   @Singleton
@@ -85,18 +88,25 @@ class InteractorModule {
       @Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
       defaultWalletInteract: FindDefaultWalletInteract,
       gasSettingsInteract: FetchGasSettingsInteract,
-      @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
-      billing: Billing, currencyConversionService: CurrencyConversionService,
+      @Named("payment-gas-limit") paymentGasLimit: BigDecimal,
+      parser: TransferParser,
+      billing: Billing,
+      currencyConversionService: CurrencyConversionService,
       bdsTransactionService: BdsTransactionService,
       billingMessagesMapper: BillingMessagesMapper,
       rxSchedulers: RxSchedulers
   ): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(
-      inAppPurchaseService, defaultWalletInteract,
-      gasSettingsInteract, paymentGasLimit, parser, billingMessagesMapper, billing,
-      currencyConversionService,
-      bdsTransactionService, rxSchedulers
-    )
+        inAppPurchaseService,
+        defaultWalletInteract,
+        gasSettingsInteract,
+        paymentGasLimit,
+        parser,
+        billingMessagesMapper,
+        billing,
+        currencyConversionService,
+        bdsTransactionService,
+        rxSchedulers)
   }
 
   @Singleton
@@ -108,10 +118,11 @@ class InteractorModule {
       airdropChainIdMapper: AirdropChainIdMapper
   ): AirdropInteractor {
     return AirdropInteractor(
-      Airdrop(
-        AppcoinsTransactionService(pendingTransactionService), BehaviorSubject.create(),
-        airdropService
-      ), findDefaultWalletInteract, airdropChainIdMapper
-    )
+        Airdrop(
+            AppcoinsTransactionService(pendingTransactionService),
+            BehaviorSubject.create(),
+            airdropService),
+        findDefaultWalletInteract,
+        airdropChainIdMapper)
   }
 }

@@ -105,31 +105,19 @@ class GherkinTests {
 
     @Test
     fun `Only Given in a test`() {
-      val thrown: IllegalArgumentException = assertThrows {
-        scenario {
-          m Given "Given persists"
-        }
-      }
+      val thrown: IllegalArgumentException = assertThrows { scenario { m Given "Given persists" } }
       Assertions.assertEquals("'When' is missing", thrown.message)
     }
 
     @Test
     fun `Only When in a test`() {
-      val thrown: IllegalArgumentException = assertThrows {
-        scenario {
-          m When "When persists"
-        }
-      }
+      val thrown: IllegalArgumentException = assertThrows { scenario { m When "When persists" } }
       Assertions.assertEquals("'When' should be called after 'Given'", thrown.message)
     }
 
     @Test
     fun `Only Then in a test`() {
-      val thrown: IllegalArgumentException = assertThrows {
-        scenario {
-          m Then "Then persists"
-        }
-      }
+      val thrown: IllegalArgumentException = assertThrows { scenario { m Then "Then persists" } }
       Assertions.assertEquals("'Then' should be called after 'When'", thrown.message)
     }
 
@@ -144,9 +132,7 @@ class GherkinTests {
         }
       }
       Assertions.assertEquals(
-        "'And' should be called after 'Given', 'When' or 'Then'",
-        thrown.message
-      )
+          "'And' should be called after 'Given', 'When' or 'Then'", thrown.message)
     }
 
     @Test
@@ -160,9 +146,7 @@ class GherkinTests {
         }
       }
       Assertions.assertEquals(
-        "'But' should be called after 'Given', 'When' or 'Then'",
-        thrown.message
-      )
+          "'But' should be called after 'Given', 'When' or 'Then'", thrown.message)
     }
 
     @Test
@@ -307,30 +291,20 @@ class GherkinTests {
     @Test
     fun `Only Given in a test`() {
       val thrown: IllegalArgumentException = assertThrows {
-        coScenario {
-          m Given "Given persists"
-        }
+        coScenario { m Given "Given persists" }
       }
       Assertions.assertEquals("'When' is missing", thrown.message)
     }
 
     @Test
     fun `Only When in a test`() {
-      val thrown: IllegalArgumentException = assertThrows {
-        coScenario {
-          m When "When persists"
-        }
-      }
+      val thrown: IllegalArgumentException = assertThrows { coScenario { m When "When persists" } }
       Assertions.assertEquals("'When' should be called after 'Given'", thrown.message)
     }
 
     @Test
     fun `Only Then in a test`() {
-      val thrown: IllegalArgumentException = assertThrows {
-        coScenario {
-          m Then "Then persists"
-        }
-      }
+      val thrown: IllegalArgumentException = assertThrows { coScenario { m Then "Then persists" } }
       Assertions.assertEquals("'Then' should be called after 'When'", thrown.message)
     }
 
@@ -345,9 +319,7 @@ class GherkinTests {
         }
       }
       Assertions.assertEquals(
-        "'And' should be called after 'Given', 'When' or 'Then'",
-        thrown.message
-      )
+          "'And' should be called after 'Given', 'When' or 'Then'", thrown.message)
     }
 
     @Test
@@ -361,9 +333,7 @@ class GherkinTests {
         }
       }
       Assertions.assertEquals(
-        "'But' should be called after 'Given', 'When' or 'Then'",
-        thrown.message
-      )
+          "'But' should be called after 'Given', 'When' or 'Then'", thrown.message)
     }
 
     @Test

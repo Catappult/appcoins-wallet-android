@@ -20,11 +20,16 @@ class VerificationPaypalModule {
   }
 
   @Provides
-  fun provideVerificationPaypalViewModelFactory(data: VerificationPaypalData,
-                                                getVerificationInfoUseCase: GetVerificationInfoUseCase,
-                                                makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
-                                                setCachedVerificationUseCase: SetCachedVerificationUseCase): VerificationPaypalViewModelFactory {
-    return VerificationPaypalViewModelFactory(data, getVerificationInfoUseCase,
-        makeVerificationPaymentUseCase, setCachedVerificationUseCase)
+  fun provideVerificationPaypalViewModelFactory(
+      data: VerificationPaypalData,
+      getVerificationInfoUseCase: GetVerificationInfoUseCase,
+      makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
+      setCachedVerificationUseCase: SetCachedVerificationUseCase
+  ): VerificationPaypalViewModelFactory {
+    return VerificationPaypalViewModelFactory(
+        data,
+        getVerificationInfoUseCase,
+        makeVerificationPaymentUseCase,
+        setCachedVerificationUseCase)
   }
 }

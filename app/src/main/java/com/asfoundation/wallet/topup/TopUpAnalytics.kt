@@ -8,9 +8,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
   fun sendStartEvent() {
     analyticsManager.logEvent(
-      HashMap<String, Any>(), WALLET_TOP_UP_START,
-      AnalyticsManager.Action.CLICK, WALLET
-    )
+        HashMap<String, Any>(), WALLET_TOP_UP_START, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendSelectionEvent(value: Double, action: String, paymentMethod: String) {
@@ -27,9 +25,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[ACTION] = action
 
     analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONFIRMATION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+        map, WALLET_TOP_UP_CONFIRMATION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendSuccessEvent(value: Double, paymentMethod: String, status: String) {
@@ -37,15 +33,15 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
     map[STATUS] = status
 
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendPaypalUrlEvent(
-    value: Double, paymentMethod: String, type: String?, resultCode: String?,
-    url: String
+      value: Double,
+      paymentMethod: String,
+      type: String?,
+      resultCode: String?,
+      url: String
   ) {
     val map = topUpBaseMap(value, paymentMethod)
 
@@ -61,8 +57,12 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   }
 
   fun sendErrorEvent(
-    value: Double, paymentMethod: String, status: String,
-    errorCode: String, errorDetails: String, errorRiskRules: String? = null
+      value: Double,
+      paymentMethod: String,
+      status: String,
+      errorCode: String,
+      errorDetails: String,
+      errorRiskRules: String? = null
   ) {
     val map = topUpBaseMap(value, paymentMethod)
 
@@ -71,10 +71,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[ERROR_DETAILS] = errorDetails
     if (errorRiskRules != null) map[ERROR_CODE_RISK_RULE] = errorRiskRules
 
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendPaypalSuccessEvent(value: String) {
@@ -82,21 +79,15 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
     map[VALUE] = value
     map[STATUS] = STATUS_SUCCESS
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendPaypalErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendGooglePaySuccessEvent(value: String) {
@@ -104,21 +95,15 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
     map[VALUE] = value
     map[STATUS] = STATUS_SUCCESS
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   fun sendGooglePayErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
-    analyticsManager.logEvent(
-      map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
-      WALLET
-    )
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
   }
 
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
@@ -132,29 +117,26 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
 
   fun send3dsStart(type: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(PaymentMethodsAnalytics.TYPE to (type ?: "")),
-      PaymentMethodsAnalytics.WALLET_3DS_START,
-      AnalyticsManager.Action.CLICK,
-      PaymentMethodsAnalytics.WALLET
-    )
+        hashMapOf<String, Any>(PaymentMethodsAnalytics.TYPE to (type ?: "")),
+        PaymentMethodsAnalytics.WALLET_3DS_START,
+        AnalyticsManager.Action.CLICK,
+        PaymentMethodsAnalytics.WALLET)
   }
 
   fun send3dsCancel() {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(),
-      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
-      AnalyticsManager.Action.CLICK,
-      PaymentMethodsAnalytics.WALLET
-    )
+        hashMapOf<String, Any>(),
+        PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+        AnalyticsManager.Action.CLICK,
+        PaymentMethodsAnalytics.WALLET)
   }
 
   fun send3dsError(error: String?) {
     analyticsManager.logEvent(
-      hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR to (error ?: "")),
-      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
-      AnalyticsManager.Action.CLICK,
-      PaymentMethodsAnalytics.WALLET
-    )
+        hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR to (error ?: "")),
+        PaymentMethodsAnalytics.WALLET_3DS_ERROR,
+        AnalyticsManager.Action.CLICK,
+        PaymentMethodsAnalytics.WALLET)
   }
 
   companion object {

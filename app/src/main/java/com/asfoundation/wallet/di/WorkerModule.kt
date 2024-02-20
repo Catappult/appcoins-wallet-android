@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
-import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import com.appcoins.wallet.core.utils.android_common.Log
+import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,21 +18,22 @@ import javax.inject.Singleton
 class WorkerModule {
 
   /**
-   * This module serves as a base for injecting dependencies to workers
-   * It initially was built to cancel a transaction but that was scrapped.
+   * This module serves as a base for injecting dependencies to workers It initially was built to
+   * cancel a transaction but that was scrapped.
    *
    * To use it, simply create a factory for each worker and add it to the DelegatingWorkerFactory
    */
   @Singleton
   @Provides
   fun providesWorkManager(
-    @ApplicationContext context: Context,
-    getVipReferralWorkerFactory: GetVipReferralWorkerFactory
+      @ApplicationContext context: Context,
+      getVipReferralWorkerFactory: GetVipReferralWorkerFactory
   ): WorkManager {
-    val config = Configuration.Builder()
-      .setWorkerFactory(getVipReferralWorkerFactory)
-      .setMinimumLoggingLevel(Log.DEBUG)
-      .build()
+    val config =
+        Configuration.Builder()
+            .setWorkerFactory(getVipReferralWorkerFactory)
+            .setMinimumLoggingLevel(Log.DEBUG)
+            .build()
 
     WorkManager.initialize(context, config)
 
@@ -44,5 +45,4 @@ class WorkerModule {
   fun providesDelegatingWorkerFactory(): DelegatingWorkerFactory {
     return DelegatingWorkerFactory()
   }
-
 }

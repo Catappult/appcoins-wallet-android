@@ -9,10 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
 import java.math.BigDecimal
 
-/**
- * Created by franciscocalado on 20/07/2018.
- */
-
+/** Created by franciscocalado on 20/07/2018. */
 interface IabView {
 
   fun disableBack()
@@ -30,110 +27,110 @@ interface IabView {
   fun navigateToWebViewAuthorization(url: String)
 
   fun showOnChain(
-    amount: BigDecimal,
-    isBds: Boolean,
-    bonus: String,
-    gamificationLevel: Int,
-    transactionBuilder: TransactionBuilder
+      amount: BigDecimal,
+      isBds: Boolean,
+      bonus: String,
+      gamificationLevel: Int,
+      transactionBuilder: TransactionBuilder
   )
 
   fun showAdyenPayment(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+      amount: BigDecimal,
+      currency: String?,
+      isBds: Boolean,
+      paymentType: PaymentType,
+      bonus: String?,
+      isPreselected: Boolean,
+      iconUrl: String?,
+      gamificationLevel: Int,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun showPayPalV2(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+      amount: BigDecimal,
+      currency: String?,
+      isBds: Boolean,
+      paymentType: PaymentType,
+      bonus: String?,
+      isPreselected: Boolean,
+      iconUrl: String?,
+      gamificationLevel: Int,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun showSandbox(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+      amount: BigDecimal,
+      currency: String?,
+      isBds: Boolean,
+      paymentType: PaymentType,
+      bonus: String?,
+      isPreselected: Boolean,
+      iconUrl: String?,
+      gamificationLevel: Int,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun showVkPay(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+      amount: BigDecimal,
+      currency: String?,
+      isBds: Boolean,
+      paymentType: PaymentType,
+      bonus: String?,
+      iconUrl: String?,
+      gamificationLevel: Int,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun showGooglePayWeb(
-    amount: BigDecimal,
-    currency: String?,
-    isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+      amount: BigDecimal,
+      currency: String?,
+      isBds: Boolean,
+      paymentType: PaymentType,
+      bonus: String?,
+      isPreselected: Boolean,
+      iconUrl: String?,
+      gamificationLevel: Int,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun showCarrierBilling(
-    currency: String?,
-    amount: BigDecimal,
-    bonus: BigDecimal?,
-    isPreselected: Boolean
+      currency: String?,
+      amount: BigDecimal,
+      bonus: BigDecimal?,
+      isPreselected: Boolean
   )
 
   fun showAppcoinsCreditsPayment(
-    appcAmount: BigDecimal,
-    isPreselected: Boolean,
-    gamificationLevel: Int,
-    transactionBuilder: TransactionBuilder
+      appcAmount: BigDecimal,
+      isPreselected: Boolean,
+      gamificationLevel: Int,
+      transactionBuilder: TransactionBuilder
   )
 
   fun showLocalPayment(
-    domain: String,
-    skuId: String?,
-    originalAmount: String?,
-    currency: String?,
-    bonus: String?,
-    selectedPaymentMethod: String,
-    developerAddress: String,
-    type: String,
-    amount: BigDecimal,
-    callbackUrl: String?,
-    orderReference: String?,
-    payload: String?,
-    origin: String?,
-    paymentMethodIconUrl: String,
-    paymentMethodLabel: String,
-    async: Boolean,
-    referralUrl: String?,
-    gamificationLevel: Int
+      domain: String,
+      skuId: String?,
+      originalAmount: String?,
+      currency: String?,
+      bonus: String?,
+      selectedPaymentMethod: String,
+      developerAddress: String,
+      type: String,
+      amount: BigDecimal,
+      callbackUrl: String?,
+      orderReference: String?,
+      payload: String?,
+      origin: String?,
+      paymentMethodIconUrl: String,
+      paymentMethodLabel: String,
+      async: Boolean,
+      referralUrl: String?,
+      gamificationLevel: Int
   )
 
   fun createChallengeReward(walletAddress: String)
@@ -143,25 +140,25 @@ interface IabView {
   fun showPaymentMethodsView()
 
   fun showShareLinkPayment(
-    domain: String,
-    skuId: String?,
-    originalAmount: String?,
-    originalCurrency: String?,
-    amount: BigDecimal,
-    type: String,
-    selectedPaymentMethod: String
+      domain: String,
+      skuId: String?,
+      originalAmount: String?,
+      originalCurrency: String?,
+      amount: BigDecimal,
+      type: String,
+      selectedPaymentMethod: String
   )
 
   fun showMergedAppcoins(
-    fiatAmount: BigDecimal,
-    currency: String,
-    bonus: String,
-    isBds: Boolean,
-    isDonation: Boolean,
-    gamificationLevel: Int,
-    transaction: TransactionBuilder,
-    isSubscription: Boolean,
-    frequency: String?
+      fiatAmount: BigDecimal,
+      currency: String,
+      bonus: String,
+      isBds: Boolean,
+      isDonation: Boolean,
+      gamificationLevel: Int,
+      transaction: TransactionBuilder,
+      isSubscription: Boolean,
+      frequency: String?
   )
 
   fun lockRotation()

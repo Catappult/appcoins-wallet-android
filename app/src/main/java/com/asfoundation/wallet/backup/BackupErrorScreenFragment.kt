@@ -17,29 +17,27 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupErrorScreenFragment : BasePageViewFragment() {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
-  @Inject
-  lateinit var navigator: BackupEntryNavigator
+  @Inject lateinit var navigator: BackupEntryNavigator
 
   companion object {
     fun newInstance() = BackupErrorScreenFragment()
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupErrorRoute(
-              onClickBack = { navigator.navigateBack() },
-              onChatClick = { displayChat() },
-              onCancelBackup = { navigator.navigateToManageWallet() })
+                onClickBack = { navigator.navigateBack() },
+                onChatClick = { displayChat() },
+                onCancelBackup = { navigator.navigateToManageWallet() })
           }
         }
       }

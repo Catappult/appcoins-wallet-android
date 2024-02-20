@@ -13,93 +13,105 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AppcoinsRewards(
-  private val repository: AppcoinsRewardsRepository,
-  private val walletService: WalletService,
-  private val cache: Repository<String, Transaction>,
-  private val scheduler: Scheduler,
-  private val billing: Billing,
-  private val errorMapper: ErrorMapper
+    private val repository: AppcoinsRewardsRepository,
+    private val walletService: WalletService,
+    private val cache: Repository<String, Transaction>,
+    private val scheduler: Scheduler,
+    private val billing: Billing,
+    private val errorMapper: ErrorMapper
 ) {
 
   var lastPayTransaction: Transaction? = null
 
   fun pay(
-    amount: BigDecimal, origin: String?, sku: String?, type: String,
-    entityOemId: String?, entityDomainId: String?, packageName: String, payload: String?,
-    callbackUrl: String?, orderReference: String?, referrerUrl: String?,
-    productToken: String?
+      amount: BigDecimal,
+      origin: String?,
+      sku: String?,
+      type: String,
+      entityOemId: String?,
+      entityDomainId: String?,
+      packageName: String,
+      payload: String?,
+      callbackUrl: String?,
+      orderReference: String?,
+      referrerUrl: String?,
+      productToken: String?
   ): Completable {
-    lastPayTransaction = Transaction(
-      sku = sku,
-      type = type,
-      developerAddress = "",
-      entityOemId = entityOemId,
-      entityDomain = entityDomainId,
-      packageName = packageName,
-      amount = amount,
-      origin = origin,
-      status = Transaction.Status.PENDING,
-      txId = null,
-      purchaseUid = null,
-      payload = payload,
-      callback = callbackUrl,
-      orderReference = orderReference,
-      referrerUrl = referrerUrl,
-      productToken = productToken
-    )
+    lastPayTransaction =
+        Transaction(
+            sku = sku,
+            type = type,
+            developerAddress = "",
+            entityOemId = entityOemId,
+            entityDomain = entityDomainId,
+            packageName = packageName,
+            amount = amount,
+            origin = origin,
+            status = Transaction.Status.PENDING,
+            txId = null,
+            purchaseUid = null,
+            payload = payload,
+            callback = callbackUrl,
+            orderReference = orderReference,
+            referrerUrl = referrerUrl,
+            productToken = productToken)
     return cache.save(getKey(amount.toString(), sku, packageName), lastPayTransaction)
   }
 
   fun start() {
-    cache.all.observeOn(scheduler)
-      .flatMapCompletable {
-        Observable.fromIterable(it)
-          .filter { transaction -> transaction.status == Transaction.Status.PENDING }
-          .doOnNext { transaction ->
-            cache.saveSync(
-              getKey(transaction),
-              Transaction(transaction, Transaction.Status.PROCESSING)
-            )
-          }
-          .flatMapCompletable { transaction ->
-            walletService.getWalletAddress()
-              .flatMapCompletable { walletAddress ->
-                walletService.signContent(walletAddress)
-                  .flatMap { signature ->
-                    repository.pay(
-                      walletAddress, signature, transaction.amount,
-                      getOrigin(transaction), transaction.sku, transaction.type,
-                      transaction.entityOemId,
-                      transaction.entityDomain, transaction.packageName,
-                      transaction.payload, transaction.callback,
-                      transaction.orderReference, transaction.referrerUrl,
-                      transaction.productToken
-                    )
-                  }
-                  .flatMapCompletable { transaction1 ->
-                    waitTransactionCompletion(transaction1).andThen {
-                      val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                      tx.txId = transaction1.uid
-                      tx.purchaseUid = transaction1.metadata?.purchaseUid
-                      cache.saveSync(getKey(tx), tx)
+    cache.all
+        .observeOn(scheduler)
+        .flatMapCompletable {
+          Observable.fromIterable(it)
+              .filter { transaction -> transaction.status == Transaction.Status.PENDING }
+              .doOnNext { transaction ->
+                cache.saveSync(
+                    getKey(transaction), Transaction(transaction, Transaction.Status.PROCESSING))
+              }
+              .flatMapCompletable { transaction ->
+                walletService
+                    .getWalletAddress()
+                    .flatMapCompletable { walletAddress ->
+                      walletService
+                          .signContent(walletAddress)
+                          .flatMap { signature ->
+                            repository.pay(
+                                walletAddress,
+                                signature,
+                                transaction.amount,
+                                getOrigin(transaction),
+                                transaction.sku,
+                                transaction.type,
+                                transaction.entityOemId,
+                                transaction.entityDomain,
+                                transaction.packageName,
+                                transaction.payload,
+                                transaction.callback,
+                                transaction.orderReference,
+                                transaction.referrerUrl,
+                                transaction.productToken)
+                          }
+                          .flatMapCompletable { transaction1 ->
+                            waitTransactionCompletion(transaction1).andThen {
+                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                              tx.txId = transaction1.uid
+                              tx.purchaseUid = transaction1.metadata?.purchaseUid
+                              cache.saveSync(getKey(tx), tx)
+                            }
+                          }
                     }
-                  }
+                    .onErrorResumeNext { t ->
+                      t.printStackTrace()
+                      val error = errorMapper.map(t)
+                      val transactionStatus = mapToTransactionStatus(error.errorType)
+                      cache.save(
+                          getKey(transaction),
+                          Transaction(
+                              transaction, transactionStatus, error.errorCode, error.errorMessage))
+                    }
               }
-              .onErrorResumeNext { t ->
-                t.printStackTrace()
-                val error = errorMapper.map(t)
-                val transactionStatus = mapToTransactionStatus(error.errorType)
-                cache.save(
-                  getKey(transaction),
-                  Transaction(
-                    transaction, transactionStatus, error.errorCode,
-                    error.errorMessage
-                  )
-                )
-              }
-          }
-      }
-      .subscribe()
+        }
+        .subscribe()
   }
 
   private fun mapToTransactionStatus(errorType: ErrorInfo.ErrorType): Transaction.Status {
@@ -112,50 +124,44 @@ class AppcoinsRewards(
   }
 
   private fun getOrigin(transaction: Transaction) =
-    if (transaction.isBds()) transaction.origin else null
+      if (transaction.isBds()) transaction.origin else null
 
-  private fun waitTransactionCompletion(
-    createdTransaction: CoreTransaction
-  ): Completable {
+  private fun waitTransactionCompletion(createdTransaction: CoreTransaction): Completable {
     return Observable.interval(0, 5, TimeUnit.SECONDS, scheduler)
-      .timeInterval()
-      .switchMap {
-        billing.getAppcoinsTransaction(createdTransaction.uid, scheduler)
-          .toObservable()
-      }
-      .takeUntil { pendingTransaction -> pendingTransaction.status != CoreStatus.PROCESSING }
-      .ignoreElements()
-
+        .timeInterval()
+        .switchMap {
+          billing.getAppcoinsTransaction(createdTransaction.uid, scheduler).toObservable()
+        }
+        .takeUntil { pendingTransaction -> pendingTransaction.status != CoreStatus.PROCESSING }
+        .ignoreElements()
   }
 
   fun getPayment(
-    packageName: String, sku: String? = "",
-    amount: String? = ""
+      packageName: String,
+      sku: String? = "",
+      amount: String? = ""
   ): Observable<Transaction> =
-    cache.get(getKey(amount, sku, packageName))
-      .filter { it.status != Transaction.Status.PENDING }
+      cache.get(getKey(amount, sku, packageName)).filter { it.status != Transaction.Status.PENDING }
 
   private fun getKey(transaction: Transaction): String =
-    getKey(transaction.amount.toString(), transaction.sku, transaction.packageName)
+      getKey(transaction.amount.toString(), transaction.sku, transaction.packageName)
 
   private fun getKey(amount: String? = "", sku: String? = "", packageName: String): String =
-    amount + sku + packageName
+      amount + sku + packageName
 
   fun sendCredits(
-    toWallet: String, amount: BigDecimal,
-    packageName: String
+      toWallet: String,
+      amount: BigDecimal,
+      packageName: String
   ): Single<AppcoinsRewardsRepository.Status> {
-    return walletService.getWalletAddress()
-      .flatMap { walletAddress ->
-        walletService.signContent(walletAddress)
+    return walletService.getWalletAddress().flatMap { walletAddress ->
+      walletService
+          .signContent(walletAddress)
           .flatMap { signature ->
             repository.sendCredits(
-              toWallet, walletAddress, signature, amount, "BDS",
-              "TRANSFER", packageName
-            )
-          }.map { statusAndTransaction ->
-            statusAndTransaction.first
+                toWallet, walletAddress, signature, amount, "BDS", "TRANSFER", packageName)
           }
-      }
+          .map { statusAndTransaction -> statusAndTransaction.first }
+    }
   }
 }

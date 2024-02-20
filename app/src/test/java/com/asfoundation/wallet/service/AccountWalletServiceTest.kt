@@ -21,20 +21,15 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class AccountWalletServiceTest {
 
-  @Mock
-  lateinit var accountKeyService: AccountKeystoreService
+  @Mock lateinit var accountKeyService: AccountKeystoreService
 
-  @Mock
-  lateinit var passwordStore: PasswordStore
+  @Mock lateinit var passwordStore: PasswordStore
 
-  @Mock
-  lateinit var walletCreatorInteract: WalletCreatorInteract
+  @Mock lateinit var walletCreatorInteract: WalletCreatorInteract
 
-  @Mock
-  lateinit var walletRepository: WalletRepositoryType
+  @Mock lateinit var walletRepository: WalletRepositoryType
 
-  @Mock
-  lateinit var syncScheduler: ExecutorScheduler
+  @Mock lateinit var syncScheduler: ExecutorScheduler
 
   private lateinit var accountWalletService: AccountWalletService
 
@@ -47,22 +42,25 @@ class AccountWalletServiceTest {
 
   @Before
   fun setUp() {
-    `when`(walletRepository.getDefaultWallet()).thenReturn(
-        Single.just(Wallet(ADDRESS)))
+    `when`(walletRepository.getDefaultWallet()).thenReturn(Single.just(Wallet(ADDRESS)))
     `when`(passwordStore.getPassword(any())).thenReturn(Single.just(PASSWORD))
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
 
-    accountWalletService = AccountWalletService(accountKeyService,
-            passwordStore, walletCreatorInteract,
-            walletRepository, syncScheduler)
+    accountWalletService =
+        AccountWalletService(
+            accountKeyService,
+            passwordStore,
+            walletCreatorInteract,
+            walletRepository,
+            syncScheduler)
   }
 
   @Test
   fun signContent() {
     val testObserver = TestObserver<String>()
-    accountWalletService.signContent(ADDRESS)
-        .subscribe(testObserver)
-    testObserver.assertNoErrors()
+    accountWalletService.signContent(ADDRESS).subscribe(testObserver)
+    testObserver
+        .assertNoErrors()
         .assertValue(
             "c7a5c8192cf90952b0cd492ab2fd0d41d96e2e158c365b92742eb5e1bcbf70885a7947331d92717ccc8b938d9f725e541cae8fb4360424533bb86b20d829dc5b00")
   }
@@ -70,11 +68,12 @@ class AccountWalletServiceTest {
   @Test
   fun signContentWithoutAddress() {
     val testObserver = TestObserver<WalletAddressModel>()
-    accountWalletService.getAndSignCurrentWalletAddress()
-        .subscribe(testObserver)
-    testObserver.assertNoErrors()
+    accountWalletService.getAndSignCurrentWalletAddress().subscribe(testObserver)
+    testObserver
+        .assertNoErrors()
         .assertValue(
-            WalletAddressModel(ADDRESS,
+            WalletAddressModel(
+                ADDRESS,
                 "c7a5c8192cf90952b0cd492ab2fd0d41d96e2e158c365b92742eb5e1bcbf70885a7947331d92717ccc8b938d9f725e541cae8fb4360424533bb86b20d829dc5b00"))
   }
 }

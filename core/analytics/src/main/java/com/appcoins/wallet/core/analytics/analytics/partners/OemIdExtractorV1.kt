@@ -11,14 +11,13 @@ import javax.inject.Inject
 
 @BoundTo(supertype = IExtractOemId::class)
 class OemIdExtractorV1 @Inject constructor(@ApplicationContext private val context: Context) :
-  IExtractOemId {
+    IExtractOemId {
   @Throws(PackageManager.NameNotFoundException::class)
   override fun extract(packageName: String): Single<String> {
     return Single.create {
       try {
         var oemId = ""
-        val sourceDir =
-          getPackageName(context, packageName)
+        val sourceDir = getPackageName(context, packageName)
         val myZipFile = ZipFile(sourceDir)
         val entry = myZipFile.getEntry("META-INF/attrib")
         entry?.let {

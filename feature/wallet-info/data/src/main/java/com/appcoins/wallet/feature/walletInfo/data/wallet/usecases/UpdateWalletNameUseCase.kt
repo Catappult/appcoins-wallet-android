@@ -4,8 +4,10 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoR
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class UpdateWalletNameUseCase @Inject constructor(private val walletInfoRepository: WalletInfoRepository) {
+class UpdateWalletNameUseCase
+@Inject
+constructor(private val walletInfoRepository: WalletInfoRepository) {
 
   operator fun invoke(address: String, name: String?): Completable =
-    walletInfoRepository.updateWalletName(address, name)
+      walletInfoRepository.updateWalletName(address, name)
 }

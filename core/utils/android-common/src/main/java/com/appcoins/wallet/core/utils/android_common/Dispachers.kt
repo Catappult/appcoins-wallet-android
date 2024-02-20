@@ -1,9 +1,9 @@
 package com.appcoins.wallet.core.utils.android_common
 
 import it.czerwinski.android.hilt.annotations.BoundTo
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 interface Dispatchers {
   val main: CoroutineDispatcher

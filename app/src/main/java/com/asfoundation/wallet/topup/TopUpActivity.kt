@@ -12,8 +12,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
@@ -41,27 +41,20 @@ import io.reactivex.schedulers.Schedulers
 import java.util.Objects
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
-  @Inject
-  lateinit var topUpInteractor: TopUpInteractor
+  @Inject lateinit var topUpInteractor: TopUpInteractor
 
-  @Inject
-  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
+  @Inject lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
-  @Inject
-  lateinit var topUpAnalytics: TopUpAnalytics
+  @Inject lateinit var topUpAnalytics: TopUpAnalytics
 
-  @Inject
-  lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject lateinit var walletBlockedInteract: WalletBlockedInteract
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
-  @Inject
-  lateinit var displayChatUseCase: DisplayChatUseCase
+  @Inject lateinit var displayChatUseCase: DisplayChatUseCase
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
@@ -71,8 +64,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private val views by viewBinding(TopUpActivityLayoutBinding::bind)
 
   companion object {
-    @JvmStatic
-    fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
+    @JvmStatic fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
 
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
@@ -87,25 +79,23 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(
-      this,
-      topUpInteractor,
-      startVipReferralPollingUseCase,
-      AndroidSchedulers.mainThread(),
-      Schedulers.io(),
-      CompositeDisposable(),
-      logger,
-      displayChatUseCase
-    )
+    presenter =
+        TopUpActivityPresenter(
+            this,
+            topUpInteractor,
+            startVipReferralPollingUseCase,
+            AndroidSchedulers.mainThread(),
+            Schedulers.io(),
+            CompositeDisposable(),
+            logger,
+            displayChatUseCase)
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
     views.topBar.composeView.apply {
-      setContent {
-        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
-      }
+      setContent { TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() }) }
     }
   }
 
@@ -116,19 +106,20 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun showTopUpScreen() {
     handleTopUpStartAnalytics()
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
+        .commit()
     views.layoutError.root.visibility = View.GONE
     views.fragmentContainer.visibility = View.VISIBLE
   }
 
   override fun showVerification() {
     views.fragmentContainer.visibility = View.GONE
-    val intent = VerificationCreditCardActivity.newIntent(this)
-      .apply {
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-      }
+    val intent =
+        VerificationCreditCardActivity.newIntent(this).apply {
+          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
     startActivity(intent)
     finish()
   }
@@ -140,69 +131,67 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun getSupportClicks(): Observable<Any> {
     return Observable.merge(
-      RxView.clicks(views.layoutError.layoutSupportLogo),
-      RxView.clicks(views.layoutError.layoutSupportIcn)
-    )
+        RxView.clicks(views.layoutError.layoutSupportLogo),
+        RxView.clicks(views.layoutError.layoutSupportIcn))
   }
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
-    supportFragmentManager.beginTransaction()
-      .add(
-        R.id.fragment_container,
-        AdyenTopUpFragment.newInstance(paymentType, data)
-      )
-      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .add(R.id.fragment_container, AdyenTopUpFragment.newInstance(paymentType, data))
+        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData) {
-    supportFragmentManager.beginTransaction()
-      .add(
-        R.id.fragment_container,
-        PayPalTopupFragment.newInstance(
-          paymentType = paymentType,
-          data = data,
-          amount = data.fiatValue,
-          currency = data.fiatCurrencyCode,
-          bonus = data.bonusValue.toString(),
-          gamificationLevel = data.gamificationLevel,
-        )
-      )
-      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .add(
+            R.id.fragment_container,
+            PayPalTopupFragment.newInstance(
+                paymentType = paymentType,
+                data = data,
+                amount = data.fiatValue,
+                currency = data.fiatCurrencyCode,
+                bonus = data.bonusValue.toString(),
+                gamificationLevel = data.gamificationLevel,
+            ))
+        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData) {
-    supportFragmentManager.beginTransaction()
-      .add(
-        R.id.fragment_container,
-        GooglePayTopupFragment.newInstance(
-          paymentType = paymentType,
-          data = data,
-          amount = data.fiatValue,
-          currency = data.fiatCurrencyCode,
-          bonus = data.bonusValue.toString(),
-          gamificationLevel = data.gamificationLevel,
-        )
-      )
-      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .add(
+            R.id.fragment_container,
+            GooglePayTopupFragment.newInstance(
+                paymentType = paymentType,
+                data = data,
+                amount = data.fiatValue,
+                currency = data.fiatCurrencyCode,
+                bonus = data.bonusValue.toString(),
+                gamificationLevel = data.gamificationLevel,
+            ))
+        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun navigateToLocalPayment(
-    paymentId: String, icon: String, label: String,
-    async: Boolean, topUpData: TopUpPaymentData
+      paymentId: String,
+      icon: String,
+      label: String,
+      async: Boolean,
+      topUpData: TopUpPaymentData
   ) {
-    supportFragmentManager.beginTransaction()
-      .add(
-        R.id.fragment_container,
-        LocalTopUpPaymentFragment.newInstance(
-          paymentId, icon, label, async, packageName,
-          topUpData
-        )
-      )
-      .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .add(
+            R.id.fragment_container,
+            LocalTopUpPaymentFragment.newInstance(
+                paymentId, icon, label, async, packageName, topUpData))
+        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun onBackPressed() {
@@ -236,11 +225,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun createChallengeReward(walletAddress: String) =
-    ChallengeRewardManager.create(
-      appId = BuildConfig.FYBER_APP_ID,
-      activity = this,
-      walletAddress = walletAddress,
-    )
+      ChallengeRewardManager.create(
+          appId = BuildConfig.FYBER_APP_ID,
+          activity = this,
+          walletAddress = walletAddress,
+      )
 
   override fun navigateToChallengeReward() = ChallengeRewardManager.onNavigate()
 
@@ -249,24 +238,25 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     val args = Bundle()
     args.putSerializable(VkPaymentTopUpFragment.PAYMENT_DATA, topUpData)
     fragmentVk.arguments = args
-    supportFragmentManager.beginTransaction()
-      .add(R.id.fragment_container, fragmentVk)
-      .addToBackStack(VkPaymentTopUpFragment::class.java.simpleName)
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .add(R.id.fragment_container, fragmentVk)
+        .addToBackStack(VkPaymentTopUpFragment::class.java.simpleName)
+        .commit()
   }
 
   override fun finishActivity(data: Bundle) {
-    supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container,
-        TopUpSuccessFragment.newInstance(
-          data.getString(TOP_UP_AMOUNT, ""),
-          data.getString(TOP_UP_CURRENCY, ""), data.getString(BONUS, ""),
-          data.getString(TOP_UP_CURRENCY_SYMBOL, "")
-        ),
-        TopUpSuccessFragment::class.java.simpleName
-      )
-      .commit()
+    supportFragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container,
+            TopUpSuccessFragment.newInstance(
+                data.getString(TOP_UP_AMOUNT, ""),
+                data.getString(TOP_UP_CURRENCY, ""),
+                data.getString(BONUS, ""),
+                data.getString(TOP_UP_CURRENCY_SYMBOL, "")),
+            TopUpSuccessFragment::class.java.simpleName)
+        .commit()
     unlockRotation()
   }
 
@@ -284,10 +274,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun close(navigateToTransactions: Boolean) {
-    if (supportFragmentManager.findFragmentByTag(
-        TopUpSuccessFragment::class.java.simpleName
-      ) != null && navigateToTransactions
-    ) {
+    if (supportFragmentManager.findFragmentByTag(TopUpSuccessFragment::class.java.simpleName) !=
+        null && navigateToTransactions) {
       this.finish()
     }
     finish()

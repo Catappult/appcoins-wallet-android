@@ -6,11 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "feature_flag")
 data class DBFeatureFlag(
-  @PrimaryKey
-  @ColumnInfo(typeAffinity = ColumnInfo.TEXT)
-  val flagId: String,
-  @ColumnInfo(typeAffinity = ColumnInfo.TEXT)
-  val variant: String,
-  @ColumnInfo(typeAffinity = ColumnInfo.TEXT)
-  val payload: String,
+    @PrimaryKey @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val flagId: String,
+    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val variant: String,
+    @ColumnInfo(typeAffinity = ColumnInfo.TEXT) val payload: String,
 )

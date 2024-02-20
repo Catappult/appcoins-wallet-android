@@ -8,7 +8,6 @@ import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import org.junit.jupiter.api.Test
 
-
 class FetchTransactionsUseCaseTest {
 
   // Create a mock of the TransactionRepositoryType interface
@@ -24,9 +23,8 @@ class FetchTransactionsUseCaseTest {
     val expectedTransactions = listOf<Transaction>()
 
     // Mock the behavior of the transaction repository
-    every { mockTransactionRepository.fetchTransactions(wallet) } returns Observable.just(
-      expectedTransactions
-    )
+    every { mockTransactionRepository.fetchTransactions(wallet) } returns
+        Observable.just(expectedTransactions)
 
     // Call the method being tested
     val testObserver = TestObserver<List<Transaction>>()

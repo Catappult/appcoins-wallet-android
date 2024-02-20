@@ -16,7 +16,13 @@ import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCas
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
-import com.asfoundation.wallet.recover.use_cases.*
+import com.asfoundation.wallet.recover.use_cases.GetFilePathUseCase
+import com.asfoundation.wallet.recover.use_cases.IsKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.ReadFileUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
+import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.recover.use_cases.UpdateBackupStateFromRecoverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -25,24 +31,26 @@ import javax.inject.Inject
 sealed class RecoverEntrySideEffect : SideEffect
 
 data class RecoverEntryState(
-  val recoverResultAsync: Async<RecoverEntryResult> = Async.Uninitialized
+    val recoverResultAsync: Async<RecoverEntryResult> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
-class RecoverEntryViewModel @Inject constructor(
-        private val getFilePathUseCase: GetFilePathUseCase,
-        private val readFileUseCase: ReadFileUseCase,
-        private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
-        private val isKeystoreUseCase: IsKeystoreUseCase,
-        private val recoverEntryKeystoreUseCase: RecoverEntryKeystoreUseCase,
-        private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
-        private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-        private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-        private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-        private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
-        private val walletsEventSender: WalletsEventSender,
-        private val rxSchedulers: RxSchedulers
+class RecoverEntryViewModel
+@Inject
+constructor(
+    private val getFilePathUseCase: GetFilePathUseCase,
+    private val readFileUseCase: ReadFileUseCase,
+    private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+    private val isKeystoreUseCase: IsKeystoreUseCase,
+    private val recoverEntryKeystoreUseCase: RecoverEntryKeystoreUseCase,
+    private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
+    private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+    private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+    private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+    private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+    private val walletsEventSender: WalletsEventSender,
+    private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
 
   companion object {
@@ -53,66 +61,64 @@ class RecoverEntryViewModel @Inject constructor(
 
   fun handleFileChosen(uri: Uri) {
     readFileUseCase(uri)
-      .observeOn(rxSchedulers.computation)
-      .flatMap { fetchWallet(it) }
-      .flatMap { setDefaultWallet(it) }
-      .observeOn(rxSchedulers.main)
-      .asAsyncToState { copy(recoverResultAsync = it) }
-      .doOnSuccess { handleRecoverResult(it) }
-      .scopedSubscribe()
+        .observeOn(rxSchedulers.computation)
+        .flatMap { fetchWallet(it) }
+        .flatMap { setDefaultWallet(it) }
+        .observeOn(rxSchedulers.main)
+        .asAsyncToState { copy(recoverResultAsync = it) }
+        .doOnSuccess { handleRecoverResult(it) }
+        .scopedSubscribe()
   }
 
   private fun fetchWallet(keyStore: WalletKeyStore): Single<RecoverEntryResult> =
-    when {
-      isKeystoreUseCase(key = keyStore.contents) -> recoverEntryKeystoreUseCase(keyStore = keyStore)
-      keyStore.contents.length == 64 -> recoverEntryPrivateKeyUseCase(keyStore = keyStore)
-      else -> Single.just(FailedEntryRecover.InvalidPrivateKey())
-    }
+      when {
+        isKeystoreUseCase(key = keyStore.contents) ->
+            recoverEntryKeystoreUseCase(keyStore = keyStore)
+        keyStore.contents.length == 64 -> recoverEntryPrivateKeyUseCase(keyStore = keyStore)
+        else -> Single.just(FailedEntryRecover.InvalidPrivateKey())
+      }
 
   private fun setDefaultWallet(recoverResult: RecoverEntryResult): Single<RecoverEntryResult> =
-    when (recoverResult) {
-      is FailedEntryRecover -> Single.just(recoverResult)
-      is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
-        .mergeWith(updateWalletInfoUseCase(recoverResult.address))
-        .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
-        .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
-        .toSingleDefault(recoverResult)
-    }
+      when (recoverResult) {
+        is FailedEntryRecover -> Single.just(recoverResult)
+        is SuccessfulEntryRecover ->
+            setDefaultWalletUseCase(recoverResult.address)
+                .mergeWith(updateWalletInfoUseCase(recoverResult.address))
+                .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+                .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
+                .toSingleDefault(recoverResult)
+      }
 
   fun handleRecoverClick(keystore: String) {
     fetchWallet(WalletKeyStore(null, keystore))
-      .flatMap { setDefaultWallet(it) }
-      .asAsyncToState { copy(recoverResultAsync = it) }
-      .doOnSuccess { handleRecoverResult(it) }
-      .doOnError {
-        walletsEventSender.sendWalletCompleteRestoreEvent(
-          WalletsAnalytics.STATUS_FAIL,
-          it.message
-        )
-      }
-      .scopedSubscribe()
+        .flatMap { setDefaultWallet(it) }
+        .asAsyncToState { copy(recoverResultAsync = it) }
+        .doOnSuccess { handleRecoverResult(it) }
+        .doOnError {
+          walletsEventSender.sendWalletCompleteRestoreEvent(
+              WalletsAnalytics.STATUS_FAIL, it.message)
+        }
+        .scopedSubscribe()
   }
 
   private fun handleRecoverResult(recoverResult: RecoverEntryResult) =
-    when (recoverResult) {
-      is SuccessfulEntryRecover -> {
-        updateWalletBackupState()
-        walletsEventSender.sendWalletRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_SUCCESS
-        )
-        setIsFirstPaymentUseCase(false)
+      when (recoverResult) {
+        is SuccessfulEntryRecover -> {
+          updateWalletBackupState()
+          walletsEventSender.sendWalletRestoreEvent(
+              WalletsAnalytics.ACTION_IMPORT, WalletsAnalytics.STATUS_SUCCESS)
+          setIsFirstPaymentUseCase(false)
+        }
+        is FailedEntryRecover.InvalidPassword -> {
+          setState { copy(recoverResultAsync = Async.Uninitialized) }
+        }
+        else -> {
+          walletsEventSender.sendWalletRestoreEvent(
+              WalletsAnalytics.ACTION_IMPORT,
+              WalletsAnalytics.STATUS_FAIL,
+              recoverResult.toString())
+        }
       }
-      is FailedEntryRecover.InvalidPassword -> {
-        setState { copy(recoverResultAsync = Async.Uninitialized) }
-      }
-      else -> {
-        walletsEventSender.sendWalletRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_FAIL, recoverResult.toString()
-        )
-      }
-    }
 
   private fun updateWalletBackupState() {
     updateBackupStateFromRecoverUseCase().scopedSubscribe()

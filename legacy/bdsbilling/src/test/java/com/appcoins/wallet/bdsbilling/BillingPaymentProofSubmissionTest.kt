@@ -1,34 +1,34 @@
 package com.appcoins.wallet.bdsbilling
 
-//import com.appcoins.wallet.bdsbilling.repository.*
-//import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-//import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
-//import com.appcoins.wallet.core.network.bds.model.Data
-//import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
-//import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
-//import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
-//import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-//import com.appcoins.wallet.core.network.microservices.model.Transaction
-//import com.appcoins.wallet.core.network.microservices.model.Gateway
-//import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-//import com.appcoins.wallet.core.walletservices.WalletService
-//import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
-//import io.reactivex.Completable
-//import io.reactivex.Observable
-//import io.reactivex.Scheduler
-//import io.reactivex.Single
-//import io.reactivex.observers.TestObserver
-//import io.reactivex.schedulers.TestScheduler
-//import org.junit.Before
-//import org.junit.Test
-//import org.junit.runner.RunWith
-//import org.mockito.Mock
-//import org.mockito.Mockito.*
-//import org.mockito.junit.MockitoJUnitRunner
-//import java.math.BigDecimal
+// import com.appcoins.wallet.bdsbilling.repository.*
+// import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+// import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
+// import com.appcoins.wallet.core.network.bds.model.Data
+// import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
+// import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+// import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+// import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+// import com.appcoins.wallet.core.network.microservices.model.Transaction
+// import com.appcoins.wallet.core.network.microservices.model.Gateway
+// import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+// import com.appcoins.wallet.core.walletservices.WalletService
+// import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
+// import io.reactivex.Completable
+// import io.reactivex.Observable
+// import io.reactivex.Scheduler
+// import io.reactivex.Single
+// import io.reactivex.observers.TestObserver
+// import io.reactivex.schedulers.TestScheduler
+// import org.junit.Before
+// import org.junit.Test
+// import org.junit.runner.RunWith
+// import org.mockito.Mock
+// import org.mockito.Mockito.*
+// import org.mockito.junit.MockitoJUnitRunner
+// import java.math.BigDecimal
 //
-//@RunWith(MockitoJUnitRunner::class)
-//class BillingPaymentProofSubmissionTest {
+// @RunWith(MockitoJUnitRunner::class)
+// class BillingPaymentProofSubmissionTest {
 //  companion object {
 //    const val walletAddress = "wallet_address"
 //    const val developerAddress = "developer_address"
@@ -87,7 +87,8 @@ package com.appcoins.wallet.bdsbilling
 //        ): Single<String>  = Single.just(signedContent)
 //        override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel>
 //          = Single.just(WalletAddressModel(walletAddress, signedContent))
-//        override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel>
+//        override fun getAndSignSpecificWalletAddress(walletAddress: String):
+// Single<WalletAddressModel>
 //          = Single.just(WalletAddressModel(Companion.walletAddress, signedContent))
 //      },
 //      "1234"
@@ -108,7 +109,8 @@ package com.appcoins.wallet.bdsbilling
 //        override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
 //          Single.just(WalletAddressModel(walletAddress, signedContent))
 //
-//        override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel> =
+//        override fun getAndSignSpecificWalletAddress(walletAddress: String):
+// Single<WalletAddressModel> =
 //          Single.just(WalletAddressModel(walletAddress, signedContent))
 //
 //        override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
@@ -245,4 +247,4 @@ package com.appcoins.wallet.bdsbilling
 //      paymentToken
 //    )
 //  }
-//}
+// }

@@ -7,8 +7,11 @@ import java.math.BigDecimal
 interface CarrierVerifyView {
 
   fun initializeView(
-    currency: String, fiatAmount: BigDecimal,
-    skuDescription: String, bonusAmount: BigDecimal?, preselected: Boolean
+      currency: String,
+      fiatAmount: BigDecimal,
+      skuDescription: String,
+      bonusAmount: BigDecimal?,
+      preselected: Boolean
   )
 
   fun backEvent(): Observable<Any>
@@ -44,5 +47,4 @@ interface CarrierVerifyView {
   fun changeButtonClick(): Observable<Any>
 
   fun focusOnPhoneNumber()
-
 }

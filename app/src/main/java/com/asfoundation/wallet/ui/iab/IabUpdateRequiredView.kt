@@ -20,5 +20,6 @@ interface IabUpdateRequiredView {
   fun setDropDownMenu(walletsModel: WalletsModel)
 
   fun close()
+
   fun showError(): Snackbar
 }

@@ -7,5 +7,4 @@ interface CarrierBillingPreferencesRepository {
   fun forgetPhoneNumber()
 
   fun retrievePhoneNumber(): String?
-
 }

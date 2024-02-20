@@ -6,17 +6,12 @@ import com.appcoins.wallet.core.arch.data.navigate
 import javax.inject.Inject
 
 class BalanceDetailsNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
 
   fun navigateToTokenInfo(title: String, image: String, description: String, showTopUp: Boolean) {
     navigate(
-      navController,
-      BalanceDetailsFragmentDirections.actionNavigateToTokenInfo(
-        title,
-        image,
-        description,
-        showTopUp
-      )
-    )
+        navController,
+        BalanceDetailsFragmentDirections.actionNavigateToTokenInfo(
+            title, image, description, showTopUp))
   }
 }

@@ -17,11 +17,12 @@ abstract class CurrenciesDatabase : RoomDatabase() {
   abstract fun fiatCurrenciesDao(): FiatCurrenciesDao
 
   companion object {
-    val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-      override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL(
-            "CREATE TABLE IF NOT EXISTS fiat_currencies (currency INTEGER PRIMARY KEY, flag TEXT , label TEXT , sign TEXT)")
-      }
-    }
+    val MIGRATION_1_2: Migration =
+        object : Migration(1, 2) {
+          override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                "CREATE TABLE IF NOT EXISTS fiat_currencies (currency INTEGER PRIMARY KEY, flag TEXT , label TEXT , sign TEXT)")
+          }
+        }
   }
 }

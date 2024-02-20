@@ -15,13 +15,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class VerifyPickerDialogFragment : BottomSheetDialogFragment() {
 
-  @Inject
-  lateinit var navigator: VerifyPickerDialogNavigator
+  @Inject lateinit var navigator: VerifyPickerDialogNavigator
 
   private val views by viewBinding(FragmentVerifyPickerBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentVerifyPickerBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentVerifyPickerBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

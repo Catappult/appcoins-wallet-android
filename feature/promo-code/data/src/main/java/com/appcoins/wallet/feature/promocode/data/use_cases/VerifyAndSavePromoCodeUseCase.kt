@@ -6,12 +6,13 @@ import com.appcoins.wallet.feature.promocode.data.repository.PromoCodeRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class VerifyAndSavePromoCodeUseCase @Inject constructor(
-  private val promoCodeRepository: PromoCodeRepository
-) {
+class VerifyAndSavePromoCodeUseCase
+@Inject
+constructor(private val promoCodeRepository: PromoCodeRepository) {
 
   operator fun invoke(promoCodeString: String): Single<PromoCodeResult> {
-    return promoCodeRepository.verifyAndSavePromoCode(promoCodeString)
-      .map { PromoCodeMapper().map(it) }
+    return promoCodeRepository.verifyAndSavePromoCode(promoCodeString).map {
+      PromoCodeMapper().map(it)
+    }
   }
 }

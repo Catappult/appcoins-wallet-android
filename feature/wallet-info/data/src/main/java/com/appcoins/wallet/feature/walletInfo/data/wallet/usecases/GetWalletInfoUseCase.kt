@@ -6,9 +6,12 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoR
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetWalletInfoUseCase @Inject constructor(
+class GetWalletInfoUseCase
+@Inject
+constructor(
     private val walletInfoRepository: WalletInfoRepository,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+) {
 
   /**
    * Retrieves WalletInfo
@@ -20,13 +23,9 @@ class GetWalletInfoUseCase @Inject constructor(
     val walletAddressSingle =
         address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return if (cached) {
-      walletAddressSingle.flatMap {
-        walletInfoRepository.getCachedWalletInfo(it.address)
-      }
+      walletAddressSingle.flatMap { walletInfoRepository.getCachedWalletInfo(it.address) }
     } else {
-      walletAddressSingle.flatMap {
-        walletInfoRepository.getLatestWalletInfo(it.address)
-      }
+      walletAddressSingle.flatMap { walletInfoRepository.getLatestWalletInfo(it.address) }
     }
   }
 }

@@ -3,12 +3,14 @@ package com.appcoins.wallet.feature.backup.data.use_cases
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
-import kotlinx.coroutines.rx2.await
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlinx.coroutines.rx2.await
+import kotlinx.coroutines.withContext
 
-class ShouldShowBackupTriggerUseCase @Inject constructor(
+class ShouldShowBackupTriggerUseCase
+@Inject
+constructor(
     private val getWalletInfoUseCase: GetWalletInfoUseCase,
     private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
     private val dispatchers: Dispatchers
@@ -20,8 +22,7 @@ class ShouldShowBackupTriggerUseCase @Inject constructor(
 
   suspend operator fun invoke(walletAddress: String): Boolean {
     return withContext(dispatchers.io) {
-      val walletHaveBackup =
-          getWalletInfoUseCase(null, cached = false).await()
+      val walletHaveBackup = getWalletInfoUseCase(null, cached = false).await()
       return@withContext if (walletHaveBackup.hasBackup) {
         false
       } else {

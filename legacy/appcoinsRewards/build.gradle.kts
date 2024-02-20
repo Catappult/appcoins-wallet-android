@@ -1,10 +1,6 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.appcoinsrewards"
-}
+android { namespace = "com.appcoins.wallet.appcoinsrewards" }
 
 dependencies {
   implementation(project(":core:utils:jvm-common"))

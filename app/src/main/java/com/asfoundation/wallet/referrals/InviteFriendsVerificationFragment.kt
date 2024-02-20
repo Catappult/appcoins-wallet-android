@@ -20,8 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsVerificationView {
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: InviteFriendsVerificationPresenter
   private lateinit var activity: InviteFriendsActivityView
 
@@ -34,8 +33,11 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is InviteFriendsActivityView) { InviteFriendsVerificationFragment::class.java.simpleName + " needs to be attached to a " + InviteFriendsActivity::class.java.simpleName }
+    require(context is InviteFriendsActivityView) {
+      InviteFriendsVerificationFragment::class.java.simpleName +
+          " needs to be attached to a " +
+          InviteFriendsActivity::class.java.simpleName
+    }
     activity = context
   }
 
@@ -45,13 +47,16 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
     presenter.present()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = InviteFriendsVerificationLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = InviteFriendsVerificationLayoutBinding.inflate(inflater).root
 
   private fun setDescriptionText() {
     val formattedAmount = formatter.formatCurrency(amount, WalletCurrency.FIAT)
-    binding.verificationDescription.text = getString(R.string.referral_view_unverified_body,
-        currency.plus(formattedAmount))
+    binding.verificationDescription.text =
+        getString(R.string.referral_view_unverified_body, currency.plus(formattedAmount))
   }
 
   override fun verifyButtonClick() = RxView.clicks(binding.verifyButton)
@@ -89,13 +94,12 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
     private const val CURRENCY = "currency"
 
     fun newInstance(amount: BigDecimal, currency: String): InviteFriendsVerificationFragment {
-      val bundle = Bundle().apply {
-        putSerializable(AMOUNT, amount)
-        putString(CURRENCY, currency)
-      }
-      return InviteFriendsVerificationFragment().apply {
-        arguments = bundle
-      }
+      val bundle =
+          Bundle().apply {
+            putSerializable(AMOUNT, amount)
+            putString(CURRENCY, currency)
+          }
+      return InviteFriendsVerificationFragment().apply { arguments = bundle }
     }
   }
 }

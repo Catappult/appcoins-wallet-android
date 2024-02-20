@@ -22,21 +22,21 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(
-  private val view: MergedAppcoinsView,
-  private val disposables: CompositeDisposable,
-  private val resumeDisposables: CompositeDisposable,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val analytics: BillingAnalytics,
-  private val formatter: CurrencyFormatUtils,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
-  private val gamificationLevel: Int,
-  private val navigator: Navigator,
-  private val logger: Logger,
-  private val transactionBuilder: TransactionBuilder,
-  private val paymentMethodsMapper: PaymentMethodsMapper,
-  private val isSubscription: Boolean
+    private val view: MergedAppcoinsView,
+    private val disposables: CompositeDisposable,
+    private val resumeDisposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val analytics: BillingAnalytics,
+    private val formatter: CurrencyFormatUtils,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
+    private val gamificationLevel: Int,
+    private val navigator: Navigator,
+    private val logger: Logger,
+    private val transactionBuilder: TransactionBuilder,
+    private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val isSubscription: Boolean
 ) {
 
   private var cachedSelectedPaymentId: String? = null
@@ -67,101 +67,104 @@ class MergedAppcoinsPresenter(
   fun handlePause() = resumeDisposables.clear()
 
   private fun fetchBalance() {
-    resumeDisposables.add(getWalletInfoUseCase(null, cached = true)
-      .map { walletInfo ->
-        val appcFiatBalance = walletInfo.walletBalance.appcBalance.fiat
-        val ethFiatBalance = walletInfo.walletBalance.ethBalance.fiat
-        val creditsFiatBalance = walletInfo.walletBalance.creditsBalance.fiat
-        val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
-        val appcFiatValue =
-          FiatValue(
-            appcFiatBalance.amount.plus(ethFiatBalance.amount),
-            appcFiatBalance.currency,
-            appcFiatBalance.symbol
-          )
-        MergedAppcoinsBalance(appcFiatValue, creditsFiatBalance, creditsAmount)
-      }
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess { balance ->
-        val appcFiat =
-          formatter.formatPaymentCurrency(balance.appcFiatValue.amount, WalletCurrency.APPCOINS)
-        val creditsFiat = formatter.formatPaymentCurrency(
-          balance.creditsFiatBalance.amount,
-          WalletCurrency.CREDITS
-        )
-        view.updateBalanceValues(appcFiat, creditsFiat, balance.creditsFiatBalance.currency)
-      }
-      .observeOn(networkScheduler)
-      .flatMap {
-        // This should be refactored to avoid repeated calls to WalletInfo
-        Single.zip(
-          hasEnoughCredits(it.creditsAppcAmount),
-          mergedAppcoinsInteractor.retrieveAppcAvailability(transactionBuilder, isSubscription)
-        ) { hasCredits: Availability, hasAppc: Availability ->
-          Pair(hasCredits, hasAppc)
-        }
-      }
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        view.setPaymentsInformation(
-          it.first.isAvailable, it.first.disableReason,
-          it.second.isAvailable, it.second.disableReason
-        )
-        view.toggleSkeletons(false)
-      }
-      .doOnSubscribe { view.toggleSkeletons(true) }
-      .subscribe({ }, { it.printStackTrace() })
-    )
+    resumeDisposables.add(
+        getWalletInfoUseCase(null, cached = true)
+            .map { walletInfo ->
+              val appcFiatBalance = walletInfo.walletBalance.appcBalance.fiat
+              val ethFiatBalance = walletInfo.walletBalance.ethBalance.fiat
+              val creditsFiatBalance = walletInfo.walletBalance.creditsBalance.fiat
+              val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
+              val appcFiatValue =
+                  FiatValue(
+                      appcFiatBalance.amount.plus(ethFiatBalance.amount),
+                      appcFiatBalance.currency,
+                      appcFiatBalance.symbol)
+              MergedAppcoinsBalance(appcFiatValue, creditsFiatBalance, creditsAmount)
+            }
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess { balance ->
+              val appcFiat =
+                  formatter.formatPaymentCurrency(
+                      balance.appcFiatValue.amount, WalletCurrency.APPCOINS)
+              val creditsFiat =
+                  formatter.formatPaymentCurrency(
+                      balance.creditsFiatBalance.amount, WalletCurrency.CREDITS)
+              view.updateBalanceValues(appcFiat, creditsFiat, balance.creditsFiatBalance.currency)
+            }
+            .observeOn(networkScheduler)
+            .flatMap {
+              // This should be refactored to avoid repeated calls to WalletInfo
+              Single.zip(
+                  hasEnoughCredits(it.creditsAppcAmount),
+                  mergedAppcoinsInteractor.retrieveAppcAvailability(
+                      transactionBuilder, isSubscription)) {
+                      hasCredits: Availability,
+                      hasAppc: Availability ->
+                    Pair(hasCredits, hasAppc)
+                  }
+            }
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              view.setPaymentsInformation(
+                  it.first.isAvailable,
+                  it.first.disableReason,
+                  it.second.isAvailable,
+                  it.second.disableReason)
+              view.toggleSkeletons(false)
+            }
+            .doOnSubscribe { view.toggleSkeletons(true) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun hasEnoughCredits(creditsAppcAmount: BigDecimal): Single<Availability> {
     return Single.fromCallable {
       val available = creditsAppcAmount >= transactionBuilder.amount()
       val disabledReason =
-        if (!available) R.string.purchase_appcoins_credits_noavailable_body else null
+          if (!available) R.string.purchase_appcoins_credits_noavailable_body else null
       Availability(available, disabledReason)
     }
   }
 
   private fun handleBackClick() {
-    disposables.add(Observable.merge(view.backClick(), view.backPressed())
-      .observeOn(networkScheduler)
-      .doOnNext { paymentMethod ->
-        analytics.sendPaymentConfirmationEvent(
-          paymentMethod.packageName,
-          paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, BillingAnalytics.ACTION_CANCEL
-        )
-      }
-      .observeOn(viewScheduler)
-      .doOnNext { view.showPaymentMethodsView() }
-      .subscribe({}, { showError(it) })
-    )
+    disposables.add(
+        Observable.merge(view.backClick(), view.backPressed())
+            .observeOn(networkScheduler)
+            .doOnNext { paymentMethod ->
+              analytics.sendPaymentConfirmationEvent(
+                  paymentMethod.packageName,
+                  paymentMethod.skuDetails,
+                  paymentMethod.value,
+                  paymentMethod.purchaseDetails,
+                  paymentMethod.transactionType,
+                  BillingAnalytics.ACTION_CANCEL)
+            }
+            .observeOn(viewScheduler)
+            .doOnNext { view.showPaymentMethodsView() }
+            .subscribe({}, { showError(it) }))
   }
 
   private fun handleAuthenticationResult() {
-    disposables.add(view.onAuthenticationResult()
-      .observeOn(viewScheduler)
-      .doOnNext {
-        if (!it || cachedSelectedPaymentId == null) {
-          view.hideLoading()
-        } else {
-          navigateToPayment(cachedSelectedPaymentId!!)
-        }
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .onAuthenticationResult()
+            .observeOn(viewScheduler)
+            .doOnNext {
+              if (!it || cachedSelectedPaymentId == null) {
+                view.hideLoading()
+              } else {
+                navigateToPayment(cachedSelectedPaymentId!!)
+              }
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun navigateToPayment(selectedPaymentId: String) {
     when (paymentMethodsMapper.map(selectedPaymentId)) {
-      PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment(
-        transactionBuilder
-      )
-      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment(
-        transactionBuilder
-      )
+      PaymentMethodsView.SelectedPaymentMethod.APPC ->
+          view.navigateToAppcPayment(transactionBuilder)
+      PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS ->
+          view.navigateToCreditsPayment(transactionBuilder)
       else -> {
         view.showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -170,35 +173,41 @@ class MergedAppcoinsPresenter(
   }
 
   private fun handleBuyClick() {
-    disposables.add(view.buyClick()
-      .observeOn(networkScheduler)
-      .doOnNext { paymentMethod ->
-        analytics.sendPaymentConfirmationEvent(
-          paymentMethod.packageName,
-          paymentMethod.skuDetails, paymentMethod.value, paymentMethod.purchaseDetails,
-          paymentMethod.transactionType, BillingAnalytics.ACTION_BUY
-        )
-      }
-      .observeOn(viewScheduler)
-      .doOnNext { view.showLoading() }
-      .flatMapSingle { paymentMethod ->
-        mergedAppcoinsInteractor.isWalletBlocked()
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            if (mergedAppcoinsInteractor.hasAuthenticationPermission()) {
-              cachedSelectedPaymentId = map(paymentMethod.purchaseDetails)
-              view.showAuthenticationActivity()
-            } else {
-              handleBuyClickSelection(paymentMethod.purchaseDetails)
+    disposables.add(
+        view
+            .buyClick()
+            .observeOn(networkScheduler)
+            .doOnNext { paymentMethod ->
+              analytics.sendPaymentConfirmationEvent(
+                  paymentMethod.packageName,
+                  paymentMethod.skuDetails,
+                  paymentMethod.value,
+                  paymentMethod.purchaseDetails,
+                  paymentMethod.transactionType,
+                  BillingAnalytics.ACTION_BUY)
             }
-          }
-      }
-      .subscribe({}, {
-        view.hideLoading()
-        showError(it)
-      })
-    )
+            .observeOn(viewScheduler)
+            .doOnNext { view.showLoading() }
+            .flatMapSingle { paymentMethod ->
+              mergedAppcoinsInteractor
+                  .isWalletBlocked()
+                  .subscribeOn(networkScheduler)
+                  .observeOn(viewScheduler)
+                  .doOnSuccess {
+                    if (mergedAppcoinsInteractor.hasAuthenticationPermission()) {
+                      cachedSelectedPaymentId = map(paymentMethod.purchaseDetails)
+                      view.showAuthenticationActivity()
+                    } else {
+                      handleBuyClickSelection(paymentMethod.purchaseDetails)
+                    }
+                  }
+            }
+            .subscribe(
+                {},
+                {
+                  view.hideLoading()
+                  showError(it)
+                }))
   }
 
   private fun map(purchaseDetails: String): String {
@@ -208,40 +217,47 @@ class MergedAppcoinsPresenter(
   }
 
   private fun handleSupportClicks() {
-    disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { mergedAppcoinsInteractor.showSupport(gamificationLevel) }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .flatMapCompletable { mergedAppcoinsInteractor.showSupport(gamificationLevel) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleErrorDismiss() {
-    disposables.add(view.errorDismisses()
-      .observeOn(viewScheduler)
-      .doOnNext { navigator.popViewWithError() }
-      .subscribe({}, {
-        it.printStackTrace()
-        navigator.popViewWithError()
-      })
-    )
+    disposables.add(
+        view
+            .errorDismisses()
+            .observeOn(viewScheduler)
+            .doOnNext { navigator.popViewWithError() }
+            .subscribe(
+                {},
+                {
+                  it.printStackTrace()
+                  navigator.popViewWithError()
+                }))
   }
 
   private fun handleErrorTryAgain() {
-    disposables.add(view.errorTryAgain()
-      .observeOn(viewScheduler)
-      .doOnNext { navigator.popViewWithError() }
-      .subscribe({}, {
-        it.printStackTrace()
-        navigator.popViewWithError()
-      })
-    )
+    disposables.add(
+        view
+            .errorTryAgain()
+            .observeOn(viewScheduler)
+            .doOnNext { navigator.popViewWithError() }
+            .subscribe(
+                {},
+                {
+                  it.printStackTrace()
+                  navigator.popViewWithError()
+                }))
   }
 
   private fun handlePaymentSelectionChange() {
-    disposables.add(view.getPaymentSelection()
-      .doOnNext { handleSelection(it) }
-      .subscribe({}, { showError(it) })
-    )
+    disposables.add(
+        view
+            .getPaymentSelection()
+            .doOnNext { handleSelection(it) }
+            .subscribe({}, { showError(it) }))
   }
 
   private fun showError(t: Throwable) {
@@ -265,8 +281,9 @@ class MergedAppcoinsPresenter(
     when (selection) {
       APPC -> {
         view.hideVolatilityInfo()
-        view.showBonus(R.string.subscriptions_bonus_body.takeIf { isSubscription }
-          ?: R.string.gamification_purchase_body)
+        view.showBonus(
+            R.string.subscriptions_bonus_body.takeIf { isSubscription }
+                ?: R.string.gamification_purchase_body)
       }
       CREDITS -> {
         view.hideBonus()

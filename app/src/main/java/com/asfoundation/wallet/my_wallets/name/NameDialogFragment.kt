@@ -9,43 +9,43 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsNameBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NameDialogFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<NameDialogState, NameDialogSideEffect> {
+class NameDialogFragment :
+    BottomSheetDialogFragment(), SingleStateFragment<NameDialogState, NameDialogSideEffect> {
 
-  @Inject
-  lateinit var navigator: NameDialogNavigator
+  @Inject lateinit var navigator: NameDialogNavigator
 
   private val viewModel: NameDialogViewModel by viewModels()
   private val views by viewBinding(FragmentMyWalletsNameBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentMyWalletsNameBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    views.nameInput.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+    views.nameInput.addTextChangedListener(
+        object : TextWatcher {
+          override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+              Unit
 
-      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+          override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
-      override fun afterTextChanged(s: Editable?) = (s.isNullOrEmpty().not()).let {
-        views.save.isEnabled = it
-      }
-    })
+          override fun afterTextChanged(s: Editable?) =
+              (s.isNullOrEmpty().not()).let { views.save.isEnabled = it }
+        })
   }
 
   override fun onStart() {

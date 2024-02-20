@@ -3,58 +3,48 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class OemIdPreferencesDataSource @Inject constructor(
-  private val sharedPreferences: SharedPreferences,
+class OemIdPreferencesDataSource
+@Inject
+constructor(
+    private val sharedPreferences: SharedPreferences,
 ) {
   fun putOemIdCache(key: String?, value: String?) =
-    sharedPreferences.edit()
-      .putString(key, value)
-      .apply()
+      sharedPreferences.edit().putString(key, value).apply()
 
   fun getOemIdCache(key: String?) = sharedPreferences.getString(key, "")
 
   fun setCurrentOemId(value: String?) =
-    sharedPreferences.edit()
-      .putString(CURRENT_OEMID, value)
-      .apply()
+      sharedPreferences.edit().putString(CURRENT_OEMID, value).apply()
 
-  fun getGamesHubOemIdIndicative() = sharedPreferences.getString(GAMES_HUB_INSTALLED_OEMID, "") ?: ""
+  fun getGamesHubOemIdIndicative() =
+      sharedPreferences.getString(GAMES_HUB_INSTALLED_OEMID, "") ?: ""
+
   fun setGamesHubOemIdIndicative(value: String?) =
-    sharedPreferences.edit()
-      .putString(GAMES_HUB_INSTALLED_OEMID, value)
-      .apply()
+      sharedPreferences.edit().putString(GAMES_HUB_INSTALLED_OEMID, value).apply()
 
   fun getCurrentOemId() = sharedPreferences.getString(CURRENT_OEMID, "") ?: ""
+
   fun setIsGameFromGameshub(value: Boolean) =
-    sharedPreferences.edit()
-      .putBoolean(IS_GAME_FROM_GAMESHUB_KEY, value)
-      .apply()
+      sharedPreferences.edit().putBoolean(IS_GAME_FROM_GAMESHUB_KEY, value).apply()
 
   fun getIsGameFromGameshub() = sharedPreferences.getBoolean(IS_GAME_FROM_GAMESHUB_KEY, false)
 
   fun setOemIdForPackage(packageName: String, oemid: String) =
-    sharedPreferences.edit()
-      .putString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", oemid)
-      .apply()
+      sharedPreferences.edit().putString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", oemid).apply()
 
   fun getOemIdForPackage(packageName: String) =
-    sharedPreferences.getString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", "") ?: ""
+      sharedPreferences.getString("${CLIENT_SIDE_CACHED_OEMID}${packageName}", "") ?: ""
 
   fun setPackageListClientSide(packages: List<String>) =
-    sharedPreferences.edit()
-      .putStringSet(PACKAGES_CLIENT_SIDE, packages.toSet())
-      .apply()
+      sharedPreferences.edit().putStringSet(PACKAGES_CLIENT_SIDE, packages.toSet()).apply()
 
   fun getPackageListClientSide() =
-    sharedPreferences.getStringSet(PACKAGES_CLIENT_SIDE, setOf<String>())?.toList() ?: listOf()
+      sharedPreferences.getStringSet(PACKAGES_CLIENT_SIDE, setOf<String>())?.toList() ?: listOf()
 
   fun setLastTimePackagesForCaching(lastTime: Long) =
-    sharedPreferences.edit()
-      .putLong(LAST_TIMESTAMP_PACKAGES, lastTime)
-      .apply()
+      sharedPreferences.edit().putLong(LAST_TIMESTAMP_PACKAGES, lastTime).apply()
 
-  fun getLastTimePackagesForCaching() =
-    sharedPreferences.getLong(LAST_TIMESTAMP_PACKAGES, 0L)
+  fun getLastTimePackagesForCaching() = sharedPreferences.getLong(LAST_TIMESTAMP_PACKAGES, 0L)
 
   companion object {
     private const val CURRENT_OEMID = "current_oemid"

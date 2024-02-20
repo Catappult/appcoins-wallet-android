@@ -7,18 +7,18 @@ import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class SubscriptionSuccessNavigator @Inject constructor(
-  private val fragmentManager: FragmentManager,
-  private val fragment: Fragment
-) {
+class SubscriptionSuccessNavigator
+@Inject
+constructor(private val fragmentManager: FragmentManager, private val fragment: Fragment) {
 
   fun navigateToSubscriptionList() {
     for (i in 0 until fragmentManager.backStackEntryCount) fragmentManager.popBackStack()
     dismissCurrentBottomSheet()
-    fragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, SubscriptionListFragment.newInstance(true))
-      .addToBackStack(SubscriptionListFragment::class.java.simpleName)
-      .commit()
+    fragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_container, SubscriptionListFragment.newInstance(true))
+        .addToBackStack(SubscriptionListFragment::class.java.simpleName)
+        .commit()
   }
 
   private fun dismissCurrentBottomSheet() = (fragment as BottomSheetDialogFragment).dismiss()

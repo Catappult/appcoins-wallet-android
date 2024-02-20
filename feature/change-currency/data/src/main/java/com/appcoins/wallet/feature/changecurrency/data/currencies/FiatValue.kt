@@ -8,10 +8,11 @@ data class FiatValue(val amount: BigDecimal, val currency: String, val symbol: S
 
   constructor() : this(BigDecimal.ZERO, "", "")
 
-  override fun equals(other: Any?) = other is FiatValue
-      && other.amount.compareTo(this.amount) == 0
-      && other.currency == this.currency
-      && other.symbol == this.symbol
+  override fun equals(other: Any?) =
+      other is FiatValue &&
+          other.amount.compareTo(this.amount) == 0 &&
+          other.currency == this.currency &&
+          other.symbol == this.symbol
 
   override fun hashCode(): Int {
     var result = amount.hashCode()

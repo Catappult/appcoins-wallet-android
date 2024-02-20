@@ -13,20 +13,26 @@ import io.reactivex.disposables.CompositeDisposable
 class EtherTransactionBottomSheetModule {
 
   @Provides
-  fun providesEtherTransactionBottomSheetPresenter(fragment: Fragment,
-                                                   navigator: EtherTransactionBottomSheetNavigator,
-                                                   data: EtherTransactionBottomSheetData): EtherTransactionBottomSheetPresenter {
-    return EtherTransactionBottomSheetPresenter(fragment as EtherTransactionBottomSheetView,
-        navigator, CompositeDisposable(), AndroidSchedulers.mainThread(), data)
+  fun providesEtherTransactionBottomSheetPresenter(
+      fragment: Fragment,
+      navigator: EtherTransactionBottomSheetNavigator,
+      data: EtherTransactionBottomSheetData
+  ): EtherTransactionBottomSheetPresenter {
+    return EtherTransactionBottomSheetPresenter(
+        fragment as EtherTransactionBottomSheetView,
+        navigator,
+        CompositeDisposable(),
+        AndroidSchedulers.mainThread(),
+        data)
   }
 
   @Provides
   fun providesEtherTransactionsBottomSheetData(
-      fragment: Fragment): EtherTransactionBottomSheetData {
-    fragment.requireArguments()
-        .apply {
-          return EtherTransactionBottomSheetData(
-              getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
-        }
+      fragment: Fragment
+  ): EtherTransactionBottomSheetData {
+    fragment.requireArguments().apply {
+      return EtherTransactionBottomSheetData(
+          getString(EtherTransactionBottomSheetFragment.TRANSACTION_KEY) as String)
+    }
   }
 }

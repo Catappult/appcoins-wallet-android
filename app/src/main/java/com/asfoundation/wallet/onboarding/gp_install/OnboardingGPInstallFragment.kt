@@ -15,23 +15,23 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class OnboardingGPInstallFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
+class OnboardingGPInstallFragment :
+    BasePageViewFragment(),
+    SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
 
   private val views by viewBinding(OnboardingGpInstallFragmentBinding::bind)
 
   private val viewModel: OnboardingGPInstallViewModel by viewModels()
 
-  @Inject
-  lateinit var navigator: OnboardingGPInstallNavigator
+  @Inject lateinit var navigator: OnboardingGPInstallNavigator
 
-  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-    override fun handleOnBackPressed() {
-      activity?.finishAffinity()
-    }
-  }
+  private val onBackPressedCallback =
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          activity?.finishAffinity()
+        }
+      }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -39,20 +39,17 @@ class OnboardingGPInstallFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = OnboardingGpInstallFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.handleLoadIcon()
 
-    views.onboardingIapBackToGameButton.setOnClickListener {
-      viewModel.handleBackToGameClick()
-    }
-    views.onboardingExploreWalletButton.setOnClickListener {
-      viewModel.handleExploreWalletClick()
-    }
+    views.onboardingIapBackToGameButton.setOnClickListener { viewModel.handleBackToGameClick() }
+    views.onboardingExploreWalletButton.setOnClickListener { viewModel.handleExploreWalletClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -64,9 +61,11 @@ class OnboardingGPInstallFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingGPInstallSideEffect) {
     when (sideEffect) {
-      is OnboardingGPInstallSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
+      is OnboardingGPInstallSideEffect.NavigateBackToGame ->
+          navigator.navigateBackToGame(sideEffect.appPackageName)
       OnboardingGPInstallSideEffect.NavigateToExploreWallet -> views.root.visibility = View.GONE
-      is OnboardingGPInstallSideEffect.LoadPackageNameIcon -> loadPackageNameIcon(sideEffect.appPackageName)
+      is OnboardingGPInstallSideEffect.LoadPackageNameIcon ->
+          loadPackageNameIcon(sideEffect.appPackageName)
     }
   }
 
@@ -79,4 +78,3 @@ class OnboardingGPInstallFragment : BasePageViewFragment(),
     }
   }
 }
-

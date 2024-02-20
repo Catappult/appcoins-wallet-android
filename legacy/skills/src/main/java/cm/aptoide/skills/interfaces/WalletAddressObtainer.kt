@@ -6,5 +6,6 @@ import io.reactivex.Single
 
 interface WalletAddressObtainer {
   fun getWalletAddress(): Single<WalletAddress>
+
   fun getOrCreateWallet(): Observable<String>
 }

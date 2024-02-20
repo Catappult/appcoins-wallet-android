@@ -25,13 +25,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupEntryChooseWalletBottomSheetFragment :
-  BackupEntryChooseWalletBottomSheetView, BottomSheetDialogFragment(), Navigator {
+    BackupEntryChooseWalletBottomSheetView, BottomSheetDialogFragment(), Navigator {
 
-  @Inject
-  lateinit var currencyFormatter: CurrencyFormatUtils
+  @Inject lateinit var currencyFormatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var presenter: BackupEntryChooseWalletBottomSheetPresenter
+  @Inject lateinit var presenter: BackupEntryChooseWalletBottomSheetPresenter
 
   private var uiEventListener: PublishSubject<String>? = null
 
@@ -48,18 +46,20 @@ class BackupEntryChooseWalletBottomSheetFragment :
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = SettingsWalletBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    val arguments = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      requireArguments().getSerializable(WALLET_MODEL_KEY, WalletsModel::class.java) as WalletsModel
-    } else {
-      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel
-    }
+    val arguments =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+          requireArguments().getSerializable(WALLET_MODEL_KEY, WalletsModel::class.java)
+              as WalletsModel
+        } else {
+          requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel
+        }
     presenter.present(arguments, navController())
   }
 
@@ -86,11 +86,11 @@ class BackupEntryChooseWalletBottomSheetFragment :
   override fun walletCardClicked() = uiEventListener!!
 
   private fun provideParentFragment(): BackupEntryChooseWalletView? =
-    if (parentFragment !is BackupEntryChooseWalletView) {
-      null
-    } else {
-      parentFragment as BackupEntryChooseWalletView
-    }
+      if (parentFragment !is BackupEntryChooseWalletView) {
+        null
+      } else {
+        parentFragment as BackupEntryChooseWalletView
+      }
 
   override fun onDestroyView() {
     super.onDestroyView()
@@ -99,9 +99,9 @@ class BackupEntryChooseWalletBottomSheetFragment :
 
   private fun navController(): NavController {
     val navHostFragment =
-      requireActivity()
-        .supportFragmentManager
-        .findFragmentById(com.asf.wallet.R.id.main_host_container) as NavHostFragment
+        requireActivity()
+            .supportFragmentManager
+            .findFragmentById(com.asf.wallet.R.id.main_host_container) as NavHostFragment
     return navHostFragment.navController
   }
 }

@@ -5,6 +5,5 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface IpApi {
-  @GET("appc/countrycode")
-  fun myIp(): Single<IpResponse?>?
+  @GET("appc/countrycode") fun myIp(): Single<IpResponse?>?
 }

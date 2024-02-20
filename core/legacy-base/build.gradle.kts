@@ -1,12 +1,8 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.core.legacy_base"
-}
+android { namespace = "com.appcoins.wallet.core.legacy_base" }
 
-dependencies{
+dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:analytics"))
   implementation(project(":core:utils:android-common"))
@@ -14,5 +10,4 @@ dependencies{
   implementation(libs.androidx.navigation.ui)
   implementation(libs.bundles.result)
   implementation(libs.network.retrofit)
-
 }

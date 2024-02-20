@@ -21,11 +21,9 @@ import java.math.BigDecimal
 @EpoxyModelClass
 abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.WalletInfoHolder>() {
 
-  @EpoxyAttribute
-  lateinit var balanceAsync: Async<GlobalBalance>
+  @EpoxyAttribute lateinit var balanceAsync: Async<GlobalBalance>
 
-  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-  lateinit var formatter: CurrencyFormatUtils
+  @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash) lateinit var formatter: CurrencyFormatUtils
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((HomeListClick) -> Unit)? = null
@@ -57,7 +55,7 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
   private fun WalletInfoHolder.setWalletBalance(globalBalance: GlobalBalance) {
     val creditsBalanceFiat = globalBalance.walletBalance.creditsOnlyFiat
     val creditsBalanceFiatAmount =
-      formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+        formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
     if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()) {
       balanceSkeleton.visibility = View.INVISIBLE
       balance.visibility = View.VISIBLE

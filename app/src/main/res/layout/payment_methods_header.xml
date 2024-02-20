@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp"
     android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     >
 
   <ImageView
@@ -72,10 +72,10 @@
         android:textColor="@color/styleguide_payments_main_text"
         android:textSize="15sp"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="0,99 EUR"
         tools:visibility="visible"
         />
@@ -85,12 +85,12 @@
         android:layout_width="16dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_info_message"
         android:tooltipText="@string/purchase_fee_supported_currency_unknown_disclaimer"
         app:layout_constraintBottom_toBottomOf="@id/info_fees"
         app:layout_constraintEnd_toStartOf="@id/info_fees"
         app:layout_constraintTop_toTopOf="@id/info_fees"
-        android:importantForAccessibility="no"
         tools:ignore="UnusedAttribute"
         />
 
@@ -98,11 +98,11 @@
         android:id="@+id/info_fees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/purchase_fee_included_body"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="11sp"
         android:textStyle="bold"
-        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
@@ -140,9 +140,9 @@
         layout="@layout/skeleton_rounded_rectangle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/ic_info_fees"
         app:layout_constraintBottom_toBottomOf="@id/info_fees"
         app:layout_constraintEnd_toEndOf="@id/info_fees"
+        app:layout_constraintStart_toStartOf="@id/ic_info_fees"
         app:layout_constraintTop_toTopOf="@id/info_fees"
         tools:visibility="visible"
         />
@@ -151,12 +151,11 @@
         android:id="@+id/info_fees_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="info_fees, ic_info_fees"
         android:visibility="invisible"
+        app:constraint_referenced_ids="info_fees, ic_info_fees"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

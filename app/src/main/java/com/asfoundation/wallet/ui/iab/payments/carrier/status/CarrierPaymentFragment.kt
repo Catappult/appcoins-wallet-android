@@ -22,17 +22,18 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var presenter: CarrierPaymentPresenter
+  @Inject lateinit var presenter: CarrierPaymentPresenter
   lateinit var iabView: IabView
 
   private val views by lazy { FragmentCarrierPaymentStatusBinding.bind(requireView()) }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -43,7 +44,6 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   private fun setupUi() {
     iabView.disableBack()
     lockRotation()
-
   }
 
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
@@ -52,22 +52,25 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
           R.raw.transaction_complete_bonus_animation_new)
       val textDelegate = TextDelegate(views.completePaymentView.lottieTransactionSuccess)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
-      textDelegate.setText("bonus_received",
+      textDelegate.setText(
+          "bonus_received",
           resources.getString(R.string.gamification_purchase_completed_bonus_received))
       views.completePaymentView.lottieTransactionSuccess.setTextDelegate(textDelegate)
-      views.completePaymentView.lottieTransactionSuccess.setFontAssetDelegate(object :
-          FontAssetDelegate() {
-        override fun fetchFont(fontFamily: String?) =
-            Typeface.create("sans-serif-medium", Typeface.BOLD)
-      })
+      views.completePaymentView.lottieTransactionSuccess.setFontAssetDelegate(
+          object : FontAssetDelegate() {
+            override fun fetchFont(fontFamily: String?) =
+                Typeface.create("sans-serif-medium", Typeface.BOLD)
+          })
     } else {
       views.completePaymentView.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
   }
 
   private fun getBonusMessage(bonusValue: BigDecimal, currency: String): String {
-    var scaledBonus = bonusValue.stripTrailingZeros()
-        .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+    var scaledBonus =
+        bonusValue
+            .stripTrailingZeros()
+            .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
     var newCurrencyString = currency
     if (scaledBonus < BigDecimal("0.01")) {
       newCurrencyString = "~$currency"
@@ -125,22 +128,30 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
     internal const val PHONE_NUMBER_KEY = "phone_number"
 
     @JvmStatic
-    fun newInstance(domain: String, transactionData: String,
-                    transactionType: String, skuId: String?, paymentUrl: String,
-                    appcAmount: BigDecimal, currency: String, bonus: BigDecimal?,
-                    phoneNumber: String): CarrierPaymentFragment {
+    fun newInstance(
+        domain: String,
+        transactionData: String,
+        transactionType: String,
+        skuId: String?,
+        paymentUrl: String,
+        appcAmount: BigDecimal,
+        currency: String,
+        bonus: BigDecimal?,
+        phoneNumber: String
+    ): CarrierPaymentFragment {
       val fragment = CarrierPaymentFragment()
-      fragment.arguments = Bundle().apply {
-        putString(DOMAIN_KEY, domain)
-        putString(TRANSACTION_DATA_KEY, transactionData)
-        putString(TRANSACTION_TYPE_KEY, transactionType)
-        putString(SKU_ID_KEY, skuId)
-        putSerializable(APPC_AMOUNT_KEY, appcAmount)
-        putString(PAYMENT_URL, paymentUrl)
-        putString(CURRENCY_KEY, currency)
-        putSerializable(BONUS_AMOUNT_KEY, bonus)
-        putString(PHONE_NUMBER_KEY, phoneNumber)
-      }
+      fragment.arguments =
+          Bundle().apply {
+            putString(DOMAIN_KEY, domain)
+            putString(TRANSACTION_DATA_KEY, transactionData)
+            putString(TRANSACTION_TYPE_KEY, transactionType)
+            putString(SKU_ID_KEY, skuId)
+            putSerializable(APPC_AMOUNT_KEY, appcAmount)
+            putString(PAYMENT_URL, paymentUrl)
+            putString(CURRENCY_KEY, currency)
+            putSerializable(BONUS_AMOUNT_KEY, bonus)
+            putString(PHONE_NUMBER_KEY, phoneNumber)
+          }
       return fragment
     }
   }

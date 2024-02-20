@@ -3,37 +3,57 @@ package com.appcoins.wallet.appcoins.rewards.repository
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import io.reactivex.Single
-import retrofit2.HttpException
 import java.math.BigDecimal
+import retrofit2.HttpException
 
 class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepository) :
-  AppcoinsRewardsRepository {
+    AppcoinsRewardsRepository {
   override fun sendCredits(
-    toAddress: String, walletAddress: String, signature: String,
-    amount: BigDecimal,
-    origin: String, type: String,
-    packageName: String
+      toAddress: String,
+      walletAddress: String,
+      signature: String,
+      amount: BigDecimal,
+      origin: String,
+      type: String,
+      packageName: String
   ): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
-    return remoteRepository.sendCredits(
-      toAddress, walletAddress, signature, amount, origin, type,
-      packageName
-    )
-      .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
-      .onErrorReturn { Pair(map(it), Transaction.notFound()) }
+    return remoteRepository
+        .sendCredits(toAddress, walletAddress, signature, amount, origin, type, packageName)
+        .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
+        .onErrorReturn { Pair(map(it), Transaction.notFound()) }
   }
 
   override fun pay(
-    walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
-    sku: String?, type: String, entityOemId: String?,
-    entityDomain: String?, packageName: String, payload: String?, callback: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?
-  )
-      : Single<Transaction> {
+      walletAddress: String,
+      signature: String,
+      amount: BigDecimal,
+      origin: String?,
+      sku: String?,
+      type: String,
+      entityOemId: String?,
+      entityDomain: String?,
+      packageName: String,
+      payload: String?,
+      callback: String?,
+      orderReference: String?,
+      referrerUrl: String?,
+      productToken: String?
+  ): Single<Transaction> {
     return remoteRepository.pay(
-      walletAddress, signature, amount, origin, sku,
-      type, entityOemId, entityDomain, packageName, payload, callback,
-      orderReference, referrerUrl, productToken
-    )
+        walletAddress,
+        signature,
+        amount,
+        origin,
+        sku,
+        type,
+        entityOemId,
+        entityDomain,
+        packageName,
+        payload,
+        callback,
+        orderReference,
+        referrerUrl,
+        productToken)
   }
 
   private fun map(throwable: Throwable): AppcoinsRewardsRepository.Status {

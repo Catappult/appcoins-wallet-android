@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
@@ -7,15 +8,16 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import javax.inject.Inject
+
 @BoundTo(supertype = TransactionsRepository::class)
-class TransactionsLocalRepository @Inject constructor(
-  private val transactionsDao: TransactionsDao,
-  private val sharedPreferences: TransactionsPreferencesDataSource,
-  private val transactionLinkIdDao: TransactionLinkIdDao
-) :
-    TransactionsRepository {
+class TransactionsLocalRepository
+@Inject
+constructor(
+    private val transactionsDao: TransactionsDao,
+    private val sharedPreferences: TransactionsPreferencesDataSource,
+    private val transactionLinkIdDao: TransactionLinkIdDao
+) : TransactionsRepository {
 
   override fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>> {
     return transactionsDao.getAllAsFlowable(relatedWallet)
@@ -29,14 +31,12 @@ class TransactionsLocalRepository @Inject constructor(
     return transactionsDao.insertLastUpdatedWallet(LastUpdatedWalletEntity(wallet, timestamp))
   }
 
-
   override fun insertAll(roomTransactions: List<TransactionEntity>) {
     return transactionsDao.insertAll(roomTransactions)
   }
 
   override fun getNewestTransaction(relatedWallet: String): Maybe<TransactionEntity> {
     return transactionsDao.getNewestTransaction(relatedWallet)
-
   }
 
   override fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity> {
@@ -65,17 +65,18 @@ class TransactionsLocalRepository @Inject constructor(
   }
 
   override fun getRevertedTransaction(wallet: String, txId: String): Single<TransactionEntity> {
-    return transactionLinkIdDao.getRevertedTransaction(txId)
-        .flatMap { link -> transactionsDao.getById(wallet, link.linkTransactionId) }
+    return transactionLinkIdDao.getRevertedTransaction(txId).flatMap { link ->
+      transactionsDao.getById(wallet, link.linkTransactionId)
+    }
   }
 
   override fun getRevertTransaction(wallet: String, txId: String): Single<TransactionEntity> {
-    return transactionLinkIdDao.getRevertTransaction(txId)
-        .flatMap { link -> transactionsDao.getById(wallet, link.transactionId) }
+    return transactionLinkIdDao.getRevertTransaction(txId).flatMap { link ->
+      transactionsDao.getById(wallet, link.transactionId)
+    }
   }
 
   override fun getRevertedTxId(wallet: String, txId: String): Single<String> {
-    return transactionLinkIdDao.getRevertedTransaction(txId)
-        .map { it.linkTransactionId }
+    return transactionLinkIdDao.getRevertedTransaction(txId).map { it.linkTransactionId }
   }
 }

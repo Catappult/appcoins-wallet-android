@@ -7,17 +7,21 @@ import cm.aptoide.skills.model.TimeFrame
 import java.security.InvalidParameterException
 
 internal class RankingsPagerAdapter(
-  fragment: Fragment,
-  private val walletAddress: String,
-  private val packageName: String,
-  private val sku: String,
-  private val supportsRewards: Boolean,
+    fragment: Fragment,
+    private val walletAddress: String,
+    private val packageName: String,
+    private val sku: String,
+    private val supportsRewards: Boolean,
 ) : FragmentStateAdapter(fragment) {
   override fun getItemCount(): Int = 3
 
   override fun createFragment(position: Int): Fragment {
     return RankingsContentFragment.newInstance(
-      walletAddress, packageName, sku, getTimeFrame(position), supportsRewards,
+        walletAddress,
+        packageName,
+        sku,
+        getTimeFrame(position),
+        supportsRewards,
     )
   }
 

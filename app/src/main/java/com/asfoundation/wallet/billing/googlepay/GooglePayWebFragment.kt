@@ -2,13 +2,11 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.animation.Animator
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
@@ -22,22 +20,23 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
-import java.math.BigDecimal
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class GooglePayWebFragment() : BasePageViewFragment() {
 
-  @Inject
-  lateinit var navigator: GooglePayWebNavigator
+  @Inject lateinit var navigator: GooglePayWebNavigator
 
   private val viewModel: GooglePayWebViewModel by viewModels()
 
   private var binding: FragmentGooglePayWebBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   private lateinit var compositeDisposable: CompositeDisposable
 
   private var successBundle: Bundle? = null
@@ -46,7 +45,9 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   var navigatorIAB: Navigator? = null
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentGooglePayWebBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -102,30 +103,28 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
   private fun startPayment() {
     viewModel.startPayment(
-      amount = amount,
-      currency = currency,
-      transactionBuilder = transactionBuilder,
-      origin = origin
-    )
+        amount = amount,
+        currency = currency,
+        transactionBuilder = transactionBuilder,
+        origin = origin)
   }
 
   private fun setListeners() {
-    views.googlePayWebErrorButtons.errorBack.setOnClickListener {
-      iabView.showPaymentMethodsView()
-    }
-    views.googlePayWebErrorButtons.errorCancel.setOnClickListener {
-      close()
-    }
+    views.googlePayWebErrorButtons.errorBack.setOnClickListener { iabView.showPaymentMethodsView() }
+    views.googlePayWebErrorButtons.errorCancel.setOnClickListener { close() }
     views.googlePayWebErrorButtons.errorTryAgain.setOnClickListener {
       iabView.showPaymentMethodsView()
     }
-    views.successContainer.lottieTransactionSuccess.addAnimatorListener(object :
-      Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator) = Unit
-      override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
-      override fun onAnimationCancel(animation: Animator) = Unit
-      override fun onAnimationStart(animation: Animator) = Unit
-    })
+    views.successContainer.lottieTransactionSuccess.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationRepeat(animation: Animator) = Unit
+
+          override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+
+          override fun onAnimationCancel(animation: Animator) = Unit
+
+          override fun onAnimationStart(animation: Animator) = Unit
+        })
     views.googlePayWebErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -155,7 +154,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-
   }
 
   private fun showSpecificError(@StringRes stringRes: Int) {
@@ -171,7 +169,7 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
       views.successContainer.transactionSuccessBonusText.text =
-        getString(R.string.purchase_success_bonus_received_title, bonus)
+          getString(R.string.purchase_success_bonus_received_title, bonus)
       views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
       views.successContainer.bonusSuccessLayout.visibility = View.GONE
@@ -226,7 +224,6 @@ class GooglePayWebFragment() : BasePageViewFragment() {
     }
   }
 
-
   companion object {
 
     private const val PAYMENT_TYPE_KEY = "payment_type"
@@ -245,35 +242,35 @@ class GooglePayWebFragment() : BasePageViewFragment() {
 
     @JvmStatic
     fun newInstance(
-      paymentType: PaymentType,
-      origin: String?,
-      transactionBuilder: TransactionBuilder,
-      amount: BigDecimal,
-      currency: String?,
-      bonus: String?,
-      isPreSelected: Boolean,
-      gamificationLevel: Int,
-      skuDescription: String,
-      isSubscription: Boolean,
-      isSkills: Boolean,
-      frequency: String?,
-    ): GooglePayWebFragment = GooglePayWebFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(ORIGIN_KEY, origin)
-        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putBoolean(PRE_SELECTED_KEY, isPreSelected)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putBoolean(IS_SKILLS, isSkills)
-        putString(FREQUENCY, frequency)
-      }
-    }
-
+        paymentType: PaymentType,
+        origin: String?,
+        transactionBuilder: TransactionBuilder,
+        amount: BigDecimal,
+        currency: String?,
+        bonus: String?,
+        isPreSelected: Boolean,
+        gamificationLevel: Int,
+        skuDescription: String,
+        isSubscription: Boolean,
+        isSkills: Boolean,
+        frequency: String?,
+    ): GooglePayWebFragment =
+        GooglePayWebFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(PAYMENT_TYPE_KEY, paymentType.name)
+                putString(ORIGIN_KEY, origin)
+                putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
+                putSerializable(AMOUNT_KEY, amount)
+                putString(CURRENCY_KEY, currency)
+                putString(BONUS_KEY, bonus)
+                putBoolean(PRE_SELECTED_KEY, isPreSelected)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+                putString(SKU_DESCRIPTION, skuDescription)
+                putBoolean(IS_SUBSCRIPTION, isSubscription)
+                putBoolean(IS_SKILLS, isSkills)
+                putString(FREQUENCY, frequency)
+              }
+        }
   }
-
 }

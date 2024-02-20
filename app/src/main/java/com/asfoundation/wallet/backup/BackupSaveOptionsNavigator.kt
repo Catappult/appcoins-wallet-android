@@ -10,21 +10,19 @@ import com.asfoundation.wallet.backup.bottomSheet.BackupSaveOnDeviceBottomSheetF
 import javax.inject.Inject
 
 class BackupSaveOptionsNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
   fun showWalletSuccessScreen() {
     val bundle = Bundle()
     bundle.putBoolean(SAVE_PLACE_KEY, false)
     navigate(
-      navController,
-      BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToSuccessScreen(false)
-    )
+        navController,
+        BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToSuccessScreen(false))
   }
 
   fun showErrorScreen() {
     navigate(
-      navController,
-      BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToErrorScreen()
-    )
+        navController,
+        BackupSaveOptionsComposeFragmentDirections.actionBackupOptionsToErrorScreen())
   }
 
   fun showSaveOnDeviceFragment(walletAddress: String, password: String?) {

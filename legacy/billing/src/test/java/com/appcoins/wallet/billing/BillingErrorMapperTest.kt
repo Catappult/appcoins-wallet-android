@@ -41,9 +41,9 @@ class BillingErrorMapperTest {
   fun mapErrorInfoNotAllowedTest() {
     val code = BillingErrorMapper.NOT_ALLOWED_CODE
     val text = null
-    val errorInfo =
-        mapper.mapErrorInfo(400, """{"code":"$code","text":"$text"}""")
-    Assert.assertEquals(errorInfo.toString(),
+    val errorInfo = mapper.mapErrorInfo(400, """{"code":"$code","text":"$text"}""")
+    Assert.assertEquals(
+        errorInfo.toString(),
         ErrorInfo(400, code, text, ErrorInfo.ErrorType.SUB_ALREADY_OWNED).toString())
   }
 
@@ -51,29 +51,25 @@ class BillingErrorMapperTest {
   fun mapErrorInfoSubAlreadyOwnedTest() {
     val code = BillingErrorMapper.FORBIDDEN_CODE
     val text = null
-    val errorInfo =
-        mapper.mapErrorInfo(400, """{"code":"$code","text":"$text"}""")
-    Assert.assertEquals(errorInfo.toString(),
-        ErrorInfo(400, code, text, ErrorInfo.ErrorType.BLOCKED).toString())
+    val errorInfo = mapper.mapErrorInfo(400, """{"code":"$code","text":"$text"}""")
+    Assert.assertEquals(
+        errorInfo.toString(), ErrorInfo(400, code, text, ErrorInfo.ErrorType.BLOCKED).toString())
   }
 
   @Test
   fun mapErrorInfoConflictTest() {
     val code = null
     val text = null
-    val errorInfo =
-        mapper.mapErrorInfo(409, """{"code":"$code","text":"$text"}""")
-    Assert.assertEquals(errorInfo.toString(),
-        ErrorInfo(409, code, text, ErrorInfo.ErrorType.CONFLICT).toString())
+    val errorInfo = mapper.mapErrorInfo(409, """{"code":"$code","text":"$text"}""")
+    Assert.assertEquals(
+        errorInfo.toString(), ErrorInfo(409, code, text, ErrorInfo.ErrorType.CONFLICT).toString())
   }
 
   @Test
   fun mapErrorInfoUnknownErrorTest() {
     val code = "something"
     val text = "something"
-    val errorInfo =
-        mapper.mapErrorInfo(500, """{"code":"$code","text":"$text"}""")
-    Assert.assertEquals(errorInfo,
-        ErrorInfo(500, code, text, ErrorInfo.ErrorType.UNKNOWN))
+    val errorInfo = mapper.mapErrorInfo(500, """{"code":"$code","text":"$text"}""")
+    Assert.assertEquals(errorInfo, ErrorInfo(500, code, text, ErrorInfo.ErrorType.UNKNOWN))
   }
 }

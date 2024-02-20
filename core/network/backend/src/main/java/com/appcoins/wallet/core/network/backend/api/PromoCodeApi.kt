@@ -8,6 +8,6 @@ import retrofit2.http.Path
 interface PromoCodeApi {
   @GET("gamification/perks/promo_code/{promoCodeString}/")
   fun getPromoCodeBonus(
-    @Path("promoCodeString") promoCodeString: String
+      @Path("promoCodeString") promoCodeString: String
   ): Single<PromoCodeBonusResponse>
 }

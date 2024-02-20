@@ -19,6 +19,9 @@ class TransactionDataValidator @Inject constructor() {
   }
 
   enum class DataStatus {
-    OK, INVALID_AMOUNT, INVALID_WALLET_ADDRESS, NOT_ENOUGH_FUNDS
+    OK,
+    INVALID_AMOUNT,
+    INVALID_WALLET_ADDRESS,
+    NOT_ENOUGH_FUNDS
   }
 }

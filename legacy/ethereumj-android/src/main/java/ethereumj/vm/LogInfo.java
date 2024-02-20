@@ -40,6 +40,12 @@ public class LogInfo {
     }
   }
 
+  public LogInfo(byte[] address, List<DataWord> topics, byte[] data) {
+    this.address = (address != null) ? address : new byte[] {};
+    this.topics = (topics != null) ? topics : new ArrayList<DataWord>();
+    this.data = (data != null) ? data : new byte[] {};
+  }
+
   public byte[] getAddress() {
     return address;
   }
@@ -78,12 +84,6 @@ public class LogInfo {
       ret.or(Bloom.create(HashUtil.sha3(topicData)));
     }
     return ret;
-  }
-
-  public LogInfo(byte[] address, List<DataWord> topics, byte[] data) {
-    this.address = (address != null) ? address : new byte[] {};
-    this.topics = (topics != null) ? topics : new ArrayList<DataWord>();
-    this.data = (data != null) ? data : new byte[] {};
   }
 
   @Override public String toString() {

@@ -21,7 +21,7 @@ class CarrierErrorResponseTypeAdapter : TypeAdapter<CarrierErrorResponse>() {
     var text: String? = null
     val data: ArrayList<CarrierErrorResponse.Data> = ArrayList()
 
-    reader.beginObject();
+    reader.beginObject()
 
     var fieldName: String? = null
     while (reader.hasNext()) {
@@ -44,18 +44,13 @@ class CarrierErrorResponseTypeAdapter : TypeAdapter<CarrierErrorResponse>() {
                 gson.fromJson(reader, CarrierErrorResponse.Data::class.java)
             data.add(parsed)
           } else {
-            throw JsonParseException("Unexpected token $dataPeek");
+            throw JsonParseException("Unexpected token $dataPeek")
           }
         }
       }
     }
 
-    reader.endObject();
-    return CarrierErrorResponse(
-      code,
-      path,
-      text,
-      data
-    )
+    reader.endObject()
+    return CarrierErrorResponse(code, path, text, data)
   }
 }

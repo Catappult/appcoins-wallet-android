@@ -19,31 +19,27 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 @EpoxyModelClass
 abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.PaymentMethodHolder>() {
 
-  @EpoxyAttribute
-  lateinit var paymentMethod: PaymentMethod
+  @EpoxyAttribute lateinit var paymentMethod: PaymentMethod
 
-  @EpoxyAttribute
-  lateinit var paymentMethodMapper: PaymentMethodsMapper
+  @EpoxyAttribute lateinit var paymentMethodMapper: PaymentMethodsMapper
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
 
   override fun bind(holder: PaymentMethodHolder) {
-    GlideApp
-      .with(holder.itemView.context)
-      .load(Uri.parse(paymentMethod.iconUrl))
-      .transition(DrawableTransitionOptions.withCrossFade())
-      .into(holder.methodIcon)
+    GlideApp.with(holder.itemView.context)
+        .load(Uri.parse(paymentMethod.iconUrl))
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(holder.methodIcon)
 
     holder.methodName.text = paymentMethod.label
 
-    holder.methodContainer.setOnClickListener {
-      handleMethodClick()
-    }
+    holder.methodContainer.setOnClickListener { handleMethodClick() }
   }
 
   private fun handleMethodClick() {
-    //TODO change the mapper to decouple from the PaymentMethodsView, and remove unnecessary methods
+    // TODO change the mapper to decouple from the PaymentMethodsView, and remove unnecessary
+    // methods
     when (paymentMethodMapper.map(paymentId = paymentMethod.id)) {
       PaymentMethodsView.SelectedPaymentMethod.PAYPAL -> {
         clickListener?.invoke(PaymentMethodClick.PaypalAdyenClick)

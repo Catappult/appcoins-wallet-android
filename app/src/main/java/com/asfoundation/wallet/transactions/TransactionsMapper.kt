@@ -4,7 +4,6 @@ import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asfoundation.wallet.repository.entity.OperationEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
-import java.util.*
 import javax.inject.Inject
 
 class TransactionsMapper @Inject constructor() {
@@ -26,21 +25,39 @@ class TransactionsMapper @Inject constructor() {
     val icon = TransactionDetailsEntity.Icon(TransactionDetailsEntity.Type.URL, transaction.icon)
     val details = TransactionDetailsEntity(icon, sourceName, transaction.sku)
     val currency = if (txType == TransactionEntity.TransactionType.ETHER_TRANSFER) "ETH" else "APPC"
-    return TransactionEntity(transaction.txID, wallet, null, perk, txType, method, bonusSubType,
-        transaction.title, transaction.description, transaction.ts.time,
-        transaction.processedTime.time, status, transaction.amount.toString(), currency,
-        transaction.paidAmount, transaction.paidCurrency, transaction.sender,
-        transaction.receiver, details, operations, transaction.orderReference)
+    return TransactionEntity(
+        transaction.txID,
+        wallet,
+        null,
+        perk,
+        txType,
+        method,
+        bonusSubType,
+        transaction.title,
+        transaction.description,
+        transaction.ts.time,
+        transaction.processedTime.time,
+        status,
+        transaction.amount.toString(),
+        currency,
+        transaction.paidAmount,
+        transaction.paidCurrency,
+        transaction.sender,
+        transaction.receiver,
+        details,
+        operations,
+        transaction.orderReference)
   }
 
-  private fun mapSource(txType: TransactionEntity.TransactionType,
-                        transaction: WalletHistory.Transaction): String? {
+  private fun mapSource(
+      txType: TransactionEntity.TransactionType,
+      transaction: WalletHistory.Transaction
+  ): String? {
     return if (txType == TransactionEntity.TransactionType.BONUS) {
       if (transaction.bonus == null) {
         null
       } else {
-        transaction.bonus.stripTrailingZeros()
-            .toPlainString()
+        transaction.bonus.stripTrailingZeros().toPlainString()
       }
     } else {
       transaction.app
@@ -64,7 +81,8 @@ class TransactionsMapper @Inject constructor() {
   }
 
   private fun mapTransactionType(
-      transaction: WalletHistory.Transaction): TransactionEntity.TransactionType {
+      transaction: WalletHistory.Transaction
+  ): TransactionEntity.TransactionType {
     return when (transaction.type) {
       "Transfer" -> TransactionEntity.TransactionType.TRANSFER
       "Transfer OffChain" -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
@@ -106,11 +124,12 @@ class TransactionsMapper @Inject constructor() {
   private fun mapSubtype(subType: String?): TransactionEntity.SubType? {
     var bonusSubType: TransactionEntity.SubType? = null
     if (subType != null) {
-      bonusSubType = if (subType == PERK_BONUS) {
-        TransactionEntity.SubType.PERK_PROMOTION
-      } else {
-        TransactionEntity.SubType.UNKNOWN
-      }
+      bonusSubType =
+          if (subType == PERK_BONUS) {
+            TransactionEntity.SubType.PERK_PROMOTION
+          } else {
+            TransactionEntity.SubType.UNKNOWN
+          }
     }
     return bonusSubType
   }
@@ -118,11 +137,10 @@ class TransactionsMapper @Inject constructor() {
   private fun mapOperations(operations: List<WalletHistory.Operation>): List<OperationEntity> {
     val list: MutableList<OperationEntity> = ArrayList(operations.size)
     for (operation in operations) {
-      list.add(OperationEntity(operation.transactionId,
-          operation.sender,
-          operation.receiver, operation.fee))
+      list.add(
+          OperationEntity(
+              operation.transactionId, operation.sender, operation.receiver, operation.fee))
     }
     return list
   }
-
 }

@@ -2,12 +2,12 @@ package com.asfoundation.wallet.repository
 
 import com.appcoins.wallet.appcoins.rewards.ResponseErrorBaseBody
 import com.appcoins.wallet.appcoins.rewards.getMessage
-import com.asfoundation.wallet.repository.PaymentTransaction.PaymentState
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
+import com.asfoundation.wallet.repository.PaymentTransaction.PaymentState
 import com.google.gson.Gson
-import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
+import retrofit2.HttpException
 
 class PaymentErrorMapper @Inject constructor(private val gson: Gson) {
 

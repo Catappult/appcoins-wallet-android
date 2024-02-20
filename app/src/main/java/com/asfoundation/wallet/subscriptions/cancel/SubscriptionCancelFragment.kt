@@ -29,11 +29,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCancelView {
 
-  @Inject
-  lateinit var currencyFormatUtils: CurrencyFormatUtils
+  @Inject lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  @Inject
-  lateinit var presenter: SubscriptionCancelPresenter
+  @Inject lateinit var presenter: SubscriptionCancelPresenter
 
   private val binding by viewBinding(FragmentSubscriptionCancelBinding::bind)
 
@@ -49,8 +47,9 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentSubscriptionCancelBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,38 +89,45 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
   }
 
   private fun loadImage(appIcon: String) {
-    val target = object : Target<Bitmap> {
+    val target =
+        object : Target<Bitmap> {
 
-      override fun onLoadStarted(placeholder: Drawable?) {
-        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
-        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
-      }
+          override fun onLoadStarted(placeholder: Drawable?) {
+            binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+            binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
+          }
 
-      override fun onLoadFailed(errorDrawable: Drawable?) {
-        startPostponedEnterTransition()
-        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
-        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
-      }
+          override fun onLoadFailed(errorDrawable: Drawable?) {
+            startPostponedEnterTransition()
+            binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+            binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
+          }
 
-      override fun getSize(cb: SizeReadyCallback) {
-        cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-      }
+          override fun getSize(cb: SizeReadyCallback) {
+            cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+          }
 
-      override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-        startPostponedEnterTransition()
-        binding.layoutSubscriptionInfo.appIcon.visibility = View.VISIBLE
-        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.INVISIBLE
-        binding.layoutSubscriptionInfo.appIcon.setImageBitmap(resource)
-      }
+          override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+            startPostponedEnterTransition()
+            binding.layoutSubscriptionInfo.appIcon.visibility = View.VISIBLE
+            binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.INVISIBLE
+            binding.layoutSubscriptionInfo.appIcon.setImageBitmap(resource)
+          }
 
-      override fun getRequest(): Request? = null
-      override fun setRequest(request: Request?) = Unit
-      override fun removeCallback(cb: SizeReadyCallback) = Unit
-      override fun onLoadCleared(placeholder: Drawable?) = Unit
-      override fun onStart() = Unit
-      override fun onDestroy() = Unit
-      override fun onStop() = Unit
-    }
+          override fun getRequest(): Request? = null
+
+          override fun setRequest(request: Request?) = Unit
+
+          override fun removeCallback(cb: SizeReadyCallback) = Unit
+
+          override fun onLoadCleared(placeholder: Drawable?) = Unit
+
+          override fun onStart() = Unit
+
+          override fun onDestroy() = Unit
+
+          override fun onStop() = Unit
+        }
 
     context?.let {
       GlideApp.with(it)
@@ -134,8 +140,8 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
   }
 
   override fun showNoNetworkError() {
-    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
-      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.layoutContent.visibility = View.GONE
     binding.error.visibility = View.GONE
@@ -165,15 +171,17 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
     const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
     const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem,
-                    transitionName: String): SubscriptionCancelFragment {
-      return SubscriptionCancelFragment()
-          .apply {
-            arguments = Bundle().apply {
+    fun newInstance(
+        subscriptionItem: SubscriptionItem,
+        transitionName: String
+    ): SubscriptionCancelFragment {
+      return SubscriptionCancelFragment().apply {
+        arguments =
+            Bundle().apply {
               putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
               putString(TRANSITION_NAME_KEY, transitionName)
             }
-          }
+      }
     }
   }
 }

@@ -2,10 +2,11 @@ package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
-import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.asfoundation.wallet.util.Period
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class UserSubscriptionsMapper @Inject constructor() {
@@ -16,22 +17,40 @@ class UserSubscriptionsMapper @Inject constructor() {
   }
 
   private fun mapSubscriptionList(
-      subscriptionList: UserSubscriptionsListResponse): List<SubscriptionItem> {
+      subscriptionList: UserSubscriptionsListResponse
+  ): List<SubscriptionItem> {
     return subscriptionList.items.map {
       val application = it.application
       val order = it.order
 
-      SubscriptionItem(it.sku, it.title, mapPeriod(it.period), mapStatus(it.subStatus),
-          mapDate(it.started), mapDate(it.renewal), mapDate(it.expiry), mapDate(it.ended),
-          application.name, application.title, application.icon, order.value, order.symbol,
-          order.currency, order.method.title, order.method.logo, order.appc.value,
-          order.appc.label, it.uid)
+      SubscriptionItem(
+          it.sku,
+          it.title,
+          mapPeriod(it.period),
+          mapStatus(it.subStatus),
+          mapDate(it.started),
+          mapDate(it.renewal),
+          mapDate(it.expiry),
+          mapDate(it.ended),
+          application.name,
+          application.title,
+          application.icon,
+          order.value,
+          order.symbol,
+          order.currency,
+          order.method.title,
+          order.method.logo,
+          order.appc.value,
+          order.appc.label,
+          it.uid)
     }
   }
 
-  fun mapToSubscriptionModel(all: UserSubscriptionsListResponse,
-                             expired: UserSubscriptionsListResponse,
-                             fromCache: Boolean = false): SubscriptionModel {
+  fun mapToSubscriptionModel(
+      all: UserSubscriptionsListResponse,
+      expired: UserSubscriptionsListResponse,
+      fromCache: Boolean = false
+  ): SubscriptionModel {
     val allSubsList = mapSubscriptionList(all)
     val expiredSubsList = mapSubscriptionList(expired)
     return SubscriptionModel(allSubsList, expiredSubsList, fromCache)

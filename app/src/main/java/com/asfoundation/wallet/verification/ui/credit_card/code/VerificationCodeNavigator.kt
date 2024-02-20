@@ -9,11 +9,15 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCar
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import javax.inject.Inject
 
-class VerificationCodeNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                                fragment: Fragment,
-                                private val activityNavigator: VerificationCreditCardActivityNavigator) {
+class VerificationCodeNavigator
+@Inject
+constructor(
+    private val fragmentManager: FragmentManager,
+    fragment: Fragment,
+    private val activityNavigator: VerificationCreditCardActivityNavigator
+) {
 
-  private val activityView=  fragment.activity as VerificationCreditCardActivityView
+  private val activityView = fragment.activity as VerificationCreditCardActivityView
 
   fun navigateToInitialWalletVerification() {
     for (i in 0 until fragmentManager.backStackEntryCount) {
@@ -26,10 +30,15 @@ class VerificationCodeNavigator @Inject constructor(private val fragmentManager:
 
   fun finish() = activityView.complete()
 
-  fun navigateToError(errorType: VerificationCodeResult.ErrorType, amount: String?,
-                      symbol: String?) {
-    fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
+  fun navigateToError(
+      errorType: VerificationCodeResult.ErrorType,
+      amount: String?,
+      symbol: String?
+  ) {
+    fragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container,
             VerificationErrorFragment.newInstance(errorType, amount, symbol))
         .commit()
   }

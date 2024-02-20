@@ -3,8 +3,8 @@ package com.asfoundation.wallet.viewmodel
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -15,12 +15,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
 
-
-class TransferConfirmationViewModel internal constructor(
-  private val transferConfirmationInteractor: TransferConfirmationInteractor,
-  private val gasSettingsRouter: GasSettingsRouter,
-  private val logger: Logger,
-  private val transactionConfirmationNavigator: TransferConfirmationNavigator
+class TransferConfirmationViewModel
+internal constructor(
+    private val transferConfirmationInteractor: TransferConfirmationInteractor,
+    private val gasSettingsRouter: GasSettingsRouter,
+    private val logger: Logger,
+    private val transactionConfirmationNavigator: TransferConfirmationNavigator
 ) : BaseViewModel() {
 
   private val transactionBuilder = MutableLiveData<TransactionBuilder>()
@@ -33,7 +33,8 @@ class TransferConfirmationViewModel internal constructor(
 
   fun init(transactionBuilder: TransactionBuilder) {
     subscription =
-        transferConfirmationInteractor.fetchGasSettings(transactionBuilder.shouldSendToken())
+        transferConfirmationInteractor
+            .fetchGasSettings(transactionBuilder.shouldSendToken())
             .doOnSuccess { gasSettings: GasSettings? ->
               transactionBuilder.gasSettings(gasSettings)
               this.transactionBuilder.postValue(transactionBuilder)
@@ -65,9 +66,7 @@ class TransferConfirmationViewModel internal constructor(
 
   fun openGasSettings(context: Activity?) {
     val transactionBuilder = transactionBuilder.value
-    transactionBuilder?.let {
-      gasSettingsRouter.open(context, it.gasSettings())
-    }
+    transactionBuilder?.let { gasSettingsRouter.open(context, it.gasSettings()) }
   }
 
   private fun onCreateTransaction(pendingTransaction: PendingTransaction) {
@@ -81,13 +80,16 @@ class TransferConfirmationViewModel internal constructor(
 
   fun send() {
     progress.postValue(true)
-    disposable.add(transferConfirmationInteractor.send(transactionBuilder.value)
-        .map { hash: String? -> PendingTransaction(hash, false) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            { pendingTransaction: PendingTransaction ->
+    disposable.add(
+        transferConfirmationInteractor
+            .send(transactionBuilder.value)
+            .map { hash: String? -> PendingTransaction(hash, false) }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ pendingTransaction: PendingTransaction ->
               onCreateTransaction(pendingTransaction)
-            }) { throwable: Throwable -> onError(throwable) })
+            }) { throwable: Throwable ->
+              onError(throwable)
+            })
   }
 
   fun setGasSettings(gasSettings: GasSettings?) {
@@ -101,6 +103,6 @@ class TransferConfirmationViewModel internal constructor(
   }
 
   fun handleSavedGasSettings(gasPrice: BigDecimal, gasLimit: BigDecimal): GasSettings {
-      return GasSettings(BalanceUtils.weiToGwei(gasPrice), gasLimit)
+    return GasSettings(BalanceUtils.weiToGwei(gasPrice), gasLimit)
   }
 }

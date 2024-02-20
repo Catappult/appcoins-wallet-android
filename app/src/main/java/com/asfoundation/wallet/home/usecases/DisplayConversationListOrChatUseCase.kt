@@ -4,21 +4,21 @@ import com.wallet.appcoins.feature.support.data.SupportRepository
 import io.intercom.android.sdk.Intercom
 import javax.inject.Inject
 
-class DisplayConversationListOrChatUseCase @Inject constructor(
-    private val supportRepository: SupportRepository) {
+class DisplayConversationListOrChatUseCase
+@Inject
+constructor(private val supportRepository: SupportRepository) {
 
   @Suppress("DEPRECATION")
   operator fun invoke() {
-    //this method was introduced because if the app is closed intercom returns 0 unread conversations
-    //even if there are more
+    // this method was introduced because if the app is closed intercom returns 0 unread
+    // conversations
+    // even if there are more
     supportRepository.resetUnreadConversations()
     val handledByIntercom = getUnreadConversations() > 0
     if (handledByIntercom) {
-      Intercom.client()
-          .displayMessenger()
+      Intercom.client().displayMessenger()
     } else {
-      Intercom.client()
-          .displayConversationsList()
+      Intercom.client().displayConversationsList()
     }
   }
 

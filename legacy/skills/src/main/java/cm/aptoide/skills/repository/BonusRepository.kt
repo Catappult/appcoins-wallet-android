@@ -7,12 +7,12 @@ import com.appcoins.wallet.core.network.eskills.model.NextPrizeSchedule
 import io.reactivex.Single
 import javax.inject.Inject
 
-class BonusRepository @Inject constructor(
-  private val bonusPrizeApi: BonusPrizeApi
-) {
+class BonusRepository @Inject constructor(private val bonusPrizeApi: BonusPrizeApi) {
 
   fun getBonusHistoryList(
-    packageName: String, sku: String, timeFrame: TimeFrame
+      packageName: String,
+      sku: String,
+      timeFrame: TimeFrame
   ): Single<List<BonusHistory>> {
     return bonusPrizeApi.getBonusHistoryList(packageName, sku, timeFrame.name)
   }

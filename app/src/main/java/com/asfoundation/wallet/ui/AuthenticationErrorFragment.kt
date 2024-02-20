@@ -37,9 +37,7 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
 
     fun newInstance(timer: Long): AuthenticationErrorFragment {
       val fragment = AuthenticationErrorFragment()
-      fragment.arguments = Bundle().apply {
-        putLong(ERROR_TIMER_KEY, timer)
-      }
+      fragment.arguments = Bundle().apply { putLong(ERROR_TIMER_KEY, timer) }
       return fragment
     }
   }
@@ -58,12 +56,20 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    childFragmentManager.beginTransaction()
-        .setCustomAnimations(R.anim.fragment_slide_up, R.anim.fragment_slide_down,
-            R.anim.fragment_slide_up, R.anim.fragment_slide_down)
-        .replace(R.id.bottom_error_fragment_container,
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View? {
+    childFragmentManager
+        .beginTransaction()
+        .setCustomAnimations(
+            R.anim.fragment_slide_up,
+            R.anim.fragment_slide_down,
+            R.anim.fragment_slide_up,
+            R.anim.fragment_slide_down)
+        .replace(
+            R.id.bottom_error_fragment_container,
             AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
         .commit()
     return AuthenticationErrorFragmentBinding.inflate(inflater).root
@@ -71,8 +77,7 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    authenticationBottomSheet =
-        BottomSheetBehavior.from(binding.bottomErrorFragmentContainer)
+    authenticationBottomSheet = BottomSheetBehavior.from(binding.bottomErrorFragmentContainer)
     presenter.present()
   }
 
@@ -87,16 +92,16 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
   override fun showBottomSheet() {
     authenticationBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     authenticationBottomSheet.isFitToContents = true
-    authenticationBottomSheet.addBottomSheetCallback(object :
-        BottomSheetBehavior.BottomSheetCallback() {
-      override fun onStateChanged(bottomSheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-          authenticationBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-        }
-      }
+    authenticationBottomSheet.addBottomSheetCallback(
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+              authenticationBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+          }
 
-      override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-    })
+          override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+        })
   }
 
   override fun retryAuthentication() {
@@ -104,5 +109,4 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
   }
 
   override fun outsideOfBottomSheetClick() = RxView.clicks(binding.fadedBackground)
-
 }

@@ -9,17 +9,13 @@ import retrofit2.http.Query
 interface BonusPrizeApi {
   @GET("room/bonus/bonus_history/list")
   fun getBonusHistoryList(
-    @Query("package_name") package_name: String?,
-    @Query("sku") sku: String?,
-    @Query("time_frame") time_frame: String
+      @Query("package_name") package_name: String?,
+      @Query("sku") sku: String?,
+      @Query("time_frame") time_frame: String
   ): Single<List<BonusHistory>>
 
   @GET("room/bonus/next_schedule")
-  fun getTimeUntilNextBonus(
-    @Query("time_frame") time_frame: String
-  ): Single<NextPrizeSchedule>
+  fun getTimeUntilNextBonus(@Query("time_frame") time_frame: String): Single<NextPrizeSchedule>
 
-  @GET("room/bonus/packages")
-  fun getRewardsPackages(
-  ): Single<List<String>>
+  @GET("room/bonus/packages") fun getRewardsPackages(): Single<List<String>>
 }

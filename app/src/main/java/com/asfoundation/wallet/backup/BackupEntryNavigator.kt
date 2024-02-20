@@ -8,7 +8,7 @@ import com.asf.wallet.R
 import javax.inject.Inject
 
 class BackupEntryNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
 
   fun navigateBack() = navController.popBackStack()
 
@@ -22,12 +22,12 @@ class BackupEntryNavigator @Inject constructor(private val navController: NavCon
 
   fun showWalletChooseScreen(walletModel: WalletsModel) {
     val bundle =
-      Bundle().apply { putSerializable(BackupWalletEntryFragment.WALLET_MODEL_KEY, walletModel) }
+        Bundle().apply { putSerializable(BackupWalletEntryFragment.WALLET_MODEL_KEY, walletModel) }
     navController.navigate(R.id.action_backup_entry_to_choose_wallet, bundle)
   }
 
   private fun clearBackStack() {
-    //currentBackStack needs to contain at least 2 elements
+    // currentBackStack needs to contain at least 2 elements
     with(navController) { while (currentBackStack.value.size > 2) navController.popBackStack() }
   }
 }

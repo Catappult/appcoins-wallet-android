@@ -9,8 +9,11 @@ data class SuccessfulPromoCode(val promoCode: PromoCode) : PromoCodeResult()
 
 sealed class FailedPromoCode : PromoCodeResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedPromoCode()
+
   data class InvalidCode(val throwable: Throwable? = null) : FailedPromoCode()
+
   data class ExpiredCode(val throwable: Throwable? = null) : FailedPromoCode()
+
   data class CodeNotAdded(val throwable: Throwable? = null) : FailedPromoCode()
 }
 

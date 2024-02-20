@@ -57,9 +57,10 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun getAutoUpdateCardDismissedVersion() = sharedPreferences.getInt(AUTO_UPDATE_VERSION, 0)
 
   fun setUpdateNotificationBadge(hasNotification: Boolean) =
-    sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
+      sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
 
-  fun getUpdateNotificationBadge() = sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
+  fun getUpdateNotificationBadge() =
+      sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
 
   fun getAndroidId() = sharedPreferences.getString(ANDROID_ID, "").orEmpty()
 

@@ -14,24 +14,23 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
-  private val view: SettingsView,
-  private val navigator: SettingsNavigator,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val settingsInteractor: SettingsInteractor,
-  private val settingsData: SettingsData,
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-  private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-  private val displayChatUseCase: DisplayChatUseCase,
+    private val view: SettingsView,
+    private val navigator: SettingsNavigator,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val settingsInteractor: SettingsInteractor,
+    private val settingsData: SettingsData,
+    private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+    private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+    private val displayChatUseCase: DisplayChatUseCase,
 ) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
     onFingerPrintPreferenceChange()
-    if (settingsData.turnOnFingerprint && savedInstanceState == null) navigator.showAuthentication(
-      view.authenticationResult()
-    )
+    if (settingsData.turnOnFingerprint && savedInstanceState == null)
+        navigator.showAuthentication(view.authenticationResult())
   }
 
   fun onResume() {
@@ -60,13 +59,13 @@ class SettingsPresenter(
 
   fun setFingerPrintPreference() {
     when (settingsInteractor.retrieveFingerPrintAvailability()) {
-      BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(settingsInteractor.hasAuthenticationPermission())
-
-      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+      BiometricManager.BIOMETRIC_SUCCESS ->
+          view.setFingerprintPreference(settingsInteractor.hasAuthenticationPermission())
+      BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
+      BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
         settingsInteractor.changeAuthorizationPermission(false)
         view.removeFingerprintPreference()
       }
-
       BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
         view.toggleFingerprint(false)
         settingsInteractor.changeAuthorizationPermission(false)
@@ -86,12 +85,11 @@ class SettingsPresenter(
             view.updateFingerPrintListener(true)
           }
         }
-
-        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+        BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE,
+        BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
           settingsInteractor.changeAuthorizationPermission(false)
           view.removeFingerprintPreference()
         }
-
         BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
           view.toggleFingerprint(false)
           settingsInteractor.changeAuthorizationPermission(false)
@@ -119,10 +117,9 @@ class SettingsPresenter(
 
   fun redirectToStore() {
     disposables.add(
-      Single.create<Intent> { it.onSuccess(buildUpdateIntentUseCase()) }
-        .doOnSuccess { view.navigateToIntent(it) }
-        .subscribe({}, { handleError(it) })
-    )
+        Single.create<Intent> { it.onSuccess(buildUpdateIntentUseCase()) }
+            .doOnSuccess { view.navigateToIntent(it) }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleError(throwable: Throwable) {
@@ -131,37 +128,38 @@ class SettingsPresenter(
   }
 
   private fun onFingerPrintPreferenceChange() {
-    disposables.add(view.switchPreferenceChange()
-      .doOnNext { navigator.showAuthentication(view.authenticationResult()) }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .switchPreferenceChange()
+            .doOnNext { navigator.showAuthentication(view.authenticationResult()) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun hasAuthenticationPermission() = settingsInteractor.hasAuthenticationPermission()
 
   fun changeAuthorizationPermission() =
-    settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
+      settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
   private fun setCurrencyPreference() {
     disposables.add(
-      rxSingle { getChangeFiatCurrencyModelUseCase() }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .subscribe(
-          { result ->
-            val selectedFiatCurrency = result.get()?.let { model ->
-              model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
-            }
-            view.setCurrencyPreference(selectedFiatCurrency)
-          },
-          { throwable ->
-            view.setCurrencyPreference(null)
-            handleError(throwable)
-          }
-        )
-    )
+        rxSingle { getChangeFiatCurrencyModelUseCase() }
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .subscribe(
+                { result ->
+                  val selectedFiatCurrency =
+                      result.get()?.let { model ->
+                        model.list.find { fiatCurrency ->
+                          fiatCurrency.currency == model.selectedCurrency
+                        }
+                      }
+                  view.setCurrencyPreference(selectedFiatCurrency)
+                },
+                { throwable ->
+                  view.setCurrencyPreference(null)
+                  handleError(throwable)
+                }))
   }
 
   fun displayChat() = displayChatUseCase()
 }
-

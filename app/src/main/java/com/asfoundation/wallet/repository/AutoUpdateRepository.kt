@@ -13,7 +13,8 @@ class AutoUpdateRepository @Inject constructor(private val autoUpdateService: Au
     if (autoUpdateModel.isValid() && !invalidateCache) {
       return Single.just(autoUpdateModel)
     }
-    return autoUpdateService.loadAutoUpdateModel()
-        .doOnSuccess { if (it.isValid()) autoUpdateModel = it }
+    return autoUpdateService.loadAutoUpdateModel().doOnSuccess {
+      if (it.isValid()) autoUpdateModel = it
+    }
   }
 }

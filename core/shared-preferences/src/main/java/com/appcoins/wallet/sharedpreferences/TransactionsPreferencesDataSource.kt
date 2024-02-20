@@ -3,13 +3,13 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class TransactionsPreferencesDataSource @Inject constructor(
-  private val sharedPreferences: SharedPreferences
-) {
+class TransactionsPreferencesDataSource
+@Inject
+constructor(private val sharedPreferences: SharedPreferences) {
   fun isOldTransactionsLoaded() = sharedPreferences.getBoolean(OLD_TRANSACTIONS_LOAD, false)
 
   fun oldTransactionsLoaded() =
-    sharedPreferences.edit().putBoolean(OLD_TRANSACTIONS_LOAD, true).apply()
+      sharedPreferences.edit().putBoolean(OLD_TRANSACTIONS_LOAD, true).apply()
 
   fun setLocale(locale: String) = sharedPreferences.edit().putString(LAST_LOCALE, locale).apply()
 

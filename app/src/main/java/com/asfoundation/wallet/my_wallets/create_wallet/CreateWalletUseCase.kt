@@ -7,25 +7,27 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class CreateWalletUseCase @Inject constructor(
-        private val walletCreatorInteract: WalletCreatorInteract,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-        private val gamification: Gamification,
-        private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
+class CreateWalletUseCase
+@Inject
+constructor(
+    private val walletCreatorInteract: WalletCreatorInteract,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+    private val gamification: Gamification,
+    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
 ) {
-  operator fun invoke(name: String?): Completable = walletCreatorInteract.create(name)
-    .subscribeOn(Schedulers.io())
-    .flatMapCompletable { wallet ->
-      getCurrentPromoCodeUseCase()
-        .flatMapCompletable { promoCode ->
-          walletCreatorInteract.setDefaultWallet(wallet.address).toSingleDefault(promoCode)
-            .doOnSuccess {
-              gamification.getUserLevel(wallet.address, promoCode.code)
-                .map { level ->
+  operator fun invoke(name: String?): Completable =
+      walletCreatorInteract.create(name).subscribeOn(Schedulers.io()).flatMapCompletable { wallet ->
+        getCurrentPromoCodeUseCase().flatMapCompletable { promoCode ->
+          walletCreatorInteract
+              .setDefaultWallet(wallet.address)
+              .toSingleDefault(promoCode)
+              .doOnSuccess {
+                gamification.getUserLevel(wallet.address, promoCode.code).map { level ->
                   supportInteractor.registerUser(level, wallet.address)
                 }
-            }.subscribe()
+              }
+              .subscribe()
           Completable.complete()
         }
-    }
+      }
 }

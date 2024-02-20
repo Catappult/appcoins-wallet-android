@@ -24,20 +24,20 @@ import com.asfoundation.wallet.ui.transact.TransferInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @HiltViewModel
 class TransferFundsViewModel
 @Inject
 constructor(
-  private val displayChatUseCase: DisplayChatUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val transferInteractor: TransferInteractor
+    private val displayChatUseCase: DisplayChatUseCase,
+    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+    private val transferInteractor: TransferInteractor
 ) : ViewModel() {
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
@@ -54,9 +54,9 @@ constructor(
 
   fun getWalletInfo() {
     observeWalletInfoUseCase(null, update = true)
-      .firstOrError()
-      .doOnSuccess { _uiState.value = UiState.Success(it) }
-      .subscribe()
+        .firstOrError()
+        .doOnSuccess { _uiState.value = UiState.Success(it) }
+        .subscribe()
   }
 
   fun displayChat() = displayChatUseCase()
@@ -71,37 +71,32 @@ constructor(
 
   fun onClickSend(data: TransferData, packageName: String) {
     shouldBlockTransfer(data.currency)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .flatMapCompletable { shouldBlock ->
-        if (shouldBlock) {
-          Completable.fromAction { _uiState.value = UiState.NavigateToWalletBlocked }
-        } else {
-          makeTransaction(data, packageName)
-            .doOnSuccess { status ->
-              handleTransferResult(data.currency, status, data.walletAddress, data.amount)
-            }
-            .doOnError { error ->
-              handleError(error)
-            }
-            .flatMapCompletable {
-              Completable.fromAction {}
-            }
+        .doOnSubscribe { _uiState.value = UiState.Loading }
+        .flatMapCompletable { shouldBlock ->
+          if (shouldBlock) {
+            Completable.fromAction { _uiState.value = UiState.NavigateToWalletBlocked }
+          } else {
+            makeTransaction(data, packageName)
+                .doOnSuccess { status ->
+                  handleTransferResult(data.currency, status, data.walletAddress, data.amount)
+                }
+                .doOnError { error -> handleError(error) }
+                .flatMapCompletable { Completable.fromAction {} }
+          }
         }
-      }
-      .subscribe()
+        .subscribe()
   }
 
   private fun handleTransferResult(
-    currency: Currency,
-    status: AppcoinsRewardsRepository.Status,
-    walletAddress: String,
-    amount: BigDecimal
+      currency: Currency,
+      status: AppcoinsRewardsRepository.Status,
+      walletAddress: String,
+      amount: BigDecimal
   ) {
     when (status) {
       API_ERROR,
       UNKNOWN_ERROR,
       NO_INTERNET -> _uiState.value = UiState.UnknownError
-
       SUCCESS -> handleSuccess(currency, walletAddress, amount)
       INVALID_AMOUNT -> _uiState.value = UiState.InvalidAmountError
       INVALID_WALLET_ADDRESS -> _uiState.value = UiState.InvalidWalletAddressError
@@ -112,32 +107,29 @@ constructor(
   private fun handleSuccess(currency: Currency, walletAddress: String, amount: BigDecimal) {
     when (currency) {
       Currency.APPC_C ->
-        _uiState.value =
-          UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
-
+          _uiState.value = UiState.SuccessAppcCreditsTransfer(walletAddress, amount, currency)
       Currency.APPC ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenAppcConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
-
+          transferInteractor
+              .find()
+              .doOnSuccess {
+                _uiState.value =
+                    UiState.NavigateToOpenAppcConfirmationView(it.address, walletAddress, amount)
+              }
+              .subscribe()
       Currency.ETH ->
-        transferInteractor
-          .find()
-          .doOnSuccess {
-            _uiState.value =
-              UiState.NavigateToOpenEthConfirmationView(it.address, walletAddress, amount)
-          }
-          .subscribe()
+          transferInteractor
+              .find()
+              .doOnSuccess {
+                _uiState.value =
+                    UiState.NavigateToOpenEthConfirmationView(it.address, walletAddress, amount)
+              }
+              .subscribe()
     }
   }
 
   private fun makeTransaction(
-    data: TransferData,
-    packageName: String
+      data: TransferData,
+      packageName: String
   ): Single<AppcoinsRewardsRepository.Status> {
     return when (data.currency) {
       Currency.APPC_C -> handleCreditsTransfer(data.walletAddress, data.amount, packageName)
@@ -147,17 +139,17 @@ constructor(
   }
 
   private fun handleCreditsTransfer(
-    walletAddress: String,
-    amount: BigDecimal,
-    packageName: String
+      walletAddress: String,
+      amount: BigDecimal,
+      packageName: String
   ): Single<AppcoinsRewardsRepository.Status> {
     return Single.zip(
-      Single.timer(1, TimeUnit.SECONDS),
-      transferInteractor.transferCredits(walletAddress, amount, packageName)
-    ) { _: Long,
-        status: AppcoinsRewardsRepository.Status ->
-      status
-    }
+        Single.timer(1, TimeUnit.SECONDS),
+        transferInteractor.transferCredits(walletAddress, amount, packageName)) {
+            _: Long,
+            status: AppcoinsRewardsRepository.Status ->
+          status
+        }
   }
 
   private fun shouldBlockTransfer(currency: Currency): Single<Boolean> {
@@ -169,72 +161,75 @@ constructor(
   }
 
   fun transferNavigationItems() =
-    listOf(
-      TransferNavigationItem(
-        destination = TransferDestinations.SEND,
-        label = R.string.p2p_send_title,
-        selected = true
-      ),
-      TransferNavigationItem(
-        destination = TransferDestinations.RECEIVE,
-        label = R.string.title_my_address,
-        selected = false
-      )
-    )
+      listOf(
+          TransferNavigationItem(
+              destination = TransferDestinations.SEND,
+              label = R.string.p2p_send_title,
+              selected = true),
+          TransferNavigationItem(
+              destination = TransferDestinations.RECEIVE,
+              label = R.string.title_my_address,
+              selected = false))
 
   fun currencyNavigationItems() =
-    listOf(
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC_C,
-        label = R.string.p2p_send_currency_appc_c,
-        selected = true
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.APPC,
-        label = R.string.p2p_send_currency_appc,
-        selected = false
-      ),
-      CurrencyNavigationItem(
-        destination = CurrencyDestinations.ETHEREUM,
-        label = R.string.p2p_send_currency_eth,
-        selected = false
-      )
-    )
+      listOf(
+          CurrencyNavigationItem(
+              destination = CurrencyDestinations.APPC_C,
+              label = R.string.p2p_send_currency_appc_c,
+              selected = true),
+          CurrencyNavigationItem(
+              destination = CurrencyDestinations.APPC,
+              label = R.string.p2p_send_currency_appc,
+              selected = false),
+          CurrencyNavigationItem(
+              destination = CurrencyDestinations.ETHEREUM,
+              label = R.string.p2p_send_currency_eth,
+              selected = false))
 
   sealed class UiState {
     object Idle : UiState()
+
     object Loading : UiState()
+
     object Error : UiState()
+
     object UnknownError : UiState()
+
     object InvalidAmountError : UiState()
+
     object InvalidWalletAddressError : UiState()
+
     object NotEnoughFundsError : UiState()
+
     object NoNetworkError : UiState()
+
     object NavigateToWalletBlocked : UiState()
+
     data class Success(val walletInfo: WalletInfo) : UiState()
+
     data class SuccessAppcCreditsTransfer(
-      val walletAddress: String,
-      val amount: BigDecimal,
-      val currency: Currency
+        val walletAddress: String,
+        val amount: BigDecimal,
+        val currency: Currency
     ) : UiState()
 
     data class NavigateToOpenAppcConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
+        val walletAddress: String,
+        val toWalletAddress: String,
+        val amount: BigDecimal
     ) : UiState()
 
     data class NavigateToOpenEthConfirmationView(
-      val walletAddress: String,
-      val toWalletAddress: String,
-      val amount: BigDecimal
+        val walletAddress: String,
+        val toWalletAddress: String,
+        val amount: BigDecimal
     ) : UiState()
   }
 
   data class TransferData(
-    val walletAddress: String,
-    val currency: Currency,
-    val amount: BigDecimal
+      val walletAddress: String,
+      val currency: Currency,
+      val amount: BigDecimal
   ) : Serializable
 
   enum class Currency(val token: String) {

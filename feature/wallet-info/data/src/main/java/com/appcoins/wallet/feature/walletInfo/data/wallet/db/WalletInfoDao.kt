@@ -1,6 +1,12 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet.db
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoDelete
 import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoEntity
 import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoUpdate
@@ -11,11 +17,9 @@ import io.reactivex.Single
 
 @Dao
 interface WalletInfoDao {
-  @Insert(onConflict = OnConflictStrategy.ABORT)
-  fun insertWalletInfo(walletInfo: WalletInfoEntity)
+  @Insert(onConflict = OnConflictStrategy.ABORT) fun insertWalletInfo(walletInfo: WalletInfoEntity)
 
-  @Update(entity = WalletInfoEntity::class)
-  fun updateWalletInfo(walletInfoUpdate: WalletInfoUpdate)
+  @Update(entity = WalletInfoEntity::class) fun updateWalletInfo(walletInfoUpdate: WalletInfoUpdate)
 
   @Update(entity = WalletInfoEntity::class)
   fun updateWalletInfo(walletInfoUpdateWithBalance: WalletInfoUpdateWithBalance)
@@ -23,8 +27,7 @@ interface WalletInfoDao {
   @Update(entity = WalletInfoEntity::class)
   fun updateWalletInfo(walletInfoUpdateName: WalletInfoUpdateName)
 
-  @Delete(entity = WalletInfoEntity::class)
-  fun deleteWalletInfo(walletInfoDelete: WalletInfoDelete)
+  @Delete(entity = WalletInfoEntity::class) fun deleteWalletInfo(walletInfoDelete: WalletInfoDelete)
 
   /**
    * Attempts to insert a WalletInfoEntity without fiat values. If it already exists, it just
@@ -35,62 +38,54 @@ interface WalletInfoDao {
       insertWalletInfo(walletInfo)
     } catch (e: Exception) {
       updateWalletInfo(
-        WalletInfoUpdate(
-          wallet = walletInfo.wallet,
-          appcCreditsBalanceWei = walletInfo.appcCreditsBalanceWei,
-          appcBalanceWei = walletInfo.appcBalanceWei,
-          ethBalanceWei = walletInfo.ethBalanceWei,
-          blocked = walletInfo.blocked,
-          verified = walletInfo.verified,
-          logging = walletInfo.logging,
-          hasBackup = walletInfo.hasBackup
-        )
-      )
+          WalletInfoUpdate(
+              wallet = walletInfo.wallet,
+              appcCreditsBalanceWei = walletInfo.appcCreditsBalanceWei,
+              appcBalanceWei = walletInfo.appcBalanceWei,
+              ethBalanceWei = walletInfo.ethBalanceWei,
+              blocked = walletInfo.blocked,
+              verified = walletInfo.verified,
+              logging = walletInfo.logging,
+              hasBackup = walletInfo.hasBackup))
     }
   }
 
   /**
-   * Attempts to insert a WalletInfoEntity with fiat values. If it already exists, it just
-   * updates the relevant fields.
+   * Attempts to insert a WalletInfoEntity with fiat values. If it already exists, it just updates
+   * the relevant fields.
    */
   fun insertOrUpdateWithFiat(walletInfo: WalletInfoEntity) {
     try {
       insertWalletInfo(walletInfo)
     } catch (e: Exception) {
       updateWalletInfo(
-        WalletInfoUpdateWithBalance(
-          wallet = walletInfo.wallet,
-          appcCreditsBalanceWei = walletInfo.appcCreditsBalanceWei,
-          appcBalanceWei = walletInfo.appcBalanceWei,
-          ethBalanceWei = walletInfo.ethBalanceWei,
-          blocked = walletInfo.blocked,
-          verified = walletInfo.verified,
-          logging = walletInfo.logging,
-          hasBackup = walletInfo.hasBackup,
-          appcCreditsBalanceFiat = walletInfo.appcCreditsBalanceFiat,
-          appcBalanceFiat = walletInfo.appcBalanceFiat,
-          ethBalanceFiat = walletInfo.ethBalanceFiat,
-          fiatCurrency = walletInfo.fiatCurrency,
-          fiatSymbol = walletInfo.fiatSymbol,
-        )
-      )
+          WalletInfoUpdateWithBalance(
+              wallet = walletInfo.wallet,
+              appcCreditsBalanceWei = walletInfo.appcCreditsBalanceWei,
+              appcBalanceWei = walletInfo.appcBalanceWei,
+              ethBalanceWei = walletInfo.ethBalanceWei,
+              blocked = walletInfo.blocked,
+              verified = walletInfo.verified,
+              logging = walletInfo.logging,
+              hasBackup = walletInfo.hasBackup,
+              appcCreditsBalanceFiat = walletInfo.appcCreditsBalanceFiat,
+              appcBalanceFiat = walletInfo.appcBalanceFiat,
+              ethBalanceFiat = walletInfo.ethBalanceFiat,
+              fiatCurrency = walletInfo.fiatCurrency,
+              fiatSymbol = walletInfo.fiatSymbol,
+          ))
     }
   }
 
   /**
-   * Attempts to insert a WalletInfoEntity with fiat values. If it already exists, it just
-   * updates the relevant fields.
+   * Attempts to insert a WalletInfoEntity with fiat values. If it already exists, it just updates
+   * the relevant fields.
    */
   fun insertOrUpdateName(walletInfo: WalletInfoEntity) {
     try {
       insertWalletInfo(walletInfo)
     } catch (e: Exception) {
-      updateWalletInfo(
-        WalletInfoUpdateName(
-          wallet = walletInfo.wallet,
-          name = walletInfo.name
-        )
-      )
+      updateWalletInfo(WalletInfoUpdateName(wallet = walletInfo.wallet, name = walletInfo.name))
     }
   }
 

@@ -9,12 +9,11 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-/**
- * Handles both swipe refresh and saves/restores state of transition
- */
-class SwipeRefreshMotionLayout @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : MotionLayout(context, attrs, defStyleAttr) {
+/** Handles both swipe refresh and saves/restores state of transition */
+class SwipeRefreshMotionLayout
+@JvmOverloads
+constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    MotionLayout(context, attrs, defStyleAttr) {
 
   override fun onSaveInstanceState(): Parcelable {
     return SaveState(super.onSaveInstanceState(), startState, endState, targetPosition)
@@ -45,21 +44,20 @@ class SwipeRefreshMotionLayout @JvmOverloads constructor(
       return super.onNestedPreScroll(target, dx, dy, consumed, type)
     }
 
-    val recyclerView = getRecyclerViewChild(target)
-        ?: return super.onNestedPreScroll(target, dx, dy, consumed, type)
+    val recyclerView =
+        getRecyclerViewChild(target)
+            ?: return super.onNestedPreScroll(target, dx, dy, consumed, type)
 
     val canScrollVertically = recyclerView.canScrollVertically(-1)
     if (dy < 0 && canScrollVertically) {
       // don't start motionLayout transition
-      return;
+      return
     }
 
     super.onNestedPreScroll(target, dx, dy, consumed, type)
   }
 
   private fun getRecyclerViewChild(swipe: SwipeRefreshLayout): RecyclerView? {
-    return swipe.children
-        .filterIsInstance<RecyclerView>()
-        .firstOrNull()
+    return swipe.children.filterIsInstance<RecyclerView>().firstOrNull()
   }
 }

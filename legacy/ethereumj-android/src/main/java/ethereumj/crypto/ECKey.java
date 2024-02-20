@@ -354,13 +354,6 @@ public class ECKey implements Serializable {
         .decodePoint(compEnc);
   }
 
-  public String toString() {
-    StringBuilder b = new StringBuilder();
-    b.append("pub:")
-        .append(Hex.toHexString(pub.getEncoded(false)));
-    return b.toString();
-  }
-
   private static void check(boolean test, String message) {
     if (!test) throw new IllegalArgumentException(message);
   }
@@ -484,6 +477,27 @@ public class ECKey implements Serializable {
     }
   }
 
+  @Override public int hashCode() {
+    return Arrays.hashCode(getPubKey());
+  }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || !(o instanceof ECKey)) return false;
+
+    ECKey ecKey = (ECKey) o;
+
+    if (privKey != null && !privKey.equals(ecKey.privKey)) return false;
+    return !(pub != null && !pub.equals(ecKey.pub));
+  }
+
+  public String toString() {
+    StringBuilder b = new StringBuilder();
+    b.append("pub:")
+        .append(Hex.toHexString(pub.getEncoded(false)));
+    return b.toString();
+  }
+
   public static class ECDSASignature {
 
     private static final int SIGNATURE_HEX_LENGTH = 130;
@@ -603,19 +617,5 @@ public class ECKey implements Serializable {
 
   @SuppressWarnings("serial") public static class MissingPrivateKeyException
       extends RuntimeException {
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || !(o instanceof ECKey)) return false;
-
-    ECKey ecKey = (ECKey) o;
-
-    if (privKey != null && !privKey.equals(ecKey.privKey)) return false;
-    return !(pub != null && !pub.equals(ecKey.pub));
-  }
-
-  @Override public int hashCode() {
-    return Arrays.hashCode(getPubKey());
   }
 }

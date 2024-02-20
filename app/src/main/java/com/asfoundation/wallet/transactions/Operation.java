@@ -45,23 +45,6 @@ public class Operation implements Parcelable {
     parcel.writeString(fee);
   }
 
-  @Override public String toString() {
-    return "Operation{"
-        + "transactionId='"
-        + transactionId
-        + '\''
-        + ", from='"
-        + from
-        + '\''
-        + ", to='"
-        + to
-        + '\''
-        + ", fee='"
-        + fee
-        + '\''
-        + '}';
-  }
-
   public String getTransactionId() {
     return transactionId;
   }
@@ -78,6 +61,10 @@ public class Operation implements Parcelable {
     return fee;
   }
 
+  @Override public int hashCode() {
+    return Objects.hash(transactionId, from, to, fee);
+  }
+
   @Override public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -86,7 +73,20 @@ public class Operation implements Parcelable {
         operation.from) && Objects.equals(to, operation.to) && Objects.equals(fee, operation.fee);
   }
 
-  @Override public int hashCode() {
-    return Objects.hash(transactionId, from, to, fee);
+  @Override public String toString() {
+    return "Operation{"
+        + "transactionId='"
+        + transactionId
+        + '\''
+        + ", from='"
+        + from
+        + '\''
+        + ", to='"
+        + to
+        + '\''
+        + ", fee='"
+        + fee
+        + '\''
+        + '}';
   }
 }

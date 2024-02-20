@@ -17,7 +17,6 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
-
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,8 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
 
-  @Inject
-  lateinit var supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
+  @Inject lateinit var supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
 
   lateinit var notificationManager: NotificationManager
 
@@ -39,29 +37,24 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       val intent = Intent(context, AlarmManagerBroadcastReceiver::class.java)
 
       val pendingIntent =
-        PendingIntent.getBroadcast(
-          context,
-          0,
-          intent,
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
-          else
-            PendingIntent.FLAG_CANCEL_CURRENT
-        )
+          PendingIntent.getBroadcast(
+              context,
+              0,
+              intent,
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                  PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+              else PendingIntent.FLAG_CANCEL_CURRENT)
 
       val repeatInterval = TimeUnit.MINUTES.toMillis(15)
       val triggerTime: Long = SystemClock.elapsedRealtime() + repeatInterval
       alarmManager.setInexactRepeating(
-        AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime,
-        repeatInterval, pendingIntent
-      )
+          AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, repeatInterval, pendingIntent)
     }
-
   }
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
-      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     if (supportInteractor.hasNewUnreadConversations()) {
       supportInteractor.updateUnreadConversations()
@@ -81,39 +74,32 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
     } else {
       builder = NotificationCompat.Builder(context, CHANNEL_ID)
     }
-    return builder.setContentTitle(context.getString(R.string.support_new_message_title))
-      .setAutoCancel(true)
-      .setContentIntent(okPendingIntent)
-      .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-      .setContentText(context.getString(R.string.support_new_message_button))
+    return builder
+        .setContentTitle(context.getString(R.string.support_new_message_title))
+        .setAutoCancel(true)
+        .setContentIntent(okPendingIntent)
+        .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
     return PendingIntent.getActivity(
-      context,
-      0,
-      intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
-    )
+        context,
+        0,
+        intent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0)
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
     return PendingIntent.getActivity(
-      context,
-      1,
-      intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
-    )
+        context,
+        1,
+        intent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0)
   }
 }

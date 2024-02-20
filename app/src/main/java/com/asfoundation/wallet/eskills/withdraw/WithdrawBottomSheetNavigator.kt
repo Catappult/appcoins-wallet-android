@@ -5,10 +5,9 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class WithdrawBottomSheetNavigator @Inject constructor(
-  val fragment: Fragment,
-  val fragmentManager: FragmentManager
-) {
+class WithdrawBottomSheetNavigator
+@Inject
+constructor(val fragment: Fragment, val fragmentManager: FragmentManager) {
 
   fun navigateBack() {
     (fragment as BottomSheetDialogFragment).dismiss()

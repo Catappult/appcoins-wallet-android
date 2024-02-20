@@ -41,78 +41,57 @@ import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
 import java.security.Security
 import java.util.UUID
 import javax.inject.Inject
-
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 
 @HiltAndroidApp
 class App : MultiDexApplication(), BillingDependenciesProvider {
 
-  @Inject
-  lateinit var appStartUseCase: AppStartUseCase
+  @Inject lateinit var appStartUseCase: AppStartUseCase
 
-  @Inject
-  lateinit var appStartProbe: AppStartProbe
+  @Inject lateinit var appStartProbe: AppStartProbe
 
-  @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Inject lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
-  @Inject
-  lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
+  @Inject lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
-  @Inject
-  lateinit var brokerBdsApi: BrokerBdsApi
+  @Inject lateinit var brokerBdsApi: BrokerBdsApi
 
-  @Inject
-  lateinit var inappApi: InappBillingApi
+  @Inject lateinit var inappApi: InappBillingApi
 
-  @Inject
-  lateinit var walletService: WalletService
+  @Inject lateinit var walletService: WalletService
 
-  @Inject
-  lateinit var proxyService: ProxyService
+  @Inject lateinit var proxyService: ProxyService
 
-  @Inject
-  lateinit var appcoinsRewards: AppcoinsRewards
+  @Inject lateinit var appcoinsRewards: AppcoinsRewards
 
-  @Inject
-  lateinit var billingMessagesMapper: BillingMessagesMapper
+  @Inject lateinit var billingMessagesMapper: BillingMessagesMapper
 
-  @Inject
-  lateinit var idsRepository: IdsRepository
+  @Inject lateinit var idsRepository: IdsRepository
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
-  @Inject
-  lateinit var initilizeDataAnalytics: InitilizeDataAnalytics
+  @Inject lateinit var initilizeDataAnalytics: InitilizeDataAnalytics
 
-  @Inject
-  lateinit var sentryAnalytics: SentryAnalytics
+  @Inject lateinit var sentryAnalytics: SentryAnalytics
 
-  @Inject
-  lateinit var analyticsManager: AnalyticsManager
+  @Inject lateinit var analyticsManager: AnalyticsManager
 
-  @Inject
-  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
+  @Inject lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
-  @Inject
-  lateinit var subscriptionBillingApi: SubscriptionBillingApi
+  @Inject lateinit var subscriptionBillingApi: SubscriptionBillingApi
 
-  @Inject
-  lateinit var rxSchedulers: RxSchedulers
+  @Inject lateinit var rxSchedulers: RxSchedulers
 
-  @Inject
-  lateinit var ewtObtainer: EwtAuthenticatorService
+  @Inject lateinit var ewtObtainer: EwtAuthenticatorService
 
-  @Inject
-  lateinit var partnerAddressService: PartnerAddressService
+  @Inject lateinit var partnerAddressService: PartnerAddressService
 
   companion object {
     private val TAG = App::class.java.name
@@ -140,29 +119,34 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
       Handler(Looper.getMainLooper()).postDelayed({ appStartProbe(mode) }, 3000)
       if (mode != StartMode.Subsequent) ApkOriginVerification(applicationContext)
     }
-    registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-      private var runningCount = 0
-      override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-          if (runningCount++ == 0) appStartUseCase.registerAppStart()
-        }
-      }
+    registerActivityLifecycleCallbacks(
+        object : ActivityLifecycleCallbacks {
+          private var runningCount = 0
 
-      override fun onActivityStarted(activity: Activity) {}
-      override fun onActivityResumed(activity: Activity) {}
-      override fun onActivityPaused(activity: Activity) {}
-      override fun onActivityStopped(activity: Activity) {}
-      override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-      override fun onActivityDestroyed(activity: Activity) {
-        if (activity.isChangingConfigurations.not()) runningCount--
-      }
-    })
+          override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            if (savedInstanceState == null) {
+              if (runningCount++ == 0) appStartUseCase.registerAppStart()
+            }
+          }
+
+          override fun onActivityStarted(activity: Activity) {}
+
+          override fun onActivityResumed(activity: Activity) {}
+
+          override fun onActivityPaused(activity: Activity) {}
+
+          override fun onActivityStopped(activity: Activity) {}
+
+          override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+
+          override fun onActivityDestroyed(activity: Activity) {
+            if (activity.isChangingConfigurations.not()) runningCount--
+          }
+        })
   }
 
   private fun initializeIndicative() {
-    initilizeDataAnalytics.initializeIndicative()
-      .subscribeOn(Schedulers.io())
-      .subscribe()
+    initilizeDataAnalytics.initializeIndicative().subscribeOn(Schedulers.io()).subscribe()
   }
 
   private fun initializeSentry() {
@@ -205,23 +189,19 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initiateFlurry() {
     if (!BuildConfig.DEBUG) {
-      FlurryAgent.Builder()
-        .withLogEnabled(false)
-        .build(this, BuildConfig.FLURRY_APK_KEY)
+      FlurryAgent.Builder().withLogEnabled(false).build(this, BuildConfig.FLURRY_APK_KEY)
       logger.addReceiver(FlurryReceiver())
     }
   }
 
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
-    Intercom.client()
-      .setInAppMessageVisibility(Intercom.Visibility.GONE)
+    Intercom.client().setInAppMessageVisibility(Intercom.Visibility.GONE)
   }
 
   private fun initializeWalletId() {
     if (commonsPreferencesDataSource.getWalletId() == null) {
-      val id = UUID.randomUUID()
-        .toString()
+      val id = UUID.randomUUID().toString()
       commonsPreferencesDataSource.setWalletId(id)
     }
   }
@@ -252,5 +232,4 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun ewtObtainer() = ewtObtainer
 
   override fun partnerAddressService() = partnerAddressService
-
 }

@@ -142,22 +142,20 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       modifier: Modifier = Modifier,
   ) {
     Scaffold(
-      topBar = {
-        Surface {
-          TopBar(
-            isMainBar = true,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
-            onClickSettings = { viewModel.onSettingsClick() },
-            onClickSupport = { viewModel.showSupportScreen(false) },
-            hasNotificationBadge = viewModel.hasNotificationBadge.value
-          )
+        topBar = {
+          Surface {
+            TopBar(
+                isMainBar = true,
+                onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
+                onClickSettings = { viewModel.onSettingsClick() },
+                onClickSupport = { viewModel.showSupportScreen(false) },
+                hasNotificationBadge = viewModel.hasNotificationBadge.value)
+          }
+        },
+        containerColor = WalletColors.styleguide_blue,
+        modifier = modifier) { padding ->
+          HomeScreenContent(padding = padding)
         }
-      },
-      containerColor = WalletColors.styleguide_blue,
-      modifier = modifier
-    ) { padding ->
-      HomeScreenContent(padding = padding)
-    }
   }
 
   @Composable
@@ -178,7 +176,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                   !viewModel.isLoadingTransactions.value)
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value, viewModel.referenceSendPromotionClickEvent()) { viewModel.fetchGamesListing() }
+      GamesBundle(viewModel.gamesList.value, viewModel.referenceSendPromotionClickEvent()) {
+        viewModel.fetchGamesListing()
+      }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
@@ -392,26 +392,26 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         promotionsModel.value!!.perks.forEach { promotion ->
           if (promotion is DefaultItem) {
             val cardItem =
-              CardPromotionItem(
-                promotion.appName,
-                promotion.description,
-                promotion.startDate,
-                promotion.endDate,
-                promotion.icon,
-                promotion.actionUrl,
-                promotion.packageName,
-                promotion.gamificationStatus == GamificationStatus.VIP ||
-                    promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-                hasFuturePromotion = false,
-                hasVerticalList = false,
-                action = {
-                  openGame(
-                    promotion.packageName ?: promotion.actionUrl,
+                CardPromotionItem(
+                    promotion.appName,
+                    promotion.description,
+                    promotion.startDate,
+                    promotion.endDate,
+                    promotion.icon,
                     promotion.actionUrl,
-                    requireContext(),
-                    viewModel.referenceSendPromotionClickEvent(),
-                  )
-                })
+                    promotion.packageName,
+                    promotion.gamificationStatus == GamificationStatus.VIP ||
+                        promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+                    hasFuturePromotion = false,
+                    hasVerticalList = false,
+                    action = {
+                      openGame(
+                          promotion.packageName ?: promotion.actionUrl,
+                          promotion.actionUrl,
+                          requireContext(),
+                          viewModel.referenceSendPromotionClickEvent(),
+                      )
+                    })
             viewModel.activePromotions.add(cardItem)
           }
         }

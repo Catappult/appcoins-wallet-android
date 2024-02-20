@@ -9,7 +9,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
 
-
 @GlideModule
 class AppGlideModule : AppGlideModule() {
 
@@ -23,10 +22,9 @@ class AppGlideModule : AppGlideModule() {
     } else {
       decodeFormat = DecodeFormat.PREFER_RGB_565
     }
-    requestOptions = requestOptions.format(decodeFormat)
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+    requestOptions =
+        requestOptions.format(decodeFormat).diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
     builder.setDefaultRequestOptions(requestOptions)
   }
-
 }

@@ -14,8 +14,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RatingActivity : BaseActivity() {
 
-  @Inject
-  lateinit var ratingInteractor: RatingInteractor
+  @Inject lateinit var ratingInteractor: RatingInteractor
 
   internal val onBackPressedSubject: PublishSubject<Any> = PublishSubject.create()
   private var backEnabled = true
@@ -25,11 +24,13 @@ class RatingActivity : BaseActivity() {
     setContentView(R.layout.activity_rating)
     if (savedInstanceState == null) {
       if (ratingInteractor.isNotFirstTime()) {
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager
+            .beginTransaction()
             .replace(R.id.fragment_container, RatingPositiveFragment.newInstance())
             .commit()
       } else {
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager
+            .beginTransaction()
             .replace(R.id.fragment_container, RatingEntryFragment.newInstance())
             .commit()
       }

@@ -12,32 +12,31 @@ import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
-fun shimmerSkeleton(showShimmer: Boolean = true,targetValue:Float = 1000f): Brush {
+fun shimmerSkeleton(showShimmer: Boolean = true, targetValue: Float = 1000f): Brush {
   return if (showShimmer) {
-    val shimmerColors = listOf(
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.2f),
-      WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
-    )
+    val shimmerColors =
+        listOf(
+            WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
+            WalletColors.styleguide_skeleton_loading.copy(alpha = 0.2f),
+            WalletColors.styleguide_skeleton_loading.copy(alpha = 0.8f),
+        )
 
     val transition = rememberInfiniteTransition(label = "")
-    val translateAnimation = transition.animateFloat(
-      initialValue = 0f,
-      targetValue = targetValue,
-      animationSpec = infiniteRepeatable(
-        animation = tween(800), repeatMode = RepeatMode.Reverse
-      ), label = ""
-    )
+    val translateAnimation =
+        transition.animateFloat(
+            initialValue = 0f,
+            targetValue = targetValue,
+            animationSpec =
+                infiniteRepeatable(animation = tween(800), repeatMode = RepeatMode.Reverse),
+            label = "")
     Brush.linearGradient(
-      colors = shimmerColors,
-      start = Offset.Zero,
-      end = Offset(x = translateAnimation.value, y = translateAnimation.value)
-    )
+        colors = shimmerColors,
+        start = Offset.Zero,
+        end = Offset(x = translateAnimation.value, y = translateAnimation.value))
   } else {
     Brush.linearGradient(
-      colors = listOf(Color.Transparent,Color.Transparent),
-      start = Offset.Zero,
-      end = Offset.Zero
-    )
+        colors = listOf(Color.Transparent, Color.Transparent),
+        start = Offset.Zero,
+        end = Offset.Zero)
   }
 }

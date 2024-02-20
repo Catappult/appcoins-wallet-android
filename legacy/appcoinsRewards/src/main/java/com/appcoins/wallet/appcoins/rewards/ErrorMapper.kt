@@ -36,5 +36,9 @@ class ErrorMapper(private val gson: Gson) {
   }
 }
 
-data class ResponseErrorBaseBody(val code: String?, val path: String?, val text: String?,
-                                 val data: Any?)
+data class ResponseErrorBaseBody(
+    val code: String?,
+    val path: String?,
+    val text: String?,
+    val data: Any?
+)

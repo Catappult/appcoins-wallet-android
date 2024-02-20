@@ -9,13 +9,11 @@ class WalletInfoTypeConverter {
   fun fromBigIntegerString(value: String?): BigInteger =
       if (value == null || value.isBlank()) BigInteger.ZERO else BigInteger(value)
 
-  @TypeConverter
-  fun toString(bigInteger: BigInteger?): String? = bigInteger?.toString()
+  @TypeConverter fun toString(bigInteger: BigInteger?): String? = bigInteger?.toString()
 
   @TypeConverter
   fun fromBigDecimalString(value: String?): BigDecimal =
       if (value == null || value.isBlank()) BigDecimal.ZERO else BigDecimal(value)
 
-  @TypeConverter
-  fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()
+  @TypeConverter fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()
 }

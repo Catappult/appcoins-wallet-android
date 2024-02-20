@@ -13,6 +13,7 @@ private val FORMAT_SEQUENCE: Pattern =
 
 /**
  * Extension to format a string with a spannable
+ *
  * TODO: Refactor this maybe? This was copied from somewhere with automatic conversion to Kotlin
  */
 fun Context.getStringSpanned(@StringRes resId: Int, vararg args: Any): Spanned {
@@ -37,18 +38,19 @@ fun Context.getStringSpanned(@StringRes resId: Int, vararg args: Any): Spanned {
       }
       else -> {
         var argIdx = 0
-        argIdx = when (argTerm) {
-          "" -> ++argAt
-          "<" -> argAt
-          else -> argTerm.substring(0,
-              argTerm.length - 1).toInt() - 1
-        }
+        argIdx =
+            when (argTerm) {
+              "" -> ++argAt
+              "<" -> argAt
+              else -> argTerm.substring(0, argTerm.length - 1).toInt() - 1
+            }
         val argItem = args[argIdx]
-        cookedArg = if (typeTerm == "s" && argItem is Spanned) {
-          argItem
-        } else {
-          String.format("%$modTerm$typeTerm", argItem)
-        }
+        cookedArg =
+            if (typeTerm == "s" && argItem is Spanned) {
+              argItem
+            } else {
+              String.format("%$modTerm$typeTerm", argItem)
+            }
       }
     }
     out.replace(i, exprEnd, cookedArg)

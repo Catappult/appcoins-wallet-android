@@ -16,18 +16,18 @@ class AdyenCardView(view: View?) {
 
   private val cardView: CardView? = view?.findViewById(R.id.adyen_card_form_pre_selected)
   private val adyenCardNumberLayout: TextInputLayout? =
-    cardView?.findViewById(R.id.textInputLayout_cardNumber)
+      cardView?.findViewById(R.id.textInputLayout_cardNumber)
   private val adyenExpiryDateLayout: TextInputLayout? =
-    cardView?.findViewById(R.id.textInputLayout_expiryDate)
+      cardView?.findViewById(R.id.textInputLayout_expiryDate)
   private val adyenSecurityCodeLayout: TextInputLayout? =
-    cardView?.findViewById(R.id.textInputLayout_securityCode)
+      cardView?.findViewById(R.id.textInputLayout_securityCode)
   private val adyenCardImageLayout: RoundCornerImageView? =
-    cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
+      cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
   private val adyenSaveDetailsSwitch: SwitchCompat? =
-    (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
-      handleSwitchTint()
-      isChecked = true
-    }
+      (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
+        handleSwitchTint()
+        isChecked = true
+      }
 
   val cardNumber
     get() = adyenCardNumberLayout?.editText?.text
@@ -61,33 +61,26 @@ class AdyenCardView(view: View?) {
   }
 
   private fun SwitchCompat.handleSwitchTint() {
-    thumbTintList = colorStateListOf(
-      intArrayOf(-android.R.attr.state_checked) to ContextCompat.getColor(
-        context,
-        R.color.styleguide_light_grey
-      ),
-      intArrayOf(android.R.attr.state_checked) to ContextCompat.getColor(
-        context,
-        R.color.styleguide_pink
-      ),
-    )
-    trackTintList = colorStateListOf(
-      intArrayOf(-android.R.attr.state_checked) to ContextCompat.getColor(
-        context,
-        R.color.styleguide_medium_grey
-      ),
-      intArrayOf(android.R.attr.state_checked) to ContextCompat.getColor(
-        context,
-        R.color.styleguide_pink_transparent_40
-      ),
-    )
+    thumbTintList =
+        colorStateListOf(
+            intArrayOf(-android.R.attr.state_checked) to
+                ContextCompat.getColor(context, R.color.styleguide_light_grey),
+            intArrayOf(android.R.attr.state_checked) to
+                ContextCompat.getColor(context, R.color.styleguide_pink),
+        )
+    trackTintList =
+        colorStateListOf(
+            intArrayOf(-android.R.attr.state_checked) to
+                ContextCompat.getColor(context, R.color.styleguide_medium_grey),
+            intArrayOf(android.R.attr.state_checked) to
+                ContextCompat.getColor(context, R.color.styleguide_pink_transparent_40),
+        )
   }
 }
 
 fun SavedStateRegistryOwner.unregisterProvider(className: String?) =
-  savedStateRegistry.unregisterSavedStateProvider(
-    "androidx.lifecycle.ViewModelProvider.DefaultKey:$className"
-  )
+    savedStateRegistry.unregisterSavedStateProvider(
+        "androidx.lifecycle.ViewModelProvider.DefaultKey:$className")
 
 fun colorStateListOf(vararg mapping: Pair<IntArray, Int>): ColorStateList {
   val (states, colors) = mapping.unzip()

@@ -29,87 +29,76 @@ import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-
 
 @AndroidEntryPoint
-class VkPaymentTopUpFragment() : BasePageViewFragment(),
-  SingleStateFragment<VkPaymentTopUpState, VkPaymentTopUpSideEffect> {
+class VkPaymentTopUpFragment() :
+    BasePageViewFragment(), SingleStateFragment<VkPaymentTopUpState, VkPaymentTopUpSideEffect> {
 
   private val viewModel: VkPaymentTopUpViewModel by viewModels()
   private val binding by lazy { VkTopupPaymentLayoutBinding.bind(requireView()) }
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var navigator: TopUpNavigator
+  @Inject lateinit var navigator: TopUpNavigator
 
-  @Inject
-  lateinit var vkPayManager: VkPayManager
+  @Inject lateinit var vkPayManager: VkPayManager
 
-  @Inject
-  lateinit var vkDataPreferencesDataSource: VkDataPreferencesDataSource
+  @Inject lateinit var vkDataPreferencesDataSource: VkDataPreferencesDataSource
 
-  private val authVkCallback = object : VkClientAuthCallback {
-    override fun onAuth(authResult: AuthResult) {
-      val email = authResult.personalData?.email ?: ""
-      val phone = authResult.personalData?.phone ?: ""
-      vkDataPreferencesDataSource.saveAuthVk(
-        accessToken = authResult.accessToken,
-        email = email,
-        phone = phone
-      )
-      viewModel.getPaymentLink(email, phone)
-    }
+  private val authVkCallback =
+      object : VkClientAuthCallback {
+        override fun onAuth(authResult: AuthResult) {
+          val email = authResult.personalData?.email ?: ""
+          val phone = authResult.personalData?.phone ?: ""
+          vkDataPreferencesDataSource.saveAuthVk(
+              accessToken = authResult.accessToken, email = email, phone = phone)
+          viewModel.getPaymentLink(email, phone)
+        }
 
-    override fun onCancel() {
-      super.onCancel()
-      showError()
-    }
-  }
-
+        override fun onCancel() {
+          super.onCancel()
+          showError()
+        }
+      }
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View {
-    //Build Vk Pay SuperApp Kit
+    // Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
-      BuildConfig.VK_APP_NAME,
-      BuildConfig.VK_CLIENT_SECRET,
-      requireContext(),
-      R.mipmap.ic_launcher,
-      BuildConfig.VK_SDK_APP_ID,
-      activity
-    )
+        BuildConfig.VK_APP_NAME,
+        BuildConfig.VK_CLIENT_SECRET,
+        requireContext(),
+        R.mipmap.ic_launcher,
+        BuildConfig.VK_SDK_APP_ID,
+        activity)
     VkClientAuthLib.addAuthCallback(authVkCallback)
     return VkTopupPaymentLayoutBinding.inflate(inflater).root
-
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     if (arguments?.getSerializable(PAYMENT_DATA) != null) {
-      viewModel.paymentData =
-        arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
+      viewModel.paymentData = arguments?.getSerializable(PAYMENT_DATA) as TopUpPaymentData
     }
     val imm =
-      requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     imm?.hideSoftInputFromWindow(view.windowToken, 0)
     lifecycleScope.launch {
-      delay(500)  // necessary delay to ensure the superappKit is actually ready.
+      delay(500) // necessary delay to ensure the superappKit is actually ready.
       if (SuperappKit.isInitialized()) {
         if (vkDataPreferencesDataSource.getAuthVk().isNullOrEmpty()) {
           binding.vkFastLoginButton.performClick()
         } else {
           viewModel.getPaymentLink(
-            email = vkDataPreferencesDataSource.getEmailVK(),
-            phone = vkDataPreferencesDataSource.getPhoneVK()
-          )
+              email = vkDataPreferencesDataSource.getEmailVK(),
+              phone = vkDataPreferencesDataSource.getPhoneVK())
         }
       }
     }
@@ -118,7 +107,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
       is VkCheckoutSuccess -> {
-//        viewModel.startTransactionStatusTimer()
+        //        viewModel.startTransactionStatusTimer()
       }
       else -> {
         showError()
@@ -133,16 +122,15 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     val merchantId = viewModel.state.vkTransaction.value?.merchantId ?: "0"
     if (hash != null && uidTransaction != null && amount != null) {
       vkPayManager.checkoutVkPay(
-        hash,
-        uidTransaction,
-        vkDataPreferencesDataSource.getEmailVK() ?: "",
-        vkDataPreferencesDataSource.getPhoneVK() ?: "",
-        viewModel.walletAddress,
-        amount,
-        merchantId.toInt(),
-        BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
-      )
+          hash,
+          uidTransaction,
+          vkDataPreferencesDataSource.getEmailVK() ?: "",
+          vkDataPreferencesDataSource.getPhoneVK() ?: "",
+          viewModel.walletAddress,
+          amount,
+          merchantId.toInt(),
+          BuildConfig.VK_SDK_APP_ID.toInt(),
+          requireFragmentManager())
     } else {
       showError()
     }
@@ -151,7 +139,6 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     // so we are forcing the transaction status check even before completing the payment:
     viewModel.startTransactionStatusTimer()
   }
-
 
   override fun onStateChanged(state: VkPaymentTopUpState) {
     when (state.vkTransaction) {
@@ -162,15 +149,15 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     }
   }
 
-
   private fun handleCompletePurchase() {
-    val bundle = Bundle().apply {
-      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      putString(TOP_UP_AMOUNT, viewModel.paymentData.fiatValue)
-      putString(TOP_UP_CURRENCY, viewModel.paymentData.fiatCurrencyCode)
-      putString(BONUS, viewModel.paymentData.bonusValue.toString())
-      putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
-    }
+    val bundle =
+        Bundle().apply {
+          putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+          putString(TOP_UP_AMOUNT, viewModel.paymentData.fiatValue)
+          putString(TOP_UP_CURRENCY, viewModel.paymentData.fiatCurrencyCode)
+          putString(BONUS, viewModel.paymentData.bonusValue.toString())
+          putString(TOP_UP_CURRENCY_SYMBOL, viewModel.paymentData.fiatCurrencySymbol)
+        }
     clearVkPayCheckout()
     navigator.popView(bundle)
   }
@@ -182,9 +169,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
     binding.errorView.errorMessage.text = getString(R.string.activity_iab_error_message)
     binding.errorView.root.visibility = View.VISIBLE
     clearVkPayCheckout()
-    binding.errorView.tryAgain.setOnClickListener {
-      navigator.navigateBack()
-    }
+    binding.errorView.tryAgain.setOnClickListener { navigator.navigateBack() }
   }
 
   private fun clearVkPayCheckout() {
@@ -197,12 +182,10 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       is VkPaymentTopUpSideEffect.ShowError -> {
         showError()
       }
-
       VkPaymentTopUpSideEffect.ShowLoading -> {}
       VkPaymentTopUpSideEffect.ShowSuccess -> {
         handleCompletePurchase()
       }
-
       VkPaymentTopUpSideEffect.PaymentLinkSuccess -> {
         viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
         startVkCheckoutPay()

@@ -10,9 +10,7 @@ import io.sentry.event.EventBuilder
 class SentryReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
-    throwable?.let {
-      Sentry.capture(throwable)
-    }
+    throwable?.let { Sentry.capture(throwable) }
   }
 
   override fun log(tag: String?, message: String?, asError: Boolean, addToBreadcrumbs: Boolean) {
@@ -26,15 +24,15 @@ class SentryReceiver : LogReceiver {
         Sentry.capture("$tag: $message")
       }
       if (addToBreadcrumbs) {
-        Sentry.getContext().recordBreadcrumb(
-          BreadcrumbBuilder()
-            .setType(Breadcrumb.Type.DEFAULT)
-            .setLevel(Breadcrumb.Level.ERROR)
-            .setMessage(tag)
-            .setCategory(tag)
-            .setData(mapOf(Pair("error", message)))
-            .build()
-        )
+        Sentry.getContext()
+            .recordBreadcrumb(
+                BreadcrumbBuilder()
+                    .setType(Breadcrumb.Type.DEFAULT)
+                    .setLevel(Breadcrumb.Level.ERROR)
+                    .setMessage(tag)
+                    .setCategory(tag)
+                    .setData(mapOf(Pair("error", message)))
+                    .build())
       }
     }
   }

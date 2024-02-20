@@ -15,33 +15,35 @@ sealed class NameDialogSideEffect : SideEffect {
 }
 
 data class NameDialogState(
-  val walletAddress: String,
-  val walletNameAsync: Async<String> = Async.Uninitialized
+    val walletAddress: String,
+    val walletNameAsync: Async<String> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
-class NameDialogViewModel @Inject constructor(
-        savedStateHandle: SavedStateHandle,
-        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-) :
-  BaseViewModel<NameDialogState, NameDialogSideEffect>(initialState(savedStateHandle)) {
+class NameDialogViewModel
+@Inject
+constructor(
+    savedStateHandle: SavedStateHandle,
+    private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+) : BaseViewModel<NameDialogState, NameDialogSideEffect>(initialState(savedStateHandle)) {
 
   companion object {
-    fun initialState(savedStateHandle: SavedStateHandle): NameDialogState = NameDialogState(
-      savedStateHandle.get<String>(NameDialogFragment.WALLET_ADDRESS_KEY)!!,
-      Async.Success(savedStateHandle.get<String>(NameDialogFragment.WALLET_NAME_KEY)!!),
-    )
+    fun initialState(savedStateHandle: SavedStateHandle): NameDialogState =
+        NameDialogState(
+            savedStateHandle.get<String>(NameDialogFragment.WALLET_ADDRESS_KEY)!!,
+            Async.Success(savedStateHandle.get<String>(NameDialogFragment.WALLET_NAME_KEY)!!),
+        )
   }
 
   fun setName(name: String) {
     val retainValue = NameDialogState::walletNameAsync
     state.walletNameAsync()?.also {
       updateWalletNameUseCase(state.walletAddress, name)
-        .toSingleDefault(it)
-        .delay(500, TimeUnit.MILLISECONDS) // for progress showing
-        .asAsyncToState(retainValue) { walletName -> copy(walletNameAsync = walletName) }
-        .doOnSuccess { sendSideEffect { NameDialogSideEffect.NavigateBack } }
-        .scopedSubscribe(Throwable::printStackTrace)
+          .toSingleDefault(it)
+          .delay(500, TimeUnit.MILLISECONDS) // for progress showing
+          .asAsyncToState(retainValue) { walletName -> copy(walletNameAsync = walletName) }
+          .doOnSuccess { sendSideEffect { NameDialogSideEffect.NavigateBack } }
+          .scopedSubscribe(Throwable::printStackTrace)
     }
   }
 }

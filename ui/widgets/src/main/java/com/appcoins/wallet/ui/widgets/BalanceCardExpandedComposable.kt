@@ -34,179 +34,151 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 
 @Composable
 fun BalanceCardExpanded(
-  balanceContent: @Composable () -> Unit,
-  onClickTransfer: () -> Unit,
-  onClickTopUp: () -> Unit,
-  onClickBackup: () -> Unit,
-  onClickMenuOptions: () -> Unit,
-  showBackup: Boolean = true,
-  newWallet: Boolean = true,
-  isLoading: Boolean = true,
+    balanceContent: @Composable () -> Unit,
+    onClickTransfer: () -> Unit,
+    onClickTopUp: () -> Unit,
+    onClickBackup: () -> Unit,
+    onClickMenuOptions: () -> Unit,
+    showBackup: Boolean = true,
+    newWallet: Boolean = true,
+    isLoading: Boolean = true,
 ) {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(16.dp)
-      .clip(shape = RoundedCornerShape(8.dp))
-  ) {
-    if (isLoading) {
-      SkeletonLoadingBalanceCardExpanded()
-    }
-    else if (newWallet) {
-      BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp)
-    } else {
-      Column {
-        Column(
-          modifier = Modifier.padding(16.dp),
-          horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-          Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-          ) {
-            balanceContent()
-            Row {
-              ButtonWithIcon(
-                icon = R.drawable.ic_transfer,
-                label = R.string.transfer_button,
-                onClick = onClickTransfer,
-                backgroundColor = WalletColors.styleguide_blue,
-                labelColor = WalletColors.styleguide_white,
-                iconColor = WalletColors.styleguide_pink,
-                iconSize = 14.dp
-              )
-              Spacer(modifier = Modifier.padding(16.dp))
-              ButtonWithIcon(
-                icon = R.drawable.ic_plus_v3,
-                label = R.string.top_up_button,
-                onClick = onClickTopUp,
-                backgroundColor = WalletColors.styleguide_pink,
-                labelColor = WalletColors.styleguide_white,
-                iconColor = WalletColors.styleguide_white
-              )
-              Spacer(modifier = Modifier.padding(16.dp))
-              VectorIconButton(
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = R.string.action_more_details,
-                onClick = onClickMenuOptions
-              )
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+      modifier = Modifier.fillMaxWidth().padding(16.dp).clip(shape = RoundedCornerShape(8.dp))) {
+        if (isLoading) {
+          SkeletonLoadingBalanceCardExpanded()
+        } else if (newWallet) {
+          BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp)
+        } else {
+          Column {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                  Row(
+                      modifier = Modifier.fillMaxWidth(),
+                      horizontalArrangement = Arrangement.SpaceBetween,
+                      verticalAlignment = Alignment.CenterVertically) {
+                        balanceContent()
+                        Row {
+                          ButtonWithIcon(
+                              icon = R.drawable.ic_transfer,
+                              label = R.string.transfer_button,
+                              onClick = onClickTransfer,
+                              backgroundColor = WalletColors.styleguide_blue,
+                              labelColor = WalletColors.styleguide_white,
+                              iconColor = WalletColors.styleguide_pink,
+                              iconSize = 14.dp)
+                          Spacer(modifier = Modifier.padding(16.dp))
+                          ButtonWithIcon(
+                              icon = R.drawable.ic_plus_v3,
+                              label = R.string.top_up_button,
+                              onClick = onClickTopUp,
+                              backgroundColor = WalletColors.styleguide_pink,
+                              labelColor = WalletColors.styleguide_white,
+                              iconColor = WalletColors.styleguide_white)
+                          Spacer(modifier = Modifier.padding(16.dp))
+                          VectorIconButton(
+                              imageVector = Icons.Default.MoreVert,
+                              contentDescription = R.string.action_more_details,
+                              onClick = onClickMenuOptions)
+                        }
+                      }
+                }
+            if (showBackup) {
+              Surface(
+                  modifier =
+                      Modifier.fillMaxWidth().absolutePadding(top = 4.dp, bottom = 4.dp).size(1.dp),
+                  color = WalletColors.styleguide_blue,
+                  content = {})
+              Column(modifier = Modifier.padding(16.dp)) { BackupAlertCardExpanded(onClickBackup) }
             }
           }
         }
-        if (showBackup) {
-          Surface(
-            modifier =
-            Modifier
-              .fillMaxWidth()
-              .absolutePadding(top = 4.dp, bottom = 4.dp)
-              .size(1.dp),
-            color = WalletColors.styleguide_blue,
-            content = {})
-          Column(modifier = Modifier.padding(16.dp)) { BackupAlertCardExpanded(onClickBackup) }
-        }
       }
-    }
-  }
 }
-
 
 @Composable
 private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
   Row(
-    modifier = Modifier
-      .padding(32.dp)
-      .fillMaxWidth(),
-    horizontalArrangement = Arrangement.SpaceBetween
-  ) {
-    Column(horizontalAlignment = Alignment.Start) {
-      Text(
-        text = stringResource(id = R.string.intro_welcome_header),
-        style =
-        TextStyle(
-          color = WalletColors.styleguide_white,
-          fontSize = 16.sp,
-          fontWeight = FontWeight.Bold
-        )
-      )
-      Text(
-        text = stringResource(id = R.string.intro_welcome_body),
-        style =
-        TextStyle(
-          color = WalletColors.styleguide_white,
-          fontSize = 14.sp,
-        )
-      )
-    }
-    ButtonWithIcon(
-      icon = R.drawable.ic_plus_v3,
-      label = R.string.top_up_button,
-      onClick = onClickTopUp,
-      backgroundColor = WalletColors.styleguide_pink,
-      labelColor = WalletColors.styleguide_white,
-      iconColor = WalletColors.styleguide_white
-    )
-  }
+      modifier = Modifier.padding(32.dp).fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween) {
+        Column(horizontalAlignment = Alignment.Start) {
+          Text(
+              text = stringResource(id = R.string.intro_welcome_header),
+              style =
+                  TextStyle(
+                      color = WalletColors.styleguide_white,
+                      fontSize = 16.sp,
+                      fontWeight = FontWeight.Bold))
+          Text(
+              text = stringResource(id = R.string.intro_welcome_body),
+              style =
+                  TextStyle(
+                      color = WalletColors.styleguide_white,
+                      fontSize = 14.sp,
+                  ))
+        }
+        ButtonWithIcon(
+            icon = R.drawable.ic_plus_v3,
+            label = R.string.top_up_button,
+            onClick = onClickTopUp,
+            backgroundColor = WalletColors.styleguide_pink,
+            labelColor = WalletColors.styleguide_white,
+            iconColor = WalletColors.styleguide_white)
+      }
 }
 
 @Composable
 fun SkeletonLoadingBalanceCardExpanded() {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    modifier =
-    Modifier
-      .fillMaxWidth()
-      .padding(bottom = 0.dp, start = 16.dp, end = 16.dp)
-      .clip(shape = RoundedCornerShape(8.dp))
-  ) {
-    Row(
-      modifier = Modifier
-        .padding(32.dp)
-        .fillMaxWidth(),
-      horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-      Column{
-        Spacer(
-          modifier = Modifier
-            .width(width = 250.dp)
-            .height(height = 30.dp)
-            .clip(RoundedCornerShape(5.dp))
-            .background(brush = shimmerSkeleton()),
-        )
-        Spacer(
-          modifier = Modifier
-            .padding(top = 4.dp)
-            .width(width = 500.dp)
-            .height(height = 22.dp)
-            .clip(RoundedCornerShape(5.dp))
-            .background(brush = shimmerSkeleton()),
-        )
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+      modifier =
+          Modifier.fillMaxWidth()
+              .padding(bottom = 0.dp, start = 16.dp, end = 16.dp)
+              .clip(shape = RoundedCornerShape(8.dp))) {
+        Row(
+            modifier = Modifier.padding(32.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+              Column {
+                Spacer(
+                    modifier =
+                        Modifier.width(width = 250.dp)
+                            .height(height = 30.dp)
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(brush = shimmerSkeleton()),
+                )
+                Spacer(
+                    modifier =
+                        Modifier.padding(top = 4.dp)
+                            .width(width = 500.dp)
+                            .height(height = 22.dp)
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(brush = shimmerSkeleton()),
+                )
+              }
+              Spacer(
+                  modifier =
+                      Modifier.width(width = 120.dp)
+                          .height(height = 40.dp)
+                          .clip(RoundedCornerShape(50.dp))
+                          .background(brush = shimmerSkeleton()))
+            }
       }
-      Spacer(
-        modifier = Modifier
-          .width(width = 120.dp)
-          .height(height = 40.dp)
-          .clip(RoundedCornerShape(50.dp))
-          .background(brush = shimmerSkeleton())
-      )
-    }
-  }
 }
-
 
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun PreviewLandscapeBalanceCard() {
   BalanceCardExpanded(
-    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
-    onClickTransfer = {},
-    onClickBackup = {},
-    onClickTopUp = {},
-    onClickMenuOptions = {},
-    showBackup = true,
-    newWallet = false,
-    isLoading = false,
+      balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
+      onClickTransfer = {},
+      onClickBackup = {},
+      onClickTopUp = {},
+      onClickMenuOptions = {},
+      showBackup = true,
+      newWallet = false,
+      isLoading = false,
   )
 }
 
@@ -214,44 +186,41 @@ fun PreviewLandscapeBalanceCard() {
 @Composable
 fun PreviewLandscapeBalanceCardWithoutBackup() {
   BalanceCardExpanded(
-    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
-    onClickTransfer = {},
-    onClickBackup = {},
-    onClickTopUp = {},
-    onClickMenuOptions = {},
-    showBackup = false,
-    newWallet = false,
-    isLoading = false
-  )
+      balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
+      onClickTransfer = {},
+      onClickBackup = {},
+      onClickTopUp = {},
+      onClickMenuOptions = {},
+      showBackup = false,
+      newWallet = false,
+      isLoading = false)
 }
 
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun PreviewLandscapeNewWalletBalanceCard() {
   BalanceCardExpanded(
-    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
-    onClickTransfer = {},
-    onClickBackup = {},
-    onClickTopUp = {},
-    onClickMenuOptions = {},
-    showBackup = true,
-    newWallet = true,
-    isLoading = false
-  )
+      balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
+      onClickTransfer = {},
+      onClickBackup = {},
+      onClickTopUp = {},
+      onClickMenuOptions = {},
+      showBackup = true,
+      newWallet = true,
+      isLoading = false)
 }
 
 @Preview(device = "spec:parent=pixel_5,orientation=landscape")
 @Composable
 fun PreviewSkeletonBalanceCardExpanded() {
   BalanceCardExpanded(
-    balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
-    onClickTransfer = {},
-    onClickBackup = {},
-    onClickTopUp = {},
-    onClickMenuOptions = {},
-    showBackup = true,
-    newWallet = true,
-    isLoading = true,
+      balanceContent = { BalanceValue("€ 30.12", "Eur", {}) },
+      onClickTransfer = {},
+      onClickBackup = {},
+      onClickTopUp = {},
+      onClickMenuOptions = {},
+      showBackup = true,
+      newWallet = true,
+      isLoading = true,
   )
 }
-

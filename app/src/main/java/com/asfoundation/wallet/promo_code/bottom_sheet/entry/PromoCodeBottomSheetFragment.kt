@@ -31,11 +31,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PromoCodeBottomSheetFragment :
-  BottomSheetDialogFragment(),
-  SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
+    BottomSheetDialogFragment(),
+    SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
 
-  @Inject
-  lateinit var navigator: PromoCodeBottomSheetNavigator
+  @Inject lateinit var navigator: PromoCodeBottomSheetNavigator
 
   private val viewModel: PromoCodeBottomSheetViewModel by viewModels()
   private val views by viewBinding(SettingsPromoCodeBottomSheetLayoutBinding::bind)
@@ -50,9 +49,9 @@ class PromoCodeBottomSheetFragment :
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,33 +79,30 @@ class PromoCodeBottomSheetFragment :
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
     views.promoCodeBottomSheetString.addTextChangedListener(
-      object : TextWatcher {
-        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
-          Unit
+        object : TextWatcher {
+          override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
+              Unit
 
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-          views.promoCodeBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
-        }
+          override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            views.promoCodeBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
+          }
 
-        override fun afterTextChanged(s: Editable) = Unit
-      })
+          override fun afterTextChanged(s: Editable) = Unit
+        })
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
       is Async.Uninitialized ->
-        initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
-
+          initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-
       is Async.Fail -> {
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
-
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
@@ -122,10 +118,7 @@ class PromoCodeBottomSheetFragment :
     }
   }
 
-  fun initializePromoCode(
-    storedPromoCodeAsync: Async<PromoCode>,
-    shouldShowDefault: Boolean
-  ) {
+  fun initializePromoCode(storedPromoCodeAsync: Async<PromoCode>, shouldShowDefault: Boolean) {
     when (storedPromoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
@@ -157,12 +150,9 @@ class PromoCodeBottomSheetFragment :
     }
   }
 
-  private fun handlePromoCodeSuccessState(
-    promoCodeResult: PromoCode,
-    shouldShowDefault: Boolean
-  ) {
+  private fun handlePromoCodeSuccessState(promoCodeResult: PromoCode, shouldShowDefault: Boolean) {
     when (promoCodeResult.validity) {
-       ValidityState.ACTIVE -> {
+      ValidityState.ACTIVE -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
@@ -182,8 +172,7 @@ class PromoCodeBottomSheetFragment :
       }
       is FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(
-          getString(R.string.promo_code_error_not_available)
-        )
+            getString(R.string.promo_code_error_not_available))
       }
       is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
@@ -204,8 +193,7 @@ class PromoCodeBottomSheetFragment :
     hideAll()
     views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
     views.promoCodeBottomSheetString.setColor(
-      ContextCompat.getColor(requireContext(), R.color.styleguide_blue)
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_blue))
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE
     views.promocodeImage.visibility = View.VISIBLE
@@ -221,8 +209,7 @@ class PromoCodeBottomSheetFragment :
     hideAll()
     views.promoCodeBottomSheetString.setType(WalletTextFieldView.Type.READ_ONLY)
     views.promoCodeBottomSheetString.setText(
-      Editable.Factory.getInstance().newEditable(promoCodeString)
-    )
+        Editable.Factory.getInstance().newEditable(promoCodeString))
     views.promoCodeBottomSheetString.visibility = View.VISIBLE
     views.promocodeImage.visibility = View.VISIBLE
     views.promoCodeBottomSheetTitle.visibility = View.VISIBLE

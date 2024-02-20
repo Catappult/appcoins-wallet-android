@@ -27,22 +27,22 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOptionsComposeFragment :
-  BasePageViewFragment(),
-  SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect>,
-  Navigator {
+    BasePageViewFragment(),
+    SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect>,
+    Navigator {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
-  @Inject
-  lateinit var navigator: BackupSaveOptionsNavigator
+  @Inject lateinit var navigator: BackupSaveOptionsNavigator
 
   companion object {
     fun newInstance() = BackupSaveOptionsComposeFragment()
+
     const val PASSWORD_KEY = "password"
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val SAVE_PLACE_KEY = "save_backup_place"
   }
+
   private val viewModel: BackupSaveOptionsViewModel by viewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,19 +78,19 @@ class BackupSaveOptionsComposeFragment :
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSaveOptionsRoute(
-              onChatClick = { displayChat() },
-              onSaveOnDevice = {
-                navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password)
-              })
+                onChatClick = { displayChat() },
+                onSaveOnDevice = {
+                  navigator.showSaveOnDeviceFragment(viewModel.walletAddress, viewModel.password)
+                })
           }
         }
       }
@@ -103,12 +103,10 @@ class BackupSaveOptionsComposeFragment :
         viewModel.showLoading(false)
         navigator.showWalletSuccessScreen()
       }
-
       BackupSaveOptionsSideEffect.ShowError -> {
         viewModel.showLoading(false)
         navigator.showErrorScreen()
       }
-
       else -> {}
     }
   }

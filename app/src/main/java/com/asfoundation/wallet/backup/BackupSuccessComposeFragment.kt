@@ -19,31 +19,28 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupSuccessComposeFragment : BasePageViewFragment() {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
-  @Inject
-  lateinit var navigator: BackupEntryNavigator
+  @Inject lateinit var navigator: BackupEntryNavigator
 
   companion object {
     fun newInstance() = BackupSuccessComposeFragment()
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupSuccessRoute(
-              onChatClick = { displayChat() },
-              saveOnDevice = requireArguments().getBoolean(SAVE_PLACE_KEY)
-            ) {
-              navigator.navigateToHome()
-            }
+                onChatClick = { displayChat() },
+                saveOnDevice = requireArguments().getBoolean(SAVE_PLACE_KEY)) {
+                  navigator.navigateToHome()
+                }
           }
         }
       }

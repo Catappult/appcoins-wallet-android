@@ -21,7 +21,7 @@ fun Drawable.toBitmap(): Bitmap {
     return this.bitmap
   }
   val bitmap =
-    Bitmap.createBitmap(this.intrinsicWidth, this.intrinsicHeight, Bitmap.Config.ARGB_8888)
+      Bitmap.createBitmap(this.intrinsicWidth, this.intrinsicHeight, Bitmap.Config.ARGB_8888)
   val canvas = Canvas(bitmap)
   this.setBounds(0, 0, canvas.width, canvas.height)
   this.draw(canvas)
@@ -35,7 +35,7 @@ fun Bitmap.mergeWith(centeredImage: Bitmap): Bitmap {
   canvas.drawBitmap(this, Matrix(), null)
 
   val resizeLogo =
-    Bitmap.createScaledBitmap(centeredImage, canvas.width / 5, canvas.height / 5, true)
+      Bitmap.createScaledBitmap(centeredImage, canvas.width / 5, canvas.height / 5, true)
   val centreX = (canvas.width - resizeLogo.width) / 2f
   val centreY = (canvas.height - resizeLogo.height) / 2f
   canvas.drawBitmap(resizeLogo, centreX, centreY, null)
@@ -44,11 +44,8 @@ fun Bitmap.mergeWith(centeredImage: Bitmap): Bitmap {
 
 fun Int.convertDpToPx(resources: Resources): Int {
   return TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,
-    this.toFloat(),
-    resources.displayMetrics
-  )
-    .toInt()
+          TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), resources.displayMetrics)
+      .toInt()
 }
 
 /**
@@ -75,13 +72,15 @@ fun RecyclerView.addBottomItemDecoration(dimension: Float) {
 }
 
 fun String.createColoredString(color: String): String {
-  val parcedColor = when (color.length) {
-    9 -> StringBuilder(color)
-      .deleteCharAt(1)  // remove alpha channel
-      .deleteCharAt(2)  // remove alpha channel
-    7 -> color
-    else -> "#ffffff"
-  }
+  val parcedColor =
+      when (color.length) {
+        9 ->
+            StringBuilder(color)
+                .deleteCharAt(1) // remove alpha channel
+                .deleteCharAt(2) // remove alpha channel
+        7 -> color
+        else -> "#ffffff"
+      }
   return "<font color='${parcedColor}'>$this</font>"
 }
 
@@ -95,10 +94,12 @@ fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
   this.inputType = inputType
 }
 
-fun View.setMargins(startMarginDp: Int? = null,
-                    topMarginDp: Int? = null,
-                    endMarginDp: Int? = null,
-                    bottomMarginDp: Int? = null) {
+fun View.setMargins(
+    startMarginDp: Int? = null,
+    topMarginDp: Int? = null,
+    endMarginDp: Int? = null,
+    bottomMarginDp: Int? = null
+) {
   if (layoutParams is ViewGroup.MarginLayoutParams) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     startMarginDp?.run { params.marginStart = this.convertDpToPx(context.resources) }

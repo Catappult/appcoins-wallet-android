@@ -7,8 +7,7 @@ import com.appcoins.wallet.core.arch.data.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import javax.inject.Inject
 
-class VerificationPaypalNavigator @Inject constructor(private val fragment: Fragment) :
-  Navigator {
+class VerificationPaypalNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
 
   fun navigateToPayment(url: String, launcher: ActivityResultLauncher<Intent>) {
     launcher.launch(WebViewActivity.newIntent(fragment.activity, url))
@@ -17,5 +16,4 @@ class VerificationPaypalNavigator @Inject constructor(private val fragment: Frag
   fun navigateBack() {
     fragment.activity?.finish()
   }
-
 }

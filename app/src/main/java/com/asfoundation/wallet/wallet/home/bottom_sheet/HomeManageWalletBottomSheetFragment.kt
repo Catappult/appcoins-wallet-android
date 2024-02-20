@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.wallet.home.bottom_sheet
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +19,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
-  SingleStateFragment<HomeManageWalletBottomSheetState, HomeManageWalletBottomSheetSideEffect> {
+class HomeManageWalletBottomSheetFragment() :
+    BottomSheetDialogFragment(),
+    SingleStateFragment<HomeManageWalletBottomSheetState, HomeManageWalletBottomSheetSideEffect> {
 
-
-  @Inject
-  lateinit var navigator: HomeManageWalletBottomSheetNavigator
+  @Inject lateinit var navigator: HomeManageWalletBottomSheetNavigator
 
   private val viewModel: HomeManageWalletBottomSheetViewModel by viewModels()
   private val views by viewBinding(HomeManageWalletBottomSheetLayoutBinding::bind)
@@ -37,10 +35,10 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
     }
   }
 
-
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = HomeManageWalletBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +58,7 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
   }
 
   private fun setListeners() {
-    views.backupWalletView.setOnClickListener {
-      viewModel.onBackupClick()
-    }
+    views.backupWalletView.setOnClickListener { viewModel.onBackupClick() }
     views.manageWalletView.setOnClickListener {
       this.dismiss()
       navigator.navigateToManageWallet(navController())
@@ -71,13 +67,12 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
       this.dismiss()
       navigator.navigateToRecoverWallet()
     }
-
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 
@@ -99,6 +94,4 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
       else -> {}
     }
   }
-
-
 }

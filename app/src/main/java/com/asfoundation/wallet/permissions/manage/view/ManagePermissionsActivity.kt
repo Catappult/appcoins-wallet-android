@@ -27,9 +27,10 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -39,6 +40,7 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
     enableDisplayHomeAsUp()
     return toolbar
   }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permissions_layout)
@@ -47,7 +49,9 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
   }
 
   override fun showPermissionsList() {
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, PermissionsListFragment.newInstance()).commit()
+    supportFragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_container, PermissionsListFragment.newInstance())
+        .commit()
   }
 }

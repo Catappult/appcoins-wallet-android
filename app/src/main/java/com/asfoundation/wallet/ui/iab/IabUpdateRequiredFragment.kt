@@ -32,29 +32,25 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
 
   private lateinit var listPopupWindow: ListPopupWindow
 
-  @Inject
-  lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
+  @Inject lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
 
-  @Inject
-  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+  @Inject lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
-  @Inject
-  lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
+  @Inject lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
 
-  @Inject
-  lateinit var rxSchedulers: RxSchedulers
+  @Inject lateinit var rxSchedulers: RxSchedulers
 
   private val views by viewBinding(IabUpdateRequiredLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = IabUpdateRequiredPresenter(
-      this,
-      CompositeDisposable(),
-      buildUpdateIntentUseCase,
-      getWalletsModelUseCase,
-      rxSchedulers
-    )
+    presenter =
+        IabUpdateRequiredPresenter(
+            this,
+            CompositeDisposable(),
+            buildUpdateIntentUseCase,
+            getWalletsModelUseCase,
+            rxSchedulers)
   }
 
   override fun onAttach(context: Context) {
@@ -62,7 +58,6 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
     check(context is IabView) { "IabUpdateRequired fragment must be attached to IAB activity" }
     iabView = context
   }
-
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -72,8 +67,9 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = IabUpdateRequiredLayoutBinding.inflate(inflater).root
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
@@ -85,19 +81,16 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun backupClick() = RxView.clicks(views.updateRequiredBackupButton)
 
   override fun navigateToBackup(walletAddress: String) {
-    requireContext().startActivity(
-      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
-        context = requireContext(),
-        walletAddress = walletAddress,
-        isBackupTrigger = false
-      )
-    )
+    requireContext()
+        .startActivity(
+            com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
+                context = requireContext(), walletAddress = walletAddress, isBackupTrigger = false))
   }
 
   override fun close() = iabView.close(Bundle())
 
   override fun showError() =
-    Snackbar.make(views.mainLayout, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+      Snackbar.make(views.mainLayout, R.string.unknown_error, Snackbar.LENGTH_SHORT)
 
   override fun onDestroyView() {
     super.onDestroyView()
@@ -108,23 +101,20 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
     listPopupWindow = ListPopupWindow(requireContext(), null, R.attr.listPopupWindowStyle)
     listPopupWindow.anchorView = views.updateRequiredBackupButton
     listPopupWindow.setBackgroundDrawable(
-      AppCompatResources.getDrawable(
-        requireContext(),
-        R.drawable.update_required_backup_wallet_selection
-      )
-    )
+        AppCompatResources.getDrawable(
+            requireContext(), R.drawable.update_required_backup_wallet_selection))
 
-    val adapter = WalletSelectionAdapter(
-      requireContext(),
-      prepareWalletsList(walletsModel),
-      R.layout.wallet_selection_item,
-      arrayOf("wallet_name", "wallet_backup_date", "wallet_balance"),
-      intArrayOf(
-        R.id.wallet_selection_name,
-        R.id.wallet_selection_backup_date,
-        R.id.wallet_selection_balance,
-      )
-    )
+    val adapter =
+        WalletSelectionAdapter(
+            requireContext(),
+            prepareWalletsList(walletsModel),
+            R.layout.wallet_selection_item,
+            arrayOf("wallet_name", "wallet_backup_date", "wallet_balance"),
+            intArrayOf(
+                R.id.wallet_selection_name,
+                R.id.wallet_selection_backup_date,
+                R.id.wallet_selection_balance,
+            ))
     listPopupWindow.setAdapter(adapter)
 
     listPopupWindow.setOnItemClickListener { _, _, position, _ ->
@@ -141,7 +131,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
       hashMap["wallet_name"] = walletsModel.wallets[i].walletName
       hashMap["wallet_backup_date"] = walletsModel.wallets[i].backupDate.toString()
       hashMap["wallet_balance"] =
-        walletsModel.wallets[i].balance.symbol + walletsModel.wallets[i].balance.amount
+          walletsModel.wallets[i].balance.symbol + walletsModel.wallets[i].balance.amount
       arrayList.add(hashMap)
     }
     return arrayList

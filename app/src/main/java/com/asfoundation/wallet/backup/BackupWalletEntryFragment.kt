@@ -30,14 +30,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
-  @Inject
-  lateinit var navigator: BackupEntryNavigator
+  @Inject lateinit var navigator: BackupEntryNavigator
 
-  @Inject
-  lateinit var settingsInteractor: SettingsInteractor
+  @Inject lateinit var settingsInteractor: SettingsInteractor
 
   val networkScheduler = Schedulers.io()
   val viewScheduler: Scheduler = AndroidSchedulers.mainThread()
@@ -45,6 +42,7 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   companion object {
     fun newInstance() = BackupWalletEntryFragment()
+
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val WALLET_NAME = "wallet_name"
     const val PASSWORD_KEY = "password"
@@ -61,23 +59,22 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?,
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?,
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
         WalletTheme {
           Surface(modifier = Modifier.fillMaxSize()) {
             BackupEntryRoute(
-              onExitClick = { handleBackPress() },
-              onChatClick = { displayChat() },
-              onChooseWallet = { onBackupPreferenceClick() },
-              onNextClick = {
-                navigateToBackupWalletEntry(
-                  viewModel.walletAddress, navController(), viewModel.password
-                )
-              })
+                onExitClick = { handleBackPress() },
+                onChatClick = { displayChat() },
+                onChooseWallet = { onBackupPreferenceClick() },
+                onNextClick = {
+                  navigateToBackupWalletEntry(
+                      viewModel.walletAddress, navController(), viewModel.password)
+                })
           }
         }
       }
@@ -87,14 +84,14 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     requireActivity()
-      .onBackPressedDispatcher
-      .addCallback(
-        this,
-        object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            viewModel.showBottomSheet.value = true
-          }
-        })
+        .onBackPressedDispatcher
+        .addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+              override fun handleOnBackPressed() {
+                viewModel.showBottomSheet.value = true
+              }
+            })
   }
 
   private fun handleBackPress() {
@@ -103,15 +100,15 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   private fun navController(): NavController {
     val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 
   private fun navigateToBackupWalletEntry(
-    walletAddress: String,
-    mainNavController: NavController,
-    password: String
+      walletAddress: String,
+      mainNavController: NavController,
+      password: String
   ) {
     val bundle = Bundle()
     bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -121,16 +118,15 @@ class BackupWalletEntryFragment : BasePageViewFragment(), Navigator {
 
   private fun onBackupPreferenceClick() {
     disposables.add(
-      settingsInteractor
-        .retrieveWallets()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          navigator.showWalletChooseScreen(
-            walletModel = it,
-          )
-        }
-        .subscribe({}, {})
-    )
+        settingsInteractor
+            .retrieveWallets()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              navigator.showWalletChooseScreen(
+                  walletModel = it,
+              )
+            }
+            .subscribe({}, {}))
   }
 }

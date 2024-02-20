@@ -7,10 +7,9 @@ import com.asfoundation.wallet.promo_code.bottom_sheet.success.PromoCodeSuccessB
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class PromoCodeBottomSheetNavigator @Inject constructor(
-  val fragment: Fragment,
-  val fragmentManager: FragmentManager
-) {
+class PromoCodeBottomSheetNavigator
+@Inject
+constructor(val fragment: Fragment, val fragmentManager: FragmentManager) {
 
   fun navigateBack() {
     (fragment as BottomSheetDialogFragment).dismiss()

@@ -9,13 +9,10 @@ import org.gradle.kotlin.dsl.getByType
 class JacocoLibraryPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
-      with(pluginManager) {
-        apply("org.gradle.jacoco")
-      }
+      with(pluginManager) { apply("org.gradle.jacoco") }
 
       val extension = extensions.getByType<LibraryAndroidComponentsExtension>()
       configureJacoco(extension)
     }
   }
-
 }

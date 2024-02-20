@@ -65,38 +65,39 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
     @JvmStatic
     fun newInstance(
-      fiatAmount: BigDecimal,
-      currency: String,
-      bonus: String,
-      appName: String,
-      productName: String?,
-      appcAmount: BigDecimal,
-      isBds: Boolean,
-      isDonation: Boolean,
-      skuId: String?,
-      transactionType: String,
-      gamificationLevel: Int,
-      transactionBuilder: TransactionBuilder,
-      isSubscription: Boolean,
-      frequency: String?
+        fiatAmount: BigDecimal,
+        currency: String,
+        bonus: String,
+        appName: String,
+        productName: String?,
+        appcAmount: BigDecimal,
+        isBds: Boolean,
+        isDonation: Boolean,
+        skuId: String?,
+        transactionType: String,
+        gamificationLevel: Int,
+        transactionBuilder: TransactionBuilder,
+        isSubscription: Boolean,
+        frequency: String?
     ): Fragment {
       val fragment = MergedAppcoinsFragment()
-      val bundle = Bundle().apply {
-        putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
-        putString(FIAT_CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putString(APP_NAME_KEY, appName)
-        putString(PRODUCT_NAME_KEY, productName)
-        putSerializable(APPC_AMOUNT_KEY, appcAmount)
-        putBoolean(IS_BDS_KEY, isBds)
-        putBoolean(IS_DONATION_KEY, isDonation)
-        putString(SKU_ID, skuId)
-        putString(TRANSACTION_TYPE, transactionType)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putParcelable(TRANSACTION_BUILDER, transactionBuilder)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putString(FREQUENCY, frequency)
-      }
+      val bundle =
+          Bundle().apply {
+            putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
+            putString(FIAT_CURRENCY_KEY, currency)
+            putString(BONUS_KEY, bonus)
+            putString(APP_NAME_KEY, appName)
+            putString(PRODUCT_NAME_KEY, productName)
+            putSerializable(APPC_AMOUNT_KEY, appcAmount)
+            putBoolean(IS_BDS_KEY, isBds)
+            putBoolean(IS_DONATION_KEY, isDonation)
+            putString(SKU_ID, skuId)
+            putString(TRANSACTION_TYPE, transactionType)
+            putInt(GAMIFICATION_LEVEL, gamificationLevel)
+            putParcelable(TRANSACTION_BUILDER, transactionBuilder)
+            putBoolean(IS_SUBSCRIPTION, isSubscription)
+            putString(FREQUENCY, frequency)
+          }
       fragment.arguments = bundle
       return fragment
     }
@@ -106,23 +107,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private var paymentSelectionSubject: PublishSubject<String>? = null
   private lateinit var iabView: IabView
 
-  @Inject
-  lateinit var billingAnalytics: BillingAnalytics
+  @Inject lateinit var billingAnalytics: BillingAnalytics
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var mergedAppcoinsInteractor: MergedAppcoinsInteractor
+  @Inject lateinit var mergedAppcoinsInteractor: MergedAppcoinsInteractor
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
-  @Inject
-  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+  @Inject lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
-  @Inject
-  lateinit var paymentMethodsMapper: PaymentMethodsMapper
+  @Inject lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private val fiatAmount: BigDecimal by lazy {
     if (requireArguments().containsKey(FIAT_AMOUNT_KEY)) {
@@ -187,9 +182,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
   }
 
-  private val skuId: String? by lazy {
-    requireArguments().getString(SKU_ID)
-  }
+  private val skuId: String? by lazy { requireArguments().getString(SKU_ID) }
 
   private val transactionType: String by lazy {
     if (requireArguments().containsKey(TRANSACTION_TYPE)) {
@@ -239,23 +232,22 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
-      MergedAppcoinsPresenter(
-        view = this,
-        disposables = CompositeDisposable(),
-        resumeDisposables = CompositeDisposable(),
-        viewScheduler = AndroidSchedulers.mainThread(),
-        networkScheduler = Schedulers.io(),
-        analytics = billingAnalytics,
-        formatter = formatter,
-        getWalletInfoUseCase = getWalletInfoUseCase,
-        mergedAppcoinsInteractor = mergedAppcoinsInteractor,
-        gamificationLevel = gamificationLevel,
-        navigator = navigator,
-        logger = logger,
-        transactionBuilder = transactionBuilder,
-        paymentMethodsMapper = paymentMethodsMapper,
-        isSubscription = isSubscription
-      )
+        MergedAppcoinsPresenter(
+            view = this,
+            disposables = CompositeDisposable(),
+            resumeDisposables = CompositeDisposable(),
+            viewScheduler = AndroidSchedulers.mainThread(),
+            networkScheduler = Schedulers.io(),
+            analytics = billingAnalytics,
+            formatter = formatter,
+            getWalletInfoUseCase = getWalletInfoUseCase,
+            mergedAppcoinsInteractor = mergedAppcoinsInteractor,
+            gamificationLevel = gamificationLevel,
+            navigator = navigator,
+            logger = logger,
+            transactionBuilder = transactionBuilder,
+            paymentMethodsMapper = paymentMethodsMapper,
+            isSubscription = isSubscription)
   }
 
   override fun onAttach(context: Context) {
@@ -265,9 +257,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = MergedAppcoinsLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -289,20 +281,22 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     binding.paymentMethods.visibility = VISIBLE
   }
 
-  private fun setBuyButtonText(): String = when {
-    isSubscription -> getString(R.string.subscriptions_subscribe_button)
-    isDonation -> getString(R.string.action_donate)
-    else -> getString(R.string.action_buy)
-  }
+  private fun setBuyButtonText(): String =
+      when {
+        isSubscription -> getString(R.string.subscriptions_subscribe_button)
+        isDonation -> getString(R.string.action_donate)
+        else -> getString(R.string.action_buy)
+      }
 
   private fun setBonus() {
     if (bonus.isNotEmpty()) {
-      //Build string for both landscape (header) and portrait (radio button) bonus layout
-      // appcoins_radio?.bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+      // Build string for both landscape (header) and portrait (radio button) bonus layout
+      // appcoins_radio?.bonus_value?.text = getString(R.string.gamification_purchase_header_part_2,
+      // bonus)
       binding.appcoinsRadio.appcoinsBonusLayout?.bonusValue?.text =
-        getString(R.string.gamification_purchase_header_part_2, bonus)
+          getString(R.string.gamification_purchase_header_part_2, bonus)
 
-      //Set visibility for both landscape (header) and portrait (radio button) bonus layout
+      // Set visibility for both landscape (header) and portrait (radio button) bonus layout
       if (binding.appcoinsRadio.appcoinsRadioButton.isChecked) {
         binding.bonusLayout?.root?.visibility = VISIBLE
         binding.bonusMsg?.visibility = VISIBLE
@@ -320,61 +314,57 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   override fun setPaymentsInformation(
-    hasCredits: Boolean,
-    creditsDisableReason: Int?,
-    hasAppc: Boolean,
-    appcDisabledReason: Int?
+      hasCredits: Boolean,
+      creditsDisableReason: Int?,
+      hasAppc: Boolean,
+      appcDisabledReason: Int?
   ) {
     if (hasAppc) {
       setEnabledRadio(
-        view = binding.appcoinsRadio.root,
-        selectedRadioButton = binding.appcoinsRadio.appcoinsRadioButton,
-        unSelectedRadioButton = binding.creditsRadio.creditsRadioButton,
-        title = binding.appcoinsRadio.title,
-        message = binding.appcoinsRadio.message,
-        icon = binding.appcoinsRadio.icon,
-        bonusView = binding.appcoinsRadio.appcoinsBonusLayout?.root,
-        balanceGroup = binding.appcoinsRadio.appcBalancesGroup,
-        method = APPC
-      )
+          view = binding.appcoinsRadio.root,
+          selectedRadioButton = binding.appcoinsRadio.appcoinsRadioButton,
+          unSelectedRadioButton = binding.creditsRadio.creditsRadioButton,
+          title = binding.appcoinsRadio.title,
+          message = binding.appcoinsRadio.message,
+          icon = binding.appcoinsRadio.icon,
+          bonusView = binding.appcoinsRadio.appcoinsBonusLayout?.root,
+          balanceGroup = binding.appcoinsRadio.appcBalancesGroup,
+          method = APPC)
     } else {
       setDisabledRadio(
-        view = binding.appcoinsRadio.root,
-        radioButton = binding.appcoinsRadio.appcoinsRadioButton,
-        title = binding.appcoinsRadio.title,
-        message = binding.appcoinsRadio.message,
-        icon = binding.appcoinsRadio.icon,
-        bonusLayout = binding.appcoinsRadio.appcoinsBonusLayout?.root,
-        balanceGroup = binding.appcoinsRadio.appcBalancesGroup,
-        disabledReason = appcDisabledReason,
-        defaultDisabledReason = R.string.purchase_appcoins_noavailable_body
-      )
+          view = binding.appcoinsRadio.root,
+          radioButton = binding.appcoinsRadio.appcoinsRadioButton,
+          title = binding.appcoinsRadio.title,
+          message = binding.appcoinsRadio.message,
+          icon = binding.appcoinsRadio.icon,
+          bonusLayout = binding.appcoinsRadio.appcoinsBonusLayout?.root,
+          balanceGroup = binding.appcoinsRadio.appcBalancesGroup,
+          disabledReason = appcDisabledReason,
+          defaultDisabledReason = R.string.purchase_appcoins_noavailable_body)
     }
     if (hasCredits) {
       setEnabledRadio(
-        view = binding.creditsRadio.root,
-        selectedRadioButton = binding.creditsRadio.creditsRadioButton,
-        unSelectedRadioButton = binding.appcoinsRadio.appcoinsRadioButton,
-        title = binding.appcoinsRadio.title,
-        message = binding.appcoinsRadio.message,
-        icon = binding.appcoinsRadio.icon,
-        bonusView = null,
-        balanceGroup = binding.creditsRadio.creditsBalancesGroup,
-        method = CREDITS
-      )
+          view = binding.creditsRadio.root,
+          selectedRadioButton = binding.creditsRadio.creditsRadioButton,
+          unSelectedRadioButton = binding.appcoinsRadio.appcoinsRadioButton,
+          title = binding.appcoinsRadio.title,
+          message = binding.appcoinsRadio.message,
+          icon = binding.appcoinsRadio.icon,
+          bonusView = null,
+          balanceGroup = binding.creditsRadio.creditsBalancesGroup,
+          method = CREDITS)
       binding.creditsRadio.creditsRadioButton.isChecked = true
     } else {
       setDisabledRadio(
-        view = binding.creditsRadio.root,
-        radioButton = binding.creditsRadio.creditsRadioButton,
-        title = binding.appcoinsRadio.title,
-        message = binding.appcoinsRadio.message,
-        icon = binding.appcoinsRadio.icon,
-        bonusLayout = null,
-        balanceGroup = binding.creditsRadio.creditsBalancesGroup,
-        disabledReason = creditsDisableReason,
-        defaultDisabledReason = R.string.purchase_appcoins_credits_noavailable_body
-      )
+          view = binding.creditsRadio.root,
+          radioButton = binding.creditsRadio.creditsRadioButton,
+          title = binding.appcoinsRadio.title,
+          message = binding.appcoinsRadio.message,
+          icon = binding.appcoinsRadio.icon,
+          bonusLayout = null,
+          balanceGroup = binding.creditsRadio.creditsBalancesGroup,
+          disabledReason = creditsDisableReason,
+          defaultDisabledReason = R.string.purchase_appcoins_credits_noavailable_body)
       binding.appcoinsRadio.appcoinsRadioButton.isChecked = hasAppc
     }
     if (hasAppc || hasCredits) {
@@ -386,15 +376,15 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   private fun setDisabledRadio(
-    view: View,
-    radioButton: MaterialRadioButton,
-    title: TextView,
-    message: TextView,
-    icon: ImageView,
-    bonusLayout: View?,
-    balanceGroup: Group,
-    disabledReason: Int?,
-    defaultDisabledReason: Int
+      view: View,
+      radioButton: MaterialRadioButton,
+      title: TextView,
+      message: TextView,
+      icon: ImageView,
+      bonusLayout: View?,
+      balanceGroup: Group,
+      disabledReason: Int?,
+      defaultDisabledReason: Int
   ) {
     view.setOnClickListener(null)
     radioButton.setOnCheckedChangeListener(null)
@@ -413,15 +403,15 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   private fun setEnabledRadio(
-    view: View,
-    selectedRadioButton: MaterialRadioButton,
-    unSelectedRadioButton: MaterialRadioButton,
-    title: TextView,
-    message: TextView,
-    icon: ImageView,
-    bonusView: View?,
-    balanceGroup: Group,
-    method: String
+      view: View,
+      selectedRadioButton: MaterialRadioButton,
+      unSelectedRadioButton: MaterialRadioButton,
+      title: TextView,
+      message: TextView,
+      icon: ImageView,
+      bonusView: View?,
+      balanceGroup: Group,
+      method: String
   ) {
     view.setOnClickListener { selectedRadioButton.isChecked = true }
     selectedRadioButton.setOnCheckedChangeListener { _, checked ->
@@ -442,16 +432,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private fun setTitle(checked: Boolean, title: TextView) {
     if (checked) {
       title.setTextColor(
-        ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80)
-      )
+          ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80))
       title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
       title.setTextColor(
-        ContextCompat.getColor(
-          requireContext(),
-          R.color.styleguide_black_transparent_80
-        )
-      )
+          ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80))
       title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -469,46 +454,42 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun getSelectedPaymentMethod(): String = when {
-    binding.appcoinsRadio.appcoinsRadioButton.isChecked -> APPC
-    binding.creditsRadio.creditsRadioButton.isChecked -> CREDITS
-    else -> ""
-  }
+  private fun getSelectedPaymentMethod(): String =
+      when {
+        binding.appcoinsRadio.appcoinsRadioButton.isChecked -> APPC
+        binding.creditsRadio.creditsRadioButton.isChecked -> CREDITS
+        else -> ""
+      }
 
   override fun buyClick(): Observable<PaymentInfoWrapper> =
-    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
-      .map {
+      RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton).map {
         PaymentInfoWrapper(
-          packageName = appName,
-          skuDetails = skuId,
-          value = appcAmount.toString(),
-          purchaseDetails = getSelectedPaymentMethod(),
-          transactionType = transactionType
-        )
+            packageName = appName,
+            skuDetails = skuId,
+            value = appcAmount.toString(),
+            purchaseDetails = getSelectedPaymentMethod(),
+            transactionType = transactionType)
       }
 
   override fun backClick(): Observable<PaymentInfoWrapper> =
-    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
-      .map {
+      RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton).map {
         PaymentInfoWrapper(
-          packageName = appName,
-          skuDetails = skuId,
-          value = appcAmount.toString(),
-          purchaseDetails = getSelectedPaymentMethod(),
-          transactionType = transactionType
-        )
+            packageName = appName,
+            skuDetails = skuId,
+            value = appcAmount.toString(),
+            purchaseDetails = getSelectedPaymentMethod(),
+            transactionType = transactionType)
       }
 
-  override fun backPressed(): Observable<PaymentInfoWrapper> = iabView.backButtonPress()
-    .map {
-      PaymentInfoWrapper(
-        packageName = appName,
-        skuDetails = skuId,
-        value = appcAmount.toString(),
-        purchaseDetails = getSelectedPaymentMethod(),
-        transactionType = transactionType
-      )
-    }
+  override fun backPressed(): Observable<PaymentInfoWrapper> =
+      iabView.backButtonPress().map {
+        PaymentInfoWrapper(
+            packageName = appName,
+            skuDetails = skuId,
+            value = appcAmount.toString(),
+            purchaseDetails = getSelectedPaymentMethod(),
+            transactionType = transactionType)
+      }
 
   override fun getPaymentSelection() = paymentSelectionSubject!!
 
@@ -563,24 +544,24 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   override fun errorTryAgain() = RxView.clicks(binding.mergedErrorLayout.retryButton)
 
   override fun getSupportLogoClicks() =
-    RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)
+      RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)
 
   override fun getSupportIconClicks() =
-    RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportIcn)
+      RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportIcn)
 
   override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
   override fun navigateToAppcPayment(transactionBuilder: TransactionBuilder) =
-    iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel, transactionBuilder)
+      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel, transactionBuilder)
 
   override fun navigateToCreditsPayment(transactionBuilder: TransactionBuilder) =
-    iabView.showAppcoinsCreditsPayment(appcAmount, true, gamificationLevel, transactionBuilder)
+      iabView.showAppcoinsCreditsPayment(appcAmount, true, gamificationLevel, transactionBuilder)
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     binding.appcoinsRadio.balanceFiatAppcEth.text =
-      getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
+        getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
     binding.creditsRadio.creditsFiatBalance.text =
-      getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
+        getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
   }
 
   override fun toggleSkeletons(show: Boolean) {
@@ -643,23 +624,18 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private fun setAppIcon() {
     try {
       binding.paymentMethodsHeader.appIcon.setImageDrawable(
-        requireContext().packageManager.getApplicationIcon(
-          appName
-        )
-      )
+          requireContext().packageManager.getApplicationIcon(appName))
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
   }
 
-
   private fun setPriceInformation() {
     var fiatText =
-      formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
+        formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
     if (isSubscription) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(requireContext(), fiatText)
-        ?.let { fiatText = it }
+      period?.mapToSubsFrequency(requireContext(), fiatText)?.let { fiatText = it }
     }
     binding.paymentMethodsHeader.fiatPrice.text = fiatText
     binding.paymentMethodsHeader.fiatPriceSkeleton.root.visibility = GONE

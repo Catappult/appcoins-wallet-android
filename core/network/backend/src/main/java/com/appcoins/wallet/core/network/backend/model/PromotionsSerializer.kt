@@ -8,8 +8,9 @@ import java.lang.reflect.Type
 class PromotionsSerializer : JsonSerializer<PromotionsResponse> {
 
   override fun serialize(
-    src: PromotionsResponse, typeOfSrc: Type?,
-    context: JsonSerializationContext
+      src: PromotionsResponse,
+      typeOfSrc: Type?,
+      context: JsonSerializationContext
   ): JsonElement {
     return when (src.id) {
       GAMIFICATION_ID -> context.serialize(src as GamificationResponse)

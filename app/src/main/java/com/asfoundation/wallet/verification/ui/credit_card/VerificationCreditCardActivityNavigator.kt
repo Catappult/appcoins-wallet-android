@@ -12,16 +12,16 @@ class VerificationCreditCardActivityNavigator @Inject constructor(private val ac
   private val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
 
   fun navigateToWalletVerificationIntro() {
-    fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            VerificationIntroFragment.newInstance())
+    fragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_container, VerificationIntroFragment.newInstance())
         .commit()
   }
 
   fun navigateToWalletVerificationCode() {
-    fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            VerificationCodeFragment.newInstance())
+    fragmentManager
+        .beginTransaction()
+        .replace(R.id.fragment_container, VerificationCodeFragment.newInstance())
         .commit()
   }
 

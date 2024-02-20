@@ -18,64 +18,76 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @BoundTo(supertype = ReferralInteractorContract::class)
-class ReferralInteractor @Inject constructor(
-        private val preferences: ReferralPreferencesDataSource,
-        private val defaultWallet: FindDefaultWalletInteract,
-        private val promotionsRepository: PromotionsRepository,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
-) :
-  ReferralInteractorContract {
+class ReferralInteractor
+@Inject
+constructor(
+    private val preferences: ReferralPreferencesDataSource,
+    private val defaultWallet: FindDefaultWalletInteract,
+    private val promotionsRepository: PromotionsRepository,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+) : ReferralInteractorContract {
 
   override fun hasReferralUpdate(
-    walletAddress: String,
-    referralResponse: ReferralResponse?,
-    screen: ReferralsScreen
+      walletAddress: String,
+      referralResponse: ReferralResponse?,
+      screen: ReferralsScreen
   ): Single<Boolean> {
-    return if (referralResponse == null || referralResponse.status != PromotionsResponse.Status.ACTIVE) {
+    return if (referralResponse == null ||
+        referralResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
-      getReferralInformation(walletAddress, screen)
-        .map {
-          val verified = referralResponse.link != null
-          hasDifferentInformation(referralResponse.completed.toString() + verified, it)
-        }
-
+      getReferralInformation(walletAddress, screen).map {
+        val verified = referralResponse.link != null
+        hasDifferentInformation(referralResponse.completed.toString() + verified, it)
+      }
     }
   }
 
   override fun retrieveReferral(): Single<ReferralModel> {
-    return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
-          defaultWallet.find()
-              .flatMap { promotionsRepository.getReferralUserStatus(it.address, promoCode.code) }
-              .map { map(it) }
-        }
-  }
-
-  private fun map(referralResponse: ReferralResponse): ReferralModel {
-    return ReferralModel(referralResponse.completed, referralResponse.link,
-        referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
-        referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
-        referralResponse.available, referralResponse.receivedAmount,
-        isRedeemed(referralResponse.userStatus), isAvailable(referralResponse.status))
-  }
-
-  override fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
-                                       screen: ReferralsScreen): Completable {
-    return defaultWallet.find()
-        .flatMapCompletable {
-          saveReferralInformation(it.address, numberOfFriends, isVerified, screen)
-        }
-  }
-
-  private fun getReferralInformation(address: String, screen: ReferralsScreen): Single<String> {
-    return Single.fromCallable {
-      preferences.getReferralInformation(address, screen.toString())
+    return getCurrentPromoCodeUseCase().flatMap { promoCode ->
+      defaultWallet
+          .find()
+          .flatMap { promotionsRepository.getReferralUserStatus(it.address, promoCode.code) }
+          .map { map(it) }
     }
   }
 
-  private fun saveReferralInformation(address: String, numberOfFriends: Int, isVerified: Boolean,
-                                      screen: ReferralsScreen): Completable {
+  private fun map(referralResponse: ReferralResponse): ReferralModel {
+    return ReferralModel(
+        referralResponse.completed,
+        referralResponse.link,
+        referralResponse.invited,
+        referralResponse.pendingAmount,
+        referralResponse.amount,
+        referralResponse.symbol,
+        referralResponse.maxAmount,
+        referralResponse.minAmount,
+        referralResponse.available,
+        referralResponse.receivedAmount,
+        isRedeemed(referralResponse.userStatus),
+        isAvailable(referralResponse.status))
+  }
+
+  override fun saveReferralInformation(
+      numberOfFriends: Int,
+      isVerified: Boolean,
+      screen: ReferralsScreen
+  ): Completable {
+    return defaultWallet.find().flatMapCompletable {
+      saveReferralInformation(it.address, numberOfFriends, isVerified, screen)
+    }
+  }
+
+  private fun getReferralInformation(address: String, screen: ReferralsScreen): Single<String> {
+    return Single.fromCallable { preferences.getReferralInformation(address, screen.toString()) }
+  }
+
+  private fun saveReferralInformation(
+      address: String,
+      numberOfFriends: Int,
+      isVerified: Boolean,
+      screen: ReferralsScreen
+  ): Completable {
     return Completable.fromCallable {
       preferences.saveReferralInformation(address, numberOfFriends, isVerified, screen.toString())
     }
@@ -86,68 +98,64 @@ class ReferralInteractor @Inject constructor(
   }
 
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
-    return getCurrentPromoCodeUseCase()
-        .flatMapMaybe { promoCode ->
-          defaultWallet.find()
-              .flatMapMaybe { wallet ->
-                promotionsRepository.getReferralUserStatus(wallet.address, promoCode.code)
-                    .map { mapResponse(it) }
-                    .onErrorReturn { ReferralModel() }
-                    .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
-                    .map {
-                      ReferralNotification(
-                          R.string.referral_notification_bonus_pending_title,
-                          R.string.referral_notification_bonus_pending_body,
-                          R.drawable.ic_bonus_pending,
-                          R.string.gamification_APPCapps_button,
-                          CardNotificationAction.DISCOVER,
-                          it.pendingAmount,
-                          it.symbol)
-                    }
-              }
-        }
+    return getCurrentPromoCodeUseCase().flatMapMaybe { promoCode ->
+      defaultWallet.find().flatMapMaybe { wallet ->
+        promotionsRepository
+            .getReferralUserStatus(wallet.address, promoCode.code)
+            .map { mapResponse(it) }
+            .onErrorReturn { ReferralModel() }
+            .filter { it.pendingAmount.compareTo(BigDecimal.ZERO) != 0 && it.isActive }
+            .map {
+              ReferralNotification(
+                  R.string.referral_notification_bonus_pending_title,
+                  R.string.referral_notification_bonus_pending_body,
+                  R.drawable.ic_bonus_pending,
+                  R.string.gamification_APPCapps_button,
+                  CardNotificationAction.DISCOVER,
+                  it.pendingAmount,
+                  it.symbol)
+            }
+      }
+    }
   }
 
   override fun getUnwatchedPendingBonusNotification(): Single<CardNotification> {
-    return getCurrentPromoCodeUseCase()
-        .flatMap { promoCode ->
-          defaultWallet.find()
-              .flatMap { wallet ->
-                promotionsRepository.getReferralUserStatus(wallet.address, promoCode.code)
-                    .map { mapResponse(it) }
-                    .onErrorReturn { ReferralModel() }
-                    .flatMap { referralModel ->
-                      Single.fromCallable { preferences.getPendingAmountNotification(wallet.address) }
-                          .map {
-                            referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                                it != referralModel.pendingAmount.scaleToString(
-                                2) && referralModel.isActive
-                          }
-                          .map { shouldShow ->
-                            ReferralNotification(
-                                R.string.referral_notification_bonus_pending_title,
-                                R.string.referral_notification_bonus_pending_body,
-                                R.drawable.ic_bonus_pending,
-                                R.string.gamification_APPCapps_button,
-                                CardNotificationAction.DISCOVER,
-                                referralModel.pendingAmount,
-                                referralModel.symbol).takeIf { shouldShow } ?: EmptyNotification()
-                          }
-                    }
-              }
-        }
+    return getCurrentPromoCodeUseCase().flatMap { promoCode ->
+      defaultWallet.find().flatMap { wallet ->
+        promotionsRepository
+            .getReferralUserStatus(wallet.address, promoCode.code)
+            .map { mapResponse(it) }
+            .onErrorReturn { ReferralModel() }
+            .flatMap { referralModel ->
+              Single.fromCallable { preferences.getPendingAmountNotification(wallet.address) }
+                  .map {
+                    referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
+                        it != referralModel.pendingAmount.scaleToString(2) &&
+                        referralModel.isActive
+                  }
+                  .map { shouldShow ->
+                    ReferralNotification(
+                            R.string.referral_notification_bonus_pending_title,
+                            R.string.referral_notification_bonus_pending_body,
+                            R.drawable.ic_bonus_pending,
+                            R.string.gamification_APPCapps_button,
+                            CardNotificationAction.DISCOVER,
+                            referralModel.pendingAmount,
+                            referralModel.symbol)
+                        .takeIf { shouldShow } ?: EmptyNotification()
+                  }
+            }
+      }
+    }
   }
 
   override fun dismissNotification(referralNotification: ReferralNotification): Completable {
-    return defaultWallet.find()
-        .flatMapCompletable {
-          Completable.fromCallable {
-            preferences.savePendingAmountNotification(
-              it.address,
-              referralNotification.pendingAmount.scaleToString(2)
-            )
-          }
-        }
+    return defaultWallet.find().flatMapCompletable {
+      Completable.fromCallable {
+        preferences.savePendingAmountNotification(
+            it.address, referralNotification.pendingAmount.scaleToString(2))
+      }
+    }
   }
 
   private fun isRedeemed(userStatus: ReferralResponse.UserStatus?): Boolean {
@@ -159,11 +167,18 @@ class ReferralInteractor @Inject constructor(
   }
 
   private fun mapResponse(referralResponse: ReferralResponse): ReferralModel {
-    return ReferralModel(referralResponse.completed, referralResponse.link,
-        referralResponse.invited, referralResponse.pendingAmount, referralResponse.amount,
-        referralResponse.symbol, referralResponse.maxAmount, referralResponse.minAmount,
-        referralResponse.available, referralResponse.receivedAmount,
-        isRedeemed(referralResponse.userStatus), isAvailable(referralResponse.status))
+    return ReferralModel(
+        referralResponse.completed,
+        referralResponse.link,
+        referralResponse.invited,
+        referralResponse.pendingAmount,
+        referralResponse.amount,
+        referralResponse.symbol,
+        referralResponse.maxAmount,
+        referralResponse.minAmount,
+        referralResponse.available,
+        referralResponse.receivedAmount,
+        isRedeemed(referralResponse.userStatus),
+        isAvailable(referralResponse.status))
   }
-
 }

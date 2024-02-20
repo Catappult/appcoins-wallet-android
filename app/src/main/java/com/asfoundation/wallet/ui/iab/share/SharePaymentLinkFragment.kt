@@ -23,17 +23,14 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SharePaymentLinkFragment : BasePageViewFragment(),
-    SharePaymentLinkFragmentView {
+class SharePaymentLinkFragment : BasePageViewFragment(), SharePaymentLinkFragmentView {
 
-  @Inject
-  lateinit var interactor: ShareLinkInteractor
+  @Inject lateinit var interactor: ShareLinkInteractor
 
   lateinit var presenter: SharePaymentLinkPresenter
   private var iabView: IabView? = null
 
-  @Inject
-  lateinit var analytics: BillingAnalytics
+  @Inject lateinit var analytics: BillingAnalytics
 
   companion object {
 
@@ -47,19 +44,26 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
     private const val PARAM_PAYMENT_KEY = "PAYMENT_NAME"
 
     @JvmStatic
-    fun newInstance(domain: String, skuId: String?, originalAmount: String?,
-                    originalCurrency: String?, amount: BigDecimal,
-                    type: String, paymentMethod: String): SharePaymentLinkFragment =
+    fun newInstance(
+        domain: String,
+        skuId: String?,
+        originalAmount: String?,
+        originalCurrency: String?,
+        amount: BigDecimal,
+        type: String,
+        paymentMethod: String
+    ): SharePaymentLinkFragment =
         SharePaymentLinkFragment().apply {
-          arguments = Bundle(2).apply {
-            putString(PARAM_DOMAIN, domain)
-            putString(PARAM_SKUID, skuId)
-            putString(PARAM_ORIGINAL_AMOUNT, originalAmount)
-            putString(PARAM_ORIGINAL_CURRENCY, originalCurrency)
-            putString(PARAM_TRANSACTION_TYPE, type)
-            putString(PARAM_PAYMENT_KEY, paymentMethod)
-            putSerializable(PARAM_AMOUNT, amount)
-          }
+          arguments =
+              Bundle(2).apply {
+                putString(PARAM_DOMAIN, domain)
+                putString(PARAM_SKUID, skuId)
+                putString(PARAM_ORIGINAL_AMOUNT, originalAmount)
+                putString(PARAM_ORIGINAL_CURRENCY, originalCurrency)
+                putString(PARAM_TRANSACTION_TYPE, type)
+                putString(PARAM_PAYMENT_KEY, paymentMethod)
+                putSerializable(PARAM_AMOUNT, amount)
+              }
         }
   }
 
@@ -88,30 +92,24 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   private val originalAmount: String? by lazy {
-    if (requireArguments().containsKey(
-            PARAM_ORIGINAL_AMOUNT)) {
-      requireArguments().getString(
-          PARAM_ORIGINAL_AMOUNT)
+    if (requireArguments().containsKey(PARAM_ORIGINAL_AMOUNT)) {
+      requireArguments().getString(PARAM_ORIGINAL_AMOUNT)
     } else {
       throw IllegalArgumentException("Original amount not found")
     }
   }
 
   private val originalCurrency: String? by lazy {
-    if (requireArguments().containsKey(
-            PARAM_ORIGINAL_CURRENCY)) {
-      requireArguments().getString(
-          PARAM_ORIGINAL_CURRENCY)
+    if (requireArguments().containsKey(PARAM_ORIGINAL_CURRENCY)) {
+      requireArguments().getString(PARAM_ORIGINAL_CURRENCY)
     } else {
       throw IllegalArgumentException("Domain not found")
     }
   }
 
   val skuId: String? by lazy {
-    if (requireArguments().containsKey(
-            PARAM_SKUID)) {
-      val value = requireArguments().getString(
-          PARAM_SKUID) ?: return@lazy null
+    if (requireArguments().containsKey(PARAM_SKUID)) {
+      val value = requireArguments().getString(PARAM_SKUID) ?: return@lazy null
       value
     } else {
       throw IllegalArgumentException("SkuId not found")
@@ -119,10 +117,8 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(
-            PARAM_AMOUNT)) {
-      val value = requireArguments().getSerializable(
-          PARAM_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(PARAM_AMOUNT)) {
+      val value = requireArguments().getSerializable(PARAM_AMOUNT) as BigDecimal
       value
     } else {
       throw IllegalArgumentException("amount not found")
@@ -137,12 +133,20 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
       analytics.sendPaymentEvent(domain, skuId, amount.toString(), PAYMENT_METHOD_NAME, type)
     }
     presenter =
-        SharePaymentLinkPresenter(this, interactor, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable(), analytics)
+        SharePaymentLinkPresenter(
+            this,
+            interactor,
+            AndroidSchedulers.mainThread(),
+            Schedulers.io(),
+            CompositeDisposable(),
+            analytics)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSharePaymentLinkBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentSharePaymentLinkBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -168,23 +172,33 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
-    return RxView.clicks(binding.shareBtn)
-        .map {
-          val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
-          SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-              originalCurrency, paymentMethod, amount.toFloat()
-              .toString(), type)
-        }
+    return RxView.clicks(binding.shareBtn).map {
+      val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
+      SharePaymentLinkFragmentView.SharePaymentData(
+          domain,
+          skuId,
+          message,
+          originalAmount,
+          originalCurrency,
+          paymentMethod,
+          amount.toFloat().toString(),
+          type)
+    }
   }
 
   override fun getCancelButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
-    return RxView.clicks(binding.closeBtn)
-        .map {
-          val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
-          SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-              originalCurrency, paymentMethod, amount.toFloat()
-              .toString(), type)
-        }
+    return RxView.clicks(binding.closeBtn).map {
+      val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
+      SharePaymentLinkFragmentView.SharePaymentData(
+          domain,
+          skuId,
+          message,
+          originalAmount,
+          originalCurrency,
+          paymentMethod,
+          amount.toFloat().toString(),
+          type)
+    }
   }
 
   override fun showFetchingLinkInfo() {

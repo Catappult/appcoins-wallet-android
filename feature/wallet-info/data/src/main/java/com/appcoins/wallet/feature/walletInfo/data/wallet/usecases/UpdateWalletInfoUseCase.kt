@@ -6,9 +6,12 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class UpdateWalletInfoUseCase @Inject constructor(
+class UpdateWalletInfoUseCase
+@Inject
+constructor(
     private val walletInfoRepository: WalletInfoRepository,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+) {
 
   /**
    * Updates WalletInfo

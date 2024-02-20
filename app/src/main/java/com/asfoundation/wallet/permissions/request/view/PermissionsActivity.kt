@@ -17,17 +17,17 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator,
-    CreateWalletNavigator {
+class PermissionsActivity :
+    BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator, CreateWalletNavigator {
 
   companion object {
     private const val PERMISSION_NAME_KEY = "PERMISSION_NAME_KEY"
   }
 
-  @Inject
-  lateinit var permissionsInteractor: PermissionsInteractor
+  @Inject lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var createWalletCompleteEvent: BehaviorRelay<Any>
   private var presenter: PermissionsActivityPresenter? = null
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permissions_layout)
@@ -37,9 +37,15 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
       val permissionName = getPermission()
       callingPackage?.let {
         presenter =
-            PermissionsActivityPresenter(this, permissionsInteractor, it,
-                getSignature(it), permissionName, CompositeDisposable(),
-                AndroidSchedulers.mainThread(), savedInstanceState == null)
+            PermissionsActivityPresenter(
+                this,
+                permissionsInteractor,
+                it,
+                getSignature(it),
+                permissionName,
+                CompositeDisposable(),
+                AndroidSchedulers.mainThread(),
+                savedInstanceState == null)
       } ?: closeError("Null calling package")
     } catch (e: IllegalArgumentException) {
       closeError(
@@ -63,8 +69,8 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
 
   private fun getSignature(callingPackage: String): String {
     val signature = StringBuilder()
-    for (sig in packageManager
-        .getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures) {
+    for (sig in
+        packageManager.getPackageInfo(callingPackage, PackageManager.GET_SIGNATURES).signatures) {
       signature.append(String(sig.toByteArray()))
     }
     return signature.toString()
@@ -95,8 +101,11 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     return PermissionName.valueOf(intent.extras?.get(PERMISSION_NAME_KEY) as String)
   }
 
-  override fun showPermissionFragment(callingPackage: String,
-                                      permission: PermissionName, apkSignature: String) {
+  override fun showPermissionFragment(
+      callingPackage: String,
+      permission: PermissionName,
+      apkSignature: String
+  ) {
     showFragment(PermissionFragment.newInstance(callingPackage, apkSignature, permission))
   }
 
@@ -105,13 +114,10 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   }
 
   private fun showFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
+    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
   }
 
   override fun closeSuccess() {
     createWalletCompleteEvent.accept(Any())
   }
-
 }

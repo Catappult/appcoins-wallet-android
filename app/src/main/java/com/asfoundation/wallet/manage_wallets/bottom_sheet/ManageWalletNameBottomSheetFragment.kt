@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.manage_wallets.bottom_sheet
 
-
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,12 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
-  SingleStateFragment<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect> {
+class ManageWalletNameBottomSheetFragment() :
+    BottomSheetDialogFragment(),
+    SingleStateFragment<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect> {
 
-
-  @Inject
-  lateinit var navigator: ManageWalletNameBottomSheetNavigator
+  @Inject lateinit var navigator: ManageWalletNameBottomSheetNavigator
 
   private val viewModel: ManageWalletNameBottomSheetViewModel by viewModels()
   private val views by viewBinding(ManageWalletNameBottomSheetLayoutBinding::bind)
@@ -47,8 +45,9 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = ManageWalletNameBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,11 +55,7 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
 
     views.textWalletNameBottomSheetString.setType(WalletTextFieldView.Type.FILLED)
     views.textWalletNameBottomSheetString.setColor(
-      ContextCompat.getColor(
-        requireContext(),
-        R.color.styleguide_blue_secondary
-      )
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_blue_secondary))
 
     val walletAddress = arguments?.getString(WALLET_ADDRESS)
     val walletName = arguments?.getString(WALLET_NAME)
@@ -88,20 +83,21 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
       } else {
         showLoading()
         viewModel.setWalletName(
-          walletAddress,
-          views.textWalletNameBottomSheetString.getText().trim()
-        )
+            walletAddress, views.textWalletNameBottomSheetString.getText().trim())
       }
     }
 
-    views.textWalletNameBottomSheetString.addTextChangedListener(object : TextWatcher {
-      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.manageWalletBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
-      }
+    views.textWalletNameBottomSheetString.addTextChangedListener(
+        object : TextWatcher {
+          override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) =
+              Unit
 
-      override fun afterTextChanged(s: Editable) = Unit
-    })
+          override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            views.manageWalletBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
+          }
+
+          override fun afterTextChanged(s: Editable) = Unit
+        })
   }
 
   override fun onStateChanged(state: ManageWalletNameBottomSheetState) {
@@ -128,12 +124,10 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
         manageWalletSharedViewModel.onBottomSheetDismissed()
         navigator.navigateBack()
       }
-
       is ManageWalletNameBottomSheetSideEffect.WalletCreated ->
-        Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT).show()
     }
   }
-
 
   private fun showLoading() {
     hideAll()
@@ -146,6 +140,4 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
     views.manageWalletBottomSheetTitle.visibility = View.GONE
     views.manageWalletBottomSheetSubmitButton.visibility = View.GONE
   }
-
-
 }

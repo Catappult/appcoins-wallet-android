@@ -8,22 +8,18 @@ import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 
 fun openGame(
-  gamePackage: String?,
-  actionUrl: String?,
-  context: Context,
-  sendPromotionClickEvent: (String?, String) -> Unit
+    gamePackage: String?,
+    actionUrl: String?,
+    context: Context,
+    sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   try {
-    val launchIntent: Intent? = gamePackage?.let {
-      context.packageManager.getLaunchIntentForPackage(
-        it
-      )
-    }
+    val launchIntent: Intent? =
+        gamePackage?.let { context.packageManager.getLaunchIntentForPackage(it) }
     if (launchIntent != null) {
       sendPromotionClickEvent(gamePackage, "open")
       startActivity(context, launchIntent, null)
-    } else
-      getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
+    } else getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
   } catch (e: Throwable) {
     getGame(gamePackage, actionUrl, context, sendPromotionClickEvent)
   }
@@ -42,20 +38,17 @@ fun isPackageInstalled(packageName: String?, packageManager: PackageManager): Bo
 }
 
 private fun getGame(
-  gamePackage: String?,
-  actionUrl: String?,
-  context: Context,
-  sendPromotionClickEvent: (String?, String) -> Unit
+    gamePackage: String?,
+    actionUrl: String?,
+    context: Context,
+    sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   sendPromotionClickEvent(gamePackage, "get")
   if (!actionUrl.isNullOrEmpty()) {
     getGameFromUrl(actionUrl, context)
   } else {
-    try {  // else tries to open with Aptoide store
-      val intent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse("market://details?id=$gamePackage")
-      )
+    try { // else tries to open with Aptoide store
+      val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$gamePackage"))
       intent.setPackage("cm.aptoide.pt")
       startActivity(context, intent, null)
     } catch (_: ActivityNotFoundException) {
@@ -66,9 +59,6 @@ private fun getGame(
 }
 
 private fun getGameFromUrl(actionUrl: String?, context: Context) {
-  val intent = Intent(
-    Intent.ACTION_VIEW,
-    Uri.parse(actionUrl)
-  )
+  val intent = Intent(Intent.ACTION_VIEW, Uri.parse(actionUrl))
   startActivity(context, intent, null)
 }

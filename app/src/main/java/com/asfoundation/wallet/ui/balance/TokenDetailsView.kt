@@ -13,5 +13,4 @@ interface TokenDetailsView {
   fun getTopUpClick(): Observable<Any>
 
   fun showTopUp()
-
 }

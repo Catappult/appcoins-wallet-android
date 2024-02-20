@@ -9,12 +9,12 @@ import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 
 class IncompletePaymentMethodsGroup(
-  otherPaymentMethodList: List<PaymentMethod>,
-  paymentMethodClickListener: ((PaymentMethodClick) -> Unit)? = null
-) : EpoxyModelGroup(
-  R.layout.item_incomplete_payment_method,
-  buildModels(otherPaymentMethodList, paymentMethodClickListener)
-) {
+    otherPaymentMethodList: List<PaymentMethod>,
+    paymentMethodClickListener: ((PaymentMethodClick) -> Unit)? = null
+) :
+    EpoxyModelGroup(
+        R.layout.item_incomplete_payment_method,
+        buildModels(otherPaymentMethodList, paymentMethodClickListener)) {
 
   private val layoutTransition = LayoutTransition()
 
@@ -26,17 +26,16 @@ class IncompletePaymentMethodsGroup(
 
   companion object {
     fun buildModels(
-      otherPaymentMethodList: List<PaymentMethod>,
-      paymentMethodClickListener: ((PaymentMethodClick) -> Unit)?
+        otherPaymentMethodList: List<PaymentMethod>,
+        paymentMethodClickListener: ((PaymentMethodClick) -> Unit)?
     ): List<EpoxyModel<*>> {
       val models = mutableListOf<EpoxyModel<*>>()
 
       models.add(
-        IncompletePaymentMethodsModel_()
-          .id("incomplete_payment_methods")
-          .otherPaymentMethods(otherPaymentMethodList)
-          .clickListener(paymentMethodClickListener)
-      )
+          IncompletePaymentMethodsModel_()
+              .id("incomplete_payment_methods")
+              .otherPaymentMethods(otherPaymentMethodList)
+              .clickListener(paymentMethodClickListener))
       return models
     }
   }

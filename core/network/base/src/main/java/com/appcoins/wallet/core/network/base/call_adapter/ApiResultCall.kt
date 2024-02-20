@@ -1,7 +1,10 @@
 package com.appcoins.wallet.core.network.base.call_adapter
 
+import com.appcoins.wallet.core.arch.data.Error
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import java.io.IOException
+import java.lang.reflect.Type
 import okhttp3.Request
 import okhttp3.ResponseBody
 import okio.Timeout
@@ -9,31 +12,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
-import java.io.IOException
-import java.lang.reflect.Type
-import com.appcoins.wallet.core.arch.data.Error
 
-class ApiResultCall<T, E>(private val call: Call<T>,
-                          private val successType: Type,
-                          private val errorConverter: Converter<ResponseBody, E>) :
-    Call<ApiResult<T, E>> {
+class ApiResultCall<T, E>(
+    private val call: Call<T>,
+    private val successType: Type,
+    private val errorConverter: Converter<ResponseBody, E>
+) : Call<ApiResult<T, E>> {
 
   override fun enqueue(callback: Callback<ApiResult<T, E>>) {
-    call.enqueue(object : Callback<T> {
-      override fun onResponse(call: Call<T>, response: Response<T>) {
-        callback.onResponse(this@ApiResultCall, Response.success(response.mapToApiResult()))
-      }
+    call.enqueue(
+        object : Callback<T> {
+          override fun onResponse(call: Call<T>, response: Response<T>) {
+            callback.onResponse(this@ApiResultCall, Response.success(response.mapToApiResult()))
+          }
 
-      override fun onFailure(call: Call<T>, t: Throwable) {
-        callback.onResponse(this@ApiResultCall, Response.success(t.mapToApiResult()))
-      }
-    })
+          override fun onFailure(call: Call<T>, t: Throwable) {
+            callback.onResponse(this@ApiResultCall, Response.success(t.mapToApiResult()))
+          }
+        })
   }
 
   @Suppress("UNCHECKED_CAST")
   private fun Response<T>.mapToApiResult(): ApiResult<T, E> {
     if (isSuccessful) {
-      body()?.let { body -> return Ok(body) }
+      body()?.let { body ->
+        return Ok(body)
+      }
 
       return if (successType == Unit::class.java) {
         (Ok(Unit) as ApiResult<T, E>)
@@ -42,19 +46,19 @@ class ApiResultCall<T, E>(private val call: Call<T>,
       }
     } else {
       val errorBody = errorBody()
-      val convertedBody = if (errorBody == null) {
-        return Err(
-          Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body."))
-        )
-      } else {
-        try {
-          errorConverter.convert(errorBody)!!
-        } catch (e: Exception) {
-          return Err(
-              Error.ApiError.UnknownError(IllegalStateException("Unexpected conversion error."))
-          )
-        }
-      }
+      val convertedBody =
+          if (errorBody == null) {
+            return Err(
+                Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body.")))
+          } else {
+            try {
+              errorConverter.convert(errorBody)!!
+            } catch (e: Exception) {
+              return Err(
+                  Error.ApiError.UnknownError(
+                      IllegalStateException("Unexpected conversion error.")))
+            }
+          }
       return Err(Error.ApiError.HttpError(code(), convertedBody))
     }
   }
@@ -64,8 +68,7 @@ class ApiResultCall<T, E>(private val call: Call<T>,
         when (this) {
           is IOException -> Error.ApiError.NetworkError(this)
           else -> Error.ApiError.UnknownError(this)
-        }
-    )
+        })
   }
 
   override fun execute(): Response<ApiResult<T, E>> {

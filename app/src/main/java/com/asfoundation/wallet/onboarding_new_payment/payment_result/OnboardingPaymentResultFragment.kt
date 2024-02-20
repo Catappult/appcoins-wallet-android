@@ -21,33 +21,31 @@ import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
+import org.apache.commons.lang3.StringUtils
 
 @AndroidEntryPoint
-class OnboardingPaymentResultFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
+class OnboardingPaymentResultFragment :
+    BasePageViewFragment(),
+    SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()
   private val sharedViewModel: OnboardingSharedHeaderViewModel by activityViewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
 
-  @Inject
-  lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
+  @Inject lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
 
-  @Inject
-  lateinit var adyenErrorCodeMapper: AdyenErrorCodeMapper
+  @Inject lateinit var adyenErrorCodeMapper: AdyenErrorCodeMapper
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var navigator: OnboardingPaymentResultNavigator
+  @Inject lateinit var navigator: OnboardingPaymentResultNavigator
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View {
     return OnboardingPaymentResultFragmentBinding.inflate(inflater).root
   }
@@ -63,7 +61,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun clickListeners() {
-    //try again and back needs to be separated later
+    // try again and back needs to be separated later
     views.genericErrorButton.setOnClickListener {
       sharedViewModel.viewVisibility.value = View.VISIBLE
       navigator.navigateBackToPaymentMethods()
@@ -84,18 +82,14 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingPaymentResultSideEffect) {
     when (sideEffect) {
       is OnboardingPaymentResultSideEffect.ShowPaymentError -> {
-        handleError(
-          sideEffect.error,
-          sideEffect.refusalCode,
-          sideEffect.isWalletVerified
-        )
+        handleError(sideEffect.error, sideEffect.refusalCode, sideEffect.isWalletVerified)
       }
       is OnboardingPaymentResultSideEffect.ShowPaymentSuccess -> handleSuccess()
-      is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
-        sideEffect.appPackageName
-      )
+      is OnboardingPaymentResultSideEffect.NavigateBackToGame ->
+          navigator.navigateBackToGame(sideEffect.appPackageName)
       OnboardingPaymentResultSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
-      OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
+      OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods ->
+          navigator.navigateBackToPaymentMethods()
     }
   }
 
@@ -143,9 +137,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       }
       walletVerified != null -> {
         /*
-        * Wallet or card verification flow should be addressed here, but the user can't complete the
-        * the verification flow without leaving the first payment flow
-        * */
+         * Wallet or card verification flow should be addressed here, but the user can't complete the
+         * the verification flow without leaving the first payment flow
+         * */
         if (walletVerified) {
 
           showSpecificError(R.string.purchase_error_verify_card)
@@ -193,7 +187,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     handleBonusAnimation()
     views.onboardingGenericSuccessLayout.root.visibility = View.VISIBLE
     views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility =
-      View.VISIBLE
+        View.VISIBLE
     views.onboardingSuccessButtons.root.visibility = View.VISIBLE
   }
 
@@ -202,8 +196,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     if (StringUtils.isNotBlank(purchaseBonusMessage)) {
       views.onboardingGenericSuccessLayout.onboardingBonusSuccessLayout.visibility = View.VISIBLE
       views.onboardingGenericSuccessLayout.onboardingTransactionSuccessBonusText.text =
-        String.format(getString(R.string.bonus_granted_body), purchaseBonusMessage)
+          String.format(getString(R.string.bonus_granted_body), purchaseBonusMessage)
     }
   }
-
 }

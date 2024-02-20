@@ -9,24 +9,23 @@ import io.reactivex.Single
 sealed class RecoverPasswordResult
 
 data class SuccessfulPasswordRecover(val address: String, val name: String?) :
-  RecoverPasswordResult()
+    RecoverPasswordResult()
 
 sealed class FailedPasswordRecover : RecoverPasswordResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedPasswordRecover()
+
   data class InvalidPassword(val throwable: Throwable? = null) : FailedPasswordRecover()
 }
 
-class RecoverPasswordResultMapper(
-  private val walletKeyStore: WalletKeyStore
-) {
+class RecoverPasswordResultMapper(private val walletKeyStore: WalletKeyStore) {
   fun map(restoreResult: RestoreResult): Single<RecoverPasswordResult> {
     return when (restoreResult) {
       is FailedRestore.GenericError ->
-        Single.just(FailedPasswordRecover.GenericError(restoreResult.throwable))
+          Single.just(FailedPasswordRecover.GenericError(restoreResult.throwable))
       is FailedRestore.InvalidPassword ->
-        Single.just(FailedPasswordRecover.InvalidPassword(restoreResult.throwable))
+          Single.just(FailedPasswordRecover.InvalidPassword(restoreResult.throwable))
       is SuccessfulRestore ->
-        Single.just(SuccessfulPasswordRecover(restoreResult.address, walletKeyStore.name))
+          Single.just(SuccessfulPasswordRecover(restoreResult.address, walletKeyStore.name))
       else -> TODO()
     }
   }

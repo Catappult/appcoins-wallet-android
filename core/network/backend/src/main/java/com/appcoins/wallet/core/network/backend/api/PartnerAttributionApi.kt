@@ -4,6 +4,5 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface PartnerAttributionApi {
-  @GET("appc/cached-apks")
-  fun fetchPackagesForCaching(): Single<List<String>?>
+  @GET("appc/cached-apks") fun fetchPackagesForCaching(): Single<List<String>?>
 }

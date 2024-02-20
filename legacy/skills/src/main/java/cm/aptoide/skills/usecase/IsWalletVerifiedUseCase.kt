@@ -4,9 +4,9 @@ import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import io.reactivex.Single
 import javax.inject.Inject
 
-class IsWalletVerifiedUseCase @Inject constructor(
-  private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider
-) {
+class IsWalletVerifiedUseCase
+@Inject
+constructor(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
   operator fun invoke(): Single<Boolean> {
     return externalSkillsPaymentProvider.isWalletVerified()
   }

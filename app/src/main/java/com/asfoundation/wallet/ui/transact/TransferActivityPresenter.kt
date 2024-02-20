@@ -6,5 +6,4 @@ class TransferActivityPresenter(private val view: TransferActivityView) {
       view.showTransactFragment()
     }
   }
-
 }

@@ -8,9 +8,9 @@ import com.appcoins.wallet.core.network.eskills.model.UserStatus
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RoomRepository @Inject constructor(
-  private val roomApi: RoomApi, private val roomApiMapper: RoomApiMapper
-) {
+class RoomRepository
+@Inject
+constructor(private val roomApi: RoomApi, private val roomApiMapper: RoomApiMapper) {
   companion object {
     const val BEARER_ = "Bearer "
   }

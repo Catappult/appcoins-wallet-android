@@ -5,10 +5,11 @@ import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetAutoUpdateModelUseCase @Inject constructor(private val autoUpdateRepository: AutoUpdateRepository) {
+class GetAutoUpdateModelUseCase
+@Inject
+constructor(private val autoUpdateRepository: AutoUpdateRepository) {
 
-  operator fun invoke(invalidateCache: Boolean = true) : Single<AutoUpdateModel> {
+  operator fun invoke(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
-
   }
 }

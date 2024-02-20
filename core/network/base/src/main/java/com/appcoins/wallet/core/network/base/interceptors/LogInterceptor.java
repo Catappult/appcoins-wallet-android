@@ -2,8 +2,8 @@ package com.appcoins.wallet.core.network.base.interceptors;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import com.appcoins.wallet.core.utils.android_common.Log;
+import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
@@ -146,7 +146,8 @@ public class LogInterceptor implements Interceptor {
         .append("\n")
 
         .append("Request: ")
-        .append(formatRequestBody(response.request().body()))
+        .append(formatRequestBody(response.request()
+            .body()))
         .append("\n")
 
         .append("Response: ")
@@ -169,7 +170,8 @@ public class LogInterceptor implements Interceptor {
       if (charset == null) {
         charset = UTF8;
       }
-      return buffer.clone().readString(charset);
+      return buffer.clone()
+          .readString(charset);
     } else {
       return "";
     }

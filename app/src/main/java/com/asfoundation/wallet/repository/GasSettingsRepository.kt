@@ -16,12 +16,12 @@ class GasSettingsRepository @Inject constructor(private val gasServiceApi: GasSe
   private var cachedGasPrice: BigDecimal? = null
 
   override fun getGasSettings(forTokenTransfer: Boolean): Single<GasSettings> {
-    return getGasPrice()
-        .map { GasSettings(it, getGasLimit(forTokenTransfer)) }
+    return getGasPrice().map { GasSettings(it, getGasLimit(forTokenTransfer)) }
   }
 
   private fun getGasPriceNetwork(): Single<BigDecimal> {
-    return gasServiceApi.getGasPrice()
+    return gasServiceApi
+        .getGasPrice()
         .map { BigDecimal(it.price) }
         .doOnSuccess {
           cachedGasPrice = it
@@ -62,5 +62,4 @@ class GasSettingsRepository @Inject constructor(private val gasServiceApi: GasSe
     const val DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000"
     const val DEFAULT_GAS_PRICE = "30000000000"
   }
-
 }

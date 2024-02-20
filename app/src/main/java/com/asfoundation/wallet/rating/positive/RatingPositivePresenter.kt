@@ -6,13 +6,15 @@ import com.asfoundation.wallet.rating.RatingNavigator
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class RatingPositivePresenter(private val view: RatingPositiveView,
-                              private val navigator: RatingNavigator,
-                              private val interactor: RatingInteractor,
-                              private val analytics: RatingAnalytics,
-                              private val disposables: CompositeDisposable,
-                              private val viewScheduler: Scheduler,
-                              private val ioScheduler: Scheduler) {
+class RatingPositivePresenter(
+    private val view: RatingPositiveView,
+    private val navigator: RatingNavigator,
+    private val interactor: RatingInteractor,
+    private val analytics: RatingAnalytics,
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val ioScheduler: Scheduler
+) {
 
   fun present() {
     initializeView()
@@ -28,23 +30,22 @@ class RatingPositivePresenter(private val view: RatingPositiveView,
 
   private fun handleRateAppClick() {
     disposables.add(
-        view.rateAppClickEvent()
+        view
+            .rateAppClickEvent()
             .observeOn(ioScheduler)
-            .doOnNext {
-              analytics.sendPositiveActionEvent("rate", !interactor.isNotFirstTime())
-            }
+            .doOnNext { analytics.sendPositiveActionEvent("rate", !interactor.isNotFirstTime()) }
             .observeOn(viewScheduler)
             .doOnNext {
               navigator.navigateToRate()
               navigator.closeActivity()
             }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
+            .subscribe({}, { e -> e.printStackTrace() }))
   }
 
   private fun handleRemindMeLaterClick() {
     disposables.add(
-        view.remindMeLaterClickEvent()
+        view
+            .remindMeLaterClickEvent()
             .observeOn(ioScheduler)
             .doOnNext {
               analytics.sendPositiveActionEvent("remind_later", !interactor.isNotFirstTime())
@@ -52,21 +53,20 @@ class RatingPositivePresenter(private val view: RatingPositiveView,
             }
             .observeOn(viewScheduler)
             .doOnNext { navigator.closeActivity() }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
+            .subscribe({}, { e -> e.printStackTrace() }))
   }
 
   private fun handleNoClick() {
     disposables.add(
-        view.noClickEvent()
+        view
+            .noClickEvent()
             .observeOn(ioScheduler)
             .doOnNext {
               analytics.sendPositiveActionEvent("no_thanks", !interactor.isNotFirstTime())
             }
             .observeOn(viewScheduler)
             .doOnNext { navigator.closeActivity() }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
+            .subscribe({}, { e -> e.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

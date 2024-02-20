@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import cm.aptoide.analytics.AnalyticsManager
-import java.util.*
 import javax.inject.Inject
 
 class VerificationAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {

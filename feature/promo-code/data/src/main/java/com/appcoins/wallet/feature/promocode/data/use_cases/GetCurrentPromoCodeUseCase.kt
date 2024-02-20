@@ -5,12 +5,11 @@ import com.appcoins.wallet.feature.promocode.data.repository.PromoCodeRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetCurrentPromoCodeUseCase @Inject constructor(
-  private val promoCodeRepository: PromoCodeRepository
-) {
+class GetCurrentPromoCodeUseCase
+@Inject
+constructor(private val promoCodeRepository: PromoCodeRepository) {
 
   operator fun invoke(): Single<PromoCode> {
-    return promoCodeRepository.observeCurrentPromoCode()
-      .firstOrError()
+    return promoCodeRepository.observeCurrentPromoCode().firstOrError()
   }
 }

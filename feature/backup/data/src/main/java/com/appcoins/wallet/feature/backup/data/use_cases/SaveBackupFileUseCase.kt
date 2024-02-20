@@ -9,20 +9,20 @@ import javax.inject.Inject
 class SaveBackupFileUseCase
 @Inject
 constructor(
-  private val createBackupUseCase: CreateBackupUseCase,
-  private val backupRepository: BackupRepository,
-  private val schedulers: RxSchedulers
+    private val createBackupUseCase: CreateBackupUseCase,
+    private val backupRepository: BackupRepository,
+    private val schedulers: RxSchedulers
 ) {
   operator fun invoke(
-    walletAddress: String,
-    password: String,
-    fileName: String,
-    filePath: DocumentFile?
+      walletAddress: String,
+      password: String,
+      fileName: String,
+      filePath: DocumentFile?
   ): Completable {
     return createBackupUseCase(walletAddress, password)
-      .observeOn(schedulers.io)
-      .flatMapCompletable { backupData ->
-        backupRepository.saveFile(backupData, filePath, fileName)
-      }
+        .observeOn(schedulers.io)
+        .flatMapCompletable { backupData ->
+          backupRepository.saveFile(backupData, filePath, fileName)
+        }
   }
 }

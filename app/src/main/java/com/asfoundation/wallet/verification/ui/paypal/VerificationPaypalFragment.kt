@@ -24,37 +24,39 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerificationPaypalFragment : BasePageViewFragment(),
-  SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
+class VerificationPaypalFragment :
+    BasePageViewFragment(),
+    SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
-  @Inject
-  lateinit var viewModelFactory: VerificationPaypalViewModelFactory
+  @Inject lateinit var viewModelFactory: VerificationPaypalViewModelFactory
 
-  @Inject
-  lateinit var navigator: VerificationPaypalNavigator
+  @Inject lateinit var navigator: VerificationPaypalNavigator
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
   private val viewModel: VerificationPaypalViewModel by viewModels { viewModelFactory }
 
   private val views by viewBinding(FragmentVerifyPaypalIntroBinding::bind)
 
-  private val paypalActivityLauncher = registerForActivityResult(
-      ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-    val resultCode = result.resultCode
-    val data = result.data
-    if (resultCode == WebViewActivity.SUCCESS && data != null) {
-      viewModel.successPayment()
-    } else if (resultCode == WebViewActivity.FAIL) {
-      viewModel.failPayment()
-    } else if (resultCode == WebViewActivity.USER_CANCEL) {
-      viewModel.cancelPayment()
-    }
-  }
+  private val paypalActivityLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+          result: ActivityResult ->
+        val resultCode = result.resultCode
+        val data = result.data
+        if (resultCode == WebViewActivity.SUCCESS && data != null) {
+          viewModel.successPayment()
+        } else if (resultCode == WebViewActivity.FAIL) {
+          viewModel.failPayment()
+        } else if (resultCode == WebViewActivity.USER_CANCEL) {
+          viewModel.cancelPayment()
+        }
+      }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -93,12 +95,10 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   private fun setError(error: Error) {
-    if (error is Error.ApiError.NetworkError)
-      showNetworkError()
+    if (error is Error.ApiError.NetworkError) showNetworkError()
     else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
-      handleUserCancelError()
-    else
-      showGenericError()
+        handleUserCancelError()
+    else showGenericError()
   }
 
   private fun showSuccessValidation() {
@@ -112,10 +112,13 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   private fun showVerificationInfo(verificationIntroModel: VerificationIntroModel) {
-    val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
-        WalletCurrency.FIAT)
-    views.paypalVerifyDescription.text = getString(R.string.verification_verify_paypal_description,
-        "${verificationIntroModel.verificationInfoModel.symbol}$amount")
+    val amount =
+        formatter.formatCurrency(
+            verificationIntroModel.verificationInfoModel.value, WalletCurrency.FIAT)
+    views.paypalVerifyDescription.text =
+        getString(
+            R.string.verification_verify_paypal_description,
+            "${verificationIntroModel.verificationInfoModel.symbol}$amount")
     hideAll()
     views.paypalGraphic.visibility = View.VISIBLE
     views.verifyGraphic.visibility = View.VISIBLE
@@ -163,7 +166,6 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   companion object {
-    @JvmStatic
-    fun newInstance() = VerificationPaypalFragment()
+    @JvmStatic fun newInstance() = VerificationPaypalFragment()
   }
 }

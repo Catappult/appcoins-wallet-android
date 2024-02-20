@@ -20,11 +20,9 @@ suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): Result<T> {
 }
 
 sealed interface Result<T : Any>
-class ApiSuccess<T : Any>(val data: T) :
-  Result<T>
 
-class ApiFailure<T : Any>(val code: Int, val message: String?) :
-  Result<T>
+class ApiSuccess<T : Any>(val data: T) : Result<T>
 
-class ApiException<T : Any>(val e: Throwable) :
-  Result<T>
+class ApiFailure<T : Any>(val code: Int, val message: String?) : Result<T>
+
+class ApiException<T : Any>(val e: Throwable) : Result<T>

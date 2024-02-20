@@ -7,7 +7,9 @@ import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class WalletDetailsInteractor @Inject constructor(
+class WalletDetailsInteractor
+@Inject
+constructor(
     private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
     private val supportInteractor: SupportInteractor,
     private val gamificationRepository: Gamification,
@@ -16,10 +18,11 @@ class WalletDetailsInteractor @Inject constructor(
 
   fun setActiveWallet(address: String): Completable = setDefaultWalletInteractor.set(address)
 
-  fun setActiveWalletSupport(address: String): Completable = getCurrentPromoCodeUseCase()
-    .flatMap { gamificationRepository.getUserLevel(address, it.code) }
-    .doOnSuccess { supportInteractor.registerUser(it, address) }
-    .doOnError(Throwable::printStackTrace)
-    .ignoreElement()
-    .onErrorComplete()
+  fun setActiveWalletSupport(address: String): Completable =
+      getCurrentPromoCodeUseCase()
+          .flatMap { gamificationRepository.getUserLevel(address, it.code) }
+          .doOnSuccess { supportInteractor.registerUser(it, address) }
+          .doOnError(Throwable::printStackTrace)
+          .ignoreElement()
+          .onErrorComplete()
 }

@@ -11,17 +11,16 @@ interface VkPayApi {
 
   @POST("8.20240105/gateways/vkpay/transactions")
   fun createTransaction(
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
-    @Body vkPayPaymentRequest: VkPayPaymentRequest
+      @Query("wallet.address") walletAddress: String,
+      @Header("authorization") authorization: String,
+      @Body vkPayPaymentRequest: VkPayPaymentRequest
   ): Single<VkTransactionResponse>
-
 
   @POST("8.20231001/mock/vkpay")
   fun changeVkTransactionStatusDev(
-    @Query("transaction_uid") transactionUid: String,
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
-    @Body status: String?
+      @Query("transaction_uid") transactionUid: String,
+      @Query("wallet.address") walletAddress: String,
+      @Header("authorization") authorization: String,
+      @Body status: String?
   ): Single<Boolean>
 }

@@ -7,9 +7,9 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetNextBonusScheduleUseCase @Inject constructor(
-  private val bonusRepository: BonusRepository
-) {
+class GetNextBonusScheduleUseCase
+@Inject
+constructor(private val bonusRepository: BonusRepository) {
 
   fun invoke(timeFrame: TimeFrame): Single<NextPrizeSchedule> {
     return bonusRepository.getNextBonusSchedule(timeFrame).subscribeOn(Schedulers.io())

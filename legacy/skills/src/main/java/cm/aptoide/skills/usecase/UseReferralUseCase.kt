@@ -6,12 +6,15 @@ import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class UseReferralUseCase @Inject constructor (
-  private val ewtObtainer: EwtObtainer,
-  private val ticketRepository: TicketRepository,
-){
-  operator fun invoke(referralCode: String): Single<ReferralResult>{
-    return ewtObtainer.getEWT()
-      .flatMap {ticketRepository.postReferralTransaction(it, referralCode)}
+class UseReferralUseCase
+@Inject
+constructor(
+    private val ewtObtainer: EwtObtainer,
+    private val ticketRepository: TicketRepository,
+) {
+  operator fun invoke(referralCode: String): Single<ReferralResult> {
+    return ewtObtainer.getEWT().flatMap {
+      ticketRepository.postReferralTransaction(it, referralCode)
+    }
   }
 }

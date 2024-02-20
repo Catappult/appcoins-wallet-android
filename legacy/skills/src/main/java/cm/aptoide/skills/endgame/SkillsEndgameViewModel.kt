@@ -1,6 +1,5 @@
 package cm.aptoide.skills.endgame
 
-
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
@@ -18,14 +17,15 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class SkillsEndgameViewModel @Inject constructor(
-  private val walletAddressObtainer: WalletAddressObtainer,
-  private val getRoomUseCase: GetRoomUseCase,
-  private val setFinalScore: SetFinalScoreUseCase,
-  private val getRewardsPackagesUseCase: GetRewardsPackagesUseCase,
-  savedStateHandle: SavedStateHandle
+class SkillsEndgameViewModel
+@Inject
+constructor(
+    private val walletAddressObtainer: WalletAddressObtainer,
+    private val getRoomUseCase: GetRoomUseCase,
+    private val setFinalScore: SetFinalScoreUseCase,
+    private val getRewardsPackagesUseCase: GetRewardsPackagesUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
 
   companion object {
     const val RESULT_OK = 0
@@ -36,6 +36,7 @@ class SkillsEndgameViewModel @Inject constructor(
   }
 
   private val session: String
+
   init {
     this.session = savedStateHandle["SESSION"]!!
   }
@@ -43,39 +44,49 @@ class SkillsEndgameViewModel @Inject constructor(
   fun getRoom(): Single<RoomResponse> = getRoomUseCase.getRoom(session)
 
   fun getRoomResult(): Single<RoomResponse> =
-    getRoomUseCase.getRoom(session).flatMap { roomResponse: RoomResponse ->
-      if (roomResponse is RoomResponse.SuccessfulRoomResponse) {
-        if (roomResponse.currentUser.status !== UserStatus.PLAYING) {
+      getRoomUseCase
+          .getRoom(session)
+          .flatMap { roomResponse: RoomResponse ->
+            if (roomResponse is RoomResponse.SuccessfulRoomResponse) {
+              if (roomResponse.currentUser.status !== UserStatus.PLAYING) {
 
-          return@flatMap Single.just(roomResponse as RoomResponse)
-        }
-        setFinalScore.setFinalScore(session, roomResponse.currentUser.score)
-          .doOnError { throwable -> throwable.printStackTrace() }
-          .onErrorReturnItem(roomResponse as RoomResponse.SuccessfulRoomResponse?)
-      } else
-        Single.just(roomResponse)
-    }.toObservable().repeatWhen { objectFlowable -> objectFlowable.delay(3, TimeUnit.SECONDS) }
-      .skipWhile { roomResponse: RoomResponse -> isInProgress(roomResponse as? RoomResponse.SuccessfulRoomResponse) }
-      .take(1)
-      .singleOrError()
+                return@flatMap Single.just(roomResponse as RoomResponse)
+              }
+              setFinalScore
+                  .setFinalScore(session, roomResponse.currentUser.score)
+                  .doOnError { throwable -> throwable.printStackTrace() }
+                  .onErrorReturnItem(roomResponse as RoomResponse.SuccessfulRoomResponse?)
+            } else Single.just(roomResponse)
+          }
+          .toObservable()
+          .repeatWhen { objectFlowable -> objectFlowable.delay(3, TimeUnit.SECONDS) }
+          .skipWhile { roomResponse: RoomResponse ->
+            isInProgress(roomResponse as? RoomResponse.SuccessfulRoomResponse)
+          }
+          .take(1)
+          .singleOrError()
 
   fun getRewardsPackages(): Single<List<String>> = getRewardsPackagesUseCase.getRewardsPackages()
 
   fun isWinner(roomResult: RoomResult): Single<Boolean> {
-    return walletAddressObtainer.getWalletAddress().map {
-        walletAddress ->
-      walletAddress.address.equals(roomResult.winner.walletAddress, ignoreCase = true)
-    }.subscribeOn(Schedulers.io())
+    return walletAddressObtainer
+        .getWalletAddress()
+        .map { walletAddress ->
+          walletAddress.address.equals(roomResult.winner.walletAddress, ignoreCase = true)
+        }
+        .subscribeOn(Schedulers.io())
   }
 
   fun getWalletAddress(): Single<String> =
-    walletAddressObtainer.getWalletAddress().subscribeOn(Schedulers.io()).map { it.address }
+      walletAddressObtainer.getWalletAddress().subscribeOn(Schedulers.io()).map { it.address }
 
   private fun isInProgress(roomResponse: RoomResponse.SuccessfulRoomResponse?): Boolean {
     val completed = roomResponse?.status == RoomStatus.COMPLETED
     if (roomResponse != null) {
       for (user in roomResponse.users) {
-        check(!(user.status === UserStatus.PLAYING && completed)) { "Match Completed but some players are still playing!" }
+        check(!(user.status === UserStatus.PLAYING && completed)) {
+          "Match Completed but some players are still playing!"
+        }
       }
     }
     return !completed

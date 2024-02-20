@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
-import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,35 +17,31 @@ import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
-import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingSharedHeaderViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class OnboardingPaymentFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
+class OnboardingPaymentFragment :
+    BasePageViewFragment(),
+    SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
 
   private val viewModel: OnboardingPaymentViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingPaymentBinding::bind)
 
   private lateinit var innerNavHostFragment: NavHostFragment
 
-  @Inject
-  lateinit var navigator: OnboardingPaymentNavigator
+  @Inject lateinit var navigator: OnboardingPaymentNavigator
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
-
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View {
     return FragmentOnboardingPaymentBinding.inflate(inflater).root
   }
@@ -60,7 +53,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     handlePaymentFinishResult()
     val sharedHeaderViewModel =
-      ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
+        ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
     // Observe the LiveData for visibility changes
     sharedHeaderViewModel.viewVisibility.observe(viewLifecycleOwner) { visibility ->
       views.onboardingPaymentHeaderLayout.root.visibility = visibility
@@ -71,16 +64,10 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
   private fun handlePaymentFinishResult() {
     viewModel.setOnboardingCompleted()
     innerNavHostFragment.childFragmentManager.setFragmentResultListener(
-      ONBOARDING_PAYMENT_CONCLUSION,
-      this
-    ) { _, _ ->
-      views.root.visibility = View.GONE
-      context?.let {
-        lifecycleScope.launch {
-          AppUtils.restartApp(it)
+        ONBOARDING_PAYMENT_CONCLUSION, this) { _, _ ->
+          views.root.visibility = View.GONE
+          context?.let { lifecycleScope.launch { AppUtils.restartApp(it) } }
         }
-      }
-    }
   }
 
   private fun editToolbar() {
@@ -89,16 +76,16 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
   }
 
   private fun initInnerNavController() {
-    innerNavHostFragment = childFragmentManager.findFragmentById(
-      R.id.onboarding_payment_fragment_container
-    ) as NavHostFragment
+    innerNavHostFragment =
+        childFragmentManager.findFragmentById(R.id.onboarding_payment_fragment_container)
+            as NavHostFragment
   }
 
   override fun onStateChanged(state: OnboardingPaymentState) {
     when (state.transactionContent) {
       Async.Uninitialized,
       is Async.Loading -> {
-        //TODO add a skeleton while the list loads
+        // TODO add a skeleton while the list loads
         views.loadingAnimation.playAnimation()
       }
       is Async.Success -> {
@@ -126,15 +113,15 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingPaymentSideEffect) {
     when (sideEffect) {
-      is OnboardingPaymentSideEffect.ShowPaymentMethods -> navigator.showPaymentMethods(
-        innerNavHostFragment.navController,
-        sideEffect.transactionContent.transactionBuilder,
-        sideEffect.transactionContent.packageName,
-        sideEffect.transactionContent.sku,
-        sideEffect.transactionContent.value,
-        sideEffect.transactionContent.currency,
-        sideEffect.transactionContent.forecastBonus
-      )
+      is OnboardingPaymentSideEffect.ShowPaymentMethods ->
+          navigator.showPaymentMethods(
+              innerNavHostFragment.navController,
+              sideEffect.transactionContent.transactionBuilder,
+              sideEffect.transactionContent.packageName,
+              sideEffect.transactionContent.sku,
+              sideEffect.transactionContent.value,
+              sideEffect.transactionContent.currency,
+              sideEffect.transactionContent.forecastBonus)
     }
   }
 
@@ -145,12 +132,11 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     handleAppInfo(transactionContent.packageName)
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.skuTitle
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusText.text =
-      getString(
-        R.string.gamification_purchase_header_part_2,
-        transactionContent.forecastBonus.getPurchaseBonusMessage(formatter)
-      )
+        getString(
+            R.string.gamification_purchase_header_part_2,
+            transactionContent.forecastBonus.getPurchaseBonusMessage(formatter))
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusFiatAmount.text =
-      "${transactionContent.currencySymbol}${transactionContent.value}"
+        "${transactionContent.currencySymbol}${transactionContent.value}"
   }
 
   private fun handleAppInfo(packageName: String) {

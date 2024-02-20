@@ -12,15 +12,17 @@ class SkillsActivity : AppCompatActivity() {
     setContentView(R.layout.activity_skills)
     intent.getStringExtra("ESKILLS_URI")?.let { uri ->
       if (uri.contains("endgame", true)) {
-        supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
-          .addToBackStack(SkillsEndgameFragment::class.java.simpleName)
-          .commit()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, SkillsEndgameFragment.newInstance(uri))
+            .addToBackStack(SkillsEndgameFragment::class.java.simpleName)
+            .commit()
       } else {
         if (savedInstanceState == null) {
-          supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, SkillsFragment.newInstance())
-            .commit()
+          supportFragmentManager
+              .beginTransaction()
+              .replace(R.id.fragment_container, SkillsFragment.newInstance())
+              .commit()
         } else {
           null
         }

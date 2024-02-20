@@ -19,8 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuccessView {
 
-  @Inject
-  lateinit var presenter: SubscriptionSuccessPresenter
+  @Inject lateinit var presenter: SubscriptionSuccessPresenter
 
   private val binding by viewBinding(FragmentSubscriptionCancelSuccessBinding::bind)
 
@@ -33,8 +32,9 @@ class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuc
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentSubscriptionCancelSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +53,6 @@ class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuc
         binding.successAnimation.setAnimation(R.raw.subscription_cancel_success)
         binding.updateTitle.text = getString(R.string.subscriptions_cancel_confirmation_title)
       }
-
       SubscriptionSuccess.RENEW -> {
         binding.successAnimation.setAnimation(R.raw.success_animation)
         binding.updateTitle.text = getString(R.string.subscriptions_renewed_confirmation_title)
@@ -86,16 +85,17 @@ class SubscriptionSuccessFragment : BottomSheetDialogFragment(), SubscriptionSuc
     super.onDestroyView()
   }
 
-  enum class SubscriptionSuccess { CANCEL, RENEW }
+  enum class SubscriptionSuccess {
+    CANCEL,
+    RENEW
+  }
 
   companion object {
     const val SUCCESS_TYPE_KEY = "subscription_success_key"
 
     fun newInstance(successType: SubscriptionSuccess): SubscriptionSuccessFragment {
       return SubscriptionSuccessFragment().apply {
-        arguments = Bundle().apply {
-          putSerializable(SUCCESS_TYPE_KEY, successType)
-        }
+        arguments = Bundle().apply { putSerializable(SUCCESS_TYPE_KEY, successType) }
       }
     }
   }

@@ -27,8 +27,16 @@ public class AirdropActivity extends BaseActivity implements AirdropFragment.Air
     }
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      finish();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
   protected Toolbar toolbar() {
@@ -40,14 +48,6 @@ public class AirdropActivity extends BaseActivity implements AirdropFragment.Air
     }
     enableDisplayHomeAsUp();
     return toolbar;
-  }
-
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-      finish();
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override public void onAirdropFinish() {

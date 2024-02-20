@@ -22,17 +22,16 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
-  @Inject
-  lateinit var presenter: VerificationCodePresenter
+  @Inject lateinit var presenter: VerificationCodePresenter
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var activityView: VerificationCreditCardActivityView
 
@@ -51,28 +50,34 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     private const val CODE_KEY = "code"
 
     @JvmStatic
-    fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
-                    period: String, date: Long): VerificationCodeFragment {
+    fun newInstance(
+        currency: String,
+        symbol: String,
+        value: String,
+        digits: Int,
+        format: String,
+        period: String,
+        date: Long
+    ): VerificationCodeFragment {
       return VerificationCodeFragment().apply {
-        arguments = Bundle().apply {
-          putBoolean(LOADED_KEY, true)
-          putString(CURRENCY_KEY, currency)
-          putString(SYMBOL_KEY, symbol)
-          putString(AMOUNT_KEY, value)
-          putString(FORMAT_KEY, format)
-          putString(PERIOD_KEY, period)
-          putLong(DATE_KEY, date)
-          putInt(DIGITS_KEY, digits)
-        }
+        arguments =
+            Bundle().apply {
+              putBoolean(LOADED_KEY, true)
+              putString(CURRENCY_KEY, currency)
+              putString(SYMBOL_KEY, symbol)
+              putString(AMOUNT_KEY, value)
+              putString(FORMAT_KEY, format)
+              putString(PERIOD_KEY, period)
+              putLong(DATE_KEY, date)
+              putInt(DIGITS_KEY, digits)
+            }
       }
     }
 
     @JvmStatic
     fun newInstance(): VerificationCodeFragment {
       return VerificationCodeFragment().apply {
-        arguments = Bundle().apply {
-          putBoolean(LOADED_KEY, false)
-        }
+        arguments = Bundle().apply { putBoolean(LOADED_KEY, false) }
       }
     }
   }
@@ -87,8 +92,11 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentVerificationCodeBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentVerificationCodeBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -100,10 +108,17 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     outState.apply { putString(CODE_KEY, views.code.toString()) }
   }
 
-
-  override fun setupUi(currency: String, symbol: String, amount: String, digits: Int,
-                       format: String, period: String, date: Long, isWalletVerified: Boolean,
-                       savedInstance: Bundle?) {
+  override fun setupUi(
+      currency: String,
+      symbol: String,
+      amount: String,
+      digits: Int,
+      format: String,
+      period: String,
+      date: Long,
+      isWalletVerified: Boolean,
+      savedInstance: Bundle?
+  ) {
     val amountFormat = formatter.formatCurrency(amount, WalletCurrency.FIAT)
     val amountWithCurrency = "${symbol}$amountFormat"
     val amountWithCurrencyAndSign = "${symbol}-$amountFormat"
@@ -114,17 +129,25 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()
 
-    val periodFormat = String.format(getString(R.string.card_verification_code_example_code),
-        periodInDays.toString())
-    val codeTitle = String.format(getString(R.string.card_verification_code_enter_title),
-        digits.toString())
-    val codeDisclaimer = if (periodInDays > 0) {
-      resources.getQuantityString(R.plurals.card_verification_code_enter_days_body,
-          periodInDays.toInt(), amountWithCurrency, periodInDays.toString())
-    } else {
-      resources.getQuantityString(R.plurals.card_verification_code_enter_hours_body,
-          periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
-    }
+    val periodFormat =
+        String.format(
+            getString(R.string.card_verification_code_example_code), periodInDays.toString())
+    val codeTitle =
+        String.format(getString(R.string.card_verification_code_enter_title), digits.toString())
+    val codeDisclaimer =
+        if (periodInDays > 0) {
+          resources.getQuantityString(
+              R.plurals.card_verification_code_enter_days_body,
+              periodInDays.toInt(),
+              amountWithCurrency,
+              periodInDays.toString())
+        } else {
+          resources.getQuantityString(
+              R.plurals.card_verification_code_enter_hours_body,
+              periodInHours.toInt(),
+              amountWithCurrency,
+              periodInHours.toString())
+        }
 
     views.code.setEms(digits)
     views.code.filters = arrayOf(InputFilter.LengthFilter(digits))
@@ -145,20 +168,28 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
         if (isWalletVerified) getString(R.string.verification_settings_card_verified_title)
         else getString(R.string.verification_settings_verified_title)
 
-    views.successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator) = Unit
-      override fun onAnimationEnd(animation: Animator) = presenter.onAnimationEnd()
-      override fun onAnimationCancel(animation: Animator) = Unit
-      override fun onAnimationStart(animation: Animator) = Unit
-    })
-    views.code.addTextChangedListener(object : TextWatcher {
-      override fun afterTextChanged(s: Editable?) = Unit
-      override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-      override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        hideWrongCodeError()
-        views.confirm.isEnabled = s?.length == digits
-      }
-    })
+    views.successAnimation.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationRepeat(animation: Animator) = Unit
+
+          override fun onAnimationEnd(animation: Animator) = presenter.onAnimationEnd()
+
+          override fun onAnimationCancel(animation: Animator) = Unit
+
+          override fun onAnimationStart(animation: Animator) = Unit
+        })
+    views.code.addTextChangedListener(
+        object : TextWatcher {
+          override fun afterTextChanged(s: Editable?) = Unit
+
+          override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+              Unit
+
+          override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            hideWrongCodeError()
+            views.confirm.isEnabled = s?.length == digits
+          }
+        })
   }
 
   override fun showWrongCodeError() {
@@ -229,18 +260,16 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   override fun getMaybeLaterClicks() = RxView.clicks(views.maybeLater)
 
-  override fun getConfirmClicks(): Observable<String> = RxView.clicks(views.confirm)
-      .map { views.code.text.toString() }
+  override fun getConfirmClicks(): Observable<String> =
+      RxView.clicks(views.confirm).map { views.code.text.toString() }
 
   override fun getChangeCardClicks() = RxView.clicks(views.changeCardButton)
 
   override fun retryClick() = RxView.clicks(views.noNetwork.retryButton)
 
   private fun convertToDate(ts: Long): String {
-    val cal = Calendar.getInstance(Locale.ENGLISH)
-        .apply { timeInMillis = ts }
-    return DateFormat.format("dd/MM/yyyy", cal.time)
-        .toString()
+    val cal = Calendar.getInstance(Locale.ENGLISH).apply { timeInMillis = ts }
+    return DateFormat.format("dd/MM/yyyy", cal.time).toString()
   }
 
   override fun onDestroyView() {

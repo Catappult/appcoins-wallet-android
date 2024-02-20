@@ -1,13 +1,8 @@
-plugins{
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android{
-  namespace = "com.appcoins.wallet.feature.backup.data"
-}
+android { namespace = "com.appcoins.wallet.feature.backup.data" }
 
-dependencies{
-
+dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":feature:wallet-info:data"))
   implementation(project(":core:network:backend"))

@@ -1,10 +1,6 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.core.network.backend"
-}
+android { namespace = "com.appcoins.wallet.core.network.backend" }
 
 dependencies {
   implementation(project(":core:network:base"))
@@ -12,4 +8,3 @@ dependencies {
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)
 }
-

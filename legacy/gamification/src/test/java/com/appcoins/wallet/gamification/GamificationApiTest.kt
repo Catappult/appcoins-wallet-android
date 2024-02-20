@@ -1,7 +1,7 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.core.network.backend.model.ForecastBonusResponse
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
+import com.appcoins.wallet.core.network.backend.model.ForecastBonusResponse
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
 import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
@@ -16,7 +16,11 @@ class GamificationApiTest : GamificationApi {
   private var referralResponse: Single<ReferralResponse>? = null
   var vipReferralResponse: Single<VipReferralResponse>? = null
 
-  override fun getUserStats(address: String, languageCode: String, promoCodeString: String?): Single<UserStatusResponse> {
+  override fun getUserStats(
+      address: String,
+      languageCode: String,
+      promoCodeString: String?
+  ): Single<UserStatusResponse> {
     val aux = userStatusResponse!!
     userStatusResponse = null
     return aux
@@ -28,8 +32,13 @@ class GamificationApiTest : GamificationApi {
     return aux
   }
 
-  override fun getForecastBonus(wallet: String, packageName: String, amount: BigDecimal,
-                                currency: String, promoCodeString: String?): Single<ForecastBonusResponse> {
+  override fun getForecastBonus(
+      wallet: String,
+      packageName: String,
+      amount: BigDecimal,
+      currency: String,
+      promoCodeString: String?
+  ): Single<ForecastBonusResponse> {
     val aux = bonusResponse!!
     bonusResponse = null
     return aux

@@ -11,7 +11,9 @@ class PermissionsFragmentPresenter(
     private val packageName: String,
     private val permissionName: PermissionName,
     private val apkSignature: String,
-    private val disposables: CompositeDisposable, private val viewScheduler: Scheduler) {
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler
+) {
 
   fun present() {
     handleAllowButtonClick()
@@ -22,37 +24,36 @@ class PermissionsFragmentPresenter(
 
   private fun setupUi() {
     disposables.add(
-        permissionsInteractor.getWalletAddress()
-            .observeOn(viewScheduler)
-            .subscribe { wallet ->
-              view.showWalletAddress(wallet)
-            })
+        permissionsInteractor.getWalletAddress().observeOn(viewScheduler).subscribe { wallet ->
+          view.showWalletAddress(wallet)
+        })
 
     view.showAppData(packageName)
   }
 
   private fun handleCancelClick() {
-    disposables.add(
-        view.getCancelClick().doOnNext { view.closeCancel() }
-            .subscribe())
+    disposables.add(view.getCancelClick().doOnNext { view.closeCancel() }.subscribe())
   }
 
   private fun handleAllowOnceClick() {
     disposables.add(
-        view.getAllowOnceClick().flatMapSingle {
-          permissionsInteractor.getWalletAddress()
-              .observeOn(viewScheduler)
-        }.doOnNext { view.closeSuccess(it) }
+        view
+            .getAllowOnceClick()
+            .flatMapSingle { permissionsInteractor.getWalletAddress().observeOn(viewScheduler) }
+            .doOnNext { view.closeSuccess(it) }
             .subscribe())
   }
 
   private fun handleAllowButtonClick() {
-    disposables.add(view.getAllowButtonClick()
-        .flatMapSingle {
-          permissionsInteractor.grantPermission(packageName, apkSignature, permissionName)
-        }.observeOn(viewScheduler)
-        .doOnNext { view.closeSuccess(it) }
-        .subscribe())
+    disposables.add(
+        view
+            .getAllowButtonClick()
+            .flatMapSingle {
+              permissionsInteractor.grantPermission(packageName, apkSignature, permissionName)
+            }
+            .observeOn(viewScheduler)
+            .doOnNext { view.closeSuccess(it) }
+            .subscribe())
   }
 
   fun stop() {

@@ -8,12 +8,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
-import javax.inject.Named
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -25,29 +25,26 @@ class AnalyticsApiModule {
   @Provides
   @Named("analytics-default")
   fun provideAnalyticsDefaultRetrofit(
-    @DefaultHttpClient client: OkHttpClient,
-    objectMapper: ObjectMapper
+      @DefaultHttpClient client: OkHttpClient,
+      objectMapper: ObjectMapper
   ): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(analyticsUrl)
-      .client(client)
-      .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
+        .baseUrl(analyticsUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
   }
 
   @Singleton
   @Provides
-  fun provideAnalyticsAPI(
-    @Named("analytics-default") retrofit: Retrofit
-  ): AnalyticsApi {
+  fun provideAnalyticsAPI(@Named("analytics-default") retrofit: Retrofit): AnalyticsApi {
     return retrofit.create(AnalyticsApi::class.java)
   }
+
   @Singleton
   @Provides
-  fun provideAppDataAPI(
-    @Named("analytics-default") retrofit: Retrofit
-  ): AppDataApi {
+  fun provideAppDataAPI(@Named("analytics-default") retrofit: Retrofit): AppDataApi {
     return retrofit.create(AppDataApi::class.java)
   }
 }

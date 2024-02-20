@@ -13,41 +13,41 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.utils.android_common.AppUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CreateWalletDialogFragment : DialogFragment(),
-  SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
+class CreateWalletDialogFragment :
+    DialogFragment(), SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
-  @Inject
-  lateinit var navigator: CreateWalletDialogNavigator
+  @Inject lateinit var navigator: CreateWalletDialogNavigator
 
   private val viewModel: CreateWalletDialogViewModel by viewModels()
   private val views by viewBinding(FragmentCreateWalletDialogLayoutBinding::bind)
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-    object : Dialog(requireContext(), theme) {
-      override fun onBackPressed() {
-        // Do nothing
+      object : Dialog(requireContext(), theme) {
+        override fun onBackPressed() {
+          // Do nothing
+        }
       }
-    }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentCreateWalletDialogLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    //Temporary solution until this animation is refactored to the new design
+    // Temporary solution until this animation is refactored to the new design
     if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
       views.createWalletText.text = getText(R.string.provide_wallet_creating_wallet_header)
       viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
@@ -76,20 +76,19 @@ class CreateWalletDialogFragment : DialogFragment(),
         }
 
         if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
-          if (requireArguments().getBoolean(IS_PAYMENT))
-            navigator.navigateBack()
-          else
-            restart(requireContext())
-
+          if (requireArguments().getBoolean(IS_PAYMENT)) navigator.navigateBack()
+          else restart(requireContext())
         } else {
-          views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator) = Unit
-            override fun onAnimationEnd(animation: Animator) = run {
-              restart(requireContext())
-            }
-            override fun onAnimationCancel(animation: Animator) = Unit
-            override fun onAnimationStart(animation: Animator) = Unit
-          })
+          views.createWalletLoading.addAnimatorListener(
+              object : Animator.AnimatorListener {
+                override fun onAnimationRepeat(animation: Animator) = Unit
+
+                override fun onAnimationEnd(animation: Animator) = run { restart(requireContext()) }
+
+                override fun onAnimationCancel(animation: Animator) = Unit
+
+                override fun onAnimationStart(animation: Animator) = Unit
+              })
         }
         views.createWalletLoading.repeatCount = 0
         views.createWalletLoading.playAnimation()
@@ -99,9 +98,7 @@ class CreateWalletDialogFragment : DialogFragment(),
   }
 
   private fun restart(context: Context) {
-    lifecycleScope.launch {
-      AppUtils.restartApp(context)
-    }
+    lifecycleScope.launch { AppUtils.restartApp(context) }
   }
 
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit

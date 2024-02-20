@@ -17,14 +17,11 @@ class UrlUtmParser {
           if (!queryPairs.containsKey(key)) {
             queryPairs[key] = mutableListOf<String?>()
           }
-          val value: String = if (keyVal.size > 1)
-            keyVal[1]
-          else ""
+          val value: String = if (keyVal.size > 1) keyVal[1] else ""
           queryPairs[key]?.add(value)
         }
       }
       return queryPairs
     }
   }
-
 }

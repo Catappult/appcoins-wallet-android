@@ -17,33 +17,31 @@ import io.reactivex.schedulers.Schedulers
 class SettingsModule {
   @Provides
   fun providesSettingsPresenter(
-    settingsFragment: Fragment,
-    navigator: SettingsNavigator,
-    interactor: SettingsInteractor,
-    data: SettingsData,
-    buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-    getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-    displayChatUseCase: DisplayChatUseCase
+      settingsFragment: Fragment,
+      navigator: SettingsNavigator,
+      interactor: SettingsInteractor,
+      data: SettingsData,
+      buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+      getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+      displayChatUseCase: DisplayChatUseCase
   ): SettingsPresenter {
     return SettingsPresenter(
-      settingsFragment as SettingsView,
-      navigator,
-      Schedulers.io(),
-      AndroidSchedulers.mainThread(),
-      CompositeDisposable(),
-      interactor,
-      data,
-      buildUpdateIntentUseCase,
-      getChangeFiatCurrencyModelUseCase,
-      displayChatUseCase
-    )
+        settingsFragment as SettingsView,
+        navigator,
+        Schedulers.io(),
+        AndroidSchedulers.mainThread(),
+        CompositeDisposable(),
+        interactor,
+        data,
+        buildUpdateIntentUseCase,
+        getChangeFiatCurrencyModelUseCase,
+        displayChatUseCase)
   }
 
   @Provides
   fun providesSettingsData(settingsFragment: Fragment): SettingsData {
-    settingsFragment.requireArguments()
-      .apply {
-        return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
-      }
+    settingsFragment.requireArguments().apply {
+      return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+    }
   }
 }

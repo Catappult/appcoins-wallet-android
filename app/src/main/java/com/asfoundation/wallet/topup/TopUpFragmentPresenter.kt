@@ -27,21 +27,21 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class TopUpFragmentPresenter(
-  private val view: TopUpFragmentView,
-  private val activity: TopUpActivityView?,
-  private val interactor: TopUpInteractor,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase,
-  private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  val disposables: CompositeDisposable,
-  private val topUpAnalytics: TopUpAnalytics,
-  private val formatter: CurrencyFormatUtils,
-  private val selectedValue: String?,
-  private val logger: Logger,
-  private val networkThread: Scheduler,
-  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
+    private val view: TopUpFragmentView,
+    private val activity: TopUpActivityView?,
+    private val interactor: TopUpInteractor,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase,
+    private val isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    val disposables: CompositeDisposable,
+    private val topUpAnalytics: TopUpAnalytics,
+    private val formatter: CurrencyFormatUtils,
+    private val selectedValue: String?,
+    private val logger: Logger,
+    private val networkThread: Scheduler,
+    private val challengeRewardAnalytics: ChallengeRewardAnalytics,
 ) {
 
   private var cachedGamificationLevel = 0
@@ -76,52 +76,50 @@ class TopUpFragmentPresenter(
 
   private fun setupUi() {
     disposables.add(
-      Single.zip(
-        interactor.getLimitTopUpValues()
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler),
-        interactor.getDefaultValues()
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-      ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
-        if (values.error.hasError || defaultValues.error.hasError &&
-          (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
-        ) {
-          view.showNoNetworkError()
-        } else {
-          view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-          updateDefaultValues(defaultValues, 1)
-        }
-      }
-        .subscribe({}, { handleError(it) })
-    )
+        Single.zip(
+                interactor
+                    .getLimitTopUpValues()
+                    .subscribeOn(networkScheduler)
+                    .observeOn(viewScheduler),
+                interactor
+                    .getDefaultValues()
+                    .subscribeOn(networkScheduler)
+                    .observeOn(viewScheduler)) {
+                    values: TopUpLimitValues,
+                    defaultValues: TopUpValuesModel ->
+                  if (values.error.hasError ||
+                      defaultValues.error.hasError &&
+                          (values.error.isNoNetwork || defaultValues.error.isNoNetwork)) {
+                    view.showNoNetworkError()
+                  } else {
+                    view.setupCurrency(
+                        LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+                    updateDefaultValues(defaultValues, 1)
+                  }
+                }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun retrievePaymentMethods(
-    fiatAmount: String,
-    currency: String,
-    packageName: String
+      fiatAmount: String,
+      currency: String,
+      packageName: String
   ): Completable =
-    interactor.getPaymentMethods(fiatAmount, currency, packageName)
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        if (it.isNotEmpty()) {
-          view.setupPaymentMethods(
-            paymentMethods = it
-          )
-        } else {
-          view.showNoMethodsError()
-        }
-      }
-      .ignoreElement()
+      interactor
+          .getPaymentMethods(fiatAmount, currency, packageName)
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .doOnSuccess {
+            if (it.isNotEmpty()) {
+              view.setupPaymentMethods(paymentMethods = it)
+            } else {
+              view.showNoMethodsError()
+            }
+          }
+          .ignoreElement()
 
-  private fun updateDefaultValues(
-    topUpValuesModel: TopUpValuesModel,
-    defaultValueIndex: Int
-  ) {
-    hasDefaultValues =
-      topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultValueIndex: Int) {
+    hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
     if (hasDefaultValues) {
       val defaultValues = topUpValuesModel.values
       val defaultFiatValue = defaultValues[defaultValueIndex]
@@ -133,14 +131,14 @@ class TopUpFragmentPresenter(
   }
 
   private fun handleKeyboardEvents() {
-    disposables.add(view.getKeyboardEvents()
-      .doOnNext {
-        if (it && hasDefaultValues) view.showValuesAdapter()
-        else view.hideValuesAdapter()
-      }
-      .subscribeOn(viewScheduler)
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .getKeyboardEvents()
+            .doOnNext {
+              if (it && hasDefaultValues) view.showValuesAdapter() else view.hideValuesAdapter()
+            }
+            .subscribeOn(viewScheduler)
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleError(throwable: Throwable) {
@@ -149,57 +147,59 @@ class TopUpFragmentPresenter(
   }
 
   private fun handleNextClick() {
-    disposables.add(view.getNextClick()
-      .throttleFirst(500, TimeUnit.MILLISECONDS)
-      .observeOn(networkScheduler)
-      .switchMap { topUpData ->
-        interactor.getLimitTopUpValues()
-          .toObservable()
-          .filter {
-            isCurrencyValid(topUpData.currency)
-                && isValueInRange(it, topUpData.currency.fiatValue.toDouble())
-                && topUpData.paymentMethod != null
-          }
-          .observeOn(viewScheduler)
-          .doOnNext {
-            topUpAnalytics.sendSelectionEvent(
-              value = topUpData.currency.appcValue.toDouble(),
-              action = BillingAnalytics.ACTION_NEXT,
-              paymentMethod = topUpData.paymentMethod!!.paymentType.name
-            )
-            navigateToPayment(topUpData, cachedGamificationLevel)
-          }
-      }
-      .subscribe({}, { handleError(it) })
-    )
+    disposables.add(
+        view
+            .getNextClick()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .observeOn(networkScheduler)
+            .switchMap { topUpData ->
+              interactor
+                  .getLimitTopUpValues()
+                  .toObservable()
+                  .filter {
+                    isCurrencyValid(topUpData.currency) &&
+                        isValueInRange(it, topUpData.currency.fiatValue.toDouble()) &&
+                        topUpData.paymentMethod != null
+                  }
+                  .observeOn(viewScheduler)
+                  .doOnNext {
+                    topUpAnalytics.sendSelectionEvent(
+                        value = topUpData.currency.appcValue.toDouble(),
+                        action = BillingAnalytics.ACTION_NEXT,
+                        paymentMethod = topUpData.paymentMethod!!.paymentType.name)
+                    navigateToPayment(topUpData, cachedGamificationLevel)
+                  }
+            }
+            .subscribe({}, { handleError(it) }))
   }
 
-
   private fun handleManualAmountChange(packageName: String) {
-    disposables.add(view.getEditTextChanges()
-      .doOnNext { resetValues(it) }
-      .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
-      .doOnNext { handleInputValue(it) }
-      .filter { isNumericOrEmpty(it) }
-      .switchMapCompletable { topUpData ->
-        getConvertedValue(topUpData)
-          .subscribeOn(networkScheduler)
-          .map { value -> updateConversionValue(value.amount, topUpData) }
-          .filter { isConvertedValueAvailable(it) }
-          .observeOn(viewScheduler)
-          .doOnComplete { view.setConversionValue(topUpData) }
-          .flatMapCompletable {
-            interactor.getLimitTopUpValues()
-              .toObservable()
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
-          }
-          .doOnError { handleError(it) }
-          .onErrorComplete()
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .getEditTextChanges()
+            .doOnNext { resetValues(it) }
+            .debounce(700, TimeUnit.MILLISECONDS, viewScheduler)
+            .doOnNext { handleInputValue(it) }
+            .filter { isNumericOrEmpty(it) }
+            .switchMapCompletable { topUpData ->
+              getConvertedValue(topUpData)
+                  .subscribeOn(networkScheduler)
+                  .map { value -> updateConversionValue(value.amount, topUpData) }
+                  .filter { isConvertedValueAvailable(it) }
+                  .observeOn(viewScheduler)
+                  .doOnComplete { view.setConversionValue(topUpData) }
+                  .flatMapCompletable {
+                    interactor
+                        .getLimitTopUpValues()
+                        .toObservable()
+                        .subscribeOn(networkScheduler)
+                        .observeOn(viewScheduler)
+                        .flatMapCompletable { handleInsertedValue(packageName, topUpData, it) }
+                  }
+                  .doOnError { handleError(it) }
+                  .onErrorComplete()
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleInvalidFormatInput() {
@@ -231,80 +231,73 @@ class TopUpFragmentPresenter(
   }
 
   private fun isNumericOrEmpty(data: TopUpData): Boolean =
-    if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
-      data.currency.fiatValue == DEFAULT_VALUE
-          || data.currency.fiatValue.matches(NUMERIC_REGEX.toRegex())
-    } else {
-      data.currency.appcValue == DEFAULT_VALUE
-          || data.currency.appcValue.matches(NUMERIC_REGEX.toRegex())
-    }
+      if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
+        data.currency.fiatValue == DEFAULT_VALUE ||
+            data.currency.fiatValue.matches(NUMERIC_REGEX.toRegex())
+      } else {
+        data.currency.appcValue == DEFAULT_VALUE ||
+            data.currency.appcValue.matches(NUMERIC_REGEX.toRegex())
+      }
 
   private fun getConvertedValue(data: TopUpData): Observable<FiatValue> =
-    if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
-      && data.currency.fiatValue != DEFAULT_VALUE
-    ) {
-      interactor.convertLocal(data.currency.fiatCurrencyCode, data.currency.fiatValue, 2)
-        .toObservable()
-    } else if (data.selectedCurrencyType == TopUpData.APPC_C_CURRENCY
-      && data.currency.appcValue != DEFAULT_VALUE
-    ) {
-      interactor.convertAppc(data.currency.appcValue).toObservable()
-    } else {
-      Observable.just(
-        FiatValue(
-          BigDecimal.ZERO,
-          ""
-        )
-      )
-    }
+      if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY &&
+          data.currency.fiatValue != DEFAULT_VALUE) {
+        interactor
+            .convertLocal(data.currency.fiatCurrencyCode, data.currency.fiatValue, 2)
+            .toObservable()
+      } else if (data.selectedCurrencyType == TopUpData.APPC_C_CURRENCY &&
+          data.currency.appcValue != DEFAULT_VALUE) {
+        interactor.convertAppc(data.currency.appcValue).toObservable()
+      } else {
+        Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(view.getPaymentMethodClick()
-      .doOnNext {
-        if(it == PaymentMethodId.CHALLENGE_REWARD.id)
-          view.hideBonus() else view.showBonus()
-        view.paymentMethodsFocusRequest()
-        setNextButton(it)
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .getPaymentMethodClick()
+            .doOnNext {
+              if (it == PaymentMethodId.CHALLENGE_REWARD.id) view.hideBonus() else view.showBonus()
+              view.paymentMethodsFocusRequest()
+              setNextButton(it)
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun setNextButton(methodSelected: String?) {
     disposables.add(
-      showPayPalLogout
-      .subscribe {
-        if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
-          view.setTopupButton()
-        } else {
-          view.setNextButton()
-        }
-      }
-    )
+        showPayPalLogout.subscribe {
+          if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
+            view.setTopupButton()
+          } else {
+            view.setNextButton()
+          }
+        })
   }
 
-  private fun loadBonusIntoView(
-    appPackage: String, amount: String,
-    currency: String
-  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
-    .subscribeOn(networkScheduler)
-    .observeOn(viewScheduler)
-    .doOnSuccess {
-      if (interactor.isBonusValidAndActive(it)) {
-        val scaledBonus = formatter.scaleFiat(it.amount)
-        if(view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
-          view.hideBonusAndSkeletons() else view.showBonus(scaledBonus, it.currency)
-      } else {
-        view.removeBonus()
-      }
-      view.setNextButtonState(true)
-      cachedGamificationLevel = it.level
-    }
-    .ignoreElement()
+  private fun loadBonusIntoView(appPackage: String, amount: String, currency: String): Completable =
+      interactor
+          .getEarningBonus(appPackage, amount.toBigDecimal(), currency)
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .doOnSuccess {
+            if (interactor.isBonusValidAndActive(it)) {
+              val scaledBonus = formatter.scaleFiat(it.amount)
+              if (view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
+                  view.hideBonusAndSkeletons()
+              else view.showBonus(scaledBonus, it.currency)
+            } else {
+              view.removeBonus()
+            }
+            view.setNextButtonState(true)
+            cachedGamificationLevel = it.level
+          }
+          .ignoreElement()
 
   private fun handleInsertedValue(
-    packageName: String, topUpData: TopUpData,
-    limitValues: TopUpLimitValues
+      packageName: String,
+      topUpData: TopUpData,
+      limitValues: TopUpLimitValues
   ): Completable {
     view.setNextButtonState(false)
     val fiatAmount = BigDecimal(topUpData.currency.fiatValue)
@@ -314,48 +307,44 @@ class TopUpFragmentPresenter(
       handleInvalidFormatInput()
     }
     return updateUiInformation(
-      packageName, limitValues,
-      topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode
-    )
+        packageName, limitValues, topUpData.currency.fiatValue, topUpData.currency.fiatCurrencyCode)
   }
 
   private fun updateUiInformation(
-    appPackage: String,
-    limitValues: TopUpLimitValues, fiatAmount: String,
-    currency: String
+      appPackage: String,
+      limitValues: TopUpLimitValues,
+      fiatAmount: String,
+      currency: String
   ): Completable =
-    if (isValueInRange(limitValues, fiatAmount.toDouble())) {
-      view.changeMainValueColor(true)
-      view.hidePaymentMethods()
-      if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, currency, appPackage)
-        .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
-    } else {
-      view.hideBonusAndSkeletons()
-      view.changeMainValueColor(false)
-      view.setNextButtonState(false)
-      Completable.complete()
-    }
+      if (isValueInRange(limitValues, fiatAmount.toDouble())) {
+        view.changeMainValueColor(true)
+        view.hidePaymentMethods()
+        if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
+        retrievePaymentMethods(fiatAmount, currency, appPackage)
+            .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
+      } else {
+        view.hideBonusAndSkeletons()
+        view.changeMainValueColor(false)
+        view.setNextButtonState(false)
+        Completable.complete()
+      }
 
   private fun handleRetryClick() {
-    disposables.add(view.retryClick()
-      .observeOn(viewScheduler)
-      .doOnNext { view.showRetryAnimation() }
-      .delay(1, TimeUnit.SECONDS)
-      .observeOn(viewScheduler)
-      .doOnNext {
-        view.showSkeletons()
-        setupUi()
-      }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .retryClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showRetryAnimation() }
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
+            .doOnNext {
+              view.showSkeletons()
+              setupUi()
+            }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleValueWarning(
-    maxValue: FiatValue,
-    minValue: FiatValue,
-    amount: BigDecimal
-  ) {
+  private fun handleValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
     val localCurrency = " ${maxValue.currency}"
     when {
       amount == BigDecimal(-1) -> {
@@ -363,146 +352,134 @@ class TopUpFragmentPresenter(
         Log.w("TopUpFragmentPresenter", "Unable to retrieve values")
       }
       amount > maxValue.amount ->
-        view.showMaxValueWarning(maxValue.amount.toPlainString() + localCurrency)
+          view.showMaxValueWarning(maxValue.amount.toPlainString() + localCurrency)
       amount < minValue.amount ->
-        view.showMinValueWarning(minValue.amount.toPlainString() + localCurrency)
+          view.showMinValueWarning(minValue.amount.toPlainString() + localCurrency)
       else -> view.hideValueInputWarning()
     }
   }
 
   private fun isValueInRange(limitValues: TopUpLimitValues, value: Double): Boolean =
-    limitValues.error.hasError
-        || limitValues.minValue.amount.toDouble() <= value
-        && limitValues.maxValue.amount.toDouble() >= value
+      limitValues.error.hasError ||
+          limitValues.minValue.amount.toDouble() <= value &&
+              limitValues.maxValue.amount.toDouble() >= value
 
   private fun isCurrencyValid(currencyData: CurrencyData): Boolean =
-    currencyData.appcValue != DEFAULT_VALUE && currencyData.fiatValue != DEFAULT_VALUE
+      currencyData.appcValue != DEFAULT_VALUE && currencyData.fiatValue != DEFAULT_VALUE
 
-  private fun updateConversionValue(
-    value: BigDecimal,
-    topUpData: TopUpData
-  ): TopUpData {
+  private fun updateConversionValue(value: BigDecimal, topUpData: TopUpData): TopUpData {
     if (topUpData.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       topUpData.currency.appcValue =
-        if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
+          if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
     } else {
       topUpData.currency.fiatValue =
-        if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
+          if (value == BigDecimal.ZERO) DEFAULT_VALUE else value.toString()
     }
     return topUpData
   }
 
   private fun isConvertedValueAvailable(data: TopUpData): Boolean =
-    if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
-      data.currency.appcValue != DEFAULT_VALUE
-    } else {
-      data.currency.fiatValue != DEFAULT_VALUE
-    }
+      if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
+        data.currency.appcValue != DEFAULT_VALUE
+      } else {
+        data.currency.fiatValue != DEFAULT_VALUE
+      }
 
   private fun handleValuesClicks() {
-    disposables.add(view.getValuesClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .doOnNext {
-        if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
-          view.changeMainValueText(it.amount.toString())
-        } else {
-          convertAndChangeMainValue(it.currency, it.amount)
-        }
-      }
-      .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
-      .doOnNext { }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        view
+            .getValuesClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .doOnNext {
+              if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
+                view.changeMainValueText(it.amount.toString())
+              } else {
+                convertAndChangeMainValue(it.currency, it.amount)
+              }
+            }
+            .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
+            .doOnNext {}
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun convertAndChangeMainValue(currency: String, amount: BigDecimal) {
-    disposables.add(interactor.convertLocal(currency, amount.toString(), 2)
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess { view.changeMainValueText(it.amount.toString()) }
-      .doOnError { handleError(it) }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        interactor
+            .convertLocal(currency, amount.toString(), 2)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess { view.changeMainValueText(it.amount.toString()) }
+            .doOnError { handleError(it) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun removePaypalBillingAgreement() {
     disposables.add(
-      removePaypalBillingAgreementUseCase.invoke()
-        .subscribeOn(networkThread)
-        .observeOn(viewScheduler)
-        .subscribe(
-          {
-            view.hideLoading()
-            android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed")
-          },
-          {
-            view.hideLoading()
-            logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed")
-          }
-        )
-    )
+        removePaypalBillingAgreementUseCase
+            .invoke()
+            .subscribeOn(networkThread)
+            .observeOn(viewScheduler)
+            .subscribe(
+                {
+                  view.hideLoading()
+                  android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed")
+                },
+                {
+                  view.hideLoading()
+                  logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed")
+                }))
   }
 
   private fun handlePaypalBillingAgreement() {
     disposables.add(
-      isPaypalAgreementCreatedUseCase()
-        .subscribeOn(networkScheduler)
-        .subscribe(
-          {
-            showPayPalLogout.onNext(it!!)
-          },
-          {
-            logger.log(TAG, "Error getting agreement")
-            showPayPalLogout.onNext(false)
-          }
-        )
-    )
+        isPaypalAgreementCreatedUseCase()
+            .subscribeOn(networkScheduler)
+            .subscribe(
+                { showPayPalLogout.onNext(it!!) },
+                {
+                  logger.log(TAG, "Error getting agreement")
+                  showPayPalLogout.onNext(false)
+                }))
   }
 
   private fun handleChallengeRewardWalletAddress() {
     disposables.add(
-      getWalletInfoUseCase(null, false)
-        .subscribeOn(networkScheduler)
-        .subscribe(
-          { activity?.createChallengeReward(it.wallet) },
-          { logger.log(TAG, "Error creating challenge reward") }
-        )
-    )
+        getWalletInfoUseCase(null, false)
+            .subscribeOn(networkScheduler)
+            .subscribe(
+                { activity?.createChallengeReward(it.wallet) },
+                { logger.log(TAG, "Error creating challenge reward") }))
   }
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
-      PaymentType.CARD, PaymentType.PAYPAL -> {
+      PaymentType.CARD,
+      PaymentType.PAYPAL -> {
         activity?.navigateToAdyenPayment(
-          paymentType = paymentMethod.paymentType,
-          data = mapTopUpPaymentData(topUpData, gamificationLevel)
-        )
+            paymentType = paymentMethod.paymentType,
+            data = mapTopUpPaymentData(topUpData, gamificationLevel))
       }
-
       PaymentType.LOCAL_PAYMENTS -> {
         activity?.navigateToLocalPayment(
-          paymentId = paymentMethod.paymentId,
-          icon = paymentMethod.icon,
-          label = paymentMethod.label,
-          async = paymentMethod.async,
-          topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
-        )
+            paymentId = paymentMethod.paymentId,
+            icon = paymentMethod.icon,
+            label = paymentMethod.label,
+            async = paymentMethod.async,
+            topUpData = mapTopUpPaymentData(topUpData, gamificationLevel))
       }
       PaymentType.PAYPALV2 -> {
         activity?.navigateToPaypalV2(
-          paymentType = paymentMethod.paymentType,
-          data = mapTopUpPaymentData(topUpData, gamificationLevel)
-        )
+            paymentType = paymentMethod.paymentType,
+            data = mapTopUpPaymentData(topUpData, gamificationLevel))
       }
       PaymentType.VKPAY -> {
         activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
       }
       PaymentType.GOOGLEPAY_WEB -> {
         activity?.navigateToGooglePay(
-          paymentType = paymentMethod.paymentType,
-          data = mapTopUpPaymentData(topUpData, gamificationLevel)
-        )
+            paymentType = paymentMethod.paymentType,
+            data = mapTopUpPaymentData(topUpData, gamificationLevel))
       }
       PaymentType.CHALLENGE_REWARD -> {
         activity?.navigateToChallengeReward()
@@ -511,21 +488,17 @@ class TopUpFragmentPresenter(
     }
   }
 
-  private fun mapTopUpPaymentData(
-    topUpData: TopUpData,
-    gamificationLevel: Int
-  ): TopUpPaymentData =
-    TopUpPaymentData(
-      fiatValue = topUpData.currency.fiatValue,
-      fiatCurrencyCode = topUpData.currency.fiatCurrencyCode,
-      selectedCurrencyType = topUpData.selectedCurrencyType,
-      bonusValue = topUpData.bonusValue,
-      fiatCurrencySymbol = topUpData.currency.fiatCurrencySymbol,
-      appcValue = topUpData.currency.appcValue,
-      transactionType = "TOPUP",
-      gamificationLevel = gamificationLevel
-    )
+  private fun mapTopUpPaymentData(topUpData: TopUpData, gamificationLevel: Int): TopUpPaymentData =
+      TopUpPaymentData(
+          fiatValue = topUpData.currency.fiatValue,
+          fiatCurrencyCode = topUpData.currency.fiatCurrencyCode,
+          selectedCurrencyType = topUpData.selectedCurrencyType,
+          bonusValue = topUpData.bonusValue,
+          fiatCurrencySymbol = topUpData.currency.fiatCurrencySymbol,
+          appcValue = topUpData.currency.appcValue,
+          transactionType = "TOPUP",
+          gamificationLevel = gamificationLevel)
 
   fun onSavedInstance(outState: Bundle) =
-    outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
+      outState.putInt(GAMIFICATION_LEVEL, cachedGamificationLevel)
 }

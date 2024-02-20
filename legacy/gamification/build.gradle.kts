@@ -2,9 +2,9 @@ plugins {
   id("appcoins.android.library")
   id("appcoins.room")
 }
-android {
-  namespace = "com.appcoins.wallet.gamification"
-}
+
+android { namespace = "com.appcoins.wallet.gamification" }
+
 dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:shared-preferences"))

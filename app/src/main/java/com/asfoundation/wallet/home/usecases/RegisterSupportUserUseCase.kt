@@ -2,11 +2,12 @@ package com.asfoundation.wallet.home.usecases
 
 import com.wallet.appcoins.feature.support.data.SupportRepository
 import io.intercom.android.sdk.Intercom
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
-class RegisterSupportUserUseCase @Inject constructor(
-    private val supportRepository: SupportRepository) {
+class RegisterSupportUserUseCase
+@Inject
+constructor(private val supportRepository: SupportRepository) {
 
   operator fun invoke(level: Int, walletAddress: String) {
     // force lowercase to make sure 2 users are not registered with the same wallet address, where
@@ -15,8 +16,7 @@ class RegisterSupportUserUseCase @Inject constructor(
     val currentUser = supportRepository.getCurrentUser()
     if (currentUser.userAddress != address || currentUser.gamificationLevel != level) {
       if (currentUser.userAddress != address) {
-        Intercom.client()
-            .logout()
+        Intercom.client().logout()
       }
       supportRepository.saveNewUser(address, level)
     }

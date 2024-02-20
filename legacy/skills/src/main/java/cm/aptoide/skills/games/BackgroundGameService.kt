@@ -1,6 +1,10 @@
 package cm.aptoide.skills.games
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -28,13 +32,10 @@ class BackgroundGameService : Service(), GameStateListener {
 
     @JvmStatic
     fun newIntent(context: Context, sessionToken: String) =
-      Intent(context, BackgroundGameService::class.java).apply {
-        putExtra(SESSION, sessionToken)
-      }
+        Intent(context, BackgroundGameService::class.java).apply { putExtra(SESSION, sessionToken) }
   }
 
-  @Inject
-  lateinit var roomRepository: RoomRepository
+  @Inject lateinit var roomRepository: RoomRepository
 
   private lateinit var notificationManager: NotificationManager
   private lateinit var periodicGameChecker: PeriodicGameChecker
@@ -51,7 +52,7 @@ class BackgroundGameService : Service(), GameStateListener {
 
   private fun getNotificationManager(): NotificationManager {
     val notificationManager =
-      this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val importance = NotificationManager.IMPORTANCE_LOW
       val notificationChannel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance)
@@ -68,20 +69,18 @@ class BackgroundGameService : Service(), GameStateListener {
     val session: String? = intent?.getStringExtra(SESSION)
     session?.let {
       periodicGameChecker.start(it)
-      val notification = getNotification(
-        getString(R.string.playing_game_notification_title),
-        getString(R.string.playing_game_notification_body)
-      )
+      val notification =
+          getNotification(
+              getString(R.string.playing_game_notification_title),
+              getString(R.string.playing_game_notification_body))
       try {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-          this.startForeground(NOTIFICATION_SERVICE_ID, notification,
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+          this.startForeground(
+              NOTIFICATION_SERVICE_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+        } else {
+          this.startForeground(NOTIFICATION_SERVICE_ID, notification)
         }
-        else {
-            this.startForeground(NOTIFICATION_SERVICE_ID, notification)
-          }
-      }
-      catch(exception: Exception){
+      } catch (exception: Exception) {
         Log.e(TAG, "onStartCommand: Issue starting Notification Service ")
       }
     }
@@ -91,33 +90,32 @@ class BackgroundGameService : Service(), GameStateListener {
   fun getNotification(title: String, text: String): Notification {
     val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
     val dismissIntent = createNotificationDismissIntent()
-    return notificationBuilder.setContentTitle(title)
-      .addAction(0, getString(R.string.dismiss_button), dismissIntent)
-      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-      .setDeleteIntent(dismissIntent)
-      .setContentText(text)
-      .build()
+    return notificationBuilder
+        .setContentTitle(title)
+        .addAction(0, getString(R.string.dismiss_button), dismissIntent)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setDeleteIntent(dismissIntent)
+        .setContentText(text)
+        .build()
   }
 
   private fun createNotificationDismissIntent(): PendingIntent {
     val intent = Intent(this, BackgroundGameService::class.java)
     intent.action = ACTION_DISMISS
     return PendingIntent.getService(
-      this,
-      0,
-      intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-      else
-        PendingIntent.FLAG_UPDATE_CURRENT
-    )
+        this,
+        0,
+        intent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        else PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
   override fun onUpdate(gameUpdate: GameUpdate) {
-    val notification = getNotification(
-      getString(R.string.playing_game_notification_title),
-      getFormattedGameDetails(gameUpdate)
-    )
+    val notification =
+        getNotification(
+            getString(R.string.playing_game_notification_title),
+            getFormattedGameDetails(gameUpdate))
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
   }
 
@@ -135,17 +133,16 @@ class BackgroundGameService : Service(), GameStateListener {
 
   override fun onFinishGame(finishedGame: FinishedGame) {
     periodicGameChecker.stop()
-    val notification: Notification = if (finishedGame.isWinner) {
-      getNotification(
-        getString(R.string.finish_game_notification_title),
-        getString(R.string.won_game_notification_body, finishedGame.winnerAmount)
-      )
-    } else {
-      getNotification(
-        getString(R.string.finish_game_notification_title),
-        getString(R.string.lost_game_notification_body)
-      )
-    }
+    val notification: Notification =
+        if (finishedGame.isWinner) {
+          getNotification(
+              getString(R.string.finish_game_notification_title),
+              getString(R.string.won_game_notification_body, finishedGame.winnerAmount))
+        } else {
+          getNotification(
+              getString(R.string.finish_game_notification_title),
+              getString(R.string.lost_game_notification_body))
+        }
 
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
     stopForeground(false)

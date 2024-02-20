@@ -27,9 +27,7 @@ class JvmLibraryPlugin : Plugin<Project> {
         }
       }
 
-      dependencies.apply {
-        add("implementation", libs["kotlin.stdlib"])
-      }
+      dependencies.apply { add("implementation", libs["kotlin.stdlib"]) }
     }
   }
 }

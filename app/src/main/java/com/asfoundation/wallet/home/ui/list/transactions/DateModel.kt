@@ -5,9 +5,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import com.asf.wallet.R
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
-import java.util.*
+import com.asf.wallet.R
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 @EpoxyModelClass
 abstract class DateModel : EpoxyModelWithHolder<DateModel.DateHolder>() {
@@ -16,8 +18,7 @@ abstract class DateModel : EpoxyModelWithHolder<DateModel.DateHolder>() {
     private const val DATE_TEMPLATE = "MMM, dd yyyy"
   }
 
-  @EpoxyAttribute
-  var date: Date? = null
+  @EpoxyAttribute var date: Date? = null
 
   override fun bind(holder: DateHolder) {
     val actualDate = date
@@ -36,5 +37,4 @@ abstract class DateModel : EpoxyModelWithHolder<DateModel.DateHolder>() {
   class DateHolder : BaseViewHolder() {
     val title by bind<TextView>(R.id.title)
   }
-
 }

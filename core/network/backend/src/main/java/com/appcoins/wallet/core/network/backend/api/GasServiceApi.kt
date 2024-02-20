@@ -5,6 +5,5 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface GasServiceApi {
-  @GET("transaction/gas_price")
-  fun getGasPrice(): Single<GasPrice>
+  @GET("transaction/gas_price") fun getGasPrice(): Single<GasPrice>
 }

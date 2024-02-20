@@ -11,9 +11,7 @@ class AndroidLibraryComposePlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
       apply<AndroidLibraryPlugin>()
-      extensions.configure<LibraryExtension> {
-        configureAndroidCompose(this)
-      }
+      extensions.configure<LibraryExtension> { configureAndroidCompose(this) }
     }
   }
 }

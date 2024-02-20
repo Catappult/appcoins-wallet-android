@@ -13,9 +13,9 @@ class BackupEntryChooseWalletBottomSheetNavigator
 constructor(val fragmentManager: FragmentManager, val fragment: Fragment) : Navigator {
 
   fun navigateToBackup(
-    walletAddress: String,
-    walletName: String,
-    mainNavController: NavController
+      walletAddress: String,
+      walletName: String,
+      mainNavController: NavController
   ) {
     val bundle = Bundle()
     bundle.putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -28,5 +28,3 @@ constructor(val fragmentManager: FragmentManager, val fragment: Fragment) : Navi
     const val WALLET_NAME = "wallet_name"
   }
 }
-
-

@@ -3,8 +3,8 @@ package com.asfoundation.wallet.ui.gamification
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 class LevelsAdapter(
@@ -15,6 +15,7 @@ class LevelsAdapter(
 
   /**
    * these fields are meant to be properly initialized before onCreateViewHolder is called.
+   *
    * @see setLevelsContent
    */
   private val hiddenLevels: MutableList<LevelItem> = mutableListOf()
@@ -23,18 +24,21 @@ class LevelsAdapter(
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelsViewHolder {
     return when (viewType) {
       REACHED_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.reached_level_layout, parent, false)
+        val layout =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.reached_level_layout, parent, false)
         LevelReachedViewHolder(layout, mapper)
       }
       CURRENT_LEVEL_VIEW_TYPE -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.current_level_layout, parent, false)
+        val layout =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.current_level_layout, parent, false)
         CurrentLevelViewHolder(layout, currencyFormatUtils, mapper, uiEventListener)
       }
       else -> {
-        val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.unreached_level_layout, parent, false)
+        val layout =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.unreached_level_layout, parent, false)
         UnreachedLevelViewHolder(layout, currencyFormatUtils)
       }
     }
@@ -55,8 +59,8 @@ class LevelsAdapter(
   }
 
   /**
-   * set the content to display regarding the several levels
-   * with this one can update the view holders several times
+   * set the content to display regarding the several levels with this one can update the view
+   * holders several times
    */
   fun setLevelsContent(hiddenLevels: List<LevelItem>, shownLevels: List<LevelItem>) {
     this.hiddenLevels.clear()
@@ -95,4 +99,3 @@ class LevelsAdapter(
     private const val UNREACHED_VIEW_TYPE = 2
   }
 }
-

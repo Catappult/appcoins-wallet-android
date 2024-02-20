@@ -6,15 +6,16 @@ import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.ui.list.HomeListClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.rd.PageIndicatorView
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 @EpoxyModelClass
 abstract class EmptyTransactionsModel :
-  EpoxyModelWithHolder<EmptyTransactionsModel.EmptyTransactionsHolder>() {
+    EpoxyModelWithHolder<EmptyTransactionsModel.EmptyTransactionsHolder>() {
 
   companion object {
     const val CAROUSEL_TOP_APPS: String = "bundle"
@@ -23,13 +24,11 @@ abstract class EmptyTransactionsModel :
     const val SCROLL_PERIOD: Long = 4000
   }
 
-  var currentPage = 0;
+  var currentPage = 0
 
-  @EpoxyAttribute
-  var bonus: Double = 0.0
+  @EpoxyAttribute var bonus: Double = 0.0
 
-  @EpoxyAttribute
-  var clickListener: ((HomeListClick) -> Unit)? = null
+  @EpoxyAttribute var clickListener: ((HomeListClick) -> Unit)? = null
 
   private val emptyPagerController = EmptyTransactionsController()
 
@@ -38,25 +37,26 @@ abstract class EmptyTransactionsModel :
     val ctx = holder.itemView.context
     emptyPagerController.clickListener = clickListener
     holder.viewPager.adapter = emptyPagerController.adapter
-    val data = listOf(
-      EmptyItem(
-        CAROUSEL_TOP_APPS, R.raw.carousel_empty_screen_animation,
-        ctx.getString(R.string.intro_welcome_header),
-        ctx.getString(R.string.intro_welcome_body)
-      ),
-      EmptyItem(
-        CAROUSEL_GAMIFICATION, R.raw.transactions_empty_screen_animation,
-        ctx.getString(R.string.intro_welcome_header_2, bonus.toString()),
-        ctx.getString(R.string.intro_welcome_body_2)
-      )
-    )
+    val data =
+        listOf(
+            EmptyItem(
+                CAROUSEL_TOP_APPS,
+                R.raw.carousel_empty_screen_animation,
+                ctx.getString(R.string.intro_welcome_header),
+                ctx.getString(R.string.intro_welcome_body)),
+            EmptyItem(
+                CAROUSEL_GAMIFICATION,
+                R.raw.transactions_empty_screen_animation,
+                ctx.getString(R.string.intro_welcome_header_2, bonus.toString()),
+                ctx.getString(R.string.intro_welcome_body_2)))
     holder.pageIndicator.count = data.size
-    holder.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-      override fun onPageSelected(position: Int) {
-        currentPage = position
-        holder.pageIndicator.selection = currentPage
-      }
-    })
+    holder.viewPager.registerOnPageChangeCallback(
+        object : ViewPager2.OnPageChangeCallback() {
+          override fun onPageSelected(position: Int) {
+            currentPage = position
+            holder.pageIndicator.selection = currentPage
+          }
+        })
     autoScroll(holder, data)
     emptyPagerController.setData(data)
   }
@@ -64,14 +64,18 @@ abstract class EmptyTransactionsModel :
   private fun autoScroll(holder: EmptyTransactionsHolder, data: List<EmptyItem>) {
     val handler = Handler(Looper.getMainLooper())
     val update = Runnable {
-      currentPage = (currentPage + 1) % data.size;
-      holder.viewPager.setCurrentItem(currentPage, true);
+      currentPage = (currentPage + 1) % data.size
+      holder.viewPager.setCurrentItem(currentPage, true)
     }
-    Timer().schedule(object : TimerTask() {
-      override fun run() {
-        handler.post(update)
-      }
-    }, SCROLL_DELAY, SCROLL_PERIOD)
+    Timer()
+        .schedule(
+            object : TimerTask() {
+              override fun run() {
+                handler.post(update)
+              }
+            },
+            SCROLL_DELAY,
+            SCROLL_PERIOD)
   }
 
   override fun getDefaultLayout(): Int = R.layout.layout_empty_transactions

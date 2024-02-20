@@ -8,21 +8,22 @@ import com.asfoundation.wallet.recover.result.RecoverPasswordResultMapper
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RecoverPasswordKeystoreUseCase @Inject constructor(
-        private val walletRepository: WalletRepositoryType,
-        private val passwordStore: PasswordStore,
+class RecoverPasswordKeystoreUseCase
+@Inject
+constructor(
+    private val walletRepository: WalletRepositoryType,
+    private val passwordStore: PasswordStore,
 ) {
 
   operator fun invoke(
-    keyStore: WalletKeyStore,
-    password: String = ""
+      keyStore: WalletKeyStore,
+      password: String = ""
   ): Single<RecoverPasswordResult> {
-    return passwordStore.generatePassword()
-      .flatMap { newPassword ->
-        walletRepository.restoreKeystoreToWallet(keyStore.contents, password, newPassword)
-      }
-      .flatMap {
-        RecoverPasswordResultMapper(keyStore).map(it)
-      }
+    return passwordStore
+        .generatePassword()
+        .flatMap { newPassword ->
+          walletRepository.restoreKeystoreToWallet(keyStore.contents, password, newPassword)
+        }
+        .flatMap { RecoverPasswordResultMapper(keyStore).map(it) }
   }
 }

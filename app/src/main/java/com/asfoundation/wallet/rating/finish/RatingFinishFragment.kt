@@ -17,8 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
 
-  @Inject
-  lateinit var presenter: RatingFinishPresenter
+  @Inject lateinit var presenter: RatingFinishPresenter
 
   private val animationEndSubject = PublishSubject.create<Any>()
 
@@ -29,19 +28,26 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
     (requireActivity() as RatingActivity).disableBack()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingFinishBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentRatingFinishBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    binding.animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationEnd(animation: Animator) {
-        animationEndSubject.onNext(Unit)
-      }
-      override fun onAnimationRepeat(animation: Animator) = Unit
-      override fun onAnimationCancel(animation: Animator) = Unit
-      override fun onAnimationStart(animation: Animator) = Unit
-    })
+    binding.animation.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationEnd(animation: Animator) {
+            animationEndSubject.onNext(Unit)
+          }
+
+          override fun onAnimationRepeat(animation: Animator) = Unit
+
+          override fun onAnimationCancel(animation: Animator) = Unit
+
+          override fun onAnimationStart(animation: Animator) = Unit
+        })
     presenter.present()
   }
 

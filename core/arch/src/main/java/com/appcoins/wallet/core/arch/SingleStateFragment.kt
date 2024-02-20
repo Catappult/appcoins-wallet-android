@@ -12,35 +12,31 @@ interface SingleStateFragment<S : ViewState, E : SideEffect> {
 
   fun onSideEffect(sideEffect: E)
 
-  fun BaseViewModel<S, E>.collectStateAndEvents(lifecycle: Lifecycle,
-                                                scope: LifecycleCoroutineScope) {
+  fun BaseViewModel<S, E>.collectStateAndEvents(
+      lifecycle: Lifecycle,
+      scope: LifecycleCoroutineScope
+  ) {
     stateFlow
         .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-        .onEach { state ->
-          onStateChanged(state)
-        }
+        .onEach { state -> onStateChanged(state) }
         .launchIn(scope)
     sideEffectsFlow
         .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-        .onEach { sideEffect ->
-          onSideEffect(sideEffect)
-        }
+        .onEach { sideEffect -> onSideEffect(sideEffect) }
         .launchIn(scope)
   }
 
-  fun NewBaseViewModel<S, E>.collectStateAndEvents(lifecycle: Lifecycle,
-                                                scope: LifecycleCoroutineScope) {
+  fun NewBaseViewModel<S, E>.collectStateAndEvents(
+      lifecycle: Lifecycle,
+      scope: LifecycleCoroutineScope
+  ) {
     stateFlow
-      .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-      .onEach { state ->
-        onStateChanged(state)
-      }
-      .launchIn(scope)
+        .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+        .onEach { state -> onStateChanged(state) }
+        .launchIn(scope)
     sideEffectsFlow
-      .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-      .onEach { sideEffect ->
-        onSideEffect(sideEffect)
-      }
-      .launchIn(scope)
+        .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+        .onEach { sideEffect -> onSideEffect(sideEffect) }
+        .launchIn(scope)
   }
 }

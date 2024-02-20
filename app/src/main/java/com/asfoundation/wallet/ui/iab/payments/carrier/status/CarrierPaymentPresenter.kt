@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
-import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
-import com.asf.wallet.R
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
@@ -14,15 +14,17 @@ import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
-                              private val view: CarrierPaymentView,
-                              private val data: CarrierPaymentData,
-                              private val navigator: CarrierPaymentNavigator,
-                              private val carrierInteractor: CarrierInteractor,
-                              private val billingAnalytics: BillingAnalytics,
-                              private val logger: Logger,
-                              private val viewScheduler: Scheduler,
-                              private val ioScheduler: Scheduler) {
+class CarrierPaymentPresenter(
+    private val disposables: CompositeDisposable,
+    private val view: CarrierPaymentView,
+    private val data: CarrierPaymentData,
+    private val navigator: CarrierPaymentNavigator,
+    private val carrierInteractor: CarrierInteractor,
+    private val billingAnalytics: BillingAnalytics,
+    private val logger: Logger,
+    private val viewScheduler: Scheduler,
+    private val ioScheduler: Scheduler
+) {
 
   fun present() {
     initializeView()
@@ -35,29 +37,29 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleTransactionResult() {
-    disposables.add(navigator.uriResults()
-        .doOnNext { view.setLoading() }
-        .flatMapSingle { uri ->
-          carrierInteractor.getFinishedPayment(uri, data.domain)
-              .subscribeOn(ioScheduler)
-        }
-        .flatMap { payment ->
-          var action = Completable.complete()
-          when {
-            isErrorStatus(payment.status) -> action = handleErrorStatus(payment)
-            payment.status == TransactionStatus.COMPLETED -> action = handleCompletedStatus(payment)
-            else -> Unit
-          }
-          action.andThen(Observable.just(payment))
-        }
-        .subscribe({}, { handleError(it) }))
+    disposables.add(
+        navigator
+            .uriResults()
+            .doOnNext { view.setLoading() }
+            .flatMapSingle { uri ->
+              carrierInteractor.getFinishedPayment(uri, data.domain).subscribeOn(ioScheduler)
+            }
+            .flatMap { payment ->
+              var action = Completable.complete()
+              when {
+                isErrorStatus(payment.status) -> action = handleErrorStatus(payment)
+                payment.status == TransactionStatus.COMPLETED ->
+                    action = handleCompletedStatus(payment)
+                else -> Unit
+              }
+              action.andThen(Observable.just(payment))
+            }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleErrorStatus(payment: CarrierPaymentModel): Completable {
-    logger.log(CarrierPaymentFragment.TAG,
-        "Transaction came with error status: ${payment.status}")
-    return sendPaymentErrorEvent(payment.error.errorCode,
-        payment.error.errorMessage)
+    logger.log(CarrierPaymentFragment.TAG, "Transaction came with error status: ${payment.status}")
+    return sendPaymentErrorEvent(payment.error.errorCode, payment.error.errorMessage)
         .observeOn(viewScheduler)
         .andThen(
             if (isUnauthorizedCode(payment.error.errorCode)) {
@@ -66,17 +68,19 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
               Completable.fromAction {
                 navigator.navigateToError(R.string.activity_iab_error_message)
               }
-            }
-        )
+            })
   }
 
   private fun handleCompletedStatus(payment: CarrierPaymentModel): Completable {
     return sendPaymentSuccessEvents(payment.uid)
         .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
-        .andThen(Completable.fromAction { view.showFinishedTransaction() }
-            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS, viewScheduler))
-            .andThen(finishPayment(payment)))
+        .andThen(
+            Completable.fromAction { view.showFinishedTransaction() }
+                .andThen(
+                    Completable.timer(
+                        view.getFinishedDuration(), TimeUnit.MILLISECONDS, viewScheduler))
+                .andThen(finishPayment(payment)))
   }
 
   private fun isUnauthorizedCode(errorCode: Int?): Boolean {
@@ -94,8 +98,15 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun finishPayment(payment: CarrierPaymentModel): Completable {
-    return carrierInteractor.getCompletePurchaseBundle(data.transactionType, data.domain,
-        data.skuId, payment.purchaseUid, payment.reference, payment.hash, ioScheduler)
+    return carrierInteractor
+        .getCompletePurchaseBundle(
+            data.transactionType,
+            data.domain,
+            data.skuId,
+            payment.purchaseUid,
+            payment.reference,
+            payment.hash,
+            ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { bundleModel -> navigator.finishPayment(bundleModel.bundle) }
         .subscribeOn(ioScheduler)
@@ -105,37 +116,45 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
   private fun sendPaymentErrorEvent(refusalCode: Int?, refusalReason: String?): Completable {
     return Completable.fromAction {
       val code: String = if (refusalCode == -1) "ERROR" else refusalCode.toString()
-      billingAnalytics.sendPaymentErrorWithDetailsEvent(data.domain, data.skuId,
-          data.appcAmount.toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType,
-          code, refusalReason)
+      billingAnalytics.sendPaymentErrorWithDetailsEvent(
+          data.domain,
+          data.skuId,
+          data.appcAmount.toString(),
+          BillingAnalytics.PAYMENT_METHOD_CARRIER,
+          data.transactionType,
+          code,
+          refusalReason)
     }
   }
 
   private fun sendPaymentSuccessEvents(txId: String): Completable {
-    return carrierInteractor.convertToFiat(data.appcAmount
-        .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
+    return carrierInteractor
+        .convertToFiat(data.appcAmount.toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
         .doOnSuccess { fiatValue ->
           billingAnalytics.sendPaymentSuccessEvent(
-            packageName = data.domain,
-            skuDetails = data.skuId,
-            value = data.appcAmount.toString(),
-            purchaseDetails = BillingAnalytics.PAYMENT_METHOD_CARRIER,
-            transactionType = data.transactionType,
-            txId = txId,
-            valueUsd = TransactionBuilder.convertAppcToUsd(data.appcAmount).toString()
-          )
-          billingAnalytics.sendPaymentEvent(data.domain, data.skuId,
-              data.appcAmount
-                  .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER, data.transactionType)
-          billingAnalytics.sendRevenueEvent(fiatValue.amount.setScale(2, BigDecimal.ROUND_UP)
-              .toString())
+              packageName = data.domain,
+              skuDetails = data.skuId,
+              value = data.appcAmount.toString(),
+              purchaseDetails = BillingAnalytics.PAYMENT_METHOD_CARRIER,
+              transactionType = data.transactionType,
+              txId = txId,
+              valueUsd = TransactionBuilder.convertAppcToUsd(data.appcAmount).toString())
+          billingAnalytics.sendPaymentEvent(
+              data.domain,
+              data.skuId,
+              data.appcAmount.toString(),
+              BillingAnalytics.PAYMENT_METHOD_CARRIER,
+              data.transactionType)
+          billingAnalytics.sendRevenueEvent(
+              fiatValue.amount.setScale(2, BigDecimal.ROUND_UP).toString())
         }
         .ignoreElement()
         .subscribeOn(ioScheduler)
   }
 
   private fun handleFraudFlow(): Completable {
-    return carrierInteractor.getWalletStatus()
+    return carrierInteractor
+        .getWalletStatus()
         .observeOn(viewScheduler)
         .doOnSuccess { walletStatus ->
           if (walletStatus.blocked) {

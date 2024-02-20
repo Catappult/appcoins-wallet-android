@@ -10,19 +10,32 @@ import com.asfoundation.wallet.transactions.TransactionDetails
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class TransactionMapper @Inject constructor(){
+class TransactionMapper @Inject constructor() {
 
   fun map(transactions: List<TransactionEntity>) = transactions.map { map(it) }
 
   fun map(transaction: TransactionEntity, link: TransactionEntity): Transaction {
-    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        map(transaction.method), transaction.title, transaction.cardDescription,
+    return Transaction(
+        transaction.transactionId,
+        map(transaction.type),
+        map(transaction.subType),
+        map(transaction.method),
+        transaction.title,
+        transaction.cardDescription,
         map(transaction.perk),
-        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
-        map(transaction.status), transaction.value,
-        transaction.from, transaction.to, map(transaction.details),
-        transaction.currency, mapToOperations(transaction.operations),
-        listOf(mapLink(link, transaction)), transaction.paidAmount, transaction.paidCurrency,
+        transaction.approveTransactionId,
+        transaction.timeStamp,
+        transaction.processedTime,
+        map(transaction.status),
+        transaction.value,
+        transaction.from,
+        transaction.to,
+        map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        listOf(mapLink(link, transaction)),
+        transaction.paidAmount,
+        transaction.paidCurrency,
         transaction.orderReference)
   }
 
@@ -36,23 +49,53 @@ class TransactionMapper @Inject constructor(){
   }
 
   private fun mapLink(transaction: TransactionEntity, link: TransactionEntity): Transaction {
-    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        map(transaction.method), transaction.title, transaction.cardDescription,
-        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
-        transaction.processedTime, map(transaction.status), transaction.value, transaction.from,
-        transaction.to, map(transaction.details), transaction.currency,
-        mapToOperations(transaction.operations), listOf(map(link)), transaction.paidAmount,
-        transaction.paidCurrency, transaction.orderReference)
+    return Transaction(
+        transaction.transactionId,
+        map(transaction.type),
+        map(transaction.subType),
+        map(transaction.method),
+        transaction.title,
+        transaction.cardDescription,
+        map(transaction.perk),
+        transaction.approveTransactionId,
+        transaction.timeStamp,
+        transaction.processedTime,
+        map(transaction.status),
+        transaction.value,
+        transaction.from,
+        transaction.to,
+        map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        listOf(map(link)),
+        transaction.paidAmount,
+        transaction.paidCurrency,
+        transaction.orderReference)
   }
 
   fun map(transaction: TransactionEntity): Transaction {
-    return Transaction(transaction.transactionId, map(transaction.type), map(transaction.subType),
-        map(transaction.method), transaction.title, transaction.cardDescription,
-        map(transaction.perk), transaction.approveTransactionId, transaction.timeStamp,
-        transaction.processedTime, map(transaction.status), transaction.value,
-        transaction.from, transaction.to, map(transaction.details),
-        transaction.currency, mapToOperations(transaction.operations),
-        emptyList(), transaction.paidAmount, transaction.paidCurrency, transaction.orderReference)
+    return Transaction(
+        transaction.transactionId,
+        map(transaction.type),
+        map(transaction.subType),
+        map(transaction.method),
+        transaction.title,
+        transaction.cardDescription,
+        map(transaction.perk),
+        transaction.approveTransactionId,
+        transaction.timeStamp,
+        transaction.processedTime,
+        map(transaction.status),
+        transaction.value,
+        transaction.from,
+        transaction.to,
+        map(transaction.details),
+        transaction.currency,
+        mapToOperations(transaction.operations),
+        emptyList(),
+        transaction.paidAmount,
+        transaction.paidCurrency,
+        transaction.orderReference)
   }
 
   private fun mapToOperations(operations: List<OperationEntity>?): List<Operation>? {
@@ -94,27 +137,43 @@ class TransactionMapper @Inject constructor(){
       TransactionEntity.TransactionType.ADS_OFFCHAIN -> Transaction.TransactionType.ADS_OFFCHAIN
       TransactionEntity.TransactionType.BONUS -> Transaction.TransactionType.BONUS
       TransactionEntity.TransactionType.TOP_UP -> Transaction.TransactionType.TOP_UP
-      TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
+      TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN ->
+          Transaction.TransactionType.TRANSFER_OFF_CHAIN
       TransactionEntity.TransactionType.TRANSFER -> Transaction.TransactionType.TRANSFER
       TransactionEntity.TransactionType.ETHER_TRANSFER -> Transaction.TransactionType.ETHER_TRANSFER
       TransactionEntity.TransactionType.TOP_UP_REVERT -> Transaction.TransactionType.TOP_UP_REVERT
       TransactionEntity.TransactionType.BONUS_REVERT -> Transaction.TransactionType.BONUS_REVERT
       TransactionEntity.TransactionType.IAP_REVERT -> Transaction.TransactionType.IAP_REVERT
-      TransactionEntity.TransactionType.INAPP_SUBSCRIPTION -> Transaction.TransactionType.SUBS_OFFCHAIN
+      TransactionEntity.TransactionType.INAPP_SUBSCRIPTION ->
+          Transaction.TransactionType.SUBS_OFFCHAIN
       TransactionEntity.TransactionType.ESKILLS_REWARD -> Transaction.TransactionType.ESKILLS_REWARD
       TransactionEntity.TransactionType.ESKILLS -> Transaction.TransactionType.ESKILLS
     }
   }
 
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
-    return TransactionEntity(transaction.transactionId, relatedWallet,
-        transaction.approveTransactionId, map(transaction.perk),
-        map(transaction.type), map(transaction.method), map(transaction.subType), transaction.title,
-        transaction.description, transaction.timeStamp,
-        transaction.processedTime, map(transaction.status), transaction.value, transaction.currency,
-        transaction.paidAmount, transaction.paidCurrency,
-        transaction.from, transaction.to, map(transaction.details),
-        mapToOperationEntities(transaction.operations), transaction.orderReference)
+    return TransactionEntity(
+        transaction.transactionId,
+        relatedWallet,
+        transaction.approveTransactionId,
+        map(transaction.perk),
+        map(transaction.type),
+        map(transaction.method),
+        map(transaction.subType),
+        transaction.title,
+        transaction.description,
+        transaction.timeStamp,
+        transaction.processedTime,
+        map(transaction.status),
+        transaction.value,
+        transaction.currency,
+        transaction.paidAmount,
+        transaction.paidCurrency,
+        transaction.from,
+        transaction.to,
+        map(transaction.details),
+        mapToOperationEntities(transaction.operations),
+        transaction.orderReference)
   }
 
   private fun map(method: Transaction.Method): TransactionEntity.Method {
@@ -131,9 +190,11 @@ class TransactionMapper @Inject constructor(){
   }
 
   private fun map(operation: Operation): OperationEntity {
-    return OperationEntity(operation.transactionId, operation.from, operation.to,
-        BalanceUtils.weiToEth(BigDecimal(operation.fee))
-            .toPlainString())
+    return OperationEntity(
+        operation.transactionId,
+        operation.from,
+        operation.to,
+        BalanceUtils.weiToEth(BigDecimal(operation.fee)).toPlainString())
   }
 
   private fun map(details: TransactionDetails?): TransactionDetailsEntity? {
@@ -171,13 +232,15 @@ class TransactionMapper @Inject constructor(){
       Transaction.TransactionType.ADS_OFFCHAIN -> TransactionEntity.TransactionType.ADS_OFFCHAIN
       Transaction.TransactionType.BONUS -> TransactionEntity.TransactionType.BONUS
       Transaction.TransactionType.TOP_UP -> TransactionEntity.TransactionType.TOP_UP
-      Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
+      Transaction.TransactionType.TRANSFER_OFF_CHAIN ->
+          TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
       Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
       Transaction.TransactionType.BONUS_REVERT -> TransactionEntity.TransactionType.BONUS_REVERT
       Transaction.TransactionType.TOP_UP_REVERT -> TransactionEntity.TransactionType.TOP_UP_REVERT
       Transaction.TransactionType.IAP_REVERT -> TransactionEntity.TransactionType.IAP_REVERT
       Transaction.TransactionType.TRANSFER -> TransactionEntity.TransactionType.TRANSFER
-      Transaction.TransactionType.SUBS_OFFCHAIN -> TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
+      Transaction.TransactionType.SUBS_OFFCHAIN ->
+          TransactionEntity.TransactionType.INAPP_SUBSCRIPTION
       Transaction.TransactionType.ESKILLS_REWARD -> TransactionEntity.TransactionType.ESKILLS_REWARD
       Transaction.TransactionType.ESKILLS -> TransactionEntity.TransactionType.ESKILLS
     }
@@ -198,7 +261,6 @@ class TransactionMapper @Inject constructor(){
       Transaction.SubType.UNKNOWN -> TransactionEntity.SubType.UNKNOWN
     }
   }
-
 
   private fun map(perk: TransactionEntity.Perk?): Transaction.Perk? {
     if (perk == null) return null

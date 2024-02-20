@@ -13,5 +13,5 @@ data class WalletInfoSimple(
     var backupWalletActive: Boolean
 ) : Serializable {
 
-    constructor() : this("", "", FiatValue(), false, 0, false)
+  constructor() : this("", "", FiatValue(), false, 0, false)
 }

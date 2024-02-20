@@ -19,7 +19,8 @@ class CurrenciesDbModule {
   @Singleton
   @Provides
   fun provideCurrencyConversionRatesDatabase(
-      @ApplicationContext context: Context): CurrenciesDatabase {
+      @ApplicationContext context: Context
+  ): CurrenciesDatabase {
     return Room.databaseBuilder(context, CurrenciesDatabase::class.java, "currencies_database")
         .addMigrations(
             CurrenciesDatabase.MIGRATION_1_2,

@@ -12,7 +12,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class SkillsRankingsFragment : Fragment() {
 
@@ -21,25 +20,29 @@ class SkillsRankingsFragment : Fragment() {
     const val SKU_KEY = "SKU_KEY"
     const val PACKAGE_NAME = "PACKAGE_NAME"
     const val SUPPORTS_REWARDS_KEY = "SUPPORTS_REWARDS"
+
     fun newInstance(
-      userWalletAddress: String,
-      packageName: String,
-      sku: String,
-      supportsRewards: Boolean,
+        userWalletAddress: String,
+        packageName: String,
+        sku: String,
+        supportsRewards: Boolean,
     ): SkillsRankingsFragment {
       return SkillsRankingsFragment().apply {
-        arguments = Bundle().apply {
-          putString(WALLET_ADDRESS_KEY, userWalletAddress)
-          putString(PACKAGE_NAME, packageName)
-          putString(SKU_KEY, sku)
-          putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
-        }
+        arguments =
+            Bundle().apply {
+              putString(WALLET_ADDRESS_KEY, userWalletAddress)
+              putString(PACKAGE_NAME, packageName)
+              putString(SKU_KEY, sku)
+              putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
+            }
       }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentRankingsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,16 +57,14 @@ class SkillsRankingsFragment : Fragment() {
       sku = requireArguments().getString(SKU_KEY).toString()
       supportsRewards = requireArguments().getBoolean(SUPPORTS_REWARDS_KEY)
     }
-    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!, supportsRewards!!)
+    val rankingsPagerAdapter =
+        RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!, supportsRewards!!)
     val viewPager = view.findViewById<ViewPager2>(R.id.pager)
     viewPager.adapter = rankingsPagerAdapter
     val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
-    TabLayoutMediator(
-      tabLayout, viewPager
-    ) { tab: TabLayout.Tab, position: Int ->
-      tab.setText(
-        rankingsPagerAdapter.getFragmentTitle(position)
-      )
-    }.attach()
+    TabLayoutMediator(tabLayout, viewPager) { tab: TabLayout.Tab, position: Int ->
+          tab.setText(rankingsPagerAdapter.getFragmentTitle(position))
+        }
+        .attach()
   }
 }

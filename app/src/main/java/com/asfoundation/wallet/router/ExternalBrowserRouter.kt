@@ -17,9 +17,7 @@ class ExternalBrowserRouter @Inject constructor() {
       context.startActivity(launchBrowser)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
-      Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_SHORT)
-          .show()
+      Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_SHORT).show()
     }
   }
-
 }

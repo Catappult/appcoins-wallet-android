@@ -27,29 +27,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyView {
 
-  @Inject
-  lateinit var rewardsManager: RewardsManager
+  @Inject lateinit var rewardsManager: RewardsManager
 
-  @Inject
-  lateinit var transferParser: TransferParser
+  @Inject lateinit var transferParser: TransferParser
 
-  @Inject
-  lateinit var billingMessagesMapper: BillingMessagesMapper
+  @Inject lateinit var billingMessagesMapper: BillingMessagesMapper
 
-  @Inject
-  lateinit var analytics: BillingAnalytics
+  @Inject lateinit var analytics: BillingAnalytics
 
-  @Inject
-  lateinit var paymentAnalytics: PaymentMethodsAnalytics
+  @Inject lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract
+  @Inject lateinit var appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
@@ -57,30 +49,30 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private val binding by lazy { RewardPaymentLayoutBinding.bind(requireView()) }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = RewardPaymentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter = AppcoinsRewardsBuyPresenter(
-      view = this,
-      rewardsManager = rewardsManager,
-      viewScheduler = AndroidSchedulers.mainThread(),
-      networkScheduler = Schedulers.io(),
-      disposables = CompositeDisposable(),
-      packageName = transactionBuilder.domain,
-      isBds = isBds,
-      isPreSelected = isPreSelected,
-      analytics = analytics,
-      paymentAnalytics = paymentAnalytics,
-      transactionBuilder = transactionBuilder,
-      formatter = formatter,
-      gamificationLevel = gamificationLevel,
-      appcoinsRewardsBuyInteract = appcoinsRewardsBuyInteract,
-      logger = logger
-    )
+    presenter =
+        AppcoinsRewardsBuyPresenter(
+            view = this,
+            rewardsManager = rewardsManager,
+            viewScheduler = AndroidSchedulers.mainThread(),
+            networkScheduler = Schedulers.io(),
+            disposables = CompositeDisposable(),
+            packageName = transactionBuilder.domain,
+            isBds = isBds,
+            isPreSelected = isPreSelected,
+            analytics = analytics,
+            paymentAnalytics = paymentAnalytics,
+            transactionBuilder = transactionBuilder,
+            formatter = formatter,
+            gamificationLevel = gamificationLevel,
+            appcoinsRewardsBuyInteract = appcoinsRewardsBuyInteract,
+            logger = logger)
     setupTransactionCompleteAnimation()
     presenter.present()
   }
@@ -95,7 +87,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun showLoading() {
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
-      View.INVISIBLE
+        View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
     binding.makingPurchaseText.visibility = View.VISIBLE
   }
@@ -108,24 +100,25 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun showNoNetworkError() {
     hideLoading()
     binding.genericErrorLayout.errorDismiss.setText(getString(R.string.ok))
-    binding.genericErrorLayout.genericErrorLayout.errorMessage.setText(R.string.activity_iab_no_network_message)
+    binding.genericErrorLayout.genericErrorLayout.errorMessage.setText(
+        R.string.activity_iab_no_network_message)
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
   }
 
   override fun getOkErrorClick() = RxView.clicks(binding.genericErrorLayout.errorDismiss)
 
   override fun getSupportIconClick() =
-    RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn)
+      RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn)
 
   override fun getSupportLogoClick() =
-    RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo)
+      RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo)
 
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
   override fun showError(message: Int?) {
     binding.genericErrorLayout.errorDismiss.setText(getString(R.string.back_button))
     binding.genericErrorLayout.genericErrorLayout.errorMessage.text =
-      getString(message ?: R.string.activity_iab_error_message)
+        getString(message ?: R.string.activity_iab_error_message)
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
     hideLoading()
   }
@@ -137,9 +130,8 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     presenter.sendPaymentSuccessEvent(purchaseUid)
     val bundle = billingMessagesMapper.successBundle(uid)
     bundle.putString(
-      InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-      PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id
-    )
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)
     iabView.finish(bundle)
   }
 
@@ -157,9 +149,8 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     presenter.sendPaymentSuccessEvent(purchase.uid)
     val bundle = billingMessagesMapper.mapPurchase(purchase, orderReference)
     bundle.putString(
-      InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-      PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id
-    )
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)
     iabView.finish(bundle)
   }
 
@@ -170,12 +161,12 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     binding.makingPurchaseText.visibility = View.GONE
     binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
-      View.VISIBLE
+        View.VISIBLE
     binding.fragmentIabTransactionCompleted.bonusSuccessLayout.visibility = View.GONE
   }
 
   override fun getAnimationDuration() =
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration * 2
+      binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration * 2
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -186,7 +177,8 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   private fun setupTransactionCompleteAnimation() =
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+      binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(
+          R.raw.success_animation)
 
   private val isBds: Boolean by lazy {
     if (requireArguments().containsKey(IS_BDS)) {
@@ -229,21 +221,23 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     private const val PRE_SELECTED_KEY = "pre_selected"
 
     fun newInstance(
-      amount: BigDecimal,
-      transactionBuilder: TransactionBuilder,
-      uri: String?,
-      isBds: Boolean,
-      isPreSelected: Boolean,
-      gamificationLevel: Int
-    ): Fragment = AppcoinsRewardsBuyFragment().apply {
-      arguments = Bundle().apply {
-        putSerializable(AMOUNT_KEY, amount)
-        putParcelable(TRANSACTION_KEY, transactionBuilder)
-        putString(URI_KEY, uri)
-        putBoolean(IS_BDS, isBds)
-        putBoolean(PRE_SELECTED_KEY, isPreSelected)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-      }
-    }
+        amount: BigDecimal,
+        transactionBuilder: TransactionBuilder,
+        uri: String?,
+        isBds: Boolean,
+        isPreSelected: Boolean,
+        gamificationLevel: Int
+    ): Fragment =
+        AppcoinsRewardsBuyFragment().apply {
+          arguments =
+              Bundle().apply {
+                putSerializable(AMOUNT_KEY, amount)
+                putParcelable(TRANSACTION_KEY, transactionBuilder)
+                putString(URI_KEY, uri)
+                putBoolean(IS_BDS, isBds)
+                putBoolean(PRE_SELECTED_KEY, isPreSelected)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+              }
+        }
   }
 }

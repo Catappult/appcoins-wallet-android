@@ -4,6 +4,7 @@ import android.content.Intent
 
 interface ActivityResultSharer {
   fun addOnActivityListener(listener: ActivityResultListener)
+
   fun remove(listener: ActivityResultListener)
 
   interface ActivityResultListener {

@@ -9,5 +9,4 @@ interface AppcoinsCreditsTransactSuccessView {
   fun getOkClick(): Observable<Any>
 
   fun close()
-
 }

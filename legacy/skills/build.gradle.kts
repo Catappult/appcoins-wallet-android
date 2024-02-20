@@ -1,12 +1,8 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
 android {
   namespace = "cm.aptoide.skills"
-  buildFeatures {
-    viewBinding = true
-  }
+  buildFeatures { viewBinding = true }
 }
 
 dependencies {

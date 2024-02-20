@@ -8,10 +8,12 @@ import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import io.reactivex.Single
 import javax.inject.Inject
 
-class PayTicketUseCase @Inject constructor(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
+class PayTicketUseCase
+@Inject
+constructor(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
   operator fun invoke(
-    ticket: CreatedTicket,
-    eskillsPaymentData: EskillsPaymentData
+      ticket: CreatedTicket,
+      eskillsPaymentData: EskillsPaymentData
   ): Single<PaymentResult> {
     val environment = eskillsPaymentData.environment
     if (environment == EskillsPaymentData.MatchEnvironment.LIVE || environment == null) {
@@ -21,8 +23,8 @@ class PayTicketUseCase @Inject constructor(private val externalSkillsPaymentProv
   }
 
   private fun launchPurchaseFlow(
-    eskillsPaymentData: EskillsPaymentData,
-    ticket: CreatedTicket
+      eskillsPaymentData: EskillsPaymentData,
+      ticket: CreatedTicket
   ): Single<PaymentResult> {
     return externalSkillsPaymentProvider.pay(eskillsPaymentData, ticket)
   }

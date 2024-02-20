@@ -53,19 +53,17 @@ import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
-import org.web3j.protocol.Web3j
-import org.web3j.protocol.http.HttpService
 import java.math.BigDecimal
 import javax.inject.Named
 import javax.inject.Singleton
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.http.HttpService
 
 @InstallIn(SingletonComponent::class)
 @Module
 internal class AppModule {
 
-  @Singleton
-  @Provides
-  fun provideGson() = Gson()
+  @Singleton @Provides fun provideGson() = Gson()
 
   @Provides
   fun providesClipboardManager(@ApplicationContext context: Context): ClipboardManager {
@@ -90,20 +88,21 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideAdsContractAddressSdk(): AppCoinsAddressProxySdk =
-    AppCoinsAddressProxyBuilder().createAddressProxySdk()  //read only?
+      AppCoinsAddressProxyBuilder().createAddressProxySdk() // read only?
 
   @Provides
   @Singleton
   fun provideInAppPurchaseDataSaver(
-    @ApplicationContext context: Context,
-    operationSources: OperationSources,
-    appCoinsOperationRepository: AppCoinsOperationRepository
+      @ApplicationContext context: Context,
+      operationSources: OperationSources,
+      appCoinsOperationRepository: AppCoinsOperationRepository
   ): AppcoinsOperationsDataSaver {
     return AppcoinsOperationsDataSaver(
-      operationSources.sources, appCoinsOperationRepository,
-      AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
-      Schedulers.io(), CompositeDisposable()
-    )
+        operationSources.sources,
+        appCoinsOperationRepository,
+        AppInfoProvider(context, ImageSaver(context.filesDir.toString() + "/app_icons/")),
+        Schedulers.io(),
+        CompositeDisposable())
   }
 
   @Provides
@@ -129,17 +128,16 @@ internal class AppModule {
   @Singleton
   @Provides
   fun provideNotificationManager(@ApplicationContext context: Context): NotificationManager {
-    return context.applicationContext.getSystemService(
-      Context.NOTIFICATION_SERVICE
-    ) as NotificationManager
+    return context.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE)
+        as NotificationManager
   }
 
   @Singleton
   @Provides
   @Named("heads_up")
   fun provideHeadsUpNotificationBuilder(
-    @ApplicationContext context: Context,
-    notificationManager: NotificationManager
+      @ApplicationContext context: Context,
+      notificationManager: NotificationManager
   ): NotificationCompat.Builder {
     val builder: NotificationCompat.Builder
     val channelId = "notification_channel_heads_up_id"
@@ -153,10 +151,11 @@ internal class AppModule {
       builder = NotificationCompat.Builder(context, channelId)
       builder.setVibrate(LongArray(0))
     }
-    return builder.setContentTitle(context.getString(R.string.app_name))
-      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-      .setPriority(NotificationCompat.PRIORITY_MAX)
-      .setAutoCancel(true)
+    return builder
+        .setContentTitle(context.getString(R.string.app_name))
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setPriority(NotificationCompat.PRIORITY_MAX)
+        .setAutoCancel(true)
   }
 
   @Singleton
@@ -168,13 +167,13 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providePackageManager(@ApplicationContext context: Context): PackageManager =
-    context.packageManager
+      context.packageManager
 
   @Provides
   @Named("local_version_code")
   fun provideLocalVersionCode(
-    @ApplicationContext context: Context,
-    packageManager: PackageManager
+      @ApplicationContext context: Context,
+      packageManager: PackageManager
   ): Int {
     @Suppress("DEPRECATION")
     return try {
@@ -184,9 +183,7 @@ internal class AppModule {
     }
   }
 
-  @Provides
-  @Named("device-sdk")
-  fun provideDeviceSdk(): Int = Build.VERSION.SDK_INT
+  @Provides @Named("device-sdk") fun provideDeviceSdk(): Int = Build.VERSION.SDK_INT
 
   @Provides
   @Named("package-name")
@@ -198,26 +195,31 @@ internal class AppModule {
 
   @Provides
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
-    context.contentResolver
+      context.contentResolver
 
-  @Provides
-  fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
+  @Provides fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
 
   @Singleton
   @Provides
   fun providesDefaultNetwork(): NetworkInfo {
     return if (BuildConfig.DEBUG) {
       NetworkInfo(
-        C.ROPSTEN_NETWORK_NAME, C.ETH_SYMBOL,
-        "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
-        "https://ropsten.trustwalletapp.com/", "https://ropsten.etherscan.io/tx/", 3, false
-      )
+          C.ROPSTEN_NETWORK_NAME,
+          C.ETH_SYMBOL,
+          "https://ropsten.infura.io/v3/${BuildConfig.INFURA_API_KEY_ROPSTEN}",
+          "https://ropsten.trustwalletapp.com/",
+          "https://ropsten.etherscan.io/tx/",
+          3,
+          false)
     } else {
       NetworkInfo(
-        C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
-        "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
-        "https://api.trustwalletapp.com/", "https://etherscan.io/tx/", 1, true
-      )
+          C.ETHEREUM_NETWORK_NAME,
+          C.ETH_SYMBOL,
+          "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}",
+          "https://api.trustwalletapp.com/",
+          "https://etherscan.io/tx/",
+          1,
+          true)
     }
   }
 
@@ -235,27 +237,20 @@ internal class AppModule {
   @Provides
   fun providesChainID(): Long {
     return if (BuildConfig.DEBUG) {
-      4L //Rinkeby Chain ID
+      4L // Rinkeby Chain ID
     } else {
-      1L //Mainnet Chain ID
+      1L // Mainnet Chain ID
     }
   }
 
-  @Singleton
-  @Provides
-  fun providesExecutorScheduler() = ExecutorScheduler(
-    SyncExecutor(
-      1
-    ), false)
+  @Singleton @Provides fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 
   @Singleton
   @Provides
   fun providesBiometricManager(@ApplicationContext context: Context) =
-    BiometricManager.from(context)
+      BiometricManager.from(context)
 
-  @Singleton
-  @Provides
-  fun provideTaskTimer(): TaskTimer = TaskTimer()
+  @Singleton @Provides fun provideTaskTimer(): TaskTimer = TaskTimer()
 
   @Provides
   fun providesEwtAuthService(walletService: WalletService): EwtAuthenticatorService {

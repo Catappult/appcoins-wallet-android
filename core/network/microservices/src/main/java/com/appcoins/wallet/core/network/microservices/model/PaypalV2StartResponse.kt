@@ -1,16 +1,16 @@
 package com.appcoins.wallet.core.network.microservices.model
 
-
 data class PaypalV2StartResponse(
-  val uid: String,
-  val hash: String?,
-  val status: TransactionStatus,
-  val data: ErrorData?,
+    val uid: String,
+    val hash: String?,
+    val status: TransactionStatus,
+    val data: ErrorData?,
 ) {
   fun mapValidity(): PaypalTransaction.PaypalValidityState {
-    return when(status) {
+    return when (status) {
       TransactionStatus.PENDING -> PaypalTransaction.PaypalValidityState.PENDING
-      TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> PaypalTransaction.PaypalValidityState.PENDING
+      TransactionStatus.PENDING_SERVICE_AUTHORIZATION ->
+          PaypalTransaction.PaypalValidityState.PENDING
       TransactionStatus.SETTLED -> PaypalTransaction.PaypalValidityState.PENDING
       TransactionStatus.PROCESSING -> PaypalTransaction.PaypalValidityState.PENDING
       TransactionStatus.COMPLETED -> PaypalTransaction.PaypalValidityState.COMPLETED
@@ -27,8 +27,7 @@ data class PaypalV2StartResponse(
   }
 
   data class ErrorData(
-    val name: String?,
-    val message: String?,
+      val name: String?,
+      val message: String?,
   )
-
 }

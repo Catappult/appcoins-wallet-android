@@ -4,9 +4,9 @@ import com.asfoundation.wallet.backup.entryBottomSheet.BackupEntryChooseWalletVi
 import io.reactivex.disposables.CompositeDisposable
 
 class SettingsWalletsPresenter(
-  private val view: BackupEntryChooseWalletView,
-  private val navigator: SettingsWalletsNavigator,
-  private val disposables: CompositeDisposable
+    private val view: BackupEntryChooseWalletView,
+    private val navigator: SettingsWalletsNavigator,
+    private val disposables: CompositeDisposable
 ) {
 
   fun present() {
@@ -15,11 +15,10 @@ class SettingsWalletsPresenter(
 
   private fun handleOutsideOfBottomSheetClick() {
     disposables.add(
-      view
-        .outsideOfBottomSheetClick()
-        .doOnNext { navigator.hideBottomSheet() }
-        .subscribe({}, { it.printStackTrace() })
-    )
+        view
+            .outsideOfBottomSheetClick()
+            .doOnNext { navigator.hideBottomSheet() }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

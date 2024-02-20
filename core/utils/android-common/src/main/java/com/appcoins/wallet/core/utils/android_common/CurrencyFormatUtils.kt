@@ -43,71 +43,72 @@ class CurrencyFormatUtils @Inject constructor() {
   }
 
   private fun formatCurrencyFiat(
-    value: Double,
-    rounding: RoundingMode = RoundingMode.FLOOR
+      value: Double,
+      rounding: RoundingMode = RoundingMode.FLOOR
   ): String {
-    val fiatFormatter = NumberFormat.getNumberInstance()
-      .apply {
-        minimumFractionDigits = FIAT_SCALE
-        maximumFractionDigits = FIAT_SCALE
-        roundingMode = rounding
-      }
+    val fiatFormatter =
+        NumberFormat.getNumberInstance().apply {
+          minimumFractionDigits = FIAT_SCALE
+          maximumFractionDigits = FIAT_SCALE
+          roundingMode = rounding
+        }
     return fiatFormatter.format(value)
   }
 
   private fun formatCurrencyAppcoins(
-    value: Double,
-    rounding: RoundingMode = RoundingMode.FLOOR
+      value: Double,
+      rounding: RoundingMode = RoundingMode.FLOOR
   ): String {
-    val appcFormatter = NumberFormat.getNumberInstance()
-      .apply {
-        minimumFractionDigits = APPC_SCALE
-        maximumFractionDigits = APPC_SCALE
-        roundingMode = rounding
-      }
+    val appcFormatter =
+        NumberFormat.getNumberInstance().apply {
+          minimumFractionDigits = APPC_SCALE
+          maximumFractionDigits = APPC_SCALE
+          roundingMode = rounding
+        }
     return appcFormatter.format(value)
   }
 
   private fun formatCurrencyCredits(
-    value: Double,
-    rounding: RoundingMode = RoundingMode.FLOOR
+      value: Double,
+      rounding: RoundingMode = RoundingMode.FLOOR
   ): String {
-    val creditsFormatter = NumberFormat.getNumberInstance()
-      .apply {
-        minimumFractionDigits = CREDITS_SCALE
-        maximumFractionDigits = CREDITS_SCALE
-        roundingMode = rounding
-      }
+    val creditsFormatter =
+        NumberFormat.getNumberInstance().apply {
+          minimumFractionDigits = CREDITS_SCALE
+          maximumFractionDigits = CREDITS_SCALE
+          roundingMode = rounding
+        }
     return creditsFormatter.format(value)
   }
 
   private fun formatCurrencyEth(
-    value: Double,
-    rounding: RoundingMode = RoundingMode.FLOOR
+      value: Double,
+      rounding: RoundingMode = RoundingMode.FLOOR
   ): String {
-    val ethFormatter = NumberFormat.getNumberInstance()
-      .apply {
-        minimumFractionDigits = ETH_SCALE
-        maximumFractionDigits = ETH_SCALE
-        roundingMode = rounding
-      }
+    val ethFormatter =
+        NumberFormat.getNumberInstance().apply {
+          minimumFractionDigits = ETH_SCALE
+          maximumFractionDigits = ETH_SCALE
+          roundingMode = rounding
+        }
     return ethFormatter.format(value)
   }
 
   fun formatTransferCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
-    val scale: Int = when (currencyType) {
-      WalletCurrency.APPCOINS -> APPC_SCALE
-      WalletCurrency.CREDITS -> CREDITS_SCALE
-      WalletCurrency.ETHEREUM -> ETH_SCALE
-      else -> throw IllegalArgumentException()
-    }
-    val transferFormatter = DecimalFormat("#,##0.00")
-      .apply {
-        minimumFractionDigits = scale
-        maximumFractionDigits = 15
-        isParseBigDecimal = true
-        roundingMode = RoundingMode.FLOOR
-      }
+    val scale: Int =
+        when (currencyType) {
+          WalletCurrency.APPCOINS -> APPC_SCALE
+          WalletCurrency.CREDITS -> CREDITS_SCALE
+          WalletCurrency.ETHEREUM -> ETH_SCALE
+          else -> throw IllegalArgumentException()
+        }
+    val transferFormatter =
+        DecimalFormat("#,##0.00").apply {
+          minimumFractionDigits = scale
+          maximumFractionDigits = 15
+          isParseBigDecimal = true
+          roundingMode = RoundingMode.FLOOR
+        }
     return transferFormatter.format(value)
   }
 
@@ -137,7 +138,6 @@ class CurrencyFormatUtils @Inject constructor() {
   fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
 }
 
-
 enum class WalletCurrency(val symbol: String) {
   FIAT(""),
   APPCOINS("APPC"),
@@ -150,7 +150,8 @@ enum class WalletCurrency(val symbol: String) {
       return when (currencySymbol) {
         "APPC" -> APPCOINS
         "ETH" -> ETHEREUM
-        "APPC-C", "AppCoins Credits" -> CREDITS
+        "APPC-C",
+        "AppCoins Credits" -> CREDITS
         "" -> FIAT
         else -> throw IllegalArgumentException()
       }

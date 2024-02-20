@@ -7,9 +7,11 @@ import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ShouldShowSystemNotificationUseCase @Inject constructor(
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
-  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource
+class ShouldShowSystemNotificationUseCase
+@Inject
+constructor(
+    private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+    private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource
 ) {
 
   companion object {
@@ -17,15 +19,16 @@ class ShouldShowSystemNotificationUseCase @Inject constructor(
     private const val DISMISS_PERIOD = 30L
   }
 
-  operator fun invoke(walletInfo: WalletInfo): Single<Boolean> = Single.just(
-    walletInfo.hasBackup.not()
-        && meetsLastDismissCondition(walletInfo.wallet)
-        && meetsCountConditions(walletInfo.wallet)
-  )
+  operator fun invoke(walletInfo: WalletInfo): Single<Boolean> =
+      Single.just(
+          walletInfo.hasBackup.not() &&
+              meetsLastDismissCondition(walletInfo.wallet) &&
+              meetsCountConditions(walletInfo.wallet))
 
   private fun meetsLastDismissCondition(walletAddress: String): Boolean {
     val savedTime =
-      backupSystemNotificationPreferences.getDismissedBackupSystemNotificationSeenTime(walletAddress)
+        backupSystemNotificationPreferences.getDismissedBackupSystemNotificationSeenTime(
+            walletAddress)
     val currentTime = System.currentTimeMillis()
     return currentTime >= savedTime + TimeUnit.DAYS.toMillis(DISMISS_PERIOD)
   }

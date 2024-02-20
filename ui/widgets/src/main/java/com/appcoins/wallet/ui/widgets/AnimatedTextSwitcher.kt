@@ -14,9 +14,11 @@ import kotlinx.parcelize.Parcelize
 
 class AnimatedTextSwitcher : FrameLayout {
   @Parcelize
-  class ToolbarTextSwitcherState(val superSavedState: Parcelable?, val animateFirstView: Boolean,
-                                 val text: CharSequence) : View.BaseSavedState(superSavedState),
-      Parcelable
+  class ToolbarTextSwitcherState(
+      val superSavedState: Parcelable?,
+      val animateFirstView: Boolean,
+      val text: CharSequence
+  ) : View.BaseSavedState(superSavedState), Parcelable
 
   private val views =
       LayoutToolbarTextSwitcherBinding.inflate(LayoutInflater.from(context), this, true)
@@ -25,11 +27,14 @@ class AnimatedTextSwitcher : FrameLayout {
   private var text: CharSequence = ""
 
   constructor(context: Context) : this(context, null)
+
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-      context, attrs,
-      defStyleAttr
-  ) {
+
+  constructor(
+      context: Context,
+      attrs: AttributeSet?,
+      defStyleAttr: Int
+  ) : super(context, attrs, defStyleAttr) {
     retrievePreferences(attrs, defStyleAttr)
   }
 

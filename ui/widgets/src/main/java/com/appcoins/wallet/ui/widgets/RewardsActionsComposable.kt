@@ -36,153 +36,144 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun RewardsActions(
-  onClickEskills: () -> Unit,
-  onClickPromoCode: () -> Unit,
-  onClickGiftCard: () -> Unit,
-  onClickChallengeReward: (() -> Unit)?,
+    onClickEskills: () -> Unit,
+    onClickPromoCode: () -> Unit,
+    onClickGiftCard: () -> Unit,
+    onClickChallengeReward: (() -> Unit)?,
 ) {
   val scrollState = rememberScrollState()
   Row(
-    modifier = Modifier
-      .horizontalScroll(scrollState)
-      .padding(horizontal = 16.dp)
-      .padding(top = 24.dp)
-      .height(IntrinsicSize.Max),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
+      modifier =
+          Modifier.horizontalScroll(scrollState)
+              .padding(horizontal = 16.dp)
+              .padding(top = 24.dp)
+              .height(IntrinsicSize.Max),
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
     onClickChallengeReward?.let {
       ActionCard(
-        image = R.drawable.ic_challenge_reward,
-        title = R.string.challenge_reward_card_title,
-        description = R.string.challenge_reward_card_body,
-        onClick = onClickChallengeReward,
+          image = R.drawable.ic_challenge_reward,
+          title = R.string.challenge_reward_card_title,
+          description = R.string.challenge_reward_card_body,
+          onClick = onClickChallengeReward,
       )
     }
     ActionCard(
-      image = R.drawable.ic_promocode,
-      title = R.string.rewards_promo_code_card_title,
-      description = R.string.rewards_promo_code_card_body,
-      onClick = onClickPromoCode,
+        image = R.drawable.ic_promocode,
+        title = R.string.rewards_promo_code_card_title,
+        description = R.string.rewards_promo_code_card_body,
+        onClick = onClickPromoCode,
     )
     ActionCard(
-      image = R.drawable.ic_giftcard,
-      title = R.string.transaction_type_gift_card,
-      description = R.string.gift_card_title,
-      onClick = onClickGiftCard,
+        image = R.drawable.ic_giftcard,
+        title = R.string.transaction_type_gift_card,
+        description = R.string.gift_card_title,
+        onClick = onClickGiftCard,
     )
     ActionCard(
-      image = R.drawable.ic_eskills,
-      title = R.string.rewards_eskills_card_title,
-      description = R.string.rewards_eskills_card_body,
-      onClick = onClickEskills,
+        image = R.drawable.ic_eskills,
+        title = R.string.rewards_eskills_card_title,
+        description = R.string.rewards_eskills_card_body,
+        onClick = onClickEskills,
     )
   }
 }
 
 @Composable
 fun ActionCard(
-  @DrawableRes image: Int,
-  @StringRes title: Int,
-  @StringRes description: Int,
-  onClick: () -> Unit,
+    @DrawableRes image: Int,
+    @StringRes title: Int,
+    @StringRes description: Int,
+    onClick: () -> Unit,
 ) {
   Card(
-    modifier = Modifier
-      .width(width = 160.dp)
-      .fillMaxHeight()
-      .clickable { onClick() },
-    shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+      modifier = Modifier.width(width = 160.dp).fillMaxHeight().clickable { onClick() },
+      shape = RoundedCornerShape(8.dp),
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
     Column(
-      modifier = Modifier.padding(16.dp),
-      verticalArrangement = Arrangement.spacedBy(16.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
       Image(
-        painter = painterResource(image),
-        contentDescription = null,
-        modifier = Modifier
-          .height(54.dp)
-          .width(54.dp),
+          painter = painterResource(image),
+          contentDescription = null,
+          modifier = Modifier.height(54.dp).width(54.dp),
       )
       Text(
-        text = stringResource(id = title),
-        style = MaterialTheme.typography.titleSmall,
-        color = WalletColors.styleguide_white,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.Center,
+          text = stringResource(id = title),
+          style = MaterialTheme.typography.titleSmall,
+          color = WalletColors.styleguide_white,
+          fontWeight = FontWeight.Bold,
+          textAlign = TextAlign.Center,
       )
       Text(
-        text = stringResource(id = description),
-        style = MaterialTheme.typography.bodySmall,
-        color = WalletColors.styleguide_dark_grey,
-        textAlign = TextAlign.Center,
+          text = stringResource(id = description),
+          style = MaterialTheme.typography.bodySmall,
+          color = WalletColors.styleguide_dark_grey,
+          textAlign = TextAlign.Center,
       )
     }
   }
 }
 
-
 @Composable
 fun SkeletonLoadingRewardsActionsCard() {
   val scrollState = rememberScrollState()
   Row(
-    modifier = Modifier
-      .horizontalScroll(scrollState)
-      .padding(horizontal = 16.dp)
-      .padding(top = 24.dp),
-    horizontalArrangement = Arrangement.spacedBy(8.dp),
+      modifier =
+          Modifier.horizontalScroll(scrollState).padding(horizontal = 16.dp).padding(top = 24.dp),
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
   ) {
     SkeletonLoadingRewardActionCard()
     SkeletonLoadingRewardActionCard()
     SkeletonLoadingRewardActionCard()
   }
 }
+
 @Composable
 private fun SkeletonLoadingRewardActionCard() {
   Card(
-    modifier = Modifier
-      .size(width = 160.dp, height = 208.dp),
-    shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+      modifier = Modifier.size(width = 160.dp, height = 208.dp),
+      shape = RoundedCornerShape(8.dp),
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
     Column(
-      modifier = Modifier.padding(16.dp),
-      verticalArrangement = Arrangement.spacedBy(16.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
       Spacer(
-        modifier = Modifier
-          .height(60.dp)
-          .width(60.dp)
-          .clip(RoundedCornerShape(30.dp))
-          .background(brush = shimmerSkeleton()),
+          modifier =
+              Modifier.height(60.dp)
+                  .width(60.dp)
+                  .clip(RoundedCornerShape(30.dp))
+                  .background(brush = shimmerSkeleton()),
       )
-      Column( horizontalAlignment = Alignment.CenterHorizontally) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(
-          modifier = Modifier
-            .width(width = 110.dp)
-            .height(height = 20.dp)
-            .clip(RoundedCornerShape(5.dp))
-            .background(brush = shimmerSkeleton()),
+            modifier =
+                Modifier.width(width = 110.dp)
+                    .height(height = 20.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(brush = shimmerSkeleton()),
         )
         Spacer(
-          modifier = Modifier
-            .padding(top = 16.dp)
-            .width(width = 160.dp)
-            .height(height = 17.dp)
-            .clip(RoundedCornerShape(5.dp))
-            .background(brush = shimmerSkeleton()),
+            modifier =
+                Modifier.padding(top = 16.dp)
+                    .width(width = 160.dp)
+                    .height(height = 17.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(brush = shimmerSkeleton()),
         )
         Spacer(
-          modifier = Modifier
-            .padding(top = 8.dp)
-            .width(width = 90.dp)
-            .height(height = 17.dp)
-            .clip(RoundedCornerShape(5.dp))
-            .background(brush = shimmerSkeleton())
-        )
+            modifier =
+                Modifier.padding(top = 8.dp)
+                    .width(width = 90.dp)
+                    .height(height = 17.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(brush = shimmerSkeleton()))
       }
     }
   }
@@ -192,13 +183,12 @@ private fun SkeletonLoadingRewardActionCard() {
 @Composable
 private fun PreviewRewardsActions() {
   RewardsActions(
-    { },
-    { },
-    { },
-    { },
+      {},
+      {},
+      {},
+      {},
   )
 }
-
 
 @Preview
 @Composable

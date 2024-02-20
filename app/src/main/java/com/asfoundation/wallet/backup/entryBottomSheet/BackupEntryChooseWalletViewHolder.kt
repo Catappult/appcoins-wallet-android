@@ -11,9 +11,9 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import io.reactivex.subjects.PublishSubject
 
 class BackupEntryChooseWalletViewHolder(
-  itemView: View,
-  private val uiEventListener: PublishSubject<String>,
-  private val currencyFormatUtils: CurrencyFormatUtils
+    itemView: View,
+    private val uiEventListener: PublishSubject<String>,
+    private val currencyFormatUtils: CurrencyFormatUtils
 ) : RecyclerView.ViewHolder(itemView) {
 
   private val binding by lazy { WalletRoundedOutlinedCardBinding.bind(itemView) }
@@ -23,8 +23,7 @@ class BackupEntryChooseWalletViewHolder(
     binding.walletName.text = "${item.walletName.simpleFormat()} - "
     binding.walletAddress.text = item.walletAddress.maskedEnd()
     binding.walletBalance.text =
-      "${item.balance.symbol}${currencyFormatUtils.formatCurrency(item.balance.amount)} ${item.balance.currency}"
-    itemView.setOnClickListener { uiEventListener.onNext(item.walletAddress)
-    }
+        "${item.balance.symbol}${currencyFormatUtils.formatCurrency(item.balance.amount)} ${item.balance.currency}"
+    itemView.setOnClickListener { uiEventListener.onNext(item.walletAddress) }
   }
 }

@@ -10,13 +10,9 @@ import org.gradle.kotlin.dsl.dependencies
 class AndroidFeaturePlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
-      pluginManager.apply {
-        apply<AndroidLibraryPlugin>()
-      }
+      pluginManager.apply { apply<AndroidLibraryPlugin>() }
 
-      dependencies {
-        add("implementation", libs["androidx.fragment.ktx"])
-      }
+      dependencies { add("implementation", libs["androidx.fragment.ktx"]) }
     }
   }
 }

@@ -2,14 +2,14 @@ package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.asfoundation.wallet.util.Period
+import java.io.IOException
+import java.math.BigDecimal
+import java.text.SimpleDateFormat
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
-import java.io.IOException
-import java.math.BigDecimal
-import java.text.SimpleDateFormat
 
 @RunWith(MockitoJUnitRunner::class)
 class UserSubscriptionsMapperTest {
@@ -48,89 +48,317 @@ class UserSubscriptionsMapperTest {
 
   @Test
   fun mapResponseTest() {
-    val dateFormat = SimpleDateFormat(UserSubscriptionsMapper.DATE_FORMAT_PATTERN,
-        UserSubscriptionsMapper.LOCALE)
+    val dateFormat =
+        SimpleDateFormat(
+            UserSubscriptionsMapper.DATE_FORMAT_PATTERN, UserSubscriptionsMapper.LOCALE)
     val expectedDate = dateFormat.parse(TEST_STARTED)
     val applicationResponse = ApplicationInfoResponse(TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON)
-    val orderResponse = OrderResponse(TEST_GATEWAY, TEST_REFERENCE, TEST_FIAT_AMOUNT, TEST_LABEL,
-        TEST_CURRENCY, TEST_SYMBOL, TEST_CREATED,
-        MethodResponse(TEST_PAYMENT_METHOD, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON),
-        AppcPrice(TEST_APPC_AMOUNT, TEST_APPC_LABEL))
-    val activeSubResponse = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.ACTIVE, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
-        applicationResponse, orderResponse)
-    val expiredSubResponse = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.EXPIRED, TEST_STARTED, TEST_RENEWAL, null, TEST_ENDED,
-        applicationResponse, orderResponse)
-    val responseCanceled = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.CANCELED, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
-        applicationResponse, orderResponse)
-    val responsePaused = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.PAUSED, TEST_STARTED, null, null, null, applicationResponse,
-        orderResponse)
-    val responseRevoked = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.REVOKED, TEST_STARTED, null, TEST_EXPIRE, TEST_ENDED,
-        applicationResponse, orderResponse)
-    val responsePending = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.PENDING, null, null, null, null, applicationResponse, orderResponse)
-    val responseGrace = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.GRACE, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
-        applicationResponse, orderResponse)
-    val responseHold = UserSubscriptionResponse(TEST_UID, TEST_SKU, TEST_TITLE, TEST_PERIOD,
-        SubscriptionSubStatus.HOLD, TEST_STARTED, TEST_RENEWAL, TEST_EXPIRE, null,
-        applicationResponse, orderResponse)
-    val allSubscriptions = UserSubscriptionsListResponse(
-        listOf(activeSubResponse, expiredSubResponse, responseCanceled, responsePaused,
-            responseRevoked, responsePending, responseGrace, responseHold))
+    val orderResponse =
+        OrderResponse(
+            TEST_GATEWAY,
+            TEST_REFERENCE,
+            TEST_FIAT_AMOUNT,
+            TEST_LABEL,
+            TEST_CURRENCY,
+            TEST_SYMBOL,
+            TEST_CREATED,
+            MethodResponse(TEST_PAYMENT_METHOD, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON),
+            AppcPrice(TEST_APPC_AMOUNT, TEST_APPC_LABEL))
+    val activeSubResponse =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.ACTIVE,
+            TEST_STARTED,
+            TEST_RENEWAL,
+            TEST_EXPIRE,
+            null,
+            applicationResponse,
+            orderResponse)
+    val expiredSubResponse =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.EXPIRED,
+            TEST_STARTED,
+            TEST_RENEWAL,
+            null,
+            TEST_ENDED,
+            applicationResponse,
+            orderResponse)
+    val responseCanceled =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.CANCELED,
+            TEST_STARTED,
+            TEST_RENEWAL,
+            TEST_EXPIRE,
+            null,
+            applicationResponse,
+            orderResponse)
+    val responsePaused =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.PAUSED,
+            TEST_STARTED,
+            null,
+            null,
+            null,
+            applicationResponse,
+            orderResponse)
+    val responseRevoked =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.REVOKED,
+            TEST_STARTED,
+            null,
+            TEST_EXPIRE,
+            TEST_ENDED,
+            applicationResponse,
+            orderResponse)
+    val responsePending =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.PENDING,
+            null,
+            null,
+            null,
+            null,
+            applicationResponse,
+            orderResponse)
+    val responseGrace =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.GRACE,
+            TEST_STARTED,
+            TEST_RENEWAL,
+            TEST_EXPIRE,
+            null,
+            applicationResponse,
+            orderResponse)
+    val responseHold =
+        UserSubscriptionResponse(
+            TEST_UID,
+            TEST_SKU,
+            TEST_TITLE,
+            TEST_PERIOD,
+            SubscriptionSubStatus.HOLD,
+            TEST_STARTED,
+            TEST_RENEWAL,
+            TEST_EXPIRE,
+            null,
+            applicationResponse,
+            orderResponse)
+    val allSubscriptions =
+        UserSubscriptionsListResponse(
+            listOf(
+                activeSubResponse,
+                expiredSubResponse,
+                responseCanceled,
+                responsePaused,
+                responseRevoked,
+                responsePending,
+                responseGrace,
+                responseHold))
     val expiredSubscriptions = UserSubscriptionsListResponse(listOf(expiredSubResponse))
     val model = mapper.mapToSubscriptionModel(allSubscriptions, expiredSubscriptions, true)
     val activeItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.ACTIVE, expectedDate,
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.ACTIVE,
             expectedDate,
-            expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
-            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
-            TEST_APPC_LABEL, TEST_UID)
-    val expiredItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.EXPIRED, expectedDate,
             expectedDate,
-            null, expectedDate, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
-            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
-            TEST_APPC_LABEL, TEST_UID)
-    val canceledItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.CANCELED, expectedDate,
-            expectedDate, expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON,
-            TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON,
-            TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
-    val pausedItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.PAUSED, expectedDate, null,
+            expectedDate,
             null,
-            null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL,
-            TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
+    val expiredItem =
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.EXPIRED,
+            expectedDate,
+            expectedDate,
+            null,
+            expectedDate,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
+    val canceledItem =
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.CANCELED,
+            expectedDate,
+            expectedDate,
+            expectedDate,
+            null,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
+    val pausedItem =
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.PAUSED,
+            expectedDate,
+            null,
+            null,
+            null,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
             TEST_UID)
     val revokedItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.REVOKED, expectedDate, null,
-            expectedDate, expectedDate, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
-            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
-            TEST_APPC_LABEL, TEST_UID)
-    val pendingItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.PENDING, null, null, null,
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.REVOKED,
+            expectedDate,
             null,
-            TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
-            TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
+            expectedDate,
+            expectedDate,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
+    val pendingItem =
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.PENDING,
+            null,
+            null,
+            null,
+            null,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
     val gracePeriodItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.GRACE, expectedDate,
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.GRACE,
             expectedDate,
-            expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
-            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
-            TEST_APPC_LABEL, TEST_UID)
+            expectedDate,
+            expectedDate,
+            null,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
     val onHoldItem =
-        SubscriptionItem("sku", TEST_TITLE, Period(0, 0, 1, 0), Status.HOLD, expectedDate,
+        SubscriptionItem(
+            "sku",
+            TEST_TITLE,
+            Period(0, 0, 1, 0),
+            Status.HOLD,
             expectedDate,
-            expectedDate, null, TEST_PACKAGE_NAME, TEST_TITLE, TEST_ICON, TEST_FIAT_AMOUNT,
-            TEST_SYMBOL, TEST_CURRENCY, TEST_PAYMENT_TITLE, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT,
-            TEST_APPC_LABEL, TEST_UID)
-    val allItemsList = listOf(activeItem, expiredItem, canceledItem, pausedItem, revokedItem,
-        pendingItem, gracePeriodItem, onHoldItem)
+            expectedDate,
+            expectedDate,
+            null,
+            TEST_PACKAGE_NAME,
+            TEST_TITLE,
+            TEST_ICON,
+            TEST_FIAT_AMOUNT,
+            TEST_SYMBOL,
+            TEST_CURRENCY,
+            TEST_PAYMENT_TITLE,
+            TEST_PAYMENT_ICON,
+            TEST_APPC_AMOUNT,
+            TEST_APPC_LABEL,
+            TEST_UID)
+    val allItemsList =
+        listOf(
+            activeItem,
+            expiredItem,
+            canceledItem,
+            pausedItem,
+            revokedItem,
+            pendingItem,
+            gracePeriodItem,
+            onHoldItem)
     val expiredItemList = listOf(expiredItem)
     val expectedModel = SubscriptionModel(allItemsList, expiredItemList, true)
     Assert.assertEquals(expectedModel.toString(), model.toString())

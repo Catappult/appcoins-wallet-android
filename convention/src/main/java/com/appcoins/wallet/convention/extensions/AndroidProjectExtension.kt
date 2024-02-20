@@ -26,7 +26,7 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
     }
 
     packagingOptions {
-//      resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      //      resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
       resources.excludes += "META-INF/NOTICE"
       resources.excludes += "META-INF/LICENSE"
       // Pick the first version of certain resources
@@ -35,11 +35,8 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
     }
   }
 
-  dependencies.apply {
-    add("coreLibraryDesugaring", libs["android.desugar"])
-  }
+  dependencies.apply { add("coreLibraryDesugaring", libs["android.desugar"]) }
 }
-
 
 private fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
   (this as ExtensionAware).extensions.configure("kotlinOptions", block)

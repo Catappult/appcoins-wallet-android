@@ -2,8 +2,8 @@ package com.asfoundation.wallet.redeem_gift.repository
 
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.google.gson.Gson
-import retrofit2.HttpException
 import javax.inject.Inject
+import retrofit2.HttpException
 
 class RedeemGiftMapper @Inject constructor(private val jsonMapper: Gson) {
   fun map(error: Throwable): RedeemCode {
@@ -24,8 +24,5 @@ class RedeemGiftMapper @Inject constructor(private val jsonMapper: Gson) {
 
   data class Response(val message: Message)
 
-  data class Message(
-    val detail: String, val code: String
-  )
-
+  data class Message(val detail: String, val code: String)
 }

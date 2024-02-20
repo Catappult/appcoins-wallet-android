@@ -11,9 +11,9 @@ class SubscriptionCancelNavigator
 constructor(private val fragmentManager: FragmentManager, private val fragment: Fragment) {
 
   fun showCancelSuccess() {
-    val bottomSheet = SubscriptionSuccessFragment.newInstance(
-      SubscriptionSuccessFragment.SubscriptionSuccess.CANCEL
-    )
+    val bottomSheet =
+        SubscriptionSuccessFragment.newInstance(
+            SubscriptionSuccessFragment.SubscriptionSuccess.CANCEL)
     dismissCurrentBottomSheet()
     bottomSheet.isCancelable = false
     bottomSheet.show(fragmentManager, "SubscriptionSuccessBottomSheet")

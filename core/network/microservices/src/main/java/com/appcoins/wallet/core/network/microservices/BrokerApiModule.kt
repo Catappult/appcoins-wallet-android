@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultR
 import com.appcoins.wallet.core.network.microservices.api.*
 import com.appcoins.wallet.core.network.microservices.api.broker.*
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi.*
-import com.appcoins.wallet.core.network.microservices.api.broker.FiatCurrenciesApi
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -19,11 +18,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -36,11 +35,11 @@ class BrokerApiModule {
   @BrokerBlockchainRetrofit
   fun provideBrokerBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(brokerUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
+        .baseUrl(brokerUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
   }
 
   @Singleton
@@ -48,124 +47,107 @@ class BrokerApiModule {
   @BrokerDefaultRetrofit
   fun provideBrokerDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(brokerUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
+        .baseUrl(brokerUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
   }
 
   @Singleton
   @Provides
   @BrokerDefaultResultRetrofit
   fun provideBrokerDefaultResultRetrofit(
-    @DefaultHttpClient client: OkHttpClient,
-    apiResultCallAdapterFactory: ApiResultCallAdapterFactory
+      @DefaultHttpClient client: OkHttpClient,
+      apiResultCallAdapterFactory: ApiResultCallAdapterFactory
   ): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(brokerUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(apiResultCallAdapterFactory)
-      .build()
+        .baseUrl(brokerUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(apiResultCallAdapterFactory)
+        .build()
   }
 
   @Singleton
   @Provides
-  fun providesAdyenApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): AdyenApi {
+  fun providesAdyenApi(@BrokerDefaultRetrofit retrofit: Retrofit): AdyenApi {
     return retrofit.create(AdyenApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesAdyenSessionApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): AdyenSessionApi {
+  fun providesAdyenSessionApi(@BrokerDefaultRetrofit retrofit: Retrofit): AdyenSessionApi {
     return retrofit.create(AdyenSessionApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesPaypalApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): PaypalV2Api {
+  fun providesPaypalApi(@BrokerDefaultRetrofit retrofit: Retrofit): PaypalV2Api {
     return retrofit.create(PaypalV2Api::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesSandboxApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): SandboxApi {
+  fun providesSandboxApi(@BrokerDefaultRetrofit retrofit: Retrofit): SandboxApi {
     return retrofit.create(SandboxApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesVkPayApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): VkPayApi {
+  fun providesVkPayApi(@BrokerDefaultRetrofit retrofit: Retrofit): VkPayApi {
     return retrofit.create(VkPayApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesBrokerBdsApi(
-    @BrokerBlockchainRetrofit retrofit: Retrofit
-  ): BrokerBdsApi {
+  fun providesBrokerBdsApi(@BrokerBlockchainRetrofit retrofit: Retrofit): BrokerBdsApi {
     return retrofit.create(BrokerBdsApi::class.java)
   }
 
   @Provides
   fun providesCarrierBillingApi1(
-    @DefaultHttpClient client: OkHttpClient,
-    @BrokerDefaultRetrofit retrofit: Retrofit,
-    rxSchedulers: RxSchedulers
+      @DefaultHttpClient client: OkHttpClient,
+      @BrokerDefaultRetrofit retrofit: Retrofit,
+      rxSchedulers: RxSchedulers
   ): CarrierBillingApi {
-    val gson = GsonBuilder().registerTypeAdapter(
-      CarrierErrorResponse::class.java,
-      CarrierErrorResponseTypeAdapter()
-    ).create()
+    val gson =
+        GsonBuilder()
+            .registerTypeAdapter(
+                CarrierErrorResponse::class.java, CarrierErrorResponseTypeAdapter())
+            .create()
     return Retrofit.Builder()
-      .baseUrl(brokerUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create(gson))
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(rxSchedulers.io))
-      .build()
-      .create(CarrierBillingApi::class.java)
+        .baseUrl(brokerUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(rxSchedulers.io))
+        .build()
+        .create(CarrierBillingApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesFiatCurrenciesApi(
-    @BrokerDefaultResultRetrofit retrofit: Retrofit
+      @BrokerDefaultResultRetrofit retrofit: Retrofit
   ): FiatCurrenciesApi {
     return retrofit.create(FiatCurrenciesApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesTokenToLocalFiatApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): TokenToLocalFiatApi {
+  fun providesTokenToLocalFiatApi(@BrokerDefaultRetrofit retrofit: Retrofit): TokenToLocalFiatApi {
     return retrofit.create(TokenToLocalFiatApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun provideWalletValidationApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): BrokerVerificationApi {
+  fun provideWalletValidationApi(@BrokerDefaultRetrofit retrofit: Retrofit): BrokerVerificationApi {
     return retrofit.create(BrokerVerificationApi::class.java)
   }
 
   @Singleton
   @Provides
-  fun providesBackupEmailApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): BackupEmailApi {
+  fun providesBackupEmailApi(@BrokerDefaultRetrofit retrofit: Retrofit): BackupEmailApi {
     return retrofit.create(BackupEmailApi::class.java)
   }
 }

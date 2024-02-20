@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup.localpayments
 
 import androidx.fragment.app.Fragment
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
@@ -12,7 +13,6 @@ import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Com
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_ID
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_LABEL
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,30 +27,38 @@ class LocalTopUpPaymentModule {
 
   @Provides
   fun providesLocalTopUpPaymentPresenter(
-    fragment: Fragment,
-    data: LocalTopUpPaymentData,
-    interactor: LocalPaymentInteractor,
-    topUpAnalytics: TopUpAnalytics,
-    navigator: TopUpNavigator,
-    currencyFormatUtils: CurrencyFormatUtils,
-    logger: Logger
+      fragment: Fragment,
+      data: LocalTopUpPaymentData,
+      interactor: LocalPaymentInteractor,
+      topUpAnalytics: TopUpAnalytics,
+      navigator: TopUpNavigator,
+      currencyFormatUtils: CurrencyFormatUtils,
+      logger: Logger
   ): LocalTopUpPaymentPresenter {
     return LocalTopUpPaymentPresenter(
-      fragment as LocalTopUpPaymentView, fragment.context,
-      interactor, topUpAnalytics, navigator, currencyFormatUtils, AndroidSchedulers.mainThread(),
-      Schedulers.io(), CompositeDisposable(), data, logger
-    )
+        fragment as LocalTopUpPaymentView,
+        fragment.context,
+        interactor,
+        topUpAnalytics,
+        navigator,
+        currencyFormatUtils,
+        AndroidSchedulers.mainThread(),
+        Schedulers.io(),
+        CompositeDisposable(),
+        data,
+        logger)
   }
 
   @Provides
   fun providesLocalTopUpPaymentData(fragment: Fragment): LocalTopUpPaymentData {
-    fragment.requireArguments()
-      .apply {
-        return LocalTopUpPaymentData(
-          getString(PAYMENT_ID)!!, getString(PAYMENT_ICON)!!,
-          getString(PAYMENT_LABEL)!!, getBoolean(ASYNC), getString(PACKAGE_NAME)!!,
-          getSerializable(PAYMENT_DATA) as TopUpPaymentData
-        )
-      }
+    fragment.requireArguments().apply {
+      return LocalTopUpPaymentData(
+          getString(PAYMENT_ID)!!,
+          getString(PAYMENT_ICON)!!,
+          getString(PAYMENT_LABEL)!!,
+          getBoolean(ASYNC),
+          getString(PACKAGE_NAME)!!,
+          getSerializable(PAYMENT_DATA) as TopUpPaymentData)
+    }
   }
 }

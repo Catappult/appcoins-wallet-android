@@ -8,16 +8,22 @@ interface LevelItem {
   val level: Int
 }
 
-data class ReachedLevelItem(override val amount: BigDecimal,
-                            override val bonus: Double,
-                            override val level: Int) : LevelItem
+data class ReachedLevelItem(
+    override val amount: BigDecimal,
+    override val bonus: Double,
+    override val level: Int
+) : LevelItem
 
-data class CurrentLevelItem(override val amount: BigDecimal,
-                            override val bonus: Double,
-                            override val level: Int,
-                            val amountSpent: BigDecimal,
-                            val nextLevelAmount: BigDecimal?) : LevelItem
+data class CurrentLevelItem(
+    override val amount: BigDecimal,
+    override val bonus: Double,
+    override val level: Int,
+    val amountSpent: BigDecimal,
+    val nextLevelAmount: BigDecimal?
+) : LevelItem
 
-data class UnreachedLevelItem(override val amount: BigDecimal,
-                              override val bonus: Double,
-                              override val level: Int) : LevelItem
+data class UnreachedLevelItem(
+    override val amount: BigDecimal,
+    override val bonus: Double,
+    override val level: Int
+) : LevelItem

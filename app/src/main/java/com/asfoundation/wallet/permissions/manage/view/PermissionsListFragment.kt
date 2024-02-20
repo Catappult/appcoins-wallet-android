@@ -32,8 +32,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
     }
   }
 
-  @Inject
-  lateinit var permissionsInteractor: PermissionsInteractor
+  @Inject lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var presenter: PermissionsListPresenter
   private lateinit var adapter: PermissionsListAdapter
   private lateinit var appInfoProvider: ApplicationInfoProvider
@@ -45,8 +44,12 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        PermissionsListPresenter(this, permissionsInteractor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), CompositeDisposable())
+        PermissionsListPresenter(
+            this,
+            permissionsInteractor,
+            AndroidSchedulers.mainThread(),
+            Schedulers.io(),
+            CompositeDisposable())
     permissionClick = BehaviorRelay.create()
     adapter = PermissionsListAdapter(mutableListOf(), permissionClick)
     appInfoProvider = ApplicationInfoProvider(requireContext())
@@ -54,8 +57,8 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
 
   override fun getPermissionClick(): Observable<PermissionsListView.ApplicationPermissionToggle> {
     return permissionClick.map {
-      PermissionsListView.ApplicationPermissionToggle(it.packageName, it.hasPermission,
-          it.apkSignature)
+      PermissionsListView.ApplicationPermissionToggle(
+          it.packageName, it.hasPermission, it.apkSignature)
     }
   }
 
@@ -63,8 +66,9 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
     super.onAttach(context)
     when (context) {
       is ToolbarManager -> toolbarManager = context
-      else -> throw IllegalArgumentException(
-          "${PermissionsListFragment::class} has to be attached to an activity that implements ${ToolbarManager::class}")
+      else ->
+          throw IllegalArgumentException(
+              "${PermissionsListFragment::class} has to be attached to an activity that implements ${ToolbarManager::class}")
     }
   }
 
@@ -91,13 +95,20 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   private fun map(permissions: List<ApplicationPermission>): List<ApplicationPermissionViewData> {
     return permissions.map {
       val appInfo = appInfoProvider.getAppInfo(it.packageName)
-      ApplicationPermissionViewData(it.packageName, appInfo.appName,
-          it.permissions.contains(PermissionName.WALLET_ADDRESS), appInfo.icon, it.apkSignature)
+      ApplicationPermissionViewData(
+          it.packageName,
+          appInfo.appName,
+          it.permissions.contains(PermissionName.WALLET_ADDRESS),
+          appInfo.icon,
+          it.apkSignature)
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentPermissionsListLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentPermissionsListLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -111,5 +122,4 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
     presenter.stop()
     super.onDestroyView()
   }
-
 }

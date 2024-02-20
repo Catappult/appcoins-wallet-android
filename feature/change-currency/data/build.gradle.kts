@@ -1,10 +1,6 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.feature.changecurrency.data"
-}
+android { namespace = "com.appcoins.wallet.feature.changecurrency.data" }
 
 dependencies {
   implementation(project(":core:arch"))

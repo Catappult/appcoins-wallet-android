@@ -17,21 +17,21 @@
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="@id/onboarding_existent_wallet_button"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@id/onboarding_existent_wallet_button"
       app:layout_constraintStart_toEndOf="@id/onboarding_existent_wallet_button"
+      app:layout_constraintTop_toTopOf="@id/onboarding_existent_wallet_button"
       />
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/onboarding_existent_wallet_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
-      android:layout_marginBottom="@dimen/half_large_margin"
       android:layout_marginEnd="@dimen/normal_margin"
+      android:layout_marginBottom="@dimen/half_large_margin"
       app:buttonColor="@color/styleguide_white"
       app:buttonText="@string/existent_wallet"
       app:buttonType="outlined"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/onboarding_next_button"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

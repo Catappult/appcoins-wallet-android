@@ -7,18 +7,18 @@ import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CheckAndCancelVipPollingUseCase @Inject constructor(
-  private val getVipReferralUseCase: GetVipReferralUseCase,
-  private val workManager: WorkManager
+class CheckAndCancelVipPollingUseCase
+@Inject
+constructor(
+    private val getVipReferralUseCase: GetVipReferralUseCase,
+    private val workManager: WorkManager
 ) {
 
   operator fun invoke(wallet: Wallet): Single<VipReferralResponse> {
-    return getVipReferralUseCase(wallet)
-      .doOnSuccess {
-        if (it.active) {
-          workManager.cancelUniqueWork(GetVipReferralWorker.getUniqueName(wallet))
-        }
+    return getVipReferralUseCase(wallet).doOnSuccess {
+      if (it.active) {
+        workManager.cancelUniqueWork(GetVipReferralWorker.getUniqueName(wallet))
       }
+    }
   }
-
 }

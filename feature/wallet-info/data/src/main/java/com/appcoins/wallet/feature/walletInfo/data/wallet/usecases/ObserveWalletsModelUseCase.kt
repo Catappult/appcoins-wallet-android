@@ -6,11 +6,10 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ObserveWalletsModelUseCase @Inject constructor(
-    private val walletsInteract: WalletsInteract,
-    private val rxSchedulers: RxSchedulers
-) {
+class ObserveWalletsModelUseCase
+@Inject
+constructor(private val walletsInteract: WalletsInteract, private val rxSchedulers: RxSchedulers) {
 
-  operator fun invoke(): Observable<WalletsModel> = walletsInteract.observeWalletsModel()
-    .subscribeOn(rxSchedulers.io)
+  operator fun invoke(): Observable<WalletsModel> =
+      walletsInteract.observeWalletsModel().subscribeOn(rxSchedulers.io)
 }

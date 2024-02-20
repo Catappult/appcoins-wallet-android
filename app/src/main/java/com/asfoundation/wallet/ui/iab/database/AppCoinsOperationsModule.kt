@@ -15,9 +15,12 @@ class AppCoinsOperationsModule {
 
   @Singleton
   @Provides
-  fun provideAppCoinsOperationDatabase(@ApplicationContext context: Context): AppCoinsOperationDatabase {
-    return Room.databaseBuilder(context, AppCoinsOperationDatabase::class.java, "appcoins_operations_database")
-      .build()
+  fun provideAppCoinsOperationDatabase(
+      @ApplicationContext context: Context
+  ): AppCoinsOperationDatabase {
+    return Room.databaseBuilder(
+            context, AppCoinsOperationDatabase::class.java, "appcoins_operations_database")
+        .build()
   }
 
   @Singleton

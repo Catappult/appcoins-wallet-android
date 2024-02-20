@@ -15,47 +15,37 @@ import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.success.RecoveryWalletSuccessBottomSheetFragment
 import javax.inject.Inject
 
-class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
-  Navigator {
+class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Navigator {
 
-  fun launchFileIntent(
-    storageIntentLauncher: ActivityResultLauncher<Intent>,
-    path: Uri?
-  ) {
-    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-      type = "*/*"
-      path?.let {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) putExtra(
-          DocumentsContract.EXTRA_INITIAL_URI, it
-        )
-      }
-    }
+  fun launchFileIntent(storageIntentLauncher: ActivityResultLauncher<Intent>, path: Uri?) {
+    val intent =
+        Intent(Intent.ACTION_GET_CONTENT).apply {
+          type = "*/*"
+          path?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                putExtra(DocumentsContract.EXTRA_INITIAL_URI, it)
+          }
+        }
     return try {
       storageIntentLauncher.launch(intent)
-    } catch (e: ActivityNotFoundException) {
-    }
+    } catch (e: ActivityNotFoundException) {}
   }
 
   fun navigateToRecoverPasswordFragment(
-    keystore: WalletKeyStore,
-    walletBalance: String,
-    walletAddress: String,
-    walletName: String?,
-    isFromOnboarding: Boolean
+      keystore: WalletKeyStore,
+      walletBalance: String,
+      walletAddress: String,
+      walletName: String?,
+      isFromOnboarding: Boolean
   ) {
     navigate(
-      fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateToRecoverPassword(
-        keystore,
-        walletBalance,
-        walletAddress, walletName ?: walletAddress, isFromOnboarding
-      )
-    )
+        fragment.findNavController(),
+        RecoverEntryFragmentDirections.actionNavigateToRecoverPassword(
+            keystore, walletBalance, walletAddress, walletName ?: walletAddress, isFromOnboarding))
   }
 
-
   fun navigateBack() {
-      fragment.requireActivity().finish()
+    fragment.requireActivity().finish()
   }
 
   fun navigateToSuccess(isFromOnboarding: Boolean) {
@@ -66,10 +56,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
 
   fun navigateToNavBarGraph(navController: NavController) {
     with(navController) {
-      navigate(
-        this,
-        RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
-      )
+      navigate(this, RecoverEntryFragmentDirections.actionNavigateToNavBarFragment())
     }
   }
 }

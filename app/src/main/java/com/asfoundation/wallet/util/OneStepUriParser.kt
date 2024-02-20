@@ -27,8 +27,9 @@ class Parameters {
 }
 
 fun Uri.isOneStepURLString() =
-  scheme == Parameters.SCHEME && (host == BACKEND_HOST_NAME_DEV || host == BACKEND_HOST_NAME_PROD)
-      && (path?.startsWith(Parameters.PATH) ?: false)
+    scheme == Parameters.SCHEME &&
+        (host == BACKEND_HOST_NAME_DEV || host == BACKEND_HOST_NAME_PROD) &&
+        (path?.startsWith(Parameters.PATH) ?: false)
 
 fun parseOneStep(uri: Uri): OneStepUri {
   val scheme = uri.scheme
@@ -37,10 +38,7 @@ fun parseOneStep(uri: Uri): OneStepUri {
   val parameters = mutableMapOf<String, String>()
   parameters.apply {
     for (key in uri.queryParameterNames) {
-      uri.getQueryParameter(key)
-        ?.let { parameter ->
-          this[key] = parameter
-        }
+      uri.getQueryParameter(key)?.let { parameter -> this[key] = parameter }
     }
   }
   return OneStepUri(scheme ?: "", host ?: "", path ?: "", parameters)

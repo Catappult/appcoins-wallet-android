@@ -10,15 +10,14 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
-import java.util.*
-
+import java.util.Date
 
 class WalletSelectionAdapter(
-  private val context: Context,
-  private var items: ArrayList<HashMap<String, String>>,
-  @LayoutRes layout: Int,
-  from: Array<String>,
-  @IdRes to: IntArray,
+    private val context: Context,
+    private var items: ArrayList<HashMap<String, String>>,
+    @LayoutRes layout: Int,
+    from: Array<String>,
+    @IdRes to: IntArray,
 ) : SimpleAdapter(context, items, layout, from, to) {
 
   override fun getCount(): Int = items.size
@@ -34,21 +33,20 @@ class WalletSelectionAdapter(
 
     val dateLong = getItem(position)["wallet_backup_date"]!!.toLong()
 
-    views.findViewById<TextView>(R.id.wallet_selection_name)?.text = getItem(position)["wallet_name"]
-    views.findViewById<TextView>(R.id.wallet_selection_balance)?.text = getItem(position)["wallet_balance"]
+    views.findViewById<TextView>(R.id.wallet_selection_name)?.text =
+        getItem(position)["wallet_name"]
+    views.findViewById<TextView>(R.id.wallet_selection_balance)?.text =
+        getItem(position)["wallet_balance"]
 
     views.findViewById<TextView>(R.id.wallet_selection_backup_date)?.let {
-      it.text = if (dateLong > 0) {
-        context.getString(
-          R.string.update_backup_date,
-          DateFormat.format("dd/MM/yyyy", Date(dateLong))
-        )
-      } else context.getString(R.string.update_backup_never)
+      it.text =
+          if (dateLong > 0) {
+            context.getString(
+                R.string.update_backup_date, DateFormat.format("dd/MM/yyyy", Date(dateLong)))
+          } else context.getString(R.string.update_backup_never)
 
       if (dateLong == 0L) {
-        it.setTextColor(
-          ContextCompat.getColor(context, R.color.styleguide_pink)
-        )
+        it.setTextColor(ContextCompat.getColor(context, R.color.styleguide_pink))
       }
     }
 

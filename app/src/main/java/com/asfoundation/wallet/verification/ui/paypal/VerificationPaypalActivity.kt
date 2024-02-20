@@ -17,18 +17,19 @@ class VerificationPaypalActivity : BaseActivity() {
     toolbar()
 
     if (savedInstanceState == null) {
-      supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container,
-              VerificationPaypalFragment.newInstance())
+      supportFragmentManager
+          .beginTransaction()
+          .replace(R.id.fragment_container, VerificationPaypalFragment.newInstance())
           .commit()
     }
   }
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar(): Toolbar? {
+  fun toolbar(): Toolbar? {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

@@ -8,15 +8,15 @@ import javax.inject.Inject
 class SendBackupToEmailUseCase
 @Inject
 constructor(
-  private val createBackupUseCase: CreateBackupUseCase,
-  private val backupRepository: BackupRepository,
-  private val schedulers: RxSchedulers
+    private val createBackupUseCase: CreateBackupUseCase,
+    private val backupRepository: BackupRepository,
+    private val schedulers: RxSchedulers
 ) {
   operator fun invoke(walletAddress: String, password: String, email: String): Completable {
     return createBackupUseCase(walletAddress, password)
-      .observeOn(schedulers.io)
-      .flatMapCompletable { backupData ->
-        backupRepository.sendBackupEmail(walletAddress, backupData, email)
-      }
+        .observeOn(schedulers.io)
+        .flatMapCompletable { backupData ->
+          backupRepository.sendBackupEmail(walletAddress, backupData, email)
+        }
   }
 }

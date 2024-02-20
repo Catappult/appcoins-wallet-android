@@ -6,17 +6,16 @@ import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AutoUpdateService @Inject constructor(
-  private val api: AutoUpdateApi,
-  private val rxSchedulers: RxSchedulers
-) {
+class AutoUpdateService
+@Inject
+constructor(private val api: AutoUpdateApi, private val rxSchedulers: RxSchedulers) {
 
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {
     return api.getAutoUpdateInfo()
-      .subscribeOn(rxSchedulers.io)
-      .map {
-        AutoUpdateModel(it.latestVersion.versionCode, it.latestVersion.minSdk, it.blackList)
-      }
-      .onErrorReturn { AutoUpdateModel() }
+        .subscribeOn(rxSchedulers.io)
+        .map {
+          AutoUpdateModel(it.latestVersion.versionCode, it.latestVersion.minSdk, it.blackList)
+        }
+        .onErrorReturn { AutoUpdateModel() }
   }
 }

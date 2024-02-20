@@ -32,7 +32,9 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   }
 
   enum class TokenDetailsId {
-    ETHER, APPC, APPC_CREDITS
+    ETHER,
+    APPC,
+    APPC_CREDITS
   }
 
   companion object {
@@ -52,9 +54,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
     setContentView(R.layout.activity_token_details)
     presenter = TokenDetailsPresenter(this, CompositeDisposable())
-    savedInstanceState?.let {
-      contentVisible = it.getBoolean(PARAM_ENTERING)
-    }
+    savedInstanceState?.let { contentVisible = it.getBoolean(PARAM_ENTERING) }
     presenter.present()
   }
 
@@ -101,39 +101,35 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
 
   override fun setupUi() {
     intent.extras?.let {
-      if (it.containsKey(
-              KEY_CONTENT)) {
+      if (it.containsKey(KEY_CONTENT)) {
         token = it.getSerializable(KEY_CONTENT) as TokenDetailsId
         setContent(token)
       }
     }
 
     val sharedElementEnterTransition = window.sharedElementEnterTransition
-    sharedElementEnterTransition.addListener(object : Transition.TransitionListener {
-      override fun onTransitionStart(transition: Transition) {
-      }
+    sharedElementEnterTransition.addListener(
+        object : Transition.TransitionListener {
+          override fun onTransitionStart(transition: Transition) {}
 
-      override fun onTransitionEnd(transition: Transition) {
-        if (!contentVisible) {
-          binding.tokenSymbol.visibility = View.VISIBLE
-          binding.tokenDescription.visibility = View.VISIBLE
-          binding.closeBtn.visibility = View.VISIBLE
-          if (token == TokenDetailsId.APPC_CREDITS) {
-            binding.topupBtn.visibility = View.VISIBLE
+          override fun onTransitionEnd(transition: Transition) {
+            if (!contentVisible) {
+              binding.tokenSymbol.visibility = View.VISIBLE
+              binding.tokenDescription.visibility = View.VISIBLE
+              binding.closeBtn.visibility = View.VISIBLE
+              if (token == TokenDetailsId.APPC_CREDITS) {
+                binding.topupBtn.visibility = View.VISIBLE
+              }
+              contentVisible = true
+            }
           }
-          contentVisible = true
-        }
-      }
 
-      override fun onTransitionCancel(transition: Transition) {
-      }
+          override fun onTransitionCancel(transition: Transition) {}
 
-      override fun onTransitionPause(transition: Transition) {
-      }
+          override fun onTransitionPause(transition: Transition) {}
 
-      override fun onTransitionResume(transition: Transition) {
-      }
-    })
+          override fun onTransitionResume(transition: Transition) {}
+        })
 
     if (contentVisible) {
       binding.tokenSymbol.visibility = View.VISIBLE

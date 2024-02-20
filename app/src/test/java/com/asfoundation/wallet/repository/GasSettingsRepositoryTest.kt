@@ -5,20 +5,19 @@ import com.appcoins.wallet.core.network.backend.model.GasPrice
 import com.asfoundation.wallet.entity.GasSettings
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import java.math.BigDecimal
+import java.math.BigInteger
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
-import java.math.BigDecimal
-import java.math.BigInteger
 
 @RunWith(MockitoJUnitRunner::class)
 class GasSettingsRepositoryTest {
 
-  @Mock
-  lateinit var gasServiceApi: GasServiceApi
+  @Mock lateinit var gasServiceApi: GasServiceApi
 
   private lateinit var gasSettingsRepository: GasSettingsRepository
   private lateinit var gasPriceInteger: BigInteger
@@ -33,8 +32,10 @@ class GasSettingsRepositoryTest {
     gasPriceBigDecimal = BigDecimal(gasPriceInteger)
     gasPrice = GasPrice(gasPriceInteger)
 
-    gasSettings = GasSettings(BigDecimal(BigInteger(GAS_PRICE)),
-        BigDecimal(GasSettingsRepository.DEFAULT_GAS_LIMIT_FOR_TOKENS))
+    gasSettings =
+        GasSettings(
+            BigDecimal(BigInteger(GAS_PRICE)),
+            BigDecimal(GasSettingsRepository.DEFAULT_GAS_LIMIT_FOR_TOKENS))
   }
 
   @Test
@@ -43,8 +44,7 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(true)
-        .subscribe(observable)
+    gasSettingsRepository.getGasSettings(true).subscribe(observable)
 
     val expected = GasSettings(gasPriceBigDecimal, BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
 
@@ -62,8 +62,7 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(true)
-        .subscribe(observable)
+    gasSettingsRepository.getGasSettings(true).subscribe(observable)
 
     val expected =
         GasSettings(BigDecimal(DEFAULT_GAS_PRICE), BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
@@ -82,11 +81,10 @@ class GasSettingsRepositoryTest {
 
     val observable = TestObserver<GasSettings>()
 
-    gasSettingsRepository.getGasSettings(false)
-        .subscribe(observable)
+    gasSettingsRepository.getGasSettings(false).subscribe(observable)
 
-    val expected = GasSettings(gasPriceBigDecimal, BigDecimal(
-        GasSettingsRepository.DEFAULT_GAS_LIMIT))
+    val expected =
+        GasSettings(gasPriceBigDecimal, BigDecimal(GasSettingsRepository.DEFAULT_GAS_LIMIT))
 
     observable
         .assertNoErrors()
@@ -102,5 +100,4 @@ class GasSettingsRepositoryTest {
     const val DEFAULT_GAS_PRICE = "30000000000"
     const val DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000"
   }
-
 }

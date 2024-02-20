@@ -15,19 +15,20 @@ import javax.inject.Inject
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
   data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
+
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
 data class BackupSaveOptionsState(var saveOptionAsync: Async<BackupResult> = Async.Uninitialized) :
-  ViewState
+    ViewState
 
 @HiltViewModel
 class BackupSaveOptionsViewModel
 @Inject
 constructor(
-  private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
-  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
-  private val logger: Logger,
+    private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
+    private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
+    private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(initialState()) {
 
   lateinit var walletAddress: String
@@ -44,12 +45,12 @@ constructor(
 
   fun sendBackupToEmail(text: String) {
     sendBackupToEmailUseCase(walletAddress, password, text)
-      .andThen(backupSuccessLogUseCase(walletAddress))
-      .doOnComplete {
-        sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
-      }
-      .doOnError { showError(it) }
-      .subscribe()
+        .andThen(backupSuccessLogUseCase(walletAddress))
+        .doOnComplete {
+          sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(walletAddress) }
+        }
+        .doOnError { showError(it) }
+        .subscribe()
   }
 
   private fun showError(throwable: Throwable) {

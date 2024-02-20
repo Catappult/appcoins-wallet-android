@@ -10,6 +10,7 @@ object Gherkin {
       require(busy.not()) { "Gherkin is busy" }
       field = value
     }
+
   internal var busy = false
 }
 
@@ -31,9 +32,7 @@ fun coScenario(test: suspend Gherkin.(scope: TestScope) -> Unit) {
   try {
     Gherkin.m = Step()
     Gherkin.busy = true
-    runTest {
-      Gherkin.test(this)
-    }
+    runTest { Gherkin.test(this) }
     Gherkin.m.test()
   } finally {
     Gherkin.busy = false
@@ -90,4 +89,3 @@ class Step {
     require(calls.contains(2)) { "'Then' is missing" }
   }
 }
-

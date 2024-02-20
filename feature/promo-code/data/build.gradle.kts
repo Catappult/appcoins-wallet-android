@@ -1,13 +1,11 @@
-plugins{
+plugins {
   id("appcoins.android.library")
   id("appcoins.room")
 }
 
-android{
-  namespace = "com.appcoins.wallet.feature.promocode.data"
-}
+android { namespace = "com.appcoins.wallet.feature.promocode.data" }
 
-dependencies{
+dependencies {
   implementation(project(":core:network:backend"))
   implementation(project(":core:analytics"))
   implementation(project(":core:utils:android-common"))

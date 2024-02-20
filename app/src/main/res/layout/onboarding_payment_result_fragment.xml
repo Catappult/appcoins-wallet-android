@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_payment_result_fragment"
-    android:background="@drawable/background_card_blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -55,10 +55,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/generic_error_button"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/generic_error_button"
           tools:visibility="visible"
           />
 
@@ -69,12 +69,12 @@
           android:layout_gravity="center_vertical"
           android:layout_marginHorizontal="24dp"
           android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
           app:buttonColor="@color/styleguide_pink"
           app:buttonText="@string/try_again"
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
           tools:visibility="visible"
           />
@@ -85,11 +85,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
-          tools:visibility="visible"
+          app:layout_constraintBottom_toTopOf="@id/onboarding_success_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/onboarding_success_buttons"
+          tools:visibility="visible"
           />
 
       <include
@@ -98,10 +98,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
-          tools:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
+          tools:visibility="visible"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>

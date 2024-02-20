@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item
-      android:gravity="bottom">
+  <item android:gravity="bottom">
     <shape android:shape="rectangle">
       <solid android:color="@color/styleguide_white" />
       <size
@@ -11,9 +10,9 @@
   </item>
   <item
       android:gravity="bottom|center_horizontal"
-      android:top="-100dp"
       android:left="-60dp"
-      android:right="-60dp">
+      android:right="-60dp"
+      android:top="-100dp">
     <shape android:shape="oval">
 
       <solid android:color="@color/styleguide_blue" />

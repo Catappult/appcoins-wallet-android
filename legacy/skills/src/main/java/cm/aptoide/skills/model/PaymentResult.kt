@@ -6,6 +6,8 @@ object SuccessfulPayment : PaymentResult()
 
 sealed class FailedPayment : PaymentResult() {
   data class GenericError(val errorMessage: String?) : FailedPayment()
+
   data class FraudError(val errorMessage: String?) : FailedPayment()
+
   object NoNetworkError : FailedPayment()
 }

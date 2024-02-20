@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
+import com.asf.wallet.R
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -24,24 +24,23 @@ import javax.inject.Inject
  * Container activity for main screen with bottom navigation (Home, Promotions, My Wallets, Top up)
  */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
-  SingleStateFragment<MainActivityState, MainActivitySideEffect> {
+class MainActivity :
+    AppCompatActivity(), SingleStateFragment<MainActivityState, MainActivitySideEffect> {
 
-  @Inject
-  lateinit var navigator: MainActivityNavigator
+  @Inject lateinit var navigator: MainActivityNavigator
   lateinit var navController: NavController
 
-  @Inject
-  lateinit var networkMonitor: NetworkMonitor
+  @Inject lateinit var networkMonitor: NetworkMonitor
 
   private val viewModel: MainActivityViewModel by viewModels()
 
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
 
   /**
-  To avoid having to set the theme back to the main app one, we should use the new splash screen api.
-  https://developer.android.com/guide/topics/ui/splash-screen
-  We set the postSplashScreenTheme and this allows to delay the splash based on a condition if needed in the options inside installSplashScreen()
+   * To avoid having to set the theme back to the main app one, we should use the new splash screen
+   * api. https://developer.android.com/guide/topics/ui/splash-screen We set the
+   * postSplashScreenTheme and this allows to delay the splash based on a condition if needed in the
+   * options inside installSplashScreen()
    */
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.MaterialAppTheme)
@@ -55,27 +54,24 @@ class MainActivity : AppCompatActivity(),
   }
 
   private fun initNavController() {
-    val navHostFragment = supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+        supportFragmentManager.findFragmentById(R.id.main_host_container) as NavHostFragment
     navController = navHostFragment.navController
   }
 
   private fun handleSplashScreenResult() {
-    RxBus.listen(SplashFinishEvent().javaClass).subscribe {
-      viewModel.handleInitialNavigation()
-    }
+    RxBus.listen(SplashFinishEvent().javaClass).subscribe { viewModel.handleInitialNavigation() }
   }
 
   private fun handleAuthenticationResult() {
     authenticationResultLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
-          viewModel.handleInitialNavigation(authComplete = true)
-        } else {
-          finish()
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+          if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
+            viewModel.handleInitialNavigation(authComplete = true)
+          } else {
+            finish()
+          }
         }
-      }
   }
 
   override fun onStateChanged(state: MainActivityState) = Unit
@@ -84,18 +80,12 @@ class MainActivity : AppCompatActivity(),
     when (sideEffect) {
       MainActivitySideEffect.NavigateToAutoUpdate -> navigator.navigateToAutoUpdate(navController)
       MainActivitySideEffect.NavigateToFingerprintAuthentication ->
-        navigator.showAuthenticationActivity(this, authenticationResultLauncher)
-      MainActivitySideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(
-        navController
-      )
+          navigator.showAuthenticationActivity(this, authenticationResultLauncher)
+      MainActivitySideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(navController)
       is MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet ->
-        navigator.navigateToOnboardingRecoverGuestWallet(
-          navController,
-          sideEffect.backup
-        )
-      MainActivitySideEffect.NavigateToNavigationBar -> navigator.navigateToNavBarFragment(
-        navController
-      )
+          navigator.navigateToOnboardingRecoverGuestWallet(navController, sideEffect.backup)
+      MainActivitySideEffect.NavigateToNavigationBar ->
+          navigator.navigateToNavBarFragment(navController)
     }
   }
 

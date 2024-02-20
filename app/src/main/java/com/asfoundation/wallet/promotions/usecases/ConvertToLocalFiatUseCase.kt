@@ -7,22 +7,22 @@ import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurr
 import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceRepository
 import com.github.michaelbull.result.get
 import io.reactivex.Single
-import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
+import kotlinx.coroutines.rx2.rxSingle
 
-class ConvertToLocalFiatUseCase @Inject constructor(
-        private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-        private val localCurrencyConversionService: LocalCurrencyConversionService,
-        private val dispatchers: Dispatchers
+class ConvertToLocalFiatUseCase
+@Inject
+constructor(
+    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+    private val localCurrencyConversionService: LocalCurrencyConversionService,
+    private val dispatchers: Dispatchers
 ) {
 
   operator fun invoke(valueToConvert: String, originalCurrency: String): Single<FiatValue> {
     return rxSingle(dispatchers.io) { getSelectedCurrencyUseCase(bypass = false) }
-      .flatMap { targetCurrency ->
-        localCurrencyConversionService.getValueToFiat(
-          valueToConvert, originalCurrency,
-          targetCurrency.get(), BalanceRepository.FIAT_SCALE
-        )
-      }
+        .flatMap { targetCurrency ->
+          localCurrencyConversionService.getValueToFiat(
+              valueToConvert, originalCurrency, targetCurrency.get(), BalanceRepository.FIAT_SCALE)
+        }
   }
 }

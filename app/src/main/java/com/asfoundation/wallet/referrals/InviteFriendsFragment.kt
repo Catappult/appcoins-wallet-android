@@ -23,8 +23,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView {
 
-  @Inject
-  lateinit var referralInteractor: ReferralInteractorContract
+  @Inject lateinit var referralInteractor: ReferralInteractorContract
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private var activity: InviteFriendsActivityView? = null
@@ -40,47 +39,61 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is InviteFriendsActivityView) { InviteFriendsFragment::class.java.simpleName + " needs to be attached to a " + InviteFriendsActivity::class.java.simpleName }
+    require(context is InviteFriendsActivityView) {
+      InviteFriendsFragment::class.java.simpleName +
+          " needs to be attached to a " +
+          InviteFriendsActivity::class.java.simpleName
+    }
     activity = context
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    referralsBottomSheet =
-        BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
+    referralsBottomSheet = BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
     animateBackgroundFade()
     setTextValues()
     presenter.present()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    childFragmentManager.beginTransaction()
-        .replace(R.id.bottom_sheet_fragment_container,
-            ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
-                receivedAmount, maxAmount, available, isRedeemed))
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View? {
+    childFragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.bottom_sheet_fragment_container,
+            ReferralsFragment.newInstance(
+                amount,
+                pendingAmount,
+                currency,
+                completedInvites,
+                receivedAmount,
+                maxAmount,
+                available,
+                isRedeemed))
         .commit()
     return InviteFriendsFragmentLayoutBinding.inflate(inflater).root
   }
 
   private fun animateBackgroundFade() {
-    referralsBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-      override fun onStateChanged(bottomSheet: View, newState: Int) {
-      }
+    referralsBottomSheet.addBottomSheetCallback(
+        object : BottomSheetBehavior.BottomSheetCallback() {
+          override fun onStateChanged(bottomSheet: View, newState: Int) {}
 
-      override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        binding.backgroundFadeAnimation.progress = slideOffset
-      }
-    })
+          override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            binding.backgroundFadeAnimation.progress = slideOffset
+          }
+        })
   }
 
   private fun setTextValues() {
     binding.referralDescription.text =
-        getString(R.string.referral_view_verified_body,
-            currency + amount.scaleToString(2))
+        getString(R.string.referral_view_verified_body, currency + amount.scaleToString(2))
     binding.referralNotificationCard.notificationTitle.text =
-        getString(R.string.referral_notification_bonus_pending_title,
+        getString(
+            R.string.referral_notification_bonus_pending_title,
             currency + pendingAmount.scaleToString(2))
   }
 
@@ -88,17 +101,17 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
     return RxView.clicks(binding.shareInviteButton)
   }
 
-
   override fun showShare() {
     activity?.showShare(link)
   }
 
-  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
-                                    icon: Int?) {
+  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String, icon: Int?) {
     if (pendingAmount.toDouble() > 0) {
       icon?.let { binding.referralNotificationCard.notificationImage.setImageResource(icon) }
-      binding.referralNotificationCard.notificationTitle.text = getString(R.string.referral_notification_bonus_pending_title,
-          "$symbol${pendingAmount.scaleToString(2)}")
+      binding.referralNotificationCard.notificationTitle.text =
+          getString(
+              R.string.referral_notification_bonus_pending_title,
+              "$symbol${pendingAmount.scaleToString(2)}")
       binding.referralNotificationCard.root.visibility = VISIBLE
     } else {
       binding.referralNotificationCard.root.visibility = GONE
@@ -202,23 +215,30 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
     private const val CURRENCY = "currency"
     private const val IS_REDEEMED = "is_redeemed"
 
-    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
-                    completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                    available: Int, isRedeemed: Boolean): InviteFriendsFragment {
-      val bundle = Bundle().apply {
-        putSerializable(AMOUNT, amount)
-        putSerializable(PENDING_AMOUNT, pendingAmount)
-        putString(CURRENCY, currency)
-        putString(LINK, link)
-        putInt(COMPLETED_INVITES, completed)
-        putSerializable(RECEIVED_AMOUNT, receivedAmount)
-        putSerializable(MAX_AMOUNT, maxAmount)
-        putInt(AVAILABLE, available)
-        putBoolean(IS_REDEEMED, isRedeemed)
-      }
-      return InviteFriendsFragment().apply {
-        arguments = bundle
-      }
+    fun newInstance(
+        amount: BigDecimal,
+        pendingAmount: BigDecimal,
+        currency: String,
+        link: String?,
+        completed: Int,
+        receivedAmount: BigDecimal,
+        maxAmount: BigDecimal,
+        available: Int,
+        isRedeemed: Boolean
+    ): InviteFriendsFragment {
+      val bundle =
+          Bundle().apply {
+            putSerializable(AMOUNT, amount)
+            putSerializable(PENDING_AMOUNT, pendingAmount)
+            putString(CURRENCY, currency)
+            putString(LINK, link)
+            putInt(COMPLETED_INVITES, completed)
+            putSerializable(RECEIVED_AMOUNT, receivedAmount)
+            putSerializable(MAX_AMOUNT, maxAmount)
+            putInt(AVAILABLE, available)
+            putBoolean(IS_REDEEMED, isRedeemed)
+          }
+      return InviteFriendsFragment().apply { arguments = bundle }
     }
   }
 }

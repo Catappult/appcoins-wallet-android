@@ -5,10 +5,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import java.util.*
+import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
-
 
 class LiveEvent<T> : MediatorLiveData<T>() {
 
@@ -18,13 +17,12 @@ class LiveEvent<T> : MediatorLiveData<T>() {
   override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
     val wrapper = ObserverWrapper(observer as Observer<T>)
     val set = observers[owner]
-    set?.apply {
-      add(wrapper)
-    } ?: run {
-      val newSet = Collections.newSetFromMap(ConcurrentHashMap<ObserverWrapper<T>, Boolean>())
-      newSet.add(wrapper)
-      observers[owner] = newSet
-    }
+    set?.apply { add(wrapper) }
+        ?: run {
+          val newSet = Collections.newSetFromMap(ConcurrentHashMap<ObserverWrapper<T>, Boolean>())
+          newSet.add(wrapper)
+          observers[owner] = newSet
+        }
     super.observe(owner, wrapper)
   }
 
@@ -51,9 +49,7 @@ class LiveEvent<T> : MediatorLiveData<T>() {
     super.setValue(t)
   }
 
-  /**
-   * Used for cases where T is Void, to make calls cleaner.
-   */
+  /** Used for cases where T is Void, to make calls cleaner. */
   @MainThread
   fun call() {
     value = null
@@ -77,8 +73,6 @@ class LiveEvent<T> : MediatorLiveData<T>() {
 
 fun <T> LiveData<T>.toSingleEvent(): LiveData<T> {
   val result = LiveEvent<T>()
-  result.addSource(this) {
-    result.value = it
-  }
+  result.addSource(this) { result.value = it }
   return result
 }

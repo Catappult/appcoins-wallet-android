@@ -26,28 +26,18 @@ class AndroidLibraryPlugin : Plugin<Project> {
         configureAndroidAndKotlin(this)
         buildToolsVersion = Config.android.buildToolsVersion
         defaultConfig.targetSdk = Config.android.targetSdk
-        //workaround since only debug and release were being shown as a variant in the android modules
-        buildTypes{
-          register("staging") {
-            initWith(getByName("release"))
-          }
-        }
+        // workaround since only debug and release were being shown as a variant in the android
+        // modules
+        buildTypes { register("staging") { initWith(getByName("release")) } }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
         productFlavors {
-          create(Config.googlePlayDistribution) {
-            dimension = Config.distributionFlavorDimension
-          }
-          create(Config.aptoidePlayDistribution) {
-            dimension = Config.distributionFlavorDimension
-          }
+          create(Config.googlePlayDistribution) { dimension = Config.distributionFlavorDimension }
+          create(Config.aptoidePlayDistribution) { dimension = Config.distributionFlavorDimension }
         }
-
       }
 
-      dependencies {
-        add("implementation", libs["kotlin.stdlib"])
-      }
+      dependencies { add("implementation", libs["kotlin.stdlib"]) }
     }
   }
 }

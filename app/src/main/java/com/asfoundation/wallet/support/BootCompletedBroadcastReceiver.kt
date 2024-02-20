@@ -11,5 +11,4 @@ class BootCompletedBroadcastReceiver : BroadcastReceiver() {
       AlarmManagerBroadcastReceiver.scheduleAlarm(context)
     }
   }
-
 }

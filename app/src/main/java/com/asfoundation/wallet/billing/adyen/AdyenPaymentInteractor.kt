@@ -27,109 +27,118 @@ import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class AdyenPaymentInteractor @Inject constructor(
-  private val adyenPaymentRepository: AdyenPaymentRepository,
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private val billingMessagesMapper: BillingMessagesMapper,
-  private val partnerAddressService: AddressService,
-  private val walletService: WalletService,
-  private val supportInteractor: SupportInteractor,
-  private val walletBlockedInteract: WalletBlockedInteract,
-  private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val ewtObtainer: EwtAuthenticatorService,
-  private val rxSchedulers: RxSchedulers
+class AdyenPaymentInteractor
+@Inject
+constructor(
+    private val adyenPaymentRepository: AdyenPaymentRepository,
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val partnerAddressService: AddressService,
+    private val walletService: WalletService,
+    private val supportInteractor: SupportInteractor,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: WalletVerificationInteractor,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+    private val ewtObtainer: EwtAuthenticatorService,
+    private val rxSchedulers: RxSchedulers
 ) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-    walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
-      .onErrorReturn { true }
-
+      walletService
+          .getAndSignCurrentWalletAddress()
+          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+          .onErrorReturn { true }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)
   }
 
   fun loadPaymentInfo(
-    methods: AdyenPaymentRepository.Methods,
-    value: String,
-    currency: String
+      methods: AdyenPaymentRepository.Methods,
+      value: String,
+      currency: String
   ): Single<PaymentInfoModel> {
     return Single.zip(
-      walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
-      ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
-    ) { walletModel, ewt ->
-      Pair(walletModel, ewt)
-    }
-      .flatMap { pair ->
-        val wallet = pair.first
-        val ewt = pair.second
-        adyenPaymentRepository
-          .loadPaymentInfo(
-            methods,
-            value,
-            currency,
-            wallet,
-            ewt
-          )
-      }
+            walletService.getWalletAddress().subscribeOn(rxSchedulers.io),
+            ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)) { walletModel, ewt ->
+              Pair(walletModel, ewt)
+            }
+        .flatMap { pair ->
+          val wallet = pair.first
+          val ewt = pair.second
+          adyenPaymentRepository.loadPaymentInfo(methods, value, currency, wallet, ewt)
+        }
   }
 
   fun makePayment(
-    adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
-    supportedShopperInteraction: List<String>,
-    returnUrl: String, value: String, currency: String, reference: String?,
-    paymentType: String, origin: String?, packageName: String, metadata: String?,
-    sku: String?, callbackUrl: String?, transactionType: String,
-    referrerUrl: String?
+      adyenPaymentMethod: ModelObject,
+      shouldStoreMethod: Boolean,
+      hasCvc: Boolean,
+      supportedShopperInteraction: List<String>,
+      returnUrl: String,
+      value: String,
+      currency: String,
+      reference: String?,
+      paymentType: String,
+      origin: String?,
+      packageName: String,
+      metadata: String?,
+      sku: String?,
+      callbackUrl: String?,
+      transactionType: String,
+      referrerUrl: String?
   ): Single<PaymentModel> {
-    return Single.zip(walletService.getAndSignCurrentWalletAddress(),
-      partnerAddressService.getAttribution(packageName),
-      { address, attributionEntity -> Pair(address, attributionEntity) })
-      .flatMap { pair ->
-        val addressModel = pair.first
-        val attrEntity = pair.second
-        getCurrentPromoCodeUseCase().flatMap { promoCode ->
-          adyenPaymentRepository.makePayment(
-            adyenPaymentMethod = adyenPaymentMethod,
-            shouldStoreMethod = shouldStoreMethod,
-            hasCvc = hasCvc,
-            supportedShopperInteractions = supportedShopperInteraction,
-            returnUrl = returnUrl,
-            value = value,
-            currency = currency,
-            reference = reference,
-            paymentType = paymentType,
-            walletAddress = addressModel.address,
-            origin = origin,
-            packageName = packageName,
-            metadata = metadata,
-            sku = sku,
-            callbackUrl = callbackUrl,
-            transactionType = transactionType,
-            entityOemId = attrEntity.oemId,
-            entityDomain = attrEntity.domain,
-            entityPromoCode = promoCode.code,
-            userWallet = addressModel.address,
-            walletSignature = addressModel.signedAddress,
-            referrerUrl = referrerUrl
-          )
+    return Single.zip(
+            walletService.getAndSignCurrentWalletAddress(),
+            partnerAddressService.getAttribution(packageName),
+            { address, attributionEntity -> Pair(address, attributionEntity) })
+        .flatMap { pair ->
+          val addressModel = pair.first
+          val attrEntity = pair.second
+          getCurrentPromoCodeUseCase().flatMap { promoCode ->
+            adyenPaymentRepository.makePayment(
+                adyenPaymentMethod = adyenPaymentMethod,
+                shouldStoreMethod = shouldStoreMethod,
+                hasCvc = hasCvc,
+                supportedShopperInteractions = supportedShopperInteraction,
+                returnUrl = returnUrl,
+                value = value,
+                currency = currency,
+                reference = reference,
+                paymentType = paymentType,
+                walletAddress = addressModel.address,
+                origin = origin,
+                packageName = packageName,
+                metadata = metadata,
+                sku = sku,
+                callbackUrl = callbackUrl,
+                transactionType = transactionType,
+                entityOemId = attrEntity.oemId,
+                entityDomain = attrEntity.domain,
+                entityPromoCode = promoCode.code,
+                userWallet = addressModel.address,
+                walletSignature = addressModel.signedAddress,
+                referrerUrl = referrerUrl)
+          }
         }
-      }
   }
 
   fun makeTopUpPayment(
-    adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
-    supportedShopperInteraction: List<String>, returnUrl: String, value: String,
-    currency: String, paymentType: String, transactionType: String,
-    packageName: String
+      adyenPaymentMethod: ModelObject,
+      shouldStoreMethod: Boolean,
+      hasCvc: Boolean,
+      supportedShopperInteraction: List<String>,
+      returnUrl: String,
+      value: String,
+      currency: String,
+      paymentType: String,
+      transactionType: String,
+      packageName: String
   ): Single<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap {
-        adyenPaymentRepository.makePayment(
+    return walletService.getAndSignCurrentWalletAddress().flatMap {
+      adyenPaymentRepository.makePayment(
           adyenPaymentMethod = adyenPaymentMethod,
           shouldStoreMethod = shouldStoreMethod,
           hasCvc = hasCvc,
@@ -151,27 +160,18 @@ class AdyenPaymentInteractor @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           walletSignature = it.signedAddress,
-          referrerUrl = null
-        )
-      }
+          referrerUrl = null)
+    }
   }
 
-  fun submitRedirect(
-    uid: String, details: JsonObject,
-    paymentData: String?
-  ): Single<PaymentModel> {
-    return walletService.getWalletAddress()
-      .flatMap {
-        adyenPaymentRepository.submitRedirect(
-          uid, it, details,
-          paymentData
-        )
-      }
+  fun submitRedirect(uid: String, details: JsonObject, paymentData: String?): Single<PaymentModel> {
+    return walletService.getWalletAddress().flatMap {
+      adyenPaymentRepository.submitRedirect(uid, it, details, paymentData)
+    }
   }
 
   fun disablePayments(): Single<Boolean> {
-    return walletService.getWalletAddress()
-      .flatMap { adyenPaymentRepository.disablePayments(it) }
+    return walletService.getWalletAddress().flatMap { adyenPaymentRepository.disablePayments(it) }
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
@@ -183,14 +183,16 @@ class AdyenPaymentInteractor @Inject constructor(
   fun removePreSelectedPaymentMethod() = inAppPurchaseInteractor.removePreSelectedPaymentMethod()
 
   fun getCompletePurchaseBundle(
-    type: String, merchantName: String, sku: String?,
-    purchaseUid: String?, orderReference: String?, hash: String?,
-    scheduler: Scheduler
+      type: String,
+      merchantName: String,
+      sku: String?,
+      purchaseUid: String?,
+      orderReference: String?,
+      hash: String?,
+      scheduler: Scheduler
   ): Single<PurchaseBundleModel> {
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(
-      type, merchantName, sku, purchaseUid,
-      orderReference, hash, scheduler
-    )
+        type, merchantName, sku, purchaseUid, orderReference, hash, scheduler)
   }
 
   fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
@@ -198,39 +200,39 @@ class AdyenPaymentInteractor @Inject constructor(
   }
 
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .subscribeOn(rxSchedulers.io)
-      .flatMapObservable { walletAddressModel ->
-        Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
-          .timeInterval()
-          .switchMap {
-            adyenPaymentRepository.getTransaction(
-              uid, walletAddressModel.address,
-              walletAddressModel.signedAddress
-            )
-              .toObservable()
-          }
-          .filter { isEndingState(it.status) }
-          .distinctUntilChanged { transaction -> transaction.status }
-          .takeUntil { isEndingState(it.status) }
-      }
+    return walletService
+        .getAndSignCurrentWalletAddress()
+        .subscribeOn(rxSchedulers.io)
+        .flatMapObservable { walletAddressModel ->
+          Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
+              .timeInterval()
+              .switchMap {
+                adyenPaymentRepository
+                    .getTransaction(
+                        uid, walletAddressModel.address, walletAddressModel.signedAddress)
+                    .toObservable()
+              }
+              .filter { isEndingState(it.status) }
+              .distinctUntilChanged { transaction -> transaction.status }
+              .takeUntil { isEndingState(it.status) }
+        }
   }
 
   fun getFailedTransactionReason(uid: String, timesCalled: Int = 0): Single<PaymentModel> {
     return if (timesCalled < MAX_NUMBER_OF_TRIES) {
-      walletService.getAndSignCurrentWalletAddress()
-        .flatMap { walletAddressModel ->
-          Single.zip(adyenPaymentRepository.getTransaction(
-            uid, walletAddressModel.address,
-            walletAddressModel.signedAddress
-          ),
-            Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
-            BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
-        }
-        .flatMap {
-          if (it.errorCode != null) Single.just(it)
-          else getFailedTransactionReason(it.uid, timesCalled + 1)
-        }
+      walletService
+          .getAndSignCurrentWalletAddress()
+          .flatMap { walletAddressModel ->
+            Single.zip(
+                adyenPaymentRepository.getTransaction(
+                    uid, walletAddressModel.address, walletAddressModel.signedAddress),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
+                BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
+          }
+          .flatMap {
+            if (it.errorCode != null) Single.just(it)
+            else getFailedTransactionReason(it.uid, timesCalled + 1)
+          }
     } else {
       Single.just(PaymentModel(Error(true)))
     }
@@ -239,11 +241,11 @@ class AdyenPaymentInteractor @Inject constructor(
   fun getWalletAddress() = walletService.getWalletAddress()
 
   private fun isEndingState(status: PaymentModel.Status): Boolean {
-    return (status == PaymentModel.Status.COMPLETED
-        || status == PaymentModel.Status.FAILED
-        || status == PaymentModel.Status.CANCELED
-        || status == PaymentModel.Status.INVALID_TRANSACTION
-        || status == PaymentModel.Status.FRAUD)
+    return (status == PaymentModel.Status.COMPLETED ||
+        status == PaymentModel.Status.FAILED ||
+        status == PaymentModel.Status.CANCELED ||
+        status == PaymentModel.Status.INVALID_TRANSACTION ||
+        status == PaymentModel.Status.FRAUD)
   }
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {

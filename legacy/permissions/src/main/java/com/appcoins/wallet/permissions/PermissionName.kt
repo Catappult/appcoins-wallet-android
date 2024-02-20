@@ -1,5 +1,6 @@
 package com.appcoins.wallet.permissions
 
 enum class PermissionName {
-  WALLET_ADDRESS, LEVEL
+  WALLET_ADDRESS,
+  LEVEL
 }

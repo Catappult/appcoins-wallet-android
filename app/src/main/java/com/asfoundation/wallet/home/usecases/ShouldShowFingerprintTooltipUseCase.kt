@@ -3,16 +3,18 @@ package com.asfoundation.wallet.home.usecases
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
-class ShouldShowFingerprintTooltipUseCase @Inject constructor(
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
-  private val packageManager: PackageManager,
-  private val fingerprintPreferences: FingerprintPreferencesDataSource,
-  private val biometricManager: BiometricManager
+class ShouldShowFingerprintTooltipUseCase
+@Inject
+constructor(
+    private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+    private val packageManager: PackageManager,
+    private val fingerprintPreferences: FingerprintPreferencesDataSource,
+    private val biometricManager: BiometricManager
 ) {
 
   private companion object {
@@ -21,10 +23,11 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
 
   operator fun invoke(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!commonsPreferencesDataSource.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
-      && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-      commonsPreferencesDataSource.hasSeenPromotionTooltip()
-    ) {
+    if (!commonsPreferencesDataSource.hasBeenInSettings() &&
+        !fingerprintPreferences.hasSeenFingerprintTooltip() &&
+        hasFingerprint() &&
+        !fingerprintPreferences.hasAuthenticationPermission() &&
+        commonsPreferencesDataSource.hasSeenPromotionTooltip()) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
       } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
@@ -49,10 +52,10 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
     return getDeviceCompatibility() == BiometricManager.BIOMETRIC_SUCCESS
   }
 
-  //TODO duplicated code from FingerprintInteractor
+  // TODO duplicated code from FingerprintInteractor
   fun getDeviceCompatibility(): Int {
     val biometricCompatibility = biometricManager.canAuthenticate()
-    //User may have biometrics but no fingerprint (e.g face recognition)
+    // User may have biometrics but no fingerprint (e.g face recognition)
     if (hasBiometrics(biometricCompatibility) && !hasFingerPrint()) {
       return BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE
     }
@@ -60,7 +63,8 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
   }
 
   private fun hasBiometrics(biometricCompatibility: Int): Boolean {
-    return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS || biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)
+    return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS ||
+        biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)
   }
 
   private fun hasFingerPrint(): Boolean {

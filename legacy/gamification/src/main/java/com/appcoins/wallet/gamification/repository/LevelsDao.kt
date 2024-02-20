@@ -11,13 +11,10 @@ import io.reactivex.Single
 @Dao
 interface LevelsDao {
 
-  @Query("select * from LevelsEntity")
-  fun getLevels(): Single<LevelsEntity>
+  @Query("select * from LevelsEntity") fun getLevels(): Single<LevelsEntity>
 
-  @Query("DELETE FROM LevelsEntity")
-  fun deleteLevels(): Completable
+  @Query("DELETE FROM LevelsEntity") fun deleteLevels(): Completable
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertLevels(promotions: LevelsEntity): Completable
-
 }

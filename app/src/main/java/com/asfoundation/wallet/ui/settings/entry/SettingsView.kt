@@ -5,7 +5,6 @@ import androidx.activity.result.ActivityResultLauncher
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import io.reactivex.Observable
 
-
 interface SettingsView {
   fun showError()
 

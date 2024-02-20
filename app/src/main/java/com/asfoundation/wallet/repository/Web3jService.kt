@@ -4,9 +4,9 @@ import com.asfoundation.wallet.entity.PendingTransaction
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.methods.response.EthTransaction
-import javax.inject.Inject
 
 @BoundTo(supertype = EthereumService::class)
 class Web3jService @Inject constructor(private val web3j: Web3jProvider) : EthereumService {
@@ -24,15 +24,9 @@ class Web3jService @Inject constructor(private val web3j: Web3jProvider) : Ether
     return Single.create { emitter: SingleEmitter<PendingTransaction> ->
       try {
         if (!emitter.isDisposed) {
-          val ethTransaction = web3jClient.ethGetTransactionByHash(hash)
-            .send()
+          val ethTransaction = web3jClient.ethGetTransactionByHash(hash).send()
           if (ethTransaction.hasError()) {
-            emitter.onError(
-              RuntimeException(
-                ethTransaction.error
-                  .message
-              )
-            )
+            emitter.onError(RuntimeException(ethTransaction.error.message))
           } else {
             emitter.onSuccess(PendingTransaction(hash, isPending(ethTransaction)))
           }

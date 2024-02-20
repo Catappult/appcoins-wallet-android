@@ -18,15 +18,14 @@ class BackupEntryChooseWalletAdapter(
 ) : RecyclerView.Adapter<BackupEntryChooseWalletViewHolder>() {
 
   override fun onCreateViewHolder(
-    parent: ViewGroup,
-    viewType: Int
+      parent: ViewGroup,
+      viewType: Int
   ): BackupEntryChooseWalletViewHolder =
-    BackupEntryChooseWalletViewHolder(
-      LayoutInflater.from(parent.context)
-        .inflate(R.layout.wallet_rounded_outlined_card, parent, false),
-      uiEventListener,
-      currencyFormatUtils
-    )
+      BackupEntryChooseWalletViewHolder(
+          LayoutInflater.from(parent.context)
+              .inflate(R.layout.wallet_rounded_outlined_card, parent, false),
+          uiEventListener,
+          currencyFormatUtils)
 
   override fun getItemCount(): Int = items.size
 
@@ -39,13 +38,12 @@ class BackupEntryChooseWalletAdapter(
     if (!currentItem.backupWalletActive) {
       currentWalletIcon.visibility = View.INVISIBLE
       currentWalletRound.background =
-        ContextCompat.getDrawable(holder.itemView.context, R.drawable.rectangle_blue_radius_16dp)
+          ContextCompat.getDrawable(holder.itemView.context, R.drawable.rectangle_blue_radius_16dp)
     } else {
       currentWalletIcon.visibility = View.VISIBLE
       currentWalletRound.background =
-        ContextCompat.getDrawable(
-          holder.itemView.context, R.drawable.rectangle_blue_border_pink_radius_16dp
-        )
+          ContextCompat.getDrawable(
+              holder.itemView.context, R.drawable.rectangle_blue_border_pink_radius_16dp)
     }
   }
 }

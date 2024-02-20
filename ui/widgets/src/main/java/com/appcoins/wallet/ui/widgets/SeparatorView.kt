@@ -11,21 +11,24 @@ class SeparatorView : View {
   private var orientation: Orientation = Orientation.HORIZONTAL
 
   constructor(context: Context) : this(context, null)
+
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-    context, attrs,
-    defStyleAttr
-  ) {
+
+  constructor(
+      context: Context,
+      attrs: AttributeSet?,
+      defStyleAttr: Int
+  ) : super(context, attrs, defStyleAttr) {
     setLayerType(LAYER_TYPE_SOFTWARE, null)
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-      context.obtainStyledAttributes(attrs, R.styleable.SeparatorView, defStyleAttr, 0)
+        context.obtainStyledAttributes(attrs, R.styleable.SeparatorView, defStyleAttr, 0)
     this.type = Type.values()[typedArray.getInt(R.styleable.SeparatorView_line_type, 0)]
     this.orientation =
-      Orientation.values()[typedArray.getInt(R.styleable.SeparatorView_line_orientation, 0)]
+        Orientation.values()[typedArray.getInt(R.styleable.SeparatorView_line_orientation, 0)]
     applyOrientationType()
     typedArray.recycle()
   }
@@ -62,11 +65,12 @@ class SeparatorView : View {
     when (orientation) {
       Orientation.HORIZONTAL -> {
         if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY) {
-          heightSpec = if (type == Type.DASHED) {
-            MeasureSpec.makeMeasureSpec(5.convertDpToPx(resources), MeasureSpec.EXACTLY)
-          } else {
-            MeasureSpec.makeMeasureSpec(1.convertDpToPx(resources), MeasureSpec.EXACTLY)
-          }
+          heightSpec =
+              if (type == Type.DASHED) {
+                MeasureSpec.makeMeasureSpec(5.convertDpToPx(resources), MeasureSpec.EXACTLY)
+              } else {
+                MeasureSpec.makeMeasureSpec(1.convertDpToPx(resources), MeasureSpec.EXACTLY)
+              }
         }
       }
       Orientation.VERTICAL -> {
@@ -76,11 +80,16 @@ class SeparatorView : View {
       }
     }
 
-    super.onMeasure(widthSpec, heightSpec);
+    super.onMeasure(widthSpec, heightSpec)
   }
 
-  enum class Type { SOLID, DASHED }
+  enum class Type {
+    SOLID,
+    DASHED
+  }
 
-  enum class Orientation { HORIZONTAL, VERTICAL }
-
+  enum class Orientation {
+    HORIZONTAL,
+    VERTICAL
+  }
 }

@@ -11,5 +11,6 @@ data class WalletInfo(
     val logging: Boolean,
     val backupDate: Long
 ) {
-  val hasBackup get() = backupDate > 0
+  val hasBackup
+    get() = backupDate > 0
 }

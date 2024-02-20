@@ -207,9 +207,9 @@ public class InAppPurchaseInteractor {
     }
     return Single.just(true);
     //old logic to determine bds origin:
-//    return bdsInAppPurchaseInteractor.getWallet(packageName)
-//        .map(wallet::equalsIgnoreCase)
-//        .onErrorReturn(throwable -> false);
+    //    return bdsInAppPurchaseInteractor.getWallet(packageName)
+    //        .map(wallet::equalsIgnoreCase)
+    //        .onErrorReturn(throwable -> false);
   }
 
   // uncomment to reactivate gas_price on payment flow:
@@ -497,11 +497,12 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if (paymentMethod.getGateway() != null &&
-          (paymentMethod.getGateway().getName() == (Gateway.Name.myappcoins)
-              || paymentMethod.getGateway().getName() == (Gateway.Name.adyen_v2)
-              || paymentMethod.getGateway().getName() == Gateway.Name.challenge_reward
-          ) && !paymentMethod.isAvailable()) {
+      } else if (paymentMethod.getGateway() != null && (paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          || paymentMethod.getGateway()
+          .getName() == (Gateway.Name.adyen_v2)
+          || paymentMethod.getGateway()
+          .getName() == Gateway.Name.challenge_reward) && !paymentMethod.isAvailable()) {
         iterator.remove();
       }
     }

@@ -5,6 +5,5 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface AutoUpdateApi {
-  @GET("appc/wallet_version")
-  fun getAutoUpdateInfo(): Single<AutoUpdateResponse>
+  @GET("appc/wallet_version") fun getAutoUpdateInfo(): Single<AutoUpdateResponse>
 }

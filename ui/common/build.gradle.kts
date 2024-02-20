@@ -1,6 +1,4 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
 android {
   namespace = "com.appcoins.wallet.ui.common"

@@ -24,49 +24,47 @@ class BdsBillingModule {
   @Singleton
   @Provides
   fun providesBillingPaymentProofSubmission(
-    brokerBdsApi: BrokerBdsApi,
-    inappApi: InappBillingApi,
-    walletService: WalletService,
-    subscriptionBillingApi: SubscriptionBillingApi,
-    ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+      brokerBdsApi: BrokerBdsApi,
+      inappApi: InappBillingApi,
+      walletService: WalletService,
+      subscriptionBillingApi: SubscriptionBillingApi,
+      ewtObtainer: EwtAuthenticatorService,
+      rxSchedulers: RxSchedulers
   ): BillingPaymentProofSubmission =
-    BillingPaymentProofSubmissionImpl.Builder()
-      .setBrokerBdsApi(brokerBdsApi)
-      .setInappApi(inappApi)
-      .setWalletService(walletService)
-      .setSubscriptionBillingService(subscriptionBillingApi)
-      .setEwtObtainer(ewtObtainer)
-      .setRxSchedulers(rxSchedulers)
-      .build()
-
+      BillingPaymentProofSubmissionImpl.Builder()
+          .setBrokerBdsApi(brokerBdsApi)
+          .setInappApi(inappApi)
+          .setWalletService(walletService)
+          .setSubscriptionBillingService(subscriptionBillingApi)
+          .setEwtObtainer(ewtObtainer)
+          .setRxSchedulers(rxSchedulers)
+          .build()
 
   @Singleton
   @Provides
   fun provideBillingFactory(
-    walletService: WalletService,
-    bdsRepository: BdsRepository,
-    partnerAddressService: PartnerAddressService
+      walletService: WalletService,
+      bdsRepository: BdsRepository,
+      partnerAddressService: PartnerAddressService
   ): Billing =
-    BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
+      BdsBilling(bdsRepository, walletService, BillingThrowableCodeMapper(), partnerAddressService)
 
   @Singleton
   @Provides
   fun provideRemoteRepository(
-    subscriptionBillingApi: SubscriptionBillingApi,
-    brokerBdsApi: BrokerBdsApi,
-    inappApi: InappBillingApi,
-    ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+      subscriptionBillingApi: SubscriptionBillingApi,
+      brokerBdsApi: BrokerBdsApi,
+      inappApi: InappBillingApi,
+      ewtObtainer: EwtAuthenticatorService,
+      rxSchedulers: RxSchedulers
   ): RemoteRepository =
-    RemoteRepository(
-      brokerBdsApi,
-      inappApi,
-      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-      subscriptionBillingApi,
-      ewtObtainer,
-      rxSchedulers
-    )
+      RemoteRepository(
+          brokerBdsApi,
+          inappApi,
+          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+          subscriptionBillingApi,
+          ewtObtainer,
+          rxSchedulers)
 
   @Singleton
   @Provides
@@ -75,11 +73,11 @@ class BdsBillingModule {
   @Singleton
   @Provides
   fun provideProxyService(proxySdk: AppCoinsAddressProxySdk): ProxyService =
-    object : ProxyService {
-      override fun getAppCoinsAddress(debug: Boolean): Single<String> =
-        proxySdk.getAppCoinsAddress(MiscProperties.NETWORK_ID)
+      object : ProxyService {
+        override fun getAppCoinsAddress(debug: Boolean): Single<String> =
+            proxySdk.getAppCoinsAddress(MiscProperties.NETWORK_ID)
 
-      override fun getIabAddress(debug: Boolean): Single<String> =
-        proxySdk.getIabAddress(MiscProperties.NETWORK_ID)
-    }
+        override fun getIabAddress(debug: Boolean): Single<String> =
+            proxySdk.getIabAddress(MiscProperties.NETWORK_ID)
+      }
 }

@@ -11,9 +11,8 @@ interface SandboxApi {
 
   @POST("8.20230522/gateways/sandbox/transactions")
   fun createTransaction(
-    @Query("wallet.address") walletAddress: String,
-    @Header("authorization") authorization: String,
-    @Body sandboxPayment: SandboxPayment
+      @Query("wallet.address") walletAddress: String,
+      @Header("authorization") authorization: String,
+      @Body sandboxPayment: SandboxPayment
   ): Single<SandboxResponse>
-
 }

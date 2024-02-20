@@ -35,16 +35,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyWalletsFragment :
-  BasePageViewFragment(), SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+    BasePageViewFragment(), SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var navigator: MyWalletsNavigator
+  @Inject lateinit var navigator: MyWalletsNavigator
 
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
+  @Inject lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: MyWalletsViewModel by viewModels()
 
@@ -53,9 +50,9 @@ class MyWalletsFragment :
     get() = binding!!
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentMyWalletsBinding.inflate(inflater, container, false)
     return views.root
@@ -89,68 +86,55 @@ class MyWalletsFragment :
         showWalletInfoLoading()
         showBackupLoading()
       }
-
       is Async.Fail -> Unit
       is Async.Success ->
-        asyncValue().run {
-          showWalletInfo()
-          showBackup()
-        }
+          asyncValue().run {
+            showWalletInfo()
+            showBackup()
+          }
     }
     when (val asyncValue = state.walletVerifiedAsync) {
       Async.Uninitialized,
       is Async.Loading -> showVerifyLoading()
-
       is Async.Fail -> Unit
       is Async.Success ->
-        asyncValue().run {
-          when (status) {
-            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-              .VERIFIED -> showVerified(false)
-
-            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-              .UNVERIFIED -> showUnverified(false)
-
-            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-              .CODE_REQUESTED -> showUnverifiedInsertCode(false)
-
-            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-              .NO_NETWORK,
-            com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-              .ERROR -> {
-              when (cachedStatus) {
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-                  .VERIFIED -> showVerified(true)
-
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-                  .UNVERIFIED -> showUnverified(true)
-
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-                  .CODE_REQUESTED -> showUnverifiedInsertCode(true)
-
-                else -> showUnverified(true)
-              }
-            }
-
-            else -> {
-              when (cachedStatus) {
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+          asyncValue().run {
+            when (status) {
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
                   .VERIFIED -> showVerified(false)
-
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
                   .UNVERIFIED -> showUnverified(false)
-
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
                   .CODE_REQUESTED -> showUnverifiedInsertCode(false)
-
-                com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
-                  .VERIFYING -> showVerifying()
-
-                else -> showUnverified(true)
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .NO_NETWORK,
+              com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                  .ERROR -> {
+                when (cachedStatus) {
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .VERIFIED -> showVerified(true)
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .UNVERIFIED -> showUnverified(true)
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .CODE_REQUESTED -> showUnverifiedInsertCode(true)
+                  else -> showUnverified(true)
+                }
+              }
+              else -> {
+                when (cachedStatus) {
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .VERIFIED -> showVerified(false)
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .UNVERIFIED -> showUnverified(false)
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .CODE_REQUESTED -> showUnverifiedInsertCode(false)
+                  com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationStatus
+                      .VERIFYING -> showVerifying()
+                  else -> showUnverified(true)
+                }
               }
             }
           }
-        }
     }
   }
 
@@ -182,11 +166,10 @@ class MyWalletsFragment :
       views.myWalletsContent.qrImage.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(
-        views.myWalletsContent.qrImage,
-        getString(R.string.error_fail_generate_qr),
-        Snackbar.LENGTH_SHORT
-      )
-        .show()
+              views.myWalletsContent.qrImage,
+              getString(R.string.error_fail_generate_qr),
+              Snackbar.LENGTH_SHORT)
+          .show()
     }
     views.myWalletsContent.qrImage.isEnabled = true
     views.myWalletsContent.qrImage.setOnClickListener {
@@ -212,11 +195,10 @@ class MyWalletsFragment :
 
     views.myWalletsContent.balanceButton.setOnClickListener {
       navigator.navigateToBalanceDetails(
-        walletBalance.overallFiat.getFiatBalanceText(),
-        walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
-        walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
-        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
-      )
+          walletBalance.overallFiat.getFiatBalanceText(),
+          walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
+          walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
+          walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM))
     }
 
     views.myWalletsContent.actionButtonEditName.isEnabled = true
@@ -245,27 +227,26 @@ class MyWalletsFragment :
     val imageRes = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
     val colorRes = if (hasBackup) R.color.styleguide_white else R.color.styleguide_pink
     val titleRes =
-      if (hasBackup) {
-        R.string.backup_confirmation_no_share_title
-      } else {
-        R.string.my_wallets_action_backup_wallet
-      }
+        if (hasBackup) {
+          R.string.backup_confirmation_no_share_title
+        } else {
+          R.string.my_wallets_action_backup_wallet
+        }
     // If the date is 0 or 1, then either wallet was not backup yet or the backup date is unknown
     val text =
-      if (backupDate > 1) {
-        getString(
-          R.string.mywallet_backed_up_date,
-          DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
-        )
-      } else {
-        getString(R.string.backup_wallet_tooltip)
-      }
+        if (backupDate > 1) {
+          getString(
+              R.string.mywallet_backed_up_date,
+              DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString())
+        } else {
+          getString(R.string.backup_wallet_tooltip)
+        }
     val buttonTextRes =
-      if (hasBackup) {
-        R.string.mywallet_backup_again_button
-      } else {
-        R.string.my_wallets_action_backup_wallet
-      }
+        if (hasBackup) {
+          R.string.mywallet_backup_again_button
+        } else {
+          R.string.my_wallets_action_backup_wallet
+        }
     views.myWalletsContent.backupLoading.visibility = View.GONE
     views.myWalletsContent.backupAlertIcon.visibility = View.VISIBLE
     views.myWalletsContent.backupAlertIcon.setImageResource(imageRes)
@@ -302,11 +283,9 @@ class MyWalletsFragment :
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(
-      getString(R.string.mywallet_verify_payment_method_button)
-    )
+        getString(R.string.mywallet_verify_payment_method_button))
     views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(requireContext(), R.color.styleguide_white)
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_white))
     views.myWalletsContent.verifyButton.setOnClickListener { navigator.navigateToVerifyPicker() }
   }
 
@@ -322,8 +301,7 @@ class MyWalletsFragment :
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.referral_view_verify_button))
     views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
     views.myWalletsContent.verifyButton.setOnClickListener { navigator.navigateToVerifyPicker() }
   }
 
@@ -334,19 +312,15 @@ class MyWalletsFragment :
     views.myWalletsContent.verifyAlertIcon.setImageResource(R.drawable.ic_alert_circle)
     views.myWalletsContent.verifyWalletTitle.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletTitle.setText(
-      R.string.card_verification_wallets_one_step_title
-    )
+        R.string.card_verification_wallets_one_step_title)
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(
-      R.string.card_verification_wallets_one_step_body
-    )
+        R.string.card_verification_wallets_one_step_body)
     views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(
-      getString(R.string.card_verification_wallets_insert_bode_button)
-    )
+        getString(R.string.card_verification_wallets_insert_bode_button))
     views.myWalletsContent.verifyButton.setColor(
-      ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyCreditCard()
     }
@@ -363,15 +337,16 @@ class MyWalletsFragment :
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
 
-  private fun com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue.getFiatBalanceText(): String =
-    if (amount.compareTo(BigDecimal("-1")) == 1) {
-      symbol + formatter.formatCurrency(amount)
-    } else {
-      "-1"
-    }
+  private fun com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+      .getFiatBalanceText(): String =
+      if (amount.compareTo(BigDecimal("-1")) == 1) {
+        symbol + formatter.formatCurrency(amount)
+      } else {
+        "-1"
+      }
 
   private fun TokenBalance.getTokenValueText(tokenCurrency: WalletCurrency): String =
-    "${
+      "${
       if (token.amount.compareTo(BigDecimal("-1")) == 1) {
         formatter.formatCurrency(token.amount, tokenCurrency)
       } else {
@@ -382,31 +357,30 @@ class MyWalletsFragment :
   private fun navigateToMore() {
     viewModel.state.walletInfoAsync()?.run {
       navigator.navigateToMore(
-        wallet,
-        walletBalance.overallFiat.getFiatBalanceText(),
-        walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
-        walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
-        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
-      )
+          wallet,
+          walletBalance.overallFiat.getFiatBalanceText(),
+          walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
+          walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
+          walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM))
     }
   }
 
   private fun setAddressToClipBoard(walletAddress: String) {
     val clipboard =
-      requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
     val clip = ClipData.newPlainText(MyAddressActivity.KEY_ADDRESS, walletAddress)
     clipboard?.setPrimaryClip(clip)
     val bottomNavView: BottomNavigationView = requireActivity().findViewById(R.id.bottom_nav)!!
 
     Snackbar.make(bottomNavView, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
-      .apply { anchorView = bottomNavView }
-      .show()
+        .apply { anchorView = bottomNavView }
+        .show()
   }
 
   fun showShare(walletAddress: String) =
-    ShareCompat.IntentBuilder(requireActivity())
-      .setText(walletAddress)
-      .setType("text/plain")
-      .setChooserTitle(resources.getString(R.string.share_via))
-      .startChooser()
+      ShareCompat.IntentBuilder(requireActivity())
+          .setText(walletAddress)
+          .setType("text/plain")
+          .setChooserTitle(resources.getString(R.string.share_via))
+          .startChooser()
 }

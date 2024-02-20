@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.eskills.withdraw
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,12 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WithdrawSuccessBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<ViewState, SideEffect> {
+class WithdrawSuccessBottomSheetFragment :
+    BottomSheetDialogFragment(), SingleStateFragment<ViewState, SideEffect> {
 
-
-  @Inject
-  lateinit var navigator: WithdrawBottomSheetNavigator
+  @Inject lateinit var navigator: WithdrawBottomSheetNavigator
 
   private val views by viewBinding(WithdrawSuccessBottomSheetLayoutBinding::bind)
 
@@ -36,18 +33,16 @@ class WithdrawSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(amount: String): WithdrawSuccessBottomSheetFragment {
-      return WithdrawSuccessBottomSheetFragment()
-        .apply {
-          arguments = Bundle().apply {
-            putSerializable(AMOUNT, amount)
-          }
-        }
+      return WithdrawSuccessBottomSheetFragment().apply {
+        arguments = Bundle().apply { putSerializable(AMOUNT, amount) }
+      }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = WithdrawSuccessBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,9 +72,6 @@ class WithdrawSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   private fun showSuccess(amount: String) {
     views.withdrawBottomSheetSuccessImage.visibility = View.VISIBLE
     views.withdrawBottomSheetSuccessTitle.text =
-      this.getString(
-        R.string.e_skills_withdraw_started_title,
-        amount
-      )
+        this.getString(R.string.e_skills_withdraw_started_title, amount)
   }
 }

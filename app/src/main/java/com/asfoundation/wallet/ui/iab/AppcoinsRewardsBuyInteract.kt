@@ -9,18 +9,21 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AppcoinsRewardsBuyInteract @Inject constructor(
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private val supportInteractor: SupportInteractor,
-  private val walletService: WalletService,
-  private val walletBlockedInteract: WalletBlockedInteract,
-  private val walletVerificationInteractor: WalletVerificationInteractor
+class AppcoinsRewardsBuyInteract
+@Inject
+constructor(
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val supportInteractor: SupportInteractor,
+    private val walletService: WalletService,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: WalletVerificationInteractor
 ) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getAndSignCurrentWalletAddress()
+      walletService
+          .getAndSignCurrentWalletAddress()
           .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 

@@ -13,9 +13,8 @@ data class TokenInfoState(
     val showTopUp: Boolean
 ) : ViewState
 
-class TokenInfoDialogViewModel(
-    private val data: TokenInfoDialogData
-) : BaseViewModel<TokenInfoState, TokenInfoSideEffect>(initialState(data)) {
+class TokenInfoDialogViewModel(private val data: TokenInfoDialogData) :
+    BaseViewModel<TokenInfoState, TokenInfoSideEffect>(initialState(data)) {
 
   companion object {
     fun initialState(data: TokenInfoDialogData): TokenInfoState {

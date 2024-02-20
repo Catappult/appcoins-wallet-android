@@ -13,11 +13,11 @@ import dagger.hilt.android.components.ActivityComponent
 class GasSettingsModule {
   @Provides
   fun provideGasSettingsViewModelFactory(gasSettingsInteractor: GasSettingsInteractor) =
-    GasSettingsViewModelFactory(gasSettingsInteractor)
+      GasSettingsViewModelFactory(gasSettingsInteractor)
 }
 
 class GasSettingsViewModelFactory(private val gasSettingsInteractor: GasSettingsInteractor) :
-  ViewModelProvider.Factory {
+    ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return GasSettingsViewModel(gasSettingsInteractor) as T

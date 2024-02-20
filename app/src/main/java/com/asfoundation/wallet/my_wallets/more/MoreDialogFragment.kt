@@ -8,28 +8,27 @@ import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MoreDialogFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
+class MoreDialogFragment :
+    BottomSheetDialogFragment(), SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
 
-  @Inject
-  lateinit var navigator: MoreDialogNavigator
+  @Inject lateinit var navigator: MoreDialogNavigator
 
   private val viewModel: MoreDialogViewModel by viewModels()
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentMyWalletsMoreBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,9 +71,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
       }
     }
 
-    views.scrollviewMyWallets.run {
-      post { fullScroll(View.FOCUS_DOWN) }
-    }
+    views.scrollviewMyWallets.run { post { fullScroll(View.FOCUS_DOWN) } }
   }
 
   override fun onSideEffect(sideEffect: MoreDialogSideEffect) {
@@ -88,12 +85,11 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     views.recoverWalletCardView.setOnClickListener { navigator.navigateToRestoreWallet() }
     views.deleteWalletCardView.setOnClickListener {
       navigator.navigateToRemoveWallet(
-        viewModel.state.walletAddress,
-        viewModel.state.totalFiatBalance,
-        viewModel.state.appcoinsBalance,
-        viewModel.state.creditsBalance,
-        viewModel.state.ethereumBalance
-      )
+          viewModel.state.walletAddress,
+          viewModel.state.totalFiatBalance,
+          viewModel.state.appcoinsBalance,
+          viewModel.state.creditsBalance,
+          viewModel.state.ethereumBalance)
     }
   }
 

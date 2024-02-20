@@ -8,7 +8,6 @@ import javax.inject.Inject
 class FindNetworkInfoUseCase @Inject constructor(private val networkInfo: NetworkInfo) {
 
   operator fun invoke(): Single<NetworkInfo> {
-    return Single.just(networkInfo)
-        .observeOn(Schedulers.io())
+    return Single.just(networkInfo).observeOn(Schedulers.io())
   }
 }

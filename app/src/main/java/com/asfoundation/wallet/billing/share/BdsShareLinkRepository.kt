@@ -8,19 +8,26 @@ import javax.inject.Inject
 
 @BoundTo(supertype = ShareLinkRepository::class)
 class BdsShareLinkRepository @Inject constructor(private var api: BdsShareLinkApi) :
-  ShareLinkRepository {
+    ShareLinkRepository {
 
   override fun getLink(
-    domain: String, skuId: String?, message: String?, walletAddress: String,
-    originalAmount: String?, originalCurrency: String?,
-    paymentMethod: String
+      domain: String,
+      skuId: String?,
+      message: String?,
+      walletAddress: String,
+      originalAmount: String?,
+      originalCurrency: String?,
+      paymentMethod: String
   ): Single<String> {
     return api.getPaymentLink(
-      ShareLinkData(
-        domain, skuId, walletAddress, message, originalAmount, originalCurrency,
-        paymentMethod
-      )
-    )
-      .map { it.url }
+            ShareLinkData(
+                domain,
+                skuId,
+                walletAddress,
+                message,
+                originalAmount,
+                originalCurrency,
+                paymentMethod))
+        .map { it.url }
   }
 }

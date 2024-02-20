@@ -30,10 +30,7 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
     }
   }
 
-  private fun getErrorType(
-    httpCode: Int?, messageCode: String?,
-    data: Any?
-  ): ErrorInfo.ErrorType {
+  private fun getErrorType(httpCode: Int?, messageCode: String?, data: Any?): ErrorInfo.ErrorType {
     return when {
       messageCode == NOT_ALLOWED_CODE -> ErrorInfo.ErrorType.SUB_ALREADY_OWNED
       messageCode == FORBIDDEN_CODE -> ErrorInfo.ErrorType.BLOCKED
@@ -55,7 +52,10 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           200 -> {
             ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
           }
-          172, 174, 422, 800 -> {
+          172,
+          174,
+          422,
+          800 -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
           704 -> {

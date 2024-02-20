@@ -30,13 +30,11 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class RecoverEntryFragment : BasePageViewFragment(),
-  SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
+class RecoverEntryFragment :
+    BasePageViewFragment(), SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
 
-  @Inject
-  lateinit var navigator: RecoverEntryNavigator
+  @Inject lateinit var navigator: RecoverEntryNavigator
 
   private val viewModel: RecoverEntryViewModel by viewModels()
   private val views by viewBinding(RecoverEntryFragmentBinding::bind)
@@ -46,8 +44,9 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private var isFromOnboarding = false
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View = RecoverEntryFragmentBinding.inflate(inflater).root
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,39 +71,40 @@ class RecoverEntryFragment : BasePageViewFragment(),
       }
     }
     views.recoverWalletButton.setOnClickListener {
-      viewModel.handleRecoverClick(
-        views.recoverWalletOptions.recoverKeystoreInput.getText().trim()
-      )
+      viewModel.handleRecoverClick(views.recoverWalletOptions.recoverKeystoreInput.getText().trim())
     }
-    views.recoverWalletOptions.recoverKeystoreInput.setHintText(getString(R.string.import_code_here_field))
-    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
+    views.recoverWalletOptions.recoverKeystoreInput.setHintText(
+        getString(R.string.import_code_here_field))
+    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(
+        ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
 
     views.recoverWalletButton.isEnabled = false
-    views.recoverWalletOptions.recoverKeystoreInput.addTextWatcher(object : TextWatcher {
-      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-      override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-      override fun afterTextChanged(s: Editable) {
-        views.recoverWalletButton.isEnabled = true
-      }
-    })
+    views.recoverWalletOptions.recoverKeystoreInput.addTextWatcher(
+        object : TextWatcher {
+          override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+          override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+          override fun afterTextChanged(s: Editable) {
+            views.recoverWalletButton.isEnabled = true
+          }
+        })
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   private fun createLaunchers() {
     requestPermissionsLauncher =
-      registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-        if (isGranted) {
-          navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-        }
-      }
-    storageIntentLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-          result.data?.let {
-            viewModel.handleFileChosen(uri = it.data ?: Uri.parse(""))
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+          if (isGranted) {
+            navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
           }
         }
-      }
+    storageIntentLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+          if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.let { viewModel.handleFileChosen(uri = it.data ?: Uri.parse("")) }
+          }
+        }
   }
 
   override fun onStateChanged(state: RecoverEntryState) {
@@ -128,8 +128,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
     }
   }
 
-  fun showLoading() {
-  }
+  fun showLoading() {}
 
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {
     when (recoverResult) {
@@ -143,19 +142,19 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private fun handleErrorState(recoverResult: RecoverEntryResult) {
     when (recoverResult) {
       is FailedEntryRecover.AlreadyAdded -> {
-        views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_already_added))
+        views.recoverWalletOptions.recoverKeystoreInput.setError(
+            getString(R.string.error_already_added))
       }
       is FailedEntryRecover.InvalidKeystore -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
       }
       is FailedEntryRecover.InvalidPassword -> {
         navigator.navigateToRecoverPasswordFragment(
-          keystore = recoverResult.keyStore,
-          walletBalance = recoverResult.symbol + recoverResult.amount,
-          walletAddress = recoverResult.address,
-          walletName = recoverResult.name,
-          isFromOnboarding
-        )
+            keystore = recoverResult.keyStore,
+            walletBalance = recoverResult.symbol + recoverResult.amount,
+            walletAddress = recoverResult.address,
+            walletName = recoverResult.name,
+            isFromOnboarding)
       }
       is FailedEntryRecover.InvalidPrivateKey -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))

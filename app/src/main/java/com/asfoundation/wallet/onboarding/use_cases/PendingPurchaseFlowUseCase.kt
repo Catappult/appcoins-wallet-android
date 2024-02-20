@@ -10,22 +10,22 @@ interface PendingPurchaseFlowUseCase {
 }
 
 @BoundTo(supertype = PendingPurchaseFlowUseCase::class)
-class PendingPurchaseFlowUseCaseImpl @Inject constructor(
-  private val cachedTransaction: CachedTransactionRepository
-) : PendingPurchaseFlowUseCase {
+class PendingPurchaseFlowUseCaseImpl
+@Inject
+constructor(private val cachedTransaction: CachedTransactionRepository) :
+    PendingPurchaseFlowUseCase {
   override operator fun invoke(): StartMode.PendingPurchaseFlow? {
     val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
     return if (cachedTransaction.signature != null) {
       StartMode.PendingPurchaseFlow(
-        integrationFlow = "osp",
-        sku = cachedTransaction.sku,
-        packageName = cachedTransaction.packageName!!,
-        callbackUrl = cachedTransaction.callbackUrl,
-        currency = cachedTransaction.currency,
-        orderReference = cachedTransaction.orderReference,
-        value = cachedTransaction.value,
-        signature = cachedTransaction.signature
-      )
+          integrationFlow = "osp",
+          sku = cachedTransaction.sku,
+          packageName = cachedTransaction.packageName!!,
+          callbackUrl = cachedTransaction.callbackUrl,
+          currency = cachedTransaction.currency,
+          orderReference = cachedTransaction.orderReference,
+          value = cachedTransaction.value,
+          signature = cachedTransaction.signature)
     } else {
       null
     }

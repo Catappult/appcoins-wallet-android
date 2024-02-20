@@ -5,25 +5,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat.startActivity
 
-
 fun openGame(
-  gamePackage: String?,
-  actionUrl: String?,
-  context: Context,
-  sendPromotionClickEvent: (String?, String) -> Unit
+    gamePackage: String?,
+    actionUrl: String?,
+    context: Context,
+    sendPromotionClickEvent: (String?, String) -> Unit
 ) {
   try {
-    val launchIntent: Intent? = gamePackage?.let {
-      context.packageManager.getLaunchIntentForPackage(
-        it
-      )
-    }
+    val launchIntent: Intent? =
+        gamePackage?.let { context.packageManager.getLaunchIntentForPackage(it) }
     if (launchIntent != null) {
       sendPromotionClickEvent(gamePackage, "open")
       startActivity(context, launchIntent, null)
     }
-  } catch (e: Throwable) {
-  }
+  } catch (e: Throwable) {}
 }
 
 fun isPackageInstalled(packageName: String?, packageManager: PackageManager): Boolean {
@@ -37,4 +32,3 @@ fun isPackageInstalled(packageName: String?, packageManager: PackageManager): Bo
     false
   }
 }
-

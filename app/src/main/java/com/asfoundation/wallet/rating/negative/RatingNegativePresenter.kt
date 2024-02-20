@@ -7,13 +7,15 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class RatingNegativePresenter(private val view: RatingNegativeView,
-                              private val interactor: RatingInteractor,
-                              private val navigator: RatingNavigator,
-                              private val analytics: RatingAnalytics,
-                              private val disposables: CompositeDisposable,
-                              private val viewScheduler: Scheduler,
-                              private val ioScheduler: Scheduler) {
+class RatingNegativePresenter(
+    private val view: RatingNegativeView,
+    private val interactor: RatingInteractor,
+    private val navigator: RatingNavigator,
+    private val analytics: RatingAnalytics,
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val ioScheduler: Scheduler
+) {
 
   fun present() {
     handleSubmitClick()
@@ -22,7 +24,8 @@ class RatingNegativePresenter(private val view: RatingNegativeView,
 
   private fun handleSubmitClick() {
     disposables.add(
-        view.submitClickEvent()
+        view
+            .submitClickEvent()
             .doOnNext { feedbackText ->
               if (feedbackText.isBlank()) {
                 view.showEmptySuggestionsError()
@@ -34,23 +37,23 @@ class RatingNegativePresenter(private val view: RatingNegativeView,
             .doOnNext { analytics.sendNegativeActionEvent("submit") }
             .filter { feedbackText -> feedbackText.isNotBlank() }
             .flatMap { feedbackText ->
-              interactor.sendUserFeedback(feedbackText)
+              interactor
+                  .sendUserFeedback(feedbackText)
                   .doOnComplete { navigator.navigateToFinish() }
                   .andThen(Observable.just(feedbackText))
             }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
+            .subscribe({}, { e -> e.printStackTrace() }))
   }
 
   private fun handleNoClick() {
     disposables.add(
-        view.noClickEvent()
+        view
+            .noClickEvent()
             .observeOn(ioScheduler)
             .doOnNext { analytics.sendNegativeActionEvent("no_thanks") }
             .observeOn(viewScheduler)
             .doOnNext { navigator.closeActivity() }
-            .subscribe({}, { e -> e.printStackTrace() })
-    )
+            .subscribe({}, { e -> e.printStackTrace() }))
   }
 
   fun stop() = disposables.clear()

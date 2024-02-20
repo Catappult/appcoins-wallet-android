@@ -40,10 +40,11 @@ class SkillsEndgameFragment : Fragment() {
       val uri: Uri = Uri.parse(endgameUri)
       val endgameData: EskillsEndgameData = uri.parseEndgame()
       return SkillsEndgameFragment().apply {
-        arguments = Bundle().apply {
-          putString(SESSION, endgameData.session)
-          putString(PACKAGE_NAME, endgameData.packageName)
-        }
+        arguments =
+            Bundle().apply {
+              putString(SESSION, endgameData.session)
+              putString(PACKAGE_NAME, endgameData.packageName)
+            }
       }
     }
 
@@ -57,15 +58,15 @@ class SkillsEndgameFragment : Fragment() {
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: PlayerRankingAdapter
 
-  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-    override fun handleOnBackPressed() {
-      requireActivity().setResult(SkillsEndgameViewModel.RESULT_OK)
-      requireActivity().finish()
-    }
-  }
+  private val onBackPressedCallback =
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          requireActivity().setResult(SkillsEndgameViewModel.RESULT_OK)
+          requireActivity().finish()
+        }
+      }
 
   private val views by viewBinding(EndgameFragmentSkillsBinding::bind)
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -77,7 +78,9 @@ class SkillsEndgameFragment : Fragment() {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ) = EndgameFragmentSkillsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,31 +95,38 @@ class SkillsEndgameFragment : Fragment() {
   }
 
   private fun setupOpponentScoreListener() {
-    disposables.add(Observable.interval(
-      0, 3L, TimeUnit.SECONDS
-    ).flatMapSingle {
-      viewModel.getRoom().observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess { roomResponse: RoomResponse ->
-          updateRecyclerView(
-            roomResponse
-          )
-        }.doOnError(Throwable::printStackTrace).onErrorReturnItem(RoomResponse.FailedRoomResponse())
-    }.takeUntil { roomResponse: RoomResponse -> roomResponse.status === RoomStatus.COMPLETED }
-      .subscribe())
+    disposables.add(
+        Observable.interval(0, 3L, TimeUnit.SECONDS)
+            .flatMapSingle {
+              viewModel
+                  .getRoom()
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnSuccess { roomResponse: RoomResponse -> updateRecyclerView(roomResponse) }
+                  .doOnError(Throwable::printStackTrace)
+                  .onErrorReturnItem(RoomResponse.FailedRoomResponse())
+            }
+            .takeUntil { roomResponse: RoomResponse ->
+              roomResponse.status === RoomStatus.COMPLETED
+            }
+            .subscribe())
   }
 
   private fun handleRoomResult() {
-    disposables.add(viewModel.getRoomResult().subscribeOn(Schedulers.io())
-      .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoading() }
-      .doOnSuccess { room -> setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse) }
-      .doOnError { showErrorMessage() }.subscribe({ }, Throwable::printStackTrace)
-    )
+    disposables.add(
+        viewModel
+            .getRoomResult()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showLoading() }
+            .doOnSuccess { room ->
+              setRoomResultDetails(room as RoomResponse.SuccessfulRoomResponse)
+            }
+            .doOnError { showErrorMessage() }
+            .subscribe({}, Throwable::printStackTrace))
   }
 
   private fun setupRetryButton() {
-    views.retryButton.setOnClickListener {
-      handleRoomResult()
-    }
+    views.retryButton.setOnClickListener { handleRoomResult() }
   }
 
   private fun setupRestartButton() {
@@ -129,34 +139,34 @@ class SkillsEndgameFragment : Fragment() {
   private fun setupRankingsButton() {
     views.rankingsButton.setOnClickListener {
       disposables.add(
-        Single.zip(viewModel.getWalletAddress(),
-          viewModel.getRewardsPackages()
-            .onErrorReturn { throwable ->
-              throwable.printStackTrace()
-              emptyList()
-            }
-        ) { walletAddress, rewardsPackages ->
-          launchRankingsFragment(walletAddress, rewardsPackages)
-        }
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSubscribe { showLoading() }
-          .subscribe()
-      )
+          Single.zip(
+                  viewModel.getWalletAddress(),
+                  viewModel.getRewardsPackages().onErrorReturn { throwable ->
+                    throwable.printStackTrace()
+                    emptyList()
+                  }) { walletAddress, rewardsPackages ->
+                    launchRankingsFragment(walletAddress, rewardsPackages)
+                  }
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnSubscribe { showLoading() }
+              .subscribe())
     }
   }
 
-
   private fun launchRankingsFragment(walletAddress: String, rewardsPackages: List<String>) {
     val packageName = requireArguments().getString(PACKAGE_NAME)!!
-    requireActivity().supportFragmentManager.beginTransaction()
-      .replace(
-        R.id.fragment_container, SkillsRankingsFragment.newInstance(
-          walletAddress,
-          packageName, GLOBAL_LEADERBOARD_SKU, rewardsPackages.contains(packageName)
-        )
-      )
-      .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
-      .commit()
+    requireActivity()
+        .supportFragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container,
+            SkillsRankingsFragment.newInstance(
+                walletAddress,
+                packageName,
+                GLOBAL_LEADERBOARD_SKU,
+                rewardsPackages.contains(packageName)))
+        .addToBackStack(SkillsRankingsFragment::class.java.simpleName)
+        .commit()
   }
 
   private fun buildRecyclerView() {
@@ -176,24 +186,26 @@ class SkillsEndgameFragment : Fragment() {
 
   private fun updateRecyclerView(roomResponse: RoomResponse) {
     val successfulRoomResponse = roomResponse as RoomResponse.SuccessfulRoomResponse
-    adapter.updateData(
-      successfulRoomResponse.users.sortedWith(compareBy { it.score })
-    )
+    adapter.updateData(successfulRoomResponse.users.sortedWith(compareBy { it.score }))
   }
 
   private fun setRoomResultDetails(room: RoomResponse.SuccessfulRoomResponse) {
     recyclerView.visibility = View.GONE
     views.lottieAnimation.setAnimation(R.raw.transact_credits_successful)
     views.lottieAnimation.playAnimation()
-    disposables.add(viewModel.isWinner(room.roomResult).observeOn(AndroidSchedulers.mainThread())
-      .doAfterSuccess { isWinner: Boolean ->
-        if (isWinner) {
-          handleRoomWinnerBehaviour(room.roomResult)
-        } else {
-          handleRoomLoserBehaviour(room)
-        }
-      }.doOnError { showErrorMessage() }.subscribe()
-    )
+    disposables.add(
+        viewModel
+            .isWinner(room.roomResult)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doAfterSuccess { isWinner: Boolean ->
+              if (isWinner) {
+                handleRoomWinnerBehaviour(room.roomResult)
+              } else {
+                handleRoomLoserBehaviour(room)
+              }
+            }
+            .doOnError { showErrorMessage() }
+            .subscribe())
     views.restartButton.visibility = View.VISIBLE
     views.retryButton.visibility = View.GONE
   }
@@ -210,20 +222,22 @@ class SkillsEndgameFragment : Fragment() {
   private fun handleRoomLoserBehaviour(roomResponse: RoomResponse.SuccessfulRoomResponse) {
     val sadEmoji: String = EmojiUtils.getEmojiByUnicode(0x1F614)
     val alarmEmoji: String = EmojiUtils.getEmojiByUnicode(0x23F0)
-    val descriptionText: String = if (roomResponse.currentUser.status === UserStatus.TIME_UP) {
-      resources.getString(R.string.you_lost_timeout, alarmEmoji)
-    } else {
-      resources.getString(R.string.you_lost, sadEmoji)
-    }
+    val descriptionText: String =
+        if (roomResponse.currentUser.status === UserStatus.TIME_UP) {
+          resources.getString(R.string.you_lost_timeout, alarmEmoji)
+        } else {
+          resources.getString(R.string.you_lost, sadEmoji)
+        }
     views.animationDescriptionText.text = descriptionText
     val winner: User = roomResponse.roomResult.winner
     val opponentDetails =
-      requireContext().resources.getQuantityString(
-        R.plurals.opponent_points_title,
-        winner.score.toInt(),
-        winner.userName,
-        winner.score
-      )
+        requireContext()
+            .resources
+            .getQuantityString(
+                R.plurals.opponent_points_title,
+                winner.score.toInt(),
+                winner.userName,
+                winner.score)
     views.secondaryMessage.text = opponentDetails
     views.secondaryMessage.visibility = View.VISIBLE
   }

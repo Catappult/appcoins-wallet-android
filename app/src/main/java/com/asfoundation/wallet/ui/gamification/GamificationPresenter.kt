@@ -1,16 +1,16 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.os.Bundle
-import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
-import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.gamification.GamificationContext
+import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
+import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -18,14 +18,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
-class GamificationPresenter(private val view: GamificationView,
-                            private val activityView: GamificationActivityView,
-                            private val gamification: GamificationInteractor,
-                            private val analytics: GamificationAnalytics,
-                            private val formatter: CurrencyFormatUtils,
-                            private val disposables: CompositeDisposable,
-                            private val viewScheduler: Scheduler,
-                            private val networkScheduler: Scheduler) {
+class GamificationPresenter(
+    private val view: GamificationView,
+    private val activityView: GamificationActivityView,
+    private val gamification: GamificationInteractor,
+    private val analytics: GamificationAnalytics,
+    private val formatter: CurrencyFormatUtils,
+    private val disposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler
+) {
 
   private var viewHasContent = false
 
@@ -37,22 +39,31 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun handleLevelsClick() {
-    disposables.add(view.getUiClick()
-        .doOnNext {
-          when (it.first) {
-            SHOW_REACHED_LEVELS_ID -> view.toggleReachedLevels(it.second)
-            GAMIFICATION_INFO_ID -> view.updateBottomSheetVisibility()
-          }
-        }
-        .subscribe())
+    disposables.add(
+        view
+            .getUiClick()
+            .doOnNext {
+              when (it.first) {
+                SHOW_REACHED_LEVELS_ID -> view.toggleReachedLevels(it.second)
+                GAMIFICATION_INFO_ID -> view.updateBottomSheetVisibility()
+              }
+            }
+            .subscribe())
   }
 
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(
-        Observable.zip(gamification.getLevels(), getUserStatsAndBonusEarned(),
-            BiFunction { levels: Levels, statsAndBonusEarnedPromotions: Pair<PromotionsGamificationStats, FiatValue> ->
-              mapToGamificationInfo(levels, statsAndBonusEarnedPromotions.first, statsAndBonusEarnedPromotions.second)
-            })
+        Observable.zip(
+                gamification.getLevels(),
+                getUserStatsAndBonusEarned(),
+                BiFunction {
+                    levels: Levels,
+                    statsAndBonusEarnedPromotions: Pair<PromotionsGamificationStats, FiatValue> ->
+                  mapToGamificationInfo(
+                      levels,
+                      statsAndBonusEarnedPromotions.first,
+                      statsAndBonusEarnedPromotions.second)
+                })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnNext { displayInformation(it) }
@@ -62,25 +73,37 @@ class GamificationPresenter(private val view: GamificationView,
             .lastOrError()
             .onErrorReturn { -1 }
             .flatMapCompletable {
-              gamification.levelShown(it, GamificationContext.SCREEN_MY_LEVEL)
-                  .andThen(Completable.fromAction {
-                    if (sendEvent) analytics.sendMainScreenViewEvent(it + 1)
-                  })
+              gamification
+                  .levelShown(it, GamificationContext.SCREEN_MY_LEVEL)
+                  .andThen(
+                      Completable.fromAction {
+                        if (sendEvent) analytics.sendMainScreenViewEvent(it + 1)
+                      })
             }
             .subscribe({}, { handleError(it) }))
   }
 
-  private fun mapToGamificationInfo(levels: Levels, promotionsGamificationStats: PromotionsGamificationStats,
-                                    bonusEarned: FiatValue
+  private fun mapToGamificationInfo(
+      levels: Levels,
+      promotionsGamificationStats: PromotionsGamificationStats,
+      bonusEarned: FiatValue
   ): GamificationInfo {
     var status = Status.UNKNOWN_ERROR
-    if (levels.status == Levels.Status.OK && promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.OK) {
-      return GamificationInfo(promotionsGamificationStats.level, promotionsGamificationStats.totalSpend,
+    if (levels.status == Levels.Status.OK &&
+        promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.OK) {
+      return GamificationInfo(
+          promotionsGamificationStats.level,
+          promotionsGamificationStats.totalSpend,
           if (bonusEarned.amount >= BigDecimal.ZERO) bonusEarned else null,
-          promotionsGamificationStats.nextLevelAmount, levels.list, levels.updateDate, Status.OK,
+          promotionsGamificationStats.nextLevelAmount,
+          levels.list,
+          levels.updateDate,
+          Status.OK,
           promotionsGamificationStats.fromCache)
     }
-    if (levels.status == Levels.Status.NO_NETWORK || promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.NO_NETWORK) {
+    if (levels.status == Levels.Status.NO_NETWORK ||
+        promotionsGamificationStats.resultState ==
+            PromotionsGamificationStats.ResultState.NO_NETWORK) {
       status = Status.NO_NETWORK
     }
     return GamificationInfo(status, promotionsGamificationStats.fromCache)
@@ -108,39 +131,41 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun mapToLevelsList(
-      gamification: GamificationInfo): Pair<List<LevelItem>, List<LevelItem>> {
+      gamification: GamificationInfo
+  ): Pair<List<LevelItem>, List<LevelItem>> {
     val hiddenList = ArrayList<LevelItem>()
     val shownList = ArrayList<LevelItem>()
     val currentLevel = gamification.currentLevel
     for (level in gamification.levels) {
-      val levelItem = when {
-        level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level)
-        level.level == currentLevel -> CurrentLevelItem(level.amount, level.bonus, level.level,
-            gamification.totalSpend, gamification.nextLevelAmount)
-        else -> UnreachedLevelItem(level.amount, level.bonus, level.level)
-      }
-      if (levelItem is ReachedLevelItem) hiddenList.add(levelItem)
-      else shownList.add(levelItem)
+      val levelItem =
+          when {
+            level.level < currentLevel -> ReachedLevelItem(level.amount, level.bonus, level.level)
+            level.level == currentLevel ->
+                CurrentLevelItem(
+                    level.amount,
+                    level.bonus,
+                    level.level,
+                    gamification.totalSpend,
+                    gamification.nextLevelAmount)
+            else -> UnreachedLevelItem(level.amount, level.bonus, level.level)
+          }
+      if (levelItem is ReachedLevelItem) hiddenList.add(levelItem) else shownList.add(levelItem)
     }
     return Pair(hiddenList, shownList)
   }
 
-  private fun getUserStatsAndBonusEarned(): Observable<Pair<PromotionsGamificationStats, FiatValue>> {
-    return gamification.getUserStats()
-        .flatMap { stats ->
-          if (stats.resultState == PromotionsGamificationStats.ResultState.OK) {
-            gamification.getAppcToLocalFiat(stats.totalEarned.toString(), 2, stats.fromCache)
-                .map { Pair(stats, it) }
-                .toObservable()
-          } else {
-            Observable.just(Pair(stats,
-              FiatValue(
-                BigDecimal.ONE.negate(),
-                ""
-              )
-            ))
-          }
-        }
+  private fun getUserStatsAndBonusEarned():
+      Observable<Pair<PromotionsGamificationStats, FiatValue>> {
+    return gamification.getUserStats().flatMap { stats ->
+      if (stats.resultState == PromotionsGamificationStats.ResultState.OK) {
+        gamification
+            .getAppcToLocalFiat(stats.totalEarned.toString(), 2, stats.fromCache)
+            .map { Pair(stats, it) }
+            .toObservable()
+      } else {
+        Observable.just(Pair(stats, FiatValue(BigDecimal.ONE.negate(), "")))
+      }
+    }
   }
 
   private fun handleError(throwable: Throwable) {
@@ -153,17 +178,20 @@ class GamificationPresenter(private val view: GamificationView,
   fun stop() = disposables.clear()
 
   private fun handleBottomSheetVisibility() {
-    disposables.add(view.getBottomSheetButtonClick()
-        .mergeWith(view.getBottomSheetContainerClick())
-        .observeOn(viewScheduler)
-        .doOnNext { view.updateBottomSheetVisibility() }
-        .subscribe({}, { handleError(it) }))
+    disposables.add(
+        view
+            .getBottomSheetButtonClick()
+            .mergeWith(view.getBottomSheetContainerClick())
+            .observeOn(viewScheduler)
+            .doOnNext { view.updateBottomSheetVisibility() }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleBackPress() {
-    disposables.add(Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
-        .observeOn(viewScheduler)
-        .doOnNext { view.handleBackPressed() }
-        .subscribe({}, { it.printStackTrace() }))
+    disposables.add(
+        Observable.merge(view.getBackPressed(), view.getHomeBackPressed())
+            .observeOn(viewScheduler)
+            .doOnNext { view.handleBackPressed() }
+            .subscribe({}, { it.printStackTrace() }))
   }
 }

@@ -1,10 +1,6 @@
-plugins {
-  id("appcoins.android.library")
-}
+plugins { id("appcoins.android.library") }
 
-android {
-  namespace = "com.appcoins.wallet.core.network.analytics"
-}
+android { namespace = "com.appcoins.wallet.core.network.analytics" }
 
 dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
@@ -13,4 +9,3 @@ dependencies {
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)
 }
-

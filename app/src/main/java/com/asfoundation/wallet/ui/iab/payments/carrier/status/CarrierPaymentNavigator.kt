@@ -13,8 +13,9 @@ import com.asfoundation.wallet.ui.iab.payments.common.error.IabErrorFragment
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CarrierPaymentNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                              fragment: Fragment) {
+class CarrierPaymentNavigator
+@Inject
+constructor(private val fragmentManager: FragmentManager, fragment: Fragment) {
 
   private val uriNavigator = fragment.activity as UriNavigator
   private val iabActivity = fragment.activity as IabActivity
@@ -28,8 +29,10 @@ class CarrierPaymentNavigator @Inject constructor(private val fragmentManager: F
   }
 
   fun navigateToError(@StringRes messageStringRes: Int) {
-    fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
+    fragmentManager
+        .beginTransaction()
+        .replace(
+            R.id.fragment_container,
             IabErrorFragment.newInstance(messageStringRes, CarrierVerifyFragment.BACKSTACK_NAME))
         .addToBackStack(null)
         .commit()

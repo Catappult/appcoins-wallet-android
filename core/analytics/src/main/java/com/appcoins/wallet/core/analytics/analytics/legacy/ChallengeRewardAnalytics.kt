@@ -8,9 +8,7 @@ class ChallengeRewardAnalytics @Inject constructor(private val analyticsManager:
   fun sendChallengeRewardEvent(flowPath: String) {
     val data = mapOf(CHALLENGE_REWARD_FLOW_PATH to flowPath)
     analyticsManager.logEvent(
-      data, CHALLENGE_REWARD_EVENT,
-      AnalyticsManager.Action.OPEN, CHALLENGE_REWARD
-    )
+        data, CHALLENGE_REWARD_EVENT, AnalyticsManager.Action.OPEN, CHALLENGE_REWARD)
   }
 
   companion object {

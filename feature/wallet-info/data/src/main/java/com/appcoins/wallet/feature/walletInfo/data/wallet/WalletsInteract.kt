@@ -22,82 +22,77 @@ import javax.inject.Inject
 class WalletsInteract
 @Inject
 constructor(
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val fetchWalletsInteract: FetchWalletsInteract,
-  private val walletCreatorInteract: WalletCreatorInteract,
-  private val supportInteractor: SupportInteractor,
-  private val preferencesRepository: CommonsPreferencesDataSource,
-  private val gamificationRepository: Gamification,
-  private val logger: Logger,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val fetchWalletsInteract: FetchWalletsInteract,
+    private val walletCreatorInteract: WalletCreatorInteract,
+    private val supportInteractor: SupportInteractor,
+    private val preferencesRepository: CommonsPreferencesDataSource,
+    private val gamificationRepository: Gamification,
+    private val logger: Logger,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   fun observeWalletsModel(): Observable<WalletsModel> =
-    retrieveWallets()
-      .filter { it.isNotEmpty() }
-      .flatMapIterable { it }
-      .flatMap { observeWalletInfoUseCase(it.address, update = true) }
-      .map {
-        listOf(
-          WalletInfoSimple(
-            it.name,
-            it.wallet,
-            it.walletBalance.creditsOnlyFiat,
-            preferencesRepository.getCurrentWalletAddress() == it.wallet,
-            it.backupDate,
-            false
-          )
-        )
-      }
-      .doOnError { logger.log("WalletsInteract", it) }
-      .scan { list, itemList ->
-        list.filter { it.walletAddress != itemList[0].walletAddress } + itemList
-      }
-      .throttleLast(100, TimeUnit.MILLISECONDS)
-      .map { list ->
-        val totalBalance = getTotalBalance(list)
-        val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
-        val walletsSorted =
-          list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
-        WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
-      }
+      retrieveWallets()
+          .filter { it.isNotEmpty() }
+          .flatMapIterable { it }
+          .flatMap { observeWalletInfoUseCase(it.address, update = true) }
+          .map {
+            listOf(
+                WalletInfoSimple(
+                    it.name,
+                    it.wallet,
+                    it.walletBalance.creditsOnlyFiat,
+                    preferencesRepository.getCurrentWalletAddress() == it.wallet,
+                    it.backupDate,
+                    false))
+          }
+          .doOnError { logger.log("WalletsInteract", it) }
+          .scan { list, itemList ->
+            list.filter { it.walletAddress != itemList[0].walletAddress } + itemList
+          }
+          .throttleLast(100, TimeUnit.MILLISECONDS)
+          .map { list ->
+            val totalBalance = getTotalBalance(list)
+            val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
+            val walletsSorted =
+                list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
+            WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
+          }
 
   fun getWalletsModel(): Single<WalletsModel> =
-    retrieveWallets()
-      .filter { it.isNotEmpty() }
-      .flatMapIterable { list -> list }
-      .flatMap {
-        getWalletInfoUseCase(it.address, cached = true).toObservable()
-      }
-      .map {
-        WalletInfoSimple(
-          it.name,
-          it.wallet,
-          it.walletBalance.creditsOnlyFiat,
-          preferencesRepository.getCurrentWalletAddress() == it.wallet,
-          it.backupDate,
-          false
-        )
-      }
-      .doOnError { logger.log("WalletsInteract", it) }
-      .toList()
-      .map { list ->
-        val totalBalance = getTotalBalance(list)
-        val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
-        val walletsSorted =
-          list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
-        WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
-      }
+      retrieveWallets()
+          .filter { it.isNotEmpty() }
+          .flatMapIterable { list -> list }
+          .flatMap { getWalletInfoUseCase(it.address, cached = true).toObservable() }
+          .map {
+            WalletInfoSimple(
+                it.name,
+                it.wallet,
+                it.walletBalance.creditsOnlyFiat,
+                preferencesRepository.getCurrentWalletAddress() == it.wallet,
+                it.backupDate,
+                false)
+          }
+          .doOnError { logger.log("WalletsInteract", it) }
+          .toList()
+          .map { list ->
+            val totalBalance = getTotalBalance(list)
+            val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
+            val walletsSorted =
+                list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
+            WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
+          }
 
   fun createWallet(name: String?): Completable =
-    walletCreatorInteract.create(name).subscribeOn(Schedulers.io()).flatMapCompletable { wallet ->
-      getCurrentPromoCodeUseCase()
-        .flatMap { walletCreatorInteract.setDefaultWallet(wallet.address).toSingleDefault(it) }
-        .flatMap { gamificationRepository.getUserLevel(wallet.address, it.code) }
-        .doOnSuccess { supportInteractor.registerUser(it, wallet.address) }
-        .ignoreElement()
-    }
+      walletCreatorInteract.create(name).subscribeOn(Schedulers.io()).flatMapCompletable { wallet ->
+        getCurrentPromoCodeUseCase()
+            .flatMap { walletCreatorInteract.setDefaultWallet(wallet.address).toSingleDefault(it) }
+            .flatMap { gamificationRepository.getUserLevel(wallet.address, it.code) }
+            .doOnSuccess { supportInteractor.registerUser(it, wallet.address) }
+            .ignoreElement()
+      }
 
   private fun getTotalBalance(walletBalance: List<WalletInfoSimple>): FiatValue {
     if (walletBalance.isEmpty()) return FiatValue()
@@ -107,5 +102,5 @@ constructor(
   }
 
   private fun retrieveWallets(): Observable<List<Wallet>> =
-    fetchWalletsInteract.fetch().subscribeOn(Schedulers.io()).map { it.toList() }.toObservable()
+      fetchWalletsInteract.fetch().subscribeOn(Schedulers.io()).map { it.toList() }.toObservable()
 }

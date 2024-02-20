@@ -4,8 +4,7 @@ import android.graphics.Bitmap
 import io.reactivex.Observable
 
 interface LocalTopUpPaymentView {
-  fun showValues(value: String, currency: String, appcValue: String,
-                 selectedCurrencyType: String)
+  fun showValues(value: String, currency: String, appcValue: String, selectedCurrencyType: String)
 
   fun showError()
 
@@ -21,8 +20,7 @@ interface LocalTopUpPaymentView {
 
   fun showProcessingLoading()
 
-  fun showPendingUserPayment(paymentMethodIcon: Bitmap,
-                             paymentLabel: String)
+  fun showPendingUserPayment(paymentMethodIcon: Bitmap, paymentLabel: String)
 
   fun showNetworkError()
 
@@ -32,5 +30,9 @@ interface LocalTopUpPaymentView {
 }
 
 enum class ViewState {
-  NONE, PENDING_USER_PAYMENT, GENERIC_ERROR, NO_NETWORK, LOADING
+  NONE,
+  PENDING_USER_PAYMENT,
+  GENERIC_ERROR,
+  NO_NETWORK,
+  LOADING
 }

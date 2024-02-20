@@ -20,7 +20,6 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
-import com.asfoundation.wallet.billing.googlepay.GooglePayWebReturnSchemas
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.google.android.material.snackbar.Snackbar
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -36,14 +35,11 @@ import javax.inject.Inject
 class BillingWebViewFragment : BasePageViewFragment() {
   private val timeoutReference: AtomicReference<ScheduledFuture<*>?> = AtomicReference()
 
-  @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Inject lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
-  @Inject
-  lateinit var analytics: BillingAnalytics
+  @Inject lateinit var analytics: BillingAnalytics
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
   lateinit var currentUrl: String
   private var executorService: ScheduledExecutorService? = null
@@ -61,26 +57,27 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
     private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
     private var PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
-    private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
-      "picpay://",
-      "shopeeid://",
-      "grab://",
-      "intent://",
-      "open.dolfinwallet://",
-      "momo://",
-      "tez://",
-      "upi://",
-      ExternalAppEnum.GOJEK.uriScheme,
-      ExternalAppEnum.PHONEPE.uriScheme,
-      ExternalAppEnum.PAYTM.uriScheme,
-      ExternalAppEnum.BHIM.uriScheme,
-      ExternalAppEnum.DANA.uriScheme,
-    )
+    private val EXTERNAL_INTENT_SCHEMA_LIST =
+        listOf(
+            "picpay://",
+            "shopeeid://",
+            "grab://",
+            "intent://",
+            "open.dolfinwallet://",
+            "momo://",
+            "tez://",
+            "upi://",
+            ExternalAppEnum.GOJEK.uriScheme,
+            ExternalAppEnum.PHONEPE.uriScheme,
+            ExternalAppEnum.PAYTM.uriScheme,
+            ExternalAppEnum.BHIM.uriScheme,
+            ExternalAppEnum.DANA.uriScheme,
+        )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
-      "https://airtime.codapayments.com/epcgw/dlocal/"
+        "https://airtime.codapayments.com/epcgw/dlocal/"
     private const val CODAPAY_BACK_URL =
-      "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
+        "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
     private const val CODAPAY_CANCEL_URL = "codapayments.com/airtime/cancelConfirm"
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
@@ -91,9 +88,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
     fun newInstance(url: String?): BillingWebViewFragment {
       return BillingWebViewFragment().apply {
-        arguments = Bundle().apply {
-          putString(URL, url)
-        }
+        arguments = Bundle().apply { putString(URL, url) }
         retainInstance = true
       }
     }
@@ -109,73 +104,73 @@ class BillingWebViewFragment : BasePageViewFragment() {
     super.onCreate(savedInstanceState)
     executorService = Executors.newScheduledThreadPool(0)
     require(arguments != null && requireArguments().containsKey(URL)) { "Provided url is null!" }
-    currentUrl = if (savedInstanceState == null) {
-      requireArguments().getString(URL)!!
-    } else {
-      savedInstanceState.getString(CURRENT_URL)!!
-    }
-    CookieManager.getInstance()
-      .setAcceptCookie(true)
+    currentUrl =
+        if (savedInstanceState == null) {
+          requireArguments().getString(URL)!!
+        } else {
+          savedInstanceState.getString(CURRENT_URL)!!
+        }
+    CookieManager.getInstance().setAcceptCookie(true)
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = WebviewFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    binding.webview.webViewClient = object : WebViewClient() {
-      override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
-        when {
-          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
-              clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA)
-          -> {
-            currentUrl = clickUrl
-            finishWithValidations(clickUrl)
+    binding.webview.webViewClient =
+        object : WebViewClient() {
+          override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
+            when {
+              clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
+                  clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
+                  clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
+                currentUrl = clickUrl
+                finishWithValidations(clickUrl)
+              }
+              isExternalIntentSchema(clickUrl) -> {
+                launchActivityForSchema(view, clickUrl)
+              }
+              clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) &&
+                  clickUrl.contains(ORDER_ID_PARAMETER) -> {
+                val orderId = Uri.parse(clickUrl).getQueryParameter(ORDER_ID_PARAMETER)
+                finishWithValidations(LOCAL_PAYMENTS_URL + orderId)
+              }
+              clickUrl.contains(
+                  CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
+                currentUrl = clickUrl
+                finishWithValidations(clickUrl)
+              }
+              clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
+              clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
+              clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
+              else -> {
+                currentUrl = clickUrl
+                return false
+              }
+            }
+            return true
           }
-          isExternalIntentSchema(clickUrl) -> {
-            launchActivityForSchema(view, clickUrl)
-          }
-          clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
-            ORDER_ID_PARAMETER
-          ) -> {
-            val orderId = Uri.parse(clickUrl)
-              .getQueryParameter(ORDER_ID_PARAMETER)
-            finishWithValidations(LOCAL_PAYMENTS_URL + orderId)
-          }
-          clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
-            currentUrl = clickUrl
-            finishWithValidations(clickUrl)
-          }
-          clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
-          clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
-          clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
-          else -> {
-            currentUrl = clickUrl
-            return false
-          }
-        }
-        return true
-      }
 
-      override fun onPageFinished(view: WebView, url: String) {
-        super.onPageFinished(view, url)
-        if (!url.contains("/redirect")) {
-          val timeout = timeoutReference.getAndSet(null)
-          timeout?.cancel(false)
-          try {
-            binding.webviewProgressBar.visibility = View.GONE
-          } catch (exception: Exception) {
-            logger.log(TAG, exception)
+          override fun onPageFinished(view: WebView, url: String) {
+            super.onPageFinished(view, url)
+            if (!url.contains("/redirect")) {
+              val timeout = timeoutReference.getAndSet(null)
+              timeout?.cancel(false)
+              try {
+                binding.webviewProgressBar.visibility = View.GONE
+              } catch (exception: Exception) {
+                logger.log(TAG, exception)
+              }
+            }
+            if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
+              asyncDetailsShown = true
+            }
           }
         }
-        if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
-          asyncDetailsShown = true
-        }
-      }
-    }
     binding.webview.settings.javaScriptEnabled = true
     binding.webview.settings.domStorageEnabled = true
     binding.webview.settings.useWideViewPort = true
@@ -183,13 +178,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
     binding.warningGetBt.setOnClickListener {
       dismissGetAppWarning()
-      currentExtAppSelected?.let {
-        openDownloadExternalApp(it)
-      }
+      currentExtAppSelected?.let { openDownloadExternalApp(it) }
     }
-    binding.warningCancelBt.setOnClickListener {
-      dismissGetAppWarning()
-    }
+    binding.warningCancelBt.setOnClickListener { dismissGetAppWarning() }
   }
 
   private fun openDownloadExternalApp(appInfo: ExternalAppEnum) {
@@ -248,8 +239,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
       val intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
       if (intent != null) {
         val packageManager = requireContext().packageManager
-        val info =
-          packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val info = packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
         if (info != null) {
           requireContext().startActivity(intent)
         } else {
@@ -258,21 +248,15 @@ class BillingWebViewFragment : BasePageViewFragment() {
             webView.loadUrl(fallbackUrl)
           } else {
             val appInfo = getAppInfo(url)
-            if (appInfo != null)
-              showGetAppWarning(appInfo)
-            else
-              logger.log(TAG, "Unable to open external app from the webview: $url")
+            if (appInfo != null) showGetAppWarning(appInfo)
+            else logger.log(TAG, "Unable to open external app from the webview: $url")
           }
         }
       }
     } catch (e: URISyntaxException) {
       e.printStackTrace()
       if (view != null) {
-        Snackbar.make(
-          requireView(), R.string.unknown_error,
-          Snackbar.LENGTH_SHORT
-        )
-          .show()
+        Snackbar.make(requireView(), R.string.unknown_error, Snackbar.LENGTH_SHORT).show()
       }
     }
   }
@@ -307,11 +291,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private fun showGetAppWarning(appInfo: ExternalAppEnum) {
     currentExtAppSelected = appInfo
     binding.warningGroup.startAnimation(
-      AnimationUtils.loadAnimation(
-        context,
-        R.anim.pop_in_animation
-      )
-    )
+        AnimationUtils.loadAnimation(context, R.anim.pop_in_animation))
     binding.warningGroup.visibility = View.VISIBLE
     binding.warningNameTv.text = appInfo.appName
     binding.warningAppIv.setImageResource(appInfo.appIcon)
@@ -319,11 +299,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   private fun dismissGetAppWarning() {
     binding.warningGroup.startAnimation(
-      AnimationUtils.loadAnimation(
-        context,
-        R.anim.pop_out_animation
-      )
-    )
+        AnimationUtils.loadAnimation(context, R.anim.pop_out_animation))
     binding.warningGroup.visibility = View.GONE
   }
 }

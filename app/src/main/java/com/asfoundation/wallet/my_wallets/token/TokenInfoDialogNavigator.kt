@@ -6,7 +6,7 @@ import com.appcoins.wallet.core.arch.data.navigate
 import javax.inject.Inject
 
 class TokenInfoDialogNavigator @Inject constructor(private val navController: NavController) :
-  Navigator {
+    Navigator {
 
   fun navigateToTopUp() {
     navigate(navController, TokenInfoDialogFragmentDirections.actionNavigateToTopUp())

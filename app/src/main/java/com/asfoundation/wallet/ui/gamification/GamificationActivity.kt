@@ -55,9 +55,10 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
-   fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -78,7 +79,8 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   override fun loadGamificationView() {
     toolbar?.menu?.removeItem(R.id.action_info)
-    supportFragmentManager.beginTransaction()
+    supportFragmentManager
+        .beginTransaction()
         .replace(R.id.fragment_container, GamificationFragment())
         .commit()
   }
@@ -105,19 +107,14 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     super.onDestroy()
   }
 
-  private val bonus: Int by lazy {
-    intent.getDoubleExtra(BONUS, 25.0)
-        .toInt()
-  }
+  private val bonus: Int by lazy { intent.getDoubleExtra(BONUS, 25.0).toInt() }
 
   companion object {
     const val BONUS = "bonus"
 
     @JvmStatic
     fun newIntent(context: Context, bonus: Double): Intent {
-      return Intent(context, GamificationActivity::class.java).apply {
-        putExtra(BONUS, bonus)
-      }
+      return Intent(context, GamificationActivity::class.java).apply { putExtra(BONUS, bonus) }
     }
   }
 

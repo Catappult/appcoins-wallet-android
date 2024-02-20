@@ -4,9 +4,12 @@ import com.asfoundation.wallet.rating.RatingRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ShouldOpenRatingDialogUseCase @Inject constructor(
+class ShouldOpenRatingDialogUseCase
+@Inject
+constructor(
     private val ratingRepository: RatingRepository,
-    private val getUserLevelUseCase: GetUserLevelUseCase) {
+    private val getUserLevelUseCase: GetUserLevelUseCase
+) {
 
   operator fun invoke(): Single<Boolean> {
     val remindMeLaterDate = ratingRepository.getRemindMeLaterDate()
@@ -14,8 +17,9 @@ class ShouldOpenRatingDialogUseCase @Inject constructor(
       return Single.just(true)
     }
     if (!ratingRepository.hasSeenDialog()) {
-      return getUserLevelUseCase()
-          .map { level -> level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
+      return getUserLevelUseCase().map { level ->
+        level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions()
+      }
     }
     return Single.just(false)
   }

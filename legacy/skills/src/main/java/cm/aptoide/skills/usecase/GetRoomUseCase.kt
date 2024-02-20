@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class GetRoomUseCase @Inject constructor(private val roomRepository: RoomRepository) {
   fun getRoom(session: String): Single<RoomResponse> {
-    return roomRepository.getRoom(session)
-      .subscribeOn(Schedulers.io())
+    return roomRepository.getRoom(session).subscribeOn(Schedulers.io())
   }
 }

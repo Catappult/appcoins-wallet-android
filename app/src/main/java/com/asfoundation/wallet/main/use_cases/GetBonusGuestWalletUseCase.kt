@@ -6,19 +6,16 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoR
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetBonusGuestWalletUseCase @Inject constructor(
-  private val walletInfoRepository: WalletInfoRepository,
-  private val accountWalletService: AccountWalletService
+class GetBonusGuestWalletUseCase
+@Inject
+constructor(
+    private val walletInfoRepository: WalletInfoRepository,
+    private val accountWalletService: AccountWalletService
 ) {
 
   operator fun invoke(key: String): Single<FiatValue> {
-    return accountWalletService.getAddressFromPrivateKey(key)
-      .flatMap {address ->
-        walletInfoRepository.getLatestWalletInfo(address)
-          .map {
-            it.walletBalance.overallFiat
-          }
-      }
+    return accountWalletService.getAddressFromPrivateKey(key).flatMap { address ->
+      walletInfoRepository.getLatestWalletInfo(address).map { it.walletBalance.overallFiat }
+    }
   }
-
 }

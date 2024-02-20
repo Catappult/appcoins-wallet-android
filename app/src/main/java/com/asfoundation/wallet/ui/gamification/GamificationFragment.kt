@@ -21,23 +21,20 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class GamificationFragment : BasePageViewFragment(), GamificationView {
 
-  @Inject
-  lateinit var interactor: GamificationInteractor
+  @Inject lateinit var interactor: GamificationInteractor
 
-  @Inject
-  lateinit var analytics: GamificationAnalytics
+  @Inject lateinit var analytics: GamificationAnalytics
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var mapper: GamificationMapper
+  @Inject lateinit var mapper: GamificationMapper
   private lateinit var presenter: GamificationPresenter
   private lateinit var activityView: GamificationActivityView
   private lateinit var levelsAdapter: LevelsAdapter
@@ -54,8 +51,11 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    require(
-        context is GamificationActivityView) { GamificationFragment::class.java.simpleName + " needs to be attached to a " + GamificationActivityView::class.java.simpleName }
+    require(context is GamificationActivityView) {
+      GamificationFragment::class.java.simpleName +
+          " needs to be attached to a " +
+          GamificationActivityView::class.java.simpleName
+    }
     activityView = context
   }
 
@@ -64,12 +64,22 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     uiEventListener = PublishSubject.create()
     onBackPressedSubject = PublishSubject.create()
     presenter =
-        GamificationPresenter(this, activityView, interactor, analytics, formatter,
-            CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+        GamificationPresenter(
+            this,
+            activityView,
+            interactor,
+            analytics,
+            formatter,
+            CompositeDisposable(),
+            AndroidSchedulers.mainThread(),
+            Schedulers.io())
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentGamificationBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentGamificationBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -87,15 +97,15 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     levelsAdapter = LevelsAdapter(formatter, mapper, uiEventListener!!)
     binding.gamificationRecyclerView.adapter = levelsAdapter
     binding.gamificationRecyclerView.addItemDecoration(
-        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
-            .toInt())
-    )
+        MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin).toInt()))
     presenter.present(savedInstanceState)
   }
 
-  override fun displayGamificationInfo(hiddenLevels: List<LevelItem>,
-                                       shownLevels: List<LevelItem>,
-                                       updateDate: Date?) {
+  override fun displayGamificationInfo(
+      hiddenLevels: List<LevelItem>,
+      shownLevels: List<LevelItem>,
+      updateDate: Date?
+  ) {
     binding.gamificationRecyclerView.visibility = View.VISIBLE
     levelsAdapter.setLevelsContent(hiddenLevels, shownLevels)
     handleBonusUpdatedText(updateDate)
@@ -122,7 +132,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     if (updateDate != null) {
       val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
       val date = dateFormat.format(updateDate)
-      binding.bonusUpdate.bonusUpdateText.text = getString(R.string.pioneer_bonus_updated_body, date)
+      binding.bonusUpdate.bonusUpdateText.text =
+          getString(R.string.pioneer_bonus_updated_body, date)
       binding.bonusUpdate.root.visibility = View.VISIBLE
     }
   }
@@ -140,7 +151,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     updateBottomSheetVisibility()
   }
 
-  override fun getBottomSheetButtonClick() = RxView.clicks(binding.bottomSheetFragmentContainer.gotItButton)
+  override fun getBottomSheetButtonClick() =
+      RxView.clicks(binding.bottomSheetFragmentContainer.gotItButton)
 
   override fun getBackPressed() = onBackPressedSubject!!
 
@@ -156,7 +168,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     }
   }
 
-  override fun getBottomSheetContainerClick() = RxView.clicks(binding.bottomsheetCoordinatorContainer)
+  override fun getBottomSheetContainerClick() =
+      RxView.clicks(binding.bottomsheetCoordinatorContainer)
 
   private fun setBackListener(view: View) {
     activityView.disableBack()
@@ -166,7 +179,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
       setOnKeyListener { _, keyCode, keyEvent ->
         if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
           if (detailsBottomSheet.state == BottomSheetBehavior.STATE_EXPANDED)
-            onBackPressedSubject?.onNext("")
+              onBackPressedSubject?.onNext("")
         }
         true
       }

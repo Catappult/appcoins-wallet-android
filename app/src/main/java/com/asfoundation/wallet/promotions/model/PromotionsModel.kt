@@ -17,13 +17,13 @@ data class PromotionsModel(
   fun hasError() = error != null
 
   enum class WalletOrigin {
-    UNKNOWN, APTOIDE, PARTNER
+    UNKNOWN,
+    APTOIDE,
+    PARTNER
   }
 
   enum class Status {
-    NO_NETWORK, UNKNOWN_ERROR
+    NO_NETWORK,
+    UNKNOWN_ERROR
   }
 }
-
-
-

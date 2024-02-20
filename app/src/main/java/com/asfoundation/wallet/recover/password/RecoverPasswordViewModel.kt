@@ -27,23 +27,23 @@ import javax.inject.Inject
 sealed class RecoverPasswordSideEffect : SideEffect
 
 data class RecoverPasswordState(
-  val recoverResultAsync: Async<RecoverPasswordResult> = Async.Uninitialized
-) :
-  ViewState
+    val recoverResultAsync: Async<RecoverPasswordResult> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
-class RecoverPasswordViewModel @Inject constructor(
-  private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
-  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-  private val walletsEventSender: WalletsEventSender,
-  private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
-  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-  private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
-  private val savedStateHandle: SavedStateHandle,
-) :
-  BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
+class RecoverPasswordViewModel
+@Inject
+constructor(
+    private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+    private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+    private val walletsEventSender: WalletsEventSender,
+    private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
+    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+    private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+    private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+    private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+    private val savedStateHandle: SavedStateHandle,
+) : BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RecoverPasswordState {
@@ -51,33 +51,32 @@ class RecoverPasswordViewModel @Inject constructor(
     }
   }
 
-  private fun setDefaultWallet(recoverResult: RecoverPasswordResult): Single<RecoverPasswordResult> {
+  private fun setDefaultWallet(
+      recoverResult: RecoverPasswordResult
+  ): Single<RecoverPasswordResult> {
     return when (recoverResult) {
       is FailedPasswordRecover -> Single.just(recoverResult)
-      is SuccessfulPasswordRecover -> Completable.mergeArray(
-        setDefaultWalletUseCase(recoverResult.address),
-        updateWalletInfoUseCase(recoverResult.address)
-      ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
-        .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
-        .andThen(Single.just(recoverResult))
+      is SuccessfulPasswordRecover ->
+          Completable.mergeArray(
+                  setDefaultWalletUseCase(recoverResult.address),
+                  updateWalletInfoUseCase(recoverResult.address))
+              .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+              .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
+              .andThen(Single.just(recoverResult))
     }
   }
 
   fun handleRecoverPasswordClick(password: String) {
     val keystore = savedStateHandle.get<WalletKeyStore>(KEYSTORE_KEY)
     recoverPasswordKeystoreUseCase(keyStore = keystore!!, password = password)
-      .flatMap { setDefaultWallet(it) }
-      .asAsyncToState {
-        copy(recoverResultAsync = it)
-      }
-      .doOnSuccess { handleRecoverResult(it) }
-      .doOnError {
-        walletsEventSender.sendWalletCompleteRestoreEvent(
-          WalletsAnalytics.STATUS_FAIL,
-          it.message
-        )
-      }
-      .scopedSubscribe()
+        .flatMap { setDefaultWallet(it) }
+        .asAsyncToState { copy(recoverResultAsync = it) }
+        .doOnSuccess { handleRecoverResult(it) }
+        .doOnError {
+          walletsEventSender.sendWalletCompleteRestoreEvent(
+              WalletsAnalytics.STATUS_FAIL, it.message)
+        }
+        .scopedSubscribe()
   }
 
   private fun handleRecoverResult(recoverResult: RecoverPasswordResult) {
@@ -85,28 +84,23 @@ class RecoverPasswordViewModel @Inject constructor(
       is SuccessfulPasswordRecover -> {
         updateWalletBackupState()
         walletsEventSender.sendWalletPasswordRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_SUCCESS
-        )
+            WalletsAnalytics.ACTION_IMPORT, WalletsAnalytics.STATUS_SUCCESS)
         setIsFirstPaymentUseCase(false)
       }
       is FailedPasswordRecover.InvalidPassword -> {
         walletsEventSender.sendWalletPasswordRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_FAIL, recoverResult.throwable?.message
-        )
+            WalletsAnalytics.ACTION_IMPORT,
+            WalletsAnalytics.STATUS_FAIL,
+            recoverResult.throwable?.message)
       }
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
-          WalletsAnalytics.ACTION_IMPORT,
-          WalletsAnalytics.STATUS_FAIL, recoverResult.toString()
-        )
+            WalletsAnalytics.ACTION_IMPORT, WalletsAnalytics.STATUS_FAIL, recoverResult.toString())
       }
     }
   }
 
   private fun updateWalletBackupState() {
-    updateBackupStateFromRecoverUseCase()
-      .scopedSubscribe()
+    updateBackupStateFromRecoverUseCase().scopedSubscribe()
   }
 }

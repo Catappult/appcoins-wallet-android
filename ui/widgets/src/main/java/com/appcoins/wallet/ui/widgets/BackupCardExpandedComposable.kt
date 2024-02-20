@@ -15,16 +15,15 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
   Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
     AlertMessageWithIcon(
-      icon = R.drawable.ic_alert_circle,
-      title = stringResource(id = R.string.intro_backup_card_title),
-      message = "${stringResource(id = R.string.backup_wallet_tooltip)} ${stringResource(id = R.string.backup_title)}"
-    )
+        icon = R.drawable.ic_alert_circle,
+        title = stringResource(id = R.string.intro_backup_card_title),
+        message =
+            "${stringResource(id = R.string.backup_wallet_tooltip)} ${stringResource(id = R.string.backup_title)}")
     ButtonWithText(
-      label = stringResource(R.string.action_backup_wallet),
-      outlineColor = WalletColors.styleguide_white,
-      labelColor = WalletColors.styleguide_white,
-      onClick = onClickButton
-    )
+        label = stringResource(R.string.action_backup_wallet),
+        outlineColor = WalletColors.styleguide_white,
+        labelColor = WalletColors.styleguide_white,
+        onClick = onClickButton)
   }
 }
 

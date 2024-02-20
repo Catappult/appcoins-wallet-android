@@ -19,10 +19,10 @@ class BackupActivity : BaseActivity() {
 
     @JvmStatic
     fun newIntent(context: Context, walletAddress: String, isBackupTrigger: Boolean) =
-      Intent(context, BackupActivity::class.java).apply {
-        putExtra(WALLET_ADDRESS_KEY, walletAddress)
-        putExtra(IS_BACKUP_TRIGGER, isBackupTrigger)
-      }
+        Intent(context, BackupActivity::class.java).apply {
+          putExtra(WALLET_ADDRESS_KEY, walletAddress)
+          putExtra(IS_BACKUP_TRIGGER, isBackupTrigger)
+        }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

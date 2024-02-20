@@ -20,8 +20,7 @@ class BillingService : Service() {
     super.onCreate()
     if (applicationContext !is BillingDependenciesProvider) {
       throw IllegalArgumentException(
-        "application must implement ${BillingDependenciesProvider::class.java.simpleName}"
-      )
+          "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
   }
 
@@ -29,30 +28,27 @@ class BillingService : Service() {
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val serializer = ExternalBillingSerializer()
     return AppcoinsBillingBinder(
-      dependenciesProvider.supportedVersion(),
-      dependenciesProvider.billingMessagesMapper(),
-      packageManager,
-      object : BillingFactory {
-        override fun getBilling(): Billing = BdsBilling(
-          BdsRepository(
-            RemoteRepository(
-              dependenciesProvider.brokerBdsApi(),
-              dependenciesProvider.inappApi(),
-              BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-              dependenciesProvider.subscriptionsApi(),
-              dependenciesProvider.ewtObtainer(),
-              dependenciesProvider.rxSchedulers()
-            )
-          ),
-          dependenciesProvider.walletService(),
-          BillingThrowableCodeMapper(),
-          dependenciesProvider.partnerAddressService()
-        )
-      },
-      serializer,
-      dependenciesProvider.proxyService(),
-      BillingIntentBuilder(applicationContext),
-      Schedulers.io()
-    )
+        dependenciesProvider.supportedVersion(),
+        dependenciesProvider.billingMessagesMapper(),
+        packageManager,
+        object : BillingFactory {
+          override fun getBilling(): Billing =
+              BdsBilling(
+                  BdsRepository(
+                      RemoteRepository(
+                          dependenciesProvider.brokerBdsApi(),
+                          dependenciesProvider.inappApi(),
+                          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                          dependenciesProvider.subscriptionsApi(),
+                          dependenciesProvider.ewtObtainer(),
+                          dependenciesProvider.rxSchedulers())),
+                  dependenciesProvider.walletService(),
+                  BillingThrowableCodeMapper(),
+                  dependenciesProvider.partnerAddressService())
+        },
+        serializer,
+        dependenciesProvider.proxyService(),
+        BillingIntentBuilder(applicationContext),
+        Schedulers.io())
   }
 }

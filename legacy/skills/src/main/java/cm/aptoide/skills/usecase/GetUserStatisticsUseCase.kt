@@ -7,14 +7,17 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetUserStatisticsUseCase @Inject constructor(
-  private val statisticsRepository: StatisticsRepository
-) {
+class GetUserStatisticsUseCase
+@Inject
+constructor(private val statisticsRepository: StatisticsRepository) {
 
   operator fun invoke(
-    applicationId: String, userWalletAddress: String, timeFrame: TimeFrame
+      applicationId: String,
+      userWalletAddress: String,
+      timeFrame: TimeFrame
   ): Single<TopNPlayersResponse> {
-    return statisticsRepository.getTopNPlayers(applicationId, userWalletAddress, timeFrame)
-      .subscribeOn(Schedulers.io())
+    return statisticsRepository
+        .getTopNPlayers(applicationId, userWalletAddress, timeFrame)
+        .subscribeOn(Schedulers.io())
   }
 }

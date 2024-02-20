@@ -12,10 +12,8 @@ buildscript {
     classpath(libs.gradlePlugin.junit5)
     classpath(libs.google.services)
     classpath(libs.androidx.navigation.safeargs)
-//    classpath(libs.gradlePlugin.bintray)
+    //    classpath(libs.gradlePlugin.bintray)
   }
 }
 
-tasks.register("clean", Delete::class) {
-  delete(rootProject.buildDir)
-}
+tasks.register("clean", Delete::class) { delete(rootProject.buildDir) }

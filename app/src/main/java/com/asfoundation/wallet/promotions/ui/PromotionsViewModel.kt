@@ -1,14 +1,13 @@
 package com.asfoundation.wallet.promotions.ui
 
-
 import android.content.ActivityNotFoundException
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
@@ -22,36 +21,43 @@ import javax.inject.Inject
 
 sealed class PromotionsSideEffect : SideEffect {
   data class NavigateToGamification(val cachedBonus: Double) : PromotionsSideEffect()
+
   data class NavigateToVoucherDetails(val packageName: String) : PromotionsSideEffect()
+
   data class NavigateToOpenDetails(val link: String) : PromotionsSideEffect()
+
   data class NavigateToShare(val url: String) : PromotionsSideEffect()
+
   data class NavigateToVipReferral(
-    val bonus: String,
-    val promoCodeVip: String,
-    val totalEarned: String,
-    val numberReferrals: String
+      val bonus: String,
+      val promoCodeVip: String,
+      val totalEarned: String,
+      val numberReferrals: String
   ) : PromotionsSideEffect()
+
   object NavigateToInviteFriends : PromotionsSideEffect()
+
   object NavigateToInfo : PromotionsSideEffect()
+
   object ShowErrorToast : PromotionsSideEffect()
 }
 
 data class PromotionsState(
-  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
-) :
-  ViewState
+    val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
+    val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
-class PromotionsViewModel @Inject constructor(
-  private val getPromotions: GetPromotionsUseCase,
-  private val analyticsSetup: AnalyticsSetup,
-  private val setSeenPromotions: SetSeenPromotionsUseCase,
-  private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
-  private val gamificationInteractor: GamificationInteractor,
-  private val rxSchedulers: RxSchedulers
-) :
-  BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
+class PromotionsViewModel
+@Inject
+constructor(
+    private val getPromotions: GetPromotionsUseCase,
+    private val analyticsSetup: AnalyticsSetup,
+    private val setSeenPromotions: SetSeenPromotionsUseCase,
+    private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
+    private val gamificationInteractor: GamificationInteractor,
+    private val rxSchedulers: RxSchedulers
+) : BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
 
   var vipReferral: VipReferralInfo? = null
 
@@ -71,27 +77,26 @@ class PromotionsViewModel @Inject constructor(
 
   fun fetchPromotions() {
     getPromotions()
-      .subscribeOn(rxSchedulers.io)
-      .asAsyncToState(PromotionsState::promotionsModelAsync) {
-        copy(promotionsModelAsync = it)
-      }
-      .doOnNext { promotionsModel ->
-        if (promotionsModel.error == null) {
-          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin.name)
-          setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
-          setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
+        .subscribeOn(rxSchedulers.io)
+        .asAsyncToState(PromotionsState::promotionsModelAsync) { copy(promotionsModelAsync = it) }
+        .doOnNext { promotionsModel ->
+          if (promotionsModel.error == null) {
+            analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin.name)
+            setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
+            setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
+          }
         }
-      }
-      .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
-        e.printStackTrace()
-      }
+        .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
+          e.printStackTrace()
+        }
   }
 
   fun fetchGamificationStats() {
-    gamificationInteractor.getUserStats()
-      .subscribeOn(rxSchedulers.io)
-      .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
-      .scopedSubscribe()
+    gamificationInteractor
+        .getUserStats()
+        .subscribeOn(rxSchedulers.io)
+        .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
+        .scopedSubscribe()
   }
 
   fun gamificationInfoClicked() {
@@ -100,15 +105,17 @@ class PromotionsViewModel @Inject constructor(
 
   fun promotionClicked(promotionClick: PromotionClick) {
     when (promotionClick.id) {
-      PromotionsInteractor.GAMIFICATION_ID -> sendSideEffect {
-        PromotionsSideEffect.NavigateToGamification(promotionsModelAsync.value?.maxBonus ?: 0.00)
-      }
+      PromotionsInteractor.GAMIFICATION_ID ->
+          sendSideEffect {
+            PromotionsSideEffect.NavigateToGamification(
+                promotionsModelAsync.value?.maxBonus ?: 0.00)
+          }
       PromotionsInteractor.REFERRAL_ID -> handleReferralClick(promotionClick.extras)
-      PromotionsInteractor.VOUCHER_ID -> sendSideEffect {
-        PromotionsSideEffect.NavigateToVoucherDetails(
-          promotionClick.extras!!.getValue(PACKAGE_NAME_EXTRA)
-        )
-      }
+      PromotionsInteractor.VOUCHER_ID ->
+          sendSideEffect {
+            PromotionsSideEffect.NavigateToVoucherDetails(
+                promotionClick.extras!!.getValue(PACKAGE_NAME_EXTRA))
+          }
       else -> mapPackagePerkClick(promotionClick.extras)
     }
   }
@@ -118,11 +125,7 @@ class PromotionsViewModel @Inject constructor(
     vipReferral?.let {
       sendSideEffect {
         PromotionsSideEffect.NavigateToVipReferral(
-          it.vipBonus,
-          it.vipCode,
-          it.totalEarned,
-          it.numberReferrals
-        )
+            it.vipBonus, it.vipCode, it.totalEarned, it.numberReferrals)
       }
     }
   }

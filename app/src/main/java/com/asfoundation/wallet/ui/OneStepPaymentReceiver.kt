@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
@@ -20,25 +20,20 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OneStepPaymentReceiver : BaseActivity() {
-  @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Inject lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
-  @Inject
-  lateinit var walletService: WalletService
+  @Inject lateinit var walletService: WalletService
 
-  @Inject
-  lateinit var logger: Logger
+  @Inject lateinit var logger: Logger
 
-  @Inject
-  lateinit var transferParser: TransferParser
+  @Inject lateinit var transferParser: TransferParser
 
-  @Inject
-  lateinit var analytics: PaymentMethodsAnalytics
+  @Inject lateinit var analytics: PaymentMethodsAnalytics
 
   private var disposable: Disposable? = null
   private var walletCreationCard: View? = null
@@ -49,6 +44,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     const val REQUEST_CODE = 234
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) analytics.startTimingForOspTotalEvent()
@@ -57,31 +53,44 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationAnimation = findViewById(R.id.create_wallet_animation)
     walletCreationText = findViewById(R.id.create_wallet_text)
     if (savedInstanceState == null) {
-      disposable = handleWalletCreationIfNeeded()
-        .takeUntil { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
-        .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
-        .flatMap {
-          if (isEskillsUri(intent.dataString!!)) {
-            val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
-            skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
-            @Suppress("DEPRECATION")
-            startActivityForResult(skillsActivityIntent, REQUEST_CODE)
-            Observable.just("")
-          }
-          else{
-            transferParser.parse(intent.dataString!!)
-              .flatMap { transaction: TransactionBuilder ->
-                inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
-                  .doOnSuccess { isBds: Boolean ->
-                    startOneStepTransfer(transaction, isBds)
-                  }
-              }.toObservable()
-          }
-        }
-        .subscribe({ }, { throwable: Throwable ->
-          logger.log("OneStepPaymentReceiver", throwable)
-          startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
-        })
+      disposable =
+          handleWalletCreationIfNeeded()
+              .takeUntil {
+                it !=
+                    com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING
+                        .toString()
+              }
+              .filter {
+                it !=
+                    com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING
+                        .toString()
+              }
+              .flatMap {
+                if (isEskillsUri(intent.dataString!!)) {
+                  val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
+                  skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
+                  @Suppress("DEPRECATION")
+                  startActivityForResult(skillsActivityIntent, REQUEST_CODE)
+                  Observable.just("")
+                } else {
+                  transferParser
+                      .parse(intent.dataString!!)
+                      .flatMap { transaction: TransactionBuilder ->
+                        inAppPurchaseInteractor
+                            .isWalletFromBds(transaction.domain, transaction.toAddress())
+                            .doOnSuccess { isBds: Boolean ->
+                              startOneStepTransfer(transaction, isBds)
+                            }
+                      }
+                      .toObservable()
+                }
+              }
+              .subscribe(
+                  {},
+                  { throwable: Throwable ->
+                    logger.log("OneStepPaymentReceiver", throwable)
+                    startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
+                  })
     }
   }
 
@@ -94,9 +103,8 @@ class OneStepPaymentReceiver : BaseActivity() {
     }
   }
 
-  private fun isEskillsUri(uri: String): Boolean = uri
-    .toLowerCase(Locale.ROOT)
-    .contains("/transaction/eskills")
+  private fun isEskillsUri(uri: String): Boolean =
+      uri.toLowerCase(Locale.ROOT).contains("/transaction/eskills")
 
   private fun startApp(throwable: Throwable) {
     throwable.printStackTrace()
@@ -104,22 +112,15 @@ class OneStepPaymentReceiver : BaseActivity() {
     finish()
   }
 
-  private fun startOneStepTransfer(
-    transaction: TransactionBuilder,
-    isBds: Boolean
-  ) {
-    val intent =
-      newIntent(this, intent, transaction, isBds, transaction.payload)
+  private fun startOneStepTransfer(transaction: TransactionBuilder, isBds: Boolean) {
+    val intent = newIntent(this, intent, transaction, isBds, transaction.payload)
     intent.putExtra(IabActivity.PRODUCT_NAME, transaction.skuId)
-    @Suppress("DEPRECATION")
-    startActivityForResult(intent, REQUEST_CODE)
+    @Suppress("DEPRECATION") startActivityForResult(intent, REQUEST_CODE)
   }
 
   private fun startOneStepWithError(errorFromReceiver: String?) {
-    val intent =
-      newIntent(this, intent, errorFromReceiver)
-    @Suppress("DEPRECATION")
-    startActivityForResult(intent, REQUEST_CODE)
+    val intent = newIntent(this, intent, errorFromReceiver)
+    @Suppress("DEPRECATION") startActivityForResult(intent, REQUEST_CODE)
   }
 
   override fun onPause() {
@@ -137,18 +138,25 @@ class OneStepPaymentReceiver : BaseActivity() {
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> =
-    walletService.findWalletOrCreate()
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnNext {
-        if (it == com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString()) {
-          showLoadingAnimation()
-        }
-      }
-      .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
-      .map {
-        endAnimation()
-        it
-      }
+      walletService
+          .findWalletOrCreate()
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnNext {
+            if (it ==
+                com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING
+                    .toString()) {
+              showLoadingAnimation()
+            }
+          }
+          .filter {
+            it !=
+                com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING
+                    .toString()
+          }
+          .map {
+            endAnimation()
+            it
+          }
 
   private fun endAnimation() {
     walletCreationAnimation!!.visibility = View.INVISIBLE

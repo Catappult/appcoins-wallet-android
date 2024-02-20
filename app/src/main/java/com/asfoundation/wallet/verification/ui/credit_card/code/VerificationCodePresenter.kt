@@ -8,16 +8,18 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCar
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class VerificationCodePresenter(private val view: VerificationCodeView,
-                                private var data: VerificationCodeData,
-                                private val activityData: VerificationCreditCardActivityData,
-                                private val disposable: CompositeDisposable,
-                                private val viewScheduler: Scheduler,
-                                private val ioScheduler: Scheduler,
-                                private val interactor: VerificationCodeInteractor,
-                                private val navigator: VerificationCodeNavigator,
-                                private val logger: Logger,
-                                private val analytics: VerificationAnalytics) {
+class VerificationCodePresenter(
+    private val view: VerificationCodeView,
+    private var data: VerificationCodeData,
+    private val activityData: VerificationCreditCardActivityData,
+    private val disposable: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val ioScheduler: Scheduler,
+    private val interactor: VerificationCodeInteractor,
+    private val navigator: VerificationCodeNavigator,
+    private val logger: Logger,
+    private val analytics: VerificationAnalytics
+) {
 
   companion object {
     private val TAG = VerificationCodePresenter::class.java.name
@@ -34,8 +36,16 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
 
   private fun initializeView(savedInstanceState: Bundle?) {
     if (data.loaded) {
-      view.setupUi(data.currency!!, data.symbol!!, data.amount!!, data.digits!!, data.format!!,
-          data.period!!, data.date!!, activityData.isWalletVerified, savedInstanceState)
+      view.setupUi(
+          data.currency!!,
+          data.symbol!!,
+          data.amount!!,
+          data.digits!!,
+          data.format!!,
+          data.period!!,
+          data.date!!,
+          activityData.isWalletVerified,
+          savedInstanceState)
       hideLoading()
     } else {
       loadInfo(savedInstanceState)
@@ -43,17 +53,18 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
   }
 
   private fun handleRetryClick() {
-    disposable.add(view.retryClick()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          view.showVerificationCode()
-        }
-        .subscribe({}, { it.printStackTrace() }))
+    disposable.add(
+        view
+            .retryClick()
+            .observeOn(viewScheduler)
+            .doOnNext { view.showVerificationCode() }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun loadInfo(savedInstance: Bundle?) {
     disposable.add(
-        interactor.loadVerificationIntroModel()
+        interactor
+            .loadVerificationIntroModel()
             .subscribeOn(ioScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess { model ->
@@ -61,48 +72,65 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
               if (model.error.hasError) {
                 navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, null, null)
               } else {
-                view.setupUi(model.currency!!, model.symbol!!, model.amount!!, model.digits!!,
-                    model.format!!, model.period!!, model.date!!, activityData.isWalletVerified,
+                view.setupUi(
+                    model.currency!!,
+                    model.symbol!!,
+                    model.amount!!,
+                    model.digits!!,
+                    model.format!!,
+                    model.period!!,
+                    model.date!!,
+                    activityData.isWalletVerified,
                     savedInstance)
-                data = VerificationCodeData(true, model.date, model.format, model.amount,
-                    model.currency, model.symbol, model.period, model.digits)
+                data =
+                    VerificationCodeData(
+                        true,
+                        model.date,
+                        model.format,
+                        model.amount,
+                        model.currency,
+                        model.symbol,
+                        model.period,
+                        model.digits)
               }
             }
             .doOnSubscribe { showLoading() }
-            .subscribe({}, {
-              logger.log(TAG, it)
-              navigator.navigateToError(VerificationCodeResult.ErrorType.OTHER, data.amount,
-                  data.symbol)
-            })
-    )
+            .subscribe(
+                {},
+                {
+                  logger.log(TAG, it)
+                  navigator.navigateToError(
+                      VerificationCodeResult.ErrorType.OTHER, data.amount, data.symbol)
+                }))
   }
 
   private fun handleAnotherCardClicks() {
     disposable.add(
-        view.getChangeCardClicks()
+        view
+            .getChangeCardClicks()
             .observeOn(viewScheduler)
             .doOnNext {
               analytics.sendConfirmEvent("try_with_another_card")
               navigator.navigateToInitialWalletVerification()
             }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleLaterClicks() {
     disposable.add(
-        view.getMaybeLaterClicks()
+        view
+            .getMaybeLaterClicks()
             .doOnNext {
               analytics.sendConfirmEvent("maybe_later")
               navigator.cancel()
             }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleConfirmClicks() {
     disposable.add(
-        view.getConfirmClicks()
+        view
+            .getConfirmClicks()
             .doOnNext {
               analytics.sendConfirmEvent("confirm")
               view.hideKeyboard()
@@ -110,17 +138,19 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
             }
             .observeOn(ioScheduler)
             .flatMapSingle {
-              interactor.confirmCode(it)
+              interactor
+                  .confirmCode(it)
                   .observeOn(viewScheduler)
                   .doOnSuccess { view.unlockRotation() }
                   .doOnSuccess { result ->
                     handleCodeConfirmationStatus(result)
-                    analytics.sendConclusionEvent(result.success,
-                        result.error.errorInfo?.httpCode?.toString(), result.error.errorInfo?.text)
+                    analytics.sendConclusionEvent(
+                        result.success,
+                        result.error.errorInfo?.httpCode?.toString(),
+                        result.error.errorInfo?.text)
                   }
             }
-            .subscribe({}, { it.printStackTrace() })
-    )
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleCodeConfirmationStatus(codeResult: VerificationCodeResult) {

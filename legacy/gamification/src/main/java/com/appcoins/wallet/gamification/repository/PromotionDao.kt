@@ -1,14 +1,17 @@
 package com.appcoins.wallet.gamification.repository
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 import com.appcoins.wallet.gamification.repository.entity.PromotionEntity
 import io.reactivex.Single
 
 @Dao
 interface PromotionDao {
 
-  @Query("select * from PromotionEntity")
-  fun getPromotions(): Single<List<PromotionEntity>>
+  @Query("select * from PromotionEntity") fun getPromotions(): Single<List<PromotionEntity>>
 
   @Transaction
   fun deleteAndInsert(promotions: List<PromotionEntity>) {
@@ -19,10 +22,8 @@ interface PromotionDao {
     insertPromotions(promotions)
   }
 
-  @Query("DELETE FROM PromotionEntity")
-  fun deletePromotions()
+  @Query("DELETE FROM PromotionEntity") fun deletePromotions()
 
   @Insert(onConflict = OnConflictStrategy.ABORT)
   fun insertPromotions(promotions: List<PromotionEntity>)
-
 }

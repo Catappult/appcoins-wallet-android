@@ -6,12 +6,13 @@ import android.widget.ViewSwitcher
 import com.appcoins.wallet.ui.common.R
 
 /**
- * Generic animated view switcher. Because of animation specifications, it really only supports
- * two views.
+ * Generic animated view switcher. Because of animation specifications, it really only supports two
+ * views.
  */
 class AnimatedViewSwitcher : ViewSwitcher {
 
   constructor(context: Context) : super(context)
+
   constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
   fun showFirstView() {

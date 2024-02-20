@@ -14,28 +14,28 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.StatusType.PENDING
 import com.asfoundation.wallet.transactions.StatusType.REJECTED
 import com.asfoundation.wallet.transactions.StatusType.SUCCESS
-import kotlinx.parcelize.Parcelize
 import java.util.Currency
+import kotlinx.parcelize.Parcelize
 
 const val CURRENCY_CODE_LENGTH = 3
 
 @Parcelize
 data class TransactionModel(
-  val orderId: String?,
-  val status: StatusType,
-  val type: TransactionTypeResponse,
-  val date: String,
-  val amount: String,
-  val app: String?,
-  val description: String?,
-  val appIcon: String?,
-  val amountSubtitle: String,
-  val from: String,
-  val to: String,
-  val sku: String?,
-  val txId: String?,
-  val invoiceId: String?,
-  val method: String?
+    val orderId: String?,
+    val status: StatusType,
+    val type: TransactionTypeResponse,
+    val date: String,
+    val amount: String,
+    val app: String?,
+    val description: String?,
+    val appIcon: String?,
+    val amountSubtitle: String,
+    val from: String,
+    val to: String,
+    val sku: String?,
+    val txId: String?,
+    val invoiceId: String?,
+    val method: String?
 ) : Parcelable {
   companion object {
     val METHOD_SANDBOX = "sandbox"
@@ -44,24 +44,23 @@ data class TransactionModel(
 
 fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
   return TransactionModel(
-    orderId = reference,
-    status = status.toStatusType(),
-    type = type,
-    date = processedTime,
-    app = app,
-    appIcon = appIcon,
-    description = bonusDescription,
-    amount = paidAmount(selectedCurrency) ?: amount(),
-    amountSubtitle =
-    if (paidAmount(selectedCurrency) == null) amountCurrency
-    else "${amount()} $amountCurrency",
-    from = sender,
-    to = receiver,
-    sku = sku,
-    txId = txId,
-    invoiceId = invoiceId,
-    method = method
-  )
+      orderId = reference,
+      status = status.toStatusType(),
+      type = type,
+      date = processedTime,
+      app = app,
+      appIcon = appIcon,
+      description = bonusDescription,
+      amount = paidAmount(selectedCurrency) ?: amount(),
+      amountSubtitle =
+          if (paidAmount(selectedCurrency) == null) amountCurrency
+          else "${amount()} $amountCurrency",
+      from = sender,
+      to = receiver,
+      sku = sku,
+      txId = txId,
+      invoiceId = invoiceId,
+      method = method)
 }
 
 enum class StatusType(val description: Int, val color: Color) {
@@ -71,20 +70,20 @@ enum class StatusType(val description: Int, val color: Color) {
 }
 
 fun StatusResponse.toStatusType() =
-  when (this) {
-    StatusResponse.SUCCESS -> SUCCESS
-    StatusResponse.REJECTED -> REJECTED
-    else -> PENDING
-  }
+    when (this) {
+      StatusResponse.SUCCESS -> SUCCESS
+      StatusResponse.REJECTED -> REJECTED
+      else -> PENDING
+    }
 
 private fun TransactionResponse.paidAmount(selectedCurrency: String): String? {
   val sign = type.sign
   return defaultCurrencyAmount.formatMoney(selectedCurrency.currencySymbol(), sign)
-    ?: paidCurrencyAmount.formatMoney(paidCurrency.currencySymbol(), sign)
+      ?: paidCurrencyAmount.formatMoney(paidCurrency.currencySymbol(), sign)
 }
 
 private fun TransactionResponse.amount() = amount.format18decimals(sign = type.sign)
 
 fun String?.currencySymbol(): String =
-  if (this != null && this.length == CURRENCY_CODE_LENGTH) Currency.getInstance(this).symbol
-  else ""
+    if (this != null && this.length == CURRENCY_CODE_LENGTH) Currency.getInstance(this).symbol
+    else ""

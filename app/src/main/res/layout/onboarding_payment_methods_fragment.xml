@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_payment_methods_layout"
     android:layout_width="match_parent"
-    android:background="@drawable/background_card_blue"
     android:layout_height="match_parent"
+    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.epoxy.EpoxyRecyclerView

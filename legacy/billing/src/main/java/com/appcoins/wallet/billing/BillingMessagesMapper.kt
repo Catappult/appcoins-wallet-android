@@ -10,9 +10,9 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
-import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
+import retrofit2.HttpException
 
 class BillingMessagesMapper @Inject constructor() {
 
@@ -25,16 +25,16 @@ class BillingMessagesMapper @Inject constructor() {
     internal const val VALID_BONUS = "valid_bonus"
   }
 
-
   internal fun mapSupported(supportType: Billing.BillingSupportType): Int =
       when (supportType) {
         Billing.BillingSupportType.SUPPORTED -> AppcoinsBillingBinder.RESULT_OK
-        Billing.BillingSupportType.MERCHANT_NOT_FOUND -> AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
+        Billing.BillingSupportType.MERCHANT_NOT_FOUND ->
+            AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
         Billing.BillingSupportType.UNKNOWN_ERROR -> AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
-        Billing.BillingSupportType.NO_INTERNET_CONNECTION -> AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE
+        Billing.BillingSupportType.NO_INTERNET_CONNECTION ->
+            AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE
         Billing.BillingSupportType.API_ERROR -> AppcoinsBillingBinder.RESULT_ERROR
       }
-
 
   private fun map(throwable: Throwable?): Int {
     return throwable?.let {
@@ -88,8 +88,12 @@ class BillingMessagesMapper @Inject constructor() {
     return bundle
   }
 
-  fun mapPurchase(purchaseId: String, signature: String, signatureData: String,
-                  orderReference: String?): Bundle {
+  fun mapPurchase(
+      purchaseId: String,
+      signature: String,
+      signatureData: String,
+      orderReference: String?
+  ): Bundle {
     val intent = Bundle()
     intent.putString(INAPP_PURCHASE_ID, purchaseId)
     intent.putString(INAPP_PURCHASE_DATA, signatureData)
@@ -102,24 +106,22 @@ class BillingMessagesMapper @Inject constructor() {
   fun mapException(throwable: Throwable): Exception {
     return when (throwable) {
       is HttpException -> mapHttpException(throwable)
-      is IOException -> ServiceUnavailableException(
-          AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE)
+      is IOException ->
+          ServiceUnavailableException(AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE)
       else -> UnknownException(AppcoinsBillingBinder.RESULT_ERROR)
     }
   }
 
   private fun mapHttpException(throwable: HttpException): Exception {
     return when (throwable.code()) {
-      in 500..599 -> ApiException(
-          AppcoinsBillingBinder.RESULT_ERROR)
-      else -> ApiException(
-          AppcoinsBillingBinder.RESULT_ERROR)
+      in 500..599 -> ApiException(AppcoinsBillingBinder.RESULT_ERROR)
+      else -> ApiException(AppcoinsBillingBinder.RESULT_ERROR)
     }
   }
 
   fun mapPurchase(purchase: Purchase, orderReference: String?): Bundle {
-    return mapPurchase(purchase.uid, purchase.signature.value, purchase.signature.message,
-        orderReference)
+    return mapPurchase(
+        purchase.uid, purchase.signature.value, purchase.signature.message, orderReference)
   }
 
   fun genericError(): Bundle {
@@ -137,8 +139,12 @@ class BillingMessagesMapper @Inject constructor() {
     return bundle
   }
 
-  fun topUpBundle(amount: String, currency: String, bonus: String,
-                  fiatCurrencySymbol: String): Bundle {
+  fun topUpBundle(
+      amount: String,
+      currency: String,
+      bonus: String,
+      fiatCurrencySymbol: String
+  ): Bundle {
     return Bundle().apply {
       putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
       putString(TOP_UP_AMOUNT, amount)
@@ -154,8 +160,8 @@ class BillingMessagesMapper @Inject constructor() {
     bundle.putString(INAPP_DATA_SIGNATURE, purchase.signature.value)
     bundle.putString(INAPP_PURCHASE_ID, purchase.uid)
     if (itemAlreadyOwned) {
-      bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE,
-          AppcoinsBillingBinder.RESULT_ITEM_ALREADY_OWNED)
+      bundle.putInt(
+          AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_ITEM_ALREADY_OWNED)
     }
     return bundle
   }

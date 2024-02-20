@@ -8,27 +8,29 @@ import retrofit2.http.Path
 interface ExperimentsApi {
   // curl -H "Content-Type: application/json"
   //      -d "{\"profile\":{\"key1\":\"value1\",\"key2\":\"value2\"}}"
-  //      https://abtest.aptoide.com/api/v1/assignments/applications/WalletApp/experiments/.../users/...
+  //
+  // https://abtest.aptoide.com/api/v1/assignments/applications/WalletApp/experiments/.../users/...
   @Headers("Content-Type: application/json")
   @POST("assignments/applications/WalletApp/experiments/{experimentId}/users/{userId}")
   suspend fun assignExperiment(
-    @Path(value = "experimentId") experimentId: String,
-    @Path(value = "userId") userId: String,
-    @Body body: UserProfile
+      @Path(value = "experimentId") experimentId: String,
+      @Path(value = "userId") userId: String,
+      @Body body: UserProfile
   ): ApiAssignment
 
   // curl -H "Content-Type: application/json"
   //      -d "{\"events\":[{\"name\":\"IMPRESSION\"}]}"
   //      https://abtest.aptoide.com/api/v1/events/applications/WalletApp/experiments/.../users/...
   // curl -H "Content-Type: application/json"
-  //      -d "{\"events\":[{\"name\":\"myEventName\",\"payload\":\"{\\\"myPayloadKey1\\\":\\\"payloadKey1Value\\\"}\"}]}"
+  //      -d
+  // "{\"events\":[{\"name\":\"myEventName\",\"payload\":\"{\\\"myPayloadKey1\\\":\\\"payloadKey1Value\\\"}\"}]}"
   //      https://abtest.aptoide.com/api/v1/events/applications/WalletApp/experiments/.../users/...
   @Headers("Content-Type: application/json")
   @POST("events/applications/WalletApp/experiments/{experimentId}/users/{userId}")
   suspend fun sendEvent(
-    @Path(value = "experimentId") experimentId: String,
-    @Path(value = "userId") userId: String,
-    @Body body: Events
+      @Path(value = "experimentId") experimentId: String,
+      @Path(value = "userId") userId: String,
+      @Body body: Events
   )
 }
 
@@ -39,11 +41,11 @@ data class Event(val name: String, val payload: String? = null)
 data class Events(val events: List<Event>)
 
 data class ApiAssignment(
-  val cache: Boolean,
-  val payload: String,
-  val assignment: String,
-  val context: String,
-  val status: Status,
+    val cache: Boolean,
+    val payload: String,
+    val assignment: String,
+    val context: String,
+    val status: Status,
 )
 
 @Suppress("unused")
@@ -59,4 +61,3 @@ enum class Status {
   NEW_ASSIGNMENT,
   NO_OPEN_BUCKETS
 }
-

@@ -32,18 +32,14 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   companion object {
 
-    @JvmStatic
-    fun newInstance() = VerificationIntroFragment()
+    @JvmStatic fun newInstance() = VerificationIntroFragment()
   }
 
-  @Inject
-  lateinit var presenter: VerificationIntroPresenter
+  @Inject lateinit var presenter: VerificationIntroPresenter
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
 
-  @Inject
-  lateinit var adyenEnvironment: Environment
+  @Inject lateinit var adyenEnvironment: Environment
 
   private lateinit var activityView: VerificationCreditCardActivityView
   private lateinit var cardConfiguration: CardConfiguration
@@ -59,15 +55,15 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
     require(context is VerificationCreditCardActivityView) {
       throw IllegalStateException(
-        "Wallet Verification Intro must be attached to Wallet Verification Activity"
-      )
+          "Wallet Verification Intro must be attached to Wallet Verification Activity")
     }
     activityView = context
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentVerificationIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,22 +83,21 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   private fun setupCardConfiguration() {
-    cardConfiguration = CardConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+    cardConfiguration =
+        CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+            .setEnvironment(adyenEnvironment)
+            .build()
   }
 
   @SuppressLint("StringFormatInvalid")
   override fun updateUi(verificationIntroModel: VerificationIntroModel) {
-    val amount = formatter.formatCurrency(
-      verificationIntroModel.verificationInfoModel.value,
-      WalletCurrency.FIAT
-    )
-    views.infoDescription.text = getString(
-      R.string.verify_card_view_disclaimer,
-      "${verificationIntroModel.verificationInfoModel.symbol}$amount"
-    )
+    val amount =
+        formatter.formatCurrency(
+            verificationIntroModel.verificationInfoModel.value, WalletCurrency.FIAT)
+    views.infoDescription.text =
+        getString(
+            R.string.verify_card_view_disclaimer,
+            "${verificationIntroModel.verificationInfoModel.symbol}$amount")
   }
 
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
@@ -121,10 +116,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     }
   }
 
-  private fun prepareCardComponent(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean
-  ) {
+  private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     views.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
@@ -136,13 +128,11 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           paymentDataSubject.onNext(
-            AdyenCardWrapper(
-              paymentMethod,
-              adyenCardView.cardSave,
-              hasCvc,
-              paymentInfoModel.supportedShopperInteractions
-            )
-          )
+              AdyenCardWrapper(
+                  paymentMethod,
+                  adyenCardView.cardSave,
+                  hasCvc,
+                  paymentInfoModel.supportedShopperInteractions))
         }
       } else {
         views.submit.isEnabled = false
@@ -173,9 +163,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   override fun getSupportClicks(): Observable<Any> {
     return Observable.merge(
-      RxView.clicks(views.fragmentAdyenError.layoutSupportLogo),
-      RxView.clicks(views.fragmentAdyenError.layoutSupportIcn)
-    )
+        RxView.clicks(views.fragmentAdyenError.layoutSupportLogo),
+        RxView.clicks(views.fragmentAdyenError.layoutSupportIcn))
   }
 
   override fun showLoading() {

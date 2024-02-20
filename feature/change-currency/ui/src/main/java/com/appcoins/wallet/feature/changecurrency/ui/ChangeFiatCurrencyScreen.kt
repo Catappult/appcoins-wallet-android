@@ -40,6 +40,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
+import com.appcoins.wallet.ui.common.R as CommonR
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -48,49 +49,38 @@ import com.appcoins.wallet.ui.widgets.NoNetworkScreen
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
 import kotlinx.coroutines.launch
-import com.appcoins.wallet.ui.common.R as CommonR
 
 @Composable
 fun ChangeFiatCurrencyRoute(
-  onExitClick: () -> Unit,
-  onChatClick: () -> Unit,
-  viewModel: ChangeFiatCurrencyViewModel = hiltViewModel(),
+    onExitClick: () -> Unit,
+    onChatClick: () -> Unit,
+    viewModel: ChangeFiatCurrencyViewModel = hiltViewModel(),
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
   Scaffold(
-    topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
-    modifier = Modifier
-  ) { padding ->
-    ChangeFiatCurrencyScreen(
-      changeFiatCurrencyState = changeFiatCurrencyState,
-      scaffoldPadding = padding,
-      onExitClick = onExitClick
-    )
-  }
+      topBar = { Surface { TopBar(isMainBar = false, onClickSupport = { onChatClick() }) } },
+      modifier = Modifier) { padding ->
+        ChangeFiatCurrencyScreen(
+            changeFiatCurrencyState = changeFiatCurrencyState,
+            scaffoldPadding = padding,
+            onExitClick = onExitClick)
+      }
 }
 
 @Composable
 fun ChangeFiatCurrencyScreen(
-  scaffoldPadding: PaddingValues,
-  changeFiatCurrencyState: ChangeFiatCurrencyState,
-  onExitClick: () -> Unit
+    scaffoldPadding: PaddingValues,
+    changeFiatCurrencyState: ChangeFiatCurrencyState,
+    onExitClick: () -> Unit
 ) {
-  Column(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(scaffoldPadding)
-  ) {
+  Column(modifier = Modifier.fillMaxSize().padding(scaffoldPadding)) {
     when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
       Async.Uninitialized,
       is Async.Loading -> CircularProgressIndicator()
-
-
       is Async.Success ->
-        ChangeFiatCurrencyList(
-          model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
-          onExitClick = onExitClick
-        )
-
+          ChangeFiatCurrencyList(
+              model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
+              onExitClick = onExitClick)
       is Async.Fail -> NoNetworkScreen()
     }
   }
@@ -98,43 +88,35 @@ fun ChangeFiatCurrencyScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ChangeFiatCurrencyList(
-  model: ChangeFiatCurrency,
-  onExitClick: () -> Unit
-) {
+private fun ChangeFiatCurrencyList(model: ChangeFiatCurrency, onExitClick: () -> Unit) {
   val selectedItem =
-    model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
+      model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-  LazyColumn(
-    modifier =
-    Modifier
-      .fillMaxSize()
-      .padding(horizontal = 16.dp)
-  ) {
+  LazyColumn(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
     item {
       Text(
-        text = stringResource(id = CommonR.string.change_currency_title),
-        style = WalletTypography.bold.sp22,
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+          text = stringResource(id = CommonR.string.change_currency_title),
+          style = WalletTypography.bold.sp22,
+          modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
       )
     }
     selectedItem?.let {
       item {
         CurrencyItem(
-          currencyItem = selectedItem,
-          isSelected = true,
-          onExitClick = onExitClick,
-          bottomSheetState = bottomSheetState,
+            currencyItem = selectedItem,
+            isSelected = true,
+            onExitClick = onExitClick,
+            bottomSheetState = bottomSheetState,
         )
       }
     }
     items(model.list) { currencyItem ->
       if (selectedItem != currencyItem) {
         CurrencyItem(
-          currencyItem = currencyItem,
-          onExitClick = onExitClick,
-          bottomSheetState = bottomSheetState,
+            currencyItem = currencyItem,
+            onExitClick = onExitClick,
+            bottomSheetState = bottomSheetState,
         )
       }
     }
@@ -144,74 +126,64 @@ private fun ChangeFiatCurrencyList(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CurrencyItem(
-  currencyItem: FiatCurrency,
-  isSelected: Boolean = false,
-  onExitClick: () -> Unit,
-  bottomSheetState: SheetState
+    currencyItem: FiatCurrency,
+    isSelected: Boolean = false,
+    onExitClick: () -> Unit,
+    bottomSheetState: SheetState
 ) {
   var openBottomSheet by rememberSaveable { mutableStateOf(false) }
   val scope = rememberCoroutineScope()
   var chosenCurrency: FiatCurrency? by rememberSaveable { mutableStateOf(null) }
 
   Card(
-    shape = shapes.large,
-    border = if (isSelected) BorderStroke(1.dp, WalletColors.styleguide_pink) else null,
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(top = 8.dp),
-    onClick = {
-      chosenCurrency = currencyItem
-      openBottomSheet = !openBottomSheet
-    }) {
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp),
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
-      WalletImage(
-        data = currencyItem.flag, modifier = Modifier
-          .clip(CircleShape)
-          .size(50.dp)
-      )
-      Column(modifier = Modifier.padding(start = 16.dp)) {
-        Text(text = currencyItem.currency, style = WalletTypography.medium.sp22)
-        Text(text = currencyItem.label!!, style = WalletTypography.medium.sp14)
+      shape = shapes.large,
+      border = if (isSelected) BorderStroke(1.dp, WalletColors.styleguide_pink) else null,
+      modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+      onClick = {
+        chosenCurrency = currencyItem
+        openBottomSheet = !openBottomSheet
+      }) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+          WalletImage(data = currencyItem.flag, modifier = Modifier.clip(CircleShape).size(50.dp))
+          Column(modifier = Modifier.padding(start = 16.dp)) {
+            Text(text = currencyItem.currency, style = WalletTypography.medium.sp22)
+            Text(text = currencyItem.label!!, style = WalletTypography.medium.sp14)
+          }
+          if (isSelected) {
+            Spacer(modifier = Modifier.weight(1f))
+            WalletImage(
+                data = CommonR.drawable.ic_check_mark_pink,
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.size(16.dp))
+          }
+        }
       }
-      if (isSelected) {
-        Spacer(modifier = Modifier.weight(1f))
-        WalletImage(
-          data = CommonR.drawable.ic_check_mark_pink,
-          contentScale = ContentScale.FillWidth,
-          modifier = Modifier.size(16.dp)
-        )
-      }
-    }
-  }
   if (openBottomSheet) {
     ModalBottomSheet(
-      onDismissRequest = {
-        openBottomSheet = false
-        chosenCurrency = null
-      },
-      sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue
-    ) {
-      chosenCurrency?.let {
-        ChooseCurrencyRoute(
-          chosenCurrency = chosenCurrency,
-          bottomSheetStateHandle = {
-            scope
-              .launch { bottomSheetState.hide() }
-              .invokeOnCompletion {
-                openBottomSheet = !openBottomSheet
-                chosenCurrency = null
-                onExitClick()
-              }
-          },
-        )
-      }
-    }
+        onDismissRequest = {
+          openBottomSheet = false
+          chosenCurrency = null
+        },
+        sheetState = bottomSheetState,
+        containerColor = WalletColors.styleguide_blue) {
+          chosenCurrency?.let {
+            ChooseCurrencyRoute(
+                chosenCurrency = chosenCurrency,
+                bottomSheetStateHandle = {
+                  scope
+                      .launch { bottomSheetState.hide() }
+                      .invokeOnCompletion {
+                        openBottomSheet = !openBottomSheet
+                        chosenCurrency = null
+                        onExitClick()
+                      }
+                },
+            )
+          }
+        }
   }
 }
 
@@ -220,28 +192,26 @@ private fun CurrencyItem(
 private fun ChangeFiatCurrencyListPreview() {
   WalletTheme(darkTheme = false) {
     ChangeFiatCurrencyList(
-      model =
-      ChangeFiatCurrency(
-        selectedCurrency = "EUR",
-        list =
-        listOf(
-          FiatCurrency(
-            currency = "EUR",
-            label = "Euro",
-            flag =
-            "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
-            sign = "€",
-          ),
-          FiatCurrency(
-            currency = "USD",
-            label = "United States Dollar",
-            flag =
-            "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
-            sign = "$",
-          )
-        )
-      ),
-      onExitClick = {},
+        model =
+            ChangeFiatCurrency(
+                selectedCurrency = "EUR",
+                list =
+                    listOf(
+                        FiatCurrency(
+                            currency = "EUR",
+                            label = "Euro",
+                            flag =
+                                "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
+                            sign = "€",
+                        ),
+                        FiatCurrency(
+                            currency = "USD",
+                            label = "United States Dollar",
+                            flag =
+                                "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
+                            sign = "$",
+                        ))),
+        onExitClick = {},
     )
   }
 }

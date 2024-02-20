@@ -19,8 +19,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.intercom.android.sdk.push.IntercomPushClient
 
-
-class SupportMessagingService: FirebaseMessagingService() {
+class SupportMessagingService : FirebaseMessagingService() {
 
   private lateinit var notificationManager: NotificationManager
   private lateinit var intercomPushClient: IntercomPushClient
@@ -32,7 +31,7 @@ class SupportMessagingService: FirebaseMessagingService() {
   }
 
   override fun onNewToken(token: String) =
-    intercomPushClient.sendTokenToIntercom(application, token)
+      intercomPushClient.sendTokenToIntercom(application, token)
 
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -57,41 +56,34 @@ class SupportMessagingService: FirebaseMessagingService() {
     } else {
       builder = NotificationCompat.Builder(context, CHANNEL_ID)
     }
-    return builder.setContentTitle(context.getString(R.string.support_new_message_title))
-      .setAutoCancel(true)
-      .setContentIntent(okPendingIntent)
-      .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-      .setContentText(context.getString(R.string.support_new_message_button))
+    return builder
+        .setContentTitle(context.getString(R.string.support_new_message_title))
+        .setAutoCancel(true)
+        .setContentIntent(okPendingIntent)
+        .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
     return PendingIntent.getActivity(
-      context,
-      0,
-      intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
-    )
+        context,
+        0,
+        intent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0)
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent =
-      com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.newIntent(context)
+        com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
     return PendingIntent.getActivity(
-      context,
-      1,
-      intent,
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_IMMUTABLE
-      else
-        0
-    )
+        context,
+        1,
+        intent,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0)
   }
 
   private fun isSupportMessage(data: MutableMap<String, String>): Boolean {
@@ -100,10 +92,10 @@ class SupportMessagingService: FirebaseMessagingService() {
   }
 
   private fun saveBooleanNotificationToSharedPreferences(context: Context) {
-    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val sharedPreferences: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
     val editor: SharedPreferences.Editor = sharedPreferences.edit()
     editor.putBoolean(HAS_NOTIFICATION_BADGE, true)
     editor.apply()
   }
-
 }

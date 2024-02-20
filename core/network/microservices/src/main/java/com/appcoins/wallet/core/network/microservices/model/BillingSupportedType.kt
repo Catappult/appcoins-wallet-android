@@ -1,8 +1,12 @@
 package com.appcoins.wallet.core.network.microservices.model
 
 enum class BillingSupportedType {
-  INAPP, INAPP_UNMANAGED, INAPP_SUBSCRIPTION, SUBS_UNMANAGED, DONATION, ESKILLS;
-
+  INAPP,
+  INAPP_UNMANAGED,
+  INAPP_SUBSCRIPTION,
+  SUBS_UNMANAGED,
+  DONATION,
+  ESKILLS;
 
   companion object {
 
@@ -29,7 +33,7 @@ enum class BillingSupportedType {
       }
     }
 
-    //Use this method on methods that communicate with SDK
+    // Use this method on methods that communicate with SDK
     @JvmStatic
     fun valueOfItemType(value: String): BillingSupportedType {
       return when {

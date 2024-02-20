@@ -6,16 +6,19 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import io.reactivex.Single
 import javax.inject.Inject
 
-class VerificationCreditCardActivityInteractor @Inject constructor(
+class VerificationCreditCardActivityInteractor
+@Inject
+constructor(
     private val brokerVerificationRepository: BrokerVerificationRepository,
     private val walletService: WalletService
 ) {
 
   fun getVerificationStatus(): Single<VerificationStatus> {
-    return walletService.getAndSignCurrentWalletAddress()
+    return walletService
+        .getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
-          brokerVerificationRepository.getCardVerificationState(addressModel.address,
-              addressModel.signedAddress)
+          brokerVerificationRepository.getCardVerificationState(
+              addressModel.address, addressModel.signedAddress)
         }
         .onErrorReturn { VerificationStatus.UNVERIFIED }
   }

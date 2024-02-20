@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
@@ -24,11 +23,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecoverPasswordFragment : BasePageViewFragment(),
-  SingleStateFragment<RecoverPasswordState, RecoverPasswordSideEffect> {
+class RecoverPasswordFragment :
+    BasePageViewFragment(), SingleStateFragment<RecoverPasswordState, RecoverPasswordSideEffect> {
 
-  @Inject
-  lateinit var navigator: RecoverPasswordNavigator
+  @Inject lateinit var navigator: RecoverPasswordNavigator
 
   private val viewModel: RecoverPasswordViewModel by viewModels()
   private val views by viewBinding(RecoverPasswordFragmentBinding::bind)
@@ -40,8 +38,9 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      @Nullable container: ViewGroup?,
+      @Nullable savedInstanceState: Bundle?
   ): View = RecoverPasswordFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
@@ -51,11 +50,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }
     views.recoverPasswordInfo.recoverPasswordInput.setColor(
-          ContextCompat.getColor(
-            requireContext(),
-            R.color.styleguide_blue
-      )
-    )
+        ContextCompat.getColor(requireContext(), R.color.styleguide_blue))
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -82,11 +77,10 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   private fun showWalletContent() {
     views.recoverPasswordInfo.recoverWalletBalance.text =
-      requireArguments().getString(WALLET_BALANCE_KEY)
+        requireArguments().getString(WALLET_BALANCE_KEY)
     views.recoverPasswordInfo.recoverWalletAddress.text =
-      requireArguments().getString(WALLET_ADDRESS_KEY)
-    views.recoverPasswordInfo.recoverWalletName.text =
-      requireArguments().getString(WALLET_NAME_KEY)
+        requireArguments().getString(WALLET_ADDRESS_KEY)
+    views.recoverPasswordInfo.recoverWalletName.text = requireArguments().getString(WALLET_NAME_KEY)
   }
 
   private fun handleSuccessState(recoverResult: RecoverPasswordResult) {
@@ -101,7 +95,8 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   private fun handleErrorState(recoverResult: RecoverPasswordResult) {
     when (recoverResult) {
       is FailedPasswordRecover.InvalidPassword -> {
-        views.recoverPasswordInfo.recoverPasswordInput.setError(getString(R.string.import_wallet_wrong_password_body))
+        views.recoverPasswordInfo.recoverPasswordInput.setError(
+            getString(R.string.import_wallet_wrong_password_body))
       }
       else -> return
     }
@@ -109,11 +104,9 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
-      this
-    ) { _, _ ->
-      navigator.navigateToNavigationBar()
-    }
+        CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE, this) { _, _ ->
+          navigator.navigateToNavigationBar()
+        }
   }
 
   companion object {

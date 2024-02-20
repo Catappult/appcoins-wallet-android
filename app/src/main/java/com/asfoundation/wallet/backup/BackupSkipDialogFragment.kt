@@ -18,17 +18,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupSkipDialogFragment : BasePageViewFragment() {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
   companion object {
     fun newInstance() = BackupSkipDialogFragment()
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {

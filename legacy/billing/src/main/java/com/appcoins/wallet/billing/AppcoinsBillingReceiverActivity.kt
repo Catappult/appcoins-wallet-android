@@ -48,28 +48,24 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     super.onCreate(savedInstanceState)
     if (applicationContext !is BillingDependenciesProvider) {
       throw IllegalArgumentException(
-        "application must implement ${BillingDependenciesProvider::class.java.simpleName}"
-      )
+          "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
     window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     serializer = ExternalBillingSerializer()
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling =
-      BdsBilling(
-        BdsRepository(
-          RemoteRepository(
-            dependenciesProvider.brokerBdsApi(),
-            dependenciesProvider.inappApi(),
-            BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
-            dependenciesProvider.subscriptionsApi(),
-            dependenciesProvider.ewtObtainer(),
-            dependenciesProvider.rxSchedulers()
-          )
-        ),
-        dependenciesProvider.walletService(),
-        BillingThrowableCodeMapper(),
-        dependenciesProvider.partnerAddressService()
-      )
+        BdsBilling(
+            BdsRepository(
+                RemoteRepository(
+                    dependenciesProvider.brokerBdsApi(),
+                    dependenciesProvider.inappApi(),
+                    BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                    dependenciesProvider.subscriptionsApi(),
+                    dependenciesProvider.ewtObtainer(),
+                    dependenciesProvider.rxSchedulers())),
+            dependenciesProvider.walletService(),
+            BillingThrowableCodeMapper(),
+            dependenciesProvider.partnerAddressService())
 
     proxyService = dependenciesProvider.proxyService()
     billingMessagesMapper = dependenciesProvider.billingMessagesMapper()
@@ -88,8 +84,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     if (packageName.isNullOrBlank()) {
       val response = Bundle()
       response.putInt(
-        AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
-      )
+          AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       return response
     }
     val billingType = args.getString(BILLING_TYPE)
@@ -106,20 +101,19 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       else -> {
         Log.w(TAG, "Unknown method id for: $methodId")
         return createReturnBundle(
-          Bundle().apply {
-            putInt(
-              AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
-            )
-          })
+            Bundle().apply {
+              putInt(
+                  AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+            })
       }
     }
   }
 
   private fun consumePurchase(
-    apiVersion: Int,
-    packageName: String,
-    purchaseToken: String?,
-    type: String?
+      apiVersion: Int,
+      packageName: String,
+      purchaseToken: String?,
+      type: String?
   ): Parcelable {
     if (apiVersion != SUPPORTED_API_VERSION) {
       return Bundle().apply {
@@ -134,99 +128,92 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
     val billingType = type?.let { BillingSupportedType.valueOfItemType(it) }
     result.putInt(
-      RESULT_VALUE,
-      try {
-        billing
-          .consumePurchases(purchaseToken, packageName, billingType)
-          .map { AppcoinsBillingBinder.RESULT_OK }
-          .blockingGet()
-      } catch (exception: Exception) {
-        billingMessagesMapper.mapConsumePurchasesError(exception)
-      })
+        RESULT_VALUE,
+        try {
+          billing
+              .consumePurchases(purchaseToken, packageName, billingType)
+              .map { AppcoinsBillingBinder.RESULT_OK }
+              .blockingGet()
+        } catch (exception: Exception) {
+          billingMessagesMapper.mapConsumePurchasesError(exception)
+        })
     return result
   }
 
   private fun getBuyIntent(
-    apiVersion: Int,
-    packageName: String,
-    sku: String?,
-    billingType: String?,
-    developerPayload: String?
+      apiVersion: Int,
+      packageName: String,
+      sku: String?,
+      billingType: String?,
+      developerPayload: String?
   ): Parcelable {
 
     if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
       return Bundle().apply {
         putInt(
-          AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
-        )
+            AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       }
     }
     requireNotNull(billingType!!)
     requireNotNull(sku!!)
 
     val type =
-      try {
-        BillingSupportedType.valueOfItemType(billingType)
-      } catch (e: Exception) {
-        return Bundle().apply {
-          putInt(
-            AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
-          )
-        }
-      }
-
-    val getTokenContractAddress =
-      proxyService.getAppCoinsAddress(BuildConfig.DEBUG).subscribeOn(networkScheduler)
-    val getIabContractAddress =
-      proxyService.getIabAddress(BuildConfig.DEBUG).subscribeOn(networkScheduler)
-    val getSkuDetails =
-      billing.getProducts(packageName, listOf(sku), type).subscribeOn(networkScheduler)
-
-    return createReturnBundle(
-      Single.zip(
-        getTokenContractAddress,
-        getIabContractAddress,
-        getSkuDetails,
-      ) { tokenContractAddress: String,
-          iabContractAddress: String,
-          skuDetails: List<Product> ->
         try {
-          val product = skuDetails[0]
-          intentBuilder.buildBuyIntentBundle(
-            type.name,
-            tokenContractAddress,
-            iabContractAddress,
-            developerPayload,
-            true,
-            packageName,
-            product.sku,
-            BigDecimal(product.transactionPrice.appcoinsAmount),
-            product.title,
-            product.subscriptionPeriod,
-            product.trialPeriod
-          )
-        } catch (exception: Exception) {
-          if (skuDetails.isEmpty()) {
-            billingMessagesMapper.mapBuyIntentError(
-              Exception(
-                BillingException(AppcoinsBillingBinder.RESULT_ITEM_UNAVAILABLE)
-              )
-            )
-          } else {
-            billingMessagesMapper.mapBuyIntentError(exception)
+          BillingSupportedType.valueOfItemType(billingType)
+        } catch (e: Exception) {
+          return Bundle().apply {
+            putInt(
+                AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
           }
         }
-      }
-        .onErrorReturn { throwable ->
-          billingMessagesMapper.mapBuyIntentError(throwable as Exception)
-        }
-        .blockingGet())
+
+    val getTokenContractAddress =
+        proxyService.getAppCoinsAddress(BuildConfig.DEBUG).subscribeOn(networkScheduler)
+    val getIabContractAddress =
+        proxyService.getIabAddress(BuildConfig.DEBUG).subscribeOn(networkScheduler)
+    val getSkuDetails =
+        billing.getProducts(packageName, listOf(sku), type).subscribeOn(networkScheduler)
+
+    return createReturnBundle(
+        Single.zip(
+                getTokenContractAddress,
+                getIabContractAddress,
+                getSkuDetails,
+            ) { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>
+              ->
+              try {
+                val product = skuDetails[0]
+                intentBuilder.buildBuyIntentBundle(
+                    type.name,
+                    tokenContractAddress,
+                    iabContractAddress,
+                    developerPayload,
+                    true,
+                    packageName,
+                    product.sku,
+                    BigDecimal(product.transactionPrice.appcoinsAmount),
+                    product.title,
+                    product.subscriptionPeriod,
+                    product.trialPeriod)
+              } catch (exception: Exception) {
+                if (skuDetails.isEmpty()) {
+                  billingMessagesMapper.mapBuyIntentError(
+                      Exception(BillingException(AppcoinsBillingBinder.RESULT_ITEM_UNAVAILABLE)))
+                } else {
+                  billingMessagesMapper.mapBuyIntentError(exception)
+                }
+              }
+            }
+            .onErrorReturn { throwable ->
+              billingMessagesMapper.mapBuyIntentError(throwable as Exception)
+            }
+            .blockingGet())
   }
 
   private fun validateGetBuyIntentArgs(
-    apiVersion: Int,
-    billingType: String?,
-    sku: String?
+      apiVersion: Int,
+      billingType: String?,
+      sku: String?
   ): Boolean {
     return (apiVersion != SUPPORTED_API_VERSION ||
         billingType == null ||
@@ -238,8 +225,7 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     if (apiVersion != SUPPORTED_API_VERSION) {
       return Bundle().apply {
         putInt(
-          AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
-        )
+            AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       }
     }
 
@@ -250,17 +236,16 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val skuList = ArrayList<String>()
 
     val type =
-      billingType?.let {
-        try {
-          BillingSupportedType.valueOfItemType(billingType)
-        } catch (e: Exception) {
-          return Bundle().apply {
-            putInt(
-              AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
-            )
+        billingType?.let {
+          try {
+            BillingSupportedType.valueOfItemType(billingType)
+          } catch (e: Exception) {
+            return Bundle().apply {
+              putInt(
+                  AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+            }
           }
-        }
-      } ?: BillingSupportedType.INAPP
+        } ?: BillingSupportedType.INAPP
 
     try {
       val purchases = billing.getPurchases(packageName, type).blockingGet()
@@ -276,36 +261,34 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     return createReturnBundle(
-      result.apply {
-        putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_ID_LIST, idsList)
-        putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_DATA_LIST, dataList)
-        putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_ITEM_LIST, skuList)
-        putStringArrayList(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE_LIST, signatureList)
-        putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      })
+        result.apply {
+          putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_ID_LIST, idsList)
+          putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_DATA_LIST, dataList)
+          putStringArrayList(AppcoinsBillingBinder.INAPP_PURCHASE_ITEM_LIST, skuList)
+          putStringArrayList(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE_LIST, signatureList)
+          putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+        })
   }
 
   private fun getSkuDetails(
-    apiVersion: Int,
-    packageName: String,
-    billingType: String?,
-    skusBundle: Bundle?
+      apiVersion: Int,
+      packageName: String,
+      billingType: String?,
+      skusBundle: Bundle?
   ): Bundle {
     if (apiVersion != SUPPORTED_API_VERSION) {
       return Bundle().apply {
         putInt(
-          AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE
-        )
+            AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_BILLING_UNAVAILABLE)
       }
     }
     val result = Bundle()
     val skus = skusBundle?.getStringArrayList(AppcoinsBillingBinder.ITEM_ID_LIST)
 
     if (skusBundle == null ||
-      !skusBundle.containsKey(AppcoinsBillingBinder.ITEM_ID_LIST) ||
-      billingType.isNullOrBlank() ||
-      skus.isNullOrEmpty()
-    ) {
+        !skusBundle.containsKey(AppcoinsBillingBinder.ITEM_ID_LIST) ||
+        billingType.isNullOrBlank() ||
+        skus.isNullOrEmpty()) {
       with(result) {
         putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
       }
@@ -313,26 +296,25 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     }
 
     val type =
-      try {
-        BillingSupportedType.valueOfItemType(billingType)
-      } catch (e: Exception) {
-        with(result) {
-          putInt(
-            AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
-          )
+        try {
+          BillingSupportedType.valueOfItemType(billingType)
+        } catch (e: Exception) {
+          with(result) {
+            putInt(
+                AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR)
+          }
+          return result
         }
-        return result
-      }
 
     return try {
       val serializedProducts =
-        billing
-          .getProducts(packageName, skus, type)
-          .doOnError { it.printStackTrace() }
-          .onErrorResumeNext { Single.error(billingMessagesMapper.mapException(it)) }
-          .flatMap { Single.just(serializer.serializeProducts(it)) }
-          .subscribeOn(networkScheduler)
-          .blockingGet()
+          billing
+              .getProducts(packageName, skus, type)
+              .doOnError { it.printStackTrace() }
+              .onErrorResumeNext { Single.error(billingMessagesMapper.mapException(it)) }
+              .flatMap { Single.just(serializer.serializeProducts(it)) }
+              .subscribeOn(networkScheduler)
+              .blockingGet()
 
       createReturnBundle(billingMessagesMapper.mapSkuDetails(serializedProducts))
     } catch (exception: Exception) {
@@ -356,14 +338,14 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       return response
     }
     val isSupported =
-      when (type) {
-        AppcoinsBillingBinder.ITEM_TYPE_INAPP -> billing.isInAppSupported(packageName)
-        AppcoinsBillingBinder.ITEM_TYPE_SUBS -> billing.isSubsSupported(packageName)
-        else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
-      }
-        .subscribeOn(networkScheduler)
-        .map { supported -> billingMessagesMapper.mapSupported(supported) }
-        .blockingGet()
+        when (type) {
+              AppcoinsBillingBinder.ITEM_TYPE_INAPP -> billing.isInAppSupported(packageName)
+              AppcoinsBillingBinder.ITEM_TYPE_SUBS -> billing.isSubsSupported(packageName)
+              else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
+            }
+            .subscribeOn(networkScheduler)
+            .map { supported -> billingMessagesMapper.mapSupported(supported) }
+            .blockingGet()
     with(response) { putInt(RESULT_VALUE, isSupported) }
     return response
   }

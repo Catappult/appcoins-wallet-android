@@ -4,18 +4,22 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.ForecastBonus
+import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStats
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 
-class FakePromotionsRepository : PromotionsRepository{
+class FakePromotionsRepository : PromotionsRepository {
 
   private val levelsMap = mutableMapOf<String, Int>()
 
   override fun getGamificationStats(
-    wallet: String,
-    promoCodeString: String?
+      wallet: String,
+      promoCodeString: String?
   ): Observable<PromotionsGamificationStats> {
     TODO("Not yet implemented")
   }
@@ -29,20 +33,20 @@ class FakePromotionsRepository : PromotionsRepository{
   }
 
   override fun getForecastBonus(
-    wallet: String,
-    packageName: String,
-    amount: BigDecimal,
-    promoCodeString: String?,
-    currency: String?
+      wallet: String,
+      packageName: String,
+      amount: BigDecimal,
+      promoCodeString: String?,
+      currency: String?
   ): Single<ForecastBonus> {
     TODO("Not yet implemented")
   }
 
   override fun getLastShownLevel(
-    wallet: String,
-    gamificationContext: GamificationContext
+      wallet: String,
+      gamificationContext: GamificationContext
   ): Single<Int> {
-    return Single.fromCallable{
+    return Single.fromCallable {
       levelsMap[wallet + gamificationContext] ?: PromotionsGamificationStats.INVALID_LEVEL
     }
   }
@@ -60,9 +64,9 @@ class FakePromotionsRepository : PromotionsRepository{
   }
 
   override fun getUserStats(
-    wallet: String,
-    promoCodeString: String?,
-    offlineFirst: Boolean
+      wallet: String,
+      promoCodeString: String?,
+      offlineFirst: Boolean
   ): Observable<UserStats> {
     TODO("Not yet implemented")
   }
@@ -72,8 +76,8 @@ class FakePromotionsRepository : PromotionsRepository{
   }
 
   override fun getReferralUserStatus(
-    wallet: String,
-    promoCodeString: String?
+      wallet: String,
+      promoCodeString: String?
   ): Single<ReferralResponse> {
     TODO("Not yet implemented")
   }
@@ -101,5 +105,4 @@ class FakePromotionsRepository : PromotionsRepository{
   override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) {
     TODO("Not yet implemented")
   }
-
 }

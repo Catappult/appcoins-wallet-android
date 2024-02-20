@@ -6,5 +6,4 @@ import io.reactivex.Single
 interface GamesRepositoryType {
 
   fun getGamesListing(): Single<List<GameData>>
-
 }

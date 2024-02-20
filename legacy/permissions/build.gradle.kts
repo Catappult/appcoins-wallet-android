@@ -1,6 +1,4 @@
-plugins{
-  id("appcoins.jvm.library")
-}
+plugins { id("appcoins.jvm.library") }
 
 dependencies {
   implementation(project(":core:utils:jvm-common"))

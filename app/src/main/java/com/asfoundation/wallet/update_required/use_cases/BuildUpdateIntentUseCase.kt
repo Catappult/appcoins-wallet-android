@@ -5,9 +5,10 @@ import android.net.Uri
 import javax.inject.Inject
 import javax.inject.Named
 
-class BuildUpdateIntentUseCase @Inject constructor(
-  @Named("package-name")
-  private val packageName: String,
+class BuildUpdateIntentUseCase
+@Inject
+constructor(
+    @Named("package-name") private val packageName: String,
 ) {
 
   companion object {

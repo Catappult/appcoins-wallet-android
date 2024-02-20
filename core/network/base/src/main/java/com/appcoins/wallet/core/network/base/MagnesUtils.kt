@@ -10,10 +10,10 @@ object MagnesUtils {
   private var magnusResult: MagnesResult? = null
 
   fun start(context: Context) {
-    val magnesSettingsBuilder = if (BuildConfig.DEBUG)
-      MagnesSettings.Builder(context).setMagnesEnvironment(Environment.SANDBOX)
-    else
-      MagnesSettings.Builder(context).setMagnesEnvironment(Environment.LIVE)
+    val magnesSettingsBuilder =
+        if (BuildConfig.DEBUG)
+            MagnesSettings.Builder(context).setMagnesEnvironment(Environment.SANDBOX)
+        else MagnesSettings.Builder(context).setMagnesEnvironment(Environment.LIVE)
 
     MagnesSDK.getInstance().setUp(magnesSettingsBuilder.build())
   }

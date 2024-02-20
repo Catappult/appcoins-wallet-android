@@ -36,11 +36,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsView {
 
-  @Inject
-  lateinit var currencyFormatUtils: CurrencyFormatUtils
+  @Inject lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  @Inject
-  lateinit var presenter: SubscriptionDetailsPresenter
+  @Inject lateinit var presenter: SubscriptionDetailsPresenter
 
   private val binding by viewBinding(FragmentSubscriptionDetailsBinding::bind)
 
@@ -49,8 +47,11 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     activity?.title = getString(R.string.subscriptions_title)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionDetailsBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionDetailsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -63,15 +64,17 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   override fun getRenewSubscriptionClicks() = RxView.clicks(binding.renewSubscription)
 
   override fun getRetryClicks() =
-      Observable.merge(RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton), RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton))
+      Observable.merge(
+          RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton),
+          RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton))
 
   override fun retrieveSharedElement(): View {
     return binding.appIcon
   }
 
   override fun showNoNetworkError() {
-    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage
-      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
+    binding.noNetworkRetryOnlyLayout.noNetworkBase.noNetworkMessage.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
     binding.mainLayout.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
@@ -82,8 +85,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun showRenewError() {
-    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage
-      .setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
+    binding.genericErrorRetryOnlyLayout.genericErrorBase.genericErrorMessage.setTextColor(
+        ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
     binding.cancelSubscription.visibility = View.GONE
     binding.renewSubscription.visibility = View.GONE
     binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
@@ -135,17 +138,22 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
       binding.renewSubscription.visibility = View.VISIBLE
     } else {
       binding.cancelSubscription.visibility = View.VISIBLE
-      subscriptionItem.renewal?.let { binding.layoutActiveSubscriptionContent.nextPaymentValue.text = formatDate(it) }
+      subscriptionItem.renewal?.let {
+        binding.layoutActiveSubscriptionContent.nextPaymentValue.text = formatDate(it)
+      }
     }
   }
 
   private fun setBillingInfo(subscriptionItem: SubscriptionItem) {
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    binding.layoutActiveSubscriptionContent.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
-        getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    binding.layoutActiveSubscriptionContent.totalValueAppc.text = String.format("~%s / APPC",
-        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
-
+    binding.layoutActiveSubscriptionContent.totalValue.text =
+        subscriptionItem.period?.mapToSubsFrequency(
+            requireContext(),
+            getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
+    binding.layoutActiveSubscriptionContent.totalValueAppc.text =
+        String.format(
+            "~%s / APPC",
+            currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
   override fun setExpiredDetails(subscriptionItem: SubscriptionItem) {
@@ -159,35 +167,34 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.cancelSubscription.visibility = View.GONE
 
     binding.renewSubscription.visibility = View.GONE
-    binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
+    binding.status.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
     binding.status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
-    subscriptionItem.ended?.let { binding.layoutExpiredSubscriptionContent.lastBillValue.text = formatDate(it) }
-    subscriptionItem.started?.let { binding.layoutExpiredSubscriptionContent.startDateValue.text = formatDate(it) }
-    binding.layoutExpiredSubscriptionContent.paymentMethodValue.text = subscriptionItem.paymentMethod
+    subscriptionItem.ended?.let {
+      binding.layoutExpiredSubscriptionContent.lastBillValue.text = formatDate(it)
+    }
+    subscriptionItem.started?.let {
+      binding.layoutExpiredSubscriptionContent.startDateValue.text = formatDate(it)
+    }
+    binding.layoutExpiredSubscriptionContent.paymentMethodValue.text =
+        subscriptionItem.paymentMethod
   }
 
   private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
     binding.expiresOn.visibility = View.VISIBLE
     binding.cancelSubscription.visibility = View.GONE
     binding.layoutActiveSubscriptionContent.nextPaymentValue.text =
-      getString(R.string.subscriptions_canceled_body)
+        getString(R.string.subscriptions_canceled_body)
     binding.layoutActiveSubscriptionContent.nextPaymentValue.setTextColor(
-      ResourcesCompat.getColor(
-        resources,
-        R.color.styleguide_pink,
-        null
-      )
-    )
+        ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
 
     val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     subscriptionItem.expiry?.let {
-      binding.expiresOn.text = getString(
-        R.string.subscriptions_details_cancelled_body,
-        dateFormat.format(it)
-      )
+      binding.expiresOn.text =
+          getString(R.string.subscriptions_details_cancelled_body, dateFormat.format(it))
     }
   }
 
@@ -197,8 +204,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   private fun formatDate(date: Date): String {
-    return DateFormat.format("dd MMM yyyy", date)
-        .toString()
+    return DateFormat.format("dd MMM yyyy", date).toString()
   }
 
   private fun loadImages(context: Context, appIcon: String, paymentIcon: String) {
@@ -210,53 +216,62 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
         .into(target)
   }
 
-  private val target = object : Target<Bitmap> {
+  private val target =
+      object : Target<Bitmap> {
 
-    override fun onLoadStarted(placeholder: Drawable?) {
-      binding.appIcon.visibility = View.INVISIBLE
-      binding.appIconSkeleton.root.visibility = View.VISIBLE
-    }
+        override fun onLoadStarted(placeholder: Drawable?) {
+          binding.appIcon.visibility = View.INVISIBLE
+          binding.appIconSkeleton.root.visibility = View.VISIBLE
+        }
 
-    override fun onLoadFailed(errorDrawable: Drawable?) {
-      startPostponedEnterTransition()
-      binding.appIcon.visibility = View.INVISIBLE
-      binding.appIconSkeleton.root.visibility = View.VISIBLE
-    }
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+          startPostponedEnterTransition()
+          binding.appIcon.visibility = View.INVISIBLE
+          binding.appIconSkeleton.root.visibility = View.VISIBLE
+        }
 
-    override fun getSize(cb: SizeReadyCallback) {
-      cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-    }
+        override fun getSize(cb: SizeReadyCallback) {
+          cb.onSizeReady(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        }
 
-    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-      startPostponedEnterTransition()
-      binding.appIcon.visibility = View.VISIBLE
-      binding.appIconSkeleton.root.visibility = View.INVISIBLE
-      binding.appIcon.setImageBitmap(resource)
-    }
+        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+          startPostponedEnterTransition()
+          binding.appIcon.visibility = View.VISIBLE
+          binding.appIconSkeleton.root.visibility = View.INVISIBLE
+          binding.appIcon.setImageBitmap(resource)
+        }
 
-    override fun getRequest(): Request? = null
-    override fun setRequest(request: Request?) = Unit
-    override fun removeCallback(cb: SizeReadyCallback) = Unit
-    override fun onLoadCleared(placeholder: Drawable?) = Unit
-    override fun onStart() = Unit
-    override fun onDestroy() = Unit
-    override fun onStop() = Unit
-  }
+        override fun getRequest(): Request? = null
+
+        override fun setRequest(request: Request?) = Unit
+
+        override fun removeCallback(cb: SizeReadyCallback) = Unit
+
+        override fun onLoadCleared(placeholder: Drawable?) = Unit
+
+        override fun onStart() = Unit
+
+        override fun onDestroy() = Unit
+
+        override fun onStop() = Unit
+      }
 
   companion object {
 
     const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
     const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem,
-                    transitionName: String): SubscriptionDetailsFragment {
-      return SubscriptionDetailsFragment()
-          .apply {
-            arguments = Bundle().apply {
+    fun newInstance(
+        subscriptionItem: SubscriptionItem,
+        transitionName: String
+    ): SubscriptionDetailsFragment {
+      return SubscriptionDetailsFragment().apply {
+        arguments =
+            Bundle().apply {
               putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
               putString(TRANSITION_NAME_KEY, transitionName)
             }
-          }
+      }
     }
   }
 }

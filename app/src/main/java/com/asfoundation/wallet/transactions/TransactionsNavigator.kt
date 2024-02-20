@@ -16,5 +16,5 @@ class TransactionsNavigator @Inject constructor() : Navigator {
   }
 
   fun navigateToTransactionsList(navController: NavController) =
-    navController.navigate(R.id.action_navigate_to_transactions_list)
+      navController.navigate(R.id.action_navigate_to_transactions_list)
 }

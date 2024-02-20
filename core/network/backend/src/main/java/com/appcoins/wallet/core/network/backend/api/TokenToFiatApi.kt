@@ -7,7 +7,5 @@ import retrofit2.http.Query
 
 interface TokenToFiatApi {
   @GET("appc/value")
-  fun getAppcToFiatRate(
-    @Query("currency") currency: String?
-  ): Observable<AppcToFiatResponseBody?>?
+  fun getAppcToFiatRate(@Query("currency") currency: String?): Observable<AppcToFiatResponseBody?>?
 }

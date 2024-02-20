@@ -14,26 +14,25 @@ import io.reactivex.disposables.CompositeDisposable
 class VerificationCreditCardActivityModule {
 
   @Provides
-  fun providesVerificationActivityData(
-    activity: Activity
-  ): VerificationCreditCardActivityData {
+  fun providesVerificationActivityData(activity: Activity): VerificationCreditCardActivityData {
     return VerificationCreditCardActivityData(
-      activity.intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
-    )
+        activity.intent.getBooleanExtra(IS_WALLET_VERIFIED, false))
   }
 
   @Provides
   fun providesWalletVerificationActivityPresenter(
-    activity: Activity,
-    navigator: VerificationCreditCardActivityNavigator,
-    interactor: VerificationCreditCardActivityInteractor,
-    rxSchedulers: RxSchedulers,
-    analytics: VerificationAnalytics
+      activity: Activity,
+      navigator: VerificationCreditCardActivityNavigator,
+      interactor: VerificationCreditCardActivityInteractor,
+      rxSchedulers: RxSchedulers,
+      analytics: VerificationAnalytics
   ): VerificationCreditCardActivityPresenter {
     return VerificationCreditCardActivityPresenter(
-      activity as VerificationCreditCardActivityView,
-      navigator, interactor, rxSchedulers, CompositeDisposable(),
-      analytics
-    )
+        activity as VerificationCreditCardActivityView,
+        navigator,
+        interactor,
+        rxSchedulers,
+        CompositeDisposable(),
+        analytics)
   }
 }

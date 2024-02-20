@@ -8,18 +8,23 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 object ChangeFiatCurrencySideEffect : SideEffect
+
 data class ChangeFiatCurrencyState(
-  val changeFiatCurrencyAsync: Async<ChangeFiatCurrency> = Async.Uninitialized
+    val changeFiatCurrencyAsync: Async<ChangeFiatCurrency> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
-class ChangeFiatCurrencyViewModel @Inject constructor(
-  private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-) : NewBaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(ChangeFiatCurrencyState()) {
+class ChangeFiatCurrencyViewModel
+@Inject
+constructor(
+    private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+) :
+    NewBaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(
+        ChangeFiatCurrencyState()) {
 
   init {
     showChangeFiatCurrency()
@@ -28,9 +33,7 @@ class ChangeFiatCurrencyViewModel @Inject constructor(
   private fun showChangeFiatCurrency() {
     viewModelScope.launch {
       suspend { getChangeFiatCurrencyModelUseCase() }
-        .mapResultToAsync() {
-          copy(changeFiatCurrencyAsync = it)
-        }
+          .mapResultToAsync() { copy(changeFiatCurrencyAsync = it) }
     }
   }
 }

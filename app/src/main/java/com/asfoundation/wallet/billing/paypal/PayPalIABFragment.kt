@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -26,27 +23,26 @@ import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.google.android.material.badge.BadgeUtils
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
-import java.lang.Thread.sleep
-import java.math.BigDecimal
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PayPalIABFragment() : BasePageViewFragment() {
 
-  @Inject
-  lateinit var navigator: PayPalIABNavigator
+  @Inject lateinit var navigator: PayPalIABNavigator
 
   private val viewModel: PayPalIABViewModel by viewModels()
 
   private var binding: FragmentPaypalBinding? = null
-  private val views get() = binding!!
+  private val views
+    get() = binding!!
+
   private lateinit var compositeDisposable: CompositeDisposable
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
@@ -56,8 +52,9 @@ class PayPalIABFragment() : BasePageViewFragment() {
   var navigatorIAB: Navigator? = null
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentPaypalBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
@@ -74,23 +71,20 @@ class PayPalIABFragment() : BasePageViewFragment() {
 
   private fun registerWebViewResult() {
     resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.startBillingAgreement(
-            amount = amount,
-            currency = currency,
-            transactionBuilder = transactionBuilder,
-            origin = origin
-          )
-        } else if (
-          result.resultCode == Activity.RESULT_CANCELED ||
-          (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
-        ) {
-          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-          viewModel.cancelToken()
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+          if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {
+            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+            viewModel.startBillingAgreement(
+                amount = amount,
+                currency = currency,
+                transactionBuilder = transactionBuilder,
+                origin = origin)
+          } else if (result.resultCode == Activity.RESULT_CANCELED ||
+              (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)) {
+            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+            viewModel.cancelToken()
+          }
         }
-      }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -126,31 +120,27 @@ class PayPalIABFragment() : BasePageViewFragment() {
 
   private fun startPayment() {
     viewModel.startPayment(
-      createTokenIfNeeded = true,
-      amount = amount,
-      currency = currency,
-      transactionBuilder = transactionBuilder,
-      origin = origin
-    )
+        createTokenIfNeeded = true,
+        amount = amount,
+        currency = currency,
+        transactionBuilder = transactionBuilder,
+        origin = origin)
   }
 
   private fun setListeners() {
-    views.paypalErrorButtons.errorBack.setOnClickListener {
-      close()
-    }
-    views.paypalErrorButtons.errorCancel.setOnClickListener {
-      close()
-    }
-    views.paypalErrorButtons.errorTryAgain.setOnClickListener {
-      close()
-    }
-    views.successContainer.lottieTransactionSuccess
-      .addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator) = Unit
-        override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
-        override fun onAnimationCancel(animation: Animator) = Unit
-        override fun onAnimationStart(animation: Animator) = Unit
-      })
+    views.paypalErrorButtons.errorBack.setOnClickListener { close() }
+    views.paypalErrorButtons.errorCancel.setOnClickListener { close() }
+    views.paypalErrorButtons.errorTryAgain.setOnClickListener { close() }
+    views.successContainer.lottieTransactionSuccess.addAnimatorListener(
+        object : Animator.AnimatorListener {
+          override fun onAnimationRepeat(animation: Animator) = Unit
+
+          override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+
+          override fun onAnimationCancel(animation: Animator) = Unit
+
+          override fun onAnimationStart(animation: Animator) = Unit
+        })
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -162,7 +152,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch{
+    viewLifecycleOwner.lifecycleScope.launch {
       delay(1500L)
       navigatorIAB?.popView(successBundle)
     }
@@ -185,7 +175,6 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-
   }
 
   private fun showSpecificError(@StringRes stringRes: Int) {
@@ -202,7 +191,8 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.transactionSuccessBonusText .text = getString(R.string.purchase_success_bonus_received_title, bonus)
+      views.successContainer.transactionSuccessBonusText.text =
+          getString(R.string.purchase_success_bonus_received_title, bonus)
       views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
       views.successContainer.bonusSuccessLayout.visibility = View.GONE
@@ -257,7 +247,6 @@ class PayPalIABFragment() : BasePageViewFragment() {
     }
   }
 
-
   companion object {
 
     private const val PAYMENT_TYPE_KEY = "payment_type"
@@ -276,35 +265,35 @@ class PayPalIABFragment() : BasePageViewFragment() {
 
     @JvmStatic
     fun newInstance(
-      paymentType: PaymentType,
-      origin: String?,
-      transactionBuilder: TransactionBuilder,
-      amount: BigDecimal,
-      currency: String?,
-      bonus: String?,
-      isPreSelected: Boolean,
-      gamificationLevel: Int,
-      skuDescription: String,
-      isSubscription: Boolean,
-      isSkills: Boolean,
-      frequency: String?,
-    ): PayPalIABFragment = PayPalIABFragment().apply {
-      arguments = Bundle().apply {
-        putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(ORIGIN_KEY, origin)
-        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
-        putSerializable(AMOUNT_KEY, amount)
-        putString(CURRENCY_KEY, currency)
-        putString(BONUS_KEY, bonus)
-        putBoolean(PRE_SELECTED_KEY, isPreSelected)
-        putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putBoolean(IS_SKILLS, isSkills)
-        putString(FREQUENCY, frequency)
-      }
-    }
-
+        paymentType: PaymentType,
+        origin: String?,
+        transactionBuilder: TransactionBuilder,
+        amount: BigDecimal,
+        currency: String?,
+        bonus: String?,
+        isPreSelected: Boolean,
+        gamificationLevel: Int,
+        skuDescription: String,
+        isSubscription: Boolean,
+        isSkills: Boolean,
+        frequency: String?,
+    ): PayPalIABFragment =
+        PayPalIABFragment().apply {
+          arguments =
+              Bundle().apply {
+                putString(PAYMENT_TYPE_KEY, paymentType.name)
+                putString(ORIGIN_KEY, origin)
+                putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
+                putSerializable(AMOUNT_KEY, amount)
+                putString(CURRENCY_KEY, currency)
+                putString(BONUS_KEY, bonus)
+                putBoolean(PRE_SELECTED_KEY, isPreSelected)
+                putInt(GAMIFICATION_LEVEL, gamificationLevel)
+                putString(SKU_DESCRIPTION, skuDescription)
+                putBoolean(IS_SUBSCRIPTION, isSubscription)
+                putBoolean(IS_SKILLS, isSkills)
+                putString(FREQUENCY, frequency)
+              }
+        }
   }
-
 }

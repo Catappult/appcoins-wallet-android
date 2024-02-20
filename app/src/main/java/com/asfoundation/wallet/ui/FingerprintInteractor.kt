@@ -7,15 +7,17 @@ import androidx.biometric.BiometricManager
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import javax.inject.Inject
 
-class FingerprintInteractor @Inject constructor(
-  private val biometricManager: BiometricManager,
-  private val packageManager: PackageManager,
-  private val fingerprintPreferences: FingerprintPreferencesDataSource
+class FingerprintInteractor
+@Inject
+constructor(
+    private val biometricManager: BiometricManager,
+    private val packageManager: PackageManager,
+    private val fingerprintPreferences: FingerprintPreferencesDataSource
 ) {
 
   fun getDeviceCompatibility(): Int {
     val biometricCompatibility = biometricManager.canAuthenticate()
-    //User may have biometrics but no fingerprint (e.g face recognition)
+    // User may have biometrics but no fingerprint (e.g face recognition)
     if (hasBiometrics(biometricCompatibility) && !hasFingerPrint()) {
       return BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE
     }
@@ -31,7 +33,8 @@ class FingerprintInteractor @Inject constructor(
       fingerprintPreferences.setAuthenticationErrorTime(currentTime)
 
   private fun hasBiometrics(biometricCompatibility: Int): Boolean {
-    return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS || biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)
+    return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS ||
+        biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)
   }
 
   private fun hasFingerPrint(): Boolean {

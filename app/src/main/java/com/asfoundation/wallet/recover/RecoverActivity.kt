@@ -19,9 +19,9 @@ class RecoverActivity : BaseActivity() {
 
     @JvmStatic
     fun newIntent(context: Context, onboardingLayout: Boolean) =
-      Intent(context, RecoverActivity::class.java).apply {
-        putExtra(ONBOARDING_LAYOUT, onboardingLayout)
-      }
+        Intent(context, RecoverActivity::class.java).apply {
+          putExtra(ONBOARDING_LAYOUT, onboardingLayout)
+        }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,7 @@ class RecoverActivity : BaseActivity() {
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
   fun toolbar(): Toolbar {

@@ -48,195 +48,166 @@ lateinit var passwordInput: String
 
 @Composable
 fun BackupSaveOptionsRoute(
-  onChatClick: () -> Unit,
-  onSaveOnDevice: () -> Unit,
-  viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
+    onChatClick: () -> Unit,
+    onSaveOnDevice: () -> Unit,
+    viewModel: BackupSaveOptionsViewModel = hiltViewModel(),
 ) {
-  Scaffold(
-    topBar = { Surface { TopBar(onClickSupport = onChatClick) } },
-    modifier = Modifier
-  ) { padding ->
+  Scaffold(topBar = { Surface { TopBar(onClickSupport = onChatClick) } }, modifier = Modifier) {
+      padding ->
     BackupSaveOptionsScreen(
-      scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice
-    ) {
-      viewModel.showLoading()
-      viewModel.sendBackupToEmail(passwordInput)
-    }
+        scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice) {
+          viewModel.showLoading()
+          viewModel.sendBackupToEmail(passwordInput)
+        }
   }
 }
 
 @Composable
 fun BackupSaveOptionsScreen(
-  scaffoldPadding: PaddingValues,
-  showLoading: Boolean,
-  onSaveOnDevice: () -> Unit,
-  onSendEmailClick: () -> Unit,
+    scaffoldPadding: PaddingValues,
+    showLoading: Boolean,
+    onSaveOnDevice: () -> Unit,
+    onSendEmailClick: () -> Unit,
 ) {
   Column(
-    modifier =
-    Modifier
-      .fillMaxSize(1f)
-      .padding(scaffoldPadding)
-      .verticalScroll(
-        rememberScrollState(),
-      )
-  ) {
-    Column(horizontalAlignment = Alignment.Start) {
-      Text(
-        style = WalletTypography.bold.sp22,
-        color = WalletColors.styleguide_light_grey,
-        text = stringResource(id = R.string.backup_title),
-        modifier = Modifier.padding(top = 8.dp, bottom = 24.dp, start = 24.dp),
-      )
-      Text(
-        text = stringResource(id = R.string.backup_body),
-        modifier = Modifier.padding(horizontal = 24.dp),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey,
-      )
-    }
-    if (showLoading) {
-      LoadingCard()
-    } else {
-      SaveOnDeviceCardDefault()
-      SaveOnDeviceOptions(
-        onSendEmailClick,
-        onSaveOnDevice = onSaveOnDevice,
-      )
-    }
-  }
+      modifier =
+          Modifier.fillMaxSize(1f)
+              .padding(scaffoldPadding)
+              .verticalScroll(
+                  rememberScrollState(),
+              )) {
+        Column(horizontalAlignment = Alignment.Start) {
+          Text(
+              style = WalletTypography.bold.sp22,
+              color = WalletColors.styleguide_light_grey,
+              text = stringResource(id = R.string.backup_title),
+              modifier = Modifier.padding(top = 8.dp, bottom = 24.dp, start = 24.dp),
+          )
+          Text(
+              text = stringResource(id = R.string.backup_body),
+              modifier = Modifier.padding(horizontal = 24.dp),
+              style = WalletTypography.medium.sp14,
+              color = WalletColors.styleguide_light_grey,
+          )
+        }
+        if (showLoading) {
+          LoadingCard()
+        } else {
+          SaveOnDeviceCardDefault()
+          SaveOnDeviceOptions(
+              onSendEmailClick,
+              onSaveOnDevice = onSaveOnDevice,
+          )
+        }
+      }
 }
 
 @Preview
 @Composable
 fun SaveOnDeviceCardDefault() {
   Card(
-    shape = RoundedCornerShape(16.dp),
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(vertical = 48.dp, horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
-  ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(32.dp)
-    ) {
-      WalletImage(Modifier.size(48.dp, 62.dp), data = R.drawable.ic_lock_appc)
-      Text(
-        text = stringResource(id = R.string.backup_ready_title),
-        color = WalletColors.styleguide_light_grey,
-        style = WalletTypography.bold.sp22,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-      )
-    }
-  }
+      shape = RoundedCornerShape(16.dp),
+      modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp, horizontal = 16.dp),
+      colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth().padding(32.dp)) {
+              WalletImage(Modifier.size(48.dp, 62.dp), data = R.drawable.ic_lock_appc)
+              Text(
+                  text = stringResource(id = R.string.backup_ready_title),
+                  color = WalletColors.styleguide_light_grey,
+                  style = WalletTypography.bold.sp22,
+                  textAlign = TextAlign.Center,
+                  modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+            }
+      }
 }
 
 @Preview
 @Composable
 fun LoadingCard() {
   Card(
-    shape = RoundedCornerShape(16.dp),
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(vertical = 48.dp, horizontal = 16.dp),
-    colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)
-  ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 48.dp)
-    ) {
-      val composition by
-      rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_wallet))
-      val progress by
-      animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+      shape = RoundedCornerShape(16.dp),
+      modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp, horizontal = 16.dp),
+      colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth().padding(vertical = 48.dp)) {
+              val composition by
+                  rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_wallet))
+              val progress by
+                  animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
 
-      LottieAnimation(
-        modifier = Modifier.size(80.dp),
-        composition = composition,
-        progress = { progress })
+              LottieAnimation(
+                  modifier = Modifier.size(80.dp),
+                  composition = composition,
+                  progress = { progress })
 
-      Text(
-        text = stringResource(id = R.string.title_dialog_sending),
-        color = styleguide_dark_grey,
-        style = WalletTypography.medium.sp12,
-        textAlign = TextAlign.Center
-      )
-    }
-  }
+              Text(
+                  text = stringResource(id = R.string.title_dialog_sending),
+                  color = styleguide_dark_grey,
+                  style = WalletTypography.medium.sp12,
+                  textAlign = TextAlign.Center)
+            }
+      }
 }
 
 @Composable
 fun SaveOnDeviceOptions(
-  onSendEmailClick: () -> Unit,
-  onSaveOnDevice: () -> Unit,
+    onSendEmailClick: () -> Unit,
+    onSaveOnDevice: () -> Unit,
 ) {
   var defaultEmail by rememberSaveable { mutableStateOf("") }
   var validEmail by rememberSaveable { mutableStateOf(false) }
 
   Column(Modifier.fillMaxWidth()) {
     Column(
-      Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp, top = 24.dp),
-      horizontalAlignment = Alignment.Start
-    ) {
-      Text(
-        text = stringResource(id = R.string.backup_ready_save_on_email),
-        Modifier.padding(bottom = 8.dp),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey
-      )
-      WalletTextFieldCustom(
-        value = defaultEmail,
-        onValueChange = {
-          defaultEmail = it
-          passwordInput = defaultEmail
-        },
-        hintText = R.string.email_here_field,
-      )
-      if (defaultEmail.isNotEmpty() &&
-        android.util.Patterns.EMAIL_ADDRESS.matcher(defaultEmail).matches()
-      ) {
-        validEmail = true
-      }
-      ButtonWithText(
-        label = stringResource(id = R.string.backup_ready_email_button),
-        onClick = { if (validEmail) onSendEmailClick() },
-        backgroundColor =
-        if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
-        labelColor = WalletColors.styleguide_light_grey,
-        buttonType = ButtonType.LARGE,
-      )
-    }
+        Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp, top = 24.dp),
+        horizontalAlignment = Alignment.Start) {
+          Text(
+              text = stringResource(id = R.string.backup_ready_save_on_email),
+              Modifier.padding(bottom = 8.dp),
+              style = WalletTypography.medium.sp14,
+              color = WalletColors.styleguide_light_grey)
+          WalletTextFieldCustom(
+              value = defaultEmail,
+              onValueChange = {
+                defaultEmail = it
+                passwordInput = defaultEmail
+              },
+              hintText = R.string.email_here_field,
+          )
+          if (defaultEmail.isNotEmpty() &&
+              android.util.Patterns.EMAIL_ADDRESS.matcher(defaultEmail).matches()) {
+            validEmail = true
+          }
+          ButtonWithText(
+              label = stringResource(id = R.string.backup_ready_email_button),
+              onClick = { if (validEmail) onSendEmailClick() },
+              backgroundColor =
+                  if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
+              labelColor = WalletColors.styleguide_light_grey,
+              buttonType = ButtonType.LARGE,
+          )
+        }
     Row(
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)
-    ) {
-      Divider(modifier = Modifier
-        .weight(1f)
-        .height(1.dp), color = styleguide_dark_grey)
-      Text(
-        text = stringResource(R.string.common_or),
-        color = styleguide_dark_grey,
-        style = WalletTypography.regular.sp12,
-        modifier = Modifier.padding(horizontal = 8.dp)
-      )
-      Divider(modifier = Modifier
-        .weight(1f)
-        .height(1.dp), color = styleguide_dark_grey)
-    }
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)) {
+          Divider(modifier = Modifier.weight(1f).height(1.dp), color = styleguide_dark_grey)
+          Text(
+              text = stringResource(R.string.common_or),
+              color = styleguide_dark_grey,
+              style = WalletTypography.regular.sp12,
+              modifier = Modifier.padding(horizontal = 8.dp))
+          Divider(modifier = Modifier.weight(1f).height(1.dp), color = styleguide_dark_grey)
+        }
     Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)) {
       ButtonWithText(
-        label = stringResource(id = R.string.backup_ready_device_button),
-        onClick = { onSaveOnDevice() },
-        labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.LARGE,
-        outlineColor = WalletColors.styleguide_light_grey
-      )
+          label = stringResource(id = R.string.backup_ready_device_button),
+          onClick = { onSaveOnDevice() },
+          labelColor = WalletColors.styleguide_white,
+          buttonType = ButtonType.LARGE,
+          outlineColor = WalletColors.styleguide_light_grey)
     }
   }
 }

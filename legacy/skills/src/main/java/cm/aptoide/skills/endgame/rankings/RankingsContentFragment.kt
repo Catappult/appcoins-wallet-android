@@ -46,14 +46,12 @@ class RankingsContentFragment : Fragment() {
   private lateinit var countDownTimer: CountDownTimer
   private lateinit var binding: FragmentRankingsTabContentBinding
 
-  @Inject
-  lateinit var getUserStatisticsUseCase: GetUserStatisticsUseCase
+  @Inject lateinit var getUserStatisticsUseCase: GetUserStatisticsUseCase
 
-  @Inject
-  lateinit var getBonusHistoryUseCase: GetBonusHistoryUseCase
+  @Inject lateinit var getBonusHistoryUseCase: GetBonusHistoryUseCase
 
-  @Inject
-  lateinit var getNextBonusScheduleUseCase: GetNextBonusScheduleUseCase
+  @Inject lateinit var getNextBonusScheduleUseCase: GetNextBonusScheduleUseCase
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -65,7 +63,9 @@ class RankingsContentFragment : Fragment() {
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View {
     binding = FragmentRankingsTabContentBinding.inflate(inflater, container, false)
     return binding.root
@@ -91,19 +91,21 @@ class RankingsContentFragment : Fragment() {
 
   private fun showRankings() {
     handleLayout()
-    disposables.add(getUserStatisticsUseCase.invoke(packageName, walletAddress, timeFrame)
-      .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoadingView() }
-      .doOnSuccess { showRecyclerView() }.subscribe({ topRankings ->
-        updateCurrentRanking(topRankings.currentUser)
-        updateRankingsList(
-           if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards)
-             topRankings.userList
-           else processTop3(topRankings.userList)
-        )
-      }) { throwable ->
-        throwable.printStackTrace()
-        showErrorView()
-      })
+    disposables.add(
+        getUserStatisticsUseCase
+            .invoke(packageName, walletAddress, timeFrame)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showLoadingView() }
+            .doOnSuccess { showRecyclerView() }
+            .subscribe({ topRankings ->
+              updateCurrentRanking(topRankings.currentUser)
+              updateRankingsList(
+                  if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards) topRankings.userList
+                  else processTop3(topRankings.userList))
+            }) { throwable ->
+              throwable.printStackTrace()
+              showErrorView()
+            })
   }
 
   private fun handleLayout() {
@@ -117,45 +119,42 @@ class RankingsContentFragment : Fragment() {
   }
 
   private fun showLastBonusWinners() {
-    disposables.add(getBonusHistoryUseCase.invoke(packageName, sku, timeFrame)
-      .observeOn(AndroidSchedulers.mainThread()).doOnSubscribe { showLoadingView() }
-      .doOnSuccess { showRecyclerView() }.subscribe({ response ->
-        updateLastBonusWinners(
-          response[0].users
-        )
-      }) { throwable ->
-        throwable.printStackTrace()
-        showErrorView()
-      })
+    disposables.add(
+        getBonusHistoryUseCase
+            .invoke(packageName, sku, timeFrame)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showLoadingView() }
+            .doOnSuccess { showRecyclerView() }
+            .subscribe({ response -> updateLastBonusWinners(response[0].users) }) { throwable ->
+              throwable.printStackTrace()
+              showErrorView()
+            })
   }
 
   // process top 3 and return the original list minus that 3 players
   private fun processTop3(players_score: List<TopRankings>): List<TopRankings> {
     val firstPlayerRowBinding: FirstRowLayoutBinding = binding.currentTop3Container.firstPlayerRow
     val secondPlayerRowBinding: SecondRowLayoutBinding =
-      binding.currentTop3Container.secondPlayerRow
+        binding.currentTop3Container.secondPlayerRow
     val thirdRowLayoutBinding: ThirdRowLayoutBinding = binding.currentTop3Container.thirdPlayerRow
     if (players_score.size >= 1) {
       val player1: TopRankings = players_score[0]
       populateTop3row(
-        player1, firstPlayerRowBinding.rankingUsername, firstPlayerRowBinding.rankingScore
-      )
+          player1, firstPlayerRowBinding.rankingUsername, firstPlayerRowBinding.rankingScore)
     } else {
       showNotAttributed(firstPlayerRowBinding.rankingUsername)
     }
     if (players_score.size >= 2) {
       val player2: TopRankings = players_score[1]
       populateTop3row(
-        player2, secondPlayerRowBinding.rankingUsername, secondPlayerRowBinding.rankingScore
-      )
+          player2, secondPlayerRowBinding.rankingUsername, secondPlayerRowBinding.rankingScore)
     } else {
       showNotAttributed(secondPlayerRowBinding.rankingUsername)
     }
     if (players_score.size >= 3) {
       val player3: TopRankings = players_score[2]
       populateTop3row(
-        player3, thirdRowLayoutBinding.rankingUsername, thirdRowLayoutBinding.rankingScore
-      )
+          player3, thirdRowLayoutBinding.rankingUsername, thirdRowLayoutBinding.rankingScore)
       return players_score.subList(3, players_score.size)
     } else {
       showNotAttributed(thirdRowLayoutBinding.rankingUsername)
@@ -173,36 +172,36 @@ class RankingsContentFragment : Fragment() {
       countdownBinding.countdownDaysContainer.visibility = View.GONE
     }
     disposables.add(
-      getNextBonusScheduleUseCase.invoke(timeFrame).observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess { nextSchedule ->
-          val timeLeftMillis: Long = nextSchedule.nextSchedule * 1000 - System.currentTimeMillis()
-          startCountDownTimer(timeLeftMillis)
-        }.subscribe()
-    )
+        getNextBonusScheduleUseCase
+            .invoke(timeFrame)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { nextSchedule ->
+              val timeLeftMillis: Long =
+                  nextSchedule.nextSchedule * 1000 - System.currentTimeMillis()
+              startCountDownTimer(timeLeftMillis)
+            }
+            .subscribe())
   }
 
   private fun updateLastBonusWinners(users: List<BonusUser>) {
     if (users.size >= 1) {
       binding.lastWinnersContainer.firstUsername.text = users[0].userName
-      binding.lastWinnersContainer.firstWinnings.text = java.lang.String.format(
-        Locale.getDefault(), "%.2f$", users[0].bonusAmount
-      )
+      binding.lastWinnersContainer.firstWinnings.text =
+          java.lang.String.format(Locale.getDefault(), "%.2f$", users[0].bonusAmount)
     } else {
       showNotAttributed(binding.lastWinnersContainer.firstUsername)
     }
     if (users.size >= 2) {
       binding.lastWinnersContainer.secondUsername.text = users[1].userName
-      binding.lastWinnersContainer.secondWinnings.text = java.lang.String.format(
-        Locale.getDefault(), "%.2f$", users[1].bonusAmount
-      )
+      binding.lastWinnersContainer.secondWinnings.text =
+          java.lang.String.format(Locale.getDefault(), "%.2f$", users[1].bonusAmount)
     } else {
       showNotAttributed(binding.lastWinnersContainer.secondUsername)
     }
     if (users.size >= 3) {
       binding.lastWinnersContainer.thirdUsername.text = users[2].userName
-      binding.lastWinnersContainer.thirdWinnings.text = java.lang.String.format(
-        Locale.getDefault(), "%.2f$", users[2].bonusAmount
-      )
+      binding.lastWinnersContainer.thirdWinnings.text =
+          java.lang.String.format(Locale.getDefault(), "%.2f$", users[2].bonusAmount)
     } else {
       showNotAttributed(binding.lastWinnersContainer.thirdUsername)
     }
@@ -213,9 +212,9 @@ class RankingsContentFragment : Fragment() {
       binding.currentRankingContainer.root.visibility = View.GONE
     } else {
       binding.currentRankingContainer.rankingScore.text =
-        java.lang.String.valueOf(currentRanking.score)
+          java.lang.String.valueOf(currentRanking.score)
       binding.currentRankingContainer.rankingPosition.text =
-        java.lang.String.valueOf(currentRanking.rankPosition)
+          java.lang.String.valueOf(currentRanking.rankPosition)
     }
   }
 
@@ -229,33 +228,32 @@ class RankingsContentFragment : Fragment() {
     val secondsView: TextView = countdownBinding.countdownSeconds
     val secondsText: TextView = countdownBinding.tvSecondTitle
 
-    countDownTimer = object : CountDownTimer(timeLeftMillis, COUNTDOWN_INTERVAL) {
-      override fun onTick(millisUntilFinished: Long) {
-        val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
-        val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
-        daysView.text = days.toString()
-        daysText.text = requireContext().resources.getQuantityString(R.plurals.days, days.toInt())
-        hoursView.text = hours.toString()
-        hoursText.text =
-          requireContext().resources.getQuantityString(R.plurals.hours, hours.toInt())
-        minutesView.text = minutes.toString()
-        minutesText.text = requireContext().resources.getQuantityString(
-          R.plurals.minutes,
-          minutes.toInt()
-        )
-        secondsView.text = seconds.toString()
-        secondsText.text = requireContext().resources.getQuantityString(
-          R.plurals.seconds,
-          seconds.toInt()
-        )
-      }
+    countDownTimer =
+        object : CountDownTimer(timeLeftMillis, COUNTDOWN_INTERVAL) {
+              override fun onTick(millisUntilFinished: Long) {
+                val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
+                val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24
+                val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
+                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
+                daysView.text = days.toString()
+                daysText.text =
+                    requireContext().resources.getQuantityString(R.plurals.days, days.toInt())
+                hoursView.text = hours.toString()
+                hoursText.text =
+                    requireContext().resources.getQuantityString(R.plurals.hours, hours.toInt())
+                minutesView.text = minutes.toString()
+                minutesText.text =
+                    requireContext().resources.getQuantityString(R.plurals.minutes, minutes.toInt())
+                secondsView.text = seconds.toString()
+                secondsText.text =
+                    requireContext().resources.getQuantityString(R.plurals.seconds, seconds.toInt())
+              }
 
-      override fun onFinish() {
-        showCountdownTimer() // update schedule
-      }
-    }.start()
+              override fun onFinish() {
+                showCountdownTimer() // update schedule
+              }
+            }
+            .start()
   }
 
   private fun showErrorView() {
@@ -285,11 +283,11 @@ class RankingsContentFragment : Fragment() {
     val playersList: ArrayList<UserRankingsItem> = ArrayList()
     for (player in players) {
       playersList.add(
-        UserRankingsItem(
-          player.username, player.score, player.rankPosition.toLong(),
-          player.walletAddress == walletAddress
-        )
-      )
+          UserRankingsItem(
+              player.username,
+              player.score,
+              player.rankPosition.toLong(),
+              player.walletAddress == walletAddress))
     }
     return playersList
   }
@@ -310,20 +308,21 @@ class RankingsContentFragment : Fragment() {
 
     @JvmStatic
     fun newInstance(
-      walletAddress: String,
-      packageName: String,
-      sku: String,
-      timeFrame: TimeFrame,
-      supportsRewards: Boolean
+        walletAddress: String,
+        packageName: String,
+        sku: String,
+        timeFrame: TimeFrame,
+        supportsRewards: Boolean
     ): RankingsContentFragment {
       return RankingsContentFragment().apply {
-        arguments = Bundle().apply {
-          putString(WALLET_ADDRESS_KEY, walletAddress)
-          putString(PACKAGE_NAME_KEY, packageName)
-          putString(SKU_KEY, sku)
-          putSerializable(TIME_FRAME_KEY, timeFrame)
-          putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
-        }
+        arguments =
+            Bundle().apply {
+              putString(WALLET_ADDRESS_KEY, walletAddress)
+              putString(PACKAGE_NAME_KEY, packageName)
+              putString(SKU_KEY, sku)
+              putSerializable(TIME_FRAME_KEY, timeFrame)
+              putBoolean(SUPPORTS_REWARDS_KEY, supportsRewards)
+            }
       }
     }
   }

@@ -12,9 +12,8 @@ import cm.aptoide.skills.endgame.model.RankingsItem
 import cm.aptoide.skills.endgame.model.UserRankingsItem
 
 class RankingsAdapter(layoutInflater: LayoutInflater) :
-  RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private val differ: AsyncListDiffer<RankingsItem> = AsyncListDiffer(this, DIFF_CALLBACK)
-
 
   private val layoutInflater: LayoutInflater
 
@@ -71,15 +70,12 @@ class RankingsAdapter(layoutInflater: LayoutInflater) :
         1L -> {
           rank.setBackgroundResource(R.drawable.gold_medal)
         }
-
         2L -> {
           rank.setBackgroundResource(R.drawable.silver_medal)
         }
-
         3L -> {
           rank.setBackgroundResource(R.drawable.bronze_medal)
         }
-
         else -> {
           rank.text = player.rank.toString()
         }
@@ -95,18 +91,20 @@ class RankingsAdapter(layoutInflater: LayoutInflater) :
 
   companion object {
     private val DIFF_CALLBACK: DiffUtil.ItemCallback<RankingsItem> =
-      object : DiffUtil.ItemCallback<RankingsItem>() {
-        override fun areItemsTheSame(
-          oldProduct: RankingsItem, newProduct: RankingsItem
-        ): Boolean {
-          return oldProduct == newProduct
-        }
+        object : DiffUtil.ItemCallback<RankingsItem>() {
+          override fun areItemsTheSame(
+              oldProduct: RankingsItem,
+              newProduct: RankingsItem
+          ): Boolean {
+            return oldProduct == newProduct
+          }
 
-        override fun areContentsTheSame(
-          oldProduct: RankingsItem, newProduct: RankingsItem
-        ): Boolean {
-          return areItemsTheSame(oldProduct, newProduct)
+          override fun areContentsTheSame(
+              oldProduct: RankingsItem,
+              newProduct: RankingsItem
+          ): Boolean {
+            return areItemsTheSame(oldProduct, newProduct)
+          }
         }
-      }
   }
 }

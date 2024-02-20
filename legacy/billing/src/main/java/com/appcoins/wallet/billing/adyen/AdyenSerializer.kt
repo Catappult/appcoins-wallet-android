@@ -7,8 +7,8 @@ import com.adyen.checkout.components.model.payments.response.Threeds2ChallengeAc
 import com.adyen.checkout.components.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.google.gson.JsonObject
-import org.json.JSONObject
 import javax.inject.Inject
+import org.json.JSONObject
 
 open class AdyenSerializer @Inject constructor() {
 
@@ -29,5 +29,5 @@ open class AdyenSerializer @Inject constructor() {
   }
 
   open fun deserialize3DS(jsonAction: JsonObject): Threeds2Action =
-    Threeds2Action.SERIALIZER.deserialize(JSONObject(jsonAction.toString()))
+      Threeds2Action.SERIALIZER.deserialize(JSONObject(jsonAction.toString()))
 }

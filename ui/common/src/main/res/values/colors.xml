@@ -55,7 +55,7 @@
   <color name="colorPrimaryDark">@color/styleguide_blue</color> <!-- App bar dark -->
   <color name="colorAccent">@color/styleguide_pink</color> <!-- Default UI controls -->
   <!-- Default text color -->
-  <color name="statusBarColor">@color/styleguide_blue  </color> <!-- Android system status bar -->
+  <color name="statusBarColor">@color/styleguide_blue</color> <!-- Android system status bar -->
   <!-- Android controls -->
 
   <!-- Still used, but to be replaced -->

@@ -5,6 +5,9 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.ReferralItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.ACTION_DETAILS
@@ -12,15 +15,11 @@ import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.ACTIO
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_ACTION
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_LINK
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 
 @EpoxyModelClass
 abstract class ReferralModel : EpoxyModelWithHolder<ReferralModel.ReferralHolder>() {
 
-  @EpoxyAttribute
-  lateinit var referralItem: ReferralItem
+  @EpoxyAttribute lateinit var referralItem: ReferralItem
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   lateinit var currencyFormatUtils: CurrencyFormatUtils
@@ -32,25 +31,19 @@ abstract class ReferralModel : EpoxyModelWithHolder<ReferralModel.ReferralHolder
     val context = holder.itemView.context
 
     holder.itemView.setOnClickListener {
-      val extras = mapOf(
-          Pair(KEY_LINK, referralItem.link),
-          Pair(KEY_ACTION, ACTION_DETAILS)
-      )
+      val extras = mapOf(Pair(KEY_LINK, referralItem.link), Pair(KEY_ACTION, ACTION_DETAILS))
       clickListener?.invoke(PromotionClick(referralItem.id, extras))
     }
 
     holder.shareContainer.setOnClickListener {
-      val extras = mapOf(
-          Pair(KEY_LINK, referralItem.link),
-          Pair(KEY_ACTION, ACTION_SHARE)
-      )
+      val extras = mapOf(Pair(KEY_LINK, referralItem.link), Pair(KEY_ACTION, ACTION_SHARE))
       clickListener?.invoke(PromotionClick(referralItem.id, extras))
     }
 
     val bonus = currencyFormatUtils.formatCurrency(referralItem.bonus, WalletCurrency.FIAT)
 
-    val subtitle = context.getString(R.string.promotions_referral_card_title,
-        referralItem.currency + bonus)
+    val subtitle =
+        context.getString(R.string.promotions_referral_card_title, referralItem.currency + bonus)
 
     holder.referralSubtitle.text = subtitle
   }

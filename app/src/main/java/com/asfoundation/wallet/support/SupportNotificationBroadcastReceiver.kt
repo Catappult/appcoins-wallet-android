@@ -19,7 +19,7 @@ class SupportNotificationBroadcastReceiver : ComponentActivity() {
 
     @JvmStatic
     fun newIntent(context: Context) =
-      Intent(context, SupportNotificationBroadcastReceiver::class.java)
+        Intent(context, SupportNotificationBroadcastReceiver::class.java)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +40,12 @@ class SupportNotificationBroadcastReceiver : ComponentActivity() {
   }
 
   private fun navigateToIntercomScreen(context: Context) {
-    val transactionsIntent = MainActivity.newIntent(context, true)
-      .apply {
-        addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      }
+    val transactionsIntent =
+        MainActivity.newIntent(context, true).apply {
+          addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+          addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     context.startActivity(transactionsIntent)
   }
 }

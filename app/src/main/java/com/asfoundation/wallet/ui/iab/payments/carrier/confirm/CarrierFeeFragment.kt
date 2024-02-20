@@ -25,7 +25,7 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.math.BigDecimal
-import java.util.*
+import java.util.Currency
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,16 +33,16 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
   private val formatter = CurrencyFormatUtils()
 
-  @Inject
-  lateinit var presenter: CarrierFeePresenter
+  @Inject lateinit var presenter: CarrierFeePresenter
 
   lateinit var iabView: IabView
 
   private val views by viewBinding(FragmentCarrierConfirmBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = FragmentCarrierConfirmBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,37 +66,42 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   private fun setupUi() {
     iabView.disableBack()
 
-    (views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton)?.run {
-      setText(getString(R.string.back_button))
-      visibility = View.VISIBLE
-    }
+    (views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton)
+        ?.run {
+          setText(getString(R.string.back_button))
+          visibility = View.VISIBLE
+        }
 
     (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton)?.run {
       setText(getString(R.string.action_next))
       visibility = View.VISIBLE
       isEnabled = false
     }
-
   }
 
   override fun initializeView(
-    currency: String, fiatAmount: BigDecimal,
-    appcAmount: BigDecimal, skuDescription: String,
-    bonusAmount: BigDecimal?, carrierName: String,
-    carrierImage: String, carrierFeeFiat: BigDecimal
+      currency: String,
+      fiatAmount: BigDecimal,
+      appcAmount: BigDecimal,
+      skuDescription: String,
+      bonusAmount: BigDecimal?,
+      carrierName: String,
+      carrierImage: String,
+      carrierFeeFiat: BigDecimal
   ) {
-    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!).isEnabled = true
+    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!)
+        .isEnabled = true
     views.paymentMethodsHeader.setDescription(skuDescription)
     views.paymentMethodsHeader.hidePrice(
-      resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-    )
+        resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
     views.paymentMethodsHeader.hideSkeleton()
 
     val fiat =
-      "${
+        "${
         formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)
       } $currency"
-    val appc = "${
+    val appc =
+        "${
       formatter.formatPaymentCurrency(
         appcAmount,
         WalletCurrency.APPCOINS
@@ -111,16 +116,15 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
       }
     }
     views.feeTitle.text =
-      context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
+        context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
 
-    GlideApp.with(requireContext())
-      .load(carrierImage)
-      .into(views.carrierImage)
+    GlideApp.with(requireContext()).load(carrierImage).into(views.carrierImage)
 
     views.purchaseBonus.withNoLayoutTransition {
       if (bonusAmount != null) {
         views.purchaseBonus.visibility = View.VISIBLE
-        views.purchaseBonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+        views.purchaseBonus.setPurchaseBonusHeaderValue(
+            bonusAmount, mapCurrencyCodeToSymbol(currency))
         views.purchaseBonus.hideSkeleton()
       } else {
         views.purchaseBonus.visibility = View.GONE
@@ -134,23 +138,23 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
-    return if (currencyCode.equals("APPC", ignoreCase = true))
-      currencyCode
-    else
-      Currency.getInstance(currencyCode)
-        .symbol
+    return if (currencyCode.equals("APPC", ignoreCase = true)) currencyCode
+    else Currency.getInstance(currencyCode).symbol
   }
 
   override fun cancelButtonEvent(): Observable<Any> {
-    return RxView.clicks((views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton!!))
+    return RxView.clicks(
+        (views.dialogBuyButtonsPaymentMethods?.cancelButton
+            ?: views.dialogBuyButtons?.cancelButton!!))
   }
 
   override fun systemBackEvent(): Observable<Any> {
     return iabView.backButtonPress()
   }
 
-
-  override fun nextClickEvent(): Observable<Any> = RxView.clicks((views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!))
+  override fun nextClickEvent(): Observable<Any> =
+      RxView.clicks(
+          (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!))
 
   companion object {
 
@@ -172,30 +176,41 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
     @JvmStatic
     fun newInstance(
-      uid: String, domain: String, transactionData: String, transactionType: String,
-      paymentUrl: String?, currency: String?, amount: BigDecimal,
-      appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
-      skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
-      carrierImage: String, phoneNumber: String
+        uid: String,
+        domain: String,
+        transactionData: String,
+        transactionType: String,
+        paymentUrl: String?,
+        currency: String?,
+        amount: BigDecimal,
+        appcAmount: BigDecimal,
+        bonus: BigDecimal?,
+        skuDescription: String,
+        skuId: String?,
+        feeFiatAmount: BigDecimal,
+        carrierName: String,
+        carrierImage: String,
+        phoneNumber: String
     ): CarrierFeeFragment {
       val fragment = CarrierFeeFragment()
-      fragment.arguments = Bundle().apply {
-        putString(UID_KEY, uid)
-        putString(DOMAIN_KEY, domain)
-        putString(TRANSACTION_DATA_KEY, transactionData)
-        putString(TRANSACTION_TYPE_KEY, transactionType)
-        putString(PAYMENT_URL_KEY, paymentUrl)
-        putString(CURRENCY_KEY, currency)
-        putSerializable(FIAT_AMOUNT_KEY, amount)
-        putSerializable(APPC_AMOUNT_KEY, appcAmount)
-        putSerializable(BONUS_AMOUNT_KEY, bonus)
-        putString(SKU_DESCRIPTION_KEY, skuDescription)
-        putString(SKU_ID_KEY, skuId)
-        putSerializable(FEE_FIAT_AMOUNT_KEY, feeFiatAmount)
-        putString(CARRIER_NAME_KEY, carrierName)
-        putString(CARRIER_IMAGE_KEY, carrierImage)
-        putString(PHONE_NUMBER_KEY, phoneNumber)
-      }
+      fragment.arguments =
+          Bundle().apply {
+            putString(UID_KEY, uid)
+            putString(DOMAIN_KEY, domain)
+            putString(TRANSACTION_DATA_KEY, transactionData)
+            putString(TRANSACTION_TYPE_KEY, transactionType)
+            putString(PAYMENT_URL_KEY, paymentUrl)
+            putString(CURRENCY_KEY, currency)
+            putSerializable(FIAT_AMOUNT_KEY, amount)
+            putSerializable(APPC_AMOUNT_KEY, appcAmount)
+            putSerializable(BONUS_AMOUNT_KEY, bonus)
+            putString(SKU_DESCRIPTION_KEY, skuDescription)
+            putString(SKU_ID_KEY, skuId)
+            putSerializable(FEE_FIAT_AMOUNT_KEY, feeFiatAmount)
+            putString(CARRIER_NAME_KEY, carrierName)
+            putString(CARRIER_IMAGE_KEY, carrierImage)
+            putString(PHONE_NUMBER_KEY, phoneNumber)
+          }
       return fragment
     }
   }

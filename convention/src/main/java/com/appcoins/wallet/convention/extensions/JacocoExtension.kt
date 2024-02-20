@@ -12,49 +12,45 @@ import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
-private val coverageExclusions = listOf(
-  // data binding
-  "android/databinding/**/*.class",
-  "**/android/databinding/*Binding.class",
-  "**/android/databinding/*",
-  "**/androidx/databinding/*",
-  "**databinding*",
-  "**/BR.*",
-  // android
-  "**/R.class",
-  "**/R$*.class",
-  "**/BuildConfig.*",
-  "**/Manifest*.*",
-  "**/*Test*.*",
-  "android/**/*.*",
-  // kotlin
-  "**/*MapperImpl*.*",
-  "**/BuildConfig.*",
-  "**/*Component*.*",
-  "**/*BR*.*",
-  "**/Manifest*.*",
-  "**/*Companion*.*",
-  "**/*Module*.*",
-  "**/*Dagger*.*",
-  "**/*Hilt*.*",
-  "**/*MembersInjector*.*",
-  "**/*_MembersInjector.class",
-  "**/*_Factory*.*",
-  "**/*_Provide*Factory*.*",
-  "**/*Extensions*.*",
-  "**/*JsonAdapter.*",
-)
+private val coverageExclusions =
+    listOf(
+        // data binding
+        "android/databinding/**/*.class",
+        "**/android/databinding/*Binding.class",
+        "**/android/databinding/*",
+        "**/androidx/databinding/*",
+        "**databinding*",
+        "**/BR.*",
+        // android
+        "**/R.class",
+        "**/R$*.class",
+        "**/BuildConfig.*",
+        "**/Manifest*.*",
+        "**/*Test*.*",
+        "android/**/*.*",
+        // kotlin
+        "**/*MapperImpl*.*",
+        "**/BuildConfig.*",
+        "**/*Component*.*",
+        "**/*BR*.*",
+        "**/Manifest*.*",
+        "**/*Companion*.*",
+        "**/*Module*.*",
+        "**/*Dagger*.*",
+        "**/*Hilt*.*",
+        "**/*MembersInjector*.*",
+        "**/*_MembersInjector.class",
+        "**/*_Factory*.*",
+        "**/*_Provide*Factory*.*",
+        "**/*Extensions*.*",
+        "**/*JsonAdapter.*",
+    )
 
-private val coverageInclusions = listOf(
-  "**/*UseCase.kt",
-  "**/*Interactor.kt",
-  "**/*Interactor.java",
-  "**/*Service.java"
-)
-
+private val coverageInclusions =
+    listOf("**/*UseCase.kt", "**/*Interactor.kt", "**/*Interactor.java", "**/*Service.java")
 
 internal fun Project.configureJacoco(
-  androidComponentsExtension: AndroidComponentsExtension<*, *, *>,
+    androidComponentsExtension: AndroidComponentsExtension<*, *, *>,
 ) {
   val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -68,24 +64,22 @@ internal fun Project.configureJacoco(
     val testTaskName = "test${variant.name.capitalize()}UnitTest"
 
     val reportTask =
-      tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
-        dependsOn(testTaskName)
+        tasks.register("jacoco${testTaskName.capitalize()}Report", JacocoReport::class) {
+          dependsOn(testTaskName)
 
-        reports {
-          xml.required.set(true)
-          html.required.set(true)
-        }
-        classDirectories.setFrom(
-          fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
-            exclude(coverageExclusions)
+          reports {
+            xml.required.set(true)
+            html.required.set(true)
           }
-        )
+          classDirectories.setFrom(
+              fileTree("$buildDir/tmp/kotlin-classes/${variant.name}") {
+                exclude(coverageExclusions)
+              })
 
-        sourceDirectories.setFrom(
-          files("$projectDir/src/main/java", "$projectDir/src/main/kotlin")
-        )
-        executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
-      }
+          sourceDirectories.setFrom(
+              files("$projectDir/src/main/java", "$projectDir/src/main/kotlin"))
+          executionData.setFrom(file("$buildDir/jacoco/$testTaskName.exec"))
+        }
 
     jacocoTestReport.dependsOn(reportTask)
   }

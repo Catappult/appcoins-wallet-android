@@ -1,14 +1,14 @@
 package com.appcoins.wallet.core.network.microservices.model
 
 data class GooglePayWebTransaction(
-  val uid: String?,
-  val hash: String?,
-  val status: TransactionStatus?,
-  val validity: GooglePayWebValidityState?,
-  val sessionId: String?,
-  val sessionData: String?,
-  val errorCode: String? = null,
-  val errorMessage: String? = null
+    val uid: String?,
+    val hash: String?,
+    val status: TransactionStatus?,
+    val validity: GooglePayWebValidityState?,
+    val sessionId: String?,
+    val sessionData: String?,
+    val errorCode: String? = null,
+    val errorMessage: String? = null
 ) {
 
   enum class GooglePayWebValidityState(val value: Int) {
@@ -20,6 +20,4 @@ data class GooglePayWebTransaction(
       fun toEnum(value: Int) = values().firstOrNull { it.value == value }
     }
   }
-
-
 }

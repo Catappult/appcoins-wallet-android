@@ -11,7 +11,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 
 class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
-  BaseViewModel() {
+    BaseViewModel() {
 
   private val gasPrice = MutableLiveData<BigDecimal>()
   private val gasLimit = MutableLiveData<BigDecimal>()
@@ -24,11 +24,12 @@ class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSet
   }
 
   fun prepare() {
-    disposable.add(gasSettingsInteractor.findDefaultNetwork()
-        .subscribe(
-            { networkInfo: NetworkInfo ->
-              onDefaultNetwork(networkInfo)
-            }) { throwable: Throwable? -> onError(throwable) })
+    disposable.add(
+        gasSettingsInteractor.findDefaultNetwork().subscribe({ networkInfo: NetworkInfo ->
+          onDefaultNetwork(networkInfo)
+        }) { throwable: Throwable? ->
+          onError(throwable)
+        })
     savedGasSettings.postValue(gasSettingsInteractor.getSavedGasPreferences())
   }
 
@@ -41,8 +42,7 @@ class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSet
   private fun onDefaultNetwork(networkInfo: NetworkInfo) = defaultNetwork.postValue(networkInfo)
 
   fun networkFee(): BigDecimal {
-    return gasPrice.value!!
-        .multiply(gasLimit.value)
+    return gasPrice.value!!.multiply(gasLimit.value)
   }
 
   fun saveChanges(gasPrice: BigDecimal?, gasLimit: BigDecimal?) {
@@ -53,13 +53,17 @@ class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSet
 
   fun getSavedGasPreferences(): GasSettings = gasSettingsInteractor.getSavedGasPreferences()
 
-  fun convertPriceLimitsToGwei(gasPrice: BigDecimal, gasPriceMin: BigDecimal,
-                               gasLimitMax: BigDecimal,
-                               networkFeeMax: BigInteger): GasPriceLimitsGwei {
+  fun convertPriceLimitsToGwei(
+      gasPrice: BigDecimal,
+      gasPriceMin: BigDecimal,
+      gasLimitMax: BigDecimal,
+      networkFeeMax: BigInteger
+  ): GasPriceLimitsGwei {
     val gasPriceGwei = BalanceUtils.weiToGwei(gasPrice)
     val gasPriceMinGwei = BalanceUtils.weiToGwei(gasPriceMin)
-    val gasPriceMaxGwei = BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
-        .subtract(gasPriceMinGwei)
+    val gasPriceMaxGwei =
+        BalanceUtils.weiToGweiBI(networkFeeMax.divide(gasLimitMax.toBigInteger()))
+            .subtract(gasPriceMinGwei)
     return GasPriceLimitsGwei(gasPriceGwei, gasPriceMinGwei, gasPriceMaxGwei)
   }
 

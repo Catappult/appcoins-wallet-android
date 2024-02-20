@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.manage_wallets.bottom_sheet
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +18,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<ChangeActiveWalletBottomSheetState, ChangeActiveWalletBottomSheetSideEffect> {
+class ChangeActiveWalletBottomSheetFragment :
+    BottomSheetDialogFragment(),
+    SingleStateFragment<
+        ChangeActiveWalletBottomSheetState, ChangeActiveWalletBottomSheetSideEffect> {
 
-  @Inject
-  lateinit var navigator: ChangeActiveWalletBottomSheetNavigator
+  @Inject lateinit var navigator: ChangeActiveWalletBottomSheetNavigator
 
   private val viewModel: ChangeActiveWalletBottomSheetViewModel by viewModels()
   private val views by viewBinding(ChangeActiveWalletBottomSheetLayoutBinding::bind)
@@ -36,7 +36,6 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
     const val WALLET_BALANCE = "wallet_balance"
     const val WALLET_BALANCE_SYMBOL = "wallet_balance_symbol"
 
-
     @JvmStatic
     fun newInstance(): ChangeActiveWalletBottomSheetFragment {
       return ChangeActiveWalletBottomSheetFragment()
@@ -44,8 +43,9 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = ChangeActiveWalletBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,8 +82,7 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  override fun onStateChanged(state: ChangeActiveWalletBottomSheetState) {
-  }
+  override fun onStateChanged(state: ChangeActiveWalletBottomSheetState) {}
 
   private fun showLoading() {
     hideAll()
@@ -102,12 +101,10 @@ class ChangeActiveWalletBottomSheetFragment : BottomSheetDialogFragment(),
       is ChangeActiveWalletBottomSheetSideEffect.NavigateBack -> {
         navigator.navigateBack()
       }
-
       is ChangeActiveWalletBottomSheetSideEffect.WalletChanged -> {
         manageWalletSharedViewModel.onBottomSheetDismissed()
         navigator.navigateBack()
       }
     }
   }
-
 }

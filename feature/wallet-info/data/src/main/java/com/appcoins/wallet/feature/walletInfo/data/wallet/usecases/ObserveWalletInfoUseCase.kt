@@ -7,9 +7,12 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ObserveWalletInfoUseCase @Inject constructor(
+class ObserveWalletInfoUseCase
+@Inject
+constructor(
     private val walletInfoRepository: WalletInfoRepository,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+) {
 
   /**
    * Observes WalletInfo
@@ -25,9 +28,7 @@ class ObserveWalletInfoUseCase @Inject constructor(
         walletInfoRepository.observeUpdatedWalletInfo(it.address)
       }
     } else {
-      walletAddressSingle.flatMapObservable {
-        walletInfoRepository.observeWalletInfo(it.address)
-      }
+      walletAddressSingle.flatMapObservable { walletInfoRepository.observeWalletInfo(it.address) }
     }
   }
 }

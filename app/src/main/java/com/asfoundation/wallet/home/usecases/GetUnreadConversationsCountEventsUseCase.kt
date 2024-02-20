@@ -7,14 +7,15 @@ import javax.inject.Inject
 
 class GetUnreadConversationsCountEventsUseCase @Inject constructor() {
 
-  operator fun invoke() = Observable.create<Int> {
-    it.onNext(Intercom.client().unreadConversationCount)
-    val unreadListener = UnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
-    Intercom.client()
-        .addUnreadConversationCountListener(unreadListener)
-    it.setCancellable {
-      Intercom.client()
-          .removeUnreadConversationCountListener(unreadListener)
-    }
-  }
+  operator fun invoke() =
+      Observable.create<Int> {
+        it.onNext(Intercom.client().unreadConversationCount)
+        val unreadListener = UnreadConversationCountListener { unreadCount ->
+          it.onNext(unreadCount)
+        }
+        Intercom.client().addUnreadConversationCountListener(unreadListener)
+        it.setCancellable {
+          Intercom.client().removeUnreadConversationCountListener(unreadListener)
+        }
+      }
 }

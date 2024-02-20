@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.databinding.GenericLoadingBinding
 
 class LoadingFragment : Fragment() {
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = GenericLoadingBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = GenericLoadingBinding.inflate(inflater).root
 }

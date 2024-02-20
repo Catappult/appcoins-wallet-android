@@ -3,9 +3,9 @@ package com.asfoundation.wallet.main.use_cases
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
-class IncreaseLaunchCountUseCase @Inject constructor(
-  val commonsPreferencesDataSource: CommonsPreferencesDataSource
-) {
+class IncreaseLaunchCountUseCase
+@Inject
+constructor(val commonsPreferencesDataSource: CommonsPreferencesDataSource) {
 
   companion object {
     // An high arbitrary number that conceivably will cover any future use case

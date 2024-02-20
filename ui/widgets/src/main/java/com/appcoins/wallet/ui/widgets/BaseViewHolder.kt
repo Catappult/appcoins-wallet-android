@@ -18,13 +18,9 @@ abstract class BaseViewHolder : EpoxyHolder() {
             ?: throw IllegalStateException("View ID $id for '${prop.name}' not found.")
       }
 
-  /**
-   * Taken from Kotterknife.
-   * https://github.com/JakeWharton/kotterknife
-   */
-  private class Lazy<V>(
-      private val initializer: (BaseViewHolder, KProperty<*>) -> V
-  ) : ReadOnlyProperty<BaseViewHolder, V> {
+  /** Taken from Kotterknife. https://github.com/JakeWharton/kotterknife */
+  private class Lazy<V>(private val initializer: (BaseViewHolder, KProperty<*>) -> V) :
+      ReadOnlyProperty<BaseViewHolder, V> {
     private object EMPTY
 
     private var value: Any? = EMPTY
@@ -33,8 +29,7 @@ abstract class BaseViewHolder : EpoxyHolder() {
       if (value == EMPTY) {
         value = initializer(thisRef, property)
       }
-      @Suppress("UNCHECKED_CAST")
-      return value as V
+      @Suppress("UNCHECKED_CAST") return value as V
     }
   }
 }

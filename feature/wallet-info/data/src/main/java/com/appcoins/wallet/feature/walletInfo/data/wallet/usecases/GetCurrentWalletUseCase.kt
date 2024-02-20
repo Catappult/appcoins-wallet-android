@@ -5,21 +5,20 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepos
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetCurrentWalletUseCase @Inject constructor(
-    private val walletRepository: WalletRepositoryType) {
+class GetCurrentWalletUseCase
+@Inject
+constructor(private val walletRepository: WalletRepositoryType) {
 
   operator fun invoke(): Single<Wallet> {
-    return walletRepository.getDefaultWallet()
-        .onErrorResumeNext {
-          walletRepository.fetchWallets()
-              .filter { wallets -> wallets.isNotEmpty() }
-              .map { wallets: Array<Wallet> ->
-                wallets[0]
-              }
-              .flatMapCompletable { wallet: Wallet ->
-                walletRepository.setDefaultWallet(wallet.address)
-              }
-              .andThen(walletRepository.getDefaultWallet())
-        }
+    return walletRepository.getDefaultWallet().onErrorResumeNext {
+      walletRepository
+          .fetchWallets()
+          .filter { wallets -> wallets.isNotEmpty() }
+          .map { wallets: Array<Wallet> -> wallets[0] }
+          .flatMapCompletable { wallet: Wallet ->
+            walletRepository.setDefaultWallet(wallet.address)
+          }
+          .andThen(walletRepository.getDefaultWallet())
+    }
   }
 }

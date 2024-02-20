@@ -10,8 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UpdateRequiredActivity : BaseActivity() {
   companion object {
-    @JvmStatic
-    fun newIntent(context: Context) = Intent(context, UpdateRequiredActivity::class.java)
+    @JvmStatic fun newIntent(context: Context) = Intent(context, UpdateRequiredActivity::class.java)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

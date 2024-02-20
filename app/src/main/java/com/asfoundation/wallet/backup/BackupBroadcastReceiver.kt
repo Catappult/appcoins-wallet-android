@@ -15,8 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class BackupBroadcastReceiver : ComponentActivity() {
 
-  @Inject
-  lateinit var saveDismissSystemNotificationUseCase: SaveDismissSystemNotificationUseCase
+  @Inject lateinit var saveDismissSystemNotificationUseCase: SaveDismissSystemNotificationUseCase
 
   private lateinit var notificationManager: NotificationManager
 
@@ -29,11 +28,11 @@ class BackupBroadcastReceiver : ComponentActivity() {
 
     @JvmStatic
     fun newIntent(context: Context, walletAddress: String, action: String) =
-      Intent(context, BackupBroadcastReceiver::class.java).apply {
-        putExtra(WALLET_ADDRESS, walletAddress)
-        putExtra(ACTION, action)
-        flags = FLAG_ACTIVITY_NEW_TASK
-      }
+        Intent(context, BackupBroadcastReceiver::class.java).apply {
+          putExtra(WALLET_ADDRESS, walletAddress)
+          putExtra(ACTION, action)
+          flags = FLAG_ACTIVITY_NEW_TASK
+        }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,10 +45,10 @@ class BackupBroadcastReceiver : ComponentActivity() {
     wallet?.let {
       when (intent.getStringExtra(ACTION)) {
         ACTION_BACKUP -> {
-          val backupIntent = BackupActivity.newIntent(this, it, isBackupTrigger = true)
-            .apply {
-              flags = FLAG_ACTIVITY_NEW_TASK
-            }
+          val backupIntent =
+              BackupActivity.newIntent(this, it, isBackupTrigger = true).apply {
+                flags = FLAG_ACTIVITY_NEW_TASK
+              }
           startActivity(backupIntent)
         }
         ACTION_DISMISS -> {

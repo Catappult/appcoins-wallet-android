@@ -11,13 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
-import com.asf.wallet.R;
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.appcoins.wallet.core.utils.jvm_common.C;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei;
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;
 import com.wallet.appcoins.core.legacy_base.BaseActivity;
@@ -57,8 +57,7 @@ import javax.inject.Inject;
     gasPriceSlider.setPadding(0, 0, 0, 0);
     gasLimitSlider.setPadding(0, 0, 0, 0);
 
-    viewModel = new ViewModelProvider(this, viewModelFactory)
-        .get(GasSettingsViewModel.class);
+    viewModel = new ViewModelProvider(this, viewModelFactory).get(GasSettingsViewModel.class);
 
     viewModel.gasPrice()
         .observe(this, this::onGasPrice);
@@ -68,21 +67,6 @@ import javax.inject.Inject;
         .observe(this, this::onDefaultNetwork);
     viewModel.savedGasPreferences()
         .observe(this, this::onSavedGasSettings);
-  }
-
-  /**
-   * function hardcoded temporarily, must be changed
-   * @return
-   */
-  protected Toolbar toolbar() {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    toolbar.setVisibility(View.VISIBLE);
-    if (toolbar != null) {
-      setSupportActionBar(toolbar);
-      toolbar.setTitle(getTitle());
-    }
-    enableDisplayHomeAsUp();
-    return toolbar;
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -98,6 +82,22 @@ import javax.inject.Inject;
       finish();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   *
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   private void onSavedGasSettings(GasSettings gasSettings) {

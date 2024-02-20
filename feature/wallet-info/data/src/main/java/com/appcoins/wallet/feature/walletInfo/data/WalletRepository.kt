@@ -18,7 +18,9 @@ import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 @BoundTo(supertype = WalletRepositoryType::class)
-class WalletRepository @Inject constructor(
+class WalletRepository
+@Inject
+constructor(
     private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
     private val accountKeystoreService: AccountKeystoreService,
     private val analyticsSetUp: AnalyticsSetup,
@@ -44,34 +46,40 @@ class WalletRepository @Inject constructor(
     return accountKeystoreService.createAccount(password)
   }
 
-  override fun restoreKeystoreToWallet(store: String, password: String,
-                                       newPassword: String): Single<RestoreResult> {
-    return accountKeystoreService.restoreKeystore(store, password, newPassword)
-        .flatMap { restoreResult ->
-          var savePasswordCompletable = Completable.complete()
-          if (restoreResult is SuccessfulRestore) {
-            savePasswordCompletable = savePassword(restoreResult.address, newPassword)
-          }
-          return@flatMap savePasswordCompletable
-              .andThen(Single.just(restoreResult))
-        }
+  override fun restoreKeystoreToWallet(
+      store: String,
+      password: String,
+      newPassword: String
+  ): Single<RestoreResult> {
+    return accountKeystoreService.restoreKeystore(store, password, newPassword).flatMap {
+        restoreResult ->
+      var savePasswordCompletable = Completable.complete()
+      if (restoreResult is SuccessfulRestore) {
+        savePasswordCompletable = savePassword(restoreResult.address, newPassword)
+      }
+      return@flatMap savePasswordCompletable.andThen(Single.just(restoreResult))
+    }
   }
 
-  override fun restorePrivateKeyToWallet(privateKey: String?,
-                                         newPassword: String): Single<RestoreResult> {
-    return accountKeystoreService.restorePrivateKey(privateKey, newPassword)
-        .flatMap { restoreResult ->
-          var savePasswordCompletable = Completable.complete()
-          if (restoreResult is SuccessfulRestore) {
-            savePasswordCompletable = savePassword(restoreResult.address, newPassword)
-          }
-          return@flatMap savePasswordCompletable
-              .andThen(Single.just(restoreResult))
-        }
+  override fun restorePrivateKeyToWallet(
+      privateKey: String?,
+      newPassword: String
+  ): Single<RestoreResult> {
+    return accountKeystoreService.restorePrivateKey(privateKey, newPassword).flatMap { restoreResult
+      ->
+      var savePasswordCompletable = Completable.complete()
+      if (restoreResult is SuccessfulRestore) {
+        savePasswordCompletable = savePassword(restoreResult.address, newPassword)
+      }
+      return@flatMap savePasswordCompletable.andThen(Single.just(restoreResult))
+    }
   }
 
-  override fun exportWallet(address: String, password: String,
-                            newPassword: String?): Single<String> {
+  override fun exportWallet(
+      address: String,
+      password: String,
+      newPassword: String?
+  ): Single<String> {
     return accountKeystoreService.exportAccount(address, password, newPassword)
   }
 
@@ -107,25 +115,24 @@ class WalletRepository @Inject constructor(
 
   override fun observeDefaultWallet(): Observable<Wallet> {
     return Observable.create(
-        ObservableOnSubscribe { emitter: ObservableEmitter<String> ->
-          val listener =
-              SharedPreferences.OnSharedPreferenceChangeListener { _, key: String? ->
-                if (key == CURRENT_ACCOUNT_ADDRESS_KEY) {
-                  emitWalletAddress(emitter)
-                }
-              }
-          emitter.setCancellable { commonsPreferencesDataSource.removeChangeListener(listener) }
-          emitWalletAddress(emitter)
-          commonsPreferencesDataSource.addChangeListener(listener)
-        } as ObservableOnSubscribe<String>)
+            ObservableOnSubscribe { emitter: ObservableEmitter<String> ->
+              val listener =
+                  SharedPreferences.OnSharedPreferenceChangeListener { _, key: String? ->
+                    if (key == CURRENT_ACCOUNT_ADDRESS_KEY) {
+                      emitWalletAddress(emitter)
+                    }
+                  }
+              emitter.setCancellable { commonsPreferencesDataSource.removeChangeListener(listener) }
+              emitWalletAddress(emitter)
+              commonsPreferencesDataSource.addChangeListener(listener)
+            }
+                as ObservableOnSubscribe<String>)
         .flatMapSingle { address -> findWallet(address) }
   }
 
   override fun savePassword(address: String, password: String): Completable {
-    return passwordStore.setPassword(address, password)
-          .onErrorResumeNext { throwable ->
-            deleteWallet(address, password)
-                .lift(Operators.completableErrorProxy(throwable))
-          }
+    return passwordStore.setPassword(address, password).onErrorResumeNext { throwable ->
+      deleteWallet(address, password).lift(Operators.completableErrorProxy(throwable))
+    }
   }
 }

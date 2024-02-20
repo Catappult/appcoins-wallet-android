@@ -1,9 +1,7 @@
-plugins {
-  id("appcoins.android.library")
-}
-android {
-  namespace = "com.asf.ethereumj.android"
-}
+plugins { id("appcoins.android.library") }
+
+android { namespace = "com.asf.ethereumj.android" }
+
 dependencies {
   implementation(libs.google.material)
   implementation(libs.androidx.appcompact)

@@ -3,8 +3,8 @@ package com.asfoundation.wallet.topup
 import android.content.Intent
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
@@ -14,14 +14,14 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class TopUpActivityPresenter(
-  private val view: TopUpActivityView,
-  private val topUpInteractor: TopUpInteractor,
-  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val logger: Logger,
-  private val displayChatUseCase: DisplayChatUseCase,
+    private val view: TopUpActivityView,
+    private val topUpInteractor: TopUpInteractor,
+    private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val logger: Logger,
+    private val displayChatUseCase: DisplayChatUseCase,
 ) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
@@ -33,21 +33,22 @@ class TopUpActivityPresenter(
 
   private fun handleSupportClicks() {
     disposables.add(
-      view.getSupportClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .observeOn(viewScheduler)
-      .flatMapCompletable { topUpInteractor.showSupport() }
-      .subscribe({}, { handleError(it) })
-    )
+        view
+            .getSupportClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .observeOn(viewScheduler)
+            .flatMapCompletable { topUpInteractor.showSupport() }
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleTryAgainClicks() {
-    disposables.add(view.getTryAgainClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .observeOn(viewScheduler)
-      .doOnNext { view.showTopUpScreen() }
-      .subscribe({}, { handleError(it) })
-    )
+    disposables.add(
+        view
+            .getTryAgainClicks()
+            .throttleFirst(50, TimeUnit.MILLISECONDS)
+            .observeOn(viewScheduler)
+            .doOnNext { view.showTopUpScreen() }
+            .subscribe({}, { handleError(it) }))
   }
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -72,12 +73,13 @@ class TopUpActivityPresenter(
   }
 
   private fun cancelPaymentAndShowSupport() {
-    disposables.add(topUpInteractor.showSupport()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnComplete { view.cancelPayment() }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        topUpInteractor
+            .showSupport()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnComplete { view.cancelPayment() }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleError(throwable: Throwable) {
@@ -86,33 +88,34 @@ class TopUpActivityPresenter(
   }
 
   fun handlePerkNotifications(bundle: Bundle) {
-    disposables.add(topUpInteractor.getWalletAddress()
-      .subscribeOn(networkScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        view.launchPerkBonusAndGamificationService(it)
-        view.finishActivity(bundle)
-      }
-      .doOnError { view.finishActivity(bundle) }
-      .subscribe({}, { it.printStackTrace() })
-    )
+    disposables.add(
+        topUpInteractor
+            .getWalletAddress()
+            .subscribeOn(networkScheduler)
+            .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              view.launchPerkBonusAndGamificationService(it)
+              view.finishActivity(bundle)
+            }
+            .doOnError { view.finishActivity(bundle) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
-
   fun handleBackupNotifications(bundle: Bundle) {
-    disposables.add(topUpInteractor.incrementAndValidateNotificationNeeded()
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess { notificationNeeded ->
-        if (notificationNeeded.isNeeded) {
-          view.showBackupNotification(notificationNeeded.walletAddress)
-        }
-        view.finishActivity(bundle)
-      }
-      .doOnError { view.finish(bundle) }
-      .subscribe({ }, { it.printStackTrace() })
-    )
+    disposables.add(
+        topUpInteractor
+            .incrementAndValidateNotificationNeeded()
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess { notificationNeeded ->
+              if (notificationNeeded.isNeeded) {
+                view.showBackupNotification(notificationNeeded.walletAddress)
+              }
+              view.finishActivity(bundle)
+            }
+            .doOnError { view.finish(bundle) }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   fun displayChat() = displayChatUseCase()

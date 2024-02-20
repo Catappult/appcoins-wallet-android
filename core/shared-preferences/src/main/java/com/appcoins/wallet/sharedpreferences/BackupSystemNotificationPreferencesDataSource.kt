@@ -11,14 +11,14 @@ constructor(private val sharedPreferences: SharedPreferences) {
   }
 
   fun getDismissedBackupSystemNotificationSeenTime(walletAddress: String) =
-    sharedPreferences.getLong(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress, -1)
+      sharedPreferences.getLong(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress, -1)
 
   fun setDismissedBackupSystemNotificationSeenTime(walletAddress: String, currentTimeMillis: Long) =
-    sharedPreferences
-      .edit()
-      .putLong(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress, currentTimeMillis)
-      .apply()
+      sharedPreferences
+          .edit()
+          .putLong(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress, currentTimeMillis)
+          .apply()
 
   fun removeDismissedBackupSystemNotificationSeenTime(walletAddress: String) =
-    sharedPreferences.edit().remove(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress).apply()
+      sharedPreferences.edit().remove(BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME + walletAddress).apply()
 }

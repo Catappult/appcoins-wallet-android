@@ -27,15 +27,20 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: String, currency: String, bonus: String,
-                    currencySymbol: String): TopUpSuccessFragment {
+    fun newInstance(
+        amount: String,
+        currency: String,
+        bonus: String,
+        currencySymbol: String
+    ): TopUpSuccessFragment {
       return TopUpSuccessFragment().apply {
-        arguments = Bundle().apply {
-          putString(PARAM_AMOUNT, amount)
-          putString(CURRENCY, currency)
-          putString(CURRENCY_SYMBOL, currencySymbol)
-          putString(BONUS, bonus)
-        }
+        arguments =
+            Bundle().apply {
+              putString(PARAM_AMOUNT, amount)
+              putString(CURRENCY, currency)
+              putString(CURRENCY_SYMBOL, currencySymbol)
+              putString(BONUS, bonus)
+            }
       }
     }
 
@@ -45,8 +50,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     private const val BONUS = "bonus"
   }
 
-  @Inject
-  lateinit var formatter: CurrencyFormatUtils
+  @Inject lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: TopUpSuccessPresenter
   private lateinit var topUpActivityView: TopUpActivityView
 
@@ -87,20 +91,21 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is TopUpActivityView) {
-      throw IllegalStateException(
-          "Express checkout buy fragment must be attached to IAB activity")
+      throw IllegalStateException("Express checkout buy fragment must be attached to IAB activity")
     }
     topUpActivityView = context
   }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = TopUpSuccessPresenter(this)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentTopUpSuccessBinding.inflate(inflater).root
+  override fun onCreateView(
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
+  ): View = FragmentTopUpSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     presenter.present()
@@ -141,14 +146,16 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val formattedBonus = formatter.formatCurrency(bonus, WalletCurrency.FIAT)
     val textDelegate = TextDelegate(binding.topUpSuccessAnimation)
     textDelegate.setText("bonus_value", "$currencySymbol$formattedBonus")
-    textDelegate.setText("bonus_received",
+    textDelegate.setText(
+        "bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
     binding.topUpSuccessAnimation.setTextDelegate(textDelegate)
-    binding.topUpSuccessAnimation.setFontAssetDelegate(object : FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String?): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
+    binding.topUpSuccessAnimation.setFontAssetDelegate(
+        object : FontAssetDelegate() {
+          override fun fetchFont(fontFamily: String?): Typeface {
+            return Typeface.create("sans-serif-medium", Typeface.BOLD)
+          }
+        })
   }
 
   private fun formatBonusSuccessMessage() {
@@ -156,20 +163,20 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val topUpString =
         formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
     setSpannableString(topUpString, formattedInitialString.length)
-
   }
 
   private fun formatSuccessMessage() {
     val formattedInitialString = getFormattedTopUpValue()
     val secondStringFormat =
-        String.format(resources.getString(R.string.askafriend_notification_received_body),
-            formattedInitialString, "\n")
+        String.format(
+            resources.getString(R.string.askafriend_notification_received_body),
+            formattedInitialString,
+            "\n")
     setSpannableString(secondStringFormat, formattedInitialString.length)
   }
 
   private fun getFormattedTopUpValue(): String {
-    val fiatValue =
-        formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+    val fiatValue = formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
     return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
   }
 

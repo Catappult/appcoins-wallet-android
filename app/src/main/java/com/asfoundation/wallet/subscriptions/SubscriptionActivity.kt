@@ -17,8 +17,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SubscriptionActivity : BaseActivity() {
 
-  @Inject
-  lateinit var displayChat: DisplayChatUseCase
+  @Inject lateinit var displayChat: DisplayChatUseCase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -31,18 +30,18 @@ class SubscriptionActivity : BaseActivity() {
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
   fun toolbar() {
     findViewById<ComposeView>(R.id.app_bar).apply {
-      setContent {
-        TopBar(isMainBar = false, onClickSupport = { displayChat() })
-      }
+      setContent { TopBar(isMainBar = false, onClickSupport = { displayChat() }) }
     }
   }
 
   private fun showSubscriptionList() {
-    supportFragmentManager.beginTransaction()
+    supportFragmentManager
+        .beginTransaction()
         .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
         .addToBackStack(SubscriptionListFragment::class.java.simpleName)
         .commit()

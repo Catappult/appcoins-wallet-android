@@ -10,11 +10,10 @@ import javax.inject.Inject
 
 class SettingsNavigator @Inject constructor(private val fragment: Fragment) {
 
-  fun showAuthentication(
-    authenticationResultLauncher: ActivityResultLauncher<Intent>
-  ) {
-    val intent = AuthenticationPromptActivity.newIntent(fragment.requireContext())
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+  fun showAuthentication(authenticationResultLauncher: ActivityResultLauncher<Intent>) {
+    val intent =
+        AuthenticationPromptActivity.newIntent(fragment.requireContext())
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     authenticationResultLauncher.launch(intent)
   }
 

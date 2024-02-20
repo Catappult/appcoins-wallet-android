@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.success
 
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,12 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<ViewState, SideEffect> {
+class PromoCodeSuccessBottomSheetFragment :
+    BottomSheetDialogFragment(), SingleStateFragment<ViewState, SideEffect> {
 
-
-  @Inject
-  lateinit var navigator: PromoCodeBottomSheetNavigator
+  @Inject lateinit var navigator: PromoCodeBottomSheetNavigator
 
   private val views by viewBinding(SettingsPromoCodeSuccessBottomSheetLayoutBinding::bind)
 
@@ -39,18 +36,16 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(promoCode: PromoCode): PromoCodeSuccessBottomSheetFragment {
-      return PromoCodeSuccessBottomSheetFragment()
-        .apply {
-          arguments = Bundle().apply {
-            putSerializable(PROMO_CODE, promoCode)
-          }
-        }
+      return PromoCodeSuccessBottomSheetFragment().apply {
+        arguments = Bundle().apply { putSerializable(PROMO_CODE, promoCode) }
+      }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,17 +77,13 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     views.promoCodeBottomSheetSuccessImage.visibility = View.VISIBLE
     if (promoCode.appName != null) {
       views.promoCodeBottomSheetSuccessSubtitle.text =
-        this.getString(
-          R.string.promo_code_success_body_specific_app,
-          promoCode.bonus?.toInt().toString(),
-          promoCode.appName
-        )
+          this.getString(
+              R.string.promo_code_success_body_specific_app,
+              promoCode.bonus?.toInt().toString(),
+              promoCode.appName)
     } else {
       views.promoCodeBottomSheetSuccessSubtitle.text =
-        this.getString(
-          R.string.promo_code_success_body,
-          promoCode.bonus?.toInt().toString()
-        )
+          this.getString(R.string.promo_code_success_body, promoCode.bonus?.toInt().toString())
     }
   }
 }

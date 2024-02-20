@@ -13,11 +13,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -29,46 +29,40 @@ class ProductApiModule {
   @Provides
   @ProductBlockchainRetrofit
   fun provideProductBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
-    Retrofit.Builder()
-      .baseUrl(productUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
+      Retrofit.Builder()
+          .baseUrl(productUrl)
+          .client(client)
+          .addConverterFactory(GsonConverterFactory.create())
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+          .build()
 
   @Singleton
   @Provides
   @ProductDefaultRetrofit
   fun provideProductDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit =
-    Retrofit.Builder()
-      .baseUrl(productUrl)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
+      Retrofit.Builder()
+          .baseUrl(productUrl)
+          .client(client)
+          .addConverterFactory(GsonConverterFactory.create())
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+          .build()
 
   @Singleton
   @Provides
-  fun providesTopUpValuesApi(
-    @ProductDefaultRetrofit retrofit: Retrofit
-  ): TopUpValuesApi =
-    retrofit.create(TopUpValuesApi::class.java)
+  fun providesTopUpValuesApi(@ProductDefaultRetrofit retrofit: Retrofit): TopUpValuesApi =
+      retrofit.create(TopUpValuesApi::class.java)
 
   @Singleton
   @Provides
-  fun providesInappBillingApi(
-    @ProductBlockchainRetrofit retrofit: Retrofit
-  ): InappBillingApi = retrofit.create(InappBillingApi::class.java)
+  fun providesInappBillingApi(@ProductBlockchainRetrofit retrofit: Retrofit): InappBillingApi =
+      retrofit.create(InappBillingApi::class.java)
 
   @Provides
   fun providesSubscriptionBillingApi(
-    @ProductBlockchainRetrofit retrofit: Retrofit
-  ): SubscriptionBillingApi =
-    retrofit.create(SubscriptionBillingApi::class.java)
+      @ProductBlockchainRetrofit retrofit: Retrofit
+  ): SubscriptionBillingApi = retrofit.create(SubscriptionBillingApi::class.java)
 
   @Provides
-  fun providesUserSubscriptionApi(
-    @ProductDefaultRetrofit retrofit: Retrofit
-  ): UserSubscriptionApi =
-    retrofit.create(UserSubscriptionApi::class.java)
+  fun providesUserSubscriptionApi(@ProductDefaultRetrofit retrofit: Retrofit): UserSubscriptionApi =
+      retrofit.create(UserSubscriptionApi::class.java)
 }

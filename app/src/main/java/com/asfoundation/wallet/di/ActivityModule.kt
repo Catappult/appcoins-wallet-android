@@ -14,6 +14,5 @@ class ActivityModule {
 
   @Provides
   fun provideFragmentManager(activity: Activity): FragmentManager =
-    (activity as AppCompatActivity).supportFragmentManager
-
+      (activity as AppCompatActivity).supportFragmentManager
 }

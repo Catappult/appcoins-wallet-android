@@ -25,6 +25,8 @@ import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -32,8 +34,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
-import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
 
 @RunWith(MockitoJUnitRunner::class)
 class AdyenPaymentInteractorTest {
@@ -46,206 +46,247 @@ class AdyenPaymentInteractorTest {
     private const val TEST_FIAT_CURRENCY = "EUR"
   }
 
-  @Mock
-  lateinit var repository: AdyenPaymentRepository
+  @Mock lateinit var repository: AdyenPaymentRepository
 
-  @Mock
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
+  @Mock lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
-  @Mock
-  lateinit var billingMessageMapper: BillingMessagesMapper
+  @Mock lateinit var billingMessageMapper: BillingMessagesMapper
 
-  @Mock
-  lateinit var partnerAddressService: PartnerAddressService
+  @Mock lateinit var partnerAddressService: PartnerAddressService
 
-  @Mock
-  lateinit var walletService: WalletService
+  @Mock lateinit var walletService: WalletService
 
-  @Mock
-  lateinit var supportInteractor: SupportInteractor
+  @Mock lateinit var supportInteractor: SupportInteractor
 
-  @Mock
-  lateinit var walletBlockedInteractor: WalletBlockedInteract
+  @Mock lateinit var walletBlockedInteractor: WalletBlockedInteract
 
-  @Mock
-  lateinit var walletVerificationInteractor: WalletVerificationInteractor
+  @Mock lateinit var walletVerificationInteractor: WalletVerificationInteractor
 
-  @Mock
-  lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  @Mock lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
-  @Mock
-  lateinit var ewtObtainer: EwtAuthenticatorService
+  @Mock lateinit var ewtObtainer: EwtAuthenticatorService
 
   private lateinit var interactor: AdyenPaymentInteractor
   private val fakeSchedulers = FakeSchedulers()
 
   @Before
   fun setup() {
-    interactor = AdyenPaymentInteractor(
-      repository, inAppPurchaseInteractor, billingMessageMapper,
-      partnerAddressService, walletService, supportInteractor, walletBlockedInteractor,
-      walletVerificationInteractor, getCurrentPromoCodeUseCase,
-      ewtObtainer, fakeSchedulers
-    )
+    interactor =
+        AdyenPaymentInteractor(
+            repository,
+            inAppPurchaseInteractor,
+            billingMessageMapper,
+            partnerAddressService,
+            walletService,
+            supportInteractor,
+            walletBlockedInteractor,
+            walletVerificationInteractor,
+            getCurrentPromoCodeUseCase,
+            ewtObtainer,
+            fakeSchedulers)
   }
 
   @Test
   fun isWalletBlockedTest() {
     val testObserver = TestObserver<Boolean>()
-    Mockito.`when`(walletBlockedInteractor.isWalletBlocked())
-      .thenReturn(Single.just(true))
+    Mockito.`when`(walletBlockedInteractor.isWalletBlocked()).thenReturn(Single.just(true))
 
-    interactor.isWalletBlocked()
-      .subscribe(testObserver)
+    interactor.isWalletBlocked().subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it }
+    testObserver.assertNoErrors().assertValue { it }
   }
 
   @Test
   fun isWalletVerifiedTest() {
     val testObserver = TestObserver<Boolean>()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
-      walletVerificationInteractor.isVerified(
-        TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE
-      )
-    )
-      .thenReturn(Single.just(false))
+            walletVerificationInteractor.isVerified(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+        .thenReturn(Single.just(false))
 
-    interactor.isWalletVerified()
-      .subscribe(testObserver)
+    interactor.isWalletVerified().subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { !it }
+    testObserver.assertNoErrors().assertValue { !it }
   }
 
   @Test
   fun isWalletVerifiedErrorTest() {
     val testObserver = TestObserver<Boolean>()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
-      walletVerificationInteractor.isVerified(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)
-    )
-      .thenReturn(Single.error(Throwable("Error")))
+            walletVerificationInteractor.isVerified(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
+        .thenReturn(Single.error(Throwable("Error")))
 
-    interactor.isWalletVerified()
-      .subscribe(testObserver)
+    interactor.isWalletVerified().subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it }
+    testObserver.assertNoErrors().assertValue { it }
   }
 
   @Test
   fun showSupportTest() {
     val testObserver = TestObserver<Any>()
-    Mockito.`when`(supportInteractor.showSupport(1))
-      .thenReturn(Completable.complete())
+    Mockito.`when`(supportInteractor.showSupport(1)).thenReturn(Completable.complete())
 
-    interactor.showSupport(1)
-      .subscribe(testObserver)
+    interactor.showSupport(1).subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertComplete()
+    testObserver.assertNoErrors().assertComplete()
   }
 
   @Test
   fun loadPaymentInfoTest() {
     val testObserver = TestObserver<PaymentInfoModel>()
     val expectedModel = PaymentInfoModel(null, false, BigDecimal(2), TEST_FIAT_CURRENCY)
-    Mockito.`when`(walletService.getWalletAddress())
-      .thenReturn(
-        Single.just(TEST_WALLET_ADDRESS)
-      )
-    Mockito.`when`(ewtObtainer.getEwtAuthentication())
-      .thenReturn(
-        Single.just(TEST_EWT)
-      )
+    Mockito.`when`(walletService.getWalletAddress()).thenReturn(Single.just(TEST_WALLET_ADDRESS))
+    Mockito.`when`(ewtObtainer.getEwtAuthentication()).thenReturn(Single.just(TEST_EWT))
 
-    interactor.loadPaymentInfo(
-      AdyenPaymentRepository.Methods.CREDIT_CARD,
-      TEST_FIAT_VALUE, TEST_FIAT_CURRENCY
-    )
-      .subscribe(testObserver)
+    interactor
+        .loadPaymentInfo(
+            AdyenPaymentRepository.Methods.CREDIT_CARD, TEST_FIAT_VALUE, TEST_FIAT_CURRENCY)
+        .subscribe(testObserver)
 
-    testObserver.awaitDone(1, TimeUnit.SECONDS)
-      .assertNoErrors()
+    testObserver.awaitDone(1, TimeUnit.SECONDS).assertNoErrors()
   }
 
   @Test
   fun makePaymentTest() {
     val testObserver = TestObserver<PaymentModel>()
     val expectedModel =
-      PaymentModel(
-        null, null, null, null, null, "", "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, null
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            "",
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            null)
     val payment = CardPaymentMethod()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(partnerAddressService.getAttribution("package"))
-      .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
+        .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(getCurrentPromoCodeUseCase())
-      .thenReturn(Single.just(PromoCode(null, null, null, null)))
+        .thenReturn(Single.just(PromoCode(null, null, null, null)))
     Mockito.`when`(
-      repository.makePayment(
-        payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
-        "INAPP",  "store_address", "oem_address", null, TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE, null))
+            repository.makePayment(
+                payment,
+                false,
+                false,
+                emptyList(),
+                "",
+                TEST_FIAT_VALUE,
+                TEST_FIAT_CURRENCY,
+                null,
+                "",
+                TEST_WALLET_ADDRESS,
+                "",
+                "package",
+                null,
+                "sku",
+                null,
+                "INAPP",
+                "store_address",
+                "oem_address",
+                null,
+                TEST_WALLET_ADDRESS,
+                TEST_WALLET_SIGNATURE,
+                null))
         .thenReturn(Single.just(expectedModel))
 
-    interactor.makePayment(
-      adyenPaymentMethod = payment,
-      shouldStoreMethod = false,
-      hasCvc = false,
-      supportedShopperInteraction = emptyList(),
-      returnUrl = "",
-      value = TEST_FIAT_VALUE,
-      currency = TEST_FIAT_CURRENCY,
-      reference = null,
-      paymentType = "",
-      origin = "",
-      packageName = "package",
-      metadata = null,
-      sku = "sku",
-      callbackUrl = null,
-      transactionType = "INAPP",
-      referrerUrl = null
-    )
+    interactor
+        .makePayment(
+            adyenPaymentMethod = payment,
+            shouldStoreMethod = false,
+            hasCvc = false,
+            supportedShopperInteraction = emptyList(),
+            returnUrl = "",
+            value = TEST_FIAT_VALUE,
+            currency = TEST_FIAT_CURRENCY,
+            reference = null,
+            paymentType = "",
+            origin = "",
+            packageName = "package",
+            metadata = null,
+            sku = "sku",
+            callbackUrl = null,
+            transactionType = "INAPP",
+            referrerUrl = null)
         .subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
   fun makeTopUpPaymentTest() {
     val testObserver = TestObserver<PaymentModel>()
     val expectedModel =
-      PaymentModel(
-        null, null, null, null, null, "", "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, null
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            "",
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            null)
     val payment = CardPaymentMethod()
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
-      repository.makePayment(
-        payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, null, "wallet", null, null, null,
-        "TOPUP", null, null, null, null, TEST_WALLET_SIGNATURE, null))
+            repository.makePayment(
+                payment,
+                false,
+                false,
+                emptyList(),
+                "",
+                TEST_FIAT_VALUE,
+                TEST_FIAT_CURRENCY,
+                null,
+                "",
+                TEST_WALLET_ADDRESS,
+                null,
+                "wallet",
+                null,
+                null,
+                null,
+                "TOPUP",
+                null,
+                null,
+                null,
+                null,
+                TEST_WALLET_SIGNATURE,
+                null))
         .thenReturn(Single.just(expectedModel))
 
-    interactor.makeTopUpPayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
-        TEST_FIAT_CURRENCY, "", "TOPUP", "wallet")
+    interactor
+        .makeTopUpPayment(
+            payment,
+            false,
+            false,
+            emptyList(),
+            "",
+            TEST_FIAT_VALUE,
+            TEST_FIAT_CURRENCY,
+            "",
+            "TOPUP",
+            "wallet")
         .subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
@@ -253,61 +294,57 @@ class AdyenPaymentInteractorTest {
     val testObserver = TestObserver<PaymentModel>()
     val json = JsonObject()
     val expectedModel =
-      PaymentModel(
-        null, null, null, null, null, "", "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, null
-      )
-    Mockito.`when`(walletService.getWalletAddress())
-      .thenReturn(Single.just(TEST_WALLET_ADDRESS))
-    Mockito.`when`(
-      repository.submitRedirect("uid", TEST_WALLET_ADDRESS, json, null)
-    )
-      .thenReturn(Single.just(expectedModel))
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            "",
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            null)
+    Mockito.`when`(walletService.getWalletAddress()).thenReturn(Single.just(TEST_WALLET_ADDRESS))
+    Mockito.`when`(repository.submitRedirect("uid", TEST_WALLET_ADDRESS, json, null))
+        .thenReturn(Single.just(expectedModel))
 
-    interactor.submitRedirect("uid", json, null)
-      .subscribe(testObserver)
+    interactor.submitRedirect("uid", json, null).subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
   fun disablePaymentTest() {
     val testObserver = TestObserver<Boolean>()
-    Mockito.`when`(walletService.getWalletAddress())
-      .thenReturn(Single.just(TEST_WALLET_ADDRESS))
-    Mockito.`when`(repository.disablePayments(TEST_WALLET_ADDRESS))
-      .thenReturn(Single.just(true))
+    Mockito.`when`(walletService.getWalletAddress()).thenReturn(Single.just(TEST_WALLET_ADDRESS))
+    Mockito.`when`(repository.disablePayments(TEST_WALLET_ADDRESS)).thenReturn(Single.just(true))
 
-    interactor.disablePayments()
-      .subscribe(testObserver)
+    interactor.disablePayments().subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it }
+    testObserver.assertNoErrors().assertValue { it }
   }
 
   @Test
   fun convertToFiatTest() {
     val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(
-      BigDecimal(2),
-      TEST_FIAT_CURRENCY
-    )
+    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
     Mockito.`when`(inAppPurchaseInteractor.convertToFiat(2.0, TEST_FIAT_CURRENCY))
-      .thenReturn(Single.just(expectedFiatValue))
+        .thenReturn(Single.just(expectedFiatValue))
 
-    interactor.convertToFiat(2.0, TEST_FIAT_CURRENCY)
-      .subscribe(testObserver)
+    interactor.convertToFiat(2.0, TEST_FIAT_CURRENCY).subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedFiatValue }
+    testObserver.assertNoErrors().assertValue { it == expectedFiatValue }
   }
 
   @Test
   fun mapCancellationTest() {
     val expectedBundle = Bundle()
-    Mockito.`when`(billingMessageMapper.mapCancellation())
-      .thenReturn(expectedBundle)
+    Mockito.`when`(billingMessageMapper.mapCancellation()).thenReturn(expectedBundle)
     val bundle = interactor.mapCancellation()
     Assert.assertEquals(bundle, expectedBundle)
   }
@@ -315,8 +352,7 @@ class AdyenPaymentInteractorTest {
   @Test
   fun removePreselectedMethodTest() {
     interactor.removePreSelectedPaymentMethod()
-    Mockito.verify(inAppPurchaseInteractor)
-      .removePreSelectedPaymentMethod()
+    Mockito.verify(inAppPurchaseInteractor).removePreSelectedPaymentMethod()
   }
 
   @Test
@@ -324,99 +360,127 @@ class AdyenPaymentInteractorTest {
     val testObserver = TestObserver<PurchaseBundleModel>()
     val expectedModel = PurchaseBundleModel(Bundle())
     Mockito.`when`(
-      inAppPurchaseInteractor.getCompletedPurchaseBundle(
-        "INAPP", "merchant", "sku", null, null,
-        null, fakeSchedulers.main
-      )
-    )
-      .thenReturn(Single.just(expectedModel))
-    interactor.getCompletePurchaseBundle(
-      "INAPP", "merchant", "sku", null, null, null,
-      fakeSchedulers.main
-    )
-      .subscribe(testObserver)
+            inAppPurchaseInteractor.getCompletedPurchaseBundle(
+                "INAPP", "merchant", "sku", null, null, null, fakeSchedulers.main))
+        .thenReturn(Single.just(expectedModel))
+    interactor
+        .getCompletePurchaseBundle(
+            "INAPP", "merchant", "sku", null, null, null, fakeSchedulers.main)
+        .subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
   fun convertToLocalFiatTest() {
     val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(
-      BigDecimal(2),
-      TEST_FIAT_CURRENCY
-    )
+    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
     Mockito.`when`(inAppPurchaseInteractor.convertToLocalFiat(2.0))
-      .thenReturn(Single.just(expectedFiatValue))
+        .thenReturn(Single.just(expectedFiatValue))
 
-    interactor.convertToLocalFiat(2.0)
-      .subscribe(testObserver)
+    interactor.convertToLocalFiat(2.0).subscribe(testObserver)
 
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedFiatValue }
+    testObserver.assertNoErrors().assertValue { it == expectedFiatValue }
   }
 
   @Test
   fun getAuthorisedTransactionTest() {
     val testObserver = TestObserver<PaymentModel>()
     val expectedModel =
-      PaymentModel(
-        null, null, null, null, null, null, "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, null
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            null)
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-      .thenReturn(Single.just(expectedModel))
-    interactor.getAuthorisedTransaction("uid")
-      .subscribe(testObserver)
+        .thenReturn(Single.just(expectedModel))
+    interactor.getAuthorisedTransaction("uid").subscribe(testObserver)
     fakeSchedulers.testScheduler.advanceTimeTo(10, TimeUnit.SECONDS)
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
   fun getFailedTransactionReasonTest() {
     val testObserver = TestObserver<PaymentModel>()
     val expectedModel =
-      PaymentModel(
-        null, null, null, null, null, null, "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, 20
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            20)
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-      .thenReturn(Single.just(expectedModel))
-    interactor.getFailedTransactionReason("uid")
-      .subscribe(testObserver)
+        .thenReturn(Single.just(expectedModel))
+    interactor.getFailedTransactionReason("uid").subscribe(testObserver)
     fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedModel }
+    testObserver.assertNoErrors().assertValue { it == expectedModel }
   }
 
   @Test
   fun getFailedTransactionReasonRepeatTest() {
     val testObserver = TestObserver<PaymentModel>()
     val expectedSuccessModel =
-      PaymentModel(
-        null, null, null, null, null, null, "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, 20
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            20)
     val expectedFailModel =
-      PaymentModel(
-        null, null, null, null, null, null, "uid", null, null, null, emptyList(),
-        PaymentModel.Status.COMPLETED, null, null
-      )
+        PaymentModel(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "uid",
+            null,
+            null,
+            null,
+            emptyList(),
+            PaymentModel.Status.COMPLETED,
+            null,
+            null)
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
-      .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.getTransaction("uid", TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-      .thenReturn(Single.just(expectedFailModel), Single.just(expectedSuccessModel))
-    interactor.getFailedTransactionReason("uid")
-      .subscribe(testObserver)
+        .thenReturn(Single.just(expectedFailModel), Single.just(expectedSuccessModel))
+    interactor.getFailedTransactionReason("uid").subscribe(testObserver)
     fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
     fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
-    testObserver.assertNoErrors()
-      .assertValue { it == expectedSuccessModel }
+    testObserver.assertNoErrors().assertValue { it == expectedSuccessModel }
   }
 }

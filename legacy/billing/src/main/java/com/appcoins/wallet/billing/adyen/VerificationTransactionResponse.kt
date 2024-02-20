@@ -1,9 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
-data class VerificationTransactionResponse(
-    val code: String?,
-    val data: VerificationData?
-)
+data class VerificationTransactionResponse(val code: String?, val data: VerificationData?)
 
 data class VerificationData(
     val pspReference: String?,

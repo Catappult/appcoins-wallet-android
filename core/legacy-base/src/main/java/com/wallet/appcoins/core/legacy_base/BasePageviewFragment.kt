@@ -1,4 +1,5 @@
 package com.wallet.appcoins.core.legacy_base
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import cm.aptoide.analytics.AnalyticsManager

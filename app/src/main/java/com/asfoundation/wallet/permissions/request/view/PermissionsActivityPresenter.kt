@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.permissions.request.view
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException
 import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.Permission
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -16,31 +16,34 @@ class PermissionsActivityPresenter(
     private val permissionName: PermissionName,
     private val disposables: CompositeDisposable,
     private val viewScheduler: Scheduler,
-    private val isCreating: Boolean) {
+    private val isCreating: Boolean
+) {
   fun present() {
     setupUi()
     handleWalletCreationFinishEvent()
   }
 
   private fun handleWalletCreationFinishEvent() {
-    view.getWalletCreatedEvent()
-        .flatMapSingle { showPermissionsScreen() }
-        .subscribe()
+    view.getWalletCreatedEvent().flatMapSingle { showPermissionsScreen() }.subscribe()
   }
 
   private fun setupUi() {
     if (isCreating) {
       disposables.add(
-          showPermissionsScreen().subscribe({}, {
-            when (it) {
-              is WalletNotFoundException -> view.showWalletCreation()
-            }
-          }))
+          showPermissionsScreen()
+              .subscribe(
+                  {},
+                  {
+                    when (it) {
+                      is WalletNotFoundException -> view.showWalletCreation()
+                    }
+                  }))
     }
   }
 
   private fun showPermissionsScreen(): Single<Permission> {
-    return permissionsInteractor.hasPermission(callingPackage, apkSignature, permissionName)
+    return permissionsInteractor
+        .hasPermission(callingPackage, apkSignature, permissionName)
         .observeOn(viewScheduler)
         .doOnSuccess { permission ->
           if (permission.permissionGranted) {
@@ -54,6 +57,4 @@ class PermissionsActivityPresenter(
   fun stop() {
     disposables.clear()
   }
-
-
 }

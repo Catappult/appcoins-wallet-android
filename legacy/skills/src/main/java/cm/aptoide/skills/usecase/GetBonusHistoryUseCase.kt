@@ -7,14 +7,15 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class GetBonusHistoryUseCase @Inject constructor(
-  private val bonusRepository: BonusRepository
-) {
+class GetBonusHistoryUseCase @Inject constructor(private val bonusRepository: BonusRepository) {
 
   operator fun invoke(
-    packageName: String, sku: String, timeFrame: TimeFrame
+      packageName: String,
+      sku: String,
+      timeFrame: TimeFrame
   ): Single<List<BonusHistory>> {
-    return bonusRepository.getBonusHistoryList(packageName, sku, timeFrame)
-      .subscribeOn(Schedulers.io())
+    return bonusRepository
+        .getBonusHistoryList(packageName, sku, timeFrame)
+        .subscribeOn(Schedulers.io())
   }
 }

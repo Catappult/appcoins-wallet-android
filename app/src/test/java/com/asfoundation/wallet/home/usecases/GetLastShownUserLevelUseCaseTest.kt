@@ -16,10 +16,7 @@ internal class GetLastShownUserLevelUseCaseTest {
     val expectedLevel = 3
 
     promotionsRepository.shownLevel(
-      address,
-      expectedLevel,
-      GamificationContext.NOTIFICATIONS_LEVEL_UP
-    )
+        address, expectedLevel, GamificationContext.NOTIFICATIONS_LEVEL_UP)
 
     useCase.test().assertValue(3)
   }
@@ -30,10 +27,9 @@ internal class GetLastShownUserLevelUseCaseTest {
     val useCase = getLastShownUserLevelUseCase(address)
 
     promotionsRepository.shownLevel(
-      address,
-      PromotionsGamificationStats.INVALID_LEVEL,
-      GamificationContext.NOTIFICATIONS_LEVEL_UP
-    )
+        address,
+        PromotionsGamificationStats.INVALID_LEVEL,
+        GamificationContext.NOTIFICATIONS_LEVEL_UP)
 
     useCase.test().assertValue(0)
   }

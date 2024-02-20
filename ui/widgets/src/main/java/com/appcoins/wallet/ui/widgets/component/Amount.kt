@@ -20,45 +20,31 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
 
 @Composable
-fun BalanceValue(
-  balance: String,
-  currencyCode: String,
-  onClick: () -> Unit
-) {
+fun BalanceValue(balance: String, currencyCode: String, onClick: () -> Unit) {
   Column {
     Row {
       Text(
-        text = balance,
-        modifier = Modifier.clickable(onClick = onClick),
-        color = WalletColors.styleguide_white,
-        fontSize = 28.sp,
-        fontWeight = FontWeight.Bold
-      )
-      IconButton(
-        onClick = onClick,
-        modifier = Modifier.size(32.dp)
-      ) {
+          text = balance,
+          modifier = Modifier.clickable(onClick = onClick),
+          color = WalletColors.styleguide_white,
+          fontSize = 28.sp,
+          fontWeight = FontWeight.Bold)
+      IconButton(onClick = onClick, modifier = Modifier.size(32.dp)) {
         Icon(
-          painter = painterResource(id = R.drawable.ic_arrow_down_circle),
-          contentDescription = stringResource(id = R.string.change_currency_title),
-          tint = Color.Unspecified
-        )
+            painter = painterResource(id = R.drawable.ic_arrow_down_circle),
+            contentDescription = stringResource(id = R.string.change_currency_title),
+            tint = Color.Unspecified)
       }
     }
     Text(
-      text = currencyCode.uppercase(),
-      color = WalletColors.styleguide_dark_grey,
-      fontSize = 12.sp
-    )
+        text = currencyCode.uppercase(),
+        color = WalletColors.styleguide_dark_grey,
+        fontSize = 12.sp)
   }
 }
 
 @Preview
 @Composable
 fun PreviewBalanceValue() {
-  BalanceValue(
-    balance = "€ 34.21",
-    currencyCode = "EUR",
-    onClick = {}
-  )
+  BalanceValue(balance = "€ 34.21", currencyCode = "EUR", onClick = {})
 }

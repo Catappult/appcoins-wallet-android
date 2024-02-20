@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.recover.success
 
-
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,46 +9,43 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.AppUtils
+import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoveryWalletSuccessBottomSheetLayoutBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<ViewState, SideEffect> {
+class RecoveryWalletSuccessBottomSheetFragment :
+    BottomSheetDialogFragment(), SingleStateFragment<ViewState, SideEffect> {
 
-
-  @Inject
-  lateinit var navigator: RecoverEntryNavigator
+  @Inject lateinit var navigator: RecoverEntryNavigator
 
   private val views by viewBinding(RecoveryWalletSuccessBottomSheetLayoutBinding::bind)
 
   companion object {
 
     const val IS_FROM_ONBOARDING = "is_from_onboarding"
+
     @JvmStatic
     fun newInstance(isFromOnboarding: Boolean): RecoveryWalletSuccessBottomSheetFragment {
-      return RecoveryWalletSuccessBottomSheetFragment()
-        .apply {
-          arguments = Bundle().apply {
-            putSerializable(IS_FROM_ONBOARDING, isFromOnboarding)
-          }
-        }
+      return RecoveryWalletSuccessBottomSheetFragment().apply {
+        arguments = Bundle().apply { putSerializable(IS_FROM_ONBOARDING, isFromOnboarding) }
+      }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = RecoveryWalletSuccessBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,9 +62,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun restart(context: Context) {
-    lifecycleScope.launch {
-      AppUtils.restartApp(context)
-    }
+    lifecycleScope.launch { AppUtils.restartApp(context) }
   }
 
   override fun onStart() {
@@ -87,8 +81,8 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun navController(): NavController {
     val navHostFragment =
-      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-          as NavHostFragment
+        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+            as NavHostFragment
     return navHostFragment.navController
   }
 }

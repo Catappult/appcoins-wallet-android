@@ -12,27 +12,23 @@ import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject
 
-class MainActivityNavigator @Inject constructor() :
-  Navigator {
+class MainActivityNavigator @Inject constructor() : Navigator {
 
   fun navigateToOnboarding(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 
   fun navigateToOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
-    val bundle = Bundle().apply {
-      putString("backup", backup)
-    }
+    val bundle = Bundle().apply { putString("backup", backup) }
     navController.setGraph(R.navigation.onboarding_graph, bundle)
   }
 
-
   fun showAuthenticationActivity(
-    context: Context,
-    authenticationResultLauncher: ActivityResultLauncher<Intent>
+      context: Context,
+      authenticationResultLauncher: ActivityResultLauncher<Intent>
   ) {
-    val intent = AuthenticationPromptActivity.newIntent(context)
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    val intent =
+        AuthenticationPromptActivity.newIntent(context).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     authenticationResultLauncher.launch(intent)
   }
 
