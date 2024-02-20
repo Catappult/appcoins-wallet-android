@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResp
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoRepository
 import com.appcoins.wallet.sharedpreferences.BrokerVerificationPreferencesDataSource
 import io.reactivex.Completable

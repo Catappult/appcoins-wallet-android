@@ -16,31 +16,36 @@ import io.reactivex.schedulers.Schedulers
 class VerificationCodeModule {
 
   @Provides
-  fun providesWalletVerificationCodePresenter(fragment: Fragment,
-                                              data: VerificationCodeData,
-                                              activityData: VerificationCreditCardActivityData,
-                                              verificationCodeInteractor: VerificationCodeInteractor,
-                                              verificationCodeNavigator: VerificationCodeNavigator,
-                                              logger: Logger,
-                                              analytics: VerificationAnalytics): VerificationCodePresenter {
-    return VerificationCodePresenter(fragment as VerificationCodeView, data, activityData,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
-        verificationCodeInteractor, verificationCodeNavigator, logger, analytics)
+  fun providesWalletVerificationCodePresenter(
+    fragment: Fragment,
+    data: VerificationCodeData,
+    activityData: VerificationCreditCardActivityData,
+    verificationCodeInteractor: VerificationCodeInteractor,
+    verificationCodeNavigator: VerificationCodeNavigator,
+    logger: Logger,
+    analytics: VerificationAnalytics
+  ): VerificationCodePresenter {
+    return VerificationCodePresenter(
+      fragment as VerificationCodeView, data, activityData,
+      CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),
+      verificationCodeInteractor, verificationCodeNavigator, logger, analytics
+    )
   }
 
   @Provides
   fun providesVerificationCodeData(fragment: Fragment): VerificationCodeData {
     fragment.requireArguments()
-        .apply {
-          return VerificationCodeData(getBoolean(VerificationCodeFragment.LOADED_KEY),
-              getLong(VerificationCodeFragment.DATE_KEY),
-              getString(VerificationCodeFragment.FORMAT_KEY),
-              getString(VerificationCodeFragment.AMOUNT_KEY),
-              getString(VerificationCodeFragment.CURRENCY_KEY),
-              getString(VerificationCodeFragment.SYMBOL_KEY),
-              getString(VerificationCodeFragment.PERIOD_KEY),
-              getInt(VerificationCodeFragment.DIGITS_KEY)
-          )
-        }
+      .apply {
+        return VerificationCodeData(
+          getBoolean(VerificationCodeFragment.LOADED_KEY),
+          getLong(VerificationCodeFragment.DATE_KEY),
+          getString(VerificationCodeFragment.FORMAT_KEY),
+          getString(VerificationCodeFragment.AMOUNT_KEY),
+          getString(VerificationCodeFragment.CURRENCY_KEY),
+          getString(VerificationCodeFragment.SYMBOL_KEY),
+          getString(VerificationCodeFragment.PERIOD_KEY),
+          getInt(VerificationCodeFragment.DIGITS_KEY)
+        )
+      }
   }
 }

@@ -28,52 +28,53 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun hasCompletedOnboarding() = sharedPreferences.getBoolean(ONBOARDING_COMPLETE_KEY, false)
 
   fun setOnboardingComplete() =
-      sharedPreferences.edit().putBoolean(ONBOARDING_COMPLETE_KEY, true).apply()
+    sharedPreferences.edit().putBoolean(ONBOARDING_COMPLETE_KEY, true).apply()
 
   fun hasClickedSkipOnboarding() = sharedPreferences.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
 
   fun setOnboardingSkipClicked() =
-      sharedPreferences.edit().putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true).apply()
+    sharedPreferences.edit().putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true).apply()
 
   fun getCurrentWalletAddress() = sharedPreferences.getString(CURRENT_ACCOUNT_ADDRESS_KEY, null)
 
   fun addChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener) =
-      sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+    sharedPreferences.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
   fun removeChangeListener(onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener) =
-      sharedPreferences.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+    sharedPreferences.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
   fun setCurrentWalletAddress(address: String) =
-      sharedPreferences.edit().putString(CURRENT_ACCOUNT_ADDRESS_KEY, address).apply()
+    sharedPreferences.edit().putString(CURRENT_ACCOUNT_ADDRESS_KEY, address).apply()
 
   fun hasSeenPromotionTooltip() = sharedPreferences.getBoolean(HAS_SEEN_PROMOTION_TOOLTIP, false)
 
   fun setHasSeenPromotionTooltip() =
-      sharedPreferences.edit().putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true).apply()
+    sharedPreferences.edit().putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true).apply()
 
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int) =
-      sharedPreferences.edit().putInt(AUTO_UPDATE_VERSION, updateVersionCode).apply()
+    sharedPreferences.edit().putInt(AUTO_UPDATE_VERSION, updateVersionCode).apply()
 
   fun getAutoUpdateCardDismissedVersion() = sharedPreferences.getInt(AUTO_UPDATE_VERSION, 0)
 
   fun setUpdateNotificationBadge(hasNotification: Boolean) =
     sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
 
-  fun getUpdateNotificationBadge() = sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
+  fun getUpdateNotificationBadge() =
+    sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
 
   fun getAndroidId() = sharedPreferences.getString(ANDROID_ID, "").orEmpty()
 
   fun setAndroidId(androidId: String) =
-      sharedPreferences.edit().putString(ANDROID_ID, androidId).apply()
+    sharedPreferences.edit().putString(ANDROID_ID, androidId).apply()
 
   fun getWalletPurchasesCount(walletAddress: String) =
-      sharedPreferences.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
+    sharedPreferences.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
 
   fun incrementWalletPurchasesCount(walletAddress: String, count: Int) =
-      sharedPreferences.edit().putInt(WALLET_PURCHASES_COUNT + walletAddress, count).apply()
+    sharedPreferences.edit().putInt(WALLET_PURCHASES_COUNT + walletAddress, count).apply()
 
   fun setWalletId(walletId: String) =
-      sharedPreferences.edit().putString(WALLET_ID, walletId).apply()
+    sharedPreferences.edit().putString(WALLET_ID, walletId).apply()
 
   fun getWalletId() = sharedPreferences.getString(WALLET_ID, null)
 
@@ -82,16 +83,16 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun setBeenInSettings() = sharedPreferences.edit().putBoolean(HAS_BEEN_IN_SETTINGS, true).apply()
 
   fun increaseTimesOnHome() =
-      sharedPreferences
-          .edit()
-          .putInt(NUMBER_OF_TIMES_IN_HOME, sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
-          .apply()
+    sharedPreferences
+      .edit()
+      .putInt(NUMBER_OF_TIMES_IN_HOME, sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
+      .apply()
 
   fun getNumberOfTimesOnHome() = sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
 
   fun hasSeenVipOnboarding(walletAddress: String) =
-      sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, false)
+    sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, false)
 
   fun setVipOnboardingToSeen(walletAddress: String) =
-      sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, true).apply()
+    sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, true).apply()
 }

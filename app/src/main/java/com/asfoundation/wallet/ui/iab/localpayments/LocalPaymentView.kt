@@ -10,8 +10,10 @@ interface LocalPaymentView {
 
   fun hideLoading()
 
-  fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
-                             applicationIcon: Bitmap)
+  fun showPendingUserPayment(
+    paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
+    applicationIcon: Bitmap
+  )
 
   fun showCompletedPayment()
 

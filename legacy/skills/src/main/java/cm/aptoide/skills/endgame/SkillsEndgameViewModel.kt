@@ -36,6 +36,7 @@ class SkillsEndgameViewModel @Inject constructor(
   }
 
   private val session: String
+
   init {
     this.session = savedStateHandle["SESSION"]!!
   }
@@ -62,8 +63,7 @@ class SkillsEndgameViewModel @Inject constructor(
   fun getRewardsPackages(): Single<List<String>> = getRewardsPackagesUseCase.getRewardsPackages()
 
   fun isWinner(roomResult: RoomResult): Single<Boolean> {
-    return walletAddressObtainer.getWalletAddress().map {
-        walletAddress ->
+    return walletAddressObtainer.getWalletAddress().map { walletAddress ->
       walletAddress.address.equals(roomResult.winner.walletAddress, ignoreCase = true)
     }.subscribeOn(Schedulers.io())
   }

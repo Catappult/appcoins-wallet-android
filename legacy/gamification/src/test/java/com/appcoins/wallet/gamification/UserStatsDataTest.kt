@@ -1,10 +1,10 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.core.network.backend.model.LevelsResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import io.reactivex.Completable
 import io.reactivex.Single
 

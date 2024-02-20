@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 
 sealed class ReferralResult
 
-data class SuccessfulReferral(val referral: ReferralResponse): ReferralResult()
+data class SuccessfulReferral(val referral: ReferralResponse) : ReferralResult()
 
 sealed class FailedReferral : ReferralResult() {
   data class GenericError(val detail: String) : FailedReferral()

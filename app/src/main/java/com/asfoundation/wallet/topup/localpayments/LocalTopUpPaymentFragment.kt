@@ -45,8 +45,10 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
     private const val ANIMATION_FRAME_INCREMENT = 40
     private const val BUTTON_ANIMATION_START_FRAME = 120
 
-    fun newInstance(paymentId: String, icon: String, label: String, async: Boolean,
-                    packageName: String, data: TopUpPaymentData): LocalTopUpPaymentFragment {
+    fun newInstance(
+      paymentId: String, icon: String, label: String, async: Boolean,
+      packageName: String, data: TopUpPaymentData
+    ): LocalTopUpPaymentFragment {
       val fragment = LocalTopUpPaymentFragment()
       Bundle().apply {
         putString(PAYMENT_ID, paymentId)
@@ -69,16 +71,20 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = LocalTopupPaymentLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = LocalTopupPaymentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present(savedInstanceState)
   }
 
-  override fun showValues(value: String, currency: String, appcValue: String,
-                          selectedCurrencyType: String) {
+  override fun showValues(
+    value: String, currency: String, appcValue: String,
+    selectedCurrencyType: String
+  ) {
     binding.mainValue.visibility = View.VISIBLE
     if (selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
       binding.mainValue.setText(value)
@@ -141,8 +147,10 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
     presenter.onSaveInstanceState(outState)
   }
 
-  override fun showPendingUserPayment(paymentMethodIcon: Bitmap,
-                                      paymentLabel: String) {
+  override fun showPendingUserPayment(
+    paymentMethodIcon: Bitmap,
+    paymentLabel: String
+  ) {
     activityView.unlockRotation()
     binding.loading.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
@@ -154,17 +162,21 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
 
     binding.topupPendingUserPaymentView.stepOneDesc.text = stepOneText
 
-    binding.topupPendingUserPaymentView.topUpInProgressAnimation.updateBitmap("image_0",
-        paymentMethodIcon)
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.updateBitmap(
+      "image_0",
+      paymentMethodIcon
+    )
 
     playAnimation()
   }
 
   private fun playAnimation() {
-    binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(minFrame,
-        maxFrame)
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(
+      minFrame,
+      maxFrame
+    )
     binding.topupPendingUserPaymentView.topUpInProgressAnimation.addAnimatorListener(object :
-        Animator.AnimatorListener {
+      Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
@@ -172,8 +184,10 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
         } else {
           minFrame += ANIMATION_FRAME_INCREMENT
           maxFrame += ANIMATION_FRAME_INCREMENT
-          binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(minFrame,
-              maxFrame)
+          binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(
+            minFrame,
+            maxFrame
+          )
           binding.topupPendingUserPaymentView.topUpInProgressAnimation.playAnimation()
         }
       }
@@ -186,10 +200,15 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
             animateShow(binding.topupPendingUserPaymentView.stepOne)
             animateShow(binding.topupPendingUserPaymentView.stepOneDesc)
           }
+
           ANIMATION_STEP_TWO_START_FRAME -> {
             animateShow(binding.topupPendingUserPaymentView.stepTwo)
-            animateShow(binding.topupPendingUserPaymentView.stepTwoDesc, binding.topupPendingUserPaymentView.gotItButton)
+            animateShow(
+              binding.topupPendingUserPaymentView.stepTwoDesc,
+              binding.topupPendingUserPaymentView.gotItButton
+            )
           }
+
           else -> return
         }
       }
@@ -203,13 +222,13 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
       visibility = View.VISIBLE
 
       animate()
-          .alpha(1f)
-          .withEndAction {
-            this.visibility = View.VISIBLE
-            viewToAnimateInTheEnd?.let { animateButton(it) }
-          }
-          .setDuration(TimeUnit.SECONDS.toMillis(1))
-          .setListener(null)
+        .alpha(1f)
+        .withEndAction {
+          this.visibility = View.VISIBLE
+          viewToAnimateInTheEnd?.let { animateButton(it) }
+        }
+        .setDuration(TimeUnit.SECONDS.toMillis(1))
+        .setListener(null)
     }
   }
 
@@ -217,10 +236,10 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
     view.apply {
       alpha = 0.2f
       animate()
-          .alpha(1f)
-          .withEndAction { this.isClickable = true }
-          .setDuration(TimeUnit.SECONDS.toMillis(1))
-          .setListener(null)
+        .alpha(1f)
+        .withEndAction { this.isClickable = true }
+        .setDuration(TimeUnit.SECONDS.toMillis(1))
+        .setListener(null)
     }
   }
 

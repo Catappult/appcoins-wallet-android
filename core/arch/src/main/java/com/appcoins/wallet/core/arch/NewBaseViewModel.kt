@@ -12,7 +12,19 @@ import com.github.michaelbull.result.Ok
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.reflect.KProperty1
 
@@ -27,6 +39,7 @@ abstract class NewBaseViewModel<S : ViewState, E : SideEffect>(initialState: S) 
       sideEffect?.let { se -> sideEffectsChannel.send(se) }
     }
   }
+
   private val _stateFlow: MutableStateFlow<S> = MutableStateFlow(initialState)
   val stateFlow: StateFlow<S> = _stateFlow
   val state: S get() = stateFlow.value

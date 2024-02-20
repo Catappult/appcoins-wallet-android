@@ -3,8 +3,8 @@ package com.asfoundation.wallet.topup
 import android.content.Intent
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.asf.wallet.R
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
@@ -34,10 +34,10 @@ class TopUpActivityPresenter(
   private fun handleSupportClicks() {
     disposables.add(
       view.getSupportClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .observeOn(viewScheduler)
-      .flatMapCompletable { topUpInteractor.showSupport() }
-      .subscribe({}, { handleError(it) })
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { topUpInteractor.showSupport() }
+        .subscribe({}, { handleError(it) })
     )
   }
 
@@ -61,9 +61,11 @@ class TopUpActivityPresenter(
             view.cancelPayment()
           }
         }
+
         WebViewActivity.SUCCESS -> {
           data?.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
         }
+
         WebViewActivity.USER_CANCEL -> {
           view.cancelPayment()
         }

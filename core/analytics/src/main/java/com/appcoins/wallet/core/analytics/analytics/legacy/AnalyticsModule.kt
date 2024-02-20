@@ -1,8 +1,9 @@
 package com.appcoins.wallet.core.analytics.analytics.legacy
+
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
+import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
@@ -116,8 +117,10 @@ class AnalyticsModule {
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api, VERSION_CODE, APPLICATION_ID), biEventList)
-      .addLogger(IndicativeEventLogger(indicativeAnalytics, appStartPreferencesDataSource),
-        indicativeEventList)
+      .addLogger(
+        IndicativeEventLogger(indicativeAnalytics, appStartPreferencesDataSource),
+        indicativeEventList
+      )
       .addLogger(SentryEventLogger(), sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
@@ -134,7 +137,7 @@ class AnalyticsModule {
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
     const val TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT =
-            "wallet_top_default_value_ab_testing_participating"  //TopUpDefaultValueProb
+      "wallet_top_default_value_ab_testing_participating"  //TopUpDefaultValueProb
     const val WALLET_RATING_WELCOME_EVENT = "wallet_rating_welcome" //RatingAnalytics
     const val WALLET_RATING_POSITIVE_EVENT = "wallet_rating_positive"
     const val WALLET_RATING_NEGATIVE_EVENT = "wallet_rating_negative"
@@ -151,11 +154,12 @@ class AnalyticsModule {
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
     const val WALLET_CALLOUT_PROMOTIONS_CLICK = "wallet_callout_promotions_click" //NavBarAnalytics
-    const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION = "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
+    const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION =
+      "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
     const val ONBOARDING_PAYMENT = "onboarding_payment"
     const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
     const val APPLICATION_ID = "com.appcoins.wallet.dev"
   }
 
-  }
+}

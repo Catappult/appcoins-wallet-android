@@ -20,7 +20,7 @@ import com.google.firebase.messaging.RemoteMessage
 import io.intercom.android.sdk.push.IntercomPushClient
 
 
-class SupportMessagingService: FirebaseMessagingService() {
+class SupportMessagingService : FirebaseMessagingService() {
 
   private lateinit var notificationManager: NotificationManager
   private lateinit var intercomPushClient: IntercomPushClient
@@ -100,7 +100,8 @@ class SupportMessagingService: FirebaseMessagingService() {
   }
 
   private fun saveBooleanNotificationToSharedPreferences(context: Context) {
-    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val sharedPreferences: SharedPreferences =
+      PreferenceManager.getDefaultSharedPreferences(context)
     val editor: SharedPreferences.Editor = sharedPreferences.edit()
     editor.putBoolean(HAS_NOTIFICATION_BADGE, true)
     editor.apply()

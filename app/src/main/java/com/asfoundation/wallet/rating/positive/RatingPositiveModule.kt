@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.rating.positive
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.rating.RatingInteractor
 import com.asfoundation.wallet.rating.RatingNavigator
@@ -18,11 +17,15 @@ import io.reactivex.schedulers.Schedulers
 class RatingPositiveModule {
 
   @Provides
-  fun providesRatingPositivePresenter(fragment: Fragment,
-                                      navigator: RatingNavigator,
-                                      interactor: RatingInteractor,
-                                      analytics: RatingAnalytics): RatingPositivePresenter {
-    return RatingPositivePresenter(fragment as RatingPositiveView, navigator, interactor, analytics,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+  fun providesRatingPositivePresenter(
+    fragment: Fragment,
+    navigator: RatingNavigator,
+    interactor: RatingInteractor,
+    analytics: RatingAnalytics
+  ): RatingPositivePresenter {
+    return RatingPositivePresenter(
+      fragment as RatingPositiveView, navigator, interactor, analytics,
+      CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io()
+    )
   }
 }

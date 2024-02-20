@@ -35,7 +35,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
@@ -66,7 +69,6 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
-import com.appcoins.wallet.ui.widgets.R.*
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
@@ -130,6 +132,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         is Success -> {
           ManageWalletContent(padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets)
         }
+
         WalletChanged -> {
           Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
             .show()

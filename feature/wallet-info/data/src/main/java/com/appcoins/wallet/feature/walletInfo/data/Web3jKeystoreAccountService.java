@@ -51,7 +51,7 @@ import static org.web3j.crypto.Wallet.create;
 
   @Override public Single<Wallet> createAccount(String password) {
     return Single.fromCallable(() -> WalletUtils.generateNewWalletFile(password,
-        new File(keyStoreFileManager.getKeystoreFolderPath()), false))
+            new File(keyStoreFileManager.getKeystoreFolderPath()), false))
         .map(fileName -> new Wallet(extractAddressFromFileName(fileName)));
   }
 
@@ -73,11 +73,11 @@ import static org.web3j.crypto.Wallet.create;
 
   @Override public Single<RestoreResult> restorePrivateKey(String privateKey, String newPassword) {
     return Single.fromCallable(() -> {
-      BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
-      ECKeyPair keypair = ECKeyPair.create(key);
-      WalletFile walletFile = create(newPassword, keypair, N, P);
-      return new ObjectMapper().writeValueAsString(walletFile);
-    })
+          BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
+          ECKeyPair keypair = ECKeyPair.create(key);
+          WalletFile walletFile = create(newPassword, keypair, N, P);
+          return new ObjectMapper().writeValueAsString(walletFile);
+        })
         .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword))
         .onErrorReturn(FailedRestore.InvalidPrivateKey::new);
   }
@@ -92,7 +92,7 @@ import static org.web3j.crypto.Wallet.create;
 
   @Override public Completable deleteAccount(String address, String password) {
     return exportAccount(address, password, password).doOnSuccess(
-        __ -> keyStoreFileManager.delete(keyStoreFileManager.getKeystore(address)))
+            __ -> keyStoreFileManager.delete(keyStoreFileManager.getKeystore(address)))
         .ignoreElement();
   }
 
@@ -103,23 +103,14 @@ import static org.web3j.crypto.Wallet.create;
     return Single.fromCallable(() -> {
       RawTransaction transaction;
       if (data == null) {
-        transaction = RawTransaction.createEtherTransaction(
-            chainId,
-            BigInteger.valueOf(nonce),
-            gasLimit.toBigInteger(),
-            toAddress,
-            amount.toBigInteger(),
-            maxPriorityFee,           //maxPriorityFeePerGas
+        transaction = RawTransaction.createEtherTransaction(chainId, BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), maxPriorityFee,
+            //maxPriorityFeePerGas
             gasPrice.toBigInteger()   //maxFeePerGas
         );
       } else {
-        transaction = RawTransaction.createTransaction(
-            chainId,
-            BigInteger.valueOf(nonce),
-            gasLimit.toBigInteger(),
-            toAddress,
-            amount.toBigInteger(),
-            Numeric.toHexString(data),
+        transaction = RawTransaction.createTransaction(chainId, BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Numeric.toHexString(data),
             maxPriorityFee,             //maxPriorityFeePerGas
             gasPrice.toBigInteger()     //maxFeePerGas
         );
@@ -161,9 +152,9 @@ import static org.web3j.crypto.Wallet.create;
 
   private Single<Wallet> importKeystoreInternal(String store, String password, String newPassword) {
     return loadCredentialsFromKeystore(store, password).map(credentials -> {
-      WalletFile walletFile = create(newPassword, credentials.getEcKeyPair(), N, P);
-      return objectMapper.writeValueAsString(walletFile);
-    })
+          WalletFile walletFile = create(newPassword, credentials.getEcKeyPair(), N, P);
+          return objectMapper.writeValueAsString(walletFile);
+        })
         .doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
         .map(keystore -> new Wallet(extractAddressFromStore(keystore)))
         .doOnError(throwable -> keyStoreFileManager.delete(extractAddressFromStore(store)));

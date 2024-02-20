@@ -246,7 +246,8 @@ internal class AppModule {
   fun providesExecutorScheduler() = ExecutorScheduler(
     SyncExecutor(
       1
-    ), false)
+    ), false
+  )
 
   @Singleton
   @Provides

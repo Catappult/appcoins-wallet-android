@@ -115,9 +115,11 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
       is Async.Loading -> {
         showDefaultScreen(withdrawAsync.value?.toFloat() ?: 0F)
       }
+
       is Async.Fail -> {
         showErrorState()
       }
+
       is Async.Success -> {
 
         when (val clickAsync = state.submitWithdrawAsync) {
@@ -126,14 +128,17 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
               showDefaultScreen(it.toFloat())
             }
           }
+
           is Async.Loading -> {
             if (clickAsync.value == null) {
               showLoading()
             }
           }
+
           is Async.Fail -> {
             showErrorState()
           }
+
           is Async.Success -> {
             handleClickSuccessState(state.submitWithdrawAsync.value)
           }
@@ -164,34 +169,42 @@ class WithdrawBottomSheetFragment : BottomSheetDialogFragment(),
           }
         }
       }
+
       is FailedWithdraw.NotEnoughEarningError -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false
         views.eskillsAmountString.setError(getString(R.string.e_skills_withdraw_not_enough_earnings_error_message))
       }
+
       is FailedWithdraw.NotEnoughBalanceError -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false
         views.eskillsAmountString.setError(getString(R.string.e_skills_withdraw_not_enough_balance_error_message))
       }
+
       is FailedWithdraw.MinAmountRequiredError -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false
-        views.eskillsAmountString.setError(getString(
-          R.string.e_skills_withdraw_minimum_amount_error_message,
-          withdraw.amount
-        ))
+        views.eskillsAmountString.setError(
+          getString(
+            R.string.e_skills_withdraw_minimum_amount_error_message,
+            withdraw.amount
+          )
+        )
       }
+
       is FailedWithdraw.InvalidEmailError -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false
         views.eskillsEmailString.setError(getString(R.string.e_skills_withdraw_invalid_email_error_message))
       }
+
       is FailedWithdraw.NoNetworkError -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false
         views.eskillsAmountString.setError(getString(R.string.activity_iab_no_network_message))
       }
+
       else -> {
         showDefaultScreen(null)
         views.eskillsBottomSheetSubmitButton.isEnabled = false

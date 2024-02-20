@@ -11,31 +11,36 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class TransferInteractor @Inject constructor(private val rewardsManager: RewardsManager,
-                                             private val transactionDataValidator: TransactionDataValidator,
-                                             private val getWalletInfoUseCase: GetWalletInfoUseCase,
-                                             private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                                             private val walletBlockedInteract: WalletBlockedInteract) {
+class TransferInteractor @Inject constructor(
+  private val rewardsManager: RewardsManager,
+  private val transactionDataValidator: TransactionDataValidator,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val findDefaultWalletInteract: FindDefaultWalletInteract,
+  private val walletBlockedInteract: WalletBlockedInteract
+) {
 
-  fun transferCredits(toWallet: String, amount: BigDecimal,
-                      packageName: String): Single<AppcoinsRewardsRepository.Status> {
+  fun transferCredits(
+    toWallet: String, amount: BigDecimal,
+    packageName: String
+  ): Single<AppcoinsRewardsRepository.Status> {
     return getWalletInfoUseCase(null, cached = false)
-        .map { walletInfo ->
-          val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
-          transactionDataValidator.validateData(toWallet, amount, creditsAmount)
+      .map { walletInfo ->
+        val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
+        transactionDataValidator.validateData(toWallet, amount, creditsAmount)
+      }
+      .flatMap {
+        val validateStatus = validateData(it)
+        if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
+          return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
         }
-        .flatMap {
-          val validateStatus = validateData(it)
-          if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
-            return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
-          }
-          return@flatMap Single.just(validateStatus)
-        }
-        .onErrorReturn { map(it) }
+        return@flatMap Single.just(validateStatus)
+      }
+      .onErrorReturn { map(it) }
   }
 
   private fun validateData(
-      data: TransactionDataValidator.DataStatus): AppcoinsRewardsRepository.Status {
+    data: TransactionDataValidator.DataStatus
+  ): AppcoinsRewardsRepository.Status {
     return when (data) {
       TransactionDataValidator.DataStatus.OK -> AppcoinsRewardsRepository.Status.SUCCESS
       TransactionDataValidator.DataStatus.INVALID_AMOUNT -> AppcoinsRewardsRepository.Status.INVALID_AMOUNT
@@ -53,27 +58,31 @@ class TransferInteractor @Inject constructor(private val rewardsManager: Rewards
 
   fun getCreditsBalance(): Single<BigDecimal> {
     return getWalletInfoUseCase(null, cached = false)
-        .map { walletInfo ->
-          walletInfo.walletBalance.creditsBalance.token.amount
-        }
+      .map { walletInfo ->
+        walletInfo.walletBalance.creditsBalance.token.amount
+      }
   }
 
-  fun validateEthTransferData(walletAddress: String,
-                              amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
+  fun validateEthTransferData(
+    walletAddress: String,
+    amount: BigDecimal
+  ): Single<AppcoinsRewardsRepository.Status> {
     return getWalletInfoUseCase(null, cached = false)
-        .map { walletInfo ->
-          val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
-          validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
-        }
+      .map { walletInfo ->
+        val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
+        validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
+      }
   }
 
-  fun validateAppcTransferData(walletAddress: String,
-                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
+  fun validateAppcTransferData(
+    walletAddress: String,
+    amount: BigDecimal
+  ): Single<AppcoinsRewardsRepository.Status> {
     return getWalletInfoUseCase(null, cached = false)
-        .map { walletInfo ->
-          val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
-          validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))
-        }
+      .map { walletInfo ->
+        val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
+        validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))
+      }
   }
 
   fun isWalletBlocked(): Single<Boolean> = walletBlockedInteract.isWalletBlocked()

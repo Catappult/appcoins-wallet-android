@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.response.Action
-import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import java.io.Serializable
 
 data class PaymentModel(

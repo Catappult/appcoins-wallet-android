@@ -43,36 +43,47 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           101 -> {
             ErrorInfo.ErrorType.INVALID_CARD
           }
+
           103 -> {
             ErrorInfo.ErrorType.CVC_LENGTH
           }
+
           105 -> {
             ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
           }
+
           138 -> {
             ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED
           }
+
           200 -> {
             ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
           }
+
           172, 174, 422, 800 -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
+
           704 -> {
             ErrorInfo.ErrorType.ALREADY_PROCESSED
           }
+
           905 -> {
             ErrorInfo.ErrorType.PAYMENT_ERROR
           }
+
           907 -> {
             ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
           }
+
           916 -> {
             ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED
           }
+
           else -> ErrorInfo.ErrorType.UNKNOWN
         }
       }
+
       else -> ErrorInfo.ErrorType.UNKNOWN
     }
   }

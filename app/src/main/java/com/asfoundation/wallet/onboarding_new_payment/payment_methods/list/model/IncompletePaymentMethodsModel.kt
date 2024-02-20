@@ -6,9 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 
 @EpoxyModelClass

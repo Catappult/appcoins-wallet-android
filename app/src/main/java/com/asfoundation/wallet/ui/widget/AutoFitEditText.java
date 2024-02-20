@@ -121,7 +121,9 @@ public class AutoFitEditText extends AppCompatEditText {
 
   public Float get_minTextSize() {
     return _minTextSize;
-  }  @Override public void setMaxLines(final int maxlines) {
+  }
+
+  @Override public void setMaxLines(final int maxlines) {
     super.setMaxLines(maxlines);
     _maxLines = maxlines;
     reAdjust();
@@ -142,7 +144,9 @@ public class AutoFitEditText extends AppCompatEditText {
     _availableSpaceRect.bottom = heightLimit;
     super.setTextSize(TypedValue.COMPLEX_UNIT_PX,
         efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
-  }  @Override public int getMaxLines() {
+  }
+
+  @Override public int getMaxLines() {
     return _maxLines;
   }
 
@@ -170,7 +174,9 @@ public class AutoFitEditText extends AppCompatEditText {
     size = binarySearch(start, end, sizeTester, availableSpace);
     _textCachedSizes.put(key, size);
     return size;
-  }  @Override public void setSingleLine() {
+  }
+
+  @Override public void setSingleLine() {
     super.setSingleLine();
     _maxLines = 1;
     reAdjust();
@@ -205,7 +211,9 @@ public class AutoFitEditText extends AppCompatEditText {
     _textCachedSizes.clear();
     super.onSizeChanged(width, height, oldwidth, oldheight);
     if (width != oldwidth || height != oldheight) reAdjust();
-  }  @Override public void setSingleLine(final boolean singleLine) {
+  }
+
+  @Override public void setSingleLine(final boolean singleLine) {
     super.setSingleLine(singleLine);
     if (singleLine) {
       _maxLines = 1;
@@ -235,19 +243,11 @@ public class AutoFitEditText extends AppCompatEditText {
     reAdjust();
   }
 
-
-
-
-
   @Override public void setLineSpacing(final float add, final float mult) {
     super.setLineSpacing(add, mult);
     _spacingMult = mult;
     _spacingAdd = add;
   }
-
-
-
-
 
   @Override protected void onTextChanged(final CharSequence text, final int start, final int before,
       final int after) {

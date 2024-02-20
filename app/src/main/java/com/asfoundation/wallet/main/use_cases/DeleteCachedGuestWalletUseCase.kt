@@ -2,10 +2,8 @@ package com.asfoundation.wallet.main.use_cases
 
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
-import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
 import com.asfoundation.wallet.repository.CachedGuestWalletRepository
 import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class DeleteCachedGuestWalletUseCase @Inject constructor(

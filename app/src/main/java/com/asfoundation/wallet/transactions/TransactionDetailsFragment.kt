@@ -126,9 +126,11 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   @Composable
   fun TransactionsDetail(paddingValues: PaddingValues, transactionCardInfo: TransactionCardInfo) {
     with(transactionCardInfo) {
-      LazyColumn(modifier = Modifier
-        .padding(paddingValues)
-        .fillMaxSize()) {
+      LazyColumn(
+        modifier = Modifier
+          .padding(paddingValues)
+          .fillMaxSize()
+      ) {
         item {
           Text(
             text = stringResource(R.string.transaction_details_header),

@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
-import com.appcoins.wallet.core.walletservices.WalletService
-import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Single
 import javax.inject.Inject
 

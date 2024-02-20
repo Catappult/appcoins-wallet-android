@@ -7,8 +7,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class UpdateWalletInfoUseCase @Inject constructor(
-    private val walletInfoRepository: WalletInfoRepository,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+  private val walletInfoRepository: WalletInfoRepository,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+) {
 
   /**
    * Updates WalletInfo
@@ -17,7 +18,7 @@ class UpdateWalletInfoUseCase @Inject constructor(
    */
   operator fun invoke(address: String?): Completable {
     val walletAddressSingle =
-        address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
+      address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return walletAddressSingle.flatMapCompletable {
       walletInfoRepository.updateWalletInfo(it.address)
     }

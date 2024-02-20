@@ -54,7 +54,6 @@
       />
 
 
-
   <androidx.appcompat.widget.AppCompatTextView
       android:id="@+id/current_level_title"
       style="@style/TextL"

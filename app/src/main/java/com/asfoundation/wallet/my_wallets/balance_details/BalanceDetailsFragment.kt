@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.extensions.getDrawableURI
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBalanceDetailsBinding
-import com.appcoins.wallet.core.utils.android_common.extensions.getDrawableURI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,12 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.model.*
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.ErrorStatus
+import cm.aptoide.skills.model.FailedTicket
+import cm.aptoide.skills.model.ProcessingStatus
+import cm.aptoide.skills.model.PurchasedTicket
+import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.util.getMessage
 import cm.aptoide.skills.util.isNoNetworkException
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
@@ -22,6 +28,7 @@ class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
         WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
         ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false)
       )
+
       else -> CreatedTicket(
         ticketResponse.ticketId,
         ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),

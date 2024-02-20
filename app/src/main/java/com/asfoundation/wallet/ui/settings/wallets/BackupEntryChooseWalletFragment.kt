@@ -53,7 +53,7 @@ class BackupEntryChooseWalletFragment : Fragment(), BackupEntryChooseWalletView 
   override fun onDestroyView() {
     super.onDestroyView()
     views.fadedBackground.animation =
-        AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
+      AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
     views.fadedBackground.visibility = View.GONE
     presenter.stop()
   }

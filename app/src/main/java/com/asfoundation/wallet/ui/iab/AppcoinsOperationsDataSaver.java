@@ -28,12 +28,12 @@ public class AppcoinsOperationsDataSaver {
 
   public void start() {
     disposables.add(Single.fromCallable(() -> {
-      List<Observable<OperationDataSource.OperationData>> list = new ArrayList<>();
-      for (OperationDataSource operationDataSource : operationDataSourceList) {
-        list.add(operationDataSource.get());
-      }
-      return list;
-    })
+          List<Observable<OperationDataSource.OperationData>> list = new ArrayList<>();
+          for (OperationDataSource operationDataSource : operationDataSourceList) {
+            list.add(operationDataSource.get());
+          }
+          return list;
+        })
         .observeOn(scheduler)
         .toObservable()
         .flatMap(Observable::merge)

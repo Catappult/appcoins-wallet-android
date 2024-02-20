@@ -8,5 +8,5 @@ class ShouldShowOnboardVipUseCase
 constructor(private val commonsPreferencesDataSource: CommonsPreferencesDataSource) {
 
   operator fun invoke(isVipLevel: Boolean, walletAddress: String): Boolean =
-      isVipLevel && commonsPreferencesDataSource.hasSeenVipOnboarding(walletAddress).not()
+    isVipLevel && commonsPreferencesDataSource.hasSeenVipOnboarding(walletAddress).not()
 }

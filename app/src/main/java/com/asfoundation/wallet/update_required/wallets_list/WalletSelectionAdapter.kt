@@ -10,7 +10,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
-import java.util.*
+import java.util.Date
 
 
 class WalletSelectionAdapter(
@@ -34,8 +34,10 @@ class WalletSelectionAdapter(
 
     val dateLong = getItem(position)["wallet_backup_date"]!!.toLong()
 
-    views.findViewById<TextView>(R.id.wallet_selection_name)?.text = getItem(position)["wallet_name"]
-    views.findViewById<TextView>(R.id.wallet_selection_balance)?.text = getItem(position)["wallet_balance"]
+    views.findViewById<TextView>(R.id.wallet_selection_name)?.text =
+      getItem(position)["wallet_name"]
+    views.findViewById<TextView>(R.id.wallet_selection_balance)?.text =
+      getItem(position)["wallet_balance"]
 
     views.findViewById<TextView>(R.id.wallet_selection_backup_date)?.let {
       it.text = if (dateLong > 0) {

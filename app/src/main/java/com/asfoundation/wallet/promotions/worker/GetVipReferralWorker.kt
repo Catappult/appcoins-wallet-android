@@ -30,75 +30,79 @@ import java.util.concurrent.TimeUnit
 class GetVipReferralWorker
 @AssistedInject
 constructor(
-    @Assisted private val context: Context,
-    @Assisted params: WorkerParameters,
-    private val getVipReferralUseCase: GetVipReferralUseCase,
-    private val getCurrentWallet: GetCurrentWalletUseCase,
-    private val pendingIntentNavigator: PendingIntentNavigator,
-    private val notificationManager: NotificationManager,
-    private val rxSchedulers: RxSchedulers
+  @Assisted private val context: Context,
+  @Assisted params: WorkerParameters,
+  private val getVipReferralUseCase: GetVipReferralUseCase,
+  private val getCurrentWallet: GetCurrentWalletUseCase,
+  private val pendingIntentNavigator: PendingIntentNavigator,
+  private val notificationManager: NotificationManager,
+  private val rxSchedulers: RxSchedulers
 ) : RxWorker(context, params) {
 
   override fun getBackgroundScheduler() = rxSchedulers.io
 
   override fun createWork(): Single<Result> =
-      getCurrentWallet()
-          .filter { it.address == inputData.getString(ADDRESS_DATA_KEY) }
-          .flatMapSingle(getVipReferralUseCase::invoke)
-          .filter { it.active && it.code.isNotEmpty() }
-          .toSingle()
-          .map {
-            showNotification(it.code)
-            Result.success()
-          }
-          .onErrorReturn {
-            if (runAttemptCount > RETRY_COUNTS) {
-              Result.failure()
-            } else {
-              Result.retry()
-            }
-          }
+    getCurrentWallet()
+      .filter { it.address == inputData.getString(ADDRESS_DATA_KEY) }
+      .flatMapSingle(getVipReferralUseCase::invoke)
+      .filter { it.active && it.code.isNotEmpty() }
+      .toSingle()
+      .map {
+        showNotification(it.code)
+        Result.success()
+      }
+      .onErrorReturn {
+        if (runAttemptCount > RETRY_COUNTS) {
+          Result.failure()
+        } else {
+          Result.retry()
+        }
+      }
 
   private fun showNotification(code: String) =
-      notificationManager.notify(
-          NOTIFICATION_SERVICE_ID,
-          NotificationCompat.Builder(context, CHANNEL_ID)
-              .setAutoCancel(true)
-              .setContentIntent(pendingIntentNavigator.getHomePendingIntent())
-              .setPriority(NotificationCompat.PRIORITY_HIGH)
-              .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-              .setContentTitle(context.getString(R.string.vip_program_referral_notification_title))
-              .setContentText(context.getString(R.string.vip_program_referral_notification_body))
-              .addAction(
-                  android.R.drawable.ic_menu_share,
-                  context.getString(R.string.wallet_view_share_button),
-                  getSharePendingIntent(code))
-              .apply {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                  notificationManager.createNotificationChannel(
-                      NotificationChannel(
-                          CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH))
-                } else {
-                  setVibrate(LongArray(0))
-                }
-              }
-              .build(),
-      )
+    notificationManager.notify(
+      NOTIFICATION_SERVICE_ID,
+      NotificationCompat.Builder(context, CHANNEL_ID)
+        .setAutoCancel(true)
+        .setContentIntent(pendingIntentNavigator.getHomePendingIntent())
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setContentTitle(context.getString(R.string.vip_program_referral_notification_title))
+        .setContentText(context.getString(R.string.vip_program_referral_notification_body))
+        .addAction(
+          android.R.drawable.ic_menu_share,
+          context.getString(R.string.wallet_view_share_button),
+          getSharePendingIntent(code)
+        )
+        .apply {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(
+              NotificationChannel(
+                CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
+              )
+            )
+          } else {
+            setVibrate(LongArray(0))
+          }
+        }
+        .build(),
+    )
 
   private fun getSharePendingIntent(code: String) =
-      PendingIntent.getActivity(
-          context,
-          0,
-          ShareCompat.IntentBuilder(context)
-              .setText(code)
-              .setType("text/plain")
-              .setChooserTitle(context.getString(R.string.share_via))
-              .intent,
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-          } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-          })
+    PendingIntent.getActivity(
+      context,
+      0,
+      ShareCompat.IntentBuilder(context)
+        .setText(code)
+        .setType("text/plain")
+        .setChooserTitle(context.getString(R.string.share_via))
+        .intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+      } else {
+        PendingIntent.FLAG_UPDATE_CURRENT
+      }
+    )
 
   companion object {
     private const val NAME = "GetVipReferralWorker"
@@ -113,13 +117,14 @@ constructor(
     fun getUniqueName(wallet: Wallet): String = "$NAME#${wallet.address}"
 
     fun getWorkRequest(wallet: Wallet): OneTimeWorkRequest =
-        OneTimeWorkRequestBuilder<GetVipReferralWorker>()
-            .setInitialDelay(INITIAL_DELAY_MINUTES, TimeUnit.MINUTES)
-            .setConstraints(
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-            .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_MINUTES, TimeUnit.MINUTES)
-            .setInputData(workDataOf(ADDRESS_DATA_KEY to wallet.address))
-            .build()
+      OneTimeWorkRequestBuilder<GetVipReferralWorker>()
+        .setInitialDelay(INITIAL_DELAY_MINUTES, TimeUnit.MINUTES)
+        .setConstraints(
+          Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        )
+        .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_MINUTES, TimeUnit.MINUTES)
+        .setInputData(workDataOf(ADDRESS_DATA_KEY to wallet.address))
+        .build()
   }
 
   @AssistedFactory

@@ -5,7 +5,8 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class DeletePromoCodeUseCase @Inject constructor(
-    private val promoCodeRepository: PromoCodeRepository) {
+  private val promoCodeRepository: PromoCodeRepository
+) {
 
   operator fun invoke(): Completable {
     return promoCodeRepository.removePromoCode()

@@ -9,14 +9,16 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
-                                       private val transferParser: TransferParser,
-                                       private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                       private val walletService: WalletService,
-                                       private val data: String,
-                                       private val viewScheduler: Scheduler,
-                                       private var disposables: CompositeDisposable,
-                                       private val productName: String?) {
+internal class Erc681ReceiverPresenter(
+  private val view: Erc681ReceiverView,
+  private val transferParser: TransferParser,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val walletService: WalletService,
+  private val data: String,
+  private val viewScheduler: Scheduler,
+  private var disposables: CompositeDisposable,
+  private val productName: String?
+) {
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
@@ -32,8 +34,10 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
                 transactionBuilder
               }
               .flatMap { transactionBuilder ->
-                inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain,
-                  transactionBuilder.toAddress())
+                inAppPurchaseInteractor.isWalletFromBds(
+                  transactionBuilder.domain,
+                  transactionBuilder.toAddress()
+                )
                   .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
               }
               .toObservable()

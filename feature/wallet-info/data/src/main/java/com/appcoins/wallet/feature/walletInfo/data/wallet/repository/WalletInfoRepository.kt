@@ -108,15 +108,15 @@ class WalletInfoRepository @Inject constructor(
   ): Single<WalletInfoEntity> {
     return rxSingle(dispatchers.io) { getSelectedCurrencyUseCase(bypass = false) }.flatMap { currency ->
       api.getWalletInfo(walletAddress, currency.get())
-      .flatMap { walletInfoResponse ->
-        sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
-        balanceRepository.getWalletBalance(
-          walletInfoResponse
-        )
-          .map { walletInfoResponse.toWalletInfoEntity(it) }
-          .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
-      }
-      .doOnError(Throwable::printStackTrace)
+        .flatMap { walletInfoResponse ->
+          sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
+          balanceRepository.getWalletBalance(
+            walletInfoResponse
+          )
+            .map { walletInfoResponse.toWalletInfoEntity(it) }
+            .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
+        }
+        .doOnError(Throwable::printStackTrace)
     }
   }
 

@@ -7,5 +7,5 @@ class SetOnboardingVipCompletedUseCase
 @Inject
 constructor(private val commonsPreferencesDataSource: CommonsPreferencesDataSource) {
   operator fun invoke(walletAddress: String) =
-      commonsPreferencesDataSource.setVipOnboardingToSeen(walletAddress)
+    commonsPreferencesDataSource.setVipOnboardingToSeen(walletAddress)
 }

@@ -9,19 +9,23 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class RoomCurrencyConversionRatesPersistence(
-    private val currencyConversionRatesDao: CurrencyConversionRatesDao
+  private val currencyConversionRatesDao: CurrencyConversionRatesDao
 ) :
   CurrencyConversionRatesPersistence {
 
-  override fun saveRateFromAppcToFiat(appcValue: String, fiatValue: String, fiatCurrency: String,
-                                      fiatSymbol: String): Completable {
+  override fun saveRateFromAppcToFiat(
+    appcValue: String, fiatValue: String, fiatCurrency: String,
+    fiatSymbol: String
+  ): Completable {
     val appcRate = calculateRate(appcValue, fiatValue)
     val entity = CurrencyConversionRateEntity(APPC, fiatCurrency, fiatSymbol, appcRate)
     return saveRate(APPC, entity)
   }
 
-  override fun saveRateFromEthToFiat(ethValue: String, fiatValue: String, fiatCurrency: String,
-                                     fiatSymbol: String): Completable {
+  override fun saveRateFromEthToFiat(
+    ethValue: String, fiatValue: String, fiatCurrency: String,
+    fiatSymbol: String
+  ): Completable {
     val ethRate = calculateRate(ethValue, fiatValue)
     val entity = CurrencyConversionRateEntity(ETH, fiatCurrency, fiatSymbol, ethRate)
     return saveRate(ETH, entity)
@@ -29,17 +33,19 @@ class RoomCurrencyConversionRatesPersistence(
 
   override fun getAppcToLocalFiat(appcValue: String, scale: Int): Single<FiatValue> {
     return currencyConversionRatesDao.getRate(APPC)
-        .map { map(it, appcValue, scale) }
+      .map { map(it, appcValue, scale) }
   }
 
   override fun getEthToLocalFiat(ethValue: String, scale: Int): Single<FiatValue> {
     return currencyConversionRatesDao.getRate(ETH)
-        .map { map(it, ethValue, scale) }
+      .map { map(it, ethValue, scale) }
   }
 
   private fun map(entity: CurrencyConversionRateEntity, value: String, scale: Int): FiatValue {
-    return FiatValue(applyRate(entity.rate, value, scale), entity.fiatCurrency,
-        entity.fiatSymbol)
+    return FiatValue(
+      applyRate(entity.rate, value, scale), entity.fiatCurrency,
+      entity.fiatSymbol
+    )
   }
 
   /**
@@ -53,30 +59,33 @@ class RoomCurrencyConversionRatesPersistence(
    * When saving a rate in DB, the existing one will be overwritten
    * @see CurrencyConversionRatesDao.insertRate
    */
-  private fun saveRate(currencyFrom: String,
-                       newRateEntity: CurrencyConversionRateEntity
+  private fun saveRate(
+    currencyFrom: String,
+    newRateEntity: CurrencyConversionRateEntity
   ): Completable {
     return currencyConversionRatesDao.getRate(currencyFrom)
-        .map {
-          shouldSaveNewRate(it, newRateEntity)
-        }
-        .onErrorReturn { true }
-        .flatMapCompletable { shouldSaveNewRate ->
-          if (shouldSaveNewRate) currencyConversionRatesDao.insertRate(newRateEntity)
-          else Completable.complete()
-        }
+      .map {
+        shouldSaveNewRate(it, newRateEntity)
+      }
+      .onErrorReturn { true }
+      .flatMapCompletable { shouldSaveNewRate ->
+        if (shouldSaveNewRate) currencyConversionRatesDao.insertRate(newRateEntity)
+        else Completable.complete()
+      }
   }
 
-  private fun shouldSaveNewRate(oldRate: CurrencyConversionRateEntity,
-                                newRate: CurrencyConversionRateEntity
+  private fun shouldSaveNewRate(
+    oldRate: CurrencyConversionRateEntity,
+    newRate: CurrencyConversionRateEntity
   ): Boolean {
     return bothRatesEmpty(oldRate, newRate) ||
         newRate.rate != ZERO_RATE ||
         oldRate.fiatCurrency != newRate.fiatCurrency
   }
 
-  private fun bothRatesEmpty(oldRate: CurrencyConversionRateEntity,
-                             newRate: CurrencyConversionRateEntity
+  private fun bothRatesEmpty(
+    oldRate: CurrencyConversionRateEntity,
+    newRate: CurrencyConversionRateEntity
   ): Boolean {
     return oldRate.rate == ZERO_RATE && newRate.rate == ZERO_RATE
   }
@@ -94,7 +103,7 @@ class RoomCurrencyConversionRatesPersistence(
 
   private fun applyRate(rate: String, value: String, scale: Int): BigDecimal {
     return BigDecimal(rate).multiply(BigDecimal(value))
-        .setScale(scale, RATE_ROUNDING)
+      .setScale(scale, RATE_ROUNDING)
   }
 
   companion object {

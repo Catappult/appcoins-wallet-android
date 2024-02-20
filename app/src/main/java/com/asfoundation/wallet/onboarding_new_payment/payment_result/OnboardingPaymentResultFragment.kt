@@ -90,10 +90,12 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
           sideEffect.isWalletVerified
         )
       }
+
       is OnboardingPaymentResultSideEffect.ShowPaymentSuccess -> handleSuccess()
       is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+
       OnboardingPaymentResultSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
       OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
     }
@@ -104,43 +106,55 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       error?.isNetworkError == true -> {
         showNoNetworkError()
       }
+
       error?.errorInfo != null -> {
         when {
           error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_CARD -> {
             showSpecificError(R.string.purchase_error_invalid_credit_card)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION -> {
             showSpecificError(R.string.purchase_error_card_security_validation)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.OUTDATED_CARD -> {
             showSpecificError(R.string.purchase_card_error_re_insert)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.ALREADY_PROCESSED -> {
             showSpecificError(R.string.purchase_error_card_already_in_progress)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_ERROR -> {
             showSpecificError(R.string.purchase_error_payment_rejected)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_COUNTRY_CODE -> {
             showSpecificError(R.string.unknown_error)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
             showSpecificError(R.string.purchase_error_payment_rejected)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED -> {
             showSpecificError(R.string.purchase_card_error_general_1)
           }
+
           error.errorInfo?.errorType == ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> {
             showSpecificError(R.string.purchase_card_error_no_funds)
           }
+
           error.errorInfo?.httpCode != null -> {
             showSpecificError(servicesErrorCodeMapper.mapError(error.errorInfo?.errorType))
           }
+
           else -> {
             showSpecificError(R.string.unknown_error)
           }
         }
       }
+
       walletVerified != null -> {
         /*
         * Wallet or card verification flow should be addressed here, but the user can't complete the
@@ -163,9 +177,11 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
           }
         }
       }
+
       refusalCode != null -> {
         showSpecificError(adyenErrorCodeMapper.map(refusalCode))
       }
+
       else -> {
         showSpecificError(R.string.unknown_error)
       }

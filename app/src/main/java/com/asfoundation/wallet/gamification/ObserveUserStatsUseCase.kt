@@ -11,22 +11,23 @@ import javax.inject.Inject
 class ObserveUserStatsUseCase
 @Inject
 constructor(
-    private val gamification: Gamification,
-    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val gamification: Gamification,
+  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   operator fun invoke(): Observable<PromotionsGamificationStats> {
     return getCurrentPromoCodeUseCase()
-        .flatMapObservable { promoCode ->
-          findDefaultWalletUseCase().flatMapObservable {
-            gamification.getUserStats(it.address, promoCode.code)
-          }
+      .flatMapObservable { promoCode ->
+        findDefaultWalletUseCase().flatMapObservable {
+          gamification.getUserStats(it.address, promoCode.code)
         }
-        .onErrorReturn {
-          PromotionsGamificationStats(
-              resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
-              gamificationStatus = GamificationStatus.NONE)
-        }
+      }
+      .onErrorReturn {
+        PromotionsGamificationStats(
+          resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+          gamificationStatus = GamificationStatus.NONE
+        )
+      }
   }
 }

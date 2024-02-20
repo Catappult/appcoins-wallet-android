@@ -4,7 +4,7 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import javax.inject.Inject
 
-class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManager){
+class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManager) {
 
   private fun onboardingEventData(eskillsPaymentData: EskillsPaymentData): MutableMap<String, Any?> {
     val eventData: MutableMap<String, Any?> = HashMap()
@@ -29,26 +29,37 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
     return eventData
   }
 
-  private fun pageViewEventData(eskillsPaymentData: EskillsPaymentData, context: String): MutableMap<String, Any?> {
+  private fun pageViewEventData(
+    eskillsPaymentData: EskillsPaymentData,
+    context: String
+  ): MutableMap<String, Any?> {
     val eventData: MutableMap<String, Any?> = paymentEventData(eskillsPaymentData)
     eventData[CONTEXT] = context
     return eventData
   }
 
-  private fun completedEventData(eventData: MutableMap<String, Any?> , type: String): MutableMap<String, Any?> {
+  private fun completedEventData(
+    eventData: MutableMap<String, Any?>,
+    type: String
+  ): MutableMap<String, Any?> {
     eventData[TYPE] = type
     return eventData
   }
 
   fun sendOnboardingLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsOnboardingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      pageViewEventData(eskillsPaymentData, "EskillsOnboardingFragment"),
+      WALLET_PAGE_VIEW,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendOnboardingCancelEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(onboardingEventData(eskillsPaymentData), ESKILLS_ONBOARDING_CANCEL),
       ESKILLS_ONBOARDING_CONCLUSION,
@@ -60,8 +71,9 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
   fun sendOnboardingSuccessEvent(
     eskillsPaymentData: EskillsPaymentData,
     referralCode: String? = null
-  ){
-    val eventData = completedEventData(onboardingEventData(eskillsPaymentData), ESKILLS_ONBOARDING_SUCCESS)
+  ) {
+    val eventData =
+      completedEventData(onboardingEventData(eskillsPaymentData), ESKILLS_ONBOARDING_SUCCESS)
     eventData[REFERRAL_CODE] = referralCode
     analytics.logEvent(
       eventData,
@@ -73,42 +85,73 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsPaymentFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      pageViewEventData(eskillsPaymentData, "EskillsPaymentFragment"),
+      WALLET_PAGE_VIEW,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendPaymentQueueIdInputEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_QUEUE_ID_INPUT, AnalyticsManager.Action.INPUT, WALLET)
+  ) {
+    analytics.logEvent(
+      paymentEventData(eskillsPaymentData),
+      ESKILLS_PAYMENT_QUEUE_ID_INPUT,
+      AnalyticsManager.Action.INPUT,
+      WALLET
+    )
   }
 
   fun sendPaymentTopUpErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_TOPUP_ERROR, AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      paymentEventData(eskillsPaymentData),
+      ESKILLS_PAYMENT_TOPUP_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
+
   fun sendPaymentNotSupportedErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_NOT_SUPPORTED_ERROR, AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      paymentEventData(eskillsPaymentData),
+      ESKILLS_PAYMENT_NOT_SUPPORTED_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendPaymentNoFundsErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_NO_FUNDS_ERROR, AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      paymentEventData(eskillsPaymentData),
+      ESKILLS_PAYMENT_NO_FUNDS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendPaymentBuyClickEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_BUY_CLICK, AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      paymentEventData(eskillsPaymentData),
+      ESKILLS_PAYMENT_BUY_CLICK,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendPaymentSuccessEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_SUCCESS),
       ESKILLS_PAYMENT_CONCLUSION,
@@ -119,7 +162,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentCancelEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_CANCEL),
       ESKILLS_PAYMENT_CONCLUSION,
@@ -130,7 +173,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentFailEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_ERROR),
       ESKILLS_PAYMENT_CONCLUSION,
@@ -141,7 +184,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentGeoErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_GEO_ERROR),
       ESKILLS_PAYMENT_CONCLUSION,
@@ -152,7 +195,7 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentRootErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_ROOT_ERROR),
       ESKILLS_PAYMENT_CONCLUSION,
@@ -172,7 +215,10 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentWalletVersionErrorEvent(eskillsPaymentData: EskillsPaymentData) {
     analytics.logEvent(
-      completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_WALLET_VERSION_ERROR),
+      completedEventData(
+        paymentEventData(eskillsPaymentData),
+        ESKILLS_PAYMENT_WALLET_VERSION_ERROR
+      ),
       ESKILLS_PAYMENT_CONCLUSION,
       AnalyticsManager.Action.CLICK,
       WALLET
@@ -181,7 +227,10 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendPaymentPackageVersionErrorEvent(eskillsPaymentData: EskillsPaymentData) {
     analytics.logEvent(
-      completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_PAYMENT_PACKAGE_VERSION_ERROR),
+      completedEventData(
+        paymentEventData(eskillsPaymentData),
+        ESKILLS_PAYMENT_PACKAGE_VERSION_ERROR
+      ),
       ESKILLS_PAYMENT_CONCLUSION,
       AnalyticsManager.Action.CLICK,
       WALLET
@@ -208,13 +257,18 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendMatchmakingLaunchEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
-    analytics.logEvent(pageViewEventData(eskillsPaymentData,"EskillsMatchmakingFragment"), WALLET_PAGE_VIEW ,AnalyticsManager.Action.CLICK, WALLET)
+  ) {
+    analytics.logEvent(
+      pageViewEventData(eskillsPaymentData, "EskillsMatchmakingFragment"),
+      WALLET_PAGE_VIEW,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
   fun sendMatchmakingCancelEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_MATCHMAKING_CANCEL),
       ESKILLS_MATCHMAKING_CONCLUSION,
@@ -225,26 +279,33 @@ class SkillsAnalytics @Inject constructor(private val analytics: AnalyticsManage
 
   fun sendMatchmakingCompletedEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_MATCHMAKING_SUCCESS),
       ESKILLS_MATCHMAKING_CONCLUSION,
       AnalyticsManager.Action.CLICK,
       WALLET
-    )  }
+    )
+  }
 
   fun sendMatchmakingErrorEvent(
     eskillsPaymentData: EskillsPaymentData
-  ){
+  ) {
     analytics.logEvent(
       completedEventData(paymentEventData(eskillsPaymentData), ESKILLS_MATCHMAKING_ERROR),
       ESKILLS_MATCHMAKING_CONCLUSION,
       AnalyticsManager.Action.CLICK,
       WALLET
-    )  }
+    )
+  }
 
   fun sendReferralShareIntentionEvent(eSkillsPaymentData: EskillsPaymentData) {
-    analytics.logEvent(paymentEventData(eSkillsPaymentData), ESKILLS_REFERRAL_SHARE_CLICK, AnalyticsManager.Action.CLICK, WALLET)
+    analytics.logEvent(
+      paymentEventData(eSkillsPaymentData),
+      ESKILLS_REFERRAL_SHARE_CLICK,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 
 

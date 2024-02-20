@@ -23,9 +23,9 @@
     </attr>
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />
-    <attr format="boolean" name="buttonIsAllCaps"  />
-    <attr format="reference" name="buttonImageRight"  />
-    <attr format="reference" name="buttonImageLeft"  />
+    <attr format="boolean" name="buttonIsAllCaps" />
+    <attr format="reference" name="buttonImageRight" />
+    <attr format="reference" name="buttonImageLeft" />
   </declare-styleable>
 
   <declare-styleable name="WalletTextFieldView">

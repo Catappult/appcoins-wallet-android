@@ -3,8 +3,8 @@ package com.asfoundation.wallet.viewmodel
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -33,12 +33,12 @@ class TransferConfirmationViewModel internal constructor(
 
   fun init(transactionBuilder: TransactionBuilder) {
     subscription =
-        transferConfirmationInteractor.fetchGasSettings(transactionBuilder.shouldSendToken())
-            .doOnSuccess { gasSettings: GasSettings? ->
-              transactionBuilder.gasSettings(gasSettings)
-              this.transactionBuilder.postValue(transactionBuilder)
-            }
-            .subscribe({}, { throwable: Throwable -> onError(throwable) })
+      transferConfirmationInteractor.fetchGasSettings(transactionBuilder.shouldSendToken())
+        .doOnSuccess { gasSettings: GasSettings? ->
+          transactionBuilder.gasSettings(gasSettings)
+          this.transactionBuilder.postValue(transactionBuilder)
+        }
+        .subscribe({}, { throwable: Throwable -> onError(throwable) })
   }
 
   override fun onCleared() {
@@ -82,12 +82,12 @@ class TransferConfirmationViewModel internal constructor(
   fun send() {
     progress.postValue(true)
     disposable.add(transferConfirmationInteractor.send(transactionBuilder.value)
-        .map { hash: String? -> PendingTransaction(hash, false) }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            { pendingTransaction: PendingTransaction ->
-              onCreateTransaction(pendingTransaction)
-            }) { throwable: Throwable -> onError(throwable) })
+      .map { hash: String? -> PendingTransaction(hash, false) }
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe(
+        { pendingTransaction: PendingTransaction ->
+          onCreateTransaction(pendingTransaction)
+        }) { throwable: Throwable -> onError(throwable) })
   }
 
   fun setGasSettings(gasSettings: GasSettings?) {
@@ -101,6 +101,6 @@ class TransferConfirmationViewModel internal constructor(
   }
 
   fun handleSavedGasSettings(gasPrice: BigDecimal, gasLimit: BigDecimal): GasSettings {
-      return GasSettings(BalanceUtils.weiToGwei(gasPrice), gasLimit)
+    return GasSettings(BalanceUtils.weiToGwei(gasPrice), gasLimit)
   }
 }

@@ -7,8 +7,8 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
@@ -39,7 +39,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
-  data class UpdateGuestBonus(val bonus: FiatValue): OnboardingSideEffect()
+  data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -84,9 +84,11 @@ class OnboardingViewModel @Inject constructor(
         is StartMode.PendingPurchaseFlow -> sendSideEffect {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
         }
+
         is StartMode.GPInstall -> sendSideEffect {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
         }
+
         else -> setState { copy(pageContent = OnboardingContent.VALUES) }
       }
     }
@@ -148,11 +150,16 @@ class OnboardingViewModel @Inject constructor(
           WalletsAnalytics.STATUS_SUCCESS
         )
         deleteCachedGuest()
-        onboardingAnalytics.sendRecoverGuestWalletEvent(guestBonus.amount.toString(), guestBonus.currency)
+        onboardingAnalytics.sendRecoverGuestWalletEvent(
+          guestBonus.amount.toString(),
+          guestBonus.currency
+        )
         sendSideEffect { OnboardingSideEffect.NavigateToFinish }
       }
+
       is FailedEntryRecover.InvalidPassword -> {
       }
+
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,

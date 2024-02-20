@@ -17,11 +17,15 @@ import io.reactivex.schedulers.Schedulers
 class RatingEntryModule {
 
   @Provides
-  fun providesRatingEntryPresenter(fragment: Fragment,
-                                   navigator: RatingNavigator,
-                                   interactor: RatingInteractor,
-                                   ratingAnalytics: RatingAnalytics): RatingEntryPresenter {
-    return RatingEntryPresenter(fragment as RatingEntryView, navigator, interactor, ratingAnalytics,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+  fun providesRatingEntryPresenter(
+    fragment: Fragment,
+    navigator: RatingNavigator,
+    interactor: RatingInteractor,
+    ratingAnalytics: RatingAnalytics
+  ): RatingEntryPresenter {
+    return RatingEntryPresenter(
+      fragment as RatingEntryView, navigator, interactor, ratingAnalytics,
+      CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io()
+    )
   }
 }

@@ -24,12 +24,12 @@ import javax.inject.Inject
 class PromotionsInteractor
 @Inject
 constructor(
-    private val referralInteractor: ReferralInteractorContract,
-    private val gamificationInteractor: GamificationInteractor,
-    private val promotionsRepo: PromotionsRepository,
-    private val findWalletUseCase: FindDefaultWalletUseCase,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-    private val userStatsPreferencesRepository: UserStatsLocalData,
+  private val referralInteractor: ReferralInteractorContract,
+  private val gamificationInteractor: GamificationInteractor,
+  private val promotionsRepo: PromotionsRepository,
+  private val findWalletUseCase: FindDefaultWalletUseCase,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val userStatsPreferencesRepository: UserStatsLocalData,
 ) {
 
   companion object {
@@ -45,34 +45,35 @@ constructor(
     return getCurrentPromoCodeUseCase().flatMap { promoCode ->
       findWalletUseCase().flatMap { wallet ->
         promotionsRepo
-            .getUserStats(wallet.address, promoCode.code, false)
-            .lastOrError()
-            .flatMap {
-              val gamification =
-                  it.promotions.firstOrNull { promotionsResponse ->
-                    promotionsResponse is GamificationResponse
-                  } as GamificationResponse?
-              val referral =
-                  it.promotions.firstOrNull { referralResponse ->
-                    referralResponse is ReferralResponse
-                  } as ReferralResponse?
-              val generic = it.promotions.filterIsInstance<GenericResponse>()
-              Single.zip(
-                  referralInteractor.hasReferralUpdate(
-                      wallet.address, referral, ReferralsScreen.PROMOTIONS),
-                  gamificationInteractor.hasNewLevel(
-                      wallet.address, gamification, GamificationContext.SCREEN_PROMOTIONS),
-                  hasGenericUpdate(generic, promotionUpdateScreen),
-                  hasNewWalletOrigin(wallet.address, it.walletOrigin),
-                  Function4 {
-                      hasReferralUpdate: Boolean,
-                      hasNewLevel: Boolean,
-                      hasGenericUpdate: Boolean,
-                      hasNewWalletOrigin: Boolean ->
-                    hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
-                  })
-            }
-            .subscribeOn(Schedulers.io())
+          .getUserStats(wallet.address, promoCode.code, false)
+          .lastOrError()
+          .flatMap {
+            val gamification =
+              it.promotions.firstOrNull { promotionsResponse ->
+                promotionsResponse is GamificationResponse
+              } as GamificationResponse?
+            val referral =
+              it.promotions.firstOrNull { referralResponse ->
+                referralResponse is ReferralResponse
+              } as ReferralResponse?
+            val generic = it.promotions.filterIsInstance<GenericResponse>()
+            Single.zip(
+              referralInteractor.hasReferralUpdate(
+                wallet.address, referral, ReferralsScreen.PROMOTIONS
+              ),
+              gamificationInteractor.hasNewLevel(
+                wallet.address, gamification, GamificationContext.SCREEN_PROMOTIONS
+              ),
+              hasGenericUpdate(generic, promotionUpdateScreen),
+              hasNewWalletOrigin(wallet.address, it.walletOrigin),
+              Function4 { hasReferralUpdate: Boolean,
+                          hasNewLevel: Boolean,
+                          hasGenericUpdate: Boolean,
+                          hasNewWalletOrigin: Boolean ->
+                hasReferralUpdate || hasNewLevel || hasGenericUpdate || hasNewWalletOrigin
+              })
+          }
+          .subscribeOn(Schedulers.io())
       }
     }
   }
@@ -91,25 +92,27 @@ constructor(
 
   private fun getUnWatchedPromotion(promotionList: List<GenericResponse>): GenericResponse? {
     return promotionList
-        .sortedByDescending { list -> list.priority }
-        .firstOrNull {
-          !promotionsRepo.getSeenGenericPromotion(
-              getPromotionIdKey(it.id, it.startDate, it.endDate),
-              PromotionUpdateScreen.TRANSACTIONS.name)
-        }
+      .sortedByDescending { list -> list.priority }
+      .firstOrNull {
+        !promotionsRepo.getSeenGenericPromotion(
+          getPromotionIdKey(it.id, it.startDate, it.endDate),
+          PromotionUpdateScreen.TRANSACTIONS.name
+        )
+      }
   }
 
   private fun buildPromotionNotification(unwatchedPromotion: GenericResponse?): CardNotification {
     return unwatchedPromotion?.let { res ->
       if (!isFuturePromotion(res)) {
         PromotionNotification(
-            CardNotificationAction.NONE,
-            res.notificationTitle,
-            res.notificationDescription,
-            res.icon,
-            getPromotionIdKey(res.id, res.startDate, res.endDate),
-            res.detailsLink,
-            res.gamificationStatus.toString())
+          CardNotificationAction.NONE,
+          res.notificationTitle,
+          res.notificationDescription,
+          res.icon,
+          getPromotionIdKey(res.id, res.startDate, res.endDate),
+          res.detailsLink,
+          res.gamificationStatus.toString()
+        )
       } else {
         EmptyNotification()
       }
@@ -117,18 +120,19 @@ constructor(
   }
 
   private fun hasGenericUpdate(
-      promotions: List<GenericResponse>,
-      screen: PromotionUpdateScreen
+    promotions: List<GenericResponse>,
+    screen: PromotionUpdateScreen
   ): Single<Boolean> {
     return Single.create {
       val hasUpdate =
-          promotions.any { promotion ->
-            promotionsRepo
-                .getSeenGenericPromotion(
-                    getPromotionIdKey(promotion.id, promotion.startDate, promotion.endDate),
-                    screen.name)
-                .not()
-          }
+        promotions.any { promotion ->
+          promotionsRepo
+            .getSeenGenericPromotion(
+              getPromotionIdKey(promotion.id, promotion.startDate, promotion.endDate),
+              screen.name
+            )
+            .not()
+        }
       it.onSuccess(hasUpdate)
     }
   }
@@ -140,7 +144,8 @@ constructor(
 
   private fun hasNewWalletOrigin(address: String, walletOrigin: WalletOrigin): Single<Boolean> {
     return Single.just(
-        userStatsPreferencesRepository.getSeenWalletOrigin(address) != walletOrigin.name)
+      userStatsPreferencesRepository.getSeenWalletOrigin(address) != walletOrigin.name
+    )
   }
 
   private fun getPromotionIdKey(id: String, startDate: Long?, endDate: Long): String {

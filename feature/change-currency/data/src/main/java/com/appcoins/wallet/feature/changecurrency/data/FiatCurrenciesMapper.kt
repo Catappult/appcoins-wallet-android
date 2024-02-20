@@ -1,7 +1,6 @@
 package com.appcoins.wallet.feature.changecurrency.data
 
 import com.appcoins.wallet.core.network.microservices.model.response.FiatCurrenciesResponse
-import javax.inject.Inject
 
 fun FiatCurrenciesResponse.mapResponseToCurrencyListEntity(): List<FiatCurrencyEntity> {
   return this.items.map {

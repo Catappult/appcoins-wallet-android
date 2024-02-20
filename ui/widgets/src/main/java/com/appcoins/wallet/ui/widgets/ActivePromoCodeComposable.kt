@@ -35,12 +35,14 @@ private fun CardActivePromoCodeExample() {
 
 @Composable
 fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
-  Column(modifier = Modifier
-    .padding(
-      start = 16.dp,
-      end = 16.dp,
-      top = 18.dp
-    )) {
+  Column(
+    modifier = Modifier
+      .padding(
+        start = 16.dp,
+        end = 16.dp,
+        top = 18.dp
+      )
+  ) {
     Box(
       modifier = Modifier
         .align(Alignment.End)
@@ -142,6 +144,6 @@ val promoCodeItem = ActiveCardPromoCodeItem(
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
   packageName = null,
-  status  = true,
+  status = true,
   action = { /* handle click action */ }
 )

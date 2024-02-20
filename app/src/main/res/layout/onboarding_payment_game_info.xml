@@ -70,22 +70,23 @@
       android:layout_marginTop="8dp"
       android:src="@drawable/dotted"
       android:layerType="software"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"/>
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_game_icon"
+      />
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/onboarding_payment_bonus_animation"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginVertical="@dimen/normal_margin"
-        android:layout_marginStart="@dimen/big_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider_image"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/bonus_gift_animation"
-        />
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/onboarding_payment_bonus_animation"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginVertical="@dimen/normal_margin"
+      android:layout_marginStart="@dimen/big_margin"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/divider_image"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/bonus_gift_animation"
+      />
 
   <TextView
       android:id="@+id/onboarding_payment_bonus_title"

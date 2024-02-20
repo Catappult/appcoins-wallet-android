@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCase
