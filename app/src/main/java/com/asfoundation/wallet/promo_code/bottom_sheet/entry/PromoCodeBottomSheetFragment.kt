@@ -16,6 +16,8 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.ValidityState
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
@@ -121,7 +123,7 @@ class PromoCodeBottomSheetFragment :
   }
 
   fun initializePromoCode(
-    storedPromoCodeAsync: Async<PromoCodeResult>,
+    storedPromoCodeAsync: Async<PromoCode>,
     shouldShowDefault: Boolean
   ) {
     when (storedPromoCodeAsync) {
@@ -156,15 +158,15 @@ class PromoCodeBottomSheetFragment :
   }
 
   private fun handlePromoCodeSuccessState(
-    promoCodeResult: PromoCodeResult,
+    promoCodeResult: PromoCode,
     shouldShowDefault: Boolean
   ) {
-    when (promoCodeResult) {
-      is SuccessfulPromoCode -> {
+    when (promoCodeResult.validity) {
+       ValidityState.ACTIVE -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
-          promoCodeResult.promoCode.code?.let { showCurrentCodeScreen(it) }
+          promoCodeResult.code?.let { showCurrentCodeScreen(it) }
         }
       }
       else -> handleErrorState(null)

@@ -1194,7 +1194,7 @@
   <string name="vip_program_promo_code_tag">เปลี่ยน</string>
   <string name="vip_program_referral_page_title">โปรแกรมการแนะนำ VIP</string>
   <string name="vip_program_referral_page_body">แบ่งปันรหัสโปรโมชั่นนี้กับชุมชนและเพื่อนของคุณ เพื่อให้ทุกคนได้รับในขณะที่เล่น เพื่อใช้ในการซื้อบนแอปทุกครั้ง <b>คุณและเพื่อนของคุณจะได้รับโบนัส %1$s%%</b> นอกเหนือจากโปรโมชันอื่นๆ ที่ใช้งานอยู่ <b>ใช้ได้ถึง %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">คุณและเพื่อนของคุณจะได้รับโบนัส %s%% ในการซื้อทั้งหมดเป็นเวลา 7 วันเมื่อใช้รหัสนี้!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">แบ่งปันโค๊ดกับเพื่อนของคุณ</string>
   <string name="vip_program_referral_page_only_app_title">เฉพาะการซื้อสินค้าที่</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$sที่ได้จาก%3$sกา่รแนะนำ</string>

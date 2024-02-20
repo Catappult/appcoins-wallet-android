@@ -1196,12 +1196,12 @@
   <string name="vip_program_promotions_tab_2">Confira as promoções que temos para você!</string>
   <string name="vip_program_exclusivity_tag">Apenas para VIPs</string>
   <string name="vip_program_referral_button_title">Programa de Indicação para VIPs</string>
-  <string name="vip_program_referral_button_body">%s% de bônus para você e seus amigos.</string>
+  <string name="vip_program_referral_button_body">%s%% de bônus para você e seus amigos.</string>
   <string name="vip_program_promotions_list_title">Promoções especiais para você</string>
   <string name="vip_program_promo_code_tag">Código promocional</string>
   <string name="vip_program_referral_page_title">Programa de Indicação para VIPs</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Compartilhe esse código com seus amigos</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s recebidos de %3$s indicações</string>
