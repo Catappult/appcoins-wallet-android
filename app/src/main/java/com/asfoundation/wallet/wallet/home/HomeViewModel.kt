@@ -209,6 +209,9 @@ constructor(
             updateRegisterUser(model.wallet).toObservable(),
             observeBackup())
         .map {}
+        .doOnError {
+          it.printStackTrace()
+        }
         .subscribeOn(rxSchedulers.io)
   }
 
@@ -218,7 +221,7 @@ constructor(
             observeDefaultWalletUseCase()) { selectedCurrency, wallet ->
               defaultCurrency = selectedCurrency.unwrap()
               fetchTransactions(wallet, defaultCurrency)
-            }
+            }.doOnError { it.printStackTrace() }
         .subscribe()
   }
 
@@ -230,6 +233,9 @@ constructor(
           true
         }
         .ignoreElement()
+        .doOnError {
+        it.printStackTrace()
+        }
         .subscribeOn(rxSchedulers.io)
   }
 

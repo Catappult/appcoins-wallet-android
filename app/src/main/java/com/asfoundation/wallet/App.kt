@@ -178,7 +178,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
           logger.log(TAG, throwable)
         }
       } else {
-        throw RuntimeException(throwable)
+        throw throwable
       }
     }
   }
