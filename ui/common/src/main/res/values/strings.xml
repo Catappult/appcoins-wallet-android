@@ -564,6 +564,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -1059,15 +1060,21 @@
   <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_view_title">Manage cards</string>
   <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
-  <string name="manage_cards_add_title">Add new card</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
-  <string name="manage_cards_remove_no">NO, CANCEL</string>
-  <string name="manage_cards_remove_yes">YES, REMOVE IT</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
   <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
   <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+
+
+
 
  <!--Perks-->
   <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
@@ -1449,6 +1456,5 @@
 
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
   <string name="vk_account_manager_id" translatable="false">com.appcoins.wallet.account.vk</string>
-
 
 </resources>
