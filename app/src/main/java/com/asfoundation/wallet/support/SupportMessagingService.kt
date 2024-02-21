@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.asf.wallet.R
@@ -18,6 +19,7 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATIO
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.intercom.android.sdk.push.IntercomPushClient
+import kotlin.math.log
 
 
 class SupportMessagingService: FirebaseMessagingService() {
@@ -96,7 +98,8 @@ class SupportMessagingService: FirebaseMessagingService() {
 
   private fun isSupportMessage(data: MutableMap<String, String>): Boolean {
     val type = data["conversation_part_type"]
-    return type != null && (type == "message" || type == "comment")
+    return type != null &&
+        (type == "message" || type == "comment" || type == "assignment" || type == "conversation")
   }
 
   private fun saveBooleanNotificationToSharedPreferences(context: Context) {
