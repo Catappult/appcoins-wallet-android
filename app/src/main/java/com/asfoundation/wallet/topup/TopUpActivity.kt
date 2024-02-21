@@ -20,6 +20,7 @@ import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayTopupFragment
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
+import com.asfoundation.wallet.billing.wallet_one.WalletOneTopupFragment
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -177,6 +178,23 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       .add(
         R.id.fragment_container,
         GooglePayTopupFragment.newInstance(
+          paymentType = paymentType,
+          data = data,
+          amount = data.fiatValue,
+          currency = data.fiatCurrencyCode,
+          bonus = data.bonusValue.toString(),
+          gamificationLevel = data.gamificationLevel,
+        )
+      )
+      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+      .commit()
+  }
+
+  override fun navigateToWalletOne(paymentType: PaymentType, data: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction()
+      .add(
+        R.id.fragment_container,
+        WalletOneTopupFragment.newInstance(
           paymentType = paymentType,
           data = data,
           amount = data.fiatValue,

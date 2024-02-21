@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.billing.wallet_one
 
-import android.animation.Animator
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,60 +12,54 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import com.airbnb.lottie.FontAssetDelegate
+import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentWalletOneBinding
+import com.asf.wallet.databinding.FragmentWalletOneTopupBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.IabNavigator
-import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.topup.TopUpActivityView
+import com.asfoundation.wallet.topup.TopUpPaymentData
+import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WalletOneFragment() : BasePageViewFragment() {
+class WalletOneTopupFragment() : BasePageViewFragment() {
 
-  @Inject
-  lateinit var navigator: WalletOneNavigator
+  private val viewModel: WalletOneTopupViewModel by viewModels()
 
-  private val viewModel: WalletOneViewModel by viewModels()
-
-  private var binding: FragmentWalletOneBinding? = null
+  private var binding: FragmentWalletOneTopupBinding? = null
   private val views get() = binding!!
   private lateinit var compositeDisposable: CompositeDisposable
+  private var topUpActivityView: TopUpActivityView? = null
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
-  private var successBundle: Bundle? = null
+  @Inject
+  lateinit var navigator: TopUpNavigator
 
-  private lateinit var iabView: IabView
-  var navigatorIAB: Navigator? = null
+  private val TAG = WalletOneTopupFragment::class.java.name
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
-    binding = FragmentWalletOneBinding.inflate(inflater, container, false)
+    binding = FragmentWalletOneTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
-    navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
-    iabView.disableBack()
+//    iabView.disableBack()
     registerWebViewResult()
     return views.root
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    check(context is IabView) { "WalletOneFragment must be attached to IAB activity" }
-    iabView = context
-    iabView.lockRotation()
+    check(context is TopUpActivityView) { "WalletOneTopupFragment must be attached to Topup activity" }
+    topUpActivityView = context
+    topUpActivityView?.lockOrientation()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,30 +69,30 @@ class WalletOneFragment() : BasePageViewFragment() {
     showLoadingAnimation()
     setObserver()
     startPayment()
-    viewModel.handleBack(iabView.backButtonPress())
+//    viewModel.handleBack(iabView.backButtonPress())
   }
 
   private fun setObserver() {
     viewModel.state.observe(viewLifecycleOwner) { state ->
       when (state) {
-        WalletOneViewModel.State.Start -> {
+        WalletOneTopupViewModel.State.Start -> {
           showLoadingAnimation()
         }
 
-        is WalletOneViewModel.State.Error -> {
+        is WalletOneTopupViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
 
-        is WalletOneViewModel.State.SuccessPurchase -> {
-          handleSuccess(state.bundle)
+        is WalletOneTopupViewModel.State.SuccessPurchase -> {
+          handleSuccess()
         }
 
-        is WalletOneViewModel.State.WebAuthentication -> {
+        is WalletOneTopupViewModel.State.WebAuthentication -> {
           startWebViewAuthorization(state.htmlData)
         }
 
-        WalletOneViewModel.State.WalletOneBack -> {
-          iabView.showPaymentMethodsView()
+        WalletOneTopupViewModel.State.WalletOneBack -> {
+          close()
         }
       }
     }
@@ -107,29 +101,20 @@ class WalletOneFragment() : BasePageViewFragment() {
   private fun startPayment() {
     viewModel.startPayment(
       amount = amount,
-      currency = currency,
-      transactionBuilder = transactionBuilder,
-      origin = origin
+      currency = currency
     )
   }
 
   private fun setListeners() {
     views.walletOneErrorButtons.errorBack.setOnClickListener {
-      iabView.showPaymentMethodsView()
+      close()
     }
     views.walletOneErrorButtons.errorCancel.setOnClickListener {
       close()
     }
     views.walletOneErrorButtons.errorTryAgain.setOnClickListener {
-      iabView.showPaymentMethodsView()
+      close()
     }
-    views.successContainer.lottieTransactionSuccess.addAnimatorListener(object :
-      Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator) = Unit
-      override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
-      override fun onAnimationCancel(animation: Animator) = Unit
-      override fun onAnimationStart(animation: Animator) = Unit
-    })
     views.walletOneErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)
     }
@@ -147,11 +132,11 @@ class WalletOneFragment() : BasePageViewFragment() {
           Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
           viewModel.waitForSuccess(
             viewModel.uid,
-            transactionBuilder,
+            amount,
             false
           )
         }
-          //TODO test if its needed
+        //TODO test if its needed
 //        else if (
 //          result.resultCode == Activity.RESULT_CANCELED ||
 //          (result.data?.dataString?.contains(WalletOneReturnSchemas.CANCEL.schema) == true)
@@ -164,31 +149,28 @@ class WalletOneFragment() : BasePageViewFragment() {
       }
   }
 
-  private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch {
-      delay(1500L)
-      navigatorIAB?.popView(successBundle)
-    }
-  }
-
-  private fun handleSuccess(bundle: Bundle) {
-    showSuccessAnimation(bundle)
+  private fun handleSuccess() {
+    val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus)
+    navigator.popView(bundle)
   }
 
   private fun close() {
-    iabView.close(null)
+    navigator.navigateBack()
   }
 
-  private fun showSuccessAnimation(bundle: Bundle) {
-    successBundle = bundle
-    views.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
-    views.loadingAuthorizationAnimation.visibility = View.GONE
+  override fun onDetach() {
+    super.onDetach()
+    topUpActivityView = null
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    topUpActivityView?.unlockRotation()
   }
 
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-
   }
 
   private fun showSpecificError(@StringRes stringRes: Int) {
@@ -201,19 +183,33 @@ class WalletOneFragment() : BasePageViewFragment() {
   }
 
   private fun handleBonusAnimation() {
-    views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.transactionSuccessBonusText.text =
-        getString(R.string.purchase_success_bonus_received_title, bonus)
-      views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation_new)
+      setupTransactionCompleteAnimation()
     } else {
-      views.successContainer.bonusSuccessLayout.visibility = View.GONE
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
   }
 
-  private val amount: BigDecimal by lazy {
+  private fun setupTransactionCompleteAnimation() {
+    val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
+    textDelegate.setText("bonus_value", bonus)
+    textDelegate.setText(
+      "bonus_received",
+      resources.getString(R.string.gamification_purchase_completed_bonus_received)
+    )
+    views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
+    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object :
+      FontAssetDelegate() {
+      override fun fetchFont(fontFamily: String): Typeface {
+        return Typeface.create("sans-serif-medium", Typeface.BOLD)
+      }
+    })
+  }
+
+  private val amount: String by lazy {
     if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
+      requireArguments().getSerializable(AMOUNT_KEY) as String
     } else {
       throw IllegalArgumentException("amount data not found")
     }
@@ -227,19 +223,11 @@ class WalletOneFragment() : BasePageViewFragment() {
     }
   }
 
-  private val origin: String? by lazy {
-    if (requireArguments().containsKey(ORIGIN_KEY)) {
-      requireArguments().getString(ORIGIN_KEY)
+  private val currencySymbol: String by lazy {
+    if (requireArguments().containsKey(CURRENCY_SYMBOL)) {
+      requireArguments().getString(CURRENCY_SYMBOL, "")
     } else {
-      throw IllegalArgumentException("origin not found")
-    }
-  }
-
-  private val transactionBuilder: TransactionBuilder by lazy {
-    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
-    } else {
-      throw IllegalArgumentException("transaction data not found")
+      throw IllegalArgumentException("currency data not found")
     }
   }
 
@@ -259,51 +247,31 @@ class WalletOneFragment() : BasePageViewFragment() {
     }
   }
 
-
   companion object {
 
     private const val PAYMENT_TYPE_KEY = "payment_type"
-    private const val ORIGIN_KEY = "origin"
-    private const val TRANSACTION_DATA_KEY = "transaction_data"
     private const val AMOUNT_KEY = "amount"
     private const val CURRENCY_KEY = "currency"
+    private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS_KEY = "bonus"
-    private const val PRE_SELECTED_KEY = "pre_selected"
-    private const val IS_SUBSCRIPTION = "is_subscription"
-    private const val IS_SKILLS = "is_skills"
-    private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
-    private const val SKU_DESCRIPTION = "sku_description"
-    const val CHROME_PACKAGE_NAME = "com.android.chrome"
 
     @JvmStatic
     fun newInstance(
       paymentType: PaymentType,
-      origin: String?,
-      transactionBuilder: TransactionBuilder,
-      amount: BigDecimal,
+      data: TopUpPaymentData,
+      amount: String,
       currency: String?,
       bonus: String?,
-      isPreSelected: Boolean,
-      gamificationLevel: Int,
-      skuDescription: String,
-      isSubscription: Boolean,
-      isSkills: Boolean,
-      frequency: String?,
-    ): WalletOneFragment = WalletOneFragment().apply {
+      gamificationLevel: Int
+    ): WalletOneTopupFragment = WalletOneTopupFragment().apply {
       arguments = Bundle().apply {
         putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(ORIGIN_KEY, origin)
-        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
         putSerializable(AMOUNT_KEY, amount)
         putString(CURRENCY_KEY, currency)
+        putString(CURRENCY_SYMBOL, data.fiatCurrencySymbol)
         putString(BONUS_KEY, bonus)
-        putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        putString(SKU_DESCRIPTION, skuDescription)
-        putBoolean(IS_SUBSCRIPTION, isSubscription)
-        putBoolean(IS_SKILLS, isSkills)
-        putString(FREQUENCY, frequency)
       }
     }
 

@@ -18,9 +18,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.billing.wallet_one.models.WalletOneConst
 import com.asfoundation.wallet.billing.wallet_one.usecases.CreateWalletOneTransactionUseCase
-import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -90,9 +90,9 @@ class WalletOneViewModel @Inject constructor(
           .observeOn(viewScheduler)
           .map { transaction ->
             if (
-                transaction?.validity == null ||
-                transaction?.validity == WalletOneTransaction.WalletOneValidityState.ERROR
-              ){
+              transaction?.validity == null ||
+              transaction?.validity == WalletOneTransaction.WalletOneValidityState.ERROR
+            ) {
               Log.d(TAG, "WalletOne transaction error. Error starting transaction")
               sendPaymentErrorEvent(
                 errorMessage = "WalletOne transaction error. Error starting transaction",
@@ -116,50 +116,6 @@ class WalletOneViewModel @Inject constructor(
     }
   }
 
-//  fun createTransaction(
-//    amount: BigDecimal,
-//    currency: String,
-//    transactionBuilder: TransactionBuilder,
-//    origin: String?,
-//    returnUrl: String,
-//  ): Single<WalletOneTransaction> {
-//    return createWalletOneTransactionUseCase(
-//      value = (amount.toString()),
-//      currency = currency,
-//      transactionBuilder = transactionBuilder,
-//      origin = origin,
-//      method = PaymentType.WALLET_ONE.subTypes[0],
-//      returnUrl = returnUrl,
-//    )
-//      .subscribeOn(networkScheduler)
-//      .observeOn(viewScheduler)
-//      .doOnSuccess {
-//        when (it?.validity) {
-//          WalletOneTransaction.WalletOneValidityState.COMPLETED -> {
-//            getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
-//          }
-//          WalletOneTransaction.WalletOneValidityState.PENDING -> {
-//          }
-//          WalletOneTransaction.WalletOneValidityState.ERROR -> {
-//            Log.d(TAG, "WalletOne transaction error")
-//            sendPaymentErrorEvent(
-//              errorMessage = "WalletOne transaction error.",
-//              transactionBuilder = transactionBuilder
-//            )
-//            _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO string
-//          }
-//          null -> {
-//            Log.d(TAG, "WalletOne transaction error")
-//            sendPaymentErrorEvent(
-//              errorMessage = "WalletOne transaction error.",
-//              transactionBuilder = transactionBuilder
-//            )
-//            _state.postValue(State.Error(R.string.purchase_error_google_pay))  //TODO string
-//          }
-//        }
-//      }
-//  }
-
   fun waitForSuccess(
     uid: String?,
     transactionBuilder: TransactionBuilder,
@@ -173,6 +129,7 @@ class WalletOneViewModel @Inject constructor(
           COMPLETED -> {
             getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
           }
+
           FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
             Log.d(TAG, "Error on transaction on Settled transaction polling")
             sendPaymentErrorEvent(
@@ -181,7 +138,9 @@ class WalletOneViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.unknown_error))
           }
-          else -> { /* pending */ }
+
+          else -> { /* pending */
+          }
         }
       }, {
         Log.d(TAG, "Error on Settled transaction polling")
