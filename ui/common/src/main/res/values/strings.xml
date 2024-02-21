@@ -1072,6 +1072,9 @@
   <string name="add_new_card_button">Add new card</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
 
 
 
@@ -1456,5 +1459,9 @@
 
   <!-- AccountType for system AccountManager. Template: <packageName>.account.vk -->
   <string name="vk_account_manager_id" translatable="false">com.appcoins.wallet.account.vk</string>
+
+
+
+
 
 </resources>
