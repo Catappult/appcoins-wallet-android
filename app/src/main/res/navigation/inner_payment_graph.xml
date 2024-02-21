@@ -181,15 +181,8 @@
 
   <fragment
       android:id="@+id/onboarding_wallet_one_fragment"
-
-
-
-
-
-      android:name="com.asfoundation.wallet.onboarding_new_payment.google_pay.OnboardingGooglePayFragment"
-      tools:layout="@layout/onboarding_google_pay_layout">
-
-
+      android:name="com.asfoundation.wallet.onboarding_new_payment.wallet_one.OnboardingWalletOneFragment"
+      tools:layout="@layout/onboarding_wallet_one_layout">
 
     <argument
         android:name="transaction_builder"

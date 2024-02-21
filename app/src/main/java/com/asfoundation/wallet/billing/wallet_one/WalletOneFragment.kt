@@ -151,7 +151,7 @@ class WalletOneFragment() : BasePageViewFragment() {
             false
           )
         }
-          //TODO test if its needed
+        //TODO test if its needed
 //        else if (
 //          result.resultCode == Activity.RESULT_CANCELED ||
 //          (result.data?.dataString?.contains(WalletOneReturnSchemas.CANCEL.schema) == true)
