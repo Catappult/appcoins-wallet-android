@@ -665,6 +665,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">وسيلة الدفع هذه تخصم عمولة تحويل لعملية الشراء الحالية.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>

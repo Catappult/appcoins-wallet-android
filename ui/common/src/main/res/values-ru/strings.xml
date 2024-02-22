@@ -664,6 +664,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому может взиматься комиссия за обработку.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При таком способе оплаты взимается комиссия за обработку.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
