@@ -9,9 +9,6 @@
       android:id="@+id/home_graph"
       app:graph="@navigation/home_graph" />
   <include
-      android:id="@+id/promotions_graph"
-      app:graph="@navigation/promotions_graph" />
-  <include
       android:id="@+id/reward_graph"
       app:graph="@navigation/reward_graph" />
 

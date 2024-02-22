@@ -25,7 +25,10 @@ object DateFormatterUtils {
   fun String.getDayAndHour() = getDate(this, STANDARD_DATE_TIME_FORMAT)
 
   fun transformDate(date: String, fromPattern: String, toPattern: String): String =
-    LocalDateTime.parse(date, formatter(fromPattern)).atZone(ZoneOffset.UTC)
-      .format(formatter(toPattern))
+      LocalDateTime.parse(date, formatter(fromPattern))
+          .atZone(ZoneOffset.UTC)
+          .format(formatter(toPattern))
 
+  fun transformDateToTimestamp(date: String, fromPattern: String): Long =
+      LocalDateTime.parse(date, formatter(fromPattern)).atZone(ZoneOffset.UTC).toEpochSecond()
 }

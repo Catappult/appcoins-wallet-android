@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 @Composable
 fun GamesBundle(
   items: List<GameData>,
+  sendPromotionClickEvent: (String?, String) -> Unit,
   fetchFromApiCallback: () -> Unit
 ) {
 
