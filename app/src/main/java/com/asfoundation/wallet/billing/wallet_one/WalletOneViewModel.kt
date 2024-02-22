@@ -56,7 +56,7 @@ class WalletOneViewModel @Inject constructor(
     object WalletOneBack : State()
   }
 
-  private val _state = MutableLiveData<State>(State.Start)
+  val _state = MutableLiveData<State>(State.Start)
   val state = _state.toSingleEvent()
 
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -98,7 +98,7 @@ class WalletOneViewModel @Inject constructor(
                 errorMessage = "WalletOne transaction error. Error starting transaction",
                 transactionBuilder = transactionBuilder
               )
-              _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO string
+              _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
             } else {
               uid = transaction.uid
               Log.d("htmlData", transaction.htmlData ?: "null")
@@ -110,7 +110,7 @@ class WalletOneViewModel @Inject constructor(
               errorMessage = "WalletOne transaction error. Error starting transaction",
               transactionBuilder = transactionBuilder
             )
-            _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO string
+            _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
           })
       )
     }
@@ -154,7 +154,7 @@ class WalletOneViewModel @Inject constructor(
       delay(WalletOneConst.WALLET_ONE_TIMEOUT)
       try {
         if (state.value !is State.SuccessPurchase && wasNonSuccess)
-          _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO string
+          _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
         disposableSuccessCheck.dispose()
       } catch (_: Exception) {
       }

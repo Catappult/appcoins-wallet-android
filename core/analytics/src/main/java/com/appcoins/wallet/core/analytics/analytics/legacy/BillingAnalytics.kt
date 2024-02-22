@@ -334,7 +334,8 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
-    const val PAYMENT_METHOD_WALLET_ONE = "wallet_one"
+    const val PAYMENT_METHOD_WALLET_ONE = "credit_card_wallet_one"
+    // future note: when adding new payment methods, use the same key from MS /methods here
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"

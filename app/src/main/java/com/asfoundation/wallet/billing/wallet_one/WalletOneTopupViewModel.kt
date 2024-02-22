@@ -88,7 +88,7 @@ class WalletOneTopupViewModel @Inject constructor(
                 errorCode = "TRANSACTION_START_ERROR",
                 errorDetails = "WalletOne transaction error. Error starting transaction",
               )
-              _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO string
+              _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
             } else {
               uid = transaction.uid
               Log.d("htmlData", transaction.htmlData ?: "null")
@@ -97,7 +97,7 @@ class WalletOneTopupViewModel @Inject constructor(
           }.subscribe({}, {
             Log.d(TAG, it.toString())
             topUpAnalytics.sendWalletOneErrorEvent(errorDetails = "WalletOne transaction error")
-            _state.postValue(State.Error(R.string.purchase_error_google_pay))  // TODO
+            _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
           })
       )
     }
@@ -144,7 +144,7 @@ class WalletOneTopupViewModel @Inject constructor(
       delay(WalletOneConst.WALLET_ONE_TIMEOUT)
       try {
         if (state.value !is State.SuccessPurchase && wasNonSuccess)
-          _state.postValue(State.Error(R.string.purchase_error_google_pay)) //TODO
+          _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
         disposableSuccessCheck.dispose()
       } catch (_: Exception) {
       }

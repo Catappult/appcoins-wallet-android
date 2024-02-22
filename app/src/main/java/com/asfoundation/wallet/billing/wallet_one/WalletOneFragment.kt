@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.wallet_one
 
 import android.animation.Animator
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWalletOneBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
@@ -143,23 +145,27 @@ class WalletOneFragment() : BasePageViewFragment() {
   private fun registerWebViewResult() {
     resultAuthLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.waitForSuccess(
-            viewModel.uid,
-            transactionBuilder,
-            false
-          )
-        }
-        //TODO test if its needed
-//        else if (
-//          result.resultCode == Activity.RESULT_CANCELED ||
-//          (result.data?.dataString?.contains(WalletOneReturnSchemas.CANCEL.schema) == true)
-//        ) {
-//          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-//        }
-        else if (result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+        when {
+          result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+            viewModel.waitForSuccess(
+              viewModel.uid,
+              transactionBuilder,
+              false
+            )
+          }
+
+          result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+            viewModel._state
+              .postValue(WalletOneViewModel.State.Error(R.string.purchase_error_one_wallet_generic))
+          }
+
+          result.resultCode == Activity.RESULT_CANCELED -> {
+            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+            iabView.showPaymentMethodsView()
+          }
+
         }
       }
   }
