@@ -17,7 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWalletOneBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator

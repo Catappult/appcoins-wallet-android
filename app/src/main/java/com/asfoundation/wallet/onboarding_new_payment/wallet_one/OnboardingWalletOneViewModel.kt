@@ -50,7 +50,7 @@ class OnboardingWalletOneViewModel @Inject constructor(
     object ExploreWallet : State()
   }
 
-  private val _state = MutableLiveData<State>(State.Start)
+  val _state = MutableLiveData<State>(State.Start)
   val state = _state.toSingleEvent()
 
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()

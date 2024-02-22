@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.wallet_one
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -128,23 +129,31 @@ class WalletOneTopupFragment() : BasePageViewFragment() {
   private fun registerWebViewResult() {
     resultAuthLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.waitForSuccess(
-            viewModel.uid,
-            amount,
-            false
-          )
-        }
-        //TODO test if its needed
-//        else if (
-//          result.resultCode == Activity.RESULT_CANCELED ||
-//          (result.data?.dataString?.contains(WalletOneReturnSchemas.CANCEL.schema) == true)
-//        ) {
-//          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-//        }
-        else if (result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+        when {
+          result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+            viewModel.waitForSuccess(
+              viewModel.uid,
+              amount,
+              false
+            )
+          }
+
+          result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+            viewModel._state
+              .postValue(
+                WalletOneTopupViewModel.State.Error(
+                  R.string.purchase_error_one_wallet_generic
+                )
+              )
+          }
+
+          result.resultCode == Activity.RESULT_CANCELED -> {
+            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+            close()
+          }
+
         }
       }
   }

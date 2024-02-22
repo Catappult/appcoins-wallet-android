@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.wallet_one
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -18,7 +19,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingWalletOneLayoutBinding
 import com.asfoundation.wallet.billing.wallet_one.WalletOneReturnSchemas
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
-import com.asfoundation.wallet.onboarding_new_payment.wallet_one.OnboardingWalletOneFragmentArgs
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -139,23 +139,33 @@ class OnboardingWalletOneFragment : BasePageViewFragment() {
   private fun registerWebViewResult() {
     resultAuthLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-          viewModel.waitForSuccess(
-            viewModel.uid,
-            args.transactionBuilder,
-            false
-          )
-        }
-        //TODO test if its needed
-//        else if (
-//          result.resultCode == Activity.RESULT_CANCELED ||
-//          (result.data?.dataString?.contains(WalletOneReturnSchemas.CANCEL.schema) == true)
-//        ) {
-//          Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-//        }
-        else if (result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true) {
-          Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+        when {
+          result.data?.dataString?.contains(WalletOneReturnSchemas.SUCCESS.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+            viewModel.waitForSuccess(
+              viewModel.uid,
+              args.transactionBuilder,
+              false
+            )
+          }
+
+          result.data?.dataString?.contains(WalletOneReturnSchemas.ERROR.schema) == true -> {
+            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+            viewModel._state
+              .postValue(
+                OnboardingWalletOneViewModel.State.Error(
+                  R.string.purchase_error_one_wallet_generic
+                )
+              )
+          }
+
+          result.resultCode == Activity.RESULT_CANCELED -> {
+            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+            findNavController().popBackStack(
+              R.id.onboarding_payment_methods_fragment, inclusive = false
+            )
+          }
+
         }
       }
   }
