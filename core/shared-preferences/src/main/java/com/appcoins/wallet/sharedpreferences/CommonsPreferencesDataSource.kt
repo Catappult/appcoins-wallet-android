@@ -57,9 +57,10 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun getAutoUpdateCardDismissedVersion() = sharedPreferences.getInt(AUTO_UPDATE_VERSION, 0)
 
   fun setUpdateNotificationBadge(hasNotification: Boolean) =
-    sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
+      sharedPreferences.edit().putBoolean(HAS_SEEN_NOTIFICATION_BADGE, hasNotification).apply()
 
-  fun getUpdateNotificationBadge() = sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
+  fun getUpdateNotificationBadge() =
+      sharedPreferences.getBoolean(HAS_SEEN_NOTIFICATION_BADGE, false)
 
   fun getAndroidId() = sharedPreferences.getString(ANDROID_ID, "").orEmpty()
 
@@ -90,8 +91,8 @@ constructor(private val sharedPreferences: SharedPreferences) {
   fun getNumberOfTimesOnHome() = sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
 
   fun hasSeenVipOnboarding(walletAddress: String) =
-      sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, false)
+      sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, true)
 
-  fun setVipOnboardingToSeen(walletAddress: String) =
-      sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, true).apply()
+  fun setVipOnboardingVisualisationState(walletAddress: String, hasSeen: Boolean) =
+      sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, hasSeen).apply()
 }
