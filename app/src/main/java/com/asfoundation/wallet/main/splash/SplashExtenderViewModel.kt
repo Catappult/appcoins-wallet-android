@@ -5,7 +5,7 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
-import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingVipCompletedUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingVipVisualisationStateUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardVipUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,7 +19,8 @@ constructor(
     private val observeUserStatsUseCase: ObserveUserStatsUseCase,
     private val rxSchedulers: RxSchedulers,
     private val shouldShowOnboardVipUseCase: ShouldShowOnboardVipUseCase,
-    private val setOnboardingVipCompletedUseCase: SetOnboardingVipCompletedUseCase,
+    private val setOnboardingVipVisualisationStateUseCase:
+        SetOnboardingVipVisualisationStateUseCase,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
 ) : ViewModel() {
 
@@ -53,10 +54,12 @@ constructor(
               { successState -> _uiState.value = successState },
               { _ -> _uiState.value = UiState.Fail })
 
-  fun completeVipOnboarding() {
+  fun setOnboardingVipVisualisationState(hasSeen: Boolean) {
     getCurrentWalletUseCase()
         .subscribeOn(rxSchedulers.io)
-        .doOnSuccess { wallet -> setOnboardingVipCompletedUseCase(wallet.address) }
+        .doOnSuccess { wallet ->
+          setOnboardingVipVisualisationStateUseCase(wallet.address, hasSeen)
+        }
         .subscribe()
   }
 
