@@ -12,4 +12,6 @@ dependencies {
   implementation(libs.kotlin.coroutines)
   implementation(libs.bundles.androidx.compose)
   implementation(libs.bundles.coil)
+  implementation(project(":core:walletServices"))
+  implementation(project(":feature:wallet-info:data"))
 }
