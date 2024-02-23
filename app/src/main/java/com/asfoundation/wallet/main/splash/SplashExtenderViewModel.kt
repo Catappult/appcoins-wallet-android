@@ -54,14 +54,13 @@ constructor(
               { successState -> _uiState.value = successState },
               { _ -> _uiState.value = UiState.Fail })
 
-  fun setOnboardingVipVisualisationState(hasSeen: Boolean) {
-    getCurrentWalletUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .doOnSuccess { wallet ->
-          setOnboardingVipVisualisationStateUseCase(wallet.address, hasSeen)
-        }
-        .subscribe()
-  }
+  fun setOnboardingVipVisualisationState(hasSeen: Boolean) =
+      getCurrentWalletUseCase()
+          .subscribeOn(rxSchedulers.io)
+          .observeOn(rxSchedulers.main)
+          .subscribe(
+              { wallet -> setOnboardingVipVisualisationStateUseCase(wallet.address, hasSeen) },
+              { _uiState.value = UiState.Fail })
 
   sealed class UiState {
     object Idle : UiState()
