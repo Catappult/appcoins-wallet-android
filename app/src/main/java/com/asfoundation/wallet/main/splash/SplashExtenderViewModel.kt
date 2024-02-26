@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingVipVisualisationStateUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardVipUseCase
@@ -23,7 +22,6 @@ constructor(
     private val setOnboardingVipVisualisationStateUseCase:
         SetOnboardingVipVisualisationStateUseCase,
     private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
-    private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -43,9 +41,11 @@ constructor(
                     gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
 
             getCurrentWalletUseCase().map { wallet ->
-              UiState.Success(
-                  isVip = isVipLevel,
-                  showVipOnboarding = shouldShowOnboardVipUseCase(isVipLevel, wallet.address))
+              if (gamificationStats.gamificationStatus == GamificationStatus.NONE) UiState.Fail
+              else
+                  UiState.Success(
+                      isVip = isVipLevel,
+                      showVipOnboarding = shouldShowOnboardVipUseCase(isVipLevel, wallet.address))
             }
           }
           .doOnSubscribe { _uiState.value = UiState.Loading() }
@@ -54,12 +54,14 @@ constructor(
               { successState -> _uiState.value = successState },
               { _ -> _uiState.value = UiState.Fail })
 
-  fun setOnboardingVipVisualisationState(hasSeen: Boolean) =
+  fun setOnboardingVipVisualisationState(firstVipOnboarding: Boolean) =
       getCurrentWalletUseCase()
           .subscribeOn(rxSchedulers.io)
           .observeOn(rxSchedulers.main)
           .subscribe(
-              { wallet -> setOnboardingVipVisualisationStateUseCase(wallet.address, hasSeen) },
+              { wallet ->
+                setOnboardingVipVisualisationStateUseCase(wallet.address, firstVipOnboarding)
+              },
               { _uiState.value = UiState.Fail })
 
   sealed class UiState {
