@@ -90,8 +90,8 @@ constructor(private val sharedPreferences: SharedPreferences) {
 
   fun getNumberOfTimesOnHome() = sharedPreferences.getInt(NUMBER_OF_TIMES_IN_HOME, 0)
 
-  fun hasSeenVipOnboarding(walletAddress: String) =
-      sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, true)
+  fun firstVipOnboarding(walletAddress: String) =
+      sharedPreferences.getBoolean(VIP_STATUS_KEY + walletAddress, false)
 
   fun setVipOnboardingVisualisationState(walletAddress: String, hasSeen: Boolean) =
       sharedPreferences.edit().putBoolean(VIP_STATUS_KEY + walletAddress, hasSeen).apply()
