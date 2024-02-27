@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
@@ -40,10 +39,11 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SplashExtenderFragmentBinding
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashExtenderFragment : Fragment() {
+class SplashExtenderFragment : BasePageViewFragment() {
 
   private val viewModel: SplashExtenderViewModel by viewModels()
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)
@@ -62,11 +62,15 @@ class SplashExtenderFragment : Fragment() {
           if (uiState.showVipOnboarding)
               VipWelcomeScreen(
                   onClick = {
-                    viewModel.completeVipOnboarding()
+                    viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = true)
                     finishSplash()
                   })
-          else {
-            SplashLogo(uiState.isVip)
+          else if (!uiState.isVip) {
+            SplashLogo(isVip = uiState.isVip)
+            viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
+            finishSplash()
+          } else {
+            SplashLogo(isVip = uiState.isVip)
             finishSplash()
           }
         }
