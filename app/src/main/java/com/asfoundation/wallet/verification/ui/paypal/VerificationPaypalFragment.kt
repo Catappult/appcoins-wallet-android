@@ -18,19 +18,24 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,16 +44,17 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.feature.backup.ui.save_options.LoadingCard
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.ScreenTitle
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.appcoins.wallet.ui.widgets.component.WalletTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
-import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.Loading
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.NavigateToPaymentUrl
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.PaymentCompleted
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.ShowVerificationInfo
@@ -101,22 +107,31 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Composable
   private fun PayPalVerificationScreen() {
-    Scaffold(topBar = { TopBar() }, containerColor = WalletColors.styleguide_blue) { padding ->
-      ScreenTitle(stringResource(R.string.paypal_verification_header))
-      PayPalVerificationContent(padding = padding)
-    }
+    Scaffold(
+        topBar = { TopBar(onClickSupport = { viewModel.launchChat() }) },
+        containerColor = WalletColors.styleguide_blue) { padding ->
+          ScreenTitle(stringResource(R.string.paypal_verification_header))
+          PayPalVerificationContent(padding = padding)
+        }
   }
 
   @Composable
   fun PayPalVerificationContent(padding: PaddingValues) {
     Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState())) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        PaymentCompleted -> CodeInputScreen()
-        Loading -> LoadingCard()
-        UnknownError -> Text(stringResource(id = R.string.unknown_error))
-        is NavigateToPaymentUrl -> navigator.navigateToPayment(uiState.url, paypalActivityLauncher)
-        is VerificationPaypalViewModel.VerificationPaypalState.Error ->
-            Text(stringResource(id = R.string.unknown_error), color = WalletColors.styleguide_white)
+        PaymentCompleted -> {
+          CodeInputScreen()
+        }
+        VerificationPaypalState.Success -> {
+          SuccessScreen()
+        }
+        is VerificationPaypalState.Error,
+        UnknownError, -> {
+          Text(stringResource(id = R.string.unknown_error)) // TODO show error
+        }
+        is NavigateToPaymentUrl -> {
+          navigator.navigateToPayment(uiState.url, paypalActivityLauncher)
+        }
         is ShowVerificationInfo -> {
           InitialScreen(
               amount = getFormattedAmount(uiState.verificationInfo.verificationInfoModel),
@@ -125,7 +140,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
                     getPaypalData(), uiState.verificationInfo.paymentInfoModel.paymentMethod)
               })
         }
-        else -> LoadingCard()
+        else -> CircularProgressIndicator()
       }
     }
   }
@@ -155,12 +170,11 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Composable
   fun CodeInputScreen() {
+    var defaultCode by rememberSaveable { mutableStateOf("") }
+
     Column {
       Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_paypal_circle),
-            contentDescription = null,
-            modifier = Modifier.size(104.dp))
+        Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.transact_loading_animation)
         Text(
             text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
             color = WalletColors.styleguide_light_grey,
@@ -170,11 +184,17 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         Text(
             text = stringResource(id = R.string.paypal_verification_insert_code_body),
             color = WalletColors.styleguide_light_grey,
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp, bottom = 28.dp),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium)
-        TextField("", onValueChange = {}, modifier = Modifier.padding(top = 28.dp))
+
+        WalletTextField(
+            defaultCode,
+            "",
+            backgroundColor = WalletColors.styleguide_blue_secondary,
+            keyboardType = KeyboardType.Number,
+            onValueChange = { newCode -> defaultCode = newCode })
         Text(
             text = stringResource(id = R.string.paypal_verification_didnt_receive_title),
             color = WalletColors.styleguide_dark_grey,
@@ -193,7 +213,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         Spacer(modifier = Modifier.width(20.dp))
         ButtonWithText(
             label = stringResource(id = R.string.send_button),
-            onClick = {},
+            onClick = { viewModel.verifyCode(defaultCode) },
             labelColor = WalletColors.styleguide_white,
             backgroundColor = WalletColors.styleguide_pink)
       }
@@ -203,10 +223,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   fun SuccessScreen() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-      Image(
-          painter = painterResource(id = R.drawable.ic_success),
-          contentDescription = null,
-          modifier = Modifier.size(104.dp))
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.success_animation)
       Text(
           text = stringResource(id = R.string.activity_iab_transaction_completed_title),
           color = WalletColors.styleguide_light_grey,

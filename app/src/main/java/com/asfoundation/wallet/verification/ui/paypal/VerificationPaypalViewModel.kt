@@ -6,8 +6,13 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.NO_NETWORK
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
@@ -33,6 +38,9 @@ constructor(
     private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
     private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
     private val setCachedVerificationUseCase: SetCachedVerificationUseCase,
+    private val displayChatUseCase: DisplayChatUseCase,
+    private val walletVerificationInteractor: WalletVerificationInteractor,
+    private val walletService: WalletService,
 ) : BaseViewModel<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect>(initialState()) {
 
   private val _uiState = MutableStateFlow<VerificationPaypalState>(VerificationPaypalState.Idle)
@@ -43,7 +51,26 @@ constructor(
   }
 
   init {
-    fetchVerificationInfo()
+    fetchVerificationStatus()
+  }
+
+  private fun fetchVerificationStatus() {
+    walletService
+        .getAndSignCurrentWalletAddress()
+        .flatMap {
+          walletVerificationInteractor.getVerificationStatus(it.address, it.signedAddress)
+        }
+        .doOnSuccess { verificationStatus ->
+          when (verificationStatus) {
+            CODE_REQUESTED,
+            VERIFYING -> _uiState.value = VerificationPaypalState.PaymentCompleted
+            NO_NETWORK -> _uiState.value = VerificationPaypalState.UnknownError
+            else -> fetchVerificationInfo()
+          }
+        }
+        .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+        .subscribeOn(Schedulers.io())
+        .subscribe()
   }
 
   private fun fetchVerificationInfo() {
@@ -75,7 +102,7 @@ constructor(
   }
 
   fun successPayment() {
-    setCachedVerificationUseCase(VerificationStatus.VERIFYING)
+    setCachedVerificationUseCase(VERIFYING)
         .doOnComplete { _uiState.value = VerificationPaypalState.PaymentCompleted }
         .scopedSubscribe { e -> e.printStackTrace() }
   }
@@ -88,12 +115,26 @@ constructor(
     _uiState.value = VerificationPaypalState.Error(Throwable(WebViewActivity.USER_CANCEL_THROWABLE))
   }
 
+  fun launchChat() {
+    displayChatUseCase()
+  }
+
+  fun verifyCode(code: String) =
+      walletVerificationInteractor
+          .confirmVerificationCode(code)
+          .subscribeOn(Schedulers.io())
+          .subscribe(
+              { _uiState.value = VerificationPaypalState.Success },
+              { _uiState.value = VerificationPaypalState.Error(it) })
+
   sealed class VerificationPaypalState {
     object Idle : VerificationPaypalState()
 
     object Loading : VerificationPaypalState()
 
     object PaymentCompleted : VerificationPaypalState()
+
+    object Success : VerificationPaypalState()
 
     object UnknownError : VerificationPaypalState()
 
