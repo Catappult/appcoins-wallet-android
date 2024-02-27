@@ -62,12 +62,12 @@ class SplashExtenderFragment : BasePageViewFragment() {
           if (uiState.showVipOnboarding)
               VipWelcomeScreen(
                   onClick = {
-                    viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = true)
+                    viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
                     finishSplash()
                   })
           else if (!uiState.isVip) {
             SplashLogo(isVip = uiState.isVip)
-            viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
+            viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = true)
             finishSplash()
           } else {
             SplashLogo(isVip = uiState.isVip)
