@@ -2,13 +2,7 @@ package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
-import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
-import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Single
-import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 class GamesHubContentProviderService @Inject constructor(
@@ -24,7 +18,6 @@ class GamesHubContentProviderService @Inject constructor(
     )
   }
 
-  // TODO test contentProvider access
   fun fetchGameFromGamesHub(
     contentProviderUri: Uri,
     packageNameColumn: String,
@@ -50,8 +43,8 @@ class GamesHubContentProviderService @Inject constructor(
 
 
   companion object {
-    private const val CONTENT_PROVIDER_TABLE = "games"  //TODO
-    private const val CONTENT_PROVIDER_COLUMN = "package_name"  //TODO
-    private const val CONTENT_PROVIDER_URI = "gameshub://com.dti.folderlauncher/"  //TODO
+    private const val CONTENT_PROVIDER_TABLE = "appDetails"
+    private const val CONTENT_PROVIDER_COLUMN = "packageName"
+    private const val CONTENT_PROVIDER_URI = "content://com.dti.hub.appdetails/" // gameshub://com.dti.folderlauncher/
   }
 }
