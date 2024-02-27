@@ -127,7 +127,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         }
         is VerificationPaypalState.Error,
         UnknownError, -> {
-          Text(stringResource(id = R.string.unknown_error)) // TODO show error
+          Text(
+              stringResource(id = R.string.unknown_error),
+              color = WalletColors.styleguide_light_grey) // TODO show error
         }
         is NavigateToPaymentUrl -> {
           navigator.navigateToPayment(uiState.url, paypalActivityLauncher)

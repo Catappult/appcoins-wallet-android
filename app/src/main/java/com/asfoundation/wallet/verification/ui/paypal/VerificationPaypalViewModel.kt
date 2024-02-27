@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.ui.paypal
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
+import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -124,7 +125,16 @@ constructor(
           .confirmVerificationCode(code)
           .subscribeOn(Schedulers.io())
           .subscribe(
-              { _uiState.value = VerificationPaypalState.Success },
+              {
+                if (it.success) _uiState.value = VerificationPaypalState.Success
+                else
+                    when (it.errorType) {
+                      VerificationCodeResult.ErrorType.WRONG_CODE ->
+                          _uiState.value = VerificationPaypalState.PaymentCompleted
+                      VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS -> fetchVerificationInfo()
+                      else -> _uiState.value = VerificationPaypalState.UnknownError
+                    }
+              },
               { _uiState.value = VerificationPaypalState.Error(it) })
 
   sealed class VerificationPaypalState {

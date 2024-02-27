@@ -15,7 +15,7 @@ interface BrokerVerificationApi {
       @Query("wallet.signature") walletSignature: String
   ): Single<String>
 
-  @GET("8.20200815/gateways/adyen_v2/verification/info")
+  @GET("8.20240227/gateways/adyen_v2/verification/info")
   fun getVerificationInfo(
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String
@@ -28,7 +28,7 @@ interface BrokerVerificationApi {
       @Body verificationPayment: VerificationPayment
   ): Single<AdyenTransactionResponse>
 
-  @POST("8.20200815/gateways/adyen_v2/verification/generate")
+  @POST("8.20240227/gateways/adyen_v2/verification/generate")
   fun makeCreditCardVerificationPayment(
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
