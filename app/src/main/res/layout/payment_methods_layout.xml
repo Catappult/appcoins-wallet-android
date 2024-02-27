@@ -103,8 +103,6 @@
             android:id="@+id/content_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            app:layout_constraintBottom_toBottomOf="@id/view_bottom_separator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
@@ -120,13 +118,17 @@
               android:paddingStart="16dp"
               android:paddingTop="16dp"
               android:paddingEnd="16dp"
+              android:paddingBottom="64dp"
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              app:layout_constrainedHeight="true"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHeight_max="230dp"
+              app:layout_constraintHeight_max="286dp"
               app:layout_constraintHeight_min="80dp"
+              app:layout_constraintHorizontal_bias="0.0"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintVertical_bias="0.0"
               tools:listitem="@layout/item_payment_method"
               />
           <LinearLayout
@@ -136,9 +138,9 @@
               android:layout_marginStart="16dp"
               android:layout_marginTop="4dp"
               android:layout_marginEnd="16dp"
-              android:layout_marginBottom="8dp"
               android:orientation="vertical"
               android:paddingTop="8dp"
+              android:paddingBottom="60dp"
               app:layout_constraintBottom_toBottomOf="@id/content_main"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
@@ -214,29 +216,41 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view_bottom_separator"
+            android:id="@+id/bonus_background"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:background="@drawable/background_shadow_payment"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_main"
+            android:layout_height="0dp"
+            android:background="@color/styleguide_payments_background"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
+            app:layout_constraintTop_toTopOf="@id/bonus_layout"
             />
 
         <include
             android:id="@+id/bonus_layout"
             layout="@layout/view_purchase_bonus"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/big_margin"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
+            android:layout_marginBottom="16dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_main"
             tools:visibility="visible"
+            />
+
+        <com.appcoins.wallet.ui.widgets.SeparatorView
+            android:id="@+id/bottom_separator_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/styleguide_payments_separator"
+            app:layout_constraintTop_toBottomOf="@id/content_main"
+            app:line_orientation="horizontal"
+            app:line_type="solid"
             />
 
         <include
@@ -247,8 +261,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-            app:layout_constraintVertical_bias="1"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_separator_buttons"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
