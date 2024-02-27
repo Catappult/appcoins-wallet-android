@@ -123,7 +123,7 @@
               app:layout_constrainedHeight="true"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHeight_max="256dp"
+              app:layout_constraintHeight_max="286dp"
               app:layout_constraintHeight_min="80dp"
               app:layout_constraintHorizontal_bias="0.0"
               app:layout_constraintStart_toStartOf="parent"
