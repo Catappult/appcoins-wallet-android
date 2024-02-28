@@ -2,6 +2,7 @@ package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -10,12 +11,20 @@ class GamesHubContentProviderService @Inject constructor(
 ) {
 
   fun isGameFromGamesHub(packageName: String): Boolean {
-    return fetchGameFromGamesHub(
-      Uri.parse("$CONTENT_PROVIDER_URI$CONTENT_PROVIDER_TABLE"),
-      CONTENT_PROVIDER_COLUMN,
-      packageName,
-      context
-    )
+    return try {
+      fetchGameFromGamesHub(
+        Uri.parse("$CONTENT_PROVIDER_URI$CONTENT_PROVIDER_TABLE"),
+        CONTENT_PROVIDER_COLUMN,
+        packageName,
+        context
+      )
+    } catch (e: Exception) {
+      Log.e(
+        "GamesHubContentProvider",
+        "Error fetching gamesHub contentProvider: ${e.message}"
+        )
+      false
+    }
   }
 
   fun fetchGameFromGamesHub(
@@ -35,7 +44,12 @@ class GamesHubContentProviderService @Inject constructor(
       null
     ).use { cursor ->
       if (cursor != null && cursor.moveToFirst()) {
-        return true
+        val index = cursor.getColumnIndex(CONTENT_PROVIDER_COLUMN_VALUE)
+        if (index >= 0) {
+          return cursor.getInt(index) == 1
+        } else {
+          return false
+        }
       }
     }
     return false
@@ -45,6 +59,7 @@ class GamesHubContentProviderService @Inject constructor(
   companion object {
     private const val CONTENT_PROVIDER_TABLE = "appDetails"
     private const val CONTENT_PROVIDER_COLUMN = "packageName"
-    private const val CONTENT_PROVIDER_URI = "content://com.dti.hub.appdetails/" // gameshub://com.dti.folderlauncher/
+    private const val CONTENT_PROVIDER_COLUMN_VALUE = "isInstalledByGH"
+    private const val CONTENT_PROVIDER_URI = "content://com.dti.folderlauncher.appdetails/"
   }
 }

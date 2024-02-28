@@ -51,6 +51,7 @@ class PartnerAddressService @Inject constructor(
         )
         val isGameFromGamesHubContentProvide =
           gamesHubContentProviderService.isGameFromGamesHub(packageName)
+        Log.i("IsGameInGamesHub", isGameFromGamesHubContentProvide.toString())
         if (isGameFromGamesHubContentProvide) {
           // Tries to send gamesHub's oemid, if available. Otherwise sends the oemid of the game.
           oemIdExtractorService.extractOemId(defaultGamesHubPackage)
