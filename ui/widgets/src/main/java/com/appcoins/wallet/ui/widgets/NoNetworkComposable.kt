@@ -37,89 +37,75 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 @Composable
 fun NoNetworkScreen(tryAgain: Boolean = false, onTryAgain: () -> Unit = {}) {
   val composition by
-  rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.no_network_animation))
+      rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.no_network_animation))
   val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
 
   Column(
-    modifier = Modifier.fillMaxSize(),
-    horizontalAlignment = CenterHorizontally,
-    verticalArrangement = Arrangement.Center
-  ) {
-    LottieAnimation(
-      composition = composition,
-      progress = { progress },
-      modifier = Modifier
-        .size(120.dp)
-        .padding(bottom = 16.dp)
-    )
-    Text(
-      text = stringResource(id = R.string.oops_title),
-      color = WalletColors.styleguide_white,
-      fontSize = 20.sp,
-      fontWeight = FontWeight.Bold,
-    )
-    Text(
-      text = stringResource(id = R.string.connection_error_body),
-      color = WalletColors.styleguide_white,
-      fontSize = 14.sp,
-      modifier = Modifier
-        .padding(top = 8.dp, bottom = 16.dp)
-        .padding(horizontal = 40.dp),
-      textAlign = TextAlign.Center
-    )
-    if (tryAgain) {
-      ButtonWithText(
-        stringResource(R.string.try_again),
-        onClick = onTryAgain,
-        labelColor = WalletColors.styleguide_white,
-        outlineColor = WalletColors.styleguide_white,
-      )
-    }
-  }
+      modifier = Modifier.fillMaxSize(),
+      horizontalAlignment = CenterHorizontally,
+      verticalArrangement = Arrangement.Center) {
+        LottieAnimation(
+            composition = composition,
+            progress = { progress },
+            modifier = Modifier.size(120.dp).padding(bottom = 16.dp))
+        Text(
+            text = stringResource(id = R.string.oops_title),
+            color = WalletColors.styleguide_white,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            text = stringResource(id = R.string.connection_error_body),
+            color = WalletColors.styleguide_white,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp).padding(horizontal = 40.dp),
+            textAlign = TextAlign.Center)
+        if (tryAgain) {
+          ButtonWithText(
+              label = stringResource(R.string.try_again),
+              onClick = onTryAgain,
+              labelColor = WalletColors.styleguide_white,
+              outlineColor = WalletColors.styleguide_white,
+          )
+        }
+      }
 }
 
 @Composable
 fun NoNetworkSnackBar() {
   Row(
-    modifier = Modifier
-      .fillMaxWidth()
-      .background(WalletColors.styleguide_pink),
-    verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.Center
-  ) {
-    NoNetworkMessage()
-  }
+      modifier = Modifier.fillMaxWidth().background(WalletColors.styleguide_pink),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Center) {
+        NoNetworkMessage()
+      }
 }
 
 @Composable
 fun NoNetworkCard() {
   Card(
-    colors =
-    CardDefaults.cardColors(
-      containerColor = WalletColors.styleguide_pink.copy(alpha = 0.15f)
-    ),
-    shape = CircleShape
-  ) {
-    NoNetworkMessage(mainColor = WalletColors.styleguide_pink)
-  }
+      colors =
+          CardDefaults.cardColors(
+              containerColor = WalletColors.styleguide_pink.copy(alpha = 0.15f)),
+      shape = CircleShape) {
+        NoNetworkMessage(mainColor = WalletColors.styleguide_pink)
+      }
 }
 
 @Composable
 fun NoNetworkMessage(mainColor: Color = WalletColors.styleguide_blue) {
   Row(modifier = Modifier.padding(8.dp)) {
     Icon(
-      painter = painterResource(id = R.drawable.ic_no_internet),
-      contentDescription = null,
-      tint = mainColor,
-      modifier = Modifier.size(16.dp)
-    )
+        painter = painterResource(id = R.drawable.ic_no_internet),
+        contentDescription = null,
+        tint = mainColor,
+        modifier = Modifier.size(16.dp))
     Text(
-      text = stringResource(id = R.string.connection_error_title),
-      modifier = Modifier.padding(start = 8.dp),
-      color = mainColor,
-      style = MaterialTheme.typography.bodySmall,
-      fontWeight = FontWeight.Medium
-    )
+        text = stringResource(id = R.string.connection_error_title),
+        modifier = Modifier.padding(start = 8.dp),
+        color = mainColor,
+        style = MaterialTheme.typography.bodySmall,
+        fontWeight = FontWeight.Medium)
   }
 }
 

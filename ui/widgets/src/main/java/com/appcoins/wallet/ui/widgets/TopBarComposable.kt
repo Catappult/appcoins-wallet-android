@@ -136,7 +136,7 @@ fun BackButton(onClickBack: (() -> Unit)? = null) {
 fun ScreenTitle(title: String) {
   Text(
       text = title,
-      modifier = Modifier.padding(8.dp),
+      modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
       style = MaterialTheme.typography.headlineSmall,
       fontWeight = FontWeight.Bold,
       color = WalletColors.styleguide_light_grey,

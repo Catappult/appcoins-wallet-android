@@ -1,10 +1,9 @@
 package com.asfoundation.wallet.verification.ui.paypal
 
+import androidx.lifecycle.ViewModel
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.appcoins.wallet.core.arch.BaseViewModel
-import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.billing.adyen.VerificationCodeResult.ErrorType.WRONG_CODE
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.walletservices.WalletService
@@ -25,8 +24,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-sealed class VerificationPaypalIntroSideEffect : SideEffect
-
 data class VerificationPaypalIntroState(
     val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
     val verificationSubmitAsync: Async<Unit> = Async.Uninitialized
@@ -42,20 +39,16 @@ constructor(
     private val displayChatUseCase: DisplayChatUseCase,
     private val walletVerificationInteractor: WalletVerificationInteractor,
     private val walletService: WalletService,
-) : BaseViewModel<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect>(initialState()) {
+) : ViewModel() {
 
   private val _uiState = MutableStateFlow<VerificationPaypalState>(VerificationPaypalState.Idle)
   var uiState: StateFlow<VerificationPaypalState> = _uiState
-
-  companion object {
-    fun initialState(): VerificationPaypalIntroState = VerificationPaypalIntroState()
-  }
 
   init {
     fetchVerificationStatus()
   }
 
-  private fun fetchVerificationStatus() {
+  fun fetchVerificationStatus() {
     walletService
         .getAndSignCurrentWalletAddress()
         .flatMap {
@@ -64,7 +57,7 @@ constructor(
         .doOnSuccess { verificationStatus ->
           when (verificationStatus) {
             CODE_REQUESTED,
-            VERIFYING -> _uiState.value = VerificationPaypalState.PaymentCompleted
+            VERIFYING -> _uiState.value = VerificationPaypalState.RequestVerificationCode()
             NO_NETWORK -> _uiState.value = VerificationPaypalState.UnknownError
             else -> fetchVerificationInfo()
           }
@@ -74,7 +67,7 @@ constructor(
         .subscribe()
   }
 
-  private fun fetchVerificationInfo() {
+  fun fetchVerificationInfo() {
     getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL)
         .doOnSuccess { _uiState.value = VerificationPaypalState.ShowVerificationInfo(it) }
         .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
@@ -88,24 +81,18 @@ constructor(
           .doOnSuccess { model ->
             val redirectUrl = model.redirectUrl
             if (redirectUrl != null) {
-              _uiState.value = VerificationPaypalState.NavigateToPaymentUrl(redirectUrl)
+              _uiState.value = VerificationPaypalState.OpenWebPayPalPaymentRequest(redirectUrl)
             }
           }
-          .ignoreElement()
-          .asAsyncLoadingToState(VerificationPaypalIntroState::verificationSubmitAsync) { model ->
-            copy(verificationSubmitAsync = model)
-          }
-          .repeatableScopedSubscribe(VerificationPaypalIntroState::verificationSubmitAsync.name) { e
-            ->
-            e.printStackTrace()
-          }
+          .subscribe()
     }
   }
 
   fun successPayment() {
     setCachedVerificationUseCase(VERIFYING)
-        .doOnComplete { _uiState.value = VerificationPaypalState.PaymentCompleted }
-        .scopedSubscribe { e -> e.printStackTrace() }
+        .doOnComplete { _uiState.value = VerificationPaypalState.RequestVerificationCode() }
+        .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+        .subscribe()
   }
 
   fun failPayment() {
@@ -126,14 +113,14 @@ constructor(
           .subscribeOn(Schedulers.io())
           .subscribe(
               {
-                if (it.success) _uiState.value = VerificationPaypalState.Success
+                if (it.success) _uiState.value = VerificationPaypalState.VerificationCompleted
                 else
-                    when (it.errorType) {
-                      VerificationCodeResult.ErrorType.WRONG_CODE ->
-                          _uiState.value = VerificationPaypalState.PaymentCompleted
-                      VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS -> fetchVerificationInfo()
-                      else -> _uiState.value = VerificationPaypalState.UnknownError
-                    }
+                    _uiState.value =
+                        when (it.errorType) {
+                          WRONG_CODE ->
+                              VerificationPaypalState.RequestVerificationCode(wrongCode = true)
+                          else -> VerificationPaypalState.UnknownError
+                        }
               },
               { _uiState.value = VerificationPaypalState.Error(it) })
 
@@ -142,15 +129,15 @@ constructor(
 
     object Loading : VerificationPaypalState()
 
-    object PaymentCompleted : VerificationPaypalState()
-
-    object Success : VerificationPaypalState()
+    object VerificationCompleted : VerificationPaypalState()
 
     object UnknownError : VerificationPaypalState()
 
+    data class RequestVerificationCode(val wrongCode: Boolean = false) : VerificationPaypalState()
+
     data class Error(val error: Throwable) : VerificationPaypalState()
 
-    data class NavigateToPaymentUrl(val url: String) : VerificationPaypalState()
+    data class OpenWebPayPalPaymentRequest(val url: String) : VerificationPaypalState()
 
     data class ShowVerificationInfo(val verificationInfo: VerificationIntroModel) :
         VerificationPaypalState()

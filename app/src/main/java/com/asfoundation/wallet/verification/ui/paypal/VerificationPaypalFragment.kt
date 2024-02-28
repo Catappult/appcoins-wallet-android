@@ -8,17 +8,18 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -35,7 +36,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,18 +45,19 @@ import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.GenericError
 import com.appcoins.wallet.ui.widgets.ScreenTitle
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.ui.widgets.component.WalletTextField
+import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
-import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.NavigateToPaymentUrl
-import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.PaymentCompleted
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.OpenWebPayPalPaymentRequest
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.RequestVerificationCode
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.ShowVerificationInfo
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.UnknownError
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -110,28 +111,35 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     Scaffold(
         topBar = { TopBar(onClickSupport = { viewModel.launchChat() }) },
         containerColor = WalletColors.styleguide_blue) { padding ->
-          ScreenTitle(stringResource(R.string.paypal_verification_header))
-          PayPalVerificationContent(padding = padding)
+          Column(
+              modifier =
+                  Modifier.padding(padding)
+                      .verticalScroll(rememberScrollState())
+                      .height(IntrinsicSize.Max)) {
+                ScreenTitle(stringResource(R.string.paypal_verification_header))
+                PayPalVerificationContent()
+              }
         }
   }
 
   @Composable
-  fun PayPalVerificationContent(padding: PaddingValues) {
-    Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState())) {
+  fun PayPalVerificationContent() {
+    Column(modifier = Modifier.fillMaxSize().padding(24.dp)) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        PaymentCompleted -> {
-          CodeInputScreen()
+        is RequestVerificationCode -> {
+          CodeInputScreen(uiState.wrongCode)
         }
-        VerificationPaypalState.Success -> {
+        VerificationPaypalState.VerificationCompleted -> {
           SuccessScreen()
         }
         is VerificationPaypalState.Error,
-        UnknownError, -> {
-          Text(
-              stringResource(id = R.string.unknown_error),
-              color = WalletColors.styleguide_light_grey) // TODO show error
+        UnknownError -> {
+          GenericError(
+              message = stringResource(R.string.manage_cards_error_details),
+              onSupportClick = { viewModel.launchChat() },
+              onTryAgain = { viewModel.fetchVerificationStatus() })
         }
-        is NavigateToPaymentUrl -> {
+        is OpenWebPayPalPaymentRequest -> {
           navigator.navigateToPayment(uiState.url, paypalActivityLauncher)
         }
         is ShowVerificationInfo -> {
@@ -142,7 +150,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
                     getPaypalData(), uiState.verificationInfo.paymentInfoModel.paymentMethod)
               })
         }
-        else -> CircularProgressIndicator()
+        else -> FullScreenLoading()
       }
     }
   }
@@ -157,11 +165,12 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       Text(
           text = stringResource(R.string.verification_verify_paypal_description, amount),
           color = WalletColors.styleguide_light_grey,
-          modifier = Modifier.padding(top = 16.dp),
+          modifier = Modifier.padding(top = 24.dp).padding(horizontal = 16.dp),
           style = MaterialTheme.typography.bodyLarge,
           textAlign = TextAlign.Center,
           fontWeight = FontWeight.Medium)
       ButtonWithText(
+          modifier = Modifier.padding(top = 40.dp),
           label = stringResource(id = R.string.continue_button),
           onClick = onVerificationClick,
           labelColor = WalletColors.styleguide_white,
@@ -171,53 +180,51 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun CodeInputScreen() {
+  fun CodeInputScreen(wrongCode: Boolean) {
     var defaultCode by rememberSaveable { mutableStateOf("") }
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.verify_animation)
+      Text(
+          text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
+          color = WalletColors.styleguide_light_grey,
+          modifier = Modifier.padding(top = 28.dp),
+          style = MaterialTheme.typography.titleLarge,
+          fontWeight = FontWeight.Bold)
+      Text(
+          text = stringResource(id = R.string.paypal_verification_insert_code_body),
+          color = WalletColors.styleguide_light_grey,
+          modifier = Modifier.padding(top = 16.dp, bottom = 28.dp).padding(horizontal = 16.dp),
+          style = MaterialTheme.typography.bodyMedium,
+          textAlign = TextAlign.Center,
+          fontWeight = FontWeight.Medium)
 
-    Column {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.transact_loading_animation)
-        Text(
-            text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
-            color = WalletColors.styleguide_light_grey,
-            modifier = Modifier.padding(top = 28.dp),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold)
-        Text(
-            text = stringResource(id = R.string.paypal_verification_insert_code_body),
-            color = WalletColors.styleguide_light_grey,
-            modifier = Modifier.padding(top = 16.dp, bottom = 28.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium)
+      WalletCodeTextField(
+          wrongCode = wrongCode, onValueChange = { newCode -> defaultCode = newCode })
 
-        WalletTextField(
-            defaultCode,
-            "",
-            backgroundColor = WalletColors.styleguide_blue_secondary,
-            keyboardType = KeyboardType.Number,
-            onValueChange = { newCode -> defaultCode = newCode })
-        Text(
-            text = stringResource(id = R.string.paypal_verification_didnt_receive_title),
-            color = WalletColors.styleguide_dark_grey,
-            modifier = Modifier.padding(top = 48.dp),
-        )
-        TextButton(onClick = {}) {
-          Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
-        }
+      Text(
+          text = stringResource(id = R.string.paypal_verification_didnt_receive_title),
+          color = WalletColors.styleguide_dark_grey,
+          modifier = Modifier.padding(top = 48.dp),
+      )
+      TextButton(onClick = {}) {
+        Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
       }
-      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+      Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 40.dp)) {
         ButtonWithText(
+            modifier = Modifier.weight(1f),
             label = stringResource(id = R.string.cancel_button),
             onClick = { navigator.navigateBack() },
             labelColor = WalletColors.styleguide_white,
-            outlineColor = WalletColors.styleguide_white)
+            outlineColor = WalletColors.styleguide_white,
+            buttonType = ButtonType.LARGE)
         Spacer(modifier = Modifier.width(20.dp))
         ButtonWithText(
+            modifier = Modifier.weight(1f),
             label = stringResource(id = R.string.send_button),
             onClick = { viewModel.verifyCode(defaultCode) },
             labelColor = WalletColors.styleguide_white,
-            backgroundColor = WalletColors.styleguide_pink)
+            backgroundColor = WalletColors.styleguide_pink,
+            buttonType = ButtonType.LARGE)
       }
     }
   }
@@ -235,11 +242,12 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       Text(
           text = stringResource(id = R.string.paypal_verification_completed_body),
           color = WalletColors.styleguide_light_grey,
-          modifier = Modifier.padding(top = 16.dp),
+          modifier = Modifier.padding(top = 16.dp).padding(horizontal = 16.dp),
           style = MaterialTheme.typography.bodyMedium,
           textAlign = TextAlign.Center,
           fontWeight = FontWeight.Medium)
       ButtonWithText(
+          modifier = Modifier.padding(top = 40.dp),
           label = stringResource(id = R.string.got_it_button),
           onClick = { navigator.navigateBack() },
           labelColor = WalletColors.styleguide_white,
@@ -251,19 +259,27 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun PreviewInitialScreen() {
-    InitialScreen(amount = "€20", onVerificationClick = {})
+    InitialScreen(amount = "€0.50", onVerificationClick = {})
   }
 
   @Preview
   @Composable
   fun PreviewCodeInputScreen() {
-    CodeInputScreen()
+    CodeInputScreen(wrongCode = true)
   }
 
   @Preview
   @Composable
   fun PreviewSuccessScreen() {
     SuccessScreen()
+  }
+
+  @Preview
+  @Composable
+  fun FullScreenLoading() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+    }
   }
 
   private fun getPaypalData() =
