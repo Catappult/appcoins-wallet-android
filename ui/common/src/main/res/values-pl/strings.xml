@@ -524,6 +524,7 @@
   <string name="send_button">Wyślij</string>
   <string name="resend_button">Wyślij ponownie</string>
   <string name="continue_button">Dalej</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -970,15 +971,21 @@
   <string name="manage_cards_settings_manage_title">Zarządzaj kartami</string>
   <string name="manage_cards_view_title">Zarządzaj kartami</string>
   <string name="manage_cards_view_manage_subtitle">Zarządzaj kartami płatniczymi</string>
-  <string name="manage_cards_add_title">Dodaj nową kartę</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Czy na pewno chcesz usunąć tę kartę?</string>
-  <string name="manage_cards_remove_no">NIE, ANULUJ</string>
-  <string name="manage_cards_remove_yes">TAK, USUŃ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Karta kończąca się %s</string>
   <string name="manage_cards_error_details">Czy jesteś pewny że dane twojej karty są prawidłowe? Spróbuj ponownie!</string>
   <string name="manage_cards_error_card_problem">Wydaje się że jest problem z twoją kartą. Spróbuj z inną.</string>
   <string name="manage_cards_select_title">Wybierz kartę płatniczą</string>
   <string name="manage_cards_remember">Pamiętaj kartę</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Zyskaj do %s%% ekstra przy każdym zakupie</string>
   <string name="perks_gamif_subtitle">Im więcej wydajesz w ulubionych aplikacjach, tym większy Bonus!</string>
