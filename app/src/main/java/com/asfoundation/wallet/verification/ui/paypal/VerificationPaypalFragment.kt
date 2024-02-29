@@ -20,6 +20,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,6 +34,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,6 +59,7 @@ import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.ResendCodeStatus
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.OpenWebPayPalPaymentRequest
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.RequestVerificationCode
@@ -127,7 +132,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     Column(modifier = Modifier.fillMaxSize().padding(24.dp)) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is RequestVerificationCode -> {
-          CodeInputScreen(uiState.wrongCode)
+          CodeInputScreen(uiState.wrongCode, uiState.loading, uiState.resendCodeStatus)
         }
         VerificationPaypalState.VerificationCompleted -> {
           SuccessScreen()
@@ -180,7 +185,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun CodeInputScreen(wrongCode: Boolean) {
+  fun CodeInputScreen(wrongCode: Boolean, loading: Boolean, resendCodeStatus: ResendCodeStatus) {
     var defaultCode by rememberSaveable { mutableStateOf("") }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
       Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.verify_animation)
@@ -201,32 +206,100 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       WalletCodeTextField(
           wrongCode = wrongCode, onValueChange = { newCode -> defaultCode = newCode })
 
-      Text(
-          text = stringResource(id = R.string.paypal_verification_didnt_receive_title),
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 48.dp),
-      )
-      TextButton(onClick = {}) {
-        Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
-      }
-      Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(top = 40.dp)) {
-        ButtonWithText(
-            modifier = Modifier.weight(1f),
-            label = stringResource(id = R.string.cancel_button),
-            onClick = { navigator.navigateBack() },
-            labelColor = WalletColors.styleguide_white,
-            outlineColor = WalletColors.styleguide_white,
-            buttonType = ButtonType.LARGE)
-        Spacer(modifier = Modifier.width(20.dp))
-        ButtonWithText(
-            modifier = Modifier.weight(1f),
-            label = stringResource(id = R.string.send_button),
-            onClick = { viewModel.verifyCode(defaultCode) },
-            labelColor = WalletColors.styleguide_white,
-            backgroundColor = WalletColors.styleguide_pink,
-            buttonType = ButtonType.LARGE)
-      }
+      ResendCode(
+          Modifier.padding(top = 48.dp), isVisible = !loading, resendCodeStatus = resendCodeStatus)
+
+      SendCodeButtons(Modifier.padding(top = 40.dp), loading = loading, code = defaultCode)
     }
+  }
+
+  @Composable
+  fun ResendCode(
+      modifier: Modifier = Modifier,
+      isVisible: Boolean,
+      resendCodeStatus: ResendCodeStatus
+  ) {
+    val alphaVisibility = if (isVisible) 1f else 0f
+    val timer = "00:58"
+    Column(
+        modifier = modifier.alpha(alphaVisibility),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+          Text(
+              text = stringResource(id = R.string.paypal_verification_didnt_receive_title),
+              color = WalletColors.styleguide_dark_grey,
+              fontWeight = FontWeight.Medium)
+
+          when (resendCodeStatus) {
+            ResendCodeStatus.AvailableToResend -> {
+              ResendButton()
+            }
+            ResendCodeStatus.Resending -> {
+              Animation(modifier = modifier.size(40.dp), animationRes = R.raw.loading_wallet)
+            }
+            ResendCodeStatus.Resent -> {
+              CodeSent()
+            }
+            ResendCodeStatus.UnavailableToResend -> {
+              Text(
+                  text = "Resend ($timer)",
+                  color = WalletColors.styleguide_dark_grey,
+                  fontWeight = FontWeight.Medium,
+                  modifier = Modifier.padding(top = 16.dp))
+            }
+          }
+        }
+  }
+
+  @Composable
+  fun ResendButton() {
+    TextButton(onClick = { viewModel.resendCode() }) {
+      Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
+    }
+  }
+
+  @Composable
+  fun CodeSent() {
+    Row(
+        modifier = Modifier.padding(top = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically) {
+          Image(
+              imageVector = Icons.Default.Check,
+              contentDescription = null,
+              colorFilter = ColorFilter.tint(WalletColors.styleguide_green))
+          Text(
+              text = "Code sent",
+              color = WalletColors.styleguide_light_grey,
+              fontWeight = FontWeight.Medium)
+        }
+  }
+
+  @Composable
+  fun SendCodeButtons(modifier: Modifier = Modifier, loading: Boolean, code: String) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier) {
+          if (loading)
+              Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+          else {
+            ButtonWithText(
+                modifier = Modifier.weight(1f),
+                label = stringResource(id = R.string.cancel_button),
+                onClick = { navigator.navigateBack() },
+                labelColor = WalletColors.styleguide_white,
+                outlineColor = WalletColors.styleguide_white,
+                buttonType = ButtonType.LARGE)
+            Spacer(modifier = Modifier.width(20.dp))
+            ButtonWithText(
+                modifier = Modifier.weight(1f),
+                label = stringResource(id = R.string.send_button),
+                onClick = { viewModel.verifyCode(code) },
+                labelColor = WalletColors.styleguide_white,
+                backgroundColor = WalletColors.styleguide_pink,
+                buttonType = ButtonType.LARGE)
+          }
+        }
   }
 
   @Composable
@@ -265,7 +338,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun PreviewCodeInputScreen() {
-    CodeInputScreen(wrongCode = true)
+    CodeInputScreen(
+        wrongCode = true, loading = false, resendCodeStatus = ResendCodeStatus.UnavailableToResend)
   }
 
   @Preview

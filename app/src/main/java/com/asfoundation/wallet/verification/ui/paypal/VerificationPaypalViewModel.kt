@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification.ui.paypal
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult.ErrorType.WRONG_CODE
@@ -21,8 +22,10 @@ import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 data class VerificationPaypalIntroState(
     val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
@@ -111,6 +114,9 @@ constructor(
       walletVerificationInteractor
           .confirmVerificationCode(code)
           .subscribeOn(Schedulers.io())
+          .doOnSubscribe {
+            _uiState.value = VerificationPaypalState.RequestVerificationCode(loading = true)
+          }
           .subscribe(
               {
                 if (it.success) _uiState.value = VerificationPaypalState.VerificationCompleted
@@ -124,6 +130,26 @@ constructor(
               },
               { _uiState.value = VerificationPaypalState.Error(it) })
 
+  fun resendCode() {
+    viewModelScope.launch {
+      _uiState.value =
+          VerificationPaypalState.RequestVerificationCode(
+              resendCodeStatus = ResendCodeStatus.Resending)
+      delay(2000)
+      _uiState.value =
+          VerificationPaypalState.RequestVerificationCode(
+              resendCodeStatus = ResendCodeStatus.Resent)
+      delay(2000)
+      _uiState.value =
+          VerificationPaypalState.RequestVerificationCode(
+              resendCodeStatus = ResendCodeStatus.UnavailableToResend)
+      delay(2000)
+      _uiState.value =
+          VerificationPaypalState.RequestVerificationCode(
+              resendCodeStatus = ResendCodeStatus.AvailableToResend)
+    }
+  }
+
   sealed class VerificationPaypalState {
     object Idle : VerificationPaypalState()
 
@@ -133,7 +159,11 @@ constructor(
 
     object UnknownError : VerificationPaypalState()
 
-    data class RequestVerificationCode(val wrongCode: Boolean = false) : VerificationPaypalState()
+    data class RequestVerificationCode(
+        val wrongCode: Boolean = false,
+        val loading: Boolean = false,
+        val resendCodeStatus: ResendCodeStatus = ResendCodeStatus.AvailableToResend
+    ) : VerificationPaypalState()
 
     data class Error(val error: Throwable) : VerificationPaypalState()
 
@@ -141,5 +171,12 @@ constructor(
 
     data class ShowVerificationInfo(val verificationInfo: VerificationIntroModel) :
         VerificationPaypalState()
+  }
+
+  enum class ResendCodeStatus {
+    AvailableToResend,
+    Resending,
+    Resent,
+    UnavailableToResend
   }
 }
