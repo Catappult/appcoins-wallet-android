@@ -524,6 +524,7 @@
   <string name="send_button">ارسال</string>
   <string name="resend_button">ارسال مجدد</string>
   <string name="continue_button">ادامه</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -968,15 +969,21 @@
   <string name="manage_cards_settings_manage_title">مدیریت کارت‌ها</string>
   <string name="manage_cards_view_title">مدیریت کارت‌ها</string>
   <string name="manage_cards_view_manage_subtitle">مدیریت کارت‌های پرداختی خود</string>
-  <string name="manage_cards_add_title">افزودن کارت جدید</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">آیا مطمئن هستید که می‌خواهید این کارت را حذف کنید؟</string>
-  <string name="manage_cards_remove_no">نه، لغو</string>
-  <string name="manage_cards_remove_yes">بله، حذف</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">کارت با انتهای %s</string>
   <string name="manage_cards_error_details">آیا مطمئن هستید که اطلاعات کارت شما صحیح است؟ لطفا مجدد امتحان کنید!</string>
   <string name="manage_cards_error_card_problem">به نظر می‌رسد مشکلی برای کارت شما وجود دارد. لطفا کارت دیگری را امتحان کنید.</string>
   <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
   <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">برای هر خرید، تا %s%% پاداش دریافت کنید</string>
   <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
