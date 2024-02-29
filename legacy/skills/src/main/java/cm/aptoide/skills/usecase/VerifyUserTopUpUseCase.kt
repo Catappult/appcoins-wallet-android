@@ -18,7 +18,9 @@ class VerifyUserTopUpUseCase @Inject constructor(
       .flatMap { wallet ->
         transactionsRepository.getTransactionList(
           wallet.address, listOf(
-            BackendTransactionType.WALLET_TOPUP, BackendTransactionType.WEB_TOPUP, BackendTransactionType.BONUS_GIFTCARD
+            BackendTransactionType.WALLET_TOPUP,
+            BackendTransactionType.WEB_TOPUP,
+            BackendTransactionType.BONUS_GIFTCARD
           ), MAX_NR_OF_TRANSACTIONS, 0
         )
           .map { transactions ->
@@ -29,7 +31,7 @@ class VerifyUserTopUpUseCase @Inject constructor(
             }
           }
       }
-      .doOnError {Log.d("VerifyTopUp", it.stackTraceToString())}
+      .doOnError { Log.d("VerifyTopUp", it.stackTraceToString()) }
   }
 
   private fun hasValidTransaction(transactions: List<TransactionOverviewResponse>): Boolean {

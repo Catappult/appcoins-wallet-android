@@ -7,8 +7,7 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.ISO_8601_DATE_TIME_FORMAT
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.MONTH_DAY_YEAR_FORMAT
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDate
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDateToTimestamp
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
@@ -21,11 +20,11 @@ import javax.inject.Inject
 class PromotionsMapper @Inject constructor(private val gamificationMapper: GamificationMapper) {
 
   fun mapToPromotionsModel(
-      userStats: UserStats,
-      levels: Levels,
-      wallet: Wallet,
-      vouchersListModel: VoucherListModel,
-      vipReferralResponse: VipReferralResponse
+    userStats: UserStats,
+    levels: Levels,
+    wallet: Wallet,
+    vouchersListModel: VoucherListModel,
+    vipReferralResponse: VipReferralResponse
   ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
@@ -33,55 +32,55 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     val promotions = mutableListOf<Promotion>()
     val perks = mutableListOf<PerkPromotion>()
     val vouchers = handleVouchers(vouchersListModel, maxBonus)
-    userStats.promotions.sortPerks()
-      .forEach {
-        when (it) {
-          is GamificationResponse -> {
-            gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
+    userStats.promotions.sortPerks().forEach {
+      when (it) {
+        is GamificationResponse -> {
+          gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
 
-            if (levels.isActive) {
-              maxBonus = levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
-            }
+          if (levels.isActive) {
+            maxBonus = levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
+          }
 
-            if (gamificationAvailable) {
-              promotions.add(0, mapToGamificationItem(it))
+          if (gamificationAvailable) {
+            promotions.add(0, mapToGamificationItem(it))
+          }
+        }
+
+        is ReferralResponse -> {
+          referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
+          if (referralAvailable) {
+            val index = if (gamificationAvailable) 1 else 0
+            promotions.add(index, mapToReferralItem(it))
+          }
+        }
+
+        is GenericResponse -> {
+          if (isPerk(it.linkedPromotionId)) {
+            when {
+              isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
+              it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE ->
+                perks.add(mapToProgressItem(it))
+
+              it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
+              else -> perks.add(mapToDefaultItem(it))
             }
           }
-          is ReferralResponse -> {
-            referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
-            if (referralAvailable) {
-              val index = if (gamificationAvailable) 1 else 0
-              promotions.add(index, mapToReferralItem(it))
-            }
-          }
-          is GenericResponse -> {
-            if (isPerk(it.linkedPromotionId)) {
-              when {
-                isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
-                it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
-                  mapToProgressItem(it)
-                )
-                it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(
-                  mapToPromoCodeItem(
-                    it
-                  )
-                )
-                else -> perks.add(mapToDefaultItem(it))
-              }
-            }
-            if (isValidGamificationLink(
-                it.linkedPromotionId, gamificationAvailable,
-                it.startDate ?: 0
-              )
-            ) {
-              mapToGamificationLinkItem(promotions, it)
-            }
+          if (isValidGamificationLink(
+              it.linkedPromotionId, gamificationAvailable, it.startDate ?: 0
+            )
+          ) {
+            mapToGamificationLinkItem(promotions, it)
           }
         }
       }
+    }
 
     return PromotionsModel(
-      promotions, vouchers, perks, maxBonus, wallet,
+      promotions,
+      vouchers,
+      perks,
+      maxBonus,
+      wallet,
       map(userStats.walletOrigin),
       map(userStats.error),
       levels.fromCache && userStats.fromCache,
@@ -89,9 +88,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     )
   }
 
-  private fun map(
-    walletOrigin: WalletOrigin
-  ): PromotionsModel.WalletOrigin {
+  private fun map(walletOrigin: WalletOrigin): PromotionsModel.WalletOrigin {
     return when (walletOrigin) {
       WalletOrigin.UNKNOWN -> PromotionsModel.WalletOrigin.UNKNOWN
       WalletOrigin.APTOIDE -> PromotionsModel.WalletOrigin.APTOIDE
@@ -108,17 +105,15 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun VipReferralResponse.map() =
-    if (active) VipReferralInfo(
-      vipBonus,
-      code,
-      earnedUsdAmount,
-      referrals,
-      transformDate(
-        date = endDate,
-        fromPattern = ISO_8601_DATE_TIME_FORMAT,
-        toPattern = MONTH_DAY_YEAR_FORMAT
+    if (active)
+      VipReferralInfo(
+        vipBonus,
+        code,
+        earnedUsdAmount,
+        referrals,
+        transformDateToTimestamp(date = endDate, fromPattern = ISO_8601_DATE_TIME_FORMAT),
+        app
       )
-    )
     else null
 
   private fun mapToGamificationLinkItem(
@@ -168,9 +163,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     )
   }
 
-  private fun mapToGamificationItem(
-    gamificationResponse: GamificationResponse
-  ): GamificationItem {
+  private fun mapToGamificationItem(gamificationResponse: GamificationResponse): GamificationItem {
     val currentLevelInfo = gamificationMapper.mapCurrentLevelInfo(gamificationResponse.level)
     val toNextLevelAmount =
       gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
@@ -190,7 +183,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
     return ReferralItem(
-      referralResponse.id, referralResponse.amount, referralResponse.currency,
+      referralResponse.id,
+      referralResponse.amount,
+      referralResponse.currency,
       referralResponse.link.orEmpty()
     )
   }
@@ -226,10 +221,14 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
 
   private fun isValidGamificationLink(
     linkedPromotionId: String?,
-    gamificationAvailable: Boolean, startDate: Long
+    gamificationAvailable: Boolean,
+    startDate: Long
   ): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-    return linkedPromotionId != null && linkedPromotionId == PromotionsInteractor.GAMIFICATION_ID && gamificationAvailable && startDate < currentTime
+    return linkedPromotionId != null &&
+        linkedPromotionId == PromotionsInteractor.GAMIFICATION_ID &&
+        gamificationAvailable &&
+        startDate < currentTime
   }
 
   private fun isFuturePromotion(genericResponse: GenericResponse): Boolean {
@@ -250,8 +249,12 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     vouchersListModel.vouchers.forEach {
       list.add(
         VoucherItem(
-          PromotionsInteractor.VOUCHER_ID, it.packageName, it.title, it.icon,
-          it.hasAppcoins, maxBonus
+          PromotionsInteractor.VOUCHER_ID,
+          it.packageName,
+          it.title,
+          it.icon,
+          it.hasAppcoins,
+          maxBonus
         )
       )
     }
@@ -293,5 +296,4 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       }
       return@sortedWith 0
     }
-
 }

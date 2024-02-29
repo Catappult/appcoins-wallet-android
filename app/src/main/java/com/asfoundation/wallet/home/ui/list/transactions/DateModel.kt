@@ -5,9 +5,11 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
-import com.asf.wallet.R
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
-import java.util.*
+import com.asf.wallet.R
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 @EpoxyModelClass
 abstract class DateModel : EpoxyModelWithHolder<DateModel.DateHolder>() {

@@ -39,25 +39,35 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
     presenter.present()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = ReferralsLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = ReferralsLayoutBinding.inflate(inflater).root
 
   override fun setupLayout() {
     val totalAvailable = completedInvites + available
     binding.friendsInvited.text = String.format("%d/%d", completedInvites, totalAvailable)
     binding.friendsInvited.visibility = VISIBLE
     binding.numberFriendsInvited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    binding.totalEarned.text = currency.plus(formatter.formatCurrency(getTotalEarned(),
-        WalletCurrency.FIAT))
+    binding.totalEarned.text = currency.plus(
+      formatter.formatCurrency(
+        getTotalEarned(),
+        WalletCurrency.FIAT
+      )
+    )
     binding.totalEarned.visibility = VISIBLE
     val individualEarn = currency.plus(formatter.formatCurrency(amount, WalletCurrency.FIAT))
     val totalEarn =
-        currency.plus(formatter.formatCurrency(amount.multiply(BigDecimal(totalAvailable)),
-            WalletCurrency.FIAT))
+      currency.plus(
+        formatter.formatCurrency(
+          amount.multiply(BigDecimal(totalAvailable)),
+          WalletCurrency.FIAT
+        )
+      )
     binding.referralExplanation.text =
-        getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
+      getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
     binding.invitationsProgressBar.progress =
-        ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
+      ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
     setFriendsAnimations(completedInvites, completedInvites + available)
   }
 
@@ -83,8 +93,13 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
 
   private fun setFriendsAnimations(invited: Int, totalInvitations: Int) {
     val friendsAnimation =
-        arrayOf(binding.friendsList.friendAnimation1, binding.friendsList.friendAnimation2, binding.friendsList.friendAnimation3, binding.friendsList.friendAnimation4,
-          binding.friendsList.friendAnimation5)
+      arrayOf(
+        binding.friendsList.friendAnimation1,
+        binding.friendsList.friendAnimation2,
+        binding.friendsList.friendAnimation3,
+        binding.friendsList.friendAnimation4,
+        binding.friendsList.friendAnimation5
+      )
 
     for (animationIndex in friendsAnimation.indices) {
       if (animationIndex < invited) {
@@ -157,9 +172,11 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
     private const val CURRENCY = "currency"
     private const val IS_REDEEMED = "is_redeemed"
 
-    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String,
-                    completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                    available: Int, isRedeemed: Boolean): ReferralsFragment {
+    fun newInstance(
+      amount: BigDecimal, pendingAmount: BigDecimal, currency: String,
+      completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
+      available: Int, isRedeemed: Boolean
+    ): ReferralsFragment {
       val bundle = Bundle()
       bundle.putSerializable(AMOUNT, amount)
       bundle.putSerializable(PENDING_AMOUNT, pendingAmount)

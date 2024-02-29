@@ -11,7 +11,7 @@ data class AdyenSessionResponse(
   val metadata: TransactionMetadata?
 ) {
   fun mapValidity(): GooglePayWebTransaction.GooglePayWebValidityState {
-    return when(status) {
+    return when (status) {
       TransactionStatus.PENDING -> GooglePayWebTransaction.GooglePayWebValidityState.PENDING
       TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> GooglePayWebTransaction.GooglePayWebValidityState.PENDING
       TransactionStatus.SETTLED -> GooglePayWebTransaction.GooglePayWebValidityState.PENDING

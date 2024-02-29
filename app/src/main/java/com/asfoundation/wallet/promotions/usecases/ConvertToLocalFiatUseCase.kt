@@ -11,9 +11,9 @@ import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
 
 class ConvertToLocalFiatUseCase @Inject constructor(
-        private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-        private val localCurrencyConversionService: LocalCurrencyConversionService,
-        private val dispatchers: Dispatchers
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
+  private val dispatchers: Dispatchers
 ) {
 
   operator fun invoke(valueToConvert: String, originalCurrency: String): Single<FiatValue> {

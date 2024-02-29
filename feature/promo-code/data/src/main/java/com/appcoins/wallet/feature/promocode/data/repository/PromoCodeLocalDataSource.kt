@@ -8,8 +8,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class PromoCodeLocalDataSource @Inject constructor(
-    private val promoCodeDao: PromoCodeDao,
-    private val rxSchedulers: RxSchedulers
+  private val promoCodeDao: PromoCodeDao,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun savePromoCode(

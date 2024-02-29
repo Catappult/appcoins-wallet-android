@@ -40,9 +40,11 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
           holder.showSkeleton()
         }
       }
+
       is Async.Success -> {
         holder.setWalletBalance(balAsync())
       }
+
       else -> Unit
     }
     holder.balanceClickableView.setOnClickListener {

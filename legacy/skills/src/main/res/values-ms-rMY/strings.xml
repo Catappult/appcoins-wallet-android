@@ -61,8 +61,8 @@
   <string name="error_message_local_payment_method_body">Kaedah pembayaran tempatan tidak diterima untuk bayar yuran masuk. Sila cipta dompet baru dan tambah nilai dengan kad bank atau PayPal!</string>
   <string name="rooted_device_blocked_body">Malangnya, anda tidak boleh main permainan e-Skills dengan peranti yang diakar.</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="error_update_needed_body">You need to update this game to the latest version!</string>
-  <string name="error_game_not_supported_body">It seems this game is not available at the moment.</string>
+  <string name="error_update_needed_body">Anda perlu kemas kini permainan ke versi terkini!</string>
+  <string name="error_game_not_supported_body">Permainan ini tidak tersedia buat masa ini.</string>
   <!-- Rankings and finished games -->
   <string name="waiting_for_opponents_to_finish">Menunggu lawan untuk tamat bermain.</string>
   <plurals name="opponent_points_title">

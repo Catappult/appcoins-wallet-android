@@ -116,7 +116,8 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/restart_button">
+          app:layout_constraintTop_toBottomOf="@id/restart_button"
+          >
 
         <!-- Your button -->
         <Button
@@ -128,7 +129,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0"
+            />
         <ImageView
             android:id="@+id/sticker_image"
             android:layout_width="54dp"

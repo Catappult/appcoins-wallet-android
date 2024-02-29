@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.ui.widgets.GameData
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @BoundTo(supertype = GamesRepositoryType::class)

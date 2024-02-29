@@ -11,14 +11,15 @@ import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
 
 @Database(
-    entities = [
-      TransactionEntity::class,
-      TransactionDetailsEntity::class,
-      TransactionDetailsEntity.Icon::class,
-      TransactionLinkIdEntity::class,
-      LastUpdatedWalletEntity::class
-    ],
-    version = 8)
+  entities = [
+    TransactionEntity::class,
+    TransactionDetailsEntity::class,
+    TransactionDetailsEntity.Icon::class,
+    TransactionLinkIdEntity::class,
+    LastUpdatedWalletEntity::class
+  ],
+  version = 8
+)
 @TypeConverters(TransactionTypeConverter::class)
 abstract class TransactionsDatabase : RoomDatabase() {
 
@@ -30,18 +31,21 @@ abstract class TransactionsDatabase : RoomDatabase() {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
-            "CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
-                + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
-                + "NULL, timeStamp INTEGER NOT NULL, processedTime INTEGER NOT NULL, status "
-                + "TEXT NOT NULL, value TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, "
-                + "currency TEXT, operations TEXT, sourceName TEXT, description TEXT, "
-                + "iconType TEXT, uri TEXT, PRIMARY KEY(transactionId, relatedWallet))")
-        database.execSQL("INSERT INTO TransactionEntityCopy (transactionId, relatedWallet, "
-            + "approveTransactionId, type, timeStamp, processedTime, status, value, `from`, `to`,"
-            + " currency, operations, sourceName, description, iconType, uri) SELECT "
-            + "transactionId, relatedWallet,approveTransactionId, type, timeStamp, processedTime,"
-            + " status, value, `from`, `to`, currency, operations, sourceName, description, "
-            + "iconType, uri FROM TransactionEntity")
+          "CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
+              + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
+              + "NULL, timeStamp INTEGER NOT NULL, processedTime INTEGER NOT NULL, status "
+              + "TEXT NOT NULL, value TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, "
+              + "currency TEXT, operations TEXT, sourceName TEXT, description TEXT, "
+              + "iconType TEXT, uri TEXT, PRIMARY KEY(transactionId, relatedWallet))"
+        )
+        database.execSQL(
+          "INSERT INTO TransactionEntityCopy (transactionId, relatedWallet, "
+              + "approveTransactionId, type, timeStamp, processedTime, status, value, `from`, `to`,"
+              + " currency, operations, sourceName, description, iconType, uri) SELECT "
+              + "transactionId, relatedWallet,approveTransactionId, type, timeStamp, processedTime,"
+              + " status, value, `from`, `to`, currency, operations, sourceName, description, "
+              + "iconType, uri FROM TransactionEntity"
+        )
         database.execSQL("DROP TABLE TransactionEntity")
         database.execSQL("ALTER TABLE TransactionEntityCopy RENAME TO TransactionEntity")
       }
@@ -72,9 +76,11 @@ abstract class TransactionsDatabase : RoomDatabase() {
     val MIGRATION_4_5: Migration = object : Migration(4, 5) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
-            "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY AUTOINCREMENT, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)")
+          "CREATE TABLE IF NOT EXISTS transaction_link_id (id INTEGER PRIMARY KEY AUTOINCREMENT, transactionId TEXT NOT NULL, linkTransactionId TEXT NOT NULL)"
+        )
         database.execSQL(
-            "CREATE UNIQUE INDEX IF NOT EXISTS index_transaction_link_id_transactionId_linkTransactionId ON transaction_link_id (transactionId, linkTransactionId)")
+          "CREATE UNIQUE INDEX IF NOT EXISTS index_transaction_link_id_transactionId_linkTransactionId ON transaction_link_id (transactionId, linkTransactionId)"
+        )
         database.execSQL("DELETE FROM TransactionEntity WHERE processedTime >= 1583280000000")
       }
     }
@@ -91,7 +97,8 @@ abstract class TransactionsDatabase : RoomDatabase() {
     val MIGRATION_6_7: Migration = object : Migration(6, 7) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
-            "CREATE TABLE IF NOT EXISTS LastUpdatedWalletEntity (wallet TEXT NOT NULL, transactionsUpdateTimestamp INTEGER NOT NULL, PRIMARY KEY(wallet))")
+          "CREATE TABLE IF NOT EXISTS LastUpdatedWalletEntity (wallet TEXT NOT NULL, transactionsUpdateTimestamp INTEGER NOT NULL, PRIMARY KEY(wallet))"
+        )
       }
     }
 

@@ -13,11 +13,11 @@
     <argument
         android:name="backup"
         app:argType="string"
-        android:defaultValue=""/>
+        android:defaultValue="" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"
-        app:destination="@id/recover_wallet_graph" >
+        app:destination="@id/recover_wallet_graph">
       <argument
           android:name="onboarding_layout"
           app:argType="boolean" />
@@ -37,7 +37,7 @@
   <fragment
       android:id="@+id/nav_bar_fragment"
       android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
-      tools:layout="@layout/nav_bar_fragment"/>
+      tools:layout="@layout/nav_bar_fragment" />
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"

@@ -3,14 +3,14 @@ package com.asfoundation.wallet.promotions.usecases
 import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class StartVipReferralPollingUseCase  @Inject constructor(
+class StartVipReferralPollingUseCase @Inject constructor(
   private val promotionsRepository: PromotionsRepository,
   private val workManager: WorkManager,
   private val rxSchedulers: RxSchedulers

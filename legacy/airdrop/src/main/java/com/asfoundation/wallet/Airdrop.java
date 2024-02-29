@@ -50,13 +50,13 @@ public class Airdrop {
 
   private Completable waitForTransactions(AirdropService.AirDropResponse airDropResponse) {
     return Single.fromCallable(() -> {
-      List<Completable> list = new ArrayList<>();
-      list.add(transactionService.waitForTransactionToComplete(
-          airDropResponse.getAppcoinsTransaction()));
-      list.add(
-          transactionService.waitForTransactionToComplete(airDropResponse.getEthTransaction()));
-      return list;
-    })
+          List<Completable> list = new ArrayList<>();
+          list.add(transactionService.waitForTransactionToComplete(
+              airDropResponse.getAppcoinsTransaction()));
+          list.add(
+              transactionService.waitForTransactionToComplete(airDropResponse.getEthTransaction()));
+          return list;
+        })
         .flatMapCompletable(list -> Completable.merge(list)
             .andThen(Completable.fromAction(() -> airdropResponse.onNext(
                 new AirdropData(AirdropData.AirdropStatus.SUCCESS, airDropResponse.getDescription(),

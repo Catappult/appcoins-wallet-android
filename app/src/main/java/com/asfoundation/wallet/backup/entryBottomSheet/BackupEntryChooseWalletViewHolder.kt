@@ -24,7 +24,8 @@ class BackupEntryChooseWalletViewHolder(
     binding.walletAddress.text = item.walletAddress.maskedEnd()
     binding.walletBalance.text =
       "${item.balance.symbol}${currencyFormatUtils.formatCurrency(item.balance.amount)} ${item.balance.currency}"
-    itemView.setOnClickListener { uiEventListener.onNext(item.walletAddress)
+    itemView.setOnClickListener {
+      uiEventListener.onNext(item.walletAddress)
     }
   }
 }

@@ -13,19 +13,26 @@ import io.reactivex.disposables.CompositeDisposable
 class SubscriptionSuccessModule {
 
   @Provides
-  fun providesSubscriptionSuccessPresenter(fragment: Fragment,
-                                           data: SubscriptionSuccessData,
-                                           navigator: SubscriptionSuccessNavigator): SubscriptionSuccessPresenter {
-    return SubscriptionSuccessPresenter(fragment as SubscriptionSuccessView, data, navigator,
-        CompositeDisposable(), AndroidSchedulers.mainThread())
+  fun providesSubscriptionSuccessPresenter(
+    fragment: Fragment,
+    data: SubscriptionSuccessData,
+    navigator: SubscriptionSuccessNavigator
+  ): SubscriptionSuccessPresenter {
+    return SubscriptionSuccessPresenter(
+      fragment as SubscriptionSuccessView, data, navigator,
+      CompositeDisposable(), AndroidSchedulers.mainThread()
+    )
   }
 
   @Provides
   fun providesSubscriptionSuccessData(fragment: Fragment): SubscriptionSuccessData {
     fragment.requireArguments()
-        .apply {
-          return SubscriptionSuccessData(getSerializable(
-              SubscriptionSuccessFragment.SUCCESS_TYPE_KEY)!! as SubscriptionSuccessFragment.SubscriptionSuccess)
-        }
+      .apply {
+        return SubscriptionSuccessData(
+          getSerializable(
+            SubscriptionSuccessFragment.SUCCESS_TYPE_KEY
+          )!! as SubscriptionSuccessFragment.SubscriptionSuccess
+        )
+      }
   }
 }

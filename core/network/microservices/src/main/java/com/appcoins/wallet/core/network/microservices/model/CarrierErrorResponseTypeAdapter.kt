@@ -37,11 +37,11 @@ class CarrierErrorResponseTypeAdapter : TypeAdapter<CarrierErrorResponse>() {
           val dataPeek = reader.peek()
           if (dataPeek == JsonToken.BEGIN_ARRAY) {
             val parsed: Array<CarrierErrorResponse.Data> =
-                gson.fromJson(reader, Array<CarrierErrorResponse.Data>::class.java)
+              gson.fromJson(reader, Array<CarrierErrorResponse.Data>::class.java)
             data.addAll(parsed)
           } else if (dataPeek == JsonToken.BEGIN_OBJECT) {
             val parsed: CarrierErrorResponse.Data =
-                gson.fromJson(reader, CarrierErrorResponse.Data::class.java)
+              gson.fromJson(reader, CarrierErrorResponse.Data::class.java)
             data.add(parsed)
           } else {
             throw JsonParseException("Unexpected token $dataPeek");

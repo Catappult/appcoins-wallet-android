@@ -2,7 +2,6 @@ package com.appcoins.wallet.feature.vkpay
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentManager
 import com.vk.auth.main.VkClientUiInfo

@@ -664,6 +664,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">若选择此种支付方式，则会在购买过程中收取一定的手续费。</string>
   <string name="purchase_fee_included_body">已包含相关费用</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -1192,7 +1193,7 @@
   <string name="vip_program_promo_code_tag">促销代码</string>
   <string name="vip_program_referral_page_title">VIP引荐计划</string>
   <string name="vip_program_referral_page_body">与社区和好友分享此促销代码，让每个人都能一边游玩一边赚钱。对于他们进行的每一次应用内购买，<b>您和您的好友都将在其他有效促销的基础上额外获得%1$s%%奖金</b>！<b>该活动的有效期至%2$s</b>！</string>
-  <string name="vip_program_referral_page_body_2">当使用此促销代码后，对于7天内的所有应用内购买，您和您的朋友均会获得%s%%的奖金。</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
   <string name="vip_program_referral_page_only_app_title">该应用内购买促销活动仅适用于：</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>

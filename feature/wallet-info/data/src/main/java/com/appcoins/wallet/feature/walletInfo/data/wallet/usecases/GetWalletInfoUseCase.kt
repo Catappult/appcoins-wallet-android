@@ -7,8 +7,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetWalletInfoUseCase @Inject constructor(
-    private val walletInfoRepository: WalletInfoRepository,
-    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+  private val walletInfoRepository: WalletInfoRepository,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+) {
 
   /**
    * Retrieves WalletInfo
@@ -18,7 +19,7 @@ class GetWalletInfoUseCase @Inject constructor(
    */
   operator fun invoke(address: String?, cached: Boolean): Single<WalletInfo> {
     val walletAddressSingle =
-        address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
+      address?.let { Single.just(Wallet(address)) } ?: getCurrentWalletUseCase()
     return if (cached) {
       walletAddressSingle.flatMap {
         walletInfoRepository.getCachedWalletInfo(it.address)

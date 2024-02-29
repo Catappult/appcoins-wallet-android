@@ -664,6 +664,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Bu ödeme yöntemi para birimini desteklemediğinden işlem ücreti alınabilir.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bu ödeme yöntemi, bu satın alma işlemi için bir işlem ücreti alır.</string>
   <string name="purchase_fee_included_body">ücretler dahil</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -1201,7 +1202,7 @@
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak <b>hem sen hem de arkadaşların %1$s%%</b> bonus kazanırsınız. <b>%2$s tarihine kadar geçerli</b>!</string>
-  <string name="vip_program_referral_page_body_2">Bu kodu kullanarak sen ve arkadaşların 7 gün boyunca tüm satın alma işlemlerinde %s%% bonus kazanırsınız!</string>
+  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_only_app_title">Yalnızca şunlardaki satın alımlar için:</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>

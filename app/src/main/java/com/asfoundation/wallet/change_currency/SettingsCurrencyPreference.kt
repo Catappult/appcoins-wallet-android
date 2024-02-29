@@ -8,14 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
+import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
-    Preference(context, attrs) {
+  Preference(context, attrs) {
   private var selectedCurrency: FiatCurrency? = null
   private var currency: TextView? = null
   private var flag: ImageView? = null
@@ -46,10 +46,10 @@ class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
   private fun setFlagImageView() {
     safeLet(flag, selectedCurrency?.flag) { flagView, flagUrl ->
       GlideApp.with(context)
-          .load(Uri.parse(flagUrl))
-          .transition(DrawableTransitionOptions.withCrossFade())
-          .circleCrop()
-          .into(flagView)
+        .load(Uri.parse(flagUrl))
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .circleCrop()
+        .into(flagView)
     }
   }
 }

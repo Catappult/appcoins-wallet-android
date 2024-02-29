@@ -1,8 +1,18 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.InAppProduct
+import com.appcoins.wallet.bdsbilling.repository.entity.Package
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.bdsbilling.repository.entity.RemoteProduct
+import com.appcoins.wallet.bdsbilling.repository.entity.Signature
+import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
+import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
+import com.appcoins.wallet.core.network.microservices.model.InappPurchaseResponse
+import com.appcoins.wallet.core.network.microservices.model.PurchaseState
 
 class InAppMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> =

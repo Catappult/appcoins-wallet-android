@@ -10,8 +10,10 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class TopUpNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                     private val fragment: Fragment) : Navigator {
+class TopUpNavigator @Inject constructor(
+  private val fragmentManager: FragmentManager,
+  private val fragment: Fragment
+) : Navigator {
 
   override fun popView(bundle: Bundle) {
     (fragment.activity as TopUpActivityView).finish(bundle)

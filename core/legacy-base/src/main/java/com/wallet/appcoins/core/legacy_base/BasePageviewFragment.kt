@@ -1,4 +1,5 @@
 package com.wallet.appcoins.core.legacy_base
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import cm.aptoide.analytics.AnalyticsManager
@@ -9,7 +10,8 @@ abstract class BasePageViewFragment : Fragment() {
 
   private lateinit var pageViewAnalytics: PageViewAnalytics
 
-  @Inject lateinit var analyticsManager: AnalyticsManager
+  @Inject
+  lateinit var analyticsManager: AnalyticsManager
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

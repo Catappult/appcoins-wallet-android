@@ -226,15 +226,6 @@ class TransferFundsFragment : BasePageViewFragment() {
 
       Loading -> Loading()
 
-      Error -> {
-        Toast.makeText(
-          context,
-          stringResource(R.string.unknown_error),
-          LENGTH_SHORT
-        ).show()
-        viewModel.getWalletInfo()
-      }
-
       InvalidAmountError -> {
         Toast.makeText(
           context,
@@ -271,7 +262,7 @@ class TransferFundsFragment : BasePageViewFragment() {
         viewModel.getWalletInfo()
       }
 
-      UnknownError -> {
+      Error, UnknownError -> {
         Toast.makeText(
           context,
           stringResource(R.string.unknown_error),

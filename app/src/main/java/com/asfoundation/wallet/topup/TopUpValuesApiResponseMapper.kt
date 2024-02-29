@@ -7,7 +7,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 
-class TopUpValuesApiResponseMapper @Inject constructor(){
+class TopUpValuesApiResponseMapper @Inject constructor() {
 
   fun map(defaultValues: TopUpDefaultValuesResponse): TopUpValuesModel {
     return TopUpValuesModel(ArrayList(defaultValues.items.map {

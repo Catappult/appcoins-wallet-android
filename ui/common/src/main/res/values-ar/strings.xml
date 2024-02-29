@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">عودة إلى اللعبة</string>
   <string name="other_payment_methos_title">وسائل دفع أخرى:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">لديك بالفعل</string>
+  <string name="intro_from_web_payment_to_spend_body">لتصرفها على ألعابك المفضلة.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">مِن</string>
@@ -476,7 +476,7 @@
   <string name="p2p_send_error_amount_zero">يجب أن تكون أكثر من صفر</string>
   <string name="p2p_send_confirmation_header">بيانات التحويل</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">يييي</string>
   <string name="error_general">حدث خطأ</string>
   <string name="error_missing_field">حقل إجباري</string>
   <string name="cancel_button">إلغاء</string>
@@ -489,7 +489,7 @@
   <string name="discover_button">اطّلاع</string>
   <string name="retry_button">حاول ثانية</string>
   <string name="do_it_later_button">لاحقًا</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">لا يوجد اتصال بالإنترنت</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>
@@ -518,12 +518,12 @@
   <string name="done">تم!</string>
   <string name="see_more_button">المزيد</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">تنتهي في</string>
   <string name="start_date_title">من تاريخ:</string>
-  <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="end_date_title">تاريخ الانتهاء:</string>
+  <string name="send_button">إرسال</string>
+  <string name="resend_button">إعادة إرسال</string>
+  <string name="continue_button">متابعة</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -572,7 +572,7 @@
   <string name="verification_settings_verified_title">اكتمل التحقق من المحفظة</string>
   <string name="verification_settings_verifying_title">يتم التحقق…</string>
   <string name="verification_verified_paypal_description">ستسترجع أموالك في الحال. سيتم التحقق من وسلة دفعك بعد قليل.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">سيتم تحويل %s لتأكيد حسابك. وستسترجعها في الحال.</string>
   <string name="verification_verify_paypal_button">تحقق الآن</string>
   <string name="verification_settings_card_verified_title">المحفظة موثقة</string>
   <string name="verification_settings_no_internet">أنت بحاجة إلى الاتصال بالإنترنت</string>
@@ -582,12 +582,12 @@
   <string name="unferified_tag">محفظة لم يتم التحقق منها</string>
   <string name="verification_wallets_verify_button">تحقق</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_home_one_step_card_title">بقيت خطوة واحدة!</string>
+  <string name="paypal_verification_home_one_step_card_body">أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني لتأكيد حساب PayPal.</string>
+  <string name="paypal_verification_header">تأكيد PayPal</string>
+  <string name="paypal_verification_insert_code_body">أدخل في الأسفل الرمز المكون من 4 خانات الذي أرسلناه إلى بريدك الإلكتروني المرتبط بحسابك على PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">ألم يصلك الرمز؟</string>
+  <string name="paypal_verification_completed_body">ستسترجع المبلغ في الحال، وسيتم تأكيد حسابك على PayPal قريبًا.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">المجموع %1$s %2$s</string>
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
@@ -656,15 +656,16 @@
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">كانت هناك مشكلة مع Google Pay. يرجى المحاولة ثانية باستخدام وسيلة دفع مختلفة.</string>
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">%1$s %2$s عمولة</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">وسيلة الدفع هذه لا تدعم عملتك، لذلك ستُخصم عمولة تشغيل. هذه العمولة ستكون متضمنة في المجموع الكلي الذي ستراه في الخانة العلوية.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">وسيلة الدفع هذه تخصم عمولة على التحويلات لعملية الشراء هذه. ستُحسب هذه العمولة في المبلغ الإجمالي الذي يمكنك رؤيته في القسم العلوي.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">وسيلة الدفع هذه تخصم عمولة تحويل لعملية الشراء الحالية.</string>
+  <string name="purchase_fee_included_body">شامل العمولة</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -827,8 +828,8 @@
   <string name="remove_wallet_no_button">لا، عُد للخلف</string>
   <string name="remove_wallet_yes_button">نعم، احذف المحفظة</string>
   <string name="remove_wallet_removed_body">تمت إزالة المحفظة!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">هل أنت متيقّن؟</string>
+  <string name="remove_wallet_extra_confirmation_body">تذكر، دون نسخ احتياطي، ستخسر أموالك ومستوى مكافآتك.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">تحويل</string>
   <string name="transfer_title">تحويل الأموال</string>
@@ -1050,7 +1051,7 @@
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">القُفل الحيوي</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>
@@ -1237,10 +1238,10 @@
   <string name="vip_program_promotions_list_title">ترقيات مميزة من أجلك</string>
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases for 7 days when using this code!</string>
+  <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع مجتمعك وأصدقائك ومع الجميع لتكسب وأنت تلعب. في كل عملية شراء يقومون بها داخل التطبيق، كلاكما <b>أنت وصديقك ستكسبان %1$s%% مكافأة</b> إضافية مع أي رموز ترويجية أخرى. <b>صالح لغاية %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">ستحصل أنت وأصدقاؤك على %s%% مكافأة في كل عمليات الشراء عند استخدام الرمز!</string>
   <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">فقط للمشتريات على</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
   <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
   <string name="vip_program_gamification_amount_purchases_bonus">المكافآت التي تلقيتها من مشترياتك</string>
@@ -1322,7 +1323,7 @@
   <string name="verify_card_one_more_step_body">أدخل الرمز الذي يظهر في تفاصيل التحويل</string>
   <string name="verify_card_one_more_step_button">أدخل الرمز</string>
   <string name="verify_card_verified">تم توثيق وسيلة الدفع!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">تأكيد بطاقة الائتمان/الدفع المسبق</string>
   <string name="verify_card_view_title">توثيق البطاقة</string>
   <string name="verify_card_view_disclaimer">سنسحب %s من بطاقتك، وستستعيدها بعد تأكيد الرمز.</string>
   <string name="verify_card_view_title_2">أدخل بيانات بطاقتك البنكية</string>

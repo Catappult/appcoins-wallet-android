@@ -11,8 +11,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 297
-    versionName = "3.12.1"
+    versionCode = 301
+    versionName = "3.14.2"
   }
 }
 
@@ -102,6 +102,7 @@ dependencies {
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
     exclude(group = "org.bouncycastle", module = "bcprov-jdk15to18")
   }
+  implementation(platform(libs.firebase.bom))
   implementation(libs.firebase.messaging)
   implementation(libs.intercom) { exclude(group = "com.google.android", module = "flexbox") }
   implementation(libs.paranoid)

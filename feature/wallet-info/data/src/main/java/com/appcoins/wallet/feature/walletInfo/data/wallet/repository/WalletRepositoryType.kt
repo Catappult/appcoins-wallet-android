@@ -1,4 +1,5 @@
 package com.appcoins.wallet.feature.walletInfo.data.wallet.repository
+
 import com.appcoins.wallet.feature.walletInfo.data.RestoreResult
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import io.reactivex.Completable
@@ -13,8 +14,10 @@ interface WalletRepositoryType {
 
   fun createWallet(password: String): Single<Wallet>
 
-  fun restoreKeystoreToWallet(store: String, password: String,
-                              newPassword: String): Single<RestoreResult>
+  fun restoreKeystoreToWallet(
+    store: String, password: String,
+    newPassword: String
+  ): Single<RestoreResult>
 
   fun restorePrivateKeyToWallet(privateKey: String?, newPassword: String): Single<RestoreResult>
 

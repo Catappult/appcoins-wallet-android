@@ -139,6 +139,7 @@ fun SkeletonLoadingRewardsActionsCard() {
     SkeletonLoadingRewardActionCard()
   }
 }
+
 @Composable
 private fun SkeletonLoadingRewardActionCard() {
   Card(
@@ -159,7 +160,7 @@ private fun SkeletonLoadingRewardActionCard() {
           .clip(RoundedCornerShape(30.dp))
           .background(brush = shimmerSkeleton()),
       )
-      Column( horizontalAlignment = Alignment.CenterHorizontally) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(
           modifier = Modifier
             .width(width = 110.dp)

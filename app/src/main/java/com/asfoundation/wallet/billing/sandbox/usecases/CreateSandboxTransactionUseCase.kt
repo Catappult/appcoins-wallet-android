@@ -21,9 +21,11 @@ class CreateSandboxTransactionUseCase @Inject constructor(
     developerWallet: String?,
     referrerUrl: String?
   ): Single<SandboxTransaction> {
-    return Single.zip(walletService.getWalletAddress(),
-      partnerAddressService.getAttribution(packageName))
-      { address, attributionEntity -> Pair(address, attributionEntity) }
+    return Single.zip(
+      walletService.getWalletAddress(),
+      partnerAddressService.getAttribution(packageName)
+    )
+    { address, attributionEntity -> Pair(address, attributionEntity) }
       .flatMap { pair ->
         val address = pair.first
         val attrEntity = pair.second

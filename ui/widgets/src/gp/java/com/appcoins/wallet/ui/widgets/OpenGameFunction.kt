@@ -6,15 +6,22 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat.startActivity
 
 
-fun openGame(gamePackage: String?, actionUrl: String?, context: Context) {
+fun openGame(
+  gamePackage: String?,
+  actionUrl: String?,
+  context: Context,
+  sendPromotionClickEvent: (String?, String) -> Unit
+) {
   try {
     val launchIntent: Intent? = gamePackage?.let {
       context.packageManager.getLaunchIntentForPackage(
         it
       )
     }
-    if (launchIntent != null)
+    if (launchIntent != null) {
+      sendPromotionClickEvent(gamePackage, "open")
       startActivity(context, launchIntent, null)
+    }
   } catch (e: Throwable) {
   }
 }

@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

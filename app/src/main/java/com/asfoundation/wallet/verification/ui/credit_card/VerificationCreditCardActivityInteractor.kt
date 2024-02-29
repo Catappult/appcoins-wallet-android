@@ -7,16 +7,18 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class VerificationCreditCardActivityInteractor @Inject constructor(
-    private val brokerVerificationRepository: BrokerVerificationRepository,
-    private val walletService: WalletService
+  private val brokerVerificationRepository: BrokerVerificationRepository,
+  private val walletService: WalletService
 ) {
 
   fun getVerificationStatus(): Single<VerificationStatus> {
     return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { addressModel ->
-          brokerVerificationRepository.getCardVerificationState(addressModel.address,
-              addressModel.signedAddress)
-        }
-        .onErrorReturn { VerificationStatus.UNVERIFIED }
+      .flatMap { addressModel ->
+        brokerVerificationRepository.getCardVerificationState(
+          addressModel.address,
+          addressModel.signedAddress
+        )
+      }
+      .onErrorReturn { VerificationStatus.UNVERIFIED }
   }
 }

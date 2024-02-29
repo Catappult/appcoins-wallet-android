@@ -6,11 +6,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.home.ui.list.HomeListClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.rd.PageIndicatorView
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 @EpoxyModelClass
 abstract class EmptyTransactionsModel :

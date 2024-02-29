@@ -1,12 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.appcoins.rewards.Transaction
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -157,18 +156,22 @@ class AppcoinsRewardsBuyPresenter(
             }
         }
       }
+
       Status.ERROR -> Completable.fromAction {
         logger.log(TAG, "Credits error: ${transaction.errorMessage}")
         view.showError(null)
       }.subscribeOn(viewScheduler)
+
       Status.FORBIDDEN -> Completable.fromAction {
         logger.log(TAG, "Forbidden")
         handleFraudFlow()
       }
+
       Status.SUB_ALREADY_OWNED -> Completable.fromAction {
         logger.log(TAG, "Sub already owned")
         view.showError(R.string.subscriptions_error_already_subscribed)
       }.subscribeOn(viewScheduler)
+
       Status.NO_NETWORK -> Completable.fromAction {
         logger.log(TAG, Exception("PaymentStatus no network"))
         view.showNoNetworkError()

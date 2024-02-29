@@ -423,6 +423,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       PaymentBrands.DISCOVER.brandName -> {
         img_stored_card_brand?.setImageResource(ic_card_brand_discover)
       }
+
       else -> {
         img_stored_card_brand?.setColorFilter(R.color.styleguide_dark_grey)
       }
@@ -806,10 +807,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     } else {
       scroll_payment?.visibility = VISIBLE
       layout_adyen_stored_card?.visibility = GONE
-      change_card_button?.visibility =  GONE
+      change_card_button?.visibility = GONE
       change_card_button_pre_selected?.visibility = GONE
       adyen_card_form?.visibility = VISIBLE
-      more_payment_methods?.visibility = if(isPreSelected) VISIBLE else GONE
+      more_payment_methods?.visibility = if (isPreSelected) VISIBLE else GONE
       more_payment_stored_methods?.visibility = GONE
     }
     if (isStored) {

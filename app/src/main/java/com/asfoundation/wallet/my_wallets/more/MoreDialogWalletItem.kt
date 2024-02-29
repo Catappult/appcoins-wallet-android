@@ -6,9 +6,12 @@ import android.graphics.Typeface
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup.*
+import android.view.ViewGroup.INVISIBLE
+import android.view.ViewGroup.LayoutParams
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.ViewGroup.MarginLayoutParams
+import android.view.ViewGroup.VISIBLE
 import android.widget.ImageView
 import android.widget.Space
 import android.widget.TextView

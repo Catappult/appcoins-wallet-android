@@ -19,8 +19,10 @@ class HomeRecyclerView @JvmOverloads constructor(
     this.setBackgroundColor(ContextCompat.getColor(context, R.color.styleguide_white))
     layoutManager = object : LinearLayoutManager(context) {
 
-      override fun layoutDecoratedWithMargins(child: View, left: Int, top: Int, right: Int,
-                                              bottom: Int) {
+      override fun layoutDecoratedWithMargins(
+        child: View, left: Int, top: Int, right: Int,
+        bottom: Int
+      ) {
         val viewHolder = getChildViewHolder(child)
         if (!shouldCenterItem(viewHolder.itemViewType))
           return super.layoutDecoratedWithMargins(child, left, top, right, bottom)

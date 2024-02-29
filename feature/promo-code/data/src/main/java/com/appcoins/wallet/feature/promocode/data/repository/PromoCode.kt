@@ -3,10 +3,10 @@ package com.appcoins.wallet.feature.promocode.data.repository
 import java.io.Serializable
 
 data class PromoCode(
-    val code: String?,
-    val bonus: Double?,
-    val validity: ValidityState?,
-    val appName: String?,
+  val code: String?,
+  val bonus: Double?,
+  val validity: ValidityState?,
+  val appName: String?,
 ) : Serializable
 
 enum class ValidityState(val value: Int) {

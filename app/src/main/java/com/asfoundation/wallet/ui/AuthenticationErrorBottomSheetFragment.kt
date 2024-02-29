@@ -41,12 +41,16 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        AuthenticationErrorBottomSheetPresenter(this, AndroidSchedulers.mainThread(),
-            CompositeDisposable())
+      AuthenticationErrorBottomSheetPresenter(
+        this, AndroidSchedulers.mainThread(),
+        CompositeDisposable()
+      )
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = AuthenticationErrorBottomsheetBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = AuthenticationErrorBottomsheetBinding.inflate(inflater).root
 
   override fun getButtonClick() = RxView.clicks(binding.retryAuthentication)
 
@@ -56,7 +60,8 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   }
 
   override fun setMessage() {
-    binding.authenticationErrorMessage.text = getString(R.string.fingerprint_failed_body, errorTimer.toString())
+    binding.authenticationErrorMessage.text =
+      getString(R.string.fingerprint_failed_body, errorTimer.toString())
   }
 
   override fun setupUi() {

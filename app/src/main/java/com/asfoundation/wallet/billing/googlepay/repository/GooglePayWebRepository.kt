@@ -90,8 +90,8 @@ class GooglePayWebRepository @Inject constructor(
 
   fun getGooglePayUrl(): Single<GooglePayUrls> {
     return brokerBdsApi.getGooglePayUrls().map {
-        GooglePayUrls(it.url, it.returnUrl)
-      }
+      GooglePayUrls(it.url, it.returnUrl)
+    }
   }
 
   fun getTransaction(

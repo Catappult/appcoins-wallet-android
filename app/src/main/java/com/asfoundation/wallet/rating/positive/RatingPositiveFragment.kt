@@ -21,8 +21,10 @@ class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
 
   private val binding by viewBinding(FragmentRatingPositiveBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingPositiveBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentRatingPositiveBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

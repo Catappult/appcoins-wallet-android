@@ -70,8 +70,16 @@ class AndroidAppPlugin : Plugin<Project> {
             manifestPlaceholders["VkExternalAuthRedirectScheme"] =
               project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME_DEV").toString()
             resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID_DEV").toString())
-            resValue("string", "vk_client_secret", project.property("VK_CLIENT_SECRET_DEV").toString())
-            resValue("string", "vk_external_oauth_redirect_url", project.property("VK_EXTERNAL_URL_REDIRECT_DEV").toString())
+            resValue(
+              "string",
+              "vk_client_secret",
+              project.property("VK_CLIENT_SECRET_DEV").toString()
+            )
+            resValue(
+              "string",
+              "vk_external_oauth_redirect_url",
+              project.property("VK_EXTERNAL_URL_REDIRECT_DEV").toString()
+            )
           }
 
           release {
@@ -88,7 +96,11 @@ class AndroidAppPlugin : Plugin<Project> {
               project.property("VK_EXTERNAL_AUTH_REDIRECT_BUILD_SCHEME").toString()
             resValue("string", "com_vk_sdk_AppId", project.property("VK_SDK_APP_ID").toString())
             resValue("string", "vk_client_secret", project.property("VK_CLIENT_SECRET").toString())
-            resValue("string", "vk_external_oauth_redirect_url", project.property("VK_EXTERNAL_URL_REDIRECT").toString())
+            resValue(
+              "string",
+              "vk_external_oauth_redirect_url",
+              project.property("VK_EXTERNAL_URL_REDIRECT").toString()
+            )
           }
 
           register("staging") {

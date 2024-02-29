@@ -33,10 +33,10 @@ import android.util.DisplayMetrics;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.camera.CameraSource;
 import com.asfoundation.wallet.ui.camera.CameraSourcePreview;
-import com.appcoins.wallet.core.utils.android_common.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -44,12 +44,10 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.wallet.appcoins.core.legacy_base.BaseActivity;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import java.io.IOException;
 
-@AndroidEntryPoint
-public final class BarcodeCaptureActivity extends BaseActivity
+@AndroidEntryPoint public final class BarcodeCaptureActivity extends BaseActivity
     implements BarcodeTracker.BarcodeGraphicTrackerCallback, CameraResultListener {
 
   // Constants used to pass extra data in the intent
@@ -94,7 +92,7 @@ public final class BarcodeCaptureActivity extends BaseActivity
     if (mPreview != null) {
       mPreview = null;
     }
-    if (mCameraSource !=null){
+    if (mCameraSource != null) {
       mCameraSource = null;
     }
   }
@@ -174,7 +172,7 @@ public final class BarcodeCaptureActivity extends BaseActivity
 
     CameraSource.Builder builder =
         new CameraSource.Builder(getApplicationContext(), barcodeDetector).setFacing(
-            CameraSource.CAMERA_FACING_BACK)
+                CameraSource.CAMERA_FACING_BACK)
             .setRequestedPreviewSize(metrics.widthPixels, metrics.heightPixels)
             .setRequestedFps(24.0f);
 

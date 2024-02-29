@@ -5,9 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,9 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -38,7 +40,6 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.REWARDS
-import com.appcoins.wallet.feature.challengereward.data.presentation.ChallengeRewardVisibilityViewModel
 import com.appcoins.wallet.feature.challengereward.data.presentation.challengeRewardNavigation
 import com.appcoins.wallet.feature.challengereward.data.presentation.getLoadingStateChallengeReward
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
@@ -57,6 +58,7 @@ import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingRewardsActionsCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VipReferralCard
+import com.appcoins.wallet.ui.widgets.expanded
 import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -69,6 +71,7 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.APTOIDE
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.PARTNER
 import com.asfoundation.wallet.promotions.model.PromotionsModel.WalletOrigin.UNKNOWN
+import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,27 +90,23 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
-  private var isVip by mutableStateOf(false)
-
   private val df = DecimalFormat("###.#")
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return ComposeView(requireContext()).apply {
-      setContent {
-        RewardScreen()
-      }
-    }
+    return ComposeView(requireContext()).apply { setContent { RewardScreen() } }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    viewModel.updateNotificationBadge()
   }
 
   override fun onResume() {
@@ -133,77 +132,47 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         Surface {
           TopBar(
             isMainBar = true,
-            isVip = isVip,
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen(false) },
+            hasNotificationBadge = viewModel.hasNotificationBadge.value
           )
         }
       },
       containerColor = WalletColors.styleguide_blue,
       modifier = modifier
     ) { padding ->
-      RewardScreenContent(
-        padding = padding
-      )
+      RewardScreenContent(padding = padding)
     }
   }
 
   @Composable
-  internal fun RewardScreenContent(
-    padding: PaddingValues
-  ) {
-    val challengeRewardNavigation = challengeRewardNavigation(
-      navigation = { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) },
-    )
+  internal fun RewardScreenContent(padding: PaddingValues) {
+    val challengeRewardNavigation =
+      challengeRewardNavigation(
+        navigation = { viewModel.sendChallengeRewardEvent(flowPath = REWARDS) },
+      )
     LazyColumn(
       modifier = Modifier.padding(padding),
     ) {
       item {
         with(viewModel.gamificationHeaderModel.value) {
-          if (this != null && walletOrigin == APTOIDE) {
-            GamificationHeader(
-              onClick = {
-                navigator.navigateToGamification(
-                  cachedBonus = this.bonusPercentage
-                )
-              },
-              indicatorColor = Color(
-                this.color
-              ),
-              valueSpendForNextLevel = this.spendMoreAmount,
-              currencySpend = " AppCoins Credits",
-              currentProgress = this.currentSpent,
-              maxProgress = this.nextLevelSpent ?: 0,
-              bonusValue = df.format(this.bonusPercentage),
-              planetDrawable = this.planetImage,
-              isVip = this.isVip,
-              isMaxVip = this.isMaxVip
-            )
-            with(viewModel.vipReferralModel.value) {
-              if (this != null) {
-                VipReferralCard(
-                  {
-                    navigator.navigateToVipReferral(
-                      bonus = this.vipBonus,
-                      code = this.vipCode,
-                      totalEarned = this.totalEarned,
-                      numberReferrals = this.numberReferrals,
-                      endDate = this.endDate,
-                      mainNavController = navController()
-                    )
-                  }, this.vipBonus
-                )
-              }
+          when {
+            this != null && walletOrigin == APTOIDE -> {
+              GamificationContentAptoide(this, viewModel.vipReferralModel.value)
             }
-          } else if (this != null && walletOrigin == PARTNER) {
-            GamificationHeaderPartner(
-              df.format(this.bonusPercentage)
-            )
-          } else if (this != null && this.uninitialized) {
-            SkeletonLoadingGamificationCard()
-          } else {
-            GamificationHeaderNoPurchases()
+
+            this != null && walletOrigin == PARTNER -> {
+              GamificationHeaderPartner(df.format(this.bonusPercentage))
+            }
+
+            this != null && this.uninitialized -> {
+              SkeletonLoadingGamificationCard()
+            }
+
+            else -> {
+              GamificationHeaderNoPurchases()
+            }
           }
           if (remember { getLoadingStateChallengeReward() }.value) {
             SkeletonLoadingRewardsActionsCard()
@@ -249,6 +218,59 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     }
   }
 
+  @Composable
+  fun GamificationContentAptoide(
+    gamificationHeader: GamificationHeaderModel,
+    vipReferralInfo: VipReferralInfo?
+  ) {
+    BoxWithConstraints {
+      if (expanded()) {
+        Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+          Column(modifier = Modifier.weight(1f)) {
+            GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
+          }
+          if (vipReferralInfo != null)
+            Column(modifier = Modifier.weight(1f)) {
+              VipReferralCard(vipReferralInfo = vipReferralInfo)
+            }
+        }
+      } else {
+        Column {
+          GamificationHeaderAptoide(gamificationHeader = gamificationHeader)
+          VipReferralCard(vipReferralInfo = vipReferralInfo)
+        }
+      }
+    }
+  }
+
+  @Composable
+  fun GamificationHeaderAptoide(gamificationHeader: GamificationHeaderModel) {
+    with(gamificationHeader) {
+      GamificationHeader(
+        onClick = { navigator.navigateToGamification(cachedBonus = this.bonusPercentage) },
+        indicatorColor = Color(color),
+        valueSpendForNextLevel = spendMoreAmount,
+        currencySpend = " AppCoins Credits",
+        currentProgress = currentSpent,
+        maxProgress = nextLevelSpent ?: 0,
+        bonusValue = df.format(bonusPercentage),
+        planetDrawable = planetImage,
+        isVip = isVip,
+        isMaxVip = isMaxVip
+      )
+    }
+  }
+
+  @Composable
+  fun VipReferralCard(vipReferralInfo: VipReferralInfo?) {
+    if (vipReferralInfo != null)
+      VipReferralCard(
+        { navigator.navigateToVipReferral(vipReferralInfo, navController()) },
+        vipReferralInfo.vipBonus,
+        vipReferralInfo.endDate,
+      )
+  }
+
   @Preview(showBackground = true)
   @Composable
   fun RewardScreenPreview() {
@@ -256,17 +278,14 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   }
 
   override fun onStateChanged(state: RewardState) {
-    showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
     instantiateChallengeReward(state.walletInfoAsync)
   }
 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
     when (sideEffect) {
-      is RewardSideEffect.NavigateToSettings -> navigator.navigateToSettings(
-        navController(),
-        sideEffect.turnOnFingerprint
-      )
+      is RewardSideEffect.NavigateToSettings ->
+        navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
     }
   }
 
@@ -299,7 +318,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )
@@ -320,7 +340,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )
@@ -337,7 +358,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 openGame(
                   promotion.packageName ?: promotion.actionUrl,
                   promotion.actionUrl,
-                  requireContext()
+                  requireContext(),
+                  viewModel.referenceSendPromotionClickEvent()
                 )
               }
             )
@@ -347,10 +369,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
         setGamification(promotionsModel, promotionsGamificationStats)
 
-        promotionsModel.value!!.vipReferralInfo?.let {
-          viewModel.vipReferralModel.value = it
-        }
-
+        promotionsModel.value!!.vipReferralInfo?.let { viewModel.vipReferralModel.value = it }
       }
 
       else -> Unit
@@ -362,10 +381,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     promotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
 
-    if (
-      promotionsGamificationStats.value != null &&
-      promotionsModel.value?.promotions != null
-    ) {
+    if (promotionsGamificationStats.value != null && promotionsModel.value?.promotions != null) {
       val gamificationItem: GamificationItem? =
         (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
       val gamificationStatus =
@@ -376,15 +392,17 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           GamificationHeaderModel(
             color = gamificationItem.levelColor,
             planetImage = gamificationItem.planet,
-            spendMoreAmount = if (gamificationItem.toNextLevelAmount != null)
-              currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount)
-            else
-              "",
+            spendMoreAmount =
+            if (gamificationItem.toNextLevelAmount != null)
+              currencyFormatUtils.formatGamificationValues(
+                gamificationItem.toNextLevelAmount
+              )
+            else "",
             currentSpent = promotionsGamificationStats.value!!.totalSpend.toInt(),
-            nextLevelSpent = if (promotionsGamificationStats.value!!.nextLevelAmount != null)
+            nextLevelSpent =
+            if (promotionsGamificationStats.value!!.nextLevelAmount != null)
               promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
-            else
-              null,
+            else null,
             bonusPercentage = gamificationItem.bonus,
             isVip = gamificationStatus == GamificationStatus.VIP,
             isMaxVip = gamificationStatus == GamificationStatus.VIP_MAX,
@@ -394,19 +412,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       } else {
         viewModel.gamificationHeaderModel.value = null
       }
-
     }
-
-  }
-
-  private fun showVipBadge(shouldShow: Boolean) {
-    isVip = shouldShow
   }
 
   private fun navController(): NavController {
-    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-      R.id.main_host_container
-    ) as NavHostFragment
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 

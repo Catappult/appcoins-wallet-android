@@ -2,7 +2,7 @@ package com.appcoins.wallet.feature.backup.data.result
 
 import java.io.Serializable
 
-data class EmailToBackup (
+data class EmailToBackup(
   val validity: ValidityEmailState?,
 ) : Serializable
 

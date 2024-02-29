@@ -7,7 +7,7 @@ import java.math.BigDecimal
 class UserSubscriptionsConverter {
   @TypeConverter
   fun fromBigDecimalString(value: String?): BigDecimal =
-      if (value == null || value.isBlank()) BigDecimal.ZERO else BigDecimal(value)
+    if (value == null || value.isBlank()) BigDecimal.ZERO else BigDecimal(value)
 
   @TypeConverter
   fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()

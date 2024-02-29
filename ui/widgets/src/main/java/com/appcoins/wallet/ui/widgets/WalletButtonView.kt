@@ -10,9 +10,9 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.setMargins
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 
 class WalletButtonView : FrameLayout {
 
@@ -123,6 +123,7 @@ class WalletButtonView : FrameLayout {
               ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_white))
           }
         }
+
         Type.OUTLINED -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(this.context, R.color.transparent)
@@ -187,6 +188,7 @@ class WalletButtonView : FrameLayout {
             views.imageRight.imageTintList = ColorStateList.valueOf(color)
           }
         }
+
         Type.FILLED_GRAY_PINK -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(
@@ -216,11 +218,17 @@ class WalletButtonView : FrameLayout {
             views.imageRight.setMargins(0, 0, 0, 0)
           }
         }
+
         else -> {}
       }
     } else {
       views.root.isClickable = false
-      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.styleguide_medium_grey))
+      views.root.setCardBackgroundColor(
+        ContextCompat.getColor(
+          this.context,
+          R.color.styleguide_medium_grey
+        )
+      )
       views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
       views.root.strokeWidth = 0
       views.root.setRippleColorResource(R.color.styleguide_white)

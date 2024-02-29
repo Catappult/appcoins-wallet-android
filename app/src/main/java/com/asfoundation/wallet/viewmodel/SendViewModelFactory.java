@@ -2,7 +2,6 @@ package com.asfoundation.wallet.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.router.TransactionsRouter;
@@ -19,9 +18,9 @@ public class SendViewModelFactory implements ViewModelProvider.Factory {
   private final TransactionsRouter transactionsRouter;
 
   public SendViewModelFactory(FindDefaultWalletInteract findDefaultWalletInteract,
-                              FetchGasSettingsInteract fetchGasSettingsInteract,
-                              TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-                              TransactionsRouter transactionsRouter) {
+      FetchGasSettingsInteract fetchGasSettingsInteract,
+      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
+      TransactionsRouter transactionsRouter) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;
