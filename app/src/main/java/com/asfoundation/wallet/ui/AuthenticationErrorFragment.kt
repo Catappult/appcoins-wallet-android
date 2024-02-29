@@ -53,33 +53,40 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
     super.onAttach(context)
     if (context !is AuthenticationPromptView) {
       throw IllegalStateException(
-          "AuthenticationError Fragment must be attached to AuthenticationPrompt Activity")
+        "AuthenticationError Fragment must be attached to AuthenticationPrompt Activity"
+      )
     }
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     childFragmentManager.beginTransaction()
-        .setCustomAnimations(R.anim.fragment_slide_up, R.anim.fragment_slide_down,
-            R.anim.fragment_slide_up, R.anim.fragment_slide_down)
-        .replace(R.id.bottom_error_fragment_container,
-            AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
-        .commit()
+      .setCustomAnimations(
+        R.anim.fragment_slide_up, R.anim.fragment_slide_down,
+        R.anim.fragment_slide_up, R.anim.fragment_slide_down
+      )
+      .replace(
+        R.id.bottom_error_fragment_container,
+        AuthenticationErrorBottomSheetFragment.newInstance(errorTimer)
+      )
+      .commit()
     return AuthenticationErrorFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     authenticationBottomSheet =
-        BottomSheetBehavior.from(binding.bottomErrorFragmentContainer)
+      BottomSheetBehavior.from(binding.bottomErrorFragmentContainer)
     presenter.present()
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
     binding.fadedBackground.animation =
-        AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
+      AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
     binding.fadedBackground.visibility = View.GONE
     presenter.stop()
   }
@@ -88,7 +95,7 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
     authenticationBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     authenticationBottomSheet.isFitToContents = true
     authenticationBottomSheet.addBottomSheetCallback(object :
-        BottomSheetBehavior.BottomSheetCallback() {
+      BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
         if (newState == BottomSheetBehavior.STATE_DRAGGING) {
           authenticationBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED

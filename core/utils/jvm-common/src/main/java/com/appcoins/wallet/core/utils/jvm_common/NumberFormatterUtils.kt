@@ -1,7 +1,7 @@
 package com.appcoins.wallet.core.utils.jvm_common
 
 import java.text.DecimalFormat
-import java.util.*
+import java.util.TreeMap
 
 class NumberFormatterUtils {
 
@@ -24,7 +24,7 @@ class NumberFormatterUtils {
 
     val truncatedValue = value / (divideBy / 10)
     val hasDecimal =
-        truncatedValue < 100 && truncatedValue / 10.0f != (truncatedValue / 10)
+      truncatedValue < 100 && truncatedValue / 10.0f != (truncatedValue / 10)
     return if (hasDecimal) {
       formatDecimalPlaces(truncatedValue / 10.0f) + suffix
     } else {
@@ -54,7 +54,7 @@ class NumberFormatterUtils {
 
   private fun formatDecimalPlaces(value: Float): String {
     val splitValue = value.toString()
-        .split(".")
+      .split(".")
     return if (splitValue[1] != "0") {
       value.toString()
     } else {
@@ -64,7 +64,7 @@ class NumberFormatterUtils {
 
   private fun removeDecimalPlaces(value: Float): String {
     val splitValue = value.toString()
-        .split(".")
+      .split(".")
     return splitValue[0]
   }
 }

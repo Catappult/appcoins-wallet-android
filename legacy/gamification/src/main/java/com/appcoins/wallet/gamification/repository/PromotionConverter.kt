@@ -6,13 +6,13 @@ import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 class PromotionConverter {
 
   @TypeConverter
   fun fromString(value: String?): BigDecimal? =
-      if (value == null || value.isBlank()) null else BigDecimal(value)
+    if (value == null || value.isBlank()) null else BigDecimal(value)
 
   @TypeConverter
   fun toString(bigDecimal: BigDecimal?): String? = bigDecimal?.toPlainString()

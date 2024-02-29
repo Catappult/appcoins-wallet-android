@@ -68,7 +68,10 @@ public class AppCoinsOperation {
         + ", packageName='"
         + packageName
         + '\''
-        + ", applicationName='" + applicationName + '\'' + ", iconPath='"
+        + ", applicationName='"
+        + applicationName
+        + '\''
+        + ", iconPath='"
         + iconPath
         + '\''
         + ", productName='"

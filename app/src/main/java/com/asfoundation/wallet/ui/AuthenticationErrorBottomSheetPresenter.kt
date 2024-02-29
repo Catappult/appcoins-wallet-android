@@ -3,9 +3,11 @@ package com.asfoundation.wallet.ui
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
-class AuthenticationErrorBottomSheetPresenter(private val view: AuthenticationErrorBottomSheetView,
-                                              private val viewScheduler: Scheduler,
-                                              private val disposables: CompositeDisposable) {
+class AuthenticationErrorBottomSheetPresenter(
+  private val view: AuthenticationErrorBottomSheetView,
+  private val viewScheduler: Scheduler,
+  private val disposables: CompositeDisposable
+) {
 
   fun present() {
     view.setMessage()
@@ -15,9 +17,10 @@ class AuthenticationErrorBottomSheetPresenter(private val view: AuthenticationEr
 
   private fun handleButtonClick() {
     disposables.add(view.getButtonClick()
-        .observeOn(viewScheduler)
-        .doOnNext { view.retryAuthentication() }
-        .subscribe({}, { it.printStackTrace() }))
+      .observeOn(viewScheduler)
+      .doOnNext { view.retryAuthentication() }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun stop() = disposables.clear()

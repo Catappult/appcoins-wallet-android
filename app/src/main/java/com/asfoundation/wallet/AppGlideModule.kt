@@ -24,7 +24,7 @@ class AppGlideModule : AppGlideModule() {
       decodeFormat = DecodeFormat.PREFER_RGB_565
     }
     requestOptions = requestOptions.format(decodeFormat)
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+      .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 
     builder.setDefaultRequestOptions(requestOptions)
   }

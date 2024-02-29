@@ -7,23 +7,23 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FindDefaultWalletInteract @Inject constructor(
-    private val walletRepository: WalletRepositoryType,
-    private val rxSchedulers: RxSchedulers
+  private val walletRepository: WalletRepositoryType,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun find(): Single<Wallet> {
     return walletRepository.getDefaultWallet()
-        .subscribeOn(rxSchedulers.io)
-        .onErrorResumeNext {
-          walletRepository.fetchWallets()
-              .filter { wallets -> wallets.isNotEmpty() }
-              .map { wallets: Array<Wallet> ->
-                wallets[0]
-              }
-              .flatMapCompletable { wallet: Wallet ->
-                walletRepository.setDefaultWallet(wallet.address)
-              }
-              .andThen(walletRepository.getDefaultWallet())
-        }
+      .subscribeOn(rxSchedulers.io)
+      .onErrorResumeNext {
+        walletRepository.fetchWallets()
+          .filter { wallets -> wallets.isNotEmpty() }
+          .map { wallets: Array<Wallet> ->
+            wallets[0]
+          }
+          .flatMapCompletable { wallet: Wallet ->
+            walletRepository.setDefaultWallet(wallet.address)
+          }
+          .andThen(walletRepository.getDefaultWallet())
+      }
   }
 }

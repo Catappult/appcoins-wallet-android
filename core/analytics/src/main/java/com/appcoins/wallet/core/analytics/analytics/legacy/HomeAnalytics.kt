@@ -17,8 +17,8 @@ class HomeAnalytics @Inject constructor(private val analytics: AnalyticsManager)
 
   fun openApp(uniqueName: String, packageName: String) {
     analytics.logEvent(
-        hashMapOf<String, Any>(Pair(UNIQUE_NAME, uniqueName), Pair(PACKAGE_NAME, packageName)),
-        OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET
+      hashMapOf<String, Any>(Pair(UNIQUE_NAME, uniqueName), Pair(PACKAGE_NAME, packageName)),
+      OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET
     )
   }
 

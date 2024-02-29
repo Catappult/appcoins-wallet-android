@@ -2,12 +2,12 @@ package com.asfoundation.wallet.ui.widget.holder;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BinderViewHolder<T> extends RecyclerView.ViewHolder {
   public BinderViewHolder(int resId, ViewGroup parent) {

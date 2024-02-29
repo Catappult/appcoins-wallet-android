@@ -3,8 +3,8 @@ package com.asfoundation.wallet.eskills.auth
 import android.content.Context
 import android.content.Intent
 import cm.aptoide.skills.interfaces.ExternalAuthenticationProvider
-import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 

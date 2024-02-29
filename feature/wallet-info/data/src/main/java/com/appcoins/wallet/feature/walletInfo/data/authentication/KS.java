@@ -32,7 +32,6 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
-
 @TargetApi(23) public class KS {
   private static final String TAG = "KS";
 
@@ -156,7 +155,9 @@ import javax.crypto.spec.IvParameterSpec;
       } else {
         throw new ServiceErrorException(ServiceErrorException.INVALID_KEY);
       }
-    } catch (IOException | CertificateException | KeyStoreException | UnrecoverableKeyException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
+    } catch (IOException | CertificateException | KeyStoreException | UnrecoverableKeyException |
+             NoSuchAlgorithmException | NoSuchPaddingException |
+             InvalidAlgorithmParameterException e) {
       throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
     }
   }

@@ -7,14 +7,18 @@ import io.reactivex.Single
 
 interface ReferralInteractorContract {
 
-  fun hasReferralUpdate(walletAddress: String,
-                        referralResponse: ReferralResponse?,
-                        screen: ReferralsScreen): Single<Boolean>
+  fun hasReferralUpdate(
+    walletAddress: String,
+    referralResponse: ReferralResponse?,
+    screen: ReferralsScreen
+  ): Single<Boolean>
 
   fun retrieveReferral(): Single<ReferralModel>
 
-  fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
-                              screen: ReferralsScreen): Completable
+  fun saveReferralInformation(
+    numberOfFriends: Int, isVerified: Boolean,
+    screen: ReferralsScreen
+  ): Completable
 
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 

@@ -18,9 +18,9 @@ class PermissionRepository(private val permissionsDao: PermissionsDao) :
 
   override fun getAll(): Observable<List<ApplicationPermission>> {
     return permissionsDao.getAllAsFlowable()
-        .flatMapSingle {
-          Observable.fromIterable(it).map { permission -> map(permission)!! }.toList()
-        }.toObservable()
+      .flatMapSingle {
+        Observable.fromIterable(it).map { permission -> map(permission)!! }.toList()
+      }.toObservable()
   }
 
   override fun getAllSync(): List<ApplicationPermission> {
@@ -51,18 +51,24 @@ class PermissionRepository(private val permissionsDao: PermissionsDao) :
     return map(permissionsDao.getSyncPermission(key))
   }
 
-  private fun map(key: String,
-                  applicationPermission: ApplicationPermission): PermissionEntity {
-    return PermissionEntity(key,
-        applicationPermission.walletAddress,
-        applicationPermission.packageName,
-        applicationPermission.apkSignature, applicationPermission.permissions)
+  private fun map(
+    key: String,
+    applicationPermission: ApplicationPermission
+  ): PermissionEntity {
+    return PermissionEntity(
+      key,
+      applicationPermission.walletAddress,
+      applicationPermission.packageName,
+      applicationPermission.apkSignature, applicationPermission.permissions
+    )
   }
 
   private fun map(permission: PermissionEntity?): ApplicationPermission? {
     return permission?.let {
-      ApplicationPermission(permission.walletAddress, permission.packageName,
-          permission.apkSignature, permission.permissions)
+      ApplicationPermission(
+        permission.walletAddress, permission.packageName,
+        permission.apkSignature, permission.permissions
+      )
     }
   }
 }

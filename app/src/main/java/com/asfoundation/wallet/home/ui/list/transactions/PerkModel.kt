@@ -6,12 +6,12 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 
 @EpoxyModelClass
 abstract class PerkModel : EpoxyModelWithHolder<PerkModel.PerkHolder>() {
@@ -53,9 +53,9 @@ abstract class PerkModel : EpoxyModelWithHolder<PerkModel.PerkHolder>() {
       }
     }
     GlideApp.with(holder.itemView.context)
-        .load(uri)
-        .error(R.drawable.transactions_promotion_bonus)
-        .into(holder.image)
+      .load(uri)
+      .error(R.drawable.transactions_promotion_bonus)
+      .into(holder.image)
   }
 
   class PerkHolder : BaseViewHolder() {

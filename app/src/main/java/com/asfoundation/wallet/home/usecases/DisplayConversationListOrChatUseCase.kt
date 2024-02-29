@@ -5,7 +5,8 @@ import io.intercom.android.sdk.Intercom
 import javax.inject.Inject
 
 class DisplayConversationListOrChatUseCase @Inject constructor(
-    private val supportRepository: SupportRepository) {
+  private val supportRepository: SupportRepository
+) {
 
   @Suppress("DEPRECATION")
   operator fun invoke() {
@@ -15,10 +16,10 @@ class DisplayConversationListOrChatUseCase @Inject constructor(
     val handledByIntercom = getUnreadConversations() > 0
     if (handledByIntercom) {
       Intercom.client()
-          .displayMessenger()
+        .displayMessenger()
     } else {
       Intercom.client()
-          .displayConversationsList()
+        .displayConversationsList()
     }
   }
 

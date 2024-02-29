@@ -111,13 +111,16 @@ class ManageWalletNameBottomSheetFragment() : BottomSheetDialogFragment(),
           showLoading()
         }
       }
+
       is Async.Fail -> {
         navigator.navigateBack()
       }
+
       is Async.Success -> {
         manageWalletSharedViewModel.onBottomSheetDismissed()
         navigator.navigateBack()
       }
+
       Async.Uninitialized -> {}
     }
   }

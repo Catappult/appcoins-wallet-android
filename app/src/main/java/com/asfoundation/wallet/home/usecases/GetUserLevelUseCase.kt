@@ -8,9 +8,9 @@ import javax.inject.Inject
 class GetUserLevelUseCase
 @Inject
 constructor(
-    private val gamification: Gamification,
-    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val gamification: Gamification,
+  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   operator fun invoke(): Single<Int> {

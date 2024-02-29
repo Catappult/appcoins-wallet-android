@@ -2,8 +2,6 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
-import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 import com.appcoins.wallet.core.utils.jvm_common.Repository
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -11,6 +9,8 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 
 class AppcoinsRewards(
   private val repository: AppcoinsRewardsRepository,

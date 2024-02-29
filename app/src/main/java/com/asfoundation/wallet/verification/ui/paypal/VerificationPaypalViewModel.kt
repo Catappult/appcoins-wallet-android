@@ -7,9 +7,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.data.Error
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
-import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
@@ -21,13 +19,14 @@ sealed class VerificationPaypalIntroSideEffect : SideEffect {
 
 data class VerificationPaypalIntroState(
   val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
-  val verificationSubmitAsync: Async<Unit> = Async.Uninitialized) : ViewState
+  val verificationSubmitAsync: Async<Unit> = Async.Uninitialized
+) : ViewState
 
 class VerificationPaypalViewModel(
-    private val data: VerificationPaypalData,
-    private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
-    private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
-    private val setCachedVerificationUseCase: SetCachedVerificationUseCase,
+  private val data: VerificationPaypalData,
+  private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
+  private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
+  private val setCachedVerificationUseCase: SetCachedVerificationUseCase,
 ) : BaseViewModel<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect>(initialState()) {
 
   companion object {
@@ -40,39 +39,43 @@ class VerificationPaypalViewModel(
 
   private fun fetchVerificationInfo() {
     getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL).asAsyncToState(
-        VerificationPaypalIntroState::verificationInfoAsync) {
+      VerificationPaypalIntroState::verificationInfoAsync
+    ) {
       copy(verificationInfoAsync = it)
     }
-        .scopedSubscribe { e -> e.printStackTrace() }
+      .scopedSubscribe { e -> e.printStackTrace() }
   }
 
   fun launchVerificationPayment() {
     val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethod
     if (paymentMethod != null) {
       makeVerificationPaymentUseCase(
-          com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType.PAYPAL,
-          paymentMethod, false, data.returnUrl).subscribeOn(Schedulers.io())
-          .doOnSuccess { model ->
-            val redirectUrl = model.redirectUrl
-            if (redirectUrl != null) {
-              sendSideEffect { VerificationPaypalIntroSideEffect.NavigateToPaymentUrl(redirectUrl) }
-            }
+        com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType.PAYPAL,
+        paymentMethod, false, data.returnUrl
+      ).subscribeOn(Schedulers.io())
+        .doOnSuccess { model ->
+          val redirectUrl = model.redirectUrl
+          if (redirectUrl != null) {
+            sendSideEffect { VerificationPaypalIntroSideEffect.NavigateToPaymentUrl(redirectUrl) }
           }
-          .ignoreElement()
-          .asAsyncLoadingToState(VerificationPaypalIntroState::verificationSubmitAsync) { model ->
-            copy(verificationSubmitAsync = model)
-          }
-          .repeatableScopedSubscribe(
-              VerificationPaypalIntroState::verificationSubmitAsync.name) { e -> e.printStackTrace() }
+        }
+        .ignoreElement()
+        .asAsyncLoadingToState(VerificationPaypalIntroState::verificationSubmitAsync) { model ->
+          copy(verificationSubmitAsync = model)
+        }
+        .repeatableScopedSubscribe(
+          VerificationPaypalIntroState::verificationSubmitAsync.name
+        ) { e -> e.printStackTrace() }
     }
   }
 
   fun successPayment() {
     setCachedVerificationUseCase(
-        com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING).doOnComplete {
+      com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
+    ).doOnComplete {
       setState { copy(verificationSubmitAsync = Async.Success(Unit)) }
     }
-        .scopedSubscribe { e -> e.printStackTrace() }
+      .scopedSubscribe { e -> e.printStackTrace() }
   }
 
   fun failPayment() {
@@ -80,7 +83,17 @@ class VerificationPaypalViewModel(
   }
 
   fun cancelPayment() {
-      setState { copy(verificationSubmitAsync = Async.Fail(Error.UnknownError(Throwable(WebViewActivity.USER_CANCEL_THROWABLE)))) }
+    setState {
+      copy(
+        verificationSubmitAsync = Async.Fail(
+          Error.UnknownError(
+            Throwable(
+              WebViewActivity.USER_CANCEL_THROWABLE
+            )
+          )
+        )
+      )
+    }
   }
 
 

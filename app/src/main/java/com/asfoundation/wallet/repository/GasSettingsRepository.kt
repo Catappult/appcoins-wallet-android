@@ -10,34 +10,34 @@ import javax.inject.Inject
 
 @BoundTo(supertype = GasSettingsRepositoryType::class)
 class GasSettingsRepository @Inject constructor(private val gasServiceApi: GasServiceApi) :
-    GasSettingsRepositoryType {
+  GasSettingsRepositoryType {
 
   private var lastFlushTime = 0L
   private var cachedGasPrice: BigDecimal? = null
 
   override fun getGasSettings(forTokenTransfer: Boolean): Single<GasSettings> {
     return getGasPrice()
-        .map { GasSettings(it, getGasLimit(forTokenTransfer)) }
+      .map { GasSettings(it, getGasLimit(forTokenTransfer)) }
   }
 
   private fun getGasPriceNetwork(): Single<BigDecimal> {
     return gasServiceApi.getGasPrice()
-        .map { BigDecimal(it.price) }
-        .doOnSuccess {
-          cachedGasPrice = it
-          lastFlushTime = System.nanoTime()
+      .map { BigDecimal(it.price) }
+      .doOnSuccess {
+        cachedGasPrice = it
+        lastFlushTime = System.nanoTime()
+      }
+      .onErrorReturn {
+        if (cachedGasPrice == null) {
+          BigDecimal(DEFAULT_GAS_PRICE)
+        } else {
+          cachedGasPrice
         }
-        .onErrorReturn {
-          if (cachedGasPrice == null) {
-            BigDecimal(DEFAULT_GAS_PRICE)
-          } else {
-            cachedGasPrice
-          }
-        }
+      }
   }
 
   private fun shouldRefresh() =
-      System.nanoTime() - lastFlushTime >= TimeUnit.MINUTES.toNanos(1) || cachedGasPrice == null
+    System.nanoTime() - lastFlushTime >= TimeUnit.MINUTES.toNanos(1) || cachedGasPrice == null
 
   private fun getGasPriceLocal(): Single<BigDecimal> = Single.just(cachedGasPrice)
 

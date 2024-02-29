@@ -25,26 +25,26 @@ class SupportRepository @Inject constructor(
 
   fun saveNewUser(walletAddress: String, level: Int) {
     val userAttributes = UserAttributes.Builder()
-        .withName(walletAddress)
-        // We set level + 1 to help with readability for the support team
-        .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
-        .build()
+      .withName(walletAddress)
+      // We set level + 1 to help with readability for the support team
+      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
+      .build()
     val registration: Registration = Registration.create()
-        .withUserId(walletAddress)
-        .withUserAttributes(userAttributes)
+      .withUserId(walletAddress)
+      .withUserAttributes(userAttributes)
 
     val gpsAvailable = checkGooglePlayServices()
     if (gpsAvailable) handleFirebaseToken()
 
     Intercom.client()
-        .registerIdentifiedUser(registration)
+      .registerIdentifiedUser(registration)
     currentUser = SupportUser(walletAddress, level)
   }
 
   fun getSavedUnreadConversations() = preferences.checkSavedUnreadConversations()
 
   fun updateUnreadConversations(unreadConversations: Int) =
-      preferences.updateUnreadConversations(unreadConversations)
+    preferences.updateUnreadConversations(unreadConversations)
 
   fun resetUnreadConversations() = preferences.resetUnreadConversations()
 

@@ -53,8 +53,8 @@ public class ApproveServiceTest {
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new PaymentErrorMapper(gson),
-        scheduler, trackTransactionService);
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+        new PaymentErrorMapper(gson), scheduler, trackTransactionService);
 
     when(transactionValidator.validate(any())).thenReturn(
         Single.just(Transaction.Companion.notFound()));
@@ -71,8 +71,9 @@ public class ApproveServiceTest {
         .subscribe(observer);
     scheduler.triggerActions();
     approveService.approve(uri,
-        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
+            new PaymentTransaction(uri, transactionBuilder,
+                PaymentTransaction.PaymentState.APPROVED,
+                "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
         .subscribe();
     scheduler.triggerActions();
 
@@ -103,8 +104,9 @@ public class ApproveServiceTest {
         .subscribe(observer);
     scheduler.triggerActions();
     approveService.approve(uri,
-        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
+            new PaymentTransaction(uri, transactionBuilder,
+                PaymentTransaction.PaymentState.APPROVED,
+                "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
         .subscribe();
     scheduler.triggerActions();
 

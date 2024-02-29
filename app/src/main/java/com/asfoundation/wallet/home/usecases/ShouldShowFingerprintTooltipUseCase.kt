@@ -3,9 +3,9 @@ package com.asfoundation.wallet.home.usecases
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class ShouldShowFingerprintTooltipUseCase @Inject constructor(

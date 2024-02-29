@@ -5,7 +5,6 @@ import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import io.reactivex.Single
-import io.reactivex.disposables.Disposable
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
@@ -66,7 +65,7 @@ class PartnerAddressService @Inject constructor(
             listOf<String>()
           }
           .map { packagesForCaching ->
-            if (packagesForCaching.any{ it == packageName }) {
+            if (packagesForCaching.any { it == packageName }) {
               // if there is an oemId in the cache, use it instead of the one extracted from the game.
               val oemIdFromCache = oemIdPreferencesDataSource.getOemIdForPackage(packageName)
               if (oemIdFromCache.isBlank()) {
@@ -119,7 +118,7 @@ class PartnerAddressService @Inject constructor(
   }
 
   private fun getOemIdFromGamesHub(): Single<String> {
-   return oemIdExtractorService.extractOemId(defaultGamesHubPackage)
+    return oemIdExtractorService.extractOemId(defaultGamesHubPackage)
       .map { gamesHubOemId ->
         gamesHubOemId.ifEmpty {
           GH_INSTALLED_WITHOUT_OEMID

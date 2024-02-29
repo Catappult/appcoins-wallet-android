@@ -3,7 +3,7 @@ package com.appcoins.wallet.bdsbilling.mappers
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.SKU
 import com.google.gson.Gson
-import java.util.*
+import java.util.Locale
 
 class ExternalBillingSerializer {
 

@@ -9,7 +9,9 @@ interface PermissionsListView {
   fun getPermissionClick(): Observable<ApplicationPermissionToggle>
   fun showEmptyState()
 
-  data class ApplicationPermissionToggle(val packageName: String,
-                                         val hasPermission: Boolean,
-                                         val apkSignature: String)
+  data class ApplicationPermissionToggle(
+    val packageName: String,
+    val hasPermission: Boolean,
+    val apkSignature: String
+  )
 }

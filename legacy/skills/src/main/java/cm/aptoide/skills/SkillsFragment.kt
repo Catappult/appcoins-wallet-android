@@ -372,20 +372,21 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val details = views.payTicketLayout.payTicketPaymentMethodsDetails
-    disposable.addAll(viewModel.getLocalFiatAmount(
-      eSkillsPaymentData.price!!,
-      eSkillsPaymentData.currency!!
-    ).observeOn(AndroidSchedulers.mainThread()).map {
-      details.fiatPrice.text = "${it.amount} ${it.currency}"
-      details.fiatPriceSkeleton.visibility = View.GONE
-      details.fiatPrice.visibility = View.VISIBLE
-    }.subscribe(), viewModel.getFormattedAppcAmount(
-      eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
-    ).observeOn(AndroidSchedulers.mainThread()).map {
-      details.appcPrice.text = "$it APPC"
-      details.appcPriceSkeleton.visibility = View.GONE
-      details.appcPrice.visibility = View.VISIBLE
-    }.subscribe()
+    disposable.addAll(
+      viewModel.getLocalFiatAmount(
+        eSkillsPaymentData.price!!,
+        eSkillsPaymentData.currency!!
+      ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.fiatPrice.text = "${it.amount} ${it.currency}"
+        details.fiatPriceSkeleton.visibility = View.GONE
+        details.fiatPrice.visibility = View.VISIBLE
+      }.subscribe(), viewModel.getFormattedAppcAmount(
+        eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
+      ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.appcPrice.text = "$it APPC"
+        details.appcPriceSkeleton.visibility = View.GONE
+        details.appcPrice.visibility = View.VISIBLE
+      }.subscribe()
     )
   }
 
@@ -560,6 +561,7 @@ class SkillsFragment : Fragment(), PaymentView {
       finishWithError(SkillsViewModel.RESULT_PACKAGE_VERSION_NOT_SUPPORTED)
     }
   }
+
   private fun finishWithError(errorCode: Int) {
     requireActivity().setResult(errorCode)
     requireActivity().finish()
@@ -633,16 +635,17 @@ class SkillsFragment : Fragment(), PaymentView {
 
 
   private fun getReferralAndActivateLayout(eSkillsPaymentData: EskillsPaymentData) {
-    disposable.add(viewModel.getReferral().observeOn(AndroidSchedulers.mainThread())
-      .doOnSuccess { referralResponse ->
-        if (referralResponse.available) {
-          setReferralLayout(eSkillsPaymentData, referralResponse)
-          views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
-        } else {
-          if (referralResponse.count != 0)//If not default error Referral
-            cacheValue(ESKILLS_REFERRAL_KEY, false)
-        }
-      }.subscribe()
+    disposable.add(
+      viewModel.getReferral().observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess { referralResponse ->
+          if (referralResponse.available) {
+            setReferralLayout(eSkillsPaymentData, referralResponse)
+            views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+          } else {
+            if (referralResponse.count != 0)//If not default error Referral
+              cacheValue(ESKILLS_REFERRAL_KEY, false)
+          }
+        }.subscribe()
     )
   }
 

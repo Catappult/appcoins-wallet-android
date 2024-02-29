@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui;
 
 import android.os.Looper;
-import androidx.annotation.CheckResult;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import androidx.annotation.CheckResult;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.MainThreadDisposable;

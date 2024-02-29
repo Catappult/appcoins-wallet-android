@@ -228,6 +228,7 @@ class IabPresenter(
         }
         view.showPaymentMethodsView()
       }
+
       WebViewActivity.SUCCESS -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)
@@ -236,6 +237,7 @@ class IabPresenter(
         view.webViewResultCode = data?.let { getQueryParameter(it, "resultCode") }
         view.successWebViewResult(data!!.data)
       }
+
       WebViewActivity.USER_CANCEL -> {
         if (data?.scheme?.contains("adyencheckout") == true) {
           sendPaypalUrlEvent(data)

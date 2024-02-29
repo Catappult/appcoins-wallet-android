@@ -59,6 +59,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
           }
         }
   }
+
   private fun createLaunchers() {
     openDocumentTreeResultLauncher = registerForActivityResult(
       ActivityResultContracts.StartActivityForResult()
@@ -68,7 +69,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
         data.data?.let {
           val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
           lifecycleScope.launch {
-               viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+            viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
           }
         }
       }
@@ -78,7 +79,7 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
     ) { isGranted ->
       if (isGranted) {
         lifecycleScope.launch {
-             viewModel.saveBackupFile(views.fileNameInput.getText())
+          viewModel.saveBackupFile(views.fileNameInput.getText())
         }
       }
     }
@@ -118,12 +119,11 @@ class BackupSaveOnDeviceBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
-    if(views.fileNameInput.getText().isEmpty()) {
+    if (views.fileNameInput.getText().isEmpty()) {
       state.fileName()?.also { setFileName(it) }
     }
-      setFilePath(state.downloadsPath)
+    setFilePath(state.downloadsPath)
   }
-
 
 
   override fun onStart() {

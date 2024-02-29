@@ -43,6 +43,7 @@ class AnalyticsApiModule {
   ): AnalyticsApi {
     return retrofit.create(AnalyticsApi::class.java)
   }
+
   @Singleton
   @Provides
   fun provideAppDataAPI(

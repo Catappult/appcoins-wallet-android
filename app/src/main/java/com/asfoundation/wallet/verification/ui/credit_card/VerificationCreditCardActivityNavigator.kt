@@ -13,16 +13,20 @@ class VerificationCreditCardActivityNavigator @Inject constructor(private val ac
 
   fun navigateToWalletVerificationIntro() {
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            VerificationIntroFragment.newInstance())
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        VerificationIntroFragment.newInstance()
+      )
+      .commit()
   }
 
   fun navigateToWalletVerificationCode() {
     fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            VerificationCodeFragment.newInstance())
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        VerificationCodeFragment.newInstance()
+      )
+      .commit()
   }
 
   fun finish() = activity.finish()

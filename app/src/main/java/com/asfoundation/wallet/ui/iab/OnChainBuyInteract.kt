@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -29,45 +29,55 @@ class OnChainBuyInteract @Inject constructor(
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getAndSignCurrentWalletAddress()
-          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
-          .onErrorReturn { true }
+    walletService.getAndSignCurrentWalletAddress()
+      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .onErrorReturn { true }
 
   fun getTransactionState(uri: String?): Observable<Payment> =
-      inAppPurchaseInteractor.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(uri)
 
-  fun send(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
-           packageName: String, productName: String?, developerPayload: String?,
-           isBds: Boolean, transactionBuilder: TransactionBuilder): Completable {
-    return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-        developerPayload, isBds, transactionBuilder)
+  fun send(
+    uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
+    packageName: String, productName: String?, developerPayload: String?,
+    isBds: Boolean, transactionBuilder: TransactionBuilder
+  ): Completable {
+    return inAppPurchaseInteractor.send(
+      uri, transactionType, packageName, productName,
+      developerPayload, isBds, transactionBuilder
+    )
   }
 
   fun parseTransaction(uri: String?, isBds: Boolean): Single<TransactionBuilder> =
-      inAppPurchaseInteractor.parseTransaction(uri, isBds)
+    inAppPurchaseInteractor.parseTransaction(uri, isBds)
 
-  fun getCurrentPaymentStep(packageName: String,
-                            transactionBuilder: TransactionBuilder): Single<CurrentPaymentStep> =
-      inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
+  fun getCurrentPaymentStep(
+    packageName: String,
+    transactionBuilder: TransactionBuilder
+  ): Single<CurrentPaymentStep> =
+    inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder)
 
-  fun resume(uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
-             packageName: String, productName: String?, developerPayload: String?,
-             isBds: Boolean, type: String, transactionBuilder: TransactionBuilder): Completable {
-    return inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
-        developerPayload, isBds, type, transactionBuilder)
+  fun resume(
+    uri: String?, transactionType: AsfInAppPurchaseInteractor.TransactionType,
+    packageName: String, productName: String?, developerPayload: String?,
+    isBds: Boolean, type: String, transactionBuilder: TransactionBuilder
+  ): Completable {
+    return inAppPurchaseInteractor.resume(
+      uri, transactionType, packageName, productName,
+      developerPayload, isBds, type, transactionBuilder
+    )
   }
 
   fun getCompletedPurchase(transaction: Payment, isBds: Boolean): Single<Payment> =
-      inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
+    inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
 
   fun remove(uri: String?): Completable = inAppPurchaseInteractor.remove(uri)
 
   fun getTopUpChannelSuggestionValues(price: BigDecimal): List<BigDecimal> =
-      inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
+    inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
 
   fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
-      inAppPurchaseInteractor.convertToFiat(appcValue, currency)
+    inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 
   fun getBillingMessagesMapper(): BillingMessagesMapper =
-      inAppPurchaseInteractor.billingMessagesMapper
+    inAppPurchaseInteractor.billingMessagesMapper
 }

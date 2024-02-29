@@ -1,10 +1,12 @@
 package com.appcoins.wallet.billing.carrierbilling
 
-import java.util.*
+import java.util.Locale
 
-data class AvailableCountryListModel(val countryList: List<String>,
-                                     val defaultCountry: String?,
-                                     val hasError: Boolean = false) {
+data class AvailableCountryListModel(
+  val countryList: List<String>,
+  val defaultCountry: String?,
+  val hasError: Boolean = false
+) {
   constructor() : this(emptyList(), null, true)
 
   fun convertListToString(): String {

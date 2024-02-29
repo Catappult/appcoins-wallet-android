@@ -44,7 +44,8 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment() {
               onExitClick = { handleBackPress() },
               onChatClick = {
                 unlockRotation()
-                displayChat() }
+                displayChat()
+              }
             )
           }
         }

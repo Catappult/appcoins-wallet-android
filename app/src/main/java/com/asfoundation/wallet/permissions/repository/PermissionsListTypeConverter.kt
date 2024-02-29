@@ -4,11 +4,12 @@ import androidx.room.TypeConverter
 import com.appcoins.wallet.permissions.PermissionName
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.util.*
+import java.util.Collections
 
 
 class PermissionsListTypeConverter {
   private val gson: Gson = Gson()
+
   @TypeConverter
   fun stringToPermissionsList(data: String?): List<PermissionName> {
     data?.let {

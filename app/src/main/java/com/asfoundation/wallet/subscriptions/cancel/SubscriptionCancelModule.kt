@@ -16,21 +16,26 @@ import io.reactivex.schedulers.Schedulers
 class SubscriptionCancelModule {
 
   @Provides
-  fun providesSubscriptionCancelPresenter(fragment: Fragment,
-                                          interactor: UserSubscriptionsInteractor,
-                                          data: SubscriptionCancelData,
-                                          navigator: SubscriptionCancelNavigator): SubscriptionCancelPresenter {
-    return SubscriptionCancelPresenter(fragment as SubscriptionCancelView, interactor, data,
-        navigator, CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+  fun providesSubscriptionCancelPresenter(
+    fragment: Fragment,
+    interactor: UserSubscriptionsInteractor,
+    data: SubscriptionCancelData,
+    navigator: SubscriptionCancelNavigator
+  ): SubscriptionCancelPresenter {
+    return SubscriptionCancelPresenter(
+      fragment as SubscriptionCancelView, interactor, data,
+      navigator, CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread()
+    )
   }
 
   @Provides
   fun providesSubscriptionCancelData(fragment: Fragment): SubscriptionCancelData {
     fragment.requireArguments()
-        .apply {
-          return SubscriptionCancelData(
-              getSerializable(SubscriptionCancelFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
-              getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, ""))
-        }
+      .apply {
+        return SubscriptionCancelData(
+          getSerializable(SubscriptionCancelFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
+          getString(SubscriptionCancelFragment.TRANSITION_NAME_KEY, "")
+        )
+      }
   }
 }

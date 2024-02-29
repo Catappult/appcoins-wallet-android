@@ -60,7 +60,10 @@ class GamificationInteractor @Inject constructor(
           promoCodeString, currency
         ).map { forecastBonus ->
           ForecastBonusAndLevel(
-            forecastBonus.status, forecastBonus.amount, forecastBonus.currency, level = forecastBonus.level
+            forecastBonus.status,
+            forecastBonus.amount,
+            forecastBonus.currency,
+            level = forecastBonus.level
           )
         }
       }.doOnSuccess { isBonusActiveAndValid = isBonusActiveAndValid(it) }
@@ -88,13 +91,13 @@ class GamificationInteractor @Inject constructor(
     getFromCache: Boolean = false
   ): Single<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
-        .onErrorReturn {
-          FiatValue(
-            BigDecimal("-1"),
-            "",
-            ""
-          )
-        }
+      .onErrorReturn {
+        FiatValue(
+          BigDecimal("-1"),
+          "",
+          ""
+        )
+      }
   }
 
   fun isBonusActiveAndValid(): Boolean {

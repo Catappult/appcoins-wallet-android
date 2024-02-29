@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.home.usecases
 
-import com.asfoundation.wallet.repository.GamesRepositoryType
 import com.appcoins.wallet.ui.widgets.GameData
+import com.asfoundation.wallet.repository.GamesRepositoryType
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -13,21 +13,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
+import com.appcoins.wallet.core.utils.android_common.Log;
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
+import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.appcoins.wallet.ui.widgets.WalletButtonView;
 import com.asf.wallet.R;
-import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
-import com.appcoins.wallet.core.utils.android_common.Log;
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import com.wallet.appcoins.core.legacy_base.BaseActivity;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
@@ -83,17 +82,17 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.GWEI_UNIT;
     }
   }
 
-// toolbar hardcoded temporarely
- protected Toolbar toolbar() {
- Toolbar toolbar = findViewById(R.id.toolbar);
- toolbar.setVisibility(View.VISIBLE);
- if (toolbar != null) {
- setSupportActionBar(toolbar);
- toolbar.setTitle(getTitle());
- }
- enableDisplayHomeAsUp();
- return toolbar;
- }
+  // toolbar hardcoded temporarely
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
+  }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_edit) {

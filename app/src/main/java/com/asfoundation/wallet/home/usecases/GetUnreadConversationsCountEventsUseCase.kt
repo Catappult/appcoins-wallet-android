@@ -11,10 +11,10 @@ class GetUnreadConversationsCountEventsUseCase @Inject constructor() {
     it.onNext(Intercom.client().unreadConversationCount)
     val unreadListener = UnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
     Intercom.client()
-        .addUnreadConversationCountListener(unreadListener)
+      .addUnreadConversationCountListener(unreadListener)
     it.setCancellable {
       Intercom.client()
-          .removeUnreadConversationCountListener(unreadListener)
+        .removeUnreadConversationCountListener(unreadListener)
     }
   }
 }

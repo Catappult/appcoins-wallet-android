@@ -8,14 +8,18 @@ interface CurrencyConversionRatesPersistence {
   /**
    * rate from appc to fiat, meaning it's fiatValue / appcValue
    */
-  fun saveRateFromAppcToFiat(appcValue: String, fiatValue: String, fiatCurrency: String,
-                             fiatSymbol: String): Completable
+  fun saveRateFromAppcToFiat(
+    appcValue: String, fiatValue: String, fiatCurrency: String,
+    fiatSymbol: String
+  ): Completable
 
   /**
    * rate from eth to fiat, meaning it's fiatValue / ethValue
    */
-  fun saveRateFromEthToFiat(ethValue: String, fiatValue: String, fiatCurrency: String,
-                            fiatSymbol: String): Completable
+  fun saveRateFromEthToFiat(
+    ethValue: String, fiatValue: String, fiatCurrency: String,
+    fiatSymbol: String
+  ): Completable
 
   /**
    * applies the rate in this method

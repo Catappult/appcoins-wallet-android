@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.manage_wallets.bottom_sheet
 
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -2,12 +2,11 @@ package com.appcoins.wallet.core.analytics.analytics.gamification
 
 import cm.aptoide.analytics.AnalyticsManager
 import it.czerwinski.android.hilt.annotations.BoundTo
-import java.util.*
 import javax.inject.Inject
 
 @BoundTo(supertype = GamificationEventSender::class)
 class GamificationAnalytics @Inject constructor(private val analytics: AnalyticsManager) :
-    GamificationEventSender {
+  GamificationEventSender {
 
   companion object {
     const val GAMIFICATION = "GAMIFICATION"

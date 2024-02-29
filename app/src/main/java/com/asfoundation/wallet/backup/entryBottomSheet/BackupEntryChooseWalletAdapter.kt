@@ -12,9 +12,9 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import io.reactivex.subjects.PublishSubject
 
 class BackupEntryChooseWalletAdapter(
-    private var items: List<WalletInfoSimple>,
-    private val uiEventListener: PublishSubject<String>,
-    private val currencyFormatUtils: CurrencyFormatUtils,
+  private var items: List<WalletInfoSimple>,
+  private val uiEventListener: PublishSubject<String>,
+  private val currencyFormatUtils: CurrencyFormatUtils,
 ) : RecyclerView.Adapter<BackupEntryChooseWalletViewHolder>() {
 
   override fun onCreateViewHolder(

@@ -5,11 +5,11 @@ import android.content.pm.PackageManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.suspendCancellableCoroutine
-import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 

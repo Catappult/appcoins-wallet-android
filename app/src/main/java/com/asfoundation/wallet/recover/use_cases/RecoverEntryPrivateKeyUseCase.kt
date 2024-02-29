@@ -11,10 +11,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class RecoverEntryPrivateKeyUseCase @Inject constructor(
-        private val walletRepository: WalletRepositoryType,
-        private val passwordStore: PasswordStore,
-        private val getWalletInfoUseCase: GetWalletInfoUseCase,
-        private val currencyFormatUtils: CurrencyFormatUtils
+  private val walletRepository: WalletRepositoryType,
+  private val passwordStore: PasswordStore,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val currencyFormatUtils: CurrencyFormatUtils
 ) {
 
   operator fun invoke(keyStore: WalletKeyStore): Single<RecoverEntryResult> =

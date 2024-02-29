@@ -34,8 +34,10 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     clickSubject = PublishSubject.create()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionListBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionListBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -47,9 +49,19 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
     expiredAdapter = SubscriptionAdapter(clickSubject)
 
     binding.rvActiveSubs.adapter = activeAdapter
-    binding.rvActiveSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    binding.rvActiveSubs.addItemDecoration(
+      DividerItemDecoration(
+        context,
+        DividerItemDecoration.VERTICAL
+      )
+    )
     binding.rvExpiredSubs.adapter = expiredAdapter
-    binding.rvExpiredSubs.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    binding.rvExpiredSubs.addItemDecoration(
+      DividerItemDecoration(
+        context,
+        DividerItemDecoration.VERTICAL
+      )
+    )
 
     presenter.present()
   }
@@ -126,7 +138,8 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
   override fun retryClick() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
-  override fun getRetryGenericClicks() = RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton)
+  override fun getRetryGenericClicks() =
+    RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton)
 
   override fun getRetryNetworkClicks() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
@@ -151,11 +164,11 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
     fun newInstance(freshReload: Boolean = false): SubscriptionListFragment {
       return SubscriptionListFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putBoolean(FRESH_RELOAD_KEY, freshReload)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putBoolean(FRESH_RELOAD_KEY, freshReload)
           }
+        }
     }
   }
 }

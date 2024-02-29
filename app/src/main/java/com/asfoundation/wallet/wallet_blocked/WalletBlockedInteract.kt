@@ -6,12 +6,13 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class WalletBlockedInteract @Inject constructor(
-    private val getWalletInfoUseCase: GetWalletInfoUseCase) {
+  private val getWalletInfoUseCase: GetWalletInfoUseCase
+) {
 
   fun isWalletBlocked(): Single<Boolean> {
     return getWalletInfoUseCase(null, cached = false)
-        .map { walletInfo -> walletInfo.blocked }
-        .onErrorReturn { false }
-        .delay(1, TimeUnit.SECONDS)
+      .map { walletInfo -> walletInfo.blocked }
+      .onErrorReturn { false }
+      .delay(1, TimeUnit.SECONDS)
   }
 }

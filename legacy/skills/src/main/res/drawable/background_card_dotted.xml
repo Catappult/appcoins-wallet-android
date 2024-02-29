@@ -10,6 +10,5 @@
       android:dashGap="5dp"
       android:dashWidth="5dp"
       android:width="5dp"
-      android:color="@color/styleguide_blue"
-      />
+      android:color="@color/styleguide_blue" />
 </shape>

@@ -7,5 +7,6 @@ import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 
 @Entity
 data class WalletOriginEntity(
-    @PrimaryKey @ColumnInfo(name = "wallet_address") val walletAddress: String,
-    @ColumnInfo(name = "wallet_origin") val walletOrigin: WalletOrigin)
+  @PrimaryKey @ColumnInfo(name = "wallet_address") val walletAddress: String,
+  @ColumnInfo(name = "wallet_origin") val walletOrigin: WalletOrigin
+)

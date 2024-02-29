@@ -76,12 +76,14 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
         binding.tokenSymbol.text = "(${WalletCurrency.ETHEREUM.symbol})"
         binding.tokenDescription.text = getString(R.string.balance_ethereum_body)
       }
+
       TokenDetailsId.APPC -> {
         binding.tokenIcon.setImageResource(R.drawable.ic_appc_token)
         binding.tokenName.text = getString(R.string.appc_token_name)
         binding.tokenSymbol.text = "(${WalletCurrency.APPCOINS.symbol})"
         binding.tokenDescription.text = getString(R.string.balance_appcoins_body)
       }
+
       TokenDetailsId.APPC_CREDITS -> {
         binding.tokenIcon.setImageResource(R.drawable.ic_appc_c_token)
         binding.tokenName.text = getString(R.string.appc_credits_token_name)
@@ -102,7 +104,9 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun setupUi() {
     intent.extras?.let {
       if (it.containsKey(
-              KEY_CONTENT)) {
+          KEY_CONTENT
+        )
+      ) {
         token = it.getSerializable(KEY_CONTENT) as TokenDetailsId
         setContent(token)
       }

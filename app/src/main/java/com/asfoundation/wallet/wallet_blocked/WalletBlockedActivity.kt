@@ -16,7 +16,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
 class WalletBlockedActivity : BaseActivity(),
-    WalletBlockedView {
+  WalletBlockedView {
 
   private lateinit var presenter: WalletBlockedPresenter
 
@@ -34,8 +34,10 @@ class WalletBlockedActivity : BaseActivity(),
     setContentView(R.layout.layout_wallet_blocked)
 
     presenter =
-        WalletBlockedPresenter(this,
-            CompositeDisposable(), AndroidSchedulers.mainThread())
+      WalletBlockedPresenter(
+        this,
+        CompositeDisposable(), AndroidSchedulers.mainThread()
+      )
     presenter.present()
   }
 
@@ -54,11 +56,11 @@ class WalletBlockedActivity : BaseActivity(),
 
   override fun openEmail() {
     val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
-        .apply {
-          type = "message/rfc822"
-          putExtra(Intent.EXTRA_SUBJECT, "Blocked wallet")
-          putExtra(Intent.EXTRA_EMAIL, arrayOf("info@appcoins.io"))
-        }
+      .apply {
+        type = "message/rfc822"
+        putExtra(Intent.EXTRA_SUBJECT, "Blocked wallet")
+        putExtra(Intent.EXTRA_EMAIL, arrayOf("info@appcoins.io"))
+      }
     startActivity(Intent.createChooser(intent, "Select email application."))
   }
 

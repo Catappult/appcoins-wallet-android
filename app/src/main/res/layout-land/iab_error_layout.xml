@@ -9,30 +9,30 @@
     app:cardCornerRadius="@dimen/card_view_corner_radius"
     >
 
-    <include
-        android:id="@+id/generic_error_layout"
-        layout="@layout/support_error_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+  <include
+      android:id="@+id/generic_error_layout"
+      layout="@layout/support_error_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
-    <com.appcoins.wallet.ui.widgets.WalletButtonView
-        android:id="@+id/error_dismiss"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/small_button_height"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:buttonText="@string/button_ok"
-        app:buttonType="filled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible"
-        />
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_dismiss"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="8dp"
+      app:buttonText="@string/button_ok"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:visibility="visible"
+      />
 
   <include
       android:id="@+id/no_network_error_layout"

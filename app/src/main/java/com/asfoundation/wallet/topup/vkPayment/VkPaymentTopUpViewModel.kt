@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.topup.vkPayment
 
 import android.text.format.DateUtils
-import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
@@ -11,7 +9,6 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
-import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionTopUpUseCase
@@ -19,7 +16,6 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionSt
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

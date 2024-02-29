@@ -14,11 +14,13 @@ interface UserSubscriptionApi {
    * @param limit Limit for the max number of subscriptions to be returned
    */
   @GET("8.20200701/application/inapp/subscription/purchases")
-  fun getUserSubscriptions(@Header("Accept-Language") language: String,
-                           @Query("wallet.address") walletAddress: String,
-                           @Query("wallet.signature") walletSignature: String,
-                           @Query("substatus") subStatus: String? = null,
-                           @Query("limit") limit: Int? = null,
-                           @Query("application.name")
-                           applicationName: String? = null): Single<UserSubscriptionsListResponse>
+  fun getUserSubscriptions(
+    @Header("Accept-Language") language: String,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Query("substatus") subStatus: String? = null,
+    @Query("limit") limit: Int? = null,
+    @Query("application.name")
+    applicationName: String? = null
+  ): Single<UserSubscriptionsListResponse>
 }

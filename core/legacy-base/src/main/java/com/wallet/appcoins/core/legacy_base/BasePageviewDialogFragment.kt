@@ -10,7 +10,8 @@ abstract class BasePageViewDialogFragment : DialogFragment() {
 
   private lateinit var pageViewAnalytics: PageViewAnalytics
 
-  @Inject lateinit var analyticsManager: AnalyticsManager
+  @Inject
+  lateinit var analyticsManager: AnalyticsManager
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

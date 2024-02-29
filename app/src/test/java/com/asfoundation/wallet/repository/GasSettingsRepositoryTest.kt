@@ -33,8 +33,10 @@ class GasSettingsRepositoryTest {
     gasPriceBigDecimal = BigDecimal(gasPriceInteger)
     gasPrice = GasPrice(gasPriceInteger)
 
-    gasSettings = GasSettings(BigDecimal(BigInteger(GAS_PRICE)),
-        BigDecimal(GasSettingsRepository.DEFAULT_GAS_LIMIT_FOR_TOKENS))
+    gasSettings = GasSettings(
+      BigDecimal(BigInteger(GAS_PRICE)),
+      BigDecimal(GasSettingsRepository.DEFAULT_GAS_LIMIT_FOR_TOKENS)
+    )
   }
 
   @Test
@@ -44,14 +46,14 @@ class GasSettingsRepositoryTest {
     val observable = TestObserver<GasSettings>()
 
     gasSettingsRepository.getGasSettings(true)
-        .subscribe(observable)
+      .subscribe(observable)
 
     val expected = GasSettings(gasPriceBigDecimal, BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
 
     observable
-        .assertNoErrors()
-        .assertValue { it.gasPrice == expected.gasPrice }
-        .assertValue { it.gasLimit == expected.gasLimit }
+      .assertNoErrors()
+      .assertValue { it.gasPrice == expected.gasPrice }
+      .assertValue { it.gasLimit == expected.gasLimit }
 
     verify(gasServiceApi, times(1)).getGasPrice()
   }
@@ -63,15 +65,15 @@ class GasSettingsRepositoryTest {
     val observable = TestObserver<GasSettings>()
 
     gasSettingsRepository.getGasSettings(true)
-        .subscribe(observable)
+      .subscribe(observable)
 
     val expected =
-        GasSettings(BigDecimal(DEFAULT_GAS_PRICE), BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
+      GasSettings(BigDecimal(DEFAULT_GAS_PRICE), BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS))
 
     observable
-        .assertNoErrors()
-        .assertValue { it.gasPrice == expected.gasPrice }
-        .assertValue { it.gasLimit == expected.gasLimit }
+      .assertNoErrors()
+      .assertValue { it.gasPrice == expected.gasPrice }
+      .assertValue { it.gasLimit == expected.gasLimit }
 
     verify(gasServiceApi, times(1)).getGasPrice()
   }
@@ -83,15 +85,18 @@ class GasSettingsRepositoryTest {
     val observable = TestObserver<GasSettings>()
 
     gasSettingsRepository.getGasSettings(false)
-        .subscribe(observable)
+      .subscribe(observable)
 
-    val expected = GasSettings(gasPriceBigDecimal, BigDecimal(
-        GasSettingsRepository.DEFAULT_GAS_LIMIT))
+    val expected = GasSettings(
+      gasPriceBigDecimal, BigDecimal(
+        GasSettingsRepository.DEFAULT_GAS_LIMIT
+      )
+    )
 
     observable
-        .assertNoErrors()
-        .assertValue { it.gasPrice == expected.gasPrice }
-        .assertValue { it.gasLimit == expected.gasLimit }
+      .assertNoErrors()
+      .assertValue { it.gasPrice == expected.gasPrice }
+      .assertValue { it.gasLimit == expected.gasLimit }
 
     verify(gasServiceApi, times(1)).getGasPrice()
   }

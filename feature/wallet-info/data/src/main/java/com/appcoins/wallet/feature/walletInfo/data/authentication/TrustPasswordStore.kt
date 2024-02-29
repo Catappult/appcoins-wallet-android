@@ -21,10 +21,11 @@ import java.util.Enumeration
 import javax.inject.Inject
 
 @BoundTo(supertype = PasswordStore::class)
-class TrustPasswordStore @Inject constructor(@ApplicationContext private val context: Context,
-                                             private val logger: Logger
+class TrustPasswordStore @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val logger: Logger
 ) :
-    PasswordStore {
+  PasswordStore {
   companion object {
     private val TAG = TrustPasswordStore::class.java.simpleName
     private const val DEFAULT_WALLET = "0x123456789"
@@ -39,7 +40,7 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
       return
     }
     val pref =
-        PreferenceManager.getDefaultSharedPreferences(context)
+      PreferenceManager.getDefaultSharedPreferences(context)
     val passwords = pref.all
     for (key in passwords.keys) {
       if (key.contains("-pwd")) {
@@ -48,7 +49,7 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
           KS.put(context, address.toLowerCase(), PasswordManager.getPassword(address, context))
         } catch (ex: Exception) {
           Toast.makeText(context, "Could not process passwords.", Toast.LENGTH_LONG)
-              .show()
+            .show()
           ex.printStackTrace()
         }
       }
@@ -63,10 +64,10 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
         return@fromCallable PasswordManager.getPassword(address, context)
       }
     }
-        .onErrorResumeNext { throwable: Throwable? ->
-          logError(throwable)
-          getPasswordFallBack(address)
-        }
+      .onErrorResumeNext { throwable: Throwable? ->
+        logError(throwable)
+        getPasswordFallBack(address)
+      }
   }
 
   override fun setPassword(address: String, password: String): Completable {
@@ -105,8 +106,10 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
           return@fromCallable String(KS.get(context, DEFAULT_WALLET))
         } catch (ex: Exception) {
           logger.log(TAG, ex.message, ex)
-          val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the store.")
+          val exception = ServiceErrorException(
+            ServiceErrorException.KEY_STORE_ERROR,
+            "Failed to get the password from the store."
+          )
           logError(exception)
           throw exception
         }
@@ -115,17 +118,20 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
           return@fromCallable PasswordManager.getPassword(DEFAULT_WALLET, context)
         } catch (ex: Exception) {
           logger.log(TAG, ex.message, ex)
-          val exception = ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the password manager.")
+          val exception = ServiceErrorException(
+            ServiceErrorException.KEY_STORE_ERROR,
+            "Failed to get the password from the password manager."
+          )
           logError(exception)
           throw exception
         }
       }
     }
-        .flatMap { password: String ->
-          setPassword(walletAddress, password).andThen(
-              Single.just(password))
-        }
+      .flatMap { password: String ->
+        setPassword(walletAddress, password).andThen(
+          Single.just(password)
+        )
+      }
   }
 
   private fun logError(t: Throwable?) {
@@ -146,11 +152,13 @@ class TrustPasswordStore @Inject constructor(@ApplicationContext private val con
         is KeyStoreException -> {
           logger.log(TAG, "Failed to get Android keystore or aliases from keystore", e)
         }
+
         is CertificateException,
         is IOException,
         is NoSuchAlgorithmException -> {
           logger.log(TAG, "Failed to load keystore", e)
         }
+
         else -> {
           logger.log(TAG, "Failed for unknown reason", e)
           throw e

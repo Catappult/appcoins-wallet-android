@@ -67,7 +67,7 @@ class FiatCurrenciesRepository @Inject constructor(
   }
 
   suspend fun setSelectedCurrency(currency: String) {
-    withContext(dispatchers.io){
+    withContext(dispatchers.io) {
       fiatCurrenciesPreferencesDataSource.setSelectedCurrency(currency)
     }
   }

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.update_required
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.appcoins.wallet.core.arch.data.Navigator
 import javax.inject.Inject
 
