@@ -27,9 +27,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -67,7 +69,9 @@ import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewMode
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.UnknownError
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Duration
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment() {
@@ -220,7 +224,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       resendCodeStatus: ResendCodeStatus
   ) {
     val alphaVisibility = if (isVisible) 1f else 0f
-    val timer = "00:58"
     Column(
         modifier = modifier.alpha(alphaVisibility),
         horizontalAlignment = Alignment.CenterHorizontally) {
@@ -230,22 +233,11 @@ class VerificationPaypalFragment : BasePageViewFragment() {
               fontWeight = FontWeight.Medium)
 
           when (resendCodeStatus) {
-            ResendCodeStatus.AvailableToResend -> {
-              ResendButton()
-            }
-            ResendCodeStatus.Resending -> {
-              Animation(modifier = modifier.size(40.dp), animationRes = R.raw.loading_wallet)
-            }
-            ResendCodeStatus.Resent -> {
-              CodeSent()
-            }
-            ResendCodeStatus.UnavailableToResend -> {
-              Text(
-                  text = "Resend ($timer)",
-                  color = WalletColors.styleguide_dark_grey,
-                  fontWeight = FontWeight.Medium,
-                  modifier = Modifier.padding(top = 16.dp))
-            }
+            ResendCodeStatus.AvailableToResend -> ResendButton()
+            ResendCodeStatus.Resending ->
+                Animation(modifier = modifier.size(40.dp), animationRes = R.raw.loading_wallet)
+            ResendCodeStatus.Resent -> CodeSent()
+            ResendCodeStatus.UnavailableToResend -> ResendCountDownTimer()
           }
         }
   }
@@ -255,6 +247,28 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     TextButton(onClick = { viewModel.resendCode() }) {
       Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
     }
+  }
+
+  @Composable
+  fun ResendCountDownTimer() {
+    val remainingTime = remember { mutableStateOf(Duration.ZERO) }
+    val endDateInMillis = System.currentTimeMillis() + 60000L
+
+    LaunchedEffect(Unit) {
+      while (true) {
+        remainingTime.value = Duration.ofMillis(endDateInMillis - System.currentTimeMillis())
+        if (remainingTime.value < Duration.ZERO) {
+          remainingTime.value = Duration.ZERO
+          break
+        }
+        delay(1000)
+      }
+    }
+    Text(
+        text = "Resend (${remainingTime.value.seconds % 60})",
+        color = WalletColors.styleguide_dark_grey,
+        fontWeight = FontWeight.Medium,
+        modifier = Modifier.padding(top = 16.dp))
   }
 
   @Composable

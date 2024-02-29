@@ -143,7 +143,7 @@ constructor(
       _uiState.value =
           VerificationPaypalState.RequestVerificationCode(
               resendCodeStatus = ResendCodeStatus.UnavailableToResend)
-      delay(2000)
+      delay(60000)
       _uiState.value =
           VerificationPaypalState.RequestVerificationCode(
               resendCodeStatus = ResendCodeStatus.AvailableToResend)
