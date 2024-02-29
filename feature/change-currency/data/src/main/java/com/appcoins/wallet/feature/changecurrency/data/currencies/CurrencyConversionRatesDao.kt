@@ -12,7 +12,8 @@ import io.reactivex.Single
 interface CurrencyConversionRatesDao {
 
   @Query(
-      "SELECT * from $TABLE_NAME WHERE currency_from = :currencyFrom LIMIT 1")
+    "SELECT * from $TABLE_NAME WHERE currency_from = :currencyFrom LIMIT 1"
+  )
   fun getRate(currencyFrom: String): Single<CurrencyConversionRateEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

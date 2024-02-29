@@ -7,17 +7,20 @@ import org.kethereum.erc681.isEthereumURLString
 import org.kethereum.erc681.parseERC681
 import javax.inject.Inject
 
-class TransferParser @Inject constructor(private val eipTransactionParser: EIPTransactionParser,
-                                         private val oneStepTransactionParser: OneStepTransactionParser) {
+class TransferParser @Inject constructor(
+  private val eipTransactionParser: EIPTransactionParser,
+  private val oneStepTransactionParser: OneStepTransactionParser
+) {
 
   fun parse(uri: String): Single<TransactionBuilder> {
     if (uri.isEthereumURLString()) {
       return Single.just(parseERC681(uri))
-          .flatMap { erc681 -> eipTransactionParser.buildTransaction(erc681) }
+        .flatMap { erc681 -> eipTransactionParser.buildTransaction(erc681) }
     } else if (Uri.parse(uri)
-            .isOneStepURLString()) {
+        .isOneStepURLString()
+    ) {
       return Single.just(parseOneStep(Uri.parse(uri)))
-          .flatMap { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, uri) }
+        .flatMap { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, uri) }
     }
     return Single.error(RuntimeException("is not an supported URI"))
   }

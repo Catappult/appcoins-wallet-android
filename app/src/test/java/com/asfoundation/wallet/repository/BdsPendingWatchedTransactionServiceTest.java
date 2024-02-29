@@ -52,7 +52,7 @@ import static org.mockito.Mockito.when;
 
     TestObserver<Object> observer = new TestObserver<>();
     bdsPendingTransactionService.trackTransaction(KEY, PACKAGE_NAME, SKU, UID, PURCHASE_UID,
-        ORDER_REFERENCE)
+            ORDER_REFERENCE)
         .subscribeOn(fakeSchedulers.getMain())
         .subscribe(observer);
     scheduler.advanceTimeBy(3, TimeUnit.SECONDS);

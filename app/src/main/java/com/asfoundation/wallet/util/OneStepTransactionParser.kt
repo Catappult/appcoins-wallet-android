@@ -3,9 +3,9 @@ package com.asfoundation.wallet.util
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.appcoins.wallet.core.utils.jvm_common.Repository
-import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
@@ -94,6 +94,7 @@ class OneStepTransactionParser @Inject constructor(
     return when {
       (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) ->
         BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18)
+
       else -> BigDecimal.ZERO
     }
   }

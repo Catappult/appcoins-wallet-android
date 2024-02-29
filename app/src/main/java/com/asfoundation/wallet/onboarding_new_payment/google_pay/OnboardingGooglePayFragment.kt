@@ -2,19 +2,16 @@ package com.asfoundation.wallet.onboarding_new_payment.google_pay
 
 import android.content.Context
 import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingGooglePayLayoutBinding
-import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,24 +69,30 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
       when (state) {
         OnboardingGooglePayViewModel.State.Start -> {
         }
+
         is OnboardingGooglePayViewModel.State.Error -> {
           showError(getString(state.stringRes))
         }
+
         is OnboardingGooglePayViewModel.State.SuccessPurchase -> {
           handleSuccess()
         }
+
         is OnboardingGooglePayViewModel.State.WebAuthentication -> {
           viewModel.openUrlCustomTab(requireContext(), state.url)
         }
+
         OnboardingGooglePayViewModel.State.GooglePayBack -> {
           findNavController().popBackStack(
             R.id.onboarding_payment_methods_fragment,
             inclusive = false
           )
         }
+
         is OnboardingGooglePayViewModel.State.BackToGame -> {
           navigator.navigateBackToGame(state.domain)
         }
+
         OnboardingGooglePayViewModel.State.ExploreWallet -> {
           navigator.navigateToHome()
         }

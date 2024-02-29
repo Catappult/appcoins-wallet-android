@@ -5,7 +5,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
 
 
 class CurrencyFormatUtilsTest {
@@ -43,7 +43,8 @@ class CurrencyFormatUtilsTest {
   }
 
   @Test
-  fun formatCredits() {    Locale.setDefault(Locale.US)
+  fun formatCredits() {
+    Locale.setDefault(Locale.US)
     val formattedValueUs = formatter.formatCurrency(value, WalletCurrency.CREDITS)
     val expectedValueUs = "123,456,789.12"
 

@@ -6,7 +6,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class AppMetaDataRepository @Inject constructor(
-  private val appDataApi: AppDataApi)  {
+  private val appDataApi: AppDataApi
+) {
 
   fun getMeta(
     packageName: String

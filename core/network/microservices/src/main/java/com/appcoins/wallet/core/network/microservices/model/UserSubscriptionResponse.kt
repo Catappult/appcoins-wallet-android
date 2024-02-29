@@ -13,12 +13,14 @@ import com.google.gson.annotations.SerializedName
  * @param ended Date when subscription ended, null when subStatus is PENDING, ACTIVE, GRACE, HOLD, CANCELED or PAUSED
  *
  */
-data class UserSubscriptionResponse(val uid: String, val sku: String, val title: String,
-                                    val period: String, @SerializedName("substatus")
-                                    val subStatus: SubscriptionSubStatus, val started: String?,
-                                    val renewal: String?, val expiry: String?, val ended: String?,
-                                    val application: ApplicationInfoResponse,
-                                    val order: OrderResponse)
+data class UserSubscriptionResponse(
+  val uid: String, val sku: String, val title: String,
+  val period: String, @SerializedName("substatus")
+  val subStatus: SubscriptionSubStatus, val started: String?,
+  val renewal: String?, val expiry: String?, val ended: String?,
+  val application: ApplicationInfoResponse,
+  val order: OrderResponse
+)
 
 enum class SubscriptionSubStatus {
   PENDING, ACTIVE, PAUSED, GRACE, HOLD, CANCELED, EXPIRED, REVOKED

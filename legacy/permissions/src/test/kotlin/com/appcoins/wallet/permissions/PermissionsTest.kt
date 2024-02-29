@@ -30,60 +30,84 @@ class PermissionsTest {
 
   @Test
   fun grantPermission() {
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
     permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE, PermissionName.LEVEL)
-    Assert.assertEquals("permissions different from expected",
-        listOf(PermissionName.WALLET_ADDRESS, PermissionName.LEVEL),
-        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
+    Assert.assertEquals(
+      "permissions different from expected",
+      listOf(PermissionName.WALLET_ADDRESS, PermissionName.LEVEL),
+      permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE)
+    )
   }
 
   @Test
   fun grantPermissionMultipleTimes() {
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
     permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE, PermissionName.LEVEL)
-    Assert.assertEquals("permissions different from expected",
-        listOf(PermissionName.WALLET_ADDRESS, PermissionName.LEVEL),
-        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
+    Assert.assertEquals(
+      "permissions different from expected",
+      listOf(PermissionName.WALLET_ADDRESS, PermissionName.LEVEL),
+      permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE)
+    )
   }
 
   @Test(expected = SecurityException::class)
   fun grantPermissionWrongApkSignature() {
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE,
-        PermissionName.LEVEL)
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE,
+      PermissionName.LEVEL
+    )
   }
 
   @Test(expected = SecurityException::class)
   fun getPermissionWrongApkSignature() {
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
     permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE)
   }
 
   @Test
   fun getPermissionNotExistentApp() {
-    Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE))
+    Assert.assertEquals(
+      emptyList<PermissionName>(),
+      permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE)
+    )
   }
 
   @Test
   fun revokePermission() {
-    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
-        PermissionName.WALLET_ADDRESS)
+    permissions.grantPermission(
+      WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+      PermissionName.WALLET_ADDRESS
+    )
     permissions.revokePermission(WALLET_ADDRESS, PACKAGE_NAME, PermissionName.WALLET_ADDRESS)
-    Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
+    Assert.assertEquals(
+      emptyList<PermissionName>(),
+      permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE)
+    )
   }
 
   @Test
   fun revokePermissionNotExistentApp() {
     permissions.revokePermission(WALLET_ADDRESS, PACKAGE_NAME, PermissionName.WALLET_ADDRESS)
-    Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
+    Assert.assertEquals(
+      emptyList<PermissionName>(),
+      permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE)
+    )
   }
 }

@@ -170,8 +170,10 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -194,8 +196,10 @@
         android:theme="@style/TopupTheme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -209,8 +213,10 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="googlepayresult" />
@@ -292,8 +298,10 @@
         tools:replace="launchMode">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyen3ds2" />
@@ -317,7 +325,7 @@
     <provider
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
-        tools:node="remove"/>
+        tools:node="remove" />
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"

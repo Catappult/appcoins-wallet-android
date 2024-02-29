@@ -29,8 +29,10 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
     (requireActivity() as RatingActivity).disableBack()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingFinishBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentRatingFinishBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -38,6 +40,7 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
       override fun onAnimationEnd(animation: Animator) {
         animationEndSubject.onNext(Unit)
       }
+
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationCancel(animation: Animator) = Unit
       override fun onAnimationStart(animation: Animator) = Unit

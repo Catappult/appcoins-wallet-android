@@ -2,7 +2,10 @@ package com.asfoundation.wallet.billing.vkpay.repository
 
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.VkPayApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.VkPayPaymentRequest
+import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
+import com.appcoins.wallet.core.network.microservices.model.VkPrice
+import com.appcoins.wallet.core.network.microservices.model.VkTransactionResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Single
 import retrofit2.HttpException

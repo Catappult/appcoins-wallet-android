@@ -49,8 +49,10 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     activity?.title = getString(R.string.subscriptions_title)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentSubscriptionDetailsBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentSubscriptionDetailsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -63,7 +65,10 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   override fun getRenewSubscriptionClicks() = RxView.clicks(binding.renewSubscription)
 
   override fun getRetryClicks() =
-      Observable.merge(RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton), RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton))
+    Observable.merge(
+      RxView.clicks(binding.genericErrorRetryOnlyLayout.genericRetryButton),
+      RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
+    )
 
   override fun retrieveSharedElement(): View {
     return binding.appIcon
@@ -135,16 +140,23 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
       binding.renewSubscription.visibility = View.VISIBLE
     } else {
       binding.cancelSubscription.visibility = View.VISIBLE
-      subscriptionItem.renewal?.let { binding.layoutActiveSubscriptionContent.nextPaymentValue.text = formatDate(it) }
+      subscriptionItem.renewal?.let {
+        binding.layoutActiveSubscriptionContent.nextPaymentValue.text = formatDate(it)
+      }
     }
   }
 
   private fun setBillingInfo(subscriptionItem: SubscriptionItem) {
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    binding.layoutActiveSubscriptionContent.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
-        getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    binding.layoutActiveSubscriptionContent.totalValueAppc.text = String.format("~%s / APPC",
-        currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
+    binding.layoutActiveSubscriptionContent.totalValue.text =
+      subscriptionItem.period?.mapToSubsFrequency(
+        requireContext(),
+        getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount)
+      )
+    binding.layoutActiveSubscriptionContent.totalValueAppc.text = String.format(
+      "~%s / APPC",
+      currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS)
+    )
 
   }
 
@@ -159,13 +171,24 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     binding.cancelSubscription.visibility = View.GONE
 
     binding.renewSubscription.visibility = View.GONE
-    binding.status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
+    binding.status.setTextColor(
+      ResourcesCompat.getColor(
+        resources,
+        R.color.styleguide_medium_grey,
+        null
+      )
+    )
     binding.status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
-    subscriptionItem.ended?.let { binding.layoutExpiredSubscriptionContent.lastBillValue.text = formatDate(it) }
-    subscriptionItem.started?.let { binding.layoutExpiredSubscriptionContent.startDateValue.text = formatDate(it) }
-    binding.layoutExpiredSubscriptionContent.paymentMethodValue.text = subscriptionItem.paymentMethod
+    subscriptionItem.ended?.let {
+      binding.layoutExpiredSubscriptionContent.lastBillValue.text = formatDate(it)
+    }
+    subscriptionItem.started?.let {
+      binding.layoutExpiredSubscriptionContent.startDateValue.text = formatDate(it)
+    }
+    binding.layoutExpiredSubscriptionContent.paymentMethodValue.text =
+      subscriptionItem.paymentMethod
   }
 
   private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
@@ -198,16 +221,16 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
   private fun formatDate(date: Date): String {
     return DateFormat.format("dd MMM yyyy", date)
-        .toString()
+      .toString()
   }
 
   private fun loadImages(context: Context, appIcon: String, paymentIcon: String) {
     GlideApp.with(context)
-        .asBitmap()
-        .load(appIcon)
-        .apply { RequestOptions().dontTransform() }
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        .into(target)
+      .asBitmap()
+      .load(appIcon)
+      .apply { RequestOptions().dontTransform() }
+      .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+      .into(target)
   }
 
   private val target = object : Target<Bitmap> {
@@ -248,15 +271,17 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
     const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem,
-                    transitionName: String): SubscriptionDetailsFragment {
+    fun newInstance(
+      subscriptionItem: SubscriptionItem,
+      transitionName: String
+    ): SubscriptionDetailsFragment {
       return SubscriptionDetailsFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
-              putString(TRANSITION_NAME_KEY, transitionName)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
+            putString(TRANSITION_NAME_KEY, transitionName)
           }
+        }
     }
   }
 }

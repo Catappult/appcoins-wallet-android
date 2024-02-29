@@ -1,7 +1,16 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
-import com.appcoins.wallet.core.network.backend.model.*
+import com.appcoins.wallet.core.network.backend.model.ForecastBonusResponse
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GenericResponse
+import com.appcoins.wallet.core.network.backend.model.LevelsResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.gamification.GamificationContext
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -9,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -131,7 +140,12 @@ class BdsPromotionsRepository @Inject constructor(
 
   private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus =
     if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
-      ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus, bonusResponse.level, bonusResponse.currency_symbol ?: "")
+      ForecastBonus(
+        ForecastBonus.Status.ACTIVE,
+        bonusResponse.bonus,
+        bonusResponse.level,
+        bonusResponse.currency_symbol ?: ""
+      )
     } else {
       ForecastBonus(ForecastBonus.Status.INACTIVE)
     }
@@ -185,10 +199,12 @@ class BdsPromotionsRepository @Inject constructor(
       throwable.printStackTrace()
       UserStats(Status.NO_NETWORK)
     }
+
     promotions.isEmpty() -> {
       throwable.printStackTrace()
       UserStats(Status.UNKNOWN_ERROR)
     }
+
     else -> UserStats(promotions, walletOrigin)
   }
 
@@ -324,7 +340,7 @@ class BdsPromotionsRepository @Inject constructor(
     return getGamificationStats(wallet, null)
       .subscribeOn(Schedulers.io())
       .map {
-        ( !local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
+        (!local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
       }
       .onErrorReturn {
         false
@@ -342,8 +358,10 @@ class BdsPromotionsRepository @Inject constructor(
       .subscribeOn(Schedulers.io())
       .onErrorReturn { VipReferralResponse.invalidReferral }
 
-  override fun isVipCalloutAlreadySeen(wallet: String): Boolean = local.isVipCalloutAlreadySeen(wallet)
+  override fun isVipCalloutAlreadySeen(wallet: String): Boolean =
+    local.isVipCalloutAlreadySeen(wallet)
 
-  override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = local.setVipCalloutAlreadySeen(wallet, isSeen)
+  override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) =
+    local.setVipCalloutAlreadySeen(wallet, isSeen)
 
 }

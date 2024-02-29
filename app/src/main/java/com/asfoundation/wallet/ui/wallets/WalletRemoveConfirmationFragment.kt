@@ -32,21 +32,26 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = WalletRemoveConfirmationPresenter(this, walletAddress, deleteWalletInteract, logger,
-        CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io())
+    presenter = WalletRemoveConfirmationPresenter(
+      this, walletAddress, deleteWalletInteract, logger,
+      CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io()
+    )
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is RemoveWalletActivityView) {
       throw IllegalStateException(
-          "Wallet Confirmation must be attached to Remove Wallet Activity")
+        "Wallet Confirmation must be attached to Remove Wallet Activity"
+      )
     }
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = RemoveWalletSecondLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = RemoveWalletSecondLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -131,9 +136,11 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
     private const val CREDITS_BALANCE_KEY = "credits_balance"
     private const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
 
-    fun newInstance(walletAddress: String, totalFiatBalance: String,
-                    appcoinsBalance: String, creditsBalance: String,
-                    ethereumBalance: String): WalletRemoveConfirmationFragment {
+    fun newInstance(
+      walletAddress: String, totalFiatBalance: String,
+      appcoinsBalance: String, creditsBalance: String,
+      ethereumBalance: String
+    ): WalletRemoveConfirmationFragment {
       val fragment = WalletRemoveConfirmationFragment()
       Bundle().apply {
         putString(WALLET_ADDRESS_KEY, walletAddress)

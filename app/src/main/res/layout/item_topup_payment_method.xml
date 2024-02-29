@@ -28,7 +28,7 @@
       android:layout_marginTop="-8dp"
       android:layout_marginBottom="-8dp"
       android:visibility="visible"
-    />
+      />
 
   <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/radio_button"

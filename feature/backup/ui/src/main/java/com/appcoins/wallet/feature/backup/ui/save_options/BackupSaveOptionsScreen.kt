@@ -216,18 +216,22 @@ fun SaveOnDeviceOptions(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)
     ) {
-      Divider(modifier = Modifier
-        .weight(1f)
-        .height(1.dp), color = styleguide_dark_grey)
+      Divider(
+        modifier = Modifier
+          .weight(1f)
+          .height(1.dp), color = styleguide_dark_grey
+      )
       Text(
         text = stringResource(R.string.common_or),
         color = styleguide_dark_grey,
         style = WalletTypography.regular.sp12,
         modifier = Modifier.padding(horizontal = 8.dp)
       )
-      Divider(modifier = Modifier
-        .weight(1f)
-        .height(1.dp), color = styleguide_dark_grey)
+      Divider(
+        modifier = Modifier
+          .weight(1f)
+          .height(1.dp), color = styleguide_dark_grey
+      )
     }
     Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)) {
       ButtonWithText(

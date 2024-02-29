@@ -8,7 +8,7 @@ data class PaypalV2StartResponse(
   val data: ErrorData?,
 ) {
   fun mapValidity(): PaypalTransaction.PaypalValidityState {
-    return when(status) {
+    return when (status) {
       TransactionStatus.PENDING -> PaypalTransaction.PaypalValidityState.PENDING
       TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> PaypalTransaction.PaypalValidityState.PENDING
       TransactionStatus.SETTLED -> PaypalTransaction.PaypalValidityState.PENDING

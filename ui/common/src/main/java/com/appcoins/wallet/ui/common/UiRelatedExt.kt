@@ -95,10 +95,12 @@ fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
   this.inputType = inputType
 }
 
-fun View.setMargins(startMarginDp: Int? = null,
-                    topMarginDp: Int? = null,
-                    endMarginDp: Int? = null,
-                    bottomMarginDp: Int? = null) {
+fun View.setMargins(
+  startMarginDp: Int? = null,
+  topMarginDp: Int? = null,
+  endMarginDp: Int? = null,
+  bottomMarginDp: Int? = null
+) {
   if (layoutParams is ViewGroup.MarginLayoutParams) {
     val params = layoutParams as ViewGroup.MarginLayoutParams
     startMarginDp?.run { params.marginStart = this.convertDpToPx(context.resources) }

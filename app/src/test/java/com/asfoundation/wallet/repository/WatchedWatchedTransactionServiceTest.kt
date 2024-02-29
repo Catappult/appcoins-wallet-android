@@ -41,20 +41,26 @@ class WatchedTransactionServiceTest {
     pendingTransactionState = PublishSubject.create<PendingTransaction>()
 
     `when`(pendingTransactionService.checkTransactionState(transactionHash)).thenReturn(
-        pendingTransactionState)
+      pendingTransactionState
+    )
 
     transactionBuilder = TransactionBuilder("APPC")
     nonce = BigInteger.ONE
-    `when`(transactionSender.send(transactionBuilder)).thenReturn(Single.just(
-        transactionHash))
+    `when`(transactionSender.send(transactionBuilder)).thenReturn(
+      Single.just(
+        transactionHash
+      )
+    )
 
     scheduler = TestScheduler()
-    watchedTransactionService = WatchedTransactionService(transactionSender,
+    watchedTransactionService = WatchedTransactionService(
+      transactionSender,
       MemoryCache(
         BehaviorSubject.create(),
         ConcurrentHashMap()
       ),
-        PaymentErrorMapper(Gson()), scheduler, pendingTransactionService)
+      PaymentErrorMapper(Gson()), scheduler, pendingTransactionService
+    )
   }
 
   @Test
@@ -69,11 +75,11 @@ class WatchedTransactionServiceTest {
     val uri = "uri"
     val observer = TestObserver<WatchedTransaction>()
     watchedTransactionService.getTransaction(uri)
-        .subscribe(observer)
+      .subscribe(observer)
     scheduler.triggerActions()
 
     watchedTransactionService.sendTransaction(uri, transactionBuilder)
-        .subscribe()
+      .subscribe()
 
     scheduler.triggerActions()
     pendingTransactionState.onNext(PendingTransaction(transactionHash, true))

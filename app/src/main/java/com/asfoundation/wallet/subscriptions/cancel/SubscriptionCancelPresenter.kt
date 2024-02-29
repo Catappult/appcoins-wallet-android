@@ -7,13 +7,15 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
-                                  private val subscriptionInteractor: UserSubscriptionsInteractor,
-                                  private val data: SubscriptionCancelData,
-                                  private val navigator: SubscriptionCancelNavigator,
-                                  private val disposables: CompositeDisposable,
-                                  private val networkScheduler: Scheduler,
-                                  private val viewScheduler: Scheduler) {
+class SubscriptionCancelPresenter(
+  private val view: SubscriptionCancelView,
+  private val subscriptionInteractor: UserSubscriptionsInteractor,
+  private val data: SubscriptionCancelData,
+  private val navigator: SubscriptionCancelNavigator,
+  private val disposables: CompositeDisposable,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler
+) {
 
   fun present() {
     view.setTransitionName(data.transitionName)
@@ -34,22 +36,24 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
 
   private fun handleCancelClicks() {
     disposables.add(view.getCancelClicks()
-        .doOnNext { view.showLoading() }
-        .subscribeOn(viewScheduler)
-        .observeOn(networkScheduler)
-        .flatMap {
-          subscriptionInteractor.cancelSubscription(data.subscriptionItem.packageName,
-              data.subscriptionItem.uid)
-              .observeOn(viewScheduler)
-              .doOnComplete {
-                navigator.showCancelSuccess()
-              }
-              .doOnError { onError(it) }
-              .onErrorComplete()
-              .andThen(Observable.just(Unit))
-        }
-        .observeOn(viewScheduler)
-        .subscribe {})
+      .doOnNext { view.showLoading() }
+      .subscribeOn(viewScheduler)
+      .observeOn(networkScheduler)
+      .flatMap {
+        subscriptionInteractor.cancelSubscription(
+          data.subscriptionItem.packageName,
+          data.subscriptionItem.uid
+        )
+          .observeOn(viewScheduler)
+          .doOnComplete {
+            navigator.showCancelSuccess()
+          }
+          .doOnError { onError(it) }
+          .onErrorComplete()
+          .andThen(Observable.just(Unit))
+      }
+      .observeOn(viewScheduler)
+      .subscribe {})
   }
 
   private fun handleBackClicks() {
@@ -63,14 +67,15 @@ class SubscriptionCancelPresenter(private val view: SubscriptionCancelView,
 
   private fun handleNoNetworkRetryClicks() {
     disposables.add(
-        view.getRetryNetworkClicks()
-            .observeOn(viewScheduler)
-            .doOnNext { view.showNoNetworkRetryAnimation() }
-            .observeOn(networkScheduler)
-            .delay(1, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { view.showSubscriptionDetails(data.subscriptionItem) }
-            .subscribe({}, { it.printStackTrace() }))
+      view.getRetryNetworkClicks()
+        .observeOn(viewScheduler)
+        .doOnNext { view.showNoNetworkRetryAnimation() }
+        .observeOn(networkScheduler)
+        .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { view.showSubscriptionDetails(data.subscriptionItem) }
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun stop() = disposables.clear()

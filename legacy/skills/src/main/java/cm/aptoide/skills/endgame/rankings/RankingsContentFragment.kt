@@ -96,9 +96,9 @@ class RankingsContentFragment : Fragment() {
       .doOnSuccess { showRecyclerView() }.subscribe({ topRankings ->
         updateCurrentRanking(topRankings.currentUser)
         updateRankingsList(
-           if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards)
-             topRankings.userList
-           else processTop3(topRankings.userList)
+          if (timeFrame === TimeFrame.ALL_TIME || !supportsRewards)
+            topRankings.userList
+          else processTop3(topRankings.userList)
         )
       }) { throwable ->
         throwable.printStackTrace()

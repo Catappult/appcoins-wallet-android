@@ -35,8 +35,10 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = CreateWalletPresenter(this, CompositeDisposable(), interactor,
-        AndroidSchedulers.mainThread())
+    presenter = CreateWalletPresenter(
+      this, CompositeDisposable(), interactor,
+      AndroidSchedulers.mainThread()
+    )
     finishAnimationFinishEvent = BehaviorRelay.create()
   }
 
@@ -46,12 +48,15 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
     when (context) {
       is CreateWalletNavigator -> navigator = context
       else -> throw IllegalArgumentException(
-          "${CreateWalletFragment::class} has to be attached to an activity that implements ${CreateWalletNavigator::class}")
+        "${CreateWalletFragment::class} has to be attached to an activity that implements ${CreateWalletNavigator::class}"
+      )
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentCreateWalletLayoutBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentCreateWalletLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

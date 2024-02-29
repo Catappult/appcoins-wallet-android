@@ -20,7 +20,8 @@ abstract class CurrenciesDatabase : RoomDatabase() {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
       override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
-            "CREATE TABLE IF NOT EXISTS fiat_currencies (currency INTEGER PRIMARY KEY, flag TEXT , label TEXT , sign TEXT)")
+          "CREATE TABLE IF NOT EXISTS fiat_currencies (currency INTEGER PRIMARY KEY, flag TEXT , label TEXT , sign TEXT)"
+        )
       }
     }
   }

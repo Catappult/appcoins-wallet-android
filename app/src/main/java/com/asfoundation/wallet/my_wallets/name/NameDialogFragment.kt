@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsNameBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +60,7 @@ class NameDialogFragment : BottomSheetDialogFragment(),
     when (val asyncValue = state.walletNameAsync) {
       Async.Uninitialized,
       is Async.Loading -> showWalletInfoLoading()
+
       is Async.Fail -> Unit
       is Async.Success -> showWalletInfo(asyncValue())
     }

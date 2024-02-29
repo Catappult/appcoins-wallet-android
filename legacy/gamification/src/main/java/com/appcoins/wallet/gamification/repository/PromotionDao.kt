@@ -1,6 +1,10 @@
 package com.appcoins.wallet.gamification.repository
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 import com.appcoins.wallet.gamification.repository.entity.PromotionEntity
 import io.reactivex.Single
 

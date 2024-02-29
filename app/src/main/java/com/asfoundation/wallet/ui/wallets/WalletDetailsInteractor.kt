@@ -8,10 +8,10 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class WalletDetailsInteractor @Inject constructor(
-    private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
-    private val supportInteractor: SupportInteractor,
-    private val gamificationRepository: Gamification,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
+  private val supportInteractor: SupportInteractor,
+  private val gamificationRepository: Gamification,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   fun setActiveWallet(address: String): Completable = setDefaultWalletInteractor.set(address)

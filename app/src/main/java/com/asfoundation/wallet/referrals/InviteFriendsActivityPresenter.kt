@@ -6,12 +6,14 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivityView,
-                                     private val referralInteractor: ReferralInteractorContract,
-                                     private val walletInteract: FindDefaultWalletInteract,
-                                     private val disposables: CompositeDisposable,
-                                     private val networkScheduler: Scheduler,
-                                     private val viewScheduler: Scheduler) {
+class InviteFriendsActivityPresenter(
+  private val activity: InviteFriendsActivityView,
+  private val referralInteractor: ReferralInteractorContract,
+  private val walletInteract: FindDefaultWalletInteract,
+  private val disposables: CompositeDisposable,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler
+) {
 
   fun present() {
     handleFragmentNavigation()
@@ -20,23 +22,27 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
 
   private fun handleFragmentNavigation() {
     disposables.add(walletInteract.find()
-        .flatMap { referralInteractor.retrieveReferral() }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { handleValidationResult(it) }
-        .flatMapCompletable {
-          referralInteractor.saveReferralInformation(it.completed, it.link != null,
-              ReferralsScreen.INVITE_FRIENDS)
-        }
-        .subscribe({}, { handleError(it) })
+      .flatMap { referralInteractor.retrieveReferral() }
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess { handleValidationResult(it) }
+      .flatMapCompletable {
+        referralInteractor.saveReferralInformation(
+          it.completed, it.link != null,
+          ReferralsScreen.INVITE_FRIENDS
+        )
+      }
+      .subscribe({}, { handleError(it) })
     )
   }
 
   private fun handleValidationResult(referral: ReferralModel) {
     if (referral.link != null) {
-      activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
-          referral.symbol, referral.link, referral.completed, referral.receivedAmount,
-          referral.maxAmount, referral.available, referral.isRedeemed)
+      activity.navigateToInviteFriends(
+        referral.amount, referral.pendingAmount,
+        referral.symbol, referral.link, referral.completed, referral.receivedAmount,
+        referral.maxAmount, referral.available, referral.isRedeemed
+      )
       handleInfoButtonVisibility()
     } else {
       activity.navigateToVerificationFragment(referral.amount, referral.symbol)
@@ -45,9 +51,10 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
 
   private fun handleInfoButtonVisibility() {
     disposables.add(activity.infoButtonInitialized()
-        .filter { it }
-        .doOnNext { activity.showInfoButton() }
-        .subscribe({}, { it.printStackTrace() }))
+      .filter { it }
+      .doOnNext { activity.showInfoButton() }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleError(throwable: Throwable) {
@@ -59,11 +66,12 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
 
   private fun handleRetryClick() {
     disposables.add(activity.retryClick()
-        .observeOn(viewScheduler)
-        .doOnNext { activity.showRetryAnimation() }
-        .delay(1, TimeUnit.SECONDS)
-        .doOnNext { handleFragmentNavigation() }
-        .subscribe({}, { it.printStackTrace() }))
+      .observeOn(viewScheduler)
+      .doOnNext { activity.showRetryAnimation() }
+      .delay(1, TimeUnit.SECONDS)
+      .doOnNext { handleFragmentNavigation() }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun stop() {

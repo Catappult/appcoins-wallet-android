@@ -10,11 +10,16 @@ class FlurryReceiver : LogReceiver {
   companion object {
     private const val DEFAULT_ERROR_ID = "ID"
   }
+
   override fun log(tag: String?, throwable: Throwable?) {
     throwable?.let {
       throwable.printStackTrace()
       if (!BuildConfig.DEBUG) {
-        FlurryAgent.onError(tag ?: DEFAULT_ERROR_ID, throwable.message ?: DEFAULT_THROWABLE_MSG, throwable)
+        FlurryAgent.onError(
+          tag ?: DEFAULT_ERROR_ID,
+          throwable.message ?: DEFAULT_THROWABLE_MSG,
+          throwable
+        )
       }
     }
   }

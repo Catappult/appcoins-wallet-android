@@ -1,10 +1,9 @@
 package com.appcoins.wallet.core.analytics.analytics;
 
-import com.appcoins.wallet.core.analytics.analytics.logging.Log;
-
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
+import com.appcoins.wallet.core.analytics.analytics.logging.Log;
 import com.appcoins.wallet.core.network.analytics.AnalyticsBody;
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi;
 import io.reactivex.schedulers.Schedulers;
@@ -18,8 +17,7 @@ public class BackendEventLogger implements EventLogger {
   private final int versionCode;
   private final String applicationId;
 
-
-  public BackendEventLogger(AnalyticsApi api, int versionCode, String applicationId  ) {
+  public BackendEventLogger(AnalyticsApi api, int versionCode, String applicationId) {
     this.api = api;
     this.versionCode = versionCode;
     this.applicationId = applicationId;
@@ -37,8 +35,7 @@ public class BackendEventLogger implements EventLogger {
         + context
         + "]");
 
-    api.registerEvent(action, eventName,
-        new AnalyticsBody(versionCode, applicationId, data))
+    api.registerEvent(action, eventName, new AnalyticsBody(versionCode, applicationId, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
   }

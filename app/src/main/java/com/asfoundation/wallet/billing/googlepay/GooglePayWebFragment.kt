@@ -2,13 +2,11 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.animation.Animator
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
@@ -84,15 +82,19 @@ class GooglePayWebFragment() : BasePageViewFragment() {
         GooglePayWebViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is GooglePayWebViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is GooglePayWebViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
+
         is GooglePayWebViewModel.State.WebAuthentication -> {
           viewModel.openUrlCustomTab(requireContext(), state.url)
         }
+
         GooglePayWebViewModel.State.GooglePayBack -> {
           iabView.showPaymentMethodsView()
         }

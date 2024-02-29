@@ -6,7 +6,7 @@ android {
   namespace = "com.appcoins.wallet.feature.support.data"
 }
 
-dependencies{
+dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(libs.intercom) {
     exclude(group = "com.google.android", module = "flexbox")

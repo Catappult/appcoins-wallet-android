@@ -142,8 +142,10 @@ class GooglePayWebViewModel @Inject constructor(
           GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
             getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
           }
+
           GooglePayWebTransaction.GooglePayWebValidityState.PENDING -> {
           }
+
           GooglePayWebTransaction.GooglePayWebValidityState.ERROR -> {
             Log.d(TAG, "GooglePayWeb transaction error")
             sendPaymentErrorEvent(
@@ -152,6 +154,7 @@ class GooglePayWebViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
+
           null -> {
             Log.d(TAG, "GooglePayWeb transaction error")
             sendPaymentErrorEvent(
@@ -177,6 +180,7 @@ class GooglePayWebViewModel @Inject constructor(
           COMPLETED -> {
             getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
           }
+
           FAILED, FRAUD, CANCELED, INVALID_TRANSACTION -> {
             Log.d(TAG, "Error on transaction on Settled transaction polling")
             sendPaymentErrorEvent(
@@ -185,7 +189,9 @@ class GooglePayWebViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.unknown_error))
           }
-          else -> { /* pending */ }
+
+          else -> { /* pending */
+          }
         }
       }, {
         Log.d(TAG, "Error on Settled transaction polling")

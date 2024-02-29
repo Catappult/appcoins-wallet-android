@@ -86,6 +86,7 @@ class WalletTextFieldView : FrameLayout {
           resources.getColor(R.color.styleguide_dark_grey)
         )
       }
+
       Type.OUTLINED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
@@ -94,6 +95,7 @@ class WalletTextFieldView : FrameLayout {
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.endIconMode = END_ICON_NONE
       }
+
       Type.PASSWORD -> {
         views.textInputEditText.setReadOnly(
           value = false, inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
@@ -107,6 +109,7 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
         views.textInputLayout.editText?.setHintTextColor(resources.getColor(R.color.styleguide_dark_grey))
       }
+
       Type.NUMBER -> {
         views.textInputEditText.inputType =
           InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
@@ -120,6 +123,7 @@ class WalletTextFieldView : FrameLayout {
           resources.getColor(R.color.styleguide_dark_grey)
         )
       }
+
       Type.READ_ONLY -> {
         views.textInputEditText.setReadOnly(value = true)
         views.textInputLayout.boxBackgroundColor =

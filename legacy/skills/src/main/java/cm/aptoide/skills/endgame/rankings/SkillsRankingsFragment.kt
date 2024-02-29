@@ -54,7 +54,8 @@ class SkillsRankingsFragment : Fragment() {
       sku = requireArguments().getString(SKU_KEY).toString()
       supportsRewards = requireArguments().getBoolean(SUPPORTS_REWARDS_KEY)
     }
-    val rankingsPagerAdapter = RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!, supportsRewards!!)
+    val rankingsPagerAdapter =
+      RankingsPagerAdapter(this, walletAddress!!, packageName!!, sku!!, supportsRewards!!)
     val viewPager = view.findViewById<ViewPager2>(R.id.pager)
     viewPager.adapter = rankingsPagerAdapter
     val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)

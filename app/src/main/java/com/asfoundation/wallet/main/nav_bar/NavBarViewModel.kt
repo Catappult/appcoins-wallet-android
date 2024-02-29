@@ -13,9 +13,9 @@ import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 sealed class NavBarSideEffect : SideEffect {
   object ShowOnboardingGPInstall : NavBarSideEffect()
@@ -26,15 +26,15 @@ sealed class NavBarSideEffect : SideEffect {
 }
 
 data class NavBarState(
-    val showPromotionsBadge: Boolean = false,
+  val showPromotionsBadge: Boolean = false,
 ) : ViewState
 
 @HiltViewModel
 class NavBarViewModel
 @Inject
 constructor(
-    private val promotionsInteractor: PromotionsInteractor,
-    private val appStartUseCase: AppStartUseCase
+  private val promotionsInteractor: PromotionsInteractor,
+  private val appStartUseCase: AppStartUseCase
 ) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
 
   val clickedItem: MutableState<Int> = mutableStateOf(Destinations.HOME.ordinal)
@@ -51,38 +51,43 @@ constructor(
    */
   private fun handlePromotionUpdateNotification() {
     promotionsInteractor
-        .hasAnyPromotionUpdate(PromotionUpdateScreen.TRANSACTIONS)
-        .doOnSuccess { hasPromotionUpdate ->
-          setState { copy(showPromotionsBadge = hasPromotionUpdate) }
-        }
-        .toObservable()
-        .repeatableScopedSubscribe(NavBarState::showPromotionsBadge.name)
+      .hasAnyPromotionUpdate(PromotionUpdateScreen.TRANSACTIONS)
+      .doOnSuccess { hasPromotionUpdate ->
+        setState { copy(showPromotionsBadge = hasPromotionUpdate) }
+      }
+      .toObservable()
+      .repeatableScopedSubscribe(NavBarState::showPromotionsBadge.name)
   }
 
   private fun handleOnboardingFromGameScreen() {
     viewModelScope.launch {
       when (val startMode = appStartUseCase.startModes.first()) {
         is StartMode.PendingPurchaseFlow ->
-            sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
+          sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
+
         is StartMode.GPInstall -> sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         is StartMode.RestoreGuestWalletFlow -> {
           sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
         }
+
         else -> Unit
       }
     }
   }
 
   fun navigationItems() =
-      listOf(
-          NavigationItem(
-              destination = Destinations.HOME,
-              label = R.string.intro_home_button,
-              icon = R.drawable.ic_home,
-              selected = true),
-          NavigationItem(
-              destination = Destinations.REWARDS,
-              label = R.string.intro_rewards_button,
-              icon = R.drawable.ic_rewards,
-              selected = false))
+    listOf(
+      NavigationItem(
+        destination = Destinations.HOME,
+        label = R.string.intro_home_button,
+        icon = R.drawable.ic_home,
+        selected = true
+      ),
+      NavigationItem(
+        destination = Destinations.REWARDS,
+        label = R.string.intro_rewards_button,
+        icon = R.drawable.ic_rewards,
+        selected = false
+      )
+    )
 }

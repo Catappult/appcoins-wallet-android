@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class BalanceInteractor @Inject constructor(
-    private val accountWalletService: AccountWalletService,
-    private val walletVerificationInteractor: WalletVerificationInteractor,
-    private val brokerVerificationRepository: BrokerVerificationRepository,
-    private val rxSchedulers: RxSchedulers
+  private val accountWalletService: AccountWalletService,
+  private val walletVerificationInteractor: WalletVerificationInteractor,
+  private val brokerVerificationRepository: BrokerVerificationRepository,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   companion object {

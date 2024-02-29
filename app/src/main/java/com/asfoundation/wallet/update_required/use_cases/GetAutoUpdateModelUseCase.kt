@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetAutoUpdateModelUseCase @Inject constructor(private val autoUpdateRepository: AutoUpdateRepository) {
 
-  operator fun invoke(invalidateCache: Boolean = true) : Single<AutoUpdateModel> {
+  operator fun invoke(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
 
   }

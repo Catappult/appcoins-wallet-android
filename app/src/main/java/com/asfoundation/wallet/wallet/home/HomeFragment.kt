@@ -85,22 +85,25 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
 
-  @Inject lateinit var navigator: HomeNavigator
+  @Inject
+  lateinit var navigator: HomeNavigator
 
-  @Inject lateinit var transactionsNavigator: TransactionsNavigator
+  @Inject
+  lateinit var transactionsNavigator: TransactionsNavigator
 
-  @Inject lateinit var formatter: CurrencyFormatUtils
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
   private val navBarViewModel: NavBarViewModel by activityViewModels()
   private val hasGetSomeValidBalanceResult = mutableStateOf(false)
 
   private val pushNotificationPermissionLauncher =
-      registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { HomeScreen() } }
   }
@@ -114,9 +117,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   override fun onResume() {
     super.onResume()
     val fromSupportNotification =
-        requireActivity()
-            .intent
-            .getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, false)
+      requireActivity()
+        .intent
+        .getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, false)
     if (!fromSupportNotification) {
       viewModel.updateData()
       checkRoot()
@@ -139,7 +142,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun HomeScreen(
-      modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
   ) {
     Scaffold(
       topBar = {
@@ -163,63 +166,77 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Composable
   internal fun HomeScreenContent(padding: PaddingValues) {
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState()).padding(padding),
+      modifier = Modifier
+        .verticalScroll(rememberScrollState())
+        .padding(padding),
     ) {
       BalanceCard(
-          newWallet = viewModel.newWallet.value,
-          showBackup = viewModel.showBackup.value,
-          balanceContent = { BalanceContent() },
-          onClickTransfer = { viewModel.onTransferClick() },
-          onClickBackup = { viewModel.onBackupClick() },
-          onClickTopUp = { viewModel.onTopUpClick() },
-          onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
-          isLoading =
-              (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
-                  !viewModel.isLoadingTransactions.value)
+        newWallet = viewModel.newWallet.value,
+        showBackup = viewModel.showBackup.value,
+        balanceContent = { BalanceContent() },
+        onClickTransfer = { viewModel.onTransferClick() },
+        onClickBackup = { viewModel.onBackupClick() },
+        onClickTopUp = { viewModel.onTopUpClick() },
+        onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
+        isLoading =
+        (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
+            !viewModel.isLoadingTransactions.value
+      )
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value, viewModel.referenceSendPromotionClickEvent()) { viewModel.fetchGamesListing() }
+      GamesBundle(
+        viewModel.gamesList.value,
+        viewModel.referenceSendPromotionClickEvent()
+      ) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
 
   @Composable
   fun BalanceContent() =
-      when (val state = viewModel.uiBalanceState.collectAsState().value) {
-        is HomeViewModel.UiBalanceState.Success ->
-            with(state.balance.creditsOnlyFiat) {
-              BalanceValue(symbol + formatter.formatCurrency(amount, FIAT), currency) {
-                viewModel.onBalanceArrowClick(state.balance)
-              }
-            }
-        else -> CircularProgressIndicator()
-      }
+    when (val state = viewModel.uiBalanceState.collectAsState().value) {
+      is HomeViewModel.UiBalanceState.Success ->
+        with(state.balance.creditsOnlyFiat) {
+          BalanceValue(symbol + formatter.formatCurrency(amount, FIAT), currency) {
+            viewModel.onBalanceArrowClick(state.balance)
+          }
+        }
+
+      else -> CircularProgressIndicator()
+    }
 
   @Composable
   fun TransactionsCard(transactionsState: UiState) {
     when (transactionsState) {
       is Success -> {
         if (transactionsState.transactions.isNotEmpty())
-            Column(modifier = Modifier.heightIn(0.dp, 480.dp).padding(horizontal = 16.dp)) {
-              Text(
-                  text = stringResource(R.string.intro_transactions_header),
-                  modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
-                  style = MaterialTheme.typography.bodyMedium,
-                  fontWeight = FontWeight.Bold,
-                  color = WalletColors.styleguide_dark_grey)
-              Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
-                TransactionsList(transactionsState.transactions)
-              }
-            }
-      }
-      else -> {
-        Column(modifier = Modifier.heightIn(0.dp, 480.dp).padding(horizontal = 16.dp)) {
-          Text(
+          Column(modifier = Modifier
+            .heightIn(0.dp, 480.dp)
+            .padding(horizontal = 16.dp)) {
+            Text(
               text = stringResource(R.string.intro_transactions_header),
               modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
               style = MaterialTheme.typography.bodyMedium,
               fontWeight = FontWeight.Bold,
-              color = WalletColors.styleguide_dark_grey)
+              color = WalletColors.styleguide_dark_grey
+            )
+            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
+              TransactionsList(transactionsState.transactions)
+            }
+          }
+      }
+
+      else -> {
+        Column(modifier = Modifier
+          .heightIn(0.dp, 480.dp)
+          .padding(horizontal = 16.dp)) {
+          Text(
+            text = stringResource(R.string.intro_transactions_header),
+            modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey
+          )
           SkeletonLoadingTransactionCard()
         }
       }
@@ -230,32 +247,35 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   fun PromotionsList() {
     if (viewModel.activePromotions.isNotEmpty() && !viewModel.isLoadingOrIdlePromotionState()) {
       Text(
-          text = getString(R.string.intro_active_promotions_header),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp))
+        text = getString(R.string.intro_active_promotions_header),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey,
+        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+      )
     }
     if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
       Text(
-          text = getString(R.string.intro_active_promotions_header),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp))
+        text = getString(R.string.intro_active_promotions_header),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey,
+        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+      )
     }
     LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.Bottom) {
-          if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
-            item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
-          } else {
-            items(viewModel.activePromotions) { promotion ->
-              PromotionsCardComposable(cardItem = promotion)
-            }
-          }
+      contentPadding = PaddingValues(horizontal = 16.dp),
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+      verticalAlignment = Alignment.Bottom
+    ) {
+      if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
+        item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
+      } else {
+        items(viewModel.activePromotions) { promotion ->
+          PromotionsCardComposable(cardItem = promotion)
         }
+      }
+    }
   }
 
   @OptIn(ExperimentalFoundationApi::class)
@@ -266,37 +286,39 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         transactionsGrouped.forEach { (date, transactionsForDate) ->
           stickyHeader {
             Text(
-                text = date,
-                color = WalletColors.styleguide_dark_grey,
-                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
-                style = MaterialTheme.typography.bodySmall)
+              text = date,
+              color = WalletColors.styleguide_dark_grey,
+              modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
+              style = MaterialTheme.typography.bodySmall
+            )
           }
 
           items(transactionsForDate) { transaction ->
             with(transaction.cardInfoByType()) {
               TransactionCard(
-                  icon = icon,
-                  appIcon = appIcon,
-                  title = stringResource(id = title),
-                  description = description ?: app,
-                  amount = amount,
-                  convertedAmount = amountSubtitle,
-                  subIcon = subIcon,
-                  onClick = { navigateToTransactionDetails(transaction) },
-                  textDecoration = textDecoration)
+                icon = icon,
+                appIcon = appIcon,
+                title = stringResource(id = title),
+                description = description ?: app,
+                amount = amount,
+                convertedAmount = amountSubtitle,
+                subIcon = subIcon,
+                onClick = { navigateToTransactionDetails(transaction) },
+                textDecoration = textDecoration
+              )
             }
           }
         }
       }
       TextButton(
-          modifier = Modifier.padding(top = 8.dp, end = 8.dp),
-          onClick = { viewModel.onSeeAllTransactionsClick() }) {
-            Text(
-                text = stringResource(R.string.see_all_button),
-                color = WalletColors.styleguide_pink,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-          }
+        modifier = Modifier.padding(top = 8.dp, end = 8.dp),
+        onClick = { viewModel.onSeeAllTransactionsClick() }) {
+        Text(
+          text = stringResource(R.string.see_all_button),
+          color = WalletColors.styleguide_pink,
+          style = MaterialTheme.typography.bodyMedium,
+        )
+      }
     }
   }
 
@@ -317,18 +339,22 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
       is HomeSideEffect.NavigateToSettings ->
-          navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
+        navigator.navigateToSettings(navController(), sideEffect.turnOnFingerprint)
+
       is HomeSideEffect.NavigateToBackup ->
-          navigator.navigateToBackup(
-              sideEffect.walletAddress, sideEffect.walletName, navController())
+        navigator.navigateToBackup(
+          sideEffect.walletAddress, sideEffect.walletName, navController()
+        )
+
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer(navController())
       HomeSideEffect.NavigateToTransactionsList ->
-          transactionsNavigator.navigateToTransactionsList(navController())
+        transactionsNavigator.navigateToTransactionsList(navController())
+
       is HomeSideEffect.NavigateToBalanceDetails ->
-          navigator.navigateToBalanceBottomSheet(sideEffect.balance)
+        navigator.navigateToBalanceBottomSheet(sideEffect.balance)
     }
   }
 
@@ -346,17 +372,17 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
       pref.edit().putBoolean("should_show_root_warning", false).apply()
       val alertDialog =
-          android.app.AlertDialog.Builder(context)
-              .setTitle(R.string.root_title)
-              .setMessage(R.string.root_body)
-              .setNegativeButton(R.string.ok) { _, _ -> }
-              .show()
+        android.app.AlertDialog.Builder(context)
+          .setTitle(R.string.root_title)
+          .setMessage(R.string.root_body)
+          .setNegativeButton(R.string.ok) { _, _ -> }
+          .show()
       alertDialog
-          .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
-          .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
+        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+        .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog
-          .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
-          .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
+        .getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
+        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
     }
   }
 
@@ -366,14 +392,17 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       is Async.Loading -> {
         viewModel.updateBalance(HomeViewModel.UiBalanceState.Loading)
       }
+
       is Async.Success ->
-          balanceAsync.value.let { globalBalance ->
-            if (globalBalance != null) {
-              viewModel.updateBalance(
-                  HomeViewModel.UiBalanceState.Success(globalBalance.walletBalance))
-              hasGetSomeValidBalanceResult.value = true
-            }
+        balanceAsync.value.let { globalBalance ->
+          if (globalBalance != null) {
+            viewModel.updateBalance(
+              HomeViewModel.UiBalanceState.Success(globalBalance.walletBalance)
+            )
+            hasGetSomeValidBalanceResult.value = true
           }
+        }
+
       else -> Unit
     }
   }
@@ -416,17 +445,18 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           }
         }
       }
+
       else -> Unit
     }
   }
 
   private fun navigateToTransactionDetails(transaction: TransactionModel) =
-      transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
+    transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
 
   private fun navController(): NavController {
     val navHostFragment =
-        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-            as NavHostFragment
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 }

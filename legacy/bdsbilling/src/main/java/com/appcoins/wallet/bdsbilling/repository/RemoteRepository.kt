@@ -1,12 +1,20 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.CreditsPurchaseBody
+import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
+import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.TransactionsResponse
+import com.appcoins.wallet.core.network.microservices.model.merge
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -14,9 +22,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import retrofit2.http.*
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.atomic.AtomicBoolean
 
 class RemoteRepository(

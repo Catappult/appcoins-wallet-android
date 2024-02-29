@@ -39,9 +39,10 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.TransactionSeparator
 import com.asf.wallet.R
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
-import com.asfoundation.wallet.transactions.TransactionsListViewModel.*
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiModel
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiModel.TransactionItem
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiState
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.WalletInfoModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

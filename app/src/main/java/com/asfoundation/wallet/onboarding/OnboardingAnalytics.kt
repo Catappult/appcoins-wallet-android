@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
 import cm.aptoide.analytics.AnalyticsManager
-import java.util.*
 import javax.inject.Inject
 
 class OnboardingAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
@@ -17,6 +16,11 @@ class OnboardingAnalytics @Inject constructor(private val analyticsManager: Anal
     val data = HashMap<String, Any>()
     data[BONUS] = bonus
     data[BONUS_CURRENCY] = bonusCurrency
-    analyticsManager.logEvent(data, WALLET_ONBOARDING_RECOVER_WEB, AnalyticsManager.Action.CLICK, WALLET)
+    analyticsManager.logEvent(
+      data,
+      WALLET_ONBOARDING_RECOVER_WEB,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
   }
 }

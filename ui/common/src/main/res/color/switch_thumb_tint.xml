@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2021 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +16,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- State Checked -->
-  <item android:color="@color/styleguide_red" android:state_checked="true"/>
+  <item android:color="@color/styleguide_red" android:state_checked="true" />
 
   <!-- State Unchecked -->
-  <item android:color="@color/white"/>
+  <item android:color="@color/white" />
 </selector>

@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.transfers
 
+import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import javax.inject.Inject
 
 class TransferConfirmationInteractor @Inject constructor(

@@ -2,13 +2,17 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.analytics.analytics.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
-import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.*
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.CANCELED
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.COMPLETED
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.FAILED
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.INVALID_TRANSACTION
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.PENDING_USER_PAYMENT
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor

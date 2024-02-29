@@ -131,11 +131,13 @@ class PromoCodeBottomSheetFragment :
       is Async.Loading -> {
         showDefaultScreen()
       }
+
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
+
       is Async.Success -> {
         storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
@@ -153,6 +155,7 @@ class PromoCodeBottomSheetFragment :
           }
         }
       }
+
       else -> handleErrorState(promoCode)
     }
   }
@@ -162,13 +165,14 @@ class PromoCodeBottomSheetFragment :
     shouldShowDefault: Boolean
   ) {
     when (promoCodeResult.validity) {
-       ValidityState.ACTIVE -> {
+      ValidityState.ACTIVE -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
           promoCodeResult.code?.let { showCurrentCodeScreen(it) }
         }
       }
+
       else -> handleErrorState(null)
     }
   }
@@ -180,14 +184,17 @@ class PromoCodeBottomSheetFragment :
       is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
+
       is FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(
           getString(R.string.promo_code_error_not_available)
         )
       }
+
       is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }
+
       else -> return
     }
   }

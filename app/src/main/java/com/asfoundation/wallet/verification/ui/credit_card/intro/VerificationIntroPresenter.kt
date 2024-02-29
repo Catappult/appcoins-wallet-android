@@ -4,9 +4,9 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -165,6 +165,7 @@ class VerificationIntroPresenter(
           .observeOn(viewScheduler)
           .andThen(handleSuccessTransaction(verificationInfoModel))
       }
+
       paymentModel.refusalReason != null -> Completable.fromAction {
         paymentModel.refusalCode?.let { code ->
           when (code) {
@@ -179,6 +180,7 @@ class VerificationIntroPresenter(
           }
         }
       }
+
       paymentModel.error.hasError -> Completable.fromAction {
         if (!paymentModel.error.isNetworkError) logger.log(
           TAG,
@@ -186,6 +188,7 @@ class VerificationIntroPresenter(
         )
         handleErrors(paymentModel.error.isNetworkError, paymentModel.errorType)
       }
+
       else -> Completable.fromAction {
         logger.log(TAG, Exception("PaymentResult code=${paymentModel.refusalCode}"))
         handleErrors()

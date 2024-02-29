@@ -7,14 +7,14 @@ import com.appcoins.wallet.core.arch.ViewState
 object TokenInfoSideEffect : SideEffect
 
 data class TokenInfoState(
-    val title: String,
-    val image: String,
-    val description: String,
-    val showTopUp: Boolean
+  val title: String,
+  val image: String,
+  val description: String,
+  val showTopUp: Boolean
 ) : ViewState
 
 class TokenInfoDialogViewModel(
-    private val data: TokenInfoDialogData
+  private val data: TokenInfoDialogData
 ) : BaseViewModel<TokenInfoState, TokenInfoSideEffect>(initialState(data)) {
 
   companion object {

@@ -18,20 +18,25 @@ import io.reactivex.schedulers.Schedulers
 class VerificationIntroModule {
 
   @Provides
-  fun providesWalletVerificationIntroPresenter(fragment: Fragment,
-                                               navigator: VerificationIntroNavigator,
-                                               logger: Logger,
-                                               interactor: VerificationIntroInteractor,
-                                               data: VerificationIntroData,
-                                               analytics: VerificationAnalytics): VerificationIntroPresenter {
-    return VerificationIntroPresenter(fragment as VerificationIntroView,
-        CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
-        Schedulers.io(), interactor, AdyenErrorCodeMapper(), data, analytics)
+  fun providesWalletVerificationIntroPresenter(
+    fragment: Fragment,
+    navigator: VerificationIntroNavigator,
+    logger: Logger,
+    interactor: VerificationIntroInteractor,
+    data: VerificationIntroData,
+    analytics: VerificationAnalytics
+  ): VerificationIntroPresenter {
+    return VerificationIntroPresenter(
+      fragment as VerificationIntroView,
+      CompositeDisposable(), navigator, logger, AndroidSchedulers.mainThread(),
+      Schedulers.io(), interactor, AdyenErrorCodeMapper(), data, analytics
+    )
   }
 
   @Provides
   fun providesVerificationIntroData(
-      fragment: Fragment): VerificationIntroData {
+    fragment: Fragment
+  ): VerificationIntroData {
     return VerificationIntroData(RedirectComponent.getReturnUrl(fragment.requireContext()))
   }
 

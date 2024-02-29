@@ -2,9 +2,9 @@ package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.arch.BaseViewModel
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
@@ -51,9 +51,11 @@ class MainActivityViewModel @Inject constructor(
         when {
           hasRequiredHardUpdateUseCase(blackList, updateVersionCode, updateMinSdk) ->
             sendSideEffect { MainActivitySideEffect.NavigateToAutoUpdate }
+
           hasAuthenticationPermissionUseCase() && !authComplete -> {
             sendSideEffect { MainActivitySideEffect.NavigateToFingerprintAuthentication }
           }
+
           shouldShowOnboardingUseCase() -> {
             getCachedGuestWalletUseCase()
               .subscribeOn(rxSchedulers.io)
@@ -71,6 +73,7 @@ class MainActivityViewModel @Inject constructor(
               }
               .scopedSubscribe()
           }
+
           else ->
             sendSideEffect { MainActivitySideEffect.NavigateToNavigationBar }
         }

@@ -83,7 +83,7 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
     int decimals = MiscProperties.INSTANCE.getDEFAULT_TOKEN_DECIMALS();
 
     return new BigDecimal(operation.getFee()).divide(BigDecimal.valueOf(Math.pow(10.0, decimals)),
-        DEFAULT_SCALE, RoundingMode.HALF_UP)
+            DEFAULT_SCALE, RoundingMode.HALF_UP)
         .toPlainString();
   }
 

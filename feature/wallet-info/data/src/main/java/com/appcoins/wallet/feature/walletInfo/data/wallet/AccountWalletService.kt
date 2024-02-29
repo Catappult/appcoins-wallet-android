@@ -5,7 +5,6 @@ import com.appcoins.wallet.core.utils.jvm_common.WalletUtils
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
-import com.appcoins.wallet.feature.walletInfo.data.Web3jKeystoreAccountService
 import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.SignDataStandardNormalizer
@@ -23,11 +22,11 @@ import javax.inject.Inject
 
 @BoundTo(supertype = WalletService::class)
 class AccountWalletService @Inject constructor(
-    private val accountKeyService: AccountKeystoreService,
-    private val passwordStore: PasswordStore,
-    private val walletCreatorInteract: WalletCreatorInteract,
-    private val walletRepository: WalletRepositoryType,
-    private val syncScheduler: ExecutorScheduler
+  private val accountKeyService: AccountKeystoreService,
+  private val passwordStore: PasswordStore,
+  private val walletCreatorInteract: WalletCreatorInteract,
+  private val walletRepository: WalletRepositoryType,
+  private val syncScheduler: ExecutorScheduler
 ) : WalletService {
 
   private val PRIVATE_RADIX = 16

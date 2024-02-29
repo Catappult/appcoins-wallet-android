@@ -5,7 +5,6 @@ import android.content.Intent;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.transfers.TransferConfirmationActivity;
 import com.wallet.appcoins.core.legacy_base.ActivityResultSharer;
-
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import javax.inject.Inject;

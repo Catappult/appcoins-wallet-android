@@ -357,6 +357,7 @@ fun PreviewBalanceItems() {
     BalanceItem(R.drawable.ic_eth_token, R.string.ethereum_token_name, "5244 ETH")
   }
 }
+
 @Preview
 @Composable
 fun PreviewSkeletonLoading() {

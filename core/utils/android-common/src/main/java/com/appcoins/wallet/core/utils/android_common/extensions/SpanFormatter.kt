@@ -9,7 +9,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 private val FORMAT_SEQUENCE: Pattern =
-    Pattern.compile("%([0-9]+\\$|<?)([^a-zA-z%]*)([[a-zA-Z%]&&[^tT]]|[tT][a-zA-Z])")
+  Pattern.compile("%([0-9]+\\$|<?)([^a-zA-z%]*)([[a-zA-Z%]&&[^tT]]|[tT][a-zA-Z])")
 
 /**
  * Extension to format a string with a spannable
@@ -32,16 +32,20 @@ fun Context.getStringSpanned(@StringRes resId: Int, vararg args: Any): Spanned {
       "%" -> {
         cookedArg = "%"
       }
+
       "n" -> {
         cookedArg = "\n"
       }
+
       else -> {
         var argIdx = 0
         argIdx = when (argTerm) {
           "" -> ++argAt
           "<" -> argAt
-          else -> argTerm.substring(0,
-              argTerm.length - 1).toInt() - 1
+          else -> argTerm.substring(
+            0,
+            argTerm.length - 1
+          ).toInt() - 1
         }
         val argItem = args[argIdx]
         cookedArg = if (typeTerm == "s" && argItem is Spanned) {

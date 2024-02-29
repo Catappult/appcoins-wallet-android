@@ -7,8 +7,8 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class ObserveWalletsModelUseCase @Inject constructor(
-    private val walletsInteract: WalletsInteract,
-    private val rxSchedulers: RxSchedulers
+  private val walletsInteract: WalletsInteract,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(): Observable<WalletsModel> = walletsInteract.observeWalletsModel()
