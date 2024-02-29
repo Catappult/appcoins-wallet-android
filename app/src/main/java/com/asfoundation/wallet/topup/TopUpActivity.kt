@@ -12,8 +12,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils

@@ -7,7 +7,8 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 import javax.inject.Inject
 
 class PaymentMethodsMapper @Inject constructor(
-    private val billingMessagesMapper: BillingMessagesMapper) {
+  private val billingMessagesMapper: BillingMessagesMapper
+) {
 
   fun map(paymentId: String): SelectedPaymentMethod {
     return when (paymentId) {

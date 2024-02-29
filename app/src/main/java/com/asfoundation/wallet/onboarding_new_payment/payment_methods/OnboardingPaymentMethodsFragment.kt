@@ -132,6 +132,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is Async.Loading -> {
         //TODO add a skeleton while the list loads
       }
+
       is Async.Success -> {
         if (state.paymentMethodsAsync()?.isEmpty() == true) {
           handleNoPaymentMethodsError()
@@ -139,6 +140,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           showPaymentMethodsList(state.paymentMethodsAsync(), state.otherPaymentMethods)
         }
       }
+
       is Async.Fail -> {
         handleNoPaymentMethodsError()
       }
@@ -150,6 +152,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(
         sideEffect.uri
       )
+
       is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )

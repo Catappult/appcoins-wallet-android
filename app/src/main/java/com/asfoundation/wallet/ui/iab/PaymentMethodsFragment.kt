@@ -351,6 +351,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
         if (isBonusActive) hideBonus()
       }
+
       PaymentMethodId.PAYPAL_V2.id -> {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
@@ -366,6 +367,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           popup.show()
         }
       }
+
       else -> {
         binding.layoutPreSelected.paymentMethodSecondary.visibility = View.GONE
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE

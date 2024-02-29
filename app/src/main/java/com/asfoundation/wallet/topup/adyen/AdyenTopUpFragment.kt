@@ -13,7 +13,6 @@ import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
-import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
@@ -26,14 +25,14 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.BuildConfig
-import com.asf.wallet.R
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
 import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
 import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
 import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
+import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
+import com.asf.wallet.BuildConfig
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -472,10 +471,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       PaymentType.CARD.name -> {
         binding.button.setText(getString(R.string.topup_home_button))
         adyenCardView =
-          AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
+          AdyenCardView(
+            binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root
+          )
         setupCardConfiguration(hideCvcStoredCard = false)
       }
-      PaymentType.PAYPAL.name -> { }
+
+      PaymentType.PAYPAL.name -> {}
       PaymentType.TRUSTLY.name -> {
         showLoading()
       }

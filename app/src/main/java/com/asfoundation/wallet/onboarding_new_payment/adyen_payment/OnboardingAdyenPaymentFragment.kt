@@ -113,22 +113,27 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       is Async.Loading -> {
         views.loadingAnimation.playAnimation()
       }
+
       is Async.Success -> {
         state.paymentInfoModel()?.let {
           when (args.paymentType) {
             PaymentType.CARD -> {
               prepareCardComponent(it)
             }
+
             PaymentType.PAYPAL -> {
               viewModel.handleAdyenPayment(it, RedirectComponent.getReturnUrl(requireContext()))
             }
+
             PaymentType.TRUSTLY -> {
               viewModel.handleAdyenPayment(it, RedirectComponent.getReturnUrl(requireContext()))
             }
+
             else -> Unit
           }
         }
       }
+
       is Async.Fail -> Unit
     }
   }
@@ -144,6 +149,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         args.currency,
         args.forecastBonus
       )
+
       is OnboardingAdyenPaymentSideEffect.NavigateToWebView -> {
         sideEffect.paymentModel.redirectUrl?.let {
           navigator.navigateToWebView(
@@ -152,9 +158,11 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
           )
         }
       }
+
       is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
         Intent("", sideEffect.uri)
       )
+
       is OnboardingAdyenPaymentSideEffect.Handle3DS -> handle3DSAction(sideEffect.action)
       OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       OnboardingAdyenPaymentSideEffect.ShowCvvError -> handleCVCError()
@@ -263,10 +271,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       ) -> {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_donate))
       }
+
       args.transactionBuilder.type.equals(
         TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
         ignoreCase = true
       ) -> views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.subscriptions_subscribe_button))
+
       else -> {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_buy))
       }
