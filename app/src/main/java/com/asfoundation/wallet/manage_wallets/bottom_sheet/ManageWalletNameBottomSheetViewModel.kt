@@ -6,7 +6,8 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
-import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetSideEffect.*
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetSideEffect.NavigateBack
+import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletNameBottomSheetSideEffect.WalletCreated
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ sealed class ManageWalletNameBottomSheetSideEffect : SideEffect {
 }
 
 data class ManageWalletNameBottomSheetState(
-    val walletNameAsync: Async<Unit> = Async.Uninitialized,
+  val walletNameAsync: Async<Unit> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel
@@ -24,10 +25,12 @@ class ManageWalletNameBottomSheetViewModel @Inject constructor(
   private val walletsInteract: WalletsInteract,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase
 ) :
-  BaseViewModel<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect>(initialState()) {
+  BaseViewModel<ManageWalletNameBottomSheetState, ManageWalletNameBottomSheetSideEffect>(
+    initialState()
+  ) {
 
   companion object {
-    fun initialState():ManageWalletNameBottomSheetState {
+    fun initialState(): ManageWalletNameBottomSheetState {
       return ManageWalletNameBottomSheetState()
     }
   }

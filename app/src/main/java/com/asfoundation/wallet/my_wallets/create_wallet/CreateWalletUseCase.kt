@@ -8,10 +8,10 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CreateWalletUseCase @Inject constructor(
-        private val walletCreatorInteract: WalletCreatorInteract,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-        private val gamification: Gamification,
-        private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
+  private val walletCreatorInteract: WalletCreatorInteract,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val gamification: Gamification,
+  private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor
 ) {
   operator fun invoke(name: String?): Completable = walletCreatorInteract.create(name)
     .subscribeOn(Schedulers.io())

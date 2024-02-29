@@ -6,7 +6,6 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.platform.ComposeView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -30,9 +29,9 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
     @JvmStatic
     fun newIntent(context: Context, isWalletVerified: Boolean = false) =
-        Intent(context, VerificationCreditCardActivity::class.java).apply {
-          putExtra(IS_WALLET_VERIFIED, isWalletVerified)
-        }
+      Intent(context, VerificationCreditCardActivity::class.java).apply {
+        putExtra(IS_WALLET_VERIFIED, isWalletVerified)
+      }
   }
 
   @Inject
@@ -50,7 +49,7 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
     setContentView(R.layout.activity_wallet_verification)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
-        if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
+      if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
     setTitle("")
     toolbar()
     presenter.present(savedInstanceState)
@@ -60,7 +59,7 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar() {
+  fun toolbar() {
     findViewById<ComposeView>(R.id.app_bar_verify).apply {
       setContent {
         TopBar(isMainBar = false, onClickSupport = { displayChat() })
@@ -70,9 +69,10 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   override fun onBackPressed() {
     val fragmentName =
-        supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
+      supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
     if (fragmentName == VerificationErrorFragment::class.java.name ||
-        fragmentName == VerificationCodeFragment::class.java.name) {
+      fragmentName == VerificationCodeFragment::class.java.name
+    ) {
       toolbarBackPressSubject.onNext(fragmentName)
     } else {
       super.onBackPressed()
@@ -82,7 +82,8 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
       toolbarBackPressSubject.onNext(
-          supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: "")
+        supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
+      )
       return true
     }
     return super.onOptionsItemSelected(item)

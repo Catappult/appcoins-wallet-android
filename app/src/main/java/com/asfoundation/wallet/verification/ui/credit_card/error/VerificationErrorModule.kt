@@ -13,23 +13,28 @@ import io.reactivex.disposables.CompositeDisposable
 class VerificationErrorModule {
 
   @Provides
-  fun providesVerificationErrorPresenter(fragment: Fragment,
-                                         data: VerificationErrorData,
-                                         navigator: VerificationErrorNavigator): VerificationErrorPresenter {
-    return VerificationErrorPresenter(fragment as VerificationErrorView, data, navigator,
-        CompositeDisposable())
+  fun providesVerificationErrorPresenter(
+    fragment: Fragment,
+    data: VerificationErrorData,
+    navigator: VerificationErrorNavigator
+  ): VerificationErrorPresenter {
+    return VerificationErrorPresenter(
+      fragment as VerificationErrorView, data, navigator,
+      CompositeDisposable()
+    )
   }
 
   @Provides
   fun providesVerificationErrorData(fragment: Fragment): VerificationErrorData {
     fragment.requireArguments()
-        .apply {
-          return VerificationErrorData(
-              VerificationCodeResult.ErrorType.values()[getInt(
-                  VerificationErrorFragment.ERROR_TYPE)],
-              getString(VerificationErrorFragment.AMOUNT, ""),
-              getString(VerificationErrorFragment.SYMBOL, "")
-          )
-        }
+      .apply {
+        return VerificationErrorData(
+          VerificationCodeResult.ErrorType.values()[getInt(
+            VerificationErrorFragment.ERROR_TYPE
+          )],
+          getString(VerificationErrorFragment.AMOUNT, ""),
+          getString(VerificationErrorFragment.SYMBOL, "")
+        )
+      }
   }
 }

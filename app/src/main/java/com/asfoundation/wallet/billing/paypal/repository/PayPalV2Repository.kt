@@ -4,17 +4,22 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.api.broker.PaypalV2Api
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.CreateTokenRequest
+import com.appcoins.wallet.core.network.microservices.model.PaypalPayment
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
+import com.appcoins.wallet.core.network.microservices.model.PaypalV2CreateAgreementResponse
+import com.appcoins.wallet.core.network.microservices.model.PaypalV2CreateTokenResponse
+import com.appcoins.wallet.core.network.microservices.model.PaypalV2GetAgreementResponse
+import com.appcoins.wallet.core.network.microservices.model.PaypalV2StartResponse
+import com.appcoins.wallet.core.network.microservices.model.Urls
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
-import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
-import retrofit2.Response
 import javax.inject.Inject
 
 class PayPalV2Repository @Inject constructor(

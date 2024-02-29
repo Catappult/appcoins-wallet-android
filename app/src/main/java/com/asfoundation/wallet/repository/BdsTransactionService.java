@@ -33,7 +33,7 @@ public class BdsTransactionService {
         .filter(bdsTransaction -> bdsTransaction.getStatus()
             .equals(BdsTransaction.Status.WAITING))
         .flatMapCompletable(bdsTransaction -> cache.save(bdsTransaction.getKey(),
-            new BdsTransaction(bdsTransaction, BdsTransaction.Status.PROCESSING))
+                new BdsTransaction(bdsTransaction, BdsTransaction.Status.PROCESSING))
             .andThen(
                 transactionService.checkTransactionStateFromTransactionId(bdsTransaction.getUid())
                     .flatMapCompletable(pendingTransaction -> cache.save(bdsTransaction.getKey(),

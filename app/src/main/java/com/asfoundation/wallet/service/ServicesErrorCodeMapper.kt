@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.service
 
 import com.appcoins.wallet.billing.ErrorInfo
-import com.appcoins.wallet.billing.ErrorInfo.ErrorType.*
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.BLOCKED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CONFLICT
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.SUB_ALREADY_OWNED
 import com.asf.wallet.R
 import javax.inject.Inject
 

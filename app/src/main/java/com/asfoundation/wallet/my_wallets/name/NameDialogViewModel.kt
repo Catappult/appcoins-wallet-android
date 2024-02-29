@@ -21,8 +21,8 @@ data class NameDialogState(
 
 @HiltViewModel
 class NameDialogViewModel @Inject constructor(
-        savedStateHandle: SavedStateHandle,
-        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  savedStateHandle: SavedStateHandle,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
 ) :
   BaseViewModel<NameDialogState, NameDialogSideEffect>(initialState(savedStateHandle)) {
 

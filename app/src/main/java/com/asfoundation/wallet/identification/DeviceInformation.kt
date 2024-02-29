@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.identification
 
-class DeviceInformation (
+class DeviceInformation(
   val osVersion: String,
   val brand: String,
   val model: String,

@@ -15,15 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
-import com.appcoins.wallet.core.utils.android_common.Log;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

@@ -77,7 +77,12 @@ class RecoverEntryFragment : BasePageViewFragment(),
       )
     }
     views.recoverWalletOptions.recoverKeystoreInput.setHintText(getString(R.string.import_code_here_field))
-    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_card_blue))
+    views.recoverWalletOptions.recoverKeystoreInput.setRootBackground(
+      ContextCompat.getDrawable(
+        requireContext(),
+        R.drawable.background_card_blue
+      )
+    )
 
     views.recoverWalletButton.isEnabled = false
     views.recoverWalletOptions.recoverKeystoreInput.addTextWatcher(object : TextWatcher {
@@ -119,9 +124,11 @@ class RecoverEntryFragment : BasePageViewFragment(),
       is Async.Loading -> {
         showLoading()
       }
+
       is Async.Fail -> {
         handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
       }
+
       is Async.Success -> {
         handleSuccessState(asyncRecoverResult())
       }
@@ -136,6 +143,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       is SuccessfulEntryRecover -> {
         navigator.navigateToSuccess(isFromOnboarding)
       }
+
       else -> handleErrorState(recoverResult)
     }
   }
@@ -145,9 +153,11 @@ class RecoverEntryFragment : BasePageViewFragment(),
       is FailedEntryRecover.AlreadyAdded -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_already_added))
       }
+
       is FailedEntryRecover.InvalidKeystore -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
       }
+
       is FailedEntryRecover.InvalidPassword -> {
         navigator.navigateToRecoverPasswordFragment(
           keystore = recoverResult.keyStore,
@@ -157,12 +167,15 @@ class RecoverEntryFragment : BasePageViewFragment(),
           isFromOnboarding
         )
       }
+
       is FailedEntryRecover.InvalidPrivateKey -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
       }
+
       is FailedEntryRecover.GenericError -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_general))
       }
+
       else -> return
     }
   }

@@ -1,9 +1,9 @@
 package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.EwtObtainer
-import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.getErrorCodeAndMessage
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class GetReferralUseCase @Inject constructor(
           .onErrorReturn {
             return@onErrorReturn if (it.getErrorCodeAndMessage().first == 404)
               ticketRepository.createReferral(ewt)
-                .onErrorReturn{ failedReferral }
+                .onErrorReturn { failedReferral }
                 .blockingGet()
             else failedReferral
           }

@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.update_required.use_cases
 
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class GetUnwatchedUpdateNotificationUseCase @Inject constructor(

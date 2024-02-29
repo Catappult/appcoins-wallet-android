@@ -7,8 +7,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetUpdatedPromoCodeUseCase @Inject constructor(
-    private val promoCodeRepository: PromoCodeRepository,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val promoCodeRepository: PromoCodeRepository,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   operator fun invoke(): Single<PromoCode> {

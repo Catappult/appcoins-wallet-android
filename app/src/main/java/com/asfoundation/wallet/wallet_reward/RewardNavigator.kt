@@ -42,8 +42,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
   }
 
   fun navigateToVipReferral(
-      vipReferralInfo: VipReferralInfo,
-      mainNavController: NavController,
+    vipReferralInfo: VipReferralInfo,
+    mainNavController: NavController,
   ) {
     val bundle = Bundle()
     with(vipReferralInfo) {

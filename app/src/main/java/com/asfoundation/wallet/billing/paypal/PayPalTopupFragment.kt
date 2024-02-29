@@ -96,15 +96,19 @@ class PayPalTopupFragment() : BasePageViewFragment() {
         PayPalTopupViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is PayPalTopupViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is PayPalTopupViewModel.State.SuccessPurchase -> {
           handleSuccess()
         }
+
         PayPalTopupViewModel.State.TokenCanceled -> {
           close()
         }
+
         is PayPalTopupViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }

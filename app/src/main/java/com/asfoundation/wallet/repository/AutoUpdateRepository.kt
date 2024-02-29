@@ -14,6 +14,6 @@ class AutoUpdateRepository @Inject constructor(private val autoUpdateService: Au
       return Single.just(autoUpdateModel)
     }
     return autoUpdateService.loadAutoUpdateModel()
-        .doOnSuccess { if (it.isValid()) autoUpdateModel = it }
+      .doOnSuccess { if (it.isValid()) autoUpdateModel = it }
   }
 }

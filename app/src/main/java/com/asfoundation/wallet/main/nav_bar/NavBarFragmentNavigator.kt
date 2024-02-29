@@ -15,14 +15,14 @@ class NavBarFragmentNavigator @Inject constructor(private val fragment: Fragment
 
   fun navigateToHome() {
     val bottomNavView: BottomNavigationView =
-        fragment.requireActivity().findViewById(R.id.bottom_nav)
+      fragment.requireActivity().findViewById(R.id.bottom_nav)
     val view: View = bottomNavView.findViewById(R.id.home_graph)
     view.performClick()
   }
 
   fun navigateToRewards() {
     val bottomNavView: BottomNavigationView =
-        fragment.requireActivity().findViewById(R.id.bottom_nav)
+      fragment.requireActivity().findViewById(R.id.bottom_nav)
     val view: View = bottomNavView.findViewById(R.id.reward_graph)
     view.performClick()
   }

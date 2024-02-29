@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.eskills.payments
 
-import cm.aptoide.skills.model.*
-import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
+import cm.aptoide.skills.model.CreatedTicket
+import cm.aptoide.skills.model.FailedPayment
+import cm.aptoide.skills.model.PaymentResult
+import cm.aptoide.skills.model.SuccessfulPayment
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.asfoundation.wallet.ui.iab.RewardPayment
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.ui.iab.Status
@@ -48,6 +51,7 @@ class AppCoinsCreditsPayment @Inject constructor(
           .firstOrError()
           .flatMap { Single.just(SuccessfulPayment) }
       }
+
       Status.ERROR -> Single.just(FailedPayment.GenericError(transaction.errorMessage))
       Status.FORBIDDEN -> Single.just(FailedPayment.FraudError(transaction.errorMessage))
       Status.NO_NETWORK -> Single.just(FailedPayment.NoNetworkError)

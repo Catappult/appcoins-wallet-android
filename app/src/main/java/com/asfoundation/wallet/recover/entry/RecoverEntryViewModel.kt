@@ -16,7 +16,13 @@ import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCas
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
-import com.asfoundation.wallet.recover.use_cases.*
+import com.asfoundation.wallet.recover.use_cases.GetFilePathUseCase
+import com.asfoundation.wallet.recover.use_cases.IsKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.ReadFileUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryKeystoreUseCase
+import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
+import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
+import com.asfoundation.wallet.recover.use_cases.UpdateBackupStateFromRecoverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -30,19 +36,19 @@ data class RecoverEntryState(
 
 @HiltViewModel
 class RecoverEntryViewModel @Inject constructor(
-        private val getFilePathUseCase: GetFilePathUseCase,
-        private val readFileUseCase: ReadFileUseCase,
-        private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
-        private val isKeystoreUseCase: IsKeystoreUseCase,
-        private val recoverEntryKeystoreUseCase: RecoverEntryKeystoreUseCase,
-        private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
-        private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
-        private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-        private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-        private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
-        private val walletsEventSender: WalletsEventSender,
-        private val rxSchedulers: RxSchedulers
+  private val getFilePathUseCase: GetFilePathUseCase,
+  private val readFileUseCase: ReadFileUseCase,
+  private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+  private val isKeystoreUseCase: IsKeystoreUseCase,
+  private val recoverEntryKeystoreUseCase: RecoverEntryKeystoreUseCase,
+  private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
+  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val setIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
+  private val walletsEventSender: WalletsEventSender,
+  private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
 
   companion object {
@@ -103,9 +109,11 @@ class RecoverEntryViewModel @Inject constructor(
         )
         setIsFirstPaymentUseCase(false)
       }
+
       is FailedEntryRecover.InvalidPassword -> {
         setState { copy(recoverResultAsync = Async.Uninitialized) }
       }
+
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,

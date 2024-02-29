@@ -162,6 +162,7 @@ class SkillsViewModel @Inject constructor(
         AndroidSchedulers.mainThread()
       )
         .doOnSuccess { view.showFraudError(it) }
+
       is FailedPayment.NoNetworkError -> Single.fromCallable { view.showNoNetworkError() }
     }.map { ticket }
   }
@@ -173,14 +174,17 @@ class SkillsViewModel @Inject constructor(
           ProcessingStatus.PENDING_PAYMENT -> Observable.just(
             UserData.fromStatus(UserData.Status.PAYING)
           )
+
           ProcessingStatus.REFUNDED -> Observable.just(
             UserData.fromStatus(UserData.Status.REFUNDED)
           )
+
           ProcessingStatus.IN_QUEUE, ProcessingStatus.REFUNDING -> Observable.just(
             UserData.fromStatus(UserData.Status.IN_QUEUE, ticket.queueId)
           )
         }
       }
+
       is PurchasedTicket -> {
         loginUseCase(ticket.roomId, ticket.ticketId)
           .map { session ->
@@ -191,6 +195,7 @@ class SkillsViewModel @Inject constructor(
           }
           .toObservable()
       }
+
       is FailedTicket -> Observable.just(UserData.fromStatus(UserData.Status.FAILED))
     }
   }
@@ -281,15 +286,15 @@ class SkillsViewModel @Inject constructor(
     return verifyUserTopUpUseCase().blockingGet()
   }
 
-  fun getVerification(): EskillsVerification{
+  fun getVerification(): EskillsVerification {
     return getVerificationUseCase().blockingGet()
   }
 
-  fun useReferralCode(referralCode: String): ReferralResult{
+  fun useReferralCode(referralCode: String): ReferralResult {
     return useReferralUseCase(referralCode).blockingGet()
   }
 
-  fun userFirstTimeCheck(): Boolean{
+  fun userFirstTimeCheck(): Boolean {
     return userFirstTimeCheckUseCase().blockingGet()
   }
 

@@ -58,7 +58,7 @@
         android:id="@+id/action_navigate_to_nav_bar_fragment"
         app:destination="@id/nav_bar_fragment"
         app:popUpTo="@id/recover_entry_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
   </fragment>
 
   <dialog
@@ -82,5 +82,5 @@
   <fragment
       android:id="@+id/nav_bar_fragment"
       android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
-      tools:layout="@layout/nav_bar_fragment"/>
+      tools:layout="@layout/nav_bar_fragment" />
 </navigation>

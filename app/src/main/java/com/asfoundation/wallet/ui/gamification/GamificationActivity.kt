@@ -35,7 +35,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     onBackPressedSubject = PublishSubject.create()
     setTitle(getString(R.string.gamif_title, bonus.toString()))
     presenter =
-        GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
+      GamificationActivityPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
     presenter.present()
   }
 
@@ -49,6 +49,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
         }
         true
       }
+
       else -> super.onOptionsItemSelected(item)
     }
   }
@@ -57,7 +58,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -79,8 +80,8 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   override fun loadGamificationView() {
     toolbar?.menu?.removeItem(R.id.action_info)
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, GamificationFragment())
-        .commit()
+      .replace(R.id.fragment_container, GamificationFragment())
+      .commit()
   }
 
   override fun showNetworkErrorView() {
@@ -107,7 +108,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   private val bonus: Int by lazy {
     intent.getDoubleExtra(BONUS, 25.0)
-        .toInt()
+      .toInt()
   }
 
   companion object {

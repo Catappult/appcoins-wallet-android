@@ -49,9 +49,9 @@ class SplashExtenderFragment : BasePageViewFragment() {
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View = SplashExtenderFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,11 +60,11 @@ class SplashExtenderFragment : BasePageViewFragment() {
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is SplashExtenderViewModel.UiState.Success -> {
           if (uiState.showVipOnboarding)
-              VipWelcomeScreen(
-                  onClick = {
-                    viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
-                    finishSplash()
-                  })
+            VipWelcomeScreen(
+              onClick = {
+                viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = false)
+                finishSplash()
+              })
           else if (!uiState.isVip) {
             SplashLogo(isVip = uiState.isVip)
             viewModel.setOnboardingVipVisualisationState(firstVipOnboarding = true)
@@ -74,6 +74,7 @@ class SplashExtenderFragment : BasePageViewFragment() {
             finishSplash()
           }
         }
+
         is SplashExtenderViewModel.UiState.Loading -> SplashLogo(uiState.isVip)
         is SplashExtenderViewModel.UiState.Fail -> finishSplash()
         else -> {
@@ -91,75 +92,90 @@ class SplashExtenderFragment : BasePageViewFragment() {
   fun SplashLogo(isVip: Boolean = false) {
     val logo = if (isVip) R.drawable.ic_vip_symbol else R.drawable.ic_app_logo_icon
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
-          Image(
-              painter = painterResource(logo),
-              contentDescription = null,
-              modifier = Modifier.size(112.dp))
-        }
+      modifier = Modifier.fillMaxSize(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
+    ) {
+      Image(
+        painter = painterResource(logo),
+        contentDescription = null,
+        modifier = Modifier.size(112.dp)
+      )
+    }
   }
 
   @Composable
   fun VipWelcomeScreen(onClick: () -> Unit = {}) {
     Column(
-        modifier =
-            Modifier.background(color = WalletColors.styleguide_blue)
-                .verticalScroll(rememberScrollState())
-                .height(IntrinsicSize.Max),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween) {
-          Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(contentAlignment = Alignment.BottomCenter) {
-              Image(
-                  painter = painterResource(R.drawable.img_vip_onboarding),
-                  contentDescription = null,
-                  modifier =
-                      Modifier.padding(bottom = 32.dp)
-                          .height(400.dp)
-                          .widthIn(max = 400.dp)
-                          .fillMaxWidth())
-              Image(
-                  painter = painterResource(R.drawable.ic_vip_symbol),
-                  contentDescription = null,
-                  modifier = Modifier.size(88.dp).padding(horizontal = 8.dp))
-            }
-            Text(
-                text = stringResource(R.string.vip_program_onboarding_header_1),
-                modifier = Modifier.padding(top = 24.dp),
-                style = MaterialTheme.typography.headlineLarge,
-                color = WalletColors.styleguide_light_grey,
-                fontWeight = FontWeight.Bold)
-            Text(
-                text = stringResource(R.string.vip_program_onboarding_header_2),
-                modifier = Modifier.padding(vertical = 8.dp),
-                style = MaterialTheme.typography.titleLarge,
-                color = WalletColors.styleguide_vip_yellow,
-            )
-            Text(
-                text = stringResource(R.string.vip_program_onboarding_body),
-                modifier =
-                    Modifier.padding(horizontal = 24.dp, vertical = 8.dp).widthIn(max = 400.dp),
-                style = MaterialTheme.typography.bodySmall,
-                color = WalletColors.styleguide_light_grey,
-                textAlign = TextAlign.Center,
-            )
-          }
-          Column(
-              modifier =
-                  Modifier.padding(vertical = 48.dp, horizontal = 32.dp)
-                      .widthIn(max = 360.dp)
-                      .fillMaxSize(),
-              verticalArrangement = Arrangement.Bottom) {
-                ButtonWithText(
-                    label = stringResource(R.string.got_it_button),
-                    onClick = onClick,
-                    labelColor = WalletColors.styleguide_blue,
-                    backgroundColor = WalletColors.styleguide_vip_yellow,
-                    buttonType = ButtonType.LARGE)
-              }
+      modifier =
+      Modifier
+        .background(color = WalletColors.styleguide_blue)
+        .verticalScroll(rememberScrollState())
+        .height(IntrinsicSize.Max),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.SpaceBetween
+    ) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(contentAlignment = Alignment.BottomCenter) {
+          Image(
+            painter = painterResource(R.drawable.img_vip_onboarding),
+            contentDescription = null,
+            modifier =
+            Modifier
+              .padding(bottom = 32.dp)
+              .height(400.dp)
+              .widthIn(max = 400.dp)
+              .fillMaxWidth()
+          )
+          Image(
+            painter = painterResource(R.drawable.ic_vip_symbol),
+            contentDescription = null,
+            modifier = Modifier
+              .size(88.dp)
+              .padding(horizontal = 8.dp)
+          )
         }
+        Text(
+          text = stringResource(R.string.vip_program_onboarding_header_1),
+          modifier = Modifier.padding(top = 24.dp),
+          style = MaterialTheme.typography.headlineLarge,
+          color = WalletColors.styleguide_light_grey,
+          fontWeight = FontWeight.Bold
+        )
+        Text(
+          text = stringResource(R.string.vip_program_onboarding_header_2),
+          modifier = Modifier.padding(vertical = 8.dp),
+          style = MaterialTheme.typography.titleLarge,
+          color = WalletColors.styleguide_vip_yellow,
+        )
+        Text(
+          text = stringResource(R.string.vip_program_onboarding_body),
+          modifier =
+          Modifier
+            .padding(horizontal = 24.dp, vertical = 8.dp)
+            .widthIn(max = 400.dp),
+          style = MaterialTheme.typography.bodySmall,
+          color = WalletColors.styleguide_light_grey,
+          textAlign = TextAlign.Center,
+        )
+      }
+      Column(
+        modifier =
+        Modifier
+          .padding(vertical = 48.dp, horizontal = 32.dp)
+          .widthIn(max = 360.dp)
+          .fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
+      ) {
+        ButtonWithText(
+          label = stringResource(R.string.got_it_button),
+          onClick = onClick,
+          labelColor = WalletColors.styleguide_blue,
+          backgroundColor = WalletColors.styleguide_vip_yellow,
+          buttonType = ButtonType.LARGE
+        )
+      }
+    }
   }
 
   @Preview

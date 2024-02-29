@@ -7,5 +7,5 @@ class SetOnboardingVipVisualisationStateUseCase
 @Inject
 constructor(private val commonsPreferencesDataSource: CommonsPreferencesDataSource) {
   operator fun invoke(walletAddress: String, hasSeen: Boolean) =
-      commonsPreferencesDataSource.setVipOnboardingVisualisationState(walletAddress, hasSeen)
+    commonsPreferencesDataSource.setVipOnboardingVisualisationState(walletAddress, hasSeen)
 }

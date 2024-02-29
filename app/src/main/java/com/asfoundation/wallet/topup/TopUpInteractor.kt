@@ -12,7 +12,6 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.billing.googlepay.usecases.FilterValidGooglePayUseCase
 import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies
-import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethod

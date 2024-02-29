@@ -6,13 +6,14 @@ import androidx.room.PrimaryKey
 import com.appcoins.wallet.feature.changecurrency.data.currencies.CurrencyConversionRateEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
-class CurrencyConversionRateEntity(@field:PrimaryKey @ColumnInfo(name = "currency_from")
-                                   val currencyFrom: String,
-                                   @ColumnInfo(name = "fiat_currency_to")
-                                   val fiatCurrency: String = "",
-                                   @ColumnInfo(name = "fiat_symbol") val fiatSymbol: String = "",
-                                   @ColumnInfo(name = "conversion_rate")
-                                   val rate: String = ZERO_RATE
+class CurrencyConversionRateEntity(
+  @field:PrimaryKey @ColumnInfo(name = "currency_from")
+  val currencyFrom: String,
+  @ColumnInfo(name = "fiat_currency_to")
+  val fiatCurrency: String = "",
+  @ColumnInfo(name = "fiat_symbol") val fiatSymbol: String = "",
+  @ColumnInfo(name = "conversion_rate")
+  val rate: String = ZERO_RATE
 ) {
 
   override fun toString(): String {

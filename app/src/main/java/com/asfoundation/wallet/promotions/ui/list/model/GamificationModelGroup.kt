@@ -6,19 +6,21 @@ import android.widget.TextView
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.airbnb.epoxy.ModelGroupHolder
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.GamificationLinkItem
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
-import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import java.text.DecimalFormat
 
-class GamificationModelGroup(private val gamificationItem: GamificationItem,
-                             private val currencyFormatUtils: CurrencyFormatUtils,
-                             private val clickListener: ((PromotionClick) -> Unit)? = null) :
-    EpoxyModelGroup(R.layout.item_promotions_gamification, buildModels(gamificationItem.links)) {
+class GamificationModelGroup(
+  private val gamificationItem: GamificationItem,
+  private val currencyFormatUtils: CurrencyFormatUtils,
+  private val clickListener: ((PromotionClick) -> Unit)? = null
+) :
+  EpoxyModelGroup(R.layout.item_promotions_gamification, buildModels(gamificationItem.links)) {
 
   override fun bind(holder: ModelGroupHolder) {
     super.bind(holder)
@@ -37,11 +39,13 @@ class GamificationModelGroup(private val gamificationItem: GamificationItem,
     planet.setImageDrawable(gamificationItem.planet)
     currentLevelBonus.background = gamificationMapper.getOvalBackground(gamificationItem.levelColor)
     currentLevelBonus.text =
-        context.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
+      context.getString(R.string.gamif_bonus, df.format(gamificationItem.bonus))
     planetTitle.text = gamificationItem.title
     if (gamificationItem.toNextLevelAmount != null) {
-      planetSubtitle.text = context.getString(R.string.gamif_card_body,
-          currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount))
+      planetSubtitle.text = context.getString(
+        R.string.gamif_card_body,
+        currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount)
+      )
     } else {
       planetSubtitle.visibility = View.INVISIBLE
     }
@@ -50,13 +54,13 @@ class GamificationModelGroup(private val gamificationItem: GamificationItem,
   companion object {
     fun buildModels(links: List<GamificationLinkItem>): List<EpoxyModel<*>> {
       if (links.isEmpty()) return listOf(
-          EmptyViewModel_()
-              .id("gamification_no_links")
+        EmptyViewModel_()
+          .id("gamification_no_links")
       )
       return links.map { link ->
         GamificationLinkModel_()
-            .id("gamification_link_model", link.id, link.detailsLink, link.endDate.toString())
-            .gamificationLinkItem(link)
+          .id("gamification_link_model", link.id, link.detailsLink, link.endDate.toString())
+          .gamificationLinkItem(link)
       }
     }
 

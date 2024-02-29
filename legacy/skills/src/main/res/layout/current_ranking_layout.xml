@@ -7,7 +7,8 @@
     android:paddingHorizontal="32dp"
     android:background="@drawable/current_ranking_background"
     android:orientation="horizontal"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    >
 
   <RelativeLayout
       android:id="@+id/white_circle"
@@ -18,7 +19,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       android:gravity="center"
-    >
+      >
     <TextView
         android:id="@+id/rankingPosition"
         android:layout_width="wrap_content"
@@ -55,5 +56,6 @@
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

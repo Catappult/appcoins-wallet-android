@@ -2,13 +2,11 @@ package com.asfoundation.wallet.billing.googlepay
 
 import android.content.Context
 import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
@@ -76,15 +74,19 @@ class GooglePayTopupFragment() : BasePageViewFragment() {
         GooglePayTopupViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is GooglePayTopupViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is GooglePayTopupViewModel.State.SuccessPurchase -> {
           handleSuccess()
         }
+
         is GooglePayTopupViewModel.State.WebAuthentication -> {
           viewModel.openUrlCustomTab(requireContext(), state.url)
         }
+
         GooglePayTopupViewModel.State.GooglePayBack -> {
           close()
         }

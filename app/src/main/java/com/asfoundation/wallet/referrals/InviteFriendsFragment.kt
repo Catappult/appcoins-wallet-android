@@ -35,32 +35,39 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        InviteFriendsFragmentPresenter(this, activity, CompositeDisposable(), referralInteractor)
+      InviteFriendsFragmentPresenter(this, activity, CompositeDisposable(), referralInteractor)
   }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
     require(
-        context is InviteFriendsActivityView) { InviteFriendsFragment::class.java.simpleName + " needs to be attached to a " + InviteFriendsActivity::class.java.simpleName }
+      context is InviteFriendsActivityView
+    ) { InviteFriendsFragment::class.java.simpleName + " needs to be attached to a " + InviteFriendsActivity::class.java.simpleName }
     activity = context
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     referralsBottomSheet =
-        BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
+      BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
     animateBackgroundFade()
     setTextValues()
     presenter.present()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     childFragmentManager.beginTransaction()
-        .replace(R.id.bottom_sheet_fragment_container,
-            ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
-                receivedAmount, maxAmount, available, isRedeemed))
-        .commit()
+      .replace(
+        R.id.bottom_sheet_fragment_container,
+        ReferralsFragment.newInstance(
+          amount, pendingAmount, currency, completedInvites,
+          receivedAmount, maxAmount, available, isRedeemed
+        )
+      )
+      .commit()
     return InviteFriendsFragmentLayoutBinding.inflate(inflater).root
   }
 
@@ -77,11 +84,15 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
 
   private fun setTextValues() {
     binding.referralDescription.text =
-        getString(R.string.referral_view_verified_body,
-            currency + amount.scaleToString(2))
+      getString(
+        R.string.referral_view_verified_body,
+        currency + amount.scaleToString(2)
+      )
     binding.referralNotificationCard.notificationTitle.text =
-        getString(R.string.referral_notification_bonus_pending_title,
-            currency + pendingAmount.scaleToString(2))
+      getString(
+        R.string.referral_notification_bonus_pending_title,
+        currency + pendingAmount.scaleToString(2)
+      )
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -93,12 +104,16 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
     activity?.showShare(link)
   }
 
-  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
-                                    icon: Int?) {
+  override fun showNotificationCard(
+    pendingAmount: BigDecimal, symbol: String,
+    icon: Int?
+  ) {
     if (pendingAmount.toDouble() > 0) {
       icon?.let { binding.referralNotificationCard.notificationImage.setImageResource(icon) }
-      binding.referralNotificationCard.notificationTitle.text = getString(R.string.referral_notification_bonus_pending_title,
-          "$symbol${pendingAmount.scaleToString(2)}")
+      binding.referralNotificationCard.notificationTitle.text = getString(
+        R.string.referral_notification_bonus_pending_title,
+        "$symbol${pendingAmount.scaleToString(2)}"
+      )
       binding.referralNotificationCard.root.visibility = VISIBLE
     } else {
       binding.referralNotificationCard.root.visibility = GONE
@@ -202,9 +217,11 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
     private const val CURRENCY = "currency"
     private const val IS_REDEEMED = "is_redeemed"
 
-    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
-                    completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                    available: Int, isRedeemed: Boolean): InviteFriendsFragment {
+    fun newInstance(
+      amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
+      completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
+      available: Int, isRedeemed: Boolean
+    ): InviteFriendsFragment {
       val bundle = Bundle().apply {
         putSerializable(AMOUNT, amount)
         putSerializable(PENDING_AMOUNT, pendingAmount)

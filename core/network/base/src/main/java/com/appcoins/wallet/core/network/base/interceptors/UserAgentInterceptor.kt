@@ -79,7 +79,7 @@ class UserAgentInterceptor(
     var walletId = commonsPreferencesDataSource.getWalletId()
     if (walletId == null) {
       val randomId = UUID.randomUUID()
-          .toString()
+        .toString()
       commonsPreferencesDataSource.setWalletId(randomId)
       walletId = randomId
     }

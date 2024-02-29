@@ -43,6 +43,7 @@ class BackupSaveOptionsComposeFragment :
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val SAVE_PLACE_KEY = "save_backup_place"
   }
+
   private val viewModel: BackupSaveOptionsViewModel by viewModels()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,20 +58,25 @@ class BackupSaveOptionsComposeFragment :
       Async.Uninitialized -> {
         // Empty block
       }
+
       is Async.Loading -> {
         // Empty block
       }
+
       is Async.Fail -> {
         navigator.showErrorScreen()
       }
+
       is Async.Success -> {
         when (state.saveOptionAsync.value) {
           is SuccessfulBackup -> {
             navigator.showWalletSuccessScreen()
           }
+
           is FailedBackup -> {
             navigator.showErrorScreen()
           }
+
           else -> {}
         }
       }

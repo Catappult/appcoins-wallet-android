@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
-import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,6 +49,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     const val REQUEST_CODE = 234
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
   }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) analytics.startTimingForOspTotalEvent()
@@ -67,8 +68,7 @@ class OneStepPaymentReceiver : BaseActivity() {
             @Suppress("DEPRECATION")
             startActivityForResult(skillsActivityIntent, REQUEST_CODE)
             Observable.just("")
-          }
-          else{
+          } else {
             transferParser.parse(intent.dataString!!)
               .flatMap { transaction: TransactionBuilder ->
                 inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())

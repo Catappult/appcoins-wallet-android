@@ -120,6 +120,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       is VkCheckoutSuccess -> {
 //        viewModel.startTransactionStatusTimer()
       }
+
       else -> {
         showError()
       }
@@ -158,6 +159,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       is Async.Fail -> {
         showError()
       }
+
       else -> {}
     }
   }

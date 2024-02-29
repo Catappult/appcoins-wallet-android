@@ -23,8 +23,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import androidx.annotation.RequiresPermission;
-import com.asfoundation.wallet.ui.barcode.CameraResultListener;
 import com.appcoins.wallet.core.utils.android_common.Log;
+import com.asfoundation.wallet.ui.barcode.CameraResultListener;
 import com.google.android.gms.common.images.Size;
 import java.io.IOException;
 

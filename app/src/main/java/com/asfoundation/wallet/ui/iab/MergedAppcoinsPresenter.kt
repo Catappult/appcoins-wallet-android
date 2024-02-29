@@ -159,9 +159,11 @@ class MergedAppcoinsPresenter(
       PaymentMethodsView.SelectedPaymentMethod.APPC -> view.navigateToAppcPayment(
         transactionBuilder
       )
+
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> view.navigateToCreditsPayment(
         transactionBuilder
       )
+
       else -> {
         view.showError(R.string.unknown_error)
         logger.log(TAG, "Wrong payment method after authentication.")
@@ -268,12 +270,14 @@ class MergedAppcoinsPresenter(
         view.showBonus(R.string.subscriptions_bonus_body.takeIf { isSubscription }
           ?: R.string.gamification_purchase_body)
       }
+
       CREDITS -> {
         view.hideBonus()
         if (isSubscription) {
           view.showVolatilityInfo()
         }
       }
+
       else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }

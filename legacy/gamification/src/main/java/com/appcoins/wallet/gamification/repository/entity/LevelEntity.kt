@@ -6,8 +6,8 @@ import java.math.BigDecimal
 
 @Entity
 data class LevelEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long?,
-    val amount: BigDecimal,
-    val bonus: Double,
-    val level: Int
+  @PrimaryKey(autoGenerate = true) val id: Long?,
+  val amount: BigDecimal,
+  val bonus: Double,
+  val level: Int
 )

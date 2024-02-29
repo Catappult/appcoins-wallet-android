@@ -13,11 +13,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.utils.android_common.AppUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -67,6 +67,7 @@ class CreateWalletDialogFragment : DialogFragment(),
       is Async.Loading -> {
         views.createWalletLoading.playAnimation()
       }
+
       is Async.Success -> {
         views.createWalletLoading.setAnimation(R.raw.success_animation)
         if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
@@ -87,6 +88,7 @@ class CreateWalletDialogFragment : DialogFragment(),
             override fun onAnimationEnd(animation: Animator) = run {
               restart(requireContext())
             }
+
             override fun onAnimationCancel(animation: Animator) = Unit
             override fun onAnimationStart(animation: Animator) = Unit
           })
@@ -94,6 +96,7 @@ class CreateWalletDialogFragment : DialogFragment(),
         views.createWalletLoading.repeatCount = 0
         views.createWalletLoading.playAnimation()
       }
+
       else -> Unit
     }
   }

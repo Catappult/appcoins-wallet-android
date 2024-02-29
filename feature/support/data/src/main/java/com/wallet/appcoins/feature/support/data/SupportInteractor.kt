@@ -11,31 +11,32 @@ import io.reactivex.Observable
 import java.util.Locale
 import javax.inject.Inject
 
-class SupportInteractor @Inject constructor(private val supportRepository: SupportRepository,
-                                            private val walletService: WalletService,
-                                            private val gamificationRepository: Gamification,
-                                            private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                            private val rxSchedulers: RxSchedulers
+class SupportInteractor @Inject constructor(
+  private val supportRepository: SupportRepository,
+  private val walletService: WalletService,
+  private val gamificationRepository: Gamification,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun showSupport(): Completable {
     return getCurrentPromoCodeUseCase()
-        .flatMapCompletable { promoCode ->
-          walletService.getWalletAddress()
-              .flatMapCompletable { address ->
-                gamificationRepository.getUserLevel(address, promoCode.code)
-                    .observeOn(rxSchedulers.main)
-                    .flatMapCompletable { showSupport(address, it) }
-              }
-              .subscribeOn(rxSchedulers.io)
-        }
+      .flatMapCompletable { promoCode ->
+        walletService.getWalletAddress()
+          .flatMapCompletable { address ->
+            gamificationRepository.getUserLevel(address, promoCode.code)
+              .observeOn(rxSchedulers.main)
+              .flatMapCompletable { showSupport(address, it) }
+          }
+          .subscribeOn(rxSchedulers.io)
+      }
   }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
-        .observeOn(rxSchedulers.main)
-        .flatMapCompletable { showSupport(it, gamificationLevel) }
-        .subscribeOn(rxSchedulers.io)
+      .observeOn(rxSchedulers.main)
+      .flatMapCompletable { showSupport(it, gamificationLevel) }
+      .subscribeOn(rxSchedulers.io)
   }
 
   fun showSupport(walletAddress: String, gamificationLevel: Int): Completable {
@@ -48,7 +49,7 @@ class SupportInteractor @Inject constructor(private val supportRepository: Suppo
   fun displayChatScreen() {
     supportRepository.resetUnreadConversations()
     Intercom.client()
-        .displayMessenger()
+      .displayMessenger()
   }
 
   @Suppress("DEPRECATION")
@@ -59,10 +60,10 @@ class SupportInteractor @Inject constructor(private val supportRepository: Suppo
     val handledByIntercom = getUnreadConversations() > 0
     if (handledByIntercom) {
       Intercom.client()
-          .displayMessenger()
+        .displayMessenger()
     } else {
       Intercom.client()
-          .displayConversationsList()
+        .displayConversationsList()
     }
   }
 
@@ -74,26 +75,26 @@ class SupportInteractor @Inject constructor(private val supportRepository: Suppo
     if (currentUser.userAddress != address || currentUser.gamificationLevel != level) {
       if (currentUser.userAddress != address) {
         Intercom.client()
-            .logout()
+          .logout()
       }
       supportRepository.saveNewUser(address, level)
     }
   }
 
   fun hasNewUnreadConversations() =
-      getUnreadConversations() > supportRepository.getSavedUnreadConversations()
+    getUnreadConversations() > supportRepository.getSavedUnreadConversations()
 
   fun updateUnreadConversations() =
-      supportRepository.updateUnreadConversations(Intercom.client().unreadConversationCount)
+    supportRepository.updateUnreadConversations(Intercom.client().unreadConversationCount)
 
   fun getUnreadConversationCountEvents() = Observable.create<Int> {
     it.onNext(Intercom.client().unreadConversationCount)
     val unreadListener = UnreadConversationCountListener { unreadCount -> it.onNext(unreadCount) }
     Intercom.client()
-        .addUnreadConversationCountListener(unreadListener)
+      .addUnreadConversationCountListener(unreadListener)
     it.setCancellable {
       Intercom.client()
-          .removeUnreadConversationCountListener(unreadListener)
+        .removeUnreadConversationCountListener(unreadListener)
     }
   }
 

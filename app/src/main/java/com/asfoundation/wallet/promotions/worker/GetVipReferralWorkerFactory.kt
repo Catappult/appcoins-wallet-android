@@ -18,6 +18,7 @@ class GetVipReferralWorkerFactory @Inject constructor(
     return when (workerClassName) {
       GetVipReferralWorker::class.java.name ->
         getVipReferralWorker.create(appContext, workerParameters)
+
       else -> null
     }
   }

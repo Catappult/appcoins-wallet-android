@@ -11,7 +11,6 @@ import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.transfers.TransferConfirmationActivity
-import com.asfoundation.wallet.transfers.TransferFundsFragment
 import com.asfoundation.wallet.transfers.TransferFundsViewModel
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
@@ -20,17 +19,21 @@ import io.reactivex.Completable
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class TransferFragmentNavigator @Inject constructor(private val fragmentManager: FragmentManager,
-                                private val fragment: Fragment,
-                                private val defaultTokenProvider: DefaultTokenProvider) {
+class TransferFragmentNavigator @Inject constructor(
+  private val fragmentManager: FragmentManager,
+  private val fragment: Fragment,
+  private val defaultTokenProvider: DefaultTokenProvider
+) {
 
   companion object {
     const val TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344
     const val BARCODE_READER_REQUEST_CODE = 1
   }
 
-  fun openAppcConfirmationView(walletAddress: String, toWalletAddress: String,
-                               amount: BigDecimal) {
+  fun openAppcConfirmationView(
+    walletAddress: String, toWalletAddress: String,
+    amount: BigDecimal
+  ) {
     defaultTokenProvider.defaultToken.doOnSuccess {
       with(TransactionBuilder(it)) {
         amount(amount)
@@ -41,18 +44,22 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
     }.subscribe()
   }
 
-  fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
-                              amount: BigDecimal) {
-      val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18))
-      transaction.amount(amount)
-      transaction.toAddress(toWalletAddress)
-      transaction.fromAddress(walletAddress)
-      openConfirmation(transaction)
+  fun openEthConfirmationView(
+    walletAddress: String, toWalletAddress: String,
+    amount: BigDecimal
+  ) {
+    val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18))
+    transaction.amount(amount)
+    transaction.toAddress(toWalletAddress)
+    transaction.fromAddress(walletAddress)
+    openConfirmation(transaction)
   }
 
-  fun openAppcCreditsConfirmationView(walletAddress: String,
-                                      amount: BigDecimal,
-                                      currency: TransferFragmentView.Currency): Completable {
+  fun openAppcCreditsConfirmationView(
+    walletAddress: String,
+    amount: BigDecimal,
+    currency: TransferFragmentView.Currency
+  ): Completable {
     return Completable.fromAction {
       val currencyName = when (currency) {
         TransferFragmentView.Currency.APPC_C -> fragment.getString(
@@ -100,8 +107,10 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
   fun navigateBack() = fragment.requireActivity().onBackPressed()
 
   fun showWalletBlocked() {
-    fragment.startActivityForResult(WalletBlockedActivity.newIntent(fragment.requireActivity()),
-        IabActivity.BLOCKED_WARNING_REQUEST_CODE)
+    fragment.startActivityForResult(
+      WalletBlockedActivity.newIntent(fragment.requireActivity()),
+      IabActivity.BLOCKED_WARNING_REQUEST_CODE
+    )
   }
 
   fun showQrCodeScreen() {
@@ -111,16 +120,16 @@ class TransferFragmentNavigator @Inject constructor(private val fragmentManager:
 
   fun showLoading() {
     fragmentManager.beginTransaction()
-        .add(android.R.id.content, LoadingFragment.newInstance(), LoadingFragment::class.java.name)
-        .commit()
+      .add(android.R.id.content, LoadingFragment.newInstance(), LoadingFragment::class.java.name)
+      .commit()
   }
 
   fun hideLoading() {
     val fragment = fragmentManager.findFragmentByTag(LoadingFragment::class.java.name)
     if (fragment != null) {
       fragmentManager.beginTransaction()
-          .remove(fragment)
-          .commit()
+        .remove(fragment)
+        .commit()
     }
   }
 }

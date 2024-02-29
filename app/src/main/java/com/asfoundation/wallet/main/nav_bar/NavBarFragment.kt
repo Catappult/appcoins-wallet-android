@@ -57,16 +57,19 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   private val views by viewBinding(NavBarFragmentBinding::bind)
   private val viewModel: NavBarViewModel by activityViewModels()
 
-  @Inject lateinit var navigator: NavBarFragmentNavigator
+  @Inject
+  lateinit var navigator: NavBarFragmentNavigator
 
-  @Inject lateinit var navBarAnalytics: NavBarAnalytics
+  @Inject
+  lateinit var navBarAnalytics: NavBarAnalytics
 
-  @Inject lateinit var networkMonitor: NetworkMonitor
+  @Inject
+  lateinit var networkMonitor: NetworkMonitor
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View = NavBarFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,28 +88,34 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       if (expanded()) {
         ConnectionAlert(isConnected = connectionObserver)
         Card(
-            colors = CardDefaults.cardColors(containerColor = styleguide_blue),
-            modifier = Modifier.padding(8.dp).clip(CircleShape)) {
-              Row(
-                  modifier =
-                      Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-                          .background(shape = CircleShape, color = styleguide_blue)) {
-                    NavigationItems(styleguide_blue)
-                  }
-            }
+          colors = CardDefaults.cardColors(containerColor = styleguide_blue),
+          modifier = Modifier
+            .padding(8.dp)
+            .clip(CircleShape)
+        ) {
+          Row(
+            modifier =
+            Modifier
+              .padding(vertical = 4.dp, horizontal = 8.dp)
+              .background(shape = CircleShape, color = styleguide_blue)
+          ) {
+            NavigationItems(styleguide_blue)
+          }
+        }
       } else {
         Column(modifier = Modifier.fillMaxWidth()) {
           ConnectionAlert(isConnected = connectionObserver)
           BottomAppBar(
-              containerColor = styleguide_blue_secondary,
-              modifier = Modifier.height(64.dp),
-              content = {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()) {
-                      NavigationItems(styleguide_blue_secondary)
-                    }
-              })
+            containerColor = styleguide_blue_secondary,
+            modifier = Modifier.height(64.dp),
+            content = {
+              Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+              ) {
+                NavigationItems(styleguide_blue_secondary)
+              }
+            })
         }
       }
     }
@@ -117,16 +126,16 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     viewModel.navigationItems().forEach { item ->
       val selected = viewModel.clickedItem.value == item.destination.ordinal
       ButtonWithIcon(
-          icon = item.icon,
-          label = item.label,
-          backgroundColor = if (selected) styleguide_pink else background,
-          labelColor = if (selected) styleguide_white else styleguide_medium_grey,
-          iconColor = if (selected) styleguide_white else styleguide_medium_grey,
-          iconSize = 24.dp,
-          onClick = {
-            viewModel.clickedItem.value = item.destination.ordinal
-            navigateToDestination(item.destination)
-          })
+        icon = item.icon,
+        label = item.label,
+        backgroundColor = if (selected) styleguide_pink else background,
+        labelColor = if (selected) styleguide_white else styleguide_medium_grey,
+        iconColor = if (selected) styleguide_white else styleguide_medium_grey,
+        iconSize = 24.dp,
+        onClick = {
+          viewModel.clickedItem.value = item.destination.ordinal
+          navigateToDestination(item.destination)
+        })
     }
   }
 
@@ -150,12 +159,12 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun initHostFragments() {
     navHostFragment =
-        childFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+      childFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
     fullHostFragment =
-        childFragmentManager.findFragmentById(R.id.full_host_container) as NavHostFragment
+      childFragmentManager.findFragmentById(R.id.full_host_container) as NavHostFragment
     mainHostFragment =
-        activity?.supportFragmentManager?.findFragmentById(R.id.main_host_container)
-            as NavHostFragment
+      activity?.supportFragmentManager?.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
   }
 
   override fun onStateChanged(state: NavBarState) {
@@ -167,7 +176,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
       is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
-          showOnboardingRecoverGuestWallet(sideEffect.backup)
+        showOnboardingRecoverGuestWallet(sideEffect.backup)
     }
   }
 

@@ -18,9 +18,10 @@ class TopUpSuccessPresenter(private val view: TopUpSuccessFragmentView) {
 
   private fun handleOKClick() {
     disposables.add(
-        view.getOKClicks().doOnNext {
-          view.close()
-        }.subscribe())
+      view.getOKClicks().doOnNext {
+        view.close()
+      }.subscribe()
+    )
   }
 
 }

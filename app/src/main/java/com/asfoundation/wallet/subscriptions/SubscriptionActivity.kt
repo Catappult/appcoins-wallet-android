@@ -43,9 +43,9 @@ class SubscriptionActivity : BaseActivity() {
 
   private fun showSubscriptionList() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
-        .addToBackStack(SubscriptionListFragment::class.java.simpleName)
-        .commit()
+      .replace(R.id.fragment_container, SubscriptionListFragment.newInstance())
+      .addToBackStack(SubscriptionListFragment::class.java.simpleName)
+      .commit()
   }
 
   private fun endCancelSubscription() = close(true)

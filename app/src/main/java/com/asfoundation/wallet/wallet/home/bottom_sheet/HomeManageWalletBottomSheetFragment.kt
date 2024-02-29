@@ -96,6 +96,7 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
           navigator.navigateToBackup(navController(), wallet, name)
         }
       }
+
       else -> {}
     }
   }

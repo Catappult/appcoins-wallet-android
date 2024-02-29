@@ -7,10 +7,12 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import kotlin.math.ceil
 
-class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
-                                    private val viewScheduler: Scheduler,
-                                    private val disposables: CompositeDisposable,
-                                    private val fingerprintInteractor: FingerprintInteractor) {
+class AuthenticationPromptPresenter(
+  private val view: AuthenticationPromptView,
+  private val viewScheduler: Scheduler,
+  private val disposables: CompositeDisposable,
+  private val fingerprintInteractor: FingerprintInteractor
+) {
 
   private var hasBottomsheetOn = false
 
@@ -46,34 +48,36 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
 
   private fun handleAuthenticationResult() {
     disposables.add(view.getAuthenticationResult()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          when (it.type) {
-            FingerprintResult.SUCCESS -> view.closeSuccess()
-            FingerprintResult.ERROR -> {
-              when (it.errorCode) {
-                BiometricPrompt.ERROR_LOCKOUT -> showBottomSheet(getAuthenticationTimer())
-                //This event needs to be ignored to allow rotation and to allow user to send app to background and then foreground
-                BiometricPrompt.ERROR_CANCELED -> Unit
-                else -> view.closeCancel()
-              }
+      .observeOn(viewScheduler)
+      .doOnNext {
+        when (it.type) {
+          FingerprintResult.SUCCESS -> view.closeSuccess()
+          FingerprintResult.ERROR -> {
+            when (it.errorCode) {
+              BiometricPrompt.ERROR_LOCKOUT -> showBottomSheet(getAuthenticationTimer())
+              //This event needs to be ignored to allow rotation and to allow user to send app to background and then foreground
+              BiometricPrompt.ERROR_CANCELED -> Unit
+              else -> view.closeCancel()
             }
-            /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
-            * Also, the Biometric library already shows a fail message withing the prompt.*/
-            FingerprintResult.FAIL -> Unit
           }
+          /*FingerprintResult.Fail happens when user fails authentication using, for example, a fingerprint that isn't associated yet
+          * Also, the Biometric library already shows a fail message withing the prompt.*/
+          FingerprintResult.FAIL -> Unit
         }
-        .subscribe({}, { it.printStackTrace() }))
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleRetryAuthentication() {
     disposables.add(view.getRetryButtonClick()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          hasBottomsheetOn = false
-          view.closeCancel()
-        }
-        .subscribe({}, { it.printStackTrace() }))
+      .observeOn(viewScheduler)
+      .doOnNext {
+        hasBottomsheetOn = false
+        view.closeCancel()
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun getAuthenticationTimer(): Long {
@@ -84,7 +88,7 @@ class AuthenticationPromptPresenter(private val view: AuthenticationPromptView,
       30
     } else {
       val time =
-          (ERROR_RETRY_TIME_IN_MILLIS - (currentTime - lastAuthenticationErrorTime)).toDouble()
+        (ERROR_RETRY_TIME_IN_MILLIS - (currentTime - lastAuthenticationErrorTime)).toDouble()
       ceil(time / 1000).toLong()
     }
   }

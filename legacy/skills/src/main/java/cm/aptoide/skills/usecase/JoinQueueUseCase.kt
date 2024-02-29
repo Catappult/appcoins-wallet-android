@@ -52,6 +52,7 @@ class JoinQueueUseCase @Inject constructor(
       EmptyStoredTicket -> ticketRepository.createTicket(
         eskillsPaymentData, ewt, walletAddress
       )
+
       is StoredTicketInQueue -> resumeTicketIfPossible(
         ewt, storedTicket, eskillsPaymentData, walletAddress
       )

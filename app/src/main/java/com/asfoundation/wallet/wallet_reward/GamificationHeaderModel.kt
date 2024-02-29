@@ -17,7 +17,7 @@ data class GamificationHeaderModel(
 ) {
 
   companion object {
-    fun emptySkeletonLoadingState() : GamificationHeaderModel {
+    fun emptySkeletonLoadingState(): GamificationHeaderModel {
       return GamificationHeaderModel(
         123,
         null,

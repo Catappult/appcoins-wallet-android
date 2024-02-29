@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.billing.googlepay.usecases
 
 import java.net.URLEncoder
-import java.util.*
+import java.util.Currency
+import java.util.Locale
 import javax.inject.Inject
 
 class BuildGooglePayUrlUseCase @Inject constructor(

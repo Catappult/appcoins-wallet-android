@@ -1,6 +1,11 @@
 package com.asfoundation.wallet.feature_flags
 
-import com.asfoundation.wallet.feature_flags.api.*
+import com.asfoundation.wallet.feature_flags.api.ApiAssignment
+import com.asfoundation.wallet.feature_flags.api.Event
+import com.asfoundation.wallet.feature_flags.api.Events
+import com.asfoundation.wallet.feature_flags.api.ExperimentsApi
+import com.asfoundation.wallet.feature_flags.api.Status
+import com.asfoundation.wallet.feature_flags.api.UserProfile
 import com.asfoundation.wallet.feature_flags.db.DBFeatureFlag
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDao
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -79,6 +84,7 @@ class FeatureFlagsRepositoryImpl @Inject constructor(
       variant = assignment,
       payload = payload
     )
+
     Status.NO_OPEN_BUCKETS -> null
   }
 

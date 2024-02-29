@@ -29,8 +29,8 @@ fun Throwable.getErrorCodeAndMessage(): Pair<Int?, String?> {
 
 fun HttpException.getMessage(): String {
   val reader = this.response()
-      ?.errorBody()
-      ?.charStream()
+    ?.errorBody()
+    ?.charStream()
   val message = reader?.readText()
   reader?.close()
   return if (message.isNullOrBlank()) message() else message

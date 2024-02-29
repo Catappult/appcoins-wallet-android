@@ -6,11 +6,11 @@ import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCas
 import io.reactivex.disposables.CompositeDisposable
 
 class IabUpdateRequiredPresenter(
-        private val view: IabUpdateRequiredView,
-        private val disposables: CompositeDisposable,
-        private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-        private val getWalletsModelUseCase: GetWalletsModelUseCase,
-        private val rxSchedulers: RxSchedulers
+  private val view: IabUpdateRequiredView,
+  private val disposables: CompositeDisposable,
+  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+  private val getWalletsModelUseCase: GetWalletsModelUseCase,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun present() {

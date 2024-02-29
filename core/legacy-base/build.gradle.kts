@@ -6,7 +6,7 @@ android {
   namespace = "com.appcoins.wallet.core.legacy_base"
 }
 
-dependencies{
+dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:analytics"))
   implementation(project(":core:utils:android-common"))

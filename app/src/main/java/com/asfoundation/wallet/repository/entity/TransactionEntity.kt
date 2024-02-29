@@ -4,27 +4,29 @@ import androidx.room.Embedded
 import androidx.room.Entity
 
 @Entity(primaryKeys = ["transactionId", "relatedWallet"])
-data class TransactionEntity(val transactionId: String,
-                             val relatedWallet: String,
-                             val approveTransactionId: String?,
-                             val perk: Perk?,
-                             val type: TransactionType,
-                             val method: Method?,
-                             val subType: SubType?,
-                             val title: String?,
-                             val cardDescription: String?,
-                             val timeStamp: Long,
-                             val processedTime: Long,
-                             val status: TransactionStatus,
-                             val value: String,
-                             val currency: String?,
-                             val paidAmount: String?,
-                             val paidCurrency: String?,
-                             val from: String,
-                             val to: String,
-                             @Embedded val details: TransactionDetailsEntity?,
-                             val operations: List<OperationEntity>?,
-                             val orderReference: String?) {
+data class TransactionEntity(
+  val transactionId: String,
+  val relatedWallet: String,
+  val approveTransactionId: String?,
+  val perk: Perk?,
+  val type: TransactionType,
+  val method: Method?,
+  val subType: SubType?,
+  val title: String?,
+  val cardDescription: String?,
+  val timeStamp: Long,
+  val processedTime: Long,
+  val status: TransactionStatus,
+  val value: String,
+  val currency: String?,
+  val paidAmount: String?,
+  val paidCurrency: String?,
+  val from: String,
+  val to: String,
+  @Embedded val details: TransactionDetailsEntity?,
+  val operations: List<OperationEntity>?,
+  val orderReference: String?
+) {
 
   enum class Method {
     UNKNOWN, APPC, APPC_C, ETH

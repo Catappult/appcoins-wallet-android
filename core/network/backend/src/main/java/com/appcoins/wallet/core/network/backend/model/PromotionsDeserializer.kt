@@ -10,11 +10,13 @@ import java.lang.reflect.Type
 
 class PromotionsDeserializer : JsonDeserializer<PromotionsResponse> {
 
-  override fun deserialize(json: JsonElement, member: Type?,
-                           context: JsonDeserializationContext): PromotionsResponse {
+  override fun deserialize(
+    json: JsonElement, member: Type?,
+    context: JsonDeserializationContext
+  ): PromotionsResponse {
     val id = json.asJsonObject
-        .get("id")
-        .asString
+      .get("id")
+      .asString
     return when (id) {
       GAMIFICATION_ID -> context.deserialize(json, GamificationResponse::class.java)
       REFERRAL_ID -> context.deserialize(json, ReferralResponse::class.java)

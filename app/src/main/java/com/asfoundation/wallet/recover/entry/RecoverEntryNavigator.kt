@@ -55,7 +55,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
 
 
   fun navigateBack() {
-      fragment.requireActivity().finish()
+    fragment.requireActivity().finish()
   }
 
   fun navigateToSuccess(isFromOnboarding: Boolean) {

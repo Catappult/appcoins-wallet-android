@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -189,6 +189,7 @@ class LocalPaymentPresenter(
         view.showError()
       }
         .subscribeOn(viewScheduler)
+
       data.async ->
         //Although this should no longer happen at the moment in Iab, since it doesn't consume much process time
         //I decided to leave this here in case the API wants to change the logic and return them to Iab in the future.
@@ -198,6 +199,7 @@ class LocalPaymentPresenter(
             localPaymentInteractor.saveAsyncLocalPayment(data.paymentId)
             preparePendingUserPayment()
           })
+
       transaction.status == Status.COMPLETED -> handleSyncCompletedStatus(transaction)
       else -> Completable.complete()
     }
@@ -262,6 +264,7 @@ class LocalPaymentPresenter(
           )
         }
       }
+
       Status.COMPLETED -> {
         Completable.fromAction {
           analytics.sendPaymentConclusionEvents(
@@ -276,6 +279,7 @@ class LocalPaymentPresenter(
           handleRevenueEvent()
         }
       }
+
       else -> Completable.complete()
     }
   }

@@ -1,11 +1,21 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Package
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.bdsbilling.repository.entity.RemoteProduct
+import com.appcoins.wallet.bdsbilling.repository.entity.Signature
+import com.appcoins.wallet.bdsbilling.repository.entity.State
+import com.appcoins.wallet.bdsbilling.repository.entity.SubsProduct
 import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.PurchaseState
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionPurchaseListResponse
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionPurchaseResponse
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Date
+import java.util.Locale
 
 class SubscriptionsMapper {
 
@@ -25,20 +35,28 @@ class SubscriptionsMapper {
     })
   }
 
-  fun map(packageName: String,
-          purchasesResponseSubscription: SubscriptionPurchaseListResponse): List<Purchase> {
+  fun map(
+    packageName: String,
+    purchasesResponseSubscription: SubscriptionPurchaseListResponse
+  ): List<Purchase> {
     return purchasesResponseSubscription.items.map { map(packageName, it) }
   }
 
-  fun map(packageName: String,
-          subscriptionPurchaseResponse: SubscriptionPurchaseResponse): Purchase {
-    return Purchase(subscriptionPurchaseResponse.uid,
-        RemoteProduct(subscriptionPurchaseResponse.sku),
-        mapPurchaseState(subscriptionPurchaseResponse.state),
-        subscriptionPurchaseResponse.autoRenewing,
-        mapRenewalDate(subscriptionPurchaseResponse.renewal),
-        Package(packageName), Signature(subscriptionPurchaseResponse.verification.signature,
-        subscriptionPurchaseResponse.verification.data))
+  fun map(
+    packageName: String,
+    subscriptionPurchaseResponse: SubscriptionPurchaseResponse
+  ): Purchase {
+    return Purchase(
+      subscriptionPurchaseResponse.uid,
+      RemoteProduct(subscriptionPurchaseResponse.sku),
+      mapPurchaseState(subscriptionPurchaseResponse.state),
+      subscriptionPurchaseResponse.autoRenewing,
+      mapRenewalDate(subscriptionPurchaseResponse.renewal),
+      Package(packageName), Signature(
+        subscriptionPurchaseResponse.verification.signature,
+        subscriptionPurchaseResponse.verification.data
+      )
+    )
   }
 
   private fun mapRenewalDate(renewal: String?): Date? {

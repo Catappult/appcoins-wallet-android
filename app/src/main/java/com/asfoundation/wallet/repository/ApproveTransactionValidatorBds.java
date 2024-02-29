@@ -34,18 +34,17 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .amount();
     Single<String> getTransactionHash = sendTransactionInteract.computeApproveTransactionHash(
         paymentTransaction.getTransactionBuilder());
-    Single<AttributionEntity> attributionEntity =
-        partnerAddressService.getAttribution(packageName);
+    Single<AttributionEntity> attributionEntity = partnerAddressService.getAttribution(packageName);
 
     return Single.zip(getTransactionHash, attributionEntity,
-        (hash, attrEntity) -> new AuthorizationProof("appcoins", hash, productName, packageName,
-            priceValue, attrEntity.getOemId(), attrEntity.getDomain(), developerAddress, type,
-            paymentTransaction.getTransactionBuilder()
-                .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
-                .getOrigin(), paymentTransaction.getDeveloperPayload(),
-            paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
-            .getOrderReference(), paymentTransaction.getTransactionBuilder()
-            .getReferrerUrl()))
+            (hash, attrEntity) -> new AuthorizationProof("appcoins", hash, productName, packageName,
+                priceValue, attrEntity.getOemId(), attrEntity.getDomain(), developerAddress, type,
+                paymentTransaction.getTransactionBuilder()
+                    .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
+                    .getOrigin(), paymentTransaction.getDeveloperPayload(),
+                paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
+                .getOrderReference(), paymentTransaction.getTransactionBuilder()
+                .getReferrerUrl()))
         .flatMap(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }
