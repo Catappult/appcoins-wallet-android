@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.analytics.analytics.partners
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -55,11 +56,26 @@ class GamesHubContentProviderService @Inject constructor(
     return false
   }
 
+  fun doesProviderExist(): Boolean {
+    val packageManager = context.packageManager
+
+    return try {
+      val providerInfo = packageManager.resolveContentProvider(
+        CONTENT_PROVIDER_AUTHORITY,
+        PackageManager.GET_META_DATA
+      )
+      providerInfo != null
+    } catch (e: Exception) {
+      e.printStackTrace()
+      false
+    }
+  }
 
   companion object {
     private const val CONTENT_PROVIDER_TABLE = "appDetails"
     private const val CONTENT_PROVIDER_COLUMN = "packageName"
     private const val CONTENT_PROVIDER_COLUMN_VALUE = "isInstalledByGH"
     private const val CONTENT_PROVIDER_URI = "content://com.dti.folderlauncher.appdetails/"
+    private const val CONTENT_PROVIDER_AUTHORITY = "com.dti.folderlauncher.appdetails"
   }
 }
