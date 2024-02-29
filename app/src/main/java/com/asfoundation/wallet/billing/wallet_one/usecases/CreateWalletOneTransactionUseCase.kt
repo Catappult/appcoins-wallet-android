@@ -26,7 +26,8 @@ class CreateWalletOneTransactionUseCase @Inject constructor(
     failUrl: String,
     transactionBuilder: TransactionBuilder,
   ): Single<WalletOneTransaction> {
-    return Single.zip(walletService.getWalletAddress(),
+    return Single.zip(
+      walletService.getWalletAddress(),
       partnerAddressService.getAttribution(transactionBuilder.domain)
     ) { address, attributionEntity -> Pair(address, attributionEntity) }
       .flatMap { pair ->

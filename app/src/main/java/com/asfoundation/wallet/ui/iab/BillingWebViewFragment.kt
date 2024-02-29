@@ -20,7 +20,6 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
-import com.asfoundation.wallet.billing.googlepay.GooglePayWebReturnSchemas
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.billing.wallet_one.WalletOneReturnSchemas
 import com.google.android.material.snackbar.Snackbar
@@ -124,7 +123,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     executorService = Executors.newScheduledThreadPool(0)
-    require(arguments != null && (requireArguments().containsKey(URL) || requireArguments().containsKey(HTML_DATA))) {
+    require(
+      arguments != null && (requireArguments().containsKey(URL) || requireArguments().containsKey(
+        HTML_DATA
+      ))
+    ) {
       "Provided url is null!"
     }
     currentUrl = if (savedInstanceState == null) {
@@ -154,9 +157,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
+
           isExternalIntentSchema(clickUrl) -> {
             launchActivityForSchema(view, clickUrl)
           }
+
           clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
             ORDER_ID_PARAMETER
           ) -> {
@@ -164,10 +169,12 @@ class BillingWebViewFragment : BasePageViewFragment() {
               .getQueryParameter(ORDER_ID_PARAMETER)
             finishWithValidations(LOCAL_PAYMENTS_URL + orderId)
           }
+
           clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
+
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
           clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)

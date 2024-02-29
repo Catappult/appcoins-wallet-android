@@ -91,7 +91,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   fun sendPaypalErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
     analyticsManager.logEvent(
       map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
@@ -113,7 +113,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   fun sendGooglePayErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
     analyticsManager.logEvent(
       map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
@@ -124,7 +124,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   fun sendWalletOneErrorEvent(errorCode: String? = null, errorDetails: String) {
     val map = HashMap<String, Any>()
     map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_WALLET_ONE
-    errorCode?.let{ map[ERROR_CODE] = errorCode }
+    errorCode?.let { map[ERROR_CODE] = errorCode }
     map[ERROR_DETAILS] = errorDetails
     analyticsManager.logEvent(
       map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,

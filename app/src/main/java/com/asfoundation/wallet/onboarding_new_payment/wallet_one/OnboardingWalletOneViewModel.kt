@@ -15,10 +15,9 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
 import com.asfoundation.wallet.billing.wallet_one.WalletOneReturnSchemas
 import com.asfoundation.wallet.billing.wallet_one.models.WalletOneConst
-import com.asfoundation.wallet.billing.wallet_one.usecases.*
+import com.asfoundation.wallet.billing.wallet_one.usecases.CreateWalletOneTransactionUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
-import com.asfoundation.wallet.onboarding_new_payment.wallet_one.OnboardingWalletOneFragmentArgs
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.wallet.appcoins.feature.support.data.SupportInteractor
@@ -128,6 +127,7 @@ class OnboardingWalletOneViewModel @Inject constructor(
           PaymentModel.Status.COMPLETED -> {
             handleSuccess(it.uid, transactionBuilder)
           }
+
           PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
             Log.d(TAG, "Error on transaction on Settled transaction polling")
             events.sendPaymentErrorMessageEvent(
@@ -137,7 +137,9 @@ class OnboardingWalletOneViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.unknown_error))
           }
-          else -> { /* pending */ }
+
+          else -> { /* pending */
+          }
         }
       }, {
         Log.d(TAG, "Error on Settled transaction polling")

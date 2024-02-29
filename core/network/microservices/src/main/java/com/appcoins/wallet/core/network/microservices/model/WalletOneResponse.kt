@@ -11,7 +11,7 @@ data class WalletOneResponse(
   val data: ErrorData?,
 ) {
   fun mapValidity(): WalletOneTransaction.WalletOneValidityState {
-    return when(status) {
+    return when (status) {
       TransactionStatus.PENDING -> WalletOneTransaction.WalletOneValidityState.PENDING
       TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> WalletOneTransaction.WalletOneValidityState.PENDING
       TransactionStatus.SETTLED -> WalletOneTransaction.WalletOneValidityState.PENDING

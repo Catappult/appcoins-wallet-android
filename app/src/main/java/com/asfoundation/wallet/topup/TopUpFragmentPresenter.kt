@@ -261,7 +261,7 @@ class TopUpFragmentPresenter(
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
       .doOnNext {
-        if(it == PaymentMethodId.CHALLENGE_REWARD.id)
+        if (it == PaymentMethodId.CHALLENGE_REWARD.id)
           view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
         setNextButton(it)
@@ -273,13 +273,13 @@ class TopUpFragmentPresenter(
   private fun setNextButton(methodSelected: String?) {
     disposables.add(
       showPayPalLogout
-      .subscribe {
-        if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
-          view.setTopupButton()
-        } else {
-          view.setNextButton()
+        .subscribe {
+          if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
+            view.setTopupButton()
+          } else {
+            view.setNextButton()
+          }
         }
-      }
     )
   }
 
@@ -292,7 +292,7 @@ class TopUpFragmentPresenter(
     .doOnSuccess {
       if (interactor.isBonusValidAndActive(it)) {
         val scaledBonus = formatter.scaleFiat(it.amount)
-        if(view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
+        if (view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
           view.hideBonusAndSkeletons() else view.showBonus(scaledBonus, it.currency)
       } else {
         view.removeBonus()
@@ -362,10 +362,13 @@ class TopUpFragmentPresenter(
         view.hideValueInputWarning()
         Log.w("TopUpFragmentPresenter", "Unable to retrieve values")
       }
+
       amount > maxValue.amount ->
         view.showMaxValueWarning(maxValue.amount.toPlainString() + localCurrency)
+
       amount < minValue.amount ->
         view.showMinValueWarning(minValue.amount.toPlainString() + localCurrency)
+
       else -> view.hideValueInputWarning()
     }
   }
@@ -489,30 +492,36 @@ class TopUpFragmentPresenter(
           topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
       }
+
       PaymentType.PAYPALV2 -> {
         activity?.navigateToPaypalV2(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
       }
+
       PaymentType.VKPAY -> {
         activity?.navigateToVkPayPayment(mapTopUpPaymentData(topUpData, gamificationLevel))
       }
+
       PaymentType.GOOGLEPAY_WEB -> {
         activity?.navigateToGooglePay(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
       }
+
       PaymentType.WALLET_ONE -> {
         activity?.navigateToWalletOne(
           paymentType = paymentMethod.paymentType,
           data = mapTopUpPaymentData(topUpData, gamificationLevel)
         )
       }
+
       PaymentType.CHALLENGE_REWARD -> {
         activity?.navigateToChallengeReward()
       }
+
       else -> {}
     }
   }

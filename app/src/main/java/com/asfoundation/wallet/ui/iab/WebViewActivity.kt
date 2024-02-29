@@ -10,8 +10,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.Log
+import com.asf.wallet.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

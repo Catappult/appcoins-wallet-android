@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultR
 import com.appcoins.wallet.core.network.microservices.api.*
 import com.appcoins.wallet.core.network.microservices.api.broker.*
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi.*
-import com.appcoins.wallet.core.network.microservices.api.broker.FiatCurrenciesApi
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers

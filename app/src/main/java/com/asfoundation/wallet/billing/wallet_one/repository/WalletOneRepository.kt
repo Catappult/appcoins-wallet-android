@@ -5,7 +5,6 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.broker.WalletOneApi
-import com.appcoins.wallet.core.network.microservices.model.Method
 import com.appcoins.wallet.core.network.microservices.model.WalletOnePayment
 import com.appcoins.wallet.core.network.microservices.model.WalletOneResponse
 import com.appcoins.wallet.core.network.microservices.model.WalletOneTransaction

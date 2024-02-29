@@ -64,60 +64,67 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
-    private fun handlePaymentMethodList() {
-        controller = PaymentMethodsController()
-        controller.clickListener = { paymentMethodClick ->
-            when (paymentMethodClick) {
-                is PaymentMethodClick.CreditCardClick -> navigator.navigateToAdyen(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
-                )
-                is PaymentMethodClick.PaypalAdyenClick -> navigator.navigateToPaypalAdyen(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
-                )
-                is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
-                    args.transactionBuilder,
-                    args.amount,
-                    args.currency,
-                    args.forecastBonus
-                )
-                is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
-                    args.transactionBuilder,
-                    paymentMethodClick.idItem,
-                    args.amount,
-                    args.currency
-                )
-                is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
-                is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
-                is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
-                is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
-                  args.transactionBuilder,
-                  args.amount,
-                  args.currency,
-                  args.forecastBonus
-                )
-                is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
-                  args.transactionBuilder,
-                  args.amount,
-                  args.currency,
-                  args.forecastBonus
-                )
-              is PaymentMethodClick.WalletOneClick -> navigator.navigateToWalletOne(
-                args.transactionBuilder,
-                args.amount,
-                args.currency,
-                args.forecastBonus
-              )
-                PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
-            }
-        }
-        views.onboardingPaymentMethodsRv.setController(controller)
+  private fun handlePaymentMethodList() {
+    controller = PaymentMethodsController()
+    controller.clickListener = { paymentMethodClick ->
+      when (paymentMethodClick) {
+        is PaymentMethodClick.CreditCardClick -> navigator.navigateToAdyen(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        is PaymentMethodClick.PaypalAdyenClick -> navigator.navigateToPaypalAdyen(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalAdyen(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
+          args.transactionBuilder,
+          paymentMethodClick.idItem,
+          args.amount,
+          args.currency
+        )
+
+        is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
+        is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+        is PaymentMethodClick.ChallengeRewardClick -> navigator.navigateToChallengeReward()
+        is PaymentMethodClick.VkPayPaymentClick -> navigator.navigateToVkPayPayment(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        is PaymentMethodClick.GooglePayClick -> navigator.navigateToGooglePay(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        is PaymentMethodClick.WalletOneClick -> navigator.navigateToWalletOne(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
+        PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
+      }
     }
+    views.onboardingPaymentMethodsRv.setController(controller)
+  }
 
   override fun onStateChanged(state: OnboardingPaymentMethodsState) {
     when (state.paymentMethodsAsync) {
@@ -125,6 +132,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is Async.Loading -> {
         //TODO add a skeleton while the list loads
       }
+
       is Async.Success -> {
         if (state.paymentMethodsAsync()?.isEmpty() == true) {
           handleNoPaymentMethodsError()
@@ -132,6 +140,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           showPaymentMethodsList(state.paymentMethodsAsync(), state.otherPaymentMethods)
         }
       }
+
       is Async.Fail -> {
         handleNoPaymentMethodsError()
       }
@@ -143,6 +152,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(
         sideEffect.uri
       )
+
       is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )

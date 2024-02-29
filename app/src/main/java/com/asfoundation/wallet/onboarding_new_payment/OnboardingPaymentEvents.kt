@@ -12,10 +12,10 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class OnboardingPaymentEvents @Inject constructor(
-    private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
-    private val billingAnalytics: BillingAnalytics,
-    private val revenueValueUseCase: GetAnalyticsRevenueValueUseCase,
-    private val analyticsManager: AnalyticsManager
+  private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
+  private val billingAnalytics: BillingAnalytics,
+  private val revenueValueUseCase: GetAnalyticsRevenueValueUseCase,
+  private val analyticsManager: AnalyticsManager
 ) {
 
 
@@ -152,7 +152,11 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
-  fun sendAdyenPaymentConfirmationEvent(transactionBuilder: TransactionBuilder, action: String, paymentType: String) {
+  fun sendAdyenPaymentConfirmationEvent(
+    transactionBuilder: TransactionBuilder,
+    action: String,
+    paymentType: String
+  ) {
     billingAnalytics.sendPaymentConfirmationEvent(
       transactionBuilder.domain,
       transactionBuilder.skuId,
@@ -165,7 +169,11 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
-  fun sendAdyenPaymentUrlEvent(transactionBuilder: TransactionBuilder, data: Intent, paymentType: String) {
+  fun sendAdyenPaymentUrlEvent(
+    transactionBuilder: TransactionBuilder,
+    data: Intent,
+    paymentType: String
+  ) {
     val amountString = transactionBuilder.amount()
       .toString()
     billingAnalytics.sendPaypalUrlEvent(
@@ -220,8 +228,10 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
-  fun sendLocalNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
-                                     paymentId: String) {
+  fun sendLocalNavigationToUrlEvents(
+    packageName: String, skuId: String?, amount: String, type: String,
+    paymentId: String
+  ) {
     billingAnalytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
     billingAnalytics.sendPaymentConfirmationEvent(
       packageName,
@@ -276,9 +286,11 @@ class OnboardingPaymentEvents @Inject constructor(
     billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
   }
 
-  fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
-                                  type: String, paymentId: String, txId: String,
-                                  amountUsd: BigDecimal) {
+  fun sendPaymentConclusionEvents(
+    packageName: String, skuId: String?, amount: BigDecimal,
+    type: String, paymentId: String, txId: String,
+    amountUsd: BigDecimal
+  ) {
     billingAnalytics.sendPaymentEvent(packageName, skuId, amount.toString(), paymentId, type)
     billingAnalytics.sendPaymentSuccessEvent(
       packageName = packageName,
@@ -334,8 +346,10 @@ class OnboardingPaymentEvents @Inject constructor(
     )
   }
 
-  fun sendPendingPaymentEvents(packageName: String, skuId: String?, amount: String, type: String,
-                               paymentId: String) {
+  fun sendPendingPaymentEvents(
+    packageName: String, skuId: String?, amount: String, type: String,
+    paymentId: String
+  ) {
     billingAnalytics.sendPaymentEvent(packageName, skuId, amount, paymentId, type)
     billingAnalytics.sendPaymentPendingEvent(packageName, skuId, amount, paymentId, type)
   }
