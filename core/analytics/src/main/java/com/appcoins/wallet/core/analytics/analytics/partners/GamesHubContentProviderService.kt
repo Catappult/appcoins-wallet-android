@@ -22,7 +22,7 @@ class GamesHubContentProviderService @Inject constructor(
       Log.e(
         "GamesHubContentProvider",
         "Error fetching gamesHub contentProvider: ${e.message}"
-        )
+      )
       false
     }
   }
