@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -969,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
-  <string name="manage_cards_add_title">Adaugă card nou</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Ești sigur că vrei să elimini acest card?</string>
-  <string name="manage_cards_remove_no">NU, ANULEAZĂ</string>
-  <string name="manage_cards_remove_yes">DA, ELIMINĂ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Card cu ultimele cifre %s</string>
   <string name="manage_cards_error_details">Ești sigur că detaliile cardului tău sunt corecte? Te rugăm să încerci din nou!</string>
   <string name="manage_cards_error_card_problem">Se pare că este o problemă cu cardul tău. Încearcă cu un alt card.</string>
   <string name="manage_cards_select_title">Selectează card de plată</string>
   <string name="manage_cards_remember">Ține minte card</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Câștigă un Bonus de până la %s%% la fiecare achiziție</string>
   <string name="perks_gamif_subtitle">Cu cât cheltuiești mai mult în aplicațiile tale preferate, cu atât mai mare va fi bonusul!</string>
