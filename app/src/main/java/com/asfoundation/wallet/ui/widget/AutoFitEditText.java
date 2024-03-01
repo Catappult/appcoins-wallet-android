@@ -26,7 +26,7 @@ public class AutoFitEditText extends AppCompatEditText {
   private int _widthLimit;
   private int _maxLines;
   private boolean _enableSizeCache = true;
-  private boolean _initialized;
+  private final boolean _initialized;
   private TextPaint paint;
 
   public AutoFitEditText(final Context context) {
@@ -125,10 +125,6 @@ public class AutoFitEditText extends AppCompatEditText {
 
   private void reAdjust() {
     adjustTextSize();
-  }  @Override public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
   }
 
   private void adjustTextSize() {
@@ -142,6 +138,24 @@ public class AutoFitEditText extends AppCompatEditText {
     _availableSpaceRect.bottom = heightLimit;
     super.setTextSize(TypedValue.COMPLEX_UNIT_PX,
         efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
+  }
+
+  private interface SizeTester {
+    /**
+     * AutoFitEditText
+     *
+     * @param suggestedSize Size of text to be tested
+     * @param availableSpace available space in which text must fit
+     *
+     * @return an integer < 0 if after applying {@code suggestedSize} to
+     * text, it takes less space than {@code availableSpace}, > 0
+     * otherwise
+     */
+    int onTestSize(int suggestedSize, RectF availableSpace);
+  }  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
   }
 
   /**
@@ -168,8 +182,6 @@ public class AutoFitEditText extends AppCompatEditText {
     size = binarySearch(start, end, sizeTester, availableSpace);
     _textCachedSizes.put(key, size);
     return size;
-  }  @Override public int getMaxLines() {
-    return _maxLines;
   }
 
   private int binarySearch(final int start, final int end, final SizeTester sizeTester,
@@ -203,27 +215,17 @@ public class AutoFitEditText extends AppCompatEditText {
     if (width != oldwidth || height != oldheight) reAdjust();
   }
 
-  private interface SizeTester {
-    /**
-     * AutoFitEditText
-     *
-     * @param suggestedSize Size of text to be tested
-     * @param availableSpace available space in which text must fit
-     *
-     * @return an integer < 0 if after applying {@code suggestedSize} to
-     * text, it takes less space than {@code availableSpace}, > 0
-     * otherwise
-     */
-    int onTestSize(int suggestedSize, RectF availableSpace);
-  }  @Override public void setSingleLine() {
-    super.setSingleLine();
-    _maxLines = 1;
-    reAdjust();
+  @Override public int getMaxLines() {
+    return _maxLines;
   }
 
 
 
-
+  @Override public void setSingleLine() {
+    super.setSingleLine();
+    _maxLines = 1;
+    reAdjust();
+  }
 
   @Override public void setSingleLine(final boolean singleLine) {
     super.setSingleLine(singleLine);
@@ -234,8 +236,6 @@ public class AutoFitEditText extends AppCompatEditText {
     }
     reAdjust();
   }
-
-
 
   @Override public void setLines(final int lines) {
     super.setLines(lines);
