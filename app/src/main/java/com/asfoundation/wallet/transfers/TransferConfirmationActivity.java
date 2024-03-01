@@ -82,18 +82,6 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.GWEI_UNIT;
     }
   }
 
-  // toolbar hardcoded temporarely
-  protected Toolbar toolbar() {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    toolbar.setVisibility(View.VISIBLE);
-    if (toolbar != null) {
-      setSupportActionBar(toolbar);
-      toolbar.setTitle(getTitle());
-    }
-    enableDisplayHomeAsUp();
-    return toolbar;
-  }
-
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.action_edit) {
       viewModel.openGasSettings(TransferConfirmationActivity.this);
@@ -108,6 +96,18 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.GWEI_UNIT;
         viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
       }
     }
+  }
+
+  // toolbar hardcoded temporarely
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
   }
 
   private void onTransactionBuilder(TransactionBuilder transactionBuilder) {

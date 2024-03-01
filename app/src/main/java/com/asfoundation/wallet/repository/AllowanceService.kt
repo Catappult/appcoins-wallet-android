@@ -69,7 +69,8 @@ class AllowanceService @Inject constructor(
       owner: String,
       spender: String
     ): Function {
-      return Function("allowance",
+      return Function(
+        "allowance",
         listOf(
           Address(owner),
           Address(spender)
