@@ -27,9 +27,9 @@ import static org.mockito.Mockito.when;
   private static final String UID = "uid";
   private static final String PURCHASE_UID = "purchase_uid";
   private static final String KEY = "key";
+  private final RxSchedulers fakeSchedulers = new FakeSchedulers();
   @Mock BdsPendingTransactionService transactionService;
   private BdsTransactionService bdsPendingTransactionService;
-  private final RxSchedulers fakeSchedulers = new FakeSchedulers();
 
   @Before public void setUp() {
     when(transactionService.checkTransactionStateFromTransactionId(UID)).thenReturn(

@@ -61,23 +61,23 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
-    @Inject
-    lateinit var billingAnalytics: BillingAnalytics
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
 
-    @Inject
-    lateinit var iabInteract: IabInteract
+  @Inject
+  lateinit var iabInteract: IabInteract
 
-    @Inject
-    lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
-    @Inject
-    lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
 
-    @Inject
-    lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
+  @Inject
+  lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
 
-    @Inject
-    lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
+  @Inject
+  lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
 
   @Inject
   lateinit var logger: Logger
