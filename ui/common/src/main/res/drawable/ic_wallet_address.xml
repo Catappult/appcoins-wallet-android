@@ -8,16 +8,16 @@
     <group>
       <clip-path android:pathData="M-74.667,1157.333L765.333,1157.333L765.333,-336L-74.667,-336Z" />
       <path
+          android:fillAlpha="0"
+          android:fillColor="#ff6381"
           android:pathData="M-74.667,-336L765.333,-336L765.333,1157.333L-74.667,1157.333Z"
+          android:strokeWidth="1"
           android:strokeAlpha="0"
-          android:strokeWidth="1"
-          android:fillColor="#ff6381"
-          android:strokeColor="#343434"
-          android:fillAlpha="0" />
+          android:strokeColor="#343434" />
       <path
+          android:fillColor="#ff6381"
           android:pathData="M-74.667,-336L765.333,-336L765.333,1157.333L-74.667,1157.333Z"
           android:strokeWidth="1"
-          android:fillColor="#ff6381"
           android:strokeColor="#343434" />
     </group>
   </group>

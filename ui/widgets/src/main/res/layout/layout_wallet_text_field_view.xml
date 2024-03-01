@@ -7,6 +7,7 @@
     >
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/text_input_layout"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
@@ -15,7 +16,6 @@
       android:textColor="@color/styleguide_black"
       android:textColorHint="@color/styleguide_dark_grey"
       android:textSize="14sp"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       app:boxStrokeErrorColor="@color/styleguide_red"
       app:errorIconDrawable="@null"
       app:errorTextColor="@color/styleguide_red"
@@ -31,9 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:inputType="number"
         android:maxLines="1"
         tools:text="Text"
-        android:inputType="number"
         />
   </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

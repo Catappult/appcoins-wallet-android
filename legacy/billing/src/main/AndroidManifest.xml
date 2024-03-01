@@ -11,8 +11,8 @@
 
     <activity
         android:name=".AppcoinsBillingReceiverActivity"
-        android:theme="@style/Theme.Transparent"
-        android:exported="true">
+        android:exported="true"
+        android:theme="@style/Theme.Transparent">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <data

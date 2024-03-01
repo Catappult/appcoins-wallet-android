@@ -8,12 +8,12 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      android:elevation="@dimen/default_elevation"
       android:background="@drawable/background_card"
+      android:elevation="@dimen/default_elevation"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <include
         android:id="@+id/appcoins_header"

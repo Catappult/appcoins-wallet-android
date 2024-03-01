@@ -8,13 +8,13 @@
     <group>
       <clip-path android:pathData="M-46.433,183.408L208.293,183.408L208.293,-269.438L-46.433,-269.438Z" />
       <path
-          android:pathData="M-26.621,-168.255h215.1L188.479,85.056h-215.1Z"
-          android:strokeAlpha="0"
+          android:fillAlpha="0"
           android:fillColor="#ff6381"
-          android:fillAlpha="0" />
-      <path
           android:pathData="M-26.621,-168.255h215.1L188.479,85.056h-215.1Z"
-          android:fillColor="#ff6381" />
+          android:strokeAlpha="0" />
+      <path
+          android:fillColor="#ff6381"
+          android:pathData="M-26.621,-168.255h215.1L188.479,85.056h-215.1Z" />
     </group>
   </group>
   <group>
@@ -22,8 +22,8 @@
     <group>
       <clip-path android:pathData="M-46.433,183.409L208.293,183.409L208.293,-269.437L-46.433,-269.437Z" />
       <path
-          android:pathData="M22.131,1.465h65.415L87.546,21.504L22.131,21.504Z"
-          android:fillColor="#111b39" />
+          android:fillColor="#111b39"
+          android:pathData="M22.131,1.465h65.415L87.546,21.504L22.131,21.504Z" />
     </group>
   </group>
   <group>
@@ -31,8 +31,8 @@
     <group>
       <clip-path android:pathData="M-46.433,183.409L208.293,183.409L208.293,-269.437L-46.433,-269.437Z" />
       <path
-          android:pathData="M81.701,1.746L134.111,1.746v19.769L81.701,21.515Z"
-          android:fillColor="#111b39" />
+          android:fillColor="#111b39"
+          android:pathData="M81.701,1.746L134.111,1.746v19.769L81.701,21.515Z" />
     </group>
   </group>
 </vector>

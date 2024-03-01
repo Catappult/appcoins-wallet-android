@@ -21,16 +21,16 @@
   <TextView
       android:id="@+id/referral_title"
       style="@style/TextAppearance.AppCompat.Title"
-      android:textColor="@color/black"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="@string/refer_a_friend_waiting_room_title"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintEnd_toStartOf="@id/friends_icon"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/container_referral"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
+      android:text="@string/refer_a_friend_waiting_room_title"
+      android:textColor="@color/black"
+      app:layout_constraintEnd_toStartOf="@id/friends_icon"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/container_referral"
       />
 
   <TextView
@@ -38,12 +38,12 @@
       style="@style/BlackTextStyle"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:text="@string/refer_a_friend_waiting_from_body"
-      app:layout_constraintStart_toStartOf="@id/referral_title"
-      app:layout_constraintEnd_toStartOf="@id/friends_icon"
-      app:layout_constraintTop_toBottomOf="@id/referral_title"
       android:layout_marginBottom="4dp"
+      android:text="@string/refer_a_friend_waiting_from_body"
       app:layout_constraintBottom_toTopOf="@id/code_background"
+      app:layout_constraintEnd_toStartOf="@id/friends_icon"
+      app:layout_constraintStart_toStartOf="@id/referral_title"
+      app:layout_constraintTop_toBottomOf="@id/referral_title"
       />
   <ImageView
       android:id="@+id/friends_icon"
@@ -52,20 +52,20 @@
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="37dp"
       android:contentDescription="@null"
-      app:layout_constraintHorizontal_bias="1"
       android:src="@mipmap/ic_referral_image_foreground"
-      app:layout_constraintStart_toEndOf="@id/referral_title"
       app:layout_constraintBottom_toBottomOf="@id/code_background"
       app:layout_constraintEnd_toEndOf="@id/code_background"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@id/referral_title"
       />
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/code_background"
       android:layout_width="0dp"
       android:layout_height="48dp"
-      android:elevation="@dimen/small_margin"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_margin"
       android:background="@drawable/rectangle_purple"
+      android:elevation="@dimen/small_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,8 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/small_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@id/action_button_share_referral"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -118,9 +118,9 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
-      app:layout_constraintStart_toStartOf="@id/code_background"
-      app:layout_constraintEnd_toEndOf="@id/code_background"
-      app:layout_constraintBottom_toTopOf="@id/code_background"
       android:visibility="invisible"
+      app:layout_constraintBottom_toTopOf="@id/code_background"
+      app:layout_constraintEnd_toEndOf="@id/code_background"
+      app:layout_constraintStart_toStartOf="@id/code_background"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

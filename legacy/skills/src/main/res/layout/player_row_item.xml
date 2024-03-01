@@ -2,8 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/big_margin"
-    android:layout_marginEnd="@dimen/big_margin"
     android:layout_marginTop="@dimen/big_margin"
+    android:layout_marginEnd="@dimen/big_margin"
     android:layout_marginBottom="@dimen/big_margin"
     android:orientation="horizontal"
     >
@@ -14,11 +14,11 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_centerVertical="true"
+      android:maxLength="16"
       android:padding="2dp"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:textColor="@color/black"
       android:textStyle="bold"
-      android:maxLength="16"
       />
 
   <TextView
