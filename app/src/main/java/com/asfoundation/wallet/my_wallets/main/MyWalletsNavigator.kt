@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.core.arch.data.navigate
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupWalletEntryFragment
@@ -52,10 +51,10 @@ constructor(private val fragment: Fragment, private val navController: NavContro
   }
 
   fun navigateToChangeActiveWalletBottomSheet(
-      walletAddress: String,
-      walletName: String,
-      walletBalance: String,
-      walletBalanceSymbol: String
+    walletAddress: String,
+    walletName: String,
+    walletBalance: String,
+    walletBalanceSymbol: String
   ) {
     val bundle = Bundle()
     val bottomSheet = ChangeActiveWalletBottomSheetFragment.newInstance()
@@ -63,7 +62,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_ADDRESS, walletAddress)
     bundle.putString(ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE, walletBalance)
     bundle.putString(
-        ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol)
+      ChangeActiveWalletBottomSheetFragment.WALLET_BALANCE_SYMBOL, walletBalanceSymbol
+    )
     bottomSheet.arguments = bundle
     bottomSheet.show(fragment.parentFragmentManager, "ManageWallet")
   }
@@ -87,8 +87,9 @@ constructor(private val fragment: Fragment, private val navController: NavContro
 
   fun navigateToQrCode(qrCodeView: View) {
     val options =
-        ActivityOptionsCompat.makeSceneTransitionAnimation(
-            fragment.requireActivity(), Pair(qrCodeView, "qr_code_image"))
+      ActivityOptionsCompat.makeSceneTransitionAnimation(
+        fragment.requireActivity(), Pair(qrCodeView, "qr_code_image")
+      )
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
   }

@@ -13,9 +13,9 @@ import javax.inject.Inject
 class ManageWalletBottomSheetNavigator
 @Inject
 constructor(
-    val fragment: Fragment,
-    val fragmentManager: FragmentManager,
-    private val navController: NavController
+  val fragment: Fragment,
+  val fragmentManager: FragmentManager,
+  private val navController: NavController
 ) : Navigator {
 
   fun navigateBack() {
@@ -33,9 +33,9 @@ constructor(
 
   fun navigateToRecoverWallet() {
     val intent =
-        RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false).apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+      RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false).apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
     openIntent(intent)
   }
 

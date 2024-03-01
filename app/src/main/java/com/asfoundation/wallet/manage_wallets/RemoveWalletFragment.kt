@@ -62,12 +62,13 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   private val viewModel: ManageWalletViewModel by viewModels()
 
-  @Inject lateinit var myWalletsNavigator: MyWalletsNavigator
+  @Inject
+  lateinit var myWalletsNavigator: MyWalletsNavigator
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { RemoveWalletView() } }
   }
@@ -76,21 +77,24 @@ class RemoveWalletFragment : BasePageViewFragment() {
   fun RemoveWalletView() {
     viewModel.getWallets(false)
     Scaffold(
-        topBar = {
-          Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
-        },
-        containerColor = WalletColors.styleguide_blue,
+      topBar = {
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+      },
+      containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is ManageWalletViewModel.UiState.Success ->
-            RemoveWalletContent(padding = padding, uiState.activeWalletInfo)
+          RemoveWalletContent(padding = padding, uiState.activeWalletInfo)
+
         ManageWalletViewModel.UiState.Loading ->
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = CenterVertically,
-                horizontalArrangement = Center) {
-                  CircularProgressIndicator()
-                }
+          Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = Center
+          ) {
+            CircularProgressIndicator()
+          }
+
         ManageWalletViewModel.UiState.WalletDeleted -> navigateToManageWallet()
         else -> {}
       }
@@ -99,7 +103,11 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
   @Composable
   internal fun RemoveWalletContent(padding: PaddingValues, walletInfo: WalletInfo) {
-    LazyColumn(modifier = Modifier.padding(padding).padding(horizontal = 16.dp)) {
+    LazyColumn(
+      modifier = Modifier
+        .padding(padding)
+        .padding(horizontal = 16.dp)
+    ) {
       item { ScreenTitle(stringResource(R.string.remove_wallet_title)) }
 
       item { ScreenSubtitle() }
@@ -115,11 +123,11 @@ class RemoveWalletFragment : BasePageViewFragment() {
   @Composable
   fun ScreenSubtitle() {
     Text(
-        text = stringResource(R.string.title_delete_account),
-        modifier = Modifier.padding(8.dp),
-        style = typography.bodyMedium,
-        fontWeight = Medium,
-        color = styleguide_light_grey,
+      text = stringResource(R.string.title_delete_account),
+      modifier = Modifier.padding(8.dp),
+      style = typography.bodyMedium,
+      fontWeight = Medium,
+      color = styleguide_light_grey,
     )
   }
 
@@ -127,113 +135,139 @@ class RemoveWalletFragment : BasePageViewFragment() {
   fun BalanceCard(walletInfo: WalletInfo) {
     with(walletInfo.walletBalance) {
       Card(
-          modifier = Modifier.padding(vertical = 24.dp),
-          colors =
-              CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)) {
-            Column(modifier = Modifier.padding(horizontal = 16.dp).padding(top = 24.dp)) {
-              BalanceInfo(
-                  description = walletInfo.wallet,
-                  amount = creditsOnlyFiat.amount,
-                  currency = creditsOnlyFiat.currency,
-                  name = walletInfo.name)
-              Spacer(Modifier.size(8.dp))
-              BalanceInfo(
-                  stringResource(R.string.appc_token_name),
-                  amount = appcBalance.token.amount,
-                  currency = appcBalance.token.symbol)
-              BalanceInfo(
-                  stringResource(R.string.appc_credits_token_name),
-                  amount = creditsBalance.token.amount,
-                  currency = creditsBalance.token.symbol)
-              BalanceInfo(
-                  stringResource(R.string.appc_credits_token_name),
-                  amount = ethBalance.token.amount,
-                  currency = ethBalance.token.symbol)
-            }
-          }
+        modifier = Modifier.padding(vertical = 24.dp),
+        colors =
+        CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+      ) {
+        Column(
+          modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .padding(top = 24.dp)
+        ) {
+          BalanceInfo(
+            description = walletInfo.wallet,
+            amount = creditsOnlyFiat.amount,
+            currency = creditsOnlyFiat.currency,
+            name = walletInfo.name
+          )
+          Spacer(Modifier.size(8.dp))
+          BalanceInfo(
+            stringResource(R.string.appc_token_name),
+            amount = appcBalance.token.amount,
+            currency = appcBalance.token.symbol
+          )
+          BalanceInfo(
+            stringResource(R.string.appc_credits_token_name),
+            amount = creditsBalance.token.amount,
+            currency = creditsBalance.token.symbol
+          )
+          BalanceInfo(
+            stringResource(R.string.appc_credits_token_name),
+            amount = ethBalance.token.amount,
+            currency = ethBalance.token.symbol
+          )
+        }
+      }
     }
   }
 
   @Composable
   fun BalanceInfo(description: String, amount: BigDecimal, currency: String, name: String? = null) {
     Row(
-        horizontalArrangement = SpaceBetween,
-        verticalAlignment = CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)) {
-          Column(verticalArrangement = Center, modifier = Modifier.fillMaxWidth(0.6f)) {
-            if (name != null)
-                Text(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    text = name,
-                    color = styleguide_light_grey,
-                    style = typography.bodyMedium,
-                    fontWeight = Medium,
-                    maxLines = 1,
-                    overflow = Ellipsis,
-                )
-            Text(
-                text = description,
-                color = WalletColors.styleguide_dark_grey,
-                style = typography.bodySmall,
-                maxLines = 1,
-                overflow = Ellipsis,
-            )
-          }
-
+      horizontalArrangement = SpaceBetween,
+      verticalAlignment = CenterVertically,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(bottom = 24.dp)
+    ) {
+      Column(verticalArrangement = Center, modifier = Modifier.fillMaxWidth(0.6f)) {
+        if (name != null)
           Text(
-              text = "${amount.toString().formatMoney()} $currency",
-              style = if (name != null) typography.bodyMedium else typography.bodySmall,
-              color = styleguide_light_grey,
-              fontWeight = if (name != null) Bold else Medium,
-              maxLines = 1,
-              overflow = Ellipsis)
-        }
+            modifier = Modifier.padding(bottom = 4.dp),
+            text = name,
+            color = styleguide_light_grey,
+            style = typography.bodyMedium,
+            fontWeight = Medium,
+            maxLines = 1,
+            overflow = Ellipsis,
+          )
+        Text(
+          text = description,
+          color = WalletColors.styleguide_dark_grey,
+          style = typography.bodySmall,
+          maxLines = 1,
+          overflow = Ellipsis,
+        )
+      }
+
+      Text(
+        text = "${amount.toString().formatMoney()} $currency",
+        style = if (name != null) typography.bodyMedium else typography.bodySmall,
+        color = styleguide_light_grey,
+        fontWeight = if (name != null) Bold else Medium,
+        maxLines = 1,
+        overflow = Ellipsis
+      )
+    }
   }
 
   @Composable
   fun AlertCard() {
     Card(
-        colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
-        border = BorderStroke(1.dp, styleguide_pink),
-        modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()) {
-          Column(
-              verticalArrangement = Center,
-              horizontalAlignment = Alignment.CenterHorizontally,
-              modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp).fillMaxWidth()) {
-                Image(
-                    painterResource(R.drawable.ic_alert_circle),
-                    contentDescription = null,
-                    modifier = Modifier.size(48.dp))
-                Text(
-                    modifier = Modifier.padding(top = 24.dp),
-                    text = stringResource(id = R.string.remove_wallet_body),
-                    style = typography.bodySmall,
-                    color = styleguide_light_grey,
-                    textAlign = TextAlign.Center,
-                    fontWeight = Medium)
-              }
-        }
+      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue),
+      border = BorderStroke(1.dp, styleguide_pink),
+      modifier = Modifier
+        .padding(horizontal = 16.dp)
+        .fillMaxWidth()
+    ) {
+      Column(
+        verticalArrangement = Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .padding(vertical = 24.dp, horizontal = 16.dp)
+          .fillMaxWidth()
+      ) {
+        Image(
+          painterResource(R.drawable.ic_alert_circle),
+          contentDescription = null,
+          modifier = Modifier.size(48.dp)
+        )
+        Text(
+          modifier = Modifier.padding(top = 24.dp),
+          text = stringResource(id = R.string.remove_wallet_body),
+          style = typography.bodySmall,
+          color = styleguide_light_grey,
+          textAlign = TextAlign.Center,
+          fontWeight = Medium
+        )
+      }
+    }
   }
 
   @Composable
   fun ActionButtons(address: String, name: String) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.padding(top = 48.dp).padding(horizontal = 8.dp)) {
-          ButtonWithText(
-              label = stringResource(id = R.string.my_wallets_action_backup_wallet),
-              onClick = { myWalletsNavigator.navigateToBackup(address, name) },
-              labelColor = styleguide_light_grey,
-              backgroundColor = styleguide_pink,
-              buttonType = ButtonType.LARGE)
+      verticalArrangement = Arrangement.spacedBy(16.dp),
+      modifier = Modifier
+        .padding(top = 48.dp)
+        .padding(horizontal = 8.dp)
+    ) {
+      ButtonWithText(
+        label = stringResource(id = R.string.my_wallets_action_backup_wallet),
+        onClick = { myWalletsNavigator.navigateToBackup(address, name) },
+        labelColor = styleguide_light_grey,
+        backgroundColor = styleguide_pink,
+        buttonType = ButtonType.LARGE
+      )
 
-          ButtonWithText(
-              label = stringResource(id = R.string.my_wallets_action_delete_wallet),
-              onClick = { viewModel.deleteWallet(address) },
-              labelColor = styleguide_light_grey,
-              outlineColor = styleguide_light_grey,
-              buttonType = ButtonType.LARGE)
-        }
+      ButtonWithText(
+        label = stringResource(id = R.string.my_wallets_action_delete_wallet),
+        onClick = { viewModel.deleteWallet(address) },
+        labelColor = styleguide_light_grey,
+        outlineColor = styleguide_light_grey,
+        buttonType = ButtonType.LARGE
+      )
+    }
   }
 
   private fun navigateToManageWallet() {

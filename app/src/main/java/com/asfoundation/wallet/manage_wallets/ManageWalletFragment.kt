@@ -90,16 +90,17 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ManageWalletFragment : BasePageViewFragment() {
 
-  @Inject lateinit var myWalletsNavigator: MyWalletsNavigator
+  @Inject
+  lateinit var myWalletsNavigator: MyWalletsNavigator
 
   private val viewModel: ManageWalletViewModel by viewModels()
 
   private val manageWalletSharedViewModel: ManageWalletSharedViewModel by activityViewModels()
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { ManageWalletView() } }
   }
@@ -119,29 +120,34 @@ class ManageWalletFragment : BasePageViewFragment() {
     val dialogDismissed by manageWalletSharedViewModel.dialogDismissed
     LaunchedEffect(key1 = dialogDismissed) { viewModel.getWallets() }
     Scaffold(
-        topBar = {
-          Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
-        },
-        containerColor = styleguide_blue,
+      topBar = {
+        Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
+      },
+      containerColor = styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is Success -> {
           ManageWalletContent(padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets)
         }
+
         WalletChanged -> {
           Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
-              .show()
+            .show()
         }
+
         WalletCreated -> {
           Toast.makeText(context, R.string.intro_wallet_created_short, Toast.LENGTH_SHORT).show()
         }
+
         Loading ->
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = CenterVertically,
-                horizontalArrangement = Arrangement.Center) {
-                  CircularProgressIndicator()
-                }
+          Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = Arrangement.Center
+          ) {
+            CircularProgressIndicator()
+          }
+
         WalletDeleted -> viewModel.updateWallets()
         else -> {}
       }
@@ -151,9 +157,9 @@ class ManageWalletFragment : BasePageViewFragment() {
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   internal fun ManageWalletContent(
-      padding: PaddingValues,
-      walletInfo: WalletInfo,
-      inactiveWallets: List<WalletInfoSimple>
+    padding: PaddingValues,
+    walletInfo: WalletInfo,
+    inactiveWallets: List<WalletInfoSimple>
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
       item { ScreenHeader(inactiveWallets.size) }
@@ -161,17 +167,20 @@ class ManageWalletFragment : BasePageViewFragment() {
 
       items(inactiveWallets) { wallet ->
         Card(
-            colors = CardDefaults.cardColors(styleguide_blue_secondary),
-            modifier = Modifier.padding(bottom = 16.dp).padding(horizontal = 16.dp),
-            onClick = {
-              myWalletsNavigator.navigateToChangeActiveWalletBottomSheet(
-                  wallet.walletAddress,
-                  wallet.walletName,
-                  wallet.balance.amount.toString(),
-                  wallet.balance.symbol)
-            }) {
-              InactiveWalletCard(wallet)
-            }
+          colors = CardDefaults.cardColors(styleguide_blue_secondary),
+          modifier = Modifier
+            .padding(bottom = 16.dp)
+            .padding(horizontal = 16.dp),
+          onClick = {
+            myWalletsNavigator.navigateToChangeActiveWalletBottomSheet(
+              wallet.walletAddress,
+              wallet.walletName,
+              wallet.balance.amount.toString(),
+              wallet.balance.symbol
+            )
+          }) {
+          InactiveWalletCard(wallet)
+        }
       }
     }
   }
@@ -181,27 +190,31 @@ class ManageWalletFragment : BasePageViewFragment() {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
       ActiveWalletIndicator()
       Card(
-          colors = CardDefaults.cardColors(styleguide_blue_secondary),
-          border = BorderStroke(1.dp, styleguide_pink),
-          shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)) {
-            Column(
-                modifier =
-                    Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)) {
-                  BalanceBottomSheet(walletInfo)
-                  ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
-                  Spacer(modifier = Modifier.height(24.dp))
-                  BackupAlertCard(
-                      onClickButton = {
-                        myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
-                      },
-                      hasBackup = walletInfo.hasBackup,
-                      backupDate = walletInfo.backupDate)
-                  Separator()
-                  VerifyWalletAlertCard(
-                      onClickButton = { myWalletsNavigator.navigateToVerifyPicker() },
-                      verified = walletInfo.verified)
-                }
-          }
+        colors = CardDefaults.cardColors(styleguide_blue_secondary),
+        border = BorderStroke(1.dp, styleguide_pink),
+        shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)
+      ) {
+        Column(
+          modifier =
+          Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+        ) {
+          BalanceBottomSheet(walletInfo)
+          ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
+          Spacer(modifier = Modifier.height(24.dp))
+          BackupAlertCard(
+            onClickButton = {
+              myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+            },
+            hasBackup = walletInfo.hasBackup,
+            backupDate = walletInfo.backupDate
+          )
+          Separator()
+          VerifyWalletAlertCard(
+            onClickButton = { myWalletsNavigator.navigateToVerifyPicker() },
+            verified = walletInfo.verified
+          )
+        }
+      }
     }
   }
 
@@ -209,72 +222,81 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun ActiveWalletIndicator() {
     Surface(color = styleguide_pink, shape = RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp)) {
       Text(
-          modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-          text = stringResource(R.string.wallets_active_wallet_title),
-          color = styleguide_blue,
-          style = MaterialTheme.typography.bodySmall)
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        text = stringResource(R.string.wallets_active_wallet_title),
+        color = styleguide_blue,
+        style = MaterialTheme.typography.bodySmall
+      )
     }
   }
 
   @Composable
   fun Separator() {
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp).height(1.dp),
-        color = styleguide_blue,
-        content = {})
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 24.dp)
+        .height(1.dp),
+      color = styleguide_blue,
+      content = {})
   }
 
   @Composable
   fun ActiveWalletOptions(wallet: String, walletName: String) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween) {
-          Column {
-            Text(
-                text = stringResource(R.string.transfer_send_recipient_title),
-                style = MaterialTheme.typography.bodySmall,
-                color = WalletColors.styleguide_dark_grey)
-            Text(
-                text = wallet.masked(),
-                style = MaterialTheme.typography.bodySmall,
-                color = styleguide_light_grey)
-          }
-          Row {
-            VectorIconButton(
-                imageVector = Icons.Default.Edit,
-                contentDescription = R.string.action_edit,
-                onClick = {
-                  myWalletsNavigator.navigateToManageWalletNameBottomSheet(wallet, walletName)
-                })
-            VectorIconButton(
-                painter = painterResource(R.drawable.ic_qrcode),
-                contentDescription = R.string.scan_qr,
-                onClick = {
-                  myWalletsNavigator.navigateToReceive(
-                      navController(), TransferDestinations.RECEIVE)
-                })
-            VectorIconButton(
-                imageVector = Icons.Default.Share,
-                contentDescription = R.string.wallet_view_share_button,
-                onClick = { shareAddress(wallet) })
-            VectorIconButton(
-                painter = painterResource(R.drawable.ic_copy_to_clip),
-                contentDescription = R.string.wallet_view_copy_button,
-                onClick = { copyAddressToClipBoard(wallet) })
-          }
-        }
+      modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = CenterVertically,
+      horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+      Column {
+        Text(
+          text = stringResource(R.string.transfer_send_recipient_title),
+          style = MaterialTheme.typography.bodySmall,
+          color = WalletColors.styleguide_dark_grey
+        )
+        Text(
+          text = wallet.masked(),
+          style = MaterialTheme.typography.bodySmall,
+          color = styleguide_light_grey
+        )
+      }
+      Row {
+        VectorIconButton(
+          imageVector = Icons.Default.Edit,
+          contentDescription = R.string.action_edit,
+          onClick = {
+            myWalletsNavigator.navigateToManageWalletNameBottomSheet(wallet, walletName)
+          })
+        VectorIconButton(
+          painter = painterResource(R.drawable.ic_qrcode),
+          contentDescription = R.string.scan_qr,
+          onClick = {
+            myWalletsNavigator.navigateToReceive(
+              navController(), TransferDestinations.RECEIVE
+            )
+          })
+        VectorIconButton(
+          imageVector = Icons.Default.Share,
+          contentDescription = R.string.wallet_view_share_button,
+          onClick = { shareAddress(wallet) })
+        VectorIconButton(
+          painter = painterResource(R.drawable.ic_copy_to_clip),
+          contentDescription = R.string.wallet_view_copy_button,
+          onClick = { copyAddressToClipBoard(wallet) })
+      }
+    }
   }
 
   @Composable
   fun ScreenHeader(inactiveWalletsQuantity: Int) {
     Row(
-        horizontalArrangement = SpaceBetween,
-        verticalAlignment = CenterVertically,
-        modifier = Modifier.fillMaxWidth()) {
-          ScreenTitle(stringResource(R.string.manage_wallet_button))
-          ManagementOptionsBottomSheet(inactiveWalletsQuantity)
-        }
+      horizontalArrangement = SpaceBetween,
+      verticalAlignment = CenterVertically,
+      modifier = Modifier.fillMaxWidth()
+    ) {
+      ScreenTitle(stringResource(R.string.manage_wallet_button))
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
+    }
   }
 
   @Composable
@@ -293,17 +315,21 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
 
     Row(
-        horizontalArrangement = Arrangement.End,
-        modifier = Modifier.padding(end = 16.dp).fillMaxSize()) {
-          VectorIconButton(
-              imageVector = Icons.Default.MoreVert,
-              contentDescription = R.string.action_more_details,
-              onClick = {
-                myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
-              },
-              paddingIcon = 4.dp,
-              background = styleguide_blue_secondary)
-        }
+      horizontalArrangement = Arrangement.End,
+      modifier = Modifier
+        .padding(end = 16.dp)
+        .fillMaxSize()
+    ) {
+      VectorIconButton(
+        imageVector = Icons.Default.MoreVert,
+        contentDescription = R.string.action_more_details,
+        onClick = {
+          myWalletsNavigator.navigateToManageWalletBottomSheet(inactiveWalletsQuantity == 0)
+        },
+        paddingIcon = 4.dp,
+        background = styleguide_blue_secondary
+      )
+    }
   }
 
   @Composable
@@ -311,77 +337,84 @@ class ManageWalletFragment : BasePageViewFragment() {
     val balance = walletInfo.walletBalance
 
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = CenterVertically,
-        modifier = Modifier.fillMaxWidth()) {
-          Text(
-              text = walletInfo.name,
-              modifier = Modifier.fillMaxWidth(0.5f),
-              color = styleguide_light_grey,
-              style = MaterialTheme.typography.bodySmall,
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis,
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = CenterVertically,
+      modifier = Modifier.fillMaxWidth()
+    ) {
+      Text(
+        text = walletInfo.name,
+        modifier = Modifier.fillMaxWidth(0.5f),
+        color = styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+      )
+      TextButton(
+        onClick = {
+          myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(
+            walletInfo.walletBalance
           )
-          TextButton(
-              onClick = {
-                myWalletsNavigator.navigateToManageWalletBalanceBottomSheet(
-                    walletInfo.walletBalance)
-              }) {
-                Text(
-                    text =
-                        balance.creditsOnlyFiat.amount
-                            .toString()
-                            .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = styleguide_light_grey,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis)
-              }
-        }
+        }) {
+        Text(
+          text =
+          balance.creditsOnlyFiat.amount
+            .toString()
+            .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
+          style = MaterialTheme.typography.bodyMedium,
+          color = styleguide_light_grey,
+          fontWeight = FontWeight.Bold,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
+        )
+      }
+    }
   }
 
   @Composable
   fun InactiveWalletCard(walletBalance: WalletInfoSimple) {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = CenterVertically,
-        modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp, horizontal = 16.dp)) {
-          Text(
-              text = walletBalance.walletName,
-              modifier = Modifier.fillMaxWidth(0.5f),
-              color = WalletColors.styleguide_dark_grey,
-              style = MaterialTheme.typography.bodySmall,
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis,
-          )
-          Text(
-              text =
-                  walletBalance.balance.amount
-                      .toString()
-                      .formatMoney(walletBalance.balance.symbol, "") ?: "",
-              style = MaterialTheme.typography.bodyMedium,
-              color = WalletColors.styleguide_dark_grey,
-              fontWeight = FontWeight.Bold,
-              maxLines = 1,
-              overflow = TextOverflow.Ellipsis)
-        }
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = CenterVertically,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 24.dp, horizontal = 16.dp)
+    ) {
+      Text(
+        text = walletBalance.walletName,
+        modifier = Modifier.fillMaxWidth(0.5f),
+        color = WalletColors.styleguide_dark_grey,
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+      )
+      Text(
+        text =
+        walletBalance.balance.amount
+          .toString()
+          .formatMoney(walletBalance.balance.symbol, "") ?: "",
+        style = MaterialTheme.typography.bodyMedium,
+        color = WalletColors.styleguide_dark_grey,
+        fontWeight = FontWeight.Bold,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
+      )
+    }
   }
 
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =
-        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+      requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(ADDRESS_KEY, address)
     clipboard.setPrimaryClip(clip)
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
   private fun shareAddress(walletAddress: String) =
-      ShareCompat.IntentBuilder(requireActivity())
-          .setText(walletAddress)
-          .setType("text/plain")
-          .setChooserTitle(resources.getString(R.string.share_via))
-          .startChooser()
+    ShareCompat.IntentBuilder(requireActivity())
+      .setText(walletAddress)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via))
+      .startChooser()
 
   @Preview
   @Composable
@@ -395,15 +428,17 @@ class ManageWalletFragment : BasePageViewFragment() {
     val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
     val tokenBalance = TokenBalance(TokenValue(BigDecimal.TEN, "EUR"), fiatValue)
     BalanceBottomSheet(
-        walletInfo =
-            WalletInfo(
-                "a24863cb-e586-472f-9e8a-622834c20c52",
-                "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-                WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
-                blocked = false,
-                verified = true,
-                logging = false,
-                backupDate = 987654L))
+      walletInfo =
+      WalletInfo(
+        "a24863cb-e586-472f-9e8a-622834c20c52",
+        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+        blocked = false,
+        verified = true,
+        logging = false,
+        backupDate = 987654L
+      )
+    )
   }
 
   @Preview
@@ -411,14 +446,16 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun PreviewInactiveWallet() {
     val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
     InactiveWalletCard(
-        WalletInfoSimple(
-            walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
-            walletAddress =
-                "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-            balance = fiatValue,
-            isActiveWallet = true,
-            backupDate = 987654L,
-            backupWalletActive = false))
+      WalletInfoSimple(
+        walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
+        walletAddress =
+        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+        balance = fiatValue,
+        isActiveWallet = true,
+        backupDate = 987654L,
+        backupWalletActive = false
+      )
+    )
   }
 
   companion object {
@@ -428,8 +465,8 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   private fun navController(): NavController {
     val navHostFragment =
-        requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
-            as NavHostFragment
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
     return navHostFragment.navController
   }
 }

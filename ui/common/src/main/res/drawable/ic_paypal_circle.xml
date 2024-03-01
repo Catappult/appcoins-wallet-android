@@ -41,8 +41,8 @@
   </group>
   <path
       android:fillColor="#00000000"
-      android:strokeWidth="3"
       android:pathData="M56,56m-54.5,0a54.5,54.5 0,1 1,109 0a54.5,54.5 0,1 1,-109 0"
+      android:strokeWidth="3"
       android:strokeColor="#ff6381" />
   <path
       android:fillColor="#ff6381"

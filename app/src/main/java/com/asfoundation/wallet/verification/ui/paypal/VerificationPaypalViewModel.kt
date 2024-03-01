@@ -21,27 +21,27 @@ import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseC
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class VerificationPaypalIntroState(
-    val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
-    val verificationSubmitAsync: Async<Unit> = Async.Uninitialized
+  val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
+  val verificationSubmitAsync: Async<Unit> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
 class VerificationPaypalViewModel
 @Inject
 constructor(
-    private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
-    private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
-    private val setCachedVerificationUseCase: SetCachedVerificationUseCase,
-    private val displayChatUseCase: DisplayChatUseCase,
-    private val walletVerificationInteractor: WalletVerificationInteractor,
-    private val walletService: WalletService,
+  private val getVerificationInfoUseCase: GetVerificationInfoUseCase,
+  private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
+  private val setCachedVerificationUseCase: SetCachedVerificationUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
+  private val walletVerificationInteractor: WalletVerificationInteractor,
+  private val walletService: WalletService,
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<VerificationPaypalState>(VerificationPaypalState.Idle)
@@ -53,49 +53,50 @@ constructor(
 
   fun fetchVerificationStatus() {
     walletService
-        .getAndSignCurrentWalletAddress()
-        .flatMap {
-          walletVerificationInteractor.getVerificationStatus(it.address, it.signedAddress)
+      .getAndSignCurrentWalletAddress()
+      .flatMap {
+        walletVerificationInteractor.getVerificationStatus(it.address, it.signedAddress)
+      }
+      .doOnSuccess { verificationStatus ->
+        when (verificationStatus) {
+          CODE_REQUESTED,
+          VERIFYING -> _uiState.value = VerificationPaypalState.RequestVerificationCode()
+
+          NO_NETWORK -> _uiState.value = VerificationPaypalState.UnknownError
+          else -> fetchVerificationInfo()
         }
-        .doOnSuccess { verificationStatus ->
-          when (verificationStatus) {
-            CODE_REQUESTED,
-            VERIFYING -> _uiState.value = VerificationPaypalState.RequestVerificationCode()
-            NO_NETWORK -> _uiState.value = VerificationPaypalState.UnknownError
-            else -> fetchVerificationInfo()
-          }
-        }
-        .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
-        .subscribeOn(Schedulers.io())
-        .subscribe()
+      }
+      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+      .subscribeOn(Schedulers.io())
+      .subscribe()
   }
 
   fun fetchVerificationInfo() {
     getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL)
-        .doOnSuccess { _uiState.value = VerificationPaypalState.ShowVerificationInfo(it) }
-        .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
-        .subscribe()
+      .doOnSuccess { _uiState.value = VerificationPaypalState.ShowVerificationInfo(it) }
+      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+      .subscribe()
   }
 
   fun launchVerificationPayment(data: VerificationPaypalData, paymentMethod: ModelObject?) {
     if (paymentMethod != null) {
       makeVerificationPaymentUseCase(VerificationType.PAYPAL, paymentMethod, false, data.returnUrl)
-          .subscribeOn(Schedulers.io())
-          .doOnSuccess { model ->
-            val redirectUrl = model.redirectUrl
-            if (redirectUrl != null) {
-              _uiState.value = VerificationPaypalState.OpenWebPayPalPaymentRequest(redirectUrl)
-            }
+        .subscribeOn(Schedulers.io())
+        .doOnSuccess { model ->
+          val redirectUrl = model.redirectUrl
+          if (redirectUrl != null) {
+            _uiState.value = VerificationPaypalState.OpenWebPayPalPaymentRequest(redirectUrl)
           }
-          .subscribe()
+        }
+        .subscribe()
     }
   }
 
   fun successPayment() {
     setCachedVerificationUseCase(VERIFYING)
-        .doOnComplete { _uiState.value = VerificationPaypalState.RequestVerificationCode() }
-        .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
-        .subscribe()
+      .doOnComplete { _uiState.value = VerificationPaypalState.RequestVerificationCode() }
+      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+      .subscribe()
   }
 
   fun failPayment() {
@@ -111,42 +112,47 @@ constructor(
   }
 
   fun verifyCode(code: String) =
-      walletVerificationInteractor
-          .confirmVerificationCode(code)
-          .subscribeOn(Schedulers.io())
-          .doOnSubscribe {
-            _uiState.value = VerificationPaypalState.RequestVerificationCode(loading = true)
-          }
-          .subscribe(
-              {
-                if (it.success) _uiState.value = VerificationPaypalState.VerificationCompleted
-                else
-                    _uiState.value =
-                        when (it.errorType) {
-                          WRONG_CODE ->
-                              VerificationPaypalState.RequestVerificationCode(wrongCode = true)
-                          else -> VerificationPaypalState.UnknownError
-                        }
-              },
-              { _uiState.value = VerificationPaypalState.Error(it) })
+    walletVerificationInteractor
+      .confirmVerificationCode(code)
+      .subscribeOn(Schedulers.io())
+      .doOnSubscribe {
+        _uiState.value = VerificationPaypalState.RequestVerificationCode(loading = true)
+      }
+      .subscribe(
+        {
+          if (it.success) _uiState.value = VerificationPaypalState.VerificationCompleted
+          else
+            _uiState.value =
+              when (it.errorType) {
+                WRONG_CODE ->
+                  VerificationPaypalState.RequestVerificationCode(wrongCode = true)
+
+                else -> VerificationPaypalState.UnknownError
+              }
+        },
+        { _uiState.value = VerificationPaypalState.Error(it) })
 
   fun resendCode() {
     viewModelScope.launch {
       _uiState.value =
-          VerificationPaypalState.RequestVerificationCode(
-              resendCodeStatus = ResendCodeStatus.Resending)
+        VerificationPaypalState.RequestVerificationCode(
+          resendCodeStatus = ResendCodeStatus.Resending
+        )
       delay(2000)
       _uiState.value =
-          VerificationPaypalState.RequestVerificationCode(
-              resendCodeStatus = ResendCodeStatus.Resent)
+        VerificationPaypalState.RequestVerificationCode(
+          resendCodeStatus = ResendCodeStatus.Resent
+        )
       delay(2000)
       _uiState.value =
-          VerificationPaypalState.RequestVerificationCode(
-              resendCodeStatus = ResendCodeStatus.UnavailableToResend)
+        VerificationPaypalState.RequestVerificationCode(
+          resendCodeStatus = ResendCodeStatus.UnavailableToResend
+        )
       delay(60000)
       _uiState.value =
-          VerificationPaypalState.RequestVerificationCode(
-              resendCodeStatus = ResendCodeStatus.AvailableToResend)
+        VerificationPaypalState.RequestVerificationCode(
+          resendCodeStatus = ResendCodeStatus.AvailableToResend
+        )
     }
   }
 
@@ -160,9 +166,9 @@ constructor(
     object UnknownError : VerificationPaypalState()
 
     data class RequestVerificationCode(
-        val wrongCode: Boolean = false,
-        val loading: Boolean = false,
-        val resendCodeStatus: ResendCodeStatus = ResendCodeStatus.AvailableToResend
+      val wrongCode: Boolean = false,
+      val loading: Boolean = false,
+      val resendCodeStatus: ResendCodeStatus = ResendCodeStatus.AvailableToResend
     ) : VerificationPaypalState()
 
     data class Error(val error: Throwable) : VerificationPaypalState()
@@ -170,7 +176,7 @@ constructor(
     data class OpenWebPayPalPaymentRequest(val url: String) : VerificationPaypalState()
 
     data class ShowVerificationInfo(val verificationInfo: VerificationIntroModel) :
-        VerificationPaypalState()
+      VerificationPaypalState()
   }
 
   enum class ResendCodeStatus {

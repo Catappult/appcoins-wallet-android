@@ -27,57 +27,70 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 @Composable
 fun GenericError(message: String, onSupportClick: () -> Unit, onTryAgain: () -> Unit) {
   Column(
-      modifier = Modifier.fillMaxWidth().padding(24.dp),
-      horizontalAlignment = CenterHorizontally,
-      verticalArrangement = Arrangement.Center) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_error_pink),
-            contentDescription = null,
-            modifier = Modifier.size(72.dp).padding(bottom = 16.dp))
-        Text(
-            text = stringResource(id = R.string.error_general),
-            color = WalletColors.styleguide_white,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-        )
-        Text(
-            text = message,
-            color = WalletColors.styleguide_white,
-            fontSize = 14.sp,
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp).padding(horizontal = 16.dp),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium)
-        Text(
-            text = stringResource(id = R.string.error_contac_us_body),
-            color = WalletColors.styleguide_medium_grey,
-            fontSize = 14.sp,
-            modifier = Modifier.padding(top = 48.dp),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium)
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(24.dp),
+    horizontalAlignment = CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+  ) {
+    Image(
+      painter = painterResource(id = R.drawable.ic_error_pink),
+      contentDescription = null,
+      modifier = Modifier
+        .size(72.dp)
+        .padding(bottom = 16.dp)
+    )
+    Text(
+      text = stringResource(id = R.string.error_general),
+      color = WalletColors.styleguide_white,
+      fontSize = 16.sp,
+      fontWeight = FontWeight.Bold,
+    )
+    Text(
+      text = message,
+      color = WalletColors.styleguide_white,
+      fontSize = 14.sp,
+      modifier = Modifier
+        .padding(top = 8.dp, bottom = 16.dp)
+        .padding(horizontal = 16.dp),
+      textAlign = TextAlign.Center,
+      fontWeight = FontWeight.Medium
+    )
+    Text(
+      text = stringResource(id = R.string.error_contac_us_body),
+      color = WalletColors.styleguide_medium_grey,
+      fontSize = 14.sp,
+      modifier = Modifier.padding(top = 48.dp),
+      textAlign = TextAlign.Center,
+      fontWeight = FontWeight.Medium
+    )
 
-        SupportButton(onSupportClick = onSupportClick)
+    SupportButton(onSupportClick = onSupportClick)
 
-        ButtonWithText(
-            modifier = Modifier.padding(top = 40.dp),
-            label = stringResource(R.string.try_again),
-            onClick = onTryAgain,
-            labelColor = WalletColors.styleguide_white,
-            backgroundColor = WalletColors.styleguide_pink,
-            buttonType = ButtonType.LARGE)
-      }
+    ButtonWithText(
+      modifier = Modifier.padding(top = 40.dp),
+      label = stringResource(R.string.try_again),
+      onClick = onTryAgain,
+      labelColor = WalletColors.styleguide_white,
+      backgroundColor = WalletColors.styleguide_pink,
+      buttonType = ButtonType.LARGE
+    )
+  }
 }
 
 @Composable
 fun SupportButton(onSupportClick: () -> Unit) {
   Button(
-      onClick = onSupportClick,
-      colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)) {
-        Image(
-            painterResource(id = R.drawable.ic_logo_appc_support_light),
-            contentDescription = null,
-            modifier = Modifier.padding(end = 8.dp))
-        Image(painterResource(id = R.drawable.ic_open_in_24), contentDescription = null)
-      }
+    onClick = onSupportClick,
+    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+  ) {
+    Image(
+      painterResource(id = R.drawable.ic_logo_appc_support_light),
+      contentDescription = null,
+      modifier = Modifier.padding(end = 8.dp)
+    )
+    Image(painterResource(id = R.drawable.ic_open_in_24), contentDescription = null)
+  }
 }
 
 @Preview

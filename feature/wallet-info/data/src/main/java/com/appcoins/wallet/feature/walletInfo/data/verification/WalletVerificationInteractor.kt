@@ -11,8 +11,8 @@ import javax.inject.Inject
 class WalletVerificationInteractor
 @Inject
 constructor(
-    private val brokerVerificationRepository: BrokerVerificationRepository,
-    private val walletService: WalletService
+  private val brokerVerificationRepository: BrokerVerificationRepository,
+  private val walletService: WalletService
 ) {
 
   enum class VerificationType {
@@ -39,35 +39,39 @@ constructor(
   }
 
   fun makeVerificationPayment(
-      verificationType: VerificationType,
-      adyenPaymentMethod: ModelObject,
-      shouldStoreMethod: Boolean,
-      returnUrl: String
+    verificationType: VerificationType,
+    adyenPaymentMethod: ModelObject,
+    shouldStoreMethod: Boolean,
+    returnUrl: String
   ): Single<VerificationPaymentModel> {
     return walletService.getAndSignCurrentWalletAddress().flatMap { addressModel ->
       when (verificationType) {
         VerificationType.PAYPAL -> {
           brokerVerificationRepository.makePaypalVerificationPayment(
+            adyenPaymentMethod,
+            shouldStoreMethod,
+            returnUrl,
+            addressModel.address,
+            addressModel.signedAddress
+          )
+        }
+
+        VerificationType.CREDIT_CARD -> {
+          brokerVerificationRepository
+            .makeCreditCardVerificationPayment(
               adyenPaymentMethod,
               shouldStoreMethod,
               returnUrl,
               addressModel.address,
-              addressModel.signedAddress)
-        }
-        VerificationType.CREDIT_CARD -> {
-          brokerVerificationRepository
-              .makeCreditCardVerificationPayment(
-                  adyenPaymentMethod,
-                  shouldStoreMethod,
-                  returnUrl,
-                  addressModel.address,
-                  addressModel.signedAddress)
-              .doOnSuccess { paymentModel ->
-                if (paymentModel.success) {
-                  brokerVerificationRepository.saveVerificationStatus(
-                      addressModel.address, VerificationStatus.CODE_REQUESTED)
-                }
+              addressModel.signedAddress
+            )
+            .doOnSuccess { paymentModel ->
+              if (paymentModel.success) {
+                brokerVerificationRepository.saveVerificationStatus(
+                  addressModel.address, VerificationStatus.CODE_REQUESTED
+                )
               }
+            }
         }
       }
     }
@@ -76,13 +80,14 @@ constructor(
   fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress().flatMap { addressModel ->
       brokerVerificationRepository
-          .validateCode(code, addressModel.address, addressModel.signedAddress)
-          .doOnSuccess { result ->
-            if (result.success) {
-              brokerVerificationRepository.saveVerificationStatus(
-                  addressModel.address, VerificationStatus.VERIFIED)
-            }
+        .validateCode(code, addressModel.address, addressModel.signedAddress)
+        .doOnSuccess { result ->
+          if (result.success) {
+            brokerVerificationRepository.saveVerificationStatus(
+              addressModel.address, VerificationStatus.VERIFIED
+            )
           }
+        }
     }
   }
 }
