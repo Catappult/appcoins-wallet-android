@@ -10,10 +10,12 @@ import com.asfoundation.wallet.recover.RecoverActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class ManageWalletBottomSheetNavigator @Inject constructor(
-  val fragment: Fragment,
-  val fragmentManager: FragmentManager,
-  private val navController: NavController
+class ManageWalletBottomSheetNavigator
+@Inject
+constructor(
+    val fragment: Fragment,
+    val fragmentManager: FragmentManager,
+    private val navController: NavController
 ) : Navigator {
 
   fun navigateBack() {
@@ -30,14 +32,12 @@ class ManageWalletBottomSheetNavigator @Inject constructor(
   }
 
   fun navigateToRecoverWallet() {
-    val intent = RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false)
-      .apply {
-        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }
+    val intent =
+        RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false).apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
     openIntent(intent)
   }
 
-  private fun openIntent(intent: Intent) = fragment.requireContext()
-    .startActivity(intent)
-
+  private fun openIntent(intent: Intent) = fragment.requireContext().startActivity(intent)
 }
