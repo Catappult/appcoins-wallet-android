@@ -21,15 +21,15 @@
 
     <ImageView
         android:id="@+id/app_icon"
-        android:src="@drawable/ic_appc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/big_margin"
-        app:layout_constraintVertical_chainStyle="packed"
+        android:src="@drawable/ic_appc"
         app:layout_constraintBottom_toTopOf="@id/onboarding_title"
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         />
     <TextView
         android:id="@+id/onboarding_title"
@@ -37,13 +37,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
-        android:layout_marginBottom="@dimen/small_margin"
         android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/small_margin"
         android:text="@string/refer_a_friend_first_time_header"
-        app:layout_constraintStart_toStartOf="@id/app_icon"
-        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
-        app:layout_constraintTop_toBottomOf="@+id/app_icon"
         app:layout_constraintBottom_toTopOf="@+id/onboarding_text"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintStart_toStartOf="@id/app_icon"
+        app:layout_constraintTop_toBottomOf="@+id/app_icon"
         />
 
     <TextView
@@ -51,13 +51,13 @@
         style="@style/eSkills.Onboarding.Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center"
         android:text="@string/refer_a_friend_first_time_body"
-        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/onboarding_title"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
         />
 
     <androidx.constraintlayout.widget.Guideline

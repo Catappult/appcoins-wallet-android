@@ -33,9 +33,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
 @TargetApi(23) public class KS {
-  private static final String TAG = "KS";
-
   public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
+  private static final String TAG = "KS";
   private static final String BLOCK_MODE = KeyProperties.BLOCK_MODE_CBC;
   private static final String PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7;
   private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS7Padding";

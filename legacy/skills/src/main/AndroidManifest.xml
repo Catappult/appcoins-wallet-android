@@ -8,8 +8,8 @@
     <activity
         android:name="cm.aptoide.skills.SkillsActivity"
         android:exported="true"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills"
-        android:label="">
+        android:label=""
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills">
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -17,8 +17,8 @@
     </activity>
     <service
         android:name="cm.aptoide.skills.games.BackgroundGameService"
-        android:foregroundServiceType="dataSync"
-        android:exported="false" />
+        android:exported="false"
+        android:foregroundServiceType="dataSync" />
   </application>
 
 </manifest>

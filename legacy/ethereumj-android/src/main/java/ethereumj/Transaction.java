@@ -26,13 +26,6 @@ public class Transaction {
 
   public static final int HASH_LENGTH = 32;
   public static final int ADDRESS_LENGTH = 20;
-  private static final Logger logger = Logger.getLogger(Transaction.class.getName());
-  private static final BigInteger DEFAULT_GAS_PRICE = new BigInteger("10000000000000");
-  private static final BigInteger DEFAULT_BALANCE_GAS = new BigInteger("21000");
-  private static final int CHAIN_ID_INC = 35;
-  private static final int LOWER_REAL_V = 27;
-  protected byte[] sendAddress;
-  protected byte[] rlpEncoded;
   public static final MemSizeEstimator<Transaction> MemEstimator =
       tx -> ByteArrayEstimator.estimateSize(tx.hash)
           + ByteArrayEstimator.estimateSize(tx.nonce)
@@ -46,6 +39,13 @@ public class Transaction {
           + (tx.chainId != null ? 24 : 0)
           + (tx.signature != null ? 208 : 0)
           + 16;
+  private static final Logger logger = Logger.getLogger(Transaction.class.getName());
+  private static final BigInteger DEFAULT_GAS_PRICE = new BigInteger("10000000000000");
+  private static final BigInteger DEFAULT_BALANCE_GAS = new BigInteger("21000");
+  private static final int CHAIN_ID_INC = 35;
+  private static final int LOWER_REAL_V = 27;
+  protected byte[] sendAddress;
+  protected byte[] rlpEncoded;
   protected boolean parsed;
   private byte[] hash;
   private byte[] nonce;
@@ -57,6 +57,7 @@ public class Transaction {
   private Integer chainId;
   private ECDSASignature signature;
   private byte[] rlpRaw;
+  private byte[] rawHash;
 
   public Transaction(byte[] rawData) {
     this.rlpEncoded = rawData;
@@ -95,7 +96,10 @@ public class Transaction {
     this.signature = ECDSASignature.fromComponents(r, s, v);
   }
 
-  private byte[] rawHash;
+  public Transaction(byte[] nonce, byte[] gasPrice, byte[] gasLimit, byte[] receiveAddress,
+      byte[] value, byte[] data, byte[] r, byte[] s, byte v) {
+    this(nonce, gasPrice, gasLimit, receiveAddress, value, data, r, s, v, null);
+  }
 
   public static Transaction createDefault(String to, BigInteger amount, BigInteger nonce) {
     return create(to, amount, nonce, DEFAULT_GAS_PRICE, DEFAULT_BALANCE_GAS);
@@ -229,11 +233,6 @@ public class Transaction {
     rlpParse();
     byte[] plainMsg = this.getEncoded();
     return HashUtil.sha3(plainMsg);
-  }
-
-  public Transaction(byte[] nonce, byte[] gasPrice, byte[] gasLimit, byte[] receiveAddress,
-      byte[] value, byte[] data, byte[] r, byte[] s, byte v) {
-    this(nonce, gasPrice, gasLimit, receiveAddress, value, data, r, s, v, null);
   }
 
   public byte[] getNonce() {
