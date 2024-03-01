@@ -24,7 +24,7 @@ abstract class EmptyTransactionsModel :
     const val SCROLL_PERIOD: Long = 4000
   }
 
-  var currentPage = 0;
+  var currentPage = 0
 
   @EpoxyAttribute
   var bonus: Double = 0.0
@@ -65,8 +65,8 @@ abstract class EmptyTransactionsModel :
   private fun autoScroll(holder: EmptyTransactionsHolder, data: List<EmptyItem>) {
     val handler = Handler(Looper.getMainLooper())
     val update = Runnable {
-      currentPage = (currentPage + 1) % data.size;
-      holder.viewPager.setCurrentItem(currentPage, true);
+      currentPage = (currentPage + 1) % data.size
+      holder.viewPager.setCurrentItem(currentPage, true)
     }
     Timer().schedule(object : TimerTask() {
       override fun run() {

@@ -65,7 +65,7 @@ class InitilizeDataAnalytics @Inject constructor(
   }
 
   fun initializeIndicative(): Completable {
-    Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY);
+    Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY)
     return Single.just(idsRepository.getAndroidId())
       .flatMap { deviceId: String ->
         Single.zip(

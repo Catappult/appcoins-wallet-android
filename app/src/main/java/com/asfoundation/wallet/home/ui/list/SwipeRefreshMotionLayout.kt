@@ -51,7 +51,7 @@ class SwipeRefreshMotionLayout @JvmOverloads constructor(
     val canScrollVertically = recyclerView.canScrollVertically(-1)
     if (dy < 0 && canScrollVertically) {
       // don't start motionLayout transition
-      return;
+      return
     }
 
     super.onNestedPreScroll(target, dx, dy, consumed, type)

@@ -176,7 +176,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     fragmentContainer = container!!
     return FragmentTopUpBinding.inflate(inflater).root
   }
@@ -456,20 +456,20 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showMaxValueWarning(value: String) {
-    binding.valueWarningText?.text = getString(R.string.topup_maximum_value, value)
+    binding.valueWarningText.text = getString(R.string.topup_maximum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText?.visibility = View.VISIBLE
+    binding.valueWarningText.visibility = View.VISIBLE
   }
 
   override fun showMinValueWarning(value: String) {
-    binding.valueWarningText?.text = getString(R.string.topup_minimum_value, value)
+    binding.valueWarningText.text = getString(R.string.topup_minimum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText?.visibility = View.VISIBLE
+    binding.valueWarningText.visibility = View.VISIBLE
   }
 
   override fun hideValueInputWarning() {
     binding.valueWarningIcon.visibility = View.INVISIBLE
-    binding.valueWarningText?.visibility = View.INVISIBLE
+    binding.valueWarningText.visibility = View.INVISIBLE
   }
 
   override fun changeMainValueColor(isValid: Boolean) {

@@ -99,7 +99,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
-    views.onboardingRecoverGuestButton?.setOnClickListener {
+    views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverGuestWalletClick(
         args.backup
       )

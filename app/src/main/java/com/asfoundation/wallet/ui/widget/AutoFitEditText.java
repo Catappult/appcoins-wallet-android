@@ -19,6 +19,7 @@ public class AutoFitEditText extends AppCompatEditText {
   private final RectF _availableSpaceRect = new RectF();
   private final SparseIntArray _textCachedSizes = new SparseIntArray();
   private final SizeTester _sizeTester;
+  private final boolean _initialized;
   private float _maxTextSize;
   private float _spacingMult = 1.0f;
   private float _spacingAdd = 0.0f;
@@ -26,7 +27,6 @@ public class AutoFitEditText extends AppCompatEditText {
   private int _widthLimit;
   private int _maxLines;
   private boolean _enableSizeCache = true;
-  private final boolean _initialized;
   private TextPaint paint;
 
   public AutoFitEditText(final Context context) {
@@ -140,24 +140,6 @@ public class AutoFitEditText extends AppCompatEditText {
         efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
   }
 
-  private interface SizeTester {
-    /**
-     * AutoFitEditText
-     *
-     * @param suggestedSize Size of text to be tested
-     * @param availableSpace available space in which text must fit
-     *
-     * @return an integer < 0 if after applying {@code suggestedSize} to
-     * text, it takes less space than {@code availableSpace}, > 0
-     * otherwise
-     */
-    int onTestSize(int suggestedSize, RectF availableSpace);
-  }  @Override public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
-  }
-
   /**
    * Enables or disables size caching, enabling it will improve performance
    * where you are animating a value inside TextView. This stores the font
@@ -182,6 +164,12 @@ public class AutoFitEditText extends AppCompatEditText {
     size = binarySearch(start, end, sizeTester, availableSpace);
     _textCachedSizes.put(key, size);
     return size;
+  }
+
+  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
   }
 
   private int binarySearch(final int start, final int end, final SizeTester sizeTester,
@@ -215,11 +203,23 @@ public class AutoFitEditText extends AppCompatEditText {
     if (width != oldwidth || height != oldheight) reAdjust();
   }
 
+  private interface SizeTester {
+    /**
+     * AutoFitEditText
+     *
+     * @param suggestedSize Size of text to be tested
+     * @param availableSpace available space in which text must fit
+     *
+     * @return an integer < 0 if after applying {@code suggestedSize} to
+     * text, it takes less space than {@code availableSpace}, > 0
+     * otherwise
+     */
+    int onTestSize(int suggestedSize, RectF availableSpace);
+  }
+
   @Override public int getMaxLines() {
     return _maxLines;
   }
-
-
 
   @Override public void setSingleLine() {
     super.setSingleLine();

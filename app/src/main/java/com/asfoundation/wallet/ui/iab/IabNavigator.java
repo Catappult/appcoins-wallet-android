@@ -10,7 +10,7 @@ public class IabNavigator implements Navigator {
 
   private final UriNavigator uriNavigator;
   private final IabView iabView;
-  private FragmentManager fragmentManager;
+  private final FragmentManager fragmentManager;
 
   public IabNavigator(FragmentManager fragmentManager, UriNavigator uriNavigator, IabView iabView) {
     this.fragmentManager = fragmentManager;

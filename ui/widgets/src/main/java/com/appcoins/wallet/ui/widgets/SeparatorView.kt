@@ -78,7 +78,7 @@ class SeparatorView : View {
       }
     }
 
-    super.onMeasure(widthSpec, heightSpec);
+    super.onMeasure(widthSpec, heightSpec)
   }
 
   enum class Type { SOLID, DASHED }

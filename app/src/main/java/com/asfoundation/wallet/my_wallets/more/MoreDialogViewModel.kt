@@ -17,7 +17,7 @@ sealed class MoreDialogSideEffect : SideEffect {
   object NavigateBack : MoreDialogSideEffect()
 }
 
-data class MoreDialogStateItem constructor(
+data class MoreDialogStateItem(
   val isSelected: Boolean,
   val walletName: String,
   val walletAddress: String,

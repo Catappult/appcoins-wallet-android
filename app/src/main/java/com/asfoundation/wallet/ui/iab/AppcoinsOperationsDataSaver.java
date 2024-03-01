@@ -14,7 +14,7 @@ public class AppcoinsOperationsDataSaver {
   private final AppInfoProvider appInfoProvider;
   private final Scheduler scheduler;
   private final CompositeDisposable disposables;
-  private List<OperationDataSource> operationDataSourceList;
+  private final List<OperationDataSource> operationDataSourceList;
 
   public AppcoinsOperationsDataSaver(List<OperationDataSource> operationDataSourceList,
       Repository<String, AppCoinsOperation> cache, AppInfoProvider appInfoProvider,

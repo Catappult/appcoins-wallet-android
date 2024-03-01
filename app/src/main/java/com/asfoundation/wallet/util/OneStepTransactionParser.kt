@@ -79,7 +79,7 @@ class OneStepTransactionParser @Inject constructor(
     }
   }
 
-  private fun getOriginCurrency(uri: OneStepUri): String? {
+  private fun getOriginCurrency(uri: OneStepUri): String {
     var currency = uri.parameters[Parameters.CURRENCY]
     return when (currency) {
       null -> "APPC"
