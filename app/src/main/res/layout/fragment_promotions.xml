@@ -16,8 +16,8 @@
         android:id="@+id/collapsing_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="?attr/actionBarSize"
         android:background="@color/styleguide_blue"
+        android:minHeight="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
         app:titleEnabled="false"
         >
@@ -38,8 +38,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginVertical="?attr/actionBarSize"
-          android:paddingVertical="@dimen/large_margin"
           android:background="@color/styleguide_blue"
+          android:paddingVertical="@dimen/large_margin"
           android:visibility="gone"
           >
         <com.airbnb.lottie.LottieAnimationView
@@ -47,8 +47,8 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
-            app:lottie_enableMergePathsForKitKatAndAbove="true"
             app:lottie_autoPlay="true"
+            app:lottie_enableMergePathsForKitKatAndAbove="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading_dark_animation"
             />
@@ -58,11 +58,11 @@
           android:id="@+id/promotions_list_title_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:minHeight="28dp"
           android:layout_gravity="bottom"
-          android:paddingTop="@dimen/big_margin"
-          android:paddingHorizontal="@dimen/big_margin"
           android:background="@drawable/background_active_wallet"
+          android:minHeight="28dp"
+          android:paddingHorizontal="@dimen/big_margin"
+          android:paddingTop="@dimen/big_margin"
           app:layout_collapseMode="none"
           >
 

@@ -20,6 +20,7 @@
 
   <TextView
       android:id="@+id/permission_app_name"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:clickable="false"
@@ -29,7 +30,6 @@
       app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
       tools:text="Aptoide"
-      style="@style/Base.TextAppearance.AppCompat.Body1"
       />
 
   <TextView

@@ -37,11 +37,11 @@
 
     <!-- TODO change string to "Fingerprint"-->
     <SwitchPreferenceCompat
-        tools:layout="@layout/preference_fingerprint"
         android:id="@+id/preference_fingerprint"
         android:icon="@drawable/ic_settings_fingerprint"
         android:key="pref_fingerprint"
-        android:title="@string/fingerprint_settings" />
+        android:title="@string/fingerprint_settings"
+        tools:layout="@layout/preference_fingerprint" />
 
     <Preference
         android:icon="@drawable/ic_updates"

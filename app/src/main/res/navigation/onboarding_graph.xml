@@ -12,8 +12,8 @@
 
     <argument
         android:name="backup"
-        app:argType="string"
-        android:defaultValue="" />
+        android:defaultValue=""
+        app:argType="string" />
 
     <action
         android:id="@+id/action_navigate_to_recover_wallet_graph"

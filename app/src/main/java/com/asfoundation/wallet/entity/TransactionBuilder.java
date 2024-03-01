@@ -183,6 +183,10 @@ public class TransactionBuilder implements Parcelable {
         "inapp", null, "", "", "", "", null, null);
   }
 
+  public static BigDecimal convertAppcToUsd(BigDecimal amount) {
+    return amount.divide(new BigDecimal(100), RoundingMode.HALF_UP);
+  }
+
   public String getIabContract() {
     return iabContract;
   }
@@ -486,9 +490,5 @@ public class TransactionBuilder implements Parcelable {
 
   public BigDecimal getAmountUsd() {
     return convertAppcToUsd(this.amount);
-  }
-
-  public static BigDecimal convertAppcToUsd(BigDecimal amount) {
-    return amount.divide(new BigDecimal(100), RoundingMode.HALF_UP);
   }
 }

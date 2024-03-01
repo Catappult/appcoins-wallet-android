@@ -5,9 +5,9 @@
     android:id="@+id/onboarding_payment_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_card_blue"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/background_card_blue"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -15,14 +15,14 @@
       android:layout_width="70dp"
       android:layout_height="70dp"
       android:layout_gravity="center"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/onboarding_payment_fragment_container"
+      app:layout_constraintStart_toStartOf="@id/onboarding_payment_fragment_container"
+      app:layout_constraintTop_toTopOf="parent"
       app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/loading_dark_animation"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="@id/onboarding_payment_fragment_container"
-      app:layout_constraintEnd_toEndOf="@id/onboarding_payment_fragment_container"
-      app:layout_constraintBottom_toBottomOf="parent"
       />
 
   <com.google.android.material.appbar.AppBarLayout
@@ -49,11 +49,11 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
-      app:layout_constraintVertical_bias="0.0"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/onboarding_payment_fragment_container"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@id/home_appbar"
+      app:layout_constraintVertical_bias="0.0"
       />
 
   <androidx.fragment.app.FragmentContainerView
@@ -61,8 +61,8 @@
       android:name="androidx.navigation.fragment.NavHostFragment"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginHorizontal="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/onboarding_payment_header_layout"

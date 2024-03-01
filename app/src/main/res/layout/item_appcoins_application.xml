@@ -83,9 +83,9 @@
         android:text="@string/askafriend_share_button"
         android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"
         />
 
     <ImageView
@@ -93,11 +93,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/share_title"
         app:layout_constraintEnd_toStartOf="@+id/share_title"
         app:layout_constraintTop_toTopOf="@+id/share_title"
         app:srcCompat="@drawable/ic_share_black"
-        android:visibility="invisible"
         />
 
     <com.google.android.material.button.MaterialButton

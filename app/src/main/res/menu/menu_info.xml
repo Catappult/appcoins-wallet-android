@@ -6,6 +6,6 @@
       android:icon="@drawable/ic_info"
       android:orderInCategory="20"
       android:title="@string/action_add_wallet"
-      app:showAsAction="always"
-      android:visible="false" />
+      android:visible="false"
+      app:showAsAction="always" />
 </menu>
