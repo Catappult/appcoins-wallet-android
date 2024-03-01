@@ -85,10 +85,10 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:text="@string/purchase_making_purchase_title"
           android:visibility="gone"
-          tools:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_separator"
           app:layout_constraintTop_toBottomOf="@+id/fragment_credit_card_authorization_progress_bar"
+          tools:visibility="gone"
           />
 
       <include
@@ -109,11 +109,11 @@
           android:id="@+id/cl_payment_container"
           android:layout_width="0dp"
           android:layout_height="0dp"
+          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           >
 
         <ScrollView
@@ -122,11 +122,11 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             >
 
           <RelativeLayout
@@ -161,13 +161,13 @@
                 android:id="@+id/more_payment_methods"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/small_button_height"
-                app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-                app:buttonType="text"
-                android:layout_alignParentEnd="true"
                 android:layout_below="@id/change_card_button"
+                android:layout_alignParentEnd="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone"
+                app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+                app:buttonType="text"
                 tools:visibility="visible"
                 />
 
@@ -177,31 +177,31 @@
         <include
             android:id="@+id/adyen_saved_card"
             layout="@layout/selected_payment_method_stored_cc"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <com.appcoins.wallet.ui.widgets.WalletButtonView
             android:id="@+id/more_payment_stored_methods"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/small_button_height"
-            app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-            app:buttonType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
+            app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+            app:buttonType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+            app:layout_constraintVertical_bias="0"
             tools:visibility="gone"
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -211,9 +211,9 @@
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0.8"
           app:line_orientation="horizontal"
@@ -233,10 +233,10 @@
           layout="@layout/dialog_buy_buttons"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -260,9 +260,9 @@
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/dialog_buttons"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/dialog_buttons"
       >
 
     <include
@@ -270,11 +270,11 @@
         layout="@layout/support_error_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible"
         />
 
@@ -296,10 +296,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

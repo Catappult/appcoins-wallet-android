@@ -20,9 +20,9 @@
       android:textOff="@string/gamif_show_previous"
       android:textOn="@string/gamif_hide_previous"
       android:textSize="11sp"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
   <include

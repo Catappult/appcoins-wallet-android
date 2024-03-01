@@ -14,8 +14,8 @@
       android:layout_width="160dp"
       android:layout_height="160dp"
       android:layout_gravity="center"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/loading_wallet"
       />
@@ -23,11 +23,11 @@
   <TextView
       android:id="@+id/create_wallet_text"
       style="@style/TextS"
-      android:textColor="@color/styleguide_light_grey"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="-24dp"
       android:gravity="center"
       android:text="@string/provide_wallet_creating_wallet_header"
+      android:textColor="@color/styleguide_light_grey"
       />
 </LinearLayout>

@@ -15,9 +15,10 @@ class EarnAppcoinsPresenter(
   }
 
   private fun handleDiscoverClick() {
-    disposables.add(view.discoverButtonClick()
-      .observeOn(viewScheduler)
-      .subscribe({}, { it.printStackTrace() })
+    disposables.add(
+      view.discoverButtonClick()
+        .observeOn(viewScheduler)
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 

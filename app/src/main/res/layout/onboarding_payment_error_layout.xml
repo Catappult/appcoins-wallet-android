@@ -12,11 +12,11 @@
       android:id="@+id/error_animation"
       android:layout_width="100dp"
       android:layout_height="100dp"
-      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintBottom_toTopOf="@id/error_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/error_title"
+      app:layout_constraintVertical_chainStyle="packed"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/topup_error_animation"
@@ -25,32 +25,32 @@
   <TextView
       android:id="@+id/error_title"
       style="@style/TextXL"
-      android:textColor="@color/styleguide_light_grey"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/half_large_margin"
       android:text="@string/error_general"
       android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
       android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/error_message"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_animation"
-      app:layout_constraintBottom_toTopOf="@id/error_message"
       />
 
   <TextView
       android:id="@+id/error_message"
       style="@style/TextM"
-      android:textColor="@color/styleguide_light_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
-      android:textAlignment="center"
       android:text="@string/purchase_error_connection_issue"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintBottom_toTopOf="@id/try_again"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_title"
-      app:layout_constraintBottom_toTopOf="@id/try_again"
       />
 
 
@@ -62,12 +62,12 @@
       android:layout_marginTop="@dimen/large_margin"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
-      app:layout_constraintVertical_chainStyle="packed"
-      app:layout_constraintVertical_bias="1"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/error_message"
+      app:layout_constraintVertical_bias="1"
+      app:layout_constraintVertical_chainStyle="packed"
       />
 
 

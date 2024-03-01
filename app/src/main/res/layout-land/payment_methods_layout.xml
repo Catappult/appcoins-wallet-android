@@ -142,12 +142,12 @@
           android:orientation="vertical"
           android:overScrollMode="never"
           android:paddingHorizontal="16dp"
-          android:paddingTop="16dp"
+          android:paddingTop="8dp"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constrainedHeight="true"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHeight_max="226dp"
+          app:layout_constraintHeight_max="216dp"
           app:layout_constraintHeight_min="60dp"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
@@ -165,7 +165,6 @@
           app:layout_constraintEnd_toEndOf="@id/payment_methods_radio_list"
           app:layout_constraintStart_toStartOf="@id/payment_methods_radio_list"
           app:layout_constraintTop_toTopOf="@id/payment_methods_radio_list"
-          tools:visibility="gone"
           >
         <include
             layout="@layout/skeleton_payments"
@@ -198,7 +197,6 @@
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0.4"
-          tools:visibility="gone"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -214,16 +212,17 @@
           app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
           />
 
-      <View
+      <com.appcoins.wallet.ui.widgets.SeparatorView
           android:id="@+id/bottom_separator_buttons"
           android:layout_width="match_parent"
-          android:layout_height="6dp"
-          android:background="@drawable/background_shadow_payment"
+          android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintVertical_bias="0.8"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
           />
 
       <androidx.constraintlayout.widget.Guideline

@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
+    android:background="@color/styleguide_blue"
     android:clickable="true"
     android:focusable="true"
-    android:background="@color/styleguide_blue"
     >
 
   <androidx.cardview.widget.CardView
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="4dp"
       android:foreground="?android:attr/selectableItemBackground"
       app:cardBackgroundColor="@color/styleguide_blue"
+      app:cardCornerRadius="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      android:layout_marginBottom="4dp"
-      app:cardCornerRadius="8dp"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
