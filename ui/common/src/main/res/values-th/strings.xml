@@ -524,6 +524,7 @@
   <string name="send_button">ส่ง</string>
   <string name="resend_button">ส่งใหม่</string>
   <string name="continue_button">ต่อ</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -969,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
-  <string name="manage_cards_add_title">เพิ่มบัตรใหม่</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">คุณแน่ใจหรือไม่ว่าต้องการลบบัตรนี้?</string>
-  <string name="manage_cards_remove_no">ไม่ ยกเลิก</string>
-  <string name="manage_cards_remove_yes">ใช่ ลบออก</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">บัตรลงท้ายด้วย%s</string>
   <string name="manage_cards_error_details">คุณแน่ใจหรือว่ารายละเอียดบัตรของคุณถูกต้อง? กรุณาลองอีกครั้ง!</string>
   <string name="manage_cards_error_card_problem">ดูเหมือนว่ามีปัญหากับบัตรของคุณ โปรดลองวิธีอื่น</string>
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">โบนัสสูงสุด %s%% ในทุกการซื้อ</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>

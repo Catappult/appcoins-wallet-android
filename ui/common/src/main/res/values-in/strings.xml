@@ -524,6 +524,7 @@
   <string name="send_button">Kirim</string>
   <string name="resend_button">Kirim ulang</string>
   <string name="continue_button">Lanjutkan</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -967,15 +968,21 @@
   <string name="manage_cards_settings_manage_title">Kelola kartu</string>
   <string name="manage_cards_view_title">Kelola kartu</string>
   <string name="manage_cards_view_manage_subtitle">Kelola kartu pembayaran Anda</string>
-  <string name="manage_cards_add_title">Tambah kartu baru</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Apakah Anda yakin ingin menghapus kartu ini?</string>
-  <string name="manage_cards_remove_no">TIDAK, BATALKAN</string>
-  <string name="manage_cards_remove_yes">YA, HAPUS</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Kartu yang ujungnya %s</string>
   <string name="manage_cards_error_details">Apakah Anda yakin rincian kartu Anda sudah benar? Silakan coba lagi!</string>
   <string name="manage_cards_error_card_problem">Sepertinya ada masalah dengan kartu Anda. Silakan coba dengan kartu yang lain.</string>
   <string name="manage_cards_select_title">Pilih kartu pembayaran</string>
   <string name="manage_cards_remember">Ingat kartu</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Dapatkan hingga %s%% Bonus di setiap pembelian</string>
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>

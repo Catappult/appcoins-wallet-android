@@ -524,6 +524,7 @@
   <string name="send_button">发送</string>
   <string name="resend_button">重新发送</string>
   <string name="continue_button">继续</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -967,15 +968,21 @@
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
   <string name="manage_cards_view_title">管理支付卡</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
-  <string name="manage_cards_add_title">添加新卡</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">确实要删除此卡？</string>
-  <string name="manage_cards_remove_no">不，取消</string>
-  <string name="manage_cards_remove_yes">是，删除</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">卡尾号为%s</string>
   <string name="manage_cards_error_details">确定信用卡详细信息正确无误吗？请重试！</string>
   <string name="manage_cards_error_card_problem">您的信用卡似乎存在问题。请尝试使用其他信用卡。</string>
   <string name="manage_cards_select_title">选择支付卡</string>
   <string name="manage_cards_remember">记住卡信息</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">每次购买可享高达%s%%的奖励</string>
   <string name="perks_gamif_subtitle">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
