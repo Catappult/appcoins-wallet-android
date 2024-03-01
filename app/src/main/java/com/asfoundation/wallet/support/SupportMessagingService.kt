@@ -81,7 +81,7 @@ class SupportMessagingService : FirebaseMessagingService() {
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent =
-      com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver.newIntent(context)
+      SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
     return PendingIntent.getActivity(
       context,

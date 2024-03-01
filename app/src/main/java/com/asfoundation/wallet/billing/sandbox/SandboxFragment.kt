@@ -31,7 +31,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SandboxFragment() : BasePageViewFragment() {
+class SandboxFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: SandboxNavigator

@@ -95,7 +95,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   }
 
   private fun isEskillsUri(uri: String): Boolean = uri
-    .toLowerCase(Locale.ROOT)
+    .lowercase(Locale.ROOT)
     .contains("/transaction/eskills")
 
   private fun startApp(throwable: Throwable) {

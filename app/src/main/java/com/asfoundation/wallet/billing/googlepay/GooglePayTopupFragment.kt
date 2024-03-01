@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GooglePayTopupFragment() : BasePageViewFragment() {
+class GooglePayTopupFragment : BasePageViewFragment() {
 
   private val viewModel: GooglePayTopupViewModel by viewModels()
 

@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.appcoins.wallet.ui.common.R
@@ -17,7 +16,7 @@ class AnimatedTextSwitcher : FrameLayout {
   class ToolbarTextSwitcherState(
     val superSavedState: Parcelable?, val animateFirstView: Boolean,
     val text: CharSequence
-  ) : View.BaseSavedState(superSavedState),
+  ) : BaseSavedState(superSavedState),
     Parcelable
 
   private val views =

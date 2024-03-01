@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalTopupFragment() : BasePageViewFragment() {
+class PayPalTopupFragment : BasePageViewFragment() {
 
   private val viewModel: PayPalTopupViewModel by viewModels()
 

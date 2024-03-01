@@ -59,7 +59,7 @@ interface ApkOriginService {
 
 public class ApkOriginVerification {
   private static final String LOG_TAG = "AppsFlyerOneLinkSimApp";
-  private Context context;
+  private final Context context;
 
   public ApkOriginVerification(Context context) {
     this.context = context;

@@ -27,7 +27,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GooglePayWebFragment() : BasePageViewFragment() {
+class GooglePayWebFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: GooglePayWebNavigator

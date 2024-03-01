@@ -380,7 +380,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
     int sign = flipSign ? -1 : 1;
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
+    value = value.divide(BigDecimal.valueOf(Math.pow(10, decimals)));
     value = value.multiply(new BigDecimal(sign));
     String signedString = "";
     if (value.compareTo(BigDecimal.ZERO) > 0) {

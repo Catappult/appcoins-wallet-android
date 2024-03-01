@@ -6,5 +6,4 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 data class TransactionsDetailsModel(
   val networkInfo: NetworkInfo, val wallet: Wallet,
   val fiatValue: FiatValue
-) {
-}
+)

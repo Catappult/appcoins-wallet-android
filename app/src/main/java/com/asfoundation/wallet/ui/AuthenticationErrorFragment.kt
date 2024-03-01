@@ -62,7 +62,7 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     childFragmentManager.beginTransaction()
       .setCustomAnimations(
         R.anim.fragment_slide_up, R.anim.fragment_slide_down,

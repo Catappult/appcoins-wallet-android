@@ -15,7 +15,7 @@ import com.asf.wallet.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WebViewActivity() : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
 
   override fun getAssets(): AssetManager {
     //Workaround for crash when inflating the webView

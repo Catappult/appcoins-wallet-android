@@ -246,10 +246,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   fun showPriceTransition() {
     with(binding.paymentMethodsHeader) {
-      priceTransitionAnimation?.playAnimation()
+      priceTransitionAnimation.playAnimation()
       fiatPrice.visibility = View.INVISIBLE
-      priceTransitionAnimation?.visibility = View.VISIBLE
-      priceTransitionAnimation?.addAnimatorListener(object : AnimatorListenerAdapter() {
+      priceTransitionAnimation.visibility = View.VISIBLE
+      priceTransitionAnimation.addAnimatorListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator) {
           super.onAnimationEnd(animation)
           priceTransitionAnimation.visibility = View.GONE
