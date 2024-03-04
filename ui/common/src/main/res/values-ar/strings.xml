@@ -784,7 +784,7 @@
   <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
   <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
   <string name="import_wallet_recovering_body">استعادة المحفظة...</string>
-  <string name="backup_skip_title">أنا أدرك أنني قد أفقد أموالي إذا لم أحتفظ بنسخة احتياطية من مفتاح محفظتي.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">نسخ احتياطي للمحفظة</string>
   <string name="backup_success_save_on_email">ملف النسخ الاحتياطي في بريدك الإلكتروني.</string>
   <string name="backup_success_save_on_device">ملف النسخ الاحتياطي مخزن في جهازك.</string>
