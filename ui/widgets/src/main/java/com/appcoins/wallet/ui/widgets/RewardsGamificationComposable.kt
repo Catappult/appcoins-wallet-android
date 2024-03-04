@@ -509,7 +509,7 @@ fun SkeletonLoadingGamificationCard() {
 }
 
 fun isVipReferralAlreadyAvailable(startDateTime: Long) =
-  startDateTime * 10000L <= System.currentTimeMillis()
+  startDateTime * 1000L <= System.currentTimeMillis()
 
 @Preview
 @Composable
