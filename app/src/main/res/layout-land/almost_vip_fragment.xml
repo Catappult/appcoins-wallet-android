@@ -45,8 +45,8 @@
       android:id="@+id/almost_vip_scroll_view"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/large_margin"
       android:layout_marginHorizontal="@dimen/large_margin"
+      android:layout_marginTop="@dimen/large_margin"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/almost_vip_astronaut_animation"
       app:layout_constraintTop_toTopOf="parent"
@@ -103,8 +103,8 @@
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/almost_vip_scroll_view"
       app:layout_constraintStart_toEndOf="@id/almost_vip_astronaut_animation"
+      app:layout_constraintTop_toBottomOf="@id/almost_vip_scroll_view"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

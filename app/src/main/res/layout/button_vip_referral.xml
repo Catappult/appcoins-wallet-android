@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     >
 
   <androidx.cardview.widget.CardView
@@ -11,11 +11,11 @@
       style="@style/VipRefButton"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      app:cardElevation="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:cardElevation="0dp"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,15 +28,15 @@
           style="@style/VipRefButtonText"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
           android:layout_marginHorizontal="@dimen/big_margin"
+          android:layout_marginTop="@dimen/big_margin"
           android:text="@string/vip_program_referral_button_title"
-          app:layout_constraintVertical_chainStyle="packed"
+          app:layout_constraintBottom_toTopOf="@id/subTitleRefTv"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/subTitleRefTv"
+          app:layout_constraintVertical_chainStyle="packed"
           />
 
       <TextView
@@ -44,13 +44,13 @@
           style="@style/VipRefButtonSubText"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/big_margin"
           android:layout_marginHorizontal="@dimen/big_margin"
+          android:layout_marginBottom="@dimen/big_margin"
           android:text="@string/vip_program_referral_button_body"
-          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/titleRefTv"
           />
 

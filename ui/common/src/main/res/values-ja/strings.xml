@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -967,15 +968,21 @@
   <string name="manage_cards_settings_manage_title">カードの管理</string>
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
-  <string name="manage_cards_add_title">新しいカードの追加</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">本当にこのカードを削除しますか？</string>
-  <string name="manage_cards_remove_no">いいえ、キャンセル</string>
-  <string name="manage_cards_remove_yes">はい、削除します</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%sで終わるカード</string>
   <string name="manage_cards_error_details">カード情報に間違いはありませんか？もう一度お試しください</string>
   <string name="manage_cards_error_card_problem">お使いのカードに問題があるようです。別のカードでお試しください。</string>
   <string name="manage_cards_select_title">決済用カードの選択</string>
   <string name="manage_cards_remember">カードの保存</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">購入ごとに最大%s%%のボーナスを獲得</string>
   <string name="perks_gamif_subtitle">お気に入りのアプリで使えば使うほど、ボーナスが大きくなります！</string>

@@ -89,69 +89,9 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
     gamificationLevel = getArguments().getInt(GAMIFICATION_LEVEL);
   }
 
-  @Override
-  public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    super.onCreateView(inflater, container, savedInstanceState);
-    return inflater.inflate(R.layout.fragment_iab, container, false);
-  }
-
-  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
-    okErrorButton = view.findViewById(R.id.error_dismiss);
-    loadingView = view.findViewById(R.id.loading);
-    loadingMessage = view.findViewById(R.id.loading_message);
-    errorTextView = view.findViewById(R.id.error_message);
-    transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    transactionErrorLayout = view.findViewById(R.id.generic_purchase_error_layout);
-
-    supportIcon = view.findViewById(R.id.layout_support_icn);
-    supportLogo = view.findViewById(R.id.layout_support_logo);
-    okErrorButton.setText(R.string.ok);
-
-    lottieTransactionComplete =
-        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
-
-    presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
-        new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
-        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract, transaction);
-    adapter =
-        new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
-            R.id.item, new ArrayList<>());
-
-    presenter.present(extras.getString(PRODUCT_NAME, ""),
-        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
-
-    if (StringUtils.isNotBlank(getBonus())) {
-      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation_new);
-      setupTransactionCompleteAnimation();
-    } else {
-      lottieTransactionComplete.setAnimation(R.raw.success_animation);
-    }
-  }
-
   @Override public void onResume() {
     super.onResume();
     presenter.resume();
-  }
-
-  @Override public void onPause() {
-    presenter.pause();
-    super.onPause();
-  }
-
-  @Override public void onDestroyView() {
-    presenter.stop();
-    lottieTransactionComplete.removeAllAnimatorListeners();
-    lottieTransactionComplete.removeAllUpdateListeners();
-    lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
-    lottieTransactionComplete = null;
-    super.onDestroyView();
-  }
-
-  @Override public void onDetach() {
-    super.onDetach();
-    iabView = null;
   }
 
   @Override public @NotNull Observable<Object> getOkErrorClick() {
@@ -257,6 +197,66 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
       throw new IllegalStateException("On chain buy fragment must be attached to IAB activity");
     }
     iabView = ((IabView) context);
+  }
+
+  @Override
+  public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    super.onCreateView(inflater, container, savedInstanceState);
+    return inflater.inflate(R.layout.fragment_iab, container, false);
+  }
+
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+    okErrorButton = view.findViewById(R.id.error_dismiss);
+    loadingView = view.findViewById(R.id.loading);
+    loadingMessage = view.findViewById(R.id.loading_message);
+    errorTextView = view.findViewById(R.id.error_message);
+    transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
+    transactionErrorLayout = view.findViewById(R.id.generic_purchase_error_layout);
+
+    supportIcon = view.findViewById(R.id.layout_support_icn);
+    supportLogo = view.findViewById(R.id.layout_support_logo);
+    okErrorButton.setText(R.string.ok);
+
+    lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+
+    presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
+        new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
+        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract, transaction);
+    adapter =
+        new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
+            R.id.item, new ArrayList<>());
+
+    presenter.present(extras.getString(PRODUCT_NAME, ""),
+        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
+
+    if (StringUtils.isNotBlank(getBonus())) {
+      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation_new);
+      setupTransactionCompleteAnimation();
+    } else {
+      lottieTransactionComplete.setAnimation(R.raw.success_animation);
+    }
+  }
+
+  @Override public void onPause() {
+    presenter.pause();
+    super.onPause();
+  }
+
+  @Override public void onDestroyView() {
+    presenter.stop();
+    lottieTransactionComplete.removeAllAnimatorListeners();
+    lottieTransactionComplete.removeAllUpdateListeners();
+    lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
+    lottieTransactionComplete = null;
+    super.onDestroyView();
+  }
+
+  @Override public void onDetach() {
+    super.onDetach();
+    iabView = null;
   }
 
   private void showLoading(@StringRes int message) {

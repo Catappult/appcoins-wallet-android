@@ -14,7 +14,6 @@ import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedU
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -274,7 +273,7 @@ class TopUpFragmentPresenter(
     disposables.add(
       showPayPalLogout
         .subscribe {
-          if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && it!!) {
+          if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
             view.setTopupButton()
           } else {
             view.setNextButton()

@@ -27,7 +27,7 @@ import com.google.android.gms.vision.barcode.Barcode;
  * barcode_capture.
  */
 class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
-  private Context mContext;
+  private final Context mContext;
 
   BarcodeTrackerFactory(Context context) {
     mContext = context;

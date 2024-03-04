@@ -524,6 +524,7 @@
   <string name="send_button">Pošalji</string>
   <string name="resend_button">Pošalji ponovo</string>
   <string name="continue_button">Nastavi</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -969,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">Upravljanje karticama</string>
   <string name="manage_cards_view_title">Upravljanje karticama</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
-  <string name="manage_cards_add_title">Dodajte novu karticu</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Da li ste sigurni da želite da uklonite ovu karticu?</string>
-  <string name="manage_cards_remove_no">NE, OTKAŽI</string>
-  <string name="manage_cards_remove_yes">DA, UKLONI</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Kartica koja se završava sa %s</string>
   <string name="manage_cards_error_details">Da li ste sigurni da su podaci sa kartice tačni? Pokušajte ponovo!</string>
   <string name="manage_cards_error_card_problem">Izgleda da postoji problem sa vašom karticom. Pokušajte sa drugom karticom.</string>
   <string name="manage_cards_select_title">Izaberite platnu karticu</string>
   <string name="manage_cards_remember">Zapamti karticu</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Zaradite do %s%% bonusa za svaku kupovinu</string>
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>

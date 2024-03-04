@@ -80,7 +80,8 @@ class AdyenPaymentRepositoryTest {
 
         override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel> =
           Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
-      }, "11223344")
+      }, "11223344"
+    )
 
     rxSchedulers = object : RxSchedulers {
       override val main: Scheduler

@@ -15,7 +15,7 @@ class RatingInteractor @Inject constructor(
   fun sendUserFeedback(feedbackText: String): Completable {
     return walletService.getWalletAddress()
       .flatMap { address ->
-        ratingRepository.sendFeedback(address.toLowerCase(Locale.ROOT), feedbackText)
+        ratingRepository.sendFeedback(address.lowercase(Locale.ROOT), feedbackText)
       }
       .ignoreElement()
       .subscribeOn(rxSchedulers.io)

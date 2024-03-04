@@ -259,7 +259,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
     flipSign: Boolean
   ): String {
     val sign = if (flipSign) -1 else 1
-    val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
+    val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol)
     val value = BigDecimal(valueStr).divide(
       BigDecimal(
         10.toDouble()

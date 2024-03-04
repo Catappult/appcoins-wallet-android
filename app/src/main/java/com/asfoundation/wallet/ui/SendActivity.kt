@@ -140,7 +140,7 @@ class SendActivity : BaseActivity() {
   }
 
   private fun onAmount(bigDecimal: BigDecimal) {
-    amountText!!.setText(
+    amountText.setText(
       NumberFormat.getInstance()
         .format(bigDecimal)
     )
@@ -154,34 +154,34 @@ class SendActivity : BaseActivity() {
   private fun onNext() {
     // Validate input fields
     var hasError = false
-    val to = toAddressText!!.text
+    val to = toAddressText.text
       .toString()
-    val amount = amountText!!.text
+    val amount = amountText.text
       .toString()
     if (!viewModel.setToAddress(to)) {
-      toInputLayout!!.error = getString(R.string.error_invalid_address)
+      toInputLayout.error = getString(R.string.error_invalid_address)
       hasError = true
     }
     if (!viewModel.setAmount(amount)) {
-      amountInputLayout!!.error = getString(R.string.error_invalid_amount)
+      amountInputLayout.error = getString(R.string.error_invalid_amount)
       hasError = true
     }
     if (!hasError) {
-      toInputLayout!!.isErrorEnabled = false
-      amountInputLayout!!.isErrorEnabled = false
+      toInputLayout.isErrorEnabled = false
+      amountInputLayout.isErrorEnabled = false
       viewModel.openConfirmation(this)
     }
   }
 
   private fun onToAddress(toAddress: String) {
     // Populate to address if it has been passed forward
-    toAddressText!!.setText(toAddress)
+    toAddressText.setText(toAddress)
   }
 
   private fun onSymbol(symbol: String?) {
     if (symbol != null) {
       setTitle(String.format(getString(R.string.title_send_with_token), symbol))
-      amountInputLayout!!.hint =
+      amountInputLayout.hint =
         String.format(getString(R.string.hint_amount_with_token), symbol)
     }
   }

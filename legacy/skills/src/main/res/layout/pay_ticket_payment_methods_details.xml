@@ -14,12 +14,12 @@
       android:textColor="@color/dialog_buy_fiat_value"
       android:textSize="15sp"
       android:visibility="invisible"
-      app:layout_constraintVertical_chainStyle="packed"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/appc_price"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/payment_title"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
       tools:text="0,99 EUR"
       tools:visibility="visible"
       />
@@ -31,9 +31,9 @@
       android:textColor="@color/dialog_secondary_price"
       android:textSize="12sp"
       android:visibility="invisible"
-      app:layout_constraintTop_toBottomOf="@id/fiat_price"
-      app:layout_constraintEnd_toEndOf="@id/fiat_price"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/fiat_price"
+      app:layout_constraintTop_toBottomOf="@id/fiat_price"
       tools:text="0,09 APPC"
       tools:visibility="visible"
       />
@@ -114,9 +114,9 @@
       android:textColor="@color/black_87_alpha"
       android:textSize="10sp"
       app:layout_constraintBottom_toBottomOf="@id/appc_credits_icon"
+      app:layout_constraintEnd_toEndOf="@id/payment_title"
       app:layout_constraintStart_toStartOf="@id/payment_title"
       app:layout_constraintTop_toBottomOf="@id/payment_title"
-      app:layout_constraintEnd_toEndOf="@id/payment_title"
       />
 
 

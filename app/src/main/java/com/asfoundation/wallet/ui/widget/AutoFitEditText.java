@@ -19,6 +19,7 @@ public class AutoFitEditText extends AppCompatEditText {
   private final RectF _availableSpaceRect = new RectF();
   private final SparseIntArray _textCachedSizes = new SparseIntArray();
   private final SizeTester _sizeTester;
+  private final boolean _initialized;
   private float _maxTextSize;
   private float _spacingMult = 1.0f;
   private float _spacingAdd = 0.0f;
@@ -26,7 +27,6 @@ public class AutoFitEditText extends AppCompatEditText {
   private int _widthLimit;
   private int _maxLines;
   private boolean _enableSizeCache = true;
-  private boolean _initialized;
   private TextPaint paint;
 
   public AutoFitEditText(final Context context) {
@@ -123,12 +123,6 @@ public class AutoFitEditText extends AppCompatEditText {
     return _minTextSize;
   }
 
-  @Override public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
-  }
-
   private void reAdjust() {
     adjustTextSize();
   }
@@ -144,10 +138,6 @@ public class AutoFitEditText extends AppCompatEditText {
     _availableSpaceRect.bottom = heightLimit;
     super.setTextSize(TypedValue.COMPLEX_UNIT_PX,
         efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
-  }
-
-  @Override public int getMaxLines() {
-    return _maxLines;
   }
 
   /**
@@ -176,12 +166,6 @@ public class AutoFitEditText extends AppCompatEditText {
     return size;
   }
 
-  @Override public void setSingleLine() {
-    super.setSingleLine();
-    _maxLines = 1;
-    reAdjust();
-  }
-
   private int binarySearch(final int start, final int end, final SizeTester sizeTester,
       final RectF availableSpace) {
     int lastBest = start;
@@ -206,21 +190,17 @@ public class AutoFitEditText extends AppCompatEditText {
     return lastBest;
   }
 
+  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
+  }
+
   @Override protected void onSizeChanged(final int width, final int height, final int oldwidth,
       final int oldheight) {
     _textCachedSizes.clear();
     super.onSizeChanged(width, height, oldwidth, oldheight);
     if (width != oldwidth || height != oldheight) reAdjust();
-  }
-
-  @Override public void setSingleLine(final boolean singleLine) {
-    super.setSingleLine(singleLine);
-    if (singleLine) {
-      _maxLines = 1;
-    } else {
-      _maxLines = NO_LINE_LIMIT;
-    }
-    reAdjust();
   }
 
   private interface SizeTester {
@@ -235,6 +215,26 @@ public class AutoFitEditText extends AppCompatEditText {
      * otherwise
      */
     int onTestSize(int suggestedSize, RectF availableSpace);
+  }
+
+  @Override public int getMaxLines() {
+    return _maxLines;
+  }
+
+  @Override public void setSingleLine() {
+    super.setSingleLine();
+    _maxLines = 1;
+    reAdjust();
+  }
+
+  @Override public void setSingleLine(final boolean singleLine) {
+    super.setSingleLine(singleLine);
+    if (singleLine) {
+      _maxLines = 1;
+    } else {
+      _maxLines = NO_LINE_LIMIT;
+    }
+    reAdjust();
   }
 
   @Override public void setLines(final int lines) {

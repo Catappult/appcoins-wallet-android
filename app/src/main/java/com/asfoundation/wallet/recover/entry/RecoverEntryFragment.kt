@@ -55,10 +55,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
     createLaunchers()
   }
 
-  override fun onResume() {
-    super.onResume()
-  }
-
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     isFromOnboarding = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)

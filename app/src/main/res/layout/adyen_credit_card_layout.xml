@@ -115,29 +115,29 @@
             layout="@layout/selected_payment_method_stored_cc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <com.appcoins.wallet.ui.widgets.WalletButtonView
             android:id="@+id/more_payment_stored_methods"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/small_button_height"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:visibility="gone"
             app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
             app:buttonType="text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+            app:layout_constraintVertical_bias="0"
             tools:visibility="gone"
             />
 
@@ -145,9 +145,9 @@
             android:id="@+id/fragment_credit_card_authorization_progress_bar"
             android:layout_width="112dp"
             android:layout_height="112dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_enableMergePathsForKitKatAndAbove="true"
@@ -161,15 +161,15 @@
             style="@style/PaymentLoadingTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/fragment_credit_card_authorization_progress_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginTop="-16dp"
+            android:layout_marginEnd="@dimen/big_margin"
             android:gravity="center_horizontal"
             android:text="@string/purchase_making_purchase_title"
             android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_credit_card_authorization_progress_bar"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -237,11 +237,11 @@
           layout="@layout/support_error_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons_cc"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons_cc"
           />
 
       <include
@@ -249,11 +249,11 @@
           layout="@layout/no_network_base_layout_light"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons_cc"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons_cc"
-          android:visibility="gone"
           />
 
       <include

@@ -7,6 +7,7 @@
     >
   <TextView
       android:id="@+id/title"
+      style="@style/GasSettingsTextStyle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="11dp"
@@ -16,20 +17,19 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       tools:text="@string/intro_title_first_page"
-      style="@style/GasSettingsTextStyle"
       />
   <TextView
       android:id="@+id/message"
+      style="@style/GasSettingsTextStyle.Body"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/big_margin"
       android:gravity="center_horizontal"
-      android:paddingEnd="50dp"
       android:paddingStart="50dp"
+      android:paddingEnd="50dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
-      style="@style/GasSettingsTextStyle.Body"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,8 @@
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="match_parent"
     android:background="@color/styleguide_payments_background"
-    app:cardCornerRadius="@dimen/card_view_corner_radius"
     android:minHeight="240dp"
+    app:cardCornerRadius="@dimen/card_view_corner_radius"
     >
 
   <include
@@ -56,9 +56,9 @@
       layout="@layout/dialog_buy_buttons_adyen_error"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="gone"
       android:layout_marginTop="@dimen/standard_double_margin"
       android:layout_marginBottom="4dp"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

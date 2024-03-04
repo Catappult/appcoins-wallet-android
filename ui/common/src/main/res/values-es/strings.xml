@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -968,15 +969,21 @@
   <string name="manage_cards_settings_manage_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_manage_subtitle">Gestiona tus tarjetas de pago</string>
-  <string name="manage_cards_add_title">Añadir tarjeta</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">¿Estás seguro de que quieres eliminar esta tarjeta?</string>
-  <string name="manage_cards_remove_no">NO, CANCELAR</string>
-  <string name="manage_cards_remove_yes">SÍ, ELIMINAR</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Tarjeta que termina en %s</string>
   <string name="manage_cards_error_details">¿Estás seguro de que los datos de la tarjeta son correctos? ¡Prueba de nuevo!</string>
   <string name="manage_cards_error_card_problem">Parece que hay un problema con tu tarjeta. Prueba con una diferente.</string>
   <string name="manage_cards_select_title">Selecciona la tarjeta</string>
   <string name="manage_cards_remember">Recordar tarjeta</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Gana un bonus de hasta el %s%% en todas las compras</string>
   <string name="perks_gamif_subtitle">Cuanto más gastes en tus apps favoritas, ¡mayor será el bonus!</string>

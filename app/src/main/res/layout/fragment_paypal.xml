@@ -6,8 +6,8 @@
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:minHeight="250dp"
     android:background="@drawable/background_content_payments"
+    android:minHeight="250dp"
     >
 
   <include
@@ -57,9 +57,9 @@
       layout="@layout/dialog_buy_buttons_adyen_error"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:visibility="gone"
       android:layout_marginTop="@dimen/standard_double_margin"
       android:layout_marginBottom="4dp"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

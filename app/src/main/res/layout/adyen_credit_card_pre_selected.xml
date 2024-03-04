@@ -62,11 +62,11 @@
               android:layout_marginStart="16dp"
               android:overScrollMode="never"
               android:scrollbars="none"
+              android:visibility="visible"
+              app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              android:visibility="visible"
               >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -100,12 +100,12 @@
                   android:id="@+id/more_payment_methods"
                   android:layout_width="wrap_content"
                   android:layout_height="@dimen/small_button_height"
+                  android:layout_below="@id/change_card_button_pre_selected"
+                  android:layout_alignParentEnd="true"
+                  android:layout_marginTop="8dp"
                   app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
                   app:buttonType="text"
-                  android:layout_marginTop="8dp"
-                  android:layout_below="@id/change_card_button_pre_selected"
                   app:layout_constraintEnd_toEndOf="parent"
-                  android:layout_alignParentEnd="true"
                   />
 
             </RelativeLayout>
@@ -114,30 +114,30 @@
           <include
               android:id="@+id/adyen_saved_card"
               layout="@layout/selected_payment_method_stored_cc"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
               android:layout_marginStart="16dp"
               android:layout_marginTop="8dp"
               android:layout_marginEnd="16dp"
               android:layout_marginBottom="8dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
               android:visibility="gone"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
               />
 
           <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/more_payment_stored_methods"
               android:layout_width="wrap_content"
               android:layout_height="@dimen/small_button_height"
-              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
-              app:buttonType="text"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
-              app:layout_constraintBottom_toBottomOf="parent"
               android:layout_marginTop="16dp"
               android:layout_marginBottom="16dp"
               android:visibility="gone"
+              app:buttonText="@string/purchase_more_payment_methods_lower_case_button"
+              app:buttonType="text"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
               tools:visibility="gone"
               />
 
@@ -190,10 +190,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/bottom_separator_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <include

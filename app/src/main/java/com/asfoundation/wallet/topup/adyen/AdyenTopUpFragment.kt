@@ -469,7 +469,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     if (paymentType == PaymentType.CARD.name) {
       binding.button.setText(getString(R.string.topup_home_button))
       adyenCardView =
-        AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected ?: binding.adyenCardForm.root)
+        AdyenCardView(binding.adyenCardForm.adyenCardFormPreSelected)
       setupCardConfiguration(hideCvcStoredCard = false)
     }
     setupRedirectConfiguration()

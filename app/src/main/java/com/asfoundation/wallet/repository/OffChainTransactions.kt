@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asf.wallet.BuildConfig
 import io.reactivex.Single
 import retrofit2.HttpException
+import java.util.Locale
 import javax.inject.Inject
 
 class OffChainTransactions @Inject constructor(
@@ -19,7 +20,7 @@ class OffChainTransactions @Inject constructor(
     endingDate: Long? = null, offset: Int, sort: Sort?,
     limit: Int = 10
   ): MutableList<WalletHistory.Transaction> {
-    @SuppressLint("DefaultLocale") val lowerCaseSort = sort?.name?.toLowerCase()
+    @SuppressLint("DefaultLocale") val lowerCaseSort = sort?.name?.lowercase(Locale.getDefault())
     val transactions =
       repository.getTransactionsSync(
         wallet, versionCode, startingDate, endingDate, offset,

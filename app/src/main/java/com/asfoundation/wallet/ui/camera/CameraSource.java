@@ -89,6 +89,12 @@ public class CameraSource {
    */
   private static final float ASPECT_RATIO_TOLERANCE = 0.01f;
   private final Object mCameraLock = new Object();
+  /**
+   * Map to convert between a byte array, received from the camera, and its associated byte
+   * buffer.  We use byte buffers internally because this is a more efficient way to call into
+   * native code later (avoids a potential copy).
+   */
+  private final Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
   private Context mContext;
   // Guarded by mCameraLock
   private Camera mCamera;
@@ -117,12 +123,6 @@ public class CameraSource {
    */
   private Thread mProcessingThread;
   private FrameProcessingRunnable mFrameProcessor;
-  /**
-   * Map to convert between a byte array, received from the camera, and its associated byte
-   * buffer.  We use byte buffers internally because this is a more efficient way to call into
-   * native code later (avoids a potential copy).
-   */
-  private final Map<byte[], ByteBuffer> mBytesToByteBuffer = new HashMap<>();
 
   /**
    * Only allow creation via the builder class.
@@ -756,7 +756,7 @@ public class CameraSource {
    */
   private byte[] createPreviewBuffer(Size previewSize) {
     int bitsPerPixel = ImageFormat.getBitsPerPixel(ImageFormat.NV21);
-    long sizeInBits = previewSize.getHeight() * previewSize.getWidth() * bitsPerPixel;
+    long sizeInBits = (long) previewSize.getHeight() * previewSize.getWidth() * bitsPerPixel;
     int bufferSize = (int) Math.ceil(sizeInBits / 8.0d) + 1;
 
     //
@@ -1047,8 +1047,8 @@ public class CameraSource {
   private class FrameProcessingRunnable implements Runnable {
     // This lock guards all of the member variables below.
     private final Object mLock = new Object();
-    private Detector<?> mDetector;
     private final long mStartTimeMillis = SystemClock.elapsedRealtime();
+    private Detector<?> mDetector;
     private boolean mActive = true;
 
     // These pending variables hold the state associated with the new frame awaiting processing.

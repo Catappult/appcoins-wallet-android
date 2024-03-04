@@ -320,9 +320,11 @@ fun ImageWithTitleAndDescription(
           .height(56.dp)
           .clip(shape = RoundedCornerShape(8.dp))
       )
-      Column(modifier = Modifier
-        .widthIn(min = 0.dp, max = maxColumnWidth)
-        .padding(start = 12.dp)) {
+      Column(
+        modifier = Modifier
+          .widthIn(min = 0.dp, max = maxColumnWidth)
+          .padding(start = 12.dp)
+      ) {
         Text(
           text = title ?: "",
           fontWeight = FontWeight.Bold,
@@ -373,9 +375,11 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
             .clip(RoundedCornerShape(8.dp))
             .background(brush = shimmerSkeleton()),
         )
-        Column(modifier = Modifier
-          .width(240.dp)
-          .padding(start = 12.dp)) {
+        Column(
+          modifier = Modifier
+            .width(240.dp)
+            .padding(start = 12.dp)
+        ) {
           Spacer(
             modifier =
             Modifier

@@ -43,11 +43,11 @@
           layout="@layout/onboarding_support_error_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="32dp"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:layout_marginTop="32dp"
           tools:visibility="visible"
           />
 
@@ -70,13 +70,13 @@
           android:layout_gravity="center_vertical"
           android:layout_margin="32dp"
           android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
           app:buttonColor="@color/styleguide_pink"
           app:buttonText="@string/try_again"
           app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
           tools:visibility="visible"
           />
 
@@ -86,10 +86,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
+          app:layout_constraintBottom_toTopOf="@id/onboarding_success_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/onboarding_success_buttons"
           tools:visibility="visible"
           />
 
@@ -99,10 +99,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/onboarding_generic_success_layout"
-          app:layout_constraintBottom_toBottomOf="parent"
           tools:visibility="visible"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>

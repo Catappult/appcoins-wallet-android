@@ -25,14 +25,13 @@ class SystemView : FrameLayout, View.OnClickListener {
   private var swipeRefreshLayout: SwipeRefreshLayout? = null
   private var recyclerView: RecyclerView? = null
 
-  constructor(context: Context) : super(context) {}
-  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
+  constructor(context: Context) : super(context)
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
     context,
     attrs,
     defStyleAttr
-  ) {
-  }
+  )
 
   override fun onFinishInflate() {
     super.onFinishInflate()

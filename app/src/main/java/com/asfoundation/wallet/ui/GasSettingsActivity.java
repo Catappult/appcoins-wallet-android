@@ -69,6 +69,21 @@ import javax.inject.Inject;
         .observe(this, this::onSavedGasSettings);
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_save) {
+      BigDecimal gasPrice = viewModel.gasPrice()
+          .getValue();
+      BigDecimal gasLimit = viewModel.gasLimit()
+          .getValue();
+      viewModel.saveChanges(gasPrice, gasLimit);
+      Intent intent = new Intent();
+      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(gasPrice, gasLimit));
+      setResult(RESULT_OK, intent);
+      finish();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   /**
    * function hardcoded temporarily, must be changed
    *
@@ -83,21 +98,6 @@ import javax.inject.Inject;
     }
     enableDisplayHomeAsUp();
     return toolbar;
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_save) {
-      BigDecimal gasPrice = viewModel.gasPrice()
-          .getValue();
-      BigDecimal gasLimit = viewModel.gasLimit()
-          .getValue();
-      viewModel.saveChanges(gasPrice, gasLimit);
-      Intent intent = new Intent();
-      intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(gasPrice, gasLimit));
-      setResult(RESULT_OK, intent);
-      finish();
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   private void onSavedGasSettings(GasSettings gasSettings) {

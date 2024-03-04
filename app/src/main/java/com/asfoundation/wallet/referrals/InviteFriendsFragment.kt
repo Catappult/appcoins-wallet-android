@@ -58,7 +58,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     childFragmentManager.beginTransaction()
       .replace(
         R.id.bottom_sheet_fragment_container,

@@ -69,11 +69,11 @@
       android:layout_marginTop="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="25dp"
+      app:buttonText="@string/verification_verify_paypal_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:buttonText="@string/verification_verify_paypal_button"
-      app:buttonType="filled"
       />
 
   <include
