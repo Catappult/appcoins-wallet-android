@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Восстановление пароля невозможно.</string>
   <string name="backup_additional_security_password_not_march">Пароли не совпадают.</string>
   <string name="import_wallet_recovering_body">Восстанавливаем кошелёк...</string>
-  <string name="backup_skip_title">Я понимаю, что могу потерять свои средства, если не сделаю резервную копию своего ключа.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Сделать бэкап кошелька</string>
   <string name="backup_success_save_on_email">Ваша резервная копия отправлена по почте.</string>
   <string name="backup_success_save_on_device">Ваша резервная копия на вашем устройстве.</string>
