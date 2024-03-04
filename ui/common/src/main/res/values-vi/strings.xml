@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Không có khôi phục mật khẩu.</string>
   <string name="backup_additional_security_password_not_march">Mật khẩu không khớp.</string>
   <string name="import_wallet_recovering_body">Đang khôi phục ví...</string>
-  <string name="backup_skip_title">Tôi hiểu rằng mình có thể mất tiền nếu không sao lưu khóa ví của mình.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Sao lưu ví</string>
   <string name="backup_success_save_on_email">Tập tin sao lưu nằm trong email của bạn.</string>
   <string name="backup_success_save_on_device">Tập tin sao lưu được lưu trữ trong thiết bị của bạn.</string>
