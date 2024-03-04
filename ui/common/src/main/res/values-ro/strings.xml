@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Nu există acces la recuperarea parolei.</string>
   <string name="backup_additional_security_password_not_march">Parolele nu sunt identice.</string>
   <string name="import_wallet_recovering_body">Se recuperează portofelul...</string>
-  <string name="backup_skip_title">Înțeleg că există posibilitatea să îmi pierd fondurile dacă nu fac o copie de rezervă a cheii portofelului meu.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Copie de rezervă portofel</string>
   <string name="backup_success_save_on_email">Fișierul copiei de rezervă este în e-mailul tău.</string>
   <string name="backup_success_save_on_device">Fișierul copiei de rezervă este stocat în dispozitivul tău.</string>
