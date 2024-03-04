@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Δεν υπάρχει δυνατότητα επαναφοράς κωδικού.</string>
   <string name="backup_additional_security_password_not_march">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
   <string name="import_wallet_recovering_body">Ανάκτηση wallet...</string>
-  <string name="backup_skip_title">Καταλαβαίνω ότι μπορεί να χάσω πίστωση αν δεν δημιουργήσω αντίγραφο ασφαλείας του κλειδιού του wallet μου.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="backup_success_save_on_email">Το αρχείο αντιγράφου ασφαλείας σας βρίσκεται στο e-mail σας.</string>
   <string name="backup_success_save_on_device">Το αρχείο αντιγράφου ασφαλείας σας έχει αποθηκευτεί στη συσκευή σας.</string>
