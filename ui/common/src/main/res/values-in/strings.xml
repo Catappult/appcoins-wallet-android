@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
   <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
   <string name="import_wallet_recovering_body">Memulihkan dompet...</string>
-  <string name="backup_skip_title">Saya mengerti bahwa saya mungkin bisa kehilangan dana saya kalau saya tidak mencadangkan kunci dompet saya.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Cadangkan dompet</string>
   <string name="backup_success_save_on_email">File cadangan ada di email Anda.</string>
   <string name="backup_success_save_on_device">File cadangan Anda disimpan di perangkat Anda.</string>
