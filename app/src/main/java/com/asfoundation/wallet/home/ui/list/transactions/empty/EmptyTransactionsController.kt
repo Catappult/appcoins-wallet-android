@@ -10,10 +10,10 @@ class EmptyTransactionsController : TypedEpoxyController<List<EmptyItem>>() {
   override fun buildModels(data: List<EmptyItem>) {
     for (item in data) {
       add(
-          EmptyItemModel_()
-              .id(item.id)
-              .emptyItem(item)
-              .clickListener(clickListener)
+        EmptyItemModel_()
+          .id(item.id)
+          .emptyItem(item)
+          .clickListener(clickListener)
       )
     }
 

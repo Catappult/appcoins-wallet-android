@@ -1,10 +1,12 @@
 package com.appcoins.wallet.bdsbilling.repository.entity
 
-import java.util.*
+import java.util.Date
 
-data class Purchase(val uid: String, val product: RemoteProduct, val state: State,
-                    val autoRenewing: Boolean, val renewal: Date?, val packageName: Package,
-                    val signature: Signature)
+data class Purchase(
+  val uid: String, val product: RemoteProduct, val state: State,
+  val autoRenewing: Boolean, val renewal: Date?, val packageName: Package,
+  val signature: Signature
+)
 
 data class RemoteProduct(val name: String)
 

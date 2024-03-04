@@ -10,7 +10,7 @@ enum class GamificationStatus {
   VIP_MAX;
 
   companion object {
-    fun toEnum(value: String?) = values().firstOrNull {it.name == value} ?: NONE
+    fun toEnum(value: String?) = values().firstOrNull { it.name == value } ?: NONE
   }
 }
 

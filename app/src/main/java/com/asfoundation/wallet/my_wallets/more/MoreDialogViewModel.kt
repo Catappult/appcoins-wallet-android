@@ -17,7 +17,7 @@ sealed class MoreDialogSideEffect : SideEffect {
   object NavigateBack : MoreDialogSideEffect()
 }
 
-data class MoreDialogStateItem constructor(
+data class MoreDialogStateItem(
   val isSelected: Boolean,
   val walletName: String,
   val walletAddress: String,
@@ -25,9 +25,9 @@ data class MoreDialogStateItem constructor(
 ) {
   constructor(walletAddress: String, walletInfoSimple: WalletInfoSimple) : this(
     walletAddress == walletInfoSimple.walletAddress,
-      walletInfoSimple.walletName,
-      walletInfoSimple.walletAddress,
-      walletInfoSimple.balance.symbol + currencyFormatUtils.formatCurrency(walletInfoSimple.balance.amount)
+    walletInfoSimple.walletName,
+    walletInfoSimple.walletAddress,
+    walletInfoSimple.balance.symbol + currencyFormatUtils.formatCurrency(walletInfoSimple.balance.amount)
   )
 
   companion object {
@@ -46,9 +46,9 @@ data class MoreDialogState(
 
 @HiltViewModel
 class MoreDialogViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val walletsInteract: WalletsInteract,
-    private val walletDetailsInteractor: WalletDetailsInteractor,
+  savedStateHandle: SavedStateHandle,
+  private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
 ) :
   BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
 

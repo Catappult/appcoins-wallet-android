@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 public class AppCoinsOperationMapper {
 
-  public @Inject AppCoinsOperationMapper(){
+  public @Inject AppCoinsOperationMapper() {
   }
 
   public List<AppCoinsOperation> map(List<AppCoinsOperationEntity> appCoinsOperationEntities) {

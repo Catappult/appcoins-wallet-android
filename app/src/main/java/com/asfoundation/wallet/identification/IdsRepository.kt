@@ -5,10 +5,10 @@ import android.os.Build
 import android.provider.Settings
 import com.appcoins.wallet.core.analytics.analytics.partners.InstallerService
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class IdsRepository @Inject constructor(
@@ -64,9 +64,9 @@ class IdsRepository @Inject constructor(
             || Build.MODEL.contains("Emulator")
             || Build.MODEL.contains("Android SDK built for x86")
             || ("QC_Reference_Phone" == Build.BOARD && !"Xiaomi".equals(
-                  Build.MANUFACTURER,
-                  ignoreCase = true
-                )) //bluestacks
+          Build.MANUFACTURER,
+          ignoreCase = true
+        )) //bluestacks
             || Build.MANUFACTURER.contains("Genymotion")
             || Build.HOST.startsWith("Build") //MSI App Player
             || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))

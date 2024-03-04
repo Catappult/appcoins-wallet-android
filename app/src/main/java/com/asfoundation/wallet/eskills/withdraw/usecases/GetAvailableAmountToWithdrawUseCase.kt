@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.eskills.withdraw.usecases
 
-import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject

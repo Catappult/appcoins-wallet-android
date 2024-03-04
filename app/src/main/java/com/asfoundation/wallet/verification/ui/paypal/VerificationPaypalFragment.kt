@@ -41,7 +41,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   private val views by viewBinding(FragmentVerifyPaypalIntroBinding::bind)
 
   private val paypalActivityLauncher = registerForActivityResult(
-      ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    ActivityResultContracts.StartActivityForResult()
+  ) { result: ActivityResult ->
     val resultCode = result.resultCode
     val data = result.data
     if (resultCode == WebViewActivity.SUCCESS && data != null) {
@@ -53,8 +54,10 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -79,6 +82,7 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     when (verificationInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> showLoading()
+
       is Async.Success -> showVerificationInfo(verificationInfoAsync())
       is Async.Fail -> setError(verificationInfoAsync.error)
     }
@@ -112,10 +116,14 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   private fun showVerificationInfo(verificationIntroModel: VerificationIntroModel) {
-    val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
-        WalletCurrency.FIAT)
-    views.paypalVerifyDescription.text = getString(R.string.verification_verify_paypal_description,
-        "${verificationIntroModel.verificationInfoModel.symbol}$amount")
+    val amount = formatter.formatCurrency(
+      verificationIntroModel.verificationInfoModel.value,
+      WalletCurrency.FIAT
+    )
+    views.paypalVerifyDescription.text = getString(
+      R.string.verification_verify_paypal_description,
+      "${verificationIntroModel.verificationInfoModel.symbol}$amount"
+    )
     hideAll()
     views.paypalGraphic.visibility = View.VISIBLE
     views.verifyGraphic.visibility = View.VISIBLE

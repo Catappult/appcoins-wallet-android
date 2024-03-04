@@ -5,12 +5,14 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 
-class AppcoinsCreditsTransactSuccessPresenter(private val view: AppcoinsCreditsTransactSuccessView,
-                                              private val amount: BigDecimal,
-                                              private val currency: String,
-                                              private val toAddress: String,
-                                              private val disposables: CompositeDisposable,
-                                              private val formatter: CurrencyFormatUtils) {
+class AppcoinsCreditsTransactSuccessPresenter(
+  private val view: AppcoinsCreditsTransactSuccessView,
+  private val amount: BigDecimal,
+  private val currency: String,
+  private val toAddress: String,
+  private val disposables: CompositeDisposable,
+  private val formatter: CurrencyFormatUtils
+) {
   fun present() {
     val walletCurrency = mapToWalletCurrency(currency)
     val formattedAmount = formatter.formatTransferCurrency(amount, walletCurrency)
@@ -20,8 +22,8 @@ class AppcoinsCreditsTransactSuccessPresenter(private val view: AppcoinsCreditsT
 
   private fun handleOkButtonClick() {
     disposables.add(view.getOkClick()
-        .doOnNext { view.close() }
-        .subscribe())
+      .doOnNext { view.close() }
+      .subscribe())
   }
 
   fun stop() {

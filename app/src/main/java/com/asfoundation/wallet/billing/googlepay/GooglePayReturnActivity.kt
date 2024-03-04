@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GooglePayReturnActivity() : BaseActivity() {
+class GooglePayReturnActivity : BaseActivity() {
   @Inject
   lateinit var googlePayWebRepository: GooglePayWebRepository
 
@@ -24,12 +24,15 @@ class GooglePayReturnActivity() : BaseActivity() {
           Log.d(TAG, "success")
           googlePayWebRepository.saveChromeResult(GooglePayResult.SUCCESS.key)
         }
+
         GooglePayResult.CANCEL.key -> {
           googlePayWebRepository.saveChromeResult(GooglePayResult.CANCEL.key)
         }
+
         GooglePayResult.ERROR.key -> {
           googlePayWebRepository.saveChromeResult(GooglePayResult.ERROR.key)
         }
+
         else -> {
           googlePayWebRepository.saveChromeResult(GooglePayResult.ERROR.key)
         }

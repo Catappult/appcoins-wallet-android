@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class TokenInfoDialogViewModelFactory(
-    val data: TokenInfoDialogData,
+  val data: TokenInfoDialogData,
 ) : ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {

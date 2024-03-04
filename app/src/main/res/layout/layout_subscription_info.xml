@@ -18,10 +18,10 @@
       android:contentDescription="@string/empty"
       android:lineSpacingExtra="0.25sp"
       android:transitionName="app_icon_transition"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_transaction_peer"
       />
 

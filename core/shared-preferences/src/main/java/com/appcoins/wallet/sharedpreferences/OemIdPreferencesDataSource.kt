@@ -18,7 +18,9 @@ class OemIdPreferencesDataSource @Inject constructor(
       .putString(CURRENT_OEMID, value)
       .apply()
 
-  fun getGamesHubOemIdIndicative() = sharedPreferences.getString(GAMES_HUB_INSTALLED_OEMID, "") ?: ""
+  fun getGamesHubOemIdIndicative() =
+    sharedPreferences.getString(GAMES_HUB_INSTALLED_OEMID, "") ?: ""
+
   fun setGamesHubOemIdIndicative(value: String?) =
     sharedPreferences.edit()
       .putString(GAMES_HUB_INSTALLED_OEMID, value)

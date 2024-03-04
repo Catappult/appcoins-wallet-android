@@ -15,22 +15,28 @@ import io.reactivex.disposables.CompositeDisposable
 class SubscriptionDetailsModule {
 
   @Provides
-  fun providesSubscriptionDetailsPresenter(fragment: Fragment,
-                                           navigator: SubscriptionDetailsNavigator,
-                                           userSubscriptionsInteractor: UserSubscriptionsInteractor,
-                                           data: SubscriptionDetailsData): SubscriptionDetailsPresenter {
-    return SubscriptionDetailsPresenter(fragment as SubscriptionDetailsView, navigator, data,
-        userSubscriptionsInteractor, CompositeDisposable(), AndroidSchedulers.mainThread())
+  fun providesSubscriptionDetailsPresenter(
+    fragment: Fragment,
+    navigator: SubscriptionDetailsNavigator,
+    userSubscriptionsInteractor: UserSubscriptionsInteractor,
+    data: SubscriptionDetailsData
+  ): SubscriptionDetailsPresenter {
+    return SubscriptionDetailsPresenter(
+      fragment as SubscriptionDetailsView, navigator, data,
+      userSubscriptionsInteractor, CompositeDisposable(), AndroidSchedulers.mainThread()
+    )
   }
 
   @Provides
   fun providesSubscriptionDetailsData(fragment: Fragment): SubscriptionDetailsData {
     fragment.requireArguments()
-        .apply {
-          return SubscriptionDetailsData(
-              getSerializable(
-                  SubscriptionDetailsFragment.SUBSCRIPTION_ITEM_KEY) as SubscriptionItem,
-              getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, ""))
-        }
+      .apply {
+        return SubscriptionDetailsData(
+          getSerializable(
+            SubscriptionDetailsFragment.SUBSCRIPTION_ITEM_KEY
+          ) as SubscriptionItem,
+          getString(SubscriptionDetailsFragment.TRANSITION_NAME_KEY, "")
+        )
+      }
   }
 }

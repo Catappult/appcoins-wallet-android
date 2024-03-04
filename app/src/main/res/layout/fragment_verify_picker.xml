@@ -10,12 +10,12 @@
       android:id="@+id/draggable_bar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/normal_margin"
       android:layout_gravity="center_horizontal"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="@dimen/normal_margin"
       android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <com.google.android.material.card.MaterialCardView
@@ -25,9 +25,9 @@
       android:layout_marginTop="@dimen/big_margin"
       app:cardBackgroundColor="@color/styleguide_blue_secondary"
       app:cardElevation="0dp"
-      app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+      app:strokeWidth="0dp"
       >
 
     <LinearLayout
@@ -64,9 +64,9 @@
       android:layout_marginBottom="15dp"
       app:cardBackgroundColor="@color/styleguide_blue_secondary"
       app:cardElevation="0dp"
-      app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+      app:strokeWidth="0dp"
       >
 
     <LinearLayout

@@ -15,7 +15,7 @@ class BackupEntryChooseWalletBottomSheetPresenter(
   private val data: BackupEntryChooseWalletBottomSheetData,
 ) {
 
-  var walletName2 : String? = ""
+  var walletName2: String? = ""
 
 
   fun present(data: WalletsModel, navController: NavController) {
@@ -34,22 +34,27 @@ class BackupEntryChooseWalletBottomSheetPresenter(
 
   private fun handleWalletCardClick(navController: NavController) {
     disposables.add(view.walletCardClicked()
-        .doOnNext { walletAddress ->
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_SUCCESS)
+      .doOnNext { walletAddress ->
+        walletsEventSender.sendCreateBackupEvent(
+          WalletsAnalytics.ACTION_CREATE,
+          WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_SUCCESS
+        )
 
-          walletsCustom?.first { it.backupWalletActive }?.backupWalletActive = false
-          walletsCustom?.first { it.walletAddress == walletAddress }?.backupWalletActive = true
-          walletName2 = walletsCustom?.first{ it.walletAddress == walletAddress }?.walletName
-          navigator.navigateToBackup(walletAddress, walletName2!!, navController)
+        walletsCustom?.first { it.backupWalletActive }?.backupWalletActive = false
+        walletsCustom?.first { it.walletAddress == walletAddress }?.backupWalletActive = true
+        walletName2 = walletsCustom?.first { it.walletAddress == walletAddress }?.walletName
+        navigator.navigateToBackup(walletAddress, walletName2!!, navController)
 
-        }
+      }
 
-        .doOnError {
-          walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
-        }
-        .subscribe({}, { it.printStackTrace() }))
+      .doOnError {
+        walletsEventSender.sendCreateBackupEvent(
+          WalletsAnalytics.ACTION_CREATE,
+          WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL
+        )
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
 

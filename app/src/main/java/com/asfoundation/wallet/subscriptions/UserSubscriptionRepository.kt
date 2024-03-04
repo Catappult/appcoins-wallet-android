@@ -3,13 +3,13 @@ package com.asfoundation.wallet.subscriptions
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus.EXPIRED
-import com.appcoins.wallet.core.walletservices.WalletService
-import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionApi
+import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class UserSubscriptionRepository @Inject constructor(

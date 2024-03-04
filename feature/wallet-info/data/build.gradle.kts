@@ -1,16 +1,16 @@
-plugins{
+plugins {
   id("appcoins.android.library")
   id("kotlin-parcelize")
   id("appcoins.room")
 }
 
-android{
+android {
   namespace = "com.appcoins.wallet.feature.walletInfo.data"
 }
 
 
 
-dependencies{
+dependencies {
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:network:base"))
   implementation(project(":feature:promo-code:data"))

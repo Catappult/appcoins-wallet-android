@@ -5,19 +5,23 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.asfoundation.wallet.billing.paypal.usecases.*
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.wallet.appcoins.feature.support.data.SupportInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.paypal.usecases.CancelPaypalTokenUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalAgreementUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTokenUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreatePaypalTransactionUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.WaitForSuccessPaypalUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
-import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -96,6 +100,7 @@ class PayPalIABViewModel @Inject constructor(
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
+
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
               Log.d(TAG, "No billing agreement. Create new token? $createTokenIfNeeded ")
               if (createTokenIfNeeded) {
@@ -106,9 +111,11 @@ class PayPalIABViewModel @Inject constructor(
                 _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
+
             PaypalTransaction.PaypalValidityState.PENDING -> {
               waitForSuccess(it.hash, it.uid, transactionBuilder)
             }
+
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
               sendPaymentErrorEvent(
@@ -117,6 +124,7 @@ class PayPalIABViewModel @Inject constructor(
               )
               _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
+
             null -> {
               Log.d(TAG, "Paypal transaction error")
               sendPaymentErrorEvent(
@@ -211,6 +219,7 @@ class PayPalIABViewModel @Inject constructor(
               PaymentModel.Status.COMPLETED -> {
                 getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
               }
+
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
@@ -220,6 +229,7 @@ class PayPalIABViewModel @Inject constructor(
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
+
               else -> { /* pending */
               }
             }

@@ -96,15 +96,16 @@
       android:id="@+id/error_try_again_google_pay"
       android:layout_width="match_parent"
       android:layout_height="48dp"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/big_margin"
       android:visibility="gone"
       app:buttonText="@string/try_again"
       app:buttonType="filled"
-      android:layout_marginBottom="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginStart="@dimen/big_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      tools:visibility="visible" />
+      tools:visibility="visible"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

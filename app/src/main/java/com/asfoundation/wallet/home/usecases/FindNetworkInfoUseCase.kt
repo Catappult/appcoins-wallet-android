@@ -9,6 +9,6 @@ class FindNetworkInfoUseCase @Inject constructor(private val networkInfo: Networ
 
   operator fun invoke(): Single<NetworkInfo> {
     return Single.just(networkInfo)
-        .observeOn(Schedulers.io())
+      .observeOn(Schedulers.io())
   }
 }

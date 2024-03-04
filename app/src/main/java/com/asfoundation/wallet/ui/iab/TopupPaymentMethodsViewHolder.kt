@@ -66,17 +66,18 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     if (data.showLogout) {
       disposables.add(
         showPayPalLogout
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-          binding.paymentMoreLogout.visibility = if (it!!)
-            View.VISIBLE
-          else
-            View.GONE
-        }
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe {
+            binding.paymentMoreLogout.visibility = if (it!!)
+              View.VISIBLE
+            else
+              View.GONE
+          }
       )
 
       binding.paymentMoreLogout.setOnClickListener {
-        var wrapper: Context =  ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
+        var wrapper: Context =
+          ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
         val popup = PopupMenu(wrapper, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
@@ -105,7 +106,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
-    if(!isEnabled) {
+    if (!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
       )

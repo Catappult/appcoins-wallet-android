@@ -12,4 +12,4 @@ data class ReferralResponse(
 
   @SerializedName("available")
   val available: Boolean
-  )
+)

@@ -5,8 +5,6 @@ import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
-import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
@@ -14,6 +12,8 @@ import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.HttpException
@@ -67,6 +67,7 @@ open class AdyenResponseMapper @Inject constructor(
           action = adyenSerializer.deserializeRedirectAction(jsonAction)
           redirectUrl = action.url
         }
+
         THREEDS2 -> action = adyenSerializer.deserialize3DS(jsonAction)
         THREEDS2FINGERPRINT -> action = adyenSerializer.deserialize3DSFingerprint(jsonAction)
         THREEDS2CHALLENGE -> action = adyenSerializer.deserialize3DSChallenge(jsonAction)

@@ -2,9 +2,6 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.content.Context
 import android.content.res.Configuration
-import com.appcoins.wallet.core.analytics.BuildConfig
-import com.appcoins.wallet.core.analytics.analytics.partners.PartnerAddressService
-import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import org.json.JSONObject

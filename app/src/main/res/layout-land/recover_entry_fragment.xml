@@ -12,10 +12,10 @@
       android:id="@+id/recover_entry_scroll_view"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBottom_toTopOf="@id/constraint_layout_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,14 +28,15 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
+          app:layout_constraintTop_toTopOf="parent"
+          >
 
         <ImageView
             android:id="@+id/onboarding_wallet_icon"
             android:layout_width="@dimen/onboarding_icon_size_land"
             android:layout_height="108dp"
-            android:layout_marginTop="@dimen/big_margin"
             android:layout_marginHorizontal="@dimen/large_margin"
+            android:layout_marginTop="@dimen/big_margin"
             android:src="@drawable/recovery_entry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,28 +45,28 @@
 
         <TextView
             android:id="@+id/recover_wallet_title"
+            style="@style/OnboardingWelcomeTitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/big_margin"
             android:layout_marginHorizontal="@dimen/half_large_margin"
+            android:layout_marginTop="@dimen/big_margin"
             android:text="@string/my_wallets_action_recover_wallet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
-            style="@style/OnboardingWelcomeTitleTextStyle"
             />
 
         <TextView
             android:id="@+id/recover_wallet_subtitle"
+            style="@style/OnboardingWelcomeSubtitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginHorizontal="@dimen/half_large_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:text="@string/import_wallet_body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recover_wallet_title"
-            style="@style/OnboardingWelcomeSubtitleTextStyle"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -75,14 +76,14 @@
           layout="@layout/recover_entry_options"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/half_large_margin"
           android:layout_marginBottom="16dp"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toEndOf="@id/recover_intro"
+          app:layout_constraintTop_toTopOf="parent"
           app:tint="@color/styleguide_white"
           />
 

@@ -26,8 +26,9 @@ class SecurePreferencesDataSource @Inject constructor(
       .build()
     EncryptedSharedPreferences.create(
       context, FILE_NAME, masterKey,
-        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV, EncryptedSharedPreferences
-        .PrefValueEncryptionScheme.AES256_GCM)
+      EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV, EncryptedSharedPreferences
+        .PrefValueEncryptionScheme.AES256_GCM
+    )
   }
 
   fun saveString(key: String, value: String) =

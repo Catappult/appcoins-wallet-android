@@ -12,8 +12,8 @@
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_popup_balloon"
-      android:paddingVertical="@dimen/small_margin"
       android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/small_margin"
       app:layout_constraintBottom_toTopOf="@id/arrow"
       >
 
@@ -37,8 +37,8 @@
       android:layout_width="21dp"
       android:layout_height="17dp"
       android:layout_marginEnd="18dp"
-      android:elevation="99dp"
       android:contentDescription="@null"
+      android:elevation="99dp"
       android:src="@drawable/arrow_popup_balloon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/container_popup"

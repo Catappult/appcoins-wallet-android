@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class VkPaymentTopUpFragment() : BasePageViewFragment(),
+class VkPaymentTopUpFragment : BasePageViewFragment(),
   SingleStateFragment<VkPaymentTopUpState, VkPaymentTopUpSideEffect> {
 
   private val viewModel: VkPaymentTopUpViewModel by viewModels()
@@ -120,6 +120,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       is VkCheckoutSuccess -> {
 //        viewModel.startTransactionStatusTimer()
       }
+
       else -> {
         showError()
       }
@@ -135,8 +136,8 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
-        vkDataPreferencesDataSource.getEmailVK() ?: "",
-        vkDataPreferencesDataSource.getPhoneVK() ?: "",
+        vkDataPreferencesDataSource.getEmailVK(),
+        vkDataPreferencesDataSource.getPhoneVK(),
         viewModel.walletAddress,
         amount,
         merchantId.toInt(),
@@ -158,6 +159,7 @@ class VkPaymentTopUpFragment() : BasePageViewFragment(),
       is Async.Fail -> {
         showError()
       }
+
       else -> {}
     }
   }

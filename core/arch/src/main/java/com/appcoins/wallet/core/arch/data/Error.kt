@@ -6,7 +6,7 @@ package com.appcoins.wallet.core.arch.data
 sealed class Error(open val throwable: Throwable) {
   sealed class ApiError<out E>(override val throwable: Throwable) : Error(throwable) {
     data class HttpError<out E>(val code: Int, val value: E) :
-        ApiError<E>(Throwable("HttpError - Code:${code} Value:${value}")) {
+      ApiError<E>(Throwable("HttpError - Code:${code} Value:${value}")) {
       operator fun invoke(): E = value
     }
 

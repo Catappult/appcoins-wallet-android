@@ -2,22 +2,22 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
-import com.wallet.appcoins.feature.support.data.SupportInteractor
-import com.asfoundation.wallet.ui.FingerprintInteractor
-import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
-import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.asfoundation.wallet.ui.FingerprintInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import javax.inject.Inject
 
 class SettingsInteractor @Inject constructor(
-        private val findDefaultWalletInteract: FindDefaultWalletInteract,
-        private val supportInteractor: SupportInteractor,
-        private val walletsInteract: WalletsInteract,
-        private val fingerprintInteractor: FingerprintInteractor,
-        private val walletsEventSender: WalletsEventSender,
-        private val preferenceRepository: CommonsPreferencesDataSource,
-        private val fingerprintPreferences: FingerprintPreferencesDataSource
+  private val findDefaultWalletInteract: FindDefaultWalletInteract,
+  private val supportInteractor: SupportInteractor,
+  private val walletsInteract: WalletsInteract,
+  private val fingerprintInteractor: FingerprintInteractor,
+  private val walletsEventSender: WalletsEventSender,
+  private val preferenceRepository: CommonsPreferencesDataSource,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource
 ) {
 
   private var fingerPrintAvailability: Int = -1

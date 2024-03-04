@@ -61,24 +61,30 @@ class RewardsManager @Inject constructor(
       Transaction.Status.PROCESSING -> Observable.just(
         RewardPayment(transaction.orderReference, Status.PROCESSING)
       )
+
       Transaction.Status.COMPLETED -> Observable.just(
         RewardPayment(transaction.orderReference, Status.COMPLETED, transaction.purchaseUid)
       )
+
       Transaction.Status.ERROR -> Observable.just(
         RewardPayment(
           transaction.orderReference, Status.ERROR,
           errorCode = transaction.errorCode, errorMessage = transaction.errorMessage
         )
       )
+
       Transaction.Status.FORBIDDEN -> Observable.just(
         RewardPayment(transaction.orderReference, Status.FORBIDDEN)
       )
+
       Transaction.Status.SUB_ALREADY_OWNED -> Observable.just(
         RewardPayment(transaction.orderReference, Status.SUB_ALREADY_OWNED)
       )
+
       Transaction.Status.NO_NETWORK -> Observable.just(
         RewardPayment(transaction.orderReference, Status.NO_NETWORK)
       )
+
       else -> throw UnsupportedOperationException(
         "Transaction status " + transaction.status + " not supported"
       )

@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.logging
 
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.asf.wallet.BuildConfig
-import com.appcoins.wallet.core.utils.android_common.Log
 
 class DebugReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     if (BuildConfig.DEBUG) {
       throwable?.printStackTrace()
-      Log.e(tag?: "Logger", throwable?.message, throwable)
+      Log.e(tag ?: "Logger", throwable?.message, throwable)
     }
   }
 
@@ -22,7 +22,7 @@ class DebugReceiver : LogReceiver {
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
     if (BuildConfig.DEBUG) {
-      Log.e(tag?: "Logger", message, throwable)
+      Log.e(tag ?: "Logger", message, throwable)
     }
   }
 

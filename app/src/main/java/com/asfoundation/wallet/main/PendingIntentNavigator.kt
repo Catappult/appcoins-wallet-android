@@ -9,13 +9,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class PendingIntentNavigator @Inject constructor(@ApplicationContext val context: Context) :
-    Navigator {
+  Navigator {
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.nav_bar_graph)
-        .setDestination(R.id.home_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.nav_bar_graph)
+      .setDestination(R.id.home_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 }

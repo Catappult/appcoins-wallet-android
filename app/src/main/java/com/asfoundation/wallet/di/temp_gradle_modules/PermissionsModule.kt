@@ -19,10 +19,15 @@ class PermissionsModule {
   @Singleton
   @Provides
   fun providesPermissions(@ApplicationContext context: Context): Permissions {
-    return Permissions(PermissionRepository(
-        Room.databaseBuilder(context.applicationContext, PermissionsDatabase::class.java,
-            "permissions_database")
-            .build()
-            .permissionsDao()))
+    return Permissions(
+      PermissionRepository(
+        Room.databaseBuilder(
+          context.applicationContext, PermissionsDatabase::class.java,
+          "permissions_database"
+        )
+          .build()
+          .permissionsDao()
+      )
+    )
   }
 }

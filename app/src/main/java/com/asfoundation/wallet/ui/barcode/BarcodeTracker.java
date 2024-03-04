@@ -20,7 +20,7 @@ import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
 
 class BarcodeTracker extends Tracker<Barcode> {
-  private BarcodeGraphicTrackerCallback mListener;
+  private final BarcodeGraphicTrackerCallback mListener;
 
   BarcodeTracker(Context listener) {
     mListener = (BarcodeGraphicTrackerCallback) listener;

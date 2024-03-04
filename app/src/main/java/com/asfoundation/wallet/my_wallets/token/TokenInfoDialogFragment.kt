@@ -8,10 +8,10 @@ import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTokenInfoBinding
 import com.asfoundation.wallet.GlideApp
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +30,10 @@ class TokenInfoDialogFragment : BottomSheetDialogFragment(),
   private val viewModel: TokenInfoDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentTokenInfoBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentTokenInfoBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentTokenInfoBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -52,8 +54,8 @@ class TokenInfoDialogFragment : BottomSheetDialogFragment(),
     views.title.text = state.title
     views.description.text = state.description
     GlideApp.with(this)
-        .load(state.image.toUri())
-        .into(views.icon)
+      .load(state.image.toUri())
+      .into(views.icon)
 
     views.topUpButton.visibility = if (state.showTopUp) View.VISIBLE else View.GONE
   }

@@ -3,11 +3,11 @@ package com.asfoundation.wallet.ui.gamification
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
+import com.asf.wallet.databinding.CurrentLevelLayoutBinding
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asf.wallet.databinding.CurrentLevelLayoutBinding
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -25,7 +25,8 @@ class CurrentLevelViewHolder(
 
   override fun bind(level: LevelItem) {
     val currentLevel = level as CurrentLevelItem
-    val progress = mapper.getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
+    val progress =
+      mapper.getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
     val progressString = mapper.validateAndGetProgressString(
       currentLevel.amountSpent,
       currentLevel.nextLevelAmount
@@ -67,7 +68,8 @@ class CurrentLevelViewHolder(
 
   private fun setColor(color: Int) {
     binding.currentLevelCardLayout.currentLevelBonus.background = mapper.getOvalBackground(color)
-    binding.currentLevelCardLayout.currentLevelProgressBar.progressTintList = ColorStateList.valueOf(color)
+    binding.currentLevelCardLayout.currentLevelProgressBar.progressTintList =
+      ColorStateList.valueOf(color)
   }
 
   private fun setText(

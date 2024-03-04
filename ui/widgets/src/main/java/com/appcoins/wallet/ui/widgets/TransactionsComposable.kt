@@ -361,8 +361,10 @@ fun SkeletonLoadingTransactionCard() {
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
     Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
-      Row(verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+      ) {
         Spacer(
           modifier = Modifier
             .padding(top = 8.dp)
@@ -371,9 +373,11 @@ fun SkeletonLoadingTransactionCard() {
             .clip(RoundedCornerShape(12.dp))
             .background(brush = shimmerSkeleton()),
         )
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
           horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier.fillMaxWidth()) {
+          modifier = Modifier.fillMaxWidth()
+        ) {
           Spacer(
             modifier = Modifier
               .width(width = 170.dp)
@@ -394,8 +398,10 @@ fun SkeletonLoadingTransactionCard() {
       }
     }
     Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
-      Row(verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+      ) {
         Spacer(
           modifier = Modifier
             .padding(top = 8.dp)
@@ -404,9 +410,11 @@ fun SkeletonLoadingTransactionCard() {
             .clip(RoundedCornerShape(12.dp))
             .background(brush = shimmerSkeleton()),
         )
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
           horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier.fillMaxWidth()) {
+          modifier = Modifier.fillMaxWidth()
+        ) {
           Spacer(
             modifier = Modifier
               .width(width = 170.dp)
@@ -427,8 +435,10 @@ fun SkeletonLoadingTransactionCard() {
       }
     }
     Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
-      Row(verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()) {
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+      ) {
         Spacer(
           modifier = Modifier
             .padding(top = 8.dp)
@@ -437,9 +447,11 @@ fun SkeletonLoadingTransactionCard() {
             .clip(RoundedCornerShape(12.dp))
             .background(brush = shimmerSkeleton()),
         )
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
           horizontalArrangement = Arrangement.SpaceBetween,
-          modifier = Modifier.fillMaxWidth()) {
+          modifier = Modifier.fillMaxWidth()
+        ) {
           Spacer(
             modifier = Modifier
               .width(width = 170.dp)

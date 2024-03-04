@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.rating
 
-import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.zendesk.RetrofitZendeskNetwork
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.network.zendesk.model.WalletFeedbackBody
-import io.reactivex.Single
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.RatingPreferencesDataSource
+import com.asf.wallet.BuildConfig
+import io.reactivex.Single
 import javax.inject.Inject
 
 class RatingRepository @Inject constructor(

@@ -1,23 +1,28 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
-import com.appcoins.wallet.billing.carrierbilling.*
+import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
+import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
-import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
-import com.asf.wallet.R
+import com.appcoins.wallet.billing.carrierbilling.GenericError
+import com.appcoins.wallet.billing.carrierbilling.InvalidPhoneNumber
+import com.appcoins.wallet.billing.carrierbilling.InvalidPriceError
+import com.appcoins.wallet.billing.carrierbilling.NoError
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.ui.common.StringProvider
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.ui.common.StringProvider
+import com.asf.wallet.R
+import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
-import java.util.*
+import java.util.Currency
 
 class CarrierVerifyPresenter(
   private val disposables: CompositeDisposable,
@@ -168,6 +173,7 @@ class CarrierVerifyPresenter(
       is InvalidPhoneNumber -> {
         return Completable.fromAction { view.showInvalidPhoneNumberError() }
       }
+
       is InvalidPriceError -> {
         val error = paymentModel.error as InvalidPriceError
         when (error.type) {
@@ -181,6 +187,7 @@ class CarrierVerifyPresenter(
               )
             }
           }
+
           InvalidPriceError.BoundType.UPPER -> {
             return Completable.fromAction {
               navigator.navigateToError(
@@ -193,6 +200,7 @@ class CarrierVerifyPresenter(
           }
         }
       }
+
       is ForbiddenError -> {
         val error = paymentModel.error as ForbiddenError
         return if (error.type == ForbiddenType.BLOCKED) handleFraudFlow()
@@ -202,11 +210,13 @@ class CarrierVerifyPresenter(
           )
         }
       }
+
       is GenericError -> {
         return Completable.fromAction {
           navigator.navigateToError(stringProvider.getString(R.string.activity_iab_error_message))
         }
       }
+
       else -> return Completable.complete()
     }
   }

@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
+import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -87,21 +87,22 @@ public abstract class TransactionRepository implements TransactionRepositoryType
       String password, byte[] data, String toAddress, BigDecimal amount) {
     final Web3j web3j = Web3j.build(new HttpService(defaultNetwork.rpcServerUrl));
     return Single.fromCallable(
-        () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
-            getChainId(transactionBuilder)))
+            () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
+                getChainId(transactionBuilder)))
         .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
             amount, nonceValue).flatMap(signedMessage -> Single.fromCallable(() -> {
-          EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-              .send();
-          if (raw.hasError()) {
-            throw new TransactionException(raw.getError()
-                .getCode(), raw.getError()
-                .getMessage(), raw.getError()
-                .getData());
-          }
-          return raw.getTransactionHash();
-        })
-            .subscribeOn(Schedulers.io()))
+                  EthSendTransaction raw =
+                      web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
+                      .send();
+                  if (raw.hasError()) {
+                    throw new TransactionException(raw.getError()
+                        .getCode(), raw.getError()
+                        .getMessage(), raw.getError()
+                        .getData());
+                  }
+                  return raw.getTransactionHash();
+                })
+                .subscribeOn(Schedulers.io()))
             .doOnSuccess(hash -> nonceObtainer.consumeNonce(nonceValue,
                 new Address(transactionBuilder.fromAddress()), getChainId(transactionBuilder)))
             .retryWhen(throwableFlowable -> throwableFlowable.flatMap(

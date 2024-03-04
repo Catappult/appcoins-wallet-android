@@ -9,8 +9,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class RecoverPasswordKeystoreUseCase @Inject constructor(
-        private val walletRepository: WalletRepositoryType,
-        private val passwordStore: PasswordStore,
+  private val walletRepository: WalletRepositoryType,
+  private val passwordStore: PasswordStore,
 ) {
 
   operator fun invoke(

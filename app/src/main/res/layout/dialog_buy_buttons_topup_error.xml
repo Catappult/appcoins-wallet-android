@@ -7,8 +7,8 @@
     android:clipToPadding="false"
     android:gravity="end"
     android:orientation="horizontal"
-    android:paddingVertical="8dp"
     android:paddingHorizontal="24dp"
+    android:paddingVertical="8dp"
     >
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView

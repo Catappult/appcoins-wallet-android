@@ -427,7 +427,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun getWebViewResultCode(): String {
-    return "webView Result: ${iabView.webViewResultCode}" ?: ""
+    return "webView Result: ${iabView.webViewResultCode}"
   }
 
   private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable =
@@ -747,6 +747,7 @@ class AdyenPaymentPresenter(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
+
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }

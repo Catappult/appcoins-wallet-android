@@ -9,8 +9,10 @@ interface BalanceActivityView {
 
   fun showBalanceScreen()
 
-  fun showTokenDetailsScreen(tokenDetailsId: TokenDetailsActivity.TokenDetailsId,
-                             imgView: ImageView, textView: TextView, parentView: View)
+  fun showTokenDetailsScreen(
+    tokenDetailsId: TokenDetailsActivity.TokenDetailsId,
+    imgView: ImageView, textView: TextView, parentView: View
+  )
 
   fun setupToolbar()
 
@@ -26,9 +28,11 @@ interface BalanceActivityView {
 
   fun navigateToTransactions()
 
-  fun navigateToRemoveWalletView(walletAddress: String, totalFiatBalance: String,
-                                 appcoinsBalance: String, creditsBalance: String,
-                                 ethereumBalance: String)
+  fun navigateToRemoveWalletView(
+    walletAddress: String, totalFiatBalance: String,
+    appcoinsBalance: String, creditsBalance: String,
+    ethereumBalance: String
+  )
 
   fun navigateToBackupView(walletAddress: String)
 

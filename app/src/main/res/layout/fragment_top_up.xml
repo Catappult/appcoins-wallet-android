@@ -184,10 +184,10 @@
           android:layout_height="wrap_content"
           android:text="@string/topup_minimum_value"
           android:visibility="invisible"
+          app:layout_constraintBottom_toTopOf="@id/payment_container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/layout_header_top_up"
-          app:layout_constraintBottom_toTopOf="@id/payment_container"
           />
 
       <androidx.constraintlayout.widget.ConstraintLayout

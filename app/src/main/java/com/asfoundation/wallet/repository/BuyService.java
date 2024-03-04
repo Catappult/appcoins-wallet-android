@@ -49,9 +49,9 @@ public class BuyService {
     String storeAddress = getStoreAddress(cachedTransaction);
     String oemAddress = getOemAddress(cachedTransaction);
     return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
-        (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
-            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                countryCode, storeAddress, oemAddress)))
+            (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
+                getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                    countryCode, storeAddress, oemAddress)))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
         .flatMap(payment -> transactionValidator.validate(paymentTransaction)
             .map(__ -> payment))

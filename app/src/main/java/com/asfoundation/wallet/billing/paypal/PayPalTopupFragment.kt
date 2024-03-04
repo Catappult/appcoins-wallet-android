@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalTopupFragment() : BasePageViewFragment() {
+class PayPalTopupFragment : BasePageViewFragment() {
 
   private val viewModel: PayPalTopupViewModel by viewModels()
 
@@ -96,15 +96,19 @@ class PayPalTopupFragment() : BasePageViewFragment() {
         PayPalTopupViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is PayPalTopupViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is PayPalTopupViewModel.State.SuccessPurchase -> {
           handleSuccess()
         }
+
         PayPalTopupViewModel.State.TokenCanceled -> {
           close()
         }
+
         is PayPalTopupViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }

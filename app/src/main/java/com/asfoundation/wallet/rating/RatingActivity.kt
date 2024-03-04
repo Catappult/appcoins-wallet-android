@@ -26,12 +26,12 @@ class RatingActivity : BaseActivity() {
     if (savedInstanceState == null) {
       if (ratingInteractor.isNotFirstTime()) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RatingPositiveFragment.newInstance())
-            .commit()
+          .replace(R.id.fragment_container, RatingPositiveFragment.newInstance())
+          .commit()
       } else {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, RatingEntryFragment.newInstance())
-            .commit()
+          .replace(R.id.fragment_container, RatingEntryFragment.newInstance())
+          .commit()
       }
     }
   }

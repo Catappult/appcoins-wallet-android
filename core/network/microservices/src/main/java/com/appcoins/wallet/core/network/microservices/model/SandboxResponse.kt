@@ -8,7 +8,7 @@ data class SandboxResponse(
   val data: ErrorData?,
 ) {
   fun mapValidity(): SandboxTransaction.SandboxValidityState {
-    return when(status) {
+    return when (status) {
       TransactionStatus.PENDING -> SandboxTransaction.SandboxValidityState.PENDING
       TransactionStatus.PENDING_SERVICE_AUTHORIZATION -> SandboxTransaction.SandboxValidityState.PENDING
       TransactionStatus.SETTLED -> SandboxTransaction.SandboxValidityState.PENDING

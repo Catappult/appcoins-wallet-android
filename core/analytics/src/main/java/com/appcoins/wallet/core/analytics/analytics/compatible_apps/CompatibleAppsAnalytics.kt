@@ -10,7 +10,7 @@ class CompatibleAppsAnalytics @Inject constructor(
 
   fun sendPromotionClickEvent(packageName: String?, action: String) {
     val data = HashMap<String, Any>()
-    packageName?.let{ data[PACKAGE_NAME] = packageName }
+    packageName?.let { data[PACKAGE_NAME] = packageName }
     data[GAME_ACTION] = action
     analytics.logEvent(
       data,

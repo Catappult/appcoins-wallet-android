@@ -8,9 +8,9 @@ import io.reactivex.Observable;
 
 public class IabNavigator implements Navigator {
 
-  private FragmentManager fragmentManager;
   private final UriNavigator uriNavigator;
   private final IabView iabView;
+  private final FragmentManager fragmentManager;
 
   public IabNavigator(FragmentManager fragmentManager, UriNavigator uriNavigator, IabView iabView) {
     this.fragmentManager = fragmentManager;

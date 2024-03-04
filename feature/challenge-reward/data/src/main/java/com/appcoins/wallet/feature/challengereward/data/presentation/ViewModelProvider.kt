@@ -18,7 +18,8 @@ class InjectionsProvider @Inject constructor(
   val bdsRepository: BdsRepository,
 ) : ViewModel()
 
-private val _challengeRewardVisibilityViewModel = mutableStateOf<ChallengeRewardVisibilityViewModel?>(null)
+private val _challengeRewardVisibilityViewModel =
+  mutableStateOf<ChallengeRewardVisibilityViewModel?>(null)
 
 
 @Composable
@@ -39,6 +40,9 @@ fun challengeRewardNavigation(navigation: () -> Unit): (() -> Unit)? {
   val uiState by _challengeRewardVisibilityViewModel.value!!.uiState.collectAsState()
   return uiState
 }
+
 fun getLoadingStateChallengeReward(): MutableState<Boolean> {
-  return _challengeRewardVisibilityViewModel.value?.isLoadingChallengerRewardCard ?: mutableStateOf(true)
+  return _challengeRewardVisibilityViewModel.value?.isLoadingChallengerRewardCard ?: mutableStateOf(
+    true
+  )
 }

@@ -23,8 +23,8 @@ fun WalletImage(
 ) {
   AsyncImage(
     model = buildModel(data, transformations),
-    placeholder = remember{ColorPainter(placeholderColor)},
-    error = remember{ ColorPainter(placeholderColor) },
+    placeholder = remember { ColorPainter(placeholderColor) },
+    error = remember { ColorPainter(placeholderColor) },
     contentDescription = contentDescription,
     contentScale = contentScale,
     modifier = modifier

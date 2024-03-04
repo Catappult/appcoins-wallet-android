@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 @BoundTo(supertype = WalletsEventSender::class)
 class WalletsAnalytics @Inject constructor(private val analytics: AnalyticsManager) :
-    WalletsEventSender {
+  WalletsEventSender {
 
   override fun sendAction(action: String) {
     val data = HashMap<String, Any>()

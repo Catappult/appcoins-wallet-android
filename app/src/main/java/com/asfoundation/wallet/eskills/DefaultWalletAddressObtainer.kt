@@ -14,7 +14,7 @@ class DefaultWalletAddressObtainer @Inject constructor(private val walletService
 
   override fun getWalletAddress(): Single<WalletAddress> {
     return walletService.getWalletAddress()
-        .map { WalletAddress.fromValue(it) }
+      .map { WalletAddress.fromValue(it) }
   }
 
   override fun getOrCreateWallet(): Observable<String> {

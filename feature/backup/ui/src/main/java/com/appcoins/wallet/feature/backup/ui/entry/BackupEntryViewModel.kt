@@ -21,7 +21,7 @@ import javax.inject.Inject
 sealed class BackupEntrySideEffect : SideEffect
 
 data class BackupEntryState(
-    val balanceAsync: Async<Balance> = Async.Uninitialized,
+  val balanceAsync: Async<Balance> = Async.Uninitialized,
 ) : ViewState
 
 @HiltViewModel

@@ -22,7 +22,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,8 +52,10 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     private const val CODE_KEY = "code"
 
     @JvmStatic
-    fun newInstance(currency: String, symbol: String, value: String, digits: Int, format: String,
-                    period: String, date: Long): VerificationCodeFragment {
+    fun newInstance(
+      currency: String, symbol: String, value: String, digits: Int, format: String,
+      period: String, date: Long
+    ): VerificationCodeFragment {
       return VerificationCodeFragment().apply {
         arguments = Bundle().apply {
           putBoolean(LOADED_KEY, true)
@@ -82,13 +85,16 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
     require(context is VerificationCreditCardActivityView) {
       throw IllegalStateException(
-          "Wallet Verification Code must be attached to Wallet Verification Activity")
+        "Wallet Verification Code must be attached to Wallet Verification Activity"
+      )
     }
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentVerificationCodeBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentVerificationCodeBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -101,9 +107,11 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   }
 
 
-  override fun setupUi(currency: String, symbol: String, amount: String, digits: Int,
-                       format: String, period: String, date: Long, isWalletVerified: Boolean,
-                       savedInstance: Bundle?) {
+  override fun setupUi(
+    currency: String, symbol: String, amount: String, digits: Int,
+    format: String, period: String, date: Long, isWalletVerified: Boolean,
+    savedInstance: Bundle?
+  ) {
     val amountFormat = formatter.formatCurrency(amount, WalletCurrency.FIAT)
     val amountWithCurrency = "${symbol}$amountFormat"
     val amountWithCurrencyAndSign = "${symbol}-$amountFormat"
@@ -114,16 +122,24 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()
 
-    val periodFormat = String.format(getString(R.string.card_verification_code_example_code),
-        periodInDays.toString())
-    val codeTitle = String.format(getString(R.string.card_verification_code_enter_title),
-        digits.toString())
+    val periodFormat = String.format(
+      getString(R.string.card_verification_code_example_code),
+      periodInDays.toString()
+    )
+    val codeTitle = String.format(
+      getString(R.string.card_verification_code_enter_title),
+      digits.toString()
+    )
     val codeDisclaimer = if (periodInDays > 0) {
-      resources.getQuantityString(R.plurals.card_verification_code_enter_days_body,
-          periodInDays.toInt(), amountWithCurrency, periodInDays.toString())
+      resources.getQuantityString(
+        R.plurals.card_verification_code_enter_days_body,
+        periodInDays.toInt(), amountWithCurrency, periodInDays.toString()
+      )
     } else {
-      resources.getQuantityString(R.plurals.card_verification_code_enter_hours_body,
-          periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
+      resources.getQuantityString(
+        R.plurals.card_verification_code_enter_hours_body,
+        periodInHours.toInt(), amountWithCurrency, periodInHours.toString()
+      )
     }
 
     views.code.setEms(digits)
@@ -142,8 +158,8 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     views.codeTitle.text = codeTitle
     views.codeDisclaimer.text = codeDisclaimer
     views.successMessage.text =
-        if (isWalletVerified) getString(R.string.verification_settings_card_verified_title)
-        else getString(R.string.verification_settings_verified_title)
+      if (isWalletVerified) getString(R.string.verification_settings_card_verified_title)
+      else getString(R.string.verification_settings_verified_title)
 
     views.successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
@@ -230,7 +246,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   override fun getMaybeLaterClicks() = RxView.clicks(views.maybeLater)
 
   override fun getConfirmClicks(): Observable<String> = RxView.clicks(views.confirm)
-      .map { views.code.text.toString() }
+    .map { views.code.text.toString() }
 
   override fun getChangeCardClicks() = RxView.clicks(views.changeCardButton)
 
@@ -238,9 +254,9 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   private fun convertToDate(ts: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)
-        .apply { timeInMillis = ts }
+      .apply { timeInMillis = ts }
     return DateFormat.format("dd/MM/yyyy", cal.time)
-        .toString()
+      .toString()
   }
 
   override fun onDestroyView() {

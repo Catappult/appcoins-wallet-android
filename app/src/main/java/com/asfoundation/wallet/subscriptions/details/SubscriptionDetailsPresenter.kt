@@ -8,12 +8,14 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
-                                   private val navigator: SubscriptionDetailsNavigator,
-                                   private val data: SubscriptionDetailsData,
-                                   private val userSubscriptionsInteractor: UserSubscriptionsInteractor,
-                                   private val disposables: CompositeDisposable,
-                                   private val viewScheduler: Scheduler) {
+class SubscriptionDetailsPresenter(
+  private val view: SubscriptionDetailsView,
+  private val navigator: SubscriptionDetailsNavigator,
+  private val data: SubscriptionDetailsData,
+  private val userSubscriptionsInteractor: UserSubscriptionsInteractor,
+  private val disposables: CompositeDisposable,
+  private val viewScheduler: Scheduler
+) {
 
   fun present() {
     view.setupTransitionName(data.transitionName)
@@ -25,13 +27,13 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
 
   private fun handleRetryClicks() {
     disposables.add(
-        view.getRetryClicks()
-            .observeOn(viewScheduler)
-            .doOnEach {
-              view.showDetails()
-              setupUi()
-            }
-            .subscribe({}, { it.printStackTrace() })
+      view.getRetryClicks()
+        .observeOn(viewScheduler)
+        .doOnEach {
+          view.showDetails()
+          setupUi()
+        }
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -46,32 +48,36 @@ class SubscriptionDetailsPresenter(private val view: SubscriptionDetailsView,
 
   private fun handleCancelClicks() {
     disposables.add(
-        view.getCancelClicks()
-            .observeOn(viewScheduler)
-            .doOnNext {
-              navigator.showCancelSubscription(data.subscriptionItem, view.retrieveSharedElement())
-            }
-            .subscribe({}, { it.printStackTrace() }))
+      view.getCancelClicks()
+        .observeOn(viewScheduler)
+        .doOnNext {
+          navigator.showCancelSubscription(data.subscriptionItem, view.retrieveSharedElement())
+        }
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleRenewSubscriptionClicks() {
     disposables.add(
-        view.getRenewSubscriptionClicks()
-            .flatMap {
-              view.showLoading()
-              userSubscriptionsInteractor.activateSubscription(data.subscriptionItem.packageName,
-                  data.subscriptionItem.uid)
-                  .subscribeOn(Schedulers.io())
-                  .observeOn(viewScheduler)
-                  .doOnComplete {
-                    view.hideLoading()
-                    navigator.showRenewSuccess()
-                  }
-                  .doOnError { onError(it) }
-                  .onErrorComplete()
-                  .andThen(Observable.just(Unit))
+      view.getRenewSubscriptionClicks()
+        .flatMap {
+          view.showLoading()
+          userSubscriptionsInteractor.activateSubscription(
+            data.subscriptionItem.packageName,
+            data.subscriptionItem.uid
+          )
+            .subscribeOn(Schedulers.io())
+            .observeOn(viewScheduler)
+            .doOnComplete {
+              view.hideLoading()
+              navigator.showRenewSuccess()
             }
-            .subscribe({}, { it.printStackTrace() }))
+            .doOnError { onError(it) }
+            .onErrorComplete()
+            .andThen(Observable.just(Unit))
+        }
+        .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun onError(throwable: Throwable) {

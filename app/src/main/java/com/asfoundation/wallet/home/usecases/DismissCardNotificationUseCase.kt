@@ -1,16 +1,16 @@
 package com.asfoundation.wallet.home.usecases
 
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
 import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import io.reactivex.Completable
-import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class DismissCardNotificationUseCase @Inject constructor(

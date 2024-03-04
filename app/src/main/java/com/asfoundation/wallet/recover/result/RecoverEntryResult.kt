@@ -29,19 +29,23 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
 }
 
 class RecoverEntryResultMapper(
-        private val getWalletInfoUseCase: GetWalletInfoUseCase,
-        private val currencyFormatUtils: CurrencyFormatUtils,
-        private val walletKeyStore: WalletKeyStore
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val currencyFormatUtils: CurrencyFormatUtils,
+  private val walletKeyStore: WalletKeyStore
 ) {
   fun map(restoreResult: RestoreResult): Single<RecoverEntryResult> = when (restoreResult) {
     is SuccessfulRestore ->
       Single.just(SuccessfulEntryRecover(restoreResult.address, walletKeyStore.name))
+
     is FailedRestore.AlreadyAdded ->
       Single.just(FailedEntryRecover.AlreadyAdded(restoreResult.throwable))
+
     is FailedRestore.GenericError ->
       Single.just(FailedEntryRecover.GenericError(restoreResult.throwable))
+
     is FailedRestore.InvalidKeystore ->
       Single.just(FailedEntryRecover.InvalidKeystore(restoreResult.throwable))
+
     is FailedRestore.InvalidPassword -> getWalletInfoUseCase(
       address = restoreResult.address,
       cached = false
@@ -56,6 +60,7 @@ class RecoverEntryResultMapper(
           symbol = it.walletBalance.overallFiat.symbol
         )
       }
+
     is FailedRestore.InvalidPrivateKey ->
       Single.just(FailedEntryRecover.InvalidPrivateKey(restoreResult.throwable))
   }

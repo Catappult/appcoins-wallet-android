@@ -10,15 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.asf.wallet.R;
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.appcoins.wallet.core.utils.jvm_common.C;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.Transaction.TransactionType;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -295,7 +295,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
+    value = value.divide(BigDecimal.valueOf(Math.pow(10, decimals)));
     return formatter.formatCurrency(value, walletCurrency);
   }
 

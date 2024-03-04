@@ -12,8 +12,8 @@
   <group>
     <clip-path android:pathData="M49.031,42.302a54.448,54.448 0,0 1,0 107.79,54.453 54.453,0 1,0 0,-107.79" />
     <path
-        android:fillColor="#FF000000"
         android:fillAlpha="0.154"
+        android:fillColor="#FF000000"
         android:pathData="M43.499,36.212h73.26v119.971h-73.26z"
         android:strokeAlpha="0.154" />
   </group>
@@ -33,8 +33,8 @@
     <clip-path android:pathData="M49.031,59.966a37.05,37.05 0,0 1,0 72.461,37.046 37.046,0 1,0 0,-72.461" />
     <path
         android:fillAlpha="0.112"
-        android:pathData="M43.499,53.618h55.857v85.159h-55.857z"
         android:fillColor="#858585"
+        android:pathData="M43.499,53.618h55.857v85.159h-55.857z"
         android:strokeAlpha="0.112" />
   </group>
   <group>

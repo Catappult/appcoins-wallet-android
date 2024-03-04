@@ -17,16 +17,16 @@ import javax.inject.Inject
 object MyWalletsSideEffect : SideEffect
 
 data class MyWalletsState(
-        val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-        val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
+  val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
+  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
-        private val balanceInteractor: BalanceInteractor,
-        private val walletDetailsInteractor: WalletDetailsInteractor,
-        private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-        private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
+  private val balanceInteractor: BalanceInteractor,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {

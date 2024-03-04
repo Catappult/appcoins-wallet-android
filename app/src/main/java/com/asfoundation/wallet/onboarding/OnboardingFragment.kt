@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.onboarding
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +11,6 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +32,6 @@ import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -103,7 +99,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun setClickListeners() {
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
-    views.onboardingRecoverGuestButton?.setOnClickListener {
+    views.onboardingRecoverGuestButton.setOnClickListener {
       viewModel.handleRecoverGuestWalletClick(
         args.backup
       )
@@ -135,10 +131,12 @@ class OnboardingFragment : BasePageViewFragment(),
         hideContent()
         navigator.navigateToCreateWalletDialog(isPayment = sideEffect.isPayment)
       }
+
       OnboardingSideEffect.NavigateToFinish -> {
         unlockRotation()
         context?.let { restart(it) }
       }
+
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)

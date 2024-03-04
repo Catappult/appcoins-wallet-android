@@ -36,16 +36,17 @@ class FetchGasSettingsInteractTest {
     val expectedGasSettings = GasSettings(BigDecimal.TEN, BigDecimal.ONE)
 
     `when`(gasSettingsRepositoryType.getGasSettings(true)).thenReturn(
-        Single.just(expectedGasSettings))
+      Single.just(expectedGasSettings)
+    )
 
     fetchGasSettingsInteract.fetch(true)
-        .subscribe(observer)
+      .subscribe(observer)
 
     (fakeSchedulers.io as TestScheduler).triggerActions()
     (fakeSchedulers.main as TestScheduler).triggerActions()
 
     observer.assertNoErrors()
-        .assertValue { it == expectedGasSettings }
+      .assertValue { it == expectedGasSettings }
 
   }
 }

@@ -91,12 +91,12 @@ class ServiceModule {
   @Provides
   @Named("IN_APP_PURCHASE_SERVICE")
   fun provideInAppPurchaseService(
-          @Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
-          allowanceService: AllowanceService,
-          @Named("BUY_SERVICE_BDS") buyService: BuyService,
-          hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
-          paymentErrorMapper: PaymentErrorMapper,
-          defaultTokenProvider: DefaultTokenProvider
+    @Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
+    allowanceService: AllowanceService,
+    @Named("BUY_SERVICE_BDS") buyService: BuyService,
+    hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
+    paymentErrorMapper: PaymentErrorMapper,
+    defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
       MemoryCache(
@@ -112,11 +112,11 @@ class ServiceModule {
   @Provides
   @Named("ASF_IN_APP_PURCHASE_SERVICE")
   fun provideInAppPurchaseServiceAsf(
-      @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
-      allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
-      paymentErrorMapper: PaymentErrorMapper,
-      defaultTokenProvider: DefaultTokenProvider
+    @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
+    allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
+    hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
+    paymentErrorMapper: PaymentErrorMapper,
+    defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
       MemoryCache(

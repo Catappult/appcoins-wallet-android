@@ -32,12 +32,11 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
         .flatMap(tokenInfo -> sendTransactionInteract.computeBuyTransactionHash(
             paymentTransaction.getTransactionBuilder()));
 
-    Single<AttributionEntity> attributionEntity =
-        partnerAddressService.getAttribution(packageName);
+    Single<AttributionEntity> attributionEntity = partnerAddressService.getAttribution(packageName);
 
     return Single.zip(getTransactionHash, attributionEntity,
-        (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
-            hash, productName, packageName, attrEntity.getOemId(), attrEntity.getDomain()))
+            (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
+                hash, productName, packageName, attrEntity.getOemId(), attrEntity.getDomain()))
         .flatMap(billingPaymentProofSubmission::processPurchaseProof);
   }
 }

@@ -37,11 +37,13 @@
 
   <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
       <FrameLayout
           android:id="@+id/complete_payment_view"
@@ -68,10 +70,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
-          tools:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
+          tools:visibility="visible"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

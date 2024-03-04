@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -52,15 +54,17 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     browserRouter = ExternalBrowserRouter()
     navigateTo(LoadingFragment())
     presenter =
-        InviteFriendsActivityPresenter(this, referralInteractor, walletInteract,
-            CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
+      InviteFriendsActivityPresenter(
+        this, referralInteractor, walletInteract,
+        CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread()
+      )
   }
 
   /**
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = VISIBLE
     if (toolbar != null) {
@@ -76,6 +80,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
       android.R.id.home -> {
         super.onBackPressed()
       }
+
       R.id.action_info -> {
         infoButtonSubject?.onNext(Any())
         return true
@@ -101,13 +106,19 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     navigateTo(InviteFriendsVerificationFragment.newInstance(amount, currency))
   }
 
-  override fun navigateToInviteFriends(amount: BigDecimal, pendingAmount: BigDecimal,
-                                       currency: String, link: String?, completed: Int,
-                                       receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                                       available: Int, isRedeemed: Boolean) {
+  override fun navigateToInviteFriends(
+    amount: BigDecimal, pendingAmount: BigDecimal,
+    currency: String, link: String?, completed: Int,
+    receivedAmount: BigDecimal, maxAmount: BigDecimal,
+    available: Int, isRedeemed: Boolean
+  ) {
     hideNoNetworkView()
-    navigateTo(InviteFriendsFragment.newInstance(amount, pendingAmount, currency, link, completed,
-        receivedAmount, maxAmount, available, isRedeemed))
+    navigateTo(
+      InviteFriendsFragment.newInstance(
+        amount, pendingAmount, currency, link, completed,
+        receivedAmount, maxAmount, available, isRedeemed
+      )
+    )
   }
 
   override fun getInfoButtonClick(): Observable<Any> {
@@ -120,23 +131,23 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   override fun showInfoButton() {
     this.menu.findItem(R.id.action_info)
-        .isVisible = true
+      .isVisible = true
   }
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
     val intent = VerificationCreditCardActivity.newIntent(this)
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
     startActivity(intent)
   }
 
   override fun showShare(link: String) {
     ShareCompat.IntentBuilder.from(this)
-        .setText(link)
-        .setType("text/plain")
-        .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
-        .startChooser()
+      .setText(link)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
+      .startChooser()
   }
 
   private fun hideNoNetworkView() {
@@ -146,8 +157,8 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   private fun navigateTo(fragment: Fragment) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, fragment)
-        .commit()
+      .replace(R.id.fragment_container, fragment)
+      .commit()
   }
 
   override fun retryClick(): Observable<Any> {

@@ -35,7 +35,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
    * function hardcoded temporarily, must be changed
    * @return
    */
-   fun toolbar(): Toolbar? {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {
@@ -100,7 +100,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun navigateToBackUp(walletAddress: String) =
     startActivity(
-        com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(this, walletAddress, false))
+      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(this, walletAddress, false)
+    )
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED

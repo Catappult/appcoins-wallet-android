@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -26,19 +23,17 @@ import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.google.android.material.badge.BadgeUtils
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
-import java.lang.Thread.sleep
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment() : BasePageViewFragment() {
+class PayPalIABFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator
@@ -108,15 +103,19 @@ class PayPalIABFragment() : BasePageViewFragment() {
         PayPalIABViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is PayPalIABViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is PayPalIABViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
+
         PayPalIABViewModel.State.TokenCanceled -> {
           close()
         }
+
         is PayPalIABViewModel.State.WebViewAuthentication -> {
           startWebViewAuthorization(state.url)
         }
@@ -162,7 +161,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch{
+    viewLifecycleOwner.lifecycleScope.launch {
       delay(1500L)
       navigatorIAB?.popView(successBundle)
     }
@@ -202,7 +201,8 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     if (StringUtils.isNotBlank(bonus)) {
-      views.successContainer.transactionSuccessBonusText .text = getString(R.string.purchase_success_bonus_received_title, bonus)
+      views.successContainer.transactionSuccessBonusText.text =
+        getString(R.string.purchase_success_bonus_received_title, bonus)
       views.successContainer.bonusSuccessLayout.visibility = View.VISIBLE
     } else {
       views.successContainer.bonusSuccessLayout.visibility = View.GONE

@@ -6,15 +6,17 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class SetCachedVerificationUseCase @Inject constructor(private val walletService: WalletService,
-                                                       private val brokerVerificationRepository: BrokerVerificationRepository) {
+class SetCachedVerificationUseCase @Inject constructor(
+  private val walletService: WalletService,
+  private val brokerVerificationRepository: BrokerVerificationRepository
+) {
 
   operator fun invoke(status: VerificationStatus): Completable {
     return walletService.getAndSignCurrentWalletAddress()
-        .flatMapCompletable { addressModel ->
-          Completable.fromAction {
-            brokerVerificationRepository.saveVerificationStatus(addressModel.address, status)
-          }
+      .flatMapCompletable { addressModel ->
+        Completable.fromAction {
+          brokerVerificationRepository.saveVerificationStatus(addressModel.address, status)
         }
+      }
   }
 }

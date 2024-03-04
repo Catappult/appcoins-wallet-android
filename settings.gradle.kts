@@ -24,7 +24,9 @@ dependencyResolutionManagement {
     // needed for pincode Lollipin
     maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
     // VK ID and Vk Pay
-    maven { url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/") }
+    maven {
+      url = uri("https://artifactory-external.vkpartner.ru/artifactory/superappkit-maven-public/")
+    }
   }
 }
 

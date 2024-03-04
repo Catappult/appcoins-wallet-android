@@ -4,7 +4,7 @@ import android.view.View
 import com.asf.wallet.databinding.ReachedLevelLayoutBinding
 
 class LevelReachedViewHolder(itemView: View, private val mapper: GamificationMapper) :
-    LevelsViewHolder(itemView) {
+  LevelsViewHolder(itemView) {
 
   private val binding by lazy { ReachedLevelLayoutBinding.bind(itemView) }
 

@@ -4,20 +4,18 @@ import android.animation.Animator
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
@@ -79,10 +77,6 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       super.onCancel()
       showError()
     }
-  }
-
-  override fun onResume() {
-    super.onResume()
   }
 
   override fun onAttach(context: Context) {
@@ -193,8 +187,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
-        vkDataPreferencesDataSource.getEmailVK() ?: "",
-        vkDataPreferencesDataSource.getPhoneVK() ?: "",
+        vkDataPreferencesDataSource.getEmailVK(),
+        vkDataPreferencesDataSource.getPhoneVK(),
         viewModel.walletAddress,
         amount,
         merchantId.toInt(),

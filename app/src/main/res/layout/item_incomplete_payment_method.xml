@@ -4,9 +4,9 @@
     android:id="@+id/item_incomplete_payment_method"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/normal_margin"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:layout_margin="@dimen/normal_margin"
     >
 
   <ViewStub

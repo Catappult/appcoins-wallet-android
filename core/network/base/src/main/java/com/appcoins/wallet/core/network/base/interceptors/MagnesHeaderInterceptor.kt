@@ -16,7 +16,7 @@ class MagnesHeaderInterceptor(
     val requestWithMagnesMetadataId: Request = if (
       !magnesMetadataId.isNullOrEmpty() &&
       originalRequest.url.toString().contains("/gateways/paypal")
-        ) {
+    ) {
       originalRequest.newBuilder()
         .header("PayPal-Client-Metadata-Id", magnesMetadataId)
         .build()

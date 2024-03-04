@@ -1,7 +1,7 @@
 package cm.aptoide.skills.entity
 
-import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import cm.aptoide.skills.model.WalletAddress
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 
 data class UserData(
   val userId: String, val roomId: String, val walletAddress: WalletAddress?,

@@ -37,6 +37,7 @@
 
   <TextView
       android:id="@+id/onboarding_value1_title"
+      style="@style/OnboardingValuesTitleTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -45,11 +46,11 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
       app:layout_constraintTop_toTopOf="@+id/onboarding_value1_icon"
-      style="@style/OnboardingValuesTitleTextStyle"
       />
 
   <TextView
       android:id="@+id/onboarding_value1_body"
+      style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -58,11 +59,11 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value1_icon"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_value1_title"
-      style="@style/OnboardingValuesBodyTextStyle"
       />
 
   <TextView
       android:id="@+id/onboarding_value2_title"
+      style="@style/OnboardingValuesTitleTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -71,10 +72,10 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
       app:layout_constraintTop_toTopOf="@+id/onboarding_value2_icon"
-      style="@style/OnboardingValuesTitleTextStyle"
       />
   <TextView
       android:id="@+id/onboarding_value2_body"
+      style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -83,11 +84,11 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value2_icon"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_value2_title"
-      style="@style/OnboardingValuesBodyTextStyle"
       />
 
   <TextView
       android:id="@+id/onboarding_value3_title"
+      style="@style/OnboardingValuesTitleTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -96,11 +97,11 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
       app:layout_constraintTop_toTopOf="@+id/onboarding_value3_icon"
-      style="@style/OnboardingValuesTitleTextStyle"
       />
 
   <TextView
       android:id="@+id/onboarding_value3_body"
+      style="@style/OnboardingValuesBodyTextStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="27dp"
@@ -109,7 +110,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/onboarding_value3_icon"
       app:layout_constraintTop_toBottomOf="@+id/onboarding_value3_title"
-      style="@style/OnboardingValuesBodyTextStyle"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

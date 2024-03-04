@@ -4,8 +4,8 @@
     style="@style/Rating.DialogCardStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
     android:layout_marginHorizontal="16dp"
+    android:animateLayoutChanges="true"
     android:paddingTop="48dp"
     android:paddingBottom="24dp"
     >
@@ -43,8 +43,8 @@
       android:layout_marginEnd="8dp"
       app:buttonText="@string/rate_us_no"
       app:buttonType="outlined_grey"
-      app:layout_constraintStart_toStartOf="@id/title"
       app:layout_constraintEnd_toStartOf="@+id/yes_button"
+      app:layout_constraintStart_toStartOf="@id/title"
       app:layout_constraintTop_toTopOf="@+id/yes_button"
       />
 
@@ -57,8 +57,8 @@
       app:buttonText="@string/rate_us_yes"
       app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="@id/title"
-      app:layout_constraintTop_toBottomOf="@+id/title"
       app:layout_constraintStart_toEndOf="@id/no_button"
+      app:layout_constraintTop_toBottomOf="@+id/title"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
