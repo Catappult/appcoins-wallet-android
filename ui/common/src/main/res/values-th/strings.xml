@@ -785,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
   <string name="import_wallet_recovering_body">กำลังกู้คืนกระเป๋าสตางค์...</string>
-  <string name="backup_skip_title">ฉันเข้าใจว่าฉันอาจสูญเสียเงินของฉันหากฉันไม่สำรองคีย์กระเป๋าเงินของฉัน</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">กระเป๋าสตางค์สำรอง</string>
   <string name="backup_success_save_on_email">ไฟล์สำรองของคุณอยู่ในอีเมลของคุณ</string>
   <string name="backup_success_save_on_device">ไฟล์สำรองของคุณถูกเก็บไว้ในอุปกรณ์ของคุณ</string>
