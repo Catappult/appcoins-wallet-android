@@ -166,12 +166,6 @@ public class AutoFitEditText extends AppCompatEditText {
     return size;
   }
 
-  @Override public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
-  }
-
   private int binarySearch(final int start, final int end, final SizeTester sizeTester,
       final RectF availableSpace) {
     int lastBest = start;
@@ -194,6 +188,12 @@ public class AutoFitEditText extends AppCompatEditText {
     // make sure to return last best
     // this is what should always be returned
     return lastBest;
+  }
+
+  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
   }
 
   @Override protected void onSizeChanged(final int width, final int height, final int oldwidth,

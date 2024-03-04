@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -968,15 +969,21 @@
   <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_manage_subtitle">ਆਪਣੇ ਭੁਗਤਾਨ ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
-  <string name="manage_cards_add_title">ਨਵਾਂ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਕਾਰਡ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
-  <string name="manage_cards_remove_no">ਨਹੀਂ, ਰੱਦ ਕਰੋ</string>
-  <string name="manage_cards_remove_yes">ਹਾਂ, ਇਸਨੂੰ ਹਟਾਓ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%s ਨਾਲ ਖਤਮ ਹੋ ਰਿਹਾ ਕਾਰਡ</string>
   <string name="manage_cards_error_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦਾ ਵੇਰਵਾ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
   <string name="manage_cards_error_card_problem">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੋਈ ਸਮੱਸਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="manage_cards_select_title">ਭੁਗਤਾਨ ਕਾਰਡ ਦੀ ਚੋਣ ਕਰੋ</string>
   <string name="manage_cards_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">ਹਰ ਖਰੀਦ ਤੇ %s%% ਬੋਨਸ ਕਮਾਓ</string>
   <string name="perks_gamif_subtitle">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>

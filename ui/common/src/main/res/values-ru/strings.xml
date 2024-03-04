@@ -524,6 +524,7 @@
   <string name="send_button">Отправить</string>
   <string name="resend_button">Переотправить</string>
   <string name="continue_button">Продолжить</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -970,15 +971,21 @@
   <string name="manage_cards_settings_manage_title">Управление картами</string>
   <string name="manage_cards_view_title">Управление картами</string>
   <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
-  <string name="manage_cards_add_title">Добавить новую карту</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Вы уверены, что хотите удалить эту карту?</string>
-  <string name="manage_cards_remove_no">НЕТ, ОТМЕНИТЬ</string>
-  <string name="manage_cards_remove_yes">ДА, УДАЛИТЬ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Карта заканчивается на %s</string>
   <string name="manage_cards_error_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
   <string name="manage_cards_select_title">Выберите карту для платежа</string>
   <string name="manage_cards_remember">Запомнить карту</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заработай бонус до %s%% за каждую покупку</string>
   <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>

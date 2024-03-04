@@ -524,6 +524,7 @@
   <string name="send_button">전송</string>
   <string name="resend_button">재전송</string>
   <string name="continue_button">계속</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -967,15 +968,21 @@
   <string name="manage_cards_settings_manage_title">카드 관리</string>
   <string name="manage_cards_view_title">카드 관리</string>
   <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
-  <string name="manage_cards_add_title">신규 카드 추가</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">이 카드를 삭제하시겠습니까?</string>
-  <string name="manage_cards_remove_no">아니오, 취소</string>
-  <string name="manage_cards_remove_yes">네, 제거 합니다</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%s에 카드가 만료됩니다</string>
   <string name="manage_cards_error_details">카드 상세 정보가 올바른가요? 확인하시고 다시 시도해 주세요!</string>
   <string name="manage_cards_error_card_problem">카드에 문제가 있는 것 같습니다. 다른 카드로 시도해보세요.</string>
   <string name="manage_cards_select_title">지불 카드를 선택하세요</string>
   <string name="manage_cards_remember">카드 기억하기</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">모든 구매 시마다 최대 %s%% 보너스</string>
   <string name="perks_gamif_subtitle">좋아하는 앱을 더 많이 사용하면 할수록 더 큰 보너스를 받게 됩니다!</string>

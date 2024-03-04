@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -969,15 +970,21 @@ Wallets</item>
   <string name="manage_cards_settings_manage_title">Διαχείριση καρτών</string>
   <string name="manage_cards_view_title">Διαχείριση καρτών</string>
   <string name="manage_cards_view_manage_subtitle">Διαχειριστείτε τις κάρτες πληρωμής σας</string>
-  <string name="manage_cards_add_title">Προσθήκη νέας κάρτας</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτήν την κάρτα;</string>
-  <string name="manage_cards_remove_no">ΟΧΙ, ΑΚΥΡΩΣΗ</string>
-  <string name="manage_cards_remove_yes">ΝΑΙ, ΑΦΑΙΡΕΣΗ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Κάρτα που τελειώνει σε %s</string>
   <string name="manage_cards_error_details">Είστε σίγουροι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
   <string name="manage_cards_error_card_problem">Φαίνεται πως υπάρχει πρόβλημα με την κάρτα σας. Παρακαλούμε προσπαθήστε με μία άλλη.</string>
   <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
   <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Λάβετε έως %s%% Bonus σε κάθε αγορά</string>
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>

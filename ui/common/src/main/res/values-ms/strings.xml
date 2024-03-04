@@ -524,6 +524,7 @@
   <string name="send_button">Hantar</string>
   <string name="resend_button">Hantar semula</string>
   <string name="continue_button">Teruskan</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -967,15 +968,21 @@
   <string name="manage_cards_settings_manage_title">Urus kad</string>
   <string name="manage_cards_view_title">Urus kad</string>
   <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
-  <string name="manage_cards_add_title">Tambah kad baru</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Anda pasti mahu alih keluar kad ini?</string>
-  <string name="manage_cards_remove_no">TIDAK, BATALKAN</string>
-  <string name="manage_cards_remove_yes">YA, ALIH KELUAR</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Kad tamat dengan %s</string>
   <string name="manage_cards_error_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
   <string name="manage_cards_error_card_problem">Nampaknya ada masalah dengan kad anda. Sila cuba kad lain.</string>
   <string name="manage_cards_select_title">Pilih kad pembayaran</string>
   <string name="manage_cards_remember">Ingat kad</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Peroleh Bonus sehingga %s%% bagi setiap pembelian</string>
   <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>
