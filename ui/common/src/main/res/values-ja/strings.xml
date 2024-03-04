@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">パスワードの復元はできません。</string>
   <string name="backup_additional_security_password_not_march">パスワードが一致しません。</string>
   <string name="import_wallet_recovering_body">ウォレットのリカバリ中...</string>
-  <string name="backup_skip_title">ウォレットキーをバックアップしない場合、資金が失われる可能性があることを理解しています。</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">ウォレットをバックアップ</string>
   <string name="backup_success_save_on_email">バックアップファイルはメールの中にあります。</string>
   <string name="backup_success_save_on_device">バックアップファイルは、お使いの端末に保存されています。</string>
