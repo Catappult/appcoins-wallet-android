@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <string name="import_wallet_recovering_body">Tárca visszaállítása...</string>
-  <string name="backup_skip_title">Megértettem, hogy elveszíthetem a pénzem, ha nem végzem el a biztonsági mentést.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Wallet biztonsági mentése</string>
   <string name="backup_success_save_on_email">A biztonsági mentés fájl megérkezett emailben.</string>
   <string name="backup_success_save_on_device">A biztonsági mentés fájl az eszközödön található.</string>

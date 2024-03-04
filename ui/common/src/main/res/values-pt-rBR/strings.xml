@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Não há recuperação de senha.</string>
   <string name="backup_additional_security_password_not_march">As senhas não conferem.</string>
   <string name="import_wallet_recovering_body">Recuperando wallet...</string>
-  <string name="backup_skip_title">Entendo que posso perder meus fundos se não fizer backup da minha chave da carteira.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Backup da wallet</string>
   <string name="backup_success_save_on_email">Seu arquivo de backup está em seu e-mail.</string>
   <string name="backup_success_save_on_device">Seu arquivo de backup está armazenado em seu dispositivo.</string>

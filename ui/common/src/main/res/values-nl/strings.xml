@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Er is geen wachtwoordherstel.</string>
   <string name="backup_additional_security_password_not_march">De wachtwoorden komen niet overeen.</string>
   <string name="import_wallet_recovering_body">Wallet herstellen...</string>
-  <string name="backup_skip_title">Ik begrijp dat ik mijn saldo kan kwijtraken als ik geen back-up van de sleutel voor mijn wallet maak.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Back-up van wallet maken</string>
   <string name="backup_success_save_on_email">Het back-upbestand bevindt zich in je mailbox.</string>
   <string name="backup_success_save_on_device">Het back-upbestand is op je apparaat opgeslagen.</string>

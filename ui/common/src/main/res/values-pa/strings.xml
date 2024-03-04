@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">ਕੋਈ ਪਾਸਵਰਡ ਰਿਕਵਰੀ ਨਹੀਂ ਹੈ|</string>
   <string name="backup_additional_security_password_not_march">ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ|</string>
   <string name="import_wallet_recovering_body">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...</string>
-  <string name="backup_skip_title">ਮੈਂ ਸਮਝਦਾ/ਸਮਝਦੀ ਹਾਂ ਕਿ ਜੇਕਰ ਮੈਂ ਆਪਣੀ ਬਟੂਆ ਕੁੰਜੀ ਦਾ ਬੈਕਅੱਪ ਨਹੀਂ ਲਿਆ ਤਾਂ ਮੈਂ ਆਪਣੇ ਫੰਡ ਗੁਆ ਸਕਦਾ ਹਾਂ।</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_success_save_on_email">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਫਾਈਲ ਤੁਹਾਡੀ ਈਮੇਲ ਵਿੱਚ ਹੈ।</string>
   <string name="backup_success_save_on_device">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਫਾਈਲ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਵਿੱਚ ਹੈ।</string>

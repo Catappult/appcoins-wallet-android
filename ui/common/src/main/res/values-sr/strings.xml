@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Ne postoji mogućnost oporavka lozinke.</string>
   <string name="backup_additional_security_password_not_march">Lozinke se ne podudaraju.</string>
   <string name="import_wallet_recovering_body">Oporavak novčanika...</string>
-  <string name="backup_skip_title">Jasno mi je da mogu izgubiti sredstva ukoliko ne napravim rezervnu kopiju ključa novčanika.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Napravi rezervnu kopiju novčanika</string>
   <string name="backup_success_save_on_email">Fajl rezervne kopije novčanika je u vašoj e-pošti.</string>
   <string name="backup_success_save_on_device">Fajl rezervne kopije je sačuvan na vašem uređaju.</string>

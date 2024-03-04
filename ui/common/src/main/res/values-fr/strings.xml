@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
   <string name="import_wallet_recovering_body">Récupération portefeuille...</string>
-  <string name="backup_skip_title">Je comprends que je peux perdre mes fonds si je ne sauvegarde pas la clé de mon portefeuille.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Sauvegarde portefeuille</string>
   <string name="backup_success_save_on_email">Votre fichier de sauvegarde est dans votre courriel.</string>
   <string name="backup_success_save_on_device">Votre fichier de sauvegarde est stocké dans votre appareil.</string>

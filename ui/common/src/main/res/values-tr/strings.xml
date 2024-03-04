@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
   <string name="import_wallet_recovering_body">Cüzdan geri yükleniyor...</string>
-  <string name="backup_skip_title">Cüzdan anahtarımı yedeklemezsem paramı kaybedebileceğimi biliyorum.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Yedek cüzdan</string>
   <string name="backup_success_save_on_email">Yedekleme dosyan e-postanda.</string>
   <string name="backup_success_save_on_device">Yedekleme dosyan cihazında saklanıyor.</string>

@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Nie można odzyskać hasła.</string>
   <string name="backup_additional_security_password_not_march">Hasła nie są identyczne.</string>
   <string name="import_wallet_recovering_body">Odzyskiwanie portfela...</string>
-  <string name="backup_skip_title">Rozumiem, że jeśłi nie wykonam kopii, mogę utracić środki.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Utwórz kopię zapasową</string>
   <string name="backup_success_save_on_email">Twója kopia zapasowa jest na emailu.</string>
   <string name="backup_success_save_on_device">Twója kopia zapasowa jest na urządzeniu.</string>

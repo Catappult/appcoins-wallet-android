@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
   <string name="import_wallet_recovering_body">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူေနပါသည္...</string>
-  <string name="backup_skip_title">ကြၽႏ္ုပ္၏ ပိုက္ဆံအိတ္ကီးကို အရန္သိမ္းဆည္းမထားပါက ကြၽႏ္ုပ္၏ေငြမ်ားကို ဆုံးရႈံးႏိုင္ေၾကာင္း နားလည္ပါသည္။</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="backup_success_save_on_email">အရန္သိမ္းဆည္းမႈဖိုင္သည္ သင့္အီးေမးလ္တြင္ ရွိပါသည္။</string>
   <string name="backup_success_save_on_device">အရန္သိမ္းဆည္းမႈဖိုင္ကို သင့္ကိရိယာေပၚတြင္ သိမ္းထားပါသည္။</string>
