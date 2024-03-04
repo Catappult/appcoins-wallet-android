@@ -473,7 +473,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun getWebViewResultCode(): String {
-    return "webView Result: ${iabView.webViewResultCode}" ?: ""
+    return "webView Result: ${iabView.webViewResultCode}"
   }
 
   private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable =

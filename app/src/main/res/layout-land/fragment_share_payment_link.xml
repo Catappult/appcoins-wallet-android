@@ -95,11 +95,11 @@
       app:buttonColor="@color/styleguide_dark_grey"
       app:buttonText="@string/close"
       app:buttonType="text"
-      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/share_btn"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -115,11 +115,11 @@
       app:buttonImageLeft="@drawable/ic_share_black"
       app:buttonText="@string/askafriend_share_button"
       app:buttonType="filled"
-      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,22 +14,22 @@ import com.asf.wallet.R;
  */
 public class ToolbarArcBackground extends View {
   /**
-   * The scale factor applied on the arc curvature, related with the size of the toolbar layout
-   * when scrolled
-   */
-  private float scale = 0.0f;
-  /**
    * Measurement for the space over the screen size that the view is drawn. Used on both sides of
    * the drawable
    */
-  private float extenderOverBoundary = 250.0f;
+  private final float extenderOverBoundary = 250.0f;
   /**
    * Size of the line used to draw the arc. This is what makes the arc to be beyond the toolbar
    * layout bottom
    */
-  private float strokeWidth = 200.0f;
+  private final float strokeWidth = 200.0f;
   /** The paint class used to draw the arc. */
-  private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+  private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+  /**
+   * The scale factor applied on the arc curvature, related with the size of the toolbar layout
+   * when scrolled
+   */
+  private float scale = 0.0f;
   /** The rectangle where the arc is drawn */
   private RectF rectF = new RectF();
 

@@ -10,7 +10,7 @@ import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei
 import java.math.BigDecimal
 import java.math.BigInteger
 
-class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
+class GasSettingsViewModel(private val gasSettingsInteractor: GasSettingsInteractor) :
   BaseViewModel() {
 
   private val gasPrice = MutableLiveData<BigDecimal>()

@@ -524,6 +524,7 @@
   <string name="send_button">Gönder</string>
   <string name="resend_button">Yeniden gönder</string>
   <string name="continue_button">Devam et</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -968,15 +969,21 @@
   <string name="manage_cards_settings_manage_title">Kartları yönetin</string>
   <string name="manage_cards_view_title">Kartları yönetin</string>
   <string name="manage_cards_view_manage_subtitle">Ödeme kartlarınızı yönetin</string>
-  <string name="manage_cards_add_title">Yeni kart ekleyin</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Bu kartı kaldırmak istediğinizden emin misiniz?</string>
-  <string name="manage_cards_remove_no">HAYIR, İPTAL ET</string>
-  <string name="manage_cards_remove_yes">EVET, KALDIR</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%s ile biten kart</string>
   <string name="manage_cards_error_details">Kart bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin!</string>
   <string name="manage_cards_error_card_problem">Kartınızla ilgili bir sorun var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
   <string name="manage_cards_select_title">Ödeme kartı seçin</string>
   <string name="manage_cards_remember">Kartı hatırla</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Her satın alma işleminde %%%s oranına varan Bonus kazanın</string>
   <string name="perks_gamif_subtitle">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla bonus kazanırsınız!</string>

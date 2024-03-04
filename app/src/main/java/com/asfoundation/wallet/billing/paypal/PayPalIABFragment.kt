@@ -33,7 +33,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment() : BasePageViewFragment() {
+class PayPalIABFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator

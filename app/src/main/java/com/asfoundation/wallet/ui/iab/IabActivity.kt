@@ -59,7 +59,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class IabActivity() : BaseActivity(), IabView, UriNavigator {
+class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var billingAnalytics: BillingAnalytics

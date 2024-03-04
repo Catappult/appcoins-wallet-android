@@ -51,6 +51,13 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.WALLET;
     ((ImageView) findViewById(R.id.qr_image)).setImageBitmap(qrCode);
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      onBackPressed();
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   /**
    * function hardcoded temporarily, must be changed
    *
@@ -65,13 +72,6 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.WALLET;
     }
     enableDisplayHomeAsUp();
     return toolbar;
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-      onBackPressed();
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override protected void onResume() {

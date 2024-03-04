@@ -524,6 +524,7 @@
   <string name="send_button">Send</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -968,15 +969,21 @@
   <string name="manage_cards_settings_manage_title">Kártyák kezelése</string>
   <string name="manage_cards_view_title">Kártyák kezelése</string>
   <string name="manage_cards_view_manage_subtitle">Fizetési kártyák kezelése</string>
-  <string name="manage_cards_add_title">Új kártya hozzáadása</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Biztos, hogy eltávolítod ezt a kártyát?</string>
-  <string name="manage_cards_remove_no">NEM, MÉGSE</string>
-  <string name="manage_cards_remove_yes">IGEN, ELTÁVOLÍTÁS</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">A kártya utolsó négy számjegye %s</string>
   <string name="manage_cards_error_details">Minden adat helyesen van megadva? Próbáld újra!</string>
   <string name="manage_cards_error_card_problem">Úgy tűnik valami baj van a kártyáddal. Használj egy másikat.</string>
   <string name="manage_cards_select_title">Fizetési kártya kiválasztása</string>
   <string name="manage_cards_remember">Kártya megjegyzése</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Szerezz akár %s%% bónuszt minden vásárlással</string>
   <string name="perks_gamif_subtitle">Minél többet költesz a kedvenc alkalmazásaiban, annál nagyobb a bónusz!</string>

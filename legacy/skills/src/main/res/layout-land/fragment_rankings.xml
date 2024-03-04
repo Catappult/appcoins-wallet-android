@@ -1,12 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="@dimen/big_margin"
+    android:background="@drawable/background_card"
+    android:elevation="@dimen/default_elevation"
     android:orientation="vertical"
     android:theme="@style/AppTheme"
-    android:elevation="@dimen/default_elevation"
-    android:background="@drawable/background_card"
     >
   <include
       android:id="@+id/appcoins_header"

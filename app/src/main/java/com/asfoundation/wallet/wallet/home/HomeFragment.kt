@@ -210,9 +210,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (transactionsState) {
       is Success -> {
         if (transactionsState.transactions.isNotEmpty())
-          Column(modifier = Modifier
-            .heightIn(0.dp, 480.dp)
-            .padding(horizontal = 16.dp)) {
+          Column(
+            modifier = Modifier
+              .heightIn(0.dp, 480.dp)
+              .padding(horizontal = 16.dp)
+          ) {
             Text(
               text = stringResource(R.string.intro_transactions_header),
               modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
@@ -227,9 +229,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       }
 
       else -> {
-        Column(modifier = Modifier
-          .heightIn(0.dp, 480.dp)
-          .padding(horizontal = 16.dp)) {
+        Column(
+          modifier = Modifier
+            .heightIn(0.dp, 480.dp)
+            .padding(horizontal = 16.dp)
+        ) {
           Text(
             text = stringResource(R.string.intro_transactions_header),
             modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),

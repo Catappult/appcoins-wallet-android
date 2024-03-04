@@ -295,7 +295,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private String getScaledValue(String valueStr, long decimals, String currencySymbol) {
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
+    value = value.divide(BigDecimal.valueOf(Math.pow(10, decimals)));
     return formatter.formatCurrency(value, walletCurrency);
   }
 

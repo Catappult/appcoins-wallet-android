@@ -526,6 +526,7 @@
   <string name="send_button">Надіслати</string>
   <string name="resend_button">Надіслати знову</string>
   <string name="continue_button">Продовжити</string>
+  <string name="card_expired_tag">Expired</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -972,15 +973,21 @@
   <string name="manage_cards_settings_manage_title">Керувати картками</string>
   <string name="manage_cards_view_title">Керувати картками</string>
   <string name="manage_cards_view_manage_subtitle">Керуйте своїми платіжними картками</string>
-  <string name="manage_cards_add_title">Додати нову картку</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Ви впевнені, що хочете видалити цю картку?</string>
-  <string name="manage_cards_remove_no">НІ, СКАСУВАТИ</string>
-  <string name="manage_cards_remove_yes">ТАК, ВИДАЛИТИ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Картка, що закінчується на %s</string>
   <string name="manage_cards_error_details">Ви впевнені, що дані вашої картки правильні? Будь ласка спробуйте ще раз!</string>
   <string name="manage_cards_error_card_problem">Схоже, проблема з вашою карткою. Будь ласка, спробуйте іншим способом.</string>
   <string name="manage_cards_select_title">Виберіть платіжну картку</string>
   <string name="manage_cards_remember">Запам\'ятати картку</string>
+  <string name="add_new_card_button">Add new card</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заробляйте до %s%% бонусу за кожну покупку</string>
   <string name="perks_gamif_subtitle">Чим більше ви витрачаєте на улюблені додатки, тим більший бонус!</string>

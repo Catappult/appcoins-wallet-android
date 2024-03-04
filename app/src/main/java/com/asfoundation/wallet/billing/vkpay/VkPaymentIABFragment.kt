@@ -79,10 +79,6 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     }
   }
 
-  override fun onResume() {
-    super.onResume()
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(context is IabView) { "VkPay payment fragment must be attached to IAB activity" }
@@ -191,8 +187,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       vkPayManager.checkoutVkPay(
         hash,
         uidTransaction,
-        vkDataPreferencesDataSource.getEmailVK() ?: "",
-        vkDataPreferencesDataSource.getPhoneVK() ?: "",
+        vkDataPreferencesDataSource.getEmailVK(),
+        vkDataPreferencesDataSource.getPhoneVK(),
         viewModel.walletAddress,
         amount,
         merchantId.toInt(),
