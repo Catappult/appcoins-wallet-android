@@ -20,11 +20,11 @@ import javax.inject.Inject
 class PromotionsMapper @Inject constructor(private val gamificationMapper: GamificationMapper) {
 
   fun mapToPromotionsModel(
-    userStats: UserStats,
-    levels: Levels,
-    wallet: Wallet,
-    vouchersListModel: VoucherListModel,
-    vipReferralResponse: VipReferralResponse
+      userStats: UserStats,
+      levels: Levels,
+      wallet: Wallet,
+      vouchersListModel: VoucherListModel,
+      vipReferralResponse: VipReferralResponse
   ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
@@ -45,7 +45,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
             promotions.add(0, mapToGamificationItem(it))
           }
         }
-
         is ReferralResponse -> {
           referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
           if (referralAvailable) {
@@ -53,22 +52,18 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
             promotions.add(index, mapToReferralItem(it))
           }
         }
-
         is GenericResponse -> {
           if (isPerk(it.linkedPromotionId)) {
             when {
               isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
               it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE ->
-                perks.add(mapToProgressItem(it))
-
+                  perks.add(mapToProgressItem(it))
               it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
               else -> perks.add(mapToDefaultItem(it))
             }
           }
           if (isValidGamificationLink(
-              it.linkedPromotionId, gamificationAvailable, it.startDate ?: 0
-            )
-          ) {
+              it.linkedPromotionId, gamificationAvailable, it.startDate ?: 0)) {
             mapToGamificationLinkItem(promotions, it)
           }
         }
@@ -76,16 +71,15 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
 
     return PromotionsModel(
-      promotions,
-      vouchers,
-      perks,
-      maxBonus,
-      wallet,
-      map(userStats.walletOrigin),
-      map(userStats.error),
-      levels.fromCache && userStats.fromCache,
-      vipReferralResponse.map()
-    )
+        promotions,
+        vouchers,
+        perks,
+        maxBonus,
+        wallet,
+        map(userStats.walletOrigin),
+        map(userStats.error),
+        levels.fromCache && userStats.fromCache,
+        vipReferralResponse.map())
   }
 
   private fun map(walletOrigin: WalletOrigin): PromotionsModel.WalletOrigin {
@@ -105,124 +99,123 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun VipReferralResponse.map() =
-    if (active)
-      VipReferralInfo(
-        vipBonus,
-        code,
-        earnedUsdAmount,
-        referrals,
-        transformDateToTimestamp(date = endDate, fromPattern = ISO_8601_DATE_TIME_FORMAT),
-        app
-      )
-    else null
+      if (active)
+          VipReferralInfo(
+              vipBonus,
+              code,
+              earnedUsdAmount,
+              referrals,
+              endDate = transformDateToTimestamp(
+                  date = endDate,
+                  fromPattern = ISO_8601_DATE_TIME_FORMAT
+              ),
+              startDate = transformDateToTimestamp(
+                  date = startDate,
+                  fromPattern = ISO_8601_DATE_TIME_FORMAT
+              ),
+              app
+          )
+      else null
 
   private fun mapToGamificationLinkItem(
-    promotions: MutableList<Promotion>,
-    genericResponse: GenericResponse
+      promotions: MutableList<Promotion>,
+      genericResponse: GenericResponse
   ) {
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
-      GamificationLinkItem(
-        genericResponse.id,
-        genericResponse.gamificationStatus,
-        genericResponse.perkDescription,
-        genericResponse.icon,
-        genericResponse.startDate,
-        genericResponse.endDate
-      )
-    )
+        GamificationLinkItem(
+            genericResponse.id,
+            genericResponse.gamificationStatus,
+            genericResponse.perkDescription,
+            genericResponse.icon,
+            genericResponse.startDate,
+            genericResponse.endDate))
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(
-      genericResponse.id,
-      genericResponse.gamificationStatus,
-      genericResponse.perkDescription,
-      genericResponse.icon,
-      genericResponse.appName,
-      genericResponse.startDate,
-      genericResponse.endDate,
-      genericResponse.currentProgress!!,
-      genericResponse.objectiveProgress,
-      genericResponse.detailsLink
-    )
+        genericResponse.id,
+        genericResponse.gamificationStatus,
+        genericResponse.perkDescription,
+        genericResponse.icon,
+        genericResponse.appName,
+        genericResponse.startDate,
+        genericResponse.endDate,
+        genericResponse.currentProgress!!,
+        genericResponse.objectiveProgress,
+        genericResponse.detailsLink)
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
     return DefaultItem(
-      genericResponse.id,
-      genericResponse.gamificationStatus,
-      genericResponse.perkDescription,
-      genericResponse.icon,
-      genericResponse.appName,
-      genericResponse.startDate,
-      genericResponse.endDate,
-      genericResponse.detailsLink,
-      genericResponse.actionUrl,
-      genericResponse.packageName
-    )
+        genericResponse.id,
+        genericResponse.gamificationStatus,
+        genericResponse.perkDescription,
+        genericResponse.icon,
+        genericResponse.appName,
+        genericResponse.startDate,
+        genericResponse.endDate,
+        genericResponse.detailsLink,
+        genericResponse.actionUrl,
+        genericResponse.packageName)
   }
 
   private fun mapToGamificationItem(gamificationResponse: GamificationResponse): GamificationItem {
     val currentLevelInfo = gamificationMapper.mapCurrentLevelInfo(gamificationResponse.level)
     val toNextLevelAmount =
-      gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
+        gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
 
     return GamificationItem(
-      gamificationResponse.id,
-      currentLevelInfo.planet,
-      gamificationResponse.level,
-      gamificationResponse.gamificationStatus,
-      currentLevelInfo.levelColor,
-      currentLevelInfo.title,
-      toNextLevelAmount,
-      gamificationResponse.bonus,
-      mutableListOf()
-    )
+        gamificationResponse.id,
+        currentLevelInfo.planet,
+        gamificationResponse.level,
+        gamificationResponse.gamificationStatus,
+        currentLevelInfo.levelColor,
+        currentLevelInfo.title,
+        toNextLevelAmount,
+        gamificationResponse.bonus,
+        mutableListOf())
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
     return ReferralItem(
-      referralResponse.id,
-      referralResponse.amount,
-      referralResponse.currency,
-      referralResponse.link.orEmpty()
-    )
+        referralResponse.id,
+        referralResponse.amount,
+        referralResponse.currency,
+        referralResponse.link.orEmpty())
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
     return FutureItem(
-      genericResponse.id,
-      genericResponse.gamificationStatus,
-      genericResponse.perkDescription,
-      genericResponse.icon,
-      genericResponse.appName,
-      genericResponse.startDate,
-      genericResponse.endDate,
-      genericResponse.detailsLink,
-      genericResponse.actionUrl,
-      genericResponse.packageName
-    )
+        genericResponse.id,
+        genericResponse.gamificationStatus,
+        genericResponse.perkDescription,
+        genericResponse.icon,
+        genericResponse.appName,
+        genericResponse.startDate,
+        genericResponse.endDate,
+        genericResponse.detailsLink,
+        genericResponse.actionUrl,
+        genericResponse.packageName)
   }
 
   private fun mapToPromoCodeItem(genericResponse: GenericResponse): PromoCodeItem {
     return PromoCodeItem(
-      genericResponse.id,
-      genericResponse.gamificationStatus,
-      genericResponse.perkDescription,
-      genericResponse.appName,
-      genericResponse.icon,
-      genericResponse.startDate,
-      genericResponse.endDate,
-      genericResponse.actionUrl,
-      genericResponse.packageName
-    )
+        genericResponse.id,
+        genericResponse.gamificationStatus,
+        genericResponse.perkDescription,
+        genericResponse.appName,
+        genericResponse.icon,
+        genericResponse.startDate,
+        genericResponse.endDate,
+        genericResponse.actionUrl,
+        genericResponse.packageName)
   }
 
   private fun isValidGamificationLink(
-    linkedPromotionId: String?,
-    gamificationAvailable: Boolean,
-    startDate: Long
+      linkedPromotionId: String?,
+      gamificationAvailable: Boolean,
+      startDate: Long
   ): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     return linkedPromotionId != null &&
@@ -242,58 +235,56 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun handleVouchers(
-    vouchersListModel: VoucherListModel,
-    maxBonus: Double
+      vouchersListModel: VoucherListModel,
+      maxBonus: Double
   ): List<VoucherItem> {
     val list = ArrayList<VoucherItem>()
     vouchersListModel.vouchers.forEach {
       list.add(
-        VoucherItem(
-          PromotionsInteractor.VOUCHER_ID,
-          it.packageName,
-          it.title,
-          it.icon,
-          it.hasAppcoins,
-          maxBonus
-        )
-      )
+          VoucherItem(
+              PromotionsInteractor.VOUCHER_ID,
+              it.packageName,
+              it.title,
+              it.icon,
+              it.hasAppcoins,
+              maxBonus))
     }
     return list
   }
 
   private fun isPerk(linkedPromotionId: String?): Boolean =
-    linkedPromotionId != PromotionsInteractor.GAMIFICATION_ID
+      linkedPromotionId != PromotionsInteractor.GAMIFICATION_ID
 
   // sorting perks by: priority > type > start date/end date
   private fun List<PromotionsResponse>.sortPerks(): List<PromotionsResponse> =
-    this.sortedWith { first, second ->
-      if (first.priority > second.priority) {
-        return@sortedWith -1
-      }
-      if (first.priority < second.priority) {
-        return@sortedWith 1
-      }
-      if (first is GenericResponse && second is GenericResponse) {
-        if (isFuturePromotion(first) && !isFuturePromotion(second)) {
-          return@sortedWith 1
-        } else if (!isFuturePromotion(first) && isFuturePromotion(second)) {
+      this.sortedWith { first, second ->
+        if (first.priority > second.priority) {
           return@sortedWith -1
-        } else if (isFuturePromotion(first) && isFuturePromotion(second)) {
-          if (first.startDate ?: 0 > second.startDate ?: 0) {
+        }
+        if (first.priority < second.priority) {
+          return@sortedWith 1
+        }
+        if (first is GenericResponse && second is GenericResponse) {
+          if (isFuturePromotion(first) && !isFuturePromotion(second)) {
             return@sortedWith 1
-          }
-          if (first.startDate ?: 0 < second.startDate ?: 0) {
+          } else if (!isFuturePromotion(first) && isFuturePromotion(second)) {
             return@sortedWith -1
-          }
-        } else if (!isFuturePromotion(first) && !isFuturePromotion(second)) {
-          if (first.endDate > second.endDate) {
-            return@sortedWith 1
-          }
-          if (first.endDate < second.endDate) {
-            return@sortedWith -1
+          } else if (isFuturePromotion(first) && isFuturePromotion(second)) {
+            if (first.startDate ?: 0 > second.startDate ?: 0) {
+              return@sortedWith 1
+            }
+            if (first.startDate ?: 0 < second.startDate ?: 0) {
+              return@sortedWith -1
+            }
+          } else if (!isFuturePromotion(first) && !isFuturePromotion(second)) {
+            if (first.endDate > second.endDate) {
+              return@sortedWith 1
+            }
+            if (first.endDate < second.endDate) {
+              return@sortedWith -1
+            }
           }
         }
+        return@sortedWith 0
       }
-      return@sortedWith 0
-    }
 }
