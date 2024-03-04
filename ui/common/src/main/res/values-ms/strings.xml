@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
   <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
-  <string name="backup_skip_title">Saya faham bahawa saya boleh kehilangan dana saya jika saya tidak buat sandaran kunci dompet saya.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Dompet sandaran</string>
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
