@@ -785,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">Відновлення пароля немає.</string>
   <string name="backup_additional_security_password_not_march">Паролі не збігаються.</string>
   <string name="import_wallet_recovering_body">Відновлення гаманця...</string>
-  <string name="backup_skip_title">Я розумію, що можу втратити кошти, якщо не зроблю резервну копію ключа до гаманця.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Резервний гаманець</string>
   <string name="backup_success_save_on_email">Файл резервної копії знаходиться у вашій електронній пошті.</string>
   <string name="backup_success_save_on_device">Файл резервної копії зберігається на вашому пристрої.</string>
