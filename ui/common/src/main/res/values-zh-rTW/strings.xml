@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">密碼無法恢復。</string>
   <string name="backup_additional_security_password_not_march">密碼不一致。</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">備份錢包</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
