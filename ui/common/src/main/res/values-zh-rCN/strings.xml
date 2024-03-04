@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
   <string name="import_wallet_recovering_body">正在恢复钱包……</string>
-  <string name="backup_skip_title">我明白，如果我不备份钱包密钥，我可能会失去资金。</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">备份钱包</string>
   <string name="backup_success_save_on_email">你的备份文件位于你的电子邮件中。</string>
   <string name="backup_success_save_on_device">你的备份文件存储在你的设备中。</string>
