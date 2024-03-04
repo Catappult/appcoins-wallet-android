@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">पासवर्ड रिकव्हरी नाही.</string>
   <string name="backup_additional_security_password_not_march">पासवर्डस एकसमान नाहीत.</string>
   <string name="import_wallet_recovering_body">वॉलेट परत मिळवा...</string>
-  <string name="backup_skip_title">जर मी माझ्या वॉलेटची की बॅकअप केली नाही तर माझे पैसे जातील हे मला समजते.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">वॉलेट बॅकअप करा</string>
   <string name="backup_success_save_on_email">आपली बॅकअप फाईल आपल्या ईमेलमध्ये आहे.</string>
   <string name="backup_success_save_on_device">आपली बॅकअप फाईल आपल्या डिव्हाईसवर साठवली आहे.</string>
