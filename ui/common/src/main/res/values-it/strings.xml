@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Non è possibile recuperare la password.</string>
   <string name="backup_additional_security_password_not_march">Le password non corrispondono.</string>
   <string name="import_wallet_recovering_body">Recupero wallet in corso...</string>
-  <string name="backup_skip_title">Sono consapevole che potrei incorrere nella perdita dei miei fondi se non effettuo il backup della chiave del mio wallet.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Effettua il backup del wallet</string>
   <string name="backup_success_save_on_email">Il tuo file di backup è nella tua email.</string>
   <string name="backup_success_save_on_device">Il tuo file di backup è memorizzato sul tuo dispositivo.</string>
