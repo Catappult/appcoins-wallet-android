@@ -783,7 +783,7 @@
   <string name="backup_additional_security_disclaimer_body">Es gibt keine Möglichkeit, das Passwort wiederherzustellen.</string>
   <string name="backup_additional_security_password_not_march">Die Passwörter stimmen nicht überein.</string>
   <string name="import_wallet_recovering_body">Wallet wiederherstellen...</string>
-  <string name="backup_skip_title">Mir ist klar, dass ich mein Geld verlieren kann, wenn ich keine Sicherungskopie meines Wallet-Keys mache.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Wallet-Backup erstellen</string>
   <string name="backup_success_save_on_email">Deine Backup-Datei befindet sich in deiner E-Mail-Inbox.</string>
   <string name="backup_success_save_on_device">Deine Backup-Datei wurde auf deinem Gerät gespeichert.</string>
