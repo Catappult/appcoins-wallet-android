@@ -99,6 +99,17 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <View
+            android:id="@+id/view_top_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/styleguide_payments_separator_transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+            />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_main"
             android:layout_width="match_parent"
@@ -107,7 +118,7 @@
             app:layout_constraintBottom_toBottomOf="@id/view_bottom_separator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+            app:layout_constraintTop_toBottomOf="@id/view_top_separator"
             >
 
           <androidx.recyclerview.widget.RecyclerView
@@ -218,9 +229,9 @@
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:background="@drawable/background_shadow_payment"
+            app:layout_constraintBottom_toBottomOf="@id/content_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/content_main"
             />
 
         <include
