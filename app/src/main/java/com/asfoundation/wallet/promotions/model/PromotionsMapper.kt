@@ -108,7 +108,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun VipReferralResponse.map(): VipReferralInfo? {
-    return if (isAvailable(endDate))
+    return if (endDate.isNotEmpty() && isAvailable(endDate))
       VipReferralInfo(
         vipBonus = vipBonus,
         vipCode = code,
