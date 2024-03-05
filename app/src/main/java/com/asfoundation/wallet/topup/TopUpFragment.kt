@@ -228,24 +228,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
     binding.paymentMethods.adapter = adapter
 
-    handlePaymentListMaxHeight(paymentMethods.size)
 
     binding.paymentsSkeleton.visibility = View.GONE
     binding.paymentMethods.visibility = View.VISIBLE
-  }
-
-  private fun handlePaymentListMaxHeight(listSize: Int) {
-    if (listSize > 2) {
-      val orientation = resources.configuration.orientation
-      val params: LayoutParams = binding.paymentMethods.layoutParams as LayoutParams
-      if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        params.height = 164.convertDpToPx(resources)
-      }
-      if (orientation == Configuration.ORIENTATION_PORTRAIT && paymentMethods.size > 3) {
-        params.height = 228.convertDpToPx(resources)
-      }
-      binding.paymentMethods.layoutParams = params
-    }
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {
@@ -283,7 +268,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       }
       true
     }
-    binding.botSeparator.visibility = View.VISIBLE
     //added since this fragment continues active after navigating to the payment fragment
     if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)
 

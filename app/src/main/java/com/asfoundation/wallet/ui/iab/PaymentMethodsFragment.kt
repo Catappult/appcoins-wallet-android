@@ -2,8 +2,10 @@ package com.asfoundation.wallet.ui.iab
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
@@ -43,6 +45,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
@@ -797,27 +800,97 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       transactionBuilder!!.type
     )
 
-  override fun showBonus(@StringRes bonusText: Int) {
-    changeBonusVisibility(View.VISIBLE)
-  }
-
-  override fun removeBonus() {
-    bonusMessageValue = ""
-    bonusValue = null
-    changeBonusVisibility(View.GONE)
+  private fun isPortraitMode(context: Context): Boolean {
+    val orientation = context.resources.configuration.orientation
+    return orientation == ORIENTATION_PORTRAIT
   }
 
   private fun changeBonusVisibility(visibility: Int) {
     binding.bonusLayout.root.visibility = visibility
-    binding.bonusBackground.visibility = visibility
+  }
+
+  override fun showBonus(@StringRes bonusText: Int) {
+    if (binding.bonusLayout.root.visibility != View.VISIBLE && isPortraitMode(requireContext())) {
+      expandViewWithAnimation(0, dpToPx(50), binding.bonusLayout.root)
+    } else {
+      changeBonusVisibility(View.VISIBLE)
+    }
+  }
+
+
+  override fun removeBonus() {
+    bonusMessageValue = ""
+    bonusValue = null
+    if (binding.bonusLayout.root.visibility != View.GONE && isPortraitMode(requireContext())) {
+      binding.bonusLayout.root.let {
+        retractViewWithAnimation(it.height, 0, it, true)
+      }
+    } else {
+      changeBonusVisibility(View.GONE)
+    }
   }
 
   override fun hideBonus() {
-    changeBonusVisibility(View.INVISIBLE)
+    if (binding.bonusLayout.root.visibility != View.GONE && isPortraitMode(requireContext())) {
+      binding.bonusLayout.root.let {
+        retractViewWithAnimation(it.height, 0, it, true)
+      }
+    } else {
+      changeBonusVisibility(View.GONE)
+    }
   }
 
   override fun replaceBonus() {
-    changeBonusVisibility(View.INVISIBLE)
+    if (binding.bonusLayout.root.visibility != View.GONE && isPortraitMode(requireContext())) {
+      binding.bonusLayout.root.let {
+        retractViewWithAnimation(it.height, 0, it, true)
+      }
+    } else {
+      changeBonusVisibility(View.GONE)
+    }
+  }
+
+  private fun expandViewWithAnimation(startHeight: Int, targetHeight: Int, view: View) {
+    view.visibility = View.VISIBLE
+    val valueAnimator = createHeightAnimator(startHeight, targetHeight, view)
+    valueAnimator.start()
+  }
+
+  private fun retractViewWithAnimation(
+    startHeight: Int,
+    targetHeight: Int,
+    view: View,
+    needChangeVisibility: Boolean
+  ) {
+    val valueAnimator = createHeightAnimator(startHeight, targetHeight, view)
+    if (needChangeVisibility) {
+      valueAnimator.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator) {
+          // Set visibility to GONE when the animation ends
+          view.visibility = View.GONE
+        }
+      })
+    }
+    valueAnimator.start()
+  }
+
+  private fun createHeightAnimator(startHeight: Int, targetHeight: Int, view: View): ValueAnimator {
+    val animator = ValueAnimator.ofInt(startHeight, targetHeight)
+    animator.duration = 500 // milliseconds
+
+    animator.addUpdateListener { animation ->
+      val animatedValue = animation.animatedValue as Int
+      val layoutParams = view.layoutParams
+      layoutParams.height = animatedValue
+      view.layoutParams = layoutParams
+    }
+
+    return animator
+  }
+
+  private fun dpToPx(dp: Int): Int {
+    val density = resources.displayMetrics.density
+    return (dp * density + 0.5f).toInt()
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()
