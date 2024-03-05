@@ -7,7 +7,7 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.ISO_8601_DATE_TIME_FORMAT
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDateToTimestamp
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDateToTimestampSeconds
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
@@ -107,23 +107,31 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun VipReferralResponse.map() = if (active)
-    VipReferralInfo(
-      vipBonus = vipBonus,
-      vipCode = code,
-      totalEarned = earnedUsdAmount,
-      numberReferrals = referrals,
-      endDate = transformDateToTimestamp(
-        date = endDate,
-        fromPattern = ISO_8601_DATE_TIME_FORMAT
-      ),
-      startDate = transformDateToTimestamp(
-        date = startDate,
-        fromPattern = ISO_8601_DATE_TIME_FORMAT
-      ),
-      app = app
-    )
-  else null
+  private fun VipReferralResponse.map(): VipReferralInfo? {
+    return if (isAvailable(endDate))
+      VipReferralInfo(
+        vipBonus = vipBonus,
+        vipCode = code,
+        totalEarned = earnedUsdAmount,
+        numberReferrals = referrals,
+        endDate = transformDateToTimestampSeconds(
+          date = endDate,
+          fromPattern = ISO_8601_DATE_TIME_FORMAT
+        ),
+        startDate = transformDateToTimestampSeconds(
+          date = startDate,
+          fromPattern = ISO_8601_DATE_TIME_FORMAT
+        ),
+        app = app
+      )
+    else
+      null
+  }
+
+  private fun isAvailable(endDate: String) = transformDateToTimestampSeconds(
+    date = endDate,
+    fromPattern = ISO_8601_DATE_TIME_FORMAT
+  ) * 1000L >= System.currentTimeMillis()
 
   private fun mapToGamificationLinkItem(
     promotions: MutableList<Promotion>, genericResponse: GenericResponse
