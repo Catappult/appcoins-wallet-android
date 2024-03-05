@@ -10,6 +10,7 @@ data class VipReferralResponse(
   @SerializedName("active") val active: Boolean,
   @SerializedName("revenue_share") val vipBonus: String,
   @SerializedName("end_date") val endDate: String,
+  @SerializedName("start_date") val startDate: String,
   @SerializedName("app") val app: App
 ) {
   companion object {
@@ -21,6 +22,7 @@ data class VipReferralResponse(
         active = false,
         vipBonus = "",
         endDate = "",
+        startDate = "",
         app = App(packageName = "", appName = "", appIcon = "")
       )
   }

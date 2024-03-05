@@ -7,7 +7,7 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.ISO_8601_DATE_TIME_FORMAT
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDateToTimestamp
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.transformDateToTimestampSeconds
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
@@ -58,8 +58,11 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
           if (isPerk(it.linkedPromotionId)) {
             when {
               isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
-              it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE ->
-                perks.add(mapToProgressItem(it))
+              it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
+                mapToProgressItem(
+                  it
+                )
+              )
 
               it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
               else -> perks.add(mapToDefaultItem(it))
@@ -104,21 +107,34 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun VipReferralResponse.map() =
-    if (active)
+  private fun VipReferralResponse.map(): VipReferralInfo? {
+    return if (endDate.isNotEmpty() && isAvailable(endDate))
       VipReferralInfo(
-        vipBonus,
-        code,
-        earnedUsdAmount,
-        referrals,
-        transformDateToTimestamp(date = endDate, fromPattern = ISO_8601_DATE_TIME_FORMAT),
-        app
+        vipBonus = vipBonus,
+        vipCode = code,
+        totalEarned = earnedUsdAmount,
+        numberReferrals = referrals,
+        endDate = transformDateToTimestampSeconds(
+          date = endDate,
+          fromPattern = ISO_8601_DATE_TIME_FORMAT
+        ),
+        startDate = transformDateToTimestampSeconds(
+          date = startDate,
+          fromPattern = ISO_8601_DATE_TIME_FORMAT
+        ),
+        app = app
       )
-    else null
+    else
+      null
+  }
+
+  private fun isAvailable(endDate: String) = transformDateToTimestampSeconds(
+    date = endDate,
+    fromPattern = ISO_8601_DATE_TIME_FORMAT
+  ) * 1000L >= System.currentTimeMillis()
 
   private fun mapToGamificationLinkItem(
-    promotions: MutableList<Promotion>,
-    genericResponse: GenericResponse
+    promotions: MutableList<Promotion>, genericResponse: GenericResponse
   ) {
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
@@ -220,15 +236,10 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun isValidGamificationLink(
-    linkedPromotionId: String?,
-    gamificationAvailable: Boolean,
-    startDate: Long
+    linkedPromotionId: String?, gamificationAvailable: Boolean, startDate: Long
   ): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-    return linkedPromotionId != null &&
-        linkedPromotionId == PromotionsInteractor.GAMIFICATION_ID &&
-        gamificationAvailable &&
-        startDate < currentTime
+    return linkedPromotionId != null && linkedPromotionId == PromotionsInteractor.GAMIFICATION_ID && gamificationAvailable && startDate < currentTime
   }
 
   private fun isFuturePromotion(genericResponse: GenericResponse): Boolean {
@@ -242,8 +253,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun handleVouchers(
-    vouchersListModel: VoucherListModel,
-    maxBonus: Double
+    vouchersListModel: VoucherListModel, maxBonus: Double
   ): List<VoucherItem> {
     val list = ArrayList<VoucherItem>()
     vouchersListModel.vouchers.forEach {

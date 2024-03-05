@@ -276,7 +276,10 @@ fun GamificationHeaderNoPurchases() {
       verticalArrangement = Arrangement.SpaceEvenly,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      Image(painter = painterResource(id = R.drawable.ic_locked), contentDescription = "Locked")
+      Image(
+        painter = painterResource(id = R.drawable.ic_locked),
+        contentDescription = "Locked"
+      )
       Text(
         text = stringResource(id = R.string.rewards_make_first_purchase_body),
         fontSize = 16.sp,
@@ -349,7 +352,8 @@ fun GamificationHeaderPartner(bonusPercentage: String) {
 }
 
 @Composable
-fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
+fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long, startDateTime: Long) {
+  val referralAvailable = isVipReferralAlreadyAvailable(startDateTime)
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     modifier =
@@ -357,7 +361,7 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
       .fillMaxSize()
       .padding(start = 16.dp, end = 16.dp, top = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
-      .clickable { onClick() },
+      .clickable { if (referralAvailable) onClick() },
   ) {
     Column(verticalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxSize()) {
       Row(
@@ -369,7 +373,10 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
         verticalAlignment = Alignment.CenterVertically
       ) {
         Image(
-          painter = painterResource(R.drawable.ic_vip_symbol),
+          painter = painterResource(
+            if (referralAvailable) R.drawable.ic_vip_symbol
+            else R.drawable.ic_soon_lock
+          ),
           contentDescription = stringResource(R.string.vip),
           modifier = Modifier
             .size(48.dp)
@@ -390,37 +397,56 @@ fun VipReferralCard(onClick: () -> Unit, vipBonus: String, endDateTime: Long) {
             modifier = Modifier.padding(horizontal = 20.dp)
           )
         }
-        Image(
+        if (referralAvailable) Image(
           painter = painterResource(R.drawable.ic_arrow_right),
           contentDescription = null,
           modifier = Modifier.size(32.dp)
         )
       }
-      VipReferralEndCountDownTimer(
-        endDateTime = endDateTime,
-        modifier = Modifier
-          .padding(bottom = 8.dp)
-          .fillMaxWidth()
-          .padding(horizontal = 24.dp)
+      VipReferralCountDownTimer(
+        dateTime = if (referralAvailable) endDateTime else startDateTime,
+        referralAvailable = referralAvailable
       )
     }
   }
 }
 
 @Composable
-fun VipReferralEndCountDownTimer(endDateTime: Long, modifier: Modifier = Modifier) {
+fun VipReferralCountDownTimer(
+  dateTime: Long,
+  modifier: Modifier = Modifier,
+  referralAvailable: Boolean
+) {
   Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.SpaceBetween,
+    modifier = modifier
+      .padding(bottom = 8.dp)
+      .padding(horizontal = 16.dp)
+      .fillMaxWidth(),
     verticalAlignment = Alignment.CenterVertically
   ) {
-    Text(
-      text = stringResource(id = R.string.ending_in_title),
-      color = WalletColors.styleguide_light_grey,
-      style = MaterialTheme.typography.bodySmall,
-      fontWeight = FontWeight.Bold,
-    )
-    CountDownTimer(endDateTime = endDateTime)
+    Row(
+      modifier = modifier.weight(1f),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Start
+    ) {
+      if (!referralAvailable) Image(
+        painter = painterResource(R.drawable.ic_timer),
+        contentDescription = null,
+        modifier = Modifier
+          .size(24.dp)
+          .padding(end = 8.dp)
+      )
+      Text(
+        text = stringResource(
+          if (referralAvailable) R.string.ending_in_title
+          else R.string.perks_available_soon_short
+        ),
+        color = WalletColors.styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall,
+        fontWeight = FontWeight.Bold,
+      )
+    }
+    CountDownTimer(endDateTime = dateTime)
   }
 }
 
@@ -482,6 +508,9 @@ fun SkeletonLoadingGamificationCard() {
   }
 }
 
+fun isVipReferralAlreadyAvailable(startDateTime: Long) =
+  startDateTime * 1000L <= System.currentTimeMillis()
+
 @Preview
 @Composable
 fun PreviewRewardsGamification() {
@@ -531,7 +560,7 @@ fun PreviewRewardsGamificationPartner() {
 @Preview
 @Composable
 fun PreviewRewardsVip() {
-  VipReferralCard({}, "5", 0L)
+  VipReferralCard({}, "5", 0L, 0L)
 }
 
 @Preview

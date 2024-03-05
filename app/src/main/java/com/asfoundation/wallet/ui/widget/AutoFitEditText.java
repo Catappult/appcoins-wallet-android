@@ -190,12 +190,6 @@ public class AutoFitEditText extends AppCompatEditText {
     return lastBest;
   }
 
-  @Override public void setMaxLines(final int maxlines) {
-    super.setMaxLines(maxlines);
-    _maxLines = maxlines;
-    reAdjust();
-  }
-
   @Override protected void onSizeChanged(final int width, final int height, final int oldwidth,
       final int oldheight) {
     _textCachedSizes.clear();
@@ -215,6 +209,12 @@ public class AutoFitEditText extends AppCompatEditText {
      * otherwise
      */
     int onTestSize(int suggestedSize, RectF availableSpace);
+  }
+
+  @Override public void setMaxLines(final int maxlines) {
+    super.setMaxLines(maxlines);
+    _maxLines = maxlines;
+    reAdjust();
   }
 
   @Override public int getMaxLines() {

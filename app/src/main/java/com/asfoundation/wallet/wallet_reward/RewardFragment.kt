@@ -268,6 +268,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         { navigator.navigateToVipReferral(vipReferralInfo, navController()) },
         vipReferralInfo.vipBonus,
         vipReferralInfo.endDate,
+        vipReferralInfo.startDate,
       )
   }
 

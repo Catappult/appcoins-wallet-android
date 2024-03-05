@@ -47,7 +47,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
-import com.appcoins.wallet.ui.widgets.VipReferralEndCountDownTimer
+import com.appcoins.wallet.ui.widgets.VipReferralCountDownTimer
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralViewModel.UiState
@@ -196,14 +196,19 @@ class PromotionsVipReferralFragment : BasePageViewFragment() {
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
     ) {
       Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        VipReferralEndCountDownTimer(
-          endDateTime = endDate,
+        VipReferralCountDownTimer(
+          dateTime = endDate,
           modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+          true
         )
         ShareCodeCard(referralCode, appName, appIconUrl)
-        EarnedCreditsInfo(symbol = symbol, fiatAmount = fiatAmount, earnedTotal = earnedTotal)
+        EarnedCreditsInfo(
+          symbol = symbol,
+          fiatAmount = fiatAmount,
+          earnedTotal = earnedTotal
+        )
       }
     }
   }

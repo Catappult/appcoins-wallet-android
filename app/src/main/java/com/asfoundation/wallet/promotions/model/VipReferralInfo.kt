@@ -8,5 +8,6 @@ data class VipReferralInfo(
   val totalEarned: String,
   val numberReferrals: String,
   val endDate: Long,
+  val startDate: Long,
   val app: App
 )

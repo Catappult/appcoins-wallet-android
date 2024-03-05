@@ -148,14 +148,18 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
-              CountDownTimer(cardItem.promotionEndTime)
+              CountDownTimer(endDateTime = cardItem.promotionEndTime)
               Row(
                 modifier = Modifier
                   .fillMaxWidth(0.8f)
                   .padding(start = 48.dp),
                 horizontalArrangement = Arrangement.End
               ) {
-                GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion)
+                GetText(
+                  cardItem.action,
+                  cardItem.packageName,
+                  cardItem.hasVipPromotion
+                )
               }
             }
           }
