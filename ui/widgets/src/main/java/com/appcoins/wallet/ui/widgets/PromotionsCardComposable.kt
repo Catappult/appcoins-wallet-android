@@ -84,260 +84,267 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
   val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
   Column {
     if (cardItem.hasVipPromotion) {
-        // Set Changes in VIP Cards
-        borderColor = WalletColors.styleguide_vip_yellow
-        topEndRoundedCornerCard = 0.dp
-        Box(
-            modifier =
-            Modifier
-                .align(Alignment.End)
-                .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
-                .background(WalletColors.styleguide_vip_yellow)
-        ) {
-            Text(
-                text = stringResource(id = R.string.vip_program_title_vip_offer),
-                fontSize = 12.sp,
-                color = WalletColors.styleguide_blue,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
-            )
-        }
-    } else {
-        Spacer(modifier = Modifier.height(spacerSize))
-    }
-      Surface(
-          color = WalletColors.styleguide_blue_secondary,
-          modifier =
-          Modifier
-              .border(
-                  border = BorderStroke(2.dp, borderColor),
-                  shape =
-                  RoundedCornerShape(
-                      bottomEnd = 16.dp,
-                      bottomStart = 16.dp,
-                      topEnd = topEndRoundedCornerCard,
-                      topStart = 16.dp
-                  )
-              )
-              .clip(
-                  shape =
-                  RoundedCornerShape(
-                      bottomEnd = 16.dp,
-                      bottomStart = 16.dp,
-                      topEnd = topEndRoundedCornerCard,
-                      topStart = 16.dp
-                  )
-              )
-              .zIndex(4f)
+      // Set Changes in VIP Cards
+      borderColor = WalletColors.styleguide_vip_yellow
+      topEndRoundedCornerCard = 0.dp
+      Box(
+        modifier =
+        Modifier
+          .align(Alignment.End)
+          .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
+          .background(WalletColors.styleguide_vip_yellow)
       ) {
-          Column(modifier = Modifier.padding(8.dp)) {
-              ImageWithTitleAndDescription(
-                  cardItem.imageUrl, cardItem.title, cardItem.subtitle, cardItem.hasVerticalList
-              )
-              if (!cardItem.hasFuturePromotion) {
-                  Spacer(modifier = Modifier.height(12.dp))
-                  Text(
-                      text = stringResource(id = R.string.promotion_ends_short_title),
-                      color = WalletColors.styleguide_light_grey,
-                      fontSize = 12.sp,
-                      fontWeight = FontWeight.Bold
-                  )
-                  Column(modifier = Modifier.height(49.dp)) {
-                      Row(
-                          modifier = Modifier.fillMaxWidth(),
-                          horizontalArrangement = Arrangement.SpaceBetween,
-                          verticalAlignment = Alignment.CenterVertically
-                      ) {
-                          CountDownTimer(endDateTime = cardItem.promotionEndTime)
-                          Row(
-                              modifier = Modifier
-                                  .fillMaxWidth(0.8f)
-                                  .padding(start = 48.dp),
-                              horizontalArrangement = Arrangement.End
-                          ) {
-                              GetText(
-                                  cardItem.action,
-                                  cardItem.packageName,
-                                  cardItem.hasVipPromotion
-                              )
-                          }
-                      }
-              }
-            } else {
-              Spacer(modifier = Modifier.height(20.dp))
-              Column(modifier = Modifier.height(40.dp)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically) {
-                      IconWithText(stringResource(id = R.string.perks_available_soon_short))
-                      GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion)
-                    }
+        Text(
+          text = stringResource(id = R.string.vip_program_title_vip_offer),
+          fontSize = 12.sp,
+          color = WalletColors.styleguide_blue,
+          fontWeight = FontWeight.Bold,
+          modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
+        )
+      }
+    } else {
+      Spacer(modifier = Modifier.height(spacerSize))
+    }
+    Surface(
+      color = WalletColors.styleguide_blue_secondary,
+      modifier =
+      Modifier
+        .border(
+          border = BorderStroke(2.dp, borderColor),
+          shape =
+          RoundedCornerShape(
+            bottomEnd = 16.dp,
+            bottomStart = 16.dp,
+            topEnd = topEndRoundedCornerCard,
+            topStart = 16.dp
+          )
+        )
+        .clip(
+          shape =
+          RoundedCornerShape(
+            bottomEnd = 16.dp,
+            bottomStart = 16.dp,
+            topEnd = topEndRoundedCornerCard,
+            topStart = 16.dp
+          )
+        )
+        .zIndex(4f)
+    ) {
+      Column(modifier = Modifier.padding(8.dp)) {
+        ImageWithTitleAndDescription(
+          cardItem.imageUrl, cardItem.title, cardItem.subtitle, cardItem.hasVerticalList
+        )
+        if (!cardItem.hasFuturePromotion) {
+          Spacer(modifier = Modifier.height(12.dp))
+          Text(
+            text = stringResource(id = R.string.promotion_ends_short_title),
+            color = WalletColors.styleguide_light_grey,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold
+          )
+          Column(modifier = Modifier.height(49.dp)) {
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              CountDownTimer(endDateTime = cardItem.promotionEndTime)
+              Row(
+                modifier = Modifier
+                  .fillMaxWidth(0.8f)
+                  .padding(start = 48.dp),
+                horizontalArrangement = Arrangement.End
+              ) {
+                GetText(
+                  cardItem.action,
+                  cardItem.packageName,
+                  cardItem.hasVipPromotion
+                )
               }
             }
           }
+        } else {
+          Spacer(modifier = Modifier.height(20.dp))
+          Column(modifier = Modifier.height(40.dp)) {
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              IconWithText(stringResource(id = R.string.perks_available_soon_short))
+              GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion)
+            }
+          }
         }
+      }
+    }
   }
 }
 
 @Composable
 fun CountDownTimer(endDateTime: Long) {
-    val remainingTime = remember { mutableStateOf(Duration.ZERO) }
-    val endDateInMillis = endDateTime * 1000L
+  val remainingTime = remember { mutableStateOf(Duration.ZERO) }
+  val endDateInMillis = endDateTime * 1000L
 
-    LaunchedEffect(Unit) {
-        while (true) {
-            remainingTime.value = Duration.ofMillis(endDateInMillis - System.currentTimeMillis())
-            if (remainingTime.value < Duration.ZERO) {
-                remainingTime.value = Duration.ZERO
-                // Break while in Home
-                break
-            }
-            delay(1000)
-        }
+  LaunchedEffect(Unit) {
+    while (true) {
+      remainingTime.value = Duration.ofMillis(endDateInMillis - System.currentTimeMillis())
+      if (remainingTime.value < Duration.ZERO) {
+        remainingTime.value = Duration.ZERO
+        // Break while in Home
+        break
+      }
+      delay(1000)
     }
-    Row(
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        CardWithTextAndDetail(
-            text = remainingTime.value.toDays().toString(),
-            detail =
-            pluralStringResource(id = R.plurals.day, count = remainingTime.value.toDays().toInt())
-        )
-        CardWithTextAndDetail(
-            text = (remainingTime.value.toHours() % 24).toString(),
-            detail =
-            pluralStringResource(
-                id = R.plurals.hour, count = (remainingTime.value.toHours() % 24).toInt()
-            )
-        )
-        CardWithTextAndDetail(
-            text = (remainingTime.value.toMinutes() % 60).toString(),
-            detail =
-            pluralStringResource(
-                id = R.plurals.minute, count = (remainingTime.value.toMinutes() % 60).toInt()))
+  }
+  Row(
+    horizontalArrangement = Arrangement.Start,
+  ) {
     CardWithTextAndDetail(
-        text = (remainingTime.value.seconds % 60).toString(),
-        detail =
-            pluralStringResource(
-                id = R.plurals.second, count = (remainingTime.value.seconds % 60).toInt()))
+      text = remainingTime.value.toDays().toString(),
+      detail =
+      pluralStringResource(id = R.plurals.day, count = remainingTime.value.toDays().toInt())
+    )
+    CardWithTextAndDetail(
+      text = (remainingTime.value.toHours() % 24).toString(),
+      detail =
+      pluralStringResource(
+        id = R.plurals.hour, count = (remainingTime.value.toHours() % 24).toInt()
+      )
+    )
+    CardWithTextAndDetail(
+      text = (remainingTime.value.toMinutes() % 60).toString(),
+      detail =
+      pluralStringResource(
+        id = R.plurals.minute, count = (remainingTime.value.toMinutes() % 60).toInt()
+      )
+    )
+    CardWithTextAndDetail(
+      text = (remainingTime.value.seconds % 60).toString(),
+      detail =
+      pluralStringResource(
+        id = R.plurals.second, count = (remainingTime.value.seconds % 60).toInt()
+      )
+    )
   }
 }
 
 @Composable
 fun CardWithTextAndDetail(text: String, detail: String) {
-    Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
-        modifier =
-        Modifier
-            .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
-            .width(41.dp)
-            .height(39.dp)
-            .clip(shape = RoundedCornerShape(3.dp))
-            .zIndex(8f)
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
+    modifier =
+    Modifier
+      .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
+      .width(41.dp)
+      .height(39.dp)
+      .clip(shape = RoundedCornerShape(3.dp))
+      .zIndex(8f)
+  ) {
+    Column(
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(4.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = text,
-                fontWeight = FontWeight.Bold,
-                fontSize = 14.sp,
-                color = WalletColors.styleguide_light_grey,
-                maxLines = 1
-            )
-            Text(
-                text = detail,
-                fontSize = 7.sp,
-                color = WalletColors.styleguide_light_grey,
-            )
-        }
-      }
+      Text(
+        text = text,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        color = WalletColors.styleguide_light_grey,
+        maxLines = 1
+      )
+      Text(
+        text = detail,
+        fontSize = 7.sp,
+        color = WalletColors.styleguide_light_grey,
+      )
+    }
+  }
 }
 
 @Composable
 fun IconWithText(text: String) {
   Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 10.dp)) {
     Image(
-        painter = painterResource(R.drawable.ic_clock),
-        colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
-        modifier = Modifier
-            .height(14.dp)
-            .width(14.dp),
-        contentDescription = null
+      painter = painterResource(R.drawable.ic_clock),
+      colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
+      modifier = Modifier
+        .height(14.dp)
+        .width(14.dp),
+      contentDescription = null
     )
     Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        color = WalletColors.styleguide_dark_grey,
-        modifier = Modifier.padding(start = 8.dp),
-        maxLines = 1,
-        fontSize = 12.sp)
+      text = text,
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_dark_grey,
+      modifier = Modifier.padding(start = 8.dp),
+      maxLines = 1,
+      fontSize = 12.sp
+    )
   }
 }
 
 @Composable
 fun GetText(action: () -> Unit, packageName: String?, isVip: Boolean = false) {
   val hasGameInstall =
-      isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
+    isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   val text =
-      if (hasGameInstall) stringResource(id = R.string.play_button)
-      else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
+    if (hasGameInstall) stringResource(id = R.string.play_button)
+    else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
 
   TextButton(onClick = action) {
     Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
-        fontSize = 14.sp)
+      text = text,
+      fontWeight = FontWeight.Bold,
+      color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
+      fontSize = 14.sp
+    )
   }
 }
 
 @Composable
 fun ImageWithTitleAndDescription(
-    imageUrl: String?,
-    title: String?,
-    description: String?,
-    hasVerticalList: Boolean
+  imageUrl: String?,
+  title: String?,
+  description: String?,
+  hasVerticalList: Boolean
 ) {
   val maxColumnWidth = if (hasVerticalList) 300.dp else 240.dp
   Column {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        SubcomposeAsyncImage(
-            model = imageUrl,
-            loading = { CircularProgressIndicator() },
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .width(56.dp)
-                .height(56.dp)
-                .clip(shape = RoundedCornerShape(8.dp))
+      SubcomposeAsyncImage(
+        model = imageUrl,
+        loading = { CircularProgressIndicator() },
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+          .width(56.dp)
+          .height(56.dp)
+          .clip(shape = RoundedCornerShape(8.dp))
+      )
+      Column(
+        modifier = Modifier
+          .widthIn(min = 0.dp, max = maxColumnWidth)
+          .padding(start = 12.dp)
+      ) {
+        Text(
+          text = title ?: "",
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_dark_grey,
+          maxLines = 1,
+          fontSize = 12.sp
         )
-        Column(
-            modifier = Modifier
-                .widthIn(min = 0.dp, max = maxColumnWidth)
-                .padding(start = 12.dp)
-        ) {
-            Text(
-                text = title ?: "",
-                fontWeight = FontWeight.Bold,
-                color = WalletColors.styleguide_dark_grey,
-                maxLines = 1,
-                fontSize = 12.sp
-            )
-            Text(
-                text = description ?: "",
-                fontWeight = FontWeight.Bold,
-                maxLines = 2,
-                style = MaterialTheme.typography.bodyMedium,
-                color = WalletColors.styleguide_white,
-                modifier = Modifier.padding(top = 4.dp, end = 8.dp)
-            )
-        }
+        Text(
+          text = description ?: "",
+          fontWeight = FontWeight.Bold,
+          maxLines = 2,
+          style = MaterialTheme.typography.bodyMedium,
+          color = WalletColors.styleguide_white,
+          modifier = Modifier.padding(top = 4.dp, end = 8.dp)
+        )
+      }
     }
   }
 }
@@ -351,169 +358,170 @@ fun SkeletonLoadingPromotionCards(hasVerticalList: Boolean) {
 
 @Composable
 private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
-    val maxColumnWidth = if (hasVerticalList) 320.dp else 300.dp
-    Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .width(maxColumnWidth)
-            .padding(top = 16.dp, start = if (hasVerticalList) 16.dp else 0.dp, end = 16.dp)
-            .clip(shape = RoundedCornerShape(8.dp))
-    ) {
-        Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Spacer(
-                    modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .width(56.dp)
-                        .height(56.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(brush = shimmerSkeleton()),
-                )
-                Column(
-                    modifier = Modifier
-                        .width(240.dp)
-                        .padding(start = 12.dp)
-                ) {
-                    Spacer(
-                        modifier =
-                        Modifier
-                            .width(width = 120.dp)
-                            .height(height = 22.dp)
-                            .clip(RoundedCornerShape(5.dp))
-                            .background(brush = shimmerSkeleton()),
-                    )
-                    Spacer(
-                        modifier =
-                        Modifier
-                            .width(width = 200.dp)
-                            .height(height = 27.dp)
-                            .padding(top = 5.dp, end = 16.dp)
-                            .clip(RoundedCornerShape(5.dp))
-                            .background(brush = shimmerSkeleton()),
-                    )
-                }
-          }
-          Row(
-              verticalAlignment = Alignment.CenterVertically,
-              modifier = Modifier.padding(top = 16.dp, end = 16.dp)) {
-                Spacer(
-                    modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .width(46.dp)
-                        .height(40.dp)
-                        .padding(end = 6.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(brush = shimmerSkeleton()),
-                )
-                Spacer(
-                    modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .width(46.dp)
-                        .height(40.dp)
-                        .padding(end = 6.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(brush = shimmerSkeleton()),
-                )
-                Spacer(
-                    modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .width(46.dp)
-                        .height(40.dp)
-                        .padding(end = 6.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(brush = shimmerSkeleton()),
-                )
-                Spacer(
-                    modifier =
-                    Modifier
-                        .padding(top = 8.dp)
-                        .width(40.dp)
-                        .height(40.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(brush = shimmerSkeleton()),
-                )
-              }
+  val maxColumnWidth = if (hasVerticalList) 320.dp else 300.dp
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .width(maxColumnWidth)
+      .padding(top = 16.dp, start = if (hasVerticalList) 16.dp else 0.dp, end = 16.dp)
+      .clip(shape = RoundedCornerShape(8.dp))
+  ) {
+    Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        Spacer(
+          modifier =
+          Modifier
+            .padding(top = 8.dp)
+            .width(56.dp)
+            .height(56.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Column(
+          modifier = Modifier
+            .width(240.dp)
+            .padding(start = 12.dp)
+        ) {
+          Spacer(
+            modifier =
+            Modifier
+              .width(width = 120.dp)
+              .height(height = 22.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
+          Spacer(
+            modifier =
+            Modifier
+              .width(width = 200.dp)
+              .height(height = 27.dp)
+              .padding(top = 5.dp, end = 16.dp)
+              .clip(RoundedCornerShape(5.dp))
+              .background(brush = shimmerSkeleton()),
+          )
         }
       }
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 16.dp, end = 16.dp)
+      ) {
+        Spacer(
+          modifier =
+          Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier =
+          Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier =
+          Modifier
+            .padding(top = 8.dp)
+            .width(46.dp)
+            .height(40.dp)
+            .padding(end = 6.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+        Spacer(
+          modifier =
+          Modifier
+            .padding(top = 8.dp)
+            .width(40.dp)
+            .height(40.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(brush = shimmerSkeleton()),
+        )
+      }
+    }
+  }
 }
 
 // Test Itens
 data class CardPromotionItem(
-    val title: String?,
-    val subtitle: String?,
-    val promotionStartTime: Long?,
-    val promotionEndTime: Long,
-    val imageUrl: String?,
-    val urlRedirect: String?,
-    val packageName: String?,
-    val hasVipPromotion: Boolean,
-    val hasFuturePromotion: Boolean,
-    val hasVerticalList: Boolean,
-    val action: () -> Unit
+  val title: String?,
+  val subtitle: String?,
+  val promotionStartTime: Long?,
+  val promotionEndTime: Long,
+  val imageUrl: String?,
+  val urlRedirect: String?,
+  val packageName: String?,
+  val hasVipPromotion: Boolean,
+  val hasFuturePromotion: Boolean,
+  val hasVerticalList: Boolean,
+  val action: () -> Unit
 )
 
 val cardItem =
-    CardPromotionItem(
-        title = "Days of empire",
-        subtitle = "Receive an extra 15% Bonus in all your purchases.",
-        promotionStartTime = System.currentTimeMillis(),
-        promotionEndTime = System.currentTimeMillis(),
-        imageUrl =
-            "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-        urlRedirect = "https://example.com",
-        packageName = null,
-        hasVipPromotion = false,
-        hasFuturePromotion = false,
-        hasVerticalList = false,
-        action = { /* handle click action */})
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = false,
+    hasVerticalList = false,
+    action = { /* handle click action */ })
 
 val verticalCardItem =
-    CardPromotionItem(
-        title = "Days of empire",
-        subtitle = "Receive an extra 15% Bonus in all your purchases.",
-        promotionStartTime = System.currentTimeMillis(),
-        promotionEndTime = System.currentTimeMillis(),
-        imageUrl =
-            "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-        urlRedirect = "https://example.com",
-        packageName = null,
-        hasVipPromotion = false,
-        hasFuturePromotion = false,
-        hasVerticalList = true,
-        action = { /* handle click action */})
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = false,
+    hasVerticalList = true,
+    action = { /* handle click action */ })
 
 val vipCardItem =
-    CardPromotionItem(
-        title = "Days of empire",
-        subtitle = "Receive an extra 15% Bonus in all your purchases.",
-        promotionStartTime = System.currentTimeMillis(),
-        promotionEndTime = System.currentTimeMillis(),
-        imageUrl =
-            "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-        urlRedirect = "https://example.com",
-        packageName = null,
-        hasVipPromotion = true,
-        hasFuturePromotion = false,
-        hasVerticalList = false,
-        action = { /* handle click action */})
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = true,
+    hasFuturePromotion = false,
+    hasVerticalList = false,
+    action = { /* handle click action */ })
 
 val futureCardItem =
-    CardPromotionItem(
-        title = "Days of empire",
-        subtitle = "Receive an extra 15% Bonus in all your purchases.",
-        promotionStartTime = System.currentTimeMillis(),
-        promotionEndTime = System.currentTimeMillis(),
-        imageUrl =
-            "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-        urlRedirect = "https://example.com",
-        packageName = null,
-        hasVipPromotion = false,
-        hasFuturePromotion = true,
-        hasVerticalList = false,
-        action = { /* handle click action */})
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = true,
+    hasVerticalList = false,
+    action = { /* handle click action */ })
