@@ -107,13 +107,22 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun VipReferralResponse.map() = if (active) VipReferralInfo(
-    vipBonus, code, earnedUsdAmount, referrals, endDate = transformDateToTimestamp(
-      date = endDate, fromPattern = ISO_8601_DATE_TIME_FORMAT
-    ), startDate = transformDateToTimestamp(
-      date = startDate, fromPattern = ISO_8601_DATE_TIME_FORMAT
-    ), app
-  )
+  private fun VipReferralResponse.map() = if (active)
+    VipReferralInfo(
+      vipBonus = vipBonus,
+      vipCode = code,
+      totalEarned = earnedUsdAmount,
+      numberReferrals = referrals,
+      endDate = transformDateToTimestamp(
+        date = endDate,
+        fromPattern = ISO_8601_DATE_TIME_FORMAT
+      ),
+      startDate = transformDateToTimestamp(
+        date = startDate,
+        fromPattern = ISO_8601_DATE_TIME_FORMAT
+      ),
+      app = app
+    )
   else null
 
   private fun mapToGamificationLinkItem(
