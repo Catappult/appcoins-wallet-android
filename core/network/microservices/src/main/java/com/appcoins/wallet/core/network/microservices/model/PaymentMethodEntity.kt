@@ -10,16 +10,17 @@ data class PaymentMethodEntity(
   val availability: String,
   val gateway: Gateway,
   val async: Boolean,
+  val price: Value,
   val fee: FeeEntity?
 ) {
 
   fun isAvailable(): Boolean = this.availability != "UNAVAILABLE"
 }
 
-data class FeeEntity(val type: FeeType, val cost: FeeCost?)
+data class FeeEntity(val type: FeeType, val cost: Value?)
 
 enum class FeeType {
   EXACT, UNKNOWN
 }
 
-data class FeeCost(val value: BigDecimal, val currency: String)
+data class Value(val value: BigDecimal, val currency: String)
