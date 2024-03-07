@@ -29,7 +29,8 @@ interface InappBillingApi {
   @GET("8.20200701/applications/{packageName}/inapp/consumables")
   fun getConsumables(
     @Path("packageName") packageName: String,
-    @Query("skus") names: String
+    @Query("skus") names: String,
+    @Query("currency") currency: String? = null
   ): Single<DetailsResponseBody>
 
   @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")

@@ -14,6 +14,7 @@ dependencies {
   implementation(project(":core:walletServices"))
   implementation(project(":core:network:base"))
   implementation(project(":core:analytics"))
+  implementation(project(":core:shared-preferences"))
 
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)

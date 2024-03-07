@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import dagger.Module
 import dagger.Provides
@@ -29,7 +30,8 @@ class BdsBillingModule {
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
     ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: RxSchedulers,
+    fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): BillingPaymentProofSubmission =
     BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
@@ -38,6 +40,7 @@ class BdsBillingModule {
       .setSubscriptionBillingService(subscriptionBillingApi)
       .setEwtObtainer(ewtObtainer)
       .setRxSchedulers(rxSchedulers)
+      .setFiatCurrenciesPreferencesDataSource(fiatCurrenciesPreferencesDataSource)
       .build()
 
 
@@ -57,7 +60,8 @@ class BdsBillingModule {
     brokerBdsApi: BrokerBdsApi,
     inappApi: InappBillingApi,
     ewtObtainer: EwtAuthenticatorService,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: RxSchedulers,
+    fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
   ): RemoteRepository =
     RemoteRepository(
       brokerBdsApi,
@@ -65,7 +69,8 @@ class BdsBillingModule {
       BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
       subscriptionBillingApi,
       ewtObtainer,
-      rxSchedulers
+      rxSchedulers,
+      fiatCurrenciesPreferencesDataSource
     )
 
   @Singleton
