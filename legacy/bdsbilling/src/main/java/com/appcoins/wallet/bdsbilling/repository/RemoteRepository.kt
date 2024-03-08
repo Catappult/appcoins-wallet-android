@@ -20,7 +20,6 @@ import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response

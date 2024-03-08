@@ -2,27 +2,31 @@ package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.core.network.microservices.api.product.TopUpValuesApi
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import io.reactivex.Single
 import javax.inject.Inject
 
 class TopUpValuesService @Inject constructor(
   private val api: TopUpValuesApi,
-  private val responseMapper: TopUpValuesApiResponseMapper
+  private val responseMapper: TopUpValuesApiResponseMapper,
+  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
 ) {
 
-  companion object {
-    private const val API_VERSION = "8.20180518"
-  }
-
   fun getDefaultValues(): Single<TopUpValuesModel> {
-    return api.getDefaultValues(BuildConfig.APPLICATION_ID)
+    return api.getDefaultValues(
+      packageName = BuildConfig.APPLICATION_ID,
+      currency = fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+    )
       .map { responseMapper.map(it) }
       .onErrorReturn { createErrorValuesList(it) }
   }
 
   fun getLimitValues(): Single<TopUpLimitValues> {
-    return api.getInputLimitValues(BuildConfig.APPLICATION_ID)
+    return api.getInputLimitValues(
+      packageName = BuildConfig.APPLICATION_ID,
+      currency = fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+    )
       .map { responseMapper.mapValues(it) }
       .onErrorReturn { TopUpLimitValues(it.isNoNetworkException()) }
   }
