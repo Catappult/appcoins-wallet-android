@@ -193,11 +193,22 @@ class BillingAnalytics @Inject constructor(
   override fun sendPaymentSuccessEvent(
     packageName: String, skuDetails: String?, value: String,
     purchaseDetails: String, transactionType: String, isOnboardingPayment: Boolean,
-    txId: String, valueUsd: String
+    txId: String, valueUsd: String, isStoredCard: Boolean?, wasCvcRequired: Boolean?,
   ) {
     val eventData: MutableMap<String, Any?> = createConclusionWalletEventMap(
-      packageName, skuDetails, value, purchaseDetails,
-      transactionType, EVENT_SUCCESS, isOnboardingPayment
+      packageName = packageName,
+      skuDetails = skuDetails,
+      value = value,
+      purchaseDetails = purchaseDetails,
+      transactionType = transactionType,
+      status = EVENT_SUCCESS,
+      isOnboardingPayment = isOnboardingPayment,
+      cardPaymentType = when {
+        isStoredCard == true && wasCvcRequired == true -> EVENT_STORED_CARD_CVC_REQUIRED
+        isStoredCard == true && wasCvcRequired == false -> EVENT_STORED_CARD_CVC_NOT_REQUIRED
+        isStoredCard == false -> EVENT_NEW_CARD
+        else -> null
+      }
     )
 
     GamesHubBroadcastService.sendSuccessPaymentBroadcast(
@@ -307,7 +318,8 @@ class BillingAnalytics @Inject constructor(
     purchaseDetails: String,
     transactionType: String,
     status: String,
-    isOnboardingPayment: Boolean = false
+    isOnboardingPayment: Boolean = false,
+    cardPaymentType: String? = null,
   ): MutableMap<String, Any?> {
     val eventData: MutableMap<String, Any?> = HashMap()
     eventData[EVENT_PACKAGE_NAME] = packageName
@@ -316,6 +328,7 @@ class BillingAnalytics @Inject constructor(
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_STATUS] = status
+    eventData[EVENT_CARD_PAYMENT_TYPE] = cardPaymentType
     if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     return eventData
   }
@@ -364,7 +377,11 @@ class BillingAnalytics @Inject constructor(
     private const val EVENT_URL = "url"
     private const val EVENT_ONBOARDING_PAYMENT = "onboarding_payment"
     private const val EVENT_OEMID = "oem_id"
+    private const val EVENT_CARD_PAYMENT_TYPE = "card_payment_type"
     private const val MAX_CHARACTERS = 100
+    private const val EVENT_STORED_CARD_CVC_REQUIRED = "stored_card_cvc_required"
+    private const val EVENT_STORED_CARD_CVC_NOT_REQUIRED = "stored_card_cvc_not_required"
+    private const val EVENT_NEW_CARD = "new_card"
     const val ACTION_BUY = "buy"
     const val ACTION_NEXT = "next"
     const val ACTION_CANCEL = "cancel"

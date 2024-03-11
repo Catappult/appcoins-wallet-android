@@ -40,7 +40,7 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
       httpCode == CONFLICT_HTTP_CODE -> ErrorInfo.ErrorType.CONFLICT
       messageCode == ADYEN_V2_ERROR && (data != null) -> {
         when (data.toString()) {
-          "14_029" -> {
+          "14_029", "174" -> {  //TODO uncomment and remove this 174
             ErrorInfo.ErrorType.CVC_REQUIRED
           }
 
@@ -60,7 +60,7 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
             ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
           }
 
-          "172", "174", "422", "800", "803" -> {
+          "172", /* TODO uncomment "174",*/ "422", "800", "803" -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
 

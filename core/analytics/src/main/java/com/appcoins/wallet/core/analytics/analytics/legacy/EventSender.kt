@@ -110,7 +110,9 @@ interface EventSender {
     transactionType: String,
     isOnboardingPayment: Boolean = false,
     txId: String,
-    valueUsd: String
+    valueUsd: String,
+    isStoredCard: Boolean? = null,
+    wasCvcRequired: Boolean? = null,
   )
 
   fun sendPaymentPendingEvent(
