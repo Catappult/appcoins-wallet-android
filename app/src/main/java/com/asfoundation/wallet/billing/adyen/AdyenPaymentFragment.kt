@@ -673,10 +673,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
             ?.showSoftInput(editTextCvc, InputMethodManager.SHOW_IMPLICIT)
         }
       }
-
       change_card_button?.visibility = VISIBLE
       change_card_button_pre_selected?.visibility = VISIBLE
       more_payment_methods?.visibility = VISIBLE
+      layout_adyen_stored_card?.visibility = GONE
+      more_payment_stored_methods?.visibility = GONE
     } else if (isStored) {
       layout_adyen_stored_card?.visibility = VISIBLE
       more_payment_stored_methods?.visibility = VISIBLE
@@ -780,6 +781,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   override fun shouldStoreCard(): Boolean {
     return adyenCardView.cardSave
   }
+
+  override fun wasCvcRequiredPayment(): Boolean = askCVC
+
+  override fun wasStoredCardPayment(): Boolean = isStored
 
   private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
