@@ -307,7 +307,8 @@ public class InAppPurchaseInteractor {
         new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
-            appcPaymentMethod.getDisabledReason(), true, false, false));
+            appcPaymentMethod.getDisabledReason(), true, false, false,
+            appcPaymentMethod.getPrice()));
     return paymentMethods;
   }
 
@@ -517,13 +518,15 @@ public class InAppPurchaseInteractor {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
+            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
+            paymentMethod.getPrice());
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
         paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
-        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency));
+        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
+        paymentMethod.getPrice());
   }
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {

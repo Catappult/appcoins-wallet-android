@@ -8,6 +8,7 @@ import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -41,6 +42,7 @@ class TopUpFragmentPresenter(
   private val logger: Logger,
   private val networkThread: Scheduler,
   private val challengeRewardAnalytics: ChallengeRewardAnalytics,
+  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 ) {
 
   private var cachedGamificationLevel = 0
@@ -73,13 +75,13 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
-  private fun setupUi() {
+  private fun setupUi(currency: String? = null) {
     disposables.add(
       Single.zip(
-        interactor.getLimitTopUpValues()
+        interactor.getLimitTopUpValues(currency = currency)
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler),
-        interactor.getDefaultValues()
+        interactor.getDefaultValues(currency = currency)
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
       ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
@@ -98,10 +100,9 @@ class TopUpFragmentPresenter(
 
   private fun retrievePaymentMethods(
     fiatAmount: String,
-    currency: String,
     packageName: String
   ): Completable =
-    interactor.getPaymentMethods(fiatAmount, currency, packageName)
+    interactor.getPaymentMethods(fiatAmount, getCachedCurrencyUseCase(), packageName)
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess {
@@ -152,7 +153,7 @@ class TopUpFragmentPresenter(
       .throttleFirst(500, TimeUnit.MILLISECONDS)
       .observeOn(networkScheduler)
       .switchMap { topUpData ->
-        interactor.getLimitTopUpValues()
+        interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
           .toObservable()
           .filter {
             isCurrencyValid(topUpData.currency)
@@ -188,7 +189,7 @@ class TopUpFragmentPresenter(
           .observeOn(viewScheduler)
           .doOnComplete { view.setConversionValue(topUpData) }
           .flatMapCompletable {
-            interactor.getLimitTopUpValues()
+            interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
               .toObservable()
               .subscribeOn(networkScheduler)
               .observeOn(viewScheduler)
@@ -260,10 +261,12 @@ class TopUpFragmentPresenter(
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
       .doOnNext {
-        if (it == PaymentMethodId.CHALLENGE_REWARD.id)
+        if (it.id == PaymentMethodId.CHALLENGE_REWARD.id)
           view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
-        setNextButton(it)
+        setNextButton(it.id)
+        if (it.price.currency != getCachedCurrencyUseCase() || view.getSelectedCurrency().code != getCachedCurrencyUseCase())
+          setupUi(currency = it.price.currency)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -327,7 +330,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, currency, appPackage)
+      retrievePaymentMethods(fiatAmount, appPackage)
         .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {
       view.hideBonusAndSkeletons()
@@ -405,7 +408,7 @@ class TopUpFragmentPresenter(
     disposables.add(view.getValuesClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .doOnNext {
-        if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
+        if (view.getSelectedCurrencyType() == TopUpData.FIAT_CURRENCY) {
           view.changeMainValueText(it.amount.toString())
         } else {
           convertAndChangeMainValue(it.currency, it.amount)
@@ -449,6 +452,7 @@ class TopUpFragmentPresenter(
     disposables.add(
       isPaypalAgreementCreatedUseCase()
         .subscribeOn(networkScheduler)
+        .doOnError { handleError(it) }
         .subscribe(
           {
             showPayPalLogout.onNext(it!!)

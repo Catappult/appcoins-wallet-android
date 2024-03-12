@@ -8,10 +8,10 @@ import java.math.BigDecimal
 interface TopUpFragmentView {
 
   fun getEditTextChanges(): Observable<TopUpData>
-  fun getPaymentMethodClick(): Observable<String>
+  fun getPaymentMethodClick(): Observable<PaymentMethod>
   fun getNextClick(): Observable<TopUpData>
   fun setupPaymentMethods(paymentMethods: List<PaymentMethod>)
-  fun setupCurrency(localCurrency: LocalCurrency)
+  fun setupCurrency(currency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()
   fun setNextButtonState(enabled: Boolean)
@@ -27,7 +27,8 @@ interface TopUpFragmentView {
   fun hideValueInputWarning()
   fun changeMainValueColor(isValid: Boolean)
   fun changeMainValueText(value: String)
-  fun getSelectedCurrency(): String
+  fun getSelectedCurrencyType(): String
+  fun getSelectedCurrency(): LocalCurrency
   fun paymentMethodsFocusRequest()
   fun getCurrentPaymentMethod(): String?
   fun showNoNetworkError()

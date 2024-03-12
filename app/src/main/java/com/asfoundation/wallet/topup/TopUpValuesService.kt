@@ -13,19 +13,19 @@ class TopUpValuesService @Inject constructor(
   private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
 ) {
 
-  fun getDefaultValues(): Single<TopUpValuesModel> {
+  fun getDefaultValues(currency: String?): Single<TopUpValuesModel> {
     return api.getDefaultValues(
       packageName = BuildConfig.APPLICATION_ID,
-      currency = fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+      currency = currency ?: fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
     )
       .map { responseMapper.map(it) }
       .onErrorReturn { createErrorValuesList(it) }
   }
 
-  fun getLimitValues(): Single<TopUpLimitValues> {
+  fun getLimitValues(currency: String?): Single<TopUpLimitValues> {
     return api.getInputLimitValues(
       packageName = BuildConfig.APPLICATION_ID,
-      currency = fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
+      currency = currency ?: fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
     )
       .map { responseMapper.mapValues(it) }
       .onErrorReturn { TopUpLimitValues(it.isNoNetworkException()) }

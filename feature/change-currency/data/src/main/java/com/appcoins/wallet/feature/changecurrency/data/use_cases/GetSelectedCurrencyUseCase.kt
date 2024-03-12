@@ -9,7 +9,7 @@ class GetSelectedCurrencyUseCase @Inject constructor(
 ) {
 
   suspend operator fun invoke(bypass: Boolean): DataResult<String> {
-    return if (bypass) fiatCurrenciesRepository.getCachedSelectedCurrency()
+    return if (bypass) fiatCurrenciesRepository.getCachedResultSelectedCurrency()
     else fiatCurrenciesRepository.getSelectedCurrency()
   }
 }

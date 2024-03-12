@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
@@ -34,7 +35,8 @@ class TopUpInteractor @Inject constructor(
   private var supportInteractor: SupportInteractor,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
-  private val partnerAddressService: PartnerAddressService
+  private val partnerAddressService: PartnerAddressService,
+  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 ) {
 
   private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
@@ -90,7 +92,8 @@ class TopUpInteractor @Inject constructor(
       isEnabled = it.isAvailable(),
       disabledReason = null,
       showLogout = isToShowPaypalLogout(it),
-      showExtraFeesMessage = hasExtraFees(it, currency)
+      showExtraFeesMessage = hasExtraFees(it, currency),
+      price = it.price
     )
   }
 
@@ -122,22 +125,27 @@ class TopUpInteractor @Inject constructor(
       gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
     }
 
-  fun getLimitTopUpValues(): Single<TopUpLimitValues> =
-    if (limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
+  fun getLimitTopUpValues(currency: String? = null): Single<TopUpLimitValues> =
+    if (limitValues.maxValue.currency == currency &&
+      limitValues.maxValue.currency == getCachedCurrencyUseCase() &&
+      limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
       limitValues.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE
     ) {
       Single.just(limitValues)
     } else {
-      topUpValuesService.getLimitValues()
+      topUpValuesService.getLimitValues(currency)
         .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
     }
 
-  fun getDefaultValues(): Single<TopUpValuesModel> = if (chipValueIndexMap.isNotEmpty()) {
-    Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
-  } else {
-    topUpValuesService.getDefaultValues()
-      .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
-  }
+  fun getDefaultValues(currency: String? = null): Single<TopUpValuesModel> =
+    if (chipValueIndexMap.isNotEmpty() &&
+      chipValueIndexMap.keys.any { it.currency == currency && it.currency == getCachedCurrencyUseCase() }
+    ) {
+      Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
+    } else {
+      topUpValuesService.getDefaultValues(currency = currency)
+        .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
+    }
 
   fun cleanCachedValues() {
     limitValues = TopUpLimitValues()
