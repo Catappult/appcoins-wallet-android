@@ -221,10 +221,8 @@ class AdyenTopUpPresenter(
       .flatMapSingle {
         val shouldStore = view.shouldStoreCard()
         topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
-        val mockFailingCard = it.cardPaymentMethod //TODO remove
-        mockFailingCard.encryptedExpiryYear = "2023"  //TODO remove
         adyenPaymentInteractor.makeTopUpPayment(
-          adyenPaymentMethod = mockFailingCard, //TODO //it.cardPaymentMethod,
+          adyenPaymentMethod = it.cardPaymentMethod,
           shouldStoreMethod = shouldStore,
           hasCvc = it.hasCvc,
           supportedShopperInteraction = it.supportedShopperInteractions,
