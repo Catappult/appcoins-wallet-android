@@ -221,8 +221,10 @@ class AdyenTopUpPresenter(
       .flatMapSingle {
         val shouldStore = view.shouldStoreCard()
         topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+        val mockFailingCard = it.cardPaymentMethod //TODO remove
+        mockFailingCard.encryptedExpiryYear = "2023"  //TODO remove
         adyenPaymentInteractor.makeTopUpPayment(
-          adyenPaymentMethod = it.cardPaymentMethod,
+          adyenPaymentMethod = mockFailingCard, //TODO //it.cardPaymentMethod,
           shouldStoreMethod = shouldStore,
           hasCvc = it.hasCvc,
           supportedShopperInteraction = it.supportedShopperInteractions,
@@ -748,6 +750,15 @@ class AdyenTopUpPresenter(
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
         view.showSpecificError(R.string.purchase_card_error_no_funds)
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_REQUIRED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        view.restartFragment()
       }
 
       paymentModel.error.errorInfo?.httpCode != null -> {

@@ -89,4 +89,9 @@ interface AdyenTopUpView {
   fun shouldStoreCard(): Boolean
 
   fun restartFragment()
+
+  fun wasCvcRequiredPayment(): Boolean
+
+  fun wasStoredCardPayment(): Boolean
+
 }

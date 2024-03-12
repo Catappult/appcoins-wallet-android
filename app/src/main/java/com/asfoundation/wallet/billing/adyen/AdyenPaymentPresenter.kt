@@ -308,10 +308,8 @@ class AdyenPaymentPresenter(
             adyenCard.cardPaymentMethod.encryptedSecurityCode!!
           )
         } else {
-          val mockFailingCard = adyenCard.cardPaymentMethod //TODO remove
-          mockFailingCard.encryptedExpiryYear = "2023"  //TODO remove
           adyenPaymentInteractor.makePayment(
-            adyenPaymentMethod = mockFailingCard, //TODO //adyenCard.cardPaymentMethod,
+            adyenPaymentMethod = adyenCard.cardPaymentMethod,
             shouldStoreMethod = shouldStore,
             hasCvc = adyenCard.hasCvc,
             supportedShopperInteraction = adyenCard.supportedShopperInteractions,
