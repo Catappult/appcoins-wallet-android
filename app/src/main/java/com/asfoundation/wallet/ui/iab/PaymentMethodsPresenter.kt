@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.State
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Value
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -127,6 +128,7 @@ class PaymentMethodsPresenter(
         }
         handlePositiveButtonText(selectedPaymentMethod.id)
         handleFeeVisibility(selectedPaymentMethod.fee)
+        handleCurrencyChanges(selectedPaymentMethod.price)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -997,6 +999,13 @@ class PaymentMethodsPresenter(
       hasFee = fee != null && fee.isValidFee(),
       fiatValue = cachedFiatValue,
       fee = fee?.amount ?: BigDecimal.ZERO
+    )
+  }
+
+  private fun handleCurrencyChanges(price: Value) {
+    view.showSelectedCurrency(
+      currency = price.currency,
+      value = price.value
     )
   }
 
