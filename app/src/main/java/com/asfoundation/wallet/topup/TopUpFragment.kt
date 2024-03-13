@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -271,14 +270,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         binding.button.performClick()
       }
       true
-    }
-  }
-
-  private fun focusAndShowKeyboard(view: EditText) {
-    view.post {
-      view.requestFocus()
-      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
   }
 

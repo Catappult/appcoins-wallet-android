@@ -7,7 +7,6 @@ import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
@@ -36,16 +35,13 @@ class TopUpInteractor @Inject constructor(
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
   private val filterValidGooglePayUseCase: FilterValidGooglePayUseCase,
   private val partnerAddressService: PartnerAddressService,
-  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 ) {
 
-  private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
-  private var limitValues: TopUpLimitValues = TopUpLimitValues()
+  private var chipValuesIndexMap: List<LinkedHashMap<FiatValue, Int>> = listOf()
+  private var limitValues: List<TopUpLimitValues> = listOf()
 
   fun getPaymentMethods(
-    value: String,
-    currency: String,
-    packageName: String
+    value: String, currency: String, packageName: String
   ): Single<List<PaymentMethod>> =
     partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
       repository.getPaymentMethods(
@@ -55,9 +51,7 @@ class TopUpInteractor @Inject constructor(
         direct = true,
         transactionType = "TOPUP",
         entityOemId = attributionEntity.oemId
-      )
-        .map { mapPaymentMethods(it, currency) }
-        .map { filterValidGooglePayUseCase(it) }
+      ).map { mapPaymentMethods(it, currency) }.map { filterValidGooglePayUseCase(it) }
     }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -65,23 +59,20 @@ class TopUpInteractor @Inject constructor(
   fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> =
     inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
-  fun showSupport(): Completable = gamificationInteractor.getUserLevel()
-    .flatMapCompletable { level ->
-      inAppPurchaseInteractor.walletAddress
-        .flatMapCompletable { wallet ->
-          supportInteractor.showSupport(wallet, level)
-        }
+  fun showSupport(): Completable =
+    gamificationInteractor.getUserLevel().flatMapCompletable { level ->
+      inAppPurchaseInteractor.walletAddress.flatMapCompletable { wallet ->
+        supportInteractor.showSupport(wallet, level)
+      }
     }
 
-  fun convertAppc(value: String): Single<FiatValue> =
-    conversionService.getAppcToLocalFiat(value, 2)
+  fun convertAppc(value: String): Single<FiatValue> = conversionService.getAppcToLocalFiat(value, 2)
 
   fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> =
     conversionService.getFiatToAppc(currency, value, scale)
 
   private fun mapPaymentMethods(
-    paymentMethods: List<PaymentMethodEntity>,
-    currency: String
+    paymentMethods: List<PaymentMethodEntity>, currency: String
   ): List<PaymentMethod> = paymentMethods.map {
     PaymentMethod(
       id = it.id,
@@ -102,10 +93,9 @@ class TopUpInteractor @Inject constructor(
   }
 
   private fun hasExtraFees(paymentMethod: PaymentMethodEntity, currency: String): Boolean {
-    return (
-        paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id &&
-            !PaypalSupportedCurrencies.currencies.contains(currency)
-        )
+    return (paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && !PaypalSupportedCurrencies.currencies.contains(
+      currency
+    ))
   }
 
   private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? = feeEntity?.let {
@@ -117,39 +107,37 @@ class TopUpInteractor @Inject constructor(
   }
 
   fun getEarningBonus(
-    packageName: String,
-    amount: BigDecimal,
-    currency: String
-  ): Single<ForecastBonusAndLevel> =
-    getCurrentPromoCodeUseCase().flatMap {
-      gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
-    }
+    packageName: String, amount: BigDecimal, currency: String
+  ): Single<ForecastBonusAndLevel> = getCurrentPromoCodeUseCase().flatMap {
+    gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
+  }
 
-  fun getLimitTopUpValues(currency: String? = null): Single<TopUpLimitValues> =
-    if (limitValues.maxValue.currency == currency &&
-      limitValues.maxValue.currency == getCachedCurrencyUseCase() &&
-      limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
-      limitValues.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE
-    ) {
-      Single.just(limitValues)
+  fun getLimitTopUpValues(currency: String? = null): Single<TopUpLimitValues> {
+    val limitValue: TopUpLimitValues =
+      limitValues.firstOrNull { it.maxValue.currency == currency } ?: TopUpLimitValues()
+    return if (limitValue.maxValue.currency == currency && limitValue.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE && limitValue.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE) {
+      Single.just(limitValue)
     } else {
       topUpValuesService.getLimitValues(currency)
         .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
     }
+  }
 
-  fun getDefaultValues(currency: String? = null): Single<TopUpValuesModel> =
-    if (chipValueIndexMap.isNotEmpty() &&
-      chipValueIndexMap.keys.any { it.currency == currency && it.currency == getCachedCurrencyUseCase() }
-    ) {
+  fun getDefaultValues(currency: String? = null): Single<TopUpValuesModel> {
+    val chipValueIndexMap = chipValuesIndexMap.firstOrNull { linkedHashMap ->
+      linkedHashMap.keys.any { it.currency == currency }
+    } ?: LinkedHashMap()
+    return if (chipValueIndexMap.isNotEmpty()) {
       Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
     } else {
       topUpValuesService.getDefaultValues(currency = currency)
         .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
     }
+  }
 
   fun cleanCachedValues() {
-    limitValues = TopUpLimitValues()
-    chipValueIndexMap.clear()
+    limitValues = listOf()
+    chipValuesIndexMap = listOf()
   }
 
   fun isBonusValidAndActive(): Boolean = gamificationInteractor.isBonusActiveAndValid()
@@ -158,13 +146,15 @@ class TopUpInteractor @Inject constructor(
     gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
 
   private fun cacheChipValues(chipValues: List<FiatValue>) {
-    for (index in chipValues.indices) {
-      chipValueIndexMap[chipValues[index]] = index
+    chipValuesIndexMap.forEach { chipValueIndexMap ->
+      for (index in chipValues.indices) {
+        chipValueIndexMap[chipValues[index]] = index
+      }
     }
   }
 
   private fun cacheLimitValues(values: TopUpLimitValues) {
-    limitValues = TopUpLimitValues(values.minValue, values.maxValue)
+    limitValues = limitValues.plusElement(TopUpLimitValues(values.minValue, values.maxValue))
   }
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
