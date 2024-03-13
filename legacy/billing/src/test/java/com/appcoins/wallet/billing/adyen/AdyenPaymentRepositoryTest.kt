@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.content.SharedPreferences
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
@@ -39,6 +40,9 @@ class AdyenPaymentRepositoryTest {
 
   @Mock
   lateinit var mapper: AdyenResponseMapper
+
+  @Mock
+  lateinit var sharedPreferences: SharedPreferences
 
   @Mock
   lateinit var logger: Logger
@@ -97,6 +101,7 @@ class AdyenPaymentRepositoryTest {
       brokerBdsApi,
       subscriptionsApi,
       mapper,
+      sharedPreferences,
       ewtAuthenticatorService,
       rxSchedulers,
       logger
