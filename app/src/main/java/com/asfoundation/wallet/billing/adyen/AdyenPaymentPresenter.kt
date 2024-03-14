@@ -90,7 +90,7 @@ class AdyenPaymentPresenter(
     handleVerificationClick()
     handleCreditCardNeedCVC()
     handleMorePaymentsStoredClick()
-    if (isPreSelected) handleMorePaymentsClick()
+    handleMorePaymentsClick()
   }
 
   private fun handleSupportClicks() {

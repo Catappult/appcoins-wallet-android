@@ -202,7 +202,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:gravity="center"
           android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
+          android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
