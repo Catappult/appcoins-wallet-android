@@ -733,11 +733,11 @@ class AdyenPaymentPresenter(
           valueUsd = transaction.amountUsd.toString(),
           isStoredCard =
           if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            view.wasStoredCardPayment()
+            view.isStoredCardPayment()
           else null,
           wasCvcRequired =
           if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            view.wasCvcRequiredPayment()
+            view.isCvcRequiredPayment()
           else null,
         )
       }

@@ -782,9 +782,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     return adyenCardView.cardSave
   }
 
-  override fun wasCvcRequiredPayment(): Boolean = askCVC
+  override fun isCvcRequiredPayment(): Boolean = askCVC
 
-  override fun wasStoredCardPayment(): Boolean = isStored
+  override fun isStoredCardPayment(): Boolean = isStored
 
   private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)

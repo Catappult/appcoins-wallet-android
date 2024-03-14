@@ -104,9 +104,10 @@ interface AdyenPaymentView {
 
   fun shouldStoreCard(): Boolean
 
-  fun wasCvcRequiredPayment(): Boolean
+  fun isCvcRequiredPayment(): Boolean
 
-  fun wasStoredCardPayment(): Boolean
+  fun isStoredCardPayment(): Boolean
+
   fun restartFragment()
 
   fun showCvcRequired()

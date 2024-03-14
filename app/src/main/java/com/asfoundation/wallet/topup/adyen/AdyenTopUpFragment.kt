@@ -509,10 +509,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     askCVC = needCVC
   }
 
-  override fun wasCvcRequiredPayment(): Boolean = askCVC
-
-  override fun wasStoredCardPayment(): Boolean = isStored
-
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()

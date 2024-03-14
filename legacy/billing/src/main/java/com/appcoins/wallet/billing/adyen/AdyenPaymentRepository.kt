@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentDetails
 import com.appcoins.wallet.core.network.microservices.model.TokenPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class AdyenPaymentRepository @Inject constructor(
   private val brokerBdsApi: BrokerBdsApi,
   private val subscriptionsApi: SubscriptionBillingApi,
   private val adyenResponseMapper: AdyenResponseMapper,
-  private val sharedPreferences: SharedPreferences,
+  private val cardPaymentDataSource: CardPaymentDataSource,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger
@@ -187,7 +188,7 @@ class AdyenPaymentRepository @Inject constructor(
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
     return adyenApi.getCreditCardNeedCVC()
       .map {
-        if (!sharedPreferences.getBoolean(MANDATORY_CVC, false))
+        if (!cardPaymentDataSource.isMandatoryCvc())
           it
         else
           CreditCardCVCResponse(needAskCvc = true)
@@ -199,11 +200,7 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun setMandatoryCVC(mandatoryCvc: Boolean) {
-    sharedPreferences.edit().putBoolean(MANDATORY_CVC, mandatoryCvc).apply()
-  }
-
-  companion object {
-    private const val MANDATORY_CVC = "mandatory_cvc"
+    cardPaymentDataSource.setMandatoryCvc(mandatoryCvc)
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {
