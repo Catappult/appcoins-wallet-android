@@ -48,6 +48,7 @@ class TopUpFragmentPresenter(
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
   var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
+  private var firstPaymentMethodsFetch: Boolean = true
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -113,6 +114,8 @@ class TopUpFragmentPresenter(
         } else {
           view.showNoMethodsError()
         }
+        firstPaymentMethodsFetch = false
+        view.hideValuesSkeletons()
       }
       .ignoreElement()
 
@@ -265,8 +268,10 @@ class TopUpFragmentPresenter(
           view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
         setNextButton(it.id)
-        if (it.price.currency != getCachedCurrencyUseCase() || view.getSelectedCurrency().code != getCachedCurrencyUseCase())
+        if (it.price.currency != getCachedCurrencyUseCase() || view.getSelectedCurrency().code != getCachedCurrencyUseCase()) {
+          view.showValuesSkeletons()
           setupUi(currency = it.price.currency)
+        }
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -328,7 +333,7 @@ class TopUpFragmentPresenter(
   ): Completable =
     if (isValueInRange(limitValues, fiatAmount.toDouble())) {
       view.changeMainValueColor(true)
-      view.hidePaymentMethods()
+      if (firstPaymentMethodsFetch) view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
       retrievePaymentMethods(fiatAmount, appPackage)
         .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))

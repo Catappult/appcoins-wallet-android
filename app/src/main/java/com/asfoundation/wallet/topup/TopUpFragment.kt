@@ -521,6 +521,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
   }
 
+  override fun showValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.INVISIBLE
+    binding.mainValue.visibility = View.INVISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.VISIBLE
+    binding.mainValueSkeleton.root.visibility = View.VISIBLE
+    showBonusSkeletons()
+  }
+
+  override fun hideValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.VISIBLE
+    binding.mainValue.visibility = View.VISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.INVISIBLE
+    binding.mainValueSkeleton.root.visibility = View.INVISIBLE
+  }
+
   override fun hidePaymentMethods() {
     binding.paymentsSkeleton.visibility = View.VISIBLE
     binding.paymentMethods.visibility = View.GONE
