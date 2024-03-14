@@ -51,7 +51,9 @@ class TopUpInteractor @Inject constructor(
         direct = true,
         transactionType = "TOPUP",
         entityOemId = attributionEntity.oemId
-      ).map { mapPaymentMethods(it, currency) }.map { filterValidGooglePayUseCase(it) }
+      ).map { repository.replaceAppcPricesToOriginalPrices(it, value, currency) }
+        .map { mapPaymentMethods(it, currency) }
+        .map { filterValidGooglePayUseCase(it) }
     }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
