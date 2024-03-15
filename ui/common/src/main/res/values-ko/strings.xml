@@ -525,6 +525,7 @@
   <string name="resend_button">재전송</string>
   <string name="continue_button">계속</string>
   <string name="card_expired_tag">Expired</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
