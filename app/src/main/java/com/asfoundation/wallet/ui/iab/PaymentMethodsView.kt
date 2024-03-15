@@ -156,7 +156,7 @@ interface PaymentMethodsView {
 
   fun showFee(hasFee: Boolean, fiatValue: FiatValue?, fee: BigDecimal)
 
-  fun showSelectedCurrency(currency: String, value: BigDecimal)
+  fun showSelectedCurrency(currency: String, amount: BigDecimal)
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,

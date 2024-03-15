@@ -251,8 +251,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
-  override fun showSelectedCurrency(currency: String, value: BigDecimal) {
-    val price = getString(R.string.purchase_total_header, value, currency)
+  override fun showSelectedCurrency(currency: String, amount: BigDecimal) {
+    val price = getString(R.string.purchase_total_header, amount, currency)
     with(binding.paymentMethodsHeader.fiatPrice) {
       if (text != price) showPriceTransition()
       text = price
@@ -352,7 +352,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   ) {
 
     if (paymentMethod.showTopup) {
-      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethod.showTopup
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = false
     } else {
       binding.dialogBuyButtonsPaymentMethods.buyButton.tag = null
     }

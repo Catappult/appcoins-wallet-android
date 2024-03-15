@@ -86,7 +86,7 @@ class TopUpInteractor @Inject constructor(
       disabledReason = null,
       showLogout = isToShowPaypalLogout(it),
       showExtraFeesMessage = hasExtraFees(it, currency),
-      price = it.price
+      price = FiatValue(it.price.value, it.price.currency)
     )
   }
 

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.core.network.microservices.model.Value
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import java.math.BigDecimal
 
 open class PaymentMethod(
@@ -10,7 +10,7 @@ open class PaymentMethod(
   val showTopup: Boolean = false,
   val showLogout: Boolean = false,
   val showExtraFeesMessage: Boolean = false,
-  val price: Value = Value(BigDecimal.ZERO, "")
+  val price: FiatValue = FiatValue(BigDecimal.ZERO, "")
 ) {
   constructor() : this("", "", "", false, null, false)
 

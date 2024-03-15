@@ -55,6 +55,7 @@
             android:textColor="@color/styleguide_light_grey"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:minWidth="48dp"
             app:autoSizeStepGranularity="2sp"
             app:layout_constraintBottom_toBottomOf="@id/main_value"
             app:layout_constraintStart_toStartOf="parent"
