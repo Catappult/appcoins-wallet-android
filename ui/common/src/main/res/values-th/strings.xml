@@ -525,6 +525,7 @@
   <string name="resend_button">ส่งใหม่</string>
   <string name="continue_button">ต่อ</string>
   <string name="card_expired_tag">Expired</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
