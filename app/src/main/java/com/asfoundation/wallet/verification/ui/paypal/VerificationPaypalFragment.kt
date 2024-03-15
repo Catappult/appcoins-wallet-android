@@ -260,7 +260,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         fontWeight = FontWeight.Medium
       )
       TextButton(onClick = onVerificationClick) {
-        Text(stringResource(id = R.string.resend_button), color = WalletColors.styleguide_pink)
+        Text(stringResource(id = R.string.start_again_button), color = WalletColors.styleguide_pink)
       }
 
     }
@@ -300,7 +300,11 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   fun SuccessScreen() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.success_animation)
+      Animation(
+        modifier = Modifier.size(104.dp),
+        animationRes = R.raw.success_animation,
+        iterations = 1
+      )
       Text(
         text = stringResource(id = R.string.activity_iab_transaction_completed_title),
         color = WalletColors.styleguide_light_grey,

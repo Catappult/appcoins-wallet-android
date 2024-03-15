@@ -5,8 +5,12 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult.ErrorType.WRONG_CODE
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.ERROR
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.NO_NETWORK
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.UNVERIFIED
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFIED
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType
@@ -46,33 +50,33 @@ constructor(
   fun fetchVerificationStatus() {
     walletService
       .getAndSignCurrentWalletAddress()
-      .flatMap {
-        walletVerificationInteractor.getVerificationStatus(it.address, it.signedAddress)
+      .flatMap { wallet ->
+        walletVerificationInteractor.getVerificationStatus(wallet.address, wallet.signedAddress)
       }
-      .doOnSuccess { verificationStatus ->
-        when (verificationStatus) {
-          CODE_REQUESTED,
-          VERIFYING -> _uiState.value =
-            VerificationPaypalState.RequestVerificationCode(paymentMethod = cachedPaymentMethod)
-
-          NO_NETWORK -> _uiState.value = VerificationPaypalState.UnknownError
-          else -> fetchVerificationInfo()
-        }
+      .flatMap { verificationStatus ->
+        getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL)
+          .doOnSuccess { verificationModel ->
+            handleVerificationStatus(verificationStatus, verificationModel)
+          }
       }
       .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
       .subscribeOn(Schedulers.io())
       .subscribe()
   }
 
-  private fun fetchVerificationInfo() {
-    getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL)
-      .doOnSuccess { verificationIntroModel ->
-        cachedPaymentMethod = verificationIntroModel.paymentInfoModel.paymentMethod
-        _uiState.value =
-          VerificationPaypalState.ShowVerificationInfo(verificationIntroModel)
-      }
-      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
-      .subscribe()
+  private fun handleVerificationStatus(
+    verificationStatus: VerificationStatus,
+    verificationInfo: VerificationIntroModel
+  ) {
+    cachedPaymentMethod = verificationInfo.paymentInfoModel.paymentMethod
+    _uiState.value = when (verificationStatus) {
+      CODE_REQUESTED,
+      VERIFYING -> VerificationPaypalState.RequestVerificationCode(paymentMethod = verificationInfo.paymentInfoModel.paymentMethod)
+
+      NO_NETWORK -> VerificationPaypalState.UnknownError
+
+      ERROR, VERIFIED, UNVERIFIED -> VerificationPaypalState.ShowVerificationInfo(verificationInfo)
+    }
   }
 
   fun launchVerificationPayment(data: VerificationPaypalData, paymentMethod: ModelObject?) {
