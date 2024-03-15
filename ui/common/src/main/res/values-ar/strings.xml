@@ -525,6 +525,7 @@
   <string name="resend_button">إعادة إرسال</string>
   <string name="continue_button">متابعة</string>
   <string name="card_expired_tag">Expired</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
