@@ -101,21 +101,27 @@ class TopUpFragmentPresenter(
 
   private fun retrievePaymentMethods(
     fiatAmount: String,
-    packageName: String
+    packageName: String,
+    currency: String
   ): Completable =
-    interactor.getPaymentMethods(fiatAmount, getCachedCurrencyUseCase(), packageName)
+    interactor.getPaymentMethods(fiatAmount, currency, packageName)
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess {
         if (it.isNotEmpty()) {
+          val selectedCurrency =
+            it.firstOrNull { it.id == view.getCurrentPaymentMethod() }?.price?.currency
+              ?: it.first().price.currency
           view.setupPaymentMethods(
             paymentMethods = it
           )
+          if (selectedCurrency != view.getSelectedCurrency().code)
+            setupUi(selectedCurrency)
+          else view.hideValuesSkeletons()
         } else {
           view.showNoMethodsError()
         }
         firstPaymentMethodsFetch = false
-        view.hideValuesSkeletons()
       }
       .ignoreElement()
 
@@ -268,13 +274,20 @@ class TopUpFragmentPresenter(
           view.hideBonus() else view.showBonus()
         view.paymentMethodsFocusRequest()
         setNextButton(it.id)
-        if (it.price.currency != getCachedCurrencyUseCase() || view.getSelectedCurrency().code != getCachedCurrencyUseCase()) {
-          view.showValuesSkeletons()
-          setupUi(currency = it.price.currency)
-        }
+        reloadUiByCurrency(it.price.currency)
       }
       .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  private fun reloadUiByCurrency(paymentMethodCurrency: String) {
+    if (paymentMethodCurrency != getCachedCurrencyUseCase() && view.getSelectedCurrency().code != paymentMethodCurrency) {
+      view.showValuesSkeletons()
+      setupUi(currency = paymentMethodCurrency)
+    } else if (view.getSelectedCurrency().code != getCachedCurrencyUseCase()) {
+      view.showValuesSkeletons()
+      setupUi(currency = getCachedCurrencyUseCase())
+    }
   }
 
   private fun setNextButton(methodSelected: String?) {
@@ -335,7 +348,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       if (firstPaymentMethodsFetch) view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, appPackage)
+      retrievePaymentMethods(fiatAmount, appPackage, currency)
         .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
     } else {
       view.hideBonusAndSkeletons()
