@@ -525,7 +525,7 @@
   <string name="send_button">发送</string>
   <string name="resend_button">重新发送</string>
   <string name="continue_button">继续</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">已到期</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -979,7 +979,7 @@
   <string name="manage_cards_error_card_problem">您的信用卡似乎存在问题。请尝试使用其他信用卡。</string>
   <string name="manage_cards_select_title">选择支付卡</string>
   <string name="manage_cards_remember">记住卡信息</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">添加新卡</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
