@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Nema načina za plaćanje!</string>
   <string name="topup_no_method_available_body">Trenutno nema načina za plaćanje dostupnih za dopunu u vašoj zemlji. Ostanite u toku!</string>
   <string name="topup_bonus_amount_body">Preuzmite %s bonusa uz ovu dopunu</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
