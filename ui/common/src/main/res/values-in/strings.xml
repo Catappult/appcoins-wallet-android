@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Tidak ada metode pembayaran!</string>
   <string name="topup_no_method_available_body">Saat ini tidak tersedia metode pembayaran untuk pengisian ulang di negara Anda. Pantau terus!</string>
   <string name="topup_bonus_amount_body">Dapatkan bonus %s dengan isi ulang ini</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
