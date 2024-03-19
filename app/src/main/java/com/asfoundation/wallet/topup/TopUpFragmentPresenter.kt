@@ -14,6 +14,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
@@ -110,12 +111,8 @@ class TopUpFragmentPresenter(
       .observeOn(viewScheduler)
       .doOnSuccess {
         if (it.isNotEmpty()) {
-          val selectedCurrency =
-            it.firstOrNull { it.id == view.getCurrentPaymentMethod() }?.price?.currency
-              ?: it.first().price.currency
-          view.setupPaymentMethods(
-            paymentMethods = it
-          )
+          val selectedCurrency = getCurrencyOfSelectedPaymentMethod(it)
+          view.setupPaymentMethods(paymentMethods = it)
           if (selectedCurrency != view.getSelectedCurrency().code) {
             setupUi(selectedCurrency)
           } else {
@@ -285,12 +282,12 @@ class TopUpFragmentPresenter(
   }
 
   private fun reloadUiByCurrency(paymentMethodCurrency: String) {
-    if (paymentMethodCurrency != getCachedCurrencyUseCase() && view.getSelectedCurrency().code != paymentMethodCurrency) {
+    if (paymentMethodCurrency != getCachedCurrencyUseCase()) {
       view.showValuesSkeletons()
       setupUi()
-    } else if (view.getSelectedCurrency().code != getCachedCurrencyUseCase()) {
+    } else if (view.getSelectedCurrency().code != paymentMethodCurrency) {
       view.showValuesSkeletons()
-      setupUi(currency = paymentMethodCurrency)
+      setupUi(paymentMethodCurrency)
     }
   }
 
@@ -496,6 +493,10 @@ class TopUpFragmentPresenter(
         )
     )
   }
+
+  fun getCurrencyOfSelectedPaymentMethod(paymentMethods: List<PaymentMethod>) =
+    paymentMethods.firstOrNull { it.id == view.getCurrentPaymentMethod() }?.price?.currency
+      ?: paymentMethods.first().price.currency
 
   private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
     val paymentMethod = topUpData.paymentMethod!!
