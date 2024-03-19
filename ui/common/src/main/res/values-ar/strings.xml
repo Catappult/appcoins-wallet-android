@@ -525,7 +525,7 @@
   <string name="send_button">إرسال</string>
   <string name="resend_button">إعادة إرسال</string>
   <string name="continue_button">متابعة</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">منتهي الصلاحية</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
@@ -985,7 +985,7 @@
   <string name="manage_cards_error_card_problem">يبدو أن هناك مشكلة ببطاقتك. يرجى تجربة بطاقة أخرى.</string>
   <string name="manage_cards_select_title">اختر بطاقة دفع</string>
   <string name="manage_cards_remember">تذكر بطاقتي</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">أضف بطاقة جديدة</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
