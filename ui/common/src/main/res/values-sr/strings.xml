@@ -525,7 +525,7 @@
   <string name="send_button">Pošalji</string>
   <string name="resend_button">Pošalji ponovo</string>
   <string name="continue_button">Nastavi</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Istekao</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
@@ -981,7 +981,7 @@
   <string name="manage_cards_error_card_problem">Izgleda da postoji problem sa vašom karticom. Pokušajte sa drugom karticom.</string>
   <string name="manage_cards_select_title">Izaberite platnu karticu</string>
   <string name="manage_cards_remember">Zapamti karticu</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Dodajte novu karticu</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
