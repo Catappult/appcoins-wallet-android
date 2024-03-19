@@ -525,7 +525,7 @@
   <string name="send_button">전송</string>
   <string name="resend_button">재전송</string>
   <string name="continue_button">계속</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">만료됨</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
@@ -979,7 +979,7 @@
   <string name="manage_cards_error_card_problem">카드에 문제가 있는 것 같습니다. 다른 카드로 시도해보세요.</string>
   <string name="manage_cards_select_title">지불 카드를 선택하세요</string>
   <string name="manage_cards_remember">카드 기억하기</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">신규 카드 추가</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
