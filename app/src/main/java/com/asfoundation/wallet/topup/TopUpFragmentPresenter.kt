@@ -494,7 +494,7 @@ class TopUpFragmentPresenter(
     )
   }
 
-  fun getCurrencyOfSelectedPaymentMethod(paymentMethods: List<PaymentMethod>) =
+  private fun getCurrencyOfSelectedPaymentMethod(paymentMethods: List<PaymentMethod>) =
     paymentMethods.firstOrNull { it.id == view.getCurrentPaymentMethod() }?.price?.currency
       ?: paymentMethods.first().price.currency
 

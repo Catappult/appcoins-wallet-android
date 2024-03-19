@@ -51,4 +51,5 @@ interface TopUpFragmentView {
   fun setNextButton()
   fun showValuesSkeletons()
   fun hideValuesSkeletons()
+  fun lockRotation()
 }

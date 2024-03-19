@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -707,5 +708,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     val viewWidth = 80.convertDpToPx(resources)
 
     return screenWidth / viewWidth
+  }
+
+  override fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 }
