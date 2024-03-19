@@ -525,7 +525,7 @@
   <string name="send_button">ارسال</string>
   <string name="resend_button">ارسال مجدد</string>
   <string name="continue_button">ادامه</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">منقضی</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
@@ -980,7 +980,7 @@
   <string name="manage_cards_error_card_problem">به نظر می‌رسد مشکلی برای کارت شما وجود دارد. لطفا کارت دیگری را امتحان کنید.</string>
   <string name="manage_cards_select_title">انتخاب کارت پرداخت</string>
   <string name="manage_cards_remember">کارت را به یاد داشته باش</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">افزودن کارت جدید</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
