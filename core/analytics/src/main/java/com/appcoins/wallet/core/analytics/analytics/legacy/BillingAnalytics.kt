@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.gameshub.GamesHubBroadcastService
+import com.appcoins.wallet.core.analytics.analytics.partners.GamesHubContentProviderService
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -15,6 +16,7 @@ class BillingAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val oemIdPreferencesDataSource: OemIdPreferencesDataSource,
   private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
+  private val gamesHubContentProviderService: GamesHubContentProviderService,
 ) : EventSender {
   override fun sendPurchaseDetailsEvent(
     packageName: String,
@@ -211,13 +213,18 @@ class BillingAnalytics @Inject constructor(
       }
     )
 
-    GamesHubBroadcastService.sendSuccessPaymentBroadcast(
-      context,
-      txId,
-      packageName = packageName,
-      usdAmount = valueUsd,
-      appcAmount = value
-    )
+    // The broadcast is only sent when there's an older versions of GamesHub installed,
+    // without contentProvider.
+    if (!gamesHubContentProviderService.doesProviderExist()) {
+      GamesHubBroadcastService.sendSuccessPaymentBroadcast(
+        context,
+        txId,
+        packageName = packageName,
+        usdAmount = valueUsd,
+        appcAmount = value
+      )
+    }
+
     eventData[EVENT_OEMID] = oemIdPreferencesDataSource.getCurrentOemId()
     analytics.logEvent(eventData, WALLET_PAYMENT_CONCLUSION, AnalyticsManager.Action.CLICK, WALLET)
     appStartPreferencesDataSource.saveIsFirstPayment(isFirstPayment = false)
