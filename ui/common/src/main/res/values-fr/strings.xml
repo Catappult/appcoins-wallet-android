@@ -522,10 +522,10 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Date de début :</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Envoyer</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Expiré</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
@@ -980,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Il semble qu\'il y ait un problème avec votre carte. Merci de réessayer avec une carte différente.</string>
   <string name="manage_cards_select_title">Sélectionnez une carte de paiement</string>
   <string name="manage_cards_remember">Enregistrer la carte</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Ajouter une nouvelle carte</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
