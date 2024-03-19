@@ -750,6 +750,15 @@ class AdyenTopUpPresenter(
         view.showSpecificError(R.string.purchase_card_error_no_funds)
       }
 
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_REQUIRED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        view.restartFragment()
+      }
+
       paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(
           value = value,

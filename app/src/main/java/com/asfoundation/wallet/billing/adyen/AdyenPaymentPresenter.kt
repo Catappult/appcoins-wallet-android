@@ -139,6 +139,31 @@ class AdyenPaymentPresenter(
     )
   }
 
+  private fun askCardDetails() {
+    disposables.add(
+      adyenPaymentInteractor.loadPaymentInfo(
+        mapPaymentToService(paymentType),
+        amount.toString(),
+        currency
+      )
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.hideLoadingAndShowView()
+          if (it.error.hasError) {
+            if (it.error.isNetworkError) view.showNetworkError()
+            else view.showGenericError()
+          } else {
+            view.finishCardConfiguration(it, true)
+            view.showCvcRequired()
+          }
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        })
+    )
+  }
+
   /**
    * A function needs to be created due to a problem with adyen not enabling
    *  the CVC in the same fragment as it was disabled
@@ -697,6 +722,7 @@ class AdyenPaymentPresenter(
     disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
+        val mappedPaymentType = mapPaymentToAnalytics(paymentType)
         analytics.sendPaymentSuccessEvent(
           packageName = transactionBuilder.domain,
           skuDetails = transaction.skuId,
@@ -704,7 +730,15 @@ class AdyenPaymentPresenter(
           purchaseDetails = mapPaymentToAnalytics(paymentType),
           transactionType = transaction.type,
           txId = txId,
-          valueUsd = transaction.amountUsd.toString()
+          valueUsd = transaction.amountUsd.toString(),
+          isStoredCard =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            view.isStoredCardPayment()
+          else null,
+          wasCvcRequired =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            view.isCvcRequiredPayment()
+          else null,
         )
       }
       .subscribe({}, { it.printStackTrace() })
@@ -908,6 +942,11 @@ class AdyenPaymentPresenter(
       error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(
         R.string.purchase_card_error_no_funds
       )
+
+      error.errorInfo?.errorType == ErrorType.CVC_REQUIRED ->  {
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        askCardDetails()
+      }
 
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)

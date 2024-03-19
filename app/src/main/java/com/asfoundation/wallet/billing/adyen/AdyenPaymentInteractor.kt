@@ -171,7 +171,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun disablePayments(): Single<Boolean> {
     return walletService.getWalletAddress()
-      .flatMap { adyenPaymentRepository.disablePayments(it) }
+      .flatMap {
+        adyenPaymentRepository.setMandatoryCVC(false)
+        adyenPaymentRepository.disablePayments(it)
+      }
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
@@ -248,6 +251,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
     return adyenPaymentRepository.getCreditCardNeedCVC().subscribeOn(rxSchedulers.io)
+  }
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+    adyenPaymentRepository.setMandatoryCVC(mandatoryCvc)
   }
 
   companion object {

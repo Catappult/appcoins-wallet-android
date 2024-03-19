@@ -272,13 +272,13 @@ class TopUpFragmentPresenter(
   private fun setNextButton(methodSelected: String?) {
     disposables.add(
       showPayPalLogout
-        .subscribe {
+        .subscribe ({
           if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
             view.setTopupButton()
           } else {
             view.setNextButton()
           }
-        }
+        },{it.printStackTrace()})
     )
   }
 

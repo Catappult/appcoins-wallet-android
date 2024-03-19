@@ -286,10 +286,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     )
   }
 
-  override fun handleCreditCardNeedCVC(newState: Boolean) {
-    askCVC = newState
-  }
-
   override fun topUpButtonClicked() = RxView.clicks(binding.button)
 
 
@@ -509,6 +505,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     return adyenCardView.cardSave
   }
 
+  override fun handleCreditCardNeedCVC(needCVC: Boolean) {
+    askCVC = needCVC
+  }
+
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
@@ -546,6 +546,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
+  @SuppressLint("CommitTransaction")
   override fun restartFragment() {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container,

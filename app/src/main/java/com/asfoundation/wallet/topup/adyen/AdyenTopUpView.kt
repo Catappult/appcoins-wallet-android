@@ -89,4 +89,5 @@ interface AdyenTopUpView {
   fun shouldStoreCard(): Boolean
 
   fun restartFragment()
+
 }

@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.content.SharedPreferences
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
@@ -13,6 +14,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentDetails
 import com.appcoins.wallet.core.network.microservices.model.TokenPayment
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import javax.inject.Inject
@@ -22,6 +24,7 @@ class AdyenPaymentRepository @Inject constructor(
   private val brokerBdsApi: BrokerBdsApi,
   private val subscriptionsApi: SubscriptionBillingApi,
   private val adyenResponseMapper: AdyenResponseMapper,
+  private val cardPaymentDataSource: CardPaymentDataSource,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger
@@ -183,11 +186,21 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
-    return adyenApi.getCreditCardNeedCVC().map { it }
+    return adyenApi.getCreditCardNeedCVC()
+      .map {
+        if (!cardPaymentDataSource.isMandatoryCvc())
+          it
+        else
+          CreditCardCVCResponse(needAskCvc = true)
+      }
       .doOnError { it.printStackTrace() }
       .onErrorReturn {
         CreditCardCVCResponse(needAskCvc = true)
       }
+  }
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+    cardPaymentDataSource.setMandatoryCvc(mandatoryCvc)
   }
 
   enum class Methods(val adyenType: String, val transactionType: String) {
