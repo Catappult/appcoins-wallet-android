@@ -522,10 +522,10 @@
   <string name="ending_in_title">Endet in</string>
   <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">Enddatum:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Senden</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Abgelaufen</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s der AppCoins Wallet zu.</string>
@@ -980,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Es scheint ein Problem mit deiner Karte zu geben. Bitte versuche es mit einer anderen Karte.</string>
   <string name="manage_cards_select_title">Karte für Zahlung auswählen</string>
   <string name="manage_cards_remember">Karte merken</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Neue Karte hinzufügen</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
