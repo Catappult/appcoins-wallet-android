@@ -102,7 +102,8 @@ class TopUpFragmentPresenter(
   private fun retrievePaymentMethods(
     fiatAmount: String,
     packageName: String,
-    currency: String
+    currency: String,
+    appPackage: String
   ): Completable =
     interactor.getPaymentMethods(fiatAmount, currency, packageName)
       .subscribeOn(networkScheduler)
@@ -115,9 +116,12 @@ class TopUpFragmentPresenter(
           view.setupPaymentMethods(
             paymentMethods = it
           )
-          if (selectedCurrency != view.getSelectedCurrency().code)
+          if (selectedCurrency != view.getSelectedCurrency().code) {
             setupUi(selectedCurrency)
-          else view.hideValuesSkeletons()
+          } else {
+            view.hideValuesSkeletons()
+            loadBonusIntoView(appPackage, fiatAmount, selectedCurrency).subscribe()
+          }
         } else {
           view.showNoMethodsError()
         }
@@ -348,8 +352,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       if (firstPaymentMethodsFetch) view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, appPackage, currency)
-        .andThen(loadBonusIntoView(appPackage, fiatAmount, currency))
+      retrievePaymentMethods(fiatAmount, appPackage, currency, appPackage)
     } else {
       view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)
