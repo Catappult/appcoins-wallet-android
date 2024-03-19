@@ -13,7 +13,7 @@ import io.reactivex.subjects.Subject
 
 class TopUpPaymentMethodsAdapter(
   private var paymentMethods: List<PaymentMethod>,
-  private var paymentMethodClick: PublishRelay<String>,
+  private var paymentMethodClick: PublishRelay<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
   private val showPayPalLogout: Subject<Boolean>
@@ -40,8 +40,8 @@ class TopUpPaymentMethodsAdapter(
       data = paymentMethods[position],
       checked = selectedItem == position,
       listener = {
-        selectedItem = position
-        paymentMethodClick.accept(paymentMethods[position].id)
+        selectedItem = holder.absoluteAdapterPosition
+        paymentMethodClick.accept(paymentMethods[position])
         notifyDataSetChanged()
       },
       onClickPaypalLogout = logoutCallback,

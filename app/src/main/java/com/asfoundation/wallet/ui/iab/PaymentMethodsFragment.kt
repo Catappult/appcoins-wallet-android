@@ -9,7 +9,11 @@ import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
-import android.view.*
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.annotation.StringRes
@@ -247,6 +251,15 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
+  override fun showSelectedCurrency(currency: String, amount: BigDecimal) {
+    val price = getString(R.string.purchase_total_header, amount, currency)
+    with(binding.paymentMethodsHeader.fiatPrice) {
+      if (text != price) showPriceTransition()
+      text = price
+    }
+
+  }
+
   fun showPriceTransition() {
     with(binding.paymentMethodsHeader) {
       priceTransitionAnimation.playAnimation()
@@ -339,7 +352,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   ) {
 
     if (paymentMethod.showTopup) {
-      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethod.showTopup
+      binding.dialogBuyButtonsPaymentMethods.buyButton.tag = false
     } else {
       binding.dialogBuyButtonsPaymentMethods.buyButton.tag = null
     }

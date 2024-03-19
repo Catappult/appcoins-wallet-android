@@ -63,7 +63,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
             dependenciesProvider.subscriptionsApi(),
             dependenciesProvider.ewtObtainer(),
-            dependenciesProvider.rxSchedulers()
+            dependenciesProvider.rxSchedulers(),
+            dependenciesProvider.fiatCurrenciesPreferencesDataSource()
           )
         ),
         dependenciesProvider.walletService(),
