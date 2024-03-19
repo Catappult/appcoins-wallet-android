@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
   <string name="topup_bonus_amount_body">ဤေငြျဖည့္မႈျဖင့္ %s ေဘာနပ္စ္ ရယူလိုက္ပါ</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
