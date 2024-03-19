@@ -525,7 +525,7 @@
   <string name="send_button">Wyślij</string>
   <string name="resend_button">Wyślij ponownie</string>
   <string name="continue_button">Dalej</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Wygasł</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
@@ -982,7 +982,7 @@
   <string name="manage_cards_error_card_problem">Wydaje się że jest problem z twoją kartą. Spróbuj z inną.</string>
   <string name="manage_cards_select_title">Wybierz kartę płatniczą</string>
   <string name="manage_cards_remember">Pamiętaj kartę</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Dodaj nową kartę</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
