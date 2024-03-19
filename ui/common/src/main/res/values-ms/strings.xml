@@ -525,6 +525,7 @@
   <string name="resend_button">Hantar semula</string>
   <string name="continue_button">Teruskan</string>
   <string name="card_expired_tag">Expired</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
