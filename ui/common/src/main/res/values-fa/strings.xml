@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">بدون روش پرداخت!</string>
   <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
   <string name="topup_bonus_amount_body">%s بونوس با این شارژ دریافت کنید</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
