@@ -58,6 +58,7 @@ class TopUpFragmentPresenter(
   }
 
   fun present(appPackage: String, savedInstanceState: Bundle?) {
+    view.lockRotation()
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
     }
