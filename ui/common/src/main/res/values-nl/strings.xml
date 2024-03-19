@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
   <string name="topup_bonus_amount_body">Krijg %s bonus voor deze opwaardering</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
