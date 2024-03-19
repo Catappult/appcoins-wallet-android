@@ -287,10 +287,10 @@ class TopUpFragmentPresenter(
   private fun reloadUiByCurrency(paymentMethodCurrency: String) {
     if (paymentMethodCurrency != getCachedCurrencyUseCase() && view.getSelectedCurrency().code != paymentMethodCurrency) {
       view.showValuesSkeletons()
-      setupUi(currency = paymentMethodCurrency)
+      setupUi()
     } else if (view.getSelectedCurrency().code != getCachedCurrencyUseCase()) {
       view.showValuesSkeletons()
-      setupUi(currency = getCachedCurrencyUseCase())
+      setupUi(currency = paymentMethodCurrency)
     }
   }
 
