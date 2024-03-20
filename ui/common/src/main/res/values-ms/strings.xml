@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
   <string name="topup_bonus_amount_body">Terima bonus %s dengan tambah nilai ini</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -524,7 +525,7 @@
   <string name="send_button">Hantar</string>
   <string name="resend_button">Hantar semula</string>
   <string name="continue_button">Teruskan</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Luput</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
@@ -978,7 +979,7 @@
   <string name="manage_cards_error_card_problem">Nampaknya ada masalah dengan kad anda. Sila cuba kad lain.</string>
   <string name="manage_cards_select_title">Pilih kad pembayaran</string>
   <string name="manage_cards_remember">Ingat kad</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Tambah kad baru</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
   <string name="topup_bonus_amount_body">Krijg %s bonus voor deze opwaardering</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -521,10 +522,10 @@
   <string name="ending_in_title">Eindigt over</string>
   <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">Einddatum:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Sturen</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Verlopen</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
@@ -979,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Het lijkt erop dat er een probleem met je kaart is. Gebruik een andere kaart.</string>
   <string name="manage_cards_select_title">Betaalkaart selecteren</string>
   <string name="manage_cards_remember">Kaart onthouden</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Nieuwe kaart toevoegen</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
   <string name="topup_bonus_amount_body">ဤေငြျဖည့္မႈျဖင့္ %s ေဘာနပ္စ္ ရယူလိုက္ပါ</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
@@ -524,7 +525,7 @@
   <string name="send_button">ေပးပို႔မည္</string>
   <string name="resend_button">ျပန္ပို႔မည္</string>
   <string name="continue_button">ဆက္လုပ္မည္</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
@@ -978,7 +979,7 @@
   <string name="manage_cards_error_card_problem">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိပံုရပါသည္။ အျခားတစ္ကဒ္ျဖင့္ စမ္းသံုးၾကည့္ပါ။</string>
   <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
   <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">ကဒ္အသစ္ကိုထည့္မည္</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

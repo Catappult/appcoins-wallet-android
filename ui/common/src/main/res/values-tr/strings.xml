@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Ödeme yöntemi yok!</string>
   <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
   <string name="topup_bonus_amount_body">Bu yüklemeyle %s bonus kazan</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -524,7 +525,7 @@
   <string name="send_button">Gönder</string>
   <string name="resend_button">Yeniden gönder</string>
   <string name="continue_button">Devam et</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Süresi doldu</string>
   <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
@@ -979,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Kartınızla ilgili bir sorun var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
   <string name="manage_cards_select_title">Ödeme kartı seçin</string>
   <string name="manage_cards_remember">Kartı hatırla</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Yeni kart ekleyin</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
