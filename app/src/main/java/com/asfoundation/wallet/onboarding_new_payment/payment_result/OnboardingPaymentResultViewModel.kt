@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.PaymentType.CARD
 import com.asfoundation.wallet.billing.adyen.PaymentType.PAYPAL
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -62,7 +63,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private fun handlePaymentResult() {
     when {
-      args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
+      args.paymentModel.resultCode.equals(PaymentModel.ResultCode.AUTHORISED.key, true) ||
+          (args.paymentModel.resultCode.equals(PaymentModel.ResultCode.RECEIVED.key, true)
+              && args.paymentType.name == PaymentType.TRUSTLY.name) -> {
         handleAuthorisedPayment()
       }
 

@@ -205,6 +205,16 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       .commit()
   }
 
+  override fun navigateToTrustlyPayment(paymentType: PaymentType, data: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction()
+      .add(
+        R.id.fragment_container,
+        AdyenTopUpFragment.newInstance(paymentType, data)
+      )
+      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+      .commit()
+  }
+
   override fun onBackPressed() {
     when {
       isFinishingPurchase -> close()

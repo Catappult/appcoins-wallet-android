@@ -113,6 +113,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.TrustlyClick -> navigator.navigateToTrustly(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }

@@ -85,6 +85,10 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.GooglePayClick)
       }
 
+      PaymentMethodsView.SelectedPaymentMethod.TRUSTLY -> {
+        clickListener?.invoke(PaymentMethodClick.TrustlyClick)
+      }
+
       PaymentMethodsView.SelectedPaymentMethod.APPC -> Unit
       PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS -> Unit
       PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> Unit

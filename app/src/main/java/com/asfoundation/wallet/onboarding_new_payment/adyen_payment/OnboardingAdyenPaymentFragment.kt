@@ -122,7 +122,11 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
             }
 
             PaymentType.PAYPAL -> {
-              viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
+              viewModel.handleAdyenPayment(it, RedirectComponent.getReturnUrl(requireContext()))
+            }
+
+            PaymentType.TRUSTLY -> {
+              viewModel.handleAdyenPayment(it, RedirectComponent.getReturnUrl(requireContext()))
             }
 
             else -> Unit
