@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">पेमेंट पद्धत नाही!</string>
   <string name="topup_no_method_available_body">आपल्या देशात सध्यातरी कोणतीही पेमेंट पद्धत उपलब्ध नाही. पहात रहा!</string>
   <string name="topup_bonus_amount_body">ह्या टॉप-अपसह %s बोनस मिळवा</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">सुरु केल्याची तारीख:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">पाठवा</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">कालबाह्य</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -982,7 +984,7 @@
   <string name="manage_cards_error_card_problem">आपल्या कार्डाची काही समस्या आहे असे वाटते. कृपया दूसरे वापरा.</string>
   <string name="manage_cards_select_title">पेमेंट कार्ड निवडा</string>
   <string name="manage_cards_remember">कार्ड ध्यानात ठेवा</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">नविन कार्ड जोडा</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

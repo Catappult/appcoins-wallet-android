@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
-import android.content.res.Configuration
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -14,8 +14,6 @@ import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +23,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
@@ -78,9 +77,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   @Inject
   lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
+  @Inject
+  lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
+
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
-  private lateinit var paymentMethodClick: PublishRelay<String>
+  private lateinit var paymentMethodClick: PublishRelay<PaymentMethod>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
@@ -170,6 +172,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       logger = logger,
       networkThread = Schedulers.io(),
       challengeRewardAnalytics = challengeRewardAnalytics,
+      getCachedCurrencyUseCase = getCachedCurrencyUseCase
     )
   }
 
@@ -247,15 +250,16 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (!selected) adapter.setSelectedItem(0)
   }
 
-  override fun setupCurrency(localCurrency: LocalCurrency) {
+  override fun setupCurrency(currency: LocalCurrency) {
     hideErrorViews()
-    if (isLocalCurrencyValid(localCurrency)) {
-      this@TopUpFragment.localCurrency = localCurrency
+    if (isLocalCurrencyValid(currency)) {
+      localCurrency = currency
       setupCurrencyData(
-        selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
+        selectedCurrency, currency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
         DEFAULT_VALUE
       )
     }
+    binding.mainCurrencyCode.text = currency.code
     binding.mainValue.isEnabled = true
     binding.mainValue.setMinTextSize(
       resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
@@ -267,17 +271,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         binding.button.performClick()
       }
       true
-    }
-    //added since this fragment continues active after navigating to the payment fragment
-    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)
-
-  }
-
-  private fun focusAndShowKeyboard(view: EditText) {
-    view.post {
-      view.requestFocus()
-      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
   }
 
@@ -346,7 +339,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       }
   }
 
-  override fun getPaymentMethodClick(): Observable<String> {
+  override fun getPaymentMethodClick(): Observable<PaymentMethod> {
     return paymentMethodClick
   }
 
@@ -495,8 +488,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.mainValue.setSelection(value.length)
   }
 
-  override fun getSelectedCurrency(): String {
+  override fun getSelectedCurrencyType(): String {
     return selectedCurrency
+  }
+
+  override fun getSelectedCurrency(): LocalCurrency {
+    return localCurrency
   }
 
   override fun showNoNetworkError() {
@@ -523,6 +520,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun showBonusSkeletons() {
     binding.bonusLayout.root.visibility = View.INVISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
+  }
+
+  override fun showValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.INVISIBLE
+    binding.mainValue.visibility = View.INVISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.VISIBLE
+    binding.mainValueSkeleton.root.visibility = View.VISIBLE
+    showBonusSkeletons()
+  }
+
+  override fun hideValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.VISIBLE
+    binding.mainValue.visibility = View.VISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.INVISIBLE
+    binding.mainValueSkeleton.root.visibility = View.INVISIBLE
   }
 
   override fun hidePaymentMethods() {
@@ -696,5 +708,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     val viewWidth = 80.convertDpToPx(resources)
 
     return screenWidth / viewWidth
+  }
+
+  override fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 }

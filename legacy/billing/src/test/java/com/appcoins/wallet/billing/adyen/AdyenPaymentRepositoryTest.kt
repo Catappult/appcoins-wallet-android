@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.content.SharedPreferences
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
@@ -10,6 +11,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -20,6 +22,7 @@ import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
@@ -39,6 +42,12 @@ class AdyenPaymentRepositoryTest {
 
   @Mock
   lateinit var mapper: AdyenResponseMapper
+
+  @Mock
+  private lateinit var sharedPreferences: SharedPreferences
+
+  @InjectMocks
+  private lateinit var cardPaymentDataSource: CardPaymentDataSource
 
   @Mock
   lateinit var logger: Logger
@@ -97,6 +106,7 @@ class AdyenPaymentRepositoryTest {
       brokerBdsApi,
       subscriptionsApi,
       mapper,
+      cardPaymentDataSource,
       ewtAuthenticatorService,
       rxSchedulers,
       logger

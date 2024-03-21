@@ -13,7 +13,7 @@ class FiatCurrenciesPreferencesDataSource @Inject constructor(
 
   fun getCurrencyListLastVersion() = sharedPreferences.getInt(CURRENCY_LIST_LAST_VERSION, 0)
 
-  fun getCachedSelectedCurrency() = sharedPreferences.getString(FIAT_CURRENCY, "")!!
+  fun getCachedSelectedCurrency() = sharedPreferences.getString(FIAT_CURRENCY, "") ?: ""
 
   fun setSelectedCurrency(currency: String) =
     sharedPreferences.edit().putString(FIAT_CURRENCY, currency).apply()

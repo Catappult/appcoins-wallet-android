@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Нет способов оплаты!</string>
   <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
   <string name="topup_bonus_amount_body">Получите бонус %s это пополнение</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>
@@ -524,7 +525,8 @@
   <string name="send_button">Отправить</string>
   <string name="resend_button">Переотправить</string>
   <string name="continue_button">Продолжить</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Истёк</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -980,7 +982,7 @@
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
   <string name="manage_cards_select_title">Выберите карту для платежа</string>
   <string name="manage_cards_remember">Запомнить карту</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Добавить новую карту</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

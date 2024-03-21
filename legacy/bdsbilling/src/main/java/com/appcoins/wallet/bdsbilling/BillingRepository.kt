@@ -5,6 +5,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Value
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -76,4 +78,16 @@ interface BillingRepository {
     signedContent: String
   ): Single<Transaction>
 
+  fun replaceAppcPricesToOriginalPrices(
+    paymentMethods: List<PaymentMethodEntity>,
+    value: String,
+    currency: String?
+  ) = paymentMethods.map { paymentMethod ->
+    if (paymentMethod.price.currency == WalletCurrency.APPCOINS.symbol) paymentMethod.copy(
+      price = Value(
+        value.toBigDecimal(),
+        currency ?: ""
+      )
+    ) else paymentMethod
+  }
 }

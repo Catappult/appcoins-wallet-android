@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Hiányzik fizetési mód!</string>
   <string name="topup_no_method_available_body">Az országodban jelenleg nincs a befizetésre alkalmas fizetési mód. Ez viszont még változhat!</string>
   <string name="topup_bonus_amount_body">%s Bónuszt kaphatsz ezzel a feltöltéssel</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Egyenleg</string>
   <string name="balance_total_body">Teljes egyenleg %s-ban</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Kezdő dátum:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Küldés</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Lejárt</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -978,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Úgy tűnik valami baj van a kártyáddal. Használj egy másikat.</string>
   <string name="manage_cards_select_title">Fizetési kártya kiválasztása</string>
   <string name="manage_cards_remember">Kártya megjegyzése</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Új kártya hozzáadása</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

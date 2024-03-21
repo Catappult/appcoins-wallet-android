@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">支払方法がありません!</string>
   <string name="topup_no_method_available_body">現在、あなたの国でトップアップできる支払い方法はありません。しばらくお待ちください！</string>
   <string name="topup_bonus_amount_body">このトップアップで%sボーナスを受け取る</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">残高</string>
   <string name="balance_total_body">総残高 %s</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">終了まで</string>
   <string name="start_date_title">開始日:</string>
   <string name="end_date_title">終了日</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">送信</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">期限切れ</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -977,7 +979,7 @@
   <string name="manage_cards_error_card_problem">お使いのカードに問題があるようです。別のカードでお試しください。</string>
   <string name="manage_cards_select_title">決済用カードの選択</string>
   <string name="manage_cards_remember">カードの保存</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">新しいカードの追加</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

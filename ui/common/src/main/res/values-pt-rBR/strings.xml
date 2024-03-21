@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Nenhum método de pagamento!</string>
   <string name="topup_no_method_available_body">No momento, não há métodos de pagamento disponíveis para recarga em seu país. Fique ligado!</string>
   <string name="topup_bonus_amount_body">Receba %s de bônus com esta recarga</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Data de início:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Enviar</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Expirado</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -659,7 +661,7 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">bônus recebido de %s.</string>
   <string name="purchase_making_purchase_title">Processando compra&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">taxa de %1$s %2$s</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, será aplicada uma taxa de processamento. Essa taxa já está incluída no Total que você pode visualizar na parte superior.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pagamento não é compatível com a sua moeda, portanto, ele pode receber uma taxa de processamento.</string>
@@ -978,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Parece que há um problema com o seu cartão. Por favor, tente com outro cartão.</string>
   <string name="manage_cards_select_title">Selecione o cartão de pagamento</string>
   <string name="manage_cards_remember">Memorizar cartão</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Adicionar novo cartão</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

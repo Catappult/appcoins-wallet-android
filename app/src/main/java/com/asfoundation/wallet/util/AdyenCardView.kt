@@ -14,16 +14,16 @@ import com.google.android.material.textfield.TextInputLayout
 
 class AdyenCardView(view: View?) {
 
-  private val cardView: CardView? = view?.findViewById(R.id.adyen_card_form_pre_selected)
-  private val adyenCardNumberLayout: TextInputLayout? =
+  val cardView: CardView? = view?.findViewById(R.id.adyen_card_form_pre_selected)
+  val adyenCardNumberLayout: TextInputLayout? =
     cardView?.findViewById(R.id.textInputLayout_cardNumber)
-  private val adyenExpiryDateLayout: TextInputLayout? =
+  val adyenExpiryDateLayout: TextInputLayout? =
     cardView?.findViewById(R.id.textInputLayout_expiryDate)
-  private val adyenSecurityCodeLayout: TextInputLayout? =
+  val adyenSecurityCodeLayout: TextInputLayout? =
     cardView?.findViewById(R.id.textInputLayout_securityCode)
-  private val adyenCardImageLayout: RoundCornerImageView? =
+  val adyenCardImageLayout: RoundCornerImageView? =
     cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
-  private val adyenSaveDetailsSwitch: SwitchCompat? =
+  val adyenSaveDetailsSwitch: SwitchCompat? =
     (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
       handleSwitchTint()
       isChecked = true

@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
   <string name="topup_bonus_amount_body">รับโบนัส %s ด้วยการเติมเงินนี้</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -524,7 +525,8 @@
   <string name="send_button">ส่ง</string>
   <string name="resend_button">ส่งใหม่</string>
   <string name="continue_button">ต่อ</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">หมดอายุ</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -979,7 +981,7 @@
   <string name="manage_cards_error_card_problem">ดูเหมือนว่ามีปัญหากับบัตรของคุณ โปรดลองวิธีอื่น</string>
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">เพิ่มบัตรใหม่</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

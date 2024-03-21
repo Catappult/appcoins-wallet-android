@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Sem métodos de pagamento!</string>
   <string name="topup_no_method_available_body">De momento não existem métodos de pagamento disponíveis para recarregar no teu país. Fica atento!</string>
   <string name="topup_bonus_amount_body">Recebe %s de bónus com esta recarga</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">A terminar em</string>
   <string name="start_date_title">Data de início:</string>
   <string name="end_date_title">Data final:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Enviar</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Expirado</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -978,7 +980,7 @@
   <string name="manage_cards_error_card_problem">Parece que há um problema com o teu cartão. Por favor tenta com um diferente.</string>
   <string name="manage_cards_select_title">Seleciona cartão de pagamento</string>
   <string name="manage_cards_remember">Lembrar cartão</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Adicionar novo cartão</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

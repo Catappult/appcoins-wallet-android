@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
   <string name="topup_bonus_amount_body">Λάβετε %s μπόνους μ\' αυτή τη φόρτιση</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Ημερομηνία έναρξης:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Αποστολή</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Έληξε</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -979,7 +981,7 @@ Wallets</item>
   <string name="manage_cards_error_card_problem">Φαίνεται πως υπάρχει πρόβλημα με την κάρτα σας. Παρακαλούμε προσπαθήστε με μία άλλη.</string>
   <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
   <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Προσθήκη νέας κάρτας</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

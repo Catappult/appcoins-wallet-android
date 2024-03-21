@@ -6,12 +6,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -667,6 +669,38 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   }
 
+  override fun showCvcRequired() {
+    iabView.unlockRotation()
+    hideLoadingAndShowView()
+    if (askCVC && isStored) {
+      scroll_payment?.visibility = VISIBLE
+      val editTextCvc = adyenCardView.adyenSecurityCodeLayout?.editText
+      editTextCvc?.setTextIsSelectable(true)
+      editTextCvc?.requestFocus()
+      editTextCvc?.post {
+        if (editTextCvc.hasFocus() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          context?.getSystemService(InputMethodManager::class.java)
+            ?.showSoftInput(editTextCvc, InputMethodManager.SHOW_IMPLICIT)
+        }
+      }
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
+      more_payment_methods?.visibility = VISIBLE
+      layout_adyen_stored_card?.visibility = GONE
+      more_payment_stored_methods?.visibility = GONE
+    } else if (isStored) {
+      layout_adyen_stored_card?.visibility = VISIBLE
+      more_payment_stored_methods?.visibility = VISIBLE
+    }
+    buy_button.visibility = VISIBLE
+    error_buttons?.visibility = GONE
+    dialog_buy_buttons_error?.visibility = GONE
+    error_back.visibility = VISIBLE
+    error_try_again.visibility = GONE
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
+  }
+
   fun getMorePaymentMethodsClicks() =
     RxView.clicks(morePaymentMethods!!)
       .mergeWith(RxView.clicks(morePaymentStoredMethods!!))
@@ -752,6 +786,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   fun shouldStoreCard(): Boolean {
     return adyenCardView.cardSave
   }
+
+  override fun isCvcRequiredPayment(): Boolean = askCVC
+
+  override fun isStoredCardPayment(): Boolean = isStored
 
   private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)

@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Không có phương thức thanh toán!</string>
   <string name="topup_no_method_available_body">Hiện tại ở quốc gia của bạn chưa có phương thức thanh toán nào để nạp tiền cả. Hãy tiếp tục theo dõi!</string>
   <string name="topup_bonus_amount_body">Nhận %s tiền thưởng với lượt nạp tiền này</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Số dư</string>
   <string name="balance_total_body">Tổng số dư bằng %s</string>
@@ -521,10 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Ngày bắt đầu:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Gửi</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
-  <string name="card_expired_tag">Expired</string>
+  <string name="card_expired_tag">Đã hết hạn</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -977,7 +979,7 @@
   <string name="manage_cards_error_card_problem">Có vẻ như có vấn đề với thẻ của bạn. Vui lòng thử một thẻ khác.</string>
   <string name="manage_cards_select_title">Chọn thẻ thanh toán</string>
   <string name="manage_cards_remember">Nhớ thẻ</string>
-  <string name="add_new_card_button">Add new card</string>
+  <string name="add_new_card_button">Thêm thẻ mới</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>

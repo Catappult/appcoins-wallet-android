@@ -127,6 +127,7 @@ class PaymentMethodsPresenter(
         }
         handlePositiveButtonText(selectedPaymentMethod.id)
         handleFeeVisibility(selectedPaymentMethod.fee)
+        handleCurrencyChanges(selectedPaymentMethod.price)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -997,6 +998,14 @@ class PaymentMethodsPresenter(
       hasFee = fee != null && fee.isValidFee(),
       fiatValue = cachedFiatValue,
       fee = fee?.amount ?: BigDecimal.ZERO
+    )
+  }
+
+  private fun handleCurrencyChanges(price: FiatValue) {
+    cachedFiatValue = price
+    view.showSelectedCurrency(
+      currency = price.currency,
+      amount = price.amount
     )
   }
 
