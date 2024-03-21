@@ -15,7 +15,7 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.verification.usecases.GetVerificationInfoUseCase
 import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseCase
@@ -36,6 +36,7 @@ constructor(
   private val displayChatUseCase: DisplayChatUseCase,
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val walletService: WalletService,
+  private val analytics: VerificationAnalytics
 ) : ViewModel() {
 
   private var cachedPaymentMethod: ModelObject? = null
@@ -59,7 +60,7 @@ constructor(
             handleVerificationStatus(verificationStatus, verificationModel)
           }
       }
-      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+      .doOnError { showError() }
       .subscribeOn(Schedulers.io())
       .subscribe()
   }
@@ -69,26 +70,31 @@ constructor(
     verificationInfo: VerificationIntroModel
   ) {
     cachedPaymentMethod = verificationInfo.paymentInfoModel.paymentMethod
-    _uiState.value = when (verificationStatus) {
+    when (verificationStatus) {
       CODE_REQUESTED,
-      VERIFYING -> VerificationPaypalState.RequestVerificationCode(paymentMethod = verificationInfo.paymentInfoModel.paymentMethod)
+      VERIFYING -> requestVerificationCode()
 
-      NO_NETWORK -> VerificationPaypalState.UnknownError
+      NO_NETWORK -> showError()
 
-      ERROR, VERIFIED, UNVERIFIED -> VerificationPaypalState.ShowVerificationInfo(verificationInfo)
+      ERROR, VERIFIED, UNVERIFIED -> showVerificationInfo(verificationInfo)
     }
   }
 
-  fun launchVerificationPayment(data: VerificationPaypalData, paymentMethod: ModelObject?) {
-    if (paymentMethod != null) {
-      makeVerificationPaymentUseCase(VerificationType.PAYPAL, paymentMethod, false, data.returnUrl)
+  fun launchVerificationPayment(data: VerificationPaypalData) {
+    if (cachedPaymentMethod != null) {
+      makeVerificationPaymentUseCase(
+        VerificationType.PAYPAL,
+        cachedPaymentMethod!!,
+        false,
+        data.returnUrl
+      )
         .subscribeOn(Schedulers.io())
         .doOnSuccess { model ->
           val redirectUrl = model.redirectUrl
-          _uiState.value = if (redirectUrl != null)
-            VerificationPaypalState.OpenWebPayPalPaymentRequest(redirectUrl)
+          if (redirectUrl != null)
+            _uiState.value = VerificationPaypalState.OpenWebPayPalPaymentRequest(redirectUrl)
           else
-            VerificationPaypalState.UnknownError
+            showError()
         }
         .subscribe()
     }
@@ -96,20 +102,13 @@ constructor(
 
   fun successPayment() {
     setCachedVerificationUseCase(VERIFYING)
-      .doOnComplete {
-        _uiState.value =
-          VerificationPaypalState.RequestVerificationCode(paymentMethod = cachedPaymentMethod)
-      }
-      .doOnError { _uiState.value = VerificationPaypalState.UnknownError }
+      .doOnComplete { requestVerificationCode() }
+      .doOnError { showError() }
       .subscribe()
   }
 
   fun failPayment() {
-    _uiState.value = VerificationPaypalState.UnknownError
-  }
-
-  fun cancelPayment() {
-    _uiState.value = VerificationPaypalState.Error(Throwable(WebViewActivity.USER_CANCEL_THROWABLE))
+    showError()
   }
 
   fun launchChat() {
@@ -122,26 +121,43 @@ constructor(
       .subscribeOn(Schedulers.io())
       .doOnSubscribe {
         _uiState.value = VerificationPaypalState.RequestVerificationCode(
-          loading = true,
-          paymentMethod = cachedPaymentMethod
+          loading = true
         )
       }
       .subscribe(
         {
-          if (it.success) _uiState.value = VerificationPaypalState.VerificationCompleted
+          if (it.success) completeVerificationWithSuccess()
           else
-            _uiState.value =
-              when (it.errorType) {
-                WRONG_CODE ->
-                  VerificationPaypalState.RequestVerificationCode(
-                    wrongCode = true,
-                    paymentMethod = cachedPaymentMethod
-                  )
+            when (it.errorType) {
+              WRONG_CODE ->
+                _uiState.value = VerificationPaypalState.RequestVerificationCode(
+                  wrongCode = true
+                )
 
-                else -> VerificationPaypalState.UnknownError
-              }
+              else -> showError()
+            }
         },
         { _uiState.value = VerificationPaypalState.Error(it) })
+
+  private fun showError() {
+    analytics.sendErrorScreenEvent()
+    _uiState.value = VerificationPaypalState.UnknownError
+  }
+
+  private fun showVerificationInfo(verificationInfo: VerificationIntroModel) {
+    analytics.sendInitialScreenEvent()
+    _uiState.value = VerificationPaypalState.ShowVerificationInfo(verificationInfo)
+  }
+
+  private fun requestVerificationCode() {
+    analytics.sendInsertCodeScreenEvent()
+    _uiState.value = VerificationPaypalState.RequestVerificationCode()
+  }
+
+  private fun completeVerificationWithSuccess() {
+    analytics.sendSuccessScreenEvent()
+    _uiState.value = VerificationPaypalState.VerificationCompleted
+  }
 
   sealed class VerificationPaypalState {
     object Idle : VerificationPaypalState()
@@ -155,7 +171,6 @@ constructor(
     data class RequestVerificationCode(
       val wrongCode: Boolean = false,
       val loading: Boolean = false,
-      val paymentMethod: ModelObject?
     ) : VerificationPaypalState()
 
     data class Error(val error: Throwable) : VerificationPaypalState()

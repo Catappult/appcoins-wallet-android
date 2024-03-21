@@ -42,7 +42,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.adyen.checkout.redirect.RedirectComponent
-import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -55,6 +54,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.OpenWebPayPalPaymentRequest
@@ -76,14 +76,26 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   private val viewModel: VerificationPaypalViewModel by viewModels()
 
+  @Inject
+  lateinit var analytics: VerificationAnalytics
+
   private val paypalActivityLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
       when (result.resultCode) {
         WebViewActivity.SUCCESS -> viewModel.successPayment()
-        WebViewActivity.FAIL -> viewModel.failPayment()
-        WebViewActivity.USER_CANCEL -> viewModel.cancelPayment()
+        WebViewActivity.FAIL, WebViewActivity.USER_CANCEL -> viewModel.failPayment()
       }
     }
+
+  companion object {
+    const val CONTINUE = "continue"
+    const val SEND = "send"
+    const val CANCEL = "cancel"
+    const val RESEND = "resend"
+    const val GOT_IT = "got_it"
+    const val TRY_AGAIN = "try_again"
+    const val APPCOINS_SUPPORT = "appcoins_support"
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -91,21 +103,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { PayPalVerificationScreen() } }
-  }
-
-  private fun setError(error: Error) {
-    if (error is Error.ApiError.NetworkError) showNetworkError()
-    else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
-      handleUserCancelError()
-    else showGenericError()
-  }
-
-  private fun showNetworkError() {}
-
-  private fun showGenericError() {}
-
-  private fun handleUserCancelError() {
-    navigator.navigateBack()
   }
 
   @Composable
@@ -141,10 +138,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             uiState.loading,
             onVerificationClick =
             {
-              viewModel.launchVerificationPayment(
-                getPaypalData(),
-                uiState.paymentMethod
-              )
+              viewModel.launchVerificationPayment(getPaypalData())
             }
           )
         }
@@ -157,8 +151,14 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         UnknownError -> {
           GenericError(
             message = stringResource(R.string.manage_cards_error_details),
-            onSupportClick = { viewModel.launchChat() },
-            onTryAgain = { viewModel.fetchVerificationStatus() })
+            onSupportClick = {
+              analytics.sendErrorScreenEvent(action = APPCOINS_SUPPORT)
+              viewModel.launchChat()
+            },
+            onTryAgain = {
+              analytics.sendErrorScreenEvent(action = TRY_AGAIN)
+              viewModel.fetchVerificationStatus()
+            })
         }
 
         is OpenWebPayPalPaymentRequest -> {
@@ -169,8 +169,9 @@ class VerificationPaypalFragment : BasePageViewFragment() {
           InitialScreen(
             amount = getFormattedAmount(uiState.verificationInfo.verificationInfoModel),
             onVerificationClick = {
+              analytics.sendInitialScreenEvent(action = CONTINUE)
               viewModel.launchVerificationPayment(
-                getPaypalData(), uiState.verificationInfo.paymentInfoModel.paymentMethod
+                getPaypalData()
               )
             })
         }
@@ -259,7 +260,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         color = WalletColors.styleguide_dark_grey,
         fontWeight = FontWeight.Medium
       )
-      TextButton(onClick = onVerificationClick) {
+      TextButton(onClick = {
+        analytics.sendInsertCodeScreenEvent(action = RESEND)
+        onVerificationClick()
+      }) {
         Text(stringResource(id = R.string.start_again_button), color = WalletColors.styleguide_pink)
       }
 
@@ -279,7 +283,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         ButtonWithText(
           modifier = Modifier.weight(1f),
           label = stringResource(id = R.string.cancel_button),
-          onClick = { navigator.navigateBack() },
+          onClick = {
+            navigator.navigateBack()
+            analytics.sendInsertCodeScreenEvent(action = CANCEL)
+          },
           labelColor = WalletColors.styleguide_white,
           outlineColor = WalletColors.styleguide_white,
           buttonType = ButtonType.LARGE
@@ -288,7 +295,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         ButtonWithText(
           modifier = Modifier.weight(1f),
           label = stringResource(id = R.string.send_button),
-          onClick = { viewModel.verifyCode(code) },
+          onClick = {
+            viewModel.verifyCode(code)
+            analytics.sendInsertCodeScreenEvent(action = SEND)
+          },
           labelColor = WalletColors.styleguide_white,
           backgroundColor = WalletColors.styleguide_pink,
           buttonType = ButtonType.LARGE
@@ -325,7 +335,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       ButtonWithText(
         modifier = Modifier.padding(top = 40.dp),
         label = stringResource(id = R.string.got_it_button),
-        onClick = { navigator.navigateBack() },
+        onClick = {
+          analytics.sendSuccessScreenEvent(action = GOT_IT)
+          navigator.navigateBack()
+        },
         labelColor = WalletColors.styleguide_white,
         backgroundColor = WalletColors.styleguide_pink,
         buttonType = ButtonType.LARGE
