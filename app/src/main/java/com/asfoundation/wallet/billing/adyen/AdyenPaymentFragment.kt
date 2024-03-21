@@ -15,6 +15,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
@@ -58,11 +62,10 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
+import kotlinx.coroutines.launch
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
@@ -70,7 +73,9 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
+class AdyenPaymentFragment : BasePageViewFragment() {
+
+  private val viewModel: AdyenPaymentViewModel by viewModels()
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -102,7 +107,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   @Inject
   lateinit var logger: Logger
   private lateinit var iabView: IabView
-  private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
@@ -155,7 +159,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo!!
   private val layoutSupportIcn: ImageView
     get() = bindingCreditCardLayout?.fragmentAdyenError?.layoutSupportIcn
-        ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn!!
+      ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn!!
 
   // view_purchase_bonus.xml
   private val bonusValue: TextView get() = bindingCreditCardLayout?.bonusLayout?.bonusValue!!
@@ -262,31 +266,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     adyen3DSErrorSubject = PublishSubject.create()
     val navigator = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter = AdyenPaymentPresenter(
-      view = this,
-      iabView = iabView,
-      disposables = compositeDisposable,
-      viewScheduler = AndroidSchedulers.mainThread(),
-      networkScheduler = Schedulers.io(),
-      returnUrl = RedirectComponent.getReturnUrl(requireContext()),
-      analytics = analytics,
-      paymentAnalytics = paymentAnalytics,
-      origin = origin,
-      adyenPaymentInteractor = adyenPaymentInteractor,
-      skillsPaymentInteractor = skillsPaymentInteractor,
-      transactionBuilder = transactionBuilder,
-      navigator = navigator,
-      paymentType = paymentType,
-      amount = amount,
-      currency = currency,
-      skills = skills,
-      isPreSelected = isPreSelected,
-      adyenErrorCodeMapper = AdyenErrorCodeMapper(),
-      servicesErrorCodeMapper = servicesErrorMapper,
-      gamificationLevel = gamificationLevel,
-      formatter = formatter,
-      logger = logger
-    )
   }
 
   override fun onCreateView(
@@ -297,6 +276,68 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewModel.singleEventState.collect { event ->
+          when (event) {
+            AdyenPaymentViewModel.SingleEventState.setup3DSComponent -> setup3DSComponent()
+            AdyenPaymentViewModel.SingleEventState.setupRedirectComponent -> setupRedirectComponent()
+            AdyenPaymentViewModel.SingleEventState.showLoading -> showLoading()
+            AdyenPaymentViewModel.SingleEventState.showGenericError -> showGenericError()
+            AdyenPaymentViewModel.SingleEventState.hideLoadingAndShowView -> hideLoadingAndShowView()
+            AdyenPaymentViewModel.SingleEventState.showNetworkError -> showNetworkError()
+            is AdyenPaymentViewModel.SingleEventState.finishCardConfiguration -> finishCardConfiguration(
+              paymentInfoModel = event.paymentInfoModel,
+              forget = event.forget
+            )
+
+            AdyenPaymentViewModel.SingleEventState.restartFragment -> restartFragment()
+            is AdyenPaymentViewModel.SingleEventState.showProductPrice -> showProductPrice(
+              amount = event.amount,
+              currencyCode = event.currencyCode
+            )
+
+            AdyenPaymentViewModel.SingleEventState.lockRotation -> lockRotation()
+            AdyenPaymentViewModel.SingleEventState.showLoadingMakingPayment -> showLoadingMakingPayment()
+            AdyenPaymentViewModel.SingleEventState.hideKeyboard -> hideKeyboard()
+            AdyenPaymentViewModel.SingleEventState.showCvvError -> showCvvError()
+            AdyenPaymentViewModel.SingleEventState.showMoreMethods -> showMoreMethods()
+            is AdyenPaymentViewModel.SingleEventState.showSuccess -> showSuccess(event.renewal)
+            is AdyenPaymentViewModel.SingleEventState.showSpecificError -> showSpecificError(
+              stringRes = event.stringRes,
+              backToCard = event.backToCard
+            )
+
+            is AdyenPaymentViewModel.SingleEventState.showVerificationError -> showVerificationError(
+              isWalletVerified = event.isWalletVerified
+            )
+
+            is AdyenPaymentViewModel.SingleEventState.showVerification -> showVerification(
+              isWalletVerified = event.isWalletVerified
+            )
+
+            is AdyenPaymentViewModel.SingleEventState.handleCreditCardNeedCVC -> handleCreditCardNeedCVC(
+              needCVC = event.needCVC
+            )
+
+            is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle)
+            is AdyenPaymentViewModel.SingleEventState.submitUriResult -> submitUriResult(event.uri)
+            AdyenPaymentViewModel.SingleEventState.showBackToCard -> showBackToCard()
+            is AdyenPaymentViewModel.SingleEventState.handle3DSAction -> handle3DSAction(
+              action = event.action
+            )
+
+            AdyenPaymentViewModel.SingleEventState.showInvalidCardError -> showInvalidCardError()
+            AdyenPaymentViewModel.SingleEventState.showSecurityValidationError -> showSecurityValidationError()
+            AdyenPaymentViewModel.SingleEventState.showOutdatedCardError -> showOutdatedCardError()
+            AdyenPaymentViewModel.SingleEventState.showAlreadyProcessedError -> showAlreadyProcessedError()
+            AdyenPaymentViewModel.SingleEventState.showPaymentError -> showPaymentError()
+          }
+        }
+      }
+    }
+
     setupUi()
 
     val orientation = this.resources.configuration.orientation
@@ -310,11 +351,41 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     adyenCreditCardRoot?.layoutParams?.width = dimensionInPixels
     adyenCreditCardRoot?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
 
-
-    presenter.present(savedInstanceState)
+    viewModel.initialize(
+      savedInstanceState = savedInstanceState,
+      paymentData = AdyenPaymentViewModel.PaymentData(
+        returnUrl = RedirectComponent.getReturnUrl(requireContext()),
+        origin = origin,
+        transactionBuilder = transactionBuilder,
+        paymentType = paymentType,
+        amount = amount,
+        currency = currency,
+        skills = skills,
+        isPreSelected = isPreSelected,
+        gamificationLevel = gamificationLevel,
+        navigator = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView),
+        iabView = iabView,
+      ),
+      adyenSupportIconClicks = RxView.clicks(layoutSupportIcn),
+      adyenSupportLogoClicks = RxView.clicks(layoutSupportLogo),
+      forgetCardClick = forgetCardClick(),
+      forgetStoredCardClick = forgetStoredCardClick(),
+      retrievePaymentData = retrievePaymentData(),
+      buyButtonClicked = buyButtonClicked(),
+      animationDuration = SUCCESS_DURATION,
+      verificationClicks = getVerificationClicks(),
+      paymentDetails = getPaymentDetails(),
+      onAdyen3DSError = onAdyen3DSError(),
+      errorDismisses = RxView.clicks(errorDismiss),
+      backEvent = RxView.clicks(cancelButton).mergeWith(iabView.backButtonPress()),
+      morePaymentMethodsClicks = getMorePaymentMethodsClicks(),
+      adyenErrorBackClicks = RxView.clicks(errorTryAgain),
+      adyenErrorBackToCardClicks = RxView.clicks(errorBack),
+      adyenErrorCancelClicks = RxView.clicks(errorCancel),
+    )
   }
 
-  override fun setup3DSComponent() {
+  fun setup3DSComponent() {
     activity?.application?.let { application ->
       adyen3DS2Component =
         Adyen3DS2Component.PROVIDER.get(this, application, adyen3DS2Configuration)
@@ -341,7 +412,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
+  fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     buyButton.visibility = VISIBLE
     cancelButton.visibility = VISIBLE
@@ -390,11 +461,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun retrievePaymentData() = paymentDataSubject!!
+  fun retrievePaymentData() = paymentDataSubject!!
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    presenter.onSaveInstanceState(outState)
   }
 
   override fun onAttach(context: Context) {
@@ -412,9 +482,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun getAnimationDuration() = lottieTransactionSuccess.duration * 3
-
-  override fun showProduct() {
+  fun showProduct() {
     try {
       appIcon.setImageDrawable(
         requireContext().packageManager.getApplicationIcon(
@@ -428,7 +496,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     appSkuDescription.text = skuDescription
   }
 
-  override fun showLoading() {
+  fun showLoading() {
     fragmentCreditCardAuthorizationProgressBar.visibility = VISIBLE
     if (bonus.isNotEmpty()) {
       bonusLayout?.visibility = INVISIBLE
@@ -444,12 +512,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     appcPriceSkeleton.visibility = GONE
   }
 
-  override fun showLoadingMakingPayment() {
+  fun showLoadingMakingPayment() {
     showLoading()
     makingPurchaseText.visibility = VISIBLE
   }
 
-  override fun hideLoadingAndShowView() {
+  fun hideLoadingAndShowView() {
     fragmentCreditCardAuthorizationProgressBar.visibility = GONE
     makingPurchaseText.visibility = GONE
     showBonus()
@@ -457,12 +525,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     cancelButton.visibility = VISIBLE
   }
 
-  override fun showNetworkError() = showNoNetworkError()
+  fun showNetworkError() = showNoNetworkError()
 
-  override fun backEvent(): Observable<Any> =
-    RxView.clicks(cancelButton).mergeWith(iabView.backButtonPress())
-
-  override fun showSuccess(renewal: Date?) {
+  fun showSuccess(renewal: Date?) {
     iabActivityTransactionCompleted.visibility = VISIBLE
     if (isSubscription && renewal != null) {
       nextPaymentDate1.visibility = VISIBLE
@@ -476,25 +541,25 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     fragmentAdyenErrorPreSelected?.visibility = GONE
   }
 
-  override fun showGenericError() = showSpecificError(R.string.unknown_error)
+  fun showGenericError() = showSpecificError(R.string.unknown_error)
 
-  override fun showInvalidCardError() =
+  fun showInvalidCardError() =
     showSpecificError(R.string.purchase_error_invalid_credit_card)
 
-  override fun showSecurityValidationError() =
+  fun showSecurityValidationError() =
     showSpecificError(R.string.purchase_error_card_security_validation)
 
-  override fun showOutdatedCardError() = showSpecificError(R.string.purchase_card_error_re_insert)
+  fun showOutdatedCardError() = showSpecificError(R.string.purchase_card_error_re_insert)
 
-  override fun showAlreadyProcessedError() =
+  fun showAlreadyProcessedError() =
     showSpecificError(R.string.purchase_error_card_already_in_progress)
 
-  override fun showPaymentError() = showSpecificError(R.string.purchase_error_payment_rejected)
+  fun showPaymentError() = showSpecificError(R.string.purchase_error_payment_rejected)
 
-  override fun showVerification(isWalletVerified: Boolean) =
+  fun showVerification(isWalletVerified: Boolean) =
     iabView.showVerification(isWalletVerified)
 
-  override fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean) {
+  fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean = false) {
     fragmentCreditCardAuthorizationProgressBar.visibility = GONE
     makingPurchaseText.visibility = GONE
     cancelButton.visibility = GONE
@@ -524,7 +589,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     fragmentAdyenErrorPreSelected?.visibility = VISIBLE
   }
 
-  override fun showNoNetworkError(backToCard: Boolean) {
+  fun showNoNetworkError(backToCard: Boolean = false) {
     fragmentCreditCardAuthorizationProgressBar.visibility = GONE
     makingPurchaseText.visibility = GONE
     cancelButton.visibility = GONE
@@ -554,7 +619,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     fragmentAdyenNoNetworkErrorPreSelected?.visibility = VISIBLE
   }
 
-  override fun showVerificationError(isWalletVerified: Boolean) {
+  fun showVerificationError(isWalletVerified: Boolean) {
     if (isWalletVerified) {
       showSpecificError(R.string.purchase_error_verify_card)
       errorVerifyWalletButton.visibility = GONE
@@ -566,7 +631,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun showCvvError() {
+  fun showCvvError() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
     if (isStored) {
@@ -578,7 +643,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 
-  override fun showBackToCard() {
+  fun showBackToCard() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
     if (askCVC && isStored) {
@@ -602,18 +667,18 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   }
 
-  override fun getMorePaymentMethodsClicks() = RxView.clicks(morePaymentMethods!!)
+  fun getMorePaymentMethodsClicks() =
+    RxView.clicks(morePaymentMethods!!)
+      .mergeWith(RxView.clicks(morePaymentStoredMethods!!))
 
-  override fun getMorePaymentMethodsStoredClicks() = RxView.clicks(morePaymentStoredMethods!!)
-
-  override fun showMoreMethods() {
+  fun showMoreMethods() {
     mainView?.let { KeyboardUtils.hideKeyboard(it) }
     mainViewPreSelected?.let { KeyboardUtils.hideKeyboard(it) }
     iabView.unlockRotation()
     iabView.showPaymentMethodsView()
   }
 
-  override fun setupRedirectComponent() {
+  fun setupRedirectComponent() {
     activity?.application?.let { application ->
       redirectComponent = RedirectComponent.PROVIDER.get(this, application, redirectConfiguration)
       redirectComponent.observe(this) {
@@ -623,22 +688,22 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
 
-  override fun handle3DSAction(action: Action) {
+  fun handle3DSAction(action: Action) {
     adyen3DS2Component.handleAction(requireActivity(), action)
   }
 
-  override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
+  fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
 
-  override fun forgetCardClick(): Observable<Any> {
+  fun forgetCardClick(): Observable<Any> {
     return if (changeCardButton != null) RxView.clicks(changeCardButton!!)
     else RxView.clicks(changeCardButtonPreSelected!!)
   }
 
-  override fun forgetStoredCardClick() =
+  fun forgetStoredCardClick() =
     RxView.clicks(btnStoredCardPreSelectedChangeCard ?: btnStoredCardChangeCard!!)
 
   @SuppressLint("SetTextI18n")
-  override fun showProductPrice(amount: String, currencyCode: String) {
+  fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
@@ -651,45 +716,40 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     fiatPrice.visibility = VISIBLE
   }
 
-  override fun adyenErrorBackClicks() = RxView.clicks(errorTryAgain)
+  fun buyButtonClicked() =
+    RxView.clicks(buyButton)
+      .map {
+        AdyenPaymentViewModel.BuyClickData(
+          shouldStoreCard = shouldStoreCard(),
+        )
+      }
 
-  override fun adyenErrorBackToCardClicks() = RxView.clicks(errorBack)
-  override fun adyenErrorCancelClicks() = RxView.clicks(errorCancel)
-
-  override fun errorDismisses() = RxView.clicks(errorDismiss)
-
-  override fun buyButtonClicked() = RxView.clicks(buyButton)
-
-  override fun close(bundle: Bundle?) = iabView.close(bundle)
+  fun close(bundle: Bundle?) = iabView.close(bundle)
 
   // TODO: Refactor this to pass the whole Intent.
   // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
-  override fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
+  fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
 
-  override fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
+  fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
     paymentDetailsSubject!!
 
-  override fun getAdyenSupportLogoClicks() = RxView.clicks(layoutSupportLogo)
-
-  override fun getAdyenSupportIconClicks() = RxView.clicks(layoutSupportIcn)
-
-  override fun getVerificationClicks(): Observable<Boolean> =
+  fun getVerificationClicks(): Observable<Boolean> =
     Observable.merge(
       RxView.clicks(errorVerifyWalletButton).map { false },
       RxView.clicks(errorVerifyCardButton).map { true }
     )
 
-  override fun lockRotation() = iabView.lockRotation()
+  fun lockRotation() = iabView.lockRotation()
 
-  override fun hideKeyboard() {
+  fun hideKeyboard() {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
-  override fun handleCreditCardNeedCVC(newState: Boolean) {
-    askCVC = newState
+  fun handleCreditCardNeedCVC(needCVC: Boolean) {
+    askCVC = needCVC
   }
 
-  override fun shouldStoreCard(): Boolean {
+  fun shouldStoreCard(): Boolean {
     return adyenCardView.cardSave
   }
 
@@ -852,7 +912,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun onDestroyView() {
     iabView.enableBack()
-    presenter.stop()
+//    presenter.stop()
     super.onDestroyView()
   }
 
@@ -863,7 +923,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     super.onDestroy()
   }
 
-  override fun restartFragment() {
+  fun restartFragment() {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container,
       newInstance(
@@ -897,6 +957,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
+    private const val SUCCESS_DURATION = 3000L
 
     @JvmStatic
     fun newInstance(
