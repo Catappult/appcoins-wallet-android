@@ -119,8 +119,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private var isStored = false
-  private var askCVC = true
 
   private val bindingCreditCardLayout: AdyenCreditCardLayoutBinding? by lazy {
     AdyenCreditCardLayoutBinding.bind(requireView())
@@ -335,6 +333,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             AdyenPaymentViewModel.SingleEventState.showOutdatedCardError -> showOutdatedCardError()
             AdyenPaymentViewModel.SingleEventState.showAlreadyProcessedError -> showAlreadyProcessedError()
             AdyenPaymentViewModel.SingleEventState.showPaymentError -> showPaymentError()
+            AdyenPaymentViewModel.SingleEventState.showCvcRequired -> showCvcRequired()
           }
         }
       }
@@ -415,16 +414,16 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
-    this.isStored = paymentInfoModel.isStored
+    viewModel.isStored = paymentInfoModel.isStored
     buyButton.visibility = VISIBLE
     cancelButton.visibility = VISIBLE
-    if (forget) askCVC = true
-    setupCardConfiguration(!askCVC)
+    if (forget) viewModel.askCVC = true
+    setupCardConfiguration(!viewModel.askCVC)
     (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let { setStoredCardLayoutValues(it) }
 
     prepareCardComponent(paymentInfoModel, forget)
-    handleLayoutVisibility(isStored)
-    setStoredPaymentInformation(isStored)
+    handleLayoutVisibility(viewModel.isStored)
+    setStoredPaymentInformation(viewModel.isStored)
   }
 
   private fun setStoredCardLayoutValues(storedPaymentMethod: StoredPaymentMethod) {
@@ -636,7 +635,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   fun showCvvError() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
-    if (isStored) {
+    if (viewModel.isStored) {
       changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
     }
@@ -648,11 +647,11 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   fun showBackToCard() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
-    if (askCVC && isStored) {
+    if (viewModel.askCVC && viewModel.isStored) {
       changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
       morePaymentMethods?.visibility = VISIBLE
-    } else if (isStored) {
+    } else if (viewModel.isStored) {
       layoutAdyenStoredCard?.visibility = VISIBLE
       morePaymentStoredMethods?.visibility = VISIBLE
     }
@@ -669,11 +668,11 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   }
 
-  override fun showCvcRequired() {
+  fun showCvcRequired() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
-    if (askCVC && isStored) {
-      scroll_payment?.visibility = VISIBLE
+    if (viewModel.askCVC && viewModel.isStored) {
+      scrollPayment?.visibility = VISIBLE
       val editTextCvc = adyenCardView.adyenSecurityCodeLayout?.editText
       editTextCvc?.setTextIsSelectable(true)
       editTextCvc?.requestFocus()
@@ -683,22 +682,22 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             ?.showSoftInput(editTextCvc, InputMethodManager.SHOW_IMPLICIT)
         }
       }
-      change_card_button?.visibility = VISIBLE
-      change_card_button_pre_selected?.visibility = VISIBLE
-      more_payment_methods?.visibility = VISIBLE
-      layout_adyen_stored_card?.visibility = GONE
-      more_payment_stored_methods?.visibility = GONE
-    } else if (isStored) {
-      layout_adyen_stored_card?.visibility = VISIBLE
-      more_payment_stored_methods?.visibility = VISIBLE
+      changeCardButton?.visibility = VISIBLE
+      changeCardButtonPreSelected?.visibility = VISIBLE
+      morePaymentMethods?.visibility = VISIBLE
+      layoutAdyenStoredCard?.visibility = GONE
+      morePaymentStoredMethods?.visibility = GONE
+    } else if (viewModel.isStored) {
+      layoutAdyenStoredCard?.visibility = VISIBLE
+      morePaymentStoredMethods?.visibility = VISIBLE
     }
-    buy_button.visibility = VISIBLE
-    error_buttons?.visibility = GONE
-    dialog_buy_buttons_error?.visibility = GONE
-    error_back.visibility = VISIBLE
-    error_try_again.visibility = GONE
-    fragment_adyen_error?.visibility = GONE
-    fragment_adyen_error_pre_selected?.visibility = GONE
+    buyButton.visibility = VISIBLE
+    errorButtons?.visibility = GONE
+    dialogBuyButtonsError?.visibility = GONE
+    errorBack.visibility = VISIBLE
+    errorTryAgain.visibility = GONE
+    fragmentAdyenError?.visibility = GONE
+    fragmentAdyenErrorPreSelected?.visibility = GONE
   }
 
   fun getMorePaymentMethodsClicks() =
@@ -780,16 +779,12 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   }
 
   fun handleCreditCardNeedCVC(needCVC: Boolean) {
-    askCVC = needCVC
+    viewModel.askCVC = needCVC
   }
 
   fun shouldStoreCard(): Boolean {
     return adyenCardView.cardSave
   }
-
-  override fun isCvcRequiredPayment(): Boolean = askCVC
-
-  override fun isStoredCardPayment(): Boolean = isStored
 
   private fun setupCardConfiguration(hideCvcStoredCard: Boolean) {
     cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
@@ -838,7 +833,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
-    if (askCVC && isStored) {
+    if (viewModel.askCVC && isStored) {
       changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
       morePaymentMethods?.visibility = VISIBLE

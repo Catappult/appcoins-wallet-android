@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.billing.ErrorInfo
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.*
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
@@ -68,6 +68,8 @@ class AdyenPaymentViewModel @Inject constructor(
   private var cachedUid = ""
   private var cachedPaymentData: String? = null
   private var action3ds: String? = null
+  var isStored = false
+  var askCVC = true
 
   sealed class SingleEventState {
     object setup3DSComponent : SingleEventState()
@@ -108,6 +110,7 @@ class AdyenPaymentViewModel @Inject constructor(
     object showOutdatedCardError : SingleEventState()
     object showAlreadyProcessedError : SingleEventState()
     object showPaymentError : SingleEventState()
+    object showCvcRequired : SingleEventState()
   }
 
   private val _singleEventState = Channel<SingleEventState>(Channel.BUFFERED)
@@ -221,24 +224,22 @@ class AdyenPaymentViewModel @Inject constructor(
   private fun askCardDetails() {
     disposables.add(
       adyenPaymentInteractor.loadPaymentInfo(
-        mapPaymentToService(paymentType),
-        amount.toString(),
-        currency
+        mapPaymentToService(paymentData.paymentType),
+        paymentData.amount.toString(),
+        paymentData.currency
       )
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.hideLoadingAndShowView()
           if (it.error.hasError) {
-            if (it.error.isNetworkError) view.showNetworkError()
-            else view.showGenericError()
+            if (it.error.isNetworkError) sendSingleEvent(SingleEventState.showNetworkError)
+            else sendSingleEvent(SingleEventState.showGenericError)
           } else {
-            view.finishCardConfiguration(it, true)
-            view.showCvcRequired()
+            sendSingleEvent(SingleEventState.restartFragment)
           }
         }
         .subscribe({}, {
           logger.log(TAG, it)
-          view.showGenericError()
+          sendSingleEvent(SingleEventState.showGenericError)
         })
     )
   }
@@ -835,7 +836,7 @@ class AdyenPaymentViewModel @Inject constructor(
     disposables.add(Single.just(paymentData.transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
-        val mappedPaymentType = mapPaymentToAnalytics(paymentType)
+        val mappedPaymentType = mapPaymentToAnalytics(paymentData.paymentType)
         analytics.sendPaymentSuccessEvent(
           packageName = paymentData.transactionBuilder.domain,
           skuDetails = transaction.skuId,
@@ -846,11 +847,11 @@ class AdyenPaymentViewModel @Inject constructor(
           valueUsd = transaction.amountUsd.toString(),
           isStoredCard =
           if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            view.isStoredCardPayment()
+            isStored
           else null,
           wasCvcRequired =
           if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            view.isCvcRequiredPayment()
+            askCVC
           else null,
         )
       }
@@ -1042,55 +1043,55 @@ class AdyenPaymentViewModel @Inject constructor(
   private fun handleErrors(error: Error, code: Int? = null) {
     when {
       error.isNetworkError -> sendSingleEvent(SingleEventState.showNetworkError)
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_CARD -> sendSingleEvent(
+      error.errorInfo?.errorType == INVALID_CARD -> sendSingleEvent(
         SingleEventState.showInvalidCardError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION -> sendSingleEvent(
+      error.errorInfo?.errorType == CARD_SECURITY_VALIDATION -> sendSingleEvent(
         SingleEventState.showSecurityValidationError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.OUTDATED_CARD -> sendSingleEvent(
+      error.errorInfo?.errorType == OUTDATED_CARD -> sendSingleEvent(
         SingleEventState.showOutdatedCardError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.ALREADY_PROCESSED -> sendSingleEvent(
+      error.errorInfo?.errorType == ALREADY_PROCESSED -> sendSingleEvent(
         SingleEventState.showAlreadyProcessedError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_ERROR -> sendSingleEvent(
+      error.errorInfo?.errorType == PAYMENT_ERROR -> sendSingleEvent(
         SingleEventState.showPaymentError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_COUNTRY_CODE -> sendSingleEvent(
+      error.errorInfo?.errorType == INVALID_COUNTRY_CODE -> sendSingleEvent(
         SingleEventState.showSpecificError(
           R.string.unknown_error
         )
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> sendSingleEvent(
+      error.errorInfo?.errorType == PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> sendSingleEvent(
         SingleEventState.showSpecificError(
           R.string.purchase_error_payment_rejected
         )
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED -> sendSingleEvent(
+      error.errorInfo?.errorType == CURRENCY_NOT_SUPPORTED -> sendSingleEvent(
         SingleEventState.showSpecificError(
           R.string.purchase_card_error_general_1
         )
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.CVC_LENGTH -> sendSingleEvent(
+      error.errorInfo?.errorType == CVC_LENGTH -> sendSingleEvent(
         SingleEventState.showCvvError
       )
 
-      error.errorInfo?.errorType == ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> sendSingleEvent(
+      error.errorInfo?.errorType == TRANSACTION_AMOUNT_EXCEEDED -> sendSingleEvent(
         SingleEventState.showSpecificError(
           R.string.purchase_card_error_no_funds
         )
       )
 
-      error.errorInfo?.errorType == ErrorType.CVC_REQUIRED ->  {
+      error.errorInfo?.errorType == CVC_REQUIRED ->  {
         adyenPaymentInteractor.setMandatoryCVC(true)
         askCardDetails()
       }
