@@ -260,6 +260,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun setManageCardsPreference() {
+    val manageCardsPreference = findPreference<Preference>("pref_manage_cards")
+    manageCardsPreference?.setOnPreferenceClickListener {
+      presenter.onManageCardsPreferenceClick(navController())
+      false
+    }
+  }
+
   override fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {

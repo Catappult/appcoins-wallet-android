@@ -54,6 +54,7 @@ class SettingsPresenter(
     view.setManageWalletPreference()
     view.setAccountPreference()
     view.setManageSubscriptionsPreference()
+    view.setManageCardsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
   }
@@ -109,6 +110,10 @@ class SettingsPresenter(
 
   fun onManageWalletPreferenceClick(navController: NavController) {
     navigator.navigateToManageWallet(navController)
+  }
+
+  fun onManageCardsPreferenceClick(navController: NavController) {
+    navigator.navigateToManageCards(navController)
   }
 
   fun onChangeCurrencyPreferenceClick(navController: NavController) {

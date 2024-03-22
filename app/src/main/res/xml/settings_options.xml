@@ -23,6 +23,12 @@
         android:title="@string/subscriptions_settings_title" />
 
     <Preference
+        android:icon="@drawable/ic_manage_cards"
+        android:key="pref_manage_cards"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/settings_manage_cards_item" />
+
+    <Preference
         android:icon="@drawable/ic_account"
         android:key="pref_account"
         android:layout="@layout/preference_without_summary_layout"

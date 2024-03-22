@@ -47,6 +47,8 @@ interface SettingsView {
 
   fun setManageSubscriptionsPreference()
 
+  fun setManageCardsPreference()
+
   fun removeFingerprintPreference()
 
   fun setDisabledFingerPrintPreference()
