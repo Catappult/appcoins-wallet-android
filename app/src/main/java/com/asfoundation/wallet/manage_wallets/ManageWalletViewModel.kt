@@ -56,8 +56,8 @@ constructor(
   }
 
   private fun getActiveWallet(wallets: WalletsModel) =
-    Observable.interval(0, 30, TimeUnit.SECONDS)
-      .takeUntil { isWalletVerified(wallets.activeWalletAddress()) }
+    Observable.interval(0, 20, TimeUnit.SECONDS)
+      .take(2)
       .subscribeOn(Schedulers.io())
       .flatMapCompletable {
         observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
@@ -84,11 +84,6 @@ constructor(
       .subscribe({}, { error ->
         error.printStackTrace()
       })
-
-  private fun isWalletVerified(walletAddress: String) =
-    observeWalletInfoUseCase(walletAddress, update = true)
-      .map { walletInfo -> walletInfo.verified }
-      .blockingFirst()
 
   fun deleteWallet(wallet: String) {
     deleteWalletInteract.delete(wallet)
