@@ -235,7 +235,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       iabView.navigateBack()
     }
     binding.errorCancelVk.setOnClickListener {
-      iabView.close(bundle = null)
+      iabView.close(bundle = Bundle())
     }
   }
 

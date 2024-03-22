@@ -26,7 +26,7 @@ interface AdyenPaymentView {
 
   fun backEvent(): Observable<Any>
 
-  fun close(bundle: Bundle?)
+  fun close(bundle: Bundle)
 
   fun showSuccess(renewal: Date?)
 
