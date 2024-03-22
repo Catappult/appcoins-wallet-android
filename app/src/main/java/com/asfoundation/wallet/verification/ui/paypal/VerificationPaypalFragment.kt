@@ -8,16 +8,17 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -52,6 +53,7 @@ import com.appcoins.wallet.ui.widgets.component.Animation
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletCodeTextField
+import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
@@ -111,13 +113,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
       topBar = { TopBar(onClickSupport = { viewModel.launchChat() }) },
       containerColor = WalletColors.styleguide_blue
     ) { padding ->
-      Column(
-        modifier =
-        Modifier
-          .padding(padding)
-          .verticalScroll(rememberScrollState())
-          .height(IntrinsicSize.Max)
-      ) {
+      Column(modifier = Modifier.padding(padding)) {
         ScreenTitle(stringResource(R.string.paypal_verification_header))
         PayPalVerificationContent()
       }
@@ -127,9 +123,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   fun PayPalVerificationContent() {
     Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(24.dp)
+      modifier = Modifier.fillMaxSize()
     ) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is RequestVerificationCode -> {
@@ -183,24 +177,36 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Composable
   fun InitialScreen(amount: String, onVerificationClick: () -> Unit = {}) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+        .padding(24.dp)
+    ) {
+      Spacer(modifier = Modifier.weight(112f))
       Image(
         painter = painterResource(id = R.drawable.ic_paypal_circle),
         contentDescription = null,
-        modifier = Modifier.size(112.dp)
+        modifier = Modifier
+          .size(112.dp)
       )
       Text(
         text = stringResource(R.string.verification_verify_paypal_description, amount),
         color = WalletColors.styleguide_light_grey,
         modifier = Modifier
+          .widthIn(max = 464.dp)
           .padding(top = 24.dp)
           .padding(horizontal = 16.dp),
         style = MaterialTheme.typography.bodyLarge,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
       )
+      Spacer(modifier = Modifier.weight(272f))
       ButtonWithText(
-        modifier = Modifier.padding(top = 40.dp),
+        modifier = Modifier
+          .widthIn(max = 360.dp)
+          .padding(top = 40.dp),
         label = stringResource(id = R.string.continue_button),
         onClick = onVerificationClick,
         labelColor = WalletColors.styleguide_white,
@@ -213,7 +219,43 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Composable
   fun CodeInputScreen(wrongCode: Boolean, loading: Boolean, onVerificationClick: () -> Unit = {}) {
     var defaultCode by rememberSaveable { mutableStateOf("") }
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    BoxWithConstraints {
+      if (expanded())
+        CodeInputScreenLandscape(
+          wrongCode = wrongCode,
+          loading = loading,
+          onVerificationClick = onVerificationClick,
+          onCodeChange = { newCode -> defaultCode = newCode },
+          code = defaultCode
+        )
+      else
+        CodeInputScreenPortrait(
+          wrongCode = wrongCode,
+          loading = loading,
+          onVerificationClick = onVerificationClick,
+          onCodeChange = { newCode -> defaultCode = newCode },
+          code = defaultCode
+        )
+
+    }
+  }
+
+  @Composable
+  fun CodeInputScreenPortrait(
+    wrongCode: Boolean,
+    loading: Boolean,
+    onVerificationClick: () -> Unit = {},
+    onCodeChange: (String) -> Unit,
+    code: String
+  ) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+        .padding(24.dp)
+    ) {
+      Spacer(modifier = Modifier.weight(112f))
       Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.verify_animation)
       Text(
         text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
@@ -227,21 +269,79 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         color = WalletColors.styleguide_light_grey,
         modifier = Modifier
           .padding(top = 16.dp, bottom = 28.dp)
-          .padding(horizontal = 16.dp),
+          .padding(horizontal = 16.dp)
+          .widthIn(max = 332.dp),
         style = MaterialTheme.typography.bodyMedium,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
       )
 
-      WalletCodeTextField(
-        wrongCode = wrongCode, onValueChange = { newCode -> defaultCode = newCode })
+      InputCodeTextField(
+        wrongCode = wrongCode,
+        defaultCode = onCodeChange
+      )
 
       ResendCode(
         Modifier.padding(top = 48.dp), isVisible = !loading, onVerificationClick
       )
-
-      SendCodeButtons(Modifier.padding(top = 40.dp), loading = loading, code = defaultCode)
+      Spacer(modifier = Modifier.weight(72f))
+      SendCodeButtons(Modifier.padding(top = 40.dp), loading = loading, code = code)
     }
+  }
+
+  @Composable
+  fun CodeInputScreenLandscape(
+    wrongCode: Boolean, loading: Boolean, onVerificationClick: () -> Unit = {},
+    onCodeChange: (String) -> Unit,
+    code: String,
+  ) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .fillMaxWidth()
+        .verticalScroll(rememberScrollState())
+        .padding(24.dp)
+    ) {
+      Row(verticalAlignment = Alignment.CenterVertically) {
+        Animation(modifier = Modifier.size(128.dp), animationRes = R.raw.verify_animation)
+        Column(modifier = Modifier.padding(start = 24.dp)) {
+          Text(
+            text = stringResource(id = R.string.paypal_verification_home_one_step_card_title),
+            color = WalletColors.styleguide_light_grey,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+          )
+          Text(
+            text = stringResource(id = R.string.paypal_verification_insert_code_body),
+            color = WalletColors.styleguide_light_grey,
+            modifier = Modifier
+              .padding(top = 8.dp, bottom = 32.dp)
+              .widthIn(max = 332.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Start,
+            fontWeight = FontWeight.Medium
+          )
+          Row(verticalAlignment = Alignment.CenterVertically) {
+            InputCodeTextField(wrongCode = wrongCode, defaultCode = onCodeChange)
+            ResendCode(
+              modifier = Modifier.padding(start = 24.dp),
+              isVisible = !loading,
+              onVerificationClick = onVerificationClick
+            )
+          }
+        }
+      }
+      Spacer(Modifier.height(40.dp))
+      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        SendCodeButtons(loading = loading, code = code)
+      }
+    }
+  }
+
+  @Composable
+  fun InputCodeTextField(wrongCode: Boolean, defaultCode: (String) -> Unit) {
+    WalletCodeTextField(
+      wrongCode = wrongCode, onValueChange = { newCode -> defaultCode(newCode) })
   }
 
   @Composable
@@ -275,7 +375,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     Row(
       horizontalArrangement = Arrangement.Center,
       verticalAlignment = Alignment.CenterVertically,
-      modifier = modifier
+      modifier = modifier.widthIn(max = 312.dp)
     ) {
       if (loading)
         Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
@@ -309,7 +409,14 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
   @Composable
   fun SuccessScreen() {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+        .padding(24.dp)
+    ) {
+      Spacer(modifier = Modifier.weight(72f))
       Animation(
         modifier = Modifier.size(104.dp),
         animationRes = R.raw.success_animation,
@@ -332,8 +439,11 @@ class VerificationPaypalFragment : BasePageViewFragment() {
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
       )
+      Spacer(modifier = Modifier.weight(304f))
       ButtonWithText(
-        modifier = Modifier.padding(top = 40.dp),
+        modifier = Modifier
+          .padding(top = 40.dp)
+          .widthIn(max = 360.dp),
         label = stringResource(id = R.string.got_it_button),
         onClick = {
           analytics.sendSuccessScreenEvent(action = GOT_IT)
@@ -360,6 +470,15 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     )
   }
 
+  @Preview(widthDp = 610)
+  @Composable
+  fun PreviewCodeInputScreenLandscape() {
+    CodeInputScreen(
+      wrongCode = true, loading = false
+    )
+  }
+
+
   @Preview
   @Composable
   fun PreviewSuccessScreen() {
@@ -369,8 +488,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   @Preview
   @Composable
   fun FullScreenLoading() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+      Spacer(Modifier.weight(1f))
       Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+      Spacer(Modifier.weight(1f))
     }
   }
 

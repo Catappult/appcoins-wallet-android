@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -76,6 +77,7 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.Animation
+import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
@@ -206,46 +208,105 @@ class ManageWalletFragment : BasePageViewFragment() {
         border = BorderStroke(1.dp, styleguide_pink),
         shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)
       ) {
-        Column(
-          modifier =
-          Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
-        ) {
-          BalanceBottomSheet(walletInfo)
-          ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
-          Spacer(modifier = Modifier.height(24.dp))
-          BackupAlertCard(
-            onClickButton = {
-              myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
-            },
-            hasBackup = walletInfo.hasBackup,
-            backupDate = walletInfo.backupDate
-          )
-          Separator()
-          if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
-            LoadingCard()
+        BoxWithConstraints {
+          if (expanded())
+            ActiveWalletContentLandscape(
+              walletInfo = walletInfo,
+              verificationStatus = verificationStatus
+            )
           else
-            VerifyWalletAlertCard(
-              onClickButton = {
-                analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
-                myWalletsNavigator.navigateToVerifyPicker()
-              },
-              verified = walletInfo.verified,
-              waitingCode = verificationStatus == VerificationStatus.VERIFYING,
-              onCancelClickButton = {
-                viewModel.cancelVerification(walletInfo.wallet)
-                viewModel.updateWallets()
-              }
+            ActiveWalletContentPortrait(
+              walletInfo = walletInfo,
+              verificationStatus = verificationStatus
             )
         }
       }
     }
   }
 
+  @Composable
+  fun ActiveWalletContentPortrait(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+    Column(
+      modifier =
+      Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+    ) {
+      BalanceBottomSheet(walletInfo)
+      ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
+      Spacer(modifier = Modifier.height(24.dp))
+      BackupAlertCard(
+        onClickButton = {
+          myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+        },
+        hasBackup = walletInfo.hasBackup,
+        backupDate = walletInfo.backupDate
+      )
+      Separator()
+      if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+        LoadingCard()
+      else
+        VerifyWalletAlertCard(
+          onClickButton = {
+            analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
+            myWalletsNavigator.navigateToVerifyPicker()
+          },
+          verified = walletInfo.verified,
+          waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+          onCancelClickButton = {
+            viewModel.cancelVerification(walletInfo.wallet)
+            viewModel.updateWallets()
+          }
+        )
+    }
+  }
+
+  @Composable
+  fun ActiveWalletContentLandscape(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+    Column(
+      modifier =
+      Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
+    ) {
+      Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        BalanceBottomSheet(walletInfo, modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(0.05f))
+        ActiveWalletOptions(walletInfo.wallet, walletInfo.name, Modifier.weight(1f))
+      }
+
+      Spacer(modifier = Modifier.height(24.dp))
+      Row(verticalAlignment = CenterVertically) {
+        BackupAlertCard(
+          onClickButton = {
+            myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+          },
+          hasBackup = walletInfo.hasBackup,
+          backupDate = walletInfo.backupDate,
+          modifier = Modifier.weight(1f)
+        )
+        Spacer(Modifier.weight(0.05f))
+        if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+          LoadingCard(modifier = Modifier.weight(1f))
+        else
+          VerifyWalletAlertCard(
+            onClickButton = {
+              analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
+              myWalletsNavigator.navigateToVerifyPicker()
+            },
+            verified = walletInfo.verified,
+            waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+            onCancelClickButton = {
+              viewModel.cancelVerification(walletInfo.wallet)
+              viewModel.updateWallets()
+            },
+            modifier = Modifier.weight(1f)
+          )
+      }
+    }
+  }
+
   @Preview
   @Composable
-  private fun LoadingCard() {
+  private fun LoadingCard(modifier: Modifier = Modifier) {
     Column(
-      modifier = Modifier
+      modifier = modifier
         .fillMaxWidth(),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.Center
@@ -284,9 +345,9 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletOptions(wallet: String, walletName: String) {
+  fun ActiveWalletOptions(wallet: String, walletName: String, modifier: Modifier = Modifier) {
     Row(
-      modifier = Modifier.fillMaxWidth(),
+      modifier = modifier.fillMaxWidth(),
       verticalAlignment = CenterVertically,
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -362,13 +423,13 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun BalanceBottomSheet(walletInfo: WalletInfo) {
+  fun BalanceBottomSheet(walletInfo: WalletInfo, modifier: Modifier = Modifier) {
     val balance = walletInfo.walletBalance
 
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
-      modifier = Modifier.fillMaxWidth()
+      modifier = modifier.fillMaxWidth()
     ) {
       Text(
         text = walletInfo.name,
@@ -484,6 +545,26 @@ class ManageWalletFragment : BasePageViewFragment() {
         backupDate = 987654L,
         backupWalletActive = false
       )
+    )
+  }
+
+
+  @Preview(widthDp = 601)
+  @Composable
+  fun PreviewActiveWalletCardLandscape() {
+    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+    val tokenBalance = TokenBalance(TokenValue(amount = BigDecimal(123456), "EUR", "€"), fiatValue)
+    val walletInfo = WalletInfo(
+      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
+      name = "Melissa wallet",
+      walletBalance = WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+      blocked = false,
+      backupDate = 987654L,
+      verified = false,
+      logging = true
+    )
+    ActiveWalletContentLandscape(
+      walletInfo, VerificationStatus.VERIFYING
     )
   }
 

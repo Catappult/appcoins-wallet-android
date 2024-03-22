@@ -18,8 +18,14 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import java.util.Date
 
 @Composable
-fun BackupAlertCard(onClickButton: () -> Unit, hasBackup: Boolean, backupDate: Long = 0L) {
+fun BackupAlertCard(
+  modifier: Modifier = Modifier,
+  onClickButton: () -> Unit,
+  hasBackup: Boolean,
+  backupDate: Long = 0L,
+) {
   AlertCard(
+    modifier = modifier,
     onClickPositiveButton = onClickButton,
     title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.my_wallets_action_backup_wallet,
     message = if (hasBackup)
@@ -38,7 +44,8 @@ fun VerifyWalletAlertCard(
   onClickButton: () -> Unit,
   verified: Boolean,
   waitingCode: Boolean,
-  onCancelClickButton: () -> Unit
+  onCancelClickButton: () -> Unit,
+  modifier: Modifier = Modifier
 ) {
   AlertCard(
     onClickPositiveButton = onClickButton,
@@ -51,12 +58,14 @@ fun VerifyWalletAlertCard(
     positiveButtonLabel = stringResource(id = if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_verification_title),
     icon = if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle,
     onClickNegativeButton = onCancelClickButton,
-    negativeButtonLabel = if (waitingCode) stringResource(id = R.string.cancel_button) else ""
+    negativeButtonLabel = if (waitingCode) stringResource(id = R.string.cancel_button) else "",
+    modifier = modifier
   )
 }
 
 @Composable
 fun AlertCard(
+  modifier: Modifier = Modifier,
   onClickPositiveButton: () -> Unit,
   title: Int,
   message: String,
@@ -65,7 +74,7 @@ fun AlertCard(
   onClickNegativeButton: () -> Unit = {},
   negativeButtonLabel: String = "",
 ) {
-  Column {
+  Column(modifier = modifier) {
     AlertMessageWithIcon(
       icon = icon,
       title = stringResource(id = title),
@@ -76,7 +85,7 @@ fun AlertCard(
       onClickPositiveButton = onClickPositiveButton,
       positiveButtonLabel = positiveButtonLabel,
       onClickNegativeButton = onClickNegativeButton,
-      negativeButtonLabel = negativeButtonLabel
+      negativeButtonLabel = negativeButtonLabel,
     )
   }
 }
@@ -121,7 +130,7 @@ fun PreviewCardButtons() {
 @Preview
 @Composable
 fun PreviewBackupAlertCard() {
-  BackupAlertCard(onClickButton = {}, true)
+  BackupAlertCard(onClickButton = {}, hasBackup = true)
 }
 
 @Preview

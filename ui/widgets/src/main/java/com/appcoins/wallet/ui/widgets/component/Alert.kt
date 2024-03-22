@@ -22,8 +22,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
 
 @Composable
-fun AlertMessageWithIcon(icon: Int, title: String, message: String) {
-  Row(verticalAlignment = Alignment.CenterVertically) {
+fun AlertMessageWithIcon(icon: Int, title: String, message: String, modifier: Modifier = Modifier) {
+  Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier) {
     Icon(
       painter = painterResource(id = icon),
       contentDescription = null,

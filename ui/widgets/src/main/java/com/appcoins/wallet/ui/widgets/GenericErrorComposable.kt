@@ -3,9 +3,13 @@ package com.appcoins.wallet.ui.widgets
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -28,11 +32,13 @@ import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 fun GenericError(message: String, onSupportClick: () -> Unit, onTryAgain: () -> Unit) {
   Column(
     modifier = Modifier
-      .fillMaxWidth()
+      .fillMaxSize()
+      .verticalScroll(rememberScrollState())
       .padding(24.dp),
     horizontalAlignment = CenterHorizontally,
     verticalArrangement = Arrangement.Center
   ) {
+    Spacer(Modifier.weight(112f))
     Image(
       painter = painterResource(id = R.drawable.ic_error_pink),
       contentDescription = null,
@@ -64,11 +70,12 @@ fun GenericError(message: String, onSupportClick: () -> Unit, onTryAgain: () -> 
       textAlign = TextAlign.Center,
       fontWeight = FontWeight.Medium
     )
-
     SupportButton(onSupportClick = onSupportClick)
-
+    Spacer(Modifier.weight(232f))
     ButtonWithText(
-      modifier = Modifier.padding(top = 40.dp),
+      modifier = Modifier
+        .padding(top = 40.dp)
+        .widthIn(max = 360.dp),
       label = stringResource(R.string.try_again),
       onClick = onTryAgain,
       labelColor = WalletColors.styleguide_white,
