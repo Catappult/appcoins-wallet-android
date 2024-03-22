@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 interface BrokerVerificationApi {
 
-  @GET("8.20240314/gateways/adyen_v2/verification/state")
+  @GET("8.20200815/gateways/adyen_v2/verification/state")
   fun getVerificationState(
     @Query("wallet.address") wallet: String,
     @Query("wallet.signature") walletSignature: String
