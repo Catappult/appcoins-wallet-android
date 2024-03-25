@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.vkpay
 
+import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateOf
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
@@ -13,9 +14,12 @@ import com.appcoins.wallet.core.network.microservices.model.VkPrice
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.billing.vkpay.usecases.CreateVkPayTransactionUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -33,6 +37,7 @@ sealed class VkPaymentIABSideEffect : SideEffect {
   object ShowLoading : VkPaymentIABSideEffect()
   data class ShowError(val message: Int?) : VkPaymentIABSideEffect()
   object ShowSuccess : VkPaymentIABSideEffect()
+  data class SendSuccessBundle(val bundle: Bundle) : VkPaymentIABSideEffect()
   object PaymentLinkSuccess : VkPaymentIABSideEffect()
 }
 
@@ -47,6 +52,8 @@ class VkPaymentIABViewModel @Inject constructor(
   private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
   private val rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
 ) :
   BaseViewModel<VkPaymentIABState, VkPaymentIABSideEffect>(
     VkPaymentIABState()
@@ -65,6 +72,17 @@ class VkPaymentIABViewModel @Inject constructor(
   var isFirstGetPaymentLink = true
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
   val transactionVkData = mutableStateOf<VkPayTransaction?>(null)
+
+  val networkScheduler = rxSchedulers.io
+  val viewScheduler = rxSchedulers.main
+
+  data class SuccessInfo(
+    val hash: String?,
+    val orderReference: String?,
+    val purchaseUid: String?,
+  )
+
+  var successInfo: SuccessInfo? = null
 
   fun getPaymentLink(
     transactionBuilder: TransactionBuilder,
@@ -185,7 +203,14 @@ class VkPaymentIABViewModel @Inject constructor(
         when (it.status) {
           Transaction.Status.COMPLETED -> {
             stopTransactionStatusTimer()
-            sendSideEffect { VkPaymentIABSideEffect.ShowSuccess }
+            sendSideEffect {
+              successInfo = SuccessInfo(
+                hash = it.hash,
+                orderReference = null,
+                purchaseUid = it.uid,
+              )
+              VkPaymentIABSideEffect.ShowSuccess
+            }
           }
 
           Transaction.Status.INVALID_TRANSACTION,
@@ -210,4 +235,30 @@ class VkPaymentIABViewModel @Inject constructor(
       }.scopedSubscribe()
     }
   }
+
+  fun getSuccessBundle(
+    transactionBuilder: TransactionBuilder?
+  ) {
+    if (transactionBuilder == null) {
+      sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
+      return
+    }
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(
+      PaymentMethodsView.PaymentMethodId.VKPAY.id
+    )
+    createSuccessBundleUseCase(
+      transactionBuilder.type,
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      successInfo?.purchaseUid,
+      successInfo?.orderReference,
+      successInfo?.hash,
+      networkScheduler
+    ).doOnSuccess {
+      sendSideEffect { VkPaymentIABSideEffect.SendSuccessBundle(it.bundle) }
+    }.subscribeOn(viewScheduler).observeOn(viewScheduler).doOnError {
+      sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
+    }.subscribe()
+  }
+
 }
