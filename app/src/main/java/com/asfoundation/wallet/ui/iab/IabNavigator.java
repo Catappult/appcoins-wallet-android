@@ -40,7 +40,7 @@ public class IabNavigator implements Navigator {
     if (fragmentManager.getBackStackEntryCount() != 0) {
       fragmentManager.popBackStack();
     } else {
-      iabView.close(null);
+      iabView.close(new Bundle());
     }
   }
 }
