@@ -145,7 +145,7 @@ class GooglePayWebFragment : BasePageViewFragment() {
   }
 
   private fun close() {
-    iabView.close(null)
+    iabView.close(Bundle())
   }
 
   private fun showSuccessAnimation(bundle: Bundle) {

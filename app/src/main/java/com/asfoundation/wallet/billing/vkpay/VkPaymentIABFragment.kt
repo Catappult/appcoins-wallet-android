@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
-import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -22,7 +21,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.VkPaymentIabLayoutBinding
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
@@ -235,7 +233,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       iabView.navigateBack()
     }
     binding.errorCancelVk.setOnClickListener {
-      iabView.close(bundle = null)
+      iabView.close(bundle = Bundle())
     }
   }
 
@@ -253,6 +251,13 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       VkPaymentIABSideEffect.PaymentLinkSuccess -> {
         viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
         startVkCheckoutPay()
+      }
+
+      is VkPaymentIABSideEffect.SendSuccessBundle -> {
+        viewLifecycleOwner.lifecycleScope.launch {
+          delay(1500L)
+          navigatorIAB?.popView(sideEffect.bundle)
+        }
       }
     }
   }
@@ -282,23 +287,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   }
 
   private fun handleCompletePurchase() {
-    val bundle = Bundle().apply {
-      putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-      putString(
-        VkPaymentTopUpFragment.TOP_UP_AMOUNT,
-        (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString()
-      )
-      putString(VkPaymentTopUpFragment.TOP_UP_CURRENCY, requireArguments().getString(CURRENCY_KEY))
-      putString(VkPaymentTopUpFragment.BONUS, requireArguments().getString(BONUS_KEY))
-      putString(
-        VkPaymentTopUpFragment.TOP_UP_CURRENCY_SYMBOL,
-        requireArguments().getString(CURRENCY_KEY)
-      )
-    }
-    viewLifecycleOwner.lifecycleScope.launch {
-      delay(1500L)
-      navigatorIAB?.popView(bundle)
-    }
+    viewModel.getSuccessBundle(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
   }
 
   companion object {
