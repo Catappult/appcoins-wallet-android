@@ -125,7 +125,7 @@ fun BalanceCard(
                 content = {})
               Column(modifier = Modifier.padding(16.dp)) {
                 BackupAlertCard(
-                  onClickBackup,
+                  onClickButton = onClickBackup,
                   hasBackup = false
                 )
               }

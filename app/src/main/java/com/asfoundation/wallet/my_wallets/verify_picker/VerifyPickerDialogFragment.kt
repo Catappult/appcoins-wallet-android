@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPickerBinding
+import com.asfoundation.wallet.manage_wallets.ManageWalletAnalytics
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +19,15 @@ class VerifyPickerDialogFragment : BottomSheetDialogFragment() {
   @Inject
   lateinit var navigator: VerifyPickerDialogNavigator
 
+  @Inject
+  lateinit var analytics: ManageWalletAnalytics
+
   private val views by viewBinding(FragmentVerifyPickerBinding::bind)
+
+  companion object {
+    const val CREDIT_CARD = "credit_card"
+    const val PAYPAL = "paypal"
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +36,14 @@ class VerifyPickerDialogFragment : BottomSheetDialogFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.verifyWithPaypalCardView.setOnClickListener { navigator.navigateToPaypalVerify() }
-    views.verifyWithCreditCardView.setOnClickListener { navigator.navigateToCreditCardVerify() }
+    views.verifyWithPaypalCardView.setOnClickListener {
+      analytics.sendManageWalletPickerScreenEvent(action = PAYPAL)
+      navigator.navigateToPaypalVerify()
+    }
+    views.verifyWithCreditCardView.setOnClickListener {
+      analytics.sendManageWalletPickerScreenEvent(action = CREDIT_CARD)
+      navigator.navigateToCreditCardVerify()
+    }
   }
 
   override fun onStart() {

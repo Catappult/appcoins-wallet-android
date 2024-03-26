@@ -71,6 +71,7 @@ fun ButtonWithIcon(
 
 @Composable
 fun ButtonWithText(
+  modifier: Modifier = Modifier,
   label: String,
   onClick: () -> Unit,
   backgroundColor: Color = Color.Transparent,
@@ -79,22 +80,17 @@ fun ButtonWithText(
   buttonType: ButtonType = DEFAULT,
   textStyle: TextStyle = MaterialTheme.typography.bodyMedium
 ) {
-  val modifier = if (buttonType == LARGE) Modifier
+  val buttonModifier = if (buttonType == LARGE) modifier
     .fillMaxWidth()
-    .height(48.dp) else Modifier
+    .height(48.dp) else modifier
   Button(
     onClick = { onClick.invoke() },
-    modifier = modifier.defaultMinSize(minHeight = 40.dp),
+    modifier = buttonModifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
-    Text(
-      text = label,
-      style = textStyle,
-      color = labelColor,
-      fontWeight = FontWeight.Bold
-    )
+    Text(text = label, style = textStyle, color = labelColor, fontWeight = FontWeight.Bold)
   }
 }
 
@@ -107,7 +103,8 @@ fun BottomSheetButton(
   iconColor: Color = WalletColors.styleguide_pink
 ) {
   Button(
-    onClick = onClick, shape = RectangleShape,
+    onClick = onClick,
+    shape = RectangleShape,
     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
     modifier = Modifier
       .defaultMinSize(minHeight = 64.dp)
@@ -130,7 +127,6 @@ fun BottomSheetButton(
     }
   }
 }
-
 
 @Preview
 @Composable
@@ -194,5 +190,6 @@ fun PreviewBottomSheetButton() {
 }
 
 enum class ButtonType {
-  LARGE, DEFAULT
+  LARGE,
+  DEFAULT
 }

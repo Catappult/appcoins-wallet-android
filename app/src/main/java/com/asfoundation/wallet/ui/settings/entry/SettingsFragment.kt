@@ -43,6 +43,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   lateinit var pageViewAnalytics: PageViewAnalytics
 
   @Inject
+  lateinit var analytics: SettingsAnalytics
+
+  @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
@@ -53,6 +56,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   companion object {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+
+    const val MANAGE_WALLET_EVENT = "manage_wallet"
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -179,6 +184,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setManageWalletPreference() {
     val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
     manageWalletPreference?.setOnPreferenceClickListener {
+      analytics.sendManageWalletScreenEvent(action = MANAGE_WALLET_EVENT)
       presenter.onManageWalletPreferenceClick(navController())
       false
     }

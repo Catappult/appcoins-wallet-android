@@ -69,7 +69,7 @@ fun NoNetworkScreen(tryAgain: Boolean = false, onTryAgain: () -> Unit = {}) {
     )
     if (tryAgain) {
       ButtonWithText(
-        stringResource(R.string.try_again),
+        label = stringResource(R.string.try_again),
         onClick = onTryAgain,
         labelColor = WalletColors.styleguide_white,
         outlineColor = WalletColors.styleguide_white,

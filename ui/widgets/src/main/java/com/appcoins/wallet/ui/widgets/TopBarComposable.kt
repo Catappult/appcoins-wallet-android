@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -16,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
@@ -121,24 +124,35 @@ fun SupportButton(onClickSupport: () -> Unit = {}, hasNotificationBadge: Boolean
 }
 
 @Composable
-fun BackButton(
-  onClickBack: (() -> Unit)? = null
-) {
-  if (onClickBack != null) ActionButton(
-    imagePainter = painterResource(R.drawable.ic_arrow_back),
-    description = "Back",
-    onClick = onClickBack,
-    hasRedBadge = false
-  )
-  else {
-    val activity = LocalContext.current.getActivity()
-    if (activity != null) ActionButton(
+fun BackButton(onClickBack: (() -> Unit)? = null) {
+  if (onClickBack != null)
+    ActionButton(
       imagePainter = painterResource(R.drawable.ic_arrow_back),
       description = "Back",
-      onClick = { activity.onBackPressed() },
+      onClick = onClickBack,
       hasRedBadge = false
     )
+  else {
+    val activity = LocalContext.current.getActivity()
+    if (activity != null)
+      ActionButton(
+        imagePainter = painterResource(R.drawable.ic_arrow_back),
+        description = "Back",
+        onClick = { activity.onBackPressed() },
+        hasRedBadge = false
+      )
   }
+}
+
+@Composable
+fun ScreenTitle(title: String) {
+  Text(
+    text = title,
+    modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+    style = MaterialTheme.typography.headlineSmall,
+    fontWeight = FontWeight.Bold,
+    color = WalletColors.styleguide_light_grey,
+  )
 }
 
 @Preview
