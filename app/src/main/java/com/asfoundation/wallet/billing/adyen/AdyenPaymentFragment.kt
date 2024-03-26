@@ -749,7 +749,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun buyButtonClicked() = RxView.clicks(buy_button)
 
-  override fun close(bundle: Bundle?) = iabView.close(bundle)
+  override fun close(bundle: Bundle) = iabView.close(bundle)
 
   // TODO: Refactor this to pass the whole Intent.
   // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
