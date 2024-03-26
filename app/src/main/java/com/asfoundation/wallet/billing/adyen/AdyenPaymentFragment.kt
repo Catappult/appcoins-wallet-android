@@ -321,7 +321,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
               needCVC = event.needCVC
             )
 
-            is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle)
+            is AdyenPaymentViewModel.SingleEventState.close -> close(event.bundle ?: Bundle())
             is AdyenPaymentViewModel.SingleEventState.submitUriResult -> submitUriResult(event.uri)
             AdyenPaymentViewModel.SingleEventState.showBackToCard -> showBackToCard()
             is AdyenPaymentViewModel.SingleEventState.handle3DSAction -> handle3DSAction(
