@@ -137,4 +137,22 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
       )
     )
   }
+
+  fun navigateToWalletOne(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingWalletOne(
+        transactionBuilder,
+        PaymentType.WALLET_ONE,
+        amount,
+        currency,
+        forecastBonus
+      )
+    )
+  }
 }
