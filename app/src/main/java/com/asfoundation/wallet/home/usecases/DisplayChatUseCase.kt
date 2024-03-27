@@ -9,6 +9,6 @@ class DisplayChatUseCase @Inject constructor(private val supportRepository: Supp
   operator fun invoke() {
     supportRepository.resetUnreadConversations()
     Intercom.client()
-      .displayMessenger()
+      .present()
   }
 }
