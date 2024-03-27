@@ -81,6 +81,7 @@
 
   <include app:graph="@navigation/manage_wallet_graph" />
 
+  <include app:graph="@navigation/manage_cards_graph" />
 
   <include app:graph="@navigation/home_graph" />
 
@@ -91,7 +92,7 @@
 
   <action
       android:id="@+id/action_navigate_to_manage_cards"
-      app:destination="@id/manage_wallet_graph" />
+      app:destination="@id/manage_cards_graph" />
 
   <action
       android:id="@+id/action_navigate_to_settings"

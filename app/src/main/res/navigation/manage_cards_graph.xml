@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_cards_graph"
+    app:startDestination="@id/manage_cards_fragment">
+
+  <fragment
+      android:id="@+id/manage_cards_fragment"
+      android:name="com.asfoundation.wallet.manage_cards.ManageCardsFragment">
+
+
+
+  </fragment>
+
+
+
+</navigation>
