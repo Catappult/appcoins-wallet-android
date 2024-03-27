@@ -1,6 +1,7 @@
 package com.wallet.appcoins.feature.support.data
 
 import android.app.Application
+import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.SupportPreferencesDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -13,22 +14,21 @@ import javax.inject.Inject
 
 
 class SupportRepository @Inject constructor(
-  private val preferences: SupportPreferencesDataSource,
+  private val supportPreferences: SupportPreferencesDataSource,
+  private val oemIdPreferences: OemIdPreferencesDataSource,
   val app: Application
 ) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
+    private const val GAMES_HUB_ATTRIBUTE = "gameshub_installed_carrier"
   }
 
   private var currentUser: SupportUser = SupportUser()
 
   fun saveNewUser(walletAddress: String, level: Int) {
-    val userAttributes = UserAttributes.Builder()
-      .withName(walletAddress)
-      // We set level + 1 to help with readability for the support team
-      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
-      .build()
+    val userAttributes = getUserAttributesBuilder(walletAddress, level)
+
     val registration: Registration = Registration.create()
       .withUserId(walletAddress)
       .withUserAttributes(userAttributes)
@@ -37,16 +37,16 @@ class SupportRepository @Inject constructor(
     if (gpsAvailable) handleFirebaseToken()
 
     Intercom.client()
-      .registerIdentifiedUser(registration)
+      .loginIdentifiedUser(registration)
     currentUser = SupportUser(walletAddress, level)
   }
 
-  fun getSavedUnreadConversations() = preferences.checkSavedUnreadConversations()
+  fun getSavedUnreadConversations() = supportPreferences.checkSavedUnreadConversations()
 
   fun updateUnreadConversations(unreadConversations: Int) =
-    preferences.updateUnreadConversations(unreadConversations)
+    supportPreferences.updateUnreadConversations(unreadConversations)
 
-  fun resetUnreadConversations() = preferences.resetUnreadConversations()
+  fun resetUnreadConversations() = supportPreferences.resetUnreadConversations()
 
   fun getCurrentUser(): SupportUser = currentUser
 
@@ -64,5 +64,20 @@ class SupportRepository @Inject constructor(
         }
       }
     }
+  }
+
+  private fun getUserAttributesBuilder(walletAddress: String, level: Int): UserAttributes {
+    val userAttributes = UserAttributes.Builder()
+      .withName(walletAddress)
+      // We set level + 1 to help with readability for the support team
+      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
+
+    if (oemIdPreferences.hasGamesHubOemId())
+      userAttributes.withCustomAttribute(
+        GAMES_HUB_ATTRIBUTE,
+        oemIdPreferences.getGamesHubOemIdIndicative()
+      )
+
+    return userAttributes.build()
   }
 }
