@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.PaymentMethodsApiResponse
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
@@ -204,6 +205,17 @@ open class AdyenResponseMapper @Inject constructor(
         errorInfo = ErrorInfo(text = throwable.message)
       )
     )
+  }
+
+  open fun mapToStoredCards(
+    response: PaymentMethodsResponse
+  ): List<StoredPaymentMethod> {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    val cardsList = adyenResponse.storedPaymentMethods?.filter {
+      it.type == AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
+    }
+    return cardsList ?: listOf<StoredPaymentMethod>()
   }
 
   companion object {

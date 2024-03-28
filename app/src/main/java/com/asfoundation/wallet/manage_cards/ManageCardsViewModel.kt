@@ -1,18 +1,14 @@
 package com.asfoundation.wallet.manage_cards
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
-import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.activeWalletAddress
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.inactiveWallets
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
+import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.interact.DeleteWalletInteract
-import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
+import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -22,70 +18,50 @@ class ManageCardsViewModel
 @Inject
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val walletsInteract: WalletsInteract,
-  private val walletDetailsInteractor: WalletDetailsInteractor,
-  private val deleteWalletInteract: DeleteWalletInteract
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
 ) : ViewModel() {
 
   sealed class UiState {
-    object Idle : UiState()
     object Loading : UiState()
-    object WalletChanged : UiState()
-    object WalletCreated : UiState()
-    object WalletDeleted : UiState()
-    data class Success(
-      val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletInfoSimple>
+    data class StoredCardsInfo(
+      val storedCards: List<StoredCard>,
     ) : UiState()
   }
 
-  private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
+  private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
   var uiState: StateFlow<UiState> = _uiState
 
-  val openBottomSheet = mutableStateOf(false)
-  val inactiveWalletBalance = mutableStateOf(WalletInfoSimple())
+  val networkScheduler = Schedulers.io()
+  val viewScheduler: Scheduler = AndroidSchedulers.mainThread()
 
   fun displayChat() {
     displayChatUseCase()
   }
 
-
-  fun updateWallets() = getCards()
-
-
-  fun getCards(walletChanged: Boolean = false) {
-    walletsInteract
-      .observeWalletsModel()
-      .firstOrError()
+  fun getCards() {
+    getStoredCardsUseCase()
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
       .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnSuccess { wallets ->
-        getActiveWallet(wallets)
-        if (walletChanged) _uiState.value = UiState.WalletChanged
+      .doOnSuccess { cards ->
+        _uiState.value = UiState.StoredCardsInfo(
+          cards.map {
+            StoredCard(
+              cardLastNumbers = it.lastFour ?: "****",
+              cardIcon = PaymentBrands.getPayment(it.brand).brandFlag
+            )
+          }
+        )
       }
       .subscribe()
   }
 
-  private fun getActiveWallet(wallets: WalletsModel) {
-    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
-      .firstOrError()
-      .doOnSuccess { _uiState.value = UiState.Success(it, wallets.inactiveWallets()) }
-      .subscribe()
-  }
-
-  fun changeActiveWallet(wallet: String) {
-    walletDetailsInteractor.setActiveWallet(wallet)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnComplete { getCards(walletChanged = true) }
-      .subscribe()
-  }
-
-  fun deleteWallet(wallet: String) {
-    deleteWalletInteract.delete(wallet)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
-      .doOnComplete {
-        _uiState.value = UiState.WalletDeleted
-      }
-      .subscribe()
-  }
+//  fun deleteCard(cardId: String) {
+//    deleteCardInteract.delete(wallet)
+//      .doOnSubscribe { _uiState.value = UiState.Loading }
+//      .doOnComplete {
+//        _uiState.value = UiState.CardDeleted
+//      }
+//      .subscribe()
+//  }
 }

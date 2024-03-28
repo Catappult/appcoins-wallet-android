@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,11 +18,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -43,9 +40,9 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -70,7 +67,7 @@ class ManageCardsFragment : BasePageViewFragment() {
 
   @Composable
   fun ManageCardsView() {
-    viewModel.getCards(false)
+    viewModel.getCards()
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -78,13 +75,9 @@ class ManageCardsFragment : BasePageViewFragment() {
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is ManageCardsViewModel.UiState.Success ->
+        is ManageCardsViewModel.UiState.StoredCardsInfo ->
           ManageCardsContent(
-            padding = padding, cardsList = /*uiState.cardsList*/
-            listOf(
-              StoredCard("1234", R.drawable.ic_card_brand_visa),
-              StoredCard("5678", R.drawable.ic_card_brand_master_card)
-            )
+            padding = padding, cardsList = uiState.storedCards
           )
 
         ManageCardsViewModel.UiState.Loading ->
@@ -96,7 +89,6 @@ class ManageCardsFragment : BasePageViewFragment() {
             CircularProgressIndicator()
           }
 
-        ManageCardsViewModel.UiState.WalletDeleted -> {}
         else -> {}
       }
     }

@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import android.content.SharedPreferences
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
@@ -50,6 +51,29 @@ class AdyenPaymentRepository @Inject constructor(
       .onErrorReturn {
         logger.log("AdyenPaymentRepository", it)
         adyenResponseMapper.mapInfoModelError(it)
+      }
+  }
+
+  fun getStoredCards(
+    methods: Methods,
+    value: String,
+    currency: String,
+    walletAddress: String,
+    ewt: String
+  ): Single<List<StoredPaymentMethod>> {
+    return adyenApi.loadPaymentInfo(
+      walletAddress,
+      ewt,
+      value,
+      currency,
+      methods.transactionType
+    )
+      .map {
+        adyenResponseMapper.mapToStoredCards(it)
+      }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        listOf<StoredPaymentMethod>()
       }
   }
 

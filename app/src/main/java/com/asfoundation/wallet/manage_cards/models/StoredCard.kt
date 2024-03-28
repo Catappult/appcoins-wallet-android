@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.manage_cards
+package com.asfoundation.wallet.manage_cards.models
 
 import androidx.annotation.DrawableRes
 
