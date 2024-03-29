@@ -49,16 +49,12 @@ fun VerifyWalletAlertCard(
 ) {
   AlertCard(
     onClickPositiveButton = onClickButton,
-    title = if (verified) R.string.verification_settings_verified_title
-    else if (waitingCode) R.string.paypal_verification_home_one_step_card_title
-    else R.string.referral_verification_title,
-    message = stringResource(
-      if (waitingCode) R.string.paypal_verification_home_one_step_card_body else R.string.mywallet_unverified_body
-    ),
-    positiveButtonLabel = stringResource(id = if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_verification_title),
-    icon = if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle,
+    title = verifyCardTitle(verified, waitingCode),
+    message = stringResource(id = verifyCardMessage(waitingCode)),
+    positiveButtonLabel = stringResource(id = verifyCardPositiveButtonLabel(waitingCode)),
+    icon = verifyCardIcon(verified),
     onClickNegativeButton = onCancelClickButton,
-    negativeButtonLabel = if (waitingCode) stringResource(id = R.string.cancel_button) else "",
+    negativeButtonLabel = verifyCardNegativeButtonLabel(waitingCode),
     modifier = modifier
   )
 }
@@ -138,3 +134,22 @@ fun PreviewBackupAlertCard() {
 fun PreviewVerifyAlertCard() {
   VerifyWalletAlertCard(onClickButton = {}, verified = false, waitingCode = true, {})
 }
+
+private fun verifyCardTitle(verified: Boolean, waitingCode: Boolean): Int {
+  return if (verified) R.string.verification_settings_verified_title
+  else if (waitingCode) R.string.paypal_verification_home_one_step_card_title
+  else R.string.referral_verification_title
+}
+
+private fun verifyCardMessage(waitingCode: Boolean) =
+  if (waitingCode) R.string.paypal_verification_home_one_step_card_body else R.string.mywallet_unverified_body
+
+private fun verifyCardPositiveButtonLabel(waitingCode: Boolean): Int =
+  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_verification_title
+
+private fun verifyCardIcon(verified: Boolean) =
+  if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
+
+@Composable
+private fun verifyCardNegativeButtonLabel(waitingCode: Boolean) =
+  if (waitingCode) stringResource(id = R.string.cancel_button) else ""
