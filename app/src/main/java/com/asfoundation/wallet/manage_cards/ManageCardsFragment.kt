@@ -123,6 +123,7 @@ class ManageCardsFragment : BasePageViewFragment() {
   fun NewCardButton() {
     Card(
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
+      onClick = {manageCardsNavigator.navigateToAddCard(/*navController TODO*/)},
       modifier = Modifier
         .padding(top = 24.dp)
         .fillMaxWidth()
