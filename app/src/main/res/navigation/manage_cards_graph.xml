@@ -9,10 +9,18 @@
       android:id="@+id/manage_cards_fragment"
       android:name="com.asfoundation.wallet.manage_cards.ManageCardsFragment">
 
-
+    <action
+        android:id="@+id/action_navigate_to_manage_adyen_payment"
+        app:destination="@id/verify_credit_card_wallet_activity"/>
 
   </fragment>
 
+  <fragment
+      android:id="@+id/manage_adyen_payment_fragment"
+      android:name="com.asfoundation.wallet.manage_cards.ManageAdyenPaymentFragment"
+      tools:layout="@layout/manage_adyen_payment_fragment">
+
+  </fragment>
 
 
 </navigation>
