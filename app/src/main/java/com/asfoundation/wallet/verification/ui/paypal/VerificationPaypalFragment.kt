@@ -401,7 +401,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
           },
           labelColor = WalletColors.styleguide_white,
           backgroundColor = WalletColors.styleguide_pink,
-          buttonType = ButtonType.LARGE
+          buttonType = ButtonType.LARGE,
+          enabled = code.hasFourDigits()
         )
       }
     }
@@ -502,4 +503,6 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     return verificationInfoModel.symbol +
         formatter.formatCurrency(verificationInfoModel.value, WalletCurrency.FIAT)
   }
+
+  private fun String.hasFourDigits() = length == 4
 }

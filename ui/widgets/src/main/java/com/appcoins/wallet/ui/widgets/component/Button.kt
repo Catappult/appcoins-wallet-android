@@ -78,16 +78,17 @@ fun ButtonWithText(
   labelColor: Color,
   outlineColor: Color? = null,
   buttonType: ButtonType = DEFAULT,
-  textStyle: TextStyle = MaterialTheme.typography.bodyMedium
+  textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
+  enabled: Boolean = true
 ) {
   val buttonModifier = if (buttonType == LARGE) modifier
     .fillMaxWidth()
     .height(48.dp) else modifier
   Button(
-    onClick = { onClick.invoke() },
+    onClick = { if (enabled) onClick.invoke() },
     modifier = buttonModifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
-    colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_dark_grey),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
     Text(text = label, style = textStyle, color = labelColor, fontWeight = FontWeight.Bold)
@@ -190,6 +191,5 @@ fun PreviewBottomSheetButton() {
 }
 
 enum class ButtonType {
-  LARGE,
-  DEFAULT
+  LARGE, DEFAULT
 }
