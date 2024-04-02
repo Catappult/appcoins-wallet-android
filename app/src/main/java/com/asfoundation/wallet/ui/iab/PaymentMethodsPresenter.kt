@@ -120,17 +120,14 @@ class PaymentMethodsPresenter(
     disposables.add(view.getPaymentSelection()
       .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
-        with(selectedPaymentMethod) {
-          if (interactor.isBonusActiveAndValid()) {
-            handleBonusVisibility(id)
-          } else {
-            view.removeBonus()
-          }
-          handlePositiveButtonText(id)
-          handleFeeVisibility(fee)
-          updatePriceAndCurrency(price, fee)
+        if (interactor.isBonusActiveAndValid()) {
+          handleBonusVisibility(selectedPaymentMethod.id)
+        } else {
+          view.removeBonus()
         }
-
+        handlePositiveButtonText(selectedPaymentMethod.id)
+        handleFeeVisibility(selectedPaymentMethod.fee)
+        handleCurrencyChanges(selectedPaymentMethod.price)
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -997,21 +994,20 @@ class PaymentMethodsPresenter(
     }
 
   private fun handleFeeVisibility(fee: PaymentMethodFee?) {
-    view.showFee(fee != null && fee.isValidFee())
-  }
-
-  private fun updatePriceAndCurrency(price: FiatValue, fee: PaymentMethodFee?) {
-    val total = sumPriceAndFee(price.amount, fee)
-    cachedFiatValue = price.copy(amount = total)
-
-    view.updatePriceAndCurrency(
-      currency = price.currency,
-      amount = total
+    view.showFee(
+      hasFee = fee != null && fee.isValidFee(),
+      fiatValue = cachedFiatValue,
+      fee = fee?.amount ?: BigDecimal.ZERO
     )
   }
 
-  private fun sumPriceAndFee(price: BigDecimal, fee: PaymentMethodFee?) =
-    if (fee != null && fee.isValidFee()) price.add(fee.amount) else price
+  private fun handleCurrencyChanges(price: FiatValue) {
+    cachedFiatValue = price
+    view.showSelectedCurrency(
+      currency = price.currency,
+      amount = price.amount
+    )
+  }
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =
