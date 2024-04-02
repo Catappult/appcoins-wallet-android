@@ -242,25 +242,19 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     iabView.showChallengeReward()
   }
 
-  override fun showFee(hasFee: Boolean, fiatValue: FiatValue?, fee: BigDecimal) {
-    if (hasFee) showPriceTransition()
-    if (fiatValue != null) {
-      binding.paymentMethodsHeader.fiatPrice.text =
-        getString(R.string.purchase_total_header, fiatValue.amount + fee, fiatValue.currency)
-    }
+  override fun showFee(hasFee: Boolean) {
     binding.paymentMethodsHeader.infoFeesGroup.visibility = if (hasFee) View.VISIBLE else View.GONE
   }
 
-  override fun showSelectedCurrency(currency: String, amount: BigDecimal) {
+  override fun updatePriceAndCurrency(currency: String, amount: BigDecimal) {
     val price = getString(R.string.purchase_total_header, amount, currency)
     with(binding.paymentMethodsHeader.fiatPrice) {
       if (text != price) showPriceTransition()
       text = price
     }
-
   }
 
-  fun showPriceTransition() {
+  private fun showPriceTransition() {
     with(binding.paymentMethodsHeader) {
       priceTransitionAnimation.playAnimation()
       fiatPrice.visibility = View.INVISIBLE
