@@ -1001,12 +1001,11 @@ class PaymentMethodsPresenter(
   }
 
   private fun updatePriceAndCurrency(price: FiatValue, fee: PaymentMethodFee?) {
-    val total = sumPriceAndFee(price.amount, fee)
-    cachedFiatValue = price.copy(amount = total)
+    cachedFiatValue = price
 
     view.updatePriceAndCurrency(
       currency = price.currency,
-      amount = total
+      amount = sumPriceAndFee(price.amount, fee)
     )
   }
 
