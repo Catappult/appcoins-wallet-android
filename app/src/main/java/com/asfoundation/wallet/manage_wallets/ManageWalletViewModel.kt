@@ -57,7 +57,10 @@ constructor(
 
   private fun getActiveWallet(wallets: WalletsModel) =
     Observable.interval(0, 20, TimeUnit.SECONDS)
-      .take(2)
+      .takeUntil {
+        walletVerificationInteractor.getCachedVerificationStatus(wallets.activeWalletAddress()) !=
+            VerificationStatus.VERIFYING
+      }
       .subscribeOn(Schedulers.io())
       .flatMapCompletable {
         observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true)
