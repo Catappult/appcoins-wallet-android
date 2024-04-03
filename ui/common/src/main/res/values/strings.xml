@@ -85,7 +85,7 @@
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Back up Wallet</string>
+  <string name="action_backup_wallet">Back Up Wallet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
   <string name="title_email">Email Us</string>
   <string name="action_donate">Donate</string>
