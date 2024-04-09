@@ -232,7 +232,8 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    productToken: String?
+    productToken: String?,
+    walletSignature: String
   ): Single<Transaction> =
     createTransaction(
       userWallet = null,
@@ -251,7 +252,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = priceValue.toPlainString(),
       currency = "APPC",
-      productName = productName
+      productName = productName,
+      walletSignature = walletSignature
     )
 
   fun registerPaymentProof(
@@ -333,7 +335,8 @@ class RemoteRepository(
       packageName = packageName,
       amount = amount.toPlainString(),
       currency = "APPC",
-      productName = null
+      productName = null,
+      walletSignature = signature
     )
 
   fun createLocalPaymentTransaction(
@@ -419,7 +422,8 @@ class RemoteRepository(
     packageName: String,
     amount: String?,
     @Suppress("SameParameterValue") currency: String,
-    productName: String?
+    productName: String?,
+    walletSignature: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -450,7 +454,8 @@ class RemoteRepository(
               orderReference = orderReference,
               referrerUrl = referrerUrl,
               walletAddress = walletAddress,
-              authorization = ewt
+              walletSignature = walletSignature,
+              authorization = ewt,
             )
           } else {
             Single.error(DuplicateException())

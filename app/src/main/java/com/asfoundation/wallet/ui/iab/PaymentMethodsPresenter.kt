@@ -31,6 +31,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.E
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MI_PAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL_V2
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
@@ -219,6 +220,13 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
 
+              MI_PAY -> view.showMiPayWeb(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
+
               else -> return@doOnNext
             }
           }
@@ -357,6 +365,13 @@ class PaymentMethodsPresenter(
       )
 
       GOOGLEPAY_WEB -> view.showGooglePayWeb(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+
+      MI_PAY -> view.showMiPayWeb(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
@@ -1175,6 +1190,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+      PaymentMethodId.MI_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }
