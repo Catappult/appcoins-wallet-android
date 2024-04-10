@@ -5,7 +5,7 @@
     android:id="@+id/manage_adyen_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_card_blue"
+    android:background="@color/styleguide_blue_secondary"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -55,7 +55,7 @@
           />
 
       <com.adyen.checkout.card.CardView
-          android:id="@+id/adyen_card_form_pre_selected"
+          android:id="@+id/adyen_card_form"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"

@@ -11,7 +11,7 @@
 
     <action
         android:id="@+id/action_navigate_to_manage_adyen_payment"
-        app:destination="@id/verify_credit_card_wallet_activity"/>
+        app:destination="@id/manage_adyen_payment_fragment" />
 
   </fragment>
 
