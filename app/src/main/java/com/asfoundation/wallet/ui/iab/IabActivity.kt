@@ -26,6 +26,7 @@ import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.mipay.MiPayFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
@@ -408,6 +409,33 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         )
       )
       .commit()
+  }
+
+  override fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    val fragmentMiPay = MiPayFragment()
+    fragmentMiPay.arguments = Bundle().apply {
+      putString(MiPayFragment.ORIGIN_KEY, getOrigin(isBds))
+      putParcelable(MiPayFragment.TRANSACTION_DATA_KEY, transaction!!)
+      putSerializable(MiPayFragment.AMOUNT_KEY, amount)
+      putString(MiPayFragment.CURRENCY_KEY, currency)
+      putString(MiPayFragment.BONUS_KEY, bonus)
+    }
+    supportFragmentManager.beginTransaction()
+      .add(R.id.fragment_container, fragmentMiPay)
+      .addToBackStack(MiPayFragment::class.java.simpleName)
+      .commit()
+
   }
 
   override fun showCarrierBilling(

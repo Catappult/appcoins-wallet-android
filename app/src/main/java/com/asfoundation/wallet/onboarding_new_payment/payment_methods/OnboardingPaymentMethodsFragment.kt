@@ -113,6 +113,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.MiPayPayClick -> navigator.navigateToMiPay(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }

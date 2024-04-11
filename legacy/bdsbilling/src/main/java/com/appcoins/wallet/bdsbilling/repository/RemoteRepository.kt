@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.CreditsPurchaseBody
 import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
 import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
+import com.appcoins.wallet.core.network.microservices.model.MiPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
 import com.appcoins.wallet.core.network.microservices.model.Transaction
@@ -294,6 +295,7 @@ class RemoteRepository(
       entityOemId = entityOemId,
       walletAddress = address,
       language = Locale.getDefault().language,
+      channel = ANDROID_CHANNEL
     )
       .map { responseMapper.map(it) }
 
@@ -376,6 +378,36 @@ class RemoteRepository(
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
           authorization = ewt
+        )
+      }
+
+  fun createMiPayTransaction(
+    paymentId: String,
+    packageName: String,
+    price: String?,
+    currency: String?,
+    productName: String?,
+    type: String,
+    callback: String?,
+    referrerUrl: String?,
+    walletAddress: String,
+    entityOemId: String?,
+  ): Single<MiPayTransaction> =
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerBdsApi.createMiPayTransaction(
+          domain = packageName,
+          priceValue = price,
+          priceCurrency = currency,
+          product = productName,
+          type = type,
+          entityOemId = entityOemId,
+          method = paymentId,
+          callbackUrl = callback,
+          referrerUrl = referrerUrl,
+          walletAddress = walletAddress,
+          authorization = ewt,
+          checkoutUrl = callback,
         )
       }
 

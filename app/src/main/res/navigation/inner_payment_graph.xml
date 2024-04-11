@@ -45,6 +45,9 @@
         android:id="@+id/action_navigate_to_onboarding_google_pay"
         app:destination="@id/onboarding_google_pay_fragment" />
 
+    <action
+        android:id="@+id/action_navigate_to_onboarding_mi_pay"
+        app:destination="@id/onboarding_mi_pay_fragment" />
   </fragment>
   <fragment
       android:id="@+id/onboarding_adyen_payment_fragment"

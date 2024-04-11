@@ -520,11 +520,11 @@ class TopUpFragmentPresenter(
         .subscribe(
           {
             view.hideLoading()
-            android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed")
+            android.util.Log.d(TAG, "Agreement removed")
           },
           {
             view.hideLoading()
-            logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed")
+            logger.log(TAG, "Agreement Not Removed")
           }
         )
     )

@@ -3,6 +3,13 @@ package com.appcoins.wallet.core.network.microservices.model
 import com.google.gson.annotations.SerializedName
 
 
+data class MiPayTransaction(
+  val uid: String,
+  val reference: String?,
+  val status: String,
+  @SerializedName("redirect_url") val redirectUrl: String
+)
+
 data class Transaction(
   val uid: String,
   val status: Status,
