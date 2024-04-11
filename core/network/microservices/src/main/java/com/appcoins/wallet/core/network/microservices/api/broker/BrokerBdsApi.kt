@@ -46,6 +46,7 @@ interface BrokerBdsApi {
     @Query("dark_theme") darkTheme: Boolean = false,
     @Query("oemid") entityOemId: String?,
     @Query("wallet.address") walletAddress: String?,
+    @Query("channel") channel: String?,
     @Header("Accept-Language") language: String,
   ): Single<GetMethodsResponse>
 
@@ -165,4 +166,21 @@ interface BrokerBdsApi {
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
+
+  @FormUrlEncoded
+  @POST("8.20240408/gateways/mipay/transactions")
+  fun createMiPayTransaction(
+    @Field("domain") domain: String,
+    @Field("type") type: String,
+    @Field("product") product: String?,
+    @Field("method") method: String?,
+    @Field("referrer_url") referrerUrl: String?,
+    @Field("price.value") priceValue: String?,
+    @Field("price.currency") priceCurrency: String?,
+    @Field("callback_url") callbackUrl: String?,
+    @Field("checkout_url") checkoutUrl: String?,
+    @Field("entity.oemid") entityOemId: String?,
+    @Query("wallet.address") walletAddress: String,
+    @Header("authorization") authorization: String,
+  ): Single<MiPayTransaction>
 }

@@ -16,7 +16,7 @@
       android:background="@drawable/background_card_blue"
       android:gravity="center"
       android:visibility="gone"
-      tools:visibility="visible"
+      tools:visibility="gone"
       >
 
     <ProgressBar
@@ -43,6 +43,7 @@
       android:background="@drawable/background_card_blue"
       android:gravity="center"
       android:visibility="gone"
+
       >
     <include
         android:id="@+id/fragment_iab_transaction_completed"
@@ -56,6 +57,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_gravity="center"
+      android:layout_marginBottom="40dp"
       android:visibility="gone"
+      tools:visibility="visible"
       />
 </LinearLayout>
