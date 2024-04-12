@@ -1,54 +1,57 @@
 package com.wallet.appcoins.feature.support.data
 
 import android.app.Application
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
-import com.appcoins.wallet.sharedpreferences.SupportPreferencesDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.messaging.FirebaseMessaging
 import io.intercom.android.sdk.Intercom
+import io.intercom.android.sdk.IntercomSpace.Home
+import io.intercom.android.sdk.IntercomSpace.Messages
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
+import java.util.Locale
 import javax.inject.Inject
 
 
 class SupportRepository @Inject constructor(
-  private val supportPreferences: SupportPreferencesDataSource,
-  private val oemIdPreferences: OemIdPreferencesDataSource,
-  val app: Application
+  private val oemIdPreferences: OemIdPreferencesDataSource, val app: Application
 ) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
     private const val GAMES_HUB_ATTRIBUTE = "gameshub_installed_carrier"
+    private const val GAMES_HUB_TAG_CARRIER = "gh_installed_"
+    private const val GAMES_HUB_DT_TAG = "gh_dt"
+    private const val PAYMENT_CHANNEL_ATTRIBUTE_KEY = "payment_channel"
+    private const val ANDROID_CHANNEL_ATTRIBUTE = "appcoins_wallet_android"
   }
 
   private var currentUser: SupportUser = SupportUser()
 
-  fun saveNewUser(walletAddress: String, level: Int) {
-    val userAttributes = getUserAttributesBuilder(walletAddress, level)
+  private fun saveNewUser(walletAddress: String, level: Int) {
+    val userAttributes = getDefaultUserAttributes(walletAddress, level)
 
-    val registration: Registration = Registration.create()
-      .withUserId(walletAddress)
-      .withUserAttributes(userAttributes)
+    val registration: Registration =
+      Registration.create().withUserId(walletAddress).withUserAttributes(userAttributes)
 
     val gpsAvailable = checkGooglePlayServices()
     if (gpsAvailable) handleFirebaseToken()
 
-    Intercom.client()
-      .loginIdentifiedUser(registration)
+    Intercom.client().loginIdentifiedUser(registration)
     currentUser = SupportUser(walletAddress, level)
   }
 
-  fun getSavedUnreadConversations() = supportPreferences.checkSavedUnreadConversations()
+  fun hasUnreadConversations() = getUnreadConversations() > 0
+  private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
-  fun updateUnreadConversations(unreadConversations: Int) =
-    supportPreferences.updateUnreadConversations(unreadConversations)
-
-  fun resetUnreadConversations() = supportPreferences.resetUnreadConversations()
-
-  fun getCurrentUser(): SupportUser = currentUser
+  fun openIntercom() {
+    val space = if (hasUnreadConversations()) Messages else Home
+    Intercom.client().present(space)
+    setConversationAttributes()
+  }
 
   private fun checkGooglePlayServices(): Boolean {
     val availability = GoogleApiAvailability.getInstance()
@@ -66,18 +69,39 @@ class SupportRepository @Inject constructor(
     }
   }
 
-  private fun getUserAttributesBuilder(walletAddress: String, level: Int): UserAttributes {
-    val userAttributes = UserAttributes.Builder()
-      .withName(walletAddress)
+  fun registerUser(level: Int, walletAddress: String) {
+    // force lowercase to make sure 2 users are not registered with the same wallet address, where
+    // one has uppercase letters (to be check summed), and the other does not
+    val address = walletAddress.lowercase(Locale.ROOT)
+
+    if (currentUser.gamificationLevel != level) Intercom.client()
+      .updateUser(getDefaultUserAttributes(walletAddress, level))
+
+    if (currentUser.userAddress != address) {
+      Intercom.client().logout()
+      saveNewUser(walletAddress, level)
+    }
+  }
+
+  private fun getDefaultUserAttributes(walletAddress: String, level: Int): UserAttributes {
+    return UserAttributes.Builder().withName(walletAddress)
       // We set level + 1 to help with readability for the support team
-      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1)
+      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1).build()
+  }
 
-    if (oemIdPreferences.hasGamesHubOemId())
-      userAttributes.withCustomAttribute(
-        GAMES_HUB_ATTRIBUTE,
-        oemIdPreferences.getGamesHubOemIdIndicative()
-      )
+  private fun setConversationAttributes(
+    attributes: List<Map<String, String>> = listOf(),
+    tags: List<String> = listOf()
+  ) {
+    val oemId = oemIdPreferences.getGamesHubOemIdIndicative()
+    val attributesList = mutableListOf(attributes)
+    val tagsList = mutableListOf(tags)
 
-    return userAttributes.build()
+    attributesList.plusElement(PAYMENT_CHANNEL_ATTRIBUTE_KEY to ANDROID_CHANNEL_ATTRIBUTE)
+
+    if (oemIdPreferences.hasGamesHubOemId()) {
+      attributesList.plusElement(GAMES_HUB_ATTRIBUTE to oemId)
+      tagsList.plus(listOf(GAMES_HUB_DT_TAG, GAMES_HUB_TAG_CARRIER + oemId))
+    }
   }
 }

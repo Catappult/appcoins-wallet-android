@@ -35,7 +35,6 @@ import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
@@ -129,7 +128,6 @@ constructor(
   private val registerSupportUserUseCase: RegisterSupportUserUseCase,
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
-  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val walletsEventSender: WalletsEventSender,
@@ -416,13 +414,9 @@ constructor(
       .scopedSubscribe { e -> e.printStackTrace() }
   }
 
-  fun showSupportScreen(fromNotification: Boolean) {
+  fun showSupportScreen() {
     commonsPreferencesDataSource.setUpdateNotificationBadge(false)
-    if (fromNotification) {
-      displayConversationListOrChatUseCase
-    } else {
-      displayChatUseCase()
-    }
+    displayChatUseCase()
   }
 
   fun onBalanceArrowClick(balance: WalletBalance) {

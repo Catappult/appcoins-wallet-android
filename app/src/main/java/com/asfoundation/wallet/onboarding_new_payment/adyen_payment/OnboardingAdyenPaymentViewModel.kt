@@ -21,6 +21,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentInfoModelUseCase
@@ -28,7 +29,6 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionOr
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.gson.JsonObject
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.json.JSONObject
 import javax.inject.Inject
@@ -54,7 +54,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
   private val transactionOriginUseCase: GetTransactionOriginUseCase,
-  private val supportInteractor: SupportInteractor,
+  private val displayChatUseCase: DisplayChatUseCase,
   private val rxSchedulers: RxSchedulers,
   savedStateHandle: SavedStateHandle
 ) :
@@ -236,7 +236,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           }
 
           result.data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true -> {
-            supportInteractor.displayChatScreen()
+            displayChatUseCase()
           }
         }
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }

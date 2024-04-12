@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
@@ -26,7 +27,6 @@ import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.intercom.android.sdk.utilities.KeyboardUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
