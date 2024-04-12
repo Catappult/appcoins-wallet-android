@@ -42,6 +42,7 @@ class RemoteRepository(
     private const val ESKILLS = "ESKILLS"
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     private const val TOP_UP_TYPE = "TOPUP"
+    private const val ANDROID_CHANNEL = "ANDROID"
 
     class DuplicateException : Exception()
 
