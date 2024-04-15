@@ -22,7 +22,7 @@ class SupportInteractor @Inject constructor(
           .flatMapCompletable { address ->
             gamificationRepository.getUserLevel(address, promoCode.code)
               .observeOn(rxSchedulers.main)
-              .flatMapCompletable { showSupport(address, it) }
+              .flatMapCompletable { openIntercom(address, it) }
           }
           .subscribeOn(rxSchedulers.io)
       }
@@ -31,11 +31,11 @@ class SupportInteractor @Inject constructor(
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
       .observeOn(rxSchedulers.main)
-      .flatMapCompletable { showSupport(it, gamificationLevel) }
+      .flatMapCompletable { openIntercom(it, gamificationLevel) }
       .subscribeOn(rxSchedulers.io)
   }
 
-  fun showSupport(walletAddress: String, gamificationLevel: Int): Completable {
+  private fun openIntercom(walletAddress: String, gamificationLevel: Int): Completable {
     return Completable.fromAction {
       supportRepository.registerUser(gamificationLevel, walletAddress)
       supportRepository.openIntercom()

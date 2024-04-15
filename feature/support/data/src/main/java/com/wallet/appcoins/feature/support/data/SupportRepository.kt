@@ -1,7 +1,10 @@
 package com.wallet.appcoins.feature.support.data
 
 import android.app.Application
-import com.appcoins.wallet.core.utils.android_common.Log
+import com.appcoins.wallet.core.network.backend.api.SupportApi
+import com.appcoins.wallet.core.network.backend.model.IntercomAttributesRequest
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -12,15 +15,21 @@ import io.intercom.android.sdk.IntercomSpace.Messages
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
+import io.reactivex.schedulers.Schedulers
 import java.util.Locale
 import javax.inject.Inject
 
 
 class SupportRepository @Inject constructor(
-  private val oemIdPreferences: OemIdPreferencesDataSource, val app: Application
+  private val oemIdPreferences: OemIdPreferencesDataSource,
+  private val app: Application,
+  private val ewtAuthenticatorService: EwtAuthenticatorService,
+  private val supportApi: SupportApi,
+  private val logger: Logger
 ) {
 
   companion object {
+    private const val TAG = "SupportRepository"
     private const val USER_LEVEL_ATTRIBUTE = "user_level"
     private const val GAMES_HUB_ATTRIBUTE = "gameshub_installed_carrier"
     private const val GAMES_HUB_TAG_CARRIER = "gh_installed_"
@@ -49,8 +58,8 @@ class SupportRepository @Inject constructor(
 
   fun openIntercom() {
     val space = if (hasUnreadConversations()) Messages else Home
+    sendConversationAttributes(getConversationAttributes())
     Intercom.client().present(space)
-    setConversationAttributes()
   }
 
   private fun checkGooglePlayServices(): Boolean {
@@ -89,19 +98,33 @@ class SupportRepository @Inject constructor(
       .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1).build()
   }
 
-  private fun setConversationAttributes(
-    attributes: List<Map<String, String>> = listOf(),
-    tags: List<String> = listOf()
-  ) {
+  private fun getConversationAttributes(): IntercomAttributesRequest {
     val oemId = oemIdPreferences.getGamesHubOemIdIndicative()
-    val attributesList = mutableListOf(attributes)
-    val tagsList = mutableListOf(tags)
+    val attributesMap = mutableMapOf<String, String>()
+    val tagsList = mutableListOf<String>()
 
-    attributesList.plusElement(PAYMENT_CHANNEL_ATTRIBUTE_KEY to ANDROID_CHANNEL_ATTRIBUTE)
+    attributesMap[PAYMENT_CHANNEL_ATTRIBUTE_KEY] = ANDROID_CHANNEL_ATTRIBUTE
 
     if (oemIdPreferences.hasGamesHubOemId()) {
-      attributesList.plusElement(GAMES_HUB_ATTRIBUTE to oemId)
-      tagsList.plus(listOf(GAMES_HUB_DT_TAG, GAMES_HUB_TAG_CARRIER + oemId))
+      attributesMap[GAMES_HUB_ATTRIBUTE] = oemId
+      tagsList.addAll(listOf(GAMES_HUB_DT_TAG, GAMES_HUB_TAG_CARRIER + oemId))
     }
+
+    return IntercomAttributesRequest(tagsList, attributesMap)
+  }
+
+  private fun sendConversationAttributes(
+    attributes: IntercomAttributesRequest
+  ) {
+    ewtAuthenticatorService.getEwtAuthentication()
+      .flatMap { ewt ->
+        supportApi.setConversationAttributesAndTags(ewt, attributes)
+      }
+      .subscribeOn(Schedulers.io())
+      .onErrorReturn {
+        logger.log(TAG, it)
+        false
+      }
+      .subscribe()
   }
 }
