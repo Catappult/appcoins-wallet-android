@@ -134,7 +134,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             isMainBar = true,
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
-            onClickSupport = { viewModel.showSupportScreen(false) },
+            onClickSupport = { viewModel.showSupportScreen() },
             hasNotificationBadge = viewModel.hasNotificationBadge.value
           )
         }
