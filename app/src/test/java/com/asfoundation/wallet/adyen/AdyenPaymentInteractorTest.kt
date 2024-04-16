@@ -145,7 +145,7 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(supportInteractor.showSupport(1))
       .thenReturn(Completable.complete())
 
-    interactor.showSupport(1)
+    interactor.showSupport(1, "")
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()

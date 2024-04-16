@@ -15,30 +15,34 @@ class SupportInteractor @Inject constructor(
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun showSupport(): Completable {
+  fun showSupport(uid: String? = null): Completable {
     return getCurrentPromoCodeUseCase()
       .flatMapCompletable { promoCode ->
         walletService.getWalletAddress()
           .flatMapCompletable { address ->
             gamificationRepository.getUserLevel(address, promoCode.code)
               .observeOn(rxSchedulers.main)
-              .flatMapCompletable { openIntercom(address, it) }
+              .flatMapCompletable { openIntercom(address, it, uid) }
           }
           .subscribeOn(rxSchedulers.io)
       }
   }
 
-  fun showSupport(gamificationLevel: Int): Completable {
+  fun showSupport(gamificationLevel: Int, uid: String? = null): Completable {
     return walletService.getWalletAddress()
       .observeOn(rxSchedulers.main)
-      .flatMapCompletable { openIntercom(it, gamificationLevel) }
+      .flatMapCompletable { openIntercom(it, gamificationLevel, uid) }
       .subscribeOn(rxSchedulers.io)
   }
 
-  private fun openIntercom(walletAddress: String, gamificationLevel: Int): Completable {
+  private fun openIntercom(
+    walletAddress: String,
+    gamificationLevel: Int,
+    uid: String?
+  ): Completable {
     return Completable.fromAction {
       supportRepository.registerUser(gamificationLevel, walletAddress)
-      supportRepository.openIntercom()
+      supportRepository.openIntercom(uid)
     }
   }
 

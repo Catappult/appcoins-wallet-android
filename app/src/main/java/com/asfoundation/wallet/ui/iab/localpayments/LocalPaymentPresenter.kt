@@ -47,7 +47,7 @@ class LocalPaymentPresenter(
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
-    handleSupportClicks()
+    handleSupportClicks(data.paymentId)
   }
 
   fun handleStop() {
@@ -284,10 +284,10 @@ class LocalPaymentPresenter(
     }
   }
 
-  private fun handleSupportClicks() {
+  private fun handleSupportClicks(paymentId: String) {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
+      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel, paymentId) }
       .subscribe({}, { it.printStackTrace() })
     )
   }

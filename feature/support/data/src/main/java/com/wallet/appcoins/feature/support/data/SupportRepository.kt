@@ -5,6 +5,7 @@ import com.appcoins.wallet.core.network.backend.api.SupportApi
 import com.appcoins.wallet.core.network.backend.model.IntercomAttributesRequest
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -21,6 +22,7 @@ import javax.inject.Inject
 
 
 class SupportRepository @Inject constructor(
+  private val appStartPreferencesDataSource: AppStartPreferencesDataSource,
   private val oemIdPreferences: OemIdPreferencesDataSource,
   private val app: Application,
   private val ewtAuthenticatorService: EwtAuthenticatorService,
@@ -30,12 +32,16 @@ class SupportRepository @Inject constructor(
 
   companion object {
     private const val TAG = "SupportRepository"
-    private const val USER_LEVEL_ATTRIBUTE = "user_level"
-    private const val GAMES_HUB_ATTRIBUTE = "gameshub_installed_carrier"
+    private const val USER_LEVEL_ATTRIBUTE_KEY = "user_level"
+    private const val GAMES_HUB_ATTRIBUTE_KEY = "gameshub_installed_carrier"
+    private const val UID_ATTRIBUTE_KEY = "uid"
     private const val GAMES_HUB_TAG_CARRIER = "gh_installed_"
     private const val GAMES_HUB_DT_TAG = "gh_dt"
     private const val PAYMENT_CHANNEL_ATTRIBUTE_KEY = "payment_channel"
-    private const val ANDROID_CHANNEL_ATTRIBUTE = "appcoins_wallet_android"
+    private const val PAYMENT_FUNNEL_ATTRIBUTE_KEY = "payment_funnel"
+    private const val ANDROID_CHANNEL_ATTRIBUTE = "android"
+    private const val FIRST_PAYMENT_ATTRIBUTE = "first_payment"
+    private const val REGULAR_PAYMENT_ATTRIBUTE = "regular_payment"
   }
 
   private var currentUser: SupportUser = SupportUser()
@@ -56,9 +62,9 @@ class SupportRepository @Inject constructor(
   fun hasUnreadConversations() = getUnreadConversations() > 0
   private fun getUnreadConversations() = Intercom.client().unreadConversationCount
 
-  fun openIntercom() {
+  fun openIntercom(uid: String? = null) {
     val space = if (hasUnreadConversations()) Messages else Home
-    sendConversationAttributes(getConversationAttributes())
+    sendConversationAttributes(getConversationAttributes(uid))
     Intercom.client().present(space)
   }
 
@@ -95,18 +101,29 @@ class SupportRepository @Inject constructor(
   private fun getDefaultUserAttributes(walletAddress: String, level: Int): UserAttributes {
     return UserAttributes.Builder().withName(walletAddress)
       // We set level + 1 to help with readability for the support team
-      .withCustomAttribute(USER_LEVEL_ATTRIBUTE, level + 1).build()
+      .withCustomAttribute(USER_LEVEL_ATTRIBUTE_KEY, level + 1).build()
   }
 
-  private fun getConversationAttributes(): IntercomAttributesRequest {
+  private fun getConversationAttributes(
+    uid: String?
+  ): IntercomAttributesRequest {
     val oemId = oemIdPreferences.getGamesHubOemIdIndicative()
     val attributesMap = mutableMapOf<String, String>()
     val tagsList = mutableListOf<String>()
 
     attributesMap[PAYMENT_CHANNEL_ATTRIBUTE_KEY] = ANDROID_CHANNEL_ATTRIBUTE
 
+    if (uid != null) attributesMap[UID_ATTRIBUTE_KEY] = uid
+
+    if (appStartPreferencesDataSource.getIsFirstPayment()) {
+      tagsList.add(FIRST_PAYMENT_ATTRIBUTE)
+      attributesMap[PAYMENT_FUNNEL_ATTRIBUTE_KEY] = FIRST_PAYMENT_ATTRIBUTE
+    } else {
+      attributesMap[PAYMENT_FUNNEL_ATTRIBUTE_KEY] = REGULAR_PAYMENT_ATTRIBUTE
+    }
+
     if (oemIdPreferences.hasGamesHubOemId()) {
-      attributesMap[GAMES_HUB_ATTRIBUTE] = oemId
+      attributesMap[GAMES_HUB_ATTRIBUTE_KEY] = oemId
       tagsList.addAll(listOf(GAMES_HUB_DT_TAG, GAMES_HUB_TAG_CARRIER + oemId))
     }
 
