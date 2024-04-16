@@ -36,6 +36,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.P
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.WALLET_ONE
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -219,6 +220,13 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
 
+              WALLET_ONE -> view.showWalletOne(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
+
               else -> return@doOnNext
             }
           }
@@ -357,6 +365,13 @@ class PaymentMethodsPresenter(
       )
 
       GOOGLEPAY_WEB -> view.showGooglePayWeb(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+
+      WALLET_ONE -> view.showWalletOne(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
@@ -1175,6 +1190,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+      PaymentMethodId.WALLET_ONE.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_WALLET_ONE
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }
