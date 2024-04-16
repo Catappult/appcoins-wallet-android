@@ -236,7 +236,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           }
 
           result.data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true -> {
-            displayChatUseCase()
+            displayChatUseCase(uid = cachedUid)
           }
         }
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
