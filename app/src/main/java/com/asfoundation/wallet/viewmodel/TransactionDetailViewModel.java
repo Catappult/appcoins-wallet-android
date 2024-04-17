@@ -66,7 +66,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   public void showSupportScreen() {
-    displayChatUseCase.invoke();
+    displayChatUseCase.invoke("");
   }
 
   private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,

@@ -49,8 +49,8 @@ class AdyenPaymentInteractor @Inject constructor(
       .onErrorReturn { true }
 
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(gamificationLevel: Int, uid: String): Completable {
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun loadPaymentInfo(

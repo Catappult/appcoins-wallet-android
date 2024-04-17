@@ -273,7 +273,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
 
   fun showSupport() {
     compositeDisposable.add(
-      supportInteractor.showSupport(0).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(uid = uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

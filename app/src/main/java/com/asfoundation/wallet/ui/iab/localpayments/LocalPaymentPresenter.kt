@@ -38,6 +38,8 @@ class LocalPaymentPresenter(
 
   private var waitingResult: Boolean = false
 
+  private var uid: String? = null
+
   fun present(savedInstance: Bundle?) {
     view.setupUi(data.bonus)
     savedInstance?.let {
@@ -47,7 +49,7 @@ class LocalPaymentPresenter(
     handlePaymentRedirect()
     handleOkErrorButtonClick()
     handleOkBuyButtonClick()
-    handleSupportClicks()
+    handleSupportClicks(uid)
   }
 
   fun handleStop() {
@@ -129,7 +131,10 @@ class LocalPaymentPresenter(
           .subscribeOn(networkScheduler)
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handleTransactionStatus(it) }
+      .flatMapCompletable {
+        uid = it.uid
+        handleTransactionStatus(it)
+      }
       .subscribe({}, { showError(it) })
     )
   }
@@ -284,10 +289,10 @@ class LocalPaymentPresenter(
     }
   }
 
-  private fun handleSupportClicks() {
+  private fun handleSupportClicks(uid: String?) {
     disposables.add(Observable.merge(view.getSupportIconClicks(), view.getSupportLogoClicks())
       .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel) }
+      .flatMapCompletable { localPaymentInteractor.showSupport(data.gamificationLevel, uid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
