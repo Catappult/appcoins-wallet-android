@@ -94,7 +94,7 @@ class SupportRepository @Inject constructor(
 
     if (currentUser.userAddress != address) {
       Intercom.client().logout()
-      saveNewUser(walletAddress, level)
+      saveNewUser(address, level)
     }
   }
 
