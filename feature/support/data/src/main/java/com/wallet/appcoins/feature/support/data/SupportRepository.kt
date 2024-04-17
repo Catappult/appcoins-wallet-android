@@ -113,7 +113,7 @@ class SupportRepository @Inject constructor(
 
     attributesMap[PAYMENT_CHANNEL_ATTRIBUTE_KEY] = ANDROID_CHANNEL_ATTRIBUTE
 
-    if (uid != null) attributesMap[UID_ATTRIBUTE_KEY] = uid
+    if (!uid.isNullOrEmpty()) attributesMap[UID_ATTRIBUTE_KEY] = uid
 
     if (appStartPreferencesDataSource.getIsFirstPayment()) {
       tagsList.add(FIRST_PAYMENT_ATTRIBUTE)
