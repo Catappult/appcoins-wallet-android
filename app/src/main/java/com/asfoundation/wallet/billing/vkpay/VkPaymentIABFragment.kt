@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.FontAssetDelegate
@@ -27,7 +26,9 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
+import com.vk.auth.oauth.VkOAuthConnectionResult
 import com.vk.superapp.SuperappKit
+import com.vk.superapp.vkpay.checkout.VkCheckoutFailed
 import com.vk.superapp.vkpay.checkout.VkCheckoutResult
 import com.vk.superapp.vkpay.checkout.VkCheckoutSuccess
 import com.vk.superapp.vkpay.checkout.VkPayCheckout
@@ -75,6 +76,16 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       super.onCancel()
       showError()
     }
+
+    override fun onOAuthConnectResult(result: VkOAuthConnectionResult) {
+      super.onOAuthConnectResult(result)
+      when (result) {
+        is VkOAuthConnectionResult.Error -> showError()
+        else -> {
+          //Do nothing
+        }
+      }
+    }
   }
 
   override fun onAttach(context: Context) {
@@ -86,8 +97,8 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     //Build Vk Pay SuperApp Kit
     vkPayManager.initSuperAppKit(
@@ -103,7 +114,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     return VkPaymentIabLayoutBinding.inflate(inflater).root
   }
 
-  override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setupTransactionCompleteAnimation()
@@ -169,8 +180,11 @@ class VkPaymentIABFragment : BasePageViewFragment(),
 
   private fun handleCheckoutResult(vkCheckoutResult: VkCheckoutResult) {
     when (vkCheckoutResult) {
-      is VkCheckoutSuccess -> {}
-      else -> {
+      is VkCheckoutSuccess -> {
+        viewModel.startTransactionStatusTimer()
+      }
+
+      is VkCheckoutFailed -> {
         showError()
       }
     }
@@ -191,16 +205,13 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         amount,
         merchantId.toInt(),
         BuildConfig.VK_SDK_APP_ID.toInt(),
-        requireFragmentManager()
+        requireActivity().supportFragmentManager
       )
       viewModel.hasVkPayAlreadyOpened = true
     } else {
       showError()
     }
-    // this callback from VK Pay sdk stopped working:
     VkPayCheckout.observeCheckoutResult { result -> handleCheckoutResult(result) }
-    // so we are forcing the transaction status check even before completing the payment:
-    viewModel.startTransactionStatusTimer()
   }
 
 
@@ -243,7 +254,10 @@ class VkPaymentIABFragment : BasePageViewFragment(),
         showError()
       }
 
-      VkPaymentIABSideEffect.ShowLoading -> {}
+      VkPaymentIABSideEffect.ShowLoading -> {
+        binding.loading.visibility = View.VISIBLE
+      }
+
       VkPaymentIABSideEffect.ShowSuccess -> {
         showSuccessAnimation()
       }

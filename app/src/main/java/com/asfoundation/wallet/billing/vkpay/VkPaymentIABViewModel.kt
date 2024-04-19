@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.vkpay
 import android.os.Bundle
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
@@ -23,8 +24,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -61,12 +60,11 @@ class VkPaymentIABViewModel @Inject constructor(
 
   var transactionUid: String? = null
   var walletAddress: String = ""
-  private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 600 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_UPDATE_INTERVAL_MS = 10 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
-  val scope = CoroutineScope(Dispatchers.Main)
   var hasVkUserAuthenticated: Boolean = false
   var hasVkPayAlreadyOpened: Boolean = false
   var isFirstGetPaymentLink = true
@@ -114,6 +112,8 @@ class VkPaymentIABViewModel @Inject constructor(
     }.doOnSuccess {
       transactionVkData.value = it
       sendSideEffect { VkPaymentIABSideEffect.PaymentLinkSuccess }
+    }.doOnSubscribe {
+      sendSideEffect { VkPaymentIABSideEffect.ShowLoading }
     }.scopedSubscribe()
   }
 
@@ -122,14 +122,14 @@ class VkPaymentIABViewModel @Inject constructor(
     if (!isTimerRunning) {
       timerTransactionStatus.schedule(object : TimerTask() {
         override fun run() {
-          scope.launch {
+          viewModelScope.launch {
             getTransactionStatus()
           }
         }
       }, 0L, JOB_UPDATE_INTERVAL_MS)
       isTimerRunning = true
       // Set up a CoroutineJob that will automatically cancel after 600 seconds
-      jobTransactionStatus = scope.launch {
+      jobTransactionStatus = viewModelScope.launch {
         delay(JOB_TIMEOUT_MS)
         sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
         timerTransactionStatus.cancel()
@@ -230,6 +230,9 @@ class VkPaymentIABViewModel @Inject constructor(
           Transaction.Status.PROCESSING,
           Transaction.Status.PENDING_USER_PAYMENT,
           Transaction.Status.SETTLED -> {
+            sendSideEffect {
+              VkPaymentIABSideEffect.ShowLoading
+            }
           }
         }
       }.scopedSubscribe()
