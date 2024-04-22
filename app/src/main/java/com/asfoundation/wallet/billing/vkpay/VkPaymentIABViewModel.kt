@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 sealed class VkPaymentIABSideEffect : SideEffect {
   object ShowLoading : VkPaymentIABSideEffect()
-  data class ShowError(val message: Int?) : VkPaymentIABSideEffect()
+  data class ShowError(val message: Int? = R.string.unknown_error) : VkPaymentIABSideEffect()
   object ShowSuccess : VkPaymentIABSideEffect()
   data class SendSuccessBundle(val bundle: Bundle) : VkPaymentIABSideEffect()
   object PaymentLinkSuccess : VkPaymentIABSideEffect()
@@ -114,7 +114,10 @@ class VkPaymentIABViewModel @Inject constructor(
       sendSideEffect { VkPaymentIABSideEffect.PaymentLinkSuccess }
     }.doOnSubscribe {
       sendSideEffect { VkPaymentIABSideEffect.ShowLoading }
-    }.scopedSubscribe()
+    }.doOnError {
+      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
+    }
+      .scopedSubscribe()
   }
 
   fun startTransactionStatusTimer() {
@@ -131,7 +134,7 @@ class VkPaymentIABViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 600 seconds
       jobTransactionStatus = viewModelScope.launch {
         delay(JOB_TIMEOUT_MS)
-        sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
+        sendSideEffect { VkPaymentIABSideEffect.ShowError() }
         timerTransactionStatus.cancel()
       }
     }
@@ -243,7 +246,7 @@ class VkPaymentIABViewModel @Inject constructor(
     transactionBuilder: TransactionBuilder?
   ) {
     if (transactionBuilder == null) {
-      sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
+      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
       return
     }
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
@@ -260,7 +263,7 @@ class VkPaymentIABViewModel @Inject constructor(
     ).doOnSuccess {
       sendSideEffect { VkPaymentIABSideEffect.SendSuccessBundle(it.bundle) }
     }.subscribeOn(viewScheduler).observeOn(viewScheduler).doOnError {
-      sendSideEffect { VkPaymentIABSideEffect.ShowError(R.string.unknown_error) }
+      sendSideEffect { VkPaymentIABSideEffect.ShowError() }
     }.subscribe()
   }
 

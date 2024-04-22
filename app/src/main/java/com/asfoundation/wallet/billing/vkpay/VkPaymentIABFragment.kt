@@ -117,6 +117,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    clearVkPayCheckout()
     setupTransactionCompleteAnimation()
     lifecycleScope.launch {
       delay(500)  // necessary delay to ensure the superappKit is actually ready.
