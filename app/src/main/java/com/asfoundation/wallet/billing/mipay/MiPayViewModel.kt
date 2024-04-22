@@ -98,7 +98,10 @@ class MiPayViewModel @Inject constructor(
     }.doOnSuccess {
       transactionData.value = it
       sendSideEffect { MiPayIABSideEffect.PaymentLinkSuccess }
-    }.scopedSubscribe()
+    }.doOnSubscribe {
+      sendSideEffect { MiPayIABSideEffect.ShowLoading }
+    }
+      .scopedSubscribe()
   }
 
   private fun startTransactionStatusTimer() {
@@ -214,6 +217,7 @@ class MiPayViewModel @Inject constructor(
           Transaction.Status.PROCESSING,
           Transaction.Status.PENDING_USER_PAYMENT,
           Transaction.Status.SETTLED -> {
+            sendSideEffect { MiPayIABSideEffect.ShowLoading }
           }
         }
       }.scopedSubscribe()
@@ -247,19 +251,19 @@ class MiPayViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.FAIL,
       WebViewActivity.SUCCESS -> {
         startTransactionStatusTimer()
       }
 
+      WebViewActivity.FAIL,
       WebViewActivity.USER_CANCEL -> {
-        analytics.sendPaymentConfirmationEvent(
+        analytics.sendPaymentErrorEvent(
           purchaseDetails = transactionData.toString(),
-          action = BillingAnalytics.ACTION_CANCEL,
           transactionType = PaymentType.MI_PAY.subTypes.first(),
-          packageName = null,
-          skuDetails = null,
-          value = "" //TODO pass parameter correctly
+          packageName = "",
+          skuDetails = "",
+          value = "",
+          errorCode = result.resultCode.toString(),
         )
         sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
       }

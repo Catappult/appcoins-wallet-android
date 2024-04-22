@@ -156,7 +156,9 @@ class MiPayFragment : BasePageViewFragment(),
         showError()
       }
 
-      MiPayIABSideEffect.ShowLoading -> {}
+      MiPayIABSideEffect.ShowLoading -> {
+        binding.loading.visibility = View.VISIBLE
+      }
       MiPayIABSideEffect.ShowSuccess -> {
         showSuccessAnimation()
       }
