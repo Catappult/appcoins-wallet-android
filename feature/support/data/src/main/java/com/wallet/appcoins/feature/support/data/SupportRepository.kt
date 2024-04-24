@@ -90,7 +90,7 @@ class SupportRepository @Inject constructor(
     val address = walletAddress.lowercase(Locale.ROOT)
 
     if (currentUser.gamificationLevel != level) Intercom.client()
-      .updateUser(getDefaultUserAttributes(walletAddress, level))
+      .updateUser(getDefaultUserAttributes(address, level))
 
     if (currentUser.userAddress != address) {
       Intercom.client().logout()
