@@ -183,7 +183,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       )
     )
     views.noPaymentMethodsError.root.visibility = View.VISIBLE
-    views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
+    views.onboardingIncompletePaymentMethods.root.visibility = View.GONE
   }
 
   /**
