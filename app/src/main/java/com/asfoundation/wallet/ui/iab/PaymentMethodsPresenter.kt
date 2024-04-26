@@ -750,17 +750,21 @@ class PaymentMethodsPresenter(
         .toMutableList()
     }
     setLoadedPayment("")
-    view.showPaymentMethods(
-      paymentList,
-      symbol,
-      paymentMethodId,
-      fiatAmount,
-      appcEnabled,
-      creditsEnabled,
-      frequency,
-      paymentMethodsData.subscription
-    )
-    sendPaymentMethodsEvents()
+    if (paymentList.isEmpty()) {
+      showError(R.string.topup_no_method_available_body) //TODO change it to string that carlos will create
+    } else {
+      view.showPaymentMethods(
+        paymentList,
+        symbol,
+        paymentMethodId,
+        fiatAmount,
+        appcEnabled,
+        creditsEnabled,
+        frequency,
+        paymentMethodsData.subscription
+      )
+      sendPaymentMethodsEvents()
+    }
   }
 
   private fun showPreSelectedPaymentMethod(
