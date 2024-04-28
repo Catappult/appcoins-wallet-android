@@ -121,6 +121,40 @@ class AdyenPaymentInteractor @Inject constructor(
       }
   }
 
+  fun addCard(
+    adyenPaymentMethod: ModelObject, hasCvc: Boolean,
+    supportedShopperInteraction: List<String>,
+    returnUrl: String, value: String, currency: String
+  ): Single<PaymentModel> {
+    return walletService.getAndSignCurrentWalletAddress().flatMap {
+      val addressModel = it
+      adyenPaymentRepository.makePayment(
+        adyenPaymentMethod = adyenPaymentMethod,
+        shouldStoreMethod = true,
+        hasCvc = hasCvc,
+        supportedShopperInteractions = supportedShopperInteraction,
+        returnUrl = returnUrl,
+        value = value,
+        currency = currency,
+        reference = null,
+        paymentType = "credit_card",
+        walletAddress = addressModel.address,
+        origin = null,
+        packageName = "com.appcoins.wallet",
+        metadata = null,
+        sku = null,
+        callbackUrl = null,
+        transactionType = "VERIFICATION",
+        entityOemId = null,
+        entityDomain = null,
+        entityPromoCode = null,
+        userWallet = null,
+        walletSignature = addressModel.signedAddress,
+        referrerUrl = null
+      )
+    }
+  }
+
   fun makeTopUpPayment(
     adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean, hasCvc: Boolean,
     supportedShopperInteraction: List<String>, returnUrl: String, value: String,

@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Center
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,11 +23,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -38,8 +42,11 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
@@ -56,6 +63,11 @@ class ManageCardsFragment : BasePageViewFragment() {
   @Inject
   lateinit var manageCardsNavigator: ManageCardsNavigator
 
+  @Inject
+  lateinit var manageCardsAnalytics: ManageCardsAnalytics
+
+  private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -68,7 +80,12 @@ class ManageCardsFragment : BasePageViewFragment() {
 
   @Composable
   fun ManageCardsView() {
-    viewModel.getCards()
+    ManageToastWarnings()
+    if (viewModel.showBottomSheet.value) {
+      ShowDeleteBottomSheet()
+    } else {
+      viewModel.getCards()
+    }
     Scaffold(
       topBar = {
         Surface { TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() }) }
@@ -96,16 +113,46 @@ class ManageCardsFragment : BasePageViewFragment() {
   }
 
   @Composable
+  private fun ManageToastWarnings() {
+    val isCardSaved by manageCardSharedViewModel.isCardSaved
+    LaunchedEffect(key1 = isCardSaved) {
+      if (isCardSaved) {
+        viewModel.getCards()
+        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT)
+          .show()
+        manageCardSharedViewModel.resetCardSavedValue()
+      }
+    }
+    val isCardDeleted by viewModel.isCardDeleted
+    LaunchedEffect(key1 = isCardDeleted) {
+      if (isCardDeleted) {
+        manageCardsAnalytics.addedNewCardSuccessEvent()
+        viewModel.getCards()
+        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT)
+          .show()
+        viewModel.isCardDeleted.value = false
+      }
+    }
+
+  }
+
+  @Composable
   internal fun ManageCardsContent(padding: PaddingValues, cardsList: List<StoredCard>) {
-    Column(
+    LazyColumn(
       modifier = Modifier
         .padding(padding)
         .padding(horizontal = 16.dp)
     ) {
-      ScreenTitle()
-      NewCardButton()
-      ScreenSubtitle()
-      StoredCardsList(cardsList)
+      item {
+        ScreenTitle()
+        NewCardButton()
+        if (cardsList.isNotEmpty()) {
+          ScreenSubtitle()
+        }
+      }
+      items(cardsList) { card ->
+        PaymentCardItem(card)
+      }
     }
   }
 
@@ -166,15 +213,6 @@ class ManageCardsFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun StoredCardsList(storedCards: List<StoredCard>) {
-    LazyColumn {
-      items(storedCards) { card ->
-        PaymentCardItem(card)
-      }
-    }
-  }
-
-  @Composable
   fun PaymentCardItem(storedCard: StoredCard) {
     Card(
       colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
@@ -208,10 +246,33 @@ class ManageCardsFragment : BasePageViewFragment() {
           modifier = Modifier
             .align(CenterVertically)
             .padding(end = 16.dp)
-            .clickable { /* TODO */ }
-          ,
+            .clickable {
+              viewModel.showBottomSheet(true, storedCard)
+              manageCardsAnalytics.addNewCardDetailsClickEvent()
+            },
           painter = painterResource(R.drawable.ic_delete_card),
           contentDescription = "Delete card",
+        )
+      }
+    }
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  private fun ShowDeleteBottomSheet() {
+    manageCardsAnalytics.openNewCardDetailsPageEvent()
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+      onDismissRequest = { viewModel.showBottomSheet(false, null) },
+      sheetState = bottomSheetState,
+      containerColor = styleguide_blue_secondary
+    ) {
+      if (viewModel.storedCardClicked.value != null) {
+        ManageDeleteCardBottomSheet(
+          onCancelClick = { viewModel.showBottomSheet(false, null) },
+          onConfirmClick = {
+            viewModel.storedCardClicked.value?.recurringReference?.let { viewModel.deleteCard(it) }
+          }, storedCard = viewModel.storedCardClicked.value!!
         )
       }
     }
@@ -223,8 +284,8 @@ class ManageCardsFragment : BasePageViewFragment() {
     ManageCardsContent(
       padding = PaddingValues(0.dp),
       cardsList = listOf(
-        StoredCard("1234", R.drawable.ic_card_brand_visa),
-        StoredCard("5678", R.drawable.ic_card_brand_master_card)
+        StoredCard("1234", R.drawable.ic_card_brand_visa, null),
+        StoredCard("5678", R.drawable.ic_card_brand_master_card, null)
       )
     )
   }

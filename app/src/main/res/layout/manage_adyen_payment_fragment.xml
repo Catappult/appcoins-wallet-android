@@ -5,8 +5,15 @@
     android:id="@+id/manage_adyen_payment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/styleguide_blue_secondary"
+    android:background="@color/styleguide_blue"
     >
+
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"
@@ -26,12 +33,12 @@
   <ScrollView
       android:id="@+id/scroll_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       android:fillViewport="true"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/manage_wallet_add_card_submit_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/app_bar"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,10 +47,11 @@
 
       <TextView
           android:id="@+id/manage_adyen_payment_title"
-          style="@style/TextM"
+          style="@style/TextXXL"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
+          android:layout_marginStart="34dp"
+          android:layout_marginTop="8dp"
           android:text="@string/manage_cards_add_title"
           android:textColor="@color/styleguide_light_grey"
           android:visibility="gone"
@@ -69,4 +77,19 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/manage_wallet_add_card_submit_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginBottom="16dp"
+      android:layout_marginHorizontal="16dp"
+      app:buttonText="@string/add_new_card_button"
+      app:buttonType="filled"
+      android:enabled="false"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>

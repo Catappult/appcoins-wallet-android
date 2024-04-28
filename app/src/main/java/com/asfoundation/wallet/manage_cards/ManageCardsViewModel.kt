@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.manage_cards
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.DeleteStoredCardUseCase
 import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
@@ -19,6 +22,7 @@ class ManageCardsViewModel
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
+  private val deleteStoredCardUseCase: DeleteStoredCardUseCase
 ) : ViewModel() {
 
   sealed class UiState {
@@ -33,6 +37,9 @@ constructor(
 
   val networkScheduler = Schedulers.io()
   val viewScheduler: Scheduler = AndroidSchedulers.mainThread()
+  val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
+  val storedCardClicked: MutableState<StoredCard?> = mutableStateOf(null)
+  val isCardDeleted: MutableState<Boolean> = mutableStateOf(false)
 
   fun displayChat() {
     displayChatUseCase()
@@ -48,20 +55,34 @@ constructor(
           cards.map {
             StoredCard(
               cardLastNumbers = it.lastFour ?: "****",
-              cardIcon = PaymentBrands.getPayment(it.brand).brandFlag
+              cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
+              recurringReference = it.id
             )
           }
         )
       }
+      .doOnError {
+
+      }
       .subscribe()
   }
 
-//  fun deleteCard(cardId: String) {
-//    deleteCardInteract.delete(wallet)
-//      .doOnSubscribe { _uiState.value = UiState.Loading }
-//      .doOnComplete {
-//        _uiState.value = UiState.CardDeleted
-//      }
-//      .subscribe()
-//  }
+  fun showBottomSheet(show: Boolean = true, storedCard: StoredCard?) {
+    storedCardClicked.value = storedCard
+    showBottomSheet.value = show
+  }
+
+  fun deleteCard(recurringReference: String) {
+    deleteStoredCardUseCase(recurringReference)
+      .observeOn(viewScheduler)
+      .doOnSubscribe { _uiState.value = UiState.Loading }
+      .doOnSuccess {
+        isCardDeleted.value = true
+        showBottomSheet(false, null)
+      }
+      .doOnError {
+
+      }
+      .subscribe()
+  }
 }

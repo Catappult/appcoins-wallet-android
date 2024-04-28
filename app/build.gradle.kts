@@ -83,6 +83,7 @@ dependencies {
   implementation(libs.bundles.androidx.lifecycle)
   implementation(libs.bundles.androidx.work)
   implementation(libs.bundles.androidx.compose)
+  implementation(libs.compose.lottie)
 
   implementation(libs.bundles.network)
 

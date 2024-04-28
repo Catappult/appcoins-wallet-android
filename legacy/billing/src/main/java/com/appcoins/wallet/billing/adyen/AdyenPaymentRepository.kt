@@ -1,6 +1,5 @@
 package com.appcoins.wallet.billing.adyen
 
-import android.content.SharedPreferences
 import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
@@ -185,7 +184,16 @@ class AdyenPaymentRepository @Inject constructor(
   }
 
   fun disablePayments(walletAddress: String): Single<Boolean> {
-    return adyenApi.disablePayments(DisableWallet(walletAddress))
+    return adyenApi.disablePayments(DisableWallet(walletAddress, null))
+      .toSingleDefault(true)
+      .doOnError { it.printStackTrace() }
+      .onErrorReturn {
+        false
+      }
+  }
+
+  fun removeSavedCard(walletAddress: String, recurringReference: String?): Single<Boolean> {
+    return adyenApi.disablePayments(DisableWallet(walletAddress, recurringReference))
       .toSingleDefault(true)
       .doOnError { it.printStackTrace() }
       .onErrorReturn {

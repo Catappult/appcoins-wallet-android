@@ -44,6 +44,18 @@ open class AdyenResponseMapper @Inject constructor(
       ?: PaymentInfoModel(Error(true))
   }
 
+  open fun mapWithoutStoredCard(
+    response: PaymentMethodsResponse,
+    method: AdyenPaymentRepository.Methods
+  ): PaymentInfoModel {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    return adyenResponse.paymentMethods
+      ?.find { it.type == method.adyenType }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: PaymentInfoModel(Error(true))
+  }
+
   open fun map(response: AdyenTransactionResponse): PaymentModel {
     val adyenResponse = response.payment
     var actionType: String? = null

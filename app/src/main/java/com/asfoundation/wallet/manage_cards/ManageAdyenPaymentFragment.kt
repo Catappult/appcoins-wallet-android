@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.Nullable
+import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -24,6 +26,7 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageAdyenPaymentFragmentBinding
@@ -62,6 +65,8 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   @Inject
   lateinit var adyenEnvironment: Environment
 
+  private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
+
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
@@ -74,11 +79,22 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
     setupUi()
     clickListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    view.findViewById<ComposeView>(R.id.app_bar).apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
+      }
+    }
   }
 
   private fun clickListeners() {
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
       navigator.navigateBack()
+    }
+    views.manageWalletAddCardSubmitButton.setOnClickListener {
+      viewModel.handleBuyClick(
+        adyenCardWrapper,
+        RedirectComponent.getReturnUrl(requireContext())
+      )
     }
   }
 
@@ -101,7 +117,11 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: ManageAdyenPaymentSideEffect) {
     when (sideEffect) {
-      is ManageAdyenPaymentSideEffect.NavigateToPaymentResult -> {} //TODO: Implement navigate back
+      is ManageAdyenPaymentSideEffect.NavigateToPaymentResult -> {
+        manageCardSharedViewModel.onCardSaved()
+        navigator.navigateBack()
+      }
+
       ManageAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       ManageAdyenPaymentSideEffect.ShowLoading -> showLoading(shouldShow = true)
       is ManageAdyenPaymentSideEffect.Handle3DS -> handle3DSAction(sideEffect.action)
@@ -113,18 +133,16 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
     adyenCardView = AdyenCardView(views.adyenCardForm)
     setupConfiguration()
     setup3DSComponent()
+    manageCardSharedViewModel.resetCardSavedValue()
   }
 
   private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel) {
-    views.manageAdyenPaymentTitle.visibility = View.VISIBLE
-    views.adyenCardForm.visibility = View.VISIBLE
-    views.loadingAnimation.visibility = View.GONE
-
+    showLoading(false)
     adyenCardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     views.adyenCardForm.attach(adyenCardComponent, this)
     adyenCardComponent.observe(this) {
       if (it != null && it.isValid) {
-        //views.manageAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = true
+        views.manageWalletAddCardSubmitButton.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
@@ -136,20 +154,17 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
           )
         }
       } else {
-        //views.manageAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = false
+        views.manageWalletAddCardSubmitButton.isEnabled = false
       }
     }
-  }
-
-  fun shouldStoreCard(): Boolean {
-    return adyenCardView.cardSave
   }
 
   private fun showLoading(shouldShow: Boolean) {
     views.manageAdyenPaymentTitle.visibility = if (shouldShow) View.GONE else View.VISIBLE
     views.adyenCardForm.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    /*views.manageAdyenPaymentButtons.root.visibility =
-      if (shouldShow) View.GONE else View.VISIBLE*/
+    adyenCardView.adyenSaveDetailsSwitch?.visibility = View.GONE
+    views.manageWalletAddCardSubmitButton.visibility =
+      if (shouldShow) View.GONE else View.VISIBLE
     views.loadingAnimation.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 
@@ -188,7 +203,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun handleCVCError() {
     showLoading(shouldShow = false)
-    //views.manageAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = false
+    views.manageWalletAddCardSubmitButton.isEnabled = false
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 }
