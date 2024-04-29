@@ -117,6 +117,7 @@ class ManageCardsFragment : BasePageViewFragment() {
     val isCardSaved by manageCardSharedViewModel.isCardSaved
     LaunchedEffect(key1 = isCardSaved) {
       if (isCardSaved) {
+        manageCardsAnalytics.addedNewCardSuccessEvent()
         viewModel.getCards()
         Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT)
           .show()
@@ -126,7 +127,7 @@ class ManageCardsFragment : BasePageViewFragment() {
     val isCardDeleted by viewModel.isCardDeleted
     LaunchedEffect(key1 = isCardDeleted) {
       if (isCardDeleted) {
-        manageCardsAnalytics.addedNewCardSuccessEvent()
+        manageCardsAnalytics.removeCardSuccessEvent()
         viewModel.getCards()
         Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT)
           .show()
@@ -272,6 +273,7 @@ class ManageCardsFragment : BasePageViewFragment() {
           onCancelClick = { viewModel.showBottomSheet(false, null) },
           onConfirmClick = {
             viewModel.storedCardClicked.value?.recurringReference?.let { viewModel.deleteCard(it) }
+            manageCardsAnalytics.removeCardClickEvent()
           }, storedCard = viewModel.storedCardClicked.value!!
         )
       }
