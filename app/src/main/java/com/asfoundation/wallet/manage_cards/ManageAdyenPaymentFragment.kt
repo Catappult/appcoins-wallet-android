@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.Nullable
@@ -32,7 +33,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageAdyenPaymentFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
-import com.asfoundation.wallet.util.AdyenCardView
 import com.google.android.material.textfield.TextInputLayout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -156,7 +156,9 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
       } else {
         views.manageWalletAddCardSubmitButton.isEnabled = false
       }
-      hideRememberCardSwitch()}
+      hideRememberCardSwitch()
+      disableScrollBars()
+    }
   }
 
   private fun showLoading(shouldShow: Boolean) {
@@ -214,6 +216,15 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   private fun setErrorCVC() {
     views.adyenCardForm.findViewById<TextInputLayout>(R.id.textInputLayout_securityCode).error =
       getString(R.string.purchase_card_error_CVV)
+  }
+
+  private fun disableScrollBars() {
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_cardNumber)
+      .isVerticalScrollBarEnabled = false
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_expiryDate)
+      .isVerticalScrollBarEnabled = false
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_securityCode)
+      .isVerticalScrollBarEnabled = false
   }
 
 }
