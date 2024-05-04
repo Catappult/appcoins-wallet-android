@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -10,7 +11,7 @@ interface TopUpFragmentView {
   fun getEditTextChanges(): Observable<TopUpData>
   fun getPaymentMethodClick(): Observable<PaymentMethod>
   fun getNextClick(): Observable<TopUpData>
-  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>)
+  fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, cardsList: List<StoredCard>)
   fun setupCurrency(currency: LocalCurrency)
   fun setConversionValue(topUpData: TopUpData)
   fun switchCurrencyData()

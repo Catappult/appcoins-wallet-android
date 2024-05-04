@@ -31,6 +31,8 @@ import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -80,11 +82,15 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   @Inject
   lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 
+  @Inject
+  lateinit var getStoredCardsUseCase: GetStoredCardsUseCase
+
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
   private lateinit var paymentMethodClick: PublishRelay<PaymentMethod>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethod>
+  private lateinit var cardsList: List<StoredCard>
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
@@ -172,7 +178,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       logger = logger,
       networkThread = Schedulers.io(),
       challengeRewardAnalytics = challengeRewardAnalytics,
-      getCachedCurrencyUseCase = getCachedCurrencyUseCase
+      getCachedCurrencyUseCase = getCachedCurrencyUseCase,
+      getStoredCardsUseCase = getStoredCardsUseCase
     )
   }
 
@@ -213,8 +220,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
+  override fun setupPaymentMethods(
+    paymentMethods: List<PaymentMethod>,
+    cardsList: List<StoredCard>
+  ) {
     this@TopUpFragment.paymentMethods = paymentMethods
+    this@TopUpFragment.cardsList = cardsList
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
@@ -225,7 +236,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         showAsLoading()
       },
       disposables = presenter.disposables,
-      showPayPalLogout = presenter.showPayPalLogout
+      showPayPalLogout = presenter.showPayPalLogout,
+      cardsList = cardsList
     )
     selectPaymentMethod(paymentMethods)
 

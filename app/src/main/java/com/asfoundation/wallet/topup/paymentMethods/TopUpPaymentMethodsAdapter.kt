@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.TopupPaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
@@ -16,7 +17,8 @@ class TopUpPaymentMethodsAdapter(
   private var paymentMethodClick: PublishRelay<PaymentMethod>,
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
-  private val showPayPalLogout: Subject<Boolean>
+  private val showPayPalLogout: Subject<Boolean>,
+  private val cardsList: List<StoredCard>
 ) :
   RecyclerView.Adapter<TopupPaymentMethodsViewHolder>() {
   private var selectedItem = 0
@@ -46,7 +48,8 @@ class TopUpPaymentMethodsAdapter(
       },
       onClickPaypalLogout = logoutCallback,
       disposables = disposables,
-      showPayPalLogout = showPayPalLogout
+      showPayPalLogout = showPayPalLogout,
+      cardData = cardsList.firstOrNull()
     )
   }
 

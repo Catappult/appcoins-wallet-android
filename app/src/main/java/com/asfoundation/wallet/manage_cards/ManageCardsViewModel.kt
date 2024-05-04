@@ -56,7 +56,8 @@ constructor(
             StoredCard(
               cardLastNumbers = it.lastFour ?: "****",
               cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
-              recurringReference = it.id
+              recurringReference = it.id,
+              false
             )
           }
         )

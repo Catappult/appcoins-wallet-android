@@ -48,6 +48,7 @@ import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnal
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
+import com.appcoins.wallet.ui.widgets.AddNewCardComposable
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard
@@ -69,9 +70,7 @@ class ManageCardsFragment : BasePageViewFragment() {
   private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent { ManageCardsView() }
@@ -93,19 +92,17 @@ class ManageCardsFragment : BasePageViewFragment() {
       containerColor = WalletColors.styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is ManageCardsViewModel.UiState.StoredCardsInfo ->
-          ManageCardsContent(
-            padding = padding, cardsList = uiState.storedCards
-          )
+        is ManageCardsViewModel.UiState.StoredCardsInfo -> ManageCardsContent(
+          padding = padding, cardsList = uiState.storedCards
+        )
 
-        ManageCardsViewModel.UiState.Loading ->
-          Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = CenterVertically,
-            horizontalArrangement = Center
-          ) {
-            CircularProgressIndicator()
-          }
+        ManageCardsViewModel.UiState.Loading -> Row(
+          modifier = Modifier.fillMaxSize(),
+          verticalAlignment = CenterVertically,
+          horizontalArrangement = Center
+        ) {
+          CircularProgressIndicator()
+        }
 
         else -> {}
       }
@@ -119,8 +116,7 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardSaved) {
         manageCardsAnalytics.addedNewCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT)
-          .show()
+        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT).show()
         manageCardSharedViewModel.resetCardSavedValue()
       }
     }
@@ -129,8 +125,7 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardDeleted) {
         manageCardsAnalytics.removeCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT)
-          .show()
+        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT).show()
         viewModel.isCardDeleted.value = false
       }
     }
@@ -146,7 +141,10 @@ class ManageCardsFragment : BasePageViewFragment() {
     ) {
       item {
         ScreenTitle()
-        NewCardButton()
+        AddNewCardComposable(
+          onClickAction = { manageCardsNavigator.navigateToAddCard() },
+          addIconDrawable = R.drawable.ic_add_card
+        )
         if (cardsList.isNotEmpty()) {
           ScreenSubtitle()
         }
@@ -168,44 +166,11 @@ class ManageCardsFragment : BasePageViewFragment() {
     )
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
-  @Composable
-  fun NewCardButton() {
-    Card(
-      onClick = { manageCardsNavigator.navigateToAddCard() },
-      colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
-      modifier = Modifier
-        .padding(top = 24.dp)
-        .fillMaxWidth()
-        .height(56.dp)
-    ) {
-      Row {
-        Image(
-          modifier = Modifier
-            .padding(16.dp)
-            .align(CenterVertically),
-          painter = painterResource(R.drawable.ic_add_card),
-          contentDescription = stringResource(R.string.title_support),
-        )
-        Text(
-          text = stringResource(R.string.manage_cards_add_title),
-          modifier = Modifier
-            .padding(8.dp)
-            .align(CenterVertically),
-          style = typography.bodyMedium,
-          fontWeight = Medium,
-          color = styleguide_light_grey,
-        )
-      }
-    }
-  }
-
   @Composable
   fun ScreenSubtitle() {
     Text(
       text = stringResource(R.string.manage_cards_view_manage_subtitle),
-      modifier = Modifier
-        .padding(top = 24.dp, start = 8.dp),
+      modifier = Modifier.padding(top = 24.dp, start = 8.dp),
       style = typography.bodyMedium,
       fontWeight = Medium,
       fontSize = 12.sp,
@@ -223,8 +188,7 @@ class ManageCardsFragment : BasePageViewFragment() {
         .height(56.dp)
     ) {
       Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
       ) {
         Image(
           modifier = Modifier
@@ -274,7 +238,8 @@ class ManageCardsFragment : BasePageViewFragment() {
           onConfirmClick = {
             viewModel.storedCardClicked.value?.recurringReference?.let { viewModel.deleteCard(it) }
             manageCardsAnalytics.removeCardClickEvent()
-          }, storedCard = viewModel.storedCardClicked.value!!
+          },
+          storedCard = viewModel.storedCardClicked.value!!
         )
       }
     }
@@ -284,10 +249,9 @@ class ManageCardsFragment : BasePageViewFragment() {
   @Composable
   fun PreviewManageCardsContent() {
     ManageCardsContent(
-      padding = PaddingValues(0.dp),
-      cardsList = listOf(
-        StoredCard("1234", R.drawable.ic_card_brand_visa, null),
-        StoredCard("5678", R.drawable.ic_card_brand_master_card, null)
+      padding = PaddingValues(0.dp), cardsList = listOf(
+        StoredCard("1234", R.drawable.ic_card_brand_visa, null, false),
+        StoredCard("5678", R.drawable.ic_card_brand_master_card, null, true)
       )
     )
   }

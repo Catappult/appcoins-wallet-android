@@ -10,9 +10,12 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
@@ -43,7 +46,8 @@ class TopUpFragmentPresenter(
   private val logger: Logger,
   private val networkThread: Scheduler,
   private val challengeRewardAnalytics: ChallengeRewardAnalytics,
-  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase
+  private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
+  private val getStoredCardsUseCase: GetStoredCardsUseCase
 ) {
 
   private var cachedGamificationLevel = 0
@@ -107,13 +111,24 @@ class TopUpFragmentPresenter(
     currency: String,
     appPackage: String
   ): Completable =
-    interactor.getPaymentMethods(fiatAmount, currency, packageName)
+    Single.zip(
+      interactor.getPaymentMethods(fiatAmount, currency, packageName),
+      getStoredCardsUseCase()
+    ) { paymentMethods, storedCards -> Pair(paymentMethods, storedCards) }
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .doOnSuccess {
-        if (it.isNotEmpty()) {
-          val selectedCurrency = getCurrencyOfSelectedPaymentMethod(it)
-          view.setupPaymentMethods(paymentMethods = it)
+      .doOnSuccess { (paymentMethods, storedCards) ->
+        if (paymentMethods.isNotEmpty()) {
+          val cardList = storedCards.map {
+            StoredCard(
+              cardLastNumbers = it.lastFour ?: "****",
+              cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
+              recurringReference = it.id,
+              false
+            )
+          }
+          val selectedCurrency = getCurrencyOfSelectedPaymentMethod(paymentMethods)
+          view.setupPaymentMethods(paymentMethods = paymentMethods, cardList)
           if (selectedCurrency != view.getSelectedCurrency().code) {
             setupUi(selectedCurrency)
           } else {
@@ -295,13 +310,13 @@ class TopUpFragmentPresenter(
   private fun setNextButton(methodSelected: String?) {
     disposables.add(
       showPayPalLogout
-        .subscribe ({
+        .subscribe({
           if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
             view.setTopupButton()
           } else {
             view.setNextButton()
           }
-        },{it.printStackTrace()})
+        }, { it.printStackTrace() })
     )
   }
 
