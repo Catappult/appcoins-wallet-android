@@ -38,10 +38,6 @@ interface AdyenTopUpView {
 
   fun setupRedirectComponent()
 
-  fun forgetCardClick(): Observable<Any>
-
-  fun forgetStoredCardClick(): Observable<Any>
-
   fun submitUriResult(uri: Uri)
 
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel>

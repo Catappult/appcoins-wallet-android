@@ -33,7 +33,8 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     onClickPaypalLogout: () -> Unit,
     disposables: CompositeDisposable,
     showPayPalLogout: Subject<Boolean>,
-    cardData: StoredCard?
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
   ) {
     val imageUrl = if (data.id == "credit_card" && cardData != null)
       cardData.cardIcon
@@ -48,7 +49,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     binding.radioButton.isChecked = selected
     binding.radioButton.isEnabled = data.isEnabled
 
-    handleDescription(data, selected, data.isEnabled, cardData)
+    handleDescription(data, selected, data.isEnabled, cardData, onChangeCardCallback)
     handleFee(data.fee, data.isEnabled)
 
     binding.selectedBackground.visibility = View.VISIBLE
@@ -103,13 +104,14 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     data: PaymentMethod,
     selected: Boolean,
     isEnabled: Boolean,
-    cardData: StoredCard?
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
   ) {
     if (cardData != null && data.id == "credit_card") {
       binding.paymentMethodDescription.text = "**** ".plus(cardData.cardLastNumbers)
-      binding.changeCardButton.visibility = View.VISIBLE
+      binding.changeCardButton.visibility = if (selected) View.VISIBLE else View.GONE
       binding.changeCardButton.setOnClickListener {
-
+        onChangeCardCallback()
       }
     } else {
       binding.paymentMethodDescription.text = data.label

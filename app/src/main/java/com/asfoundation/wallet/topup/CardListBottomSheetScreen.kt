@@ -33,7 +33,7 @@ import com.asfoundation.wallet.manage_cards.models.StoredCard
 
 @Composable
 fun CardListBottomSheet(
-  onChangeCardClick: () -> Unit,
+  onChangeCardClick: (StoredCard, () -> Unit) -> Unit,
   onAddNewCardClick: () -> Unit,
   onGotItClick: () -> Unit,
   cardList: List<StoredCard>
@@ -42,7 +42,7 @@ fun CardListBottomSheet(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(16.dp)
+      .padding(bottom = 16.dp)
       .background(WalletColors.styleguide_blue_secondary),
   ) {
     LazyColumn(
@@ -57,7 +57,7 @@ fun CardListBottomSheet(
         )
       }
       items(cardList) { card ->
-        PaymentCardItem(card, onChangeCardClick)
+        PaymentCardItem(card) { onChangeCardClick(card) {} }
       }
     }
   }
@@ -73,7 +73,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
       .padding(top = 8.dp)
       .fillMaxWidth()
       .height(56.dp)
-      .clickable { onChangeCardClick }
+      .clickable { onChangeCardClick() }
   ) {
     Row(
       modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
@@ -114,7 +114,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
   CardListBottomSheet(
-    {},
+    { storedCard, _ -> {} },
     {},
     {},
     listOf(

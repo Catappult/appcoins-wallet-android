@@ -124,9 +124,10 @@ class TopUpFragmentPresenter(
               cardLastNumbers = it.lastFour ?: "****",
               cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
               recurringReference = it.id,
-              false
+              false // change this function to get selected card
             )
           }
+
           val selectedCurrency = getCurrencyOfSelectedPaymentMethod(paymentMethods)
           view.setupPaymentMethods(paymentMethods = paymentMethods, cardList)
           if (selectedCurrency != view.getSelectedCurrency().code) {
@@ -197,6 +198,26 @@ class TopUpFragmentPresenter(
           }
       }
       .subscribe({}, { handleError(it) })
+    )
+  }
+
+  fun handleNewCardActon(topUpData: TopUpData) {
+    disposables.add(interactor.getLimitTopUpValues(currency = topUpData.currency.fiatCurrencyCode)
+      .toObservable()
+      .filter {
+        isCurrencyValid(topUpData.currency)
+            && isValueInRange(it, topUpData.currency.fiatValue.toDouble())
+            && topUpData.paymentMethod != null
+      }
+      .observeOn(viewScheduler)
+      .doOnNext {
+        topUpAnalytics.sendSelectionEvent(
+          value = topUpData.currency.appcValue.toDouble(),
+          action = BillingAnalytics.ACTION_NEXT,
+          paymentMethod = topUpData.paymentMethod!!.paymentType.name
+        )
+        navigateToPayment(topUpData, cachedGamificationLevel)
+      }.subscribe({}, { handleError(it) })
     )
   }
 

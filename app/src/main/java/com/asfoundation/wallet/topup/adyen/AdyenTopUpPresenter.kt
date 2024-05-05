@@ -27,6 +27,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.HIGH_AMOUNT_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor.Companion.PAYMENT_METHOD_CHECK_ID
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
@@ -63,7 +64,8 @@ class AdyenTopUpPresenter(
   private val gamificationLevel: Int,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
-  private val logger: Logger
+  private val logger: Logger,
+  private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase
 ) {
 
   private var waitingResult = false
@@ -82,8 +84,6 @@ class AdyenTopUpPresenter(
     view.setup3DSComponent()
     view.setupRedirectComponent()
     handleViewState()
-    handleForgetCardClick()
-    handleForgetStoredCardClick()
     handleRetryClick()
     handleRedirectResponse()
     handleSupportClicks()
@@ -150,10 +150,14 @@ class AdyenTopUpPresenter(
   private fun loadPaymentMethodInfo(fromError: Boolean = false) {
     disposables.add(convertAmount()
       .flatMap {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType), it.toString(),
-          currency
-        )
+        if (mapPaymentToService(paymentType) == AdyenPaymentRepository.Methods.CREDIT_CARD) {
+          getPaymentInfoNewCardModelUseCase(it.toString(), currency)
+        } else {
+          adyenPaymentInteractor.loadPaymentInfo(
+            mapPaymentToService(paymentType), it.toString(),
+            currency
+          )
+        }
       }
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
@@ -246,68 +250,6 @@ class AdyenTopUpPresenter(
         view.showSpecificError(R.string.unknown_error)
         logger.log(TAG, it)
       })
-    )
-  }
-
-  private fun handleForgetCardClick() {
-    disposables.add(view.forgetCardClick()
-      .observeOn(viewScheduler)
-      .doOnNext { view.showLoading() }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success ->
-        if (!success) {
-          handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
-        }
-      }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .flatMapSingle {
-        adyenPaymentInteractor.loadPaymentInfo(
-          mapPaymentToService(paymentType),
-          amount, currency
-        )
-          .observeOn(viewScheduler)
-          .doOnSuccess {
-            view.hideLoading()
-            if (it.error.hasError) {
-              if (it.error.isNetworkError) view.showNetworkError()
-              else {
-                handleSpecificError(
-                  R.string.unknown_error,
-                  logMessage = "Message: ${it.error.errorInfo?.text}, code: ${it.error.errorInfo?.httpCode}"
-                )
-              }
-            } else {
-              view.finishCardConfiguration(it, true)
-            }
-          }
-      }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
-    )
-  }
-
-  /**
-   * A function needs to be created due to a problem with adyen not enabling
-   *  the CVC in the same fragment as it was disabled
-   *  so we need to disable the payment and recreate the fragment
-   */
-  private fun handleForgetStoredCardClick() {
-    disposables.add(view.forgetStoredCardClick()
-      .observeOn(viewScheduler)
-      .doOnNext { view.showLoading() }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success ->
-        if (!success) {
-          handleSpecificError(R.string.unknown_error, logMessage = "Unable to forget card")
-        } else {
-          view.restartFragment()
-        }
-      }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 

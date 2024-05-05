@@ -18,7 +18,8 @@ class TopUpPaymentMethodsAdapter(
   private val logoutCallback: () -> Unit,
   private val disposables: CompositeDisposable,
   private val showPayPalLogout: Subject<Boolean>,
-  private val cardsList: List<StoredCard>
+  private val cardsList: List<StoredCard>,
+  private val onChangeCardCallback: () -> Unit,
 ) :
   RecyclerView.Adapter<TopupPaymentMethodsViewHolder>() {
   private var selectedItem = 0
@@ -49,7 +50,8 @@ class TopUpPaymentMethodsAdapter(
       onClickPaypalLogout = logoutCallback,
       disposables = disposables,
       showPayPalLogout = showPayPalLogout,
-      cardData = cardsList.firstOrNull()
+      cardData = cardsList.find { it.isSelectedCard } ?: cardsList.firstOrNull(),
+      onChangeCardCallback = onChangeCardCallback
     )
   }
 

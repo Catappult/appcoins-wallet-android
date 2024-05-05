@@ -14,6 +14,12 @@ import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +32,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.common.convertDpToPx
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -90,7 +97,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private lateinit var paymentMethodClick: PublishRelay<PaymentMethod>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethod>
-  private lateinit var cardsList: List<StoredCard>
+  private var cardsList: List<StoredCard> = listOf()
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
@@ -100,6 +107,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private var bonusValue = BigDecimal.ZERO
   private var localCurrency = LocalCurrency()
   private var selectedPaymentMethodId: String? = null
+  private var showBottomSheet = mutableStateOf(false)
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -206,6 +214,13 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.rvDefaultValues.apply {
       adapter = topUpAdapter
     }
+    view.findViewById<ComposeView>(R.id.composeView).apply {
+      setContent {
+        if (showBottomSheet.value) {
+          ShowCardListBottomSheet()
+        }
+      }
+    }
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
@@ -225,7 +240,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     cardsList: List<StoredCard>
   ) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    this@TopUpFragment.cardsList = cardsList
+    if (this.cardsList.isNullOrEmpty()) {
+      cardsList.first().isSelectedCard = true
+      this@TopUpFragment.cardsList = cardsList
+    }
+
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
@@ -237,7 +256,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       },
       disposables = presenter.disposables,
       showPayPalLogout = presenter.showPayPalLogout,
-      cardsList = cardsList
+      cardsList = this.cardsList,
+      onChangeCardCallback = { showBottomSheet.value = true }
     )
     selectPaymentMethod(paymentMethods)
 
@@ -662,6 +682,63 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       }
     } else {
       null
+    }
+  }
+
+  private fun setSelectedCard(storedCard: StoredCard?) {
+    if (storedCard != null && cardsList.contains(storedCard)) {
+      cardsList.find { it.isSelectedCard }?.isSelectedCard = false
+      cardsList.find { it == storedCard }?.isSelectedCard = true
+    }
+    adapter = TopUpPaymentMethodsAdapter(
+      paymentMethods = paymentMethods,
+      paymentMethodClick = paymentMethodClick,
+      logoutCallback = {
+        presenter.removePaypalBillingAgreement()
+        presenter.showPayPalLogout.onNext(false)
+        setNextButton()
+        showAsLoading()
+      },
+      disposables = presenter.disposables,
+      showPayPalLogout = presenter.showPayPalLogout,
+      cardsList = this.cardsList,
+      onChangeCardCallback = { showBottomSheet.value = true }
+    )
+    binding.paymentMethods.adapter = adapter
+
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  private fun ShowCardListBottomSheet() {
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+      onDismissRequest = { showBottomSheet.value = false },
+      sheetState = bottomSheetState,
+      containerColor = WalletColors.styleguide_blue_secondary
+    ) {
+      if (cardsList.isNotEmpty()) {
+        CardListBottomSheet(
+          onAddNewCardClick = {
+            showBottomSheet.value = false
+            presenter.handleNewCardActon(
+              TopUpData(
+                getCurrencyData(),
+                selectedCurrency,
+                getSelectedPaymentMethod(),
+                bonusValue
+              )
+            )
+            binding.button.performClick()
+          },
+          onChangeCardClick = { storedCard, _ ->
+            setSelectedCard(storedCard)
+            showBottomSheet.value = false
+          },
+          onGotItClick = { showBottomSheet.value = false },
+          cardList = cardsList
+        )
+      }
     }
   }
 

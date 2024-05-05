@@ -35,6 +35,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
 import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -84,6 +85,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var navigator: TopUpNavigator
 
+  @Inject
+  lateinit var getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
@@ -96,7 +100,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private var isStored = false
   private var askCVC = true
 
   private val binding by viewBinding(FragmentAdyenTopUpBinding::bind)
@@ -115,7 +118,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
         adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
         AdyenErrorCodeMapper(), servicesErrorMapper, data.gamificationLevel, topUpAnalytics,
-        formatter, logger
+        formatter, logger, getPaymentInfoNewCardModelUseCase
       )
   }
 
@@ -233,12 +236,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.mainValue.visibility = VISIBLE
     binding.button.visibility = VISIBLE
 
-    if (isStored && askCVC) {
-      binding.changeCardButton.visibility = VISIBLE
-    } else {
-      binding.changeCardButton.visibility = GONE
-    }
-
     binding.creditCardInfoContainer.visibility = VISIBLE
     binding.fragmentAdyenError.root.visibility = GONE
     topUpView.unlockRotation()
@@ -264,12 +261,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     topUpView.unlockRotation()
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
-
-    if (isStored && askCVC) {
-      binding.changeCardButton.visibility = VISIBLE
-    } else {
-      binding.changeCardButton.visibility = INVISIBLE
-    }
     binding.creditCardInfoContainer.visibility = VISIBLE
 
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
@@ -293,7 +284,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     RxView.clicks(binding.fragmentAdyenError.errorVerifyWalletButton)
 
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
-    this.isStored = paymentInfoModel.isStored
     if (forget) {
       askCVC = true
     }
@@ -302,7 +292,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       setStoredCardLayoutValues(it)
       setStoredPaymentInformation(it.lastFour)
     }
-    handleLayoutVisibility(isStored)
+    handleLayoutVisibility()
     prepareCardComponent(paymentInfoModel, forget)
   }
 
@@ -376,22 +366,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
-  private fun handleLayoutVisibility(isStored: Boolean) {
-    adyenCardView.showInputFields(!isStored)
-    if (askCVC && isStored) {
-      binding.adyenCardForm.root.visibility = VISIBLE
-      binding.changeCardButton.visibility = VISIBLE
-    } else if (isStored) {
-      binding.adyenCardForm.root.visibility = GONE
-      binding.adyenSavedCard.root.visibility = VISIBLE
-      binding.changeCardButton.visibility = GONE
-    } else {
-      binding.adyenCardForm.root.visibility = VISIBLE
-      binding.adyenSavedCard.root.visibility = GONE
-      binding.changeCardButton.visibility = GONE
-      binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
-      binding.adyenCardForm.paymentMethodIc.visibility = GONE
-    }
+  private fun handleLayoutVisibility() {
+    adyenCardView.showInputFields(true)
+    binding.adyenCardForm.root.visibility = VISIBLE
+    binding.adyenSavedCard.root.visibility = GONE
+    binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
+    binding.adyenCardForm.paymentMethodIc.visibility = GONE
   }
 
   override fun setupRedirectComponent() {
@@ -429,14 +409,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun retrievePaymentData() = paymentDataSubject!!
 
   override fun getPaymentDetails() = paymentDetailsSubject!!
-
-  override fun forgetCardClick(): Observable<Any> {
-    return RxView.clicks(binding.changeCardButton)
-  }
-
-  override fun forgetStoredCardClick(): Observable<Any> {
-    return RxView.clicks(binding.adyenSavedCard.storedChangeCardButton)
-  }
 
 
   // TODO: Refactor this to pass the whole Intent.
