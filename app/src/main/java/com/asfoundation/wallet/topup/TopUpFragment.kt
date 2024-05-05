@@ -217,6 +217,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     view.findViewById<ComposeView>(R.id.composeView).apply {
       setContent {
         if (showBottomSheet.value) {
+          topUpAnalytics.openChangeCardBottomSheet()
           ShowCardListBottomSheet()
         }
       }
@@ -720,6 +721,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       if (cardsList.isNotEmpty()) {
         CardListBottomSheet(
           onAddNewCardClick = {
+            topUpAnalytics.sendChangeAndAddCardClickEvent()
             showBottomSheet.value = false
             presenter.handleNewCardActon(
               TopUpData(
@@ -732,6 +734,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
             binding.button.performClick()
           },
           onChangeCardClick = { storedCard, _ ->
+            topUpAnalytics.sendChangeAndAddCardClickEvent()
             setSelectedCard(storedCard)
             showBottomSheet.value = false
           },
