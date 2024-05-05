@@ -142,6 +142,7 @@ class ManageCardsFragment : BasePageViewFragment() {
       item {
         ScreenTitle()
         AddNewCardComposable(
+          paddingTop = 24.dp,
           onClickAction = { manageCardsNavigator.navigateToAddCard() },
           addIconDrawable = R.drawable.ic_add_card
         )

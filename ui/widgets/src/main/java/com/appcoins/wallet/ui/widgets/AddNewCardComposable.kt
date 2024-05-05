@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
@@ -24,19 +25,21 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Preview
 @Composable
 private fun AddNewCardComposableExample() {
-  AddNewCardComposable({}, R.drawable.ic_card)
+  AddNewCardComposable(12.dp, {}, R.drawable.ic_card)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNewCardComposable(
-  onClickAction: () -> Unit, addIconDrawable: Int
+  paddingTop: Dp,
+  onClickAction: () -> Unit,
+  addIconDrawable: Int
 ) {
   Card(
     onClick = onClickAction,
     colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
     modifier = Modifier
-      .padding(top = 24.dp)
+      .padding(top = paddingTop)
       .fillMaxWidth()
       .height(56.dp)
   ) {

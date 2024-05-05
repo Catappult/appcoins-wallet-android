@@ -17,15 +17,18 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.AddNewCardComposable
@@ -42,22 +45,52 @@ fun CardListBottomSheet(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(bottom = 16.dp)
       .background(WalletColors.styleguide_blue_secondary),
   ) {
     LazyColumn(
       modifier = Modifier
         .padding(8.dp)
-        .padding(horizontal = 16.dp)
     ) {
       item {
         AddNewCardComposable(
+          paddingTop = 8.dp,
           onClickAction = onAddNewCardClick,
           addIconDrawable = com.asf.wallet.R.drawable.ic_add_card
         )
       }
       items(cardList) { card ->
         PaymentCardItem(card) { onChangeCardClick(card) {} }
+      }
+    }
+    Row(
+      modifier = Modifier
+        .fillMaxWidth()
+        .background(WalletColors.styleguide_blue),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Column(modifier = Modifier.padding(start = 8.dp)) {
+        Text(
+          //TODO: Update When Carlos Send the string
+          text = "To update or remove cards go to:",
+          color = WalletColors.styleguide_dark_grey,
+          fontSize = 12.sp,
+          fontWeight = FontWeight.Bold
+        )
+        Text(
+          //TODO: Update When Carlos Send the string
+          text = "Settings > Manage Cards",
+          color = WalletColors.styleguide_white,
+          fontSize = 12.sp
+        )
+      }
+      TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
+        Text(
+          text = stringResource(id = R.string.got_it_button),
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_pink,
+          fontSize = 14.sp
+        )
       }
     }
   }
