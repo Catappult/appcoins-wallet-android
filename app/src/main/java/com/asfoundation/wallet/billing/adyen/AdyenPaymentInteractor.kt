@@ -49,8 +49,8 @@ class AdyenPaymentInteractor @Inject constructor(
       .onErrorReturn { true }
 
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(gamificationLevel: Int, uid: String): Completable {
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun loadPaymentInfo(
@@ -171,7 +171,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun disablePayments(): Single<Boolean> {
     return walletService.getWalletAddress()
-      .flatMap { adyenPaymentRepository.disablePayments(it) }
+      .flatMap {
+        adyenPaymentRepository.setMandatoryCVC(false)
+        adyenPaymentRepository.disablePayments(it)
+      }
   }
 
   fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
@@ -248,6 +251,10 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun getCreditCardNeedCVC(): Single<CreditCardCVCResponse> {
     return adyenPaymentRepository.getCreditCardNeedCVC().subscribeOn(rxSchedulers.io)
+  }
+
+  fun setMandatoryCVC(mandatoryCvc: Boolean) {
+    adyenPaymentRepository.setMandatoryCVC(mandatoryCvc)
   }
 
   companion object {

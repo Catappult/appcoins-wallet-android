@@ -2,10 +2,10 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
@@ -49,11 +49,11 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
         var diffCachedTransaction = cachedTransaction
-         if (cachedTransaction.value <= 0.0) {
-           diffCachedTransaction = cachedTransaction.copy(
-             value = args.amount.toDouble()
-           )
-         }
+        if (cachedTransaction.value <= 0.0) {
+          diffCachedTransaction = cachedTransaction.copy(
+            value = args.amount.toDouble()
+          )
+        }
         if (cachedTransaction.currency.isNullOrEmpty()) {
           diffCachedTransaction = diffCachedTransaction.copy(
             currency = args.currency
@@ -78,7 +78,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   }
 
   fun handleBackToGameClick() {
-    events.sendPaymentMethodEvent(args.transactionBuilder,  null, "back_to_the_game")
+    events.sendPaymentMethodEvent(args.transactionBuilder, null, "back_to_the_game")
     sendSideEffect { OnboardingPaymentMethodsSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
   }
 }

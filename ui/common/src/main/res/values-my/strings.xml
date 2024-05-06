@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
   <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
   <string name="topup_bonus_amount_body">ဤေငြျဖည့္မႈျဖင့္ %s ေဘာနပ္စ္ ရယူလိုက္ပါ</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
@@ -524,6 +525,8 @@
   <string name="send_button">ေပးပို႔မည္</string>
   <string name="resend_button">ျပန္ပို႔မည္</string>
   <string name="continue_button">ဆက္လုပ္မည္</string>
+  <string name="card_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ ဤဝယ္ယူမႈအတြက္ စီစဥ္ေဆာင္႐ြက္ခ ေကာက္ခံပါသည္။</string>
   <string name="purchase_fee_included_body">အခေၾကးေငြမ်ား ပါဝင္ၿပီး</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
   <string name="import_wallet_recovering_body">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူေနပါသည္...</string>
-  <string name="backup_skip_title">ကြၽႏ္ုပ္၏ ပိုက္ဆံအိတ္ကီးကို အရန္သိမ္းဆည္းမထားပါက ကြၽႏ္ုပ္၏ေငြမ်ားကို ဆုံးရႈံးႏိုင္ေၾကာင္း နားလည္ပါသည္။</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="backup_success_save_on_email">အရန္သိမ္းဆည္းမႈဖိုင္သည္ သင့္အီးေမးလ္တြင္ ရွိပါသည္။</string>
   <string name="backup_success_save_on_device">အရန္သိမ္းဆည္းမႈဖိုင္ကို သင့္ကိရိယာေပၚတြင္ သိမ္းထားပါသည္။</string>
@@ -966,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
-  <string name="manage_cards_add_title">ကဒ္အသစ္ကိုထည့္မည္</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">ဤကဒ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
-  <string name="manage_cards_remove_no">မဟုတ္ပါ။ ပယ္ဖ်က္မည္</string>
-  <string name="manage_cards_remove_yes">ဟုတ္ပါသည္။ ဖယ္ထုတ္မည္</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%s ျဖင့္ဆံုးေသာကဒ္</string>
   <string name="manage_cards_error_details">သင့္ကဒ္အေသးစိတ္အခ်က္မ်ား မွန္ကန္သည္မွာ ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="manage_cards_error_card_problem">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိပံုရပါသည္။ အျခားတစ္ကဒ္ျဖင့္ စမ္းသံုးၾကည့္ပါ။</string>
   <string name="manage_cards_select_title">ေငြေပးေခ်မည့္ကဒ္ကို ေရြးခ်ယ္ပါ</string>
   <string name="manage_cards_remember">ကဒ္ကို သတိရပါ</string>
+  <string name="add_new_card_button">ကဒ္အသစ္ကိုထည့္မည္</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% အထိ ဘောနပ္စ္ရယူလိုက္ပါ</string>
   <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>

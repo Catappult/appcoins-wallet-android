@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.rating
 
 import cm.aptoide.analytics.AnalyticsManager
-import java.util.*
 import javax.inject.Inject
 
 class RatingAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
@@ -21,8 +20,10 @@ class RatingAnalytics @Inject constructor(private val analyticsManager: Analytic
     val eventData = HashMap<String, Any>()
     eventData[ACTION] = action
 
-    analyticsManager.logEvent(eventData, WALLET_RATING_WELCOME_EVENT, AnalyticsManager.Action.CLICK,
-        WALLET_CONTEXT)
+    analyticsManager.logEvent(
+      eventData, WALLET_RATING_WELCOME_EVENT, AnalyticsManager.Action.CLICK,
+      WALLET_CONTEXT
+    )
   }
 
   fun sendPositiveActionEvent(action: String, firstTime: Boolean) {
@@ -30,20 +31,26 @@ class RatingAnalytics @Inject constructor(private val analyticsManager: Analytic
     eventData[ACTION] = action
     eventData[FIRST_TIME] = firstTime
 
-    analyticsManager.logEvent(eventData, WALLET_RATING_POSITIVE_EVENT,
-        AnalyticsManager.Action.CLICK, WALLET_CONTEXT)
+    analyticsManager.logEvent(
+      eventData, WALLET_RATING_POSITIVE_EVENT,
+      AnalyticsManager.Action.CLICK, WALLET_CONTEXT
+    )
   }
 
   fun sendNegativeActionEvent(action: String) {
     val eventData = HashMap<String, Any>()
     eventData[ACTION] = action
 
-    analyticsManager.logEvent(eventData, WALLET_RATING_NEGATIVE_EVENT,
-        AnalyticsManager.Action.CLICK, WALLET_CONTEXT)
+    analyticsManager.logEvent(
+      eventData, WALLET_RATING_NEGATIVE_EVENT,
+      AnalyticsManager.Action.CLICK, WALLET_CONTEXT
+    )
   }
 
   fun sendFinishEvent() {
-    analyticsManager.logEvent(HashMap<String, Any>(), WALLET_RATING_FINISH_EVENT,
-        AnalyticsManager.Action.CLICK, WALLET_CONTEXT)
+    analyticsManager.logEvent(
+      HashMap<String, Any>(), WALLET_RATING_FINISH_EVENT,
+      AnalyticsManager.Action.CLICK, WALLET_CONTEXT
+    )
   }
 }

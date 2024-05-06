@@ -17,11 +17,11 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:src="@drawable/pull_up_home_bar"
       android:importantForAccessibility="no"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <TextView
@@ -47,8 +47,8 @@
       android:id="@+id/store_path"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/small_margin"
       android:layout_marginHorizontal="@dimen/big_margin"
+      android:layout_marginTop="@dimen/small_margin"
       android:ellipsize="end"
       android:fontFamily="sans-serif-medium"
       android:letterSpacing="0.01"
@@ -70,19 +70,19 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="12dp"
-      app:textFieldType="filled"
       app:layout_constraintEnd_toEndOf="parent"
-      app:textFieldColor="@color/styleguide_blue"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/store_path"
+      app:textFieldColor="@color/styleguide_blue"
+      app:textFieldType="filled"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/backup_save"
       android:layout_width="match_parent"
       android:layout_height="@dimen/small_button_height"
-      android:layout_marginTop="24dp"
       android:layout_marginStart="24dp"
+      android:layout_marginTop="24dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_margin"
       app:buttonText="@string/action_save"

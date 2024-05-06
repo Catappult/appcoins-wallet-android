@@ -1,17 +1,14 @@
 package com.asfoundation.wallet.billing.sandbox
 
 import android.animation.Animator
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,18 +22,16 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SandboxFragment() : BasePageViewFragment() {
+class SandboxFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: SandboxNavigator
@@ -84,9 +79,11 @@ class SandboxFragment() : BasePageViewFragment() {
         SandboxViewModel.State.Start -> {
           showLoadingAnimation()
         }
+
         is SandboxViewModel.State.Error -> {
           showSpecificError(state.stringRes)
         }
+
         is SandboxViewModel.State.SuccessPurchase -> {
           handleSuccess(state.bundle)
         }
@@ -126,7 +123,7 @@ class SandboxFragment() : BasePageViewFragment() {
   }
 
   private fun concludeWithSuccess() {
-    viewLifecycleOwner.lifecycleScope.launch{
+    viewLifecycleOwner.lifecycleScope.launch {
       delay(1500L)
       navigatorIAB?.popView(successBundle)
     }
@@ -137,7 +134,7 @@ class SandboxFragment() : BasePageViewFragment() {
   }
 
   private fun close() {
-    iabView.close(null)
+    iabView.close(Bundle())
   }
 
   private fun showSuccessAnimation(bundle: Bundle) {
@@ -165,7 +162,7 @@ class SandboxFragment() : BasePageViewFragment() {
 
   private fun handleBonusAnimation() {
     views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
-      views.successContainer.bonusSuccessLayout.visibility = View.GONE
+    views.successContainer.bonusSuccessLayout.visibility = View.GONE
   }
 
   private fun setupTransactionCompleteAnimation() {

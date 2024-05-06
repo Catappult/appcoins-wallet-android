@@ -16,16 +16,16 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentInfoModelUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionOriginUseCase
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.gson.JsonObject
@@ -54,7 +54,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
   private val transactionOriginUseCase: GetTransactionOriginUseCase,
-  private val supportInteractor: SupportInteractor,
+  private val displayChatUseCase: DisplayChatUseCase,
   private val rxSchedulers: RxSchedulers,
   savedStateHandle: SavedStateHandle
 ) :
@@ -133,9 +133,11 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           paymentModel.refusalReason
         )
       }
+
       paymentModel.status == PaymentModel.Status.PENDING_USER_PAYMENT && paymentModel.action != null -> {
         handleAdyenAction(paymentModel)
       }
+
       else -> sendSideEffect {
         OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel)
       }
@@ -150,11 +152,13 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           cachedUid = paymentModel.uid
           sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToWebView(paymentModel) }
         }
+
         THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
           events.send3dsStart(type)
           cachedUid = paymentModel.uid
           sendSideEffect { OnboardingAdyenPaymentSideEffect.Handle3DS(paymentModel.action) }
         }
+
         else -> {
           sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel) }
         }
@@ -230,12 +234,14 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
               )
             }
           }
+
           result.data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true -> {
-            supportInteractor.displayChatScreen()
+            displayChatUseCase(uid = cachedUid)
           }
         }
         sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
       }
+
       WebViewActivity.SUCCESS -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendAdyenPaymentUrlEvent(
@@ -255,6 +261,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           }
         }
       }
+
       WebViewActivity.USER_CANCEL -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendAdyenPaymentUrlEvent(

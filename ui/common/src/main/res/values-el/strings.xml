@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
   <string name="topup_bonus_amount_body">Λάβετε %s μπόνους μ\' αυτή τη φόρτιση</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -521,9 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Ημερομηνία έναρξης:</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Αποστολή</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Έληξε</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">Δεν υπάρχει δυνατότητα επαναφοράς κωδικού.</string>
   <string name="backup_additional_security_password_not_march">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
   <string name="import_wallet_recovering_body">Ανάκτηση wallet...</string>
-  <string name="backup_skip_title">Καταλαβαίνω ότι μπορεί να χάσω πίστωση αν δεν δημιουργήσω αντίγραφο ασφαλείας του κλειδιού του wallet μου.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="backup_success_save_on_email">Το αρχείο αντιγράφου ασφαλείας σας βρίσκεται στο e-mail σας.</string>
   <string name="backup_success_save_on_device">Το αρχείο αντιγράφου ασφαλείας σας έχει αποθηκευτεί στη συσκευή σας.</string>
@@ -968,15 +972,21 @@ Wallets</item>
   <string name="manage_cards_settings_manage_title">Διαχείριση καρτών</string>
   <string name="manage_cards_view_title">Διαχείριση καρτών</string>
   <string name="manage_cards_view_manage_subtitle">Διαχειριστείτε τις κάρτες πληρωμής σας</string>
-  <string name="manage_cards_add_title">Προσθήκη νέας κάρτας</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτήν την κάρτα;</string>
-  <string name="manage_cards_remove_no">ΟΧΙ, ΑΚΥΡΩΣΗ</string>
-  <string name="manage_cards_remove_yes">ΝΑΙ, ΑΦΑΙΡΕΣΗ</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Κάρτα που τελειώνει σε %s</string>
   <string name="manage_cards_error_details">Είστε σίγουροι ότι οι πληροφορίες της κάρτας σας είναι σωστές; Παρακαλούμε προσπαθήστε ξανά!</string>
   <string name="manage_cards_error_card_problem">Φαίνεται πως υπάρχει πρόβλημα με την κάρτα σας. Παρακαλούμε προσπαθήστε με μία άλλη.</string>
   <string name="manage_cards_select_title">Επιλογή κάρτας πληρωμής</string>
   <string name="manage_cards_remember">Αποθήκευση κάρτας</string>
+  <string name="add_new_card_button">Προσθήκη νέας κάρτας</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Λάβετε έως %s%% Bonus σε κάθε αγορά</string>
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>

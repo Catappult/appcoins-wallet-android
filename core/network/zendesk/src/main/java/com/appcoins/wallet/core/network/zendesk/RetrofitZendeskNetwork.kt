@@ -1,8 +1,8 @@
 package com.appcoins.wallet.core.network.zendesk
 
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.zendesk.model.WalletFeedbackBody
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.billing.vkpay.usecases
 
-import com.appcoins.wallet.core.walletservices.WalletService
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.network.microservices.model.VkPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.VkPrice
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.vkpay.repository.VkPayRepository
 import io.reactivex.Single
 import javax.inject.Inject

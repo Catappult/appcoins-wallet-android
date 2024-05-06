@@ -1,4 +1,4 @@
-plugins{
+plugins {
   id("appcoins.jvm.library")
 }
 

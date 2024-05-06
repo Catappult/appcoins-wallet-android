@@ -117,10 +117,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:visibility="visible"
             >
 
@@ -138,10 +138,10 @@
                 layout="@layout/selected_payment_method_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
 
             <include
@@ -149,14 +149,14 @@
                 layout="@layout/selected_top_up_payment_method_stored_cc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
           </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -164,15 +164,15 @@
               android:id="@+id/change_card_button"
               android:layout_width="wrap_content"
               android:layout_height="@dimen/small_button_height"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="8dp"
               android:visibility="visible"
               app:buttonColor="@color/styleguide_pink"
               app:buttonText="@string/activity_iab_change_card_lower_case_button"
               app:buttonType="text"
+              app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintTop_toBottomOf="@id/cv_stored_card_layout"
-              app:layout_constraintBottom_toBottomOf="parent"
-              android:layout_marginBottom="8dp"
-              android:layout_marginTop="8dp"
               tools:visibility="visible"
               />
 

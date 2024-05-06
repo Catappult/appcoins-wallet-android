@@ -2,14 +2,13 @@ package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
 import android.text.format.DateUtils
 import androidx.activity.result.ActivityResult
-
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
@@ -17,8 +16,13 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUs
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.Timer
+import java.util.TimerTask
 import javax.inject.Inject
 
 
@@ -68,6 +72,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
       WebViewActivity.SUCCESS -> {
         startTransactionStatusTimer()
       }
+
       WebViewActivity.USER_CANCEL -> {
         events.sendAdyenPaymentConfirmationEvent(
           args.transactionBuilder,
@@ -146,6 +151,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             )
             sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
           }
+
           Transaction.Status.INVALID_TRANSACTION,
           Transaction.Status.FAILED,
           Transaction.Status.CANCELED,
@@ -157,6 +163,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
               )
             }
           }
+
           Transaction.Status.PENDING,
           Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
           Transaction.Status.PROCESSING,

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_result
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -46,8 +45,12 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateToVerifyWallet(isWalletVerified: Boolean) {
-      val intent = VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
-        .apply { fragment.activity?.intent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
-      fragment.startActivity(intent)
+    val intent =
+      VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
+        .apply {
+          fragment.activity?.intent?.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+    fragment.startActivity(intent)
   }
 }

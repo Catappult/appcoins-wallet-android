@@ -60,13 +60,13 @@ public class TransactionDetailViewModel extends BaseViewModel {
         (paidValue != null) ? convertValueToTargetCurrency(paidValue, paidCurrency, targetCurrency)
             : Single.just(new FiatValue());
     disposables.add(Single.zip(findNetworkInfoUseCase.invoke(), findDefaultWalletUseCase.invoke(),
-        fiatValueSingle, TransactionsDetailsModel::new)
+            fiatValueSingle, TransactionsDetailsModel::new)
         .subscribe(transactionsDetailsModel::postValue, t -> {
         }));
   }
 
   public void showSupportScreen() {
-    displayChatUseCase.invoke();
+    displayChatUseCase.invoke("");
   }
 
   private Single<FiatValue> convertValueToTargetCurrency(String paidValue, String paidCurrency,

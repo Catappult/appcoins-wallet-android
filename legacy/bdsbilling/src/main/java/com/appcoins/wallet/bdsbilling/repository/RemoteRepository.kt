@@ -1,22 +1,30 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
-import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.CreditsPurchaseBody
+import com.appcoins.wallet.core.network.microservices.model.DetailsResponseBody
+import com.appcoins.wallet.core.network.microservices.model.GetPurchasesResponse
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionsResponse
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.TransactionsResponse
+import com.appcoins.wallet.core.network.microservices.model.merge
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
-import retrofit2.http.*
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.atomic.AtomicBoolean
 
 class RemoteRepository(
@@ -26,6 +34,7 @@ class RemoteRepository(
   private val subsApi: SubscriptionBillingApi,
   private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers,
+  private val fiatCurrenciesPreferences: FiatCurrenciesPreferencesDataSource,
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
@@ -33,7 +42,7 @@ class RemoteRepository(
     private const val SKUS_SUBS_DETAILS_REQUEST_LIMIT = 100
     private const val TOP_UP_TYPE = "TOPUP"
 
-    class DuplicateException() : Exception()
+    class DuplicateException : Exception()
 
     var executingAppcTransaction = AtomicBoolean(false)
   }
@@ -52,12 +61,17 @@ class RemoteRepository(
     skus: List<String>
   ): Single<DetailsResponseBody> =
     if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      inappApi.getConsumables(packageName, skus.joinToString(separator = ","))
+      inappApi.getConsumables(
+        packageName = packageName,
+        names = skus.joinToString(separator = ","),
+        currency = fiatCurrenciesPreferences.getCachedSelectedCurrency(),
+      )
     } else {
       Single.zip(
         inappApi.getConsumables(
           packageName = packageName,
-          names = skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
+          names = skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ","),
+          currency = fiatCurrenciesPreferences.getCachedSelectedCurrency(),
         ), requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT))
       ) { firstResponse, secondResponse -> firstResponse.merge(secondResponse) }
     }
@@ -87,7 +101,7 @@ class RemoteRepository(
         inappApi.getPurchases(
           packageName = packageName,
           authorization = ewt,
-          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
+          type = BillingSupportedType.INAPP.name.lowercase(Locale.ROOT),
           sku = skuId
         )
           .map {
@@ -95,7 +109,7 @@ class RemoteRepository(
               throw HttpException(
                 Response.error<GetPurchasesResponse>(
                   404,
-                  ResponseBody.create("application/json".toMediaType(), "{}")
+                  "{}".toResponseBody("application/json".toMediaType())
                 )
               )
             }
@@ -144,7 +158,7 @@ class RemoteRepository(
         inappApi.getPurchases(
           packageName = packageName,
           authorization = ewt,
-          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
+          type = BillingSupportedType.INAPP.name.lowercase(Locale.ROOT)
         )
           .map { responseMapper.map(packageName, it) }
       }

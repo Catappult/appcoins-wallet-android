@@ -5,8 +5,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ShouldOpenRatingDialogUseCase @Inject constructor(
-    private val ratingRepository: RatingRepository,
-    private val getUserLevelUseCase: GetUserLevelUseCase) {
+  private val ratingRepository: RatingRepository,
+  private val getUserLevelUseCase: GetUserLevelUseCase
+) {
 
   operator fun invoke(): Single<Boolean> {
     val remindMeLaterDate = ratingRepository.getRemindMeLaterDate()
@@ -15,7 +16,7 @@ class ShouldOpenRatingDialogUseCase @Inject constructor(
     }
     if (!ratingRepository.hasSeenDialog()) {
       return getUserLevelUseCase()
-          .map { level -> level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
+        .map { level -> level >= 6 || ratingRepository.hasEnoughSuccessfulTransactions() }
     }
     return Single.just(false)
   }

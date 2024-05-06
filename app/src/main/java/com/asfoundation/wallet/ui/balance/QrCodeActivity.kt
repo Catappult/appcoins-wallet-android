@@ -36,8 +36,10 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
     setContentView(R.layout.qr_code_layout)
     binding.mainLayout.setOnClickListener { onBackPressed() }
     presenter =
-        QrCodePresenter(this, findDefaultWalletInteract, CompositeDisposable(),
-            AndroidSchedulers.mainThread())
+      QrCodePresenter(
+        this, findDefaultWalletInteract, CompositeDisposable(),
+        AndroidSchedulers.mainThread()
+      )
     presenter.present()
   }
 
@@ -61,8 +63,12 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
       val mergedQrCode = walletAddress.generateQrCode(windowManager, logo!!)
       binding.qrImage.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
-      Snackbar.make(binding.mainLayout, getString(R.string.error_fail_generate_qr), Snackbar.LENGTH_SHORT)
-          .show()
+      Snackbar.make(
+        binding.mainLayout,
+        getString(R.string.error_fail_generate_qr),
+        Snackbar.LENGTH_SHORT
+      )
+        .show()
     }
   }
 

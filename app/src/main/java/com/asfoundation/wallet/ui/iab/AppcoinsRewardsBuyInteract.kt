@@ -20,9 +20,9 @@ class AppcoinsRewardsBuyInteract @Inject constructor(
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getAndSignCurrentWalletAddress()
-          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
-          .onErrorReturn { true }
+    walletService.getAndSignCurrentWalletAddress()
+      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .onErrorReturn { true }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)
@@ -31,5 +31,5 @@ class AppcoinsRewardsBuyInteract @Inject constructor(
   fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()
 
   fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
-      inAppPurchaseInteractor.convertToFiat(appcValue, currency)
+    inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 }

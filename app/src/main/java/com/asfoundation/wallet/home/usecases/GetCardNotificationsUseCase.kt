@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.home.usecases
 
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.update_required.use_cases.GetUnwatchedUpdateNotificationUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.update_required.use_cases.GetUnwatchedUpdateNotificationUseCase
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

@@ -52,8 +52,7 @@ fun BalanceCardExpanded(
   ) {
     if (isLoading) {
       SkeletonLoadingBalanceCardExpanded()
-    }
-    else if (newWallet) {
+    } else if (newWallet) {
       BalanceCardNewUserExpanded(onClickTopUp = onClickTopUp)
     } else {
       Column {
@@ -166,7 +165,7 @@ fun SkeletonLoadingBalanceCardExpanded() {
         .fillMaxWidth(),
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
-      Column{
+      Column {
         Spacer(
           modifier = Modifier
             .width(width = 250.dp)

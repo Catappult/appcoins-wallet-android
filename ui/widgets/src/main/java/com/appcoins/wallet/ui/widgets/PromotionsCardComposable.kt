@@ -77,7 +77,6 @@ private fun LoadingPromotionCard() {
   SkeletonLoadingPromotionCards(hasVerticalList = false)
 }
 
-
 @Composable
 fun PromotionsCardComposable(cardItem: CardPromotionItem) {
   var borderColor = Color.Transparent
@@ -85,26 +84,22 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
   val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
   Column {
     if (cardItem.hasVipPromotion) {
-      //Set Changes in VIP Cards
+      // Set Changes in VIP Cards
       borderColor = WalletColors.styleguide_vip_yellow
       topEndRoundedCornerCard = 0.dp
       Box(
-        modifier = Modifier
+        modifier =
+        Modifier
           .align(Alignment.End)
           .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
           .background(WalletColors.styleguide_vip_yellow)
       ) {
         Text(
-          //Need string to Carlos Translator
           text = stringResource(id = R.string.vip_program_title_vip_offer),
           fontSize = 12.sp,
-          color = WalletColors.styleguide_light_grey,
-          modifier = Modifier.padding(
-            top = 6.dp,
-            end = 14.dp,
-            start = 14.dp,
-            bottom = 6.dp
-          )
+          color = WalletColors.styleguide_blue,
+          fontWeight = FontWeight.Bold,
+          modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
         )
       }
     } else {
@@ -112,10 +107,12 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
     }
     Surface(
       color = WalletColors.styleguide_blue_secondary,
-      modifier = Modifier
+      modifier =
+      Modifier
         .border(
           border = BorderStroke(2.dp, borderColor),
-          shape = RoundedCornerShape(
+          shape =
+          RoundedCornerShape(
             bottomEnd = 16.dp,
             bottomStart = 16.dp,
             topEnd = topEndRoundedCornerCard,
@@ -123,7 +120,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
           )
         )
         .clip(
-          shape = RoundedCornerShape(
+          shape =
+          RoundedCornerShape(
             bottomEnd = 16.dp,
             bottomStart = 16.dp,
             topEnd = topEndRoundedCornerCard,
@@ -134,51 +132,47 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
     ) {
       Column(modifier = Modifier.padding(8.dp)) {
         ImageWithTitleAndDescription(
-          cardItem.imageUrl,
-          cardItem.title,
-          cardItem.subtitle,
-          cardItem.hasVerticalList
+          cardItem.imageUrl, cardItem.title, cardItem.subtitle, cardItem.hasVerticalList
         )
         if (!cardItem.hasFuturePromotion) {
           Spacer(modifier = Modifier.height(12.dp))
           Text(
             text = stringResource(id = R.string.promotion_ends_short_title),
             color = WalletColors.styleguide_light_grey,
-            fontSize = 10.sp
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold
           )
-          Column(
-            modifier = Modifier
-              .height(49.dp)
-          ) {
+          Column(modifier = Modifier.height(49.dp)) {
             Row(
               modifier = Modifier.fillMaxWidth(),
               horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
-              CountDownTimer(cardItem.promotionEndTime)
+              CountDownTimer(endDateTime = cardItem.promotionEndTime)
               Row(
                 modifier = Modifier
                   .fillMaxWidth(0.8f)
                   .padding(start = 48.dp),
                 horizontalArrangement = Arrangement.End
               ) {
-                GetText(cardItem.action, cardItem.packageName)
+                GetText(
+                  cardItem.action,
+                  cardItem.packageName,
+                  cardItem.hasVipPromotion
+                )
               }
             }
           }
         } else {
           Spacer(modifier = Modifier.height(20.dp))
-          Column(
-            modifier = Modifier
-              .height(40.dp)
-          ) {
+          Column(modifier = Modifier.height(40.dp)) {
             Row(
               modifier = Modifier.fillMaxWidth(),
               horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              GetText(cardItem.action, cardItem.packageName)
+              GetText(cardItem.action, cardItem.packageName, cardItem.hasVipPromotion)
             }
           }
         }
@@ -197,7 +191,7 @@ fun CountDownTimer(endDateTime: Long) {
       remainingTime.value = Duration.ofMillis(endDateInMillis - System.currentTimeMillis())
       if (remainingTime.value < Duration.ZERO) {
         remainingTime.value = Duration.ZERO
-        //Break while in Home
+        // Break while in Home
         break
       }
       delay(1000)
@@ -208,30 +202,28 @@ fun CountDownTimer(endDateTime: Long) {
   ) {
     CardWithTextAndDetail(
       text = remainingTime.value.toDays().toString(),
-      detail = pluralStringResource(
-        id = R.plurals.day,
-        count = remainingTime.value.toDays().toInt()
-      )
+      detail =
+      pluralStringResource(id = R.plurals.day, count = remainingTime.value.toDays().toInt())
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toHours() % 24).toString(),
-      detail = pluralStringResource(
-        id = R.plurals.hour,
-        count = (remainingTime.value.toHours() % 24).toInt()
+      detail =
+      pluralStringResource(
+        id = R.plurals.hour, count = (remainingTime.value.toHours() % 24).toInt()
       )
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.toMinutes() % 60).toString(),
-      detail = pluralStringResource(
-        id = R.plurals.minute,
-        count = (remainingTime.value.toMinutes() % 60).toInt()
+      detail =
+      pluralStringResource(
+        id = R.plurals.minute, count = (remainingTime.value.toMinutes() % 60).toInt()
       )
     )
     CardWithTextAndDetail(
       text = (remainingTime.value.seconds % 60).toString(),
-      detail = pluralStringResource(
-        id = R.plurals.second,
-        count = (remainingTime.value.seconds % 60).toInt()
+      detail =
+      pluralStringResource(
+        id = R.plurals.second, count = (remainingTime.value.seconds % 60).toInt()
       )
     )
   }
@@ -241,7 +233,8 @@ fun CountDownTimer(endDateTime: Long) {
 fun CardWithTextAndDetail(text: String, detail: String) {
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
-    modifier = Modifier
+    modifier =
+    Modifier
       .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
       .width(41.dp)
       .height(39.dp)
@@ -249,7 +242,9 @@ fun CardWithTextAndDetail(text: String, detail: String) {
       .zIndex(8f)
   ) {
     Column(
-      modifier = Modifier.fillMaxSize(),
+      modifier = Modifier
+        .fillMaxSize()
+        .padding(4.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.Center
     ) {
@@ -258,6 +253,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         color = WalletColors.styleguide_light_grey,
+        maxLines = 1
       )
       Text(
         text = detail,
@@ -270,10 +266,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
 
 @Composable
 fun IconWithText(text: String) {
-  Row(
-    verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier.padding(start = 10.dp)
-  ) {
+  Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 10.dp)) {
     Image(
       painter = painterResource(R.drawable.ic_clock),
       colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
@@ -294,25 +287,22 @@ fun IconWithText(text: String) {
 }
 
 @Composable
-fun GetText(action: () -> Unit, packageName: String?) {
+fun GetText(action: () -> Unit, packageName: String?, isVip: Boolean = false) {
   val hasGameInstall =
     isPackageInstalled(packageName, packageManager = LocalContext.current.packageManager)
   val text =
     if (hasGameInstall) stringResource(id = R.string.play_button)
-    else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button)
-    else ""
+    else if (BuildConfig.FLAVOR != "gp") stringResource(R.string.get_button) else ""
 
   TextButton(onClick = action) {
     Text(
       text = text,
       fontWeight = FontWeight.Bold,
-      color = WalletColors.styleguide_pink,
+      color = if (isVip) WalletColors.styleguide_vip_yellow else WalletColors.styleguide_pink,
       fontSize = 14.sp
     )
   }
-
 }
-
 
 @Composable
 fun ImageWithTitleAndDescription(
@@ -326,9 +316,7 @@ fun ImageWithTitleAndDescription(
     Row(verticalAlignment = Alignment.CenterVertically) {
       SubcomposeAsyncImage(
         model = imageUrl,
-        loading = {
-          CircularProgressIndicator()
-        },
+        loading = { CircularProgressIndicator() },
         contentDescription = null,
         contentScale = ContentScale.Fit,
         modifier = Modifier
@@ -377,17 +365,14 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
     Modifier
       .fillMaxWidth()
       .width(maxColumnWidth)
-      .padding(
-        top = 16.dp,
-        start = if (hasVerticalList) 16.dp else 0.dp,
-        end = 16.dp
-      )
+      .padding(top = 16.dp, start = if (hasVerticalList) 16.dp else 0.dp, end = 16.dp)
       .clip(shape = RoundedCornerShape(8.dp))
   ) {
     Column(modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Spacer(
-          modifier = Modifier
+          modifier =
+          Modifier
             .padding(top = 8.dp)
             .width(56.dp)
             .height(56.dp)
@@ -400,14 +385,16 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
             .padding(start = 12.dp)
         ) {
           Spacer(
-            modifier = Modifier
+            modifier =
+            Modifier
               .width(width = 120.dp)
               .height(height = 22.dp)
               .clip(RoundedCornerShape(5.dp))
               .background(brush = shimmerSkeleton()),
           )
           Spacer(
-            modifier = Modifier
+            modifier =
+            Modifier
               .width(width = 200.dp)
               .height(height = 27.dp)
               .padding(top = 5.dp, end = 16.dp)
@@ -421,7 +408,8 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
         modifier = Modifier.padding(top = 16.dp, end = 16.dp)
       ) {
         Spacer(
-          modifier = Modifier
+          modifier =
+          Modifier
             .padding(top = 8.dp)
             .width(46.dp)
             .height(40.dp)
@@ -430,7 +418,8 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
             .background(brush = shimmerSkeleton()),
         )
         Spacer(
-          modifier = Modifier
+          modifier =
+          Modifier
             .padding(top = 8.dp)
             .width(46.dp)
             .height(40.dp)
@@ -439,7 +428,8 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
             .background(brush = shimmerSkeleton()),
         )
         Spacer(
-          modifier = Modifier
+          modifier =
+          Modifier
             .padding(top = 8.dp)
             .width(46.dp)
             .height(40.dp)
@@ -448,7 +438,8 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
             .background(brush = shimmerSkeleton()),
         )
         Spacer(
-          modifier = Modifier
+          modifier =
+          Modifier
             .padding(top = 8.dp)
             .width(40.dp)
             .height(40.dp)
@@ -460,7 +451,7 @@ private fun SkeletonLoadingPromotionCardItem(hasVerticalList: Boolean) {
   }
 }
 
-//Test Itens
+// Test Itens
 data class CardPromotionItem(
   val title: String?,
   val subtitle: String?,
@@ -475,58 +466,62 @@ data class CardPromotionItem(
   val action: () -> Unit
 )
 
-val cardItem = CardPromotionItem(
-  title = "Days of empire",
-  subtitle = "Receive an extra 15% Bonus in all your purchases.",
-  promotionStartTime = System.currentTimeMillis(),
-  promotionEndTime = System.currentTimeMillis(),
-  imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-  urlRedirect = "https://example.com",
-  packageName = null,
-  hasVipPromotion = false,
-  hasFuturePromotion = false,
-  hasVerticalList = false,
-  action = { /* handle click action */ }
-)
+val cardItem =
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = false,
+    hasVerticalList = false,
+    action = { /* handle click action */ })
 
-val verticalCardItem = CardPromotionItem(
-  title = "Days of empire",
-  subtitle = "Receive an extra 15% Bonus in all your purchases.",
-  promotionStartTime = System.currentTimeMillis(),
-  promotionEndTime = System.currentTimeMillis(),
-  imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-  urlRedirect = "https://example.com",
-  packageName = null,
-  hasVipPromotion = false,
-  hasFuturePromotion = false,
-  hasVerticalList = true,
-  action = { /* handle click action */ }
-)
+val verticalCardItem =
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = false,
+    hasVerticalList = true,
+    action = { /* handle click action */ })
 
-val vipCardItem = CardPromotionItem(
-  title = "Days of empire",
-  subtitle = "Receive an extra 15% Bonus in all your purchases.",
-  promotionStartTime = System.currentTimeMillis(),
-  promotionEndTime = System.currentTimeMillis(),
-  imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-  urlRedirect = "https://example.com",
-  packageName = null,
-  hasVipPromotion = true,
-  hasFuturePromotion = false,
-  hasVerticalList = false,
-  action = { /* handle click action */ }
-)
+val vipCardItem =
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = true,
+    hasFuturePromotion = false,
+    hasVerticalList = false,
+    action = { /* handle click action */ })
 
-val futureCardItem = CardPromotionItem(
-  title = "Days of empire",
-  subtitle = "Receive an extra 15% Bonus in all your purchases.",
-  promotionStartTime = System.currentTimeMillis(),
-  promotionEndTime = System.currentTimeMillis(),
-  imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
-  urlRedirect = "https://example.com",
-  packageName = null,
-  hasVipPromotion = false,
-  hasFuturePromotion = true,
-  hasVerticalList = false,
-  action = { /* handle click action */ }
-)
+val futureCardItem =
+  CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl =
+    "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    packageName = null,
+    hasVipPromotion = false,
+    hasFuturePromotion = true,
+    hasVerticalList = false,
+    action = { /* handle click action */ })

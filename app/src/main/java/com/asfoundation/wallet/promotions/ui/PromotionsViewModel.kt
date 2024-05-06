@@ -2,13 +2,13 @@ package com.asfoundation.wallet.promotions.ui
 
 
 import android.content.ActivityNotFoundException
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
@@ -31,6 +31,7 @@ sealed class PromotionsSideEffect : SideEffect {
     val totalEarned: String,
     val numberReferrals: String
   ) : PromotionsSideEffect()
+
   object NavigateToInviteFriends : PromotionsSideEffect()
   object NavigateToInfo : PromotionsSideEffect()
   object ShowErrorToast : PromotionsSideEffect()
@@ -103,12 +104,14 @@ class PromotionsViewModel @Inject constructor(
       PromotionsInteractor.GAMIFICATION_ID -> sendSideEffect {
         PromotionsSideEffect.NavigateToGamification(promotionsModelAsync.value?.maxBonus ?: 0.00)
       }
+
       PromotionsInteractor.REFERRAL_ID -> handleReferralClick(promotionClick.extras)
       PromotionsInteractor.VOUCHER_ID -> sendSideEffect {
         PromotionsSideEffect.NavigateToVoucherDetails(
           promotionClick.extras!!.getValue(PACKAGE_NAME_EXTRA)
         )
       }
+
       else -> mapPackagePerkClick(promotionClick.extras)
     }
   }

@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
-    EtherTransactionBottomSheetView {
+  EtherTransactionBottomSheetView {
 
   @Inject
   lateinit var presenter: EtherTransactionBottomSheetPresenter
@@ -39,12 +39,13 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
     @JvmStatic
     fun newInstance(transactionHash: String): EtherTransactionBottomSheetFragment {
       return EtherTransactionBottomSheetFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putString(
-                  TRANSACTION_KEY, transactionHash)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putString(
+              TRANSACTION_KEY, transactionHash
+            )
           }
+        }
     }
   }
 
@@ -54,8 +55,10 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = EtherTransactionBottomSheetBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = EtherTransactionBottomSheetBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -81,7 +84,7 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
     clipboard.setPrimaryClip(clip)
 
     Toast.makeText(activity, R.string.copied, Toast.LENGTH_SHORT)
-        .show()
+      .show()
   }
 
   override fun getOkClick() = RxView.clicks(binding.etherTransactionBottomSheetGotItButton)

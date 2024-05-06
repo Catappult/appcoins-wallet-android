@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
 import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
 import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
@@ -26,7 +27,6 @@ import com.asfoundation.wallet.wallet_reward.RewardSharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.intercom.android.sdk.utilities.KeyboardUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -131,11 +131,13 @@ class PromoCodeBottomSheetFragment :
       is Async.Loading -> {
         showDefaultScreen()
       }
+
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
+
       is Async.Success -> {
         storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
@@ -153,6 +155,7 @@ class PromoCodeBottomSheetFragment :
           }
         }
       }
+
       else -> handleErrorState(promoCode)
     }
   }
@@ -162,13 +165,14 @@ class PromoCodeBottomSheetFragment :
     shouldShowDefault: Boolean
   ) {
     when (promoCodeResult.validity) {
-       ValidityState.ACTIVE -> {
+      ValidityState.ACTIVE -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
           promoCodeResult.code?.let { showCurrentCodeScreen(it) }
         }
       }
+
       else -> handleErrorState(null)
     }
   }
@@ -180,14 +184,17 @@ class PromoCodeBottomSheetFragment :
       is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
+
       is FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(
           getString(R.string.promo_code_error_not_available)
         )
       }
+
       is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }
+
       else -> return
     }
   }

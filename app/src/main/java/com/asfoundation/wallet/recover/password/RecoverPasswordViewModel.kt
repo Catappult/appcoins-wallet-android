@@ -90,12 +90,14 @@ class RecoverPasswordViewModel @Inject constructor(
         )
         setIsFirstPaymentUseCase(false)
       }
+
       is FailedPasswordRecover.InvalidPassword -> {
         walletsEventSender.sendWalletPasswordRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_FAIL, recoverResult.throwable?.message
         )
       }
+
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,

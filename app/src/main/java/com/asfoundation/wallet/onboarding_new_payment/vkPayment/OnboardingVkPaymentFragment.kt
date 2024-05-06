@@ -9,18 +9,15 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.feature.vkpay.VkPayManager
 import com.appcoins.wallet.sharedpreferences.VkDataPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingVkPaymentLayoutBinding
-import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
-import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentNavigator
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.vk.auth.api.models.AuthResult
 import com.vk.auth.main.VkClientAuthCallback
 import com.vk.auth.main.VkClientAuthLib
@@ -171,6 +168,7 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       is Async.Fail -> {
         showError()
       }
+
       else -> {}
     }
   }
@@ -211,17 +209,21 @@ class OnboardingVkPaymentFragment : BasePageViewFragment(),
       is OnboardingVkPaymentSideEffect.ShowError -> {
         showError()
       }
+
       OnboardingVkPaymentSideEffect.ShowLoading -> {}
       OnboardingVkPaymentSideEffect.ShowSuccess -> {
         showCompletedPayment()
       }
+
       OnboardingVkPaymentSideEffect.PaymentLinkSuccess -> {
         viewModel.transactionUid = viewModel.state.vkTransaction.value?.uid
         startVkCheckoutPay()
       }
+
       is OnboardingVkPaymentSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+
       OnboardingVkPaymentSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
     }
   }

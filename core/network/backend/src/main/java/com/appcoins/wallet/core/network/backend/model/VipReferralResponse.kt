@@ -1,5 +1,6 @@
 package com.appcoins.wallet.core.network.backend.model
 
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse.App
 import com.google.gson.annotations.SerializedName
 
 data class VipReferralResponse(
@@ -8,17 +9,21 @@ data class VipReferralResponse(
   @SerializedName("referrals") val referrals: String,
   @SerializedName("active") val active: Boolean,
   @SerializedName("revenue_share") val vipBonus: String,
-  @SerializedName("end_date") val endDate: String
+  @SerializedName("end_date") val endDate: String,
+  @SerializedName("start_date") val startDate: String,
+  @SerializedName("app") val app: App
 ) {
   companion object {
-    val invalidReferral = VipReferralResponse(
-      code = "",
-      earnedUsdAmount = "",
-      referrals = "",
-      active = false,
-      vipBonus = "",
-      endDate = ""
-    )
+    val invalidReferral =
+      VipReferralResponse(
+        code = "",
+        earnedUsdAmount = "",
+        referrals = "",
+        active = false,
+        vipBonus = "",
+        endDate = "",
+        startDate = "",
+        app = App(packageName = "", appName = "", appIcon = "")
+      )
   }
 }
-

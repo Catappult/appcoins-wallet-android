@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.Dp
  */
 @Immutable
 data class BackgroundTheme(
-    val color: Color = Color.Unspecified,
-    val tonalElevation: Dp = Dp.Unspecified,
+  val color: Color = Color.Unspecified,
+  val tonalElevation: Dp = Dp.Unspecified,
 )
 
 /**

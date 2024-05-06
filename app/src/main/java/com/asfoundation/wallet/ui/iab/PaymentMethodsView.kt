@@ -154,7 +154,9 @@ interface PaymentMethodsView {
 
   fun showChallengeReward()
 
-  fun showFee(hasFee: Boolean, fiatValue: FiatValue?, fee: BigDecimal)
+  fun showFee(hasFee: Boolean)
+
+  fun updatePriceAndCurrency(currency: String, amount: BigDecimal)
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,

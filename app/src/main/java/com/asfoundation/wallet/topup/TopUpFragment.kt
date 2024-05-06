@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
-import android.content.res.Configuration
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -14,17 +14,15 @@ import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
@@ -76,11 +74,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
+  lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
-  private lateinit var paymentMethodClick: PublishRelay<String>
+  private lateinit var paymentMethodClick: PublishRelay<PaymentMethod>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
@@ -144,7 +142,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(
-        context is TopUpActivityView) { "TopUp fragment must be attached to TopUp activity" }
+      context is TopUpActivityView
+    ) { "TopUp fragment must be attached to TopUp activity" }
     topUpActivityView = context
   }
 
@@ -168,12 +167,14 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
-      challengeRewardAnalytics = challengeRewardAnalytics,
+      getCachedCurrencyUseCase = getCachedCurrencyUseCase
     )
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
     fragmentContainer = container!!
     return FragmentTopUpBinding.inflate(inflater).root
   }
@@ -225,24 +226,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
     binding.paymentMethods.adapter = adapter
 
-    handlePaymentListMaxHeight(paymentMethods.size)
 
     binding.paymentsSkeleton.visibility = View.GONE
     binding.paymentMethods.visibility = View.VISIBLE
-  }
-
-  private fun handlePaymentListMaxHeight(listSize: Int) {
-    if (listSize > 2) {
-      val orientation = resources.configuration.orientation
-      val params: LayoutParams = binding.paymentMethods.layoutParams as LayoutParams
-      if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        params.height = 164.convertDpToPx(resources)
-      }
-      if (orientation == Configuration.ORIENTATION_PORTRAIT && paymentMethods.size > 3) {
-        params.height = 228.convertDpToPx(resources)
-      }
-      binding.paymentMethods.layoutParams = params
-    }
   }
 
   private fun selectPaymentMethod(paymentMethods: List<PaymentMethod>) {
@@ -259,34 +245,27 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (!selected) adapter.setSelectedItem(0)
   }
 
-  override fun setupCurrency(localCurrency: LocalCurrency) {
+  override fun setupCurrency(currency: LocalCurrency) {
     hideErrorViews()
-    if (isLocalCurrencyValid(localCurrency)) {
-      this@TopUpFragment.localCurrency = localCurrency
-      setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
-          DEFAULT_VALUE)
+    if (isLocalCurrencyValid(currency)) {
+      localCurrency = currency
+      setupCurrencyData(
+        selectedCurrency, currency.code, DEFAULT_VALUE, APPC_C_SYMBOL,
+        DEFAULT_VALUE
+      )
     }
+    binding.mainCurrencyCode.text = currency.code
     binding.mainValue.isEnabled = true
-    binding.mainValue.setMinTextSize(resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
-        .toFloat())
+    binding.mainValue.setMinTextSize(
+      resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size)
+        .toFloat()
+    )
     binding.mainValue.setOnEditorActionListener { _, actionId, _ ->
       if (EditorInfo.IME_ACTION_NEXT == actionId) {
         hideKeyboard()
         binding.button.performClick()
       }
       true
-    }
-    binding.botSeparator.visibility = View.VISIBLE
-    //added since this fragment continues active after navigating to the payment fragment
-    if (fragmentManager?.backStackEntryCount == 0) focusAndShowKeyboard(binding.mainValue)
-
-  }
-
-  private fun focusAndShowKeyboard(view: EditText) {
-    view.post {
-      view.requestFocus()
-      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
   }
 
@@ -309,7 +288,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun setValuesAdapter(values: List<FiatValue>) {
     val addMargin = values.size <= getTopUpValuesSpanCount()
     binding.rvDefaultValues.addItemDecoration(
-        DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))
+      DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL)
+    )
     binding.rvDefaultValues.addItemDecoration(TopUpItemDecorator(values.size, addMargin))
 
     topUpAdapter.submitList(values)
@@ -348,21 +328,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(binding.mainValue)
-        .filter { !switchingCurrency }
-        .map {
-          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
-        }
+      .filter { !switchingCurrency }
+      .map {
+        TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
+      }
   }
 
-  override fun getPaymentMethodClick(): Observable<String> {
+  override fun getPaymentMethodClick(): Observable<PaymentMethod> {
     return paymentMethodClick
   }
 
   override fun getNextClick(): Observable<TopUpData> {
     return RxView.clicks(binding.button)
-        .map {
-          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(), bonusValue)
-        }
+      .map {
+        TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(), bonusValue)
+      }
   }
 
   override fun setNextButtonState(enabled: Boolean) {
@@ -379,12 +359,13 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun rotateChangeCurrencyButton() {
     val rotateAnimation = RotateAnimation(
-        0f,
-        180f,
-        Animation.RELATIVE_TO_SELF,
-        0.5f,
-        Animation.RELATIVE_TO_SELF,
-        0.5f)
+      0f,
+      180f,
+      Animation.RELATIVE_TO_SELF,
+      0.5f,
+      Animation.RELATIVE_TO_SELF,
+      0.5f
+    )
     rotateAnimation.duration = 250
     rotateAnimation.interpolator = AccelerateDecelerateInterpolator()
   }
@@ -392,32 +373,39 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun switchCurrencyData() {
     val currencyData = getCurrencyData()
     selectedCurrency =
-        if (selectedCurrency == APPC_C_CURRENCY) FIAT_CURRENCY else APPC_C_CURRENCY
+      if (selectedCurrency == APPC_C_CURRENCY) FIAT_CURRENCY else APPC_C_CURRENCY
     // We just have to switch the current information being shown
-    setupCurrencyData(selectedCurrency, currencyData.fiatCurrencyCode, currencyData.fiatValue,
-        currencyData.appcCode, currencyData.appcValue)
+    setupCurrencyData(
+      selectedCurrency, currencyData.fiatCurrencyCode, currencyData.fiatValue,
+      currencyData.appcCode, currencyData.appcValue
+    )
   }
 
   override fun setConversionValue(topUpData: TopUpData) {
     if (topUpData.selectedCurrencyType == selectedCurrency) {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
-          binding.convertedValue.text = "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
+          binding.convertedValue.text =
+            "${topUpData.currency.appcValue} ${WalletCurrency.CREDITS.symbol}"
         }
+
         APPC_C_CURRENCY -> {
           binding.convertedValue.text =
-              "${topUpData.currency.fiatValue} ${topUpData.currency.fiatCurrencyCode}"
+            "${topUpData.currency.fiatValue} ${topUpData.currency.fiatCurrencyCode}"
         }
       }
     } else {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
           if (topUpData.currency.fiatValue != DEFAULT_VALUE) binding.mainValue.setText(
-              topUpData.currency.fiatValue) else binding.mainValue.setText("")
+            topUpData.currency.fiatValue
+          ) else binding.mainValue.setText("")
         }
+
         APPC_C_CURRENCY -> {
           if (topUpData.currency.appcValue != DEFAULT_VALUE) binding.mainValue.setText(
-              topUpData.currency.appcValue) else binding.mainValue.setText("")
+            topUpData.currency.appcValue
+          ) else binding.mainValue.setText("")
         }
       }
     }
@@ -456,27 +444,37 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showMaxValueWarning(value: String) {
-    binding.valueWarningText?.text = getString(R.string.topup_maximum_value, value)
+    binding.valueWarningText.text = getString(R.string.topup_maximum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText?.visibility = View.VISIBLE
+    binding.valueWarningText.visibility = View.VISIBLE
   }
 
   override fun showMinValueWarning(value: String) {
-    binding.valueWarningText?.text = getString(R.string.topup_minimum_value, value)
+    binding.valueWarningText.text = getString(R.string.topup_minimum_value, value)
     binding.valueWarningIcon.visibility = View.VISIBLE
-    binding.valueWarningText?.visibility = View.VISIBLE
+    binding.valueWarningText.visibility = View.VISIBLE
   }
 
   override fun hideValueInputWarning() {
     binding.valueWarningIcon.visibility = View.INVISIBLE
-    binding.valueWarningText?.visibility = View.INVISIBLE
+    binding.valueWarningText.visibility = View.INVISIBLE
   }
 
   override fun changeMainValueColor(isValid: Boolean) {
     if (isValid) {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_light_grey))
+      binding.mainValue.setTextColor(
+        ContextCompat.getColor(
+          requireContext(),
+          R.color.styleguide_light_grey
+        )
+      )
     } else {
-      binding.mainValue.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_dark_grey))
+      binding.mainValue.setTextColor(
+        ContextCompat.getColor(
+          requireContext(),
+          R.color.styleguide_dark_grey
+        )
+      )
     }
   }
 
@@ -485,8 +483,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.mainValue.setSelection(value.length)
   }
 
-  override fun getSelectedCurrency(): String {
+  override fun getSelectedCurrencyType(): String {
     return selectedCurrency
+  }
+
+  override fun getSelectedCurrency(): LocalCurrency {
+    return localCurrency
   }
 
   override fun showNoNetworkError() {
@@ -515,6 +517,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
   }
 
+  override fun showValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.INVISIBLE
+    binding.mainValue.visibility = View.INVISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.VISIBLE
+    binding.mainValueSkeleton.root.visibility = View.VISIBLE
+    showBonusSkeletons()
+  }
+
+  override fun hideValuesSkeletons() {
+    binding.mainCurrencyCode.visibility = View.VISIBLE
+    binding.mainValue.visibility = View.VISIBLE
+    binding.mainCurrencySkeleton.root.visibility = View.INVISIBLE
+    binding.mainValueSkeleton.root.visibility = View.INVISIBLE
+  }
+
   override fun hidePaymentMethods() {
     binding.paymentsSkeleton.visibility = View.VISIBLE
     binding.paymentMethods.visibility = View.GONE
@@ -532,7 +549,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.noNetwork.retryAnimation.visibility = View.GONE
     binding.topUpContainer.visibility = View.GONE
     binding.rvDefaultValues.visibility = View.GONE
-    binding.errorTopup.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    binding.errorTopup.root.startAnimation(
+      AnimationUtils.loadAnimation(
+        context,
+        R.anim.pop_in_animation
+      )
+    )
     binding.errorTopup.root.visibility = View.VISIBLE
   }
 
@@ -553,27 +575,38 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
     bonusValue = scaledBonus
-    binding.bonusLayout.bonusValue.text = getString(R.string.topup_bonus_amount_body,
-        currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
+    binding.bonusLayout.bonusValue.text = getString(
+      R.string.topup_bonus_amount_body,
+      currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
+    )
   }
 
-  private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatValue: String,
-                                appcCode: String, appcValue: String) {
+  private fun setupCurrencyData(
+    selectedCurrency: String, fiatCode: String, fiatValue: String,
+    appcCode: String, appcValue: String
+  ) {
 
     when (selectedCurrency) {
       FIAT_CURRENCY -> {
-        setCurrencyInfo(fiatCode, fiatValue,
-            "$appcValue $appcCode", appcCode)
+        setCurrencyInfo(
+          fiatCode, fiatValue,
+          "$appcValue $appcCode", appcCode
+        )
       }
+
       APPC_C_CURRENCY -> {
-        setCurrencyInfo(appcCode, appcValue,
-            "$fiatValue $fiatCode", fiatCode)
+        setCurrencyInfo(
+          appcCode, appcValue,
+          "$fiatValue $fiatCode", fiatCode
+        )
       }
     }
   }
 
-  private fun setCurrencyInfo(mainCode: String, mainValue: String,
-                              conversionValue: String, conversionCode: String) {
+  private fun setCurrencyInfo(
+    mainCode: String, mainValue: String,
+    conversionValue: String, conversionCode: String
+  ) {
     binding.mainCurrencyCode.text = mainCode
     if (mainValue != DEFAULT_VALUE) {
       binding.mainValue.setText(mainValue)
@@ -584,22 +617,31 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private fun getSelectedPaymentMethod(): PaymentTypeInfo? {
     return if (binding.paymentMethods.adapter != null) {
-      val data = (binding.paymentMethods.adapter as TopUpPaymentMethodsAdapter).getSelectedItemData()
+      val data =
+        (binding.paymentMethods.adapter as TopUpPaymentMethodsAdapter).getSelectedItemData()
       when {
         PaymentType.PAYPAL.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
+
         PaymentType.PAYPALV2.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.PAYPALV2, data.id, data.label, data.iconUrl)
+
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
+
         PaymentType.CHALLENGE_REWARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CHALLENGE_REWARD, data.id, data.label, data.iconUrl)
+
         PaymentType.VKPAY.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.VKPAY, data.id, data.label, data.iconUrl)
+
         PaymentType.GOOGLEPAY_WEB.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.GOOGLEPAY_WEB, data.id, data.label, data.iconUrl)
-        else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,
-            data.iconUrl, data.async)
+
+        else -> PaymentTypeInfo(
+          PaymentType.LOCAL_PAYMENTS, data.id, data.label,
+          data.iconUrl, data.async
+        )
       }
     } else {
       null
@@ -609,22 +651,28 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private fun getCurrencyData(): CurrencyData {
     return if (selectedCurrency == FIAT_CURRENCY) {
       val appcValue = binding.convertedValue.text.toString()
-          .replace(APPC_C_SYMBOL, "")
-          .replace(" ", "")
+        .replace(APPC_C_SYMBOL, "")
+        .replace(" ", "")
       val localCurrencyValue =
-          if (binding.mainValue.text.toString()
-                  .isEmpty()) DEFAULT_VALUE else binding.mainValue.text.toString()
-      CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
-          APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
+        if (binding.mainValue.text.toString()
+            .isEmpty()
+        ) DEFAULT_VALUE else binding.mainValue.text.toString()
+      CurrencyData(
+        localCurrency.code, localCurrency.symbol, localCurrencyValue,
+        APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue
+      )
     } else {
       val localCurrencyValue = binding.convertedValue.text.toString()
-          .replace(localCurrency.code, "")
-          .replace(" ", "")
+        .replace(localCurrency.code, "")
+        .replace(" ", "")
       val appcValue =
-          if (binding.mainValue.text.toString()
-                  .isEmpty()) DEFAULT_VALUE else binding.mainValue.text.toString()
-      CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
-          APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
+        if (binding.mainValue.text.toString()
+            .isEmpty()
+        ) DEFAULT_VALUE else binding.mainValue.text.toString()
+      CurrencyData(
+        localCurrency.code, localCurrency.symbol, localCurrencyValue,
+        APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue
+      )
     }
   }
 
@@ -645,13 +693,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private fun getTopUpValuesSpanCount(): Int {
     val screenWidth =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
-            fragmentContainer.measuredWidth.toFloat(),
-            requireContext().resources
-                .displayMetrics)
-            .toInt()
+      TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_PX,
+        fragmentContainer.measuredWidth.toFloat(),
+        requireContext().resources
+          .displayMetrics
+      )
+        .toInt()
     val viewWidth = 80.convertDpToPx(resources)
 
     return screenWidth / viewWidth
+  }
+
+  override fun lockRotation() {
+    requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 }

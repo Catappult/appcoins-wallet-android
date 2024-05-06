@@ -19,7 +19,7 @@ class WatchedTransactionService(
 
   fun start() {
     cache.all
-        .observeOn(scheduler)
+      .observeOn(scheduler)
       .flatMapCompletable { paymentTransactions ->
         Observable.fromIterable(paymentTransactions)
           .filter { transaction -> transaction.status == WatchedTransaction.Status.PENDING }
@@ -63,16 +63,16 @@ class WatchedTransactionService(
                   )
                 ))
           })
-        .doOnError {
-          it.printStackTrace()
-          cache.saveSync(
-            watchedTransaction.key,
-            WatchedTransaction(
-              watchedTransaction.key, enumValueOf(paymentErrorMapper.map(it).paymentState.name),
-              watchedTransaction.transactionBuilder
-            )
+      .doOnError {
+        it.printStackTrace()
+        cache.saveSync(
+          watchedTransaction.key,
+          WatchedTransaction(
+            watchedTransaction.key, enumValueOf(paymentErrorMapper.map(it).paymentState.name),
+            watchedTransaction.transactionBuilder
           )
-        }
+        )
+      }
   }
 
   private fun retryOnTransactionNotFound(throwable: Observable<Throwable>): Observable<Long> {

@@ -8,20 +8,20 @@ import kotlinx.coroutines.rx2.rxCompletable
 import javax.inject.Inject
 
 class UpdateBackupStateFromRecoverUseCase @Inject constructor(
-        private val getWalletInfoUseCase: GetWalletInfoUseCase,
-        private val backupSuccessLogUseCase: BackupSuccessLogUseCase
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase
 ) {
 
   operator fun invoke(): Completable {
     return getWalletInfoUseCase(null, cached = false)
-        .flatMapCompletable {
-          if (!it.hasBackup) {
+      .flatMapCompletable {
+        if (!it.hasBackup) {
 
-            return@flatMapCompletable rxCompletable(Dispatchers.IO) {
-              backupSuccessLogUseCase(it.wallet)
-            }
+          return@flatMapCompletable rxCompletable(Dispatchers.IO) {
+            backupSuccessLogUseCase(it.wallet)
           }
-          Completable.complete()
         }
+        Completable.complete()
+      }
   }
 }

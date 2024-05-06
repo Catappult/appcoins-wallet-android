@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.main
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.arch.BaseViewModel
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
@@ -30,7 +28,6 @@ object MainActivityState : ViewState
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
   private val increaseLaunchCount: IncreaseLaunchCountUseCase,
-  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
@@ -52,9 +49,11 @@ class MainActivityViewModel @Inject constructor(
         when {
           hasRequiredHardUpdateUseCase(blackList, updateVersionCode, updateMinSdk) ->
             sendSideEffect { MainActivitySideEffect.NavigateToAutoUpdate }
+
           hasAuthenticationPermissionUseCase() && !authComplete -> {
             sendSideEffect { MainActivitySideEffect.NavigateToFingerprintAuthentication }
           }
+
           shouldShowOnboardingUseCase() -> {
             getCachedGuestWalletUseCase()
               .subscribeOn(rxSchedulers.io)
@@ -72,6 +71,7 @@ class MainActivityViewModel @Inject constructor(
               }
               .scopedSubscribe()
           }
+
           else ->
             sendSideEffect { MainActivitySideEffect.NavigateToNavigationBar }
         }
@@ -81,9 +81,7 @@ class MainActivityViewModel @Inject constructor(
 
   private fun handleSupportNotificationClick() {
     val fromSupportNotification = savedStateHandle.get<Boolean>(SUPPORT_NOTIFICATION_CLICK)
-    if (fromSupportNotification == true) {
-      displayConversationListOrChatUseCase()
-    } else {
+    if (fromSupportNotification == false) {
       // We only count a launch if it did not come from a notification
       increaseLaunchCount()
     }

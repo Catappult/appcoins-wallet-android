@@ -28,6 +28,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.C
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CHALLENGE_REWARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.EARN_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
@@ -35,7 +36,6 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.P
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.VKPAY
-import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -120,13 +120,17 @@ class PaymentMethodsPresenter(
     disposables.add(view.getPaymentSelection()
       .observeOn(viewScheduler)
       .doOnNext { selectedPaymentMethod ->
-        if (interactor.isBonusActiveAndValid()) {
-          handleBonusVisibility(selectedPaymentMethod.id)
-        } else {
-          view.removeBonus()
+        with(selectedPaymentMethod) {
+          if (interactor.isBonusActiveAndValid()) {
+            handleBonusVisibility(id)
+          } else {
+            view.removeBonus()
+          }
+          handlePositiveButtonText(id)
+          handleFeeVisibility(fee)
+          updatePriceAndCurrency(price, fee)
         }
-        handlePositiveButtonText(selectedPaymentMethod.id)
-        handleFeeVisibility(selectedPaymentMethod.fee)
+
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -143,6 +147,7 @@ class PaymentMethodsPresenter(
             view.showProgressBarLoading()
             handleWalletBlockStatus(selectedPaymentMethod)
           }
+
           MERGED_APPC -> view.showMergedAppcoins(
             cachedGamificationLevel,
             cachedFiatValue!!,
@@ -164,24 +169,28 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               PAYPAL_V2 -> view.showPaypalV2(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               VKPAY -> view.showVkPay(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
               SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
               LOCAL_PAYMENTS -> view.showLocalPayment(
@@ -193,6 +202,7 @@ class PaymentMethodsPresenter(
                 cachedFiatValue!!.currency,
                 cachedGamificationLevel
               )
+
               CARRIER_BILLING -> view.showCarrierBilling(cachedFiatValue!!, false)
               CHALLENGE_REWARD -> view.showChallengeReward()
               SANDBOX -> view.showSandbox(
@@ -201,12 +211,14 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               GOOGLEPAY_WEB -> view.showGooglePayWeb(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+
               else -> return@doOnNext
             }
           }
@@ -291,12 +303,14 @@ class PaymentMethodsPresenter(
         paymentMethodsData.frequency,
         paymentMethodsData.subscription
       )
+
       PAYPAL_V2 -> view.showPaypalV2(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
         paymentMethodsData.subscription
       )
+
       CREDIT_CARD -> if (paymentNavigationData.isPreselected) {
         view.showAdyen(
           cachedFiatValue!!.amount,
@@ -315,6 +329,7 @@ class PaymentMethodsPresenter(
           paymentMethodsData.subscription
         )
       }
+
       APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
       APPC_CREDITS -> view.showCredits(cachedGamificationLevel, transaction)
       SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
@@ -327,10 +342,12 @@ class PaymentMethodsPresenter(
         cachedFiatValue!!.currency,
         cachedGamificationLevel
       )
+
       CARRIER_BILLING -> view.showCarrierBilling(
         cachedFiatValue!!,
         paymentNavigationData.isPreselected
       )
+
       CHALLENGE_REWARD -> view.showChallengeReward()
       SANDBOX -> view.showSandbox(
         cachedGamificationLevel,
@@ -338,6 +355,7 @@ class PaymentMethodsPresenter(
         paymentMethodsData.frequency,
         paymentMethodsData.subscription
       )
+
       GOOGLEPAY_WEB -> view.showGooglePayWeb(
         cachedGamificationLevel,
         cachedFiatValue!!,
@@ -534,6 +552,7 @@ class PaymentMethodsPresenter(
         viewState = ViewState.ITEM_ALREADY_OWNED
         view.showItemAlreadyOwnedError()
       }
+
       else -> view.showError(R.string.activity_iab_error_message)
     }
   }
@@ -625,6 +644,7 @@ class PaymentMethodsPresenter(
               }
             }
           }
+
           else -> showPreSelectedPaymentMethod(
             fiatValue,
             paymentMethod,
@@ -977,12 +997,20 @@ class PaymentMethodsPresenter(
     }
 
   private fun handleFeeVisibility(fee: PaymentMethodFee?) {
-    view.showFee(
-      hasFee = fee != null && fee.isValidFee(),
-      fiatValue = cachedFiatValue,
-      fee = fee?.amount ?: BigDecimal.ZERO
+    view.showFee(fee != null && fee.isValidFee())
+  }
+
+  private fun updatePriceAndCurrency(price: FiatValue, fee: PaymentMethodFee?) {
+    cachedFiatValue = price
+
+    view.updatePriceAndCurrency(
+      currency = price.currency,
+      amount = sumPriceAndFee(price.amount, fee)
     )
   }
+
+  private fun sumPriceAndFee(price: BigDecimal, fee: PaymentMethodFee?) =
+    if (fee != null && fee.isValidFee()) price.add(fee.amount) else price
 
   private fun handleBuyAnalytics(selectedPaymentMethod: PaymentMethod) {
     val action =

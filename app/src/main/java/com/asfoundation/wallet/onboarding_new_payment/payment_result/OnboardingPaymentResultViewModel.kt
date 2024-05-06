@@ -42,12 +42,12 @@ object OnboardingPaymentResultState : ViewState
 
 @HiltViewModel
 class OnboardingPaymentResultViewModel @Inject constructor(
-    private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val events: OnboardingPaymentEvents,
-    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-    private val supportInteractor: SupportInteractor,
-    private val rxSchedulers: RxSchedulers,
-    savedStateHandle: SavedStateHandle
+  private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val events: OnboardingPaymentEvents,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val supportInteractor: SupportInteractor,
+  private val rxSchedulers: RxSchedulers,
+  savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
     OnboardingPaymentResultState
@@ -55,6 +55,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   private var args: OnboardingPaymentResultFragmentArgs =
     OnboardingPaymentResultFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+  private var uid: String? = null
 
   init {
     handlePaymentResult()
@@ -65,16 +67,20 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
         handleAuthorisedPayment()
       }
+
       args.paymentModel.refusalCode != null -> {
         handlePaymentRefusal()
       }
+
       args.paymentModel.error.hasError -> {
         events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
         sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
       }
+
       args.paymentModel.status == PaymentModel.Status.CANCELED -> {
         sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods }
       }
+
       else -> {
         sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
       }
@@ -86,6 +92,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       .doOnNext { authorisedPaymentModel ->
         when (authorisedPaymentModel.status) {
           PaymentModel.Status.COMPLETED -> {
+            uid = authorisedPaymentModel.uid
             events.sendPaymentSuccessEvent(
               args.transactionBuilder,
               args.paymentType,
@@ -105,6 +112,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
               }
             }.subscribe()
           }
+
           else -> {
             events.sendPaymentErrorEvent(
               args.transactionBuilder,
@@ -133,6 +141,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
           handleFraudFlow(args.paymentModel.error, code)
           riskRules = args.paymentModel.fraudResultIds.sorted().joinToString(separator = "-")
         }
+
         else -> sendSideEffect {
           OnboardingPaymentResultSideEffect.ShowPaymentError(
             args.paymentModel.error,
@@ -209,7 +218,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun showSupport(gamificationLevel: Int) {
-    supportInteractor.showSupport(gamificationLevel)
+    supportInteractor.showSupport(gamificationLevel, uid)
       .scopedSubscribe()
   }
 }

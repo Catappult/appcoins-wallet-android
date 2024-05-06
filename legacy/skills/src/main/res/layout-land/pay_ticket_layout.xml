@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme"
@@ -26,12 +25,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/big_margin"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintBottom_toTopOf="@id/pay_ticket_payment_methods_details"
         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"
         />
     <include
         android:id="@+id/pay_ticket_payment_methods_details"
@@ -39,12 +38,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
-        android:layout_marginBottom="@dimen/small_margin"
         android:layout_marginEnd="@dimen/big_margin"
-        app:layout_constraintStart_toStartOf="@id/pay_ticket_header"
-        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
-        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_header"
+        android:layout_marginBottom="@dimen/small_margin"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintStart_toStartOf="@id/pay_ticket_header"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_header"
         />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical_separator"
@@ -52,7 +51,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.45"
-      />
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizonal_separator"
@@ -81,11 +80,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginBottom="@dimen/small_margin"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_separator"
         app:layout_constraintTop_toTopOf="@+id/pay_ticket_header"
+        app:layout_constraintVertical_bias="0.0"
         />
 
 

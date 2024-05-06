@@ -125,7 +125,7 @@ fun BalanceCard(
                 content = {})
               Column(modifier = Modifier.padding(16.dp)) {
                 BackupAlertCard(
-                  onClickBackup,
+                  onClickButton = onClickBackup,
                   hasBackup = false
                 )
               }
@@ -357,6 +357,7 @@ fun PreviewBalanceItems() {
     BalanceItem(R.drawable.ic_eth_token, R.string.ethereum_token_name, "5244 ETH")
   }
 }
+
 @Preview
 @Composable
 fun PreviewSkeletonLoading() {

@@ -19,7 +19,11 @@ import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebViewModel
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayConst
 import com.asfoundation.wallet.billing.googlepay.models.GooglePayResult
-import com.asfoundation.wallet.billing.googlepay.usecases.*
+import com.asfoundation.wallet.billing.googlepay.usecases.BuildGooglePayUrlUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.CreateGooglePayWebTransactionUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayResultUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.GetGooglePayUrlUseCase
+import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -137,8 +141,10 @@ class OnboardingGooglePayViewModel @Inject constructor(
           GooglePayWebTransaction.GooglePayWebValidityState.COMPLETED -> {
             handleSuccess(it.uid, transactionBuilder)
           }
+
           GooglePayWebTransaction.GooglePayWebValidityState.PENDING -> {
           }
+
           GooglePayWebTransaction.GooglePayWebValidityState.ERROR -> {
             Log.d(TAG, "GooglePayWeb transaction error")
             events.sendPaymentErrorMessageEvent(
@@ -148,6 +154,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.purchase_error_google_pay))
           }
+
           null -> {
             Log.d(TAG, "GooglePayWeb transaction error")
             events.sendPaymentErrorMessageEvent(
@@ -174,6 +181,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
           PaymentModel.Status.COMPLETED -> {
             handleSuccess(it.uid, transactionBuilder)
           }
+
           PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED, PaymentModel.Status.INVALID_TRANSACTION -> {
             Log.d(TAG, "Error on transaction on Settled transaction polling")
             events.sendPaymentErrorMessageEvent(
@@ -183,7 +191,9 @@ class OnboardingGooglePayViewModel @Inject constructor(
             )
             _state.postValue(State.Error(R.string.unknown_error))
           }
-          else -> { /* pending */ }
+
+          else -> { /* pending */
+          }
         }
       }, {
         Log.d(TAG, "Error on Settled transaction polling")
@@ -263,7 +273,7 @@ class OnboardingGooglePayViewModel @Inject constructor(
 
   fun showSupport() {
     compositeDisposable.add(
-      supportInteractor.showSupport(0).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(uid = uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

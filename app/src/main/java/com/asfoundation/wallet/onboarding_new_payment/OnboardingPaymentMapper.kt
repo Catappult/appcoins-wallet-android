@@ -20,6 +20,7 @@ fun PaymentType.mapToService(): AdyenPaymentRepository.Methods =
     PaymentType.CARD.name -> {
       AdyenPaymentRepository.Methods.CREDIT_CARD
     }
+
     else -> {
       AdyenPaymentRepository.Methods.PAYPAL
     }

@@ -26,7 +26,7 @@ interface AdyenPaymentView {
 
   fun backEvent(): Observable<Any>
 
-  fun close(bundle: Bundle?)
+  fun close(bundle: Bundle)
 
   fun showSuccess(renewal: Date?)
 
@@ -103,6 +103,13 @@ interface AdyenPaymentView {
   fun setup3DSComponent()
 
   fun shouldStoreCard(): Boolean
+
+  fun isCvcRequiredPayment(): Boolean
+
+  fun isStoredCardPayment(): Boolean
+
   fun restartFragment()
+
+  fun showCvcRequired()
 
 }

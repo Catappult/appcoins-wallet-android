@@ -10,9 +10,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class WalletCreatorInteract @Inject constructor(
-    private val walletRepository: WalletRepositoryType,
-    private val passwordStore: PasswordStore,
-    private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val walletRepository: WalletRepositoryType,
+  private val passwordStore: PasswordStore,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
 ) {
 
   fun create(name: String? = null): Single<Wallet> = passwordStore.generatePassword()

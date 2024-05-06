@@ -40,10 +40,10 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
   private final TextView fee;
   /** The button to see more details about the transfer */
   private final Button more;
-  /** The operation object to be shown */
-  private Operation operation;
   /** The listener for the more button click */
   private final OnMoreClickListener onMoreClickListener;
+  /** The operation object to be shown */
+  private Operation operation;
 
   public TransactionDetailsHolder(View view, OnMoreClickListener listener) {
     super(view);
@@ -83,7 +83,7 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
     int decimals = MiscProperties.INSTANCE.getDEFAULT_TOKEN_DECIMALS();
 
     return new BigDecimal(operation.getFee()).divide(BigDecimal.valueOf(Math.pow(10.0, decimals)),
-        DEFAULT_SCALE, RoundingMode.HALF_UP)
+            DEFAULT_SCALE, RoundingMode.HALF_UP)
         .toPlainString();
   }
 

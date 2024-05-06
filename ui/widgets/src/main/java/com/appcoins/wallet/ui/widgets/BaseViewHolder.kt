@@ -13,17 +13,17 @@ abstract class BaseViewHolder : EpoxyHolder() {
   }
 
   protected fun <V : View> bind(id: Int): ReadOnlyProperty<BaseViewHolder, V> =
-      Lazy { holder: BaseViewHolder, prop ->
-        holder.itemView.findViewById(id) as V?
-            ?: throw IllegalStateException("View ID $id for '${prop.name}' not found.")
-      }
+    Lazy { holder: BaseViewHolder, prop ->
+      holder.itemView.findViewById(id) as V?
+        ?: throw IllegalStateException("View ID $id for '${prop.name}' not found.")
+    }
 
   /**
    * Taken from Kotterknife.
    * https://github.com/JakeWharton/kotterknife
    */
   private class Lazy<V>(
-      private val initializer: (BaseViewHolder, KProperty<*>) -> V
+    private val initializer: (BaseViewHolder, KProperty<*>) -> V
   ) : ReadOnlyProperty<BaseViewHolder, V> {
     private object EMPTY
 

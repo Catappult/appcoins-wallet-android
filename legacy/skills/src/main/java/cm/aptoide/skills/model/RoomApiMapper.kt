@@ -7,7 +7,7 @@ import io.reactivex.Single
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class RoomApiMapper@Inject constructor(private val gson: Gson) {
+class RoomApiMapper @Inject constructor(private val gson: Gson) {
   private data class Response(
     var detail: Detail
   )
@@ -18,8 +18,8 @@ class RoomApiMapper@Inject constructor(private val gson: Gson) {
 
   fun map(roomResponse: Single<RoomResponse.SuccessfulRoomResponse>): Single<RoomResponse> {
     return roomResponse.flatMap { response: RoomResponse ->
-        Single.just(response)
-      }.onErrorReturn { throwable: Throwable -> mapException(throwable) }
+      Single.just(response)
+    }.onErrorReturn { throwable: Throwable -> mapException(throwable) }
   }
 
   private fun mapException(throwable: Throwable): RoomResponse {

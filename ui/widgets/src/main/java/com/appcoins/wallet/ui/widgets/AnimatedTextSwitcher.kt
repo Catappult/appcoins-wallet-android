@@ -5,7 +5,6 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.appcoins.wallet.ui.common.R
@@ -14,12 +13,14 @@ import kotlinx.parcelize.Parcelize
 
 class AnimatedTextSwitcher : FrameLayout {
   @Parcelize
-  class ToolbarTextSwitcherState(val superSavedState: Parcelable?, val animateFirstView: Boolean,
-                                 val text: CharSequence) : View.BaseSavedState(superSavedState),
-      Parcelable
+  class ToolbarTextSwitcherState(
+    val superSavedState: Parcelable?, val animateFirstView: Boolean,
+    val text: CharSequence
+  ) : BaseSavedState(superSavedState),
+    Parcelable
 
   private val views =
-      LayoutToolbarTextSwitcherBinding.inflate(LayoutInflater.from(context), this, true)
+    LayoutToolbarTextSwitcherBinding.inflate(LayoutInflater.from(context), this, true)
 
   private var animateFirstView = true
   private var text: CharSequence = ""
@@ -27,15 +28,15 @@ class AnimatedTextSwitcher : FrameLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-      context, attrs,
-      defStyleAttr
+    context, attrs,
+    defStyleAttr
   ) {
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-        context.obtainStyledAttributes(attrs, R.styleable.AnimatedTextSwitcher, defStyleAttr, 0)
+      context.obtainStyledAttributes(attrs, R.styleable.AnimatedTextSwitcher, defStyleAttr, 0)
     val string = typedArray.getString(R.styleable.AnimatedTextSwitcher_toolbarText) ?: ""
     text = string
     views.textSwitcher.setCurrentText(string)

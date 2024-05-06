@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing;
 
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import org.jetbrains.annotations.NotNull;
@@ -19,13 +18,13 @@ public class CreditsRemoteRepository
   @NotNull @Override
   public Single<Transaction> pay(@NotNull String walletAddress, @NotNull String signature,
       @NotNull BigDecimal amount, @Nullable String origin, @Nullable String sku,
-      @NotNull String type, @Nullable String entityOemId,
-      @Nullable String entityDomain, @NotNull String packageName, @Nullable String payload,
-      @Nullable String callback, @Nullable String orderReference, @Nullable String referrerUrl,
+      @NotNull String type, @Nullable String entityOemId, @Nullable String entityDomain,
+      @NotNull String packageName, @Nullable String payload, @Nullable String callback,
+      @Nullable String orderReference, @Nullable String referrerUrl,
       @Nullable String productToken) {
     return remoteRepository.registerAuthorizationProof(origin, type, entityOemId, entityDomain,
-        null, "appcoins_credits", walletAddress, sku, packageName, amount,
-        payload, callback, orderReference, referrerUrl, productToken);
+        null, "appcoins_credits", walletAddress, sku, packageName, amount, payload, callback,
+        orderReference, referrerUrl, productToken);
   }
 
   @NotNull @Override

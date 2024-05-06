@@ -7,8 +7,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
-import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
-import com.appcoins.wallet.feature.promocode.data.repository.ValidityState
 
 class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
   Preference(context, attrs) {
@@ -40,6 +38,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
               ResourcesCompat.getColor(context.resources, R.color.gamification_green, null)
             )
           }
+
           com.appcoins.wallet.feature.promocode.data.repository.ValidityState.EXPIRED -> {
             promoCodeState?.text = context.getString(R.string.promo_code_expired_tag)
             promoCodeState?.setTextColor(
@@ -50,6 +49,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
               )
             )
           }
+
           else -> {
             promoCodeState?.text = null
             promoCodeState?.setTextColor(
@@ -59,6 +59,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
         }
 
       }
+
       else -> {
         promoCodeState?.text = null
         promoCodeState?.setTextColor(

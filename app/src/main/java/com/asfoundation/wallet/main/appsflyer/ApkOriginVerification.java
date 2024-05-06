@@ -39,9 +39,27 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+interface ApkOriginService {
+  String BASE_URL = "https://ws.catappult.io/api/utils/android/markets/";
+
+  /**
+   * The return type is important here
+   * The class structure that you've defined in Call<T>
+   * should exactly match with your json response
+   **/
+  @GET("queries") Call<List<String>> getData(@Query("name") String name);
+
+  @POST("events/newInstall") @FormUrlEncoded Call<String> sendData(@Field("name") String name,
+      @Field("deviceIdentifier") String deviceIdentifier, @Field("packageName") String packageName,
+      @Field("apkMd5sum") String apkMd5sum,
+      @Field("installedFromMarket") String installedFromMarket,
+      @Field("deviceManufacturer") String deviceManufacturer,
+      @Field("deviceInstalledMarkets") List<String> deviceInstalledMarkets);
+}
+
 public class ApkOriginVerification {
   private static final String LOG_TAG = "AppsFlyerOneLinkSimApp";
-  private Context context;
+  private final Context context;
 
   public ApkOriginVerification(Context context) {
     this.context = context;
@@ -287,22 +305,4 @@ public class ApkOriginVerification {
 
     return data;
   }
-}
-
-interface ApkOriginService {
-  String BASE_URL = "https://ws.catappult.io/api/utils/android/markets/";
-
-  /**
-   * The return type is important here
-   * The class structure that you've defined in Call<T>
-   * should exactly match with your json response
-   **/
-  @GET("queries") Call<List<String>> getData(@Query("name") String name);
-
-  @POST("events/newInstall") @FormUrlEncoded Call<String> sendData(@Field("name") String name,
-      @Field("deviceIdentifier") String deviceIdentifier, @Field("packageName") String packageName,
-      @Field("apkMd5sum") String apkMd5sum,
-      @Field("installedFromMarket") String installedFromMarket,
-      @Field("deviceManufacturer") String deviceManufacturer,
-      @Field("deviceInstalledMarkets") List<String> deviceInstalledMarkets);
 }

@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">지불 방법 없음!</string>
   <string name="topup_no_method_available_body">현재 해당 국가에서 충전할 수 있는 결제 방법이 없습니다. 계속 주목해주세요!</string>
   <string name="topup_bonus_amount_body">이 탑업으로 %s 보너스 받기</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
@@ -524,6 +525,8 @@
   <string name="send_button">전송</string>
   <string name="resend_button">재전송</string>
   <string name="continue_button">계속</string>
+  <string name="card_expired_tag">만료됨</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">이 결제 방법은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">이 결제 방법은 이 구매에 대한 처리 수수료를 부과합니다.</string>
   <string name="purchase_fee_included_body">수수료 포함</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">비밀번호 복구가 없습니다.</string>
   <string name="backup_additional_security_password_not_march">비밀번호가 일치하지 않습니다.</string>
   <string name="import_wallet_recovering_body">지갑 복구중...</string>
-  <string name="backup_skip_title">지갑 키를 백업하지 않으면 자금이 빠져나갈 수 있다는 것을 이해했습니다.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">지갑 백업하기</string>
   <string name="backup_success_save_on_email">백업 파일이 이메일에 있습니다.</string>
   <string name="backup_success_save_on_device">백업 파일이 디바이스에 저장됩니다.</string>
@@ -966,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">카드 관리</string>
   <string name="manage_cards_view_title">카드 관리</string>
   <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
-  <string name="manage_cards_add_title">신규 카드 추가</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">이 카드를 삭제하시겠습니까?</string>
-  <string name="manage_cards_remove_no">아니오, 취소</string>
-  <string name="manage_cards_remove_yes">네, 제거 합니다</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">%s에 카드가 만료됩니다</string>
   <string name="manage_cards_error_details">카드 상세 정보가 올바른가요? 확인하시고 다시 시도해 주세요!</string>
   <string name="manage_cards_error_card_problem">카드에 문제가 있는 것 같습니다. 다른 카드로 시도해보세요.</string>
   <string name="manage_cards_select_title">지불 카드를 선택하세요</string>
   <string name="manage_cards_remember">카드 기억하기</string>
+  <string name="add_new_card_button">신규 카드 추가</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">모든 구매 시마다 최대 %s%% 보너스</string>
   <string name="perks_gamif_subtitle">좋아하는 앱을 더 많이 사용하면 할수록 더 큰 보너스를 받게 됩니다!</string>

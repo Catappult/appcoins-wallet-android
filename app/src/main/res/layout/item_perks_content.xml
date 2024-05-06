@@ -32,13 +32,12 @@
       />
 
   <ImageView
-      android:antialias="true"
       android:id="@+id/active_icon_border_vip"
       android:layout_width="77dp"
       android:layout_height="77dp"
       android:layout_marginStart="0dp"
-      android:src="@drawable/frame_vip_img"
       android:adjustViewBounds="true"
+      android:antialias="true"
       app:layout_constraintBottom_toBottomOf="@id/active_icon"
       app:layout_constraintEnd_toEndOf="@id/active_icon"
       app:layout_constraintStart_toStartOf="@id/active_icon"

@@ -15,20 +15,29 @@ interface UserSubscriptionsDao {
   fun getSubscriptions(walletAddress: String): Single<List<UserSubscriptionEntity>>
 
   @Query(
-      "select * from UserSubscriptionEntity where wallet_address like :walletAddress and sub_status like :subStatus")
-  fun getSubscriptionsByStatus(walletAddress: String,
-                               subStatus: SubscriptionSubStatus): Single<List<UserSubscriptionEntity>>
+    "select * from UserSubscriptionEntity where wallet_address like :walletAddress and sub_status like :subStatus"
+  )
+  fun getSubscriptionsByStatus(
+    walletAddress: String,
+    subStatus: SubscriptionSubStatus
+  ): Single<List<UserSubscriptionEntity>>
 
   @Query(
-      "select * from UserSubscriptionEntity where wallet_address like :walletAddress and sub_status like :subStatus LIMIT :limit")
-  fun getSubscriptionsBySubStatusWithLimit(walletAddress: String,
-                                           subStatus: SubscriptionSubStatus,
-                                           limit: Int): Single<List<UserSubscriptionEntity>>
+    "select * from UserSubscriptionEntity where wallet_address like :walletAddress and sub_status like :subStatus LIMIT :limit"
+  )
+  fun getSubscriptionsBySubStatusWithLimit(
+    walletAddress: String,
+    subStatus: SubscriptionSubStatus,
+    limit: Int
+  ): Single<List<UserSubscriptionEntity>>
 
   @Query(
-      "select * from UserSubscriptionEntity where wallet_address like :walletAddress LIMIT :limit")
-  fun getSubscriptionsWithLimit(walletAddress: String,
-                                limit: Int): Single<List<UserSubscriptionEntity>>
+    "select * from UserSubscriptionEntity where wallet_address like :walletAddress LIMIT :limit"
+  )
+  fun getSubscriptionsWithLimit(
+    walletAddress: String,
+    limit: Int
+  ): Single<List<UserSubscriptionEntity>>
 
   @Query("DELETE FROM UserSubscriptionEntity")
   fun deleteSubscriptions(): Completable

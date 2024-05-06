@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Aucune méthode de paiement !</string>
   <string name="topup_no_method_available_body">Il n\'y a pas de méthode de paiement disponible pour recharger dans votre pays pour le moment. Restez informé !</string>
   <string name="topup_bonus_amount_body">Recevez %s de bonus avec ce rechargement</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Solde</string>
   <string name="balance_total_body">Solde final %s</string>
@@ -521,9 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">Date de début :</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">Envoyer</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">Expiré</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ce mode de paiement ne prend pas en charge votre devise, il peut donc facturer des frais de traitement.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
   <string name="import_wallet_recovering_body">Récupération portefeuille...</string>
-  <string name="backup_skip_title">Je comprends que je peux perdre mes fonds si je ne sauvegarde pas la clé de mon portefeuille.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Sauvegarde portefeuille</string>
   <string name="backup_success_save_on_email">Votre fichier de sauvegarde est dans votre courriel.</string>
   <string name="backup_success_save_on_device">Votre fichier de sauvegarde est stocké dans votre appareil.</string>
@@ -967,15 +971,21 @@
   <string name="manage_cards_settings_manage_title">Gérer les cartes</string>
   <string name="manage_cards_view_title">Gérer les cartes</string>
   <string name="manage_cards_view_manage_subtitle">Gérer vos paiements par carte</string>
-  <string name="manage_cards_add_title">Ajouter une nouvelle carte</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Êtes-vous sûr de vouloir retirer cette carte ?</string>
-  <string name="manage_cards_remove_no">NON, ANNULER</string>
-  <string name="manage_cards_remove_yes">OUI, SUPPRIMEZ-LA</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Carte se terminant par %s</string>
   <string name="manage_cards_error_details">Êtes-vous sûr que les détails de votre carte sont corrects ? Merci de réessayer !</string>
   <string name="manage_cards_error_card_problem">Il semble qu\'il y ait un problème avec votre carte. Merci de réessayer avec une carte différente.</string>
   <string name="manage_cards_select_title">Sélectionnez une carte de paiement</string>
   <string name="manage_cards_remember">Enregistrer la carte</string>
+  <string name="add_new_card_button">Ajouter une nouvelle carte</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Gagnez jusqu\'à %s%% de Bonus sur chaque achat</string>
   <string name="perks_gamif_subtitle">Plus vous dépensez dans vos applications préférées, plus le bonus est important !</string>

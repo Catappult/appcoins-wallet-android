@@ -52,6 +52,7 @@ class BackupBroadcastReceiver : ComponentActivity() {
             }
           startActivity(backupIntent)
         }
+
         ACTION_DISMISS -> {
           saveDismissSystemNotificationUseCase(it)
         }

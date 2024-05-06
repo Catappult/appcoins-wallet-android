@@ -12,9 +12,9 @@ class GetVerificationUseCase @Inject constructor(
   private val walletAddressObtainer: WalletAddressObtainer,
   private val ewtObtainer: EwtObtainer,
   private val ticketRepository: TicketRepository
-  ){
+) {
 
-  operator fun invoke(): Single<EskillsVerification>{
+  operator fun invoke(): Single<EskillsVerification> {
     return walletAddressObtainer.getWalletAddress().flatMap {
       ewtObtainer.getEWT()
         .flatMap { ewt -> ticketRepository.getVerification(ewt) }

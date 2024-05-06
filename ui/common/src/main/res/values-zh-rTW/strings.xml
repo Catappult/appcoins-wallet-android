@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">No payment methods!</string>
   <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <string name="topup_bonus_amount_body">Receive %s bonus with this top-up</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">餘額</string>
   <string name="balance_total_body">帳戶餘額%s</string>
@@ -521,9 +522,11 @@
   <string name="ending_in_title">Ending in</string>
   <string name="start_date_title">開始日期：</string>
   <string name="end_date_title">End date:</string>
-  <string name="send_button">Send</string>
+  <string name="send_button">發送</string>
   <string name="resend_button">Resend</string>
   <string name="continue_button">Continue</string>
+  <string name="card_expired_tag">已到期</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帳單地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">密碼無法恢復。</string>
   <string name="backup_additional_security_password_not_march">密碼不一致。</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">備份錢包</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
@@ -966,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">管理卡片</string>
   <string name="manage_cards_view_title">管理卡片</string>
   <string name="manage_cards_view_manage_subtitle">管理付款卡片</string>
-  <string name="manage_cards_add_title">新增卡片</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">確認移除這張卡片嗎？</string>
-  <string name="manage_cards_remove_no">不，取消</string>
-  <string name="manage_cards_remove_yes">是的，移除</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">卡片到期日%s</string>
   <string name="manage_cards_error_details">您的卡片資訊可能有誤，請再試一次！</string>
   <string name="manage_cards_error_card_problem">您的卡片可能存在問題，請使用其他卡片再試。</string>
   <string name="manage_cards_select_title">選擇付款卡片</string>
   <string name="manage_cards_remember">記住此卡片</string>
+  <string name="add_new_card_button">新增卡片</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">每次購買獲得高達%s%%獎勵</string>
   <string name="perks_gamif_subtitle">您在喜愛的應用程式中花費越多，獎勵越多！</string>

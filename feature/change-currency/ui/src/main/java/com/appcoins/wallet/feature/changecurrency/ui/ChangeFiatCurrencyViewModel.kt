@@ -19,7 +19,8 @@ data class ChangeFiatCurrencyState(
 @HiltViewModel
 class ChangeFiatCurrencyViewModel @Inject constructor(
   private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-) : NewBaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(ChangeFiatCurrencyState()) {
+) :
+  NewBaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(ChangeFiatCurrencyState()) {
 
   init {
     showChangeFiatCurrency()

@@ -23,6 +23,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.InitilizeDataAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
@@ -114,6 +115,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   @Inject
   lateinit var partnerAddressService: PartnerAddressService
 
+  @Inject
+  lateinit var fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource
+
   companion object {
     private val TAG = App::class.java.name
   }
@@ -178,7 +182,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
           logger.log(TAG, throwable)
         }
       } else {
-        throw RuntimeException(throwable)
+        throw throwable
       }
     }
   }
@@ -252,5 +256,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun ewtObtainer() = ewtObtainer
 
   override fun partnerAddressService() = partnerAddressService
+
+  override fun fiatCurrenciesPreferencesDataSource() = fiatCurrenciesPreferencesDataSource
 
 }

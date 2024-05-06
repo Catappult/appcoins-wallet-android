@@ -7,17 +7,17 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
+import com.asfoundation.wallet.analytics.SaveIsFirstPaymentUseCase
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.main.use_cases.DeleteCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.GetBonusGuestWalletUseCase
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
@@ -25,7 +25,6 @@ import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.RecoverEntryPrivateKeyUseCase
 import com.asfoundation.wallet.recover.use_cases.SetDefaultWalletUseCase
-import com.asfoundation.wallet.recover.use_cases.UpdateBackupStateFromRecoverUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -39,7 +38,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
-  data class UpdateGuestBonus(val bonus: FiatValue): OnboardingSideEffect()
+  data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
 }
 
 data class OnboardingState(
@@ -52,16 +51,15 @@ class OnboardingViewModel @Inject constructor(
   private val hasWalletUseCase: HasWalletUseCase,
   private val rxSchedulers: RxSchedulers,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  private val createWalletUseCase: CreateWalletUseCase,
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
   private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
-  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val getBonusGuestWalletUseCase: GetBonusGuestWalletUseCase,
   private val deleteCachedGuestWalletUseCase: DeleteCachedGuestWalletUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val onboardingAnalytics: OnboardingAnalytics,
+  private val saveIsFirstPaymentUseCase: SaveIsFirstPaymentUseCase,
   appStartUseCase: AppStartUseCase
 ) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
@@ -84,9 +82,11 @@ class OnboardingViewModel @Inject constructor(
         is StartMode.PendingPurchaseFlow -> sendSideEffect {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
         }
+
         is StartMode.GPInstall -> sendSideEffect {
           OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = false)
         }
+
         else -> setState { copy(pageContent = OnboardingContent.VALUES) }
       }
     }
@@ -148,11 +148,17 @@ class OnboardingViewModel @Inject constructor(
           WalletsAnalytics.STATUS_SUCCESS
         )
         deleteCachedGuest()
-        onboardingAnalytics.sendRecoverGuestWalletEvent(guestBonus.amount.toString(), guestBonus.currency)
+        saveIsFirstPaymentUseCase(isFirstPayment = false)
+        onboardingAnalytics.sendRecoverGuestWalletEvent(
+          guestBonus.amount.toString(),
+          guestBonus.currency
+        )
         sendSideEffect { OnboardingSideEffect.NavigateToFinish }
       }
+
       is FailedEntryRecover.InvalidPassword -> {
       }
+
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,
@@ -160,10 +166,6 @@ class OnboardingViewModel @Inject constructor(
         )
       }
     }
-
-  private fun updateWalletBackupState() {
-    updateBackupStateFromRecoverUseCase().scopedSubscribe()
-  }
 
   fun getGuestWalletBonus(key: String) {
     getBonusGuestWalletUseCase(key)

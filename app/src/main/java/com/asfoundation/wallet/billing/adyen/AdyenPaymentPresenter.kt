@@ -100,7 +100,7 @@ class AdyenPaymentPresenter(
     )
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel, cachedUid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -136,6 +136,31 @@ class AdyenPaymentPresenter(
         logger.log(TAG, it)
         view.showGenericError()
       })
+    )
+  }
+
+  private fun askCardDetails() {
+    disposables.add(
+      adyenPaymentInteractor.loadPaymentInfo(
+        mapPaymentToService(paymentType),
+        amount.toString(),
+        currency
+      )
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.hideLoadingAndShowView()
+          if (it.error.hasError) {
+            if (it.error.isNetworkError) view.showNetworkError()
+            else view.showGenericError()
+          } else {
+            view.finishCardConfiguration(it, true)
+            view.showCvcRequired()
+          }
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        })
     )
   }
 
@@ -234,6 +259,7 @@ class AdyenPaymentPresenter(
         .filter { !waitingResult }
         .doOnSuccess {
           view.hideLoadingAndShowView()
+          cachedUid = it.uid
           handlePaymentModel(it)
         }
         .subscribe({}, {
@@ -304,7 +330,10 @@ class AdyenPaymentPresenter(
         }
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it)
+      }
       .subscribe({}, {
         logger.log(TAG, it)
         view.showGenericError()
@@ -427,7 +456,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun getWebViewResultCode(): String {
-    return "webView Result: ${iabView.webViewResultCode}" ?: ""
+    return "webView Result: ${iabView.webViewResultCode}"
   }
 
   private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable =
@@ -490,7 +519,10 @@ class AdyenPaymentPresenter(
         )
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it)
+      }
       .subscribe({}, {
         logger.log(TAG, it)
         view.showGenericError()
@@ -697,6 +729,7 @@ class AdyenPaymentPresenter(
     disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
+        val mappedPaymentType = mapPaymentToAnalytics(paymentType)
         analytics.sendPaymentSuccessEvent(
           packageName = transactionBuilder.domain,
           skuDetails = transaction.skuId,
@@ -704,7 +737,15 @@ class AdyenPaymentPresenter(
           purchaseDetails = mapPaymentToAnalytics(paymentType),
           transactionType = transaction.type,
           txId = txId,
-          valueUsd = transaction.amountUsd.toString()
+          valueUsd = transaction.amountUsd.toString(),
+          isStoredCard =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            view.isStoredCardPayment()
+          else null,
+          wasCvcRequired =
+          if (mappedPaymentType == PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            view.isCvcRequiredPayment()
+          else null,
         )
       }
       .subscribe({}, { it.printStackTrace() })
@@ -747,6 +788,7 @@ class AdyenPaymentPresenter(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
+
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
@@ -907,6 +949,11 @@ class AdyenPaymentPresenter(
       error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(
         R.string.purchase_card_error_no_funds
       )
+
+      error.errorInfo?.errorType == ErrorType.CVC_REQUIRED ->  {
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        askCardDetails()
+      }
 
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)

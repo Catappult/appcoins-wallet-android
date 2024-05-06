@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
+class HomeManageWalletBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<HomeManageWalletBottomSheetState, HomeManageWalletBottomSheetSideEffect> {
 
 
@@ -96,6 +96,7 @@ class HomeManageWalletBottomSheetFragment() : BottomSheetDialogFragment(),
           navigator.navigateToBackup(navController(), wallet, name)
         }
       }
+
       else -> {}
     }
   }

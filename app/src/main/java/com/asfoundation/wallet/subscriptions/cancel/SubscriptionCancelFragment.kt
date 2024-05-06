@@ -125,11 +125,11 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
 
     context?.let {
       GlideApp.with(it)
-          .asBitmap()
-          .load(appIcon)
-          .apply { RequestOptions().dontTransform() }
-          .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-          .into(target)
+        .asBitmap()
+        .load(appIcon)
+        .apply { RequestOptions().dontTransform() }
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+        .into(target)
     }
   }
 
@@ -165,15 +165,17 @@ class SubscriptionCancelFragment : BottomSheetDialogFragment(), SubscriptionCanc
     const val SUBSCRIPTION_ITEM_KEY = "subscription_item"
     const val TRANSITION_NAME_KEY = "transition_name"
 
-    fun newInstance(subscriptionItem: SubscriptionItem,
-                    transitionName: String): SubscriptionCancelFragment {
+    fun newInstance(
+      subscriptionItem: SubscriptionItem,
+      transitionName: String
+    ): SubscriptionCancelFragment {
       return SubscriptionCancelFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
-              putString(TRANSITION_NAME_KEY, transitionName)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putSerializable(SUBSCRIPTION_ITEM_KEY, subscriptionItem)
+            putString(TRANSITION_NAME_KEY, transitionName)
           }
+        }
     }
   }
 }

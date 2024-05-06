@@ -9,18 +9,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -42,16 +53,22 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.*
+import com.appcoins.wallet.ui.widgets.BalanceCard
+import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.appcoins.wallet.ui.widgets.GamesBundle
+import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
+import com.appcoins.wallet.ui.widgets.SkeletonLoadingTransactionCard
+import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
+import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.main.nav_bar.NavBarViewModel
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
-import com.asfoundation.wallet.transactions.Transaction.*
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
@@ -83,8 +100,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   private val pushNotificationPermissionLauncher =
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
-  private var isVip by mutableStateOf(false)
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -110,7 +125,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       checkRoot()
       Intercom.client().handlePushMessage()
     } else {
-      requireActivity().finish()
+      viewModel.showSupportScreen()
     }
     viewModel.fetchPromotions()
   }
@@ -134,10 +149,10 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         Surface {
           TopBar(
             isMainBar = true,
-            isVip = isVip,
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
-            onClickSupport = { viewModel.showSupportScreen(false) },
+            onClickSupport = { viewModel.showSupportScreen() },
+            hasNotificationBadge = viewModel.hasNotificationBadge.value
           )
         }
       },
@@ -163,11 +178,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         onClickBackup = { viewModel.onBackupClick() },
         onClickTopUp = { viewModel.onTopUpClick() },
         onClickMenuOptions = { navigator.navigateToManageBottomSheet() },
-        isLoading = (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) || !viewModel.isLoadingTransactions.value
+        isLoading =
+        (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
+            !viewModel.isLoadingTransactions.value
       )
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
+      GamesBundle(
+        viewModel.gamesList.value,
+        viewModel.referenceSendPromotionClickEvent()
+      ) { viewModel.fetchGamesListing() }
       Spacer(modifier = Modifier.padding(40.dp))
     }
   }
@@ -175,12 +195,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   @Composable
   fun BalanceContent() =
     when (val state = viewModel.uiBalanceState.collectAsState().value) {
-      is HomeViewModel.UiBalanceState.Success -> with(state.balance.creditsOnlyFiat) {
-        BalanceValue(
-          symbol + formatter.formatCurrency(amount, FIAT),
-          currency
-        ) { viewModel.onBalanceArrowClick(state.balance) }
-      }
+      is HomeViewModel.UiBalanceState.Success ->
+        with(state.balance.creditsOnlyFiat) {
+          BalanceValue(symbol + formatter.formatCurrency(amount, FIAT), currency) {
+            viewModel.onBalanceArrowClick(state.balance)
+          }
+        }
 
       else -> CircularProgressIndicator()
     }
@@ -207,6 +227,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             }
           }
       }
+
       else -> {
         Column(
           modifier = Modifier
@@ -248,12 +269,11 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     }
     LazyRow(
       contentPadding = PaddingValues(horizontal = 16.dp),
-      horizontalArrangement = Arrangement.spacedBy(8.dp)
+      horizontalArrangement = Arrangement.spacedBy(8.dp),
+      verticalAlignment = Alignment.Bottom
     ) {
       if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
-        item {
-          SkeletonLoadingPromotionCards(hasVerticalList = false)
-        }
+        item { SkeletonLoadingPromotionCards(hasVerticalList = false) }
       } else {
         items(viewModel.activePromotions) { promotion ->
           PromotionsCardComposable(cardItem = promotion)
@@ -313,12 +333,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   override fun onStateChanged(state: HomeState) {
-    // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync,
-    // state.transactionsModelAsync)
     setBalance(state.defaultWalletBalanceAsync)
-    showVipBadge(state.showVipBadge)
     setPromotions(state.promotionsModelAsync)
-    // TODO updateSupportIcon(state.unreadMessages)
     setBackup(state.hasBackup)
   }
 
@@ -341,9 +357,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       HomeSideEffect.NavigateToTransactionsList ->
         transactionsNavigator.navigateToTransactionsList(navController())
 
-      is HomeSideEffect.NavigateToBalanceDetails -> navigator.navigateToBalanceBottomSheet(
-        sideEffect.balance
-      )
+      is HomeSideEffect.NavigateToBalanceDetails ->
+        navigator.navigateToBalanceBottomSheet(sideEffect.balance)
     }
   }
 
@@ -426,19 +441,17 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                   openGame(
                     promotion.packageName ?: promotion.actionUrl,
                     promotion.actionUrl,
-                    requireContext()
+                    requireContext(),
+                    viewModel.referenceSendPromotionClickEvent(),
                   )
                 })
             viewModel.activePromotions.add(cardItem)
           }
         }
       }
+
       else -> Unit
     }
-  }
-
-  private fun showVipBadge(shouldShow: Boolean) {
-    isVip = shouldShow
   }
 
   private fun navigateToTransactionDetails(transaction: TransactionModel) =

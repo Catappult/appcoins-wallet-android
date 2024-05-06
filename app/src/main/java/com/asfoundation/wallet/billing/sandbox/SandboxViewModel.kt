@@ -5,18 +5,18 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.network.microservices.model.SandboxTransaction
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.wallet.appcoins.feature.support.data.SupportInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.paypal.usecases.CreateSuccessBundleUseCase
 import com.asfoundation.wallet.billing.sandbox.usecases.CreateSandboxTransactionUseCase
 import com.asfoundation.wallet.billing.sandbox.usecases.WaitForSuccessSandboxUseCase
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -46,7 +46,7 @@ class SandboxViewModel @Inject constructor(
 
   private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-  private var authenticatedToken: String? = null
+  private var uid: String? = null
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
@@ -75,11 +75,14 @@ class SandboxViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             SandboxTransaction.SandboxValidityState.COMPLETED -> {
+              uid = it.uid
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
+
             SandboxTransaction.SandboxValidityState.PENDING -> {
               waitForSuccess(it.hash, it.uid, transactionBuilder)
             }
+
             SandboxTransaction.SandboxValidityState.ERROR -> {
               Log.d(TAG, "Sandbox transaction error")
               sendPaymentErrorEvent(
@@ -88,6 +91,7 @@ class SandboxViewModel @Inject constructor(
               )
               _state.postValue(State.Error(R.string.unknown_error))
             }
+
             null -> {
               Log.d(TAG, "Sandbox transaction error")
               sendPaymentErrorEvent(
@@ -120,6 +124,7 @@ class SandboxViewModel @Inject constructor(
               PaymentModel.Status.COMPLETED -> {
                 getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
               }
+
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
@@ -129,7 +134,9 @@ class SandboxViewModel @Inject constructor(
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> { /* pending */ }
+
+              else -> { /* pending */
+              }
             }
           },
           {
@@ -257,7 +264,7 @@ class SandboxViewModel @Inject constructor(
 
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

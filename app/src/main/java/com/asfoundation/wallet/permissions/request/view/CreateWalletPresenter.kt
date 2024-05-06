@@ -7,10 +7,10 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class CreateWalletPresenter(
-        private val view: CreateWalletView,
-        private val disposables: CompositeDisposable,
-        private val interactor: WalletCreatorInteract,
-        private val viewScheduler: Scheduler
+  private val view: CreateWalletView,
+  private val disposables: CompositeDisposable,
+  private val interactor: WalletCreatorInteract,
+  private val viewScheduler: Scheduler
 ) {
   fun present() {
     handleOnCreateWalletClick()

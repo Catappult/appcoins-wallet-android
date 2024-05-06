@@ -1,11 +1,25 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,8 +39,10 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Composable
 fun GamesBundle(
   items: List<GameData>,
-  fetchFromApiCallback: () -> Unit
+  sendPromotionClickEvent: (String?, String) -> Unit,
+  fetchFromApiCallback: () -> Unit,
 ) {
+  val context = LocalContext.current
   fetchFromApiCallback()
   Text(
     text = stringResource(id = R.string.home_appcoins_compatible_games_title),
@@ -48,7 +64,9 @@ fun GamesBundle(
       }
     } else {
       items(items) { item ->
-        CardItem(gameCardData = item)
+        CardItem(gameCardData = item, sendPromotionClickEvent) {
+          openGame(item.gamePackage, item.actionUrl, context, sendPromotionClickEvent)
+        }
       }
     }
   }
@@ -57,14 +75,15 @@ fun GamesBundle(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameData
+  gameCardData: GameData,
+  sendPromotionClickEvent: (String?, String) -> Unit,
+  onClick: () -> Unit,
 ) {
-  val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
-    onClick = { openGame(gameCardData.gamePackage, gameCardData.actionUrl, context) },
+    onClick = onClick,
     modifier = Modifier
       .width(280.dp)
       .height(144.dp)
@@ -247,6 +266,7 @@ fun PreviewGamesBundle() {
         actionUrl = "www.aptoide.com",
       )
     ),
+    { _, _ -> },
     {}
   )
 }

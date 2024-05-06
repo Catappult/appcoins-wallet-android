@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import java.math.BigDecimal
 
 open class PaymentMethod(
@@ -8,7 +9,8 @@ open class PaymentMethod(
   open val isEnabled: Boolean = true, open var disabledReason: Int? = null,
   val showTopup: Boolean = false,
   val showLogout: Boolean = false,
-  val showExtraFeesMessage: Boolean = false
+  val showExtraFeesMessage: Boolean = false,
+  val price: FiatValue = FiatValue(BigDecimal.ZERO, "")
 ) {
   constructor() : this("", "", "", false, null, false)
 
@@ -18,7 +20,7 @@ open class PaymentMethod(
       PaymentMethod(
         "appcoins", "AppCoins (APPC)",
         "https://cdn6.aptoide.com/imgs/a/f/9/af95bd0d14875800231f05dbf1933143_logo.png", false,
-        null
+        null,
       )
   }
 }

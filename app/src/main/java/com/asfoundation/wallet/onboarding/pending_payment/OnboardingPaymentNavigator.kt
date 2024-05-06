@@ -3,9 +3,9 @@ package com.asfoundation.wallet.onboarding.pending_payment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.core.arch.data.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 

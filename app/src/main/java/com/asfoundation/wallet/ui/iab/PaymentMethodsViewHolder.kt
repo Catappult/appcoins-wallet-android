@@ -64,13 +64,13 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     if (data.showLogout) {
       disposables.add(
         showPayPalLogout
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-          binding.paymentMoreLogout.visibility = if (it!!)
-            View.VISIBLE
-          else
-            View.GONE
-        }
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe {
+            binding.paymentMoreLogout.visibility = if (it!!)
+              View.VISIBLE
+            else
+              View.GONE
+          }
       )
 
       binding.paymentMoreLogout.setOnClickListener {
@@ -102,7 +102,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
-    if(!isEnabled) {
+    if (!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )

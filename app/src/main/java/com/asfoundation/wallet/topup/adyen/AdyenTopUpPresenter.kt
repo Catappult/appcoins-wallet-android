@@ -129,7 +129,7 @@ class AdyenTopUpPresenter(
     disposables.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel, cachedUid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -178,6 +178,7 @@ class AdyenTopUpPresenter(
               view.finishCardConfiguration(it, false)
               handleTopUpClick()
             }
+
             PaymentType.PAYPAL.name -> {
               launchPaypal(it.paymentMethod!!)
             }
@@ -235,6 +236,7 @@ class AdyenTopUpPresenter(
       }
       .observeOn(viewScheduler)
       .flatMapCompletable {
+        cachedUid = it.uid
         if (it.action != null) {
           Completable.fromAction { handlePaymentModel(it) }
         } else {
@@ -345,7 +347,10 @@ class AdyenTopUpPresenter(
         )
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it)
+      }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
@@ -380,6 +385,7 @@ class AdyenTopUpPresenter(
             }
           }
       }
+
       paymentModel.status == PENDING_USER_PAYMENT && paymentModel.action != null -> {
         Completable.fromAction {
           view.showLoading()
@@ -387,6 +393,7 @@ class AdyenTopUpPresenter(
           handleAdyenAction(paymentModel)
         }
       }
+
       paymentModel.refusalReason != null -> Completable.fromAction {
         var riskRules: String? = null
         paymentModel.refusalCode?.let { code ->
@@ -397,6 +404,7 @@ class AdyenTopUpPresenter(
               riskRules = paymentModel.fraudResultIds.sorted()
                 .joinToString(separator = "-")
             }
+
             else -> handleSpecificError(
               adyenErrorCodeMapper.map(code),
               Exception("PaymentResult paymentType=$paymentType code=$code reason=${paymentModel.refusalReason}")
@@ -412,9 +420,11 @@ class AdyenTopUpPresenter(
           errorRiskRules = riskRules
         )
       }
+
       paymentModel.error.hasError -> Completable.fromAction {
         handleErrors(paymentModel, appcValue.toDouble())
       }
+
       paymentModel.status == CANCELED -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(
           value = appcValue.toDouble(),
@@ -425,9 +435,11 @@ class AdyenTopUpPresenter(
         )
         view.cancelPayment()
       }
+
       paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
         retrieveFailedReason(paymentModel.uid)
       }
+
       else -> Completable.fromAction {
         topUpAnalytics.sendErrorEvent(
           value = appcValue.toDouble(),
@@ -487,6 +499,7 @@ class AdyenTopUpPresenter(
             paymentMethodRuleBroken && amountRuleBroken -> {
               R.string.purchase_error_try_other_amount_or_method
             }
+
             paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
             amountRuleBroken -> R.string.purchase_error_try_other_amount
             else -> error
@@ -524,8 +537,7 @@ class AdyenTopUpPresenter(
         if (it == CHALLENGE_CANCELED) {
           topUpAnalytics.send3dsCancel()
           navigator.navigateBack()
-        }
-        else {
+        } else {
           topUpAnalytics.send3dsError(it)
           handleSpecificError(R.string.unknown_error, logMessage = it)
         }
@@ -570,6 +582,7 @@ class AdyenTopUpPresenter(
       PaymentType.CARD.name -> {
         AdyenPaymentRepository.Methods.CREDIT_CARD
       }
+
       else -> {
         AdyenPaymentRepository.Methods.PAYPAL
       }
@@ -660,6 +673,7 @@ class AdyenTopUpPresenter(
         )
         view.showNetworkError()
       }
+
       paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_CARD -> {
         logger.log(
           TAG,
@@ -740,6 +754,15 @@ class AdyenTopUpPresenter(
         view.showSpecificError(R.string.purchase_card_error_no_funds)
       }
 
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_REQUIRED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        adyenPaymentInteractor.setMandatoryCVC(true)
+        view.restartFragment()
+      }
+
       paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(
           value = value,
@@ -761,6 +784,7 @@ class AdyenTopUpPresenter(
           view.showSpecificError(resId)
         }
       }
+
       else -> {
         topUpAnalytics.sendErrorEvent(
           value = value,

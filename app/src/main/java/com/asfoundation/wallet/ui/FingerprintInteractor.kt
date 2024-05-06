@@ -23,12 +23,12 @@ class FingerprintInteractor @Inject constructor(
   }
 
   fun setAuthenticationPermission(value: Boolean) =
-      fingerprintPreferences.setAuthenticationPermission(value)
+    fingerprintPreferences.setAuthenticationPermission(value)
 
   fun getAuthenticationErrorTime() = fingerprintPreferences.getAuthenticationErrorTime()
 
   fun setAuthenticationErrorTime(currentTime: Long) =
-      fingerprintPreferences.setAuthenticationErrorTime(currentTime)
+    fingerprintPreferences.setAuthenticationErrorTime(currentTime)
 
   private fun hasBiometrics(biometricCompatibility: Int): Boolean {
     return (biometricCompatibility == BiometricManager.BIOMETRIC_SUCCESS || biometricCompatibility == BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED)

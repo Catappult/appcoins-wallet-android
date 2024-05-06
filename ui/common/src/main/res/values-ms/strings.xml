@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
   <string name="topup_bonus_amount_body">Terima bonus %s dengan tambah nilai ini</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -524,6 +525,8 @@
   <string name="send_button">Hantar</string>
   <string name="resend_button">Hantar semula</string>
   <string name="continue_button">Teruskan</string>
+  <string name="card_expired_tag">Luput</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Kaedah bayaran ini tidak sokong mata wang anda. Jadi mungkin ada caj pemprosesan dikenakan.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Kaedah bayaran ini mengecaj yuran pemprosesan untuk pembelian ini.</string>
   <string name="purchase_fee_included_body">termasuk yuran</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -781,7 +785,7 @@
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
   <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
-  <string name="backup_skip_title">Saya faham bahawa saya boleh kehilangan dana saya jika saya tidak buat sandaran kunci dompet saya.</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Dompet sandaran</string>
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
@@ -966,15 +970,21 @@
   <string name="manage_cards_settings_manage_title">Urus kad</string>
   <string name="manage_cards_view_title">Urus kad</string>
   <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
-  <string name="manage_cards_add_title">Tambah kad baru</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">Anda pasti mahu alih keluar kad ini?</string>
-  <string name="manage_cards_remove_no">TIDAK, BATALKAN</string>
-  <string name="manage_cards_remove_yes">YA, ALIH KELUAR</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">Kad tamat dengan %s</string>
   <string name="manage_cards_error_details">Anda pasti butiran kad anda betul? Sila cuba lagi!</string>
   <string name="manage_cards_error_card_problem">Nampaknya ada masalah dengan kad anda. Sila cuba kad lain.</string>
   <string name="manage_cards_select_title">Pilih kad pembayaran</string>
   <string name="manage_cards_remember">Ingat kad</string>
+  <string name="add_new_card_button">Tambah kad baru</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">Peroleh Bonus sehingga %s%% bagi setiap pembelian</string>
   <string name="perks_gamif_subtitle">Lebih banyak anda berbelanja dalam aplikasi kegemaran anda, lebih besar bonusnya!</string>

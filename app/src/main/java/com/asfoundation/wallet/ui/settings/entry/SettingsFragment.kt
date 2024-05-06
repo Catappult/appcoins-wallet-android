@@ -19,10 +19,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
@@ -43,6 +43,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   lateinit var pageViewAnalytics: PageViewAnalytics
 
   @Inject
+  lateinit var analytics: SettingsAnalytics
+
+  @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
@@ -53,6 +56,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   companion object {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+
+    const val MANAGE_WALLET_EVENT = "manage_wallet"
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -179,6 +184,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setManageWalletPreference() {
     val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
     manageWalletPreference?.setOnPreferenceClickListener {
+      analytics.sendManageWalletScreenEvent(action = MANAGE_WALLET_EVENT)
       presenter.onManageWalletPreferenceClick(navController())
       false
     }

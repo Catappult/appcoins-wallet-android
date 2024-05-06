@@ -23,10 +23,13 @@ class RecoverPasswordResultMapper(
     return when (restoreResult) {
       is FailedRestore.GenericError ->
         Single.just(FailedPasswordRecover.GenericError(restoreResult.throwable))
+
       is FailedRestore.InvalidPassword ->
         Single.just(FailedPasswordRecover.InvalidPassword(restoreResult.throwable))
+
       is SuccessfulRestore ->
         Single.just(SuccessfulPasswordRecover(restoreResult.address, walletKeyStore.name))
+
       else -> TODO()
     }
   }

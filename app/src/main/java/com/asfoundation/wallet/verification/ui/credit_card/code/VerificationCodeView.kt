@@ -5,8 +5,10 @@ import io.reactivex.Observable
 
 interface VerificationCodeView {
 
-  fun setupUi(currency: String, symbol: String, amount: String, digits: Int, format: String,
-              period: String, date: Long, isWalletVerified: Boolean, savedInstance: Bundle?)
+  fun setupUi(
+    currency: String, symbol: String, amount: String, digits: Int, format: String,
+    period: String, date: Long, isWalletVerified: Boolean, savedInstance: Bundle?
+  )
 
   fun showLoading()
 

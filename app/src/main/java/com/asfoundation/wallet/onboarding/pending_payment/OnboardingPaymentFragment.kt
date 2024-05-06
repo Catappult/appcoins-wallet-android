@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
-import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +17,10 @@ import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
-import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingSharedHeaderViewModel
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -101,9 +96,11 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
         //TODO add a skeleton while the list loads
         views.loadingAnimation.playAnimation()
       }
+
       is Async.Success -> {
         state.transactionContent()?.let { showHeaderContent(it) }
       }
+
       is Async.Fail -> showRetryError()
     }
   }

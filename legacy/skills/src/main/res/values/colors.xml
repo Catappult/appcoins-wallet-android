@@ -15,6 +15,7 @@
   <color name="styleguide_payments_background">#F5F5FA</color>
   <color name="styleguide_payments_main_text">#1A1A23</color>
   <color name="styleguide_payments_separator">#DDDDDD</color>
+  <color name="styleguide_payments_separator_transparent">#80DDDDDD</color>
   <color name="styleguide_payments_skeleton">#E2E2E2</color>
   <color name="styleguide_payments_skeleton_secondary">#C9C9C9</color>
   <color name="styleguide_payments_skeleton_shimmer">#EFEFEF</color>

@@ -4,12 +4,16 @@ import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.ForecastBonus
+import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.UserStats
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 
-class FakePromotionsRepository : PromotionsRepository{
+class FakePromotionsRepository : PromotionsRepository {
 
   private val levelsMap = mutableMapOf<String, Int>()
 
@@ -42,7 +46,7 @@ class FakePromotionsRepository : PromotionsRepository{
     wallet: String,
     gamificationContext: GamificationContext
   ): Single<Int> {
-    return Single.fromCallable{
+    return Single.fromCallable {
       levelsMap[wallet + gamificationContext] ?: PromotionsGamificationStats.INVALID_LEVEL
     }
   }

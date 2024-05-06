@@ -14,12 +14,14 @@ import java.math.BigDecimal
 class PaymentsHeaderView : FrameLayout {
   private val formatter = CurrencyFormatUtils()
 
-  private val binding : PaymentMethodsHeaderBinding
+  private val binding: PaymentMethodsHeaderBinding
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
-      defStyleAttr) {
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    context, attrs,
+    defStyleAttr
+  ) {
     binding = PaymentMethodsHeaderBinding.inflate(LayoutInflater.from(context), this, false)
   }
 

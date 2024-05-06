@@ -31,11 +31,11 @@
       android:fontFamily="sans-serif-medium"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintBottom_toTopOf="@id/level_description"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/level_icon"
-      app:layout_constraintBottom_toTopOf="@id/level_description"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
       tools:text="AWESOME TITLE"
       />
   <TextView
@@ -50,8 +50,8 @@
       android:lineSpacingExtra="9sp"
       android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/level_title"
       app:layout_constraintTop_toBottomOf="@id/level_title"
       tools:text="AWESOME DESCRIPTION"

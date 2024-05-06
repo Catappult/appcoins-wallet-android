@@ -70,6 +70,7 @@ class UpdateRequiredFragment : BasePageViewFragment(),
       is Async.Fail -> {
         views.updateRequiredBackupContainer.visibility = View.GONE
       }
+
       is Async.Success -> {
         handleBackupOption(walletsModel())
       }

@@ -13,8 +13,10 @@ interface TopUpActivityView {
 
   fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData)
 
-  fun navigateToLocalPayment(paymentId: String, icon: String, label: String, async: Boolean,
-                             topUpData: TopUpPaymentData)
+  fun navigateToLocalPayment(
+    paymentId: String, icon: String, label: String, async: Boolean,
+    topUpData: TopUpPaymentData
+  )
 
   fun finish(data: Bundle)
 
@@ -53,4 +55,6 @@ interface TopUpActivityView {
   fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun isActivityActive(): Boolean
 }

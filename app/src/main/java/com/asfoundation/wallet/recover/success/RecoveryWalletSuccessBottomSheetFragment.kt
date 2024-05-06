@@ -10,11 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.AppUtils
+import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoveryWalletSuccessBottomSheetLayoutBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryNavigator
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -36,6 +36,7 @@ class RecoveryWalletSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   companion object {
 
     const val IS_FROM_ONBOARDING = "is_from_onboarding"
+
     @JvmStatic
     fun newInstance(isFromOnboarding: Boolean): RecoveryWalletSuccessBottomSheetFragment {
       return RecoveryWalletSuccessBottomSheetFragment()

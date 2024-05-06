@@ -45,6 +45,7 @@ class SeparatorView : View {
       Type.SOLID -> {
         setBackgroundResource(R.color.styleguide_payments_separator)
       }
+
       Type.DASHED -> {
         if (orientation == Orientation.VERTICAL) {
           setBackgroundResource(R.drawable.dashed_vertical_line)
@@ -69,6 +70,7 @@ class SeparatorView : View {
           }
         }
       }
+
       Orientation.VERTICAL -> {
         if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY) {
           widthSpec = MeasureSpec.makeMeasureSpec(1.convertDpToPx(resources), MeasureSpec.EXACTLY)
@@ -76,7 +78,7 @@ class SeparatorView : View {
       }
     }
 
-    super.onMeasure(widthSpec, heightSpec);
+    super.onMeasure(widthSpec, heightSpec)
   }
 
   enum class Type { SOLID, DASHED }

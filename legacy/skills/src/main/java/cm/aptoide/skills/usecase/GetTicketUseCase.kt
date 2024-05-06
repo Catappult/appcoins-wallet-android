@@ -2,9 +2,9 @@ package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.repository.TicketRepository
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

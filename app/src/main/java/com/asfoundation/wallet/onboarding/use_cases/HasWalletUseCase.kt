@@ -6,8 +6,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class HasWalletUseCase @Inject constructor(
-    private val walletsInteract: WalletsInteract,
-    private val rxSchedulers: RxSchedulers
+  private val walletsInteract: WalletsInteract,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(): Single<Boolean> = walletsInteract.getWalletsModel()

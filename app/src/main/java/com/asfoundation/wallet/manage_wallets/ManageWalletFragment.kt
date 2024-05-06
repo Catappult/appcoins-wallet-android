@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,14 +30,17 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
@@ -59,6 +64,7 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenValue
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -66,10 +72,12 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.widgets.BackupAlertCard
-import com.appcoins.wallet.ui.widgets.R.*
+import com.appcoins.wallet.ui.widgets.ScreenTitle
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
+import com.appcoins.wallet.ui.widgets.component.Animation
+import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
@@ -78,7 +86,6 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Wall
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletDeleted
 import com.asfoundation.wallet.manage_wallets.bottom_sheet.ManageWalletSharedViewModel
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
-import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.ui.bottom_navigation.TransferDestinations
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,10 +96,10 @@ import javax.inject.Inject
 class ManageWalletFragment : BasePageViewFragment() {
 
   @Inject
-  lateinit var navigator: MoreDialogNavigator
+  lateinit var myWalletsNavigator: MyWalletsNavigator
 
   @Inject
-  lateinit var myWalletsNavigator: MyWalletsNavigator
+  lateinit var analytics: ManageWalletAnalytics
 
   private val viewModel: ManageWalletViewModel by viewModels()
 
@@ -128,8 +135,14 @@ class ManageWalletFragment : BasePageViewFragment() {
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is Success -> {
-          ManageWalletContent(padding = padding, uiState.activeWalletInfo, uiState.inactiveWallets)
+          ManageWalletContent(
+            padding = padding,
+            uiState.activeWalletInfo,
+            uiState.inactiveWallets,
+            uiState.verificationStatus
+          )
         }
+
         WalletChanged -> {
           Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
             .show()
@@ -145,7 +158,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.Center
           ) {
-            CircularProgressIndicator()
+            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
 
         WalletDeleted -> viewModel.updateWallets()
@@ -159,11 +172,12 @@ class ManageWalletFragment : BasePageViewFragment() {
   internal fun ManageWalletContent(
     padding: PaddingValues,
     walletInfo: WalletInfo,
-    inactiveWallets: List<WalletInfoSimple>
+    inactiveWallets: List<WalletInfoSimple>,
+    verificationStatus: VerificationStatus
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
       item { ScreenHeader(inactiveWallets.size) }
-      item { ActiveWalletCard(walletInfo) }
+      item { ActiveWalletCard(walletInfo, verificationStatus) }
 
       items(inactiveWallets) { wallet ->
         Card(
@@ -186,7 +200,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletCard(walletInfo: WalletInfo) {
+  fun ActiveWalletCard(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
       ActiveWalletIndicator()
       Card(
@@ -194,29 +208,118 @@ class ManageWalletFragment : BasePageViewFragment() {
         border = BorderStroke(1.dp, styleguide_pink),
         shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)
       ) {
-        Column(
-          modifier =
-          Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
-        ) {
-          BalanceBottomSheet(walletInfo)
-          ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
-          Spacer(modifier = Modifier.height(24.dp))
-          BackupAlertCard(
-            onClickButton = {
-              myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
-            },
-            hasBackup = walletInfo.hasBackup,
-            backupDate = walletInfo.backupDate
-          )
-          Separator()
-          VerifyWalletAlertCard(
-            onClickButton = { myWalletsNavigator.navigateToVerifyPicker() },
-            verified = walletInfo.verified
-          )
+        BoxWithConstraints {
+          if (expanded())
+            ActiveWalletContentLandscape(
+              walletInfo = walletInfo,
+              verificationStatus = verificationStatus
+            )
+          else
+            ActiveWalletContentPortrait(
+              walletInfo = walletInfo,
+              verificationStatus = verificationStatus
+            )
         }
       }
     }
   }
+
+  @Composable
+  fun ActiveWalletContentPortrait(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+    Column(
+      modifier =
+      Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+    ) {
+      BalanceBottomSheet(walletInfo)
+      ActiveWalletOptions(walletInfo.wallet, walletInfo.name)
+      Spacer(modifier = Modifier.height(24.dp))
+      BackupAlertCard(
+        onClickButton = {
+          myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+        },
+        hasBackup = walletInfo.hasBackup,
+        backupDate = walletInfo.backupDate
+      )
+      Separator()
+      if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+        LoadingCard()
+      else
+        VerifyWalletAlertCard(
+          onClickButton = {
+            analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
+            myWalletsNavigator.navigateToVerifyPicker()
+          },
+          verified = walletInfo.verified,
+          waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+          onCancelClickButton = {
+            viewModel.cancelVerification(walletInfo.wallet)
+            viewModel.updateWallets()
+          }
+        )
+    }
+  }
+
+  @Composable
+  fun ActiveWalletContentLandscape(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+    Column(
+      modifier =
+      Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
+    ) {
+      Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        BalanceBottomSheet(walletInfo, modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(0.05f))
+        ActiveWalletOptions(walletInfo.wallet, walletInfo.name, Modifier.weight(1f))
+      }
+
+      Spacer(modifier = Modifier.height(24.dp))
+      Row(verticalAlignment = CenterVertically) {
+        BackupAlertCard(
+          onClickButton = {
+            myWalletsNavigator.navigateToBackup(walletInfo.wallet, walletInfo.name)
+          },
+          hasBackup = walletInfo.hasBackup,
+          backupDate = walletInfo.backupDate,
+          modifier = Modifier.weight(1f)
+        )
+        Spacer(Modifier.weight(0.05f))
+        if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+          LoadingCard(modifier = Modifier.weight(1f))
+        else
+          VerifyWalletAlertCard(
+            onClickButton = {
+              analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
+              myWalletsNavigator.navigateToVerifyPicker()
+            },
+            verified = walletInfo.verified,
+            waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+            onCancelClickButton = {
+              viewModel.cancelVerification(walletInfo.wallet)
+              viewModel.updateWallets()
+            },
+            modifier = Modifier.weight(1f)
+          )
+      }
+    }
+  }
+
+  @Preview
+  @Composable
+  private fun LoadingCard(modifier: Modifier = Modifier) {
+    Column(
+      modifier = modifier
+        .fillMaxWidth(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center
+    ) {
+      Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+    }
+  }
+
+  private fun isVerificationInProcessing(
+    verificationStatus: VerificationStatus,
+    isVerified: Boolean
+  ) =
+    verificationStatus == VerificationStatus.VERIFIED && !isVerified
 
   @Composable
   fun ActiveWalletIndicator() {
@@ -242,9 +345,9 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletOptions(wallet: String, walletName: String) {
+  fun ActiveWalletOptions(wallet: String, walletName: String, modifier: Modifier = Modifier) {
     Row(
-      modifier = Modifier.fillMaxWidth(),
+      modifier = modifier.fillMaxWidth(),
       verticalAlignment = CenterVertically,
       horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -294,26 +397,13 @@ class ManageWalletFragment : BasePageViewFragment() {
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      ScreenTitle()
+      ScreenTitle(stringResource(R.string.manage_wallet_button))
       ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
   @Composable
-  fun ScreenTitle() {
-    Text(
-      text = stringResource(R.string.manage_wallet_button),
-      modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
-      style = MaterialTheme.typography.headlineSmall,
-      fontWeight = FontWeight.Bold,
-      color = styleguide_light_grey,
-    )
-  }
-
-  @OptIn(ExperimentalMaterial3Api::class)
-  @Composable
   fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
-
     Row(
       horizontalArrangement = Arrangement.End,
       modifier = Modifier
@@ -333,13 +423,13 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun BalanceBottomSheet(walletInfo: WalletInfo) {
+  fun BalanceBottomSheet(walletInfo: WalletInfo, modifier: Modifier = Modifier) {
     val balance = walletInfo.walletBalance
 
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
-      modifier = Modifier.fillMaxWidth()
+      modifier = modifier.fillMaxWidth()
     ) {
       Text(
         text = walletInfo.name,
@@ -359,8 +449,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           text =
           balance.creditsOnlyFiat.amount
             .toString()
-            .formatMoney(balance.creditsOnlyFiat.symbol, "")
-            ?: "",
+            .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
           style = MaterialTheme.typography.bodyMedium,
           color = styleguide_light_grey,
           fontWeight = FontWeight.Bold,
@@ -392,8 +481,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         text =
         walletBalance.balance.amount
           .toString()
-          .formatMoney(walletBalance.balance.symbol, "")
-          ?: "",
+          .formatMoney(walletBalance.balance.symbol, "") ?: "",
         style = MaterialTheme.typography.bodyMedium,
         color = WalletColors.styleguide_dark_grey,
         fontWeight = FontWeight.Bold,
@@ -460,9 +548,30 @@ class ManageWalletFragment : BasePageViewFragment() {
     )
   }
 
+
+  @Preview(widthDp = 601)
+  @Composable
+  fun PreviewActiveWalletCardLandscape() {
+    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+    val tokenBalance = TokenBalance(TokenValue(amount = BigDecimal(123456), "EUR", "€"), fiatValue)
+    val walletInfo = WalletInfo(
+      wallet = "a24863cb-e586-472f-9e8a-622834c20c52",
+      name = "Melissa wallet",
+      walletBalance = WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+      blocked = false,
+      backupDate = 987654L,
+      verified = false,
+      logging = true
+    )
+    ActiveWalletContentLandscape(
+      walletInfo, VerificationStatus.VERIFYING
+    )
+  }
+
   companion object {
     const val ADDRESS_KEY = "address_key"
     const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
+    const val VERIFY_PAYMENT_METHOD = "verify_payment_method"
   }
 
   private fun navController(): NavController {

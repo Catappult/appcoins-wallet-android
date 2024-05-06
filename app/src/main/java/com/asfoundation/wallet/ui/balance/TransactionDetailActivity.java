@@ -18,6 +18,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
+import com.appcoins.wallet.ui.widgets.SeparatorView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -25,11 +28,8 @@ import com.asfoundation.wallet.entity.TransactionsDetailsModel;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
-import com.appcoins.wallet.ui.widgets.SeparatorView;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -90,8 +90,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
-    viewModel = new ViewModelProvider(this,viewModelFactory)
-        .get(TransactionDetailViewModel.class);
+    viewModel = new ViewModelProvider(this, viewModelFactory).get(TransactionDetailViewModel.class);
 
     viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),
         globalBalanceCurrency);
@@ -109,6 +108,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
 
   /**
    * function hardcoded temporarily, must be changed
+   *
    * @return
    */
   protected Toolbar toolbar() {
@@ -213,7 +213,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
         if (isRevertedTransaction) {
           revertedDescription = R.string.transaction_type_reverted_purchase_title;
         }
-        from = transaction.getFrom() ;
+        from = transaction.getFrom();
         break;
       case BONUS_REVERT:
         typeStr = R.string.transaction_type_bonus;
@@ -339,9 +339,9 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
         manageSubscriptions.setVisibility(View.GONE);
         break;
       case IAP: // (on-chain)
-        symbol = "APPC" ;
-//        to = transaction.getTo() ;
-        from = transaction.getFrom() ;
+        symbol = "APPC";
+        //        to = transaction.getTo() ;
+        from = transaction.getFrom();
         break;
     }
 
@@ -380,7 +380,7 @@ import static com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION;
     int sign = flipSign ? -1 : 1;
     WalletCurrency walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
+    value = value.divide(BigDecimal.valueOf(Math.pow(10, decimals)));
     value = value.multiply(new BigDecimal(sign));
     String signedString = "";
     if (value.compareTo(BigDecimal.ZERO) > 0) {

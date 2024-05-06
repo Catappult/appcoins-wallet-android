@@ -25,8 +25,10 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
 
   private val views by viewBinding(FragmentRatingNegativeBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View = FragmentRatingNegativeBinding.inflate(inflater).root
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View = FragmentRatingNegativeBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -67,7 +69,7 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
 
   override fun submitClickEvent(): Observable<String> {
     return RxView.clicks(views.submitButton)
-        .map { views.feedbackInputText.getText() }
+      .map { views.feedbackInputText.getText() }
   }
 
   override fun noClickEvent(): Observable<Any> {

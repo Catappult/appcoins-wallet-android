@@ -440,6 +440,7 @@
   <string name="topup_no_method_available_title">ไม่มีวิธีการชำระเงิน!</string>
   <string name="topup_no_method_available_body">ไม่มีวิธีการชำระเงินที่สามารถเติมเงินในประเทศของคุณได้ในขณะนี้ คอยติดตาม!</string>
   <string name="topup_bonus_amount_body">รับโบนัส %s ด้วยการเติมเงินนี้</string>
+  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -524,6 +525,8 @@
   <string name="send_button">ส่ง</string>
   <string name="resend_button">ส่งใหม่</string>
   <string name="continue_button">ต่อ</string>
+  <string name="card_expired_tag">หมดอายุ</string>
+  <string name="start_again_button">Start again</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -664,6 +667,7 @@
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจึงอาจเรียกเก็บค่าธรรมเนียมการดำเนินการ</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">วิธีการชำระเงินนี้จะเรียกเก็บค่าธรรมเนียมการดำเนินการสำหรับการซื้อครั้งนี้</string>
   <string name="purchase_fee_included_body">รวมค่าธรรมเนียม</string>
+  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -783,7 +787,7 @@
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
   <string name="import_wallet_recovering_body">กำลังกู้คืนกระเป๋าสตางค์...</string>
-  <string name="backup_skip_title">ฉันเข้าใจว่าฉันอาจสูญเสียเงินของฉันหากฉันไม่สำรองคีย์กระเป๋าเงินของฉัน</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">กระเป๋าสตางค์สำรอง</string>
   <string name="backup_success_save_on_email">ไฟล์สำรองของคุณอยู่ในอีเมลของคุณ</string>
   <string name="backup_success_save_on_device">ไฟล์สำรองของคุณถูกเก็บไว้ในอุปกรณ์ของคุณ</string>
@@ -968,15 +972,21 @@
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
-  <string name="manage_cards_add_title">เพิ่มบัตรใหม่</string>
+  <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_remove_confirmation">คุณแน่ใจหรือไม่ว่าต้องการลบบัตรนี้?</string>
-  <string name="manage_cards_remove_no">ไม่ ยกเลิก</string>
-  <string name="manage_cards_remove_yes">ใช่ ลบออก</string>
+  <string name="manage_cards_remove_no">No, cancel</string>
+  <string name="manage_cards_remove_yes">Yes, remove it</string>
   <string name="manage_cards_card_ending_body">บัตรลงท้ายด้วย%s</string>
   <string name="manage_cards_error_details">คุณแน่ใจหรือว่ารายละเอียดบัตรของคุณถูกต้อง? กรุณาลองอีกครั้ง!</string>
   <string name="manage_cards_error_card_problem">ดูเหมือนว่ามีปัญหากับบัตรของคุณ โปรดลองวิธีอื่น</string>
   <string name="manage_cards_select_title">เลือกบัตรของคุณ</string>
   <string name="manage_cards_remember">จดจำบัตร</string>
+  <string name="add_new_card_button">เพิ่มบัตรใหม่</string>
+  <string name="manage_cards_header">Payment Cards</string>
+  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="card_added_title">Card added</string>
+  <string name="card_removed">Card removed</string>
+  <string name="choose_card_title">Choose card</string>
   <!--Perks-->
   <string name="perks_gamif_title">โบนัสสูงสุด %s%% ในทุกการซื้อ</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>

@@ -3,14 +3,14 @@ package com.asfoundation.wallet.ui.gamification
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 
 class LevelsAdapter(
-    private val currencyFormatUtils: CurrencyFormatUtils,
-    private val mapper: GamificationMapper,
-    private val uiEventListener: PublishSubject<Pair<String, Boolean>>
+  private val currencyFormatUtils: CurrencyFormatUtils,
+  private val mapper: GamificationMapper,
+  private val uiEventListener: PublishSubject<Pair<String, Boolean>>
 ) : RecyclerView.Adapter<LevelsViewHolder>() {
 
   /**
@@ -24,17 +24,19 @@ class LevelsAdapter(
     return when (viewType) {
       REACHED_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.reached_level_layout, parent, false)
+          .inflate(R.layout.reached_level_layout, parent, false)
         LevelReachedViewHolder(layout, mapper)
       }
+
       CURRENT_LEVEL_VIEW_TYPE -> {
         val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.current_level_layout, parent, false)
+          .inflate(R.layout.current_level_layout, parent, false)
         CurrentLevelViewHolder(layout, currencyFormatUtils, mapper, uiEventListener)
       }
+
       else -> {
         val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.unreached_level_layout, parent, false)
+          .inflate(R.layout.unreached_level_layout, parent, false)
         UnreachedLevelViewHolder(layout, currencyFormatUtils)
       }
     }
@@ -73,7 +75,7 @@ class LevelsAdapter(
   }
 
   private fun reachedLevelsShown(activeLevelList: MutableList<LevelItem>) =
-      activeLevelList.any { it is ReachedLevelItem }
+    activeLevelList.any { it is ReachedLevelItem }
 
   fun toggleReachedLevels(show: Boolean) {
     if (show) {

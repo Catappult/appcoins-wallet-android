@@ -142,6 +142,7 @@ fun BackupEntryScreen(
     is Async.Loading -> {
       // TODO add wallet animation loading and change it to png or xml
     }
+
     is Async.Success -> {
       Column(
         modifier =
@@ -178,6 +179,7 @@ fun BackupEntryScreen(
         BackupEntryButtonPasswordsCorrect(onNextClick, isInputPasswordCorrect)
       }
     }
+
     is Async.Fail -> Unit
   }
 }
@@ -272,12 +274,11 @@ fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCo
   Column(Modifier.padding(start = 24.dp, end = 24.dp, bottom = 28.dp)) {
     ButtonWithText(
       label = stringResource(id = R.string.backup_wallet_button),
-      onClick = { if (isInputPasswordCorrect) onNextClick() },
-      backgroundColor =
-      if (isInputPasswordCorrect) WalletColors.styleguide_pink
-      else WalletColors.styleguide_dark_grey,
+      onClick = { onNextClick() },
+      backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
+      enabled = isInputPasswordCorrect
     )
   }
 }
@@ -351,9 +352,11 @@ private fun SwitchModeTrue(
   var defaultPassword2 by rememberSaveable { mutableStateOf("") }
 
   AnimatedVisibility(visible = true, enter = fadeIn(), exit = fadeOut()) {
-    Column(modifier = Modifier
-      .fillMaxWidth()
-      .padding(top = 16.dp)) {
+    Column(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 16.dp)
+    ) {
       WalletTextFieldPassword(
         value = defaultPassword,
         onValueChange = {
@@ -386,9 +389,11 @@ private fun SwitchModeTrue(
           contentDescription = null,
           modifier = Modifier.size(24.dp)
         )
-        Column(modifier = Modifier
-          .fillMaxWidth()
-          .padding(start = 10.dp)) {
+        Column(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 10.dp)
+        ) {
           Text(
             text = stringResource(R.string.backup_additional_security_disclaimer_body),
             style = WalletTypography.bold.sp12,

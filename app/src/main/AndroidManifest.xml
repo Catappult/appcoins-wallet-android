@@ -20,6 +20,7 @@
       android:maxSdkVersion="28" />
   <uses-permission android:name="android.permission.USE_BIOMETRIC" />
   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+  <uses-permission android:name="com.dti.folderlauncher.provider.permission.READ_APP_DETAILS"/>
 
   <queries>
     <package android:name="com.gojek.app" />
@@ -170,8 +171,10 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -194,8 +197,10 @@
         android:theme="@style/TopupTheme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyencheckout" />
@@ -209,8 +214,10 @@
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="googlepayresult" />
@@ -276,10 +283,6 @@
         android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
         android:label=""
         android:windowSoftInputMode="stateHidden" />
-    <activity
-        android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-        android:label=""
-        android:windowSoftInputMode="stateHidden" />
 
     <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
     <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->
@@ -292,8 +295,10 @@
         tools:replace="launchMode">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data
             android:host="${applicationId}"
             android:scheme="adyen3ds2" />
@@ -317,7 +322,7 @@
     <provider
         android:name="androidx.startup.InitializationProvider"
         android:authorities="${applicationId}.androidx-startup"
-        tools:node="remove"/>
+        tools:node="remove" />
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"

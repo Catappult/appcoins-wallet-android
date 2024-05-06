@@ -16,7 +16,6 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
-import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ErrorStatus
@@ -372,20 +371,21 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val details = views.payTicketLayout.payTicketPaymentMethodsDetails
-    disposable.addAll(viewModel.getLocalFiatAmount(
-      eSkillsPaymentData.price!!,
-      eSkillsPaymentData.currency!!
-    ).observeOn(AndroidSchedulers.mainThread()).map {
-      details.fiatPrice.text = "${it.amount} ${it.currency}"
-      details.fiatPriceSkeleton.visibility = View.GONE
-      details.fiatPrice.visibility = View.VISIBLE
-    }.subscribe(), viewModel.getFormattedAppcAmount(
-      eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
-    ).observeOn(AndroidSchedulers.mainThread()).map {
-      details.appcPrice.text = "$it APPC"
-      details.appcPriceSkeleton.visibility = View.GONE
-      details.appcPrice.visibility = View.VISIBLE
-    }.subscribe()
+    disposable.addAll(
+      viewModel.getLocalFiatAmount(
+        eSkillsPaymentData.price!!,
+        eSkillsPaymentData.currency!!
+      ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.fiatPrice.text = "${it.amount} ${it.currency}"
+        details.fiatPriceSkeleton.visibility = View.GONE
+        details.fiatPrice.visibility = View.VISIBLE
+      }.subscribe(), viewModel.getFormattedAppcAmount(
+        eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
+      ).observeOn(AndroidSchedulers.mainThread()).map {
+        details.appcPrice.text = "$it APPC"
+        details.appcPriceSkeleton.visibility = View.GONE
+        details.appcPrice.visibility = View.VISIBLE
+      }.subscribe()
     )
   }
 
@@ -560,6 +560,7 @@ class SkillsFragment : Fragment(), PaymentView {
       finishWithError(SkillsViewModel.RESULT_PACKAGE_VERSION_NOT_SUPPORTED)
     }
   }
+
   private fun finishWithError(errorCode: Int) {
     requireActivity().setResult(errorCode)
     requireActivity().finish()
@@ -633,16 +634,17 @@ class SkillsFragment : Fragment(), PaymentView {
 
 
   private fun getReferralAndActivateLayout(eSkillsPaymentData: EskillsPaymentData) {
-    disposable.add(viewModel.getReferral().observeOn(AndroidSchedulers.mainThread())
-      .doOnSuccess { referralResponse ->
-        if (referralResponse.available) {
-          setReferralLayout(eSkillsPaymentData, referralResponse)
-          views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
-        } else {
-          if (referralResponse.count != 0)//If not default error Referral
-            cacheValue(ESKILLS_REFERRAL_KEY, false)
-        }
-      }.subscribe()
+    disposable.add(
+      viewModel.getReferral().observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess { referralResponse ->
+          if (referralResponse.available) {
+            setReferralLayout(eSkillsPaymentData, referralResponse)
+            views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+          } else {
+            if (referralResponse.count != 0)//If not default error Referral
+              cacheValue(ESKILLS_REFERRAL_KEY, false)
+          }
+        }.subscribe()
     )
   }
 
@@ -716,9 +718,6 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {
-    if (resultCode == SkillsViewModel.RESULT_OK) {
-      startBackgroundGameService(userData)
-    }
     requireActivity().setResult(resultCode, buildDataIntent(userData))
     requireActivity().finish()
   }
@@ -732,11 +731,6 @@ class SkillsFragment : Fragment(), PaymentView {
     intent.putExtra(WALLET_ADDRESS, userData.walletAddress?.address)
 
     return intent
-  }
-
-  private fun startBackgroundGameService(userData: UserData) {
-    val intent = BackgroundGameService.newIntent(requireContext(), userData.session)
-    context?.startService(intent)
   }
 
   override fun showLoading() {

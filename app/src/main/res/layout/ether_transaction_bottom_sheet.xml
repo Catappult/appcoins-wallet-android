@@ -89,10 +89,10 @@
       app:buttonIsAllCaps="true"
       app:buttonText="@string/copy"
       app:buttonType="text"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_rectangle"
-      app:layout_constraintEnd_toEndOf="parent"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -104,8 +104,8 @@
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/ether_transaction_bottom_sheet_copy_clipboard"
       />
 

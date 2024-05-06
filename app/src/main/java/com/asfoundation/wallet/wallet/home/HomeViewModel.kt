@@ -6,14 +6,13 @@ import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
@@ -30,12 +29,12 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWallet
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
@@ -77,15 +76,23 @@ import javax.inject.Inject
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
+
   data class NavigateToRateUs(val shouldNavigate: Boolean) : HomeSideEffect()
+
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
+
   data class NavigateToBackup(val walletAddress: String, val walletName: String) : HomeSideEffect()
+
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
 
   data class NavigateToBalanceDetails(val balance: WalletBalance) : HomeSideEffect()
+
   object NavigateToTopUp : HomeSideEffect()
+
   object NavigateToTransfer : HomeSideEffect()
+
   object NavigateToTransactionsList : HomeSideEffect()
+
   object NavigateToRecover : HomeSideEffect()
 }
 
@@ -93,7 +100,6 @@ data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-  val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
   val hasBackup: Async<Boolean> = Async.Uninitialized
 ) : ViewState
@@ -102,7 +108,7 @@ data class HomeState(
 class HomeViewModel
 @Inject
 constructor(
-  private val analytics: HomeAnalytics,
+  private val compatibleAppsAnalytics: CompatibleAppsAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
@@ -122,12 +128,12 @@ constructor(
   private val registerSupportUserUseCase: RegisterSupportUserUseCase,
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
-  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
-  private val logger: Logger
+  private val logger: Logger,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -136,12 +142,14 @@ constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val showBackup = mutableStateOf(false)
   val newWallet = mutableStateOf(false)
-  val isLoadingTransactions =  mutableStateOf(false)
+  val isLoadingTransactions = mutableStateOf(false)
+  val hasNotificationBadge = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
+
     fun initialState() = HomeState()
   }
 
@@ -157,6 +165,7 @@ constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     fetchPromotions()
+    hasNotificationBadge.value = commonsPreferencesDataSource.getUpdateNotificationBadge()
   }
 
   private fun handleWalletData() {
@@ -199,6 +208,9 @@ constructor(
       observeBackup()
     )
       .map {}
+      .doOnError {
+        it.printStackTrace()
+      }
       .subscribeOn(rxSchedulers.io)
   }
 
@@ -209,7 +221,7 @@ constructor(
     ) { selectedCurrency, wallet ->
       defaultCurrency = selectedCurrency.unwrap()
       fetchTransactions(wallet, defaultCurrency)
-    }
+    }.doOnError { it.printStackTrace() }
       .subscribe()
   }
 
@@ -221,6 +233,9 @@ constructor(
         true
       }
       .ignoreElement()
+      .doOnError {
+        it.printStackTrace()
+      }
       .subscribeOn(rxSchedulers.io)
   }
 
@@ -320,8 +335,14 @@ constructor(
                     .groupBy { it.date.getDay() })
             }
 
-            is ApiFailure -> {isLoadingTransactions.value = true}
-            is ApiException -> {isLoadingTransactions.value = true}
+            is ApiFailure -> {
+              isLoadingTransactions.value = true
+            }
+
+            is ApiException -> {
+              isLoadingTransactions.value = true
+            }
+
             else -> {}
           }
         }
@@ -358,10 +379,6 @@ constructor(
       .flatMapObservable { wallet ->
         observeUserStatsUseCase().flatMapSingle { gamificationStats ->
           val userLevel = gamificationStats.level
-          val isVipLevel =
-            gamificationStats.gamificationStatus == GamificationStatus.VIP ||
-                gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
-          setState { copy(showVipBadge = isVipLevel) }
           getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
             if (userLevel > lastShownLevel) {
               updateLastShownUserLevelUseCase(wallet.address, userLevel)
@@ -397,12 +414,9 @@ constructor(
       .scopedSubscribe { e -> e.printStackTrace() }
   }
 
-  fun showSupportScreen(fromNotification: Boolean) {
-    if (fromNotification) {
-      displayConversationListOrChatUseCase
-    } else {
-      displayChatUseCase()
-    }
+  fun showSupportScreen() {
+    commonsPreferencesDataSource.setUpdateNotificationBadge(false)
+    displayChatUseCase()
   }
 
   fun onBalanceArrowClick(balance: WalletBalance) {
@@ -453,26 +467,38 @@ constructor(
         e.printStackTrace()
       }
   }
+
   fun isLoadingOrIdleBalanceState(): Boolean {
-    return _uiBalanceState.value == UiBalanceState.Loading || _uiBalanceState.value == UiBalanceState.Idle
+    return _uiBalanceState.value == UiBalanceState.Loading ||
+        _uiBalanceState.value == UiBalanceState.Idle
   }
+
   fun isLoadingOrIdlePromotionState(): Boolean {
-    return state.promotionsModelAsync == Async.Loading(null) || state.promotionsModelAsync == Async.Uninitialized
+    return state.promotionsModelAsync == Async.Loading(null) ||
+        state.promotionsModelAsync == Async.Uninitialized
   }
 
   fun updateBalance(uiBalanceState: UiBalanceState) {
     _uiBalanceState.value = uiBalanceState
   }
 
+  fun referenceSendPromotionClickEvent(): (String?, String) -> Unit {
+    return compatibleAppsAnalytics::sendPromotionClickEvent
+  }
+
   sealed class UiState {
     object Idle : UiState()
+
     object Loading : UiState()
+
     data class Success(val transactions: Map<String, List<TransactionModel>>) : UiState()
   }
 
   sealed class UiBalanceState {
     object Idle : UiBalanceState()
+
     object Loading : UiBalanceState()
+
     data class Success(val balance: WalletBalance) : UiBalanceState()
   }
 }
