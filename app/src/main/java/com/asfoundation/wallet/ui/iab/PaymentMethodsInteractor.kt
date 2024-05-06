@@ -37,9 +37,10 @@ class PaymentMethodsInteractor @Inject constructor(
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
+  private var uid: String? = null
 
   fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun isBonusActiveAndValid() = gamificationInteractor.isBonusActiveAndValid()
@@ -127,6 +128,7 @@ class PaymentMethodsInteractor @Inject constructor(
     orderReference: String?,
     hash: String?, networkThread: Scheduler
   ): Single<PurchaseBundleModel> {
+    uid = purchaseUid
     return inAppPurchaseInteractor.getCompletedPurchaseBundle(
       type, appPackage, skuId, purchaseUid,
       orderReference, hash, networkThread

@@ -5,7 +5,6 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
@@ -29,7 +28,6 @@ object MainActivityState : ViewState
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
   private val increaseLaunchCount: IncreaseLaunchCountUseCase,
-  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,

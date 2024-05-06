@@ -274,12 +274,11 @@ fun BackupEntryButtonPasswordsCorrect(onNextClick: () -> Unit, isInputPasswordCo
   Column(Modifier.padding(start = 24.dp, end = 24.dp, bottom = 28.dp)) {
     ButtonWithText(
       label = stringResource(id = R.string.backup_wallet_button),
-      onClick = { if (isInputPasswordCorrect) onNextClick() },
-      backgroundColor =
-      if (isInputPasswordCorrect) WalletColors.styleguide_pink
-      else WalletColors.styleguide_dark_grey,
+      onClick = { onNextClick() },
+      backgroundColor = WalletColors.styleguide_pink,
       labelColor = WalletColors.styleguide_light_grey,
       buttonType = ButtonType.LARGE,
+      enabled = isInputPasswordCorrect
     )
   }
 }

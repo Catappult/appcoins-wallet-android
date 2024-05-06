@@ -11,8 +11,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 304
-    versionName = "3.16.0"
+    versionCode = 310
+    versionName = "3.19.0"
   }
 }
 
@@ -52,7 +52,6 @@ dependencies {
   implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
-  implementation(project(":home"))
   implementation(project(":feature:vk-pay"))
 
   implementation(libs.kotlin.coroutines)
