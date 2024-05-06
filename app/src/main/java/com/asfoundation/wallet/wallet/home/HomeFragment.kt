@@ -125,7 +125,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       checkRoot()
       Intercom.client().handlePushMessage()
     } else {
-      viewModel.showSupportScreen(true)
+      viewModel.showSupportScreen()
     }
     viewModel.fetchPromotions()
   }
@@ -151,7 +151,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             isMainBar = true,
             onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
-            onClickSupport = { viewModel.showSupportScreen(false) },
+            onClickSupport = { viewModel.showSupportScreen() },
             hasNotificationBadge = viewModel.hasNotificationBadge.value
           )
         }

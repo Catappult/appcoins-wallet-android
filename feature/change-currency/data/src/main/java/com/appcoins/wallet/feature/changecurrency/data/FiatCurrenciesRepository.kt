@@ -66,7 +66,7 @@ class FiatCurrenciesRepository @Inject constructor(
     return fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency().toDataResult()
   }
 
-  fun getCachedSelectedCurrency(): String =
+  fun getCachedSelectedCurrency(): String? =
     fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency()
 
 

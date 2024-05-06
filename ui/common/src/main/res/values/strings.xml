@@ -85,7 +85,7 @@
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
+  <string name="action_backup_wallet">Back Up Wallet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
   <string name="title_email">Email Us</string>
   <string name="action_donate">Donate</string>
@@ -477,7 +477,7 @@
 
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">Back up wallet</string>
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
 
@@ -807,8 +807,8 @@
 
 
   <!--Backup and Import-->
-  <string name="backup_home_notification_title">Backup Your Wallet</string>
-  <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
+  <string name="backup_home_notification_title">Back up Your Wallet</string>
+  <string name="backup_home_notification_body">Have you ever lost your phone? Back up your wallet now!</string>
 
   <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Save backup file</string>
@@ -826,7 +826,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Back up wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -845,15 +845,15 @@
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
-  <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
+  <string name="backup_choose_wallet_title">Choose a wallet to back up</string>
 
   <string name="backup_additional_security_disclaimer_title">Please keep your password safe.</string>
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
 
-  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_skip_title">I understand that I may lose my funds if I don\'t back up my wallet key.</string>
+  <string name="backup_wallet_button">Back up wallet</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
 
@@ -893,7 +893,7 @@
 
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
-  <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
+  <string name="remove_wallet_body">We strongly recommend to back up a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
   <string name="remove_wallet_backup_button">Back up wallet</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
