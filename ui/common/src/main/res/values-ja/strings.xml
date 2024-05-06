@@ -971,6 +971,7 @@
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">本当にこのカードを削除しますか？</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -985,6 +986,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">購入ごとに最大%s%%のボーナスを獲得</string>
   <string name="perks_gamif_subtitle">お気に入りのアプリで使えば使うほど、ボーナスが大きくなります！</string>
