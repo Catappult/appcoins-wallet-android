@@ -56,7 +56,7 @@ class AdyenPaymentRepository @Inject constructor(
   fun getStoredCards(
     methods: Methods,
     value: String,
-    currency: String,
+    currency: String?,
     walletAddress: String,
     ewt: String
   ): Single<List<StoredPaymentMethod>> {
@@ -64,7 +64,7 @@ class AdyenPaymentRepository @Inject constructor(
       walletAddress,
       ewt,
       value,
-      currency,
+      currency ?: "USD",
       methods.transactionType
     )
       .map {
