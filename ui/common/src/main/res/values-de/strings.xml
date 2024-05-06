@@ -972,6 +972,7 @@
   <string name="manage_cards_view_title">Karten verwalten</string>
   <string name="manage_cards_view_manage_subtitle">Verwalte deine Zahlungskarten</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Bist du sicher, dass du diese Karte entfernen willst?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -986,6 +987,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Verdiene bis zu %s%% Bonus bei jedem Einkauf</string>
   <string name="perks_gamif_subtitle">Je mehr du in deinen Lieblings-Apps ausgibst, umso größer ist der Bonus!</string>
