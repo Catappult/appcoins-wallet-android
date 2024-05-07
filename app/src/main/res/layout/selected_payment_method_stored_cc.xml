@@ -33,22 +33,10 @@
       app:layout_constraintEnd_toStartOf="@id/stored_change_card_button"
       app:layout_constraintStart_toEndOf="@id/img_card_brand"
       app:layout_constraintTop_toTopOf="@+id/stored_change_card_button"
+      app:layout_constraintBottom_toBottomOf="@id/stored_change_card_button"
       tools:text="**** 7365"
       />
 
-  <TextView
-      android:id="@+id/txt_saved_card_expiry_date"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="8dp"
-      android:layout_marginTop="4dp"
-      android:textSize="12sp"
-      app:layout_constraintEnd_toStartOf="@id/stored_change_card_button"
-      app:layout_constraintStart_toEndOf="@id/img_card_brand"
-      app:layout_constraintTop_toBottomOf="@+id/txt_saved_card_number"
-      tools:text="Expiry Date  03/30"
-      />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/stored_change_card_button"

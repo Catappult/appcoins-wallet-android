@@ -210,8 +210,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     get() = bindingCreditCardLayout?.adyenCreditCardRoot
   private val mainView: RelativeLayout? get() = bindingCreditCardLayout?.mainView
   private val creditCardInfo: ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
-  private val changeCardButton: WalletButtonView?
-    get() = bindingCreditCardLayout?.changeCardButton
   private val bonusLayout: ConstraintLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
   private val adyenCardForm: ConstraintLayout?
     get() = bindingCreditCardLayout?.adyenCardForm?.root
@@ -245,8 +243,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     get() = bindingCreditCardLayout?.adyenSavedCard?.imgCardBrand
   private val txtStoredCardNumber: TextView?
     get() = bindingCreditCardLayout?.adyenSavedCard?.txtSavedCardNumber
-  private val txtStoredExpiryDate: TextView?
-    get() = bindingCreditCardLayout?.adyenSavedCard?.txtSavedCardExpiryDate
 
   private val scrollPayment: ScrollView?
     get() = bindingCreditCardLayout?.ccInfoView
@@ -369,7 +365,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       ),
       adyenSupportIconClicks = RxView.clicks(layoutSupportIcn),
       adyenSupportLogoClicks = RxView.clicks(layoutSupportLogo),
-      forgetCardClick = forgetCardClick(),
       forgetStoredCardClick = forgetStoredCardClick(),
       retrievePaymentData = retrievePaymentData(),
       buyButtonClicked = buyButtonClicked(),
@@ -428,9 +423,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   private fun setStoredCardLayoutValues(storedPaymentMethod: StoredPaymentMethod) {
     txtStoredCardNumber?.text = "**** ".plus(storedPaymentMethod.lastFour)
-    txtStoredExpiryDate?.text =
-      getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
-        .plus("/").plus(storedPaymentMethod.expiryYear)
     when (storedPaymentMethod.brand) {
       PaymentBrands.MASTERCARD.brandName -> {
         imgStoredCardBrand?.setImageResource(ic_card_brand_master_card)
@@ -503,7 +495,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       bonusLayout?.visibility = INVISIBLE
     }
     adyenCardForm?.visibility = INVISIBLE
-    changeCardButton?.visibility = INVISIBLE
     layoutAdyenStoredCard?.visibility = INVISIBLE
     morePaymentMethods?.visibility = GONE
     morePaymentStoredMethods?.visibility = INVISIBLE
@@ -573,7 +564,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     layoutAdyenStoredCard?.visibility = GONE
     adyenCardForm?.visibility = GONE
     layoutPreSelected?.visibility = GONE
-    changeCardButton?.visibility = GONE
     changeCardButtonPreSelected?.visibility = GONE
     bottomSeparator?.visibility = GONE
 
@@ -603,7 +593,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     layoutAdyenStoredCard?.visibility = GONE
     adyenCardForm?.visibility = GONE
     layoutPreSelected?.visibility = GONE
-    changeCardButton?.visibility = GONE
     changeCardButtonPreSelected?.visibility = GONE
     bottomSeparator?.visibility = GONE
 
@@ -636,7 +625,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
     if (viewModel.isStored) {
-      changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
     }
     buyButton.visibility = VISIBLE
@@ -648,7 +636,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     iabView.unlockRotation()
     hideLoadingAndShowView()
     if (viewModel.askCVC && viewModel.isStored) {
-      changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
       morePaymentMethods?.visibility = VISIBLE
     } else if (viewModel.isStored) {
@@ -682,7 +669,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             ?.showSoftInput(editTextCvc, InputMethodManager.SHOW_IMPLICIT)
         }
       }
-      changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
       morePaymentMethods?.visibility = VISIBLE
       layoutAdyenStoredCard?.visibility = GONE
@@ -727,10 +713,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
 
-  fun forgetCardClick(): Observable<Any> {
-    return if (changeCardButton != null) RxView.clicks(changeCardButton!!)
-    else RxView.clicks(changeCardButtonPreSelected!!)
-  }
 
   fun forgetStoredCardClick() =
     RxView.clicks(btnStoredCardPreSelectedChangeCard ?: btnStoredCardChangeCard!!)
@@ -834,7 +816,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
     if (viewModel.askCVC && isStored) {
-      changeCardButton?.visibility = VISIBLE
       changeCardButtonPreSelected?.visibility = VISIBLE
       morePaymentMethods?.visibility = VISIBLE
     } else if (isStored) {
@@ -844,7 +825,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     } else {
       scrollPayment?.visibility = VISIBLE
       layoutAdyenStoredCard?.visibility = GONE
-      changeCardButton?.visibility = GONE
       changeCardButtonPreSelected?.visibility = GONE
       adyenCardForm?.visibility = VISIBLE
       morePaymentMethods?.visibility = if (isPreSelected) VISIBLE else GONE

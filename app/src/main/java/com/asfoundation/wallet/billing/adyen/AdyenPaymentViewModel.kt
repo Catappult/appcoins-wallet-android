@@ -7,7 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.billing.ErrorInfo.ErrorType.*
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.ALREADY_PROCESSED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CVC_LENGTH
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CVC_REQUIRED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.INVALID_CARD
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.OUTDATED_CARD
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.PAYMENT_ERROR
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
@@ -141,7 +151,6 @@ class AdyenPaymentViewModel @Inject constructor(
     paymentData: PaymentData,
     adyenSupportIconClicks: Observable<Any>,
     adyenSupportLogoClicks: Observable<Any>,
-    forgetCardClick: Observable<Any>,
     forgetStoredCardClick: Observable<Any>,
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>,
@@ -167,7 +176,6 @@ class AdyenPaymentViewModel @Inject constructor(
     )
     handleBack(backEvent)
     handleErrorDismissEvent(errorDismisses)
-    handleForgetCardClick(forgetCardClick)
     handleForgetStoredCardClick(forgetStoredCardClick)
     handleRedirectResponse()
     handlePaymentDetails(paymentDetails, animationDuration)
@@ -202,24 +210,6 @@ class AdyenPaymentViewModel @Inject constructor(
     )
   }
 
-  private fun handleForgetCardClick(forgetCardClick: Observable<Any>) {
-    disposables.add(forgetCardClick
-      .observeOn(viewScheduler)
-      .doOnNext { sendSingleEvent(SingleEventState.showLoading) }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success -> if (!success) sendSingleEvent(SingleEventState.showGenericError) }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .subscribe({
-        sendSingleEvent(SingleEventState.restartFragment)
-      }, {
-        logger.log(TAG, it)
-        sendSingleEvent(SingleEventState.showGenericError)
-      })
-    )
-  }
 
   private fun askCardDetails() {
     disposables.add(
