@@ -119,9 +119,19 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardSaved) {
         manageCardsAnalytics.addedNewCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT)
+        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_LONG)
           .show()
-        manageCardSharedViewModel.resetCardSavedValue()
+        manageCardSharedViewModel.resetCardResult()
+      }
+    }
+    val isCardError by manageCardSharedViewModel.isCardError
+    LaunchedEffect(key1 = isCardError) {
+      if (isCardError) {
+        manageCardsAnalytics.addedNewCardSuccessEvent()
+        viewModel.getCards()
+        Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+          .show()
+        manageCardSharedViewModel.resetCardResult()
       }
     }
     val isCardDeleted by viewModel.isCardDeleted
@@ -129,7 +139,7 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardDeleted) {
         manageCardsAnalytics.removeCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT)
+        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_LONG)
           .show()
         viewModel.isCardDeleted.value = false
       }
