@@ -39,7 +39,8 @@ fun CardListBottomSheet(
   onChangeCardClick: (StoredCard, () -> Unit) -> Unit,
   onAddNewCardClick: () -> Unit,
   onGotItClick: () -> Unit,
-  cardList: List<StoredCard>
+  cardList: List<StoredCard>,
+  isGotItVisible: Boolean
 ) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,42 +56,45 @@ fun CardListBottomSheet(
         AddNewCardComposable(
           paddingTop = 8.dp,
           onClickAction = onAddNewCardClick,
-          addIconDrawable = com.asf.wallet.R.drawable.ic_add_card
+          addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
+          titleText = stringResource(R.string.manage_cards_settings_add_title)
         )
       }
       items(cardList) { card ->
         PaymentCardItem(card) { onChangeCardClick(card) {} }
       }
     }
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .background(WalletColors.styleguide_blue),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically
-    ) {
-      Column(modifier = Modifier.padding(start = 8.dp)) {
-        Text(
-          //TODO: Update When Carlos Send the string
-          text = "To update or remove cards go to:",
-          color = WalletColors.styleguide_dark_grey,
-          fontSize = 12.sp,
-          fontWeight = FontWeight.Bold
-        )
-        Text(
-          //TODO: Update When Carlos Send the string
-          text = "Settings > Manage Cards",
-          color = WalletColors.styleguide_white,
-          fontSize = 12.sp
-        )
-      }
-      TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
-        Text(
-          text = stringResource(id = R.string.got_it_button),
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_pink,
-          fontSize = 14.sp
-        )
+    if (isGotItVisible) {
+      Row(
+        modifier = Modifier
+          .fillMaxWidth()
+          .background(WalletColors.styleguide_blue),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        Column(modifier = Modifier.padding(start = 8.dp)) {
+          Text(
+            //TODO: Update When Carlos Send the string
+            text = "To update or remove cards go to:",
+            color = WalletColors.styleguide_dark_grey,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold
+          )
+          Text(
+            //TODO: Update When Carlos Send the string
+            text = "Settings > Manage Cards",
+            color = WalletColors.styleguide_white,
+            fontSize = 12.sp
+          )
+        }
+        TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
+          Text(
+            text = stringResource(id = R.string.got_it_button),
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_pink,
+            fontSize = 14.sp
+          )
+        }
       }
     }
   }
@@ -147,13 +151,14 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
   CardListBottomSheet(
-    { storedCard, _ -> {} },
+    { _, _ -> {} },
     {},
     {},
     listOf(
       StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
       StoredCard("4325", com.asf.wallet.R.drawable.ic_card_brand_american_express, null, true),
       StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_discover, null, false)
-    )
+    ),
+    true
   )
 }

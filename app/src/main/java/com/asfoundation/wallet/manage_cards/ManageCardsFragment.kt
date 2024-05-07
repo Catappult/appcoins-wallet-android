@@ -144,7 +144,8 @@ class ManageCardsFragment : BasePageViewFragment() {
         AddNewCardComposable(
           paddingTop = 24.dp,
           onClickAction = { manageCardsNavigator.navigateToAddCard() },
-          addIconDrawable = R.drawable.ic_add_card
+          addIconDrawable = R.drawable.ic_add_card,
+          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_title)
         )
         if (cardsList.isNotEmpty()) {
           ScreenSubtitle()

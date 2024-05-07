@@ -25,7 +25,12 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 @Preview
 @Composable
 private fun AddNewCardComposableExample() {
-  AddNewCardComposable(12.dp, {}, R.drawable.ic_card)
+  AddNewCardComposable(
+    12.dp,
+    {},
+    R.drawable.ic_card,
+    stringResource(R.string.manage_cards_add_title)
+  )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +38,8 @@ private fun AddNewCardComposableExample() {
 fun AddNewCardComposable(
   paddingTop: Dp,
   onClickAction: () -> Unit,
-  addIconDrawable: Int
+  addIconDrawable: Int,
+  titleText: String
 ) {
   Card(
     onClick = onClickAction,
@@ -52,7 +58,7 @@ fun AddNewCardComposable(
         contentDescription = stringResource(R.string.title_support),
       )
       Text(
-        text = stringResource(R.string.manage_cards_add_title),
+        text = titleText,
         modifier = Modifier
           .padding(8.dp)
           .align(Alignment.CenterVertically),

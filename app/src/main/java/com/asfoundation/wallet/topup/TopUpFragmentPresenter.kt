@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
@@ -47,7 +48,8 @@ class TopUpFragmentPresenter(
   private val networkThread: Scheduler,
   private val challengeRewardAnalytics: ChallengeRewardAnalytics,
   private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
-  private val getStoredCardsUseCase: GetStoredCardsUseCase
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource
 ) {
 
   private var cachedGamificationLevel = 0
@@ -124,7 +126,8 @@ class TopUpFragmentPresenter(
               cardLastNumbers = it.lastFour ?: "****",
               cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
               recurringReference = it.id,
-              false // change this function to get selected card
+              !cardPaymentDataSource.getPreferredCardId()
+                .isNullOrEmpty() && it.id == cardPaymentDataSource.getPreferredCardId()
             )
           }
 

@@ -31,6 +31,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.R
@@ -91,6 +92,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var getStoredCardsUseCase: GetStoredCardsUseCase
+
+  @Inject
+  lateinit var cardPaymentDataSource: CardPaymentDataSource
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -187,7 +191,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       networkThread = Schedulers.io(),
       challengeRewardAnalytics = challengeRewardAnalytics,
       getCachedCurrencyUseCase = getCachedCurrencyUseCase,
-      getStoredCardsUseCase = getStoredCardsUseCase
+      getStoredCardsUseCase = getStoredCardsUseCase,
+      cardPaymentDataSource = cardPaymentDataSource
     )
   }
 
@@ -242,7 +247,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   ) {
     this@TopUpFragment.paymentMethods = paymentMethods
     if (this.cardsList.isNullOrEmpty()) {
-      cardsList.first().isSelectedCard = true
+      if (cardPaymentDataSource.getPreferredCardId().isNullOrEmpty()) {
+        cardsList.first().isSelectedCard = true
+      }
       this@TopUpFragment.cardsList = cardsList
     }
 
@@ -690,6 +697,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (storedCard != null && cardsList.contains(storedCard)) {
       cardsList.find { it.isSelectedCard }?.isSelectedCard = false
       cardsList.find { it == storedCard }?.isSelectedCard = true
+      storedCard.recurringReference?.let { cardPaymentDataSource.setPreferredCardId(it) }
     }
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
@@ -738,8 +746,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
             setSelectedCard(storedCard)
             showBottomSheet.value = false
           },
-          onGotItClick = { showBottomSheet.value = false },
-          cardList = cardsList
+          onGotItClick = {
+            showBottomSheet.value = false
+            cardPaymentDataSource.setGotItManageCard(false)
+          },
+          cardList = cardsList,
+          isGotItVisible = cardPaymentDataSource.isGotItVisible()
         )
       }
     }
