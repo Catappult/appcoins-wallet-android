@@ -967,10 +967,10 @@
   <string name="carrier_billing_terms_button">শর্তাবলী</string>
   <string name="carrier_billing_privacy_button">গোপনীয়তা নীতি</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add Credit/Debit Card</string>
-  <string name="manage_cards_settings_manage_title">Manage Credit/Debit Cards</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_manage_title">Manage cards</string>
   <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your payment cards</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
