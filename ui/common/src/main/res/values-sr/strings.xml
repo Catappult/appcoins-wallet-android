@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">Blokiran novčanik</string>
   <string name="error_blocked_wallet_body">Vaš novčanik je blokiran iz sigurnosnih razloga. Kontaktirajte nas za više informacija.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_error_google_pay">Došlo je do problema sa vašim Google Pay nalogom. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
   <string name="purchase_fee_title">Naknada %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada je uključena u Ukupnoj ceni koju možete videti u gornjem delu.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu. Naknada je uključena u odeljku Ukupno koji možete videti u gornjem delu.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -973,6 +977,7 @@
   <string name="manage_cards_view_title">Upravljanje karticama</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Da li ste sigurni da želite da uklonite ovu karticu?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -987,6 +992,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Zaradite do %s%% bonusa za svaku kupovinu</string>
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>

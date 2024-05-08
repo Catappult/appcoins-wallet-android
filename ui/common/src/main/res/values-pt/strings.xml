@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">Wallet Bloqueada</string>
   <string name="error_blocked_wallet_body">Por motivos de segurança, a tua wallet foi bloqueada. Para mais informações, contacta-nos.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Podem ser aplicadas taxas adicionais.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Ocorreu um problema com o teu pagamento PayPal. Tenta novamente ou utiliza um método de pagamento diferente.</string>
   <string name="purchase_error_google_pay">Ocorreu um problema com o Google Pay. Tenta novamente ou utiliza um método de pagamento diferente.</string>
   <string name="purchase_success_bonus_received_title">%s de bónus recebido.</string>
   <string name="purchase_making_purchase_title">Efetuar a compra&#8230;</string>
   <string name="purchase_fee_title">Taxa de %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pagamento não é compatível com a tua moeda, por isso será cobrada uma taxa de processamento. Esta taxa está incluída no Total que podes ver na área de cima.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">Este método de pagamento cobra uma taxa de processamento para esta compra. Esta taxa está incluída no Total que podes ver na área superior.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pagamento não é compatível com a tua moeda, pelo que poderá ser cobrada uma taxa de processamento.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Este método de pagamento cobra uma taxa de processamento para esta compra.</string>
   <string name="purchase_fee_included_body">taxas incluídas</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
@@ -972,6 +976,7 @@
   <string name="manage_cards_view_title">Gerir cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gere os teus cartões de pagamento</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">De certeza que queres remover este cartão?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -986,6 +991,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Ganha até %s%% de Bónus em cada compra</string>
   <string name="perks_gamif_subtitle">Quanto mais gastares nas tuas apps favoritas, maior é o Bónus!</string>
