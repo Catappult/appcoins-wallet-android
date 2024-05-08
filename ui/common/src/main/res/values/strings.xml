@@ -501,7 +501,7 @@
 
   <!--P2P Send-->
   <string name="p2p_send_title">Send</string>
-  <string name="p2p_send_title">Receive</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
   <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
