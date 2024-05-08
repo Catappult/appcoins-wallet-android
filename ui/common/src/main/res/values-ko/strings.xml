@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">차단된 지갑</string>
   <string name="error_blocked_wallet_body">보안상의 이유로, 지갑이 차단되었습니다. 상세 내용은 지원팀에 문의해 주세요.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
   <string name="purchase_error_google_pay">구글페이에 문제가 발생하였습니다. 다시 시도해보시거나 다른 결제수단을 이용해보시기 바랍니다.</string>
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">구매하기&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s 수수료</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">이 결제수단은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과됩니다. 이 수수료는 상단 영역에서 볼 수 있는 총 금액에 포함되어 있습니다.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">이 결제 방법은 이 구매에 대한 처리 수수료를 부과합니다. 이 수수료는 상단 영역의 Total에 포함되어 있습니다.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">이 결제 방법은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과될 수 있습니다.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">이 결제 방법은 이 구매에 대한 처리 수수료를 부과합니다.</string>
   <string name="purchase_fee_included_body">수수료 포함</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
