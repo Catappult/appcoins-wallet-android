@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">ブロックされたウォレット</string>
   <string name="error_blocked_wallet_body">セキュリティ上の理由により、お客様のウォレットはブロックされています。お手数ですが、弊社までご連絡ください。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_error_google_pay">Google Payで問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <string name="purchase_success_bonus_received_title">%sのボーナスを受取り済</string>
   <string name="purchase_making_purchase_title">購入中：&#8230;</string>
   <string name="purchase_fee_title">手数料：%1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">この支払い方法はあなたの通貨をサポートしていないため、処理手数料がかかります。この手数料はトップエリアに表示される合計金額に含まれています。</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">この支払い方法では、この購入に手数料がかかります。この手数料は、上部に表示されている合計金額に含まれています。</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">この支払い方法はお客様の通貨をサポートしていないため、手数料がかかる場合があります。</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">この支払い方法では、購入に手数料がかかります。</string>
   <string name="purchase_fee_included_body">手数料込み</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
