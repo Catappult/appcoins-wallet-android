@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">你好！请向我发送%1$s AppCoins积金以便购买%2$s上的物品。链接：%3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">发送基金</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">扫描或输入好友的钱包地址。</string>
   <string name="p2p_send_confirmation_message">向以下地址发送了%1$s %2$s：</string>
   <string name="p2p_send_current_balance_message">当前余额：%1$s %2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">继续</string>
   <string name="card_expired_tag">已到期</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -671,6 +674,9 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">若选择此种支付方式，则会在购买过程中收取一定的手续费。</string>
   <string name="purchase_fee_included_body">已包含相关费用</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
@@ -972,6 +978,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">管理支付卡</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
   <string name="manage_cards_add_title">Add New Card</string>
@@ -1259,6 +1266,8 @@
   <string name="rewards_make_first_purchase_body">在与AppCoins兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
   <string name="rewards_bonus_every_purchase_title">每一次购买都将获得%s%%的奖金</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">钱包更换</string>
   <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>
   <string name="manage_wallet_change_wallet_name_title">更改钱包名称</string>
@@ -1266,6 +1275,7 @@
   <string name="manage_wallet_my_wallet_address_title">我的钱包地址</string>
   <string name="manage_wallet_verify_title">验证一种支付方式</string>
   <string name="manage_wallet_verify_body">验证一种支付方式，以免账户被冻结。</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">验证一种支付方式</string>
   <string name="verify_card_body">验证一种支付方式，以免账户被冻结。</string>
