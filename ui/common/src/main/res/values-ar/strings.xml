@@ -658,17 +658,21 @@
   <string name="error_blocked_wallet_title">محفظة محظورة</string>
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
   <string name="purchase_error_google_pay">كانت هناك مشكلة مع Google Pay. يرجى المحاولة ثانية باستخدام وسيلة دفع مختلفة.</string>
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s عمولة</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">وسيلة الدفع هذه لا تدعم عملتك، لذلك ستُخصم عمولة تشغيل. هذه العمولة ستكون متضمنة في المجموع الكلي الذي ستراه في الخانة العلوية.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">وسيلة الدفع هذه تخصم عمولة على التحويلات لعملية الشراء هذه. ستُحسب هذه العمولة في المبلغ الإجمالي الذي يمكنك رؤيته في القسم العلوي.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">وسيلة الدفع هذه تخصم عمولة تحويل لعملية الشراء الحالية.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
