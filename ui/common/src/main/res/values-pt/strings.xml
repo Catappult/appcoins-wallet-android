@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">Olá! Por favor, envia-me %1$s AppCoins Credits para eu comprar um item no %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Enviar Fundos</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">Digitaliza ou insere o endereço wallet do teu amigo.</string>
   <string name="p2p_send_confirmation_message">%1$s%2$s foram enviadas para o seguinte endereço:</string>
   <string name="p2p_send_current_balance_message">Saldo atual: %1$s%2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">Expirado</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -671,6 +674,9 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Este método de pagamento cobra uma taxa de processamento para esta compra.</string>
   <string name="purchase_fee_included_body">taxas incluídas</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
@@ -973,6 +979,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Adicionar cartão de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gerir cartões</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">Gerir cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gere os teus cartões de pagamento</string>
   <string name="manage_cards_add_title">Add New Card</string>
@@ -1272,6 +1279,8 @@
   <string name="rewards_make_first_purchase_body">Faz a tua primeira compra num jogo compatível com AppCoins e desbloqueia um bónus em cada compra.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% de bónus em cada compra</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Queres selecionar esta wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Mudar o nome da wallet</string>
@@ -1279,6 +1288,7 @@
   <string name="manage_wallet_my_wallet_address_title">O Meu Endereço da Wallet</string>
   <string name="manage_wallet_verify_title">Verificar um Método de Pagamento</string>
   <string name="manage_wallet_verify_body">Evita bloqueios verificando um método de pagamento.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_body">Evita bloqueios verificando um método de pagamento.</string>
