@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">Кошелёк заблокирован</string>
   <string name="error_blocked_wallet_body">В целях безопасности ваш кошелек заблокирован. Пожалуйста, свяжитесь с нами для получения дополнительной информации.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_error_google_pay">Возникла проблема с платежом Google Pay. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_success_bonus_received_title">Бонус в %s получен.</string>
   <string name="purchase_making_purchase_title">Покупка&#8230;</string>
   <string name="purchase_fee_title">Оплата %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому взимается комиссия за обработку. Этот сбор включен в общую сумму, которую вы можете увидеть в верхней части.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">При таком способе оплаты взимается комиссия за обработку. Этот сбор включен в общую сумму, которую вы можете увидеть в верхней части.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому может взиматься комиссия за обработку.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При таком способе оплаты взимается комиссия за обработку.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
