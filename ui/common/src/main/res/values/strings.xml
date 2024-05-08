@@ -1065,7 +1065,7 @@
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
   <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
   <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_select_title">Select card</string>
   <string name="manage_cards_remember">Remember card</string>
   <string name="add_new_card_button">Add new card</string>
   <string name="manage_cards_header">Manage Cards</string>
@@ -1074,7 +1074,7 @@
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
   <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
-  <string name="manage_cards_update_disclaimer_2">Settings > Manage Cards</string>
+  <string name="manage_cards_update_disclaimer_2">Settings > Manage Credit/Debit Cards</string>
 
 
   <!--Perks-->
