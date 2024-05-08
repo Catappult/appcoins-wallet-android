@@ -657,17 +657,21 @@
   <string name="error_blocked_wallet_title">Wallet bloccato</string>
   <string name="error_blocked_wallet_body">Per ragioni di sicurezza, il tuo wallet è stato bloccato. Per ulteriori informazioni, contattaci.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Potrebbero essere applicati dei costi aggiuntivi.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Sì è verificato un problema con il tuo pagamento PayPal. Ritenta o cambia metodo di pagamento.</string>
   <string name="purchase_error_google_pay">Sì è verificato un problema con Google Pay. Ritenta o cambia metodo di pagamento.</string>
   <string name="purchase_success_bonus_received_title">Bonus di %s ricevuto.</string>
   <string name="purchase_making_purchase_title">Acquisto in corso&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s di commissione</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Questo metodo di pagamento non supporta la tua valuta, pertanto verrà applicata una tassa di elaborazione. Tale commissione è inclusa nell\'importo totale indicato in alto.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">Questo metodo di pagamento prevede una tassa di elaborazione per questo acquisto. Tale commissione è inclusa nell\'importo totale indicato in alto.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Questo metodo di pagamento non supporta la tua valuta, pertanto potrebbe essere applicata una tassa di elaborazione.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Questo metodo di pagamento prevede una tassa di elaborazione per questo acquisto.</string>
   <string name="purchase_fee_included_body">tasse incluse</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
