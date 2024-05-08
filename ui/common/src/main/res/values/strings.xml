@@ -638,7 +638,7 @@
   <string name="paypal_verification_header">PayPal Verification</string>
   <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
   <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_completed_body">Your PayPal account will be verified soon.</string>
 
 
   <!--Purchase Flow-->
@@ -826,7 +826,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Back up wallet</string>
+  <string name="backup_title">Back Up Wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -1054,8 +1054,9 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Add Credit/Debit Card</string>
   <string name="manage_cards_settings_manage_title">Manage Credit/Debit Cards</string>
-  <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your cards</string>
+  <string name="manage_cards_add_credit/debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_view_title">Manage Cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your existing cards</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
@@ -1067,7 +1068,7 @@
   <string name="manage_cards_select_title">Select payment card</string>
   <string name="manage_cards_remember">Remember card</string>
   <string name="add_new_card_button">Add new card</string>
-  <string name="manage_cards_header">Payment Cards</string>
+  <string name="manage_cards_header">Manage Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
@@ -1208,7 +1209,7 @@
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_title">Change Currency</string>
   <string name="change_currency_settings_title">Currency</string>
   <string name="change_currency_choose_button">Choose currency</string>
 
@@ -1404,6 +1405,8 @@
   <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
 
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
