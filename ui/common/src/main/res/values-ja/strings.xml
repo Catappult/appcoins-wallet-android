@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">こんにちは！%2$sでアイテムを購入するために、%1$sのAppCoins Creditsを送ってください。リンク: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">資金を送る</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">スキャンまたはあなたの友人のウォレットのアドレスを入力します。</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s は、次のアドレスに送られました：</string>
   <string name="p2p_send_current_balance_message">現在の残高: %1$s %2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">期限切れ</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -671,6 +674,9 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">この支払い方法では、購入に手数料がかかります。</string>
   <string name="purchase_fee_included_body">手数料込み</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
@@ -972,6 +978,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">クレジット/デビットカードの追加</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
   <string name="manage_cards_add_title">Add New Card</string>
@@ -1259,6 +1266,8 @@
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
   <string name="rewards_bonus_every_purchase_title">購入毎に%s%%のボーナス</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
   <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
@@ -1266,6 +1275,7 @@
   <string name="manage_wallet_my_wallet_address_title">マイウォレットのアドレス</string>
   <string name="manage_wallet_verify_title">支払い方法の確認</string>
   <string name="manage_wallet_verify_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">支払い方法の認証</string>
   <string name="verify_card_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
