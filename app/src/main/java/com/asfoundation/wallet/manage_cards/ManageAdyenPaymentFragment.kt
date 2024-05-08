@@ -249,7 +249,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun hideRememberCardSwitch() {
     views.adyenCardForm.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod).visibility =
-      View.GONE
+      View.INVISIBLE
   }
 
   private fun setErrorCVC() {
