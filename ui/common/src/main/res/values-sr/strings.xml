@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Blokiran novčanik</string>
   <string name="error_blocked_wallet_body">Vaš novčanik je blokiran iz sigurnosnih razloga. Kontaktirajte nas za više informacija.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
