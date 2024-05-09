@@ -249,7 +249,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (this.cardsList.isNullOrEmpty() && cardsList.isNotEmpty()) {
       if (presenter.storedCardID.isNullOrEmpty()) {
         cardsList.first().isSelectedCard = true
-        cardsList.first().recurringReference?.let { presenter.setCardIdSharedPreferences(it) }
+        cardsList.first().recurringReference?.let {
+          presenter.setCardIdSharedPreferences(it)
+        }
       }
       presenter.hasStoredCard = true
       setBuyButton()
@@ -704,7 +706,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (storedCard != null && cardsList.contains(storedCard)) {
       cardsList.find { it.isSelectedCard }?.isSelectedCard = false
       cardsList.find { it == storedCard }?.isSelectedCard = true
-      storedCard.recurringReference?.let { presenter.setCardIdSharedPreferences(it) }
+      storedCard.recurringReference?.let {
+        presenter.setCardIdSharedPreferences(it)
+      }
     }
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,

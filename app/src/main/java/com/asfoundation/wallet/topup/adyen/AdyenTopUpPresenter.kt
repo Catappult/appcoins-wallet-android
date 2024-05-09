@@ -86,7 +86,6 @@ class AdyenTopUpPresenter(
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
     view.showLoading()
-    getCardIdSharedPreferences()
     retrieveSavedInstance(savedInstanceState)
     handleCreditCardNeedCVC()
     view.setup3DSComponent()
@@ -104,10 +103,10 @@ class AdyenTopUpPresenter(
   private fun handleViewState() {
     if (currentError != 0) {
       view.showSpecificError(currentError)
-      if (paymentType == PaymentType.CARD.name) loadPaymentMethodInfo()
+      if (paymentType == PaymentType.CARD.name) getCardIdSharedPreferences()
     } else {
       if (waitingResult) view.showLoading()
-      else loadPaymentMethodInfo()
+      else getCardIdSharedPreferences()
     }
   }
 
@@ -160,7 +159,10 @@ class AdyenTopUpPresenter(
       getCurrentWalletUseCase()
         .subscribeOn(networkScheduler)
         .subscribe(
-          { storedCardID = cardPaymentDataSource.getPreferredCardId(it.address) },
+          {
+            storedCardID = cardPaymentDataSource.getPreferredCardId(it.address)
+            loadPaymentMethodInfo()
+          },
           { }
         )
     )
@@ -183,44 +185,47 @@ class AdyenTopUpPresenter(
               getPaymentInfoNewCardModelUseCase(it.toString(), currency)
             }
           } else {
-          adyenPaymentInteractor.loadPaymentInfo(
-            mapPaymentToService(paymentType), it.toString(),
-            currency
-          )
-        }
-      }
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.hideLoading()
-        if (fromError) view.hideErrorViews()
-        if (it.error.hasError) {
-          if (it.error.isNetworkError) view.showNetworkError()
-          else handleSpecificError(
-            R.string.unknown_error,
-            it.error.errorInfo?.run {
-              Exception("PaymentMethodInfo type=$errorType code=$httpCode mCode=$messageCode")
-            } ?: Exception("PaymentMethodInfo")
-          )
-        } else {
-          val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
-          view.showValues(priceAmount, it.priceCurrency)
-          retrievedAmount = it.priceAmount.toString()
-          retrievedCurrency = it.priceCurrency
-          when (paymentType) {
-            PaymentType.CARD.name -> {
-              handleTopUpClick()
-              view.finishCardConfiguration(it, false)
-            }
-
-            PaymentType.PAYPAL.name -> {
-              launchPaypal(it.paymentMethod!!)
-            }
+            adyenPaymentInteractor.loadPaymentInfo(
+              mapPaymentToService(paymentType), it.toString(),
+              currency
+            )
           }
-          loadBonusIntoView()
         }
-      }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.hideLoading()
+          if (fromError) view.hideErrorViews()
+          if (it.error.hasError) {
+            if (it.error.isNetworkError) view.showNetworkError()
+            else handleSpecificError(
+              R.string.unknown_error,
+              it.error.errorInfo?.run {
+                Exception("PaymentMethodInfo type=$errorType code=$httpCode mCode=$messageCode")
+              } ?: Exception("PaymentMethodInfo")
+            )
+          } else {
+            val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
+            if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.showValues(
+              priceAmount,
+              it.priceCurrency
+            )
+            retrievedAmount = it.priceAmount.toString()
+            retrievedCurrency = it.priceCurrency
+            when (paymentType) {
+              PaymentType.CARD.name -> {
+                handleTopUpClick()
+                view.finishCardConfiguration(it, false)
+              }
+
+              PaymentType.PAYPAL.name -> {
+                launchPaypal(it.paymentMethod!!)
+              }
+            }
+            loadBonusIntoView()
+          }
+        }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 
@@ -329,11 +334,11 @@ class AdyenTopUpPresenter(
             type = it.getQueryParameter("type"),
             resultCode = it.getQueryParameter("resultCode"),
             url = it.toString()
-        )
-      }
-      .observeOn(viewScheduler)
-      .doOnNext { view.submitUriResult(it) }
-      .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
+          )
+        }
+        .observeOn(viewScheduler)
+        .doOnNext { view.submitUriResult(it) }
+        .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }
 

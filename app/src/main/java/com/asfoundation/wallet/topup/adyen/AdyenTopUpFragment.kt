@@ -14,7 +14,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
-import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
@@ -27,12 +26,6 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
@@ -320,9 +313,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       askCVC = true
     }
     setupCardConfiguration(!askCVC)
-    (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let {
-      setStoredCardLayoutValues(it)
-    }
     if (hasStoredCardForAutomaticBuy) {
       prepareCardComponent(paymentInfoModel, forget)
     } else {
@@ -368,40 +358,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         }
       } else {
         binding.button.isEnabled = false
-      }
-    }
-  }
-
-  private fun setStoredCardLayoutValues(storedPaymentMethod: StoredPaymentMethod) {
-    binding.adyenSavedCard.txtSavedCardNumber.text = "**** ".plus(storedPaymentMethod.lastFour)
-    binding.adyenSavedCard.txtSavedCardExpiryDate.text =
-      getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
-        .plus("/").plus(storedPaymentMethod.expiryYear)
-    binding.adyenSavedCard.imgCardBrand.let { imageView ->
-      when (storedPaymentMethod.brand) {
-        PaymentBrands.MASTERCARD.brandName -> {
-          imageView.setImageResource(ic_card_brand_master_card)
-        }
-
-        PaymentBrands.VISA.brandName -> {
-          imageView.setImageResource(ic_card_brand_visa)
-        }
-
-        PaymentBrands.AMEX.brandName -> {
-          imageView.setImageResource(ic_card_brand_american_express)
-        }
-
-        PaymentBrands.MAESTRO.brandName -> {
-          imageView.setImageResource(ic_card_branc_maestro)
-        }
-
-        PaymentBrands.DINERS.brandName -> {
-          imageView.setImageResource(ic_card_brand_diners_club)
-        }
-
-        PaymentBrands.DISCOVER.brandName -> {
-          imageView.setImageResource(ic_card_brand_discover)
-        }
       }
     }
   }
@@ -461,13 +417,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(newState)
 
-  private fun setStoredPaymentInformation(lastFour: String?) {
-    binding.adyenCardForm.adyenCardFormPreSelectedNumber.text =
-      if (lastFour.isNullOrEmpty()) adyenCardView.cardNumber else "**** ".plus(lastFour)
-    binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = VISIBLE
-    binding.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
-    view?.let { KeyboardUtils.showKeyboard(it) }
-  }
 
   override fun setupUi() {
     binding.creditCardInfoContainer.visibility = INVISIBLE
