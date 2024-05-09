@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Portefeuille Bloqué</string>
   <string name="error_blocked_wallet_body">Pour des raisons de sécurité, votre portefeuille a été bloqué. Veuillez nous contacter pour plus d\'informations.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Des frais supplémentaires peuvent s\'appliquer.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Il y a eu un problème avec votre paiement PayPal. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
