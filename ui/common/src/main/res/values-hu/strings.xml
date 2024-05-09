@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Blokkolt wallet</string>
   <string name="error_blocked_wallet_body">A tárcádat blokkoltuk biztonsági okokból. További információért lépj velünk kapcsolatba.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">További költségek léphetnek fel.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Probléma merült fel a PayPales fizetésednél. Próbáld újra egy másik fizetési móddal.</string>
