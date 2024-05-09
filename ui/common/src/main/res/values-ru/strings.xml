@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Кошелёк заблокирован</string>
   <string name="error_blocked_wallet_body">В целях безопасности ваш кошелек заблокирован. Пожалуйста, свяжитесь с нами для получения дополнительной информации.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
