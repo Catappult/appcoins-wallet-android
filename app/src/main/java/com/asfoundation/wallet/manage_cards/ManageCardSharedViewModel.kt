@@ -8,12 +8,18 @@ import javax.inject.Inject
 @HiltViewModel
 class ManageCardSharedViewModel @Inject constructor() : ViewModel() {
   val isCardSaved = mutableStateOf(false)
+  val isCardError = mutableStateOf(false)
 
   fun onCardSaved() {
     isCardSaved.value = true
   }
 
-  fun resetCardSavedValue() {
+  fun onCardError() {
+    isCardError.value = true
+  }
+
+  fun resetCardResult() {
     isCardSaved.value = false
+    isCardError.value = false
   }
 }

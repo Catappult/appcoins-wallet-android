@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.manage_cards
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
 import androidx.appcompat.widget.SwitchCompat
 import androidx.compose.ui.platform.ComposeView
@@ -33,6 +35,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageAdyenPaymentFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,6 +82,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     setupUi()
     clickListeners()
+    createResultLauncher()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     view.findViewById<ComposeView>(R.id.app_bar).apply {
       setContent {
@@ -96,6 +100,20 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
         adyenCardWrapper,
         RedirectComponent.getReturnUrl(requireContext())
       )
+    }
+  }
+
+  private fun setupRedirectConfiguration() {
+    redirectConfiguration =
+      RedirectConfiguration.Builder(requireContext(), BuildConfig.ADYEN_PUBLIC_KEY)
+        .setEnvironment(adyenEnvironment).build()
+  }
+
+  private fun setupRedirectComponent() {
+    redirectComponent =
+      RedirectComponent.PROVIDER.get(this, requireActivity().application, redirectConfiguration)
+    redirectComponent.observe(this) { actionComponentData ->
+      viewModel.handleRedirectComponentResponse(actionComponentData)
     }
   }
 
@@ -122,10 +140,15 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
         manageCardSharedViewModel.onCardSaved()
         navigator.navigateBack()
       }
-
+      is ManageAdyenPaymentSideEffect.NavigateToPaymentError -> {
+        manageCardSharedViewModel.onCardError()
+        navigator.navigateBack()
+      }
       ManageAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       ManageAdyenPaymentSideEffect.ShowLoading -> showLoading(shouldShow = true)
       is ManageAdyenPaymentSideEffect.Handle3DS -> handle3DSAction(sideEffect.action)
+      is ManageAdyenPaymentSideEffect.HandleRedirect -> handleRedirect(sideEffect.url)
+      is ManageAdyenPaymentSideEffect.HandleWebViewResult -> handleWebViewResult(sideEffect.uri)
       ManageAdyenPaymentSideEffect.ShowCvvError -> handleCVCError()
     }
   }
@@ -133,7 +156,8 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   private fun setupUi() {
     setupConfiguration()
     setup3DSComponent()
-    manageCardSharedViewModel.resetCardSavedValue()
+    setupRedirectComponent()
+    manageCardSharedViewModel.resetCardResult()
   }
 
   private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel) {
@@ -171,6 +195,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun setupConfiguration() {
     setupCardConfiguration()
+    setupRedirectConfiguration()
     setupAdyen3DS2Configuration()
   }
 
@@ -202,6 +227,20 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
     }
   }
 
+  private fun handleRedirect(url: String) {
+    webViewLauncher.launch(WebViewActivity.newIntent(requireActivity(), url))
+  }
+
+  private fun createResultLauncher() {
+    webViewLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        viewModel.handleWebViewResult(result)
+      }
+  }
+
+  private fun handleWebViewResult(uri: Uri) {
+    redirectComponent.handleIntent(Intent("", uri))
+  }
   private fun handleCVCError() {
     showLoading(shouldShow = false)
     views.manageWalletAddCardSubmitButton.isEnabled = false
@@ -210,7 +249,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun hideRememberCardSwitch() {
     views.adyenCardForm.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod).visibility =
-      View.GONE
+      View.INVISIBLE
   }
 
   private fun setErrorCVC() {

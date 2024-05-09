@@ -17,8 +17,8 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"
-      android:layout_width="70dp"
-      android:layout_height="70dp"
+      android:layout_width="104dp"
+      android:layout_height="104dp"
       android:layout_gravity="center"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_dark_animation"
+      app:lottie_rawRes="@raw/loading_wallet"
       />
 
   <ScrollView
@@ -74,13 +74,22 @@
           tools:visibility="gone"
           />
 
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="36dp"
+          android:background="@color/styleguide_blue"
+          app:layout_constraintBottom_toBottomOf="@+id/adyen_card_form"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          />
+
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/manage_wallet_add_card_submit_button"
           android:layout_width="0dp"
           android:layout_height="@dimen/onboarding_button_height"
           android:layout_marginHorizontal="16dp"
-          android:layout_marginBottom="16dp"
           android:layout_marginTop="16dp"
+          android:layout_marginBottom="16dp"
           android:enabled="false"
           android:visibility="gone"
           app:buttonText="@string/add_new_card_button"
