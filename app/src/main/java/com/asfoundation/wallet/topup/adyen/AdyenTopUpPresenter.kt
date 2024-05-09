@@ -19,6 +19,8 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -31,6 +33,7 @@ import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelU
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
+import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -65,7 +68,10 @@ class AdyenTopUpPresenter(
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
   private val logger: Logger,
-  private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase
+  private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
+  private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) {
 
   private var waitingResult = false
@@ -75,10 +81,12 @@ class AdyenTopUpPresenter(
   private var retrievedAmount = amount
   private var retrievedCurrency = currency
   private var action3ds: String? = null
+  private var storedCardID: String? = null
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
     view.showLoading()
+    getCardIdSharedPreferences()
     retrieveSavedInstance(savedInstanceState)
     handleCreditCardNeedCVC()
     view.setup3DSComponent()
@@ -139,7 +147,7 @@ class AdyenTopUpPresenter(
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
       .doOnNext {
-        if (paymentType == PaymentType.CARD.name) hideSpecificError()
+        if (paymentType == PaymentType.CARD.name && storedCardID == "") hideSpecificError()
         else navigator.navigateBack()
       }
       .subscribeOn(viewScheduler)
@@ -147,12 +155,34 @@ class AdyenTopUpPresenter(
     )
   }
 
+  private fun getCardIdSharedPreferences() {
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { storedCardID = cardPaymentDataSource.getPreferredCardId(it.address) },
+          { }
+        )
+    )
+  }
+
   private fun loadPaymentMethodInfo(fromError: Boolean = false) {
-    disposables.add(convertAmount()
-      .flatMap {
-        if (mapPaymentToService(paymentType) == AdyenPaymentRepository.Methods.CREDIT_CARD) {
-          getPaymentInfoNewCardModelUseCase(it.toString(), currency)
-        } else {
+    disposables.add(
+      convertAmount()
+        .flatMap {
+          if (mapPaymentToService(paymentType) == AdyenPaymentRepository.Methods.CREDIT_CARD) {
+            if (view.hasStoredCardBuy()) {
+              storedCardID?.let { storedCardId ->
+                getPaymentInfoFilterByCardModelUseCase(
+                  it.toString(),
+                  currency,
+                  storedCardId
+                )
+              }
+            } else {
+              getPaymentInfoNewCardModelUseCase(it.toString(), currency)
+            }
+          } else {
           adyenPaymentInteractor.loadPaymentInfo(
             mapPaymentToService(paymentType), it.toString(),
             currency
@@ -162,7 +192,7 @@ class AdyenTopUpPresenter(
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .doOnSuccess {
-        view.hideLoading()
+        if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.hideLoading()
         if (fromError) view.hideErrorViews()
         if (it.error.hasError) {
           if (it.error.isNetworkError) view.showNetworkError()
@@ -179,8 +209,8 @@ class AdyenTopUpPresenter(
           retrievedCurrency = it.priceCurrency
           when (paymentType) {
             PaymentType.CARD.name -> {
-              view.finishCardConfiguration(it, false)
               handleTopUpClick()
+              view.finishCardConfiguration(it, false)
             }
 
             PaymentType.PAYPAL.name -> {
@@ -253,15 +283,51 @@ class AdyenTopUpPresenter(
     )
   }
 
+  fun makePayment() {
+    disposables.add(view.retrievePaymentData()
+      .firstOrError()
+      .observeOn(networkScheduler)
+      .flatMap {
+        val shouldStore = view.shouldStoreCard()
+        topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+        adyenPaymentInteractor.makeTopUpPayment(
+          adyenPaymentMethod = it.cardPaymentMethod,
+          shouldStoreMethod = shouldStore,
+          hasCvc = it.hasCvc,
+          supportedShopperInteraction = it.supportedShopperInteractions,
+          returnUrl = returnUrl,
+          value = retrievedAmount,
+          currency = retrievedCurrency,
+          paymentType = mapPaymentToService(paymentType).transactionType,
+          transactionType = transactionType,
+          packageName = appPackage
+        )
+      }
+      .observeOn(viewScheduler)
+      .flatMapCompletable {
+        if (it.action != null) {
+          Completable.fromAction { handlePaymentModel(it) }
+        } else {
+          handlePaymentResult(it)
+        }
+      }
+      .subscribe({}, {
+        view.showSpecificError(R.string.unknown_error)
+        logger.log(TAG, it)
+      })
+    )
+  }
+
   private fun handleRedirectResponse() {
-    disposables.add(navigator.uriResults()
-      .doOnNext {
-        topUpAnalytics.sendPaypalUrlEvent(
-          value = appcValue.toDouble(),
-          paymentMethod = paymentType,
-          type = it.getQueryParameter("type"),
-          resultCode = it.getQueryParameter("resultCode"),
-          url = it.toString()
+    disposables.add(
+      navigator.uriResults()
+        .doOnNext {
+          topUpAnalytics.sendPaypalUrlEvent(
+            value = appcValue.toDouble(),
+            paymentMethod = paymentType,
+            type = it.getQueryParameter("type"),
+            resultCode = it.getQueryParameter("resultCode"),
+            url = it.toString()
         )
       }
       .observeOn(viewScheduler)

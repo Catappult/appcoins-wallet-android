@@ -49,6 +49,7 @@ interface TopUpFragmentView {
   fun showAsLoading()
   fun hideLoading()
   fun setTopupButton()
+  fun setBuyButton()
   fun setNextButton()
   fun showValuesSkeletons()
   fun hideValuesSkeletons()

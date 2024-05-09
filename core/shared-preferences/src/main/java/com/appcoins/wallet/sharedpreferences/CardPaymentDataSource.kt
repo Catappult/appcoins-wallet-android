@@ -23,15 +23,15 @@ class CardPaymentDataSource @Inject constructor(
       .apply()
   }
 
-  fun setPreferredCardId(cardId: String) {
+  fun setPreferredCardId(cardId: String, walletAddress: String) {
     sharedPreferences.edit()
-      .putString(PREFERRED_CARD_ID, cardId)
+      .putString(PREFERRED_CARD_ID.plus(walletAddress), cardId)
       .apply()
   }
 
 
-  fun getPreferredCardId(): String? {
-    return sharedPreferences.getString(PREFERRED_CARD_ID, "")
+  fun getPreferredCardId(walletAddress: String): String? {
+    return sharedPreferences.getString(PREFERRED_CARD_ID.plus(walletAddress), "")
   }
 
 

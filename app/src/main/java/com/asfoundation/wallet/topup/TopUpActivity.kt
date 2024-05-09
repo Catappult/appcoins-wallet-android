@@ -145,11 +145,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     )
   }
 
-  override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
+  override fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  ) {
     supportFragmentManager.beginTransaction()
       .add(
         R.id.fragment_container,
-        AdyenTopUpFragment.newInstance(paymentType, data)
+        AdyenTopUpFragment.newInstance(paymentType, data, buyWithStoredCard)
       )
       .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
       .commit()

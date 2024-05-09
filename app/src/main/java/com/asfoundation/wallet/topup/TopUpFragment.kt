@@ -30,6 +30,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.convertDpToPx
@@ -95,6 +96,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -192,7 +196,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       challengeRewardAnalytics = challengeRewardAnalytics,
       getCachedCurrencyUseCase = getCachedCurrencyUseCase,
       getStoredCardsUseCase = getStoredCardsUseCase,
-      cardPaymentDataSource = cardPaymentDataSource
+      cardPaymentDataSource = cardPaymentDataSource,
+      getCurrentWalletUseCase = getCurrentWalletUseCase
     )
   }
 
@@ -246,10 +251,13 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     cardsList: List<StoredCard>
   ) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    if (this.cardsList.isNullOrEmpty()) {
-      if (cardPaymentDataSource.getPreferredCardId().isNullOrEmpty()) {
+    if (this.cardsList.isNullOrEmpty() && cardsList.isNotEmpty()) {
+      if (presenter.storedCardID.isNullOrEmpty()) {
         cardsList.first().isSelectedCard = true
+        cardsList.first().recurringReference?.let { presenter.setCardIdSharedPreferences(it) }
       }
+      presenter.hasStoredCard = true
+      setBuyButton()
       this@TopUpFragment.cardsList = cardsList
     }
 
@@ -611,6 +619,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.button.setTextRes(R.string.topup_button)
   }
 
+  override fun setBuyButton() {
+    binding.button.setTextRes(R.string.buy_button)
+  }
+
   private fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
@@ -697,7 +709,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (storedCard != null && cardsList.contains(storedCard)) {
       cardsList.find { it.isSelectedCard }?.isSelectedCard = false
       cardsList.find { it == storedCard }?.isSelectedCard = true
-      storedCard.recurringReference?.let { cardPaymentDataSource.setPreferredCardId(it) }
+      storedCard.recurringReference?.let { presenter.setCardIdSharedPreferences(it) }
     }
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
