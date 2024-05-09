@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -49,6 +50,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -104,7 +106,7 @@ class ManageCardsFragment : BasePageViewFragment() {
             verticalAlignment = CenterVertically,
             horizontalArrangement = Center
           ) {
-            CircularProgressIndicator()
+            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
           }
 
         else -> {}
@@ -256,7 +258,7 @@ class ManageCardsFragment : BasePageViewFragment() {
         Image(
           modifier = Modifier
             .align(CenterVertically)
-            .padding(end = 16.dp)
+            .padding(end = 22.dp)
             .clickable {
               viewModel.showBottomSheet(true, storedCard)
               manageCardsAnalytics.addNewCardDetailsClickEvent()

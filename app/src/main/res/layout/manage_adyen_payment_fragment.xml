@@ -17,8 +17,8 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"
-      android:layout_width="70dp"
-      android:layout_height="70dp"
+      android:layout_width="104dp"
+      android:layout_height="104dp"
       android:layout_gravity="center"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_dark_animation"
+      app:lottie_rawRes="@raw/loading_wallet"
       />
 
   <ScrollView
