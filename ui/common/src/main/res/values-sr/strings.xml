@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">Zdravo! Molim te da mi pošalješ AppCoins Credits (%1$s) da kupim nešto u igri %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Pošaljite sredstva</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s – poslato na sledeću adresu:</string>
   <string name="p2p_send_current_balance_message">Trenutno stanje: %1$s %2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">Nastavi</string>
   <string name="card_expired_tag">Istekao</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -671,6 +674,9 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
@@ -974,6 +980,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Dodajte kreditnu/debitnu karticu</string>
   <string name="manage_cards_settings_manage_title">Upravljanje karticama</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">Upravljanje karticama</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
   <string name="manage_cards_add_title">Add New Card</string>
@@ -1285,6 +1292,8 @@
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonusa za svaku kupovinu</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
   <string name="manage_wallet_change_wallet_name_title">Promenite naziv novčanika</string>
@@ -1292,6 +1301,7 @@
   <string name="manage_wallet_my_wallet_address_title">Adresa mog novčanika</string>
   <string name="manage_wallet_verify_title">Potvrdite način plaćanja</string>
   <string name="manage_wallet_verify_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Potvrdite način plaćanja</string>
   <string name="verify_card_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
