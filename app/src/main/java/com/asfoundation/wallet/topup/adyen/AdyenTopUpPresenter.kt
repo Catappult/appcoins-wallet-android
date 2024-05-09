@@ -137,7 +137,7 @@ class AdyenTopUpPresenter(
     disposables.add(view.getSupportClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel) }
+      .flatMapCompletable { adyenPaymentInteractor.showSupport(gamificationLevel, cachedUid) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -270,6 +270,7 @@ class AdyenTopUpPresenter(
       }
       .observeOn(viewScheduler)
       .flatMapCompletable {
+        cachedUid = it.uid
         if (it.action != null) {
           Completable.fromAction { handlePaymentModel(it) }
         } else {
@@ -354,7 +355,10 @@ class AdyenTopUpPresenter(
         )
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it)
+      }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
   }

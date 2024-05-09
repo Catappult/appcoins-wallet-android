@@ -142,10 +142,10 @@ class AdyenPaymentInteractorTest {
   @Test
   fun showSupportTest() {
     val testObserver = TestObserver<Any>()
-    Mockito.`when`(supportInteractor.showSupport(1))
+    Mockito.`when`(supportInteractor.showSupport(1, ""))
       .thenReturn(Completable.complete())
 
-    interactor.showSupport(1)
+    interactor.showSupport(1, "")
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()

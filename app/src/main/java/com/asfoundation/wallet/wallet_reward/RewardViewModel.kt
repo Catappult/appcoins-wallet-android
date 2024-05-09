@@ -18,7 +18,6 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.PromotionsState
@@ -40,7 +39,6 @@ data class RewardState(
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
-  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val getPromotionsUseCase: GetPromotionsUseCase,
@@ -69,13 +67,9 @@ class RewardViewModel @Inject constructor(
     sendSideEffect { RewardSideEffect.NavigateToSettings() }
   }
 
-  fun showSupportScreen(fromNotification: Boolean) {
+  fun showSupportScreen() {
     commonsPreferencesDataSource.setUpdateNotificationBadge(false)
-    if (fromNotification) {
-      displayConversationListOrChatUseCase
-    } else {
-      displayChatUseCase()
-    }
+    displayChatUseCase()
   }
 
   fun fetchPromotions() {

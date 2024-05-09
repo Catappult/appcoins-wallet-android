@@ -24,7 +24,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -84,9 +83,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var logger: Logger
-
-  @Inject
-  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
 
   @Inject
   lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
@@ -193,7 +189,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
-      challengeRewardAnalytics = challengeRewardAnalytics,
       getCachedCurrencyUseCase = getCachedCurrencyUseCase,
       getStoredCardsUseCase = getStoredCardsUseCase,
       cardPaymentDataSource = cardPaymentDataSource,

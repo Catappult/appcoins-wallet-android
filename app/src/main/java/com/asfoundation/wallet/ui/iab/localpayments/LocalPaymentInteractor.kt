@@ -139,8 +139,8 @@ class LocalPaymentInteractor @Inject constructor(
     inAppPurchaseInteractor.saveAsyncLocalPayment(paymentMethod)
   }
 
-  fun showSupport(gamificationLevel: Int): Completable {
-    return supportInteractor.showSupport(gamificationLevel)
+  fun showSupport(gamificationLevel: Int, uid: String? = null): Completable {
+    return supportInteractor.showSupport(gamificationLevel, uid)
   }
 
   fun topUpBundle(

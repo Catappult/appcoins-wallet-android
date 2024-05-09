@@ -359,7 +359,7 @@ class GooglePayWebViewModel @Inject constructor(
 
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
-      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
+      supportInteractor.showSupport(gamificationLevel, uid).subscribe({}, { it.printStackTrace() })
     )
   }
 

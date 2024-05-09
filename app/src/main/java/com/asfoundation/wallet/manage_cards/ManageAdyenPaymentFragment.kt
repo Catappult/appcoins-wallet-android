@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.Nullable
+import androidx.appcompat.widget.SwitchCompat
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -31,7 +33,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ManageAdyenPaymentFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
-import com.asfoundation.wallet.util.AdyenCardView
+import com.google.android.material.textfield.TextInputLayout
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -53,7 +55,6 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   private lateinit var adyenCardComponent: CardComponent
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
-  private lateinit var adyenCardView: AdyenCardView
   private lateinit var adyenCardWrapper: AdyenCardWrapper
 
   private lateinit var webViewLauncher: ActivityResultLauncher<Intent>
@@ -130,7 +131,6 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   }
 
   private fun setupUi() {
-    adyenCardView = AdyenCardView(views.adyenCardForm)
     setupConfiguration()
     setup3DSComponent()
     manageCardSharedViewModel.resetCardSavedValue()
@@ -148,7 +148,7 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           adyenCardWrapper = AdyenCardWrapper(
             paymentMethod,
-            adyenCardView.cardSave,
+            true,
             hasCvc,
             paymentInfoModel.supportedShopperInteractions
           )
@@ -156,13 +156,14 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
       } else {
         views.manageWalletAddCardSubmitButton.isEnabled = false
       }
+      hideRememberCardSwitch()
+      disableScrollBars()
     }
   }
 
   private fun showLoading(shouldShow: Boolean) {
     views.manageAdyenPaymentTitle.visibility = if (shouldShow) View.GONE else View.VISIBLE
     views.adyenCardForm.visibility = if (shouldShow) View.GONE else View.VISIBLE
-    adyenCardView.adyenSaveDetailsSwitch?.visibility = View.GONE
     views.manageWalletAddCardSubmitButton.visibility =
       if (shouldShow) View.GONE else View.VISIBLE
     views.loadingAnimation.visibility = if (shouldShow) View.VISIBLE else View.GONE
@@ -204,6 +205,26 @@ class ManageAdyenPaymentFragment : BasePageViewFragment(),
   private fun handleCVCError() {
     showLoading(shouldShow = false)
     views.manageWalletAddCardSubmitButton.isEnabled = false
-    adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
+    setErrorCVC()
   }
+
+  private fun hideRememberCardSwitch() {
+    views.adyenCardForm.findViewById<SwitchCompat>(R.id.switch_storePaymentMethod).visibility =
+      View.GONE
+  }
+
+  private fun setErrorCVC() {
+    views.adyenCardForm.findViewById<TextInputLayout>(R.id.textInputLayout_securityCode).error =
+      getString(R.string.purchase_card_error_CVV)
+  }
+
+  private fun disableScrollBars() {
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_cardNumber)
+      .isVerticalScrollBarEnabled = false
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_expiryDate)
+      .isVerticalScrollBarEnabled = false
+    views.adyenCardForm.findViewById<EditText>(R.id.editText_securityCode)
+      .isVerticalScrollBarEnabled = false
+  }
+
 }

@@ -46,6 +46,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.widgets.ScreenTitle
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
@@ -107,7 +108,7 @@ class RemoveWalletFragment : BasePageViewFragment() {
         .padding(padding)
         .padding(horizontal = 16.dp)
     ) {
-      item { ScreenTitle() }
+      item { ScreenTitle(stringResource(R.string.remove_wallet_title)) }
 
       item { ScreenSubtitle() }
 
@@ -117,17 +118,6 @@ class RemoveWalletFragment : BasePageViewFragment() {
 
       item { ActionButtons(walletInfo.wallet, walletInfo.name) }
     }
-  }
-
-  @Composable
-  fun ScreenTitle() {
-    Text(
-      text = stringResource(R.string.remove_wallet_title),
-      modifier = Modifier.padding(8.dp),
-      style = typography.headlineSmall,
-      fontWeight = Bold,
-      color = styleguide_light_grey,
-    )
   }
 
   @Composable

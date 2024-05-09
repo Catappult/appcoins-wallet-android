@@ -37,6 +37,7 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/loading_wallet"
+      android:visibility="invisible"
       tools:visibility="visible"
       />
 

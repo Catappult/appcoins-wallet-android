@@ -59,4 +59,6 @@ interface TopUpActivityView {
   fun navigateToVkPayPayment(topUpData: TopUpPaymentData)
 
   fun navigateToGooglePay(paymentType: PaymentType, data: TopUpPaymentData)
+
+  fun isActivityActive(): Boolean
 }

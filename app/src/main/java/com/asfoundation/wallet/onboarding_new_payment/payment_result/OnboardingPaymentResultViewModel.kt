@@ -56,6 +56,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private var args: OnboardingPaymentResultFragmentArgs =
     OnboardingPaymentResultFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
+  private var uid: String? = null
+
   init {
     handlePaymentResult()
   }
@@ -90,6 +92,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       .doOnNext { authorisedPaymentModel ->
         when (authorisedPaymentModel.status) {
           PaymentModel.Status.COMPLETED -> {
+            uid = authorisedPaymentModel.uid
             events.sendPaymentSuccessEvent(
               args.transactionBuilder,
               args.paymentType,
@@ -215,7 +218,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun showSupport(gamificationLevel: Int) {
-    supportInteractor.showSupport(gamificationLevel)
+    supportInteractor.showSupport(gamificationLevel, uid)
       .scopedSubscribe()
   }
 }

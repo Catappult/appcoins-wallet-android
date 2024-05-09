@@ -40,6 +40,7 @@ constructor(
   val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
   val storedCardClicked: MutableState<StoredCard?> = mutableStateOf(null)
   val isCardDeleted: MutableState<Boolean> = mutableStateOf(false)
+  var isCardListLoaded: Boolean = false
 
   fun displayChat() {
     displayChatUseCase()
@@ -49,8 +50,11 @@ constructor(
     getStoredCardsUseCase()
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .doOnSubscribe { _uiState.value = UiState.Loading }
+      .doOnSubscribe {
+        if (!isCardListLoaded) _uiState.value = UiState.Loading
+      }
       .doOnSuccess { cards ->
+        isCardListLoaded = true
         _uiState.value = UiState.StoredCardsInfo(
           cards.map {
             StoredCard(

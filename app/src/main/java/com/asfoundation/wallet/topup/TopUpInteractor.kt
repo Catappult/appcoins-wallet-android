@@ -61,12 +61,7 @@ class TopUpInteractor @Inject constructor(
   fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> =
     inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
-  fun showSupport(): Completable =
-    gamificationInteractor.getUserLevel().flatMapCompletable { level ->
-      inAppPurchaseInteractor.walletAddress.flatMapCompletable { wallet ->
-        supportInteractor.showSupport(wallet, level)
-      }
-    }
+  fun showSupport(): Completable = supportInteractor.showSupport()
 
   fun convertAppc(value: String): Single<FiatValue> = conversionService.getAppcToLocalFiat(value, 2)
 
