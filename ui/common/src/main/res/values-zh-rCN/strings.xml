@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">钱包已冻结</string>
   <string name="error_blocked_wallet_body">出于安全原因，您的钱包已被冻结。请联系我们了解更多详细信息。</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能需要支付额外费用.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">您的PayPal支付出现问题。请重试或使用其他支付方式。</string>
