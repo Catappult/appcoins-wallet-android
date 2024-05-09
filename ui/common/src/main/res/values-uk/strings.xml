@@ -662,7 +662,7 @@
   <string name="error_blocked_wallet_title">Заблокований гаманець</string>
   <string name="error_blocked_wallet_body">Ваш гаманець заблоковано з міркувань безпеки. Зверніться до нас за додатковою інформацією.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
