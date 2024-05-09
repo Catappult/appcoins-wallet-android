@@ -1279,8 +1279,8 @@
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% de bonus en todas las compras</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Gestionar Wallets</string>
+  <string name="manage_wallet_view_title">Gestionar Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Cambiar nombre de la wallet</string>
