@@ -103,8 +103,6 @@
 
   <include app:graph="@navigation/transactions_graph" />
 
-  <include app:graph="@navigation/home_graph" />
-
   <action
       android:id="@+id/action_navigate_to_transactions_list"
       app:destination="@id/transactions_graph" />
@@ -272,6 +270,6 @@
 
   <fragment
       android:id="@+id/transfer_funds_success_fragment"
-      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment"></fragment>
+      android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment" />
 
 </navigation>
