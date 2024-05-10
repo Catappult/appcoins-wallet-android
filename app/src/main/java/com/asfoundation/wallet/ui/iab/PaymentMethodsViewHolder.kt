@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
 import com.asfoundation.wallet.GlideApp
@@ -40,7 +41,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.radioButton.isEnabled = data.isEnabled
 
     handleDescription(data, selected, data.isEnabled)
-    handleFee(data.fee)
+    handleFee(data.fee, data.price)
 
     binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
 
@@ -110,11 +111,11 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee?) {
+  private fun handleFee(fee: PaymentMethodFee?, price: FiatValue) {
     if (fee?.isValidFee() == true) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
-        .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
+        .formatPaymentCurrency(fee.amount!! + price.amount, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
         itemView.context.getString(
           R.string.purchase_fees_and_taxes_known_disclaimer_body,
