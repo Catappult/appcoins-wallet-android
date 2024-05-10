@@ -76,15 +76,13 @@ fun CardListBottomSheet(
             ) {
               Column(modifier = Modifier.padding(start = 8.dp)) {
                 Text(
-                  //TODO: Update When Carlos Send the string
-                  text = "To update or remove cards go to:",
+                  text = stringResource(R.string.manage_cards_update_disclaimer_1),
                   color = WalletColors.styleguide_dark_grey,
                   fontSize = 12.sp,
                   fontWeight = FontWeight.Bold
                 )
                 Text(
-                  //TODO: Update When Carlos Send the string
-                  text = "Settings > Manage Cards",
+                  text = stringResource(R.string.manage_cards_update_disclaimer_2),
                   color = WalletColors.styleguide_white,
                   fontSize = 12.sp
                 )
