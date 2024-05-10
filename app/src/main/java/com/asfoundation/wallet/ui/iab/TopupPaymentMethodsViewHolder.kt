@@ -42,7 +42,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     binding.radioButton.isEnabled = data.isEnabled
 
     handleDescription(data, selected, data.isEnabled)
-    handleFee(data.fee, data.isEnabled)
+    handleFee(data.fee)
 
     binding.selectedBackground.visibility = View.VISIBLE
 
@@ -76,7 +76,7 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
       )
 
       binding.paymentMoreLogout.setOnClickListener {
-        var wrapper: Context =
+        val wrapper: Context =
           ContextThemeWrapper(itemView.context.applicationContext, R.style.CustomLogoutPopUpStyle)
         val popup = PopupMenu(wrapper, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
@@ -114,13 +114,17 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
+  private fun handleFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
         .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.paymentMethodFee.text =
-        itemView.context.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
+        itemView.context.getString(
+          R.string.purchase_fees_and_taxes_known_disclaimer_body,
+          formattedValue,
+          fee.currency
+        )
     } else {
       binding.paymentMethodFee.visibility = View.GONE
     }

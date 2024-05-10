@@ -52,4 +52,5 @@ interface TopUpFragmentView {
   fun showValuesSkeletons()
   fun hideValuesSkeletons()
   fun lockRotation()
+  fun showFee(visible: Boolean)
 }

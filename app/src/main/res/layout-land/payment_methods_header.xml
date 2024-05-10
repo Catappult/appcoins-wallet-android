@@ -13,6 +13,7 @@
       android:src="@drawable/ic_app_logo_icon"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:importantForAccessibility="no"
       />
 
   <TextView
@@ -87,7 +88,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:text="@string/purchase_fee_included_body"
+      android:maxWidth="64dp"
+      android:text="@string/purchase_extra_charges_included_disclaimer_body"
       android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
       android:textStyle="bold"

@@ -20,6 +20,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0"
+      android:importantForAccessibility="no"
       app:layout_constraintVertical_chainStyle="packed"
       />
   <TextView
@@ -70,7 +71,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/styleguide_payments_main_text"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
@@ -99,7 +100,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/purchase_fee_included_body"
+        android:maxWidth="64dp"
+        android:text="@string/purchase_extra_charges_included_disclaimer_body"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="11sp"
         android:textStyle="bold"

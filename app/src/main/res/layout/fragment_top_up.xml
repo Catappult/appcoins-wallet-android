@@ -92,6 +92,36 @@
             tools:text="123.75"
             />
 
+        <ImageView
+            android:id="@+id/ic_info_fees"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_info_message"
+            android:tooltipText="@string/purchase_fee_supported_currency_unknown_disclaimer"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/info_fees"
+            app:layout_constraintEnd_toStartOf="@id/info_fees"
+            app:layout_constraintTop_toTopOf="@id/info_fees"
+            tools:ignore="UnusedAttribute"
+            />
+
+        <TextView
+            android:id="@+id/info_fees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="64dp"
+            android:text="@string/purchase_extra_charges_included_disclaimer_body"
+            android:textColor="@color/styleguide_dark_grey"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/main_value"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toBottomOf="@id/main_value"
+            />
+
         <include
             android:id="@+id/main_value_skeleton"
             layout="@layout/skeleton_rounded_rectangle_dark"
@@ -107,10 +137,10 @@
             android:id="@+id/header_top_up_divider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:alpha="0.3"
             android:background="@color/styleguide_dark_grey"
-            app:layout_constraintTop_toBottomOf="@id/main_value"
+            app:layout_constraintTop_toBottomOf="@id/info_fees"
             />
 
         <TextView
@@ -126,35 +156,6 @@
             app:layout_constraintTop_toBottomOf="@id/main_value"
             />
 
-        <ImageButton
-            android:id="@+id/swap_value_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:enabled="false"
-            android:src="@drawable/ic_swap"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/main_value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@id/main_value"
-            app:layout_constraintTop_toTopOf="@id/main_value"
-            />
-
-        <TextView
-            android:id="@+id/swap_value_label"
-            style="@style/TopUpTextStyle.SwapCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/swap_value_button"
-            app:layout_constraintStart_toStartOf="@id/swap_value_button"
-            app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-            />
-
         <ImageView
             android:id="@+id/value_warning_icon"
             android:layout_width="wrap_content"
@@ -162,6 +163,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_topup_error"
+            android:importantForAccessibility="no"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/main_value"
             app:layout_constraintEnd_toStartOf="@id/main_value"
