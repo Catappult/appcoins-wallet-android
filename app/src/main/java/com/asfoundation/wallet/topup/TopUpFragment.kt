@@ -24,13 +24,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.R
@@ -84,13 +85,16 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var challengeRewardAnalytics: ChallengeRewardAnalytics
-
-  @Inject
   lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 
   @Inject
   lateinit var getStoredCardsUseCase: GetStoredCardsUseCase
+
+  @Inject
+  lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -185,9 +189,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
-      challengeRewardAnalytics = challengeRewardAnalytics,
       getCachedCurrencyUseCase = getCachedCurrencyUseCase,
-      getStoredCardsUseCase = getStoredCardsUseCase
+      getStoredCardsUseCase = getStoredCardsUseCase,
+      cardPaymentDataSource = cardPaymentDataSource,
+      getCurrentWalletUseCase = getCurrentWalletUseCase
     )
   }
 
@@ -241,8 +246,15 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     cardsList: List<StoredCard>
   ) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    if (this.cardsList.isNullOrEmpty()) {
-      cardsList.first().isSelectedCard = true
+    if (this.cardsList.isNullOrEmpty() && cardsList.isNotEmpty()) {
+      if (presenter.storedCardID.isNullOrEmpty()) {
+        cardsList.first().isSelectedCard = true
+        cardsList.first().recurringReference?.let {
+          presenter.setCardIdSharedPreferences(it)
+        }
+      }
+      presenter.hasStoredCard = true
+      setBuyButton()
       this@TopUpFragment.cardsList = cardsList
     }
 
@@ -604,6 +616,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.button.setTextRes(R.string.topup_button)
   }
 
+  override fun setBuyButton() {
+    binding.button.setTextRes(R.string.buy_button)
+  }
+
   private fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
@@ -690,6 +706,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (storedCard != null && cardsList.contains(storedCard)) {
       cardsList.find { it.isSelectedCard }?.isSelectedCard = false
       cardsList.find { it == storedCard }?.isSelectedCard = true
+      storedCard.recurringReference?.let {
+        presenter.setCardIdSharedPreferences(it)
+      }
     }
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
@@ -738,8 +757,12 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
             setSelectedCard(storedCard)
             showBottomSheet.value = false
           },
-          onGotItClick = { showBottomSheet.value = false },
-          cardList = cardsList
+          onGotItClick = {
+            showBottomSheet.value = false
+            cardPaymentDataSource.setGotItManageCard(false)
+          },
+          cardList = cardsList,
+          isGotItVisible = cardPaymentDataSource.isGotItVisible()
         )
       }
     }

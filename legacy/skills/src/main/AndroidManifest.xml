@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
   <application>
     <activity
         android:name="cm.aptoide.skills.SkillsActivity"
         android:exported="true"
-        android:label=""
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow.Eskills">
 
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
       </intent-filter>
     </activity>
-    <service
-        android:name="cm.aptoide.skills.games.BackgroundGameService"
-        android:exported="false"
-        android:foregroundServiceType="dataSync" />
   </application>
 
 </manifest>

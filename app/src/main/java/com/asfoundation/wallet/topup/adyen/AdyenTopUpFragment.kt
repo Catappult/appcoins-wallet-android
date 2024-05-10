@@ -14,7 +14,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
-import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
@@ -25,12 +24,8 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_diners_club
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_discover
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_master_card
-import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_visa
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
@@ -41,6 +36,7 @@ import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
+import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.*
 import com.jakewharton.rxbinding2.view.RxView
@@ -88,6 +84,15 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   @Inject
   lateinit var getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase
 
+  @Inject
+  lateinit var getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase
+
+  @Inject
+  lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+
   private lateinit var topUpView: TopUpActivityView
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
@@ -112,13 +117,33 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     presenter =
       AdyenTopUpPresenter(
-        this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
-        CompositeDisposable(), RedirectComponent.getReturnUrl(requireContext()), paymentType,
-        data.transactionType, data.fiatValue, data.fiatCurrencyCode, data.appcValue,
-        data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
-        adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
-        AdyenErrorCodeMapper(), servicesErrorMapper, data.gamificationLevel, topUpAnalytics,
-        formatter, logger, getPaymentInfoNewCardModelUseCase
+        this,
+        appPackage,
+        AndroidSchedulers.mainThread(),
+        Schedulers.io(),
+        CompositeDisposable(),
+        RedirectComponent.getReturnUrl(requireContext()),
+        paymentType,
+        data.transactionType,
+        data.fiatValue,
+        data.fiatCurrencyCode,
+        data.appcValue,
+        data.selectedCurrencyType,
+        navigator,
+        inAppPurchaseInteractor.billingMessagesMapper,
+        adyenPaymentInteractor,
+        data.bonusValue,
+        data.fiatCurrencySymbol,
+        AdyenErrorCodeMapper(),
+        servicesErrorMapper,
+        data.gamificationLevel,
+        topUpAnalytics,
+        formatter,
+        logger,
+        getPaymentInfoNewCardModelUseCase,
+        getPaymentInfoFilterByCardModelUseCase,
+        cardPaymentDataSource,
+        getCurrentWalletUseCase
       )
   }
 
@@ -288,12 +313,12 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       askCVC = true
     }
     setupCardConfiguration(!askCVC)
-    (paymentInfoModel.paymentMethod as? StoredPaymentMethod)?.let {
-      setStoredCardLayoutValues(it)
-      setStoredPaymentInformation(it.lastFour)
+    if (hasStoredCardForAutomaticBuy) {
+      prepareCardComponent(paymentInfoModel, forget)
+    } else {
+      handleLayoutVisibility()
+      prepareCardComponent(paymentInfoModel, forget)
     }
-    handleLayoutVisibility()
-    prepareCardComponent(paymentInfoModel, forget)
   }
 
   override fun lockRotation() = topUpView.lockOrientation()
@@ -326,42 +351,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
             )
           )
         }
+        if (hasStoredCardForAutomaticBuy && !cardPaymentDataSource.isMandatoryCvc()) {
+          lockRotation()
+          setFinishingPurchase(true)
+          presenter.makePayment()
+        }
       } else {
         binding.button.isEnabled = false
-      }
-    }
-  }
-
-  private fun setStoredCardLayoutValues(storedPaymentMethod: StoredPaymentMethod) {
-    binding.adyenSavedCard.txtSavedCardNumber.text = "**** ".plus(storedPaymentMethod.lastFour)
-    binding.adyenSavedCard.txtSavedCardExpiryDate.text =
-      getString(R.string.dialog_expiry_date).plus(" ").plus(storedPaymentMethod.expiryMonth)
-        .plus("/").plus(storedPaymentMethod.expiryYear)
-    binding.adyenSavedCard.imgCardBrand.let { imageView ->
-      when (storedPaymentMethod.brand) {
-        PaymentBrands.MASTERCARD.brandName -> {
-          imageView.setImageResource(ic_card_brand_master_card)
-        }
-
-        PaymentBrands.VISA.brandName -> {
-          imageView.setImageResource(ic_card_brand_visa)
-        }
-
-        PaymentBrands.AMEX.brandName -> {
-          imageView.setImageResource(ic_card_brand_american_express)
-        }
-
-        PaymentBrands.MAESTRO.brandName -> {
-          imageView.setImageResource(ic_card_branc_maestro)
-        }
-
-        PaymentBrands.DINERS.brandName -> {
-          imageView.setImageResource(ic_card_brand_diners_club)
-        }
-
-        PaymentBrands.DISCOVER.brandName -> {
-          imageView.setImageResource(ic_card_brand_discover)
-        }
       }
     }
   }
@@ -370,8 +366,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     adyenCardView.showInputFields(true)
     binding.adyenCardForm.root.visibility = VISIBLE
     binding.adyenSavedCard.root.visibility = GONE
-    binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = GONE
-    binding.adyenCardForm.paymentMethodIc.visibility = GONE
   }
 
   override fun setupRedirectComponent() {
@@ -423,13 +417,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun setFinishingPurchase(newState: Boolean) = topUpView.setFinishingPurchase(newState)
 
-  private fun setStoredPaymentInformation(lastFour: String?) {
-    binding.adyenCardForm.adyenCardFormPreSelectedNumber.text =
-      if (lastFour.isNullOrEmpty()) adyenCardView.cardNumber else "**** ".plus(lastFour)
-    binding.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = VISIBLE
-    binding.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
-    view?.let { KeyboardUtils.showKeyboard(it) }
-  }
 
   override fun setupUi() {
     binding.creditCardInfoContainer.visibility = INVISIBLE
@@ -477,6 +464,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     return adyenCardView.cardSave
   }
 
+  override fun hasStoredCardBuy(): Boolean {
+    return hasStoredCardForAutomaticBuy
+  }
+
   override fun handleCreditCardNeedCVC(needCVC: Boolean) {
     askCVC = needCVC
   }
@@ -510,6 +501,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
   }
 
+  private val hasStoredCardForAutomaticBuy: Boolean by lazy {
+    if (requireArguments().containsKey(HAS_STORED_CARD_FOR_AUTOMATIC_BUY)) {
+      requireArguments().getSerializable(HAS_STORED_CARD_FOR_AUTOMATIC_BUY) as Boolean
+    } else {
+      throw IllegalArgumentException("previous payment data not found")
+    }
+  }
+
   private val paymentType: String by lazy {
     if (requireArguments().containsKey(PAYMENT_TYPE)) {
       requireArguments().getString(PAYMENT_TYPE)!!
@@ -522,7 +521,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun restartFragment() {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container,
-      newInstance(PaymentType.CARD, data)
+      newInstance(PaymentType.CARD, data, hasStoredCardForAutomaticBuy)
     )?.commit()
   }
 
@@ -530,13 +529,19 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     private const val PAYMENT_TYPE = "paymentType"
     private const val PAYMENT_DATA = "data"
+    private const val HAS_STORED_CARD_FOR_AUTOMATIC_BUY = "has_stored_card"
 
-    fun newInstance(paymentType: PaymentType, data: TopUpPaymentData): AdyenTopUpFragment {
+    fun newInstance(
+      paymentType: PaymentType,
+      data: TopUpPaymentData,
+      hasStoredCardBuy: Boolean
+    ): AdyenTopUpFragment {
       val bundle = Bundle()
       val fragment = AdyenTopUpFragment()
       bundle.apply {
         putString(PAYMENT_TYPE, paymentType.name)
         putSerializable(PAYMENT_DATA, data)
+        putBoolean(HAS_STORED_CARD_FOR_AUTOMATIC_BUY, hasStoredCardBuy)
         fragment.arguments = this
       }
       return fragment

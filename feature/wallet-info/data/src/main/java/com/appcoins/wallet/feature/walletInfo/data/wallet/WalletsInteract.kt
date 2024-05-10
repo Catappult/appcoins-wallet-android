@@ -9,7 +9,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
-import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
@@ -28,7 +27,6 @@ constructor(
   private val walletCreatorInteract: WalletCreatorInteract,
   private val supportInteractor: SupportInteractor,
   private val preferencesRepository: CommonsPreferencesDataSource,
-  private val gamificationRepository: Gamification,
   private val logger: Logger,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
@@ -91,13 +89,18 @@ constructor(
       }
 
   fun createWallet(name: String?): Completable =
-    walletCreatorInteract.create(name).subscribeOn(Schedulers.io()).flatMapCompletable { wallet ->
-      getCurrentPromoCodeUseCase()
-        .flatMap { walletCreatorInteract.setDefaultWallet(wallet.address).toSingleDefault(it) }
-        .flatMap { gamificationRepository.getUserLevel(wallet.address, it.code) }
-        .doOnSuccess { supportInteractor.registerUser(it, wallet.address) }
-        .ignoreElement()
-    }
+    walletCreatorInteract.create(name)
+      .subscribeOn(Schedulers.io())
+      .flatMapCompletable { wallet ->
+        getCurrentPromoCodeUseCase()
+          .flatMap { promoCode ->
+            walletCreatorInteract.setDefaultWallet(wallet.address).toSingleDefault(promoCode)
+          }
+          .doOnSuccess {
+            supportInteractor.showSupport()
+          }
+          .ignoreElement()
+      }
 
   private fun getTotalBalance(walletBalance: List<WalletInfoSimple>): FiatValue {
     if (walletBalance.isEmpty()) return FiatValue()

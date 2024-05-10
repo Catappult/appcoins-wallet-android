@@ -205,7 +205,7 @@ class AdyenPaymentViewModel @Inject constructor(
       )
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable { adyenPaymentInteractor.showSupport(paymentData.gamificationLevel) }
+        .flatMapCompletable { adyenPaymentInteractor.showSupport(paymentData.gamificationLevel, cachedUid) }
         .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -339,6 +339,7 @@ class AdyenPaymentViewModel @Inject constructor(
         .filter { !waitingResult }
         .doOnSuccess {
           sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+          cachedUid = it.uid
           handlePaymentModel(it)
         }
         .subscribe({}, {
@@ -424,7 +425,10 @@ class AdyenPaymentViewModel @Inject constructor(
         }
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it, animationDuration) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it, animationDuration)
+      }
       .subscribe({}, {
         logger.log(TAG, it)
         sendSingleEvent(SingleEventState.showGenericError)
@@ -629,7 +633,10 @@ class AdyenPaymentViewModel @Inject constructor(
         )
       }
       .observeOn(viewScheduler)
-      .flatMapCompletable { handlePaymentResult(it, animationDuration) }
+      .flatMapCompletable {
+        cachedUid = it.uid
+        handlePaymentResult(it, animationDuration)
+      }
       .subscribe({}, {
         logger.log(TAG, it)
         sendSingleEvent(SingleEventState.showGenericError)

@@ -2,15 +2,17 @@ package com.asfoundation.wallet.topup
 
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
@@ -45,15 +47,18 @@ class TopUpFragmentPresenter(
   private val selectedValue: String?,
   private val logger: Logger,
   private val networkThread: Scheduler,
-  private val challengeRewardAnalytics: ChallengeRewardAnalytics,
   private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
-  private val getStoredCardsUseCase: GetStoredCardsUseCase
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) {
 
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
   var showPayPalLogout: Subject<Boolean> = BehaviorSubject.create()
   private var firstPaymentMethodsFetch: Boolean = true
+  var hasStoredCard: Boolean = false
+  var storedCardID: String? = null
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -75,6 +80,7 @@ class TopUpFragmentPresenter(
     handleValuesClicks()
     handleKeyboardEvents()
     handleChallengeRewardWalletAddress()
+    getCardIdSharedPreferences()
   }
 
   fun stop() {
@@ -105,7 +111,7 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun retrievePaymentMethods(
+  private fun retrievePaymentMethodsAndLoadBonus(
     fiatAmount: String,
     packageName: String,
     currency: String,
@@ -124,17 +130,16 @@ class TopUpFragmentPresenter(
               cardLastNumbers = it.lastFour ?: "****",
               cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
               recurringReference = it.id,
-              false // change this function to get selected card
+              !storedCardID.isNullOrEmpty() && it.id == storedCardID
             )
           }
-
           val selectedCurrency = getCurrencyOfSelectedPaymentMethod(paymentMethods)
           view.setupPaymentMethods(paymentMethods = paymentMethods, cardList)
           if (selectedCurrency != view.getSelectedCurrency().code) {
             setupUi(selectedCurrency)
           } else {
             view.hideValuesSkeletons()
-            loadBonusIntoView(appPackage, fiatAmount, selectedCurrency).subscribe()
+            loadBonusIntoView(appPackage, fiatAmount, selectedCurrency)
           }
         } else {
           view.showNoMethodsError()
@@ -142,6 +147,36 @@ class TopUpFragmentPresenter(
         firstPaymentMethodsFetch = false
       }
       .ignoreElement()
+
+  private fun loadBonusIntoView(
+    appPackage: String,
+    amount: String,
+    currency: String
+  ) {
+    interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess { bonusAndLevel ->
+        if (activity != null && activity.isActivityActive()) handleBonus(bonusAndLevel)
+        cachedGamificationLevel = bonusAndLevel.level
+      }
+      .subscribe()
+  }
+
+
+  private fun handleBonus(bonusAndLevel: ForecastBonusAndLevel) {
+    if (interactor.isBonusValidAndActive(bonusAndLevel)) {
+      val scaledBonus = formatter.scaleFiat(bonusAndLevel.amount)
+      if (view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id) {
+        view.hideBonusAndSkeletons()
+      } else {
+        view.showBonus(scaledBonus, bonusAndLevel.currency)
+      }
+    } else {
+      view.removeBonus()
+    }
+    view.setNextButtonState(true)
+  }
 
   private fun updateDefaultValues(
     topUpValuesModel: TopUpValuesModel,
@@ -194,7 +229,7 @@ class TopUpFragmentPresenter(
               action = BillingAnalytics.ACTION_NEXT,
               paymentMethod = topUpData.paymentMethod!!.paymentType.name
             )
-            navigateToPayment(topUpData, cachedGamificationLevel)
+            navigateToPayment(topUpData, cachedGamificationLevel, false)
           }
       }
       .subscribe({}, { handleError(it) })
@@ -216,7 +251,7 @@ class TopUpFragmentPresenter(
           action = BillingAnalytics.ACTION_NEXT,
           paymentMethod = topUpData.paymentMethod!!.paymentType.name
         )
-        navigateToPayment(topUpData, cachedGamificationLevel)
+        navigateToPayment(topUpData, cachedGamificationLevel, true)
       }.subscribe({}, { handleError(it) })
     )
   }
@@ -329,36 +364,21 @@ class TopUpFragmentPresenter(
   }
 
   private fun setNextButton(methodSelected: String?) {
-    disposables.add(
-      showPayPalLogout
-        .subscribe({
-          if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
-            view.setTopupButton()
-          } else {
-            view.setNextButton()
-          }
-        }, { it.printStackTrace() })
-    )
-  }
-
-  private fun loadBonusIntoView(
-    appPackage: String, amount: String,
-    currency: String
-  ): Completable = interactor.getEarningBonus(appPackage, amount.toBigDecimal(), currency)
-    .subscribeOn(networkScheduler)
-    .observeOn(viewScheduler)
-    .doOnSuccess {
-      if (interactor.isBonusValidAndActive(it)) {
-        val scaledBonus = formatter.scaleFiat(it.amount)
-        if (view.getCurrentPaymentMethod() == PaymentMethodId.CHALLENGE_REWARD.id)
-          view.hideBonusAndSkeletons() else view.showBonus(scaledBonus, it.currency)
-      } else {
-        view.removeBonus()
-      }
-      view.setNextButtonState(true)
-      cachedGamificationLevel = it.level
+    if (methodSelected == PaymentMethodId.CREDIT_CARD.id && hasStoredCard) {
+      view.setBuyButton()
+    } else {
+      disposables.add(
+        showPayPalLogout
+          .subscribe({
+            if (methodSelected == PaymentMethodId.PAYPAL_V2.id && it!!) {
+              view.setTopupButton()
+            } else {
+              view.setNextButton()
+            }
+          }, { it.printStackTrace() })
+      )
     }
-    .ignoreElement()
+  }
 
   private fun handleInsertedValue(
     packageName: String, topUpData: TopUpData,
@@ -386,7 +406,7 @@ class TopUpFragmentPresenter(
       view.changeMainValueColor(true)
       if (firstPaymentMethodsFetch) view.hidePaymentMethods()
       if (interactor.isBonusValidAndActive()) view.showBonusSkeletons()
-      retrievePaymentMethods(fiatAmount, appPackage, currency, appPackage)
+      retrievePaymentMethodsAndLoadBonus(fiatAmount, appPackage, currency, appPackage)
     } else {
       view.hideBonusAndSkeletons()
       view.changeMainValueColor(false)
@@ -531,17 +551,53 @@ class TopUpFragmentPresenter(
     )
   }
 
+  fun setCardIdSharedPreferences(recurringReference: String) {
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { cardPaymentDataSource.setPreferredCardId(recurringReference, it.address) },
+          { }
+        )
+    )
+  }
+
+  private fun getCardIdSharedPreferences() {
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { storedCardID = cardPaymentDataSource.getPreferredCardId(it.address) },
+          { }
+        )
+    )
+  }
+
   private fun getCurrencyOfSelectedPaymentMethod(paymentMethods: List<PaymentMethod>) =
     paymentMethods.firstOrNull { it.id == view.getCurrentPaymentMethod() }?.price?.currency
       ?: paymentMethods.first().price.currency
 
-  private fun navigateToPayment(topUpData: TopUpData, gamificationLevel: Int) {
+  private fun navigateToPayment(
+    topUpData: TopUpData,
+    gamificationLevel: Int,
+    isNewCardPayment: Boolean
+  ) {
     val paymentMethod = topUpData.paymentMethod!!
     when (paymentMethod.paymentType) {
       PaymentType.CARD, PaymentType.PAYPAL -> {
         activity?.navigateToAdyenPayment(
           paymentType = paymentMethod.paymentType,
-          data = mapTopUpPaymentData(topUpData, gamificationLevel)
+          data = mapTopUpPaymentData(topUpData, gamificationLevel),
+          buyWithStoredCard =
+          if (paymentMethod.paymentType == PaymentType.CARD) {
+            if (isNewCardPayment) {
+              false
+            } else {
+              hasStoredCard
+            }
+          } else {
+            false
+          }
         )
       }
 

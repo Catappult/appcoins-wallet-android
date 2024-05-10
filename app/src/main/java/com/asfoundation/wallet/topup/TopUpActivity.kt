@@ -75,8 +75,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
 
     const val WEB_VIEW_REQUEST_CODE = 1234
-    const val BILLING_ADDRESS_REQUEST_CODE = 1236
-    const val BILLING_ADDRESS_SUCCESS_CODE = 1000
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
@@ -145,11 +143,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     )
   }
 
-  override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
+  override fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  ) {
     supportFragmentManager.beginTransaction()
       .add(
         R.id.fragment_container,
-        AdyenTopUpFragment.newInstance(paymentType, data)
+        AdyenTopUpFragment.newInstance(paymentType, data, buyWithStoredCard)
       )
       .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
       .commit()
@@ -329,6 +331,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     super.onSaveInstanceState(outState)
     outState.putBoolean(FIRST_IMPRESSION, firstImpression)
   }
+
+  override fun isActivityActive(): Boolean = !supportFragmentManager.isDestroyed
 
   private fun handleTopUpStartAnalytics() {
     if (firstImpression) {
