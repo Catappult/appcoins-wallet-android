@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">अडवलेले वॉलेट</string>
   <string name="error_blocked_wallet_body">सुरक्षा कारणांसाठी आपले वॉलेट अडवले गेले आहे. अधिक माहितीसाठी कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">अतिरिक्त शुल्क लागू होऊ शकते.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">आपल्या पेपाल पेमेंटमध्ये समस्या आली आहे. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>

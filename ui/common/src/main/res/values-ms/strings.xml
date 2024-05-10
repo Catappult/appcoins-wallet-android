@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Dompet Disekat</string>
   <string name="error_blocked_wallet_body">Untuk tujuan keselamatan, dompet anda telah disekat. Sila hubungi kami untuk maklumat lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Caj tambahan mungkin dikenakan.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Ada masalah dengan pembayaran PayPal anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>

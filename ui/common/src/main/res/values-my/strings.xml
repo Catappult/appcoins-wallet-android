@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">ပိတ္ပင္ထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="error_blocked_wallet_body">လုံၿခဳံေရးအေၾကာင္းျပခ်က္မ်ားအတြက္ သင့္ပိုက္ဆံအိတ္ကို ပိတ္ပင္ထားပါသည္။ ေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ကြၽႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">ေနာက္ထပ္ အခေၾကးေငြမ်ား ရွိႏိုင္ပါသည္။</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">သင့္ PayPal ေငြေပးေခ်မႈႏွင့္ ပတ္သက္၍ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို အသုံးျပဳေပးပါ။</string>

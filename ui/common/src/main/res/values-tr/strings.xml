@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Cüzdan Bloke Edildi</string>
   <string name="error_blocked_wallet_body">Güvenlik nedeniyle cüzdanın bloke edildi. Daha fazla bilgi için lütfen bizimle iletişime geç.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ek ücretler uygulanabilir.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">PayPal ödemenle ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullanç</string>

@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Ví bị chặn</string>
   <string name="error_blocked_wallet_body">Vì lý do bảo mật, ví của bạn đã bị chặn. Vui lòng liên hệ với chúng tôi để biết thêm thông tin.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Phí bổ sung có thể được áp dụng.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Đã xảy ra sự cố với khoản thanh toán PayPal của bạn. Vui lòng thử lại hoặc sử dụng một phương thức thanh toán khác.</string>

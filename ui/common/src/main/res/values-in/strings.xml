@@ -660,7 +660,7 @@
   <string name="error_blocked_wallet_title">Dompet Diblokir</string>
   <string name="error_blocked_wallet_body">Demi alasan keamanan, dompet Anda sudah diblokir. Silakan hubungi kami untuk informasi lebih lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Mungkin akan dikenakan biaya tambahan.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Terjadi masalah dengan pembayaran PayPal Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>

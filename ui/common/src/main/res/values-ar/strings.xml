@@ -661,7 +661,7 @@
   <string name="error_blocked_wallet_title">محفظة محظورة</string>
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%s with fees and VAT.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
   <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
   <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
