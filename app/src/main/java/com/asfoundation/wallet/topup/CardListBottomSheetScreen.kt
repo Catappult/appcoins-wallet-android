@@ -63,37 +63,42 @@ fun CardListBottomSheet(
       items(cardList) { card ->
         PaymentCardItem(card) { onChangeCardClick(card) {} }
       }
-    }
-    if (isGotItVisible) {
-      Row(
-        modifier = Modifier
-          .fillMaxWidth()
-          .background(WalletColors.styleguide_blue),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        Column(modifier = Modifier.padding(start = 8.dp)) {
-          Text(
-            //TODO: Update When Carlos Send the string
-            text = "To update or remove cards go to:",
-            color = WalletColors.styleguide_dark_grey,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold
-          )
-          Text(
-            //TODO: Update When Carlos Send the string
-            text = "Settings > Manage Cards",
-            color = WalletColors.styleguide_white,
-            fontSize = 12.sp
-          )
-        }
-        TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
-          Text(
-            text = stringResource(id = R.string.got_it_button),
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_pink,
-            fontSize = 14.sp
-          )
+      item {
+        Column {
+          Spacer(modifier = Modifier.height(16.dp))
+          if (isGotItVisible) {
+            Row(
+              modifier = Modifier
+                .fillMaxWidth()
+                .background(WalletColors.styleguide_blue),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              Column(modifier = Modifier.padding(start = 8.dp)) {
+                Text(
+                  //TODO: Update When Carlos Send the string
+                  text = "To update or remove cards go to:",
+                  color = WalletColors.styleguide_dark_grey,
+                  fontSize = 12.sp,
+                  fontWeight = FontWeight.Bold
+                )
+                Text(
+                  //TODO: Update When Carlos Send the string
+                  text = "Settings > Manage Cards",
+                  color = WalletColors.styleguide_white,
+                  fontSize = 12.sp
+                )
+              }
+              TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
+                Text(
+                  text = stringResource(id = R.string.got_it_button),
+                  fontWeight = FontWeight.Bold,
+                  color = WalletColors.styleguide_pink,
+                  fontSize = 14.sp
+                )
+              }
+            }
+          }
         }
       }
     }
