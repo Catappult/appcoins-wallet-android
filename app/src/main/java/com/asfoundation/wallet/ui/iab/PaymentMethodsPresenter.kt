@@ -751,7 +751,7 @@ class PaymentMethodsPresenter(
     }
     setLoadedPayment("")
     if (paymentList.isEmpty()) {
-      showError(R.string.topup_no_method_available_body) //TODO change it to string that carlos will create
+      showError(R.string.purchase_error_no_method_available_body)
     } else {
       view.showPaymentMethods(
         paymentList,
