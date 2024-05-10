@@ -500,7 +500,8 @@
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
 
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
+  <string name="p2p_send_title">Send</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
   <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
@@ -564,6 +565,9 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">Expired</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
+
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -638,7 +642,7 @@
   <string name="paypal_verification_header">PayPal Verification</string>
   <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
   <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
-  <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
+  <string name="paypal_verification_completed_body">Your PayPal account will be verified soon.</string>
 
 
   <!--Purchase Flow-->
@@ -707,17 +711,25 @@
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+
 
 
   <!--Billing address in purchase flow-->
@@ -826,7 +838,7 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Back up wallet</string>
+  <string name="backup_title">Back Up Wallet</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
@@ -1054,8 +1066,9 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Add Credit/Debit Card</string>
   <string name="manage_cards_settings_manage_title">Manage Credit/Debit Cards</string>
-  <string name="manage_cards_view_title">Manage cards</string>
-  <string name="manage_cards_view_manage_subtitle">Manage your cards</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_view_title">Manage Cards</string>
+  <string name="manage_cards_view_manage_subtitle">Manage your existing cards</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">Are you sure you want to remove this card?</string>
@@ -1064,16 +1077,16 @@
   <string name="manage_cards_card_ending_body">Card ending in %s</string>
   <string name="manage_cards_error_details">Are you sure your card details are correct? Please try again!</string>
   <string name="manage_cards_error_card_problem">It seems there\'s a problem with your card. Please try with a different one.</string>
-  <string name="manage_cards_select_title">Select payment card</string>
+  <string name="manage_cards_select_title">Select card</string>
   <string name="manage_cards_remember">Remember card</string>
   <string name="add_new_card_button">Add new card</string>
-  <string name="manage_cards_header">Payment Cards</string>
+  <string name="manage_cards_header">Manage Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
   <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
-  <string name="manage_cards_update_disclaimer_2">Settings > Manage Cards</string>
+  <string name="manage_cards_update_disclaimer_2">Settings > Manage Credit/Debit Cards</string>
 
 
   <!--Perks-->
@@ -1208,7 +1221,7 @@
   <string name="voucher_empty_more_body">Find the best deals for your favorite games!</string>
 
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
+  <string name="change_currency_title">Change Currency</string>
   <string name="change_currency_settings_title">Currency</string>
   <string name="change_currency_choose_button">Choose currency</string>
 
@@ -1404,6 +1417,8 @@
   <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
 
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
@@ -1411,6 +1426,7 @@
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
   <string name="manage_wallet_verify_title">Verify a Payment Method</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
 
 
   <!-- Refactor Verify Payment Method -->

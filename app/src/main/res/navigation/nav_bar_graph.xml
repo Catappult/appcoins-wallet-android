@@ -35,10 +35,10 @@
   <fragment
       android:id="@+id/onboarding_gp_install_fragment"
       android:name="com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallFragment"
-      tools:layout="@layout/onboarding_gp_install_fragment"></fragment>
+      tools:layout="@layout/onboarding_gp_install_fragment" />
 
   <fragment
       android:id="@+id/onboarding_payment_fragment"
       android:name="com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment"
-      tools:layout="@layout/fragment_onboarding_payment"></fragment>
+      tools:layout="@layout/fragment_onboarding_payment" />
 </navigation>

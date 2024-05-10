@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">¡Hola! Por favor, envíame %1$s AppCoins Credits para hacer una compra en %2$s. Enlace: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Envío de Fondos</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">Escanea o introduce la dirección de la wallet de tu amigo.</string>
   <string name="p2p_send_confirmation_message">Se enviaron %1$s %2$s a la siguiente dirección:</string>
   <string name="p2p_send_current_balance_message">Saldo actual: %1$s %2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">Caducada</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -657,17 +660,24 @@
   <string name="error_blocked_wallet_title">Wallet bloqueada</string>
   <string name="error_blocked_wallet_body">Por motivos de seguridad, tu wallet ha sido bloqueada. Ponte en contacto con nosotros para más información.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Puede que se apliquen tasas adicionales.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">Hubo un problema con el pago de PayPal. Prueba de nuevo o usa un método de pago diferente.</string>
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Bonus de %s recibido.</string>
   <string name="purchase_making_purchase_title">Haciendo compra&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pago no acepta tu moneda, por lo que cargará una comisión. El total que se muestra en el área superior incluye esta comisión.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pago no acepta tu moneda, por lo que cobrará una comisión.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -969,9 +979,11 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Añadir tarjeta de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gestionar tarjetas</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_manage_subtitle">Gestiona tus tarjetas de pago</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">¿Estás seguro de que quieres eliminar esta tarjeta?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -986,6 +998,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Gana un bonus de hasta el %s%% en todas las compras</string>
   <string name="perks_gamif_subtitle">Cuanto más gastes en tus apps favoritas, ¡mayor será el bonus!</string>
@@ -1265,6 +1279,8 @@
   <string name="rewards_make_first_purchase_body">Haz tu primera compra en un juego compatible con AppCoins y desbloquea un bonus en cada compra.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% de bonus en todas las compras</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Gestionar Wallets</string>
+  <string name="manage_wallet_view_title">Gestionar Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet cambiada</string>
   <string name="manage_wallet_change_active_wallet_title">¿Quieres seleccionar esta wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Cambiar nombre de la wallet</string>
@@ -1272,6 +1288,7 @@
   <string name="manage_wallet_my_wallet_address_title">Dirección de la wallet</string>
   <string name="manage_wallet_verify_title">Verificación de método de pago</string>
   <string name="manage_wallet_verify_body">Evita bloqueos verificando un método de pago.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificación de método de pago</string>
   <string name="verify_card_body">Evita bloqueos verificando un método de pago.</string>
