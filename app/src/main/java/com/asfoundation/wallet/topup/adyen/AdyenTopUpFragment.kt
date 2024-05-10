@@ -365,7 +365,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private fun handleLayoutVisibility() {
     adyenCardView.showInputFields(true)
     binding.adyenCardForm.root.visibility = VISIBLE
-    binding.adyenSavedCard.root.visibility = GONE
   }
 
   override fun setupRedirectComponent() {
