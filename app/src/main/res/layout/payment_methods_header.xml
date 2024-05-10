@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:maxWidth="64dp"
+        android:maxWidth="80dp"
         android:text="@string/purchase_extra_charges_included_disclaimer_body"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="11sp"
