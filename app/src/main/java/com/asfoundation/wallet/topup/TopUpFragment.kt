@@ -18,7 +18,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -738,6 +741,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       containerColor = WalletColors.styleguide_blue_secondary
     ) {
       if (cardsList.isNotEmpty()) {
+        var isGotItVisible by remember { mutableStateOf(cardPaymentDataSource.isGotItVisible()) }
         CardListBottomSheet(
           onAddNewCardClick = {
             topUpAnalytics.sendChangeAndAddCardClickEvent()
@@ -758,11 +762,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
             showBottomSheet.value = false
           },
           onGotItClick = {
-            showBottomSheet.value = false
             cardPaymentDataSource.setGotItManageCard(false)
+            isGotItVisible = false
           },
           cardList = cardsList,
-          isGotItVisible = cardPaymentDataSource.isGotItVisible()
+          isGotItVisible = isGotItVisible
         )
       }
     }
