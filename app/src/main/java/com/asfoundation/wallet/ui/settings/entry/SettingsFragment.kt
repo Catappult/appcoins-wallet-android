@@ -53,7 +53,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private var switchSubject: PublishSubject<Unit>? = null
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
 
-
   companion object {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
 

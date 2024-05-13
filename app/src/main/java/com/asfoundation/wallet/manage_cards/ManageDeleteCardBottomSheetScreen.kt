@@ -45,11 +45,11 @@ fun ManageDeleteCardBottomSheet(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(16.dp)
+      .padding(28.dp)
   ) {
     Text(
       text = stringResource(id = R.string.manage_cards_remove_confirmation),
-      style = WalletTypography.medium.sp16,
+      style = WalletTypography.medium.sp18,
       color = WalletColors.styleguide_light_grey,
       textAlign = TextAlign.Center,
     )
@@ -62,7 +62,8 @@ fun ManageDeleteCardBottomSheet(
       Image(
         modifier = Modifier
           .padding(start = 16.dp)
-          .align(Alignment.CenterVertically),
+          .align(Alignment.CenterVertically)
+          .size(32.dp),
         painter = painterResource(storedCard.cardIcon),
         contentDescription = "Card icon",
       )
@@ -74,7 +75,7 @@ fun ManageDeleteCardBottomSheet(
         modifier = Modifier
           .padding(start = 8.dp)
           .align(Alignment.CenterVertically),
-        style = MaterialTheme.typography.bodyMedium,
+        style = WalletTypography.medium.sp16,
         fontWeight = FontWeight.Medium,
         color = WalletColors.styleguide_light_grey,
       )
@@ -82,7 +83,7 @@ fun ManageDeleteCardBottomSheet(
     Row(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(top = 32.dp),
+        .padding(top = 40.dp),
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
