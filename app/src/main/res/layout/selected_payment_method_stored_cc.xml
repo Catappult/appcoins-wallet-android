@@ -11,8 +11,8 @@
 
   <ImageView
       android:id="@+id/img_card_brand"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="38dp"
+      android:layout_height="38dp"
       android:contentDescription="@null"
       android:scaleType="fitCenter"
       android:src="@drawable/ic_credit_card"
@@ -54,8 +54,8 @@
       />
   <ImageView
       android:id="@+id/stored_card_open_close_card_list"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
       android:layout_marginEnd="8dp"
       android:contentDescription="@null"
       android:scaleType="fitCenter"

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -48,23 +50,39 @@ fun CardListExpandedScreen(
       .fillMaxWidth()
       .background(WalletColors.styleguide_white),
   ) {
-    LazyColumn(
-      modifier = Modifier
-        .padding(8.dp)
-    ) {
-      item {
-        AddNewCardComposable(
-          paddingTop = 8.dp,
-          onClickAction = onAddNewCardClick,
-          addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
-          titleText = stringResource(R.string.manage_cards_settings_add_title),
-          backgroundColor = WalletColors.styleguide_white,
-          textColor = WalletColors.styleguide_black
-        )
+    Box(modifier = Modifier.weight(1f)) {
+      LazyColumn(
+        modifier = Modifier
+          .padding(top = 0.dp, bottom = 0.dp, start = 8.dp, end = 8.dp)
+      ) {
+        item {
+          AddNewCardComposable(
+            paddingTop = 0.dp,
+            onClickAction = onAddNewCardClick,
+            addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
+            titleText = stringResource(R.string.manage_cards_settings_add_title),
+            backgroundColor = WalletColors.styleguide_white,
+            textColor = WalletColors.styleguide_black
+          )
+        }
+        items(cardList) { card ->
+          PaymentCardItem(card) { onChangeCardClick(card) {} }
+        }
       }
-      items(cardList) { card ->
-        PaymentCardItem(card) { onChangeCardClick(card) {} }
-      }
+      Box(
+        modifier = Modifier
+          .align(Alignment.BottomCenter)
+          .fillMaxWidth()
+          .height(64.dp)
+          .background(
+            Brush.verticalGradient(
+              colors = listOf(
+                Color.Transparent,
+                WalletColors.styleguide_white
+              )
+            )
+          )
+      )
     }
     if (isGotItVisible) {
       Card(
@@ -72,7 +90,7 @@ fun CardListExpandedScreen(
         modifier = Modifier
           .padding(top = 8.dp)
           .fillMaxWidth()
-          .padding(start = 4.dp, end = 4.dp, bottom = 8.dp)
+          .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
 
       ) {
         Row(
@@ -120,7 +138,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
     modifier = Modifier
       .padding(top = 8.dp)
       .fillMaxWidth()
-      .height(56.dp)
+      .height(40.dp)
       .clickable { onChangeCardClick() }
   ) {
     Row(
@@ -128,7 +146,8 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
     ) {
       Image(
         modifier = Modifier
-          .padding(16.dp)
+          .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+          .height(20.dp)
           .align(Alignment.CenterVertically),
         painter = painterResource(storedCard.cardIcon),
         contentDescription = "Card icon",
