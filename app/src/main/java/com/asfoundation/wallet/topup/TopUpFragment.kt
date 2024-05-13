@@ -14,6 +14,15 @@ import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,13 +32,18 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.convertDpToPx
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
@@ -76,11 +90,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   @Inject
   lateinit var getCachedCurrencyUseCase: GetCachedCurrencyUseCase
 
+  @Inject
+  lateinit var getStoredCardsUseCase: GetStoredCardsUseCase
+
+  @Inject
+  lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
   private lateinit var paymentMethodClick: PublishRelay<PaymentMethod>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethod>
+  private var cardsList: List<StoredCard> = listOf()
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
   private var valueSubject: PublishSubject<FiatValue>? = null
@@ -90,6 +114,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private var bonusValue = BigDecimal.ZERO
   private var localCurrency = LocalCurrency()
   private var selectedPaymentMethodId: String? = null
+  private var showBottomSheet = mutableStateOf(false)
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
@@ -167,7 +192,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
       logger = logger,
       networkThread = Schedulers.io(),
-      getCachedCurrencyUseCase = getCachedCurrencyUseCase
+      getCachedCurrencyUseCase = getCachedCurrencyUseCase,
+      getStoredCardsUseCase = getStoredCardsUseCase,
+      cardPaymentDataSource = cardPaymentDataSource,
+      getCurrentWalletUseCase = getCurrentWalletUseCase
     )
   }
 
@@ -194,6 +222,14 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.rvDefaultValues.apply {
       adapter = topUpAdapter
     }
+    view.findViewById<ComposeView>(R.id.composeView).apply {
+      setContent {
+        if (showBottomSheet.value) {
+          topUpAnalytics.openChangeCardBottomSheet()
+          ShowCardListBottomSheet()
+        }
+      }
+    }
     view.viewTreeObserver.addOnGlobalLayoutListener(listener)
   }
 
@@ -208,8 +244,23 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
+  override fun setupPaymentMethods(
+    paymentMethods: List<PaymentMethod>,
+    cardsList: List<StoredCard>
+  ) {
     this@TopUpFragment.paymentMethods = paymentMethods
+    if (this.cardsList.isNullOrEmpty() && cardsList.isNotEmpty()) {
+      if (presenter.storedCardID.isNullOrEmpty()) {
+        cardsList.first().isSelectedCard = true
+        cardsList.first().recurringReference?.let {
+          presenter.setCardIdSharedPreferences(it)
+        }
+      }
+      presenter.hasStoredCard = true
+      setBuyButton()
+      this@TopUpFragment.cardsList = cardsList
+    }
+
     adapter = TopUpPaymentMethodsAdapter(
       paymentMethods = paymentMethods,
       paymentMethodClick = paymentMethodClick,
@@ -220,7 +271,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
         showAsLoading()
       },
       disposables = presenter.disposables,
-      showPayPalLogout = presenter.showPayPalLogout
+      showPayPalLogout = presenter.showPayPalLogout,
+      cardsList = this.cardsList,
+      onChangeCardCallback = { showBottomSheet.value = true }
     )
     selectPaymentMethod(paymentMethods)
 
@@ -566,6 +619,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.button.setTextRes(R.string.topup_button)
   }
 
+  override fun setBuyButton() {
+    binding.button.setTextRes(R.string.buy_button)
+  }
+
   private fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
@@ -645,6 +702,73 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       }
     } else {
       null
+    }
+  }
+
+  private fun setSelectedCard(storedCard: StoredCard?) {
+    if (storedCard != null && cardsList.contains(storedCard)) {
+      cardsList.find { it.isSelectedCard }?.isSelectedCard = false
+      cardsList.find { it == storedCard }?.isSelectedCard = true
+      storedCard.recurringReference?.let {
+        presenter.setCardIdSharedPreferences(it)
+      }
+    }
+    adapter = TopUpPaymentMethodsAdapter(
+      paymentMethods = paymentMethods,
+      paymentMethodClick = paymentMethodClick,
+      logoutCallback = {
+        presenter.removePaypalBillingAgreement()
+        presenter.showPayPalLogout.onNext(false)
+        setNextButton()
+        showAsLoading()
+      },
+      disposables = presenter.disposables,
+      showPayPalLogout = presenter.showPayPalLogout,
+      cardsList = this.cardsList,
+      onChangeCardCallback = { showBottomSheet.value = true }
+    )
+    binding.paymentMethods.adapter = adapter
+
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  private fun ShowCardListBottomSheet() {
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+      onDismissRequest = { showBottomSheet.value = false },
+      sheetState = bottomSheetState,
+      containerColor = WalletColors.styleguide_blue_secondary
+    ) {
+      if (cardsList.isNotEmpty()) {
+        var isGotItVisible by remember { mutableStateOf(cardPaymentDataSource.isGotItVisible()) }
+        CardListBottomSheet(
+          onAddNewCardClick = {
+            topUpAnalytics.sendChangeAndAddCardClickEvent()
+            showBottomSheet.value = false
+            presenter.handleNewCardActon(
+              TopUpData(
+                getCurrencyData(),
+                selectedCurrency,
+                getSelectedPaymentMethod(),
+                bonusValue
+              )
+            )
+            binding.button.performClick()
+          },
+          onChangeCardClick = { storedCard, _ ->
+            topUpAnalytics.sendChangeAndAddCardClickEvent()
+            setSelectedCard(storedCard)
+            showBottomSheet.value = false
+          },
+          onGotItClick = {
+            cardPaymentDataSource.setGotItManageCard(false)
+            isGotItVisible = false
+          },
+          cardList = cardsList,
+          isGotItVisible = isGotItVisible
+        )
+      }
     }
   }
 

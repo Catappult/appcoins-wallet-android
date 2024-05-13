@@ -22,6 +22,8 @@ sealed class NavBarSideEffect : SideEffect {
 
   object ShowOnboardingPendingPayment : NavBarSideEffect()
 
+  object ShowAskNotificationPermission : NavBarSideEffect()
+
   data class ShowOnboardingRecoverGuestWallet(val backup: String) : NavBarSideEffect()
 }
 
@@ -70,7 +72,9 @@ constructor(
           sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
         }
 
-        else -> Unit
+        StartMode.Regular, StartMode.Subsequent -> {
+          sendSideEffect { NavBarSideEffect.ShowAskNotificationPermission }
+        }
       }
     }
   }

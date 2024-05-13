@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">สวัสดี! โปรดส่งเครดิต %1$s AppCoins ให้ฉัน เพื่อซื้อสินค้าใน %2$s ลิงค์: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ส่งเงิน</string>
+  <string name="p2p_receive_title">Receive</string>
   <string name="p2p_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ถูกส่งไปยังที่อยู่ต่อไปนี้:</string>
   <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
@@ -527,6 +528,8 @@
   <string name="continue_button">ต่อ</string>
   <string name="card_expired_tag">หมดอายุ</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">Amount</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -657,17 +660,24 @@
   <string name="error_blocked_wallet_title">บล็อกวอลเล็ต</string>
   <string name="error_blocked_wallet_body">เหตุผลด้านความปลอดภัย วอลเล็ตของคุณถูกบล็อก กรุณาติดต่อเราสำหรับข้อมูลเพิ่มเติม</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">อาจมีค่าใช้จ่ายเพิ่มเติม.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
   <string name="purchase_error_google_pay">เกิดปัญหากับ Google Pay โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
   <string name="purchase_success_bonus_received_title">%s โบนัสที่ได้รับ</string>
   <string name="purchase_making_purchase_title">กำลังทำการซื้อ&#8230;</string>
   <string name="purchase_fee_title">ค่าธรรมเนียม %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจะเรียกเก็บค่าธรรมเนียมการดำเนินการ ค่าธรรมเนียมนี้รวมอยู่ในยอดรวมที่คุณเห็นด้านบน</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">วิธีการชำระเงินนี้จะเรียกเก็บค่าธรรมเนียมการดำเนินการสำหรับการซื้อครั้งนี้ ค่าธรรมเนียมนี้รวมอยู่ในยอดรวมที่คุณเห็นในพื้นที่ด้านบน</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">วิธีการชำระเงินนี้ไม่รองรับสกุลเงินของคุณ ดังนั้นจึงอาจเรียกเก็บค่าธรรมเนียมการดำเนินการ</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">วิธีการชำระเงินนี้จะเรียกเก็บค่าธรรมเนียมการดำเนินการสำหรับการซื้อครั้งนี้</string>
   <string name="purchase_fee_included_body">รวมค่าธรรมเนียม</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -970,9 +980,11 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">คุณแน่ใจหรือไม่ว่าต้องการลบบัตรนี้?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -987,6 +999,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">โบนัสสูงสุด %s%% ในทุกการซื้อ</string>
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
@@ -1254,6 +1268,8 @@
   <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>
   <string name="rewards_bonus_every_purchase_title">โบนัส %s%% ในทุกการซื้อ</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
   <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>
   <string name="manage_wallet_change_wallet_name_title">เปลี่ยนชื่อวอลเล็ต</string>
@@ -1261,6 +1277,7 @@
   <string name="manage_wallet_my_wallet_address_title">ที่อยู่วอลเล็ตของฉัน</string>
   <string name="manage_wallet_verify_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="manage_wallet_verify_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="verify_card_body">หลีกเลี่ยงการปิดกันโดยการยืนยันวิธีการชำระเงิน</string>

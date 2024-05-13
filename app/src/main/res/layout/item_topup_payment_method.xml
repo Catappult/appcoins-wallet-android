@@ -110,6 +110,21 @@
       app:tint="@color/styleguide_light_grey"
       />
 
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/change_card_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:visibility="gone"
+      app:buttonColor="@color/styleguide_pink"
+      app:buttonText="@string/change_button"
+      app:buttonType="text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:visibility="gone"
+      />
+
   <TextView
       android:id="@+id/payment_method_fee"
       android:layout_width="wrap_content"

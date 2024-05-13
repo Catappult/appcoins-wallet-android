@@ -333,6 +333,12 @@
       tools:visibility="visible"
       />
 
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/composeView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_default_values"
       android:layout_width="match_parent"

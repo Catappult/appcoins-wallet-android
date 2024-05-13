@@ -131,6 +131,6 @@ fun PreviewBackupDialogCardAlertBottomSheet() {
   ManageDeleteCardBottomSheet(
     {},
     {},
-    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null)
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false)
   )
 }
