@@ -78,7 +78,7 @@ interface AdyenTopUpView {
 
   fun showBonus(bonus: BigDecimal, currency: String)
 
-  fun showVerification()
+  fun showVerification(paymentType: String)
 
   fun handle3DSAction(action: Action)
 

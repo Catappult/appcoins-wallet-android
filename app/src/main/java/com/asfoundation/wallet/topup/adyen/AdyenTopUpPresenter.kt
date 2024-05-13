@@ -629,7 +629,7 @@ class AdyenTopUpPresenter(
     disposables.add(view.getVerificationClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { view.showVerification() }
+      .doOnNext { view.showVerification(paymentType) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
