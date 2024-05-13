@@ -176,8 +176,14 @@ class AdyenPaymentViewModel @Inject constructor(
     adyenErrorBackClicks: Observable<Any>,
     adyenErrorBackToCardClicks: Observable<Any>,
     adyenErrorCancelClicks: Observable<Any>,
+    paymentStateEnumArgs: String?
   ) {
     this.paymentData = paymentData
+    paymentStateEnum = if (paymentStateEnumArgs == PaymentStateEnum.PAYMENT_WITH_NEW_CARD.state) {
+      PaymentStateEnum.PAYMENT_WITH_NEW_CARD
+    } else {
+      PaymentStateEnum.UNDEFINED
+    }
     retrieveSavedInstace(savedInstanceState)
     sendSingleEvent(SingleEventState.setup3DSComponent)
     sendSingleEvent(SingleEventState.setupRedirectComponent)
@@ -249,11 +255,11 @@ class AdyenPaymentViewModel @Inject constructor(
   }
 
   fun setPaymentStateEnum(
-    state: PaymentStateEnum?,
+    state: PaymentStateEnum,
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>
   ) {
-    if (state == null) {
+    if (state == PaymentStateEnum.UNDEFINED) {
       when (paymentData.paymentType) {
         PaymentType.CARD.name -> {
           paymentStateEnum =
@@ -286,6 +292,8 @@ class AdyenPaymentViewModel @Inject constructor(
       PaymentStateEnum.PAYMENT_WITH_STORED_CARD_ID -> {
         getStoredCardsList(retrievePaymentData, buyButtonClicked)
       }
+
+      PaymentStateEnum.UNDEFINED -> {}
     }
 
   }
@@ -345,6 +353,7 @@ class AdyenPaymentViewModel @Inject constructor(
               buyButtonClicked
             )
             paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+
           }
         }
         .subscribe({}, {
@@ -410,14 +419,14 @@ class AdyenPaymentViewModel @Inject constructor(
             !storedCardID.isNullOrEmpty() && it.id == storedCardID
           )
         }
-        if (!cardsList.isNullOrEmpty()) {
+        if (cardsList.isNullOrEmpty() && storedCardID.isNullOrEmpty()) {
           cardsList.first().isSelectedCard = true
           setCardIdSharedPreferences(cardsList.first().recurringReference.toString())
-          loadPaymentMethodWithStoredCard(
-            retrievePaymentData,
-            buyButtonClicked
-          )
         }
+        loadPaymentMethodWithStoredCard(
+          retrievePaymentData,
+          buyButtonClicked
+        )
       }.subscribe({}, {
         logger.log(TAG, it)
         sendSingleEvent(SingleEventState.showGenericError)
@@ -436,7 +445,7 @@ class AdyenPaymentViewModel @Inject constructor(
           {
             storedCardID = cardPaymentDataSource.getPreferredCardId(it.address)
             setPaymentStateEnum(
-              null, retrievePaymentData,
+              paymentStateEnum, retrievePaymentData,
               buyButtonClicked
             )
           },

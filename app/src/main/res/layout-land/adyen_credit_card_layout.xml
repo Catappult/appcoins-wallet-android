@@ -143,25 +143,10 @@
                 />
 
             <com.appcoins.wallet.ui.widgets.WalletButtonView
-                android:id="@+id/change_card_button"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/small_button_height"
-                android:layout_below="@id/adyen_card_form"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="0dp"
-                android:visibility="visible"
-                app:buttonColor="@color/styleguide_pink"
-                app:buttonText="@string/activity_iab_change_card_lower_case_button"
-                app:buttonType="text"
-                tools:visibility="visible"
-                />
-
-            <com.appcoins.wallet.ui.widgets.WalletButtonView
                 android:id="@+id/more_payment_methods"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/small_button_height"
-                android:layout_below="@id/change_card_button"
+                android:layout_below="@id/adyen_card_form"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="8dp"
@@ -187,6 +172,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeView"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+            android:visibility="gone"
             />
 
         <com.appcoins.wallet.ui.widgets.WalletButtonView
