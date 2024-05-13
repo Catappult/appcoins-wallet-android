@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +30,9 @@ private fun AddNewCardComposableExample() {
     12.dp,
     {},
     R.drawable.ic_card,
-    stringResource(R.string.manage_cards_add_title)
+    stringResource(R.string.manage_cards_add_title),
+    WalletColors.styleguide_blue_secondary,
+    WalletColors.styleguide_light_grey
   )
 }
 
@@ -39,11 +42,13 @@ fun AddNewCardComposable(
   paddingTop: Dp,
   onClickAction: () -> Unit,
   addIconDrawable: Int,
-  titleText: String
+  titleText: String,
+  backgroundColor: Color,
+  textColor: Color,
 ) {
   Card(
     onClick = onClickAction,
-    colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary),
+    colors = CardDefaults.cardColors(containerColor = backgroundColor),
     modifier = Modifier
       .padding(top = paddingTop)
       .fillMaxWidth()
@@ -64,7 +69,7 @@ fun AddNewCardComposable(
           .align(Alignment.CenterVertically),
         style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.Medium,
-        color = WalletColors.styleguide_light_grey,
+        color = textColor,
       )
     }
   }

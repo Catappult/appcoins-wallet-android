@@ -145,7 +145,9 @@ class ManageCardsFragment : BasePageViewFragment() {
           paddingTop = 24.dp,
           onClickAction = { manageCardsNavigator.navigateToAddCard() },
           addIconDrawable = R.drawable.ic_add_card,
-          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_title)
+          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_title),
+          backgroundColor = styleguide_blue_secondary,
+          textColor = styleguide_light_grey
         )
         if (cardsList.isNotEmpty()) {
           ScreenSubtitle()

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.topup
+package com.asfoundation.wallet.billing.adyen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import com.appcoins.wallet.ui.widgets.AddNewCardComposable
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 
 @Composable
-fun CardListBottomSheet(
+fun CardListExpandedScreen(
   onChangeCardClick: (StoredCard, () -> Unit) -> Unit,
   onAddNewCardClick: () -> Unit,
   onGotItClick: () -> Unit,
@@ -46,7 +46,7 @@ fun CardListBottomSheet(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .background(WalletColors.styleguide_blue_secondary),
+      .background(WalletColors.styleguide_white),
   ) {
     LazyColumn(
       modifier = Modifier
@@ -58,8 +58,8 @@ fun CardListBottomSheet(
           onClickAction = onAddNewCardClick,
           addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
           titleText = stringResource(R.string.manage_cards_settings_add_title),
-          backgroundColor = WalletColors.styleguide_blue_secondary,
-          textColor = WalletColors.styleguide_light_grey
+          backgroundColor = WalletColors.styleguide_white,
+          textColor = WalletColors.styleguide_black
         )
       }
       items(cardList) { card ->
@@ -67,35 +67,44 @@ fun CardListBottomSheet(
       }
     }
     if (isGotItVisible) {
-      Row(
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_light_grey),
         modifier = Modifier
+          .padding(top = 8.dp)
           .fillMaxWidth()
-          .background(WalletColors.styleguide_blue),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+          .padding(start = 4.dp, end = 4.dp, bottom = 8.dp)
+
       ) {
-        Column(modifier = Modifier.padding(start = 8.dp)) {
-          Text(
-            //TODO: Update When Carlos Send the string
-            text = "To update or remove cards go to:",
-            color = WalletColors.styleguide_dark_grey,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold
-          )
-          Text(
-            //TODO: Update When Carlos Send the string
-            text = "Settings > Manage Cards",
-            color = WalletColors.styleguide_white,
-            fontSize = 12.sp
-          )
-        }
-        TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
-          Text(
-            text = stringResource(id = R.string.got_it_button),
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_pink,
-            fontSize = 14.sp
-          )
+        Row(
+          modifier = Modifier
+            .fillMaxWidth()
+            .background(WalletColors.styleguide_light_grey),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Column(modifier = Modifier.padding(start = 8.dp)) {
+            Text(
+              //TODO: Update When Carlos Send the string
+              text = "To update or remove cards go to:",
+              color = WalletColors.styleguide_dark_grey,
+              fontSize = 12.sp
+            )
+            Text(
+              //TODO: Update When Carlos Send the string
+              text = "Settings > Manage Cards",
+              color = WalletColors.styleguide_black,
+              fontSize = 12.sp,
+              fontWeight = FontWeight.Bold
+            )
+          }
+          TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
+            Text(
+              text = stringResource(id = R.string.got_it_button),
+              fontWeight = FontWeight.Bold,
+              color = WalletColors.styleguide_pink,
+              fontSize = 14.sp
+            )
+          }
         }
       }
     }
@@ -105,7 +114,7 @@ fun CardListBottomSheet(
 @Composable
 fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
   val containerColor =
-    if (storedCard.isSelectedCard) WalletColors.styleguide_blue else WalletColors.styleguide_blue_secondary
+    if (storedCard.isSelectedCard) WalletColors.styleguide_light_grey else WalletColors.styleguide_white
   Card(
     colors = CardDefaults.cardColors(containerColor = containerColor),
     modifier = Modifier
@@ -131,7 +140,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
           .align(Alignment.CenterVertically),
         style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.Medium,
-        color = WalletColors.styleguide_light_grey,
+        color = WalletColors.styleguide_black,
       )
       Spacer(modifier = Modifier.weight(1f))
       if (storedCard.isSelectedCard) {
@@ -152,7 +161,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
-  CardListBottomSheet(
+  CardListExpandedScreen(
     { _, _ -> {} },
     {},
     {},
