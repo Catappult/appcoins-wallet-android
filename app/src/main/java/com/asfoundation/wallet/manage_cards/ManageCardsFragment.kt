@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -50,6 +51,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.AddNewCardComposable
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.component.Animation
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_cards.models.StoredCard
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -96,13 +98,14 @@ class ManageCardsFragment : BasePageViewFragment() {
           padding = padding, cardsList = uiState.storedCards
         )
 
-        ManageCardsViewModel.UiState.Loading -> Row(
-          modifier = Modifier.fillMaxSize(),
-          verticalAlignment = CenterVertically,
-          horizontalArrangement = Center
-        ) {
-          CircularProgressIndicator()
-        }
+        ManageCardsViewModel.UiState.Loading ->
+          Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = Center
+          ) {
+            Animation(modifier = Modifier.size(104.dp), animationRes = R.raw.loading_wallet)
+          }
 
         else -> {}
       }
@@ -116,8 +119,19 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardSaved) {
         manageCardsAnalytics.addedNewCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_SHORT).show()
-        manageCardSharedViewModel.resetCardSavedValue()
+        Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_LONG)
+          .show()
+        manageCardSharedViewModel.resetCardResult()
+      }
+    }
+    val isCardError by manageCardSharedViewModel.isCardError
+    LaunchedEffect(key1 = isCardError) {
+      if (isCardError) {
+        manageCardsAnalytics.addedNewCardSuccessEvent()
+        viewModel.getCards()
+        Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+          .show()
+        manageCardSharedViewModel.resetCardResult()
       }
     }
     val isCardDeleted by viewModel.isCardDeleted
@@ -125,7 +139,8 @@ class ManageCardsFragment : BasePageViewFragment() {
       if (isCardDeleted) {
         manageCardsAnalytics.removeCardSuccessEvent()
         viewModel.getCards()
-        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.card_removed, Toast.LENGTH_LONG)
+          .show()
         viewModel.isCardDeleted.value = false
       }
     }
@@ -214,7 +229,7 @@ class ManageCardsFragment : BasePageViewFragment() {
         Image(
           modifier = Modifier
             .align(CenterVertically)
-            .padding(end = 16.dp)
+            .padding(end = 22.dp)
             .clickable {
               viewModel.showBottomSheet(true, storedCard)
               manageCardsAnalytics.addNewCardDetailsClickEvent()

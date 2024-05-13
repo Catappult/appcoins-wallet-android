@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -56,6 +58,9 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private val views by viewBinding(NavBarFragmentBinding::bind)
   private val viewModel: NavBarViewModel by activityViewModels()
+
+  private val pushNotificationPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
   @Inject
   lateinit var navigator: NavBarFragmentNavigator
@@ -177,6 +182,17 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
       is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
         showOnboardingRecoverGuestWallet(sideEffect.backup)
+
+      NavBarSideEffect.ShowAskNotificationPermission -> askNotificationsPermission()
+    }
+  }
+
+  private fun askNotificationsPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      // Android OS manages when to ask for permission. After android 11, the default behavior is
+      // to only prompt for permission if needed, and if the user didn't deny it twice before. If
+      // the user just dismissed it without denying, then it'll prompt again next time.
+      pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
   }
 
