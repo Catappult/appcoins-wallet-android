@@ -166,7 +166,7 @@ class LocalPaymentPresenter(
                 logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showError(R.string.purchase_error_wallet_block_code_403)
               } else {
-                view.showVerification()
+                view.showCreditCardVerification()
               }
             }
         } else {

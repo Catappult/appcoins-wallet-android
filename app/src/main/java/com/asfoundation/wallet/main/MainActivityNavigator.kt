@@ -43,4 +43,8 @@ class MainActivityNavigator @Inject constructor() :
   fun navigateToNavBarFragment(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToNavBarGraph())
   }
+
+  fun navigateToPayPalVerificationFragment(navController: NavController) {
+    navigate(navController, SplashExtenderFragmentDirections.navigateToPaypalVerificationFragment())
+  }
 }

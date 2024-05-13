@@ -297,7 +297,7 @@ class OnChainBuyPresenter(
                 logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showForbiddenError()
               } else {
-                view.showVerification()
+                view.showCreditCardVerification()
               }
             }
         } else {

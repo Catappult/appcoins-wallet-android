@@ -30,6 +30,7 @@ import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.TopUpActivity
@@ -61,23 +62,23 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
-    @Inject
-    lateinit var billingAnalytics: BillingAnalytics
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
 
-    @Inject
-    lateinit var iabInteract: IabInteract
+  @Inject
+  lateinit var iabInteract: IabInteract
 
-    @Inject
-    lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
-    @Inject
-    lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
 
-    @Inject
-    lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
+  @Inject
+  lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
 
-    @Inject
-    lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
+  @Inject
+  lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -204,9 +205,21 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     @Suppress("DEPRECATION")
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
 
-  override fun showVerification(isWalletVerified: Boolean) {
+  override fun showCreditCardVerification(isWalletVerified: Boolean) {
     binding.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
+      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finishWithError()
+  }
+
+  override fun showPayPalVerification() {
+    binding.fragmentContainer.visibility = View.GONE
+    val intent = MainActivity.newIntent(
+      context = this,
+      supportNotificationClicked = false,
+      isPayPalVerificationRequired = true
+    )
       .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
     finishWithError()

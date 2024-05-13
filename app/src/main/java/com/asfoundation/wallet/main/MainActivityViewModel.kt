@@ -12,6 +12,7 @@ import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToNavigationBar : MainActivitySideEffect()
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
+  object NavigateToPayPalVerification : MainActivitySideEffect()
   data class NavigateToOnboardingRecoverGuestWallet(val backup: String) : MainActivitySideEffect()
 }
 
@@ -38,7 +40,7 @@ class MainActivityViewModel @Inject constructor(
 ) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
 
   init {
-    handleSupportNotificationClick()
+    handleSavedStateParameters()
   }
 
   fun handleInitialNavigation(authComplete: Boolean = false) {
@@ -79,11 +81,15 @@ class MainActivityViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
-  private fun handleSupportNotificationClick() {
+  private fun handleSavedStateParameters() {
     val fromSupportNotification = savedStateHandle.get<Boolean>(SUPPORT_NOTIFICATION_CLICK)
+    val paypalVerificationRequired = savedStateHandle.get<Boolean>(PAYPAL_VERIFICATION_REQUIRED)
     if (fromSupportNotification == false) {
       // We only count a launch if it did not come from a notification
       increaseLaunchCount()
+    }
+    if (paypalVerificationRequired == true) {
+      sendSideEffect { MainActivitySideEffect.NavigateToPayPalVerification }
     }
   }
 }
