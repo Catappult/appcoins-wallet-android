@@ -17,6 +17,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
@@ -391,6 +395,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   private fun changeVisibilityOfStoredCardList(isNewCardAdded: Boolean) {
     if (isExpandedCardsList) {
+      paymentAnalytics.sendShowStoredCardList()
       bindingCreditCardLayout?.composeView?.visibility = VISIBLE
       bindingCreditCardLayout?.adyenSavedCard?.txtSelectPaymentCard?.visibility = VISIBLE
       txtStoredCardNumber?.visibility = GONE
@@ -900,31 +905,20 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   @Composable
   private fun ShowCardListExpandedLayout() {
+    var isGotItVisible by remember { mutableStateOf(cardPaymentDataSource.isGotItVisible()) }
     CardListExpandedScreen(onAddNewCardClick = {
       isExpandedCardsList = false
       viewModel.paymentStateEnum = PaymentStateEnum.PAYMENT_WITH_NEW_CARD
       restartFragment()
-      /*topUpAnalytics.sendChangeAndAddCardClickEvent()
-      showBottomSheet.value = false
-      presenter.handleNewCardActon(
-        TopUpData(
-          getCurrencyData(),
-          selectedCurrency,
-          getSelectedPaymentMethod(),
-          bonusValue
-        )
-      )
-      binding.button.performClick()*/
     }, onChangeCardClick = { storedCard, _ ->
       setSelectedCard(storedCard)
       isExpandedCardsList = false
       restartFragment()
-      /*topUpAnalytics.sendChangeAndAddCardClickEvent()
-      showBottomSheet.value = false*/
+
     }, onGotItClick = {
-      /* showBottomSheet.value = false
-       cardPaymentDataSource.setGotItManageCard(false)*/
-    }, cardList = viewModel.cardsList, isGotItVisible = cardPaymentDataSource.isGotItVisible()
+      cardPaymentDataSource.setGotItManageCard(false)
+      isGotItVisible = false
+    }, cardList = viewModel.cardsList, isGotItVisible = isGotItVisible
     )
   }
 
