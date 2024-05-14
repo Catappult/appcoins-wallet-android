@@ -57,7 +57,7 @@ fun CardListExpandedScreen(
       ) {
         item {
           AddNewCardComposable(
-            paddingTop = 0.dp,
+            paddingTop = 2.dp,
             onClickAction = onAddNewCardClick,
             addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
             titleText = stringResource(R.string.manage_cards_settings_add_title),
@@ -102,14 +102,12 @@ fun CardListExpandedScreen(
         ) {
           Column(modifier = Modifier.padding(start = 8.dp)) {
             Text(
-              //TODO: Update When Carlos Send the string
-              text = "To update or remove cards go to:",
+              text = stringResource(id = R.string.manage_cards_update_disclaimer_1),
               color = WalletColors.styleguide_dark_grey,
               fontSize = 12.sp
             )
             Text(
-              //TODO: Update When Carlos Send the string
-              text = "Settings > Manage Cards",
+              text = stringResource(id = R.string.manage_cards_update_disclaimer_2),
               color = WalletColors.styleguide_black,
               fontSize = 12.sp,
               fontWeight = FontWeight.Bold

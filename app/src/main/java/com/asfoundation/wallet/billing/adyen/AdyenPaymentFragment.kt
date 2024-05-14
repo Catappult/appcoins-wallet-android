@@ -389,6 +389,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       isExpandedCardsList = !viewModel.cardsList.isNullOrEmpty() && !isExpandedCardsList
       changeVisibilityOfStoredCardList(false)
     }
+//    btnStoredCardCloseCardList?.setOnClickListener {  //TODO
+//      isExpandedCardsList = false
+//      changeVisibilityOfStoredCardList(false)
+//    }
 
     showProduct()
   }
@@ -402,9 +406,11 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       imgStoredCardBrand?.visibility = GONE
       bindingCreditCardLayout?.bonusLayout?.root?.visibility = GONE
       morePaymentStoredMethods?.visibility = GONE
+      btnStoredCardOpenCloseCardList?.rotation = 180F
     } else {
       bindingCreditCardLayout?.composeView?.visibility = GONE
       bindingCreditCardLayout?.adyenSavedCard?.txtSelectPaymentCard?.visibility = GONE
+      btnStoredCardOpenCloseCardList?.rotation = 0F
       if (!isNewCardAdded) {
         txtStoredCardNumber?.visibility = VISIBLE
         imgStoredCardBrand?.visibility = VISIBLE
