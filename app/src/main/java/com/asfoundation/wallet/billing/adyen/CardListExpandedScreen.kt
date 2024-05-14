@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +23,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -48,6 +50,7 @@ fun CardListExpandedScreen(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
+      .clip(RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp))
       .background(WalletColors.styleguide_white),
   ) {
     Box(modifier = Modifier.weight(1f)) {
@@ -73,12 +76,12 @@ fun CardListExpandedScreen(
         modifier = Modifier
           .align(Alignment.BottomCenter)
           .fillMaxWidth()
-          .height(64.dp)
+          .height(32.dp)
           .background(
             Brush.verticalGradient(
               colors = listOf(
                 Color.Transparent,
-                WalletColors.styleguide_white
+                WalletColors.styleguide_white_75
               )
             )
           )
@@ -88,7 +91,6 @@ fun CardListExpandedScreen(
       Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_light_grey),
         modifier = Modifier
-          .padding(top = 8.dp)
           .fillMaxWidth()
           .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
 
@@ -134,7 +136,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
   Card(
     colors = CardDefaults.cardColors(containerColor = containerColor),
     modifier = Modifier
-      .padding(top = 8.dp)
+      .padding(top = 4.dp)
       .fillMaxWidth()
       .height(40.dp)
       .clickable { onChangeCardClick() }
@@ -144,7 +146,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
     ) {
       Image(
         modifier = Modifier
-          .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+          .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 4.dp)
           .height(20.dp)
           .align(Alignment.CenterVertically),
         painter = painterResource(storedCard.cardIcon),
