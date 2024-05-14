@@ -1067,7 +1067,9 @@
   <string name="manage_cards_settings_add_title">Add Credit/Debit Card</string>
   <string name="manage_cards_settings_manage_title">Manage Credit/Debit Cards</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Manage Cards</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Manage your existing cards</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
