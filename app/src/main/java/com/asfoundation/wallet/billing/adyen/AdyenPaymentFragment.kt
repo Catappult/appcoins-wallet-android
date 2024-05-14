@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -400,12 +401,35 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       bindingCreditCardLayout?.adyenSavedCard?.txtSelectPaymentCard?.visibility = VISIBLE
       txtStoredCardNumber?.visibility = GONE
       imgStoredCardBrand?.visibility = GONE
-      bindingCreditCardLayout?.bonusLayout?.root?.visibility = GONE
+
       morePaymentStoredMethods?.visibility = GONE
       btnStoredCardOpenCloseCardList?.rotation = 180F
       bindingCreditCardLayout?.adyenSavedCard?.root?.background =
         resources.getDrawable(R.drawable.background_top_corner_white)
-//      bindingCreditCardLayout?.composeView?.height = 100F
+      if (isPortraitMode(requireContext())) {
+        bindingCreditCardLayout?.bonusLayout?.root?.visibility = GONE
+        val layoutParams =
+          bindingCreditCardLayout?.composeView?.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.height = when (viewModel.cardsList.size) {
+          1 -> {
+            if (cardPaymentDataSource.isGotItVisible()) {
+              170.toPx(requireContext())
+            } else {
+              130.toPx(requireContext())
+            }
+          }
+
+          else -> {
+            if (cardPaymentDataSource.isGotItVisible()) {
+              230.toPx(requireContext())
+            } else {
+              170.toPx(requireContext())
+            }
+          }
+        }
+        bindingCreditCardLayout?.composeView?.layoutParams = layoutParams
+        bindingCreditCardLayout?.composeView?.requestLayout()
+      }
     } else {
       bindingCreditCardLayout?.composeView?.visibility = GONE
       bindingCreditCardLayout?.adyenSavedCard?.txtSelectPaymentCard?.visibility = GONE
@@ -420,6 +444,14 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       }
 
     }
+  }
+
+  fun Int.toPx(context: Context) =
+    this * context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+
+  private fun isPortraitMode(context: Context): Boolean {
+    val orientation = context.resources.configuration.orientation
+    return orientation == Configuration.ORIENTATION_PORTRAIT
   }
 
   fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
