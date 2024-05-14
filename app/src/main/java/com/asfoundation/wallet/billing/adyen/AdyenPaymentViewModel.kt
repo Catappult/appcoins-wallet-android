@@ -254,7 +254,7 @@ class AdyenPaymentViewModel @Inject constructor(
     )
   }
 
-  fun setPaymentStateEnum(
+  private fun setPaymentStateEnum(
     state: PaymentStateEnum,
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>
@@ -289,9 +289,11 @@ class AdyenPaymentViewModel @Inject constructor(
         buyButtonClicked
       )
 
-      PaymentStateEnum.PAYMENT_WITH_STORED_CARD_ID -> {
-        getStoredCardsList(retrievePaymentData, buyButtonClicked)
-      }
+      PaymentStateEnum.PAYMENT_WITH_STORED_CARD_ID ->
+        loadPaymentMethodWithStoredCard(
+          retrievePaymentData,
+          buyButtonClicked
+        )
 
       PaymentStateEnum.UNDEFINED -> {}
     }
@@ -419,12 +421,15 @@ class AdyenPaymentViewModel @Inject constructor(
             !storedCardID.isNullOrEmpty() && it.id == storedCardID
           )
         }
-        if (cardsList.isNullOrEmpty() && storedCardID.isNullOrEmpty()) {
-          cardsList.first().isSelectedCard = true
-          setCardIdSharedPreferences(cardsList.first().recurringReference.toString())
+        if (!cardsList.isNullOrEmpty() && storedCardID.isNullOrEmpty()) {
+          cardsList.first().let {
+            it.isSelectedCard = true
+            storedCardID = it.recurringReference.toString()
+            setCardIdSharedPreferences(it.recurringReference.toString())
+          }
         }
-        loadPaymentMethodWithStoredCard(
-          retrievePaymentData,
+        setPaymentStateEnum(
+          paymentStateEnum, retrievePaymentData,
           buyButtonClicked
         )
       }.subscribe({}, {
@@ -444,10 +449,7 @@ class AdyenPaymentViewModel @Inject constructor(
         .subscribe(
           {
             storedCardID = cardPaymentDataSource.getPreferredCardId(it.address)
-            setPaymentStateEnum(
-              paymentStateEnum, retrievePaymentData,
-              buyButtonClicked
-            )
+            getStoredCardsList(retrievePaymentData, buyButtonClicked)
           },
           { }
         )
