@@ -9,6 +9,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.asf.wallet.R
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import javax.inject.Inject
@@ -44,9 +45,19 @@ class OnboardingPaymentResultNavigator @Inject constructor(
       .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }
 
-  fun navigateToVerifyWallet(isWalletVerified: Boolean) {
+  fun navigateToVerifyCreditCard(isWalletVerified: Boolean) {
     val intent =
       VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
+        .apply {
+          fragment.activity?.intent?.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+    fragment.startActivity(intent)
+  }
+
+  fun navigateToVerifyPayPal() {
+    val intent =
+      MainActivity.newIntent(fragment.requireContext(), false, isPayPalVerificationRequired = true)
         .apply {
           fragment.activity?.intent?.flags =
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
