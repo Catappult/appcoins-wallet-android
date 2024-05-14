@@ -3,6 +3,8 @@ package com.asfoundation.wallet.manage_cards
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.manage_cards.models.StoredCard
@@ -22,7 +24,9 @@ class ManageCardsViewModel
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
-  private val deleteStoredCardUseCase: DeleteStoredCardUseCase
+  private val deleteStoredCardUseCase: DeleteStoredCardUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
 ) : ViewModel() {
 
   sealed class UiState {
@@ -66,9 +70,7 @@ constructor(
           }
         )
       }
-      .doOnError {
-
-      }
+      .doOnError {}
       .subscribe()
   }
 
@@ -82,12 +84,20 @@ constructor(
       .observeOn(viewScheduler)
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnSuccess {
+        setCardIdSharedPreferences("")
+      }
+      .doOnError {}
+      .subscribe()
+  }
+
+  private fun setCardIdSharedPreferences(recurringReference: String) {
+    getCurrentWalletUseCase().observeOn(viewScheduler)
+      .doOnSuccess {
         isCardDeleted.value = true
+        cardPaymentDataSource.setPreferredCardId(recurringReference, it.address)
         showBottomSheet(false, null)
       }
-      .doOnError {
-
-      }
+      .doOnError {}
       .subscribe()
   }
 }

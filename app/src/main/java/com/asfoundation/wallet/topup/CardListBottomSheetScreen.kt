@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -48,13 +49,16 @@ fun CardListBottomSheet(
       .fillMaxWidth()
       .background(WalletColors.styleguide_blue_secondary),
   ) {
-    LazyColumn(
-      modifier = Modifier
-        .padding(8.dp)
-    ) {
+    LazyColumn {
       item {
         AddNewCardComposable(
           paddingTop = 8.dp,
+          paddingBottom = 8.dp,
+          paddingEnd = 8.dp,
+          paddingStart = 8.dp,
+          cardHeight = 56.dp,
+          imageEndPadding = 16.dp,
+          imageSize = 36.dp,
           onClickAction = onAddNewCardClick,
           addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
           titleText = stringResource(R.string.manage_cards_settings_add_title),
@@ -112,7 +116,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
   Card(
     colors = CardDefaults.cardColors(containerColor = containerColor),
     modifier = Modifier
-      .padding(top = 8.dp)
+      .padding(8.dp)
       .fillMaxWidth()
       .height(56.dp)
       .clickable { onChangeCardClick() }
@@ -123,6 +127,7 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
       Image(
         modifier = Modifier
           .padding(16.dp)
+          .width(36.dp)
           .align(Alignment.CenterVertically),
         painter = painterResource(storedCard.cardIcon),
         contentDescription = "Card icon",

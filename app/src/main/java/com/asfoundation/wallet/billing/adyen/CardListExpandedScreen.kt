@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,12 +57,17 @@ fun CardListExpandedScreen(
   ) {
     Box(modifier = Modifier.weight(1f)) {
       LazyColumn(
-        modifier = Modifier
-          .padding(top = 0.dp, bottom = 0.dp, start = 8.dp, end = 8.dp)
+        modifier = Modifier.padding(top = 0.dp, bottom = 0.dp, start = 8.dp, end = 8.dp)
       ) {
         item {
           AddNewCardComposable(
             paddingTop = 2.dp,
+            paddingEnd = 0.dp,
+            paddingStart = 0.dp,
+            paddingBottom = 0.dp,
+            cardHeight = 40.dp,
+            imageEndPadding = 16.dp,
+            imageSize = 30.dp,
             onClickAction = onAddNewCardClick,
             addIconDrawable = com.asf.wallet.R.drawable.ic_add_card,
             titleText = stringResource(R.string.manage_cards_settings_add_title),
@@ -80,8 +87,7 @@ fun CardListExpandedScreen(
           .background(
             Brush.verticalGradient(
               colors = listOf(
-                Color.Transparent,
-                WalletColors.styleguide_white_75
+                Color.Transparent, WalletColors.styleguide_white_75
               )
             )
           )
@@ -133,21 +139,21 @@ fun CardListExpandedScreen(
 fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
   val containerColor =
     if (storedCard.isSelectedCard) WalletColors.styleguide_light_grey else WalletColors.styleguide_white
-  Card(
-    colors = CardDefaults.cardColors(containerColor = containerColor),
+  Card(colors = CardDefaults.cardColors(containerColor = containerColor),
     modifier = Modifier
       .padding(top = 4.dp)
       .fillMaxWidth()
       .height(40.dp)
-      .clickable { onChangeCardClick() }
-  ) {
+      .clickable { onChangeCardClick() }) {
     Row(
-      modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+      modifier = Modifier.fillMaxSize(),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
     ) {
       Image(
         modifier = Modifier
           .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 4.dp)
-          .height(20.dp)
+          .width(30.dp)
           .align(Alignment.CenterVertically),
         painter = painterResource(storedCard.cardIcon),
         contentDescription = "Card icon",
@@ -180,15 +186,10 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
-  CardListExpandedScreen(
-    { _, _ -> {} },
-    {},
-    {},
-    listOf(
-      StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
-      StoredCard("4325", com.asf.wallet.R.drawable.ic_card_brand_american_express, null, true),
-      StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_discover, null, false)
-    ),
-    true
+  CardListExpandedScreen({ _, _ -> {} }, {}, {}, listOf(
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
+    StoredCard("4325", com.asf.wallet.R.drawable.ic_card_brand_american_express, null, true),
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_discover, null, false)
+  ), true
   )
 }

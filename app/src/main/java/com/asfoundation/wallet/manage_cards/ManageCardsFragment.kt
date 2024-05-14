@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.ModalBottomSheet
@@ -158,9 +157,15 @@ class ManageCardsFragment : BasePageViewFragment() {
         ScreenTitle()
         AddNewCardComposable(
           paddingTop = 24.dp,
+          paddingBottom = 0.dp,
+          paddingEnd = 0.dp,
+          paddingStart = 0.dp,
+          cardHeight = 56.dp,
+          imageEndPadding = 16.dp,
+          imageSize = 36.dp,
           onClickAction = { manageCardsNavigator.navigateToAddCard() },
           addIconDrawable = R.drawable.ic_add_card,
-          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_title),
+          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.add_new_card_button),
           backgroundColor = styleguide_blue_secondary,
           textColor = styleguide_light_grey
         )
