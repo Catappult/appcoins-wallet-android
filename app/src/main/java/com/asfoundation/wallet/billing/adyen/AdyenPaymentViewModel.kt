@@ -7,7 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.billing.ErrorInfo.ErrorType.*
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.ALREADY_PROCESSED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CVC_LENGTH
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.CVC_REQUIRED
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.INVALID_CARD
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.OUTDATED_CARD
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.PAYMENT_ERROR
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
+import com.appcoins.wallet.billing.ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
@@ -21,9 +31,16 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.enums.PaymentStateEnum
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.manage_cards.models.StoredCard
+import com.asfoundation.wallet.manage_cards.usecases.GetPaymentInfoNewCardModelUseCase
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
+import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
@@ -56,20 +73,30 @@ class AdyenPaymentViewModel @Inject constructor(
   private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
   private val formatter: CurrencyFormatUtils,
   private val logger: Logger,
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
+  private val cardPaymentDataSource: CardPaymentDataSource,
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  private val getPaymentInfoNewCardModelUseCase: GetPaymentInfoNewCardModelUseCase,
+  private val getPaymentInfoFilterByCardModelUseCase: GetPaymentInfoFilterByCardModelUseCase,
   rxSchedulers: RxSchedulers,
 ) : ViewModel() {
 
   val networkScheduler = rxSchedulers.io
   val viewScheduler = rxSchedulers.main
-
   private lateinit var paymentData: PaymentData
-
   private var waitingResult = false
   private var cachedUid = ""
   private var cachedPaymentData: String? = null
   private var action3ds: String? = null
   var isStored = false
   var askCVC = true
+  var cardsList: List<StoredCard> = listOf()
+  var storedCardID: String? = null
+  var priceAmount: BigDecimal? = null
+  var priceCurrency: String? = null
+  private val _singleEventState = Channel<SingleEventState>(Channel.BUFFERED)
+  val singleEventState = _singleEventState.receiveAsFlow()
+  lateinit var paymentStateEnum: PaymentStateEnum
 
   sealed class SingleEventState {
     object setup3DSComponent : SingleEventState()
@@ -113,9 +140,6 @@ class AdyenPaymentViewModel @Inject constructor(
     object showCvcRequired : SingleEventState()
   }
 
-  private val _singleEventState = Channel<SingleEventState>(Channel.BUFFERED)
-  val singleEventState = _singleEventState.receiveAsFlow()
-
   fun sendSingleEvent(state: SingleEventState) {
     viewModelScope.launch {
       _singleEventState.send(state)
@@ -141,11 +165,8 @@ class AdyenPaymentViewModel @Inject constructor(
     paymentData: PaymentData,
     adyenSupportIconClicks: Observable<Any>,
     adyenSupportLogoClicks: Observable<Any>,
-    forgetCardClick: Observable<Any>,
-    forgetStoredCardClick: Observable<Any>,
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>,
-    animationDuration: Long,
     verificationClicks: Observable<Boolean>,
     paymentDetails: Observable<AdyenComponentResponseModel>,
     onAdyen3DSError: Observable<String>,
@@ -155,28 +176,30 @@ class AdyenPaymentViewModel @Inject constructor(
     adyenErrorBackClicks: Observable<Any>,
     adyenErrorBackToCardClicks: Observable<Any>,
     adyenErrorCancelClicks: Observable<Any>,
+    paymentStateEnumArgs: String?
   ) {
     this.paymentData = paymentData
+    paymentStateEnum = if (paymentStateEnumArgs == PaymentStateEnum.PAYMENT_WITH_NEW_CARD.state) {
+      PaymentStateEnum.PAYMENT_WITH_NEW_CARD
+    } else {
+      PaymentStateEnum.UNDEFINED
+    }
     retrieveSavedInstace(savedInstanceState)
     sendSingleEvent(SingleEventState.setup3DSComponent)
     sendSingleEvent(SingleEventState.setupRedirectComponent)
-    if (!waitingResult) loadPaymentMethodInfo(
+    if (!waitingResult) getCardIdSharedPreferences(
       retrievePaymentData,
-      buyButtonClicked,
-      animationDuration
+      buyButtonClicked
     )
     handleBack(backEvent)
     handleErrorDismissEvent(errorDismisses)
-    handleForgetCardClick(forgetCardClick)
-    handleForgetStoredCardClick(forgetStoredCardClick)
     handleRedirectResponse()
-    handlePaymentDetails(paymentDetails, animationDuration)
+    handlePaymentDetails(paymentDetails)
     handleAdyenErrorBack(adyenErrorBackClicks)
     handleAdyenErrorBackToCard(
       retrievePaymentData,
       buyButtonClicked,
-      adyenErrorBackToCardClicks,
-      animationDuration
+      adyenErrorBackToCardClicks
     )
     handleAdyenErrorCancel(adyenErrorCancelClicks)
     handleSupportClicks(adyenSupportIconClicks, adyenSupportLogoClicks)
@@ -197,29 +220,16 @@ class AdyenPaymentViewModel @Inject constructor(
       )
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .observeOn(viewScheduler)
-        .flatMapCompletable { adyenPaymentInteractor.showSupport(paymentData.gamificationLevel, cachedUid) }
+        .flatMapCompletable {
+          adyenPaymentInteractor.showSupport(
+            paymentData.gamificationLevel,
+            cachedUid
+          )
+        }
         .subscribe({}, { it.printStackTrace() })
     )
   }
 
-  private fun handleForgetCardClick(forgetCardClick: Observable<Any>) {
-    disposables.add(forgetCardClick
-      .observeOn(viewScheduler)
-      .doOnNext { sendSingleEvent(SingleEventState.showLoading) }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success -> if (!success) sendSingleEvent(SingleEventState.showGenericError) }
-      .filter { it }
-      .observeOn(networkScheduler)
-      .subscribe({
-        sendSingleEvent(SingleEventState.restartFragment)
-      }, {
-        logger.log(TAG, it)
-        sendSingleEvent(SingleEventState.showGenericError)
-      })
-    )
-  }
 
   private fun askCardDetails() {
     disposables.add(
@@ -244,79 +254,216 @@ class AdyenPaymentViewModel @Inject constructor(
     )
   }
 
-  /**
-   * A function needs to be created due to a problem with adyen not enabling
-   *  the CVC in the same fragment as it was disabled
-   *  so we need to disable the payment and recreate the fragment
-   */
-  private fun handleForgetStoredCardClick(forgetStoredCardClick: Observable<Any>) {
-    disposables.add(forgetStoredCardClick
-      .observeOn(viewScheduler)
-      .doOnNext { sendSingleEvent(SingleEventState.showLoading) }
-      .observeOn(networkScheduler)
-      .flatMapSingle { adyenPaymentInteractor.disablePayments() }
-      .observeOn(viewScheduler)
-      .doOnNext { success ->
-        if (success) sendSingleEvent(SingleEventState.restartFragment)
-        else sendSingleEvent(SingleEventState.showGenericError)
+  private fun setPaymentStateEnum(
+    state: PaymentStateEnum,
+    retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
+    buyButtonClicked: Observable<BuyClickData>
+  ) {
+    if (state == PaymentStateEnum.UNDEFINED) {
+      when (paymentData.paymentType) {
+        PaymentType.CARD.name -> {
+          paymentStateEnum =
+            if (!storedCardID.isNullOrEmpty()) PaymentStateEnum.PAYMENT_WITH_STORED_CARD_ID else PaymentStateEnum.PAYMENT_WITH_NEW_CARD
+        }
+
+        PaymentType.PAYPAL.name -> paymentStateEnum = PaymentStateEnum.PAYMENT_WITH_PAYPAL
       }
-      .subscribe({}, {
+    } else {
+      paymentStateEnum = state
+    }
+    loadPaymentMethodInfo(retrievePaymentData, buyButtonClicked)
+  }
+
+  private fun loadPaymentMethodInfo(
+    retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
+    buyButtonClicked: Observable<BuyClickData>
+  ) {
+    sendSingleEvent(SingleEventState.showLoading)
+    when (paymentStateEnum) {
+      PaymentStateEnum.PAYMENT_WITH_PAYPAL -> {
+        loadPaymentMethodPaypal()
+      }
+
+      PaymentStateEnum.PAYMENT_WITH_NEW_CARD -> loadPaymentMethodWithNewCard(
+        retrievePaymentData,
+        buyButtonClicked
+      )
+
+      PaymentStateEnum.PAYMENT_WITH_STORED_CARD_ID ->
+        loadPaymentMethodWithStoredCard(
+          retrievePaymentData,
+          buyButtonClicked
+        )
+
+      PaymentStateEnum.UNDEFINED -> {}
+    }
+
+  }
+
+  private fun loadPaymentMethodPaypal() {
+    disposables.add(
+      adyenPaymentInteractor.loadPaymentInfo(
+        mapPaymentToService(paymentData.paymentType),
+        paymentData.amount.toString(),
+        paymentData.currency
+      )
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.error.hasError) {
+            sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
+            sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+            handleErrors(it.error)
+          } else {
+            val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
+            sendSingleEvent(SingleEventState.showProductPrice(amount, it.priceCurrency))
+            launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+          }
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          sendSingleEvent(SingleEventState.showGenericError)
+        })
+    )
+  }
+
+  private fun loadPaymentMethodWithNewCard(
+    retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
+    buyButtonClicked: Observable<BuyClickData>
+  ) {
+    disposables.add(
+      getPaymentInfoNewCardModelUseCase(paymentData.amount.toString(), paymentData.currency)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.error.hasError) {
+            sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
+            sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+            handleErrors(it.error)
+          } else {
+            val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
+            sendSingleEvent(SingleEventState.showProductPrice(amount, it.priceCurrency))
+            priceAmount = it.priceAmount
+            priceCurrency = it.priceCurrency
+            sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+            sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            sendSingleEvent(SingleEventState.finishCardConfiguration(it, false))
+            handleBuyClick(
+              it.priceAmount,
+              it.priceCurrency,
+              retrievePaymentData,
+              buyButtonClicked
+            )
+            paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+
+          }
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          sendSingleEvent(SingleEventState.showGenericError)
+        })
+    )
+  }
+
+  private fun loadPaymentMethodWithStoredCard(
+    retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
+    buyButtonClicked: Observable<BuyClickData>
+  ) {
+    disposables.add(
+      getPaymentInfoFilterByCardModelUseCase(
+        paymentData.amount.toString(),
+        paymentData.currency,
+        storedCardID!!
+      )
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.error.hasError) {
+            sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
+            sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+            handleErrors(it.error)
+          } else {
+            val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
+            sendSingleEvent(SingleEventState.showProductPrice(amount, it.priceCurrency))
+            priceAmount = it.priceAmount
+            priceCurrency = it.priceCurrency
+            sendSingleEvent(SingleEventState.hideLoadingAndShowView)
+            sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+            sendSingleEvent(SingleEventState.finishCardConfiguration(it, false))
+            handleBuyClick(
+              it.priceAmount,
+              it.priceCurrency,
+              retrievePaymentData,
+              buyButtonClicked
+            )
+            paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
+          }
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          sendSingleEvent(SingleEventState.showGenericError)
+        })
+    )
+  }
+
+  private fun getStoredCardsList(
+    retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
+    buyButtonClicked: Observable<BuyClickData>
+  ) {
+    disposables.add(getStoredCardsUseCase().subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        cardsList = it.map {
+          StoredCard(
+            cardLastNumbers = it.lastFour ?: "****",
+            cardIcon = PaymentBrands.getPayment(it.brand).brandFlag,
+            recurringReference = it.id,
+            !storedCardID.isNullOrEmpty() && it.id == storedCardID
+          )
+        }
+        if (!cardsList.isNullOrEmpty() && storedCardID.isNullOrEmpty()) {
+          cardsList.first().let {
+            it.isSelectedCard = true
+            storedCardID = it.recurringReference.toString()
+            setCardIdSharedPreferences(it.recurringReference.toString())
+          }
+        }
+        setPaymentStateEnum(
+          paymentStateEnum, retrievePaymentData,
+          buyButtonClicked
+        )
+      }.subscribe({}, {
         logger.log(TAG, it)
         sendSingleEvent(SingleEventState.showGenericError)
       })
     )
   }
 
-  var priceAmount: BigDecimal? = null
-  var priceCurrency: String? = null
-  private fun loadPaymentMethodInfo(
+  private fun getCardIdSharedPreferences(
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>,
-    animationDuration: Long,
   ) {
-    sendSingleEvent(SingleEventState.showLoading)
-    disposables.add(adyenPaymentInteractor.loadPaymentInfo(
-      mapPaymentToService(paymentData.paymentType),
-      paymentData.amount.toString(),
-      paymentData.currency
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          {
+            storedCardID = cardPaymentDataSource.getPreferredCardId(it.address)
+            getStoredCardsList(retrievePaymentData, buyButtonClicked)
+          },
+          { }
+        )
     )
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .doOnSuccess {
-        if (it.error.hasError) {
-          sendPaymentErrorEvent(it.error.errorInfo?.httpCode, it.error.errorInfo?.text)
-          sendSingleEvent(SingleEventState.hideLoadingAndShowView)
-          handleErrors(it.error)
-        } else {
-          val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
-          sendSingleEvent(SingleEventState.showProductPrice(amount, it.priceCurrency))
-          when (paymentData.paymentType) {
-            PaymentType.CARD.name -> {
-              priceAmount = it.priceAmount
-              priceCurrency = it.priceCurrency
-              sendSingleEvent(SingleEventState.hideLoadingAndShowView)
-              sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-              sendSingleEvent(SingleEventState.finishCardConfiguration(it, false))
-              handleBuyClick(
-                it.priceAmount,
-                it.priceCurrency,
-                retrievePaymentData,
-                buyButtonClicked,
-                animationDuration
-              )
-              paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
-            }
+  }
 
-            PaymentType.PAYPAL.name -> {
-              launchPaymentAdyen(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
-            }
-          }
-        }
-      }
-      .subscribe({}, {
-        logger.log(TAG, it)
-        sendSingleEvent(SingleEventState.showGenericError)
-      })
+  fun setCardIdSharedPreferences(recurringReference: String) {
+    disposables.add(
+      getCurrentWalletUseCase()
+        .subscribeOn(networkScheduler)
+        .subscribe(
+          { cardPaymentDataSource.setPreferredCardId(recurringReference, it.address) },
+          { }
+        )
     )
   }
 
@@ -380,8 +527,7 @@ class AdyenPaymentViewModel @Inject constructor(
     priceAmount: BigDecimal,
     priceCurrency: String,
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
-    buyButtonClicked: Observable<BuyClickData>,
-    animationDuration: Long,
+    buyButtonClicked: Observable<BuyClickData>
   ) {
     disposables.add(buyButtonClicked
       .flatMapSingle { buyClickData ->
@@ -437,7 +583,7 @@ class AdyenPaymentViewModel @Inject constructor(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         cachedUid = it.uid
-        handlePaymentResult(it, animationDuration)
+        handlePaymentResult(it)
       }
       .subscribe({}, {
         logger.log(TAG, it)
@@ -447,8 +593,7 @@ class AdyenPaymentViewModel @Inject constructor(
   }
 
   private fun handlePaymentResult(
-    paymentModel: PaymentModel,
-    animationDuration: Long,
+    paymentModel: PaymentModel
   ): Completable = when {
     paymentModel.resultCode.equals("AUTHORISED", true) -> {
       adyenPaymentInteractor.getAuthorisedTransaction(paymentModel.uid)
@@ -467,8 +612,7 @@ class AdyenPaymentViewModel @Inject constructor(
                 .observeOn(viewScheduler)
                 .flatMapCompletable { bundle ->
                   handleSuccessTransaction(
-                    bundle,
-                    animationDuration
+                    bundle
                   )
                 }
             }
@@ -576,11 +720,10 @@ class AdyenPaymentViewModel @Inject constructor(
   }
 
   private fun handleSuccessTransaction(
-    purchaseBundleModel: PurchaseBundleModel,
-    animationDuration: Long,
+    purchaseBundleModel: PurchaseBundleModel
   ): Completable =
     Completable.fromAction { sendSingleEvent(SingleEventState.showSuccess(purchaseBundleModel.renewal)) }
-      .andThen(Completable.timer(animationDuration, TimeUnit.MILLISECONDS, viewScheduler))
+      .andThen(Completable.timer(SUCCESS_DURATION, TimeUnit.MILLISECONDS, viewScheduler))
       .andThen(Completable.fromAction { paymentData.navigator.popView(purchaseBundleModel.bundle) })
 
   private fun retrieveFailedReason(uid: String): Completable =
@@ -627,8 +770,7 @@ class AdyenPaymentViewModel @Inject constructor(
     status == PaymentModel.Status.FAILED || status == PaymentModel.Status.CANCELED || status == PaymentModel.Status.INVALID_TRANSACTION || status == PaymentModel.Status.FRAUD
 
   private fun handlePaymentDetails(
-    paymentDetails: Observable<AdyenComponentResponseModel>,
-    animationDuration: Long
+    paymentDetails: Observable<AdyenComponentResponseModel>
   ) {
     disposables.add(paymentDetails
       .throttleLast(2, TimeUnit.SECONDS)
@@ -645,7 +787,7 @@ class AdyenPaymentViewModel @Inject constructor(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         cachedUid = it.uid
-        handlePaymentResult(it, animationDuration)
+        handlePaymentResult(it)
       }
       .subscribe({}, {
         logger.log(TAG, it)
@@ -980,7 +1122,6 @@ class AdyenPaymentViewModel @Inject constructor(
     retrievePaymentData: ReplaySubject<AdyenCardWrapper>?,
     buyButtonClicked: Observable<BuyClickData>,
     adyenErrorBackToCardClicks: Observable<Any>,
-    animationDuration: Long,
   ) {
     disposables.add(adyenErrorBackToCardClicks
       .observeOn(viewScheduler)
@@ -991,8 +1132,7 @@ class AdyenPaymentViewModel @Inject constructor(
             priceAmount!!,
             priceCurrency!!,
             retrievePaymentData,
-            buyButtonClicked,
-            animationDuration
+            buyButtonClicked
           )
         }
         sendSingleEvent(SingleEventState.showBackToCard)
@@ -1098,7 +1238,7 @@ class AdyenPaymentViewModel @Inject constructor(
         )
       )
 
-      error.errorInfo?.errorType == CVC_REQUIRED ->  {
+      error.errorInfo?.errorType == CVC_REQUIRED -> {
         adyenPaymentInteractor.setMandatoryCVC(true)
         askCardDetails()
       }
@@ -1137,6 +1277,7 @@ class AdyenPaymentViewModel @Inject constructor(
     private const val UID = "UID"
     private const val PAYMENT_DATA = "payment_data"
     private const val CHALLENGE_CANCELED = "Challenge canceled."
+    private const val SUCCESS_DURATION = 3000L
   }
 
 }

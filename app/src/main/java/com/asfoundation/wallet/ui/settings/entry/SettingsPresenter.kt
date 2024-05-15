@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
@@ -24,7 +25,9 @@ class SettingsPresenter(
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
-) {
+  private val getStoredCardsUseCase: GetStoredCardsUseCase,
+
+  ) {
 
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) settingsInteractor.setHasBeenInSettings()
@@ -54,9 +57,9 @@ class SettingsPresenter(
     view.setManageWalletPreference()
     view.setAccountPreference()
     view.setManageSubscriptionsPreference()
-    view.setManageCardsPreference()
     view.setFaqsPreference()
     setCurrencyPreference()
+    getCards()
   }
 
   fun setFingerPrintPreference() {
@@ -74,6 +77,26 @@ class SettingsPresenter(
         view.setDisabledFingerPrintPreference()
       }
     }
+  }
+
+  private fun getCards() {
+    getStoredCardsUseCase()
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSubscribe {
+        view.setSkeletonCardPreference()
+      }
+      .doOnSuccess { cards ->
+        if (cards.isNullOrEmpty()) {
+          view.setAddNewCardPreference()
+        } else {
+          view.setManageCardsPreference()
+        }
+      }
+      .doOnError {
+        view.setAddNewCardPreference()
+      }
+      .subscribe()
   }
 
   private fun updateFingerPrintPreference(previousAvailability: Int) {
@@ -114,6 +137,10 @@ class SettingsPresenter(
 
   fun onManageCardsPreferenceClick(navController: NavController) {
     navigator.navigateToManageCards(navController)
+  }
+
+  fun onAddCardsPreferenceClick(navController: NavController) {
+    navigator.navigateToAddCards(navController)
   }
 
   fun onChangeCurrencyPreferenceClick(navController: NavController) {
