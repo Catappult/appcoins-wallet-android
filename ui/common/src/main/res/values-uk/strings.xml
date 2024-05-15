@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Цю покупку було відхилено.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_reverted_body">Цю покупку було скасовано.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_status_rejected">Відхилено</string>
-  <string name="transaction_details_header">Деталі транзакції</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
   <string name="my_wallets_action_backup_wallet">Резервний гаманець</string>
   <string name="my_wallets_action_verify_new_card">Підтвердити нову картку</string>
-  <string name="my_wallets_action_delete_wallet">Видалити гаманець</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросити когось заплатити</string>
   <string name="askafriend_generating_link_message">Ми генеруємо ваше посилання на оплату&#8230;</string>
@@ -985,7 +985,9 @@
   <string name="manage_cards_settings_add_title">Кредитна/дебетова карта</string>
   <string name="manage_cards_settings_manage_title">Керувати картками</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Керувати картками</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Керуйте своїми платіжними картками</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1298,7 +1300,7 @@
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Виведіть свій e-Skills дохід.</string>
-  <string name="rewards_promo_code_card_title">Промокоди</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Скористайтеся промокодом, аби отримати спеціальні пропозиції!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
