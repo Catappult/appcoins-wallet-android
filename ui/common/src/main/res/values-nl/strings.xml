@@ -538,6 +538,7 @@
   <string name="decline_button">Weigeren</string>
   <string name="get_started">Aan de slag</string>
   <string name="existent_wallet">Ik heb al een wallet</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Doe een aankoop in je favoriete game en wij regelen de rest.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>

@@ -538,6 +538,7 @@
   <string name="decline_button">거부</string>
   <string name="get_started">지금 시작</string>
   <string name="existent_wallet">지갑은 이미 있어요</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">마음에 드는 게임을 구매하시면 저희가 다 해드리겠습니다.</string>
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>

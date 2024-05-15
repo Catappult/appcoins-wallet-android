@@ -538,6 +538,7 @@
   <string name="decline_button">Tolak</string>
   <string name="get_started">Mulai</string>
   <string name="existent_wallet">Saya sudah punya dompet</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Lakukan pembelian di game favorit Anda, nanti kami akan menangani semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
