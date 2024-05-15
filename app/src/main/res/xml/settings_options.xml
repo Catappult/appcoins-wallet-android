@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_manage_wallet"
         android:key="pref_manage_wallet"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/manage_wallet_button" />
+        android:title="@string/manage_wallet_settings_item" />
 
     <Preference
         android:icon="@drawable/ic_manage_subscriptions"

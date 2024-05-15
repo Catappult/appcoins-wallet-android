@@ -80,7 +80,7 @@ fun CardListBottomSheet(
               horizontalArrangement = Arrangement.SpaceBetween,
               verticalAlignment = Alignment.CenterVertically
             ) {
-              Column(modifier = Modifier.padding(start = 8.dp)) {
+              Column(modifier = Modifier.padding(start = 24.dp)) {
                 Text(
                   text = stringResource(R.string.manage_cards_update_disclaimer_1),
                   color = WalletColors.styleguide_dark_grey,

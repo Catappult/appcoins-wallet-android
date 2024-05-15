@@ -90,7 +90,7 @@
           android:layout_marginBottom="16dp"
           android:enabled="false"
           android:visibility="gone"
-          app:buttonText="@string/add_new_card_button"
+          app:buttonText="@string/manage_cards_add_button"
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"

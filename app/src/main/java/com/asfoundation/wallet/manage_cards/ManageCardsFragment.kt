@@ -165,7 +165,7 @@ class ManageCardsFragment : BasePageViewFragment() {
           imageSize = 36.dp,
           onClickAction = { manageCardsNavigator.navigateToAddCard() },
           addIconDrawable = R.drawable.ic_add_card,
-          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.add_new_card_button),
+          titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_credit_debit_card_button_),
           backgroundColor = styleguide_blue_secondary,
           textColor = styleguide_light_grey
         )
