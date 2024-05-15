@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Эта покупка была отклонена.\nДля получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_reverted_body">Эта покупка была отменена.\nДля получения дополнительной информации обратитесь в службу поддержки.</string>
   <string name="transaction_status_rejected">Отклонено</string>
-  <string name="transaction_details_header">Детали транзакции</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">Артикул</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Восстановить кошелёк</string>
   <string name="my_wallets_action_backup_wallet">Резервная копия</string>
   <string name="my_wallets_action_verify_new_card">Подтвердить новую карту</string>
-  <string name="my_wallets_action_delete_wallet">Удалить кошелёк</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросить кого-то заплатить</string>
   <string name="askafriend_generating_link_message">Мы создаем ссылку на ваш платеж&#8230;</string>
@@ -983,7 +983,9 @@
   <string name="manage_cards_settings_add_title">Добавить кредитную/дебитовую карту</string>
   <string name="manage_cards_settings_manage_title">Управление картами</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Управление картами</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1296,7 +1298,7 @@
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Выведите свои доходы от e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Промо-коды</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>

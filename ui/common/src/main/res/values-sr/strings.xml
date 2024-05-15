@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Kupovina je odbijena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_body">Kupovina je vraćena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_status_rejected">Odbijeno</string>
-  <string name="transaction_details_header">Detalji o transakciji</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Oporavite novčanik</string>
   <string name="my_wallets_action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
   <string name="my_wallets_action_verify_new_card">Potvrdite novu karticu</string>
-  <string name="my_wallets_action_delete_wallet">Obrišite novčanik</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Zatražite od nekoga da plati</string>
   <string name="askafriend_generating_link_message">Generišemo vam link za plaćanje&#8230;</string>
@@ -982,7 +982,9 @@
   <string name="manage_cards_settings_add_title">Dodajte kreditnu/debitnu karticu</string>
   <string name="manage_cards_settings_manage_title">Upravljanje karticama</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Upravljanje karticama</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1283,7 +1285,7 @@
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>
-  <string name="rewards_promo_code_card_title">Promo kodovi</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktivne</string>

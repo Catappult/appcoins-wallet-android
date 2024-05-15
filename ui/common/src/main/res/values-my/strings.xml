@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">ဤဝယ္ယူမႈကို ျငင္းဆန္လိုက္ပါသည္။\nေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_reverted_body">ဤဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။\nေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_status_rejected">ျငင္းဆန္ထားေသာ</string>
-  <string name="transaction_details_header">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ား</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
-  <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကိုဖ်က္မည္</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
   <string name="askafriend_generating_link_message">သင့္ေငြေပးေခ်မႈလင့္္ခ္ &#8230; ကို ထုတ္ေပးေနပါသည္</string>
@@ -980,7 +980,9 @@
   <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1257,7 +1259,7 @@
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
-  <string name="rewards_promo_code_card_title">ပ႐ိုမိုကုဒ္မ်ား</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">အထူးအခြင့္အေရးမ်ား ရရွိရန္ ပ႐ိုမိုကုဒ္တစ္ခုကို အသုံးျပဳုပါ။</string>
   <string name="rewards_promo_code_status">အေျခအေန:</string>
   <string name="rewards_promo_code_status_active">သုံးႏိုင္ေသာ</string>

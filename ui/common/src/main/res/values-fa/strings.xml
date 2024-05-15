@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">این خرید ردشده است.\nبرای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_reverted_body">این خرید برگردانده شده است.\nبرای اطلاعات بیشتر با پشتیبانی تماس بگیرید.</string>
   <string name="transaction_status_rejected">ردشده</string>
-  <string name="transaction_details_header">جزییات تراکنش</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
   <string name="my_wallets_action_backup_wallet">پشتیبان‌گیری از کیف‌پول</string>
   <string name="my_wallets_action_verify_new_card">تایید کارت جدید</string>
-  <string name="my_wallets_action_delete_wallet">حذف کیف‌پول</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">از کسی بخواهید پرداخت کند</string>
   <string name="askafriend_generating_link_message">ما در حال تولید لینک پرداخت شما هستیم&#8230;</string>
@@ -981,7 +981,9 @@
   <string name="manage_cards_settings_add_title">افزودن کارت اعتباری / بانکی</string>
   <string name="manage_cards_settings_manage_title">مدیریت کارت‌ها</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">مدیریت کارت‌ها</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">مدیریت کارت‌های پرداختی خود</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1270,7 +1272,7 @@
   <string name="rewards_current_bonus_title">%s%% پاداش برای هر خرید</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">برداشت درآمد e-Skills شما.</string>
-  <string name="rewards_promo_code_card_title">کدهای پرومو</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">برای دریافت پیشنهادات ویژه، یک کد پرومو استفاده کنید!</string>
   <string name="rewards_promo_code_status">وضعیت:</string>
   <string name="rewards_promo_code_status_active">فعال</string>

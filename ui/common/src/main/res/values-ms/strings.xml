@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Pembelian ini telah ditolak.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_reverted_body">Pembelian ini telah dibatalkan.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Butiran transaksi</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
   <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
   <string name="my_wallets_action_verify_new_card">Sahkan kad baru</string>
-  <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
   <string name="askafriend_generating_link_message">Kami sedang menjana pautan pembayaran anda&#8230;</string>
@@ -980,7 +980,9 @@
   <string name="manage_cards_settings_add_title">Tambah kad kredit/debit</string>
   <string name="manage_cards_settings_manage_title">Urus kad</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Urus kad</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1257,7 +1259,7 @@
   <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Keluarkan pendapatan e-Skills anda.</string>
-  <string name="rewards_promo_code_card_title">Kod Promo</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Gunakan kod promo untuk dapat tawaran istimewa!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
