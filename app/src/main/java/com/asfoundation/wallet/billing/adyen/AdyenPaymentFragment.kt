@@ -554,6 +554,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     buyButton.visibility = INVISIBLE
     fiatPriceSkeleton.visibility = GONE
     appcPriceSkeleton.visibility = GONE
+    bindingCreditCardLayout?.composeView?.visibility = GONE
   }
 
   fun showLoadingMakingPayment() {
