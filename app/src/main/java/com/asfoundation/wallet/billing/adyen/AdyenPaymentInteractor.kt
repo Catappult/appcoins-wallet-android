@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.BuildConfig
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -140,7 +141,7 @@ class AdyenPaymentInteractor @Inject constructor(
         paymentType = "credit_card",
         walletAddress = addressModel.address,
         origin = null,
-        packageName = "com.appcoins.wallet",
+        packageName = BuildConfig.LIBRARY_PACKAGE_NAME,
         metadata = null,
         sku = null,
         callbackUrl = null,

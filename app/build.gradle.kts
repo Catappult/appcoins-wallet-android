@@ -82,7 +82,6 @@ dependencies {
   implementation(libs.bundles.androidx.lifecycle)
   implementation(libs.bundles.androidx.work)
   implementation(libs.bundles.androidx.compose)
-  implementation(libs.compose.lottie)
 
   implementation(libs.bundles.network)
 
@@ -110,7 +109,7 @@ dependencies {
 
   implementation(libs.bundles.analytics)
 
-  implementation(libs.lottie)
+  implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)

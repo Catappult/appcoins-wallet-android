@@ -32,12 +32,16 @@ class GetStoredCardsUseCase @Inject constructor(
         adyenPaymentRepository
           .getStoredCards(
             AdyenPaymentRepository.Methods.CREDIT_CARD,
-            "10",
+            DEFAULT_REQUIRED_UNUSED_VALUE,
             currency, // this shouldn't be dependent on the currency, the user should be able to see all cards listed. This limitation arises because we have 2 separate merchants
             wallet,
             ewt
           )
       }
+  }
+
+  companion object {
+    const val DEFAULT_REQUIRED_UNUSED_VALUE = "10"
   }
 
 }
