@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Deze aankoop is geweigerd.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_reverted_body">Deze aankoop is teruggedraaid.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_status_rejected">Geweigerd</string>
-  <string name="transaction_details_header">Transactiegegevens</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Wallet herstellen</string>
   <string name="my_wallets_action_backup_wallet">Back-up van wallet maken</string>
   <string name="my_wallets_action_verify_new_card">Nieuwe kaart verifiëren</string>
-  <string name="my_wallets_action_delete_wallet">Wallet verwijderen</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Vraag iemand om te betalen</string>
   <string name="askafriend_generating_link_message">We zijn je link om te betalen aan het aanmaken&#8230;</string>
@@ -981,7 +981,9 @@
   <string name="manage_cards_settings_add_title">Creditcard/betaalkaart toevoegen</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1270,7 +1272,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Neem je verdiensten met e-Skills op.</string>
-  <string name="rewards_promo_code_card_title">Actiecodes</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Gebruik een actiecode om speciale aanbiedingen te krijgen!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Actief</string>
