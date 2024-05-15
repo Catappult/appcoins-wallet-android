@@ -397,7 +397,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.layoutPreSelected.paymentMethodFee.text =
-        context?.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
+        context?.getString(
+          R.string.purchase_fees_and_taxes_known_disclaimer_body,
+          formattedValue,
+          fee.currency
+        )
     } else {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.GONE
     }

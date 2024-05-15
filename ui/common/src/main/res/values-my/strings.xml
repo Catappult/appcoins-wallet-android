@@ -538,6 +538,7 @@
   <string name="decline_button">ျငင္းဆန္မည္</string>
   <string name="get_started">စတင္မည္</string>
   <string name="existent_wallet">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">သင့္စိတ္ႀကိဳက္ဂိမ္းတြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။ က်န္တာကို ကြၽႏ္ုပ္တို႔တာဝန္ထားပါ။</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>

@@ -647,14 +647,14 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       FIAT_CURRENCY -> {
         setCurrencyInfo(
           fiatCode, fiatValue,
-          "$appcValue $appcCode", appcCode
+          "$appcValue $appcCode"
         )
       }
 
       APPC_C_CURRENCY -> {
         setCurrencyInfo(
           appcCode, appcValue,
-          "$fiatValue $fiatCode", fiatCode
+          "$fiatValue $fiatCode"
         )
       }
     }
@@ -662,7 +662,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   private fun setCurrencyInfo(
     mainCode: String, mainValue: String,
-    conversionValue: String, conversionCode: String
+    conversionValue: String
   ) {
     binding.mainCurrencyCode.text = mainCode
     if (mainValue != DEFAULT_VALUE) {
@@ -831,5 +831,11 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun lockRotation() {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  override fun showFee(visible: Boolean) {
+    val visibility = if (visible) View.VISIBLE else View.GONE
+    binding.infoFees.visibility = visibility
+    binding.icInfoFees.visibility = visibility
   }
 }
