@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">ही खरेदी अमान्य केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_reverted_body">ही खरेदी रक्कम परत केली गेली.\nअधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_status_rejected">अमान्य</string>
-  <string name="transaction_details_header">व्यवहार तपशील</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">वॉलेट परत मिळवा</string>
   <string name="my_wallets_action_backup_wallet">वॉलेट बॅकअप करा</string>
   <string name="my_wallets_action_verify_new_card">नविन कार्ड सत्यापित करा</string>
-  <string name="my_wallets_action_delete_wallet">वॉलेट मिटवा</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">कोणालातरी पैसे भरायला सांगा</string>
   <string name="askafriend_generating_link_message">आम्ही आपली पेमेंट लिंक&#8230; तयार करीत आहोत</string>
@@ -985,7 +985,9 @@
   <string name="manage_cards_settings_add_title">क्रेडीट/डेबीट कार्ड जोडा</string>
   <string name="manage_cards_settings_manage_title">कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">कार्डांचे व्यवस्थापन करा</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">आपल्या पेमेंट कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1291,7 +1293,7 @@
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
   <string name="rewards_eskills_card_title">ई-स्किल्स</string>
   <string name="rewards_eskills_card_body">आपली ई-स्किल्स कमाई काढा.</string>
-  <string name="rewards_promo_code_card_title">प्रोमो कोडस</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">खास सूट मिळविण्यासाठी प्रोमो कोड वापरा!</string>
   <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
