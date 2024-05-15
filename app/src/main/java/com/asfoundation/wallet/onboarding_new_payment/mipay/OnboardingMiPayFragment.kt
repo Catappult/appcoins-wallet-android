@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -53,6 +54,10 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     createResultLauncher()
     clickListeners()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+    viewModel.getPaymentLink(
+      RedirectComponent.getReturnUrl(requireContext())
+    )
+
   }
 
   override fun onStateChanged(state: OnboardingMiPayState) {

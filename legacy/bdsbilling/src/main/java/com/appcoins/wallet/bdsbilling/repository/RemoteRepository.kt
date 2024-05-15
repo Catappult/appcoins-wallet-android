@@ -393,6 +393,7 @@ class RemoteRepository(
     referrerUrl: String?,
     walletAddress: String,
     entityOemId: String?,
+    returnUrl: String?
   ): Single<MiPayTransaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -408,7 +409,7 @@ class RemoteRepository(
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
           authorization = ewt,
-          checkoutUrl = callback,
+          checkoutUrl = returnUrl,
         )
       }
 

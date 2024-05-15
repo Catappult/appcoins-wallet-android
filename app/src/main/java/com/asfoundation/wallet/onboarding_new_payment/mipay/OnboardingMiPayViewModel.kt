@@ -63,10 +63,6 @@ class OnboardingMiPayViewModel @Inject constructor(
   private var args: OnboardingMiPayFragmentArgs =
     OnboardingMiPayFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
-  init {
-    getPaymentLink()
-  }
-
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
       WebViewActivity.FAIL,
@@ -105,19 +101,20 @@ class OnboardingMiPayViewModel @Inject constructor(
     }
   }
 
-  fun stopTransactionStatusTimer() {
+  private fun stopTransactionStatusTimer() {
     jobTransactionStatus?.cancel()
     timerTransactionStatus.cancel()
     isTimerRunning = false
   }
 
-  private fun getPaymentLink() {
+  fun getPaymentLink(returnUrl: String) {
     getPaymentLinkUseCase(
       data = args.transactionBuilder,
       currency = args.currency,
       packageName = args.transactionBuilder.domain,
       amount = args.amount,
       paymentType = args.paymentType.subTypes.first(),
+      returnUrl = returnUrl
     ).asAsyncToState {
       args.transactionBuilder.let { transactionBuilder ->
         events.sendLocalNavigationToUrlEvents(
