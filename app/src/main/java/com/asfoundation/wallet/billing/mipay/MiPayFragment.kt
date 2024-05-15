@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.core.arch.SingleStateFragment
@@ -86,6 +87,7 @@ class MiPayFragment : BasePageViewFragment(),
         requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
         (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
+        RedirectComponent.getReturnUrl(requireContext())
       )
       viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
     } else {

@@ -21,6 +21,7 @@ class GetMiPayLinkUseCase @Inject constructor(
     paymentType: String,
     currency: String,
     packageName: String,
+    returnUrl: String
   ): Single<MiPayTransaction> {
     return walletService.getWalletAddress()
       .flatMap { address ->
@@ -37,7 +38,8 @@ class GetMiPayLinkUseCase @Inject constructor(
                 callback = data.callbackUrl,
                 referrerUrl = data.referrerUrl,
                 walletAddress = address,
-                entityOemId = attributionEntity.oemId
+                entityOemId = attributionEntity.oemId,
+                returnUrl = returnUrl,
               )
             }
           }

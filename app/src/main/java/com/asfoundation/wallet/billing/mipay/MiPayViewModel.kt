@@ -85,14 +85,16 @@ class MiPayViewModel @Inject constructor(
   fun getPaymentLink(
     transactionBuilder: TransactionBuilder,
     amount: String,
-    fiatCurrency: String
+    fiatCurrency: String,
+    returnUrl: String
   ) {
     getMiPayLinkUseCase(
       data = transactionBuilder,
       currency = fiatCurrency,
       packageName = transactionBuilder.domain,
       amount = amount,
-      paymentType = PaymentType.MI_PAY.subTypes.first()
+      paymentType = PaymentType.MI_PAY.subTypes.first(),
+      returnUrl = returnUrl
     ).asAsyncToState {
       copy(transaction = it)
     }.doOnSuccess {
