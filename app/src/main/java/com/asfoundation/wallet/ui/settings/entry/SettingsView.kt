@@ -49,6 +49,10 @@ interface SettingsView {
 
   fun setManageCardsPreference()
 
+  fun setAddNewCardPreference()
+
+  fun setSkeletonCardPreference()
+
   fun removeFingerprintPreference()
 
   fun setDisabledFingerPrintPreference()

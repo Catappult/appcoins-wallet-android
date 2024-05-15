@@ -126,7 +126,6 @@ class ManageCardsFragment : BasePageViewFragment() {
     val isCardError by manageCardSharedViewModel.isCardError
     LaunchedEffect(key1 = isCardError) {
       if (isCardError) {
-        manageCardsAnalytics.addedNewCardSuccessEvent()
         viewModel.getCards()
         Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
           .show()

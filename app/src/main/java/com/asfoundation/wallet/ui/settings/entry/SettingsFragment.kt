@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.ComposeView
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
@@ -21,12 +22,14 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
+import com.asfoundation.wallet.manage_cards.ManageCardSharedViewModel
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -49,9 +52,15 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
+  lateinit var manageCardsAnalytics: ManageCardsAnalytics
+
+  @Inject
   lateinit var presenter: SettingsPresenter
+
   private var switchSubject: PublishSubject<Unit>? = null
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
+
+  private val manageCardSharedViewModel: ManageCardSharedViewModel by activityViewModels()
 
   companion object {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
@@ -82,6 +91,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       setContent {
         TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
       }
+    }
+    if (manageCardSharedViewModel.isCardSaved.value) {
+      manageCardsAnalytics.addedNewCardSuccessEvent()
+      Toast.makeText(context, R.string.card_added_title, Toast.LENGTH_LONG)
+        .show()
+      manageCardSharedViewModel.resetCardResult()
+    } else if (manageCardSharedViewModel.isCardError.value) {
+      Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+        .show()
+      manageCardSharedViewModel.resetCardResult()
     }
   }
 
@@ -267,11 +286,30 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun setManageCardsPreference() {
     val manageCardsPreference = findPreference<Preference>("pref_manage_cards")
+    manageCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
+    manageCardsPreference?.title = getString(R.string.manage_cards_settings_manage_title)
     manageCardsPreference?.setOnPreferenceClickListener {
       presenter.onManageCardsPreferenceClick(navController())
       false
     }
   }
+
+  override fun setSkeletonCardPreference() {
+    val manageCardsPreference = findPreference<Preference>("pref_manage_cards")
+    manageCardsPreference?.layoutResource = R.layout.skeleton_settings
+    manageCardsPreference?.title = ""
+  }
+
+  override fun setAddNewCardPreference() {
+    val addCardsPreference = findPreference<Preference>("pref_manage_cards")
+    addCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
+    addCardsPreference?.title = getString(R.string.manage_cards_settings_add_title)
+    addCardsPreference?.setOnPreferenceClickListener {
+      presenter.onAddCardsPreferenceClick(navController())
+      false
+    }
+  }
+
 
   override fun setIssueReportPreference() {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")

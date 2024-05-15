@@ -95,6 +95,10 @@
       app:destination="@id/manage_cards_graph" />
 
   <action
+      android:id="@+id/action_navigate_to_add_cards"
+      app:destination="@id/manage_adyen_payment_fragment" />
+
+  <action
       android:id="@+id/action_navigate_to_settings"
       app:destination="@id/settings_fragment">
     <argument
@@ -276,5 +280,10 @@
   <fragment
       android:id="@+id/transfer_funds_success_fragment"
       android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment" />
+
+  <fragment
+      android:id="@+id/manage_adyen_payment_fragment"
+      android:name="com.asfoundation.wallet.manage_cards.ManageAdyenPaymentFragment"
+      tools:layout="@layout/manage_adyen_payment_fragment"></fragment>
 
 </navigation>
