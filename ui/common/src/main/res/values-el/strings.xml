@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_reverted_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_status_rejected">Απορρίφθηκε</string>
-  <string name="transaction_details_header">Λεπτομέρειες συναλλαγής</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">ΑΦΜ</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
   <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="my_wallets_action_verify_new_card">Επαληθεύστε τη νέα κάρτα</string>
-  <string name="my_wallets_action_delete_wallet">Διαγραφή wallet</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ζητήστε από άλλον να πληρώσει</string>
   <string name="askafriend_generating_link_message">Δημιουργούμε τον σύνδεσμο πληρωμής σας&#8230;</string>
@@ -982,7 +982,9 @@ Wallets</item>
   <string name="manage_cards_settings_add_title">Προσθήκη πιστωτικής/χρεωστικής κάρτας</string>
   <string name="manage_cards_settings_manage_title">Διαχείριση καρτών</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Διαχείριση καρτών</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Διαχειριστείτε τις κάρτες πληρωμής σας</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1271,7 +1273,7 @@ Wallets</item>
   <string name="rewards_current_bonus_title">%s%% bonus σε κάθε αγορά</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Κάντε ανάληψη των κερδών σας e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Κωδικοί Προσφοράς</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Χρησιμοποιήστε έναν κωδικό προσφοράς για να λάβετε ειδικές προσφορές!</string>
   <string name="rewards_promo_code_status">Κατάσταση:</string>
   <string name="rewards_promo_code_status_active">Ενεργές</string>
