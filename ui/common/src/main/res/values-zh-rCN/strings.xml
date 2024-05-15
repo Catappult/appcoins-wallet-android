@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">此次购买已被拒绝。\n有关更多详细信息，请联系支持团队。</string>
   <string name="transaction_reverted_body">此次购买已撤回。\n有关更多详细信息，请联系支持团队。</string>
   <string name="transaction_status_rejected">失败</string>
-  <string name="transaction_details_header">交易明细</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">交易ID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
   <string name="my_wallets_action_verify_new_card">验证新卡</string>
-  <string name="my_wallets_action_delete_wallet">删除钱包</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
   <string name="askafriend_generating_link_message">我们正在生成支付链接&#8230;</string>
@@ -980,7 +980,9 @@
   <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">管理支付卡</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1257,7 +1259,7 @@
   <string name="rewards_current_bonus_title">每一次购买都将获得%s%%的奖金</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">将您的 e-Skills 收益提现。</string>
-  <string name="rewards_promo_code_card_title">促销码</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">输入促销码，以获得特别优惠！</string>
   <string name="rewards_promo_code_status">状态:</string>
   <string name="rewards_promo_code_status_active">激活</string>
