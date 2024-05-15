@@ -108,7 +108,7 @@ fun CardListExpandedScreen(
           horizontalArrangement = Arrangement.SpaceBetween,
           verticalAlignment = Alignment.CenterVertically
         ) {
-          Column(modifier = Modifier.padding(start = 8.dp)) {
+          Column(modifier = Modifier.padding(start = 8.dp).weight(0.75f)) {
             Text(
               text = stringResource(id = R.string.manage_cards_update_disclaimer_1),
               color = WalletColors.styleguide_dark_grey,
@@ -121,7 +121,11 @@ fun CardListExpandedScreen(
               fontWeight = FontWeight.Bold
             )
           }
-          TextButton(onClick = onGotItClick, modifier = Modifier.padding(end = 8.dp)) {
+          TextButton(
+            onClick = onGotItClick,
+            modifier = Modifier
+              .weight(0.25f),
+          ) {
             Text(
               text = stringResource(id = R.string.got_it_button),
               fontWeight = FontWeight.Bold,
@@ -186,6 +190,17 @@ fun PaymentCardItem(storedCard: StoredCard, onChangeCardClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewBackupDialogCardAlertBottomSheet() {
+  CardListExpandedScreen({ _, _ -> {} }, {}, {}, listOf(
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
+    StoredCard("4325", com.asf.wallet.R.drawable.ic_card_brand_american_express, null, true),
+    StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_discover, null, false)
+  ), true
+  )
+}
+
+@Preview(device = "spec:width=800px,height=900px,dpi=440")
+@Composable
+fun PreviewBackupDialogCardAlertBottomSheetSmall() {
   CardListExpandedScreen({ _, _ -> {} }, {}, {}, listOf(
     StoredCard("1234", com.asf.wallet.R.drawable.ic_card_brand_visa, null, false),
     StoredCard("4325", com.asf.wallet.R.drawable.ic_card_brand_american_express, null, true),

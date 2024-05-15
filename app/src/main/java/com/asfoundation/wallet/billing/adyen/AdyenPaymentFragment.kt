@@ -413,17 +413,33 @@ class AdyenPaymentFragment : BasePageViewFragment() {
         layoutParams.height = when (viewModel.cardsList.size) {
           1 -> {
             if (cardPaymentDataSource.isGotItVisible()) {
-              170.toPx(requireContext())
+              160.toPx(requireContext())
             } else {
-              130.toPx(requireContext())
+              100.toPx(requireContext())
+            }
+          }
+
+          2 -> {
+            if (cardPaymentDataSource.isGotItVisible()) {
+              200.toPx(requireContext())
+            } else {
+              142.toPx(requireContext())
+            }
+          }
+
+          3 -> {
+            if (cardPaymentDataSource.isGotItVisible()) {
+              240.toPx(requireContext())
+            } else {
+              184.toPx(requireContext())
             }
           }
 
           else -> {
             if (cardPaymentDataSource.isGotItVisible()) {
-              230.toPx(requireContext())
+              220.toPx(requireContext())
             } else {
-              170.toPx(requireContext())
+              163.toPx(requireContext())
             }
           }
         }
