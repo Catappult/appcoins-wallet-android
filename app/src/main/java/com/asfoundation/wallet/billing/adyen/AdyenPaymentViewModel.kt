@@ -126,7 +126,10 @@ class AdyenPaymentViewModel @Inject constructor(
       SingleEventState()
 
     data class showVerificationError(val isWalletVerified: Boolean) : SingleEventState()
-    data class showVerification(val isWalletVerified: Boolean) : SingleEventState()
+    data class showVerification(
+      val isWalletVerified: Boolean,
+      val paymentType: String
+    ) : SingleEventState()
     data class handleCreditCardNeedCVC(val needCVC: Boolean) : SingleEventState()
     data class close(val bundle: Bundle?) : SingleEventState()
     data class submitUriResult(val uri: Uri) : SingleEventState()
@@ -757,7 +760,10 @@ class AdyenPaymentViewModel @Inject constructor(
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
       .doOnNext { isWalletVerified ->
-        sendSingleEvent(SingleEventState.showVerification(isWalletVerified))
+        sendSingleEvent(SingleEventState.showVerification(
+          isWalletVerified,
+          paymentData.paymentType
+        ))
       }
       .subscribe({}, { it.printStackTrace() })
     )

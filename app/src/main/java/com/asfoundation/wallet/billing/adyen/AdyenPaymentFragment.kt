@@ -295,7 +295,8 @@ class AdyenPaymentFragment : BasePageViewFragment() {
             )
 
             is AdyenPaymentViewModel.SingleEventState.showVerification -> showVerification(
-              isWalletVerified = event.isWalletVerified
+              isWalletVerified = event.isWalletVerified,
+              paymentType = event.paymentType
             )
 
             is AdyenPaymentViewModel.SingleEventState.handleCreditCardNeedCVC -> handleCreditCardNeedCVC(
@@ -618,7 +619,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   fun showPaymentError() = showSpecificError(R.string.purchase_error_payment_rejected)
 
-  override fun showVerification(isWalletVerified: Boolean, paymentType: String) =
+  fun showVerification(isWalletVerified: Boolean, paymentType: String) =
     if (paymentType == PaymentType.PAYPAL.name) iabView.showPayPalVerification()
     else iabView.showCreditCardVerification(isWalletVerified)
 
