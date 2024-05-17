@@ -178,7 +178,9 @@ interface IabView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun showVerification(isWalletVerified: Boolean)
+  fun showCreditCardVerification(isWalletVerified: Boolean)
+
+  fun showPayPalVerification()
 
   fun showError(@StringRes error: Int)
 

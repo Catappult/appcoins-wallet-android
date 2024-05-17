@@ -92,7 +92,7 @@ interface AdyenPaymentView {
 
   fun getVerificationClicks(): Observable<Boolean>
 
-  fun showVerification(isWalletVerified: Boolean)
+  fun showVerification(isWalletVerified: Boolean, paymentType: String)
 
   fun handle3DSAction(action: Action)
 

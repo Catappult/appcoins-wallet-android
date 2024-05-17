@@ -548,8 +548,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun showPaymentError() = showSpecificError(R.string.purchase_error_payment_rejected)
 
-  override fun showVerification(isWalletVerified: Boolean) =
-    iabView.showVerification(isWalletVerified)
+  override fun showVerification(isWalletVerified: Boolean, paymentType: String) =
+    if (paymentType == PaymentType.PAYPAL.name) iabView.showPayPalVerification()
+    else iabView.showCreditCardVerification(isWalletVerified)
 
   override fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean) {
     fragment_credit_card_authorization_progress_bar.visibility = GONE

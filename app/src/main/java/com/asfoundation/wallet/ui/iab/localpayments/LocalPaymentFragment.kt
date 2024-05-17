@@ -132,7 +132,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
 
   override fun getGotItClick() = RxView.clicks(binding.pendingUserPaymentView.gotItButton)
 
-  override fun showVerification() = iabView.showVerification(false)
+  override fun showCreditCardVerification() = iabView.showCreditCardVerification(false)
 
   override fun showProcessingLoading() {
     status = LOADING

@@ -494,7 +494,7 @@ class AdyenPaymentPresenter(
     disposables.add(view.getVerificationClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext { isWalletVerified -> view.showVerification(isWalletVerified) }
+      .doOnNext { isWalletVerified -> view.showVerification(isWalletVerified, paymentType) }
       .subscribe({}, { it.printStackTrace() })
     )
   }

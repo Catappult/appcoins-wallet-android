@@ -25,8 +25,8 @@ class CarrierPaymentNavigator @Inject constructor(
 
   fun uriResults(): Observable<Uri> = uriNavigator.uriResults()
 
-  fun navigateToVerification() {
-    iabActivity.showVerification(false)
+  fun navigateToCreditCardVerification() {
+    iabActivity.showCreditCardVerification(false)
   }
 
   fun navigateToError(@StringRes messageStringRes: Int) {

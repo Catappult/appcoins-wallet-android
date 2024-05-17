@@ -18,6 +18,8 @@ interface TopUpActivityView {
     topUpData: TopUpPaymentData
   )
 
+  fun navigateToPayPalVerification()
+
   fun finish(data: Bundle)
 
   fun finishActivity(data: Bundle)
@@ -40,7 +42,7 @@ interface TopUpActivityView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun getTryAgainClicks(): Observable<Any>
 
