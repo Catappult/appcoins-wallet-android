@@ -156,13 +156,10 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
           error.errorInfo?.httpCode != null -> {
             val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
-            if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE)
-              refusalCode?.let { code ->
-                viewModel.handleFraudFlow(
-                  error,
-                  code
-                )
-              }
+            if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) viewModel.handleFraudFlow(
+              error,
+              AdyenErrorCodeMapper.FRAUD
+            )
             else showSpecificError(resId)
           }
 
