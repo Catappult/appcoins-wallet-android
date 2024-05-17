@@ -141,7 +141,7 @@ class AdyenPaymentInteractor @Inject constructor(
         paymentType = "credit_card",
         walletAddress = addressModel.address,
         origin = null,
-        packageName = BuildConfig.LIBRARY_PACKAGE_NAME,
+        packageName = "com.appcoins.wallet",  // necessary for the verification request
         metadata = null,
         sku = null,
         callbackUrl = null,
