@@ -155,7 +155,15 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
           }
 
           error.errorInfo?.httpCode != null -> {
-            showSpecificError(servicesErrorCodeMapper.mapError(error.errorInfo?.errorType))
+            val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
+            if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE)
+              refusalCode?.let { code ->
+                viewModel.handleFraudFlow(
+                  error,
+                  code
+                )
+              }
+            else showSpecificError(resId)
           }
 
           else -> {
@@ -228,4 +236,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     else navigator.navigateToVerifyCreditCard(walletVerified)
   }
 
+  companion object {
+    private const val HTTP_FRAUD_CODE = 403
+  }
 }
