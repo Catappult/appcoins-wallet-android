@@ -34,7 +34,7 @@ corektx_version = "1.7.0"
 coroutines_version = "1.6.1"
 cpp_version = "2.5.4"
 dagger_version = "2.27"
-desugar_version = "1.1.5"
+desugar_version = "2.0.4"
 epoxy_version = "4.5.0"
 erc681_version = "0.36"
 ethereumj_sdk_version = "0.5.0.0"
@@ -95,6 +95,7 @@ paging_compose_version = "1.0.0-alpha19"
 fyber_sdk_version = "3.42.0"
 vk_pay_version = "0.112-beta24429"
 vk_pay_checkout_version = "0.112-beta24429"
+truelayer_payments_version = "2.6.0"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -245,6 +246,8 @@ test-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine_ver
 vk-pay-oauth = { module = "com.vk:oauth-vk", version.ref = "vk_pay_version" }
 vk-sdk-pub = { module = "com.vk:vksdk-pub", version.ref = "vk_pay_version" }
 vk-checkout = { module = "com.vk:vkpay-checkout", version.ref = "vk_pay_checkout_version" }
+
+truelayer-payments = { module = "com.truelayer.payments:ui", version.ref = "truelayer_payments_version" }
 
 # Dependencies of the included build-logic
 gradlePlugin-android = { module = "com.android.tools.build:gradle", version.ref = "gradle_plugin_version" }

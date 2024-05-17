@@ -129,6 +129,8 @@ dependencies {
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
 
+  implementation(libs.truelayer.payments)
+
   implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
