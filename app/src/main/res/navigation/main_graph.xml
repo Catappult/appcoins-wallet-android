@@ -90,6 +90,7 @@
 
   <include app:graph="@navigation/manage_wallet_graph" />
 
+  <include app:graph="@navigation/manage_cards_graph" />
 
   <include app:graph="@navigation/home_graph" />
 
@@ -97,6 +98,14 @@
   <action
       android:id="@+id/action_navigate_to_manage_wallet"
       app:destination="@id/manage_wallet_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_manage_cards"
+      app:destination="@id/manage_cards_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_add_cards"
+      app:destination="@id/manage_adyen_payment_fragment" />
 
   <action
       android:id="@+id/action_navigate_to_settings"
@@ -280,5 +289,10 @@
   <fragment
       android:id="@+id/transfer_funds_success_fragment"
       android:name="com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment" />
+
+  <fragment
+      android:id="@+id/manage_adyen_payment_fragment"
+      android:name="com.asfoundation.wallet.manage_cards.ManageAdyenPaymentFragment"
+      tools:layout="@layout/manage_adyen_payment_fragment"></fragment>
 
 </navigation>

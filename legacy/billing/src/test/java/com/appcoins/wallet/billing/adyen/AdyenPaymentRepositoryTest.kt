@@ -66,6 +66,7 @@ class AdyenPaymentRepositoryTest {
     private const val TEST_EWT = "123456789"
     private const val TEST_FIAT_VALUE = "2.0"
     private const val TEST_FIAT_CURRENCY = "EUR"
+    private const val TEST_CARD_ADDRESS = "12345"
     private const val TEST_UID = "uid"
   }
 
@@ -249,7 +250,8 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
       adyenApi.disablePayments(
         DisableWallet(
-          TEST_WALLET_ADDRESS
+          TEST_WALLET_ADDRESS,
+          null
         )
       )
     )
@@ -268,7 +270,8 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
       adyenApi.disablePayments(
         DisableWallet(
-          TEST_WALLET_ADDRESS
+          TEST_WALLET_ADDRESS,
+          null
         )
       )
     )

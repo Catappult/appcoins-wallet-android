@@ -9,7 +9,11 @@ import io.reactivex.Observable
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
+  fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  )
 
   fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData)
 

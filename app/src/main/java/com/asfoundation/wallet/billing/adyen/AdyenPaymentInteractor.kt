@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.billing.BuildConfig
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -119,6 +120,40 @@ class AdyenPaymentInteractor @Inject constructor(
           )
         }
       }
+  }
+
+  fun addCard(
+    adyenPaymentMethod: ModelObject, hasCvc: Boolean,
+    supportedShopperInteraction: List<String>,
+    returnUrl: String, value: String, currency: String
+  ): Single<PaymentModel> {
+    return walletService.getAndSignCurrentWalletAddress().flatMap {
+      val addressModel = it
+      adyenPaymentRepository.makePayment(
+        adyenPaymentMethod = adyenPaymentMethod,
+        shouldStoreMethod = true,
+        hasCvc = hasCvc,
+        supportedShopperInteractions = supportedShopperInteraction,
+        returnUrl = returnUrl,
+        value = value,
+        currency = currency,
+        reference = null,
+        paymentType = "credit_card",
+        walletAddress = addressModel.address,
+        origin = null,
+        packageName = "com.appcoins.wallet",  // necessary for the verification request
+        metadata = null,
+        sku = null,
+        callbackUrl = null,
+        transactionType = "VERIFICATION",
+        entityOemId = null,
+        entityDomain = null,
+        entityPromoCode = null,
+        userWallet = null,
+        walletSignature = addressModel.signedAddress,
+        referrerUrl = null
+      )
+    }
   }
 
   fun makeTopUpPayment(

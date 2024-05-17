@@ -275,6 +275,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
           isSubscription = isSubscription,
           isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
           frequency = frequency,
+          paymentStateEnum = null
         )
       )
       .commit()

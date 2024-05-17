@@ -18,6 +18,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ItemTopupPaymentMethodBinding
 import com.asfoundation.wallet.GlideApp
+import com.asfoundation.wallet.manage_cards.models.StoredCard
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -33,16 +34,23 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     onClickPaypalLogout: () -> Unit,
     disposables: CompositeDisposable,
     showPayPalLogout: Subject<Boolean>,
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
   ) {
+    val imageUrl = if (data.id == "credit_card" && cardData != null)
+      cardData.cardIcon
+    else
+      data.iconUrl
+
     GlideApp.with(itemView.context)
-      .load(data.iconUrl)
+      .load(imageUrl)
       .into(binding.paymentMethodIc)
 
     val selected = data.isEnabled && checked
     binding.radioButton.isChecked = selected
     binding.radioButton.isEnabled = data.isEnabled
 
-    handleDescription(data, selected, data.isEnabled)
+    handleDescription(data, selected, data.isEnabled, cardData, onChangeCardCallback)
     handleFee(data.fee, data.price)
 
     binding.selectedBackground.visibility = View.VISIBLE
@@ -93,8 +101,22 @@ class TopupPaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(it
     }
   }
 
-  private fun handleDescription(data: PaymentMethod, selected: Boolean, isEnabled: Boolean) {
-    binding.paymentMethodDescription.text = data.label
+  private fun handleDescription(
+    data: PaymentMethod,
+    selected: Boolean,
+    isEnabled: Boolean,
+    cardData: StoredCard?,
+    onChangeCardCallback: () -> Unit,
+  ) {
+    if (cardData != null && data.id == "credit_card") {
+      binding.paymentMethodDescription.text = "**** ".plus(cardData.cardLastNumbers)
+      binding.changeCardButton.visibility = if (selected) View.VISIBLE else View.GONE
+      binding.changeCardButton.setOnClickListener {
+        onChangeCardCallback()
+      }
+    } else {
+      binding.paymentMethodDescription.text = data.label
+    }
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_light_grey)

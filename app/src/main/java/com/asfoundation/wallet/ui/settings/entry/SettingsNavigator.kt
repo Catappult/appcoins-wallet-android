@@ -22,6 +22,14 @@ class SettingsNavigator @Inject constructor(private val fragment: Fragment) {
     navController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
+  fun navigateToManageCards(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_manage_cards)
+  }
+
+  fun navigateToAddCards(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_add_cards)
+  }
+
   fun navigateToChangeCurrency(navController: NavController) {
     navController.navigate(R.id.action_navigate_to_change_fiat_currency)
   }

@@ -58,6 +58,8 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
 
+    const val WALLET_PAYMENT_START_CARD_LIST = "wallet_payment_start_change_card_prompt_click"
+
   }
 
   var startedIntegration: String? = null
@@ -191,6 +193,15 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(ERROR to (error ?: "")),
       WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendShowStoredCardList() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_PAYMENT_START_CARD_LIST,
       AnalyticsManager.Action.CLICK,
       WALLET
     )

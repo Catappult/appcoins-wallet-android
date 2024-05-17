@@ -109,7 +109,7 @@ dependencies {
 
   implementation(libs.bundles.analytics)
 
-  implementation(libs.lottie)
+  implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
