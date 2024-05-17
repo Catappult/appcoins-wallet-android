@@ -187,8 +187,8 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
     iabView.lockRotation();
   }
 
-  @Override public void showVerification() {
-    iabView.showVerification(false);
+  @Override public void showCreditCardVerification() {
+    iabView.showCreditCardVerification(false);
   }
 
   @Override public void onAttach(Context context) {

@@ -17,6 +17,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -99,13 +100,22 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToNavigationBar -> navigator.navigateToNavBarFragment(
         navController
       )
+
+      MainActivitySideEffect.NavigateToPayPalVerification -> navigator.navigateToPayPalVerificationFragment(
+        navController
+      )
     }
   }
 
   companion object {
-    fun newIntent(context: Context, supportNotificationClicked: Boolean): Intent {
+    fun newIntent(
+      context: Context,
+      supportNotificationClicked: Boolean,
+      isPayPalVerificationRequired: Boolean = false
+    ): Intent {
       return Intent(context, MainActivity::class.java).apply {
         putExtra(SUPPORT_NOTIFICATION_CLICK, supportNotificationClicked)
+        putExtra(PAYPAL_VERIFICATION_REQUIRED, isPayPalVerificationRequired)
       }
     }
   }

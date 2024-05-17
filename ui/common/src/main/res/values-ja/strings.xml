@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">この購入は却下されました。\nサポートにお問い合わせください。</string>
   <string name="transaction_reverted_body">この購入は取り消されました。\n詳しくはサポートにお問い合わせください。</string>
   <string name="transaction_status_rejected">拒否</string>
-  <string name="transaction_details_header">トランザクション詳細</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ウォレットの復元</string>
   <string name="my_wallets_action_backup_wallet">ウォレットをバックアップ</string>
   <string name="my_wallets_action_verify_new_card">新しいカードの認証</string>
-  <string name="my_wallets_action_delete_wallet">ウオレットの削除</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">誰かに支払いをしてもらう</string>
   <string name="askafriend_generating_link_message">支払いリンクを生成しています&#8230;</string>
@@ -980,7 +980,9 @@
   <string name="manage_cards_settings_add_title">クレジット/デビットカードの追加</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">カードの管理</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1257,7 +1259,7 @@
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skillsの収益を引き出す</string>
-  <string name="rewards_promo_code_card_title">プロモーションコード</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
   <string name="rewards_promo_code_status">状況:</string>
   <string name="rewards_promo_code_status_active">有効</string>

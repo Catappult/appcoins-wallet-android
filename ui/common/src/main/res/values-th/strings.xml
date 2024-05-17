@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">การซื้อนี้ถูกปฏิเสธ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_reverted_body">การซื้อนี้ถูกเปลี่ยนกลับ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
   <string name="transaction_status_rejected">ปฏิเสธ</string>
-  <string name="transaction_details_header">รายละเอียดธุรกรรม</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">เลขที่ภาษี</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
   <string name="my_wallets_action_verify_new_card">ยืนยันบัตรใหม่</string>
-  <string name="my_wallets_action_delete_wallet">ลบวอลเล็ต</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
   <string name="askafriend_generating_link_message">พวกเรากำลังสร้างลิงค์การชำระเงินของคุณ&#8230;</string>
@@ -982,7 +982,9 @@
   <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1259,7 +1261,7 @@
   <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">ถอนรายได้ e-Skills ของคุณ</string>
-  <string name="rewards_promo_code_card_title">รหัสโปรโม</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">ใส่ Promo Code เพื่อรับข้อเสนอพิเศษ!</string>
   <string name="rewards_promo_code_status">สถานะ:</string>
   <string name="rewards_promo_code_status_active">ใช้งาน</string>

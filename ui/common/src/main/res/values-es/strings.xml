@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Esta compra ha sido rechazada.\nPara más información, ponte en contacto con nosotros.</string>
   <string name="transaction_reverted_body">Esta compra ha sido revertida.\nPara más información, ponte en contacto con nosotros.</string>
   <string name="transaction_status_rejected">Rechazada</string>
-  <string name="transaction_details_header">Detalles de la transacción</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
   <string name="my_wallets_action_backup_wallet">Hacer backup</string>
   <string name="my_wallets_action_verify_new_card">Verificar nueva tarjeta</string>
-  <string name="my_wallets_action_delete_wallet">Eliminar wallet</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pedir a alguien</string>
   <string name="askafriend_generating_link_message">Estamos generando el enlace de pago&#8230;</string>
@@ -981,7 +981,9 @@
   <string name="manage_cards_settings_add_title">Añadir tarjeta de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gestionar tarjetas</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Gestionar tarjetas</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Gestiona tus tarjetas de pago</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1270,7 +1272,7 @@
   <string name="rewards_current_bonus_title">%s%% de bonus en todas las compras</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retira tus premios de e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Código promocional</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">¡Usa un código promocional para recibir ofertas!</string>
   <string name="rewards_promo_code_status">Estado:</string>
   <string name="rewards_promo_code_status_active">Activa</string>

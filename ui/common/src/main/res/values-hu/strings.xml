@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Ezt a vásárlást elutasították.\nTovábbi információért vedd fel a kapcsolatot az ügyfélszolgálattal.</string>
   <string name="transaction_reverted_body">Ezt a vásárlást visszavonták.\nTovábbi információért vedd fel a kapcsolatot az ügyfélszolgálattal.</string>
   <string name="transaction_status_rejected">Elutasítva</string>
-  <string name="transaction_details_header">A tranzakció részletei</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins-ok fogadásához igazold, hogy ember vagy</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
   <string name="my_wallets_action_backup_wallet">Tárca biztonsági mentése</string>
   <string name="my_wallets_action_verify_new_card">Új kártya hitelesítése</string>
-  <string name="my_wallets_action_delete_wallet">Tárca törlése</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Kérj meg valakit, hogy fizesse ki</string>
   <string name="askafriend_generating_link_message">Készül a fizetési link&#8230;</string>
@@ -981,7 +981,9 @@
   <string name="manage_cards_settings_add_title">Hitelkártya/bankkártya hozzáadása</string>
   <string name="manage_cards_settings_manage_title">Kártyák kezelése</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Kártyák kezelése</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Fizetési kártyák kezelése</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1270,7 +1272,7 @@
   <string name="rewards_current_bonus_title">%s%% bónusz minden vásárlás után</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Az e-Skill jutalmak felvétele.</string>
-  <string name="rewards_promo_code_card_title">Promóciós kódok</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Különleges ajánlatokért használj promóciós kódot!</string>
   <string name="rewards_promo_code_status">Állapot:</string>
   <string name="rewards_promo_code_status_active">Aktív</string>

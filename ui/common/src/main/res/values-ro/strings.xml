@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Această achiziție a fost respinsă.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_reverted_body">Această achiziție a fost restituită.\nPentru mai multe informații, contactează echipa de asistență.</string>
   <string name="transaction_status_rejected">Respinsă</string>
-  <string name="transaction_details_header">Detalii tranzacție</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">ID tranz.</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Recuperează portofel</string>
   <string name="my_wallets_action_backup_wallet">Copie de rezervă portofel</string>
   <string name="my_wallets_action_verify_new_card">Verifică un card nou</string>
-  <string name="my_wallets_action_delete_wallet">Șterge portofel</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Roagă pe cineva să plătească</string>
   <string name="askafriend_generating_link_message">Îți generăm linkul de plată&#8230;</string>
@@ -982,7 +982,9 @@
   <string name="manage_cards_settings_add_title">Adaugă card de credit/debit</string>
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
   <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1283,7 +1285,7 @@
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retrage-ți câștigurile e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Coduri Promo</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Folosește un Cod Promo pentru oferte speciale!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Activ</string>

@@ -7,7 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -38,7 +40,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.usecases.GetPaymentInfoFilterByCardModelUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.*
+import com.asfoundation.wallet.util.AdyenCardView
+import com.asfoundation.wallet.util.unregisterProvider
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -388,7 +391,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.bonusLayout.root.visibility = VISIBLE
   }
 
-  override fun showVerification() = topUpView.showVerification()
+  override fun showVerification(paymentType: String) =
+    if (paymentType == PaymentType.PAYPAL.name) topUpView.navigateToPayPalVerification()
+    else topUpView.showCreditCardVerification()
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))

@@ -37,7 +37,7 @@ interface LocalPaymentView {
 
   fun getSupportIconClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun setupUi(bonus: String?)
 

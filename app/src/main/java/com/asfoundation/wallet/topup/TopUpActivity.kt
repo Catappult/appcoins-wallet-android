@@ -29,6 +29,7 @@ import com.asfoundation.wallet.topup.vkPayment.VkPaymentTopUpFragment
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -121,7 +122,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     views.fragmentContainer.visibility = View.VISIBLE
   }
 
-  override fun showVerification() {
+  override fun showCreditCardVerification() {
     views.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this)
       .apply {
@@ -204,6 +205,16 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
         )
       )
       .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+      .commit()
+  }
+
+  override fun navigateToPayPalVerification() {
+    supportFragmentManager.beginTransaction()
+      .add(
+        R.id.onboarding_content,
+        VerificationPaypalFragment()
+      )
+      .addToBackStack(VerificationPaypalFragment::class.java.simpleName)
       .commit()
   }
 
