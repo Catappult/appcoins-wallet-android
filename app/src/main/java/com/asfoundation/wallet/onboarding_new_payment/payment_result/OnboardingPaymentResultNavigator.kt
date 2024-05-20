@@ -5,8 +5,10 @@ import android.content.pm.PackageManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
+import com.asf.wallet.NavBarGraphDirections
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
 import javax.inject.Inject
@@ -48,8 +50,8 @@ class OnboardingPaymentResultNavigator @Inject constructor(
     )
   }
 
-  fun navigateToVerifyPayPal() {
-    fragment.findNavController()
-      .navigate(OnboardingPaymentResultFragmentDirections.actionNavigateToVerifyPaypal())
+  fun navigateToVerifyPayPal(navController: NavController) {
+    navController
+      .navigate(NavBarGraphDirections.actionNavigateToVerifyPaypal())
   }
 }

@@ -1,10 +1,12 @@
 package com.appcoins.wallet.billing
 
+import java.io.Serializable
+
 data class ErrorInfo(
   val httpCode: Int? = null, val messageCode: String? = null,
   val text: String? = null,
   val errorType: ErrorType? = ErrorType.UNKNOWN
-) {
+) : Serializable {
 
   enum class ErrorType {
     BLOCKED,

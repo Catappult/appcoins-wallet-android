@@ -96,10 +96,6 @@
         app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
 
     <action
-        android:id="@+id/action_navigate_to_verify_paypal"
-        app:destination="@id/verify_paypal_wallet_fragment" />
-
-    <action
         android:id="@+id/action_navigate_to_verify_credit_card"
         app:destination="@id/verify_credit_card_wallet_activity" />
   </fragment>
@@ -112,10 +108,6 @@
         android:name="is_wallet_verified"
         app:argType="boolean" />
   </activity>
-
-  <fragment
-      android:id="@+id/verify_paypal_wallet_fragment"
-      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment" />
 
   <fragment
       android:id="@+id/onboarding_local_payment_fragment"
