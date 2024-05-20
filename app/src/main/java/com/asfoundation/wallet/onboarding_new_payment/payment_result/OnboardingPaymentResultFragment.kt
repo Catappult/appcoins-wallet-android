@@ -8,6 +8,8 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
@@ -32,6 +34,8 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   private val sharedViewModel: OnboardingSharedHeaderViewModel by activityViewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
+  private lateinit var outerNavController: NavController
+
 
   @Inject
   lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
@@ -54,6 +58,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    initOuterNavController()
     args = OnboardingPaymentResultFragmentArgs.fromBundle(requireArguments())
     views.loadingAnimation.playAnimation()
     clickListeners()
@@ -229,8 +234,12 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     walletVerified: Boolean,
     paymentMethodType: PaymentType
   ) {
-    if (paymentMethodType == PaymentType.PAYPAL) navigator.navigateToVerifyPayPal()
+    if (paymentMethodType == PaymentType.PAYPAL) navigator.navigateToVerifyPayPal(outerNavController)
     else navigator.navigateToVerifyCreditCard(walletVerified)
+  }
+
+  private fun initOuterNavController() {
+    outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
   }
 
   companion object {
