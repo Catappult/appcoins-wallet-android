@@ -94,7 +94,28 @@
     <argument
         android:name="forecast_bonus"
         app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_verify_paypal"
+        app:destination="@id/verify_paypal_wallet_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_verify_credit_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
   </fragment>
+
+  <activity
+      android:id="@+id/verify_credit_card_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
+      tools:layout="@layout/activity_wallet_verification">
+    <argument
+        android:name="is_wallet_verified"
+        app:argType="boolean" />
+  </activity>
+
+  <fragment
+      android:id="@+id/verify_paypal_wallet_fragment"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalFragment" />
 
   <fragment
       android:id="@+id/onboarding_local_payment_fragment"

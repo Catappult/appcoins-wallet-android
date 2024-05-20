@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.core.os.bundleOf
@@ -9,9 +8,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.asf.wallet.R
-import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
-import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import javax.inject.Inject
 
 class OnboardingPaymentResultNavigator @Inject constructor(
@@ -46,22 +43,13 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateToVerifyCreditCard(isWalletVerified: Boolean) {
-    val intent =
-      VerificationCreditCardActivity.newIntent(fragment.requireContext(), isWalletVerified)
-        .apply {
-          fragment.activity?.intent?.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-    fragment.startActivity(intent)
+    fragment.findNavController().navigate(
+      OnboardingPaymentResultFragmentDirections.actionNavigateToVerifyCreditCard(isWalletVerified = isWalletVerified)
+    )
   }
 
   fun navigateToVerifyPayPal() {
-    val intent =
-      MainActivity.newIntent(fragment.requireContext(), false, isPayPalVerificationRequired = true)
-        .apply {
-          fragment.activity?.intent?.flags =
-            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-    fragment.startActivity(intent)
+    fragment.findNavController()
+      .navigate(OnboardingPaymentResultFragmentDirections.actionNavigateToVerifyPaypal())
   }
 }
