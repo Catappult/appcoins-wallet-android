@@ -34,6 +34,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
@@ -95,11 +96,15 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
+  @Inject
+  lateinit var analytics: RewardsAnalytics
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    analytics.rewardsImpressionEvent()
     return ComposeView(requireContext()).apply { setContent { RewardScreen() } }
   }
 
@@ -179,7 +184,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           } else {
             RewardsActions(
               { navigator.navigateToWithdrawScreen() },
-              { navigator.showPromoCodeFragment() },
+              {
+                analytics.promoCodeClickEvent()
+                navigator.showPromoCodeFragment()
+              },
               { navigator.showGiftCardFragment() },
               challengeRewardNavigation,
             )

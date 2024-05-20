@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
@@ -33,6 +34,9 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
+  @Inject
+  lateinit var rewardsAnalytics: RewardsAnalytics
+
   companion object {
 
     private const val PROMO_CODE = "promo_code"
@@ -51,13 +55,21 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
+  ): View {
+    rewardsAnalytics.promoCodeSuccessImpressionEvent(
+      (requireArguments().getSerializable(PROMO_CODE) as PromoCode).code ?: ""
+    )
+    return SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
     views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener {
+      rewardsAnalytics.promoCodeSuccessGotItClickEvent(
+        (requireArguments().getSerializable(PROMO_CODE) as PromoCode).code ?: ""
+      )
       rewardSharedViewModel.onBottomSheetDismissed()
       navigator.navigateBack()
     }
