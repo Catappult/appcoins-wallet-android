@@ -672,7 +672,7 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ ဤဝယ္ယူမႈအတြက္ စီစဥ္ေဆာင္႐ြက္ခ ေကာက္ခံပါသည္။</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">အခေၾကးေငြမ်ား ပါဝင္ၿပီး</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>

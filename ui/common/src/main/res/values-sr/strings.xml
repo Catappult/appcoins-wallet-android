@@ -672,7 +672,7 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
