@@ -672,7 +672,7 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">该付款方式不支持您所使用的货币，因此可能会收取一笔手续费。</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">若选择此种支付方式，则会在购买过程中收取一定的手续费。</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">已包含相关费用</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
