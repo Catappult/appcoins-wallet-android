@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +60,8 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.Idle
+import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.Loading
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.OpenWebPayPalPaymentRequest
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.RequestVerificationCode
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalViewModel.VerificationPaypalState.ShowVerificationInfo
@@ -104,7 +107,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return ComposeView(requireContext()).apply { setContent { PayPalVerificationScreen() } }
+    return ComposeView(requireContext()).apply {
+      setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+      setContent { PayPalVerificationScreen() }
+    }
   }
 
   @Composable
@@ -278,7 +284,8 @@ class VerificationPaypalFragment : BasePageViewFragment() {
 
       InputCodeTextField(
         wrongCode = wrongCode,
-        defaultCode = onCodeChange
+        defaultCode = onCodeChange,
+        code = code
       )
 
       ResendCode(
@@ -322,7 +329,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             fontWeight = FontWeight.Medium
           )
           Row(verticalAlignment = Alignment.CenterVertically) {
-            InputCodeTextField(wrongCode = wrongCode, defaultCode = onCodeChange)
+            InputCodeTextField(wrongCode = wrongCode, defaultCode = onCodeChange, code)
             ResendCode(
               modifier = Modifier.padding(start = 24.dp),
               isVisible = !loading,
@@ -339,9 +346,10 @@ class VerificationPaypalFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun InputCodeTextField(wrongCode: Boolean, defaultCode: (String) -> Unit) {
+  fun InputCodeTextField(wrongCode: Boolean, defaultCode: (String) -> Unit, code: String) {
     WalletCodeTextField(
-      wrongCode = wrongCode, onValueChange = { newCode -> defaultCode(newCode) })
+      wrongCode = wrongCode, onValueChange = { newCode -> defaultCode(newCode) }, code = code
+    )
   }
 
   @Composable
