@@ -43,14 +43,14 @@ class ManageCardsAnalytics @Inject constructor(private val analyticsManager: Ana
   companion object {
     const val WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION =
       "wallet_app_add_new_card_details_impression"
-    private const val WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK =
+    const val WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK =
       "wallet_app_add_new_card_details_click"
-    private const val WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION =
+    const val WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION =
       "wallet_app_added_card_conclusion_impression"
-    private const val MANAGE_PAYMENT_CARDS = "manage_payment_cards"
-    private const val WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK =
+    const val MANAGE_PAYMENT_CARDS = "manage_payment_cards"
+    const val WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK =
       "wallet_app_remove_saved_card_prompt_click"
-    private const val WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION =
+    const val WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION =
       "wallet_app_removed_card_conclusion_impression"
 
 
