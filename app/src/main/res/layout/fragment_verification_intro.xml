@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/MaterialAppTheme"
+    tools:background="@color/styleguide_blue"
     >
 
   <ScrollView
@@ -118,7 +119,6 @@
           android:layout_width="0dp"
           android:layout_height="@dimen/large_button_height"
           android:layout_alignParentBottom="true"
-          android:layout_gravity="center_vertical"
           android:layout_marginEnd="24dp"
           android:layout_marginBottom="18dp"
           android:enabled="false"
@@ -126,16 +126,16 @@
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/cancel"
           app:layout_constraintTop_toBottomOf="@id/cc_container"
-          app:layout_constraintVertical_bias="1"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/cancel"
           android:layout_width="0dp"
           android:layout_height="@dimen/large_button_height"
-          android:layout_gravity="center_vertical"
-          android:layout_marginEnd="6dp"
+          android:layout_marginStart="24dp"
+          android:layout_marginEnd="8dp"
           android:layout_marginBottom="18dp"
           android:enabled="false"
           app:buttonColor="@color/styleguide_light_grey"
@@ -143,6 +143,7 @@
           app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/submit"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintVertical_bias="0"
           />
 

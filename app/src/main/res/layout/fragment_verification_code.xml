@@ -154,6 +154,7 @@
           app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/maybe_later"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -161,6 +162,7 @@
           android:layout_width="0dp"
           android:layout_height="@dimen/large_button_height"
           android:layout_gravity="center_vertical"
+          android:layout_marginStart="24dp"
           android:layout_marginEnd="@dimen/normal_margin"
           android:layout_marginBottom="18dp"
           android:enabled="false"
@@ -169,6 +171,7 @@
           app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/confirm"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintVertical_bias="0"
           />
 
