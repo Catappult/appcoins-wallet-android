@@ -170,7 +170,7 @@ class VerificationPaypalFragment : BasePageViewFragment() {
             })
         }
 
-        else -> FullScreenLoading()
+        Loading, Idle -> FullScreenLoading()
       }
     }
   }
