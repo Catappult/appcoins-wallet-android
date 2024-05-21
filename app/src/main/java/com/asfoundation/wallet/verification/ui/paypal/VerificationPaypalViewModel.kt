@@ -61,6 +61,7 @@ constructor(
           }
       }
       .doOnError { showError() }
+      .doOnSubscribe { _uiState.value = VerificationPaypalState.Loading }
       .subscribeOn(Schedulers.io())
       .subscribe()
   }
