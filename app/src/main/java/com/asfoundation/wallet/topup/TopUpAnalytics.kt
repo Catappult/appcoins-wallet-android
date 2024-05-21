@@ -160,8 +160,8 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
   fun openChangeCardBottomSheet() {
     analyticsManager.logEvent(
       hashMapOf<String, Any>(),
-      WALLET_APP_TOP_UP_IMPRESSION,
-      AnalyticsManager.Action.IMPRESSION,
+      WALLET_APP_TOP_UP_CLICK,
+      AnalyticsManager.Action.CLICK,
       PaymentMethodsAnalytics.WALLET
     )
   }
@@ -184,6 +184,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
     const val STATUS_SUCCESS = "success"
     const val WALLET_APP_TOP_UP_IMPRESSION = "wallet_app_top_up_impression"
+    const val WALLET_APP_TOP_UP_CLICK = "wallet_app_top_up_click"
     const val WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK =
       "wallet_app_top_up_change_card_prompt_click"
     private const val VALUE = "value"
