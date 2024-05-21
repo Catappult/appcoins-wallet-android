@@ -64,7 +64,17 @@ class AnalyticsModule {
       ONBOARDING_PAYMENT,
       WALLET_ONBOARDING_RECOVER_WEB,
       CHALLENGE_REWARD_EVENT,
-      WALLET_APP_ACTIVE_PROMOTION_CLICK
+      WALLET_APP_ACTIVE_PROMOTION_CLICK,
+      WALLET_APP_REWARDS_SCREEN_IMPRESSION,
+      WALLET_APP_REWARDS_SCREEN_CLICK,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK,
+      WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION,
+      WALLET_APP_REPLACE_PROMO_CODE_CLICK,
     )
 
   @Singleton
@@ -103,6 +113,16 @@ class AnalyticsModule {
       WALLET_ONBOARDING_RECOVER_WEB,
       CHALLENGE_REWARD_EVENT,
       WALLET_APP_ACTIVE_PROMOTION_CLICK,
+      WALLET_APP_REWARDS_SCREEN_IMPRESSION,
+      WALLET_APP_REWARDS_SCREEN_CLICK,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK,
+      WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION,
+      WALLET_APP_REPLACE_PROMO_CODE_CLICK,
     )
 
   @Singleton
@@ -156,6 +176,23 @@ class AnalyticsModule {
     const val WALLET_CALLOUT_PROMOTIONS_CLICK = "wallet_callout_promotions_click" //NavBarAnalytics
     const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION =
       "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
+    private const val WALLET_APP_REWARDS_SCREEN_IMPRESSION = "wallet_app_rewards_screen_impression"
+    private const val WALLET_APP_REWARDS_SCREEN_CLICK = "wallet_app_rewards_screen_click"
+    private const val WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION =
+      "wallet_app_submit_new_promo_code_impression"
+    private const val WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK =
+      "wallet_app_submit_new_promo_code_click"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION =
+      "wallet_app_submit_promo_code_success_impression"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK =
+      "wallet_app_submit_promo_code_success_click"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION =
+      "wallet_app_submit_promo_code_error_impression"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK =
+      "wallet_app_submit_promo_code_error_click"
+    private const val WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION =
+      "wallet_app_replace_promo_code_impression"
+    private const val WALLET_APP_REPLACE_PROMO_CODE_CLICK = "wallet_app_replace_promo_code_click"
     const val ONBOARDING_PAYMENT = "onboarding_payment"
     const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig
