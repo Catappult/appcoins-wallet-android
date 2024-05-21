@@ -289,6 +289,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     manageCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
     manageCardsPreference?.title = getString(R.string.manage_cards_settings_manage_title)
     manageCardsPreference?.setOnPreferenceClickListener {
+      manageCardsAnalytics.settingsManageCardsClickEvent()
       presenter.onManageCardsPreferenceClick(navController())
       false
     }
@@ -305,6 +306,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     addCardsPreference?.layoutResource = R.layout.preference_without_summary_layout
     addCardsPreference?.title = getString(R.string.manage_cards_settings_add_title)
     addCardsPreference?.setOnPreferenceClickListener {
+      manageCardsAnalytics.settingsManageCardsClickEvent()
       presenter.onAddCardsPreferenceClick(navController())
       false
     }
