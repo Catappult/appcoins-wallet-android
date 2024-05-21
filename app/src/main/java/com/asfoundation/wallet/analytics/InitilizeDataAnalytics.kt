@@ -105,7 +105,8 @@ class InitilizeDataAnalytics @Inject constructor(
                   model = it.deviceInfo.model,
                   language = it.deviceInfo.language,
                   isEmulator = it.deviceInfo.isProbablyEmulator,
-                  ghOemId = it.ghOemId
+                  ghOemId = it.ghOemId,
+                  promoCode = it.promoCode.code ?: ""
                 )
               }
           }

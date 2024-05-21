@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Configuration
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
-import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,12 +37,7 @@ class IndicativeAnalytics @Inject constructor(
   }
 
   override fun setPromoCode(code: String?, bonus: Double?, validity: Int?, appName: String?) {
-    val promoCode = JSONObject()
-    promoCode.put("code", code)
-    promoCode.put("bonus", bonus)
-    promoCode.put("validity", validity)
-    promoCode.put("appName", appName)
-    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
+    superProperties.put(AnalyticsLabels.PROMO_CODE, code ?: "")
   }
 
   fun setIndicativeSuperProperties(
@@ -57,7 +51,8 @@ class IndicativeAnalytics @Inject constructor(
     model: String,
     language: String,
     isEmulator: Boolean,
-    ghOemId: String
+    ghOemId: String,
+    promoCode: String
   ) {
 
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -81,6 +76,7 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.LANGUAGE, language)
     superProperties.put(AnalyticsLabels.IS_EMULATOR, isEmulator)
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
+    superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
 
     if (userId.isNotEmpty()) this.usrId = userId
 
