@@ -80,6 +80,9 @@ class AnalyticsModule {
       MANAGE_PAYMENT_CARDS,
       WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK,
       WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION,
+      WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
+      WALLET_APP_SETTINGS_CLICK,
+      WALLET_APP_TOP_UP_CLICK,
     )
 
   @Singleton
@@ -127,6 +130,9 @@ class AnalyticsModule {
       MANAGE_PAYMENT_CARDS,
       WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK,
       WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION,
+      WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
+      WALLET_APP_SETTINGS_CLICK,
+      WALLET_APP_TOP_UP_CLICK,
     )
 
   @Singleton
@@ -160,6 +166,10 @@ class AnalyticsModule {
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
+    const val WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION =
+      "wallet_app_manage_payment_cards_impression"
+    const val WALLET_APP_SETTINGS_CLICK = "wallet_app_settings_click"
+    const val WALLET_APP_TOP_UP_CLICK = "wallet_app_top_up_click"
     const val WALLET_APP_TOP_UP_IMPRESSION = "wallet_app_top_up_impression"
     const val WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK =
       "wallet_app_top_up_change_card_prompt_click"

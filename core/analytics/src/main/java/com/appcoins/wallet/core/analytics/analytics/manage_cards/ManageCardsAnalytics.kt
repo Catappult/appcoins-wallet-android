@@ -40,6 +40,20 @@ class ManageCardsAnalytics @Inject constructor(private val analyticsManager: Ana
     )
   }
 
+  fun managePaymentCardsImpression() {
+    analyticsManager.logEvent(
+      HashMap<String, Any>(), WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
+      AnalyticsManager.Action.OPEN, MANAGE_PAYMENT_CARDS
+    )
+  }
+
+  fun settingsManageCardsClickEvent() {
+    analyticsManager.logEvent(
+      HashMap<String, Any>(), WALLET_APP_SETTINGS_CLICK,
+      AnalyticsManager.Action.CLICK, MANAGE_PAYMENT_CARDS
+    )
+  }
+
   companion object {
     const val WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION =
       "wallet_app_add_new_card_details_impression"
@@ -52,6 +66,9 @@ class ManageCardsAnalytics @Inject constructor(private val analyticsManager: Ana
       "wallet_app_remove_saved_card_prompt_click"
     const val WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION =
       "wallet_app_removed_card_conclusion_impression"
+    const val WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION =
+      "wallet_app_manage_payment_cards_impression"
+    const val WALLET_APP_SETTINGS_CLICK = "wallet_app_settings_click"
 
 
   }

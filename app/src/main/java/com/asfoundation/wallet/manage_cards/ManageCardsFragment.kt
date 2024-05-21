@@ -73,6 +73,7 @@ class ManageCardsFragment : BasePageViewFragment() {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
+    manageCardsAnalytics.managePaymentCardsImpression()
     return ComposeView(requireContext()).apply {
       setContent { ManageCardsView() }
     }
@@ -162,7 +163,10 @@ class ManageCardsFragment : BasePageViewFragment() {
           cardHeight = 56.dp,
           imageEndPadding = 16.dp,
           imageSize = 36.dp,
-          onClickAction = { manageCardsNavigator.navigateToAddCard() },
+          onClickAction = {
+            manageCardsAnalytics.openNewCardDetailsPageEvent()
+            manageCardsNavigator.navigateToAddCard()
+          },
           addIconDrawable = R.drawable.ic_add_card,
           titleText = stringResource(com.appcoins.wallet.ui.widgets.R.string.manage_cards_add_credit_debit_card_button_),
           backgroundColor = styleguide_blue_secondary,
@@ -236,7 +240,6 @@ class ManageCardsFragment : BasePageViewFragment() {
             .padding(end = 22.dp)
             .clickable {
               viewModel.showBottomSheet(true, storedCard)
-              manageCardsAnalytics.addNewCardDetailsClickEvent()
             },
           painter = painterResource(R.drawable.ic_delete_card),
           contentDescription = "Delete card",
@@ -248,7 +251,6 @@ class ManageCardsFragment : BasePageViewFragment() {
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   private fun ShowDeleteBottomSheet() {
-    manageCardsAnalytics.openNewCardDetailsPageEvent()
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     ModalBottomSheet(
       onDismissRequest = { viewModel.showBottomSheet(false, null) },
