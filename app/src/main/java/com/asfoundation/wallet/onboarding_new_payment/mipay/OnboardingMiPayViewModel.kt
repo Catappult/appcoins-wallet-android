@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.microservices.model.MiPayTransaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetMiPayLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
@@ -33,6 +34,8 @@ sealed class OnboardingMiPaySideEffect : SideEffect {
   object ShowLoading : OnboardingMiPaySideEffect()
   data class ShowError(val message: Int?) : OnboardingMiPaySideEffect()
   object ShowSuccess : OnboardingMiPaySideEffect()
+  object NavigateToHome : OnboardingMiPaySideEffect()
+  data class NavigateBackToTheGame(val domain: String) : OnboardingMiPaySideEffect()
 }
 
 
@@ -46,6 +49,7 @@ class OnboardingMiPayViewModel @Inject constructor(
   private val getPaymentLinkUseCase: GetMiPayLinkUseCase,
   private val events: OnboardingPaymentEvents,
   private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
   savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingMiPayState, OnboardingMiPaySideEffect>(
@@ -54,7 +58,7 @@ class OnboardingMiPayViewModel @Inject constructor(
 
   private var transactionUid: String? = null
   private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 180 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 30 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
@@ -65,18 +69,17 @@ class OnboardingMiPayViewModel @Inject constructor(
 
   fun handleWebViewResult(result: ActivityResult) {
     when (result.resultCode) {
-      WebViewActivity.FAIL,
       WebViewActivity.SUCCESS -> {
         startTransactionStatusTimer()
       }
 
-      WebViewActivity.USER_CANCEL -> {
+      WebViewActivity.FAIL -> {
         events.sendAdyenPaymentConfirmationEvent(
           args.transactionBuilder,
           BillingAnalytics.ACTION_CANCEL,
           args.paymentType.name
         )
-        sendSideEffect { OnboardingMiPaySideEffect.ShowError(R.string.unknown_error) }
+        sendSideEffect { OnboardingMiPaySideEffect.NavigateBackToPaymentMethods }
       }
     }
   }
@@ -95,6 +98,7 @@ class OnboardingMiPayViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 180 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
+        events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
         sendSideEffect { OnboardingMiPaySideEffect.ShowError(R.string.unknown_error) }
         timerTransactionStatus.cancel()
       }
@@ -177,4 +181,18 @@ class OnboardingMiPayViewModel @Inject constructor(
     sendSideEffect { OnboardingMiPaySideEffect.NavigateBackToPaymentMethods }
   }
 
+  fun handleBackToGameClick() {
+    events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.BACK_TO_THE_GAME)
+    sendSideEffect { OnboardingMiPaySideEffect.NavigateBackToTheGame(args.transactionBuilder.domain) }
+  }
+
+  fun handleExploreWalletClick() {
+    events.sendPaymentConclusionNavigationEvent(OnboardingPaymentEvents.EXPLORE_WALLET)
+    sendSideEffect { OnboardingMiPaySideEffect.NavigateToHome }
+
+  }
+
+  fun showSupport() {
+    displayChatUseCase()
+  }
 }

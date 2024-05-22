@@ -11,12 +11,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.RedirectUtils
 import com.asf.wallet.R
-import com.asf.wallet.databinding.LocalPaymentLayoutBinding
+import com.asf.wallet.databinding.MipayLayoutBinding
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingMiPayState, OnboardingMiPaySideEffect> {
 
   private val viewModel: OnboardingMiPayViewModel by viewModels()
-  private val binding by lazy { LocalPaymentLayoutBinding.bind(requireView()) }
+  private val binding by lazy { MipayLayoutBinding.bind(requireView()) }
   private var errorMessage = R.string.activity_iab_error_message
   lateinit var args: OnboardingMiPayFragmentArgs
 
@@ -44,7 +44,7 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return LocalPaymentLayoutBinding.inflate(inflater).root
+    return MipayLayoutBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     clickListeners()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     viewModel.getPaymentLink(
-      RedirectComponent.getReturnUrl(requireContext())
+      RedirectUtils.getReturnUrl(requireContext())
     )
 
   }
@@ -104,15 +104,32 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
       is OnboardingMiPaySideEffect.ShowError -> showError(message = sideEffect.message)
       OnboardingMiPaySideEffect.ShowLoading -> showProcessingLoading()
       OnboardingMiPaySideEffect.ShowSuccess -> showCompletedPayment()
+      is OnboardingMiPaySideEffect.NavigateBackToTheGame -> navigator.navigateBackToTheGame(
+        sideEffect.domain
+      )
+
+      OnboardingMiPaySideEffect.NavigateToHome -> navigator.navigateToHome()
     }
   }
 
   private fun clickListeners() {
-    binding.errorView.errorDismiss.setOnClickListener {
+    binding.errorTryAgainMiPay.setOnClickListener {
       viewModel.handleBackButton()
     }
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
       navigator.navigateBack()
+    }
+    binding.onboardingSuccessMiPayButtons.backToGameButton.setOnClickListener {
+      viewModel.handleBackToGameClick()
+    }
+    binding.onboardingSuccessMiPayButtons.exploreWalletButton.setOnClickListener {
+      viewModel.handleExploreWalletClick()
+    }
+    binding.errorView.layoutSupportIcn.setOnClickListener {
+      viewModel.showSupport()
+    }
+    binding.errorView.layoutSupportLogo.setOnClickListener {
+      viewModel.showSupport()
     }
   }
 
@@ -121,14 +138,14 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.cancelAnimation()
   }
 
   fun hideLoading() {
     binding.progressBar.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.cancelAnimation()
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.GONE
   }
@@ -138,35 +155,37 @@ class OnboardingMiPayFragment : BasePageViewFragment(),
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.VISIBLE
-    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility =
+    binding.fragmentIabTransactionCompleted.onboardingActivityTransactionCompleted.visibility =
       View.VISIBLE
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.playAnimation()
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
+    binding.onboardingSuccessMiPayButtons.root.visibility = View.VISIBLE
   }
 
   fun showError(message: Int?) {
-    binding.errorView.genericErrorLayout.errorMessage.text = getString(R.string.ok)
     message?.let { errorMessage = it }
-    binding.errorView.genericErrorLayout.errorMessage.text = getString(message ?: errorMessage)
+    binding.errorView.errorMessage.text = getString(message ?: errorMessage)
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.GONE
+    binding.onboardingSuccessMiPayButtons.root.visibility = View.GONE
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.cancelAnimation()
     binding.progressBar.visibility = View.GONE
     binding.errorView.root.visibility = View.VISIBLE
+    binding.errorTryAgainMiPay.visibility = View.VISIBLE
   }
 
   fun close() {
     binding.progressBar.visibility = View.GONE
     binding.errorView.root.visibility = View.GONE
     binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.cancelAnimation()
     binding.pendingUserPaymentView.root.visibility = View.GONE
     binding.completePaymentView.visibility = View.GONE
   }
 
   fun getAnimationDuration() =
-    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
+    binding.fragmentIabTransactionCompleted.onboardingLottieTransactionSuccess.duration
 
   fun popView(bundle: Bundle, paymentId: String) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)

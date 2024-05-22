@@ -12,12 +12,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.RedirectUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.MiPayIabLayoutBinding
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -87,7 +87,7 @@ class MiPayFragment : BasePageViewFragment(),
         requireArguments().getParcelable(TRANSACTION_DATA_KEY)!!,
         (requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal).toString(),
         requireArguments().getString(CURRENCY_KEY)!!,
-        RedirectComponent.getReturnUrl(requireContext())
+        RedirectUtils.getReturnUrl(requireContext())
       )
       viewModel.sendPaymentStartEvent(requireArguments().getParcelable(TRANSACTION_DATA_KEY))
     } else {
@@ -161,12 +161,17 @@ class MiPayFragment : BasePageViewFragment(),
       MiPayIABSideEffect.ShowLoading -> {
         binding.loading.visibility = View.VISIBLE
       }
+
       MiPayIABSideEffect.ShowSuccess -> {
         showSuccessAnimation()
       }
 
       MiPayIABSideEffect.PaymentLinkSuccess -> {
         showWebView()
+      }
+
+      MiPayIABSideEffect.BackToPayments -> {
+        navigatorIAB?.navigateBack()
       }
 
       is MiPayIABSideEffect.SendSuccessBundle -> {

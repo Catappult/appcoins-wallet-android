@@ -108,10 +108,7 @@ interface PaymentMethodsView {
     isSubscription: Boolean
   )
 
-  fun showMiPayWeb(
-    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-    isSubscription: Boolean
-  )
+  fun showMiPayWeb(fiatValue: FiatValue)
 
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 

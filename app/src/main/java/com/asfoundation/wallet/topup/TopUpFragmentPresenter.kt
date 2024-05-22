@@ -24,7 +24,6 @@ import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
-import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -543,7 +542,7 @@ class TopUpFragmentPresenter(
         .subscribe(
           {
             view.hideLoading()
-            android.util.Log.d(TAG, "Agreement removed")
+            logger.log(TAG, "Agreement removed")
           },
           {
             view.hideLoading()

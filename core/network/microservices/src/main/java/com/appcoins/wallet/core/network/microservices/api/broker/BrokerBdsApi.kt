@@ -120,7 +120,6 @@ interface BrokerBdsApi {
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String?,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
 
@@ -181,6 +180,7 @@ interface BrokerBdsApi {
     @Field("checkout_url") checkoutUrl: String?,
     @Field("entity.oemid") entityOemId: String?,
     @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String?,
     @Header("authorization") authorization: String,
   ): Single<MiPayTransaction>
 }

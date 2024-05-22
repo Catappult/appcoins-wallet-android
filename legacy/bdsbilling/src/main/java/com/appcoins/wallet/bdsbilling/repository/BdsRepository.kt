@@ -43,8 +43,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     callback,
     orderReference,
     referrerUrl,
-    null,
-    walletSignature
+    null
   )
 
   override fun registerPaymentProof(
