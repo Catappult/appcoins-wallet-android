@@ -665,22 +665,13 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun showMiPayWeb(
-    gamificationLevel: Int,
     fiatValue: FiatValue,
-    frequency: String?,
-    isSubscription: Boolean
   ) {
     iabView.showMiPayWeb(
       fiatValue.amount,
       fiatValue.currency,
       isBds,
-      PaymentType.PAYPAL,
-      bonusMessageValue,
-      false,
-      null,
-      gamificationLevel,
-      isSubscription,
-      frequency
+      bonusMessageValue
     )
   }
 

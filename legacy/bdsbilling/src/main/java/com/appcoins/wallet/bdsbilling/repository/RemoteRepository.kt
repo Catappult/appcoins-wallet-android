@@ -234,8 +234,7 @@ class RemoteRepository(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?,
-    productToken: String?,
-    walletSignature: String
+    productToken: String?
   ): Single<Transaction> =
     createTransaction(
       userWallet = null,
@@ -254,8 +253,7 @@ class RemoteRepository(
       packageName = packageName,
       amount = priceValue.toPlainString(),
       currency = "APPC",
-      productName = productName,
-      walletSignature = walletSignature
+      productName = productName
     )
 
   fun registerPaymentProof(
@@ -338,8 +336,7 @@ class RemoteRepository(
       packageName = packageName,
       amount = amount.toPlainString(),
       currency = "APPC",
-      productName = null,
-      walletSignature = signature
+      productName = null
     )
 
   fun createLocalPaymentTransaction(
@@ -393,7 +390,8 @@ class RemoteRepository(
     referrerUrl: String?,
     walletAddress: String,
     entityOemId: String?,
-    returnUrl: String?
+    returnUrl: String?,
+    walletSignature: String?
   ): Single<MiPayTransaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -409,6 +407,7 @@ class RemoteRepository(
           referrerUrl = referrerUrl,
           walletAddress = walletAddress,
           authorization = ewt,
+          walletSignature = walletSignature,
           checkoutUrl = returnUrl,
         )
       }
@@ -456,8 +455,7 @@ class RemoteRepository(
     packageName: String,
     amount: String?,
     @Suppress("SameParameterValue") currency: String,
-    productName: String?,
-    walletSignature: String?
+    productName: String?
   ): Single<Transaction> =
     ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -488,8 +486,7 @@ class RemoteRepository(
               orderReference = orderReference,
               referrerUrl = referrerUrl,
               walletAddress = walletAddress,
-              walletSignature = walletSignature,
-              authorization = ewt,
+              authorization = ewt
             )
           } else {
             Single.error(DuplicateException())

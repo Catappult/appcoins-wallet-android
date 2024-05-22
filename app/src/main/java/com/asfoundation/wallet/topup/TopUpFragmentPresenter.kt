@@ -10,9 +10,9 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
-import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
@@ -21,7 +21,6 @@ import com.asfoundation.wallet.manage_cards.usecases.GetStoredCardsUseCase
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
-import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -520,7 +519,7 @@ class TopUpFragmentPresenter(
         .subscribe(
           {
             view.hideLoading()
-            android.util.Log.d(TAG, "Agreement removed")
+            logger.log(TAG, "Agreement removed")
           },
           {
             view.hideLoading()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
@@ -39,26 +40,44 @@
   <FrameLayout
       android:id="@+id/complete_payment_view"
       android:layout_width="match_parent"
-      android:layout_height="336dp"
+      android:layout_height="240dp"
       android:background="@drawable/background_card_blue"
       android:gravity="center"
       android:visibility="gone"
-
+      tools:visibility="visible"
       >
     <include
         android:id="@+id/fragment_iab_transaction_completed"
-        layout="@layout/fragment_iab_transaction_completed"
+        layout="@layout/onboading_fragment_transaction_completed"
         />
   </FrameLayout>
+  <include
+      android:id="@+id/onboarding_success_mi_pay_buttons"
+      layout="@layout/onboarding_payment_success_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
 
   <include
       android:id="@+id/error_view"
-      layout="@layout/iab_error_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center"
-      android:layout_marginBottom="40dp"
+      layout="@layout/onboarding_support_error_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="24dp"
       android:visibility="gone"
-      tools:visibility="visible"
+      />
+
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
+      android:id="@+id/error_try_again_mi_pay"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_margin="@dimen/big_margin"
+      android:visibility="gone"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      tools:visibility="gone"
       />
 </LinearLayout>

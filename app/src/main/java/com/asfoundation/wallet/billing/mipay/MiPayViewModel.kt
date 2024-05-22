@@ -40,6 +40,7 @@ sealed class MiPayIABSideEffect : SideEffect {
   object ShowSuccess : MiPayIABSideEffect()
   data class SendSuccessBundle(val bundle: Bundle) : MiPayIABSideEffect()
   object PaymentLinkSuccess : MiPayIABSideEffect()
+  object BackToPayments : MiPayIABSideEffect()
 }
 
 data class MiPayIABState(
@@ -62,7 +63,7 @@ class MiPayViewModel @Inject constructor(
   var transactionUid: String? = null
   var walletAddress: String = ""
   private val JOB_UPDATE_INTERVAL_MS = 5 * DateUtils.SECOND_IN_MILLIS
-  private val JOB_TIMEOUT_MS = 600 * DateUtils.SECOND_IN_MILLIS
+  private val JOB_TIMEOUT_MS = 30 * DateUtils.SECOND_IN_MILLIS
   private var jobTransactionStatus: Job? = null
   private val timerTransactionStatus = Timer()
   private var isTimerRunning = false
@@ -120,6 +121,14 @@ class MiPayViewModel @Inject constructor(
       // Set up a CoroutineJob that will automatically cancel after 600 seconds
       jobTransactionStatus = scope.launch {
         delay(JOB_TIMEOUT_MS)
+        analytics.sendPaymentErrorEvent(
+          purchaseDetails = transactionData.toString(),
+          transactionType = PaymentType.MI_PAY.subTypes.first(),
+          packageName = "",
+          skuDetails = "",
+          value = "",
+          errorCode = WebViewActivity.FAIL.toString(),
+        )
         sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
         timerTransactionStatus.cancel()
       }
@@ -257,17 +266,8 @@ class MiPayViewModel @Inject constructor(
         startTransactionStatusTimer()
       }
 
-      WebViewActivity.FAIL,
-      WebViewActivity.USER_CANCEL -> {
-        analytics.sendPaymentErrorEvent(
-          purchaseDetails = transactionData.toString(),
-          transactionType = PaymentType.MI_PAY.subTypes.first(),
-          packageName = "",
-          skuDetails = "",
-          value = "",
-          errorCode = result.resultCode.toString(),
-        )
-        sendSideEffect { MiPayIABSideEffect.ShowError(R.string.unknown_error) }
+      WebViewActivity.FAIL -> {
+        sendSideEffect { MiPayIABSideEffect.BackToPayments }
       }
     }
   }

@@ -220,12 +220,7 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
 
-              MI_PAY -> view.showMiPayWeb(
-                cachedGamificationLevel,
-                cachedFiatValue!!,
-                paymentMethodsData.frequency,
-                paymentMethodsData.subscription
-              )
+              MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
 
               else -> return@doOnNext
             }
@@ -371,12 +366,7 @@ class PaymentMethodsPresenter(
         paymentMethodsData.subscription
       )
 
-      MI_PAY -> view.showMiPayWeb(
-        cachedGamificationLevel,
-        cachedFiatValue!!,
-        paymentMethodsData.frequency,
-        paymentMethodsData.subscription
-      )
+      MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
 
       else -> {
         showError(R.string.unknown_error)

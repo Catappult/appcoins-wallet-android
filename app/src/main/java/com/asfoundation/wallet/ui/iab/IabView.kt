@@ -105,13 +105,7 @@ interface IabView {
     amount: BigDecimal,
     currency: String?,
     isBds: Boolean,
-    paymentType: PaymentType,
     bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
   )
 
   fun showCarrierBilling(

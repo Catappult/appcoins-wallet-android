@@ -415,13 +415,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     amount: BigDecimal,
     currency: String?,
     isBds: Boolean,
-    paymentType: PaymentType,
-    bonus: String?,
-    isPreselected: Boolean,
-    iconUrl: String?,
-    gamificationLevel: Int,
-    isSubscription: Boolean,
-    frequency: String?
+    bonus: String?
   ) {
     val fragmentMiPay = MiPayFragment()
     fragmentMiPay.arguments = Bundle().apply {
