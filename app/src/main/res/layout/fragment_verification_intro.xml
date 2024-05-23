@@ -128,6 +128,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/cancel"
           app:layout_constraintTop_toBottomOf="@id/cc_container"
+          app:layout_constraintVertical_bias="1"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView

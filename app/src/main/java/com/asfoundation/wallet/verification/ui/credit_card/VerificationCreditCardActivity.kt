@@ -13,8 +13,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
-import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
-import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -62,20 +60,11 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   fun toolbar() {
     findViewById<ComposeView>(R.id.app_bar_verify).apply {
       setContent {
-        TopBar(isMainBar = false, onClickSupport = { displayChat() })
+        TopBar(
+          isMainBar = false,
+          onClickSupport = { displayChat() },
+          onClickBack = { onBackPressed() })
       }
-    }
-  }
-
-  override fun onBackPressed() {
-    val fragmentName =
-      supportFragmentManager.findFragmentById(R.id.fragment_container)?.javaClass?.name ?: ""
-    if (fragmentName == VerificationErrorFragment::class.java.name ||
-      fragmentName == VerificationCodeFragment::class.java.name
-    ) {
-      toolbarBackPressSubject.onNext(fragmentName)
-    } else {
-      super.onBackPressed()
     }
   }
 
