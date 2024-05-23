@@ -6,6 +6,8 @@ import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -27,6 +29,8 @@ class IabPresenter(
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+  private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
+  private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
   private val logger: Logger,
   private val transaction: TransactionBuilder?,
   private val errorFromReceiver: String? = null
@@ -60,6 +64,7 @@ class IabPresenter(
     handleSupportClicks()
     handleErrorDismisses()
     handleTryAgain()
+    getRefundDisclaimerValue()
   }
 
   private fun handleErrorDismisses() {
@@ -155,6 +160,21 @@ class IabPresenter(
       }
       .doOnSuccess { view.showUpdateRequiredView() }
       .subscribe({}, { it.printStackTrace() })
+    )
+  }
+
+  private fun getRefundDisclaimerValue() {
+    disposable.add(
+      getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.showRefundDisclaimer == 1) {
+            setCachedShowRefundDisclaimerUseCase(true)
+          } else {
+            setCachedShowRefundDisclaimerUseCase(false)
+          }
+        }.subscribe({}, {
+          it.printStackTrace()
+        })
     )
   }
 

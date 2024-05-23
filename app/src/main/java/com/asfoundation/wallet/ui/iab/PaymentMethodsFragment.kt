@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -109,6 +110,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   @Inject
   lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
+
+  @Inject
+  lateinit var getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
 
   @Inject
   lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
@@ -821,6 +825,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun showBonus(@StringRes bonusText: Int) {
+    binding.cvLegalDisclaimer?.visibility =
+      if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
+    binding.tvLegalDisclaimer?.visibility =
+      if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
     if (binding.bonusLayout.root.visibility != View.VISIBLE && isPortraitMode(requireContext())) {
       expandViewWithAnimation(0, dpToPx(50), binding.bonusLayout.root)
     } else {
