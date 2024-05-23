@@ -65,6 +65,9 @@ import com.appcoins.wallet.feature.walletInfo.data.balance.TokenValue
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFIED
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -250,7 +253,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             myWalletsNavigator.navigateToVerifyPicker()
           },
           verified = walletInfo.verified,
-          waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+          waitingCode = verificationStatus == VERIFYING || verificationStatus == CODE_REQUESTED,
           onCancelClickButton = {
             viewModel.cancelVerification(walletInfo.wallet)
             viewModel.updateWallets()
@@ -291,7 +294,7 @@ class ManageWalletFragment : BasePageViewFragment() {
               myWalletsNavigator.navigateToVerifyPicker()
             },
             verified = walletInfo.verified,
-            waitingCode = verificationStatus == VerificationStatus.VERIFYING,
+            waitingCode = verificationStatus == VERIFYING || verificationStatus == CODE_REQUESTED,
             onCancelClickButton = {
               viewModel.cancelVerification(walletInfo.wallet)
               viewModel.updateWallets()
@@ -319,7 +322,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     verificationStatus: VerificationStatus,
     isVerified: Boolean
   ) =
-    verificationStatus == VerificationStatus.VERIFIED && !isVerified
+    verificationStatus == VERIFIED && !isVerified
 
   @Composable
   fun ActiveWalletIndicator() {
@@ -564,7 +567,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       logging = true
     )
     ActiveWalletContentLandscape(
-      walletInfo, VerificationStatus.VERIFYING
+      walletInfo, VERIFYING
     )
   }
 
