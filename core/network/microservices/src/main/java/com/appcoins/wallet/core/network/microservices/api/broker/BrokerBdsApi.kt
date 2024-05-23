@@ -179,6 +179,7 @@ interface BrokerBdsApi {
     @Field("callback_url") callbackUrl: String?,
     @Field("checkout_url") checkoutUrl: String?,
     @Field("entity.oemid") entityOemId: String?,
+    @Field("reference") orderReference: String?,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String?,
     @Header("authorization") authorization: String,
