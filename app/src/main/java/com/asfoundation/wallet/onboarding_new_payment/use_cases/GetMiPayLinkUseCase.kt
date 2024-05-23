@@ -38,7 +38,8 @@ class GetMiPayLinkUseCase @Inject constructor(
                 walletAddress = address,
                 entityOemId = attributionEntity.oemId,
                 returnUrl = returnUrl,
-                walletSignature = signature
+                walletSignature = signature,
+                orderReference = data.orderReference
               )
             }
           }
