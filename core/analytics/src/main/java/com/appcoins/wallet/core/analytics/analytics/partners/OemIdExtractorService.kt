@@ -12,6 +12,7 @@ class OemIdExtractorService @Inject constructor(
 ) {
 
   fun extractOemId(packageName: String): Single<String> {
+//    return Single.just ("66a6146c36415e9a811ea8343f7c4108")  // TODO just for testing
     return extractorV2.extract(packageName)
       .doOnSuccess { extracted -> check(extracted.isNotEmpty()) }
       .onErrorResumeNext(extractorV1.extract(packageName))
