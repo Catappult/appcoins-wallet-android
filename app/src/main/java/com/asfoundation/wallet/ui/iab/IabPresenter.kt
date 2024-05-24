@@ -64,7 +64,7 @@ class IabPresenter(
     handleSupportClicks()
     handleErrorDismisses()
     handleTryAgain()
-    getRefundDisclaimerValue()
+    updateRefundDisclaimerValue()
   }
 
   private fun handleErrorDismisses() {
@@ -163,7 +163,7 @@ class IabPresenter(
     )
   }
 
-  private fun getRefundDisclaimerValue() {
+  private fun updateRefundDisclaimerValue() {
     disposable.add(
       getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
         .doOnSuccess {
