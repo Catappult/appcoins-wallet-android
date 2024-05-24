@@ -530,6 +530,7 @@
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
   <string name="amount">Amount</string>
+  <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -681,6 +682,7 @@
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
