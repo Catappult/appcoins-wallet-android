@@ -368,6 +368,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       binding.rvDefaultValues.visibility = View.VISIBLE
       binding.bottomSeparator.visibility = View.VISIBLE
       binding.tvRefundDisclaimer.visibility = View.GONE
+      binding.tvRefundDisclaimer.visibility = View.GONE
       binding.button.visibility = View.GONE
     }
   }
