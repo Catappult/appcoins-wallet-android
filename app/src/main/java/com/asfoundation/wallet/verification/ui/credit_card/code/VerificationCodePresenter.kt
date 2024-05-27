@@ -123,7 +123,6 @@ class VerificationCodePresenter(
         .flatMapSingle {
           interactor.confirmCode(it)
             .observeOn(viewScheduler)
-            .doOnSuccess { view.unlockRotation() }
             .doOnSuccess { result ->
               handleCodeConfirmationStatus(result)
               analytics.sendConclusionEvent(
@@ -140,6 +139,7 @@ class VerificationCodePresenter(
     view.hideLoading()
     if (codeResult.success && !codeResult.error.hasError) {
       view.showSuccess()
+      view.unlockRotation()
     } else {
       when (codeResult.errorType) {
         VerificationCodeResult.ErrorType.WRONG_CODE -> view.showWrongCodeError()

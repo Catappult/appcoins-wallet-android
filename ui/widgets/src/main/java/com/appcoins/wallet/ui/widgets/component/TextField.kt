@@ -17,7 +17,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -45,6 +44,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
+import com.appcoins.wallet.ui.widgets.component.WalletTextField.FILLED_FIELD_SIZE
+import com.appcoins.wallet.ui.widgets.component.WalletTextField.TEXT_FIELD_LAST_INDEX
+
+object WalletTextField {
+  const val FILLED_FIELD_SIZE = 1
+  const val TEXT_FIELD_LAST_INDEX = 3
+}
 
 @Composable
 fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (String) -> Unit) {
@@ -146,8 +152,8 @@ fun WalletTextFieldPassword(value: String, hintText: Int? = null, onValueChange:
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit) {
-  val values = remember { mutableStateListOf("", "", "", "") }
+fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit, code: String) {
+  val values = remember { getCodeChars(code) }
   val focusManager = LocalFocusManager.current
   val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -160,18 +166,20 @@ fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit) {
 
   Column {
     Row {
-      for (i in 0..3) {
+      for (i in 0..TEXT_FIELD_LAST_INDEX) {
         WalletCodeTextFieldItem(
           modifier =
           Modifier.onKeyEvent {
-            if (it.key == Key.Backspace && i > 0) moveFocus(FocusDirection.Previous)
+            if (it.key == Key.Backspace && i > 1) moveFocus(FocusDirection.Previous)
             false
           },
           value = values[i],
           onValueChange = { code ->
-            if (code.length <= 1) updateValue(i, code)
-            if (code.length == 1 && i < 3) moveFocus(FocusDirection.Next)
-            if (code.length == 1 && i == 3) keyboardController?.hide()
+            if (code.length <= FILLED_FIELD_SIZE) updateValue(i, code)
+            if (code.length == FILLED_FIELD_SIZE && i < TEXT_FIELD_LAST_INDEX)
+              moveFocus(FocusDirection.Next)
+            if (code.length == FILLED_FIELD_SIZE && i == TEXT_FIELD_LAST_INDEX)
+              keyboardController?.hide()
           },
           wrongCode = wrongCode,
           imeAction = if (i == 3) ImeAction.Done else ImeAction.Next
@@ -187,6 +195,16 @@ fun WalletCodeTextField(wrongCode: Boolean, onValueChange: (String) -> Unit) {
       )
     }
   }
+}
+
+fun getCodeChars(code: String): MutableList<String> {
+  val chars = mutableListOf<String>()
+  for (index in 0..TEXT_FIELD_LAST_INDEX) chars.add(index, getCharOnPosition(code, index))
+  return chars
+}
+
+fun getCharOnPosition(code: String, position: Int): String {
+  return if (position < code.length) code[position].toString() else ""
 }
 
 @Composable
@@ -241,5 +259,5 @@ fun WalletTextFieldPreview() {
 @Preview
 @Composable
 fun WalletCodeTextFieldPreview() {
-  WalletCodeTextField(onValueChange = {}, wrongCode = true)
+  WalletCodeTextField(wrongCode = true, onValueChange = {}, code = "8888")
 }
