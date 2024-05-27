@@ -1,11 +1,20 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
 import android.content.pm.ActivityInfo
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +24,8 @@ import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.AppUtils
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -54,6 +65,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     initInnerNavController()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
     handlePaymentFinishResult()
+    setStringWithLinks()
     val sharedHeaderViewModel =
       ViewModelProvider(requireActivity())[OnboardingSharedHeaderViewModel::class.java]
     // Observe the LiveData for visibility changes
@@ -157,6 +169,52 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     val appIcon = pm.getApplicationIcon(packageName)
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameName.text = appName
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameIcon.setImageDrawable(appIcon)
+  }
+
+  private fun setStringWithLinks() {
+    val termsConditions = resources.getString(R.string.terms_and_conditions)
+    val privacyPolicy = resources.getString(R.string.privacy_policy)
+    val termsPolicyTickBox =
+      resources.getString(
+        R.string.agree_by_choosing_a_payment_method_body, termsConditions,
+        privacyPolicy
+      )
+
+    val spannableString = SpannableString(termsPolicyTickBox)
+    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
+    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
+
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.text = spannableString
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.isClickable = true
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.movementMethod =
+      LinkMovementMethod.getInstance()
+  }
+
+  private fun setLinkToString(
+    spannableString: SpannableString, highlightString: String,
+    uri: Uri
+  ) {
+    val clickableSpan = object : ClickableSpan() {
+      override fun onClick(widget: View) {
+        navigator.navigateToBrowser(uri)
+      }
+
+      override fun updateDrawState(ds: TextPaint) {
+        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)
+        ds.isUnderlineText = true
+      }
+    }
+    val indexHighlightString = spannableString.toString()
+      .indexOf(highlightString)
+    val highlightStringLength = highlightString.length
+    spannableString.setSpan(
+      clickableSpan, indexHighlightString,
+      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    spannableString.setSpan(
+      StyleSpan(Typeface.BOLD), indexHighlightString,
+      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
   }
 
   companion object {

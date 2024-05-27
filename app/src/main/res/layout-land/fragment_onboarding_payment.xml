@@ -43,6 +43,20 @@
   </com.google.android.material.appbar.AppBarLayout>
 
   <include
+      android:id="@+id/onboarding_payment_terms_conditions"
+      layout="@layout/onboarding_payment_terms_conditions"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="8dp"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/onboarding_payment_fragment_container"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      tools:visibility="visible"
+      />
+
+  <include
       android:id="@+id/onboarding_payment_header_layout"
       layout="@layout/onboarding_payment_game_info"
       android:layout_width="0dp"
