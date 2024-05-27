@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.analytics.analytics.rewards.RewardsAnalytics
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
@@ -42,6 +43,9 @@ class PromoCodeBottomSheetFragment :
 
   private val rewardSharedViewModel: RewardSharedViewModel by activityViewModels()
 
+  @Inject
+  lateinit var rewardsAnalytics: RewardsAnalytics
+
   companion object {
     @JvmStatic
     fun newInstance(): PromoCodeBottomSheetFragment {
@@ -53,7 +57,10 @@ class PromoCodeBottomSheetFragment :
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
+  ): View {
+    rewardsAnalytics.newPromoCodeImpressionEvent()
+    return SettingsPromoCodeBottomSheetLayoutBinding.inflate(inflater).root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -74,9 +81,14 @@ class PromoCodeBottomSheetFragment :
 
   private fun setListeners() {
     views.promoCodeBottomSheetSubmitButton.setOnClickListener {
-      viewModel.submitClick(views.promoCodeBottomSheetString.getText().trim())
+      val promoCode = views.promoCodeBottomSheetString.getText().trim()
+      rewardsAnalytics.submitNewPromoCodeClickEvent(promoCode)
+      viewModel.submitClick(promoCode)
     }
-    views.promoCodeBottomSheetReplaceButton.setOnClickListener { viewModel.replaceClick() }
+    views.promoCodeBottomSheetReplaceButton.setOnClickListener {
+      rewardsAnalytics.replacePromoCodeImpressionEvent("")
+      viewModel.replaceClick()
+    }
     views.promoCodeBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
 
     views.promoCodeBottomSheetString.addTextChangedListener(
@@ -104,6 +116,9 @@ class PromoCodeBottomSheetFragment :
       }
 
       is Async.Fail -> {
+        rewardsAnalytics.promoCodeErrorImpressionEvent(
+          views.promoCodeBottomSheetString.getText().trim()
+        )
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
 
@@ -134,6 +149,9 @@ class PromoCodeBottomSheetFragment :
 
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
+          rewardsAnalytics.promoCodeErrorImpressionEvent(
+            views.promoCodeBottomSheetString.getText().trim()
+          )
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
