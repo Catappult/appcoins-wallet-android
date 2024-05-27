@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface PaypalV2Api {
 
-  @POST("8.20230522/gateways/paypal/transactions")
+  @POST("8.20240524/gateways/paypal/transactions")
   fun createTransaction(
     // uncomment for testing errors in dev (don't push it uncommented):
     // @Header("PayPal-Mock-Response") mockHeader: String,

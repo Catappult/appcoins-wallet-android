@@ -31,6 +31,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.E
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.GOOGLEPAY_WEB
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.MI_PAY
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.PAYPAL_V2
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.SANDBOX
@@ -219,6 +220,8 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.subscription
               )
 
+              MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
+
               else -> return@doOnNext
             }
           }
@@ -362,6 +365,8 @@ class PaymentMethodsPresenter(
         paymentMethodsData.frequency,
         paymentMethodsData.subscription
       )
+
+      MI_PAY -> view.showMiPayWeb(cachedFiatValue!!)
 
       else -> {
         showError(R.string.unknown_error)
@@ -735,17 +740,21 @@ class PaymentMethodsPresenter(
         .toMutableList()
     }
     setLoadedPayment("")
-    view.showPaymentMethods(
-      paymentList,
-      symbol,
-      paymentMethodId,
-      fiatAmount,
-      appcEnabled,
-      creditsEnabled,
-      frequency,
-      paymentMethodsData.subscription
-    )
-    sendPaymentMethodsEvents()
+    if (paymentList.isEmpty()) {
+      showError(R.string.purchase_error_no_method_available_body)
+    } else {
+      view.showPaymentMethods(
+        paymentList,
+        symbol,
+        paymentMethodId,
+        fiatAmount,
+        appcEnabled,
+        creditsEnabled,
+        frequency,
+        paymentMethodsData.subscription
+      )
+      sendPaymentMethodsEvents()
+    }
   }
 
   private fun showPreSelectedPaymentMethod(
@@ -1175,6 +1184,7 @@ class PaymentMethodsPresenter(
       PaymentMethodId.CHALLENGE_REWARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CHALLENGE_REWARD
       PaymentMethodId.SANDBOX.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_SANDBOX
       PaymentMethodId.GOOGLEPAY_WEB.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GOOGLEPAY_WEB
+      PaymentMethodId.MI_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_MI_PAY
       else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
     }
   }

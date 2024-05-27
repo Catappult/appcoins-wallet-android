@@ -85,6 +85,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
     val OPEN_SUPPORT = "${HostProperties.MY_APPCOINS_HOST}open-support/"
+    private const val APP_REDIRECT_SCHEMA = "appcoins://"
 
     private var currentExtAppSelected: ExternalAppEnum? = null
 
@@ -129,7 +130,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA)
+              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) ||
+              clickUrl.contains(APP_REDIRECT_SCHEMA)
           -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)

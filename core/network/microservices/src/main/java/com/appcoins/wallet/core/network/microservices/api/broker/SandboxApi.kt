@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface SandboxApi {
 
-  @POST("8.20230522/gateways/sandbox/transactions")
+  @POST("8.20240524/gateways/sandbox/transactions")
   fun createTransaction(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,

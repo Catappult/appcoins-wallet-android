@@ -101,6 +101,13 @@ interface IabView {
     frequency: String?
   )
 
+  fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    bonus: String?,
+  )
+
   fun showCarrierBilling(
     currency: String?,
     amount: BigDecimal,

@@ -664,6 +664,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showMiPayWeb(
+    fiatValue: FiatValue,
+  ) {
+    iabView.showMiPayWeb(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      bonusMessageValue
+    )
+  }
+
   override fun showCreditCard(
     gamificationLevel: Int,
     fiatValue: FiatValue,

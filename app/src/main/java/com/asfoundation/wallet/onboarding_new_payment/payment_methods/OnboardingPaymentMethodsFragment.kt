@@ -113,6 +113,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
           args.forecastBonus
         )
 
+        is PaymentMethodClick.MiPayPayClick -> navigator.navigateToMiPay(
+          args.transactionBuilder,
+          args.amount,
+          args.currency,
+          args.forecastBonus
+        )
+
         PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }
@@ -171,7 +178,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       )
     )
     views.noPaymentMethodsError.root.visibility = View.VISIBLE
-    views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
+    views.onboardingIncompletePaymentMethods.root.visibility = View.GONE
   }
 
   /**
