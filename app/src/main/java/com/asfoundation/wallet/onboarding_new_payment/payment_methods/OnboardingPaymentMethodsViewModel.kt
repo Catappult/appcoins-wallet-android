@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
@@ -17,6 +18,9 @@ import javax.inject.Inject
 sealed class OnboardingPaymentMethodsSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingPaymentMethodsSideEffect()
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentMethodsSideEffect()
+
+  data class showOrHideRefundDisclaimer(val showOrHideRefundDisclaimer: Boolean) :
+    OnboardingPaymentMethodsSideEffect()
 }
 
 data class OnboardingPaymentMethodsState(
@@ -30,7 +34,8 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val getOtherPaymentMethodsUseCase: GetOtherPaymentMethodsUseCase, //temporary, to remove later and use getFirstPaymentMethodsUseCase only
   private val cachedTransactionRepository: CachedTransactionRepository,
   private val events: OnboardingPaymentEvents,
-  savedStateHandle: SavedStateHandle
+  savedStateHandle: SavedStateHandle,
+  private val getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
 ) :
   BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
     OnboardingPaymentMethodsState()
@@ -41,6 +46,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
 
   init {
     handlePaymentMethods()
+    getCachedRefundDisclaimerValue()
   }
 
   //TODO add events to payment start
@@ -75,6 +81,14 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
 
   fun handleLinkClick(uri: Uri) {
     sendSideEffect { OnboardingPaymentMethodsSideEffect.NavigateToLink(uri) }
+  }
+
+  private fun getCachedRefundDisclaimerValue() {
+    sendSideEffect {
+      OnboardingPaymentMethodsSideEffect.showOrHideRefundDisclaimer(
+        getCachedShowRefundDisclaimerUseCase()
+      )
+    }
   }
 
   fun handleBackToGameClick() {

@@ -5,7 +5,11 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
@@ -22,6 +26,9 @@ import javax.inject.Inject
 sealed class OnboardingPaymentSideEffect : SideEffect {
   data class ShowPaymentMethods(val transactionContent: TransactionContent) :
     OnboardingPaymentSideEffect()
+
+  data class showOrHideRefundDisclaimer(val showOrHideRefundDisclaimer: Boolean) :
+    OnboardingPaymentSideEffect()
 }
 
 data class OnboardingPaymentState(val transactionContent: Async<TransactionContent> = Async.Uninitialized) :
@@ -34,12 +41,16 @@ class OnboardingPaymentViewModel @Inject constructor(
   private val cachedTransactionRepository: CachedTransactionRepository,
   private val getEarningBonusUseCase: GetEarningBonusUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
-  private val events: OnboardingPaymentEvents
+  private val events: OnboardingPaymentEvents,
+  private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
+  private var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase,
+  val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
 
   init {
     handleContent()
+    updateRefundDisclaimerValue()
   }
 
   fun handleContent() {
@@ -89,6 +100,22 @@ class OnboardingPaymentViewModel @Inject constructor(
       }
       .scopedSubscribe()
   }
+
+  private fun updateRefundDisclaimerValue() {
+    getShowRefundDisclaimerCodeUseCase().subscribeOn(rxSchedulers.io)
+      .doOnSuccess {
+        if (it.showRefundDisclaimer == RefundDisclaimerEnum.SHOW_REFUND_DISCLAIMER.state) {
+          setCachedShowRefundDisclaimerUseCase(true)
+          sendSideEffect { OnboardingPaymentSideEffect.showOrHideRefundDisclaimer(true) }
+        } else {
+          setCachedShowRefundDisclaimerUseCase(false)
+          sendSideEffect { OnboardingPaymentSideEffect.showOrHideRefundDisclaimer(false) }
+        }
+      }.scopedSubscribe({}, {
+        it.printStackTrace()
+      })
+  }
+
 
   fun setOnboardingCompleted() {
     setOnboardingCompletedUseCase()

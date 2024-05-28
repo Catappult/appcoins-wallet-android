@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
@@ -167,7 +168,7 @@ class IabPresenter(
     disposable.add(
       getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.showRefundDisclaimer == 1) {
+          if (it.showRefundDisclaimer == RefundDisclaimerEnum.SHOW_REFUND_DISCLAIMER.state) {
             setCachedShowRefundDisclaimerUseCase(true)
           } else {
             setCachedShowRefundDisclaimerUseCase(false)

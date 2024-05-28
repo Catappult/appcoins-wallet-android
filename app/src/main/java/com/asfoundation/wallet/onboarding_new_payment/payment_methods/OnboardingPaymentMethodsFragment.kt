@@ -149,6 +149,11 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+
+      is OnboardingPaymentMethodsSideEffect.showOrHideRefundDisclaimer -> {
+        views.onboardingPaymentTermsConditions?.disclaimerBody?.visibility =
+          if (sideEffect.showOrHideRefundDisclaimer) View.VISIBLE else View.GONE
+      }
     }
   }
 

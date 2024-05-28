@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -174,7 +175,7 @@ class TopUpFragmentPresenter(
     disposables.add(
       getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.showRefundDisclaimer == 1) {
+          if (it.showRefundDisclaimer == RefundDisclaimerEnum.SHOW_REFUND_DISCLAIMER.state) {
             setCachedShowRefundDisclaimerUseCase(true)
             view.changeVisibilityRefundDisclaimer(true)
           } else {
