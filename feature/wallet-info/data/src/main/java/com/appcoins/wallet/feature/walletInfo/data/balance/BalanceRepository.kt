@@ -16,8 +16,8 @@ class BalanceRepository @Inject constructor() {
     const val APPC_CURRENCY = "APPC_CURRENCY"
     const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
     const val ETH_CURRENCY = "ETH_CURRENCY"
-
     const val FIAT_SCALE = 4
+    val BIG_DECIMAL_MINUS_ONE = BigDecimal("-1")
   }
 
   fun getWalletBalance(
@@ -98,7 +98,7 @@ class BalanceRepository @Inject constructor() {
     ethBalance: TokenBalance
   ): FiatValue {
     var balance =
-      getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
+      getAddBalanceValue(BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
     return FiatValue(
@@ -113,7 +113,7 @@ class BalanceRepository @Inject constructor() {
     appcBalance: TokenBalance
   ): FiatValue {
     val balance =
-      getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
+      getAddBalanceValue(BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     return FiatValue(
       balance,
       appcBalance.fiat.currency,
@@ -122,8 +122,8 @@ class BalanceRepository @Inject constructor() {
   }
 
   private fun getAddBalanceValue(currentValue: BigDecimal, value: BigDecimal): BigDecimal {
-    return if (value.compareTo(BalanceInteractor.BIG_DECIMAL_MINUS_ONE) == 1) {
-      if (currentValue.compareTo(BalanceInteractor.BIG_DECIMAL_MINUS_ONE) == 1) {
+    return if (value.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+      if (currentValue.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
         currentValue.add(value)
       } else {
         value

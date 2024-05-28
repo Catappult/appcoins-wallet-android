@@ -57,7 +57,7 @@
 
   <include
       android:id="@+id/no_payment_methods_error"
-      layout="@layout/topup_error_layout"
+      layout="@layout/onboarding_payment_methods_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"

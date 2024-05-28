@@ -4,11 +4,9 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
-import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoRepository
 import com.appcoins.wallet.sharedpreferences.BrokerVerificationPreferencesDataSource
@@ -24,8 +22,6 @@ constructor(
   private val brokerVerificationApi: BrokerVerificationApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val sharedPreferences: BrokerVerificationPreferencesDataSource,
-  private val ewtObtainer: EwtAuthenticatorService,
-  private val rxSchedulers: RxSchedulers,
 ) {
 
   fun getVerificationInfo(

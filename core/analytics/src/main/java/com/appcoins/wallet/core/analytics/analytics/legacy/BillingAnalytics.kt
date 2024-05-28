@@ -354,6 +354,7 @@ class BillingAnalytics @Inject constructor(
     const val PAYMENT_METHOD_VK_PAY = "VK_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val PAYMENT_METHOD_SANDBOX = "SANDBOX"
+    const val PAYMENT_METHOD_MI_PAY = "MI_PAY"
     const val WALLET_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val WALLET_PAYMENT_METHOD = "wallet_payment_method"
     const val WALLET_PAYMENT_CONFIRMATION = "wallet_payment_confirmation"

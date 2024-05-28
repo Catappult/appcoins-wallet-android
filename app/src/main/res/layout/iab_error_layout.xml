@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generic_purchase_error_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/styleguide_payments_background"
     app:cardCornerRadius="@dimen/card_view_corner_radius"
     >
@@ -13,7 +13,7 @@
       android:id="@+id/generic_error_layout"
       layout="@layout/support_error_layout"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toTopOf="@id/error_dismiss"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

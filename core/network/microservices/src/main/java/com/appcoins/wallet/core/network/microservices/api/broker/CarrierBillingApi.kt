@@ -6,7 +6,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface CarrierBillingApi {
-  @POST("8.20210329/gateways/dimoco/transactions")
+  @POST("8.20240524/gateways/dimoco/transactions")
   fun makePayment(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
@@ -14,7 +14,7 @@ interface CarrierBillingApi {
   )
       : Single<CarrierCreateTransactionResponse>
 
-  @GET("8.20210329/gateways/dimoco/transactions/{uid}")
+  @GET("8.20240524/gateways/dimoco/transactions/{uid}")
   fun getPayment(
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
