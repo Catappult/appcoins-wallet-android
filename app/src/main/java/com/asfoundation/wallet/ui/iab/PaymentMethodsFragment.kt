@@ -251,7 +251,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun updatePriceAndCurrency(currency: String, amount: BigDecimal) {
-    val price = getString(R.string.purchase_total_header, amount, currency)
+    val price = if (isPortraitMode(requireContext())) {
+      getString(R.string.purchase_total_header, amount, currency)
+    } else {
+      getString(R.string.new_transaction_value, amount, currency)
+    }
+
     with(binding.paymentMethodsHeader.fiatPrice) {
       if (text != price) showPriceTransition()
       text = price
@@ -268,6 +273,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           super.onAnimationEnd(animation)
           priceTransitionAnimation.visibility = View.GONE
           fiatPrice.visibility = View.VISIBLE
+          if (!isPortraitMode(requireContext())) {
+            binding.paymentMethodsHeader.fiatTotalPriceLabel?.visibility = View.VISIBLE
+          }
         }
       })
     }
@@ -769,7 +777,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
     binding.bonusLayout.bonusValue.text =
-      context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+      if (isPortraitMode(requireContext())) context?.getString(
+        R.string.gamification_purchase_header_part_2,
+        bonusMessageValue
+      ) else bonusMessageValue
   }
 
   override fun onBackPressed(): Observable<Any> =
