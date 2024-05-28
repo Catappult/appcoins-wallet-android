@@ -62,14 +62,13 @@
       android:fontFamily="sans-serif-medium"
       android:textColor="@color/styleguide_payments_main_text"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold"
-      android:layout_marginStart="6dp"
       android:textSize="16sp"
       android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintTop_toBottomOf="@id/app_icon"
       android:text="@string/total_title"
-      tools:visibility="gone"
+      tools:visibility="visible"
       />
 
   <TextView

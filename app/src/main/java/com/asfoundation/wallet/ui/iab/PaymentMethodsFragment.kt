@@ -254,7 +254,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val price = if (isPortraitMode(requireContext())) {
       getString(R.string.purchase_total_header, amount, currency)
     } else {
-      getString(R.string.new_transaction_value, amount, currency)
+      getString(R.string.gas_price_value, amount, currency)
     }
 
     with(binding.paymentMethodsHeader.fiatPrice) {
