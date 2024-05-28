@@ -144,6 +144,11 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
         sideEffect.transactionContent.currency,
         sideEffect.transactionContent.forecastBonus
       )
+
+      is OnboardingPaymentSideEffect.showOrHideRefundDisclaimer -> {
+        views.onboardingPaymentTermsConditions?.disclaimerBody?.visibility =
+          if (sideEffect.showOrHideRefundDisclaimer) View.VISIBLE else View.GONE
+      }
     }
   }
 
