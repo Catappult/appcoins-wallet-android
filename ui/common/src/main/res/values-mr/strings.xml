@@ -1252,9 +1252,9 @@
   <string name="vip_program_promo_code_tag">प्रोमो कोड</string>
   <string name="vip_program_referral_page_title">व्हीआयपी संदर्भ कार्यक्रम</string>
   <string name="vip_program_referral_page_body">सर्वानी खेळतानाच पैसे कमावण्यासाठी हा प्रोमो कोड आपल्या समुदायात आणि मित्रांसह सामायिक करा. सर्वांनीच अॅपमधील खरेदी करताना, इतर अॅक्टिव्ह प्रमोशनच्या व्यतिरिक्त दोघांनाही म्हणजेच <b>आपण आणि आपल्या मित्रांनाही %1$s%% बोनस</b> मिळेल. <b>%2$sपर्यंत वैध</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">हा कोड वापरल्याने आपण आणि आपल्या मित्रांना सर्व खरेदीवर %s%% बोनस मिळेल!</string>
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">फक्त वरील खरेदीवर</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
   <string name="vip_program_gamification_title">माझी बोनस पातळी काय आहे?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">आपल्या खरेदीवर बोनस मिळाला</string>
@@ -1296,7 +1296,7 @@
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
   <string name="rewards_eskills_card_title">ई-स्किल्स</string>
   <string name="rewards_eskills_card_body">आपली ई-स्किल्स कमाई काढा.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">प्रोमो कोड</string>
   <string name="rewards_promo_code_card_body">खास सूट मिळविण्यासाठी प्रोमो कोड वापरा!</string>
   <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
@@ -1306,8 +1306,8 @@
   <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
   <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%%</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">वॉलेटस् व्यवस्थापन</string>
+  <string name="manage_wallet_view_title">वॉलेटस् व्यवस्थापन</string>
   <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
   <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
   <string name="manage_wallet_change_wallet_name_title">वॉलेटचे नाव बदला</string>
@@ -1315,7 +1315,7 @@
   <string name="manage_wallet_my_wallet_address_title">माझ्या वॉलेटचा पत्ता</string>
   <string name="manage_wallet_verify_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="manage_wallet_verify_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">सुरळितपणासाठी आपली शिल्लक आपल्या स्थानिक चलनात दर्शविली आहे, पण ही यूएसडीशी जुडलेली असल्याने बदलत्या यूएसडीच्या मूल्याचा आपल्या शिल्लकेवर प्रभाव पडू शकतो.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">पेमेंट पद्धत सत्यापित करा</string>
   <string name="verify_card_body">पेमेंट पद्धतीचे सत्यापन करुन ब्लॉकेजेस टाळा.</string>
@@ -1323,7 +1323,7 @@
   <string name="verify_card_one_more_step_body">व्यवहार तपशीलात दिसणारा कोड घाला</string>
   <string name="verify_card_one_more_step_button">कोड घाला</string>
   <string name="verify_card_verified">पेमेंट पद्धत सत्यापित झाली!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">क्रेडीट/डेबीट कार्डाचे सत्यापन</string>
   <string name="verify_card_view_title">कार्ड सत्यापित करा</string>
   <string name="verify_card_view_disclaimer">आम्ही आपल्या कार्डावर %s चार्ज करु आणि आपण कोडची पुष्टी केल्यानंतर ते परत केले जातील.</string>
   <string name="verify_card_view_title_2">आपल्या बँक कार्डाचे तपशील भरा</string>
@@ -1342,15 +1342,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">आपल्या वॉलेटमध्ये जमा झालेल्या %s अॅपकॉईन्सचा आनंद लुटा</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">येत रहा!</string>
+  <string name="mail_list_card_body">निवडक अद्यतने आणि गिफ्ट कार्ड जिंकण्याचा मोका मिळण्यासाठी आमच्या मेलिंग लिस्टमध्ये सामिल व्हा.</string>
+  <string name="mail_list_card_confirmation_title">आपली ईमेल पुष्टी करा</string>
+  <string name="mail_list_card_confirmation_body">आम्ही %s वर ईमेल पाठवली आहे</string>
+  <string name="mail_list_backup">निवडक अद्यतने आणि गिफ्ट कार्ड जिंकण्याचा मोका मिळण्यासाठी आमच्या मेलिंग लिस्टमध्ये सामिल व्हा.</string>
+  <string name="mail_list_confirmation_email_subject">आपल्या ईमेलची पुष्टी करा - अॅपकॉइन्स मेलिंग लिस्ट</string>
+  <string name="mail_list_confirmation_email_body">नमस्कार!\n\nअॅपकॉइन्स मेलिंग लिस्टमध्ये सामिल होण्याबद्दल धन्यवाद. कृपया खालील बटन क्लिक करुन आपल्या ईमेल पत्त्याची पुष्टी करा:</string>
+  <string name="mail_list_confirmation_email_button">ईमेल पुष्टी</string>
+  <string name="mail_list_confirmation_email_signature">नमस्कार,\nअॅपकॉइन्स टीम</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
