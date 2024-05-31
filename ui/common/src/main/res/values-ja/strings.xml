@@ -679,9 +679,9 @@
   <string name="purchase_payment_method_top_ups_only">トップアップにのみ利用可能。</string>
   <string name="purchase_payment_method_minimum_amount">%s以上の購入に限ります。</string>
   <string name="purchase_payment_method_not_availble_generic">今回の購入ではご利用いただけません。</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_no_method_available_body">現時点では、お住まいの地域でこの購入を完了するための支払い方法はありません。ご期待ください！</string>
+  <string name="purchase_legal_disclaimer">お支払いを完了することにより、お支払いと同時にコンテンツが提供されることに同意し、承諾したものとみなされます。</string>
+  <string name="purchase_bonus_in_appc_disclaimer">ボーナスはAppCoinsクレジットで支払われます。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -982,16 +982,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">クレジット/デビットカードの追加</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">クレジット/デビットカードの追加</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">別のカードを使う</string>
   <string name="manage_cards_view_title">カードの管理</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">まだ保存されているカードがありません。</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">新しいカードの追加</string>
+  <string name="manage_cards_add_button">カードの追加</string>
   <string name="manage_cards_remove_confirmation">本当にこのカードを削除しますか？</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">キャンセルします</string>
+  <string name="manage_cards_remove_yes">はい、削除してください</string>
   <string name="manage_cards_card_ending_body">%sで終わるカード</string>
   <string name="manage_cards_error_details">カード情報に間違いはありませんか？もう一度お試しください</string>
   <string name="manage_cards_error_card_problem">お使いのカードに問題があるようです。別のカードでお試しください。</string>
@@ -999,11 +999,11 @@
   <string name="manage_cards_remember">カードの保存</string>
   <string name="add_new_card_button">新しいカードの追加</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">支払い用カードの管理</string>
+  <string name="card_added_title">カードが追加されました</string>
+  <string name="card_removed">カードが削除されました</string>
+  <string name="choose_card_title">カードを選択</string>
+  <string name="manage_cards_update_disclaimer_1">カードを更新または削除するには、次のサイトにアクセス：</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">購入ごとに最大%s%%のボーナスを獲得</string>
@@ -1222,7 +1222,7 @@
   <string name="vip_program_promo_code_tag">プロモーションコード</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
   <string name="vip_program_referral_page_body">このプロモコードをあなたのコミュニティやお友達にシェアして、みんなでプレーしながら獲得しましょう。アプリ内課金をするごとに、<b>あなたとお友達の両方に、他のアクティブなプロモーションに加えて、%1$s%%ボーナス</b>が付与されます。<b>有効期限は %2$s</b> です！</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">このコードを使用すると、あなたとあなたのお友達は、すべての購入で%s%のボーナスを得ることができます！</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_only_app_title">次でのご購入に限ります</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
@@ -1262,7 +1262,7 @@
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">e-Skillsの収益を引き出す</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">プロモーションコード</string>
   <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
   <string name="rewards_promo_code_status">状況:</string>
   <string name="rewards_promo_code_status_active">有効</string>
@@ -1272,8 +1272,8 @@
   <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
   <string name="rewards_bonus_every_purchase_title">購入毎に%s%%のボーナス</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">ウォレットの管理</string>
+  <string name="manage_wallet_view_title">ウォレットの管理</string>
   <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
   <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
   <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
@@ -1281,7 +1281,7 @@
   <string name="manage_wallet_my_wallet_address_title">マイウォレットのアドレス</string>
   <string name="manage_wallet_verify_title">支払い方法の確認</string>
   <string name="manage_wallet_verify_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">残高はわかりやすいように現地通貨で表示されますが、米ドルと連動しているため、米ドルの価値の変動が残高に影響する場合があります。</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">支払い方法の認証</string>
   <string name="verify_card_body">支払い方法を確認することで、ブロックされるのを防ぐことができます。</string>
@@ -1308,15 +1308,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">ウォレットにある%s AppCoinsクレジットをお楽しみください。</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">ご期待ください！</string>
+  <string name="mail_list_card_body">メーリングリストに参加して、限定最新情報やギフトカードが当たるチャンスをゲットしよう。</string>
+  <string name="mail_list_card_confirmation_title">Eメールの確認</string>
+  <string name="mail_list_card_confirmation_body">%sにメールを送信しました。</string>
+  <string name="mail_list_backup">メーリングリストに参加して、限定最新情報やギフトカードが当たるチャンスをゲットしよう。</string>
+  <string name="mail_list_confirmation_email_subject">Eメールを確認 - AppCoinsメーリングリスト</string>
+  <string name="mail_list_confirmation_email_body">こんにちは！\n\nAppCoinsメーリングリストにご参加いただきありがとうございます。下のボタンをクリックしてメールアドレスを確認してください：</string>
+  <string name="mail_list_confirmation_email_button">メールの確認</string>
+  <string name="mail_list_confirmation_email_signature">ありがとうございました。\nAppCoinsチーム</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
