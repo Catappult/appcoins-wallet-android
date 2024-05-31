@@ -1329,7 +1329,7 @@
   <string name="mail_list_confirmation_email_subject">Confirme seu e-mail - AppCoins Mailing List</string>
   <string name="mail_list_confirmation_email_body">Olá!\n\n Obrigado por se inscrever na lista de e-mails da AppCoins. Por favor, confirme seu endereço de e-mail clicando no botão abaixo:</string>
   <string name="mail_list_confirmation_email_button">Confirmar e-mail</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_confirmation_email_signature">Saudações,\nEquipe AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
