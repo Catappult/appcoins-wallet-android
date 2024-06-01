@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Цю покупку було відхилено.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_reverted_body">Цю покупку було скасовано.\nДля додаткової інформації зверніться до підтримки.</string>
   <string name="transaction_status_rejected">Відхилено</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Деталі транзакції</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Немає способів оплати!</string>
   <string name="topup_no_method_available_body">На цей час у вашій країні немає доступних способів оплати для поповнення рахунку. Залишайтеся на зв\'язку!</string>
   <string name="topup_bonus_amount_body">Отримайте бонус %s з цим поповненням</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s було зараховано на ваш рахунок в AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Загальний баланс у %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
   <string name="my_wallets_action_backup_wallet">Резервний гаманець</string>
   <string name="my_wallets_action_verify_new_card">Підтвердити нову картку</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Видалити гаманець</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросити когось заплатити</string>
   <string name="askafriend_generating_link_message">Ми генеруємо ваше посилання на оплату&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Привіт! Будь ласка, надішліть мені %1$s AppCoins Credits, щоб купити товар на %2$s. Посилання: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Надіслати кошти</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Отримати</string>
   <string name="p2p_send_body">Відскануйте або введіть адресу гаманця вашого друга.</string>
   <string name="p2p_send_confirmation_message">45 / 5 000
 Результаты перевода
@@ -529,10 +529,10 @@
   <string name="resend_button">Надіслати знову</string>
   <string name="continue_button">Продовжити</string>
   <string name="card_expired_tag">Термін дії закінчився</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Почати знову</string>
+  <string name="max">Макс.</string>
+  <string name="amount">Кількість</string>
+  <string name="total_title">Всього</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
