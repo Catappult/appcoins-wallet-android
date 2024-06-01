@@ -520,17 +520,17 @@
   <string name="done">Hoàn thành!</string>
   <string name="see_more_button">Xem thêm</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Kết thúc trong</string>
   <string name="start_date_title">Ngày bắt đầu:</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">Ngày kết thúc:</string>
   <string name="send_button">Gửi</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Gửi lại</string>
+  <string name="continue_button">Tiếp tục</string>
   <string name="card_expired_tag">Đã hết hạn</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Bắt đầu lại</string>
+  <string name="max">Tối đa</string>
+  <string name="amount">Số tiền</string>
+  <string name="total_title">Tổng cộng</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">Từ chối</string>
   <string name="get_started">Bắt đầu</string>
   <string name="existent_wallet">Tôi đã có một ví rồi</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Xác minh phương thức thanh toán của bạn để hoàn tất giao dịch mua hàng.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Mua trò chơi yêu thích của bạn và chúng tôi sẽ xử lý mọi thứ.</string>
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
@@ -580,7 +580,7 @@
   <string name="verification_settings_verified_title">Ví đã được xác minh</string>
   <string name="verification_settings_verifying_title">Đang xác minh…</string>
   <string name="verification_verified_paypal_description">Bạn sẽ được hoàn tiền ngay lập tức. Phương thức thanh toán của bạn sẽ sớm được xác minh.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Một giao dịch %s sẽ được thực hiện để xác nhận tài khoản của bạn. Nó cũng sẽ được hoàn trả ngay lập tức.</string>
   <string name="verification_verify_paypal_button">Xác minh ngay</string>
   <string name="verification_settings_card_verified_title">Đã xác minh thẻ</string>
   <string name="verification_settings_no_internet">Bạn cần kết nối với Internet</string>
@@ -590,11 +590,11 @@
   <string name="unferified_tag">Ví chưa xác minh</string>
   <string name="verification_wallets_verify_button">Xác minh</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Một bước nữa thôi!</string>
+  <string name="paypal_verification_home_one_step_card_body">Nhập mã được gửi đến địa chỉ email để xác minh tài khoản PayPal của bạn.</string>
+  <string name="paypal_verification_header">Xác minh PayPal</string>
+  <string name="paypal_verification_insert_code_body">Nhập bên dưới mã gồm 4 chữ số mà chúng tôi đã gửi tới địa chỉ email được liên kết với Tài khoản PayPal của bạn.</string>
+  <string name="paypal_verification_didnt_receive_title">Bạn vẫn chưa nhận được?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Tổng cộng %1$s %2$s</string>
@@ -662,14 +662,14 @@
   <string name="error_blocked_wallet_title">Ví bị chặn</string>
   <string name="error_blocked_wallet_body">Vì lý do bảo mật, ví của bạn đã bị chặn. Vui lòng liên hệ với chúng tôi để biết thêm thông tin.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Phí bổ sung có thể được áp dụng.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s có phí và VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">bao gồm phụ phí</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">không bao gồm phụ phí</string>
   <string name="purchase_error_paypal">Đã xảy ra sự cố với khoản thanh toán PayPal của bạn. Vui lòng thử lại hoặc sử dụng một phương thức thanh toán khác.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Đã xảy ra sự cố với Google Pay. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
   <string name="purchase_success_bonus_received_title">%s tiền thưởng đã nhận.</string>
   <string name="purchase_making_purchase_title">Thực hiện mua hàng&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
+  <string name="purchase_fee_title">%1$s %2$s phí</string>
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Phương thức thanh toán này không hỗ trợ loại tiền tệ của bạn nên giao dịch này có thể sẽ bị tính phí xử lý.</string>
