@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Quay lại trò chơi</string>
   <string name="other_payment_methos_title">Phương thức thanh toán khác:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Bạn đã có</string>
+  <string name="intro_from_web_payment_to_spend_body">để chi tiêu cho các trò chơi yêu thích của mình.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>
@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Giao dịch mua này đã bị từ chối.\nĐể biết thêm thông tin, hãy liên hệ với bộ phận hỗ trợ.</string>
   <string name="transaction_reverted_body">Giao dịch mua này đã được hoàn nguyên.\nĐể biết thêm thông tin, hãy liên hệ với bộ phận hỗ trợ.</string>
   <string name="transaction_status_rejected">Đã bị từ chối</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Chi tiết giao dịch</string>
   <string name="transaction_details_txid">Mã giao dịch</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Không có phương thức thanh toán!</string>
   <string name="topup_no_method_available_body">Hiện tại ở quốc gia của bạn chưa có phương thức thanh toán nào để nạp tiền cả. Hãy tiếp tục theo dõi!</string>
   <string name="topup_bonus_amount_body">Nhận %s tiền thưởng với lượt nạp tiền này</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s đã được gửi vào tài khoản của bạn bằng AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Số dư</string>
   <string name="balance_total_body">Tổng số dư bằng %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Khôi phục ví</string>
   <string name="my_wallets_action_backup_wallet">Sao lưu ví</string>
   <string name="my_wallets_action_verify_new_card">Xác minh thẻ mới</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Xóa ví</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Nhờ ai đó thanh toán</string>
   <string name="askafriend_generating_link_message">Chúng tôi đang tạo liên kết thanh toán của bạn&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Chào bạn! Vui lòng gửi cho tôi %1$s AppCoins Credits để mua một vật phẩm trong %2$s. Liên kết: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Gửi tiền</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Nhận</string>
   <string name="p2p_send_body">Quét hoặc nhập địa chỉ ví bạn bè của bạn.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s đã được gửi đến địa chỉ sau:</string>
   <string name="p2p_send_current_balance_message">Số dư hiện tại: %1$s %2$s</string>
@@ -478,7 +478,7 @@
   <string name="p2p_send_error_amount_zero">Số tiền phải nhiều hơn 0</string>
   <string name="p2p_send_confirmation_header">Chi tiết chuyển khoản</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Rất tiếc</string>
   <string name="error_general">Đã xảy ra lỗi</string>
   <string name="error_missing_field">Trường bắt buộc</string>
   <string name="cancel_button">Hủy</string>
@@ -491,7 +491,7 @@
   <string name="discover_button">Khám phá</string>
   <string name="retry_button">Thử lại</string>
   <string name="do_it_later_button">Để sau</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Không có kết nối Internet</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <string name="common_or">HOẶC</string>
   <string name="share_via">Chia sẻ qua:</string>
