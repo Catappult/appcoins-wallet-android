@@ -1003,7 +1003,7 @@
   <string name="card_added_title">Đã thêm thẻ</string>
   <string name="card_removed">Đã xóa thẻ</string>
   <string name="choose_card_title">Chọn thẻ</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_1">Để cập nhật hoặc xóa thẻ, hãy truy cập:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Nhận đến %s%% tiền thưởng trên mọi giao dịch mua</string>
@@ -1044,7 +1044,7 @@
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Biometric Lock</string>
+  <string name="fingerprint_settings">Khóa sinh trắc học</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
