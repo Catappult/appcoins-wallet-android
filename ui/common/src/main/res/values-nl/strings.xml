@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Deze aankoop is geweigerd.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_reverted_body">Deze aankoop is teruggedraaid.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_status_rejected">Geweigerd</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Transactiegegevens</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Wallet herstellen</string>
   <string name="my_wallets_action_backup_wallet">Back-up van wallet maken</string>
   <string name="my_wallets_action_verify_new_card">Nieuwe kaart verifiëren</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Wallet verwijderen</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Vraag iemand om te betalen</string>
   <string name="askafriend_generating_link_message">We zijn je link om te betalen aan het aanmaken&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Hallo! Zou je me %1$s AppCoins Credits willen sturen om een item voor %2$s te kopen. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Cryptovaluta verzenden</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Ontvangen</string>
   <string name="p2p_send_body">Scan of voer het wallet-adres van je vriend(in) in.</string>
   <string name="p2p_send_confirmation_message">Er zijn %1$s %2$s naar het volgende adres verzonden:</string>
   <string name="p2p_send_current_balance_message">Huidig saldo: %1$s %2$s</string>
