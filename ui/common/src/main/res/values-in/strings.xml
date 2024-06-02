@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Pembelian ini ditolak.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_reverted_body">Pembelian ini dikembalikan.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Rincian Transaksi</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Tidak ada metode pembayaran!</string>
   <string name="topup_no_method_available_body">Saat ini tidak tersedia metode pembayaran untuk pengisian ulang di negara Anda. Pantau terus!</string>
   <string name="topup_bonus_amount_body">Dapatkan bonus %s dengan isi ulang ini</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s sudah disetorkan ke akun Anda berupa Kredit AppCoins.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
   <string name="my_wallets_action_verify_new_card">Verifikasi kartu baru</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
   <string name="askafriend_generating_link_message">Kami sedang membuat tautan pembayaran Anda &#8230;</string>
