@@ -679,9 +679,9 @@
   <string name="purchase_payment_method_top_ups_only">仅适用于充值。</string>
   <string name="purchase_payment_method_minimum_amount">仅适用于%s以上的购买。</string>
   <string name="purchase_payment_method_not_availble_generic">无法适用于此次购买。</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_no_method_available_body">目前，在您所在的地区没有付款方式可以完成此购买。请继续关注我们的更新！</string>
+  <string name="purchase_legal_disclaimer">如果您继续付款，即表示您同意且无任何异议在付款后继续获得所提供的内容，并因此失去您的撤回权。</string>
+  <string name="purchase_bonus_in_appc_disclaimer">奖励：AppCoins 积分形式。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -982,16 +982,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">添加信用卡/借记卡</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">使用另一张卡</string>
   <string name="manage_cards_view_title">管理支付卡</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">您没有任何已保存的卡。</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">添加新卡</string>
+  <string name="manage_cards_add_button">添加支付卡</string>
   <string name="manage_cards_remove_confirmation">确实要删除此卡？</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">不，请取消</string>
+  <string name="manage_cards_remove_yes">是的，移除它</string>
   <string name="manage_cards_card_ending_body">卡尾号为%s</string>
   <string name="manage_cards_error_details">确定信用卡详细信息正确无误吗？请重试！</string>
   <string name="manage_cards_error_card_problem">您的信用卡似乎存在问题。请尝试使用其他信用卡。</string>
@@ -999,11 +999,11 @@
   <string name="manage_cards_remember">记住卡信息</string>
   <string name="add_new_card_button">添加新卡</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">管理您的支付卡</string>
+  <string name="card_added_title">已添加卡</string>
+  <string name="card_removed">已移除卡</string>
+  <string name="choose_card_title">选择支付卡</string>
+  <string name="manage_cards_update_disclaimer_1">若需更新或移除支付卡，请前往：</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">每次购买可享高达%s%%的奖励</string>
@@ -1222,7 +1222,7 @@
   <string name="vip_program_promo_code_tag">促销代码</string>
   <string name="vip_program_referral_page_title">VIP引荐计划</string>
   <string name="vip_program_referral_page_body">与社区和好友分享此促销代码，让每个人都能一边游玩一边赚钱。对于他们进行的每一次应用内购买，<b>您和您的好友都将在其他有效促销的基础上额外获得%1$s%%奖金</b>！<b>该活动的有效期至%2$s</b>！</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">当使用此促销代码后，对于所有应用内购买，您和您的朋友均会获得%s%%的奖金。</string>
   <string name="vip_program_referral_page_share_title">与好友分享此代码</string>
   <string name="vip_program_referral_page_only_app_title">该应用内购买促销活动仅适用于：</string>
   <string name="vip_program_referral_page_earned_body">从%3$s此引荐中已赚取%1$s%2$s</string>
@@ -1262,7 +1262,7 @@
   <string name="rewards_current_bonus_title">每一次购买都将获得%s%%的奖金</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">将您的 e-Skills 收益提现。</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">促销代码</string>
   <string name="rewards_promo_code_card_body">输入促销码，以获得特别优惠！</string>
   <string name="rewards_promo_code_status">状态:</string>
   <string name="rewards_promo_code_status_active">激活</string>
@@ -1272,8 +1272,8 @@
   <string name="rewards_make_first_purchase_body">在与AppCoins兼容的游戏中进行首次购买，并在每次购买中解锁奖金。</string>
   <string name="rewards_bonus_every_purchase_title">每一次购买都将获得%s%%的奖金</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">钱包管理</string>
+  <string name="manage_wallet_view_title">钱包管理</string>
   <string name="manage_wallet_wallet_changed_title">钱包更换</string>
   <string name="manage_wallet_change_active_wallet_title">您是否要选择该钱包？</string>
   <string name="manage_wallet_change_wallet_name_title">更改钱包名称</string>
@@ -1281,7 +1281,7 @@
   <string name="manage_wallet_my_wallet_address_title">我的钱包地址</string>
   <string name="manage_wallet_verify_title">验证一种支付方式</string>
   <string name="manage_wallet_verify_body">验证一种支付方式，以免账户被冻结。</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">为了简单起见，您的余额会以您所在地区的货币显示，但它与美元挂钩，因此美元价值的变化可能会影响您的余额。</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">验证一种支付方式</string>
   <string name="verify_card_body">验证一种支付方式，以免账户被冻结。</string>
@@ -1308,15 +1308,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">在您的钱包中享用 %s AppCoins积分</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">敬请期待！</string>
+  <string name="mail_list_card_body">加入我们的邮件列表，获得独家更新，并有机会赢得礼品卡。</string>
+  <string name="mail_list_card_confirmation_title">确认您的电子邮件地址</string>
+  <string name="mail_list_card_confirmation_body">我们已发送邮件至%s</string>
+  <string name="mail_list_backup">加入我们的邮件列表，获得独家更新，并有机会赢得礼品卡。</string>
+  <string name="mail_list_confirmation_email_subject">确认您的电子邮件地址 - AppCoins 邮件列表</string>
+  <string name="mail_list_confirmation_email_body">您好！\n\n感谢您加入 AppCoins 邮件列表。请点击以下按钮确认您的电子邮件地址：</string>
+  <string name="mail_list_confirmation_email_button">确认邮件</string>
+  <string name="mail_list_confirmation_email_signature">祝您万事顺心！\nAppCoins 团队</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
