@@ -678,12 +678,12 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При цьому способі оплати ви сплачуєте комісію за обробку та ПДВ.</string>
   <string name="purchase_fee_included_body">комісія включена</string>
   <string name="purchase_error_one_wallet_generic">З вашим платежем через Wallet One виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_payment_method_top_ups_only">Доступно тільки для поповнення.</string>
+  <string name="purchase_payment_method_minimum_amount">Тільки для покупок понад %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Недоступно для цієї покупки.</string>
+  <string name="purchase_error_no_method_available_body">Зараз у вашому регіоні немає доступних методів оплати для завершення цієї покупки. Стежте за новинами!</string>
+  <string name="purchase_legal_disclaimer">Продовжуючи оплату, ви погоджуєтесь на отримання контенту після оплати та, таким чином, втрачаєте право на відкликання.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Бонус надається в AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>
