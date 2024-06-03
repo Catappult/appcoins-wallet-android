@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Deze aankoop is geweigerd.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_reverted_body">Deze aankoop is teruggedraaid.\nNeem contact op met de klantenservice voor meer informatie.</string>
   <string name="transaction_status_rejected">Geweigerd</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Transactiegegevens</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Geen betaalmethode!</string>
   <string name="topup_no_method_available_body">Er zijn momenteel geen betaalmethoden beschikbaar om in jouw land op te waarderen. Blijf ons volgen!</string>
   <string name="topup_bonus_amount_body">Krijg %s bonus voor deze opwaardering</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">Er is %s aan je account toegevoegd in AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Wallet herstellen</string>
   <string name="my_wallets_action_backup_wallet">Back-up van wallet maken</string>
   <string name="my_wallets_action_verify_new_card">Nieuwe kaart verifiëren</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Wallet verwijderen</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Vraag iemand om te betalen</string>
   <string name="askafriend_generating_link_message">We zijn je link om te betalen aan het aanmaken&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Hallo! Zou je me %1$s AppCoins Credits willen sturen om een item voor %2$s te kopen. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Cryptovaluta verzenden</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Ontvangen</string>
   <string name="p2p_send_body">Scan of voer het wallet-adres van je vriend(in) in.</string>
   <string name="p2p_send_confirmation_message">Er zijn %1$s %2$s naar het volgende adres verzonden:</string>
   <string name="p2p_send_current_balance_message">Huidig saldo: %1$s %2$s</string>
@@ -524,13 +524,13 @@
   <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">Einddatum:</string>
   <string name="send_button">Sturen</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Opnieuw</string>
+  <string name="continue_button">Doorgaan</string>
   <string name="card_expired_tag">Verlopen</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Opnieuw beginnen</string>
+  <string name="max">Max.</string>
+  <string name="amount">Bedrag</string>
+  <string name="total_title">Totaal</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">Weigeren</string>
   <string name="get_started">Aan de slag</string>
   <string name="existent_wallet">Ik heb al een wallet</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Verifieer je betaalmethode om je aankoop te voltooien.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Doe een aankoop in je favoriete game en wij regelen de rest.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
@@ -580,7 +580,7 @@
   <string name="verification_settings_verified_title">Wallet is geverifieerd</string>
   <string name="verification_settings_verifying_title">Verifiëren…</string>
   <string name="verification_verified_paypal_description">Het bedrag wordt meteen terugbetaald. Je betaalmethode wordt binnenkort geverifieerd.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Er wordt een transactie van %s uitgevoerd om je account te verifiëren. Dit bedrag wordt meteen terugbetaald.</string>
   <string name="verification_verify_paypal_button">Nu verifiëren</string>
   <string name="verification_settings_card_verified_title">Kaart is geverifieerd</string>
   <string name="verification_settings_no_internet">Je dient verbonden met internet te zijn</string>
@@ -590,11 +590,11 @@
   <string name="unferified_tag">Ongeverifieerde wallet</string>
   <string name="verification_wallets_verify_button">Verifiëren</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Nog één stap!</string>
+  <string name="paypal_verification_home_one_step_card_body">Voer de code in die je per e-mail hebt ontvangen om je PayPal-account te verifiëren.</string>
+  <string name="paypal_verification_header">PayPal-verificatie</string>
+  <string name="paypal_verification_insert_code_body">Voer hieronder de 4-cijferige code in die we hebben verzonden naar het e-mailadres dat aan je PayPal-account is gekoppeld.</string>
+  <string name="paypal_verification_didnt_receive_title">Heb je de code niet ontvangen?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Totaal %1$s %2$s</string>
@@ -662,26 +662,26 @@
   <string name="error_blocked_wallet_title">Geblokkeerde wallet</string>
   <string name="error_blocked_wallet_body">Om veiligheidsredenen is je wallet geblokkeerd. Neem contact met ons op voor meer informatie.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Er kunnen extra kosten van toepassing zijn.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s inclusief aanvullende kosten en btw.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">inclusief aanvullende kosten</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">exclusief aanvullende kosten</string>
   <string name="purchase_error_paypal">Er is een probleem opgetreden met je PayPal-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <string name="purchase_error_google_pay">Er is een probleem met Google Pay. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
   <string name="purchase_success_bonus_received_title">%s bonus ontvangen.</string>
   <string name="purchase_making_purchase_title">Aankoop verwerken&#8230;</string>
   <string name="purchase_fee_title">Kosten: %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom worden er verwerkingskosten in rekening gebracht. Deze kosten en btw zijn inbegrepen in het totaal dat bovenaan wordt getoond.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Op een aankoop met deze betaalmethode zijn verwerkingskosten van toepassing. Deze kosten en btw zijn inbegrepen in het totaal dat bovenaan wordt getoond.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Deze betaalmethode ondersteunt je valuta niet. Daarom kunnen er verwerkingskosten in rekening worden gebracht.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Met deze betaalmethode betaal je verwerkingskosten en btw.</string>
   <string name="purchase_fee_included_body">inclusief kosten</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_one_wallet_generic">Er is een probleem opgetreden met je Wallet One-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_payment_method_top_ups_only">Alleen beschikbaar voor opwaarderingen.</string>
+  <string name="purchase_payment_method_minimum_amount">Alleen voor aankopen van meer dan %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Niet beschikbaar voor deze aankoop.</string>
+  <string name="purchase_error_no_method_available_body">Op dit moment zijn er in jouw regio geen betaalmethoden beschikbaar om deze aankoop te voltooien. Blijf ons volgen voor updates!</string>
+  <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, ga je ermee akkoord dat de content na betaling aan je wordt geleverd en je daarmee je herroepingsrecht verliest.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">De bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -983,16 +983,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Creditcard/betaalkaart toevoegen</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Creditcard/betaalkaart toevoegen</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Gebruik een andere kaart</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">Je hebt nog geen opgeslagen kaarten.</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Nieuwe kaart toevoegen</string>
+  <string name="manage_cards_add_button">Kaart toevoegen</string>
   <string name="manage_cards_remove_confirmation">Weet je zeker dat je deze kaart wilt verwijderen?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Nee, annuleren</string>
+  <string name="manage_cards_remove_yes">Ja, verwijderen</string>
   <string name="manage_cards_card_ending_body">Kaart die eindigt op %s</string>
   <string name="manage_cards_error_details">Weet je zeker dat je kaartgegevens juist zijn? Probeer het opnieuw!</string>
   <string name="manage_cards_error_card_problem">Het lijkt erop dat er een probleem met je kaart is. Gebruik een andere kaart.</string>
@@ -1000,11 +1000,11 @@
   <string name="manage_cards_remember">Kaart onthouden</string>
   <string name="add_new_card_button">Nieuwe kaart toevoegen</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Betaalkaarten beheren</string>
+  <string name="card_added_title">Kaart toegevoegd</string>
+  <string name="card_removed">Kaart verwijderd</string>
+  <string name="choose_card_title">Kaart kiezen</string>
+  <string name="manage_cards_update_disclaimer_1">Om kaarten bij te werken of te verwijderen, ga je naar:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Verdien tot %s%% bonus bij elke aankoop</string>
@@ -1231,7 +1231,7 @@
   <string name="vip_program_promo_code_tag">Actiecode</string>
   <string name="vip_program_referral_page_title">VIP-verwijzingsprogramma</string>
   <string name="vip_program_referral_page_body">Deel deze actiecode met je community en vrienden zodat iedereen geld kan verdienen tijdens het spelen. Voor elke in-app aankoop die ze doen, <b>ontvangen jij en je vrienden %1$s%% bonus</b> bovenop andere lopende acties. <b>Geldig tot %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Jij en je vrienden krijgen %s%% bonus bij alle aankopen als je deze code gebruikt!</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_only_app_title">Alleen voor aankopen in</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
@@ -1275,7 +1275,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Neem je verdiensten met e-Skills op.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Actiecode</string>
   <string name="rewards_promo_code_card_body">Gebruik een actiecode om speciale aanbiedingen te krijgen!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Actief</string>
@@ -1285,8 +1285,8 @@
   <string name="rewards_make_first_purchase_body">Doe je eerste aankoop in een game die AppCoins ondersteunt en krijg een bonus bij elke aankoop.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonus bij elke aankoop</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Wallets beheren</string>
+  <string name="manage_wallet_view_title">Wallets beheren</string>
   <string name="manage_wallet_wallet_changed_title">Wallet gewijzigd</string>
   <string name="manage_wallet_change_active_wallet_title">Wil je deze wallet selecteren?</string>
   <string name="manage_wallet_change_wallet_name_title">Naam van wallet wijzigen</string>
@@ -1294,7 +1294,7 @@
   <string name="manage_wallet_my_wallet_address_title">Mijn wallet-adres</string>
   <string name="manage_wallet_verify_title">Verifieer een betaalmethode</string>
   <string name="manage_wallet_verify_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Je saldo wordt in je lokale valuta getoond om het eenvoudig te houden, maar het is aan de Amerikaanse dollar (USD) gekoppeld. Daarom kunnen waardeveranderingen van de USD invloed op je saldo hebben.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifieer een betaalmethode</string>
   <string name="verify_card_body">Voorkom blokkades door een betaalmethode te verifiëren.</string>
@@ -1321,15 +1321,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Blijf op de hoogte!</string>
+  <string name="mail_list_card_body">Meld je aan voor onze mailinglijst om exclusieve updates te ontvangen en kans te maken op een cadeaubon.</string>
+  <string name="mail_list_card_confirmation_title">Bevestig je e-mailadres</string>
+  <string name="mail_list_card_confirmation_body">We hebben een e-mail verzonden naar %s</string>
+  <string name="mail_list_backup">Meld je aan voor onze mailinglijst om exclusieve updates te ontvangen en kans te maken op een cadeaubon.</string>
+  <string name="mail_list_confirmation_email_subject">Bevestig je e-mailadres - AppCoins-mailinglijst</string>
+  <string name="mail_list_confirmation_email_body">Hallo!\n\nBedankt voor je aanmelding voor de AppCoins-mailinglijst. Bevestig je e-mailadres door op de onderstaande knop te klikken:</string>
+  <string name="mail_list_confirmation_email_button">E-mailadres bevestigen</string>
+  <string name="mail_list_confirmation_email_signature">Vriendelijke groet,\nHet AppCoins-team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

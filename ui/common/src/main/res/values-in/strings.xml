@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Pembelian ini ditolak.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_reverted_body">Pembelian ini dikembalikan.\nUntuk informasi lebih lanjut, hubungi dukungan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Rincian Transaksi</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Tidak ada metode pembayaran!</string>
   <string name="topup_no_method_available_body">Saat ini tidak tersedia metode pembayaran untuk pengisian ulang di negara Anda. Pantau terus!</string>
   <string name="topup_bonus_amount_body">Dapatkan bonus %s dengan isi ulang ini</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s sudah disetorkan ke akun Anda berupa Kredit AppCoins.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
   <string name="my_wallets_action_verify_new_card">Verifikasi kartu baru</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
   <string name="askafriend_generating_link_message">Kami sedang membuat tautan pembayaran Anda &#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Halo! Tolong kirimi saya %1$s AppCoins Credits untuk membeli item di %2$s. Tautan: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Kirim Dana</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Terima</string>
   <string name="p2p_send_body">Pindai atau masukkan alamat dompet teman Anda.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s dikirimkan ke alamat berikut ini:</string>
   <string name="p2p_send_current_balance_message">Saldo: %1$s %2$s</string>
@@ -527,9 +527,9 @@
   <string name="resend_button">Kirim ulang</string>
   <string name="continue_button">Lanjutkan</string>
   <string name="card_expired_tag">Kedaluwarsa</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="start_again_button">Mulai lagi</string>
+  <string name="max">Maks</string>
+  <string name="amount">Jumlah</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">Tolak</string>
   <string name="get_started">Mulai</string>
   <string name="existent_wallet">Saya sudah punya dompet</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Verifikasi metode pembayaran Anda untuk menyelesaikan pembelian.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Lakukan pembelian di game favorit Anda, nanti kami akan menangani semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
@@ -662,26 +662,26 @@
   <string name="error_blocked_wallet_title">Dompet Diblokir</string>
   <string name="error_blocked_wallet_body">Demi alasan keamanan, dompet Anda sudah diblokir. Silakan hubungi kami untuk informasi lebih lanjut.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Mungkin akan dikenakan biaya tambahan.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s dengan biaya dan PPN.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">termasuk biaya tambahan</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">tidak termasuk biaya tambahan</string>
   <string name="purchase_error_paypal">Terjadi masalah dengan pembayaran PayPal Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <string name="purchase_error_google_pay">Terjadi masalah dengan pembayaran Google Pay Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
   <string name="purchase_success_bonus_received_title">Bonus %s diterima.</string>
   <string name="purchase_making_purchase_title">Melakukan pembelian&#8230;</string>
   <string name="purchase_fee_title">Biaya %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Metode pembayaran ini tidak mendukung mata uang Anda, jadi Anda akan dikenai biaya pemrosesan. Biaya dan PPN ini sudah termasuk dalam jumlah Total yang tercantum di bagian atas.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Dengan metode pembayaran ini, akan dikenakan biaya pemrosesan untuk pembelian ini. Biaya dan PPN ini sudah termasuk dalam Total yang tercantum di bagian atas.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Metode pembayaran ini tidak mendukung mata uang Anda, jadi Anda mungkin akan dikenai biaya pemrosesan.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan metode pembayaran ini, Anda akan membayar biaya pemrosesan dan PPN.</string>
   <string name="purchase_fee_included_body">sudah termasuk biaya</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_one_wallet_generic">Terjadi masalah dengan pembayaran Wallet One Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
+  <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk isi ulang.</string>
+  <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian di atas %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Tidak tersedia pada pembelian ini.</string>
+  <string name="purchase_error_no_method_available_body">Saat ini, tidak tersedia metode pembayaran di wilayah Anda untuk menyelesaikan pembelian ini. Pantau terus!</string>
+  <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonus berupa Kredit AppCoins.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -982,16 +982,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Tambah kartu kredit/debit</string>
   <string name="manage_cards_settings_manage_title">Kelola kartu</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Tambah kartu kredit/debit</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Gunakan kartu lain</string>
   <string name="manage_cards_view_title">Kelola kartu</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">Anda belum memiliki kartu yang disimpan.</string>
   <string name="manage_cards_view_manage_subtitle">Kelola kartu pembayaran Anda</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Tambah Kartu Baru</string>
+  <string name="manage_cards_add_button">Tambah kartu</string>
   <string name="manage_cards_remove_confirmation">Apakah Anda yakin ingin menghapus kartu ini?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Tidak, batalkan</string>
+  <string name="manage_cards_remove_yes">Ya, hapus</string>
   <string name="manage_cards_card_ending_body">Kartu yang ujungnya %s</string>
   <string name="manage_cards_error_details">Apakah Anda yakin rincian kartu Anda sudah benar? Silakan coba lagi!</string>
   <string name="manage_cards_error_card_problem">Sepertinya ada masalah dengan kartu Anda. Silakan coba dengan kartu yang lain.</string>
@@ -999,11 +999,11 @@
   <string name="manage_cards_remember">Ingat kartu</string>
   <string name="add_new_card_button">Tambah kartu baru</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Kelola kartu pembayaran</string>
+  <string name="card_added_title">Kartu ditambahkan</string>
+  <string name="card_removed">Kartu dihapus</string>
+  <string name="choose_card_title">Pilih kartu</string>
+  <string name="manage_cards_update_disclaimer_1">Untuk memperbarui atau menghapus kartu, buka:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Dapatkan hingga %s%% Bonus di setiap pembelian</string>
@@ -1222,7 +1222,7 @@
   <string name="vip_program_promo_code_tag">Kode promo</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
   <string name="vip_program_referral_page_body">Bagikan kode promo ini dengan komunitas dan teman Anda agar semua orang bisa memperoleh penghasilan saat bermain. Untuk setiap pembelian dalam aplikasi yang mereka lakukan, <b>Anda dan teman Anda akan menerima bonus sebesar %1$s%%</b>, di samping promosi aktif lainnya, selama sebulan penuh. <b>Berlaku sampai %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Anda dan teman Anda mendapatkan bonus %s%% di semua pembelian saat menggunakan kode ini!</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
@@ -1262,7 +1262,7 @@
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Tarik penghasilan e-Skills Anda.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Kode Promo</string>
   <string name="rewards_promo_code_card_body">Gunakan kode promo untuk mendapatkan penawaran khusus!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
@@ -1272,8 +1272,8 @@
   <string name="rewards_make_first_purchase_body">Lakukan pembelian pertama di game yang kompatibel dengan AppCoins dan dapatkan bonus di setiap pembelian.</string>
   <string name="rewards_bonus_every_purchase_title">Bonus %s%% untuk setiap pembelian</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Kelola Dompet</string>
+  <string name="manage_wallet_view_title">Kelola Dompet</string>
   <string name="manage_wallet_wallet_changed_title">Dompet sudah berubah</string>
   <string name="manage_wallet_change_active_wallet_title">Apakah Anda ingin memilih dompet ini?</string>
   <string name="manage_wallet_change_wallet_name_title">Ganti nama dompet</string>
@@ -1281,7 +1281,7 @@
   <string name="manage_wallet_my_wallet_address_title">Alamat Dompet Saya</string>
   <string name="manage_wallet_verify_title">Verifikasi Metode Pembayaran</string>
   <string name="manage_wallet_verify_body">Hindari pemblokiran dengan memverifikasi metode pembayaran.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Agar lebih memudahkan, saldo Anda ditampilkan dalam mata uang lokal Anda, namun terhubung dengan USD, sehingga perubahan nilai USD dapat memengaruhi saldo Anda.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verifikasi Metode Pembayaran</string>
   <string name="verify_card_body">Hindari pemblokiran dengan memverifikasi metode pembayaran.</string>
@@ -1308,15 +1308,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Nikmati Kredit AppCoins sebesar %s di dompet Anda</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Pantau Terus!</string>
+  <string name="mail_list_card_body">Bergabunglah dengan milis kami untuk mendapatkan pembaruan eksklusif dan kesempatan memenangkan kartu hadiah.</string>
+  <string name="mail_list_card_confirmation_title">Konfirmasi Email Anda</string>
+  <string name="mail_list_card_confirmation_body">Kami sudahh mengirim email ke %s</string>
+  <string name="mail_list_backup">Bergabunglah dengan milis kami untuk mendapatkan pembaruan eksklusif dan kesempatan memenangkan kartu hadiah.</string>
+  <string name="mail_list_confirmation_email_subject">Konfirmasi email Anda - Milis AppCoins</string>
+  <string name="mail_list_confirmation_email_body">Hai!\n\nTerima kasih sudah bergabung dengan milis AppCoins. Silakan konfirmasi alamat email Anda dengan mengklik tombol di bawah ini:</string>
+  <string name="mail_list_confirmation_email_button">Konfirmasi email</string>
+  <string name="mail_list_confirmation_email_signature">Salam,\nTim AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
