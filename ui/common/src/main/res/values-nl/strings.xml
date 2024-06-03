@@ -524,7 +524,7 @@
   <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">Einddatum:</string>
   <string name="send_button">Sturen</string>
-  <string name="resend_button">Opnieuw verzenden</string>
+  <string name="resend_button">Opnieuw</string>
   <string name="continue_button">Doorgaan</string>
   <string name="card_expired_tag">Verlopen</string>
   <string name="start_again_button">Opnieuw beginnen</string>
@@ -593,7 +593,7 @@
   <string name="paypal_verification_home_one_step_card_title">Nog één stap!</string>
   <string name="paypal_verification_home_one_step_card_body">Voer de code in die je per e-mail hebt ontvangen om je PayPal-account te verifiëren.</string>
   <string name="paypal_verification_header">PayPal-verificatie</string>
-  <string name="paypal_verification_insert_code_body">Voer hieronder de 4-cijferige code in die we hebben verzonden naar het e-mailaders dat aan je PayPal-acount is gekoppeld.</string>
+  <string name="paypal_verification_insert_code_body">Voer hieronder de 4-cijferige code in die we hebben verzonden naar het e-mailadres dat aan je PayPal-account is gekoppeld.</string>
   <string name="paypal_verification_didnt_receive_title">Heb je de code niet ontvangen?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
@@ -680,7 +680,7 @@
   <string name="purchase_payment_method_minimum_amount">Alleen voor aankopen van meer dan %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Niet beschikbaar voor deze aankoop.</string>
   <string name="purchase_error_no_method_available_body">Op dit moment zijn er in jouw regio geen betaalmethoden beschikbaar om deze aankoop te voltooien. Blijf ons volgen voor updates!</string>
-  <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, gaat u ermee akkoord dat de content na betaling aan u wordt geleverd en u daarmee uw herroepingsrecht verliest.</string>
+  <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, ga je ermee akkoord dat de content na betaling aan je wordt geleverd en je daarmee je herroepingsrecht verliest.</string>
   <string name="purchase_bonus_in_appc_disclaimer">De bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
@@ -1321,15 +1321,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Geniet van %s in AppCoins Credits in je wallet</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Blijf op de hoogte!</string>
+  <string name="mail_list_card_body">Meld je aan voor onze mailinglijst om exclusieve updates te ontvangen en kans te maken op een cadeaubon.</string>
+  <string name="mail_list_card_confirmation_title">Bevestig je e-mailadres</string>
+  <string name="mail_list_card_confirmation_body">We hebben een e-mail verzonden naar %s</string>
+  <string name="mail_list_backup">Meld je aan voor onze mailinglijst om exclusieve updates te ontvangen en kans te maken op een cadeaubon.</string>
+  <string name="mail_list_confirmation_email_subject">Bevestig je e-mailadres - AppCoins-mailinglijst</string>
+  <string name="mail_list_confirmation_email_body">Hallo!\n\nBedankt voor je aanmelding voor de AppCoins-mailinglijst. Bevestig je e-mailadres door op de onderstaande knop te klikken:</string>
+  <string name="mail_list_confirmation_email_button">E-mailadres bevestigen</string>
+  <string name="mail_list_confirmation_email_signature">Vriendelijke groet,\nHet AppCoins-team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
