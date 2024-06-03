@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
@@ -67,7 +68,8 @@ constructor(
               .flatMap { wallet ->
                 walletVerificationInteractor.getVerificationStatus(
                   wallet.address,
-                  wallet.signedAddress
+                  wallet.signedAddress,
+                  VerificationType.PAYPAL // TODO: How kwon who method is
                 )
               }
               .doOnSuccess { verificationStatus ->
@@ -95,8 +97,28 @@ constructor(
   }
 
   fun cancelVerification(walletAddress: String) {
-    walletVerificationInteractor.removeWalletVerificationStatus(walletAddress)
-      .subscribe()
+    if (walletVerificationInteractor.getCachedVerificationStatus(
+        walletAddress,
+        VerificationType.CREDIT_CARD
+      ) == VerificationStatus.CODE_REQUESTED
+    ) {
+      walletVerificationInteractor.removeWalletVerificationStatus(
+        walletAddress,
+        VerificationType.CREDIT_CARD
+      )
+        .subscribe()
+    }
+    if (walletVerificationInteractor.getCachedVerificationStatus(
+        walletAddress,
+        VerificationType.PAYPAL
+      ) == VerificationStatus.CODE_REQUESTED
+    ) {
+      walletVerificationInteractor.removeWalletVerificationStatus(
+        walletAddress,
+        VerificationType.PAYPAL
+      )
+        .subscribe()
+    }
   }
 
   sealed class UiState {

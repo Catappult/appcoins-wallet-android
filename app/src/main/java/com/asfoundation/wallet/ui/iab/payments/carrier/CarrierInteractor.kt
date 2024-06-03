@@ -177,7 +177,7 @@ class CarrierInteractor @Inject constructor(
 
   private fun isWalletVerified(): Single<Boolean> =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
       .onErrorReturn { true }
 
   fun retrieveAvailableCountries(): Single<AvailableCountryListModel> {

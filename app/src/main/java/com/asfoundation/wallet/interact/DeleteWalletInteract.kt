@@ -25,7 +25,7 @@ class DeleteWalletInteract @Inject constructor(
 
   fun delete(address: String): Completable = passwordStore.getPassword(address)
     .flatMapCompletable { walletRepository.deleteWallet(address, it) }
-    .andThen(walletVerificationInteractor.removeWalletVerificationStatus(address))
+    .andThen(walletVerificationInteractor.removeAllWalletVerificationStatus(address))
     .andThen(
       Completable.fromAction {
         backupTriggerPreferences.removeBackupTriggerSeenTime(address)

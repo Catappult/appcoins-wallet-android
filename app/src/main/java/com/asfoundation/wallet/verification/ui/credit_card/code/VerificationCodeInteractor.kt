@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import io.reactivex.Single
 import javax.inject.Inject
@@ -15,8 +16,11 @@ class VerificationCodeInteractor @Inject constructor(
   private val walletService: WalletService
 ) {
 
-  fun confirmCode(code: String): Single<VerificationCodeResult> {
-    return walletVerificationInteractor.confirmVerificationCode(code)
+  fun confirmCode(
+    code: String,
+    verificationType: VerificationType
+  ): Single<VerificationCodeResult> {
+    return walletVerificationInteractor.confirmVerificationCode(code, verificationType)
   }
 
   fun loadVerificationIntroModel(): Single<VerificationInfoModel> {

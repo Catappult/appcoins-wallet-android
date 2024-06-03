@@ -3,6 +3,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityData
 import io.reactivex.Scheduler
@@ -121,7 +122,7 @@ class VerificationCodePresenter(
         }
         .observeOn(ioScheduler)
         .flatMapSingle {
-          interactor.confirmCode(it)
+          interactor.confirmCode(it, VerificationType.CREDIT_CARD)
             .observeOn(viewScheduler)
             .doOnSuccess { result ->
               handleCodeConfirmationStatus(result)

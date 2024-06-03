@@ -12,8 +12,8 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.UNVERIFIED
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFIED
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType.PAYPAL
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
-import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
@@ -52,7 +52,11 @@ constructor(
     walletService
       .getAndSignCurrentWalletAddress()
       .flatMap { wallet ->
-        walletVerificationInteractor.getVerificationStatus(wallet.address, wallet.signedAddress)
+        walletVerificationInteractor.getVerificationStatus(
+          wallet.address,
+          wallet.signedAddress,
+          PAYPAL
+        )
       }
       .flatMap { verificationStatus ->
         getVerificationInfoUseCase(AdyenPaymentRepository.Methods.PAYPAL)
@@ -84,7 +88,7 @@ constructor(
   fun launchVerificationPayment(data: VerificationPaypalData) {
     if (cachedPaymentMethod != null) {
       makeVerificationPaymentUseCase(
-        VerificationType.PAYPAL,
+        PAYPAL,
         cachedPaymentMethod!!,
         false,
         data.returnUrl
@@ -102,7 +106,7 @@ constructor(
   }
 
   fun successPayment() {
-    setCachedVerificationUseCase(VERIFYING)
+    setCachedVerificationUseCase(VERIFYING, PAYPAL)
       .doOnComplete { requestVerificationCode() }
       .doOnError { showError() }
       .subscribe()
@@ -118,7 +122,7 @@ constructor(
 
   fun verifyCode(code: String) =
     walletVerificationInteractor
-      .confirmVerificationCode(code)
+      .confirmVerificationCode(code, PAYPAL)
       .subscribeOn(Schedulers.io())
       .doOnSubscribe {
         _uiState.value = VerificationPaypalState.RequestVerificationCode(

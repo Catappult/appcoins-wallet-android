@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CANCELLED_DUE_TO_FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.ISSUER_SUSPECTED_FRAUD
@@ -176,7 +177,12 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun handleFraudFlow(error: Error, refusalCode: Int) {
-    adyenPaymentInteractor.isWalletVerified()
+    val verificationType = if (args.paymentType == CARD) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    adyenPaymentInteractor.isWalletVerified(verificationType)
       .doOnSuccess { verified ->
         sendSideEffect {
           OnboardingPaymentResultSideEffect.ShowPaymentError(
