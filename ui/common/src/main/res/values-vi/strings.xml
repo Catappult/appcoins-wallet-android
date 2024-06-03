@@ -1221,10 +1221,10 @@
   <string name="vip_program_promotions_list_title">Khuyến mãi đặc biệt dành cho bạn</string>
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này với cộng đồng và bạn bè của bạn để mọi người cùng kiếm tiền khi chơi. Đối với mỗi lần mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn bè của bạn sẽ nhận được %1$s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khác. <b>Có hiệu lực đến %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Bạn và bạn bè của mình sẽ nhận được %s%% tiền thưởng trong tất cả các giao dịch mua khi sử dụng mã này!</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Chỉ dành cho mua hàng trên</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
   <string name="vip_program_gamification_title">Mức tiền thưởng của tôi là bao nhiêu?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Tiền thưởng nhận được từ việc mua hàng của bạn</string>
@@ -1262,7 +1262,7 @@
   <string name="rewards_current_bonus_title">%s%% tiền thưởng trên mỗi giao dịch mua</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Rút thu nhập e-Skills của bạn.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Mã khuyến mãi</string>
   <string name="rewards_promo_code_card_body">Sử dụng mã khuyến mãi để nhận ưu đãi đặc biệt!</string>
   <string name="rewards_promo_code_status">Trạng thái:</string>
   <string name="rewards_promo_code_status_active">Đã kích hoạt</string>
@@ -1272,8 +1272,8 @@
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% tiền thưởng trong mọi giao dịch mua hàng</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Quản lý ví</string>
+  <string name="manage_wallet_view_title">Quản lý ví</string>
   <string name="manage_wallet_wallet_changed_title">Đã thay đổi ví</string>
   <string name="manage_wallet_change_active_wallet_title">Bạn có muốn chọn ví này không?</string>
   <string name="manage_wallet_change_wallet_name_title">Thay đổi tên ví</string>
