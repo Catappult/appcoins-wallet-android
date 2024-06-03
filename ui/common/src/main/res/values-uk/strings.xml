@@ -541,7 +541,7 @@
   <string name="decline_button">Відхилити</string>
   <string name="get_started">Розпочати</string>
   <string name="existent_wallet">У мене вже є гаманець</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Щоб завершити покупку, підтвердьте свій спосіб оплати.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Робіть покупку в улюбленій грі, а ми про все подбаємо.</string>
   <string name="home_empty_discover_apps_button">ВІДКРАЙТЕ НАЙКРАЩІ ДОДАТКИ</string>
@@ -664,20 +664,20 @@
   <string name="error_blocked_wallet_title">Заблокований гаманець</string>
   <string name="error_blocked_wallet_body">Ваш гаманець заблоковано з міркувань безпеки. Зверніться до нас за додатковою інформацією.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Може бути стягнута додаткова плата.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s з комісією та ПДВ.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">додаткові збори включені</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">додаткові збори не включені</string>
   <string name="purchase_error_paypal">З вашим платежем через PayPal виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_error_google_pay">Виникла проблема з Google Pay. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_success_bonus_received_title">%s бонус отримано.</string>
   <string name="purchase_making_purchase_title">Здійснення покупки&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s комісія</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тож стягується комісія за обробку платежу. Комісія та ПДВ включені в загальну суму, яка вказана у верхній частині.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Цей спосіб оплати передбачає комісію за обробку цієї покупки. Комісія та ПДВ включені в загальну суму, яка вказана у верхній частині.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Цей спосіб оплати не підтримує вашу валюту, тому може стягуватися комісія за обробку платежу.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">При цьому способі оплати ви сплачуєте комісію за обробку та ПДВ.</string>
   <string name="purchase_fee_included_body">комісія включена</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_one_wallet_generic">З вашим платежем через Wallet One виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
   <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
