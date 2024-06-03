@@ -131,7 +131,11 @@ class VerificationCodePresenter(
               )
             }
         }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, {
+          view.hideLoading()
+          view.showWrongCodeError()
+          it.printStackTrace()
+        })
     )
   }
 
