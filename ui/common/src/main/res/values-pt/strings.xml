@@ -1004,7 +1004,7 @@
   <string name="card_added_title">Cartão adicionado</string>
   <string name="card_removed">Cartão removido</string>
   <string name="choose_card_title">Escolher cartão</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_1">Para atualizar ou remover cartões, vai a:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Ganha até %s%% de Bónus em cada compra</string>
@@ -1231,7 +1231,7 @@
   <string name="vip_program_promo_code_tag">Código Promocional</string>
   <string name="vip_program_referral_page_title">Programa de Referência VIP</string>
   <string name="vip_program_referral_page_body">Partilha este código promocional com a tua comunidade e amigos para que todos possam ganhar enquanto jogam. Para cada compra feita na app, <b>tu e os teus amigos receberão %1$s%% de bónus</b> além de outras promoções ativas. <b>Válido até %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Tu e os teus amigos recebem %s%% de bónus em todas as compras ao utilizarem este código!</string>
   <string name="vip_program_referral_page_share_title">Partilha este código com os teus amigos</string>
   <string name="vip_program_referral_page_only_app_title">Apenas para compras em</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganhos de %3$s referências</string>
@@ -1275,7 +1275,7 @@
   <string name="rewards_current_bonus_title">%s%% de Bónus em cada compra</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Levanta os teus ganhos e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Código Promocional</string>
   <string name="rewards_promo_code_card_body">Usa um código promocional para receberes ofertas especiais!</string>
   <string name="rewards_promo_code_status">Estado:</string>
   <string name="rewards_promo_code_status_active">Ativo</string>
@@ -1285,8 +1285,8 @@
   <string name="rewards_make_first_purchase_body">Faz a tua primeira compra num jogo compatível com AppCoins e desbloqueia um bónus em cada compra.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% de bónus em cada compra</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Gerir Wallets</string>
+  <string name="manage_wallet_view_title">Gerir Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet alterada</string>
   <string name="manage_wallet_change_active_wallet_title">Queres selecionar esta wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Mudar o nome da wallet</string>
@@ -1294,7 +1294,7 @@
   <string name="manage_wallet_my_wallet_address_title">O Meu Endereço da Wallet</string>
   <string name="manage_wallet_verify_title">Verificar um Método de Pagamento</string>
   <string name="manage_wallet_verify_body">Evita bloqueios verificando um método de pagamento.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">O teu saldo é apresentado na tua moeda local para simplificar, mas está ligado ao USD, por isso as alterações ao valor do USD podem afetar o teu saldo.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verificar um Método de Pagamento</string>
   <string name="verify_card_body">Evita bloqueios verificando um método de pagamento.</string>
@@ -1321,15 +1321,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Aproveita %s em AppCoins Credits na tua wallet</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Fica Atento!</string>
+  <string name="mail_list_card_body">Junta-te à nossa mailing list para receberes atualizações exclusivas, e a oportunidade de ganhar um cartão oferta.</string>
+  <string name="mail_list_card_confirmation_title">Confirma o Teu Email</string>
+  <string name="mail_list_card_confirmation_body">Enviámos um email para %s</string>
+  <string name="mail_list_backup">Junta-te à nossa mailing list para receberes atualizações exclusivas, e a oportunidade de ganhar um cartão oferta.</string>
+  <string name="mail_list_confirmation_email_subject">Confirma o teu email - Mailing List da AppCoins</string>
+  <string name="mail_list_confirmation_email_body">Olá!\n\nObrigado por te juntares à mailing list da AppCoins. Por favor, clica no botão abaixo para confirmares o teu email:</string>
+  <string name="mail_list_confirmation_email_button">Confirmar email</string>
+  <string name="mail_list_confirmation_email_signature">Obrigado,\nA Equipa da AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
