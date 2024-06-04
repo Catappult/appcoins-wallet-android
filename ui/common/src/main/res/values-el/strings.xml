@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Επιστροφή στο παιχνίδι</string>
   <string name="other_payment_methos_title">Άλλες μέθοδοι πληρωμής:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Έχετε ήδη</string>
+  <string name="intro_from_web_payment_to_spend_body">για να ξοδέψετε στα αγαπημένα σας παιχνίδια.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Από</string>
@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_reverted_body">Αυτή η αγορά απορρίφθηκε.\nΓια περισσότερες πληροφορίες επικοινωνήστε με την υποστήριξη.</string>
   <string name="transaction_status_rejected">Απορρίφθηκε</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Λεπτομέρειες συναλλαγής</string>
   <string name="transaction_details_txid">ΑΦΜ</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
   <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
   <string name="topup_bonus_amount_body">Λάβετε %s μπόνους μ\' αυτή τη φόρτιση</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s κατατέθηκαν στον λογαριασμό σας στο AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
   <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="my_wallets_action_verify_new_card">Επαληθεύστε τη νέα κάρτα</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Αφαίρεση wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ζητήστε από άλλον να πληρώσει</string>
   <string name="askafriend_generating_link_message">Δημιουργούμε τον σύνδεσμο πληρωμής σας&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Γεια! Σε παρακαλώ, στείλε μου %1$s AppCoins Credits για να κάνω μια αγορά στο %2$s. Σύνδεσμος: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Αποστολή Χρημάτων</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Λήψη</string>
   <string name="p2p_send_body">Σαρώστε ή εισαγάγετε τη διεύθυνση wallet του φίλου σας.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s στάλθηκαν στην ακόλουθη διεύθυνση:</string>
   <string name="p2p_send_current_balance_message">Τρέχον υπόλοιπο: %1$s %2$s</string>
@@ -478,7 +478,7 @@
   <string name="p2p_send_error_amount_zero">Πρέπει να είναι πάνω από μηδέν</string>
   <string name="p2p_send_confirmation_header">Λεπτομέρειες Μεταφοράς</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Ωχ</string>
   <string name="error_general">Κάτι πήγε στραβά</string>
   <string name="error_missing_field">Υποχρεωτικό πεδίο</string>
   <string name="cancel_button">Ακύρωση</string>
@@ -491,7 +491,7 @@
   <string name="discover_button">Ανακαλύψτε</string>
   <string name="retry_button">Επανάληψη</string>
   <string name="do_it_later_button">Αργότερα</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Δεν υπάρχει σύνδεση στο Ίντερνετ</string>
   <string name="connection_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
   <string name="common_or">Ή</string>
   <string name="share_via">Κοινοποίηση μέσω:</string>
@@ -520,17 +520,17 @@
   <string name="done">Τέλος!</string>
   <string name="see_more_button">Δείτε περισσότερα</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Λήγει σε</string>
   <string name="start_date_title">Ημερομηνία έναρξης:</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">Ημερομηνία λήξης:</string>
   <string name="send_button">Αποστολή</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Αποστολή εκ νέου</string>
+  <string name="continue_button">Συνέχεια</string>
   <string name="card_expired_tag">Έληξε</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Εκκίνηση από την αρχή</string>
+  <string name="max">Μέγιστο</string>
+  <string name="amount">Ποσό</string>
+  <string name="total_title">Σύνολο</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">Απόρριψη</string>
   <string name="get_started">Ξεκινήστε</string>
   <string name="existent_wallet">Έχω ήδη ένα wallet</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Επαληθεύστε τη μέθοδο πληρωμής σας για να ολοκληρώσετε την αγορά σας.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Κάντε μία αγορά στο αγαπημένο σας παιχνίδι κι εμείς θα αναλάβουμε τα πάντα.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
@@ -580,7 +580,7 @@
   <string name="verification_settings_verified_title">Το Wallet επαληθεύθηκε</string>
   <string name="verification_settings_verifying_title">Γίνεται επαλήθευση...</string>
   <string name="verification_verified_paypal_description">Θα γίνει άμεσα επιστροφή. Η μέθοδος πληρωμής σας θα επαληθευτεί σύντομα.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Θα πραγματοποιηθεί μία συναλλαγή ποσού %s ώστε να επιβεβαιωθεί ο λογαριασμός σας. Θα σας επιστραφεί άμεσα.</string>
   <string name="verification_verify_paypal_button">Επαλήθευση τώρα</string>
   <string name="verification_settings_card_verified_title">Η κάρτα έχει επαληθευτεί</string>
   <string name="verification_settings_no_internet">Πρέπει να συνδεθείτε στο διαδίκτυο</string>
@@ -590,11 +590,11 @@
   <string name="unferified_tag">Μη επαληθευμένο wallet</string>
   <string name="verification_wallets_verify_button">Επαλήθευση</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Ένα βήμα ακόμα!</string>
+  <string name="paypal_verification_home_one_step_card_body">Εισαγάγετε τον κωδικό που στάλθηκε στη διεύθυνση e-mail σας για να επιβεβαιώσετε τον λογαριασμό σας στο Paypal.</string>
+  <string name="paypal_verification_header">Επαλήθευση PayPal</string>
+  <string name="paypal_verification_insert_code_body">Εισαγάγετε παρακάτω τον 4ψήφιο κωδικό που στείλαμε στη διεύθυνση e-mail η οποία σχετίζεται με τον λογαριασμό σας στο PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">Δεν τον λάβατε;</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Σύνολο %1$s %2$s</string>
@@ -662,23 +662,23 @@
   <string name="error_blocked_wallet_title">Αποκλεισμένο Wallet</string>
   <string name="error_blocked_wallet_body">Για λόγους ασφαλείας, το wallet σας έχει αποκλειστεί. Παρακαλούμε επικοινωνήστε μαζί μας για περισσότερες λεπτομέρειες.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Ενδέχεται να ισχύουν επιπλέον χρεώσεις.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s με χρεώσεις και ΦΠΑ.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">περιλαμβάνονται επιπρόσθετες χρεώσεις</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">δεν περιλαμβάνονται επιπρόσθετες χρεώσεις</string>
   <string name="purchase_error_paypal">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω PayPal. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Υπήρξε ένα πρόβλημα με το Google Pay. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
   <string name="purchase_success_bonus_received_title">Ελήφθη %s bonus.</string>
   <string name="purchase_making_purchase_title">Πραγματοποίηση αγοράς&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">Χρέωση %1$s %2$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας. Αυτό το τέλος και ο ΦΠΑ περιλαμβάνονται στο Σύνολο που βλέπετε στην πάνω περιοχή.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Αυτή η μέθοδος πληρωμής χρεώνει ένα τέλος επεξεργασίας γι\' αυτήν την αγορά. Αυτό το τέλος και ο ΦΠΑ περιλαμβάνονται στο Σύνολο που βλέπετε στην πάνω περιοχή.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Αυτή η μέθοδος πληρωμής δεν υποστηρίζει το νόμισμά σας, οπότε θα χρεώσει ένα τέλος επεξεργασίας.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
-  <string name="purchase_fee_included_body">fees included</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Με αυτήν τη μέθοδο πληρωμής θα πληρώσετε ένα τέλος επεξεργασίας συν ΦΠΑ.</string>
+  <string name="purchase_fee_included_body">περιλαμβάνονται χρεώσεις</string>
+  <string name="purchase_error_one_wallet_generic">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω Wallet One. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_payment_method_top_ups_only">Διαθέσιμο μόνο για φόρτιση.</string>
+  <string name="purchase_payment_method_minimum_amount">Μόνο για αγορές άνω των %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Μη διαθέσιμο σ\' αυτήν την αγορά.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
