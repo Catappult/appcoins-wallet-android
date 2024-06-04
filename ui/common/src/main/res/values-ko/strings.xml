@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">지불 방법 없음!</string>
   <string name="topup_no_method_available_body">현재 해당 국가에서 충전할 수 있는 결제 방법이 없습니다. 계속 주목해주세요!</string>
   <string name="topup_bonus_amount_body">이 탑업으로 %s 보너스 받기</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s이 귀하의 계정에 AppCoins 크레딧으로 입금되었습니다.</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">거부</string>
   <string name="get_started">지금 시작</string>
   <string name="existent_wallet">지갑은 이미 있어요</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">구매를 완료하려면 결제 수단을 확인하세요.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">마음에 드는 게임을 구매하시면 저희가 다 해드리겠습니다.</string>
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
@@ -590,7 +590,7 @@
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
+  <string name="paypal_verification_home_one_step_card_title">한 발짝!</string>
   <string name="paypal_verification_home_one_step_card_body">이메일 주소로 전송된 코드를 입력하여 페이팔 계정을 확인합니다.</string>
   <string name="paypal_verification_header">페이팔 확인</string>
   <string name="paypal_verification_insert_code_body">페이팔 계정과 관련된 이메일 주소로 보내드린 4자리 코드를 아래에 입력하세요.</string>
@@ -662,26 +662,26 @@
   <string name="error_blocked_wallet_title">차단된 지갑</string>
   <string name="error_blocked_wallet_body">보안상의 이유로, 지갑이 차단되었습니다. 상세 내용은 지원팀에 문의해 주세요.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">추가 수수료가 부과될 수 있습니다.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">수수료 및 VAT가 포함된 %1$s %2$s.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">추가 비용이 포함되어 있습니다</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">추가 비용은 포함되어 있지 않습니다</string>
   <string name="purchase_error_paypal">PayPal 지급에 문제가 있습니다. 다시 시도해 주시거나 다른 지불 방식을 사용해 주세요.</string>
   <string name="purchase_error_google_pay">구글페이에 문제가 발생하였습니다. 다시 시도해보시거나 다른 결제수단을 이용해보시기 바랍니다.</string>
   <string name="purchase_success_bonus_received_title">%s 보너스 받음.</string>
   <string name="purchase_making_purchase_title">구매하기&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s 수수료</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">이 결제 방법은 귀하의 통화를 지원하지 않으므로 처리 수수료가 부과됩니다. 이 수수료와 VAT는 상단 영역에 표시되는 총액에 포함되어 있습니다.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">이 결제 방법을 사용하면 구매에 대한 처리 수수료가 부과됩니다. 이 수수료와 VAT는 상단 영역에 표시되는 총액에 포함되어 있습니다.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">이 결제 방법은 고객님의 통화를 지원하지 않기 때문에, 결제 수수료가 부과될 수 있습니다.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">이 결제 방법을 사용하면 처리 수수료와 VAT를 지불하게 됩니다.</string>
   <string name="purchase_fee_included_body">수수료 포함</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_one_wallet_generic">Wallet One 결제에 문제가 발생했습니다. 다시 시도하거나 다른 결제 수단을 사용해 보세요.</string>
   <string name="purchase_payment_method_top_ups_only">충전에만 사용 가능합니다.</string>
   <string name="purchase_payment_method_minimum_amount">위 %s 구매에만 해당.</string>
   <string name="purchase_payment_method_not_availble_generic">이 구매에서 사용 불가</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_no_method_available_body">현재 귀하의 지역에서는 이 구매를 완료하는 데 사용할 수 있는 결제 방법이 없습니다. 계속 지켜봐 주시기 바랍니다!</string>
+  <string name="purchase_legal_disclaimer">결제를 진행하면 결제 시 콘텐츠 제공에 동의하는 것으로 간주되며 이에 따라 철회 권리가 상실됩니다.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">보너스는 AppCoins 크레딧에 있습니다.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -985,7 +985,7 @@
   <string name="manage_cards_add_credit_debit_card_button_">신용/직불 카드 추가</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">다른 카드 사용</string>
   <string name="manage_cards_view_title">카드 관리</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">아직 저장된 카드가 없습니다.</string>
   <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
   <string name="manage_cards_add_title">신규 카드 추가</string>
   <string name="manage_cards_add_button">카드 추가</string>
@@ -1003,7 +1003,7 @@
   <string name="card_added_title">카드가 추가되었습니다</string>
   <string name="card_removed">카드가 제거되었습니다</string>
   <string name="choose_card_title">카드를 선택해주세요</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_1">카드를 업데이트하거나 제거하려면 다음으로 이동하세요:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">모든 구매 시마다 최대 %s%% 보너스</string>
@@ -1222,7 +1222,7 @@
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 얻을 수 있도록 하세요. 앱 내에서 구매할 때마다 <b>귀하와 귀하의 친구들은 다른 프로모션 외에도 %1$s% 보너스를 받게 됩니다.</b> <b> %2$s까지 유효합니다!</b></string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">이 코드를 사용하면 귀하와 귀하의 친구가 모든 구매에 대해 %s%% 보너스를 받습니다!</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_only_app_title">다음에서 구매하는 경우에만 해당</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
@@ -1281,7 +1281,7 @@
   <string name="manage_wallet_my_wallet_address_title">내 지갑 주소</string>
   <string name="manage_wallet_verify_title">지불 방식 검증</string>
   <string name="manage_wallet_verify_body">결제수단을 확인하여 블록을 방지합니다.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">단순화를 위해 잔액은 현지 통화로 표시되지만 USD와 연결되어 있으므로 USD 가치의 변화가 잔액에 영향을 미칠 수 있습니다.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">지불 방식 검증</string>
   <string name="verify_card_body">결제수단을 확인하여 블록을 방지합니다.</string>
@@ -1309,12 +1309,12 @@
   <string name="bonus_granted_body">지갑에서 AppCoins 크레딧 %s을(를) 즐기십시오</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">계속 지켜봐 주시기 바랍니다!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_body">메일링 리스트에 가입하여 독점 업데이트를 받고 기프트 카드를 받을 수 있는 기회를 얻으세요.</string>
   <string name="mail_list_card_confirmation_title">이메일을 확인해주세요</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_card_confirmation_body">%s에게 이메일을 보냈습니다</string>
+  <string name="mail_list_backup">메일링 리스트에 가입하여 독점 업데이트를 받고 기프트 카드를 받을 수 있는 기회를 얻으세요.</string>
+  <string name="mail_list_confirmation_email_subject">이메일을 확인하세요 - AppCoins 메일링 리스트</string>
+  <string name="mail_list_confirmation_email_body">안녕하세요!\n\nAppCoins 메일링 리스트에 가입해 주셔서 감사합니다. 아래 버튼을 클릭하여 이메일 주소를 확인해 주세요:</string>
   <string name="mail_list_confirmation_email_button">이메일 확인</string>
   <string name="mail_list_confirmation_email_signature">감사합니다.\nAppCoins 팀</string>
   <!-- platform.vk.com !-->
