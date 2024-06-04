@@ -636,6 +636,9 @@
   <string name="verified_tag">Verified</string>
   <string name="unferified_tag">Unverified wallet</string>
   <string name="verification_wallets_verify_button">Verify</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
 
 
   <!--PayPal Verification-->
