@@ -1221,10 +1221,10 @@
   <string name="vip_program_promotions_list_title">Khuyến mãi đặc biệt dành cho bạn</string>
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này với cộng đồng và bạn bè của bạn để mọi người cùng kiếm tiền khi chơi. Đối với mỗi lần mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn bè của bạn sẽ nhận được %1$s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khác. <b>Có hiệu lực đến %2$s</b>!</string>
+  <string name="vip_program_referral_page_body_2">Bạn và bạn bè của mình sẽ nhận được %s%% tiền thưởng trong tất cả các giao dịch mua khi sử dụng mã này!</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
-  <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
+  <string name="vip_program_referral_page_only_app_title">Chỉ dành cho mua hàng trên</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
   <string name="vip_program_gamification_title">Mức tiền thưởng của tôi là bao nhiêu?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Tiền thưởng nhận được từ việc mua hàng của bạn</string>
@@ -1262,7 +1262,7 @@
   <string name="rewards_current_bonus_title">%s%% tiền thưởng trên mỗi giao dịch mua</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Rút thu nhập e-Skills của bạn.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Mã khuyến mãi</string>
   <string name="rewards_promo_code_card_body">Sử dụng mã khuyến mãi để nhận ưu đãi đặc biệt!</string>
   <string name="rewards_promo_code_status">Trạng thái:</string>
   <string name="rewards_promo_code_status_active">Đã kích hoạt</string>
@@ -1272,8 +1272,8 @@
   <string name="rewards_make_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong trò chơi tương thích với AppCoins và mở khóa phần thưởng trong mỗi lần mua.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% tiền thưởng trong mọi giao dịch mua hàng</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Quản lý ví</string>
+  <string name="manage_wallet_view_title">Quản lý ví</string>
   <string name="manage_wallet_wallet_changed_title">Đã thay đổi ví</string>
   <string name="manage_wallet_change_active_wallet_title">Bạn có muốn chọn ví này không?</string>
   <string name="manage_wallet_change_wallet_name_title">Thay đổi tên ví</string>
@@ -1281,7 +1281,7 @@
   <string name="manage_wallet_my_wallet_address_title">Địa chỉ ví của tôi</string>
   <string name="manage_wallet_verify_title">Xác minh một phương thức thanh toán</string>
   <string name="manage_wallet_verify_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Số dư của bạn được hiển thị bằng nội tệ để đơn giản nhưng được gắn với USD, vì vậy những thay đổi về giá trị USD có thể ảnh hưởng đến số dư của bạn.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Xác minh một phương thức thanh toán</string>
   <string name="verify_card_body">Tránh tắc nghẽn bằng cách xác minh phương thức thanh toán.</string>
@@ -1289,7 +1289,7 @@
   <string name="verify_card_one_more_step_body">Chèn mã hiển thị trong chi tiết giao dịch</string>
   <string name="verify_card_one_more_step_button">Nhập mã</string>
   <string name="verify_card_verified">Phương thức thanh toán đã được xác minh!</string>
-  <string name="verify_card_button">Verify credit/debit card</string>
+  <string name="verify_card_button">Xác minh thẻ tín dụng / ghi nợ</string>
   <string name="verify_card_view_title">Xác minh thẻ</string>
   <string name="verify_card_view_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và số tiền này sẽ được hoàn lại sau khi bạn xác nhận mã.</string>
   <string name="verify_card_view_title_2">Nhập thông tin thẻ ngân hàng của bạn</string>
@@ -1308,15 +1308,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Tận hưởng %s bằng AppCoins Credits trong ví của bạn</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Cùng chờ đón xem!</string>
+  <string name="mail_list_card_body">Tham gia danh sách gửi thư của chúng tôi để nhận thông tin cập nhật độc quyền và cơ hội giành được thẻ quà tặng.</string>
+  <string name="mail_list_card_confirmation_title">Xác nhận email của bạn</string>
+  <string name="mail_list_card_confirmation_body">Chúng tôi đã gửi email tới %s</string>
+  <string name="mail_list_backup">Tham gia danh sách gửi thư của chúng tôi để nhận thông tin cập nhật độc quyền và cơ hội giành được thẻ quà tặng.</string>
+  <string name="mail_list_confirmation_email_subject">Xác nhận email của bạn - Danh sách gửi thư của AppCoins</string>
+  <string name="mail_list_confirmation_email_body">Xin chào!\n\nCảm ơn bạn đã tham gia danh sách gửi thư của AppCoins. Vui lòng xác nhận địa chỉ email của mình bằng cách nhấp vào nút bên dưới:</string>
+  <string name="mail_list_confirmation_email_button">Xác nhận email</string>
+  <string name="mail_list_confirmation_email_signature">Chúc mừng,\nĐội ngũ AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
