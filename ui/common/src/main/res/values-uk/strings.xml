@@ -987,16 +987,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Кредитна/дебетова карта</string>
   <string name="manage_cards_settings_manage_title">Керувати картками</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Додати кредитну/дебетову картку</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Використати іншу картку</string>
   <string name="manage_cards_view_title">Керувати картками</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">У вас ще немає збережених карток.</string>
   <string name="manage_cards_view_manage_subtitle">Керуйте своїми платіжними картками</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Додати нову картку</string>
+  <string name="manage_cards_add_button">Додати картку</string>
   <string name="manage_cards_remove_confirmation">Ви впевнені, що хочете видалити цю картку?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Ні, скасувати</string>
+  <string name="manage_cards_remove_yes">Так, видалити її</string>
   <string name="manage_cards_card_ending_body">Картка, що закінчується на %s</string>
   <string name="manage_cards_error_details">Ви впевнені, що дані вашої картки правильні? Будь ласка спробуйте ще раз!</string>
   <string name="manage_cards_error_card_problem">Схоже, проблема з вашою карткою. Будь ласка, спробуйте іншим способом.</string>
@@ -1004,11 +1004,11 @@
   <string name="manage_cards_remember">Запам\'ятати картку</string>
   <string name="add_new_card_button">Додати нову картку</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Керувати платіжними картками</string>
+  <string name="card_added_title">Картку додано</string>
+  <string name="card_removed">Картку видалено</string>
+  <string name="choose_card_title">Оберіть картку</string>
+  <string name="manage_cards_update_disclaimer_1">Щоб оновити або видалити картки, перейдіть до:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заробляйте до %s%% бонусу за кожну покупку</string>
@@ -1251,7 +1251,7 @@
   <string name="vip_program_promo_code_tag">Промокод</string>
   <string name="vip_program_referral_page_title">VIP реферальна програма</string>
   <string name="vip_program_referral_page_body">Поділіться цим промокодом зі своєю спільнотою та друзями, щоб усі могли грати та заробляти. За кожну покупку в додатку &lt;b&gt;ви та ваші друзі отримуватимете бонус %1$s%%&lt;b&gt; додатково до інших активних промоакцій. &lt;b&gt;Діє до %2$s&lt;/b&gt;!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Ви та ваші друзі отримуєте бонус %s%% на всі покупки при використанні цього коду!</string>
   <string name="vip_program_referral_page_share_title">Поділіться цим кодом з друзями</string>
   <string name="vip_program_referral_page_only_app_title">Тільки для покупок у</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s отримано від %3$s рефералів</string>
@@ -1303,7 +1303,7 @@
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Виведіть свій e-Skills дохід.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Промокод</string>
   <string name="rewards_promo_code_card_body">Скористайтеся промокодом, аби отримати спеціальні пропозиції!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активний</string>
@@ -1313,8 +1313,8 @@
   <string name="rewards_make_first_purchase_body">Здійсніть першу покупку в грі, що підтримує AppCoins, і розблокуйте бонус за кожну наступну покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% у кожній покупці</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Керувати гаманцями</string>
+  <string name="manage_wallet_view_title">Керувати гаманцями</string>
   <string name="manage_wallet_wallet_changed_title">Гаманець змінено</string>
   <string name="manage_wallet_change_active_wallet_title">Хочете обрати цей гаманець?</string>
   <string name="manage_wallet_change_wallet_name_title">Змінити назву гаманця</string>
@@ -1322,7 +1322,7 @@
   <string name="manage_wallet_my_wallet_address_title">Адреса мого гаманця</string>
   <string name="manage_wallet_verify_title">Підтвердити спосіб оплати</string>
   <string name="manage_wallet_verify_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Для зручності ваш баланс вказано в місцевій валюті, але він прив\'язаний до долара США, тому зміна курсу долара може вплинути на ваш баланс.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Підтвердити спосіб оплати</string>
   <string name="verify_card_body">Уникніть блокування, підтвердивши спосіб оплати.</string>
@@ -1349,15 +1349,15 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Насолоджуйтесь %s в AppCoins Credits на вашому гаманці</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
-  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
-  <string name="mail_list_confirmation_email_button">Confirm email</string>
-  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
+  <string name="mail_list_card_title">Слідкуйте за новинами!</string>
+  <string name="mail_list_card_body">Приєднуйтесь до нашої інформаційної розсилки, отримуйте ексклюзивні новини та шанс виграти подарункову картку.</string>
+  <string name="mail_list_card_confirmation_title">Підтвердьте електронну пошту</string>
+  <string name="mail_list_card_confirmation_body">Ми надіслали листа на адресу %s</string>
+  <string name="mail_list_backup">Приєднуйтесь до нашої інформаційної розсилки, отримуйте ексклюзивні новини та шанс виграти подарункову картку.</string>
+  <string name="mail_list_confirmation_email_subject">Підтвердьте свою електронну пошту — Розсилка AppCoins</string>
+  <string name="mail_list_confirmation_email_body">Вітаємо!\n\nДякуємо, що приєдналися до розсилки AppCoins. Підтвердьте, будь ласка, свою адресу електронної пошти, натиснувши кнопку нижче:</string>
+  <string name="mail_list_confirmation_email_button">Підтвердити електронну пошту</string>
+  <string name="mail_list_confirmation_email_signature">З повагою,\nКоманда AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->
