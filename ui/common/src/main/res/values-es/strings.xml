@@ -539,7 +539,7 @@
   <string name="decline_button">Rechazada</string>
   <string name="get_started">Comenzar</string>
   <string name="existent_wallet">Ya tengo una wallet</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Verifica tu método de pago para completar la compra.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Haz una compra en tu juego favorito y nos encargaremos de todo.</string>
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
@@ -580,7 +580,7 @@
   <string name="verification_settings_verified_title">Wallet Verificada</string>
   <string name="verification_settings_verifying_title">Verificando…</string>
   <string name="verification_verified_paypal_description">Se reembolsará inmediatamente. Tu método de pago será verificado en breve.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Se realizará una pequeña transacción de %s para confirmar tu cuenta. Será reembolsada inmediatamente.</string>
   <string name="verification_verify_paypal_button">Verificar ahora</string>
   <string name="verification_settings_card_verified_title">Tarjeta verificada</string>
   <string name="verification_settings_no_internet">Necesitas estar conectado a internet.</string>
@@ -590,11 +590,11 @@
   <string name="unferified_tag">Wallet sin verificar</string>
   <string name="verification_wallets_verify_button">Verificar</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">¡Solo falta un paso!</string>
+  <string name="paypal_verification_home_one_step_card_body">Introduce el código que hemos enviado a tu e-mail para verificar tu cuenta de PayPal.</string>
+  <string name="paypal_verification_header">Verificación de PayPal</string>
+  <string name="paypal_verification_insert_code_body">Introduce el código de 4 dígitos que hemos enviado al e-mail asociado a tu cuenta de PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">¿No lo has recibido?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
