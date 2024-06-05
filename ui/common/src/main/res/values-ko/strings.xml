@@ -590,7 +590,7 @@
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">한 발짝!</string>
+  <string name="paypal_verification_home_one_step_card_title">한 단계만 더!</string>
   <string name="paypal_verification_home_one_step_card_body">이메일 주소로 전송된 코드를 입력하여 페이팔 계정을 확인합니다.</string>
   <string name="paypal_verification_header">페이팔 확인</string>
   <string name="paypal_verification_insert_code_body">페이팔 계정과 관련된 이메일 주소로 보내드린 4자리 코드를 아래에 입력하세요.</string>

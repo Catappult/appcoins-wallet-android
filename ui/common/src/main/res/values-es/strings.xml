@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Volver al juego</string>
   <string name="other_payment_methos_title">Otros métodos de pago:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Ya tienes</string>
+  <string name="intro_from_web_payment_to_spend_body">para gastar en tus juegos favoritos.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Desde</string>
@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Esta compra ha sido rechazada.\nPara más información, ponte en contacto con nosotros.</string>
   <string name="transaction_reverted_body">Esta compra ha sido revertida.\nPara más información, ponte en contacto con nosotros.</string>
   <string name="transaction_status_rejected">Rechazada</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Detalles de la Transacción</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">¡No hay métodos de pago!</string>
   <string name="topup_no_method_available_body">En estos momentos no hay métodos de pago disponibles para hacer una recarga en tu país. ¡Vuelve pronto!</string>
   <string name="topup_bonus_amount_body">Recibe un bonus de %s con esta recarga</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">Se añadió %s a tu cuenta en AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total en %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
   <string name="my_wallets_action_backup_wallet">Hacer backup</string>
   <string name="my_wallets_action_verify_new_card">Verificar nueva tarjeta</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Eliminar wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pedir a alguien</string>
   <string name="askafriend_generating_link_message">Estamos generando el enlace de pago&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">¡Hola! Por favor, envíame %1$s AppCoins Credits para hacer una compra en %2$s. Enlace: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Envío de Fondos</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Recibir</string>
   <string name="p2p_send_body">Escanea o introduce la dirección de la wallet de tu amigo.</string>
   <string name="p2p_send_confirmation_message">Se enviaron %1$s %2$s a la siguiente dirección:</string>
   <string name="p2p_send_current_balance_message">Saldo actual: %1$s %2$s</string>
@@ -478,7 +478,7 @@
   <string name="p2p_send_error_amount_zero">Debe ser mayor de cero</string>
   <string name="p2p_send_confirmation_header">Detalles de la transferencia</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Ups</string>
   <string name="error_general">Algo salió mal</string>
   <string name="error_missing_field">Campo obligatorio</string>
   <string name="cancel_button">Cancelar</string>
@@ -491,7 +491,7 @@
   <string name="discover_button">Descubrir</string>
   <string name="retry_button">Volver a intentar</string>
   <string name="do_it_later_button">Más tarde</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Sin conexión a internet</string>
   <string name="connection_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
   <string name="common_or">O</string>
   <string name="share_via">Compartir a través de:</string>
@@ -520,16 +520,16 @@
   <string name="done">¡Hecho!</string>
   <string name="see_more_button">Ver más</string>
   <string name="monetary_amount_with_symbol">%2$s%1$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Termina en</string>
   <string name="start_date_title">Fecha de inicio:</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">Fecha fin:</string>
   <string name="send_button">Enviar</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Reenviar</string>
+  <string name="continue_button">Continuar</string>
   <string name="card_expired_tag">Caducada</string>
-  <string name="start_again_button">Start again</string>
+  <string name="start_again_button">Volver a empezar</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">Cantidad</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
@@ -669,12 +669,12 @@
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">Bonus de %s recibido.</string>
   <string name="purchase_making_purchase_title">Haciendo compra&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">%1$s %2$s de comisión</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Este método de pago no acepta tu moneda, por lo que cargará una comisión. El total que se muestra en el área superior incluye esta comisión y el IVA.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Este método de pago no acepta tu moneda, por lo que cobrará una comisión.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
-  <string name="purchase_fee_included_body">fees included</string>
+  <string name="purchase_fee_included_body">tasas incluidas</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
   <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
@@ -1001,10 +1001,10 @@
   <string name="add_new_card_button">Añadir tarjeta</string>
   <string name="manage_cards_header">Payment Cards</string>
   <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="card_added_title">Tarjeta añadida</string>
+  <string name="card_removed">Tarjeta eliminada</string>
+  <string name="choose_card_title">Elige una tarjeta</string>
+  <string name="manage_cards_update_disclaimer_1">Para actualizar o eliminar tarjetas, ve a:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Gana un bonus de hasta el %s%% en todas las compras</string>
