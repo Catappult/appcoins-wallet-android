@@ -1323,10 +1323,10 @@ Wallets</item>
   <string name="bonus_granted_body">Απολαύστε %s σε AppCoins Credits στο wallet σας</string>
   <!-- Mailing list -->
   <string name="mail_list_card_title">Μείνετε συντονισμένοι!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_body">Εγγραφτείτε στη λίστα αλληλογραφίας μας για να λάβετε αποκλειστικές ενημερώσεις και μία ευκαιρία να κερδίσετε μία κάρτα δώρου.</string>
+  <string name="mail_list_card_confirmation_title">Επιβεβαιώστε το e-mail σας</string>
+  <string name="mail_list_card_confirmation_body">Στείλαμε ένα e-mail στο %s</string>
+  <string name="mail_list_backup">Εγγραφτείτε στη λίστα αλληλογραφίας μας για να λάβετε αποκλειστικές ενημερώσεις και μία ευκαιρία να κερδίσετε μία κάρτα δώρου.</string>
   <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
