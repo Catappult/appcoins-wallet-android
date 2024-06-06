@@ -589,6 +589,9 @@
   <string name="verified_tag">Potvrđeno</string>
   <string name="unferified_tag">Nepotvrđeni novčanik</string>
   <string name="verification_wallets_verify_button">Potvrdi</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Deli vas jedan korak!</string>
   <string name="paypal_verification_home_one_step_card_body">Unesite kod koji vam je poslat na adresu e-pošte da biste potvrdili PayPal nalog.</string>
