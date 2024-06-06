@@ -1,4 +1,4 @@
-# AppCoins Wallet for Android
+https://github.com/fastlane/fastlane/blob/master/LICENSE# AppCoins Wallet for Android
 
 [![Build Status](https://travis-ci.org/TrustWallet/trust-wallet-android.svg?branch=master)](https://travis-ci.org/TrustWallet/trust-wallet-android)
 [![License](https://img.shields.io/badge/license-GPL3-green.svg?style=flat)](https://github.com/fastlane/fastlane/blob/master/LICENSE)
