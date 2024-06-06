@@ -589,6 +589,9 @@
   <string name="verified_tag">확인됨</string>
   <string name="unferified_tag">미확인된 지갑</string>
   <string name="verification_wallets_verify_button">확인</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">한 단계만 더!</string>
   <string name="paypal_verification_home_one_step_card_body">이메일 주소로 전송된 코드를 입력하여 페이팔 계정을 확인합니다.</string>
