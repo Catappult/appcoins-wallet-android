@@ -589,6 +589,9 @@
   <string name="verified_tag">Terverifikasi</string>
   <string name="unferified_tag">Dompet belum diverifikasi</string>
   <string name="verification_wallets_verify_button">Verifikasi</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Tinggal selangkah lagi!</string>
   <string name="paypal_verification_home_one_step_card_body">Masukkan kode yang dikirimkan ke alamat email Anda untuk memverifikasi akun PayPal Anda.</string>
