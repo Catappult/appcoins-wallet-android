@@ -589,6 +589,9 @@
   <string name="verified_tag">Vérifié</string>
   <string name="unferified_tag">Portefeuille non vérifié</string>
   <string name="verification_wallets_verify_button">Vérifier</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Plus qu\'une étape !</string>
   <string name="paypal_verification_home_one_step_card_body">Saisissez le code envoyé à votre adresse électronique pour vérifier votre compte PayPal.</string>
