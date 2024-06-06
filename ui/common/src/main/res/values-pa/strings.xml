@@ -589,6 +589,9 @@
   <string name="verified_tag">ਪ੍ਰਮਾਣਿਤ</string>
   <string name="unferified_tag">ਪ੍ਰਮਾਣਿਤ ਨਾ ਕੀਤਾ ਬਟੂਆ</string>
   <string name="verification_wallets_verify_button">ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">One step away!</string>
   <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
