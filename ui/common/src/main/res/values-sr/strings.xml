@@ -676,15 +676,15 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada i PDV su uključeni u Ukupnoj ceni koju možete videti u gornjem delu.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu. Ova naknada i PDV su uključeni u odeljku Ukupno koji možete videti u gornjem delu.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Preko ovog načina plaćanja platićete naknadu za obradu i PDV.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
-  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_error_one_wallet_generic">Došlo je do problema sa vašim Wallet One plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
+  <string name="purchase_payment_method_top_ups_only">Dostupno samo za dopune.</string>
+  <string name="purchase_payment_method_minimum_amount">Samo za kupovine iznad %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Nije dostupno za ovu kupovinu.</string>
+  <string name="purchase_error_no_method_available_body">Trenutno nema dostupnih načina plaćanja kako bi se dovršila ova kupovina u vašem regionu. Budite u toku!</string>
+  <string name="purchase_legal_disclaimer">Ako nastavite sa ovim plaćanjem, saglasni ste sa i pristajete da dobijete sadržaj nakon plaćanja i tako izgubite svoja prava na povlačenje.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonus je u AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -987,16 +987,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Dodajte kreditnu/debitnu karticu</string>
   <string name="manage_cards_settings_manage_title">Upravljanje karticama</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Dodajte kreditnudebitnu karticu</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Upotrebite drugu karticu</string>
   <string name="manage_cards_view_title">Upravljanje karticama</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">Još uvek nemate sačuvanu nijednu karticu.</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Dodajte novu karticu</string>
+  <string name="manage_cards_add_button">Dodajte karticu</string>
   <string name="manage_cards_remove_confirmation">Da li ste sigurni da želite da uklonite ovu karticu?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Ne, otkaži</string>
+  <string name="manage_cards_remove_yes">Da, ukloni je</string>
   <string name="manage_cards_card_ending_body">Kartica koja se završava sa %s</string>
   <string name="manage_cards_error_details">Da li ste sigurni da su podaci sa kartice tačni? Pokušajte ponovo!</string>
   <string name="manage_cards_error_card_problem">Izgleda da postoji problem sa vašom karticom. Pokušajte sa drugom karticom.</string>
@@ -1004,11 +1004,11 @@
   <string name="manage_cards_remember">Zapamti karticu</string>
   <string name="add_new_card_button">Dodajte novu karticu</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Upravljajte platnim karticama</string>
+  <string name="card_added_title">Kartica je dodata</string>
+  <string name="card_removed">Kartica je uklonjena</string>
+  <string name="choose_card_title">Izaberite karticu</string>
+  <string name="manage_cards_update_disclaimer_1">Da biste ažurirali ili uklonili kartice, idite na:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Zaradite do %s%% bonusa za svaku kupovinu</string>
@@ -1243,7 +1243,7 @@
   <string name="vip_program_promo_code_tag">Promo kod</string>
   <string name="vip_program_referral_page_title">VIP program za preporuku</string>
   <string name="vip_program_referral_page_body">Podelite ovaj promo kod sa svojom zajednicom ili prijateljima kako bi svi mogli da zarade dok se igraju. Za svaku kupovinu u aplikaciji koju obave, i <b>vi i vaši prijatelji ćete dobiti %1$s%% bonusa</b> povrh ostalih aktivnih promocija. <b>Važi do %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Vi i vaši prijatelji ćete dobiti %s%% bonusa za svaku kupovinu uz ovaj kod!</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
   <string name="vip_program_referral_page_only_app_title">Samo za kupovine u</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
@@ -1291,7 +1291,7 @@
   <string name="rewards_current_bonus_title">%s%% bonusa za svaku kupovinu</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Podignite svoju e-Skills zaradu.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Promo kod</string>
   <string name="rewards_promo_code_card_body">Iskoristite promo kod kako bi dobili posebne ponude!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktivne</string>
@@ -1301,8 +1301,8 @@
   <string name="rewards_make_first_purchase_body">Napravite prvu kupovinu u igri koja podržava AppCoins i otključajte bonus prilikom svake kupovine.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonusa za svaku kupovinu</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Upravljajte novčanicima</string>
+  <string name="manage_wallet_view_title">Upravljajte novčanicima</string>
   <string name="manage_wallet_wallet_changed_title">Novčanik je promenjen</string>
   <string name="manage_wallet_change_active_wallet_title">Da li želite da izabereet ovaj novčanik?</string>
   <string name="manage_wallet_change_wallet_name_title">Promenite naziv novčanika</string>
@@ -1310,7 +1310,7 @@
   <string name="manage_wallet_my_wallet_address_title">Adresa mog novčanika</string>
   <string name="manage_wallet_verify_title">Potvrdite način plaćanja</string>
   <string name="manage_wallet_verify_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Vaše stanje je prikazano u lokalnoj valuti zbog jednostavnosti, ali je vezano za USD, tako da promene u USD vrednosti mogu uticati na vaše stanje.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Potvrdite način plaćanja</string>
   <string name="verify_card_body">Izbegnite blokade tako što ćete potvrditi način plaćanja.</string>
@@ -1337,11 +1337,11 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Uživajte u %s u AppCoins Credits u vašem novčaniku</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_title">Budite u toku!</string>
+  <string name="mail_list_card_body">Pridružite se našoj mejling listi i dobijte ekskluzivna ažuriranja i šansu da osvojite poklon karticu.</string>
+  <string name="mail_list_card_confirmation_title">Potvrdite adresu svoje e-pošte</string>
+  <string name="mail_list_card_confirmation_body">Poslali smo e-poštu na %s</string>
+  <string name="mail_list_backup">Pridružite se našoj mejling listi i dobijte ekskluzivna ažuriranja i šansu da osvojite poklon karticu.</string>
   <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
