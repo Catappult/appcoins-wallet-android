@@ -589,6 +589,9 @@
   <string name="verified_tag">Подтверждено</string>
   <string name="unferified_tag">Неподтвержденный бумажник</string>
   <string name="verification_wallets_verify_button">Подтвердить</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Остался один шаг!</string>
   <string name="paypal_verification_home_one_step_card_body">Введите код, отправленный на ваш адрес электронной почты, чтобы подтвердить свою учетную запись PayPal.</string>
@@ -1346,6 +1349,16 @@
   <string name="challenge_reward_card_body">Завершите вызов и получите AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Получите %s в кредитах AppCoins на ваш кошелек</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Stay Tuned!</string>
+  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
+  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

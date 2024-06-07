@@ -80,7 +80,9 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     override fun onOAuthConnectResult(result: VkOAuthConnectionResult) {
       super.onOAuthConnectResult(result)
       when (result) {
-        is VkOAuthConnectionResult.Error -> showError()
+        is VkOAuthConnectionResult.Error ->  {
+          iabView.navigateBack()
+        }
         else -> {
           //Do nothing
         }
@@ -119,6 +121,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     clearVkPayCheckout()
     setupTransactionCompleteAnimation()
+    binding.loading.visibility = View.VISIBLE
     lifecycleScope.launch {
       delay(500)  // necessary delay to ensure the superappKit is actually ready.
       if (SuperappKit.isInitialized()) {
@@ -186,7 +189,7 @@ class VkPaymentIABFragment : BasePageViewFragment(),
       }
 
       is VkCheckoutFailed -> {
-        showError()
+        iabView.navigateBack()
       }
     }
   }

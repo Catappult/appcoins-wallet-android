@@ -394,7 +394,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   @SuppressLint("SetTextI18n")
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
-      binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.layoutPreSelected.paymentMethodFee.text =
         context?.getString(

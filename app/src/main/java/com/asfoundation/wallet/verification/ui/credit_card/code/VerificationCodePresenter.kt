@@ -132,7 +132,11 @@ class VerificationCodePresenter(
               )
             }
         }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, {
+          view.hideLoading()
+          view.showWrongCodeError()
+          it.printStackTrace()
+        })
     )
   }
 
@@ -141,6 +145,8 @@ class VerificationCodePresenter(
     if (codeResult.success && !codeResult.error.hasError) {
       view.showSuccess()
       view.unlockRotation()
+    } else if (codeResult.error.isNetworkError) {
+      view.showNetworkError()
     } else {
       when (codeResult.errorType) {
         VerificationCodeResult.ErrorType.WRONG_CODE -> view.showWrongCodeError()
