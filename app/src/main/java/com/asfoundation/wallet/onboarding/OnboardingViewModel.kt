@@ -113,31 +113,18 @@ class OnboardingViewModel @Inject constructor(
     sendSideEffect { OnboardingSideEffect.NavigateToLink(uri) }
   }
 
-  fun handleRecoverGuestWalletClick(backup: String?) {
+  fun handleRecoverAndVerifyGuestWalletClick(backup: String, verificationFlow: String = "") {
     sendSideEffect { OnboardingSideEffect.ShowLoadingRecover }
     recoverEntryPrivateKeyUseCase(
       WalletKeyStore(
-        null,
-        backup ?: ""
+        null, backup
       )
-    ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it) }.doOnError {
-      walletsEventSender.sendWalletCompleteRestoreEvent(
-        WalletsAnalytics.STATUS_FAIL, it.message
-      )
-    }.scopedSubscribe()
-  }
-
-  fun handleVerifyGuestWalletClick(backup: String?, flow: String) {
-    sendSideEffect { OnboardingSideEffect.ShowLoadingRecover }
-    recoverEntryPrivateKeyUseCase(WalletKeyStore(null, backup ?: "")).flatMap { recoverResult ->
-      setDefaultWallet(recoverResult)
-    }.doOnSuccess { recoverResult ->
-      handleRecoverResult(recoverResult, flow)
-    }.doOnError { error ->
-      walletsEventSender.sendWalletCompleteRestoreEvent(
-        WalletsAnalytics.STATUS_FAIL, error.message
-      )
-    }.scopedSubscribe()
+    ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it, verificationFlow) }
+      .doOnError {
+        walletsEventSender.sendWalletCompleteRestoreEvent(
+          WalletsAnalytics.STATUS_FAIL, it.message
+        )
+      }.scopedSubscribe()
   }
 
   private fun setDefaultWallet(recoverResult: RecoverEntryResult): Single<RecoverEntryResult> =
@@ -150,7 +137,7 @@ class OnboardingViewModel @Inject constructor(
         .toSingleDefault(recoverResult)
     }
 
-  private fun handleRecoverResult(recoverResult: RecoverEntryResult, flow: String = "") =
+  private fun handleRecoverResult(recoverResult: RecoverEntryResult, flow: String) =
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
         walletsEventSender.sendWalletRestoreEvent(
@@ -162,10 +149,8 @@ class OnboardingViewModel @Inject constructor(
           guestBonus.amount.toString(), guestBonus.currency
         )
         sendSideEffect {
-          if (flow.isEmpty())
-            OnboardingSideEffect.NavigateToFinish
-          else
-            OnboardingSideEffect.NavigateToVerify(flow)
+          if (flow.isEmpty()) OnboardingSideEffect.NavigateToFinish
+          else OnboardingSideEffect.NavigateToVerify(flow)
         }
       }
 

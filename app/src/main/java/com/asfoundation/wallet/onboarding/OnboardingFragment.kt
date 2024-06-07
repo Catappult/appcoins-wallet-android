@@ -74,8 +74,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleWalletCreationFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
-      this
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE, this
     ) { _, _ ->
       navigator.navigateToNavBar()
     }
@@ -83,8 +82,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
 
   override fun onCreateView(
-    inflater: LayoutInflater, @Nullable container: ViewGroup?,
-    @Nullable savedInstanceState: Bundle?
+    inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?
   ): View = FragmentOnboardingBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
@@ -100,13 +98,13 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverGuestWalletClick(args.backup)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
-      viewModel.handleRecoverGuestWalletClick(args.backup)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
-      viewModel.handleVerifyGuestWalletClick(args.backup, args.flow)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
     }
   }
 
@@ -166,9 +164,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingAction.visibility = View.INVISIBLE
     views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
-      R.string.monetary_amount_with_symbol,
-      "$",
-      "0.00"
+      R.string.monetary_amount_with_symbol, "$", "0.00"
     )
     views.onboardingRecoverText2.visibility = View.INVISIBLE
     views.onboardingRecoverText3.visibility = View.INVISIBLE
@@ -181,12 +177,20 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun showVerifyGuestWallet() {
     views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
+    views.loadingAnimation.visibility = View.INVISIBLE
+    views.onboardingVerifyLaunchText.visibility = View.INVISIBLE
+
   }
 
   private fun showRecoveringGuestWalletLoading() {
     views.onboardingRecoverText5.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.VISIBLE
+    views.loadingVerifyAnimation.visibility = View.VISIBLE
+    views.onboardingVerifyLaunchText.visibility = View.VISIBLE
     views.onboardingRecoverGuestButton.visibility = View.INVISIBLE
+    views.onboardingGuestLaunchButton.visibility = View.INVISIBLE
+    views.onboardingGuestVerifyButton.visibility = View.INVISIBLE
+    views.orText.visibility = View.INVISIBLE
   }
 
   private fun showGuestBonus(bonus: FiatValue) {
@@ -218,11 +222,9 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun setStringWithLinks() {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
-    val termsPolicyTickBox =
-      resources.getString(
-        R.string.intro_agree_terms_and_conditions_body, termsConditions,
-        privacyPolicy
-      )
+    val termsPolicyTickBox = resources.getString(
+      R.string.intro_agree_terms_and_conditions_body, termsConditions, privacyPolicy
+    )
 
     val spannableString = SpannableString(termsPolicyTickBox)
     setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
@@ -235,8 +237,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun setLinkToString(
-    spannableString: SpannableString, highlightString: String,
-    uri: Uri
+    spannableString: SpannableString, highlightString: String, uri: Uri
   ) {
     val clickableSpan = object : ClickableSpan() {
       override fun onClick(widget: View) {
@@ -248,16 +249,19 @@ class OnboardingFragment : BasePageViewFragment(),
         ds.isUnderlineText = true
       }
     }
-    val indexHighlightString = spannableString.toString()
-      .indexOf(highlightString)
+    val indexHighlightString = spannableString.toString().indexOf(highlightString)
     val highlightStringLength = highlightString.length
     spannableString.setSpan(
-      clickableSpan, indexHighlightString,
-      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+      clickableSpan,
+      indexHighlightString,
+      indexHighlightString + highlightStringLength,
+      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     spannableString.setSpan(
-      StyleSpan(Typeface.BOLD), indexHighlightString,
-      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+      StyleSpan(Typeface.BOLD),
+      indexHighlightString,
+      indexHighlightString + highlightStringLength,
+      Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
   }
 

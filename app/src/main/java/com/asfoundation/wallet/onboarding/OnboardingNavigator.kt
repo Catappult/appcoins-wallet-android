@@ -65,6 +65,7 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
           fragment.findNavController(),
           OnboardingFragmentDirections.actionNavigateToVerifyCreditCard()
         )
+        fragment.requireActivity().finish()
       }
     }
   }
