@@ -27,14 +27,14 @@ fun BackupAlertCard(
   AlertCard(
     modifier = modifier,
     onClickPositiveButton = onClickButton,
-    title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.my_wallets_action_backup_wallet,
+    title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.backup_title,
     message = if (hasBackup)
       stringResource(
         id = R.string.mywallet_backed_up_date,
         DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
       )
     else stringResource(R.string.backup_wallet_tooltip),
-    positiveButtonLabel = stringResource(id = if (hasBackup) R.string.mywallet_backup_again_button else R.string.action_backup_wallet),
+    positiveButtonLabel = stringResource(id = if (hasBackup) R.string.mywallet_backup_again_button else R.string.backup_button),
     icon = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
   )
 }
@@ -170,16 +170,16 @@ private fun verifyCardMessage(
   when {
     waitingCodePP -> R.string.paypal_verification_home_one_step_card_body
     waitingCodeCC -> R.string.card_verification_wallets_one_step_body
-    verifiedPP && verifiedCC -> R.string.verify_card_verified  // TODO
-    verifiedCC -> R.string.dialog_credit_card_number // TODO
-    verifiedPP -> R.string.paypal_verification_header // TODO
+    verifiedPP && verifiedCC -> R.string.verification_verified_credit_debit_card_paypal_body
+    verifiedCC -> R.string.verification_verified_credit_debit_card_body
+    verifiedPP -> R.string.verification_verified_paypal_body
     verifiedWeb -> R.string.verify_card_verified
 
     else -> R.string.mywallet_unverified_body
   }
 
 private fun verifyCardPositiveButtonLabel(waitingCode: Boolean): Int =
-  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_verification_title
+  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_view_verify_button
 
 private fun verifyCardIcon(verified: Boolean, waitingCode: Boolean) =
   if (verified && !waitingCode) R.drawable.ic_check_circle else R.drawable.ic_alert_circle

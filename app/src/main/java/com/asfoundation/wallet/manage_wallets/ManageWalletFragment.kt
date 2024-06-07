@@ -452,7 +452,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      ScreenTitle(stringResource(R.string.manage_wallet_button))
+      ScreenTitle(stringResource(R.string.manage_wallet_view_title))
       ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
