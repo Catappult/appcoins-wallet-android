@@ -22,7 +22,8 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
   object NavigateToPayPalVerification : MainActivitySideEffect()
-  data class NavigateToOnboardingRecoverGuestWallet(val backup: String) : MainActivitySideEffect()
+  data class NavigateToOnboardingRecoverGuestWallet(val backup: String, val flow: String) :
+    MainActivitySideEffect()
 }
 
 object MainActivityState : ViewState
@@ -61,12 +62,14 @@ class MainActivityViewModel @Inject constructor(
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
               .doOnSuccess { backup ->
-                if (backup.isNullOrBlank())
-                  sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
-                else
+                if (backup != null && backup.backupPrivateKey.isNotEmpty())
                   sendSideEffect {
-                    MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(backup)
+                    MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(
+                      backup.backupPrivateKey, backup.flow
+                    )
                   }
+                else
+                  sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
               }
               .doOnError {
                 sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }

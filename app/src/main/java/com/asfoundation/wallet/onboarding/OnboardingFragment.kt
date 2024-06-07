@@ -100,9 +100,13 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverGuestWalletClick(
-        args.backup
-      )
+      viewModel.handleRecoverGuestWalletClick(args.backup)
+    }
+    views.onboardingGuestLaunchButton.setOnClickListener {
+      viewModel.handleRecoverGuestWalletClick(args.backup)
+    }
+    views.onboardingGuestVerifyButton.setOnClickListener {
+      viewModel.handleVerifyGuestWalletClick(args.backup, args.flow)
     }
   }
 
@@ -118,9 +122,17 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleRecoverGuestWallet() {
-    if (!args.backup.isBlank()) {
-      viewModel.getGuestWalletBonus(args.backup)
-      showRecoverGuestWallet()
+    if (args.backup.isNotBlank()) {
+      when {
+        args.flow.isBlank() -> {
+          viewModel.getGuestWalletBonus(args.backup)
+          showRecoverGuestWallet()
+        }
+
+        args.flow.isNotBlank() -> {
+          showVerifyGuestWallet()
+        }
+      }
     }
   }
 
@@ -140,6 +152,7 @@ class OnboardingFragment : BasePageViewFragment(),
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
+      is OnboardingSideEffect.NavigateToVerify -> navigator.navigateToVerify(sideEffect.flow)
     }
   }
 
@@ -163,6 +176,11 @@ class OnboardingFragment : BasePageViewFragment(),
     views.bonusLoading.visibility = View.VISIBLE
     views.onboardingRecoverText5.visibility = View.INVISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
+  }
+
+  private fun showVerifyGuestWallet() {
+    views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
+    views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
   }
 
   private fun showRecoveringGuestWalletLoading() {

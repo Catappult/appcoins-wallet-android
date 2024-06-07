@@ -19,9 +19,14 @@ class MainActivityNavigator @Inject constructor() :
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 
-  fun navigateToOnboardingRecoverGuestWallet(navController: NavController, backup: String) {
+  fun navigateToOnboardingRecoverGuestWallet(
+    navController: NavController,
+    backup: String,
+    flow: String
+  ) {
     val bundle = Bundle().apply {
       putString("backup", backup)
+      putString("flow", flow)
     }
     navController.setGraph(R.navigation.onboarding_graph, bundle)
   }
