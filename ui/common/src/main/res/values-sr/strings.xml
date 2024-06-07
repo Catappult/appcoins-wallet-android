@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Kupovina je odbijena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_reverted_body">Kupovina je vraćena.\nZa više informacija obratite se korisničkoj podršci.</string>
   <string name="transaction_status_rejected">Odbijeno</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Detalji o transakciji</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Nema načina za plaćanje!</string>
   <string name="topup_no_method_available_body">Trenutno nema načina za plaćanje dostupnih za dopunu u vašoj zemlji. Ostanite u toku!</string>
   <string name="topup_bonus_amount_body">Preuzmite %s bonusa uz ovu dopunu</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">Iznos od %s je položen na vaš nalog u obliku AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Oporavite novčanik</string>
   <string name="my_wallets_action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
   <string name="my_wallets_action_verify_new_card">Potvrdite novu karticu</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Ukloni novčanik</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Zatražite od nekoga da plati</string>
   <string name="askafriend_generating_link_message">Generišemo vam link za plaćanje&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Zdravo! Molim te da mi pošalješ AppCoins Credits (%1$s) da kupim nešto u igri %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Pošaljite sredstva</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Primite</string>
   <string name="p2p_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s – poslato na sledeću adresu:</string>
   <string name="p2p_send_current_balance_message">Trenutno stanje: %1$s %2$s</string>
@@ -527,10 +527,10 @@
   <string name="resend_button">Pošalji ponovo</string>
   <string name="continue_button">Nastavi</string>
   <string name="card_expired_tag">Istekao</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
-  <string name="total_title">Total</string>
+  <string name="start_again_button">Počnite ponovo</string>
+  <string name="max">Maks.</string>
+  <string name="amount">Iznos</string>
+  <string name="total_title">Ukupno</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -539,7 +539,7 @@
   <string name="decline_button">Odbaci</string>
   <string name="get_started">Počnite</string>
   <string name="existent_wallet">Već imam novčanik</string>
-  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
+  <string name="onboarding_verification_body">Potvrdite način plaćanja da biste dovršili svoju kupovinu.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Obavite kupovinu u omiljenoj igri a mi ćemo se pobrinuti za sve ostalo.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
@@ -589,6 +589,9 @@
   <string name="verified_tag">Potvrđeno</string>
   <string name="unferified_tag">Nepotvrđeni novčanik</string>
   <string name="verification_wallets_verify_button">Potvrdi</string>
+  <string name="verification_verified_paypal_body">Potvrđeno uz pomoć PayPal-a.</string>
+  <string name="verification_verified_credit_debit_card_body">Potvrđeno uz pomoć kreditne/debitne kartice.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Potvrđeno uz pomoć kreditne/debitne kartice i PayPal-a.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Deli vas jedan korak!</string>
   <string name="paypal_verification_home_one_step_card_body">Unesite kod koji vam je poslat na adresu e-pošte da biste potvrdili PayPal nalog.</string>
@@ -662,16 +665,16 @@
   <string name="error_blocked_wallet_title">Blokiran novčanik</string>
   <string name="error_blocked_wallet_body">Vaš novčanik je blokiran iz sigurnosnih razloga. Kontaktirajte nas za više informacija.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Možda se primenjuju dodatne naknade.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s sa naknadama i PDV-om.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">uključuje dodatne troškove</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">ne uključuje dodatne troškove</string>
   <string name="purchase_error_paypal">Došlo je do problema sa vašim PayPal plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_error_google_pay">Došlo je do problema sa vašim Google Pay nalogom. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
   <string name="purchase_success_bonus_received_title">Dobijen bonus od %s.</string>
   <string name="purchase_making_purchase_title">Obavljanje kupovine&#8230;</string>
   <string name="purchase_fee_title">Naknada %1$s%2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će biti naplaćena naknada obrade. Ova naknada i PDV su uključeni u Ukupnoj ceni koju možete videti u gornjem delu.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Ovaj način plaćanja naplaćuje naknadu za obradu za ovu kupovinu. Ova naknada i PDV su uključeni u odeljku Ukupno koji možete videti u gornjem delu.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Ovaj način plaćanja ne podržava vašu valutu, tako da će možda biti naplaćena naknada obrade.</string>
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>

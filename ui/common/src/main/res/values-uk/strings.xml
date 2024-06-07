@@ -591,6 +591,9 @@
   <string name="verified_tag">Перевірено</string>
   <string name="unferified_tag">Неперевірений гаманець</string>
   <string name="verification_wallets_verify_button">Перевірити</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Залишився один крок!</string>
   <string name="paypal_verification_home_one_step_card_body">Введіть код, надісланий на вашу електронну адресу, щоб підтвердити ваш обліковий запис PayPal.</string>

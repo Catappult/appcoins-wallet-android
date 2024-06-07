@@ -589,6 +589,9 @@
   <string name="verified_tag">အတည္ျပဳထားေသာ</string>
   <string name="unferified_tag">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="verification_wallets_verify_button">အတည္ျပဳမည္</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">တစ္ဆင့္သာ လိုပါေတာ့သည္။</string>
   <string name="paypal_verification_home_one_step_card_body">သင့္ PayPal အေကာင့္ကိုအတည္ျပဳရန္ သင့္အီးေမးလ္လိပ္စာသို႔ ေပးပို႔လိုက္ေသာကုဒ္ကို ထည့္ပါ။</string>

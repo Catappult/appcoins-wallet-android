@@ -589,6 +589,9 @@
   <string name="verified_tag">तपासले</string>
   <string name="unferified_tag">असत्यापित वॉलेट</string>
   <string name="verification_wallets_verify_button">सत्यापित करा</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">एकच चरण दूर!</string>
   <string name="paypal_verification_home_one_step_card_body">आपल्या पेपाल खात्यास सत्यापित करण्यासाठी आपल्या ईमेल पत्त्यावर पाठविलेला कोड इथे प्रविष्ट करा.</string>

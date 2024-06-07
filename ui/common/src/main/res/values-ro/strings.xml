@@ -589,6 +589,9 @@
   <string name="verified_tag">Verificat</string>
   <string name="unferified_tag">Portofel neverificat</string>
   <string name="verification_wallets_verify_button">Verifică</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Mai ai un pas!</string>
   <string name="paypal_verification_home_one_step_card_body">Introdu codul trimis la adresa ta de e-mail pentru a-ți verifica contul PayPal.</string>
