@@ -78,10 +78,8 @@ constructor(
     when (verificationStatus) {
       CODE_REQUESTED,
       VERIFYING -> requestVerificationCode()
-
-      NO_NETWORK -> showError()
-
       ERROR, VERIFIED, UNVERIFIED -> showVerificationInfo(verificationInfo)
+      else -> showVerificationInfo(verificationInfo)
     }
   }
 

@@ -92,6 +92,14 @@ constructor(
         } else {
           if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFYING) {
             return@flatMap Single.just(VerificationStatus.VERIFYING)
+          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFIED) {
+            return@flatMap Single.just(VerificationStatus.VERIFIED)
+          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.CODE_REQUESTED) {
+            return@flatMap Single.just(VerificationStatus.CODE_REQUESTED)
+          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.NO_NETWORK) {
+            return@flatMap Single.just(VerificationStatus.NO_NETWORK)
+          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.ERROR) {
+            return@flatMap Single.just(VerificationStatus.ERROR)
           }
           return@flatMap getCardVerificationState(walletAddress, walletSignature)
         }

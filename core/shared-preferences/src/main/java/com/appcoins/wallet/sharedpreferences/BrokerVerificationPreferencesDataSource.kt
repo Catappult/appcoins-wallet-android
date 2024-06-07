@@ -21,7 +21,7 @@ class BrokerVerificationPreferencesDataSource @Inject constructor(
   fun getCachedValidationStatus(walletAddress: String, typeOfVerification: Int) =
     sharedPreferences.getInt(
       WALLET_VERIFIED + walletAddress + WALLET_TYPE_VERIFIED + typeOfVerification,
-      4
+      VERIFICATION_STATUS_DEFAULT
     )
 
   fun removeCachedWalletValidationStatus(walletAddress: String, typeOfVerification: Int) =
@@ -32,5 +32,6 @@ class BrokerVerificationPreferencesDataSource @Inject constructor(
   companion object {
     private const val WALLET_VERIFIED = "wallet_verified_cc_"
     private const val WALLET_TYPE_VERIFIED = "wallet_type_verified"
+    private const val VERIFICATION_STATUS_DEFAULT = 4
   }
 }

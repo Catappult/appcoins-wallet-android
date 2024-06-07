@@ -57,6 +57,27 @@ constructor(
     )
   }
 
+  fun getCurrentVerificationType(address: String): VerificationType? {
+    return when {
+      brokerVerificationRepository.getCachedValidationStatus(
+        address,
+        VerificationType.CREDIT_CARD
+      ) == VerificationStatus.CODE_REQUESTED ||
+          brokerVerificationRepository.getCachedValidationStatus(
+            address,
+            VerificationType.CREDIT_CARD
+          )
+          == VerificationStatus.VERIFYING -> VerificationType.CREDIT_CARD
+
+      brokerVerificationRepository.getCachedValidationStatus(address, VerificationType.PAYPAL)
+          == VerificationStatus.CODE_REQUESTED ||
+          brokerVerificationRepository.getCachedValidationStatus(address, VerificationType.PAYPAL)
+          == VerificationStatus.VERIFYING -> VerificationType.PAYPAL
+
+      else -> null
+    }
+  }
+
   fun makeVerificationPayment(
     verificationType: VerificationType,
     adyenPaymentMethod: ModelObject,

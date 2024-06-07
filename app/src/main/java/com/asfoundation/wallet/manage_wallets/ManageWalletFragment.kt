@@ -68,6 +68,8 @@ import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStat
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.CODE_REQUESTED
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFIED
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus.VERIFYING
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatusCompound
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -176,7 +178,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     padding: PaddingValues,
     walletInfo: WalletInfo,
     inactiveWallets: List<WalletInfoSimple>,
-    verificationStatus: VerificationStatus
+    verificationStatus: VerificationStatusCompound
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
       item { ScreenHeader(inactiveWallets.size) }
@@ -203,7 +205,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletCard(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+  fun ActiveWalletCard(walletInfo: WalletInfo, verificationStatus: VerificationStatusCompound) {
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
       ActiveWalletIndicator()
       Card(
@@ -228,7 +230,10 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ActiveWalletContentPortrait(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+  fun ActiveWalletContentPortrait(
+    walletInfo: WalletInfo,
+    verificationStatus: VerificationStatusCompound
+  ) {
     Column(
       modifier =
       Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
@@ -244,26 +249,52 @@ class ManageWalletFragment : BasePageViewFragment() {
         backupDate = walletInfo.backupDate
       )
       Separator()
-      if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+      if (
+        isVerificationInProcessing(verificationStatus.creditCardStatus, walletInfo.verified) ||
+        isVerificationInProcessing(verificationStatus.payPalStatus, walletInfo.verified)
+      ) {
         LoadingCard()
-      else
+      } else {
         VerifyWalletAlertCard(
           onClickButton = {
             analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
-            myWalletsNavigator.navigateToVerifyPicker()
+            when {
+              (verificationStatus.creditCardStatus == VERIFYING ||
+                  verificationStatus.creditCardStatus == CODE_REQUESTED) &&
+                  verificationStatus.currentVerificationType == VerificationType.CREDIT_CARD ->
+                myWalletsNavigator.navigateToCCVerification()
+
+              (verificationStatus.payPalStatus == VERIFYING ||
+                  verificationStatus.payPalStatus == CODE_REQUESTED) &&
+              verificationStatus.currentVerificationType == VerificationType.PAYPAL ->
+                myWalletsNavigator.navigateToPPVerification()
+
+              else -> myWalletsNavigator.navigateToVerifyPicker()
+            }
           },
-          verified = walletInfo.verified,
-          waitingCode = verificationStatus == VERIFYING || verificationStatus == CODE_REQUESTED,
+          verifiedCC = walletInfo.verified && verificationStatus.creditCardStatus == VERIFIED,
+          verifiedPP = walletInfo.verified && verificationStatus.payPalStatus == VERIFIED,
+          verifiedWeb = walletInfo.verified,
+          waitingCodeCC = (verificationStatus.creditCardStatus == VERIFYING ||
+              verificationStatus.creditCardStatus == CODE_REQUESTED) &&
+              verificationStatus.currentVerificationType == VerificationType.CREDIT_CARD,
+          waitingCodePP = (verificationStatus.payPalStatus == VERIFYING ||
+              verificationStatus.payPalStatus == CODE_REQUESTED) &&
+              verificationStatus.currentVerificationType == VerificationType.PAYPAL,
           onCancelClickButton = {
             viewModel.cancelVerification(walletInfo.wallet)
             viewModel.updateWallets()
           }
         )
+      }
     }
   }
 
   @Composable
-  fun ActiveWalletContentLandscape(walletInfo: WalletInfo, verificationStatus: VerificationStatus) {
+  fun ActiveWalletContentLandscape(
+    walletInfo: WalletInfo,
+    verificationStatus: VerificationStatusCompound
+  ) {
     Column(
       modifier =
       Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
@@ -285,22 +316,43 @@ class ManageWalletFragment : BasePageViewFragment() {
           modifier = Modifier.weight(1f)
         )
         Spacer(Modifier.weight(0.05f))
-        if (isVerificationInProcessing(verificationStatus, walletInfo.verified))
+        if (
+          isVerificationInProcessing(verificationStatus.creditCardStatus, walletInfo.verified) ||
+          isVerificationInProcessing(verificationStatus.payPalStatus, walletInfo.verified)
+        ) {
           LoadingCard(modifier = Modifier.weight(1f))
-        else
+        } else {
           VerifyWalletAlertCard(
             onClickButton = {
               analytics.sendManageWalletScreenEvent(action = VERIFY_PAYMENT_METHOD)
-              myWalletsNavigator.navigateToVerifyPicker()
+              when {
+                (verificationStatus.creditCardStatus == VERIFYING ||
+                    verificationStatus.creditCardStatus == CODE_REQUESTED) &&
+                    verificationStatus.currentVerificationType == VerificationType.CREDIT_CARD ->
+                  myWalletsNavigator.navigateToCCVerification()
+
+                (verificationStatus.payPalStatus == VERIFYING ||
+                    verificationStatus.payPalStatus == CODE_REQUESTED) &&
+                    verificationStatus.currentVerificationType == VerificationType.PAYPAL ->
+                  myWalletsNavigator.navigateToPPVerification()
+
+                else -> myWalletsNavigator.navigateToVerifyPicker()
+              }
             },
-            verified = walletInfo.verified,
-            waitingCode = verificationStatus == VERIFYING || verificationStatus == CODE_REQUESTED,
+            verifiedCC = walletInfo.verified && verificationStatus.creditCardStatus == VERIFIED,
+            verifiedPP = walletInfo.verified && verificationStatus.payPalStatus == VERIFIED,
+            verifiedWeb = walletInfo.verified,
+            waitingCodeCC = verificationStatus.creditCardStatus == VERIFYING ||
+                verificationStatus.creditCardStatus == CODE_REQUESTED,
+            waitingCodePP = verificationStatus.payPalStatus == VERIFYING ||
+                verificationStatus.payPalStatus == CODE_REQUESTED,
             onCancelClickButton = {
               viewModel.cancelVerification(walletInfo.wallet)
               viewModel.updateWallets()
             },
             modifier = Modifier.weight(1f)
           )
+        }
       }
     }
   }
@@ -567,7 +619,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       logging = true
     )
     ActiveWalletContentLandscape(
-      walletInfo, VERIFYING
+      walletInfo, VerificationStatusCompound(CODE_REQUESTED, VERIFIED, VerificationType.CREDIT_CARD)
     )
   }
 
