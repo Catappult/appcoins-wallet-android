@@ -684,7 +684,7 @@
   <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
   <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
   <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
-  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Бонус вы получаете в кредитах AppCoins.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -988,16 +988,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Добавить кредитную/дебитовую карту</string>
   <string name="manage_cards_settings_manage_title">Управление картами</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
-  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Добавить кредитную/дебитовую карту</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Использовать другую карту</string>
   <string name="manage_cards_view_title">Управление картами</string>
-  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
+  <string name="manage_cards_empty_body">У вас пока нет сохраненных карт.</string>
   <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Добавить новую карту</string>
+  <string name="manage_cards_add_button">Добавить карту</string>
   <string name="manage_cards_remove_confirmation">Вы уверены, что хотите удалить эту карту?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Нет, отменить</string>
+  <string name="manage_cards_remove_yes">Да, удалить</string>
   <string name="manage_cards_card_ending_body">Карта заканчивается на %s</string>
   <string name="manage_cards_error_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
@@ -1005,11 +1005,11 @@
   <string name="manage_cards_remember">Запомнить карту</string>
   <string name="add_new_card_button">Добавить новую карту</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Управлять платежными картами</string>
+  <string name="card_added_title">Карта добавлена</string>
+  <string name="card_removed">Карта удалена</string>
+  <string name="choose_card_title">Выберите карту</string>
+  <string name="manage_cards_update_disclaimer_1">Чтобы обновить или удалить карты, перейдите сюда:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заработай бонус до %s%% за каждую покупку</string>
@@ -1252,7 +1252,7 @@
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">При использовании этого кода вы и ваши друзья получаете бонус %s%% за все покупки!</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
@@ -1304,7 +1304,7 @@
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Выведите свои доходы от e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Промо-код</string>
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
@@ -1314,8 +1314,8 @@
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% за каждую покупку</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Управление кошельками</string>
+  <string name="manage_wallet_view_title">Управление кошельками</string>
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>
   <string name="manage_wallet_change_wallet_name_title">Изменить название кошелька</string>
@@ -1323,7 +1323,7 @@
   <string name="manage_wallet_my_wallet_address_title">Адрес моего кошелька</string>
   <string name="manage_wallet_verify_title">Подтвердить способ оплаты</string>
   <string name="manage_wallet_verify_body">Не допустите блокировки, подтвердив способ оплаты.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Для простоты ваш баланс отображается в вашей местной валюте, но он привязан к доллару США, поэтому изменения в стоимости доллара США могут повлиять на ваш баланс.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Подтвердить способ оплаты</string>
   <string name="verify_card_body">Не допустите блокировки, подтвердив способ оплаты.</string>
@@ -1350,11 +1350,11 @@
   <!-- First purchase -->
   <string name="bonus_granted_body">Получите %s в кредитах AppCoins на ваш кошелек</string>
   <!-- Mailing list -->
-  <string name="mail_list_card_title">Stay Tuned!</string>
-  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
-  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
-  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
-  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_title">Следите за обновлениями!</string>
+  <string name="mail_list_card_body">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
+  <string name="mail_list_card_confirmation_title">Подтвердите ваш e-mail</string>
+  <string name="mail_list_card_confirmation_body">Мы отправили письмо %s</string>
+  <string name="mail_list_backup">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
   <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
   <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
   <string name="mail_list_confirmation_email_button">Confirm email</string>
