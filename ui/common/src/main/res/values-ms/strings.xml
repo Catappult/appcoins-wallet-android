@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">Pembelian ini telah ditolak.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_reverted_body">Pembelian ini telah dibatalkan.\nUntuk maklumat lanjut, hubungi sokongan.</string>
   <string name="transaction_status_rejected">Ditolak</string>
-  <string name="transaction_details_header">Transaction Details</string>
+  <string name="transaction_details_header">Butiran Transaksi</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
   <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
   <string name="topup_bonus_amount_body">Terima bonus %s dengan tambah nilai ini</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s telah didepositkan dalam akaun anda berbentuk Kredit AppCoins.</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
   <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
   <string name="my_wallets_action_verify_new_card">Sahkan kad baru</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Alih keluar dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
   <string name="askafriend_generating_link_message">Kami sedang menjana pautan pembayaran anda&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Hai awak! Boleh hantar %1$s Kredit AppCoins kepada saya untuk beli item dalam %2$s. Pautan: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Hantar Dana</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Terima</string>
   <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s telah dihantar ke alamat yang berikut:</string>
   <string name="p2p_send_current_balance_message">Baki semasa: %1$s %2$s</string>
