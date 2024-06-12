@@ -87,22 +87,18 @@ constructor(
       .getLatestWalletInfo(walletAddress)
       .subscribeOn(Schedulers.io())
       .flatMap { walletInfo ->
-        if (walletInfo.verified) {
+        if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFYING) {
+          return@flatMap Single.just(VerificationStatus.VERIFYING)
+        } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFIED) {
           return@flatMap Single.just(VerificationStatus.VERIFIED)
-        } else {
-          if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFYING) {
-            return@flatMap Single.just(VerificationStatus.VERIFYING)
-          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.VERIFIED) {
-            return@flatMap Single.just(VerificationStatus.VERIFIED)
-          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.CODE_REQUESTED) {
-            return@flatMap Single.just(VerificationStatus.CODE_REQUESTED)
-          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.NO_NETWORK) {
-            return@flatMap Single.just(VerificationStatus.NO_NETWORK)
-          } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.ERROR) {
-            return@flatMap Single.just(VerificationStatus.ERROR)
-          }
-          return@flatMap getCardVerificationState(walletAddress, walletSignature)
+        } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.CODE_REQUESTED) {
+          return@flatMap Single.just(VerificationStatus.CODE_REQUESTED)
+        } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.NO_NETWORK) {
+          return@flatMap Single.just(VerificationStatus.NO_NETWORK)
+        } else if (getCachedValidationStatus(walletAddress, type) == VerificationStatus.ERROR) {
+          return@flatMap Single.just(VerificationStatus.ERROR)
         }
+        return@flatMap getCardVerificationState(walletAddress, walletSignature)
       }
       .doOnSuccess { status -> saveVerificationStatus(walletAddress, status, type) }
       .onErrorReturn {
@@ -117,8 +113,17 @@ constructor(
     return brokerVerificationApi
       .getVerificationState(wallet = walletAddress, walletSignature = walletSignature)
       .map { verificationState ->
-        if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
-        else VerificationStatus.UNVERIFIED
+        if (
+            verificationState == "ACTIVE" &&
+            (
+              getCachedValidationStatus(walletAddress, VerificationType.CREDIT_CARD) == VerificationStatus.CODE_REQUESTED ||
+              getCachedValidationStatus(walletAddress, VerificationType.CREDIT_CARD) == VerificationStatus.VERIFYING
+            )
+          ) {
+          VerificationStatus.CODE_REQUESTED
+        } else {
+          VerificationStatus.UNVERIFIED
+        }
       }
       .onErrorReturn {
         if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK else VerificationStatus.ERROR
