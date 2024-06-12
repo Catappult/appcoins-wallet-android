@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">我想購買%2$s上的商品，可以給我%1$s AppCoins點數嗎？轉帳連結：%3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">轉帳</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">接收</string>
   <string name="p2p_send_body">掃描或手動輸入您朋友的錢包地址</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s 已發送至以下地址：</string>
   <string name="p2p_send_current_balance_message">當前餘額：%1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">已到期</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">數量</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
@@ -985,7 +985,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">新增信用卡/金融卡</string>
   <string name="manage_cards_settings_manage_title">管理卡片</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">新增信用卡/金融卡</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">管理卡片</string>
   <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
