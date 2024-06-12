@@ -45,6 +45,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.R.drawable.ic_card_branc_maestro
 import com.appcoins.wallet.ui.common.R.drawable.ic_card_brand_american_express
@@ -118,6 +119,9 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var cardPaymentDataSource: CardPaymentDataSource
+
+  @Inject
+  lateinit var getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -585,6 +589,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     showBonus()
     adyenCardForm?.visibility = VISIBLE
     cancelButton.visibility = VISIBLE
+    bindingCreditCardLayout?.cvLegalDisclaimer?.visibility =
+      if (getCachedShowRefundDisclaimerUseCase()) VISIBLE else GONE
+    bindingCreditCardLayout?.tvLegalDisclaimer?.visibility =
+      if (getCachedShowRefundDisclaimerUseCase()) VISIBLE else GONE
   }
 
   fun showNetworkError() = showNoNetworkError()
@@ -786,7 +794,15 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       period?.mapToSubsFrequency(requireContext(), fiatText)?.let { fiatText = it }
     }
     bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.text =
-      getString(R.string.purchase_total_header, amount, currencyCode)
+      if (isPortraitMode(requireContext())) {
+        getString(R.string.purchase_total_header, amount, currencyCode)
+      } else {
+        getString(R.string.gas_price_value, amount, currency)
+      }
+    if (!isPortraitMode(requireContext())) {
+      bindingCreditCardLayout?.paymentMethodsHeader?.fiatTotalPriceLabel?.visibility = VISIBLE
+      bindingCreditCardLayout?.paymentMethodsHeader?.infoFeesGroup?.visibility = GONE
+    }
     fiatPriceSkeleton.visibility = GONE
     appcPriceSkeleton.visibility = GONE
     bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice?.visibility = VISIBLE
@@ -862,7 +878,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     if (bonus.isNotEmpty()) {
       bonusLayout?.visibility = VISIBLE
       bonusLayoutPreSelected?.visibility = VISIBLE
-      bonusValue.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+      bonusValue.text = if (isPortraitMode(requireContext())) context?.getString(
+        R.string.gamification_purchase_header_part_2,
+        bonus
+      ) else bonus
     } else {
       bonusLayout?.visibility = GONE
       bonusLayoutPreSelected?.visibility = GONE
@@ -950,7 +969,6 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       cancelButton.setText(getString(R.string.back_button))
       iabView.disableBack()
     }
-    showBonus()
   }
 
   private fun setBonusMessage(nextPaymentDate: Date) {
