@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">सुनो! कृपया, मुझे %2$s में एक वस्तु खरीदने के लिए %1$s AppCoins Credits भेजें। लिंक:%3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">फंड भेजें</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">प्राप्त करें</string>
   <string name="p2p_send_body">अपने मित्र का वॉलेट पता स्कैन करें या लिखें।</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s इस पते पर भेजे गए थे:</string>
   <string name="p2p_send_current_balance_message">वर्तमान शेष: %1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">Expired</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">राशि</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
