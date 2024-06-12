@@ -287,12 +287,6 @@ class ManageWalletFragment : BasePageViewFragment() {
             viewModel.updateWallets()
           }
         )
-        Log.i("TAG", "verifiedCC: ${walletInfo.verified && verificationStatus.creditCardStatus == VERIFIED}")
-        Log.i("TAG", "verifiedPP: ${walletInfo.verified && verificationStatus.payPalStatus == VERIFIED}")
-        Log.i("TAG", "verifiedWeb: ${walletInfo.verified}")
-        Log.i("TAG", "waitingCodeCC: ${(verificationStatus.creditCardStatus == VERIFYING || verificationStatus.creditCardStatus == CODE_REQUESTED) && verificationStatus.currentVerificationType == VerificationType.CREDIT_CARD}")
-        Log.i("TAG", "waitingCodePP: ${(verificationStatus.payPalStatus == VERIFYING || verificationStatus.payPalStatus == CODE_REQUESTED) && verificationStatus.currentVerificationType == VerificationType.PAYPAL}")
-
       }
     }
   }
