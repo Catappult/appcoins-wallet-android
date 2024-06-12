@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
   <string name="my_wallets_action_verify_new_card">ยืนยันบัตรใหม่</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">ลบวอลเล็ต</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
   <string name="askafriend_generating_link_message">พวกเรากำลังสร้างลิงค์การชำระเงินของคุณ&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">สวัสดี! โปรดส่งเครดิต %1$s AppCoins ให้ฉัน เพื่อซื้อสินค้าใน %2$s ลิงค์: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ส่งเงิน</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">ได้รับ</string>
   <string name="p2p_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ถูกส่งไปยังที่อยู่ต่อไปนี้:</string>
   <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">หมดอายุ</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">จำนวน</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
@@ -679,8 +679,8 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">รวมค่าธรรมเนียม</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_top_ups_only">สำหรับใช้ได้สำหรับการเติมเงินเท่านั้น</string>
+  <string name="purchase_payment_method_minimum_amount">สำหรับการซื้อที่สูงกว่า %s เท่านั้น</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
@@ -987,7 +987,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">เพิ่มบัตรเครดิต/เดบิต</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>

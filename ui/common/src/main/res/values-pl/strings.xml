@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Odzyskaj portfel</string>
   <string name="my_wallets_action_backup_wallet">Kopia zapasowa portfela</string>
   <string name="my_wallets_action_verify_new_card">Zweryfikuj nową kartę</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">Usuń portfel</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Poproś znajomego o środki</string>
   <string name="askafriend_generating_link_message">Generujemy link dla płatności &#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Hej! Proszę wyślij mi %1$s AppCoins na zakup przedmiotu w %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Wysyłanie funduszy</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Odbierz</string>
   <string name="p2p_send_body">Zeskanuj lub wprowadź adres portfela znajomego.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s zostały wysłane na adres:</string>
   <string name="p2p_send_current_balance_message">Aktualne saldo: %1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">Wygasł</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">Kwota</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
@@ -988,7 +988,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Dodaj kartę kredytową/debetową</string>
   <string name="manage_cards_settings_manage_title">Zarządzaj kartami</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Dodaj kartę kredytową/debetową</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">Zarządzaj kartami</string>
   <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
@@ -1304,7 +1304,7 @@
   <string name="rewards_current_bonus_title">%s%% bonusu przy każdym zakupie</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Wypłać swoje zarobki z e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">Kod promocyjny</string>
   <string name="rewards_promo_code_card_body">Wpisz kod promocyjny i zgarniaj okazje!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktywny</string>
