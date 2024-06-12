@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="my_wallets_action_verify_new_card">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਹਟਾਓ</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
   <string name="askafriend_generating_link_message">ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦਾ ਲਿੰਕ ਉਤਪੰਨ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਕਿਰਪਾ ਕਰਕੇ ਮੈਨੂੰ %2$s ਤੇ ਇਕ ਆਈਟਮ ਖਰੀਦਣ ਲਈ %1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਭੇਜੋ| ਲਿੰਕ: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ਫੰਡ ਭੇਜੋ</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="p2p_send_body">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ ਜਾਂ ਸਕੈਨ ਕਰੋ|</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ਹੇਠ ਲਿਖੇ ਪਤੇ ਤੇ ਭੇਜੇ ਗਏ:</string>
   <string name="p2p_send_current_balance_message">ਮੌਜੂਦਾ ਬਕਾਇਆ: %1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">ਰਕਮ</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
@@ -986,7 +986,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
   <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
@@ -1278,7 +1278,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">ਐਕਟਿਵ</string>
