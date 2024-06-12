@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
-  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
+  <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
   <string name="askafriend_generating_link_message">သင့္ေငြေပးေခ်မႈလင့္္ခ္ &#8230; ကို ထုတ္ေပးေနပါသည္</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">ေဟး %2$s မွာ ပစၥည္းတစ္ခု၀ယ္ဖို႔ %1$s AppCoins Credits ကို ပို႔ေပးပါလား။ လင့္ခ္ - %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ေငြေပးပို႔မည္</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">လက္ခံယူမည္</string>
   <string name="p2p_send_body">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို စကန္ဖတ္ပါ သို႔မဟုတ္ ဝင္ပါ။</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s တို႔ကို ေအာက္ပါလိပ္စာသို႔ ေပးပို႔လိုက္ပါသည္ -</string>
   <string name="p2p_send_current_balance_message">လက္ရွိလက္က်န္ေငြ - %1$s %2$s</string>
@@ -529,7 +529,7 @@
   <string name="card_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">ပမာဏ</string>
   <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
@@ -985,7 +985,7 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
   <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
@@ -1265,7 +1265,7 @@
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
-  <string name="rewards_promo_code_card_title">Promo Code</string>
+  <string name="rewards_promo_code_card_title">ပ႐ိုမိုကုဒ္</string>
   <string name="rewards_promo_code_card_body">အထူးအခြင့္အေရးမ်ား ရရွိရန္ ပ႐ိုမိုကုဒ္တစ္ခုကို အသုံးျပဳုပါ။</string>
   <string name="rewards_promo_code_status">အေျခအေန:</string>
   <string name="rewards_promo_code_status_active">သုံးႏိုင္ေသာ</string>
