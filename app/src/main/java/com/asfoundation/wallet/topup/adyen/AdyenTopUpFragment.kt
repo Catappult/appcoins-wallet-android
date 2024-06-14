@@ -290,6 +290,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     binding.loading.visibility = GONE
     binding.button.isEnabled = false
     binding.creditCardInfoContainer.visibility = VISIBLE
+    binding.layoutHeaderTopUp.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
 
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }

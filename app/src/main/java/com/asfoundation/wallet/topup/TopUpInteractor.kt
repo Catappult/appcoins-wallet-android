@@ -43,18 +43,16 @@ class TopUpInteractor @Inject constructor(
   fun getPaymentMethods(
     value: String, currency: String, packageName: String
   ): Single<List<PaymentMethod>> =
-    partnerAddressService.getAttribution(packageName).flatMap { attributionEntity ->
-      repository.getPaymentMethods(
-        value = value,
-        currency = currency,
-        currencyType = "fiat",
-        direct = true,
-        transactionType = "TOPUP",
-        entityOemId = attributionEntity.oemId
-      ).map { repository.replaceAppcPricesToOriginalPrices(it, value, currency) }
-        .map { mapPaymentMethods(it, currency) }
-        .map { filterValidGooglePayUseCase(it) }
-    }
+    repository.getPaymentMethods(
+      value = value,
+      currency = currency,
+      currencyType = "fiat",
+      direct = true,
+      transactionType = "TOPUP",
+      entityOemId = null
+    ).map { repository.replaceAppcPricesToOriginalPrices(it, value, currency) }
+      .map { mapPaymentMethods(it, currency) }
+      .map { filterValidGooglePayUseCase(it) }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
