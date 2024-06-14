@@ -18,6 +18,8 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.ui.widgets.NoNetworkCard
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -79,6 +81,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
 
   @Inject
+  lateinit var getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase
+
+  @Inject
+  lateinit var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
+
+  @Inject
   lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
 
   @Inject
@@ -123,6 +131,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       autoUpdateModelUseCase,
       hasRequiredHardUpdateUseCase,
       startVipReferralPollingUseCase,
+      getShowRefundDisclaimerCodeUseCase,
+      setCachedShowRefundDisclaimerUseCase,
       logger,
       transaction,
       errorFromReceiver

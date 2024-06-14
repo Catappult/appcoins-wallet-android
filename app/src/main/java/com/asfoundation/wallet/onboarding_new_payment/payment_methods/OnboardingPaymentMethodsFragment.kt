@@ -156,6 +156,11 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+
+      is OnboardingPaymentMethodsSideEffect.showOrHideRefundDisclaimer -> {
+        views.onboardingPaymentTermsConditions?.disclaimerBody?.visibility =
+          if (sideEffect.showOrHideRefundDisclaimer) View.VISIBLE else View.GONE
+      }
     }
   }
 
@@ -164,13 +169,13 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     otherPaymentMethodsList: List<PaymentMethod>
   ) {
     views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
-    views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
+    views.onboardingPaymentTermsConditions?.root?.visibility = View.VISIBLE
     controller.setData(paymentMethodsList, otherPaymentMethodsList, paymentMethodsMapper)
   }
 
   private fun handleNoPaymentMethodsError() {
     views.onboardingPaymentMethodsRv.visibility = View.GONE
-    views.onboardingPaymentTermsConditions.root.visibility = View.GONE
+    views.onboardingPaymentTermsConditions?.root?.visibility = View.GONE
     views.noPaymentMethodsError.root.startAnimation(
       AnimationUtils.loadAnimation(
         context,
@@ -200,9 +205,9 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
     setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
 
-    views.onboardingPaymentTermsConditions.termsConditionsBody.text = spannableString
-    views.onboardingPaymentTermsConditions.termsConditionsBody.isClickable = true
-    views.onboardingPaymentTermsConditions.termsConditionsBody.movementMethod =
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.text = spannableString
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.isClickable = true
+    views.onboardingPaymentTermsConditions?.termsConditionsBody?.movementMethod =
       LinkMovementMethod.getInstance()
   }
 

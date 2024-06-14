@@ -32,8 +32,11 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -98,6 +101,15 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+
+  @Inject
+  lateinit var getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
+
+  @Inject
+  lateinit var getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase
+
+  @Inject
+  lateinit var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -195,7 +207,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       getCachedCurrencyUseCase = getCachedCurrencyUseCase,
       getStoredCardsUseCase = getStoredCardsUseCase,
       cardPaymentDataSource = cardPaymentDataSource,
-      getCurrentWalletUseCase = getCurrentWalletUseCase
+      getCurrentWalletUseCase = getCurrentWalletUseCase,
+      getShowRefundDisclaimerCodeUseCase = getShowRefundDisclaimerCodeUseCase,
+      setCachedShowRefundDisclaimerUseCase = setCachedShowRefundDisclaimerUseCase
+
     )
   }
 
@@ -352,6 +367,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (binding.rvDefaultValues.visibility == View.GONE) {
       binding.rvDefaultValues.visibility = View.VISIBLE
       binding.bottomSeparator.visibility = View.VISIBLE
+      binding.tvRefundDisclaimer.visibility = View.GONE
+      binding.button.visibility = View.GONE
     }
   }
 
@@ -359,6 +376,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     if (binding.rvDefaultValues.visibility == View.VISIBLE) {
       binding.rvDefaultValues.visibility = View.GONE
       binding.bottomSeparator.visibility = View.GONE
+      binding.tvRefundDisclaimer.visibility =
+        if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
+      binding.button.visibility = View.VISIBLE
     }
   }
 
@@ -831,6 +851,10 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun lockRotation() {
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  override fun changeVisibilityRefundDisclaimer(visible: Boolean) {
+    binding.tvRefundDisclaimer.visibility = if (visible) View.VISIBLE else View.GONE
   }
 
   override fun showFee(visible: Boolean) {

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.os.Bundle
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.network.backend.model.enums.RefundDisclaimerEnum
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -9,7 +10,9 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetCachedCurrencyUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asfoundation.wallet.billing.adyen.PaymentBrands
@@ -50,7 +53,9 @@ class TopUpFragmentPresenter(
   private val getCachedCurrencyUseCase: GetCachedCurrencyUseCase,
   private val getStoredCardsUseCase: GetStoredCardsUseCase,
   private val cardPaymentDataSource: CardPaymentDataSource,
-  private val getCurrentWalletUseCase: GetCurrentWalletUseCase
+  private val getCurrentWalletUseCase: GetCurrentWalletUseCase,
+  private val getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase,
+  private val setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
 ) {
 
   private var cachedGamificationLevel = 0
@@ -71,6 +76,7 @@ class TopUpFragmentPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
     }
+    updateRefundDisclaimerValue()
     handlePaypalBillingAgreement()
     setupUi()
     handleNextClick()
@@ -162,6 +168,23 @@ class TopUpFragmentPresenter(
         cachedGamificationLevel = bonusAndLevel.level
       }
       .subscribe()
+  }
+
+  private fun updateRefundDisclaimerValue() {
+    disposables.add(
+      getShowRefundDisclaimerCodeUseCase().subscribeOn(networkScheduler).observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.showRefundDisclaimer == RefundDisclaimerEnum.SHOW_REFUND_DISCLAIMER.state) {
+            setCachedShowRefundDisclaimerUseCase(true)
+            view.changeVisibilityRefundDisclaimer(true)
+          } else {
+            setCachedShowRefundDisclaimerUseCase(false)
+            view.changeVisibilityRefundDisclaimer(false)
+          }
+        }.subscribe({}, {
+          it.printStackTrace()
+        })
+    )
   }
 
 
