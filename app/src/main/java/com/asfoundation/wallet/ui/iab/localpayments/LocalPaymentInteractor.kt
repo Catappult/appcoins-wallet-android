@@ -42,7 +42,7 @@ class LocalPaymentInteractor @Inject constructor(
 
   fun isWalletVerified() =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .flatMap { walletVerificationInteractor.isAtLeastOneVerified(it.address, it.signedAddress) }
       .onErrorReturn { true }
 
   fun getPaymentLink(

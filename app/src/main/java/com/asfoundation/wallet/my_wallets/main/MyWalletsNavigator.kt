@@ -78,6 +78,14 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navController.navigate(R.id.action_navigate_to_verify_picker)
   }
 
+  fun navigateToCCVerification() {
+    navController.navigate(R.id.action_navigate_to_verify_cc)
+  }
+
+  fun navigateToPPVerification() {
+    navController.navigate(R.id.action_navigate_to_verify_pp)
+  }
+
   fun navigateToBackup(walletAddress: String, walletName: String) {
     val bundle = Bundle()
     bundle.putString(BackupWalletEntryFragment.WALLET_ADDRESS_KEY, walletAddress)

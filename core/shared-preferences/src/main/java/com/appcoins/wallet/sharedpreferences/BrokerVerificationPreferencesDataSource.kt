@@ -6,20 +6,32 @@ import javax.inject.Inject
 class BrokerVerificationPreferencesDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences
 ) {
-  fun saveVerificationStatus(walletAddress: String, verificationStatusId: Int) =
+  fun saveVerificationStatus(
+    walletAddress: String,
+    verificationStatusId: Int,
+    typeOfVerification: Int
+  ) =
     sharedPreferences.edit()
-      .putInt(WALLET_VERIFIED + walletAddress, verificationStatusId)
+      .putInt(
+        WALLET_VERIFIED + walletAddress + WALLET_TYPE_VERIFIED + typeOfVerification,
+        verificationStatusId
+      )
       .apply()
 
-  fun getCachedValidationStatus(walletAddress: String) =
-    sharedPreferences.getInt(WALLET_VERIFIED + walletAddress, 4)
+  fun getCachedValidationStatus(walletAddress: String, typeOfVerification: Int) =
+    sharedPreferences.getInt(
+      WALLET_VERIFIED + walletAddress + WALLET_TYPE_VERIFIED + typeOfVerification,
+      VERIFICATION_STATUS_DEFAULT
+    )
 
-  fun removeCachedWalletValidationStatus(walletAddress: String) =
+  fun removeCachedWalletValidationStatus(walletAddress: String, typeOfVerification: Int) =
     sharedPreferences.edit()
-      .remove(WALLET_VERIFIED + walletAddress)
+      .remove(WALLET_VERIFIED + walletAddress + WALLET_TYPE_VERIFIED + typeOfVerification)
       .apply()
 
   companion object {
     private const val WALLET_VERIFIED = "wallet_verified_cc_"
+    private const val WALLET_TYPE_VERIFIED = "wallet_type_verified"
+    private const val VERIFICATION_STATUS_DEFAULT = 4
   }
 }

@@ -31,6 +31,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
@@ -746,7 +747,12 @@ class AdyenPaymentViewModel @Inject constructor(
 
   @Suppress("UNUSED_PARAMETER")
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(adyenPaymentInteractor.isWalletVerified()
+    val verificationType = if (paymentData.paymentType == PaymentType.CARD.name) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    disposables.add(adyenPaymentInteractor.isWalletVerified(verificationType)
       .observeOn(viewScheduler)
       .doOnSuccess { verified ->
         sendSingleEvent(SingleEventState.showVerificationError(verified))

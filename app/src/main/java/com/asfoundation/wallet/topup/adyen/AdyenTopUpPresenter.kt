@@ -19,6 +19,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.appcoins.wallet.sharedpreferences.CardPaymentDataSource
 import com.asf.wallet.R
@@ -502,16 +503,22 @@ class AdyenTopUpPresenter(
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {
-    disposables.add(adyenPaymentInteractor.isWalletVerified()
-      .observeOn(viewScheduler)
-      .doOnSuccess { verified ->
-        if (verified) {
-          val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
-          val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
-          val fraudError = when {
-            paymentMethodRuleBroken && amountRuleBroken -> {
-              R.string.purchase_error_try_other_amount_or_method
-            }
+    val verificationType = if (paymentType == PaymentType.CARD.name) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    disposables.add(
+      adyenPaymentInteractor.isWalletVerified(verificationType)
+        .observeOn(viewScheduler)
+        .doOnSuccess { verified ->
+          if (verified) {
+            val paymentMethodRuleBroken = fraudCheckIds.contains(PAYMENT_METHOD_CHECK_ID)
+            val amountRuleBroken = fraudCheckIds.contains(HIGH_AMOUNT_CHECK_ID)
+            val fraudError = when {
+              paymentMethodRuleBroken && amountRuleBroken -> {
+                R.string.purchase_error_try_other_amount_or_method
+              }
 
             paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
             amountRuleBroken -> R.string.purchase_error_try_other_amount

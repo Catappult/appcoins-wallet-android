@@ -3,7 +3,6 @@ package com.asfoundation.wallet.billing.adyen
 import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.BuildConfig
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -15,6 +14,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -44,9 +44,15 @@ class AdyenPaymentInteractor @Inject constructor(
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
-  fun isWalletVerified() =
+  fun isWalletVerified(verificationType: VerificationType) =
     walletService.getAndSignCurrentWalletAddress()
-      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .flatMap {
+        walletVerificationInteractor.isVerified(
+          it.address,
+          it.signedAddress,
+          verificationType
+        )
+      }
       .onErrorReturn { true }
 
 
