@@ -106,12 +106,21 @@ class InitilizeDataAnalytics @Inject constructor(
                   language = it.deviceInfo.language,
                   isEmulator = it.deviceInfo.isProbablyEmulator,
                   ghOemId = it.ghOemId,
-                  promoCode = it.promoCode.code ?: ""
+                  promoCode = it.promoCode.code ?: "",
+                  flavor = mapFlavor(BuildConfig.FLAVOR)
                 )
               }
           }
       }
       .ignoreElement()
+  }
+
+  private fun mapFlavor(flavor: String): String {
+    return when (flavor) {
+      "aptoide" -> "aptoide"
+      "gp" -> "google"
+      else -> flavor
+    }
   }
 
   private fun hasGms(): Boolean {
