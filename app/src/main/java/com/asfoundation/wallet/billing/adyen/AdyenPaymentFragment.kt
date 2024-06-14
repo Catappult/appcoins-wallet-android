@@ -576,6 +576,8 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     fiatPriceSkeleton.visibility = GONE
     appcPriceSkeleton.visibility = GONE
     bindingCreditCardLayout?.composeView?.visibility = GONE
+    bindingCreditCardLayout?.cvLegalDisclaimer?.visibility = GONE
+    bindingCreditCardLayout?.tvLegalDisclaimer?.visibility = GONE
   }
 
   fun showLoadingMakingPayment() {
