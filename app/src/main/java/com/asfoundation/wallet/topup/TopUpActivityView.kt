@@ -9,7 +9,11 @@ import io.reactivex.Observable
 interface TopUpActivityView {
   fun showTopUpScreen()
 
-  fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData)
+  fun navigateToAdyenPayment(
+    paymentType: PaymentType,
+    data: TopUpPaymentData,
+    buyWithStoredCard: Boolean
+  )
 
   fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData)
 
@@ -17,6 +21,8 @@ interface TopUpActivityView {
     paymentId: String, icon: String, label: String, async: Boolean,
     topUpData: TopUpPaymentData
   )
+
+  fun navigateToPayPalVerification()
 
   fun finish(data: Bundle)
 
@@ -40,7 +46,7 @@ interface TopUpActivityView {
 
   fun getSupportClicks(): Observable<Any>
 
-  fun showVerification()
+  fun showCreditCardVerification()
 
   fun getTryAgainClicks(): Observable<Any>
 

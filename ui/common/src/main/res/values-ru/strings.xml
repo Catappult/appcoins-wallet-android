@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Нет способов оплаты!</string>
   <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
   <string name="topup_bonus_amount_body">Получите бонус %s это пополнение</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s были зачислены на ваш счет в виде AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Эй, привет! Пожалуйста, пришли мне %1$s AppCoins Credits на покупку в %2$s. Ссылка: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Отправить средства</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Получить</string>
   <string name="p2p_send_body">Сканируйте или введите адрес бумажника вашего друга.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s были отправлены на следующий адрес:</string>
   <string name="p2p_send_current_balance_message">Текущий баланс: %1$s %2$s</string>
@@ -527,9 +527,10 @@
   <string name="resend_button">Переотправить</string>
   <string name="continue_button">Продолжить</string>
   <string name="card_expired_tag">Истёк</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="start_again_button">Начать сначала</string>
+  <string name="max">Максимум</string>
+  <string name="amount">Сумма</string>
+  <string name="total_title">Всего</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -538,6 +539,7 @@
   <string name="decline_button">Отказаться</string>
   <string name="get_started">Начать</string>
   <string name="existent_wallet">У меня уже есть кошелек</string>
+  <string name="onboarding_verification_body">Подтвердите ваш метод оплаты, чтобы завершить вашу покупку.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Сделайте покупку в любимой игре, и мы всё уладим.</string>
   <string name="home_empty_discover_apps_button">ОТКРОЙТЕ ЛУЧШИЕ ПРИЛОЖЕНИЯ</string>
@@ -587,6 +589,9 @@
   <string name="verified_tag">Подтверждено</string>
   <string name="unferified_tag">Неподтвержденный бумажник</string>
   <string name="verification_wallets_verify_button">Подтвердить</string>
+  <string name="verification_verified_paypal_body">Подтверждено с Paypal.</string>
+  <string name="verification_verified_credit_debit_card_body">Подтверждено с кредитной/дебитовой картой.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Подтверждено с кредитной/дебитовой картой или PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Остался один шаг!</string>
   <string name="paypal_verification_home_one_step_card_body">Введите код, отправленный на ваш адрес электронной почты, чтобы подтвердить свою учетную запись PayPal.</string>
@@ -660,24 +665,26 @@
   <string name="error_blocked_wallet_title">Кошелёк заблокирован</string>
   <string name="error_blocked_wallet_body">В целях безопасности ваш кошелек заблокирован. Пожалуйста, свяжитесь с нами для получения дополнительной информации.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Возможны дополнительные комиссии.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s с комиссией и НДС.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">включены дополнительные сборы</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">дополнительные сборы не включены</string>
   <string name="purchase_error_paypal">Возникла проблема с платежом PayPal. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_error_google_pay">Возникла проблема с платежом Google Pay. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
   <string name="purchase_success_bonus_received_title">Бонус в %s получен.</string>
   <string name="purchase_making_purchase_title">Покупка&#8230;</string>
   <string name="purchase_fee_title">Оплата %1$s %2$s</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому взимается комиссия за обработку. Этот сбор и НДС включены в общую сумму, которую вы можете увидеть в верхней части.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">При таком способе оплаты взимается комиссия за обработку. Этот сбор и НДС включены в общую сумму, которую вы можете увидеть в верхней части.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Этот способ оплаты не поддерживает вашу валюту, поэтому может взиматься комиссия за обработку.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">При таком способе оплаты взимается комиссия за обработку.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_error_one_wallet_generic">Возникла проблема с вашим платежом через Wallet One. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_payment_method_top_ups_only">Доступно только для пополнения счета.</string>
+  <string name="purchase_payment_method_minimum_amount">Только для покупок больше %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
+  <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
+  <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Бонус вы получаете в кредитах AppCoins.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -981,14 +988,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Добавить кредитную/дебитовую карту</string>
   <string name="manage_cards_settings_manage_title">Управление картами</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Добавить кредитную/дебитовую карту</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Использовать другую карту</string>
   <string name="manage_cards_view_title">Управление картами</string>
+  <string name="manage_cards_empty_body">У вас пока нет сохраненных карт.</string>
   <string name="manage_cards_view_manage_subtitle">Управляйте вашими платежными картами</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Добавить новую карту</string>
+  <string name="manage_cards_add_button">Добавить карту</string>
   <string name="manage_cards_remove_confirmation">Вы уверены, что хотите удалить эту карту?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Нет, отменить</string>
+  <string name="manage_cards_remove_yes">Да, удалить</string>
   <string name="manage_cards_card_ending_body">Карта заканчивается на %s</string>
   <string name="manage_cards_error_details">Вы уверены, что детали карты введены правильно? Пожалуйста, попробуйте снова!</string>
   <string name="manage_cards_error_card_problem">Кажется, с вашей картой возникла проблема. Пожалуйста, попробуйте другую карту.</string>
@@ -996,11 +1005,11 @@
   <string name="manage_cards_remember">Запомнить карту</string>
   <string name="add_new_card_button">Добавить новую карту</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">Управлять платежными картами</string>
+  <string name="card_added_title">Карта добавлена</string>
+  <string name="card_removed">Карта удалена</string>
+  <string name="choose_card_title">Выберите карту</string>
+  <string name="manage_cards_update_disclaimer_1">Чтобы обновить или удалить карты, перейдите сюда:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Заработай бонус до %s%% за каждую покупку</string>
@@ -1243,7 +1252,7 @@
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">При использовании этого кода вы и ваши друзья получаете бонус %s%% за все покупки!</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
@@ -1295,7 +1304,7 @@
   <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Выведите свои доходы от e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Промо-коды</string>
+  <string name="rewards_promo_code_card_title">Промо-код</string>
   <string name="rewards_promo_code_card_body">Введите промо-код, чтобы получить особые условия!</string>
   <string name="rewards_promo_code_status">Статус:</string>
   <string name="rewards_promo_code_status_active">Активен</string>
@@ -1305,8 +1314,8 @@
   <string name="rewards_make_first_purchase_body">Совершите свою первую покупку в игре, совместимой с AppCoins, и разблокируйте бонус за каждую покупку.</string>
   <string name="rewards_bonus_every_purchase_title">Бонус %s%% за каждую покупку</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">Управление кошельками</string>
+  <string name="manage_wallet_view_title">Управление кошельками</string>
   <string name="manage_wallet_wallet_changed_title">Кошелёк изменён</string>
   <string name="manage_wallet_change_active_wallet_title">Вы уверены, что хотите выбрать этот кошелек?</string>
   <string name="manage_wallet_change_wallet_name_title">Изменить название кошелька</string>
@@ -1314,7 +1323,7 @@
   <string name="manage_wallet_my_wallet_address_title">Адрес моего кошелька</string>
   <string name="manage_wallet_verify_title">Подтвердить способ оплаты</string>
   <string name="manage_wallet_verify_body">Не допустите блокировки, подтвердив способ оплаты.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">Для простоты ваш баланс отображается в вашей местной валюте, но он привязан к доллару США, поэтому изменения в стоимости доллара США могут повлиять на ваш баланс.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Подтвердить способ оплаты</string>
   <string name="verify_card_body">Не допустите блокировки, подтвердив способ оплаты.</string>
@@ -1340,6 +1349,16 @@
   <string name="challenge_reward_card_body">Завершите вызов и получите AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Получите %s в кредитах AppCoins на ваш кошелек</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Следите за обновлениями!</string>
+  <string name="mail_list_card_body">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
+  <string name="mail_list_card_confirmation_title">Подтвердите ваш e-mail</string>
+  <string name="mail_list_card_confirmation_body">Мы отправили письмо %s</string>
+  <string name="mail_list_backup">Подпишитесь на нашу рассылку, чтобы получать эксклюзивные обновления и шанс выиграть подарочную карту.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

@@ -12,7 +12,7 @@ class CachedBackupRepository @Inject constructor(
 
   fun getCachedBackup(): Single<String?> {
     return api.getCachedBackup()
-      .map { it.backup }
+      .map { it.privateKey }
       .subscribeOn(rxSchedulers.io)
       .onErrorReturn {
         null

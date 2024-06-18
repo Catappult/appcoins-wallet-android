@@ -202,6 +202,9 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
         cachedUid = paymentModel.uid
         handlePaypalResult(paymentModel)
       }
+      .doOnError {
+        sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
+      }
       .scopedSubscribe()
   }
 

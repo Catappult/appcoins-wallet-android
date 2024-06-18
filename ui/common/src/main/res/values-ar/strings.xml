@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">لا توجد وسيلة دفع!</string>
   <string name="topup_no_method_available_body">لا تتوفر حاليًا أي وسائل دفع في بلدك لزيادة رصيدك. تابع باستمرار!</string>
   <string name="topup_bonus_amount_body">احصل على %s مع شحن الرصيد هذا</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">تم إيداع %s في حسابك في AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
   <string name="my_wallets_action_verify_new_card">توثيق بطاقة جديدة</string>
-  <string name="my_wallets_action_delete_wallet">حذف المحفظة</string>
+  <string name="my_wallets_action_delete_wallet">إزالة المحفظة</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">اطلب من شخص أن يدفع</string>
   <string name="askafriend_generating_link_message">نحن ننشئُ رابط مدفوعاتك&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">أنت يا صاح! لطفًا، أرسل لي %1$s AppCoins Credits لأشتري عنصرًا على %2$s. الرابط: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">أرسل رصيد</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">استقبل</string>
   <string name="p2p_send_body">مسح أو إدخال عنوان محفظة صديقك.</string>
   <string name="p2p_send_confirmation_message">أُرسِلَت %1$s %2$s إلى العنوان التالي:</string>
   <string name="p2p_send_current_balance_message">الرصيد الحالي: %1$s %2$s</string>
@@ -527,9 +527,10 @@
   <string name="resend_button">إعادة إرسال</string>
   <string name="continue_button">متابعة</string>
   <string name="card_expired_tag">منتهي الصلاحية</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="start_again_button">ابدأ مرة أخرى</string>
+  <string name="max">حد أقصى</string>
+  <string name="amount">المبلغ</string>
+  <string name="total_title">المجموع</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -538,6 +539,7 @@
   <string name="decline_button">رفض</string>
   <string name="get_started">ابدأ</string>
   <string name="existent_wallet">لدي محفظة فعلًا</string>
+  <string name="onboarding_verification_body">وثق وسيلة الدفع لديك لإتمام عملية الشراء.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">أتمّ عمليات الشراء في ألعابك المفضلة وسنهتم بكل شيء.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
@@ -587,6 +589,9 @@
   <string name="verified_tag">مُصدَّق</string>
   <string name="unferified_tag">محفظة لم يتم التحقق منها</string>
   <string name="verification_wallets_verify_button">تحقق</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">بقيت خطوة واحدة!</string>
   <string name="paypal_verification_home_one_step_card_body">أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني لتأكيد حساب PayPal.</string>
@@ -661,24 +666,26 @@
   <string name="error_blocked_wallet_title">محفظة محظورة</string>
   <string name="error_blocked_wallet_body">لأسباب تتعلق بالأمان، تم حظر بطاقتك. يرجى الاتصالل بنا لمزيد من المعلومات.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">قد تُطبَّق عمولات إضافية.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s شامل عمولة وضريبة.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">شامل الرسوم الإضافية</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">غير شامل الرسوم الإضافية</string>
   <string name="purchase_error_paypal">حدثت مشكلة في مدفوعات PayPal. يرجى المحاولة مرة أخرى أو استخدام وسيلة دفع أخرى.</string>
   <string name="purchase_error_google_pay">كانت هناك مشكلة مع Google Pay. يرجى المحاولة ثانية باستخدام وسيلة دفع مختلفة.</string>
   <string name="purchase_success_bonus_received_title">تلقيت %s مكافأة.</string>
   <string name="purchase_making_purchase_title">الشراء&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s عمولة</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك سوف تُخصم عمولة تشغيل. هذه العمولة والضريبة مشمولة في المجموع الكلي الذي تراه في الأعلى.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">وسيلة الدفع هذه تخصم عمولة تشغيل لعملية الشراء الحالية. هذه العمولة والضريبة مشمولة في المجموع الكلي الذي تراه في الأعلى.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">وسيلة الدفع هذه لا تدعم عُملتك، لذلك يمكن أن تُخصم عمولة تشغيل.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">وسيلة الدفع هذه تخصم عمولة تحويل لعملية الشراء الحالية.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_error_one_wallet_generic">حدثت مشكلة في الدفع مع محفظتك Wallet One. يرجى إعادة المحاولة أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_payment_method_top_ups_only">متوفرة فقط لإضافة رصيد.</string>
+  <string name="purchase_payment_method_minimum_amount">فقط للمشتريات فوق %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">غير متوفرة في عملية الشراء الحالية.</string>
+  <string name="purchase_error_no_method_available_body">حتى اللحظة، لا تتوفر وسائل دفع لإتمام عملية الشراء الحالية في منطقتك. تابع لتعرف التحديثات في هذا الأمر!</string>
+  <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">المكافأة عبارة عن AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -984,14 +991,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">أضف بطاقة تأمين/ائتمان</string>
   <string name="manage_cards_settings_manage_title">إدارة البطاقات</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">أضف بطاقة ائتمان/دفع مسبق</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">استخدم بطاقة أخرى</string>
   <string name="manage_cards_view_title">إدارة البطاقات</string>
+  <string name="manage_cards_empty_body">ليس لديك أي بطاقات محفوظة حتى الآن.</string>
   <string name="manage_cards_view_manage_subtitle">إدارة بطاقات الدفع لديك</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">أضف بطاقة جديدة</string>
+  <string name="manage_cards_add_button">أضف بطاقة</string>
   <string name="manage_cards_remove_confirmation">هل انت متأكد أنك تريد إزالة هذه البطاقة؟</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">لا، إلغاء</string>
+  <string name="manage_cards_remove_yes">نعم، أزلها</string>
   <string name="manage_cards_card_ending_body">البطاقة التي آخرها %s</string>
   <string name="manage_cards_error_details">هل أنت متأكد أن بيانات بطاقتك صحيحة؟ يرجى المحاولة مجددًا!</string>
   <string name="manage_cards_error_card_problem">يبدو أن هناك مشكلة ببطاقتك. يرجى تجربة بطاقة أخرى.</string>
@@ -999,11 +1008,11 @@
   <string name="manage_cards_remember">تذكر بطاقتي</string>
   <string name="add_new_card_button">أضف بطاقة جديدة</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
-  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="settings_manage_cards_item">إدارة بطاقات الدفع</string>
+  <string name="card_added_title">البطاقة أضيفت</string>
+  <string name="card_removed">البطاقة أُزيلت</string>
+  <string name="choose_card_title">اختر بطاقة</string>
+  <string name="manage_cards_update_disclaimer_1">لتحديث أو إزالة بطاقاتك اذهب إلى:</string>
   <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">احصل على ما يصل إلى %s%% مكافأة في كل عملية شراء</string>
@@ -1322,7 +1331,7 @@
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">سحب أرباحك من e-Skills.</string>
-  <string name="rewards_promo_code_card_title">رموز ترويجية</string>
+  <string name="rewards_promo_code_card_title">رمز ترويجي</string>
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
@@ -1332,8 +1341,8 @@
   <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% مكافأة على كل المشتريات</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_settings_item">Manage Wallets</string>
-  <string name="manage_wallet_view_title">Manage Wallets</string>
+  <string name="manage_wallet_settings_item">إدارة المَحافظ</string>
+  <string name="manage_wallet_view_title">إدارة المَحافظ</string>
   <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
   <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
   <string name="manage_wallet_change_wallet_name_title">تغيير اسم المحفظة</string>
@@ -1341,7 +1350,7 @@
   <string name="manage_wallet_my_wallet_address_title">عنوان محفظتي</string>
   <string name="manage_wallet_verify_title">وثّق وسيلة دفع</string>
   <string name="manage_wallet_verify_body">تجنب الانقطاعات بتوثيق وسيلة الدفع.</string>
-  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
+  <string name="manage_wallet_currency_disclaimer">رصيدك يظهر بعملتك المحلية لتبسيط الأمر، لكنه مربوط بالدولار الأمريكي، لذلك قد يتأثر رصيدك بتغيّر سعر صرف الدولار.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">وثّق وسيلة دفع</string>
   <string name="verify_card_body">تجنب الانقطاعات بتوثيق وسيلة دفع.</string>
@@ -1367,6 +1376,16 @@
   <string name="challenge_reward_card_body">أكمل التحدي لتحصل على رصيد AppCoins.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">تمتع برصيد %s AppCoins Credits قي محفظتك</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">ابق مطّلعًا!</string>
+  <string name="mail_list_card_body">انضم إلى قائمتنا البريدية لتحصل على تحديثات حصرية وفرصة للفوز ببطاقة هدية.</string>
+  <string name="mail_list_card_confirmation_title">تأكيد بريدك الإلكتروني</string>
+  <string name="mail_list_card_confirmation_body">أرسلنا بريدًا إلكترونيًا إلى %s</string>
+  <string name="mail_list_backup">انضم إلى قائمتنا البريدية للحصول على تحديثات حصرية وفرصة للفوز ببطاقة هدية.</string>
+  <string name="mail_list_confirmation_email_subject">تأكيد بريدك الإلكتروني - قائمة AppCoins البريدية</string>
+  <string name="mail_list_confirmation_email_body">مرحبا!\n\nشكرًا لانضمامك إلى قائمة AppCoins البريدية. يرجى تأكيد بريدك الإلكتروني بالنقر على الزر أدناه:</string>
+  <string name="mail_list_confirmation_email_button">تأكيد البريد الإلكتروني</string>
+  <string name="mail_list_confirmation_email_signature">تهانينا،\nفريق AppCoins</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.PaymentMethodsApiResponse
+import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
@@ -40,6 +41,34 @@ open class AdyenResponseMapper @Inject constructor(
       ?: adyenResponse.paymentMethods
         ?.find { it.type == method.adyenType }
         ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: PaymentInfoModel(Error(true))
+  }
+
+  open fun mapWithFilterByCard(
+    response: PaymentMethodsResponse,
+    method: AdyenPaymentRepository.Methods,
+    cardId: String
+  ): PaymentInfoModel {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    return adyenResponse.storedPaymentMethods
+      ?.find { it.type == method.adyenType && it.id == cardId }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: adyenResponse.paymentMethods
+        ?.find { it.type == method.adyenType }
+        ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
+      ?: PaymentInfoModel(Error(true))
+  }
+
+  open fun mapWithoutStoredCard(
+    response: PaymentMethodsResponse,
+    method: AdyenPaymentRepository.Methods
+  ): PaymentInfoModel {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    return adyenResponse.paymentMethods
+      ?.find { it.type == method.adyenType }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
       ?: PaymentInfoModel(Error(true))
   }
 
@@ -204,6 +233,17 @@ open class AdyenResponseMapper @Inject constructor(
         errorInfo = ErrorInfo(text = throwable.message)
       )
     )
+  }
+
+  open fun mapToStoredCards(
+    response: PaymentMethodsResponse
+  ): List<StoredPaymentMethod> {
+    val adyenResponse: PaymentMethodsApiResponse =
+      adyenSerializer.deserializePaymentMethods(response)
+    val cardsList = adyenResponse.storedPaymentMethods?.filter {
+      it.type == AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
+    }
+    return cardsList ?: listOf<StoredPaymentMethod>()
   }
 
   companion object {

@@ -15,27 +15,67 @@ constructor(
   private val walletService: WalletService
 ) {
 
-  enum class VerificationType {
-    PAYPAL,
-    CREDIT_CARD
-  }
-
-  fun isVerified(address: String, signature: String): Single<Boolean> {
-    return getVerificationStatus(address, signature).map { status ->
+  fun isVerified(address: String, signature: String, type: VerificationType): Single<Boolean> {
+    return getVerificationStatus(address, signature, type).map { status ->
       status == VerificationStatus.VERIFIED
     }
   }
 
-  fun getVerificationStatus(address: String, signature: String): Single<VerificationStatus> {
-    return brokerVerificationRepository.getVerificationStatus(address, signature)
+  fun isAtLeastOneVerified(address: String, signature: String): Single<Boolean> {
+    return Single.zip(
+      getVerificationStatus(address, signature, VerificationType.CREDIT_CARD),
+      getVerificationStatus(address, signature, VerificationType.PAYPAL)
+    ) { creditCard, payPal ->
+      creditCard == VerificationStatus.VERIFIED || payPal == VerificationStatus.VERIFIED
+    }
   }
 
-  fun getCachedVerificationStatus(address: String): VerificationStatus {
-    return brokerVerificationRepository.getCachedValidationStatus(address)
+  fun getVerificationStatus(
+    address: String,
+    signature: String,
+    type: VerificationType
+  ): Single<VerificationStatus> {
+    return brokerVerificationRepository.getVerificationStatus(address, signature, type)
   }
 
-  fun removeWalletVerificationStatus(address: String): Completable {
-    return brokerVerificationRepository.removeCachedWalletValidationStatus(address)
+  fun getCachedVerificationStatus(address: String, type: VerificationType): VerificationStatus {
+    return brokerVerificationRepository.getCachedValidationStatus(address, type)
+  }
+
+  fun removeWalletVerificationStatus(address: String, type: VerificationType): Completable {
+    return brokerVerificationRepository.removeCachedWalletValidationStatus(address, type)
+  }
+
+  fun removeAllWalletVerificationStatus(address: String): Completable {
+    brokerVerificationRepository.removeCachedWalletValidationStatus(
+      address,
+      VerificationType.CREDIT_CARD
+    )
+    return brokerVerificationRepository.removeCachedWalletValidationStatus(
+      address,
+      VerificationType.PAYPAL
+    )
+  }
+
+  fun getCurrentVerificationType(address: String): VerificationType? {
+    return when {
+      brokerVerificationRepository.getCachedValidationStatus(
+        address,
+        VerificationType.CREDIT_CARD
+      ) == VerificationStatus.CODE_REQUESTED ||
+          brokerVerificationRepository.getCachedValidationStatus(
+            address,
+            VerificationType.CREDIT_CARD
+          )
+          == VerificationStatus.VERIFYING -> VerificationType.CREDIT_CARD
+
+      brokerVerificationRepository.getCachedValidationStatus(address, VerificationType.PAYPAL)
+          == VerificationStatus.CODE_REQUESTED ||
+          brokerVerificationRepository.getCachedValidationStatus(address, VerificationType.PAYPAL)
+          == VerificationStatus.VERIFYING -> VerificationType.PAYPAL
+
+      else -> null
+    }
   }
 
   fun makeVerificationPayment(
@@ -68,7 +108,7 @@ constructor(
             .doOnSuccess { paymentModel ->
               if (paymentModel.success) {
                 brokerVerificationRepository.saveVerificationStatus(
-                  addressModel.address, VerificationStatus.CODE_REQUESTED
+                  addressModel.address, VerificationStatus.CODE_REQUESTED, verificationType
                 )
               }
             }
@@ -77,14 +117,17 @@ constructor(
     }
   }
 
-  fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
+  fun confirmVerificationCode(
+    code: String,
+    type: VerificationType
+  ): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress().flatMap { addressModel ->
       brokerVerificationRepository
         .validateCode(code, addressModel.address, addressModel.signedAddress)
         .doOnSuccess { result ->
           if (result.success) {
             brokerVerificationRepository.saveVerificationStatus(
-              addressModel.address, VerificationStatus.VERIFIED
+              addressModel.address, VerificationStatus.VERIFIED, type
             )
           }
         }

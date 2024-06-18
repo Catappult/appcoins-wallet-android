@@ -8,10 +8,10 @@ import com.appcoins.wallet.core.network.backend.api.BackupLogApi
 import com.appcoins.wallet.core.network.backend.api.CachedBackupApi
 import com.appcoins.wallet.core.network.backend.api.CachedGuestWalletApi
 import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
+import com.appcoins.wallet.core.network.backend.api.CountryApi
 import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.api.GasServiceApi
-import com.appcoins.wallet.core.network.backend.api.IpApi
 import com.appcoins.wallet.core.network.backend.api.PartnerAttributionApi
 import com.appcoins.wallet.core.network.backend.api.PromoCodeApi
 import com.appcoins.wallet.core.network.backend.api.RedeemGiftApi
@@ -94,8 +94,8 @@ class BackendApiModule {
   @Provides
   fun providesIpCountryCodeApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): IpApi {
-    return retrofit.create(IpApi::class.java)
+  ): CountryApi {
+    return retrofit.create(CountryApi::class.java)
   }
 
   @Singleton

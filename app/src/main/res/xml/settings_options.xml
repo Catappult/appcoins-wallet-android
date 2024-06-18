@@ -14,13 +14,19 @@
         android:icon="@drawable/ic_manage_wallet"
         android:key="pref_manage_wallet"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/manage_wallet_button" />
+        android:title="@string/manage_wallet_settings_item" />
 
     <Preference
         android:icon="@drawable/ic_manage_subscriptions"
         android:key="pref_manage_subscriptions"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/subscriptions_settings_title" />
+
+    <Preference
+        android:icon="@drawable/ic_manage_cards"
+        android:key="pref_manage_cards"
+        android:layout="@layout/skeleton_settings"
+        android:title="" />
 
     <Preference
         android:icon="@drawable/ic_account"

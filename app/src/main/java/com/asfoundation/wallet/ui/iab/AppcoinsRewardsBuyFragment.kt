@@ -163,7 +163,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     iabView.finish(bundle)
   }
 
-  override fun showVerification() = iabView.showVerification(false)
+  override fun showCreditCardVerification() = iabView.showCreditCardVerification(false)
 
   override fun showTransactionCompleted() {
     binding.loadingAnimation.visibility = View.GONE

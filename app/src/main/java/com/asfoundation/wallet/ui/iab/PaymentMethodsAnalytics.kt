@@ -36,6 +36,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_GOOGLEPAY_WEB = "googlepay"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
     const val PAYMENT_METHOD_CHALLENGE_REWARD = "challenge_reward"
+    const val PAYMENT_METHOD_MI_PAY = "mipay"
 
     const val LOADING_STEP_WALLET_INFO = "get_wallet_info"
     const val LOADING_STEP_CONVERT_TO_FIAT = "convert_to_local_fiat"
@@ -57,6 +58,8 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val WALLET_3DS_START = "wallet_3ds_start"
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
+
+    const val WALLET_PAYMENT_START_CARD_LIST = "wallet_payment_start_change_card_prompt_click"
 
   }
 
@@ -191,6 +194,15 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(ERROR to (error ?: "")),
       WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendShowStoredCardList() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_PAYMENT_START_CARD_LIST,
       AnalyticsManager.Action.CLICK,
       WALLET
     )

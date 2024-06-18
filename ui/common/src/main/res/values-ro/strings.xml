@@ -155,8 +155,8 @@
   <string name="back_to_the_game_button">Înapoi la joc</string>
   <string name="other_payment_methos_title">Alte metode de plată:</string>
   <!-- Intro from web payment -->
-  <string name="intro_from_web_payment_already_have_title">You already have</string>
-  <string name="intro_from_web_payment_to_spend_body">to spend on your favorite games.</string>
+  <string name="intro_from_web_payment_already_have_title">Ai deja</string>
+  <string name="intro_from_web_payment_to_spend_body">pentru a-i cheltui pe jocurile tale favorite.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Fără metode de plată!</string>
   <string name="topup_no_method_available_body">Momentan, nu există metode de plată disponibile pentru încărcare în țara ta. Fii pe fază!</string>
   <string name="topup_bonus_amount_body">Primești un bonus de %s cu această alimentare</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s au fost depozitați în contul tău în AppCoins Credits.</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Recuperează portofel</string>
   <string name="my_wallets_action_backup_wallet">Copie de rezervă portofel</string>
   <string name="my_wallets_action_verify_new_card">Verifică un card nou</string>
-  <string name="my_wallets_action_delete_wallet">Șterge portofel</string>
+  <string name="my_wallets_action_delete_wallet">Elimină portofel</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Roagă pe cineva să plătească</string>
   <string name="askafriend_generating_link_message">Îți generăm linkul de plată&#8230;</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">Bună! Te rog să îmi trimiți %1$s AppCoins Credits ca să cumpăr un articol pe %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Trimite fonduri</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">Primește</string>
   <string name="p2p_send_body">Scanează sau introdu adresa portofelului prietenului tău.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s au fost trimise către următoarea adresă:</string>
   <string name="p2p_send_current_balance_message">Sold curent: %1$s %2$s</string>
@@ -478,7 +478,7 @@
   <string name="p2p_send_error_amount_zero">Trebuie să fie mai mare de zero</string>
   <string name="p2p_send_confirmation_header">Detalii transfer</string>
   <!--Common-->
-  <string name="oops_title">Oops</string>
+  <string name="oops_title">Ups</string>
   <string name="error_general">Ceva nu a mers cum trebuie</string>
   <string name="error_missing_field">Câmp obligatoriu</string>
   <string name="cancel_button">Anulează</string>
@@ -491,7 +491,7 @@
   <string name="discover_button">Descoperă</string>
   <string name="retry_button">Reîncearcă</string>
   <string name="do_it_later_button">Amână</string>
-  <string name="connection_error_title">No Internet connection</string>
+  <string name="connection_error_title">Fără conexiune la internet</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
   <string name="common_or">SAU</string>
   <string name="share_via">Distribuie via:</string>
@@ -520,16 +520,17 @@
   <string name="done">Gata!</string>
   <string name="see_more_button">Vezi mai multe</string>
   <string name="monetary_amount_with_symbol">%1$s%2$s</string>
-  <string name="ending_in_title">Ending in</string>
+  <string name="ending_in_title">Se încheie în</string>
   <string name="start_date_title">Data începerii:</string>
-  <string name="end_date_title">End date:</string>
+  <string name="end_date_title">Data de sfârșit:</string>
   <string name="send_button">Trimite</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Retrimite</string>
+  <string name="continue_button">Continuă</string>
   <string name="card_expired_tag">Expirat</string>
-  <string name="start_again_button">Start again</string>
-  <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="start_again_button">Începe din nou</string>
+  <string name="max">Maxim</string>
+  <string name="amount">Sumă</string>
+  <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -538,6 +539,7 @@
   <string name="decline_button">Respinge</string>
   <string name="get_started">Începe</string>
   <string name="existent_wallet">Am deja un portofel</string>
+  <string name="onboarding_verification_body">Verifică-ți metoda de plată pentru a-ți finaliza achiziția.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Fă o achiziție în jocul tău preferat și ne vom ocupa noi de tot.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
@@ -578,7 +580,7 @@
   <string name="verification_settings_verified_title">Portofel verificat</string>
   <string name="verification_settings_verifying_title">Se verifică…</string>
   <string name="verification_verified_paypal_description">Suma va fi rambursată imediat. Metoda ta de plată va fi verificată în cel mai scurt timp.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Va fi efectuată o tranzacție de %s pentru a-ți confirma contul. Suma va fi rambursată imediat.</string>
   <string name="verification_verify_paypal_button">Verifică acum</string>
   <string name="verification_settings_card_verified_title">Card verificat</string>
   <string name="verification_settings_no_internet">Trebuie să fii conectat la internet</string>
@@ -587,12 +589,15 @@
   <string name="verified_tag">Verificat</string>
   <string name="unferified_tag">Portofel neverificat</string>
   <string name="verification_wallets_verify_button">Verifică</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Mai ai un pas!</string>
+  <string name="paypal_verification_home_one_step_card_body">Introdu codul trimis la adresa ta de e-mail pentru a-ți verifica contul PayPal.</string>
+  <string name="paypal_verification_header">Verificare PayPal</string>
+  <string name="paypal_verification_insert_code_body">Introdu mai jos codul din 4 cifre pe care l-am trimis la adresa de e-mail asociată contului tău PayPal.</string>
+  <string name="paypal_verification_didnt_receive_title">Nu ai primit codul?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Total %1$s %2$s</string>
@@ -660,24 +665,26 @@
   <string name="error_blocked_wallet_title">Portofel blocat</string>
   <string name="error_blocked_wallet_body">Din motive de securitate, portofelul tău a fost blocat. Te rugăm să ne contactezi pentru mai multe informații.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Este posibil să se aplice comisioane suplimentare.</string>
-  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
-  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
-  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s%2$s cu taxe și TVA.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">taxe suplimentare incluse</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">fără taxe suplimentare</string>
   <string name="purchase_error_paypal">Am întâmpinat o problemă cu plata ta PayPal. Încearcă din nou sau folosește o metodă de plată diferită.</string>
-  <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
+  <string name="purchase_error_google_pay">Am întâmpinat o problemă cu Google Pay. Încearcă din nou sau folosește o metodă de plată diferită.</string>
   <string name="purchase_success_bonus_received_title">%s bonus primit.</string>
   <string name="purchase_making_purchase_title">Se efectuează achiziția&#8230;</string>
-  <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_title">Taxă %1$s%2$s</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Această metodă de plată nu acceptă moneda ta, astfel că se va percepe o taxă de procesare. Această taxă și TVA-ul sunt incluse în Totalul pe care îl poți vedea în partea de sus.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Această metodă de plată percepe o taxă de procesare pentru această achiziție. Această taxă și TVA-ul sunt incluse în Totalul pe care îl poți vedea în partea de sus.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Această metodă de plată nu acceptă moneda ta, astfel că se poate percepe o taxă de procesare.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
-  <string name="purchase_fee_included_body">fees included</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
-  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
-  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
-  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
-  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Cu această metodă de plată vei plăti o taxă de procesare și TVA.</string>
+  <string name="purchase_fee_included_body">taxe incluse</string>
+  <string name="purchase_error_one_wallet_generic">Am întâmpinat o problemă cu plata ta Wallet One. Încearcă din nou sau folosește o metodă de plată diferită.</string>
+  <string name="purchase_payment_method_top_ups_only">Disponibilă doar pentru alimentări.</string>
+  <string name="purchase_payment_method_minimum_amount">Disponibilă doar pentru achizițiile peste %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Nedisponibilă pentru această achiziție.</string>
+  <string name="purchase_error_no_method_available_body">Momentan, nu există metode de plată disponibile pentru a finaliza această achiziție în regiunea ta. Fii pe fază!</string>
+  <string name="purchase_legal_disclaimer">Continuând cu efectuarea acestei plăți, ești de acord să ți se furnizeze conținutul în urma plății și, prin urmare, îți pierzi dreptul de retragere.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Bonusul este în AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -837,8 +844,8 @@
   <string name="remove_wallet_no_button">Nu, du-te înapoi</string>
   <string name="remove_wallet_yes_button">Da, elimină portofel</string>
   <string name="remove_wallet_removed_body">Portofel eliminat!</string>
-  <string name="remove_wallet_extra_confirmation_title">Are you sure?</string>
-  <string name="remove_wallet_extra_confirmation_body">Remember that, without a backup, you\'ll lose your funds and bonus level.</string>
+  <string name="remove_wallet_extra_confirmation_title">Ești sigur(ă)?</string>
+  <string name="remove_wallet_extra_confirmation_body">Reține că, fără o copie de rezervă, vei pierde fondurile și nivelul bonusului.</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
   <string name="transfer_title">Transferă fonduri</string>
@@ -980,14 +987,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Adaugă card de credit/debit</string>
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Adaugă card de credit/debit</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Folosește un alt card</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
+  <string name="manage_cards_empty_body">Nu ai carduri salvate.</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
-  <string name="manage_cards_add_title">Add New Card</string>
-  <string name="manage_cards_add_button">Add card</string>
+  <string name="manage_cards_add_title">Adaugă card nou</string>
+  <string name="manage_cards_add_button">Adaugă card</string>
   <string name="manage_cards_remove_confirmation">Ești sigur că vrei să elimini acest card?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Nu, anulează</string>
+  <string name="manage_cards_remove_yes">Da, elimină</string>
   <string name="manage_cards_card_ending_body">Card cu ultimele cifre %s</string>
   <string name="manage_cards_error_details">Ești sigur că detaliile cardului tău sunt corecte? Te rugăm să încerci din nou!</string>
   <string name="manage_cards_error_card_problem">Se pare că este o problemă cu cardul tău. Încearcă cu un alt card.</string>
@@ -995,7 +1004,7 @@
   <string name="manage_cards_remember">Ține minte card</string>
   <string name="add_new_card_button">Adaugă card nou</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
+  <string name="settings_manage_cards_item">Gestionează cardurile de plată</string>
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
@@ -1282,7 +1291,7 @@
   <string name="rewards_current_bonus_title">bonus de %s%% la fiecare achiziție</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Retrage-ți câștigurile e-Skills.</string>
-  <string name="rewards_promo_code_card_title">Coduri Promo</string>
+  <string name="rewards_promo_code_card_title">Cod Promo</string>
   <string name="rewards_promo_code_card_body">Folosește un Cod Promo pentru oferte speciale!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Activ</string>
@@ -1327,6 +1336,16 @@
   <string name="challenge_reward_card_body">Finalizează o provocare pentru a obține AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Bucură-te de %s în AppCoins Credits, în portofelul tău</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Stay Tuned!</string>
+  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
+  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

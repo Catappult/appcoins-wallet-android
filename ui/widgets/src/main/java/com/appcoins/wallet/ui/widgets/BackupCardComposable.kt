@@ -27,14 +27,14 @@ fun BackupAlertCard(
   AlertCard(
     modifier = modifier,
     onClickPositiveButton = onClickButton,
-    title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.my_wallets_action_backup_wallet,
+    title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.backup_title,
     message = if (hasBackup)
       stringResource(
         id = R.string.mywallet_backed_up_date,
         DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
       )
     else stringResource(R.string.backup_wallet_tooltip),
-    positiveButtonLabel = stringResource(id = if (hasBackup) R.string.mywallet_backup_again_button else R.string.action_backup_wallet),
+    positiveButtonLabel = stringResource(id = if (hasBackup) R.string.mywallet_backup_again_button else R.string.backup_button),
     icon = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
   )
 }
@@ -42,19 +42,30 @@ fun BackupAlertCard(
 @Composable
 fun VerifyWalletAlertCard(
   onClickButton: () -> Unit,
-  verified: Boolean,
-  waitingCode: Boolean,
+  verifiedCC: Boolean,
+  verifiedPP: Boolean,
+  verifiedWeb: Boolean,
+  waitingCodeCC: Boolean,
+  waitingCodePP: Boolean,
   onCancelClickButton: () -> Unit,
   modifier: Modifier = Modifier
 ) {
   AlertCard(
     onClickPositiveButton = onClickButton,
-    title = verifyCardTitle(verified, waitingCode),
-    message = stringResource(id = verifyCardMessage(waitingCode)),
-    positiveButtonLabel = stringResource(id = verifyCardPositiveButtonLabel(waitingCode)),
-    icon = verifyCardIcon(verified),
+    title = verifyCardTitle(verifiedWeb, waitingCodeCC || waitingCodePP),
+    message = stringResource(
+      id = verifyCardMessage(
+        verifiedCC = verifiedCC,
+        verifiedPP = verifiedPP,
+        verifiedWeb = verifiedWeb,
+        waitingCodeCC = waitingCodeCC,
+        waitingCodePP = waitingCodePP
+      )
+    ),
+    positiveButtonLabel = stringResource(id = verifyCardPositiveButtonLabel(waitingCodeCC || waitingCodePP)),
+    icon = verifyCardIcon(verifiedWeb, waitingCodeCC || waitingCodePP),
     onClickNegativeButton = onCancelClickButton,
-    negativeButtonLabel = verifyCardNegativeButtonLabel(waitingCode),
+    negativeButtonLabel = verifyCardNegativeButtonLabel(waitingCodeCC || waitingCodePP),
     modifier = modifier
   )
 }
@@ -132,23 +143,46 @@ fun PreviewBackupAlertCard() {
 @Preview
 @Composable
 fun PreviewVerifyAlertCard() {
-  VerifyWalletAlertCard(onClickButton = {}, verified = false, waitingCode = true, {})
+  VerifyWalletAlertCard(
+    onClickButton = {},
+    verifiedCC = false,
+    verifiedPP = true,
+    verifiedWeb = true,
+    waitingCodeCC = false,
+    waitingCodePP = false,
+    onCancelClickButton = {},
+  )
 }
 
 private fun verifyCardTitle(verified: Boolean, waitingCode: Boolean): Int {
-  return if (verified) R.string.verification_settings_verified_title
-  else if (waitingCode) R.string.paypal_verification_home_one_step_card_title
+  return if (waitingCode) R.string.paypal_verification_home_one_step_card_title
+  else if (verified) R.string.verification_settings_verified_title
   else R.string.referral_verification_title
 }
 
-private fun verifyCardMessage(waitingCode: Boolean) =
-  if (waitingCode) R.string.paypal_verification_home_one_step_card_body else R.string.mywallet_unverified_body
+private fun verifyCardMessage(
+  verifiedCC: Boolean,
+  verifiedPP: Boolean,
+  verifiedWeb: Boolean,
+  waitingCodeCC: Boolean,
+  waitingCodePP: Boolean
+) =
+  when {
+    waitingCodePP -> R.string.paypal_verification_home_one_step_card_body
+    waitingCodeCC -> R.string.card_verification_wallets_one_step_body
+    verifiedPP && verifiedCC -> R.string.verification_verified_credit_debit_card_paypal_body
+    verifiedCC -> R.string.verification_verified_credit_debit_card_body
+    verifiedPP -> R.string.verification_verified_paypal_body
+    verifiedWeb -> R.string.verify_card_verified
+
+    else -> R.string.mywallet_unverified_body
+  }
 
 private fun verifyCardPositiveButtonLabel(waitingCode: Boolean): Int =
-  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_verification_title
+  if (waitingCode) R.string.card_verification_wallets_insert_bode_button else R.string.referral_view_verify_button
 
-private fun verifyCardIcon(verified: Boolean) =
-  if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
+private fun verifyCardIcon(verified: Boolean, waitingCode: Boolean) =
+  if (verified && !waitingCode) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
 
 @Composable
 private fun verifyCardNegativeButtonLabel(waitingCode: Boolean) =

@@ -18,6 +18,8 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.ChallengeRewardManager
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetShowRefundDisclaimerCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.SetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.ui.widgets.NoNetworkCard
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -26,10 +28,12 @@ import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.GooglePayWebFragment
+import com.asfoundation.wallet.billing.mipay.MiPayFragment
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.billing.sandbox.SandboxFragment
 import com.asfoundation.wallet.billing.vkpay.VkPaymentIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.TopUpActivity
@@ -61,23 +65,29 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IabActivity : BaseActivity(), IabView, UriNavigator {
 
-    @Inject
-    lateinit var billingAnalytics: BillingAnalytics
+  @Inject
+  lateinit var billingAnalytics: BillingAnalytics
 
-    @Inject
-    lateinit var iabInteract: IabInteract
+  @Inject
+  lateinit var iabInteract: IabInteract
 
-    @Inject
-    lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
-    @Inject
-    lateinit var walletBlockedInteract: WalletBlockedInteract
+  @Inject
+  lateinit var walletBlockedInteract: WalletBlockedInteract
 
-    @Inject
-    lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
+  @Inject
+  lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
 
-    @Inject
-    lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
+  @Inject
+  lateinit var getShowRefundDisclaimerCodeUseCase: GetShowRefundDisclaimerCodeUseCase
+
+  @Inject
+  lateinit var setCachedShowRefundDisclaimerUseCase: SetCachedShowRefundDisclaimerUseCase
+
+  @Inject
+  lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
 
   @Inject
   lateinit var logger: Logger
@@ -121,6 +131,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       autoUpdateModelUseCase,
       hasRequiredHardUpdateUseCase,
       startVipReferralPollingUseCase,
+      getShowRefundDisclaimerCodeUseCase,
+      setCachedShowRefundDisclaimerUseCase,
       logger,
       transaction,
       errorFromReceiver
@@ -204,9 +216,21 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     @Suppress("DEPRECATION")
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
 
-  override fun showVerification(isWalletVerified: Boolean) {
+  override fun showCreditCardVerification(isWalletVerified: Boolean) {
     binding.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
+      .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
+    startActivity(intent)
+    finishWithError()
+  }
+
+  override fun showPayPalVerification() {
+    binding.fragmentContainer.visibility = View.GONE
+    val intent = MainActivity.newIntent(
+      context = this,
+      supportNotificationClicked = false,
+      isPayPalVerificationRequired = true
+    )
       .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
     finishWithError()
@@ -262,6 +286,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
           isSubscription = isSubscription,
           isSkills = intent.dataString?.contains(SKILLS_TAG) ?: false,
           frequency = frequency,
+          paymentStateEnum = null
         )
       )
       .commit()
@@ -394,6 +419,27 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         )
       )
       .commit()
+  }
+
+  override fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    bonus: String?
+  ) {
+    val fragmentMiPay = MiPayFragment()
+    fragmentMiPay.arguments = Bundle().apply {
+      putString(MiPayFragment.ORIGIN_KEY, getOrigin(isBds))
+      putParcelable(MiPayFragment.TRANSACTION_DATA_KEY, transaction!!)
+      putSerializable(MiPayFragment.AMOUNT_KEY, amount)
+      putString(MiPayFragment.CURRENCY_KEY, currency)
+      putString(MiPayFragment.BONUS_KEY, bonus)
+    }
+    supportFragmentManager.beginTransaction()
+      .add(R.id.fragment_container, fragmentMiPay)
+      .addToBackStack(MiPayFragment::class.java.simpleName)
+      .commit()
+
   }
 
   override fun showCarrierBilling(

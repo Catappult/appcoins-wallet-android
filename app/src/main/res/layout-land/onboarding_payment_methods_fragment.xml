@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_payment_methods_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_card_blue"
+    >
+
+  <com.airbnb.epoxy.EpoxyRecyclerView
+      android:id="@+id/onboarding_payment_methods_rv"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:orientation="vertical"
+      android:overScrollMode="never"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_incomplete_payment_methods"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:listitem="@layout/onboarding_payment_option_item"
+      tools:visibility="visible"
+      />
+
+  <include
+      android:id="@+id/onboarding_incomplete_payment_methods"
+      layout="@layout/onboarding_incomplete_payment_methods_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/normal_margin"
+      android:layout_marginVertical="8dp"
+
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_payment_methods_rv"
+      app:layout_constraintVertical_bias="0.0"
+      tools:visibility="visible"
+      />
+
+
+  <include
+      android:id="@+id/no_payment_methods_error"
+      layout="@layout/onboarding_payment_methods_error_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_incomplete_payment_methods"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
+      tools:visibility="gone"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

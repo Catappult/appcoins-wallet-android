@@ -45,7 +45,7 @@
       layout="@layout/onboarding_payment_terms_conditions"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_marginHorizontal="8dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
 
   <include
       android:id="@+id/no_payment_methods_error"
-      layout="@layout/topup_error_layout"
+      layout="@layout/onboarding_payment_methods_error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"

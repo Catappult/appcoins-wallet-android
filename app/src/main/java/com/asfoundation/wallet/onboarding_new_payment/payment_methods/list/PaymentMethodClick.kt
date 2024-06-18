@@ -10,6 +10,6 @@ sealed class PaymentMethodClick {
   object ShareLinkPaymentClick : PaymentMethodClick()
   object VkPayPaymentClick : PaymentMethodClick()
   object GooglePayClick : PaymentMethodClick()
-
+  data class MiPayPayClick(val idItem: String) : PaymentMethodClick()
   object OtherPaymentMethods : PaymentMethodClick()
 }

@@ -45,5 +45,5 @@ interface OnChainBuyView {
 
   fun lockRotation()
 
-  fun showVerification()
+  fun showCreditCardVerification()
 }

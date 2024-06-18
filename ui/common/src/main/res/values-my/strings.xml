@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">ဤဝယ္ယူမႈကို ျငင္းဆန္လိုက္ပါသည္။\nေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_reverted_body">ဤဝယ္ယူမႈကို ျပန္ေျပာင္းလိုက္ပါသည္။\nေနာက္ထပ္သတင္းအခ်က္အလက္အတြက္ ပံ့ပိုးေရးသို႔ ဆက္သြယ္ပါ။</string>
   <string name="transaction_status_rejected">ျငင္းဆန္ထားေသာ</string>
-  <string name="transaction_details_header">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ား</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
-  <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကိုဖ်က္မည္</string>
+  <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
   <string name="askafriend_generating_link_message">သင့္ေငြေပးေခ်မႈလင့္္ခ္ &#8230; ကို ထုတ္ေပးေနပါသည္</string>
@@ -469,7 +469,7 @@
   <string name="askafriend_share_note_to_friend">ေဟး %2$s မွာ ပစၥည္းတစ္ခု၀ယ္ဖို႔ %1$s AppCoins Credits ကို ပို႔ေပးပါလား။ လင့္ခ္ - %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ေငြေပးပို႔မည္</string>
-  <string name="p2p_receive_title">Receive</string>
+  <string name="p2p_receive_title">လက္ခံယူမည္</string>
   <string name="p2p_send_body">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို စကန္ဖတ္ပါ သို႔မဟုတ္ ဝင္ပါ။</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s တို႔ကို ေအာက္ပါလိပ္စာသို႔ ေပးပို႔လိုက္ပါသည္ -</string>
   <string name="p2p_send_current_balance_message">လက္ရွိလက္က်န္ေငြ - %1$s %2$s</string>
@@ -529,7 +529,8 @@
   <string name="card_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="start_again_button">Start again</string>
   <string name="max">Max</string>
-  <string name="amount">Amount</string>
+  <string name="amount">ပမာဏ</string>
+  <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -538,6 +539,7 @@
   <string name="decline_button">ျငင္းဆန္မည္</string>
   <string name="get_started">စတင္မည္</string>
   <string name="existent_wallet">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">သင့္စိတ္ႀကိဳက္ဂိမ္းတြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။ က်န္တာကို ကြၽႏ္ုပ္တို႔တာဝန္ထားပါ။</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
@@ -587,6 +589,9 @@
   <string name="verified_tag">အတည္ျပဳထားေသာ</string>
   <string name="unferified_tag">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="verification_wallets_verify_button">အတည္ျပဳမည္</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">တစ္ဆင့္သာ လိုပါေတာ့သည္။</string>
   <string name="paypal_verification_home_one_step_card_body">သင့္ PayPal အေကာင့္ကိုအတည္ျပဳရန္ သင့္အီးေမးလ္လိပ္စာသို႔ ေပးပို႔လိုက္ေသာကုဒ္ကို ထည့္ပါ။</string>
@@ -671,13 +676,15 @@
   <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ သင့္ေငြေၾကးပုံစံကို မပံ့ပိုးေသာေၾကာင့္ စီစဥ္ေဆာင္႐ြက္ခ က်သင့္ျခင္း ရွိႏိုင္ပါသည္။</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">ဤေငြေပးေခ်မႈနည္းလမ္းသည္ ဤဝယ္ယူမႈအတြက္ စီစဥ္ေဆာင္႐ြက္ခ ေကာက္ခံပါသည္။</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">အခေၾကးေငြမ်ား ပါဝင္ၿပီး</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
   <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -978,8 +985,10 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
-  <string name="manage_cards_add_credit_debit_card_button_">Add credit/debit card</string>
+  <string name="manage_cards_add_credit_debit_card_button_">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_add_title">Add New Card</string>
   <string name="manage_cards_add_button">Add card</string>
@@ -1256,7 +1265,7 @@
   <string name="rewards_current_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">သင့္ e-Skills ဝင္ေငြမ်ားကို ထုတ္ယူလိုက္ပါ။</string>
-  <string name="rewards_promo_code_card_title">ပ႐ိုမိုကုဒ္မ်ား</string>
+  <string name="rewards_promo_code_card_title">ပ႐ိုမိုကုဒ္</string>
   <string name="rewards_promo_code_card_body">အထူးအခြင့္အေရးမ်ား ရရွိရန္ ပ႐ိုမိုကုဒ္တစ္ခုကို အသုံးျပဳုပါ။</string>
   <string name="rewards_promo_code_status">အေျခအေန:</string>
   <string name="rewards_promo_code_status_active">သုံးႏိုင္ေသာ</string>
@@ -1301,6 +1310,16 @@
   <string name="challenge_reward_card_body">AppCoins Credits မ်ားကို ရယူရန္ စိန္ေခၚမႈတစ္ခုကို ၿပီးေအာင္လုပ္ပါ။</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ကို AppCoins Credits ျဖင့္ရယူလိုက္ပါ</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Stay Tuned!</string>
+  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
+  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

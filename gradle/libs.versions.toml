@@ -276,6 +276,7 @@ rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
 result = ["kotlin-result-coroutines", "kotlin-result"]
 paging = ["paging", "paging_compose"]
 vk = ["vk-pay-oauth", "vk-sdk-pub", "vk-checkout"]
+lottie = ["lottie", "compose-lottie"]
 
 [plugins]
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebase_performance_plugin" }
