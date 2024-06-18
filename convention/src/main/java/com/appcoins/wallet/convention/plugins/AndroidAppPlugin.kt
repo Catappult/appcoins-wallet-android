@@ -6,14 +6,11 @@ import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.collections.set
 
 class AndroidAppPlugin : Plugin<Project> {
@@ -25,12 +22,6 @@ class AndroidAppPlugin : Plugin<Project> {
         apply("kotlin-parcelize")
         apply("kotlin-kapt")
         apply<JacocoApplicationPlugin>()
-      }
-
-      tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-          jvmTarget = JavaVersion.VERSION_11.toString()
-        }
       }
 
       extensions.configure(JavaPluginExtension::class.java) {
