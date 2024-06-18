@@ -26,6 +26,7 @@ import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.feature.challengereward.data.model.ChallengeRewardFlowPath.IAP
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.R
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
@@ -109,6 +110,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   @Inject
   lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
+
+  @Inject
+  lateinit var getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
 
   @Inject
   lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
@@ -247,7 +251,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun updatePriceAndCurrency(currency: String, amount: BigDecimal) {
-    val price = getString(R.string.purchase_total_header, amount, currency)
+    val price = if (isPortraitMode(requireContext())) {
+      getString(R.string.purchase_total_header, amount, currency)
+    } else {
+      getString(R.string.gas_price_value, amount, currency)
+    }
+
     with(binding.paymentMethodsHeader.fiatPrice) {
       if (text != price) showPriceTransition()
       text = price
@@ -264,6 +273,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           super.onAnimationEnd(animation)
           priceTransitionAnimation.visibility = View.GONE
           fiatPrice.visibility = View.VISIBLE
+          if (!isPortraitMode(requireContext())) {
+            binding.paymentMethodsHeader.fiatTotalPriceLabel?.visibility = View.VISIBLE
+          }
         }
       })
     }
@@ -335,7 +347,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
 
     setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
-
     setupSubject!!.onNext(true)
   }
 
@@ -394,10 +405,13 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   @SuppressLint("SetTextI18n")
   private fun setupFee(fee: PaymentMethodFee?) {
     if (fee?.isValidFee() == true) {
-      binding.layoutPreSelected.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = formatter.formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.layoutPreSelected.paymentMethodFee.text =
-        context?.getString(R.string.purchase_fee_title, formattedValue, fee.currency)
+        context?.getString(
+          R.string.purchase_fees_and_taxes_known_disclaimer_body,
+          formattedValue,
+          fee.currency
+        )
     } else {
       binding.layoutPreSelected.paymentMethodFee.visibility = View.GONE
     }
@@ -461,6 +475,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showProgressBarLoading() {
     binding.paymentMethods.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
+    binding.cvLegalDisclaimer?.visibility = View.GONE
+    binding.tvLegalDisclaimer?.visibility = View.GONE
   }
 
   override fun hideLoading() {
@@ -483,6 +499,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
         binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
+      binding.cvLegalDisclaimer?.visibility =
+        if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
+      binding.tvLegalDisclaimer?.visibility =
+        if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
       binding.loadingAnimation.visibility = View.GONE
     }
   }
@@ -660,6 +680,17 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
   }
 
+  override fun showMiPayWeb(
+    fiatValue: FiatValue,
+  ) {
+    iabView.showMiPayWeb(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      bonusMessageValue
+    )
+  }
+
   override fun showCreditCard(
     gamificationLevel: Int,
     fiatValue: FiatValue,
@@ -761,7 +792,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
     binding.bonusLayout.bonusValue.text =
-      context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
+      if (isPortraitMode(requireContext())) context?.getString(
+        R.string.gamification_purchase_header_part_2,
+        bonusMessageValue
+      ) else bonusMessageValue
   }
 
   override fun onBackPressed(): Observable<Any> =

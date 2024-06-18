@@ -7,8 +7,12 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CANCELLED_DUE_TO_FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.ISSUER_SUSPECTED_FRAUD
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.PaymentType.CARD
 import com.asfoundation.wallet.billing.adyen.PaymentType.PAYPAL
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -27,7 +31,8 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
   data class ShowPaymentError(
     val error: Error? = null,
     val refusalCode: Int? = null,
-    val isWalletVerified: Boolean? = null
+    val isWalletVerified: Boolean? = null,
+    val paymentType: PaymentType
   ) : OnboardingPaymentResultSideEffect()
 
   data class ShowPaymentSuccess(val purchaseBundleModel: PurchaseBundleModel) :
@@ -74,7 +79,12 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
       args.paymentModel.error.hasError -> {
         events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
-        sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            args.paymentModel.error,
+            paymentType = args.paymentType
+          )
+        }
       }
 
       args.paymentModel.status == PaymentModel.Status.CANCELED -> {
@@ -82,7 +92,12 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       }
 
       else -> {
-        sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            args.paymentModel.error,
+            paymentType = args.paymentType
+          )
+        }
       }
     }
   }
@@ -125,7 +140,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             )
             sendSideEffect {
               OnboardingPaymentResultSideEffect.ShowPaymentError(
-                authorisedPaymentModel.error
+                authorisedPaymentModel.error,
+                paymentType = args.paymentType
               )
             }
           }
@@ -137,7 +153,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
     var riskRules: String? = null
     args.paymentModel.refusalCode?.let { code ->
       when (code) {
-        AdyenErrorCodeMapper.FRAUD -> {
+        FRAUD, ISSUER_SUSPECTED_FRAUD, CANCELLED_DUE_TO_FRAUD -> {
           handleFraudFlow(args.paymentModel.error, code)
           riskRules = args.paymentModel.fraudResultIds.sorted().joinToString(separator = "-")
         }
@@ -145,7 +161,8 @@ class OnboardingPaymentResultViewModel @Inject constructor(
         else -> sendSideEffect {
           OnboardingPaymentResultSideEffect.ShowPaymentError(
             args.paymentModel.error,
-            code
+            code,
+            paymentType = args.paymentType
           )
         }
       }
@@ -159,16 +176,29 @@ class OnboardingPaymentResultViewModel @Inject constructor(
     )
   }
 
-  private fun handleFraudFlow(error: Error, refusalCode: Int) {
-    adyenPaymentInteractor.isWalletVerified()
+  fun handleFraudFlow(error: Error, refusalCode: Int) {
+    val verificationType = if (args.paymentType == CARD) {
+      VerificationType.CREDIT_CARD
+    } else {
+      VerificationType.PAYPAL
+    }
+    adyenPaymentInteractor.isWalletVerified(verificationType)
       .doOnSuccess { verified ->
         sendSideEffect {
-          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode, verified)
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            refusalCode = refusalCode,
+            isWalletVerified = verified,
+            paymentType = args.paymentType
+          )
         }
 
       }.doOnError {
         sendSideEffect {
-          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode)
+          OnboardingPaymentResultSideEffect.ShowPaymentError(
+            error,
+            refusalCode,
+            paymentType = args.paymentType
+          )
         }
       }.scopedSubscribe()
   }

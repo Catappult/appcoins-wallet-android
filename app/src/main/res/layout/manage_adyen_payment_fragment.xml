@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manage_adyen_payment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
+    >
+
+  <androidx.compose.ui.platform.ComposeView
+      android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="104dp"
+      android:layout_height="104dp"
+      android:layout_gravity="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_wallet"
+      />
+
+  <ScrollView
+      android:id="@+id/scroll_view"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:fillViewport="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/app_bar"
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <TextView
+          android:id="@+id/manage_adyen_payment_title"
+          style="@style/ToolbarTextAppearance.Title24"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="8dp"
+          android:text="@string/manage_cards_add_title"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="visible"
+          />
+      <com.adyen.checkout.card.CardView
+          android:id="@+id/adyen_card_form"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/manage_adyen_payment_title"
+          tools:visibility="gone"
+          />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="36dp"
+          android:background="@color/styleguide_blue"
+          app:layout_constraintBottom_toBottomOf="@+id/adyen_card_form"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          />
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/manage_wallet_add_card_submit_button"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/onboarding_button_height"
+          android:layout_marginHorizontal="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="16dp"
+          android:enabled="false"
+          android:visibility="gone"
+          app:buttonText="@string/manage_cards_add_button"
+          app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/adyen_card_form"
+          app:layout_constraintVertical_bias="1.0"
+          tools:visibility="visible"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

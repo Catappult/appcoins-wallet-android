@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">完成驗證以接收您的AppCoins</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
   <string name="my_wallets_action_backup_wallet">備份錢包</string>
   <string name="my_wallets_action_verify_new_card">Verify new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="my_wallets_action_delete_wallet">Remove wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">請人代付</string>
   <string name="askafriend_generating_link_message">正在產生您的付款連結&#8230;</string>
@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">我想購買%2$s上的商品，可以給我%1$s AppCoins點數嗎？轉帳連結：%3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">轉帳</string>
+  <string name="p2p_receive_title">接收</string>
   <string name="p2p_send_body">掃描或手動輸入您朋友的錢包地址</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s 已發送至以下地址：</string>
   <string name="p2p_send_current_balance_message">當前餘額：%1$s %2$s</string>
@@ -527,6 +528,9 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">已到期</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">數量</string>
+  <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -535,6 +539,7 @@
   <string name="decline_button">Reject</string>
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
@@ -584,6 +589,9 @@
   <string name="verified_tag">已驗證</string>
   <string name="unferified_tag">未驗證錢包</string>
   <string name="verification_wallets_verify_button">驗證</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">One step away!</string>
   <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
@@ -657,17 +665,26 @@
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">可能會產生額外手續費.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帳單地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -968,9 +985,13 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">新增信用卡/金融卡</string>
   <string name="manage_cards_settings_manage_title">管理卡片</string>
+  <string name="manage_cards_add_credit_debit_card_button_">新增信用卡/金融卡</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">管理卡片</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">管理付款卡片</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">確認移除這張卡片嗎？</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -985,6 +1006,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">每次購買獲得高達%s%%獎勵</string>
   <string name="perks_gamif_subtitle">您在喜愛的應用程式中花費越多，獎勵越多！</string>
@@ -1242,7 +1265,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
+  <string name="rewards_promo_code_card_title">Promo Code</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">狀態:</string>
   <string name="rewards_promo_code_status_active">訂閱項目</string>
@@ -1252,6 +1275,8 @@
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
@@ -1259,6 +1284,7 @@
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
   <string name="manage_wallet_verify_title">Verify a Payment Method</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
@@ -1284,6 +1310,16 @@
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Stay Tuned!</string>
+  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
+  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

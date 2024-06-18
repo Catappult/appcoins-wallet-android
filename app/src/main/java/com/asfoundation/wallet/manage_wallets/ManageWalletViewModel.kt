@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatus
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationStatusCompound
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
@@ -15,6 +17,7 @@ import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -65,10 +68,25 @@ constructor(
           .flatMapCompletable { walletInfo ->
             walletService.getAndSignCurrentWalletAddress()
               .flatMap { wallet ->
-                walletVerificationInteractor.getVerificationStatus(
-                  wallet.address,
-                  wallet.signedAddress
-                )
+                Single.zip(
+                  walletVerificationInteractor.getVerificationStatus(
+                    wallet.address,
+                    wallet.signedAddress,
+                    VerificationType.PAYPAL
+                  ),
+                  walletVerificationInteractor.getVerificationStatus(
+                    wallet.address,
+                    wallet.signedAddress,
+                    VerificationType.CREDIT_CARD
+                  )
+                ) { paypalStatus, creditCardStatus ->
+                  VerificationStatusCompound(
+                    creditCardStatus = creditCardStatus,
+                    payPalStatus = paypalStatus,
+                    currentVerificationType = walletVerificationInteractor
+                      .getCurrentVerificationType(wallet.address)
+                  )
+                }
               }
               .doOnSuccess { verificationStatus ->
                 analytics.sendManageWalletScreenEvent()
@@ -95,8 +113,34 @@ constructor(
   }
 
   fun cancelVerification(walletAddress: String) {
-    walletVerificationInteractor.removeWalletVerificationStatus(walletAddress)
-      .subscribe()
+    val cachedVerificationCC = walletVerificationInteractor.getCachedVerificationStatus(
+      walletAddress,
+      VerificationType.CREDIT_CARD
+    )
+    val cachedVerificationPP = walletVerificationInteractor.getCachedVerificationStatus(
+      walletAddress,
+      VerificationType.PAYPAL
+    )
+    if (
+      cachedVerificationCC == VerificationStatus.CODE_REQUESTED ||
+      cachedVerificationCC == VerificationStatus.VERIFYING
+    ) {
+      walletVerificationInteractor.removeWalletVerificationStatus(
+        walletAddress,
+        VerificationType.CREDIT_CARD
+      )
+        .subscribe()
+    }
+    if (
+      cachedVerificationPP == VerificationStatus.CODE_REQUESTED ||
+      cachedVerificationPP == VerificationStatus.VERIFYING
+    ) {
+      walletVerificationInteractor.removeWalletVerificationStatus(
+        walletAddress,
+        VerificationType.PAYPAL
+      )
+        .subscribe()
+    }
   }
 
   sealed class UiState {
@@ -108,7 +152,7 @@ constructor(
     data class Success(
       val activeWalletInfo: WalletInfo,
       val inactiveWallets: List<WalletInfoSimple>,
-      val verificationStatus: VerificationStatus
+      val verificationStatus: VerificationStatusCompound
     ) : UiState()
   }
 }

@@ -18,6 +18,14 @@
         android:id="@+id/action_navigate_to_verify_picker"
         app:destination="@id/verify_picker_dialog_fragment" />
     <action
+        android:id="@+id/action_navigate_to_verify_cc"
+        app:destination="@id/verify_credit_card_wallet_activity"
+        app:popUpTo="@id/manage_wallet_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_verify_pp"
+        app:destination="@id/verify_paypal_wallet_fragment"
+        app:popUpTo="@id/manage_wallet_fragment" />
+    <action
         android:id="@+id/action_navigate_to_backup_wallet"
         app:destination="@id/backup_wallet_activity" />
     <action

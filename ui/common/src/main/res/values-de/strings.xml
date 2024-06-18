@@ -440,7 +440,7 @@
   <string name="topup_no_method_available_title">Keine Zahlungsmethoden!</string>
   <string name="topup_no_method_available_body">Zurzeit gibt es in deinem Land zum Aufladen keine Zahlungsmöglichkeiten. Bleib dran!</string>
   <string name="topup_bonus_amount_body">Erhalte %s Bonus mit diesem Top-Up</string>
-  <string name="topup_success_body">%s were deposited in your account in AppCoins Credits.</string>
+  <string name="topup_success_body">%s wurden auf dein Konto in AppCoins Credits eingezahlt.</string>
   <!--Balance-->
   <string name="balance_title">Guthaben</string>
   <string name="balance_total_body">Gesamguthaben in %s</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
   <string name="my_wallets_action_backup_wallet">Wallet-Backup erstellen</string>
   <string name="my_wallets_action_verify_new_card">Neue Karte verifizieren</string>
-  <string name="my_wallets_action_delete_wallet">Wallet löschen</string>
+  <string name="my_wallets_action_delete_wallet">Wallet entfernen</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Bitte jemanden, die Bezahlung zu übernehmen</string>
   <string name="askafriend_generating_link_message">Wir generieren deinen Zahlungslink&#8230;</string>
@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">Hallo! Bitte überweise mir %1$s AppCoins, damit ich einen Gegenstand bei %2$s kaufen kann. Hier ist der Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Guthaben senden</string>
+  <string name="p2p_receive_title">Erhalten</string>
   <string name="p2p_send_body">Scanne die Adresse der Wallet deines Freundes oder gib sie ein.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s wurden an die folgende Adresse übertragen:</string>
   <string name="p2p_send_current_balance_message">Aktuelles Guthaben: %1$s %2$s</string>
@@ -523,10 +524,13 @@
   <string name="start_date_title">Startdatum:</string>
   <string name="end_date_title">Enddatum:</string>
   <string name="send_button">Senden</string>
-  <string name="resend_button">Resend</string>
-  <string name="continue_button">Continue</string>
+  <string name="resend_button">Erneut senden</string>
+  <string name="continue_button">Fortfahren</string>
   <string name="card_expired_tag">Abgelaufen</string>
-  <string name="start_again_button">Start again</string>
+  <string name="start_again_button">Erneut starten</string>
+  <string name="max">Max.</string>
+  <string name="amount">Betrag</string>
+  <string name="total_title">Gesamt</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s der AppCoins Wallet zu.</string>
   <string name="terms_and_conditions_error">Bitte akzeptiere unsere Allgemeinen Geschäftsbedingungen und die Datenschutzrichtlinie, um fortzufahren</string>
@@ -535,6 +539,7 @@
   <string name="decline_button">Ablehnen</string>
   <string name="get_started">Los geht\'s</string>
   <string name="existent_wallet">Ich habe bereits eine Wallet</string>
+  <string name="onboarding_verification_body">Bitte verifiziere deine Zahlungsmethode, um deinen Kauf abzuschließen.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Kaufe für dein Lieblingsspiel ein und wir kümmern uns um alles.</string>
   <string name="home_empty_discover_apps_button">ENTDECKE DIE BESTEN APPS</string>
@@ -575,7 +580,7 @@
   <string name="verification_settings_verified_title">Wallet verifiziert</string>
   <string name="verification_settings_verifying_title">Wird verifiziert…</string>
   <string name="verification_verified_paypal_description">Du erhältst umgehend eine Rückerstattung. Deine Zahlungsmethode wird in Kürze verifiziert.</string>
-  <string name="verification_verify_paypal_description">A transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
+  <string name="verification_verify_paypal_description">Zur Bestätigung deines Kontos wird eine Transaktion von %s durchgeführt. Der Betrag wird dir sofort zurückerstattet.</string>
   <string name="verification_verify_paypal_button">Jetzt verifizieren</string>
   <string name="verification_settings_card_verified_title">Karte verifiziert</string>
   <string name="verification_settings_no_internet">Du benötigst eine Verbindung ins Internet</string>
@@ -584,12 +589,15 @@
   <string name="verified_tag">Verifiziert</string>
   <string name="unferified_tag">Nicht verifizierte Wallet</string>
   <string name="verification_wallets_verify_button">Verifiziert</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
-  <string name="paypal_verification_home_one_step_card_title">One step away!</string>
-  <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
-  <string name="paypal_verification_header">PayPal Verification</string>
-  <string name="paypal_verification_insert_code_body">Insert below the 4-digit code we\'ve sent to the email address associated with your PayPal Account.</string>
-  <string name="paypal_verification_didnt_receive_title">Didn\'t receive it?</string>
+  <string name="paypal_verification_home_one_step_card_title">Nur noch ein Schritt!</string>
+  <string name="paypal_verification_home_one_step_card_body">Gib den Code ein, der an deine E-Mail-Adresse gesendet wurde, um dein PayPal-Konto zu verifizieren.</string>
+  <string name="paypal_verification_header">PayPal Verifizierung</string>
+  <string name="paypal_verification_insert_code_body">Gib unten den 4-stelligen Code ein, den wir dir an die mit deinem PayPal-Konto verknüpfte E-Mail-Adresse geschickt haben.</string>
+  <string name="paypal_verification_didnt_receive_title">Du hast ihn nicht erhalten?</string>
   <string name="paypal_verification_completed_body">You\'ll be refunded immediately, and your PayPal account will be verified soon.</string>
   <!--Purchase Flow-->
   <string name="purchase_total_header">Insgesamt %1$s %2$s</string>
@@ -657,17 +665,26 @@
   <string name="error_blocked_wallet_title">Gesperrte Wallet</string>
   <string name="error_blocked_wallet_body">Aus Sicherheitsgründen wurde deine Wallet gesperrt. Bitte kontaktiere uns für weitere Informationen.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Es können zusätzliche Gebühren anfallen.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s mit Gebühren und Mehrwertsteuer.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">Extrakosten inklusive</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">Extrakosten nicht inklusive</string>
   <string name="purchase_error_paypal">Es gab ein Problem mit deiner PayPal-Zahlung. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
   <string name="purchase_error_google_pay">Es gab ein Problem mit Google Pay. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
   <string name="purchase_success_bonus_received_title">%s Bonus erhalten.</string>
   <string name="purchase_making_purchase_title">Einkäufe werden getätigt&#8230;</string>
   <string name="purchase_fee_title">%2$s %1$s Gebühr</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">Diese Zahlungsmethode unterstützt nicht deine Währung, daher wird eine Bearbeitungsgebühr erhoben. Diese Gebühr ist in der Gesamtsumme enthalten, die du im oberen Bereich sehen kannst.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">Bei dieser Zahlungsmethode wird eine Bearbeitungsgebühr für diesen Kauf erhoben. Diese Gebühr ist in der oben angezeigten Gesamtsumme enthalten.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">Diese Zahlungsmethode unterstützt deine Währung nicht, daher wird eine Bearbeitungsgebühr erhoben. Die Bearbeitungsgebühr und die Mehrwertsteuer sind in der oben angezeigten Gesamtsumme enthalten.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">Bei dieser Zahlungsmethode wird eine Bearbeitungsgebühr erhoben. Diese Gebühr und die Mehrwertsteuer sind in der oben angezeigten Gesamtsumme enthalten.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">Diese Zahlungsmethode unterstützt nicht deine Währung, daher kann eine Bearbeitungsgebühr anfallen.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">Bei dieser Zahlungsmethode wird eine Bearbeitungsgebühr für diesen Kauf erhoben.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">Bei dieser Zahlungsmethode zahlst du eine Bearbeitungsgebühr und die Mehrwertsteuer.</string>
   <string name="purchase_fee_included_body">inklusive Gebühren</string>
-  <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_one_wallet_generic">Es gab ein Problem mit deiner Wallet One-Zahlung. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
+  <string name="purchase_payment_method_top_ups_only">Nur verfügbar für Aufladungen.</string>
+  <string name="purchase_payment_method_minimum_amount">Nur für Käufe über %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Für diesen Kauf nicht verfügbar.</string>
+  <string name="purchase_error_no_method_available_body">Im Moment gibt es in deiner Region noch keine Zahlungsmöglichkeiten, um diesen Kauf abzuschließen. Bleib dran!</string>
+  <string name="purchase_legal_disclaimer">Wenn du mit der Zahlung fortfährst, erklärst du dich damit einverstanden, dass dir der Inhalt nach der Zahlung geliefert wird und du dein Widerrufsrecht verlierst.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">Der Bonus wird in AppCoins Credits ausgezahlt.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -969,12 +986,16 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">Kredit-/Debitkarte hinzufügen</string>
   <string name="manage_cards_settings_manage_title">Karten verwalten</string>
+  <string name="manage_cards_add_credit_debit_card_button_">Kredit-/Debitkarte hinzufügen</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Eine andere Karte verwenden</string>
   <string name="manage_cards_view_title">Karten verwalten</string>
+  <string name="manage_cards_empty_body">Du hast noch keine gespeicherten Karten.</string>
   <string name="manage_cards_view_manage_subtitle">Verwalte deine Zahlungskarten</string>
-  <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_title">Neue Karte hinzufügen</string>
+  <string name="manage_cards_add_button">Karte hinzufügen</string>
   <string name="manage_cards_remove_confirmation">Bist du sicher, dass du diese Karte entfernen willst?</string>
-  <string name="manage_cards_remove_no">No, cancel</string>
-  <string name="manage_cards_remove_yes">Yes, remove it</string>
+  <string name="manage_cards_remove_no">Nein, abbrechen</string>
+  <string name="manage_cards_remove_yes">Ja, entfernen</string>
   <string name="manage_cards_card_ending_body">Karte endet auf %s</string>
   <string name="manage_cards_error_details">Bist du sicher, dass deine Kartendaten korrekt sind? Bitte versuche es noch einmal!</string>
   <string name="manage_cards_error_card_problem">Es scheint ein Problem mit deiner Karte zu geben. Bitte versuche es mit einer anderen Karte.</string>
@@ -982,10 +1003,12 @@
   <string name="manage_cards_remember">Karte merken</string>
   <string name="add_new_card_button">Neue Karte hinzufügen</string>
   <string name="manage_cards_header">Payment Cards</string>
-  <string name="settings_manage_cards_item">Manage payment cards</string>
-  <string name="card_added_title">Card added</string>
-  <string name="card_removed">Card removed</string>
-  <string name="choose_card_title">Choose card</string>
+  <string name="settings_manage_cards_item">Zahlungskarten verwalten</string>
+  <string name="card_added_title">Karte hinzugefügt</string>
+  <string name="card_removed">Karte entfernt</string>
+  <string name="choose_card_title">Karte wählen</string>
+  <string name="manage_cards_update_disclaimer_1">Um Karten zu aktualisieren oder zu entfernen, gehe zu:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">Verdiene bis zu %s%% Bonus bei jedem Einkauf</string>
   <string name="perks_gamif_subtitle">Je mehr du in deinen Lieblings-Apps ausgibst, umso größer ist der Bonus!</string>
@@ -1211,7 +1234,7 @@
   <string name="vip_program_promo_code_tag">Promotion-Code</string>
   <string name="vip_program_referral_page_title">VIP-Empfehlungsprogramm</string>
   <string name="vip_program_referral_page_body">Teile diesen Promo-Code mit deiner Community und deinen Freunden, damit jeder beim Spielen Geld verdienen kann. Für jeden In-App-Kauf, den sie tätigen, erhalten sowohl <b>du als auch deine Freunde %1$s%% Bonus</b> zusätzlich zu anderen aktiven Aktionen. <b>Gültig bis %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Du und deine Freunde erhalten %s%% Bonus auf alle Käufe, wenn ihr diesen Code benutzt!</string>
   <string name="vip_program_referral_page_share_title">Teile diesen Code mit deinen Freunden</string>
   <string name="vip_program_referral_page_only_app_title">Nur für Käufe bei</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s erhalten für %3$s Empfehlungen</string>
@@ -1255,7 +1278,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus für jeden Einkauf</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Lass dir deine e-Skills-Verdienste auszahlen.</string>
-  <string name="rewards_promo_code_card_title">Promocodes</string>
+  <string name="rewards_promo_code_card_title">Promo-Code</string>
   <string name="rewards_promo_code_card_body">Verwende einen Promocode, um besondere Angebote zu erhalten!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktiv</string>
@@ -1265,6 +1288,8 @@
   <string name="rewards_make_first_purchase_body">Tätige deinen ersten Kauf in einem AppCoins-kompatiblen Spiel und schalte bei jedem Kauf einen Bonus frei.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% Bonus bei jedem Einkauf</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Wallets verwalten</string>
+  <string name="manage_wallet_view_title">Wallets verwalten</string>
   <string name="manage_wallet_wallet_changed_title">Wallet geändert</string>
   <string name="manage_wallet_change_active_wallet_title">Willst du diese Wallet auswählen?</string>
   <string name="manage_wallet_change_wallet_name_title">Wallet-Namen ändern</string>
@@ -1272,6 +1297,7 @@
   <string name="manage_wallet_my_wallet_address_title">Meine Wallet-Adresse</string>
   <string name="manage_wallet_verify_title">Eine Zahlungsmethode verifizieren</string>
   <string name="manage_wallet_verify_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
+  <string name="manage_wallet_currency_disclaimer">Dein Guthaben wird der Einfachheit halber in deiner Landeswährung angezeigt, ist aber an den US-Dollar gebunden, sodass sich Änderungen des US-Dollar-Kurses auf dein Guthaben auswirken können.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Eine Zahlungsmethode verifizieren</string>
   <string name="verify_card_body">Vermeide Sperrungen, indem du eine Zahlungsmethode verifizierst.</string>
@@ -1297,6 +1323,16 @@
   <string name="challenge_reward_card_body">Schließe eine Challenge ab, um AppCoins Credits zu erhalten.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Genieße %s an AppCoins Credits in deiner Wallet</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Bleib dran!</string>
+  <string name="mail_list_card_body">Trage dich in unsere Mailingliste ein, um exklusive Updates zu erhalten und einen Geschenkgutschein zu gewinnen.</string>
+  <string name="mail_list_card_confirmation_title">Bestätige deine E-Mail-Adresse</string>
+  <string name="mail_list_card_confirmation_body">Wir haben eine E-Mail an %s gesendet</string>
+  <string name="mail_list_backup">Trage dich in unsere Mailingliste ein, um exklusive Updates zu erhalten und einen Geschenkgutschein zu gewinnen.</string>
+  <string name="mail_list_confirmation_email_subject">Bestätige deine E-Mail-Adresse – AppCoins Mailingliste</string>
+  <string name="mail_list_confirmation_email_body">Hallo!!\n\n Vielen Dank, dass du dich in die AppCoins Mailingliste eingetragen hast. Bitte bestätige deine E-Mail-Adresse, indem du auf die Schaltfläche unten klickst:</string>
+  <string name="mail_list_confirmation_email_button">E-Mail-Adresse bestätigen</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\ndas AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

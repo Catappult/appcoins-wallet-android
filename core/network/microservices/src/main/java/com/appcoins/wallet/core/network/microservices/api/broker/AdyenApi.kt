@@ -6,7 +6,7 @@ import io.reactivex.Single
 import retrofit2.http.*
 
 interface AdyenApi {
-  @POST("8.20240216/gateways/adyen_v2/transactions")
+  @POST("8.20240524/gateways/adyen_v2/transactions")
   @Headers("Content-Type: application/json;format=product_token")
   fun makeAdyenBodyPayment(
     @Query("wallet.address") walletAddress: String,
@@ -14,7 +14,7 @@ interface AdyenApi {
     @Body payment: PaymentRequest
   ): Single<AdyenTransactionResponse>
 
-  @POST("8.20240216/gateways/adyen_v2/transactions")
+  @POST("8.20240524/gateways/adyen_v2/transactions")
   fun makeAdyenPayment(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
@@ -31,7 +31,7 @@ interface AdyenApi {
   ): Single<PaymentMethodsResponse>
 
 
-  @GET("8.20240216/gateways/adyen_v2/transactions/{uid}")
+  @GET("8.20240524/gateways/adyen_v2/transactions/{uid}")
   fun getTransaction(
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
@@ -40,14 +40,14 @@ interface AdyenApi {
 
 
   @Headers("Content-Type: application/json;format=product_token")
-  @POST("8.20240216/gateways/adyen_v2/transactions")
+  @POST("8.20240524/gateways/adyen_v2/transactions")
   fun makeTokenPayment(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
     @Body payment: TokenPayment
   ): Single<AdyenTransactionResponse>
 
-  @PATCH("8.20240216/gateways/adyen_v2/transactions/{uid}")
+  @PATCH("8.20240524/gateways/adyen_v2/transactions/{uid}")
   fun submitRedirect(
     @Path("uid") uid: String,
     @Query("wallet.address") address: String,

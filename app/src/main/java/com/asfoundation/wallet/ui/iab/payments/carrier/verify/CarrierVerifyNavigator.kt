@@ -51,5 +51,5 @@ class CarrierVerifyNavigator @Inject constructor(
 
   fun finishActivityWithError() = iabActivity.finishWithError()
 
-  fun navigateToVerification() = iabActivity.showVerification(false)
+  fun navigateToCreditCardVerification() = iabActivity.showCreditCardVerification(false)
 }

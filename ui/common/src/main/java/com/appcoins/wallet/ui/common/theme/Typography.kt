@@ -9,6 +9,7 @@ data class TypographySize(
   val sp26: TextStyle,
   val sp24: TextStyle,
   val sp22: TextStyle,
+  val sp18: TextStyle,
   val sp16: TextStyle,
   val sp14: TextStyle,
   val sp12: TextStyle,
@@ -37,6 +38,11 @@ val WalletTypography = TypographyType(
       fontWeight = FontWeight.Normal,
       fontSize = 22.sp,
       lineHeight = 30.sp,
+    ),
+    sp18 = TextStyle(
+      fontWeight = FontWeight.Normal,
+      fontSize = 18.sp,
+      lineHeight = 26.sp,
     ),
     sp16 = TextStyle(
       fontWeight = FontWeight.Normal,
@@ -75,6 +81,11 @@ val WalletTypography = TypographyType(
       fontSize = 22.sp,
       lineHeight = 30.sp,
     ),
+    sp18 = TextStyle(
+      fontWeight = FontWeight.Medium,
+      fontSize = 18.sp,
+      lineHeight = 26.sp,
+    ),
     sp16 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 16.sp,
@@ -111,6 +122,11 @@ val WalletTypography = TypographyType(
       fontWeight = FontWeight.Bold,
       fontSize = 22.sp,
       lineHeight = 30.sp,
+    ),
+    sp18 = TextStyle(
+      fontWeight = FontWeight.Bold,
+      fontSize = 18.sp,
+      lineHeight = 26.sp,
     ),
     sp16 = TextStyle(
       fontWeight = FontWeight.Bold,

@@ -7,6 +7,7 @@ import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType.CREDIT_CARD
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -43,7 +44,7 @@ class VerificationIntroInteractor @Inject constructor(
     returnUrl: String
   ): Single<VerificationPaymentModel> {
     return walletVerificationInteractor.makeVerificationPayment(
-      WalletVerificationInteractor.VerificationType.CREDIT_CARD, adyenPaymentMethod,
+      CREDIT_CARD, adyenPaymentMethod,
       shouldStoreMethod, returnUrl
     )
   }

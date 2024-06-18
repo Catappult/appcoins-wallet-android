@@ -101,6 +101,13 @@ interface IabView {
     frequency: String?
   )
 
+  fun showMiPayWeb(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    bonus: String?,
+  )
+
   fun showCarrierBilling(
     currency: String?,
     amount: BigDecimal,
@@ -178,7 +185,9 @@ interface IabView {
 
   fun showBackupNotification(walletAddress: String)
 
-  fun showVerification(isWalletVerified: Boolean)
+  fun showCreditCardVerification(isWalletVerified: Boolean)
+
+  fun showPayPalVerification()
 
   fun showError(@StringRes error: Int)
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topup_error_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/styleguide_blue"
+    >
+
+  <ImageView
+      android:id="@+id/validation_success_animation"
+      android:layout_width="72dp"
+      android:layout_height="72dp"
+      android:importantForAccessibility="no"
+      android:src="@drawable/ic_error_pink"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.3"
+      />
+
+  <TextView
+      android:id="@+id/error_title"
+      style="@style/TextL"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:text="@string/topup_no_method_available_title"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/validation_success_animation"
+      tools:text="@string/topup_no_method_available_title"
+      />
+  <!-- TODO change text to string that carlos will create-->
+  <TextView
+      android:id="@+id/error_message"
+      style="@style/TextM"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:text="@string/topup_no_method_available_body"
+      android:textAlignment="center"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/error_title"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

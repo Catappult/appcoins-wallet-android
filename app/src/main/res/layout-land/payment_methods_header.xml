@@ -13,6 +13,7 @@
       android:src="@drawable/ic_app_logo_icon"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:importantForAccessibility="no"
       />
 
   <TextView
@@ -54,6 +55,23 @@
       />
 
   <TextView
+      android:id="@+id/fiat_total_price_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="@color/styleguide_payments_main_text"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold"
+      android:textSize="16sp"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintTop_toBottomOf="@id/app_icon"
+      android:text="@string/total_title"
+      tools:visibility="visible"
+      />
+
+  <TextView
       android:id="@+id/fiat_price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -87,7 +105,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:text="@string/purchase_fee_included_body"
+      android:maxWidth="80dp"
+      android:text="@string/purchase_extra_charges_included_disclaimer_body"
       android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
       android:textStyle="bold"

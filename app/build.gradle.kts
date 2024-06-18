@@ -11,8 +11,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 310
-    versionName = "3.19.0"
+    versionCode = 317
+    versionName = "3.22.1"
   }
 }
 
@@ -109,7 +109,7 @@ dependencies {
 
   implementation(libs.bundles.analytics)
 
-  implementation(libs.lottie)
+  implementation(libs.bundles.lottie)
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)

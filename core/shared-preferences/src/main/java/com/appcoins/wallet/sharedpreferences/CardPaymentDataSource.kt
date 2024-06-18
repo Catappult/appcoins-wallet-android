@@ -17,7 +17,31 @@ class CardPaymentDataSource @Inject constructor(
       .apply()
   }
 
+  fun setGotItManageCard(isVisible: Boolean) {
+    sharedPreferences.edit()
+      .putBoolean(GOT_IT_MANAGE_CARD, isVisible)
+      .apply()
+  }
+
+  fun setPreferredCardId(cardId: String, walletAddress: String) {
+    sharedPreferences.edit()
+      .putString(PREFERRED_CARD_ID.plus(walletAddress), cardId)
+      .apply()
+  }
+
+
+  fun getPreferredCardId(walletAddress: String): String? {
+    return sharedPreferences.getString(PREFERRED_CARD_ID.plus(walletAddress), "")
+  }
+
+
+  fun isGotItVisible(): Boolean {
+    return sharedPreferences.getBoolean(GOT_IT_MANAGE_CARD, true)
+  }
+
   companion object {
     private const val MANDATORY_CVC = "mandatory_cvc"
+    private const val GOT_IT_MANAGE_CARD = "got_it_manage_card"
+    private const val PREFERRED_CARD_ID = "preferred_card_id"
   }
 }

@@ -21,7 +21,7 @@
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_card"
+        android:background="@drawable/background_rounded_styleguide_payments"
         android:clickable="true"
         android:elevation="2dp"
         android:focusable="true"
@@ -33,14 +33,12 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="0dp"
           android:layout_marginEnd="32dp"
           app:layout_constraintBottom_toTopOf="@id/cl_payment_container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           />
-
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/cl_payment_container"
           android:layout_width="match_parent"
@@ -76,28 +74,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-
-            <com.appcoins.wallet.ui.widgets.WalletButtonView
-                android:id="@+id/change_card_button"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/small_button_height"
-                android:layout_below="@id/adyen_card_form"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="8dp"
-                android:visibility="gone"
-                app:buttonColor="@color/styleguide_pink"
-                app:buttonText="@string/activity_iab_change_card_lower_case_button"
-                app:buttonType="text"
-                tools:visibility="visible"
-                />
-
             <com.appcoins.wallet.ui.widgets.WalletButtonView
                 android:id="@+id/more_payment_methods"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/small_button_height"
-                android:layout_below="@id/change_card_button"
+                android:layout_below="@id/adyen_card_form"
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone"
@@ -123,6 +104,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/composeView"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adyen_saved_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
             />
 
         <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -166,7 +163,7 @@
             android:layout_marginEnd="@dimen/big_margin"
             android:gravity="center_horizontal"
             android:text="@string/purchase_making_purchase_title"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_credit_card_authorization_progress_bar"
@@ -177,7 +174,7 @@
 
       <include
           android:id="@+id/bonus_layout"
-          layout="@layout/view_purchase_bonus"
+          layout="@layout/view_purchase_bonus_iap"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/cl_payment_container"
@@ -202,7 +199,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:gravity="center"
           android:text="@string/gamification_purchase_body"
-          android:visibility="invisible"
+          android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -267,6 +264,36 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="@id/dialog_buy_buttons"
           />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cv_legal_disclaimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/styleguide_payments_blue"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/credit_card_info"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="8dp"
+          android:layout_marginTop="8dp"
+          android:text="@string/purchase_legal_disclaimer"
+          android:textColor="@color/styleguide_dark_grey"
+          android:textSize="10dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

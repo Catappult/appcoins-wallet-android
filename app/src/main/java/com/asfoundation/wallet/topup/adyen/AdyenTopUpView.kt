@@ -38,10 +38,6 @@ interface AdyenTopUpView {
 
   fun setupRedirectComponent()
 
-  fun forgetCardClick(): Observable<Any>
-
-  fun forgetStoredCardClick(): Observable<Any>
-
   fun submitUriResult(uri: Uri)
 
   fun getPaymentDetails(): Observable<AdyenComponentResponseModel>
@@ -78,7 +74,7 @@ interface AdyenTopUpView {
 
   fun showBonus(bonus: BigDecimal, currency: String)
 
-  fun showVerification()
+  fun showVerification(paymentType: String)
 
   fun handle3DSAction(action: Action)
 
@@ -89,5 +85,7 @@ interface AdyenTopUpView {
   fun shouldStoreCard(): Boolean
 
   fun restartFragment()
+
+  fun hasStoredCardBuy(): Boolean
 
 }

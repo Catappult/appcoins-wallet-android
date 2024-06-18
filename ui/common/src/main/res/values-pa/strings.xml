@@ -327,7 +327,7 @@
   <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction details</string>
+  <string name="transaction_details_header">Transaction Details</string>
   <string name="transaction_details_txid">TxID</string>
   <string name="transaction_details_sku">SKU</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
@@ -452,7 +452,7 @@
   <string name="my_wallets_action_recover_wallet">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="my_wallets_action_verify_new_card">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
-  <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਡੀਲੀਟ ਕਰੋ</string>
+  <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਹਟਾਓ</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
   <string name="askafriend_generating_link_message">ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦਾ ਲਿੰਕ ਉਤਪੰਨ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -469,6 +469,7 @@
   <string name="askafriend_share_note_to_friend">ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਕਿਰਪਾ ਕਰਕੇ ਮੈਨੂੰ %2$s ਤੇ ਇਕ ਆਈਟਮ ਖਰੀਦਣ ਲਈ %1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਭੇਜੋ| ਲਿੰਕ: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ਫੰਡ ਭੇਜੋ</string>
+  <string name="p2p_receive_title">ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="p2p_send_body">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ ਜਾਂ ਸਕੈਨ ਕਰੋ|</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ਹੇਠ ਲਿਖੇ ਪਤੇ ਤੇ ਭੇਜੇ ਗਏ:</string>
   <string name="p2p_send_current_balance_message">ਮੌਜੂਦਾ ਬਕਾਇਆ: %1$s %2$s</string>
@@ -527,6 +528,9 @@
   <string name="continue_button">Continue</string>
   <string name="card_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="start_again_button">Start again</string>
+  <string name="max">Max</string>
+  <string name="amount">ਰਕਮ</string>
+  <string name="total_title">Total</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -535,6 +539,7 @@
   <string name="decline_button">ਅਸਵੀਕਾਰ ਕਰੋ</string>
   <string name="get_started">ਸ਼ੁਰੂ ਕਰੋ</string>
   <string name="existent_wallet">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
+  <string name="onboarding_verification_body">Verify your payment method to complete your purchase.</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">ਆਪਣੀ ਮਨਪਸੰਦ ਗੇਮ ਵਿੱਚ ਖਰੀਦਦਾਰੀ ਕਰੋ ਅਤੇ ਅਸੀਂ ਸੱਭ ਕੁੱਝ ਸੰਭਾਲ ਲਵਾਂਗੇ।</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
@@ -584,6 +589,9 @@
   <string name="verified_tag">ਪ੍ਰਮਾਣਿਤ</string>
   <string name="unferified_tag">ਪ੍ਰਮਾਣਿਤ ਨਾ ਕੀਤਾ ਬਟੂਆ</string>
   <string name="verification_wallets_verify_button">ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
+  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">One step away!</string>
   <string name="paypal_verification_home_one_step_card_body">Enter the code sent to your email address to verify your PayPal account.</string>
@@ -657,17 +665,26 @@
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
+  <string name="purchase_fees_and_taxes_known_disclaimer_body">%1$s %2$s with fees and VAT.</string>
+  <string name="purchase_extra_charges_included_disclaimer_body">extra charges included</string>
+  <string name="purchase_extra_charges_not_included_disclaimer_body">extra charges not included</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <string name="purchase_error_google_pay">There was a problem with Google Pay. Please try again or use a different payment method.</string>
   <string name="purchase_success_bonus_received_title">%s bonus received.</string>
   <string name="purchase_making_purchase_title">Making purchase&#8230;</string>
   <string name="purchase_fee_title">%1$s %2$s fee</string>
-  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee is included in the Total you can see in the top area.</string>
-  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee is included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_unsupported_currency_known_disclaimer">This payment method doesn\'t support your currency, so it\'ll charge a processing fee. This fee and VAT are included in the Total you can see in the top area.</string>
+  <string name="purchase_fee_supported_currency_known_disclaimer">This payment method charges a processing fee for this purchase. This fee and VAT are included in the Total you can see in the top area.</string>
   <string name="purchase_fee_unsupported_currency_unknown_disclaimer">This payment method doesn\'t support your currency, so it may charge a processing fee.</string>
-  <string name="purchase_fee_supported_currency_unknown_disclaimer">This payment method charges a processing fee for this purchase.</string>
+  <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
+  <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
+  <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
+  <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
+  <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
+  <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -969,9 +986,13 @@
   <!--Manage Cards-->
   <string name="manage_cards_settings_add_title">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
   <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+  <string name="manage_cards_add_credit_debit_card_button_">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਸ਼ਾਮਲ ਕਰੋ</string>
+  <string name="manage_cards_add_credit_debit_card_top_up_button_">Use a different card</string>
   <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+  <string name="manage_cards_empty_body">You don\'t have any saved cards yet.</string>
   <string name="manage_cards_view_manage_subtitle">ਆਪਣੇ ਭੁਗਤਾਨ ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_add_title">Add New Card</string>
+  <string name="manage_cards_add_button">Add card</string>
   <string name="manage_cards_remove_confirmation">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਕਾਰਡ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="manage_cards_remove_no">No, cancel</string>
   <string name="manage_cards_remove_yes">Yes, remove it</string>
@@ -986,6 +1007,8 @@
   <string name="card_added_title">Card added</string>
   <string name="card_removed">Card removed</string>
   <string name="choose_card_title">Choose card</string>
+  <string name="manage_cards_update_disclaimer_1">To update or remove cards go to:</string>
+  <string name="manage_cards_update_disclaimer_2">Settings &gt; Manage Cards</string>
   <!--Perks-->
   <string name="perks_gamif_title">ਹਰ ਖਰੀਦ ਤੇ %s%% ਬੋਨਸ ਕਮਾਓ</string>
   <string name="perks_gamif_subtitle">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>
@@ -1255,7 +1278,7 @@
   <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
   <string name="rewards_eskills_card_title">e-Skills</string>
   <string name="rewards_eskills_card_body">Withdraw your e-Skills earnings.</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
+  <string name="rewards_promo_code_card_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">ਐਕਟਿਵ</string>
@@ -1265,6 +1288,8 @@
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">%s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
+  <string name="manage_wallet_settings_item">Manage Wallets</string>
+  <string name="manage_wallet_view_title">Manage Wallets</string>
   <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
   <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
   <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
@@ -1272,6 +1297,7 @@
   <string name="manage_wallet_my_wallet_address_title">My Wallet Address</string>
   <string name="manage_wallet_verify_title">Verify a Payment Method</string>
   <string name="manage_wallet_verify_body">Avoid blockages by verifying a payment method.</string>
+  <string name="manage_wallet_currency_disclaimer">Your balance is shown in your local currency for simplicity, but it\'s tied to USD, so changes in USD value may impact your balance.</string>
   <!-- Refactor Verify Payment Method -->
   <string name="verify_card_title">Verify a Payment Method</string>
   <string name="verify_card_body">Avoid blockages by verifying a payment method.</string>
@@ -1297,6 +1323,16 @@
   <string name="challenge_reward_card_body">Complete a challenge to get AppCoins Credits.</string>
   <!-- First purchase -->
   <string name="bonus_granted_body">Enjoy %s in AppCoins Credits in your wallet</string>
+  <!-- Mailing list -->
+  <string name="mail_list_card_title">Stay Tuned!</string>
+  <string name="mail_list_card_body">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_card_confirmation_title">Confirm Your Email</string>
+  <string name="mail_list_card_confirmation_body">We\'ve sent an email to %s</string>
+  <string name="mail_list_backup">Join our mailing list to get exclusive updates and a chance to win a gift card.</string>
+  <string name="mail_list_confirmation_email_subject">Confirm your email - AppCoins Mailing List</string>
+  <string name="mail_list_confirmation_email_body">Hi!\n\nThanks for joining the AppCoins mailing list. Please confirm your email address by clicking the button below:</string>
+  <string name="mail_list_confirmation_email_button">Confirm email</string>
+  <string name="mail_list_confirmation_email_signature">Cheers,\nThe AppCoins Team</string>
   <!-- platform.vk.com !-->
   <!-- Your protected key from platform.vk.com !-->
   <!-- VK (OAuth) for external services: Use template vk<com_vk_sdk_AppId>://vk.com -->

@@ -4,6 +4,12 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.MANAGE_PAYMENT_CARDS
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION
+import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK
 import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
@@ -64,7 +70,30 @@ class AnalyticsModule {
       ONBOARDING_PAYMENT,
       WALLET_ONBOARDING_RECOVER_WEB,
       CHALLENGE_REWARD_EVENT,
-      WALLET_APP_ACTIVE_PROMOTION_CLICK
+      WALLET_APP_ACTIVE_PROMOTION_CLICK,
+      WALLET_APP_REWARDS_SCREEN_IMPRESSION,
+      WALLET_APP_REWARDS_SCREEN_CLICK,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK,
+      WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION,
+      WALLET_APP_REPLACE_PROMO_CODE_CLICK,
+      WALLET_APP_ACTIVE_PROMOTION_CLICK,
+      WALLET_APP_TOP_UP_IMPRESSION,
+      WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK,
+      WALLET_PAYMENT_START_CARD_LIST,
+      WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION,
+      WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK,
+      WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION,
+      MANAGE_PAYMENT_CARDS,
+      WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK,
+      WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION,
+      WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
+      WALLET_APP_SETTINGS_CLICK,
+      WALLET_APP_TOP_UP_CLICK,
     )
 
   @Singleton
@@ -103,6 +132,28 @@ class AnalyticsModule {
       WALLET_ONBOARDING_RECOVER_WEB,
       CHALLENGE_REWARD_EVENT,
       WALLET_APP_ACTIVE_PROMOTION_CLICK,
+      WALLET_APP_REWARDS_SCREEN_IMPRESSION,
+      WALLET_APP_REWARDS_SCREEN_CLICK,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION,
+      WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION,
+      WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK,
+      WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION,
+      WALLET_APP_REPLACE_PROMO_CODE_CLICK,
+      WALLET_APP_TOP_UP_IMPRESSION,
+      WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK,
+      WALLET_PAYMENT_START_CARD_LIST,
+      WALLET_APP_ADD_NEW_CARD_DETAILS_IMPRESSION,
+      WALLET_APP_ADD_NEW_CARD_DETAILS_CLICK,
+      WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION,
+      MANAGE_PAYMENT_CARDS,
+      WALLET_APP_REMOVE_SAVED_CARD_PROMPT_CLICK,
+      WALLET_APP_REMOVED_CARD_CONCLUSION_IMPRESSION,
+      WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
+      WALLET_APP_SETTINGS_CLICK,
+      WALLET_APP_TOP_UP_CLICK,
     )
 
   @Singleton
@@ -136,6 +187,14 @@ class AnalyticsModule {
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     const val WALLET_TOP_UP_BILLING = "wallet_top_up_billing"
+    const val WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION =
+      "wallet_app_manage_payment_cards_impression"
+    const val WALLET_APP_SETTINGS_CLICK = "wallet_app_settings_click"
+    const val WALLET_APP_TOP_UP_CLICK = "wallet_app_top_up_click"
+    const val WALLET_APP_TOP_UP_IMPRESSION = "wallet_app_top_up_impression"
+    const val WALLET_APP_TOP_UP_CHANGE_CARD_PROMPT_CLICK =
+      "wallet_app_top_up_change_card_prompt_click"
+    const val WALLET_PAYMENT_START_CARD_LIST = "wallet_payment_start_change_card_prompt_click"
     const val TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT =
       "wallet_top_default_value_ab_testing_participating"  //TopUpDefaultValueProb
     const val WALLET_RATING_WELCOME_EVENT = "wallet_rating_welcome" //RatingAnalytics
@@ -156,6 +215,23 @@ class AnalyticsModule {
     const val WALLET_CALLOUT_PROMOTIONS_CLICK = "wallet_callout_promotions_click" //NavBarAnalytics
     const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION =
       "wallet_payment_conclusion_navigation" //OnBoardingPaymentsEvent
+    private const val WALLET_APP_REWARDS_SCREEN_IMPRESSION = "wallet_app_rewards_screen_impression"
+    private const val WALLET_APP_REWARDS_SCREEN_CLICK = "wallet_app_rewards_screen_click"
+    private const val WALLET_APP_SUBMIT_NEW_PROMO_CODE_IMPRESSION =
+      "wallet_app_submit_new_promo_code_impression"
+    private const val WALLET_APP_SUBMIT_NEW_PROMO_CODE_CLICK =
+      "wallet_app_submit_new_promo_code_click"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_IMPRESSION =
+      "wallet_app_submit_promo_code_success_impression"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_SUCCESS_CLICK =
+      "wallet_app_submit_promo_code_success_click"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_ERROR_IMPRESSION =
+      "wallet_app_submit_promo_code_error_impression"
+    private const val WALLET_APP_SUBMIT_PROMO_CODE_ERROR_CLICK =
+      "wallet_app_submit_promo_code_error_click"
+    private const val WALLET_APP_REPLACE_PROMO_CODE_IMPRESSION =
+      "wallet_app_replace_promo_code_impression"
+    private const val WALLET_APP_REPLACE_PROMO_CODE_CLICK = "wallet_app_replace_promo_code_click"
     const val ONBOARDING_PAYMENT = "onboarding_payment"
     const val WALLET_ONBOARDING_RECOVER_WEB = "wallet_onboarding_recover_web"
     const val VERSION_CODE = 259 //com.asf.wallet.BuildConfig

@@ -81,6 +81,128 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <androidx.cardview.widget.CardView
+      android:id="@+id/onboarding_verify_guest_wallet"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginHorizontal="16dp"
+      android:layout_marginBottom="16dp"
+      android:backgroundTint="@color/styleguide_blue_secondary"
+      android:visibility="invisible"
+      app:cardCornerRadius="16dp"
+      app:layout_constraintBottom_toBottomOf="@id/onboarding_action"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/onboarding_action"
+      tools:visibility="visible"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+      <TextView
+          android:id="@+id/onboarding_verify_text"
+          style="@style/OnboardingValuesBodyTextStyle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="16dp"
+          android:gravity="center"
+          android:text="@string/onboarding_verification_body"
+          android:textSize="14sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/onboarding_guest_verify_button"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/onboarding_guest_verify_button"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/onboarding_button_height"
+          android:layout_marginEnd="16dp"
+          app:buttonText="@string/referral_view_verify_button"
+          app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="@id/onboarding_guest_launch_button"
+          app:layout_constraintEnd_toStartOf="@id/onboarding_guest_launch_button"
+          app:layout_constraintTop_toTopOf="@id/onboarding_guest_launch_button"
+          tools:visibility="visible"
+          />
+
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
+          android:id="@+id/onboarding_guest_launch_button"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/onboarding_button_height"
+          android:layout_marginEnd="16dp"
+          app:buttonText="@string/intro_get_started_button"
+          app:buttonType="outlined_grey"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="visible"
+          />
+
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/loading_verify_animation"
+          android:layout_width="80dp"
+          android:layout_height="80dp"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="@id/onboarding_guest_launch_button"
+          app:layout_constraintHorizontal_bias="0.2"
+          app:layout_constraintStart_toStartOf="@+id/onboarding_guest_verify_button"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_wallet"
+          tools:visibility="invisible"
+          />
+
+      <TextView
+          android:id="@+id/onboarding_verify_launch_text"
+          style="@style/OnboardingRecoverGuestBodyTextStyle"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/launching_wallet_body"
+          android:textColor="@color/styleguide_medium_grey"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toEndOf="@+id/loading_verify_animation"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="invisible"
+          />
+
+      <!--- it needs to be here just to keep consistence with portrait view -->
+      <TextView
+          android:id="@+id/or_text"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:visibility="gone"
+          tools:ignore="MissingConstraints"
+          />
+
+      <View
+          android:id="@+id/left_line"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:visibility="gone"
+          tools:ignore="MissingConstraints"
+          />
+
+      <View
+          android:id="@+id/right_line"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:visibility="gone"
+          tools:ignore="MissingConstraints"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.cardview.widget.CardView>
+
+  <androidx.cardview.widget.CardView
       android:id="@+id/onboarding_recover_guest_wallet"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -92,7 +214,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      tools:visibility="visible"
+      tools:visibility="invisible"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
