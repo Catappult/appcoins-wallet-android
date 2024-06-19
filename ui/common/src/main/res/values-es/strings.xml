@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Más tarde</string>
   <string name="connection_error_title">Sin conexión a internet</string>
   <string name="connection_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
-  <string name="common_or">O</string>
+  <string name="common_or">or</string>
   <string name="share_via">Compartir a través de:</string>
   <string name="password">Contraseña</string>
   <string name="repeat_password">Repite la contraseña</string>
