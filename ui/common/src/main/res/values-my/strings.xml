@@ -493,7 +493,7 @@
   <string name="do_it_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="connection_error_title">အင္တာနက္ခ်ိတ္ဆက္မႈ မရွိပါ</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
-  <string name="common_or">သို႔မဟုတ္</string>
+  <string name="common_or">or</string>
   <string name="share_via">မွ်ေ၀ရန္ -</string>
   <string name="password">စကားဝွက္</string>
   <string name="repeat_password">စကားဝွက္ကို ျပန္ထည့္ပါ</string>
