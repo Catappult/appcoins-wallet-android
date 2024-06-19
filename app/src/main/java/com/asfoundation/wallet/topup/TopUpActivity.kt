@@ -34,13 +34,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCar
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
-import com.truelayer.payments.core.domain.configuration.Environment
-import com.truelayer.payments.core.domain.configuration.HttpConnectionConfiguration
-import com.truelayer.payments.core.domain.configuration.HttpLoggingLevel
-import com.truelayer.payments.ui.TrueLayerUI
-import com.truelayer.payments.ui.screens.processor.ProcessorActivityContract
-import com.truelayer.payments.ui.screens.processor.ProcessorContext
-import com.truelayer.payments.ui.screens.processor.ProcessorResult
 import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -119,41 +112,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     presenter.processActivityResult(requestCode, resultCode, data)
-  }
-
-  private fun launchPayment() {
-    TrueLayerUI.init(context = views.root.context) {
-      // optionally choose which environment you want to use: PRODUCTION or SANDBOX
-      environment = Environment.SANDBOX
-      // Make your own custom http configuration, stating custom timeout and http request logging level
-      httpConnection = HttpConnectionConfiguration(
-        httpDebugLoggingLevel = HttpLoggingLevel.None
-      )
-    }
-    // Register for the end result.
-    val contract = ProcessorActivityContract()
-    val processorResult = registerForActivityResult(contract) {
-      val text = when (it) {
-        is ProcessorResult.Failure -> {
-          "Failure ${it.reason}"
-        }
-
-        is ProcessorResult.Successful -> {
-          "Successful ${it.step}"
-        }
-      }
-      // present the final result
-      Toast.makeText(views.root.context, text, Toast.LENGTH_LONG).show()
-    }
-
-    val paymentContext = ProcessorContext.PaymentContext(
-      id = "",
-      resourceToken = "",
-      redirectUri = ""
-    )
-    // 🚀 Launch the payment flow.
-    processorResult.launch(paymentContext)
-
   }
 
   override fun showTopUpScreen() {
