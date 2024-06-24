@@ -1,7 +1,5 @@
-package com.appcoins.wallet.core.network.backend.api
+package com.appcoins.wallet.core.network.base.compat
 
-
-import com.appcoins.wallet.core.network.backend.model.WalletEmailRequest
 import io.reactivex.Completable
 import retrofit2.http.Body
 import retrofit2.http.Header

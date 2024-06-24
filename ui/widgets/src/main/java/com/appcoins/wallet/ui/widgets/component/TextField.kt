@@ -59,7 +59,7 @@ fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (
     onValueChange = onValueChange,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(bottom = 24.dp),
+      .padding(bottom = 8.dp),
     singleLine = true,
     shape = RoundedCornerShape(8.dp),
     colors =

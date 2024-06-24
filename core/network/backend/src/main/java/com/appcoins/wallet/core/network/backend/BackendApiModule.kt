@@ -9,7 +9,6 @@ import com.appcoins.wallet.core.network.backend.api.CachedBackupApi
 import com.appcoins.wallet.core.network.backend.api.CachedGuestWalletApi
 import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
 import com.appcoins.wallet.core.network.backend.api.CountryApi
-import com.appcoins.wallet.core.network.backend.api.EmailApi
 import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.api.GasServiceApi
@@ -28,6 +27,7 @@ import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.core.network.base.compat.EmailApi
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper

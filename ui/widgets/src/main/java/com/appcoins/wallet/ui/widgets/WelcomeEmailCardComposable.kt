@@ -64,7 +64,7 @@ fun WelcomeEmailCard(
     Column(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(end = 16.dp, bottom = 16.dp, start = 16.dp, top = 8.dp)
+        .padding(end = 16.dp, bottom = 16.dp, start = 16.dp, top = 0.dp)
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Animation(modifier = Modifier.size(30.dp), animationRes = R.raw.bonus_gift_animation)
@@ -81,7 +81,7 @@ fun WelcomeEmailCard(
         color = Color.White,
         fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
-        modifier = Modifier.padding(top = 10.dp, end = 16.dp, start = 2.dp)
+        modifier = Modifier.padding(top = 10.dp, end = 16.dp, start = 4.dp)
       )
       Spacer(modifier = Modifier.height(19.dp))
       Box(

@@ -16,6 +16,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
+import com.appcoins.wallet.core.network.base.compat.PostUserEmailUseCase
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -59,7 +60,6 @@ import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
-import com.asfoundation.wallet.wallet.home.uses_case.PostUserEmailUseCase
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable

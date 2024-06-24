@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.backend.model
+package com.appcoins.wallet.core.network.base.compat
 
 
 import com.google.gson.annotations.SerializedName

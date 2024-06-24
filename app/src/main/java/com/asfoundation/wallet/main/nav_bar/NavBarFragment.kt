@@ -83,7 +83,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     initHostFragments()
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-    adjustBottomNavigationViewOnKeyboardVisibility()
+//    adjustBottomNavigationViewOnKeyboardVisibility()  //TODO fix bottom nav
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
   }

@@ -1,7 +1,5 @@
-package com.appcoins.wallet.feature.walletInfo.data.email
+package com.appcoins.wallet.core.network.base.compat
 
-import com.appcoins.wallet.core.network.backend.api.EmailApi
-import com.appcoins.wallet.core.network.backend.model.WalletEmailRequest
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import javax.inject.Inject
