@@ -9,6 +9,7 @@ import com.appcoins.wallet.core.network.backend.api.CachedBackupApi
 import com.appcoins.wallet.core.network.backend.api.CachedGuestWalletApi
 import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
 import com.appcoins.wallet.core.network.backend.api.CountryApi
+import com.appcoins.wallet.core.network.backend.api.EmailApi
 import com.appcoins.wallet.core.network.backend.api.GamesApi
 import com.appcoins.wallet.core.network.backend.api.GamificationApi
 import com.appcoins.wallet.core.network.backend.api.GasServiceApi
@@ -252,5 +253,13 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): SupportApi {
     return retrofit.create(SupportApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesEmailApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): EmailApi {
+    return retrofit.create(EmailApi::class.java)
   }
 }

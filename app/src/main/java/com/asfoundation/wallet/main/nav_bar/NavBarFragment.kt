@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +12,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
@@ -82,6 +83,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     initHostFragments()
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    adjustBottomNavigationViewOnKeyboardVisibility()
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
   }
@@ -108,19 +110,25 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
           }
         }
       } else {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier
+          .fillMaxWidth()
+          .heightIn(min = 60.dp, max = 64.dp)) {
           ConnectionAlert(isConnected = connectionObserver)
-          BottomAppBar(
-            containerColor = styleguide_blue_secondary,
-            modifier = Modifier.height(64.dp),
-            content = {
-              Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier.fillMaxWidth()
-              ) {
-                NavigationItems(styleguide_blue_secondary)
-              }
-            })
+          Card(
+            colors = CardDefaults.cardColors(containerColor = styleguide_blue),
+            modifier = Modifier
+              .padding(16.dp)
+              .clip(CircleShape)
+          ) {
+            Row(
+              horizontalArrangement = Arrangement.SpaceEvenly,
+              modifier = Modifier
+                .fillMaxSize()
+                .heightIn(min = 60.dp, max = 64.dp)
+            ) {
+              NavigationItems(styleguide_blue_secondary)
+            }
+          }
         }
       }
     }
@@ -222,5 +230,21 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   private fun showOnboardingRecoverGuestWallet(backup: String) {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
+  }
+
+  private fun adjustBottomNavigationViewOnKeyboardVisibility() {
+    views.root.viewTreeObserver?.addOnGlobalLayoutListener {
+      val rect = Rect()
+      views.root.getWindowVisibleDisplayFrame(rect)
+      val screenHeight = views.root.height
+      val keypadHeight = screenHeight - rect.bottom
+      if (keypadHeight > screenHeight * 0.15) {
+        //hide compose
+        views.composeView.visibility = View.GONE
+      } else {
+        // show bottomNav
+        views.composeView.visibility = View.VISIBLE
+      }
+    }
   }
 }

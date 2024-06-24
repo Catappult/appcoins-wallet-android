@@ -80,19 +80,21 @@ fun WalletTextFieldCustom(value: String, hintText: Int? = null, onValueChange: (
 
 @Composable
 fun WalletTextField(
+  modifier: Modifier,
   value: String,
   placeHolder: String,
   backgroundColor: Color = WalletColors.styleguide_blue,
   trailingIcon: @Composable (() -> Unit)? = null,
   keyboardType: KeyboardType = KeyboardType.Text,
+  roundedCornerShape: RoundedCornerShape,
   onValueChange: (String) -> Unit
 ) {
   TextField(
     value = value,
     onValueChange = onValueChange,
-    modifier = Modifier.fillMaxWidth(),
+    modifier = modifier,
     singleLine = true,
-    shape = RoundedCornerShape(8.dp),
+    shape = roundedCornerShape,
     colors =
     TextFieldDefaults.colors(
       focusedContainerColor = backgroundColor,
@@ -253,7 +255,12 @@ fun WalletCodeTextFieldItem(
 @Preview
 @Composable
 fun WalletTextFieldPreview() {
-  WalletTextField("Password", "*******", onValueChange = {})
+  WalletTextField(
+    modifier = Modifier.fillMaxWidth(),
+    "Password",
+    "*******",
+    roundedCornerShape = RoundedCornerShape(8.dp),
+    onValueChange = {})
 }
 
 @Preview

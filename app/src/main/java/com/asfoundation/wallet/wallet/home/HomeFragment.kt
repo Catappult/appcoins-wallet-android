@@ -30,6 +30,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -53,12 +54,14 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.appcoins.wallet.ui.widgets.ConfirmEmailCard
 import com.appcoins.wallet.ui.widgets.GamesBundle
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingPromotionCards
 import com.appcoins.wallet.ui.widgets.SkeletonLoadingTransactionCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
+import com.appcoins.wallet.ui.widgets.WelcomeEmailCard
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.openGame
 import com.asf.wallet.R
@@ -176,6 +179,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         (viewModel.isLoadingOrIdleBalanceState() && !hasGetSomeValidBalanceResult.value) ||
             !viewModel.isLoadingTransactions.value
       )
+      UserEmailCard()
       PromotionsList()
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
       GamesBundle(
@@ -211,7 +215,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           ) {
             Text(
               text = stringResource(R.string.intro_transactions_header),
-              modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
+              modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 16.dp),
               style = MaterialTheme.typography.bodyMedium,
               fontWeight = FontWeight.Bold,
               color = WalletColors.styleguide_dark_grey
@@ -230,7 +234,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         ) {
           Text(
             text = stringResource(R.string.intro_transactions_header),
-            modifier = Modifier.padding(start = 8.dp, bottom = 16.dp, top = 26.dp),
+            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, top = 8.dp),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
             color = WalletColors.styleguide_dark_grey
@@ -249,7 +253,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         color = WalletColors.styleguide_dark_grey,
-        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+        modifier = Modifier.padding(top = 16.dp, end = 13.dp, start = 24.dp)
       )
     }
     if (viewModel.activePromotions.isEmpty() && viewModel.isLoadingOrIdlePromotionState()) {
@@ -258,7 +262,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
         color = WalletColors.styleguide_dark_grey,
-        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+        modifier = Modifier.padding(top = 16.dp, end = 13.dp, start = 24.dp)
       )
     }
     LazyRow(
@@ -271,6 +275,33 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       } else {
         items(viewModel.activePromotions) { promotion ->
           PromotionsCardComposable(cardItem = promotion)
+        }
+      }
+    }
+  }
+
+  @Composable
+  fun UserEmailCard() {
+    val email = remember { mutableStateOf("") }
+    val hideUserEmailCard =
+      remember { mutableStateOf(viewModel.isHideWalletEmailCardPreferencesData()) }
+    val hasSavedEmail = remember { mutableStateOf(viewModel.getWalletEmailPreferencesData()) }
+    if (!hideUserEmailCard.value) {
+      if (!hasSavedEmail.value) {
+        WelcomeEmailCard(
+          email,
+          {
+            viewModel.postUserEmail(email.value)
+            hasSavedEmail.value = true
+          },
+          {
+            viewModel.saveHideWalletEmailCardPreferencesData(true)
+            hideUserEmailCard.value = true
+          })
+      } else {
+        ConfirmEmailCard(email = email) {
+          viewModel.saveHideWalletEmailCardPreferencesData(true)
+          hideUserEmailCard.value = true
         }
       }
     }

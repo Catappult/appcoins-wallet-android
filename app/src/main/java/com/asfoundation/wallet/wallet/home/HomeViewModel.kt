@@ -30,6 +30,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -58,6 +59,7 @@ import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.wallet.home.uses_case.PostUserEmailUseCase
 import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -133,7 +135,9 @@ constructor(
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger,
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val postUserEmailUseCase: PostUserEmailUseCase,
+  private val emailPreferencesDataSource: EmailPreferencesDataSource,
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -223,6 +227,32 @@ constructor(
       fetchTransactions(wallet, defaultCurrency)
     }.doOnError { it.printStackTrace() }
       .subscribe()
+  }
+
+  fun postUserEmail(email: String) {
+    postUserEmailUseCase(email)
+      .doOnComplete {
+        saveWalletEmailPreferencesData(true)
+      }.doOnError {
+        it.printStackTrace()
+      }
+      .scopedSubscribe { e -> e.printStackTrace() }
+  }
+
+  private fun saveWalletEmailPreferencesData(hasEmailSaved: Boolean) {
+    emailPreferencesDataSource.saveWalletEmail(hasEmailSaved)
+  }
+
+  fun getWalletEmailPreferencesData(): Boolean {
+    return emailPreferencesDataSource.getWalletEmail()
+  }
+
+  fun saveHideWalletEmailCardPreferencesData(hasEmailSaved: Boolean) {
+    emailPreferencesDataSource.saveHideWalletEmailCard(hasEmailSaved)
+  }
+
+  fun isHideWalletEmailCardPreferencesData(): Boolean {
+    return emailPreferencesDataSource.isHideWalletEmailCard()
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
