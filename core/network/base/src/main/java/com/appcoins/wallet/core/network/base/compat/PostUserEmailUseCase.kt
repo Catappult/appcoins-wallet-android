@@ -15,12 +15,12 @@ constructor(
   private val schedulers: RxSchedulers
 ) {
   operator fun invoke(email: String): Completable {
-    return Completable.defer {
-      ewtObtainer.getEwtAuthentication()
-        .observeOn(schedulers.io)
-        .flatMapCompletable { ewt ->
-          emailRepository.postUserEmail(ewt, email)
+    return ewtObtainer.getEwtAuthentication()
+      .observeOn(schedulers.io)
+      .flatMapCompletable { ewt ->
+        emailRepository.postUserEmail(ewt, email).doOnComplete {
+          emailPreferencesDataSource.saveWalletEmail(true)
         }
-    }
+      }
   }
 }

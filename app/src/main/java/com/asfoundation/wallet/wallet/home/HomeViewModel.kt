@@ -230,17 +230,10 @@ constructor(
   }
 
   fun postUserEmail(email: String) {
-    postUserEmailUseCase(email)
-      .doOnComplete {
-        saveWalletEmailPreferencesData(true)
-      }.doOnError {
-        it.printStackTrace()
-      }
+    postUserEmailUseCase(email).doOnError {
+      it.printStackTrace()
+    }
       .scopedSubscribe { e -> e.printStackTrace() }
-  }
-
-  private fun saveWalletEmailPreferencesData(hasEmailSaved: Boolean) {
-    emailPreferencesDataSource.saveWalletEmail(hasEmailSaved)
   }
 
   fun getWalletEmailPreferencesData(): Boolean {

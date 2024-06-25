@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +51,7 @@ import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, NavBarSideEffect> {
 
@@ -61,6 +64,8 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private val pushNotificationPermissionLauncher =
     registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
+  private var keyboardListener: OnGlobalLayoutListener? = null
 
   @Inject
   lateinit var navigator: NavBarFragmentNavigator
@@ -82,6 +87,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     initHostFragments()
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    adjustBottomNavigationViewOnKeyboardVisibility()
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
   }
@@ -226,6 +232,24 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
   private fun showOnboardingRecoverGuestWallet(backup: String) {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
+  }
+
+  private fun adjustBottomNavigationViewOnKeyboardVisibility() {
+    keyboardListener = OnGlobalLayoutListener {
+      try {
+        val rect = Rect()
+        views.root.getWindowVisibleDisplayFrame(rect)
+        val screenHeight = views.root.height
+        val keypadHeight = screenHeight - rect.bottom
+        if (keypadHeight > screenHeight * 0.15) {
+          views.composeView.visibility = View.GONE
+        } else {
+          views.composeView.visibility = View.VISIBLE
+        }
+      } catch (e: Exception) {
+      }
+    }
+    views.root.viewTreeObserver?.addOnGlobalLayoutListener(keyboardListener)
   }
 
 }
