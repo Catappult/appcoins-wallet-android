@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.main.nav_bar
 
-import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
@@ -25,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
@@ -36,7 +36,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
@@ -83,7 +82,6 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     initHostFragments()
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
-//    adjustBottomNavigationViewOnKeyboardVisibility()  //TODO fix bottom nav
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
   }
@@ -110,23 +108,21 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
           }
         }
       } else {
-        Column(modifier = Modifier
-          .fillMaxWidth()
-          .heightIn(min = 60.dp, max = 64.dp)) {
+        Column(modifier = Modifier.fillMaxWidth()) {
           ConnectionAlert(isConnected = connectionObserver)
-          Card(
-            colors = CardDefaults.cardColors(containerColor = styleguide_blue),
+          Column(
             modifier = Modifier
-              .padding(16.dp)
-              .clip(CircleShape)
+              .fillMaxWidth()
+              .height(64.dp)
+              .background(styleguide_blue, RectangleShape)
           ) {
             Row(
               horizontalArrangement = Arrangement.SpaceEvenly,
+              verticalAlignment = Alignment.CenterVertically,
               modifier = Modifier
                 .fillMaxSize()
-                .heightIn(min = 60.dp, max = 64.dp)
             ) {
-              NavigationItems(styleguide_blue_secondary)
+              NavigationItems(styleguide_blue)
             }
           }
         }
@@ -232,19 +228,4 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
   }
 
-  private fun adjustBottomNavigationViewOnKeyboardVisibility() {
-    views.root.viewTreeObserver?.addOnGlobalLayoutListener {
-      val rect = Rect()
-      views.root.getWindowVisibleDisplayFrame(rect)
-      val screenHeight = views.root.height
-      val keypadHeight = screenHeight - rect.bottom
-      if (keypadHeight > screenHeight * 0.15) {
-        //hide compose
-        views.composeView.visibility = View.GONE
-      } else {
-        // show bottomNav
-        views.composeView.visibility = View.VISIBLE
-      }
-    }
-  }
 }
