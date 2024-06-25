@@ -179,6 +179,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
     views.onboardingVerifyLaunchText.visibility = View.INVISIBLE
+    views.onboardingAction.visibility = View.INVISIBLE
 
   }
 
@@ -191,6 +192,8 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingGuestLaunchButton.visibility = View.INVISIBLE
     views.onboardingGuestVerifyButton.visibility = View.INVISIBLE
     views.orText.visibility = View.INVISIBLE
+    views.leftLine.visibility = View.INVISIBLE
+    views.rightLine.visibility = View.INVISIBLE
   }
 
   private fun showGuestBonus(bonus: FiatValue) {

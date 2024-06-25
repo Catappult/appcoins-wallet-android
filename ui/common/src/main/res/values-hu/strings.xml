@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Majd később</string>
   <string name="connection_error_title">Nincs internetkapcsolat</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
-  <string name="common_or">VAGY</string>
+  <string name="common_or">or</string>
   <string name="share_via">Megosztás ezen keresztül:</string>
   <string name="password">Jelszó</string>
   <string name="repeat_password">Ismételd meg a jelszót</string>
