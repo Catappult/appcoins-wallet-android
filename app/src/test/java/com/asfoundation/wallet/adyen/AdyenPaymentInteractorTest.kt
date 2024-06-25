@@ -14,6 +14,7 @@ import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.verification.VerificationType
 import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -110,12 +111,13 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(
       walletVerificationInteractor.isVerified(
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE
+        TEST_WALLET_SIGNATURE,
+        VerificationType.CREDIT_CARD
       )
     )
       .thenReturn(Single.just(false))
 
-    interactor.isWalletVerified()
+    interactor.isWalletVerified(VerificationType.CREDIT_CARD)
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -128,11 +130,15 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
       .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(
-      walletVerificationInteractor.isVerified(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)
+      walletVerificationInteractor.isVerified(
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE,
+        VerificationType.CREDIT_CARD
+      )
     )
       .thenReturn(Single.error(Throwable("Error")))
 
-    interactor.isWalletVerified()
+    interactor.isWalletVerified(VerificationType.CREDIT_CARD)
       .subscribe(testObserver)
 
     testObserver.assertNoErrors()

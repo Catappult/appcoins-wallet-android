@@ -49,6 +49,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_2_body"
+          android:textAlignment="center"
           />
     </LinearLayout>
   </LinearLayout>
@@ -94,6 +95,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_3_body"
+          android:textAlignment="center"
           />
     </LinearLayout>
 
@@ -140,6 +142,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="@string/intro_4_body"
+          android:textAlignment="center"
           />
     </LinearLayout>
   </LinearLayout>

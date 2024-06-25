@@ -107,8 +107,9 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="16dp"
-          android:gravity="start|center"
+          android:gravity="center"
           android:text="@string/onboarding_verification_body"
+          android:textSize="14sp"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/onboarding_guest_verify_button"
           app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +126,7 @@
           app:layout_constraintBottom_toBottomOf="@id/onboarding_guest_launch_button"
           app:layout_constraintEnd_toStartOf="@id/onboarding_guest_launch_button"
           app:layout_constraintTop_toTopOf="@id/onboarding_guest_launch_button"
-          tools:visibility="invisible"
+          tools:visibility="visible"
           />
 
       <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -138,7 +139,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          tools:visibility="invisible"
+          tools:visibility="visible"
           />
 
       <com.airbnb.lottie.LottieAnimationView
@@ -155,7 +156,7 @@
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"
           app:lottie_rawRes="@raw/loading_wallet"
-          tools:visibility="visible"
+          tools:visibility="invisible"
           />
 
       <TextView
@@ -171,7 +172,7 @@
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toEndOf="@+id/loading_verify_animation"
           app:layout_constraintTop_toTopOf="parent"
-          tools:visibility="visible"
+          tools:visibility="invisible"
           />
 
       <!--- it needs to be here just to keep consistence with portrait view -->
@@ -180,6 +181,23 @@
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:visibility="gone"
+          tools:ignore="MissingConstraints"
+          />
+
+      <View
+          android:id="@+id/left_line"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:visibility="gone"
+          tools:ignore="MissingConstraints"
+          />
+
+      <View
+          android:id="@+id/right_line"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:visibility="gone"
+          tools:ignore="MissingConstraints"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

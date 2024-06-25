@@ -347,7 +347,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     updateHeaderInfo(currency, fiatAmount, frequency, isSubscription)
 
     setupPaymentMethod(paymentMethod, isBonusActive, isSubscription)
-
     setupSubject!!.onNext(true)
   }
 
@@ -476,6 +475,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showProgressBarLoading() {
     binding.paymentMethods.visibility = View.INVISIBLE
     binding.loadingAnimation.visibility = View.VISIBLE
+    binding.cvLegalDisclaimer?.visibility = View.GONE
+    binding.tvLegalDisclaimer?.visibility = View.GONE
   }
 
   override fun hideLoading() {
@@ -498,6 +499,10 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
         binding.paymentMethodsListGroup.visibility = View.VISIBLE
         binding.preSelectedPaymentMethodGroup.visibility = View.GONE
       }
+      binding.cvLegalDisclaimer?.visibility =
+        if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
+      binding.tvLegalDisclaimer?.visibility =
+        if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
       binding.loadingAnimation.visibility = View.GONE
     }
   }
@@ -846,10 +851,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   override fun showBonus(@StringRes bonusText: Int) {
-    binding.cvLegalDisclaimer?.visibility =
-      if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
-    binding.tvLegalDisclaimer?.visibility =
-      if (getCachedShowRefundDisclaimerUseCase()) View.VISIBLE else View.GONE
     if (binding.bonusLayout.root.visibility != View.VISIBLE && isPortraitMode(requireContext())) {
       expandViewWithAnimation(0, dpToPx(50), binding.bonusLayout.root)
     } else {

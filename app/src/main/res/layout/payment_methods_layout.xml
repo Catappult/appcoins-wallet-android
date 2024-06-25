@@ -15,7 +15,7 @@
       android:layout_width="@dimen/payment_methods_width"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:background="@color/styleguide_payments_blue"
+      android:background="@drawable/background_rounded_styleguide_payments"
       >
 
     <com.airbnb.lottie.LottieAnimationView
@@ -35,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/styleguide_payments_background"
         android:visibility="gone"
         >
 
@@ -80,7 +81,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:elevation="2dp"
-          android:background="@drawable/background_content_payments"
+          android:background="@drawable/background_rounded_styleguide_payments"
           >
 
         <include
