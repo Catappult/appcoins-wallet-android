@@ -6,27 +6,28 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class CachedTransactionRepository @Inject constructor(
-  val api: CachedTransactionApi,
-  val rxSchedulers: RxSchedulers
+  val api: CachedTransactionApi, val rxSchedulers: RxSchedulers
 ) {
 
   fun getCachedTransaction(): Single<CachedTransaction> {
-    return api.getCachedTransaction()
-      .subscribeOn(rxSchedulers.io)
-      .map {
-        CachedTransaction(
-          it.referrerUrl,
-          it.product,
-          it.domain,
-          it.callbackUrl,
-          it.currency,
-          it.orderReference,
-          it.value,
-          it.signature
-        )
-      }.onErrorReturn {
-        CachedTransaction(null, null, null, null, null, null, 0.0, null)
-      }
+    return api.getCachedTransaction().subscribeOn(rxSchedulers.io).map { response ->
+      CachedTransaction(
+        response.referrerUrl,
+        response.product,
+        response.domain,
+        response.callbackUrl,
+        response.currency,
+        response.orderReference,
+        response.value,
+        response.signature,
+        response.origin,
+        response.type,
+        response.oemId,
+        response.wsPort
+      )
+    }.onErrorReturn {
+      CachedTransaction(null, null, null, null, null, null, 0.0, null, null, null, null, null)
+    }
   }
 }
 
@@ -38,5 +39,9 @@ data class CachedTransaction(
   val currency: String?,
   val orderReference: String?,
   val value: Double,
-  val signature: String?
+  val signature: String?,
+  val origin: String?,
+  val type: String?,
+  val oemId: String?,
+  val wsPort: String?
 )

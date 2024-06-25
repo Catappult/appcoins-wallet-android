@@ -24,7 +24,11 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
         currency = cachedTransaction.currency,
         orderReference = cachedTransaction.orderReference,
         value = cachedTransaction.value,
-        signature = cachedTransaction.signature
+        signature = cachedTransaction.signature,
+        origin = cachedTransaction.origin,
+        type = cachedTransaction.type,
+        oemId = cachedTransaction.oemId,
+        wsPort = cachedTransaction.wsPort
       )
     } else {
       null

@@ -29,7 +29,12 @@ sealed class StartMode {
     val currency: String?,
     val orderReference: String?,
     val value: Double?,
-    val signature: String?
+    val signature: String?,
+    val origin: String?,
+    val type: String?,
+    val oemId: String?,
+    val wsPort: String?
+
   ) : StartMode()
 
   data class RestoreGuestWalletFlow(

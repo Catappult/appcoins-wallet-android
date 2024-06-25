@@ -10,5 +10,9 @@ data class CachedTransactionResponse(
   val currency: String,
   @SerializedName("order_reference") val orderReference: String,
   val value: Double,
-  val signature: String
+  val signature: String,
+  val origin: String,
+  val type: String,
+  @SerializedName("oem_id") val oemId: String,
+  @SerializedName("ws_port") val wsPort: String
 )
