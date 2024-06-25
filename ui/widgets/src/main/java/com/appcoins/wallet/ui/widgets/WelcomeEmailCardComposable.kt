@@ -106,7 +106,8 @@ fun WelcomeEmailCard(
           backgroundColor = WalletColors.styleguide_pink,
           labelColor = WalletColors.styleguide_light_grey,
           buttonType = ButtonType.DEFAULT,
-          enabled = true,
+          enabled = email.value.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value)
+            .matches(),
           modifier = Modifier
             .align(Alignment.CenterEnd)
             .padding(end = 4.dp)

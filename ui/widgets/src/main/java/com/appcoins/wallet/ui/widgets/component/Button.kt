@@ -88,7 +88,7 @@ fun ButtonWithText(
     onClick = { if (enabled) onClick.invoke() },
     modifier = buttonModifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
-    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_dark_grey),
+    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_medium_grey),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
     Text(text = label, style = textStyle, color = labelColor, fontWeight = FontWeight.Bold)
