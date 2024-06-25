@@ -41,7 +41,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.radioButton.isEnabled = data.isEnabled
 
     handleDescription(data, selected, data.isEnabled)
-    handleFee(data.fee, data.price)
+    handleFee(data.fee, data.price, data.isEnabled)
 
     binding.selectedBackground.visibility = if (selected) View.VISIBLE else View.INVISIBLE
 
@@ -54,10 +54,19 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       itemView.setOnClickListener(null)
       binding.radioButton.visibility = View.INVISIBLE
       itemView.background = null
-      if (data.disabledReason != null) {
-        showDisableReason(data.disabledReason)
-      } else {
-        hideDisableReason()
+
+      when {
+        data.disabledReason != null -> {
+          showDisableReason(data.disabledReason)
+        }
+
+        data.message != null -> {
+          showDisableReason(data.message)
+        }
+
+        else -> {
+          hideDisableReason()
+        }
       }
 
       applyAlphaScale(binding.paymentMethodIc)
@@ -95,24 +104,22 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
-      binding.paymentMethodDescription.typeface =
-        Typeface.create("sans-serif-medium", Typeface.BOLD)
     } else {
-      binding.paymentMethodDescription.setTextColor(  //
-        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
-      )
-      binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
-    }
-    if (!isEnabled) {
       binding.paymentMethodDescription.setTextColor(
         ContextCompat.getColor(itemView.context, R.color.styleguide_payments_main_text)
       )
-      binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+      binding.paymentMethodDescription.typeface = Typeface.create("roboto_medium", Typeface.NORMAL)
+    }
+    if (!isEnabled) {
+      binding.paymentMethodDescription.setTextColor(
+        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+      )
+      binding.paymentMethodDescription.typeface = Typeface.create("roboto_medium", Typeface.NORMAL)
     }
   }
 
-  private fun handleFee(fee: PaymentMethodFee?, price: FiatValue) {
-    if (fee?.isValidFee() == true) {
+  private fun handleFee(fee: PaymentMethodFee?, price: FiatValue, isEnabled: Boolean) {
+    if (fee?.isValidFee() == true && isEnabled) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
         .formatPaymentCurrency(fee.amount!! + price.amount, WalletCurrency.FIAT)
@@ -144,7 +151,16 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
   private fun showDisableReason(@StringRes reason: Int?) {
     reason?.let {
       binding.paymentMethodReason.visibility = View.VISIBLE
+      binding.paymentMethodFee.visibility = View.GONE
       binding.paymentMethodReason.text = itemView.context.getString(it)
+    }
+  }
+
+  private fun showDisableReason(message: String?) {
+    message?.let {
+      binding.paymentMethodReason.visibility = View.VISIBLE
+      binding.paymentMethodFee.visibility = View.GONE
+      binding.paymentMethodReason.text = it
     }
   }
 
