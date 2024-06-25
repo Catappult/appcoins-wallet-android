@@ -150,6 +150,7 @@ constructor(
   val hasNotificationBadge = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
+  val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -230,14 +231,20 @@ constructor(
   }
 
   fun postUserEmail(email: String) {
-    postUserEmailUseCase(email).doOnError {
+    postUserEmailUseCase(email).doOnComplete {
+      hasSavedEmail.value = true
+    }.doOnError {
       it.printStackTrace()
     }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
 
-  fun getWalletEmailPreferencesData(): Boolean {
-    return emailPreferencesDataSource.getWalletEmail()
+  private fun hasWalletEmailPreferencesData(): Boolean {
+    return !emailPreferencesDataSource.getWalletEmail().isNullOrEmpty()
+  }
+
+  fun getWalletEmailPreferencesData(): String {
+    return emailPreferencesDataSource.getWalletEmail().toString()
   }
 
   fun saveHideWalletEmailCardPreferencesData(hasEmailSaved: Boolean) {

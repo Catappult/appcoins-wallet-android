@@ -19,7 +19,7 @@ constructor(
       .observeOn(schedulers.io)
       .flatMapCompletable { ewt ->
         emailRepository.postUserEmail(ewt, email).doOnComplete {
-          emailPreferencesDataSource.saveWalletEmail(true)
+          emailPreferencesDataSource.saveWalletEmail(email)
         }
       }
   }

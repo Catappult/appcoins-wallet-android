@@ -7,15 +7,15 @@ class EmailPreferencesDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences
 ) {
   companion object {
-    const val HAS_WALLET_EMAIL_SAVED = "HAS_WALLET_EMAIL_SAVED"
+    const val WALLET_EMAIL_SAVED = "WALLET_EMAIL_SAVED"
     const val IS_HIDE_WALLET_EMAIL_CARD = "IS_HIDE_WALLET_EMAIL_CARD"
   }
 
-  fun getWalletEmail() = sharedPreferences.getBoolean(HAS_WALLET_EMAIL_SAVED, false)
+  fun getWalletEmail() = sharedPreferences.getString(WALLET_EMAIL_SAVED, "")
 
-  fun saveWalletEmail(hasEmailSaved: Boolean) {
+  fun saveWalletEmail(email: String) {
     val editPreferences = sharedPreferences.edit()
-    editPreferences.putBoolean(HAS_WALLET_EMAIL_SAVED, hasEmailSaved)
+    editPreferences.putString(WALLET_EMAIL_SAVED, email)
     editPreferences.apply()
   }
 

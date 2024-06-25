@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.util.Patterns.EMAIL_ADDRESS
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -106,8 +107,7 @@ fun WelcomeEmailCard(
           backgroundColor = WalletColors.styleguide_pink,
           labelColor = WalletColors.styleguide_light_grey,
           buttonType = ButtonType.DEFAULT,
-          enabled = email.value.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value)
-            .matches(),
+          enabled = email.value.isNotEmpty() && EMAIL_ADDRESS.matcher(email.value).matches(),
           modifier = Modifier
             .align(Alignment.CenterEnd)
             .padding(end = 4.dp)

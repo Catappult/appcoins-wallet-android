@@ -282,17 +282,16 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
 
   @Composable
   fun UserEmailCard() {
-    val email = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf(viewModel.getWalletEmailPreferencesData()) }
     val hideUserEmailCard =
       remember { mutableStateOf(viewModel.isHideWalletEmailCardPreferencesData()) }
-    val hasSavedEmail = remember { mutableStateOf(viewModel.getWalletEmailPreferencesData()) }
+    val hasSavedEmail = remember { viewModel.hasSavedEmail }
     if (!hideUserEmailCard.value) {
       if (!hasSavedEmail.value) {
         WelcomeEmailCard(
           email,
           {
             viewModel.postUserEmail(email.value)
-            hasSavedEmail.value = true
           },
           {
             viewModel.saveHideWalletEmailCardPreferencesData(true)
