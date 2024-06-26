@@ -151,6 +151,7 @@ constructor(
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
   val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
+  val isEmailError = mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -234,9 +235,13 @@ constructor(
     postUserEmailUseCase(email).doOnComplete {
       hasSavedEmail.value = true
     }.doOnError {
+      isEmailError.value = true
       it.printStackTrace()
     }
-      .scopedSubscribe { e -> e.printStackTrace() }
+      .scopedSubscribe { e ->
+        e.printStackTrace()
+        isEmailError.value = true
+      }
   }
 
   private fun hasWalletEmailPreferencesData(): Boolean {

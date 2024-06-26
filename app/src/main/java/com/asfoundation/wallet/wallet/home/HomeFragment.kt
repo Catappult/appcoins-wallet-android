@@ -125,6 +125,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       viewModel.showSupportScreen()
     }
     viewModel.fetchPromotions()
+    viewModel.isEmailError.value = false
   }
 
   override fun onStart() {
@@ -286,6 +287,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     val hideUserEmailCard =
       remember { mutableStateOf(viewModel.isHideWalletEmailCardPreferencesData()) }
     val hasSavedEmail = remember { viewModel.hasSavedEmail }
+    val isEmailError = remember { viewModel.isEmailError }
     if (!hideUserEmailCard.value) {
       if (!hasSavedEmail.value) {
         WelcomeEmailCard(
@@ -296,7 +298,9 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           {
             viewModel.saveHideWalletEmailCardPreferencesData(true)
             hideUserEmailCard.value = true
-          })
+          },
+          isEmailError.value
+        )
       } else {
         ConfirmEmailCard(email = email) {
           viewModel.saveHideWalletEmailCardPreferencesData(true)

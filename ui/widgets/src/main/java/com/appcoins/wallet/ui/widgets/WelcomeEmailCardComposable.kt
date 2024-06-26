@@ -1,7 +1,8 @@
 package com.appcoins.wallet.ui.widgets
 
-import android.util.Patterns.EMAIL_ADDRESS
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,7 +39,8 @@ import com.appcoins.wallet.ui.widgets.component.WalletTextField
 fun WelcomeEmailCard(
   email: MutableState<String>,
   onSendClick: () -> Unit,
-  onCloseClick: () -> Unit
+  onCloseClick: () -> Unit,
+  isError: Boolean = false
 ) {
   Column(
     modifier = Modifier
@@ -88,31 +90,49 @@ fun WelcomeEmailCard(
       Box(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(bottom = 8.dp)
+          .padding(bottom = 2.dp)
           .height(52.dp)
       ) {
-        WalletTextField(
-          modifier = Modifier.fillMaxWidth(),
-          email.value,
-          stringResource(R.string.email_here_field),
-          backgroundColor = WalletColors.styleguide_blue,
-          keyboardType = KeyboardType.Email,
-          roundedCornerShape = RoundedCornerShape(24.dp),
-        ) { newEmail ->
-          email.value = newEmail
-        }
-        ButtonWithText(
-          label = stringResource(id = com.appcoins.wallet.ui.common.R.string.send_button),
-          onClick = { onSendClick() },
-          backgroundColor = WalletColors.styleguide_pink,
-          labelColor = WalletColors.styleguide_light_grey,
-          buttonType = ButtonType.DEFAULT,
-          enabled = email.value.isNotEmpty() && EMAIL_ADDRESS.matcher(email.value).matches(),
+        Box(
           modifier = Modifier
-            .align(Alignment.CenterEnd)
-            .padding(end = 4.dp)
-        )
+            .background(color = WalletColors.styleguide_blue, shape = RoundedCornerShape(24.dp))
+            .border(
+              border = if (isError) BorderStroke(
+                width = 1.dp,
+                color = WalletColors.styleguide_red
+              ) else BorderStroke(width = 0.dp, color = Color.Transparent),
+              shape = RoundedCornerShape(24.dp)
+            )
+        ) {
+          WalletTextField(
+            modifier = Modifier.fillMaxWidth(),
+            email.value,
+            stringResource(R.string.email_here_field),
+            backgroundColor = WalletColors.styleguide_blue,
+            keyboardType = KeyboardType.Email,
+            roundedCornerShape = RoundedCornerShape(24.dp)
+          ) { newEmail ->
+            email.value = newEmail
+          }
+          ButtonWithText(
+            label = stringResource(id = com.appcoins.wallet.ui.common.R.string.send_button),
+            onClick = { onSendClick() },
+            backgroundColor = WalletColors.styleguide_pink,
+            labelColor = WalletColors.styleguide_light_grey,
+            buttonType = ButtonType.DEFAULT,
+            enabled = true,
+            modifier = Modifier
+              .align(Alignment.CenterEnd)
+              .padding(end = 4.dp)
+          )
+        }
       }
+      Text(
+        text = if (isError) stringResource(R.string.error_general) else "",
+        color = WalletColors.styleguide_red,
+        fontSize = 11.sp,
+        modifier = Modifier.padding(start = 24.dp)
+      )
     }
   }
 }
@@ -121,5 +141,12 @@ fun WelcomeEmailCard(
 @Composable
 fun PreviewHomeEmailComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {})
+  WelcomeEmailCard(email, {}, {}, false)
+}
+
+@Preview
+@Composable
+fun PreviewHomeEmailErrorComposable() {
+  val email = remember { mutableStateOf("") }
+  WelcomeEmailCard(email, {}, {}, true)
 }
