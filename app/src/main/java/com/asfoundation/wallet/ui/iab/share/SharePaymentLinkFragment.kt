@@ -247,4 +247,8 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   override fun close() {
     iabView?.close(Bundle())
   }
+
+  override fun back() {
+    iabView?.showPaymentMethodsView()
+  }
 }
