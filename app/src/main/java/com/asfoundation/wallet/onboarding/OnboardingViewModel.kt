@@ -38,6 +38,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
   object NavigateToFinish : OnboardingSideEffect()
   object ShowLoadingRecover : OnboardingSideEffect()
+  object NavigateToOnboardingPayment : OnboardingSideEffect()
   data class UpdateGuestBonus(val bonus: FiatValue) : OnboardingSideEffect()
   data class NavigateToVerify(val flow: String) : OnboardingSideEffect()
 }
@@ -148,10 +149,8 @@ class OnboardingViewModel @Inject constructor(
         onboardingAnalytics.sendRecoverGuestWalletEvent(
           guestBonus.amount.toString(), guestBonus.currency
         )
-        sendSideEffect {
-          if (flow.isEmpty()) OnboardingSideEffect.NavigateToFinish
-          else OnboardingSideEffect.NavigateToVerify(flow)
-        }
+        if (flow.isEmpty()) sendSideEffect { OnboardingSideEffect.NavigateToFinish }
+        else handleFlowTypes(flow)
       }
 
       is FailedEntryRecover.InvalidPassword -> {
@@ -163,6 +162,18 @@ class OnboardingViewModel @Inject constructor(
         )
       }
     }
+
+  private fun handleFlowTypes(flow: String) {
+    sendSideEffect {
+      when (flow) {
+        OnboardingFlow.ONBOARDING_PAYMENT.name -> OnboardingSideEffect.NavigateToOnboardingPayment
+        OnboardingFlow.VERIFY_PAYPAL.name, OnboardingFlow.VERIFY_CREDIT_CARD.name ->
+          OnboardingSideEffect.NavigateToVerify(flow)
+
+        else -> OnboardingSideEffect.NavigateToFinish
+      }
+    }
+  }
 
   fun getGuestWalletBonus(key: String) {
     getBonusGuestWalletUseCase(key).doOnSuccess {

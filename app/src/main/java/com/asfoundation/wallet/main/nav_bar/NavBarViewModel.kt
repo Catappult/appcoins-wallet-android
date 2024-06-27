@@ -75,6 +75,9 @@ constructor(
         StartMode.Regular, StartMode.Subsequent -> {
           sendSideEffect { NavBarSideEffect.ShowAskNotificationPermission }
         }
+
+        is StartMode.PendingPurchaseWithWalletFlow ->
+          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
       }
     }
   }

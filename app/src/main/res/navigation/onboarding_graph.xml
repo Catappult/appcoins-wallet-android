@@ -49,6 +49,10 @@
         app:destination="@id/verify_credit_card_wallet_activity"
         app:popUpTo="@+id/onboarding_fragment"
         app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_first_payment_fragment"
+        app:destination="@id/onboarding_payment_fragment" />
   </fragment>
 
   <fragment
@@ -98,4 +102,9 @@
   <include
       android:id="@+id/recover_wallet_graph"
       app:graph="@navigation/recover_wallet_graph" />
+
+  <fragment
+      android:id="@+id/onboarding_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment"
+      tools:layout="@layout/fragment_onboarding_payment" />
 </navigation>

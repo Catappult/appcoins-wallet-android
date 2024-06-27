@@ -98,10 +98,10 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
@@ -121,14 +121,14 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleRecoverGuestWallet() {
     if (args.backup.isNotBlank()) {
-      when {
-        args.flow.isBlank() -> {
-          viewModel.getGuestWalletBonus(args.backup)
-          showRecoverGuestWallet()
+      when (args.flow) {
+        OnboardingFlow.VERIFY_CREDIT_CARD.name, OnboardingFlow.VERIFY_CREDIT_CARD.name -> {
+          showVerifyGuestWallet()
         }
 
-        args.flow.isNotBlank() -> {
-          showVerifyGuestWallet()
+        else -> {
+          viewModel.getGuestWalletBonus(args.backup)
+          showRecoverGuestWallet()
         }
       }
     }
@@ -151,6 +151,7 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
       is OnboardingSideEffect.NavigateToVerify -> navigator.navigateToVerify(sideEffect.flow)
+      OnboardingSideEffect.NavigateToOnboardingPayment -> navigator.navigateToOnboardingPayment()
     }
   }
 
