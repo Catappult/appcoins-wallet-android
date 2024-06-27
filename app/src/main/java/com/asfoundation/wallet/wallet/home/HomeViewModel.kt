@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -138,6 +139,7 @@ constructor(
   private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val postUserEmailUseCase: PostUserEmailUseCase,
   private val emailPreferencesDataSource: EmailPreferencesDataSource,
+  private val emailAnalytics: EmailAnalytics
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -155,6 +157,9 @@ constructor(
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
+
+    private const val SUCCESS_EMAIL_ANALYTICS = "success"
+    private const val ERROR_EMAIL_ANALYTICS = "erorr"
 
     fun initialState() = HomeState()
   }
@@ -232,14 +237,18 @@ constructor(
   }
 
   fun postUserEmail(email: String) {
+    emailAnalytics.walletAppEmailSubmitClick()
     postUserEmailUseCase(email).doOnComplete {
+      emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
       hasSavedEmail.value = true
     }.doOnError {
       isEmailError.value = true
+      emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
       it.printStackTrace()
     }
       .scopedSubscribe { e ->
         e.printStackTrace()
+        emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
         isEmailError.value = true
       }
   }

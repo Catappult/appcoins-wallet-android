@@ -3,6 +3,8 @@ package com.appcoins.wallet.core.analytics.analytics.legacy
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.core.analytics.analytics.*
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics.Companion.WALLET_APP_ACTIVE_PROMOTION_CLICK
+import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_EMAIL_SUBMITTED
+import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics.Companion.WALLET_APP_HOME_SCREEN_CLICK
 import com.appcoins.wallet.core.analytics.analytics.legacy.ChallengeRewardAnalytics.Companion.CHALLENGE_REWARD_EVENT
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.MANAGE_PAYMENT_CARDS
 import com.appcoins.wallet.core.analytics.analytics.manage_cards.ManageCardsAnalytics.Companion.WALLET_APP_ADDED_CARD_CONCLUSION_IMPRESSION
@@ -94,6 +96,8 @@ class AnalyticsModule {
       WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
       WALLET_APP_SETTINGS_CLICK,
       WALLET_APP_TOP_UP_CLICK,
+      WALLET_APP_EMAIL_SUBMITTED,
+      WALLET_APP_HOME_SCREEN_CLICK,
     )
 
   @Singleton
@@ -154,6 +158,8 @@ class AnalyticsModule {
       WALLET_APP_MANAGE_PAYMENT_CARDS_IMPRESSION,
       WALLET_APP_SETTINGS_CLICK,
       WALLET_APP_TOP_UP_CLICK,
+      WALLET_APP_EMAIL_SUBMITTED,
+      WALLET_APP_HOME_SCREEN_CLICK
     )
 
   @Singleton
