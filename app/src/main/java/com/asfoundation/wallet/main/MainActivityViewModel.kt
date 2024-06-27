@@ -62,9 +62,7 @@ class MainActivityViewModel @Inject constructor(
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
               .doOnSuccess { backup ->
-                if (backup == null)
-                  sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
-                else if (backup.backupPrivateKey.isNotEmpty())
+                if (backup != null && backup.backupPrivateKey.isNotEmpty())
                   sendSideEffect {
                     MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(
                       backup.backupPrivateKey, backup.flow

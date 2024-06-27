@@ -122,7 +122,7 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun handleRecoverGuestWallet() {
     if (args.backup.isNotBlank()) {
       when (args.flow) {
-        OnboardingFlow.VERIFY_CREDIT_CARD.name, OnboardingFlow.VERIFY_CREDIT_CARD.name -> {
+        OnboardingFlow.VERIFY_CREDIT_CARD.name, OnboardingFlow.VERIFY_PAYPAL.name -> {
           showVerifyGuestWallet()
         }
 
