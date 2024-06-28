@@ -4,10 +4,10 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
-import com.appcoins.wallet.core.network.microservices.api.broker.WalletOneApi
-import com.appcoins.wallet.core.network.microservices.model.WalletOnePayment
-import com.appcoins.wallet.core.network.microservices.model.WalletOneResponse
-import com.appcoins.wallet.core.network.microservices.model.WalletOneTransaction
+import com.appcoins.wallet.core.network.microservices.api.broker.TrueLayerApi
+import com.appcoins.wallet.core.network.microservices.model.TrueLayerPayment
+import com.appcoins.wallet.core.network.microservices.model.TrueLayerResponse
+import com.appcoins.wallet.core.network.microservices.model.TrueLayerTransaction
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Single
@@ -64,17 +64,16 @@ class TrueLayerRepository @Inject constructor(
             entityPromoCode = entityPromoCode,
             user = userWallet,
             referrerUrl = referrerUrl,
-            successUrl = successUrl,
-            failUrl = failUrl
           )
         )
           .map { response: TrueLayerResponse ->
             TrueLayerTransaction(
-              response.uid,
-              response.hash,
-              response.status,
-              response.mapValidity(),
-              response.htmlData
+              uid = response.uid,
+              hash = response.hash,
+              status = response.status,
+              validity = response.mapValidity(),
+              paymentId = response.paymentId,
+              resourceToken = response.resourceToken
             )
           }
           .onErrorReturn {

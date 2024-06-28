@@ -9,11 +9,11 @@ import retrofit2.http.Query
 
 interface TrueLayerApi {
 
-  @POST("8.20230522/gateways/truelayer/transactions")  //TODO check gateway and version
+  @POST("8.20240601/gateways/truelayer/transactions")
   fun createTransaction(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
-    @Body trueLayerPayment: TrueLayerPayment  //TODO
-  ): Single<TrueLayerResponse>  //TODO
+    @Body trueLayerPayment: TrueLayerPayment
+  ): Single<TrueLayerResponse>
 
 }
