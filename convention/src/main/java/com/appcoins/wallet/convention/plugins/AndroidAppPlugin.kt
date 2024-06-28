@@ -8,6 +8,7 @@ import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import kotlin.collections.set
@@ -23,9 +24,13 @@ class AndroidAppPlugin : Plugin<Project> {
         apply<JacocoApplicationPlugin>()
       }
 
+      extensions.configure(JavaPluginExtension::class.java) {
+        sourceCompatibility = Config.jvm.javaVersion
+        targetCompatibility = Config.jvm.javaVersion
+      }
+
       extensions.configure<BaseAppModuleExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = Config.android.buildToolsVersion
         ndkVersion = Config.android.ndkVersion
         defaultConfig {
           targetSdk = Config.android.targetSdk
@@ -129,6 +134,7 @@ class AndroidAppPlugin : Plugin<Project> {
             kotlinCompilerExtensionVersion = "1.4.3"
           }
           compose = true
+          aidl = true
         }
 
         flavorDimensions.add(Config.distributionFlavorDimension)
