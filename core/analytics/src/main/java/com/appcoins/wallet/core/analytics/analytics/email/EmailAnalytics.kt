@@ -19,6 +19,7 @@ class EmailAnalytics @Inject constructor(private val analyticsManager: Analytics
 
   fun walletAppEmailSubmitClick() {
     val data = HashMap<String, Any>()
+    data[USER_ACTION] = USER_ACTION_VALUE
     analyticsManager.logEvent(
       data,
       WALLET_APP_HOME_SCREEN_CLICK,
@@ -31,5 +32,7 @@ class EmailAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_APP_EMAIL_SUBMITTED = "wallet_app_email_submitted"
     const val WALLET_APP_HOME_SCREEN_CLICK = "wallet_app_home_screen_click"
     private const val HOME = "home"
+    private const val USER_ACTION = "user_action"
+    private const val USER_ACTION_VALUE = "submit"
   }
 }
