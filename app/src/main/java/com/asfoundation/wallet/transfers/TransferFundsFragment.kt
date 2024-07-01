@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -330,10 +331,12 @@ class TransferFundsFragment : BasePageViewFragment() {
     )
     Row {
       WalletTextField(
+        modifier = Modifier.fillMaxWidth(),
         value = address,
         placeHolder = stringResource(R.string.hint_recipient_address),
         backgroundColor = styleguide_blue_secondary,
         keyboardType = KeyboardType.Ascii,
+        roundedCornerShape = RoundedCornerShape(8.dp),
         trailingIcon = {
           VectorIconButton(
             painter = painterResource(R.drawable.ic_qrcode),
@@ -354,10 +357,12 @@ class TransferFundsFragment : BasePageViewFragment() {
   fun AmountTextField() {
     var amount by rememberSaveable { mutableStateOf("") }
     WalletTextField(
+      modifier = Modifier.fillMaxWidth(),
       amount,
       stringResource(R.string.hint_amount),
       backgroundColor = styleguide_blue_secondary,
-      keyboardType = KeyboardType.Decimal
+      keyboardType = KeyboardType.Decimal,
+      roundedCornerShape = RoundedCornerShape(8.dp)
     ) { newAmount ->
       amount = newAmount
       viewModel.currentAddedAmount = newAmount

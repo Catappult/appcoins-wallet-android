@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Amână</string>
   <string name="connection_error_title">Fără conexiune la internet</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
-  <string name="common_or">SAU</string>
+  <string name="common_or">or</string>
   <string name="share_via">Distribuie via:</string>
   <string name="password">Parolă</string>
   <string name="repeat_password">Repetă parola</string>

@@ -9,6 +9,7 @@ android {
 }
 
 dependencies {
+  implementation(project(":core:network:base"))
   compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":legacy:billing"))
   implementation(project(":feature:wallet-info:data"))

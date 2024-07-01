@@ -530,7 +530,7 @@
   <string name="do_it_later_button">Do it later</string>
   <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="common_or">OR</string>
+  <string name="common_or">or</string>
   <string name="share_via">Share via:</string>
   <string name="password">Password</string>
   <string name="repeat_password">Repeat password</string>

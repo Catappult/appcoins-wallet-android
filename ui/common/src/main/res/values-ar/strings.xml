@@ -493,7 +493,7 @@
   <string name="do_it_later_button">لاحقًا</string>
   <string name="connection_error_title">لا يوجد اتصال بالإنترنت</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
-  <string name="common_or">أو</string>
+  <string name="common_or">or</string>
   <string name="share_via">مشاركة بواسطة:</string>
   <string name="password">كلمة المرور</string>
   <string name="repeat_password">أعد كتابة كلمة المرور</string>

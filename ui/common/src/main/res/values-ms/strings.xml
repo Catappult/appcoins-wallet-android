@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Buat nanti</string>
   <string name="connection_error_title">Tiada sambungan Internet</string>
   <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
-  <string name="common_or">ATAU</string>
+  <string name="common_or">or</string>
   <string name="share_via">Kongsi melalui:</string>
   <string name="password">Kata laluan</string>
   <string name="repeat_password">Ulang kata laluan</string>

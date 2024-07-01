@@ -493,7 +493,7 @@
   <string name="do_it_later_button">稍後再做</string>
   <string name="connection_error_title">No Internet connection</string>
   <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
-  <string name="common_or">或者</string>
+  <string name="common_or">or</string>
   <string name="share_via">分享至：</string>
   <string name="password">密碼</string>
   <string name="repeat_password">再次輸入密碼</string>

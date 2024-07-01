@@ -11,7 +11,8 @@ data class PaymentMethodEntity(
   val gateway: Gateway,
   val async: Boolean,
   val price: Value,
-  val fee: FeeEntity?
+  val fee: FeeEntity?,
+  val message: String?,
 ) {
 
   fun isAvailable(): Boolean = this.availability != "UNAVAILABLE"

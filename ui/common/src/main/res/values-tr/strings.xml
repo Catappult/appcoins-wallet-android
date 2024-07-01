@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Daha sonra yapın</string>
   <string name="connection_error_title">İnternet bağlantısı yok</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
-  <string name="common_or">VEYA</string>
+  <string name="common_or">or</string>
   <string name="share_via">Şu yolla paylaş:</string>
   <string name="password">Şifre</string>
   <string name="repeat_password">Şifreyi tekrarlayın</string>

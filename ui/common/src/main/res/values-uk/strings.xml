@@ -495,7 +495,7 @@
   <string name="do_it_later_button">Зробити це пізніше</string>
   <string name="connection_error_title">Немає підключення до Інтернету</string>
   <string name="connection_error_body">Здається, ви не підключені до Інтернету. Перевірте з’єднання та спробуйте ще раз!</string>
-  <string name="common_or">АБО</string>
+  <string name="common_or">or</string>
   <string name="share_via">Поділитися через:</string>
   <string name="password">Пароль</string>
   <string name="repeat_password">Повторити пароль</string>

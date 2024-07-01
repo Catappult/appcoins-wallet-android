@@ -4,6 +4,10 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.billing"
+
+  buildFeatures {
+    aidl = true
+  }
 }
 
 dependencies {

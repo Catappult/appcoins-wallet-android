@@ -493,7 +493,7 @@
   <string name="do_it_later_button">나중에</string>
   <string name="connection_error_title">인터넷 연결 안 됨</string>
   <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
-  <string name="common_or">또는</string>
+  <string name="common_or">or</string>
   <string name="share_via">다음을 통해 공유:</string>
   <string name="password">비밀번호</string>
   <string name="repeat_password">비밀번호 재확인</string>

@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Để sau</string>
   <string name="connection_error_title">Không có kết nối Internet</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
-  <string name="common_or">HOẶC</string>
+  <string name="common_or">or</string>
   <string name="share_via">Chia sẻ qua:</string>
   <string name="password">Mật khẩu</string>
   <string name="repeat_password">Lặp lại mật khẩu</string>

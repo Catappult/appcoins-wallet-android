@@ -493,7 +493,7 @@
   <string name="do_it_later_button">Später</string>
   <string name="connection_error_title">Keine Internetverbindung</string>
   <string name="connection_error_body">Es scheint, als wärst du nicht mit dem Internet verbunden. Überprüfe deine Verbindung und versuche es erneut!</string>
-  <string name="common_or">ODER</string>
+  <string name="common_or">oder</string>
   <string name="share_via">Teilen über:</string>
   <string name="password">Passwort</string>
   <string name="repeat_password">Paswort wiederholen</string>
@@ -589,9 +589,9 @@
   <string name="verified_tag">Verifiziert</string>
   <string name="unferified_tag">Nicht verifizierte Wallet</string>
   <string name="verification_wallets_verify_button">Verifiziert</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verifiziert mit PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verifiziert mit Kredit-/Debitkarte.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verifiziert mit Kredit-/Debitkarte und PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">Nur noch ein Schritt!</string>
   <string name="paypal_verification_home_one_step_card_body">Gib den Code ein, der an deine E-Mail-Adresse gesendet wurde, um dein PayPal-Konto zu verifizieren.</string>
