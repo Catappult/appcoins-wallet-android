@@ -155,11 +155,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun onBackPressed() {
     if (isBackEnable) {
-      Bundle().apply {
-        putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
-        close(this)
+      val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+      if (fragment is OnBackPressedListener) {
+        (fragment as OnBackPressedListener).onBackPressed()
+      } else {
+        Bundle().apply {
+          putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
+          close(this)
+        }
+        super.onBackPressed()
       }
-      super.onBackPressed()
     } else {
       backButtonPress?.accept(Unit)
     }
