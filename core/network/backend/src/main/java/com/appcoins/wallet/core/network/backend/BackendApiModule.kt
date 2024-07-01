@@ -27,6 +27,7 @@ import com.appcoins.wallet.core.network.backend.model.PromotionsSerializer
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.core.network.base.compat.EmailApi
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -252,5 +253,13 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): SupportApi {
     return retrofit.create(SupportApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesEmailApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): EmailApi {
+    return retrofit.create(EmailApi::class.java)
   }
 }

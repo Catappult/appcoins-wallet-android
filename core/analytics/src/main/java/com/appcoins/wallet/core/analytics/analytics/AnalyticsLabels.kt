@@ -18,4 +18,7 @@ object AnalyticsLabels {
   const val GAMES_HUB_OEMID = "gh_oemid"
   const val PAYMENT_FUNNEL = "payment_funnel"
   const val FLAVOR = "flavor"
+
+  //Events Defaults Keys
+  const val EVENT_STATUS = "status"
 }
