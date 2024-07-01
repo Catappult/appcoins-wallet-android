@@ -6,6 +6,7 @@
     android:clipToPadding="false"
     android:gravity="end"
     android:orientation="horizontal"
+    android:animateLayoutChanges="true"
     >
   <Button
       android:id="@+id/cancel_button"
@@ -32,5 +33,6 @@
       android:text="@string/buy_button"
       android:textColor="@color/white"
       android:textSize="14sp"
+      android:enabled="false"
       />
 </LinearLayout>
