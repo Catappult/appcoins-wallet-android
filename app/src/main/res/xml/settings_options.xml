@@ -75,10 +75,10 @@
         android:title="@string/facebook" />
 
     <Preference
-        android:icon="@drawable/ic_telegram"
-        android:key="pref_telegram"
+        android:icon="@drawable/ic_discord"
+        android:key="pref_discord"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/telegram" />
+        android:title="@string/discord" />
   </PreferenceCategory>
 
   <PreferenceCategory
