@@ -41,6 +41,7 @@
   <string name="title_delete_account">이 지갑을 제거하시겠습니까?</string>
   <string name="twitter">X</string>
   <string name="telegram">텔레그램 그룹</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">커뮤니티</string>
   <string name="title_opensource">오픈 소스 개발</string>
