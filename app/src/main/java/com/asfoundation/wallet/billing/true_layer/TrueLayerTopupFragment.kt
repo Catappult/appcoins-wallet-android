@@ -48,6 +48,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
+  private lateinit var processorResult: ActivityResultLauncher<ProcessorContext>
+
   @Inject
   lateinit var navigator: TopUpNavigator
 
@@ -60,7 +62,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     binding = FragmentTrueLayerTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
 //    iabView.disableBack()
-    registerWebViewResult()  // TODO remove
+//    registerWebViewResult()  // TODO remove
+    registerSdkResult()
     return views.root
   }
 
@@ -96,8 +99,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
           handleSuccess()
         }
 
-        is TrueLayerTopupViewModel.State.LaunchTrueLayerSDK -> {//TODO  rename
-          launchTrueLayerSDK()
+        is TrueLayerTopupViewModel.State.LaunchTrueLayerSDK -> {
+          launchTrueLayerSDK(state.paymentId, state.resourceToken)
 //          startWebViewAuthorization(state.htmlData)
         }
 
@@ -130,42 +133,42 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     }
   }
 
-  private fun startWebViewAuthorization(htmlData: String) {   //TODO remove
-    val intent = WebViewActivity.newIntentFromData(requireActivity(), htmlData)
-    resultAuthLauncher.launch(intent)
-  }
+//  private fun startWebViewAuthorization(htmlData: String) {   //TODO remove
+//    val intent = WebViewActivity.newIntentFromData(requireActivity(), htmlData)
+//    resultAuthLauncher.launch(intent)
+//  }
 
-  private fun registerWebViewResult() {    //TODO remove
-    resultAuthLauncher =
-      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        when {
-          result.data?.dataString?.contains(TrueLayerReturnSchemas.SUCCESS.schema) == true -> {
-            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-            viewModel.waitForSuccess(
-              viewModel.uid,
-              amount,
-              false
-            )
-          }
-
-          result.data?.dataString?.contains(TrueLayerReturnSchemas.ERROR.schema) == true -> {
-            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
-            viewModel._state
-              .postValue(
-                TrueLayerTopupViewModel.State.Error(
-                  R.string.purchase_error_one_wallet_generic
-                )
-              )
-          }
-
-          result.resultCode == Activity.RESULT_CANCELED -> {
-            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-            close()
-          }
-
-        }
-      }
-  }
+//  private fun registerWebViewResult() {    //TODO remove
+//    resultAuthLauncher =
+//      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//        when {
+//          result.data?.dataString?.contains(TrueLayerReturnSchemas.SUCCESS.schema) == true -> {
+//            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+//            viewModel.waitForSuccess(
+//              viewModel.uid,
+//              amount,
+//              false
+//            )
+//          }
+//
+//          result.data?.dataString?.contains(TrueLayerReturnSchemas.ERROR.schema) == true -> {
+//            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
+//            viewModel._state
+//              .postValue(
+//                TrueLayerTopupViewModel.State.Error(
+//                  R.string.purchase_error_one_wallet_generic
+//                )
+//              )
+//          }
+//
+//          result.resultCode == Activity.RESULT_CANCELED -> {
+//            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+//            close()
+//          }
+//
+//        }
+//      }
+//  }
 
   private fun handleSuccess() {
     val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus)
@@ -225,18 +228,31 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     })
   }
 
-  private fun launchTrueLayerSDK() {       //TODO
+  private fun launchTrueLayerSDK(paymentId: String, resourceToken: String) {
     TrueLayerUI.init(context = views.root.context) {
       // optionally choose which environment you want to use: PRODUCTION or SANDBOX
       environment = Environment.SANDBOX
       // Make your own custom http configuration, stating custom timeout and http request logging level
       httpConnection = HttpConnectionConfiguration(
+        timeoutMs = 15000,
         httpDebugLoggingLevel = HttpLoggingLevel.None
       )
     }
+
+    val paymentContext = ProcessorContext.PaymentContext(
+      id = paymentId,
+      resourceToken = resourceToken,
+      redirectUri = "appcoins://truelayer",
+    )
+
+    processorResult.launch(paymentContext)
+
+  }
+
+  private fun registerSdkResult() {
     // Register for the end result.
     val contract = ProcessorActivityContract()
-    val processorResult = registerForActivityResult(contract) {
+    processorResult = registerForActivityResult(contract) {
       val text = when (it) {
         is ProcessorResult.Failure -> {
           "Failure ${it.reason}"
@@ -249,15 +265,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
       // present the final result
       Toast.makeText(views.root.context, text, Toast.LENGTH_LONG).show()
     }
-
-    val paymentContext = ProcessorContext.PaymentContext(
-      id = "",
-      resourceToken = "",
-      redirectUri = ""
-    )
-    // 🚀 Launch the payment flow.
-    processorResult.launch(paymentContext)
-
   }
 
   private val amount: String by lazy {

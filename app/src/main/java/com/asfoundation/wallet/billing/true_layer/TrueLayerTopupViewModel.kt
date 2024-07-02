@@ -17,7 +17,6 @@ import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.googlepay.usecases.WaitForSuccessUseCase
-import com.asfoundation.wallet.billing.true_layer.models.TrueLayerConst
 import com.asfoundation.wallet.billing.true_layer.usecases.CreateTrueLayerTransactionTopupUseCase
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -41,7 +40,7 @@ class TrueLayerTopupViewModel @Inject constructor(
   sealed class State {
     object Start : State()
     data class Error(val stringRes: Int) : State()
-    data class LaunchTrueLayerSDK(val htmlData: String) : State()
+    data class LaunchTrueLayerSDK(val paymentId: String, val resourceToken: String) : State()
     data class SuccessPurchase(val hash: String?, val uid: String?) : State()
     object TrueLayerBack : State()
   }
@@ -66,15 +65,13 @@ class TrueLayerTopupViewModel @Inject constructor(
       topUpAnalytics.sendConfirmationEvent(
         amount.toDouble(),
         "top_up",
-        PaymentMethodsAnalytics.PAYMENT_METHOD_WALLET_ONE
+        PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER
       )
       compositeDisposable.add(
         createTrueLayerTransactionTopupUseCase(
           value = amount,
           currency = currency,
-          method = PaymentType.WALLET_ONE.subTypes[0],
-          successUrl = TrueLayerReturnSchemas.SUCCESS.schema,
-          failUrl = TrueLayerReturnSchemas.ERROR.schema,
+          method = PaymentType.TRUE_LAYER.subTypes[0],
         )
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
@@ -91,8 +88,12 @@ class TrueLayerTopupViewModel @Inject constructor(
               _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
             } else {
               uid = transaction.uid
-              Log.d("htmlData", transaction.htmlData ?: "null")
-              _state.postValue(State.LaunchTrueLayerSDK(transaction.htmlData ?: ""))
+              Log.d("paymentId", transaction.paymentId ?: "null")
+              _state.postValue(State.LaunchTrueLayerSDK(
+                paymentId = transaction.paymentId ?: "",
+                resourceToken = transaction.resourceToken ?: ""
+                )
+              )
             }
           }.subscribe({}, {
             Log.d(TAG, it.toString())
@@ -117,7 +118,7 @@ class TrueLayerTopupViewModel @Inject constructor(
             COMPLETED -> {
               topUpAnalytics.sendSuccessEvent(
                 amount.toDouble(),
-                PaymentMethodsAnalytics.PAYMENT_METHOD_WALLET_ONE,
+                PaymentMethodsAnalytics.PAYMENT_METHOD_TRUE_LAYER,
                 TopUpAnalytics.STATUS_SUCCESS
               )
               _state.postValue(State.SuccessPurchase(it.hash, it.uid))
@@ -141,7 +142,7 @@ class TrueLayerTopupViewModel @Inject constructor(
         })
     // disposes the check after x seconds
     viewModelScope.launch {
-      delay(TrueLayerConst.WALLET_ONE_TIMEOUT)
+      delay(16000L)   //TODO remove if not needed
       try {
         if (state.value !is State.SuccessPurchase && wasNonSuccess)
           _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))

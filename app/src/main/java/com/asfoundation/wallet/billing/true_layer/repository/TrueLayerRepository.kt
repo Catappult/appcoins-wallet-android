@@ -40,8 +40,6 @@ class TrueLayerRepository @Inject constructor(
     entityPromoCode: String?,
     userWallet: String?,
     referrerUrl: String?,
-    successUrl: String,
-    failUrl: String
   ): Single<TrueLayerTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->

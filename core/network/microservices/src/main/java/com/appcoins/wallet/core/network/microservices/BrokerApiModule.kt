@@ -167,4 +167,12 @@ class BrokerApiModule {
   ): BackupEmailApi {
     return retrofit.create(BackupEmailApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun providesTrueLayerApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): TrueLayerApi {
+    return retrofit.create(TrueLayerApi::class.java)
+  }
 }

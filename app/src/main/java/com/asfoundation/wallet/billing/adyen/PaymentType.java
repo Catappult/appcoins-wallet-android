@@ -25,7 +25,7 @@ public enum PaymentType {
 
   MI_PAY(Collections.singletonList("mipay")),
 
-  TRUE_LAYER(Collections.singletonList("truelayer"));  //TODO check method name
+  TRUE_LAYER(Collections.singletonList("truelayer"));
 
   private final List<String> subTypes;
 
