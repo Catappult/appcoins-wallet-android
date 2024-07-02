@@ -46,6 +46,7 @@
   <string name="title_delete_account">Are you sure you want to remove this wallet?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram Group</string>
+  <string name="discord">Discord</string>
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
