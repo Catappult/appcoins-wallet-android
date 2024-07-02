@@ -27,7 +27,7 @@ interface SettingsView {
 
   fun setFacebookPreference()
 
-  fun setTelegramPreference()
+  fun setDiscordPreference()
 
   fun setEmailPreference()
 

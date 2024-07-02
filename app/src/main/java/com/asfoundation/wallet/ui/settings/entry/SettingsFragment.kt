@@ -349,10 +349,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setTelegramPreference() {
-    val telegramPreference = findPreference<Preference>("pref_telegram")
-    telegramPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(Uri.parse("https://t.me/appcoinsofficial"), false)
+  override fun setDiscordPreference() {
+    val discordPreference = findPreference<Preference>("pref_discord")
+    discordPreference?.setOnPreferenceClickListener {
+      startBrowserActivity(Uri.parse("https://discord.gg/aptoide"), false)
       false
     }
   }

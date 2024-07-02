@@ -47,7 +47,7 @@ class SettingsPresenter(
     view.setSourceCodePreference()
     view.setIssueReportPreference()
     view.setTwitterPreference()
-    view.setTelegramPreference()
+    view.setDiscordPreference()
     view.setFacebookPreference()
     view.setEmailPreference()
     view.setPrivacyPolicyPreference()
