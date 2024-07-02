@@ -41,6 +41,7 @@
   <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram grupa</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Zajednica</string>
   <string name="title_opensource">Razvoj otvorenog koda</string>
