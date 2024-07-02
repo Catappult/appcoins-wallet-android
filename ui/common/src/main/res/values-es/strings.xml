@@ -41,6 +41,7 @@
   <string name="title_delete_account">¿Estás seguro de que quieres eliminar esta wallet?</string>
   <string name="twitter">X</string>
   <string name="telegram">Grupo de Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Redes Sociales</string>
   <string name="title_opensource">Desarrollo de código abierto</string>
@@ -493,7 +494,7 @@
   <string name="do_it_later_button">Más tarde</string>
   <string name="connection_error_title">Sin conexión a internet</string>
   <string name="connection_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">o</string>
   <string name="share_via">Compartir a través de:</string>
   <string name="password">Contraseña</string>
   <string name="repeat_password">Repite la contraseña</string>
@@ -589,9 +590,9 @@
   <string name="verified_tag">Verificada</string>
   <string name="unferified_tag">Wallet sin verificar</string>
   <string name="verification_wallets_verify_button">Verificar</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verificado con PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verificado con tarjeta de crédito/débito.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verificado con tarjeta de crédito/débito y PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">¡Solo falta un paso!</string>
   <string name="paypal_verification_home_one_step_card_body">Introduce el código que hemos enviado a tu e-mail para verificar tu cuenta de PayPal.</string>

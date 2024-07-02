@@ -41,6 +41,7 @@
   <string name="title_delete_account">Ви впевнені, що хочете видалити цей гаманець?</string>
   <string name="twitter">X</string>
   <string name="telegram">Група в Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Спільнота</string>
   <string name="title_opensource">Розробка з відкритим кодом</string>

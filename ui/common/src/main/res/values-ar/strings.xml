@@ -41,6 +41,7 @@
   <string name="title_delete_account">هل أنت متأكد من أنك تريد حذف هذه المحفظة؟</string>
   <string name="twitter">X</string>
   <string name="telegram">مجموعة تيليغرام</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
   <string name="title_opensource">تطوير مفتوح المصدر</string>

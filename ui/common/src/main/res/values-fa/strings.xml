@@ -41,6 +41,7 @@
   <string name="title_delete_account">آیا می خواهید این کیف پول را حذف کنید؟</string>
   <string name="twitter">X</string>
   <string name="telegram">گروه تلگرام</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">جامعه</string>
   <string name="title_opensource">برنامه‌نویسی منبع آزاد</string>

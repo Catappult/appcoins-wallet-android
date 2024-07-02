@@ -41,6 +41,7 @@
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram Grubu</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
   <string name="title_opensource">Açık Kaynaklı Geliştirme</string>
