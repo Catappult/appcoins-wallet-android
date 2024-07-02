@@ -41,6 +41,7 @@
   <string name="title_delete_account">Biztos vagy benne, hogy eltávolítod a tárcát?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram csoport</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Közösség</string>
   <string name="title_opensource">Nyílt forráskódú fejlesztés</string>
