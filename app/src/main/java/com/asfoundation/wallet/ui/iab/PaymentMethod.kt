@@ -10,7 +10,8 @@ open class PaymentMethod(
   val showTopup: Boolean = false,
   val showLogout: Boolean = false,
   val showExtraFeesMessage: Boolean = false,
-  val price: FiatValue = FiatValue(BigDecimal.ZERO, "")
+  val price: FiatValue = FiatValue(BigDecimal.ZERO, ""),
+  val message: String? = null,
 ) {
   constructor() : this("", "", "", false, null, false)
 

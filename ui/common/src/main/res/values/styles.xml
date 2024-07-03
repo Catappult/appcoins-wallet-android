@@ -353,6 +353,18 @@
     <item name="android:textColor">@color/styleguide_payments_main_text</item>
   </style>
 
+  <style name="PaymentMethodsStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/styleguide_payments_main_text</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="PaymentMethodsStyle.Description">
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>

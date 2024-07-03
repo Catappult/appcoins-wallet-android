@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.analytics.analytics.compatible_apps.CompatibleAppsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.email.EmailAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
@@ -16,6 +17,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
+import com.appcoins.wallet.core.network.base.compat.PostUserEmailUseCase
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -30,6 +32,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -133,7 +136,10 @@ constructor(
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
   private val logger: Logger,
-  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val postUserEmailUseCase: PostUserEmailUseCase,
+  private val emailPreferencesDataSource: EmailPreferencesDataSource,
+  private val emailAnalytics: EmailAnalytics
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private lateinit var defaultCurrency: String
@@ -146,9 +152,14 @@ constructor(
   val hasNotificationBadge = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
+  val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
+  val isEmailError = mutableStateOf(false)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
+
+    private const val SUCCESS_EMAIL_ANALYTICS = "success"
+    private const val ERROR_EMAIL_ANALYTICS = "erorr"
 
     fun initialState() = HomeState()
   }
@@ -223,6 +234,39 @@ constructor(
       fetchTransactions(wallet, defaultCurrency)
     }.doOnError { it.printStackTrace() }
       .subscribe()
+  }
+
+  fun postUserEmail(email: String) {
+    emailAnalytics.walletAppEmailSubmitClick()
+    postUserEmailUseCase(email).doOnComplete {
+      emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
+      hasSavedEmail.value = true
+    }.doOnError {
+      isEmailError.value = true
+      emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
+      it.printStackTrace()
+    }
+      .scopedSubscribe { e ->
+        e.printStackTrace()
+        emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
+        isEmailError.value = true
+      }
+  }
+
+  private fun hasWalletEmailPreferencesData(): Boolean {
+    return !emailPreferencesDataSource.getWalletEmail().isNullOrEmpty()
+  }
+
+  fun getWalletEmailPreferencesData(): String {
+    return emailPreferencesDataSource.getWalletEmail().toString()
+  }
+
+  fun saveHideWalletEmailCardPreferencesData(hasEmailSaved: Boolean) {
+    emailPreferencesDataSource.saveHideWalletEmailCard(hasEmailSaved)
+  }
+
+  fun isHideWalletEmailCardPreferencesData(): Boolean {
+    return emailPreferencesDataSource.isHideWalletEmailCard()
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
