@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bu ödeme yöntemiyle işlme ücreti ve KDV ödersin.</string>
   <string name="purchase_fee_included_body">ücretler dahil</string>
   <string name="purchase_error_one_wallet_generic">Wallet One ödemenle ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullan.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Yalnızca yüklemelerde kullanılabilir.</string>
   <string name="purchase_payment_method_minimum_amount">Yalnızca %s altındaki satın alma işlemleri için.</string>
   <string name="purchase_payment_method_not_availble_generic">Bu satın alma işleminde kullanılamaz.</string>
