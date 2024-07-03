@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Preko ovog načina plaćanja platićete naknadu za obradu i PDV.</string>
   <string name="purchase_fee_included_body">naknade su uključene</string>
   <string name="purchase_error_one_wallet_generic">Došlo je do problema sa vašim Wallet One plaćanjem. Pokušajte ponovo ili upotrebite drugi način plaćanja.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Dostupno samo za dopune.</string>
   <string name="purchase_payment_method_minimum_amount">Samo za kupovine iznad %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Nije dostupno za ovu kupovinu.</string>
