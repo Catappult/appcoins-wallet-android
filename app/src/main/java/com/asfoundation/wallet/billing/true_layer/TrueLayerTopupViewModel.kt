@@ -85,20 +85,21 @@ class TrueLayerTopupViewModel @Inject constructor(
                 errorCode = "TRANSACTION_START_ERROR",
                 errorDetails = "TrueLayer transaction error. Error starting transaction",
               )
-              _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
+              _state.postValue(State.Error(R.string.purchase_error_open_banking_wallet_generic))
             } else {
               uid = transaction.uid
               Log.d("paymentId", transaction.paymentId ?: "null")
-              _state.postValue(State.LaunchTrueLayerSDK(
-                paymentId = transaction.paymentId ?: "",
-                resourceToken = transaction.resourceToken ?: ""
+              _state.postValue(
+                State.LaunchTrueLayerSDK(
+                  paymentId = transaction.paymentId ?: "",
+                  resourceToken = transaction.resourceToken ?: ""
                 )
               )
             }
           }.subscribe({}, {
             Log.d(TAG, it.toString())
             topUpAnalytics.sendTrueLayerErrorEvent(errorDetails = "TrueLayer transaction error")
-            _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
+            _state.postValue(State.Error(R.string.purchase_error_open_banking_wallet_generic))
           })
       )
     }
@@ -145,7 +146,7 @@ class TrueLayerTopupViewModel @Inject constructor(
       delay(16000L)   //TODO remove if not needed
       try {
         if (state.value !is State.SuccessPurchase && wasNonSuccess)
-          _state.postValue(State.Error(R.string.purchase_error_one_wallet_generic))
+          _state.postValue(State.Error(R.string.purchase_error_open_banking_wallet_generic))
         disposableSuccessCheck.dispose()
       } catch (_: Exception) {
       }

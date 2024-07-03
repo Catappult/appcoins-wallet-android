@@ -1,17 +1,13 @@
 package com.asfoundation.wallet.billing.true_layer
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
@@ -22,12 +18,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
-import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
-import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
-import org.apache.commons.lang3.StringUtils
-import javax.inject.Inject
 import com.truelayer.payments.core.domain.configuration.Environment
 import com.truelayer.payments.core.domain.configuration.HttpConnectionConfiguration
 import com.truelayer.payments.core.domain.configuration.HttpLoggingLevel
@@ -35,6 +25,11 @@ import com.truelayer.payments.ui.TrueLayerUI
 import com.truelayer.payments.ui.screens.processor.ProcessorActivityContract
 import com.truelayer.payments.ui.screens.processor.ProcessorContext
 import com.truelayer.payments.ui.screens.processor.ProcessorResult
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.disposables.CompositeDisposable
+import org.apache.commons.lang3.StringUtils
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TrueLayerTopupFragment() : BasePageViewFragment() {
@@ -45,8 +40,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private val views get() = binding!!
   private lateinit var compositeDisposable: CompositeDisposable
   private var topUpActivityView: TopUpActivityView? = null
-
-  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
   private lateinit var processorResult: ActivityResultLauncher<ProcessorContext>
 
@@ -62,7 +55,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     binding = FragmentTrueLayerTopupBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
 //    iabView.disableBack()
-//    registerWebViewResult()  // TODO remove
     registerSdkResult()
     return views.root
   }
@@ -101,7 +93,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
 
         is TrueLayerTopupViewModel.State.LaunchTrueLayerSDK -> {
           launchTrueLayerSDK(state.paymentId, state.resourceToken)
-//          startWebViewAuthorization(state.htmlData)
         }
 
         TrueLayerTopupViewModel.State.TrueLayerBack -> {
@@ -255,12 +246,45 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
       when (it) {
         is ProcessorResult.Failure -> {
           // TODO parse the "reason", differentiate between user cancel and error
+
+          when (it.reason) {
+            ProcessorResult.FailureReason.UserAborted,
+            ProcessorResult.FailureReason.UserAbortedFailedToNotifyBackend,
+            ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailable,
+            ProcessorResult.FailureReason.UserAbortedProviderTemporarilyUnavailableFailedToNotifyBackend,
+            -> {
+              Log.d(TAG, "TrueLayer Back: ${it.reason.name}")
+              navigator.navigateBack()
+            }
+
+            else -> {
+              Log.d(TAG, "TrueLayer Fail: ${it.reason.name}")
+              viewModel.sendErrorEvent(it.reason.name)
+              showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
+            }
+          }
+
+
+          Log.d(TAG, "TrueLayer Fail: ${it.reason.name}")
           viewModel.sendErrorEvent(it.reason.name)
           showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
         }
 
         is ProcessorResult.Successful -> {
-          "Successful ${it.step}"  // TODO
+          // it.step: Redirect, Wait, Authorized, Successful, Settled
+          Log.d(TAG, "TrueLayer Success: ${it.step.name}")
+          when (it.step) {
+            ProcessorResult.PaymentStep.Successful,
+            ProcessorResult.PaymentStep.Authorized,
+            ProcessorResult.PaymentStep.Settled,
+            ProcessorResult.PaymentStep.Redirect,
+            -> {
+              handleSuccess() // TODO create a success screen with explanation of topup delay
+            }
+
+            ProcessorResult.PaymentStep.Wait -> {}
+
+          }
         }
       }
     }
