@@ -681,6 +681,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
   <string name="purchase_error_one_wallet_generic">حدثت مشكلة في الدفع مع محفظتك Wallet One. يرجى إعادة المحاولة أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">متوفرة فقط لإضافة رصيد.</string>
   <string name="purchase_payment_method_minimum_amount">فقط للمشتريات فوق %s.</string>
   <string name="purchase_payment_method_not_availble_generic">غير متوفرة في عملية الشراء الحالية.</string>
