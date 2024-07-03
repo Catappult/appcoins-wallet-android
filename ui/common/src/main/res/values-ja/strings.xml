@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">この支払い方法では、手数料と付加価値税を支払うことになります。</string>
   <string name="purchase_fee_included_body">手数料込み</string>
   <string name="purchase_error_one_wallet_generic">Wallet Oneのお支払いに問題が発生しました。もう一度お試しいただくか、別のお支払い方法をご利用ください。</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">トップアップにのみ利用可能。</string>
   <string name="purchase_payment_method_minimum_amount">%s以上の購入に限ります。</string>
   <string name="purchase_payment_method_not_availble_generic">今回の購入ではご利用いただけません。</string>
