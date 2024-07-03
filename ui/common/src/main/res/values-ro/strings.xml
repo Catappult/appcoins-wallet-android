@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Cu această metodă de plată vei plăti o taxă de procesare și TVA.</string>
   <string name="purchase_fee_included_body">taxe incluse</string>
   <string name="purchase_error_one_wallet_generic">Am întâmpinat o problemă cu plata ta Wallet One. Încearcă din nou sau folosește o metodă de plată diferită.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Disponibilă doar pentru alimentări.</string>
   <string name="purchase_payment_method_minimum_amount">Disponibilă doar pentru achizițiile peste %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Nedisponibilă pentru această achiziție.</string>
