@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
   <string name="purchase_error_one_wallet_generic">Возникла проблема с вашим платежом через Wallet One. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Доступно только для пополнения счета.</string>
   <string name="purchase_payment_method_minimum_amount">Только для покупок больше %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
