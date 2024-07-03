@@ -494,7 +494,7 @@
   <string name="do_it_later_button">لاحقًا</string>
   <string name="connection_error_title">لا يوجد اتصال بالإنترنت</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">أو</string>
   <string name="share_via">مشاركة بواسطة:</string>
   <string name="password">كلمة المرور</string>
   <string name="repeat_password">أعد كتابة كلمة المرور</string>
@@ -590,9 +590,9 @@
   <string name="verified_tag">مُصدَّق</string>
   <string name="unferified_tag">محفظة لم يتم التحقق منها</string>
   <string name="verification_wallets_verify_button">تحقق</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">موثّق بواسطة PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">موثّق ببطاقة ائتمان/مسبقة الدفع.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">موثّق ببطاقة ائتمان/مسبقة الدفع و PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">بقيت خطوة واحدة!</string>
   <string name="paypal_verification_home_one_step_card_body">أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني لتأكيد حساب PayPal.</string>
