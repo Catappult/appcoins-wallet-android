@@ -162,6 +162,10 @@ class TrueLayerTopupViewModel @Inject constructor(
     )
   }
 
+  fun sendErrorEvent(message: String) {
+    topUpAnalytics.sendTrueLayerErrorEvent(errorDetails = message)
+  }
+
   fun showSupport(gamificationLevel: Int) {
     compositeDisposable.add(
       supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })

@@ -250,20 +250,19 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   }
 
   private fun registerSdkResult() {
-    // Register for the end result.
     val contract = ProcessorActivityContract()
     processorResult = registerForActivityResult(contract) {
-      val text = when (it) {
+      when (it) {
         is ProcessorResult.Failure -> {
-          "Failure ${it.reason}"
+          // TODO parse the "reason", differentiate between user cancel and error
+          viewModel.sendErrorEvent(it.reason.name)
+          showSpecificError(R.string.purchase_error_open_banking_wallet_generic)
         }
 
         is ProcessorResult.Successful -> {
-          "Successful ${it.step}"
+          "Successful ${it.step}"  // TODO
         }
       }
-      // present the final result
-      Toast.makeText(views.root.context, text, Toast.LENGTH_LONG).show()
     }
   }
 
