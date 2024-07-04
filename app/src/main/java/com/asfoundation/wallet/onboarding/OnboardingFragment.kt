@@ -126,11 +126,17 @@ class OnboardingFragment : BasePageViewFragment(),
           showVerifyGuestWallet()
         }
 
+        OnboardingFlow.ONBOARDING_PAYMENT.name -> {
+          viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
+        }
+
         else -> {
           viewModel.getGuestWalletBonus(args.backup)
           showRecoverGuestWallet()
         }
       }
+    } else {
+      showDefaultOnboardingLayout()
     }
   }
 
@@ -162,6 +168,8 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showRecoverGuestWallet() {
+    views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingAction.visibility = View.INVISIBLE
     views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
@@ -175,7 +183,14 @@ class OnboardingFragment : BasePageViewFragment(),
     views.loadingAnimation.visibility = View.INVISIBLE
   }
 
+  private fun showDefaultOnboardingLayout() {
+    views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
+    views.onboardingAction.visibility = View.VISIBLE
+  }
+
   private fun showVerifyGuestWallet() {
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
@@ -210,6 +225,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showValuesScreen() {
+    views.loading.visibility = View.GONE
     views.onboardingWalletIcon?.visibility = View.VISIBLE
     views.onboardingValuePropositions.root.visibility = View.VISIBLE
     views.onboardingButtons.root.visibility = View.VISIBLE
