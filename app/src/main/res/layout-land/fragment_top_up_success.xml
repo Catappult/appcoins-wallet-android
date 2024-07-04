@@ -5,23 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/styleguide_blue"
-    android:orientation="horizontal"
     >
+
+  <View
+      android:id="@+id/view_to_center_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="invisible"
+      app:layout_constraintVertical_weight="1"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintBottom_toTopOf="@id/top_up_success_animation"
+      app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0"
+      />
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/top_up_success_animation"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_marginBottom="64dp"
       android:visibility="visible"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginHorizontal="32dp"
+      app:layout_constraintBottom_toTopOf="@id/view_to_center_animation_2"
+      app:layout_constraintDimensionRatio="H,1000:592"
       app:layout_constraintEnd_toEndOf="@+id/mid_guideline"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/view_to_center_animation"
       app:layout_constraintWidth_max="0dp"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/top_up_success_animation"
       />
+
+  <View
+      android:id="@+id/view_to_center_animation_2"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="invisible"
+      app:layout_constraintVertical_weight="3"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
+      app:layout_constraintVertical_bias="0"
+      />
+
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/mid_guideline"
       android:layout_width="wrap_content"
@@ -29,23 +58,70 @@
       android:orientation="vertical"
       app:layout_constraintGuide_percent="0.5"
       />
-  <TextView
-      android:id="@+id/value"
-      style="@style/TopUpTextStyle.SuccessTitle"
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/text_container"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="52dp"
-      android:gravity="center"
-      android:text="@string/topup_completed_2_with_bonus"
-      android:textColor="@color/styleguide_light_grey"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_height="0dp"
+      app:layout_constraintVertical_weight="1"
+      app:layout_constraintBottom_toTopOf="@id/button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="1,23 EUR in AppCoins Credits were deposited in your account... Along with a bonus!"
-      />
+      >
+
+    <TextView
+        android:id="@+id/value"
+        style="@style/TopUpTextStyle.SuccessTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/big_margin"
+        android:text="@string/topup_completed_2_with_bonus"
+        android:textColor="@color/styleguide_light_grey"
+        app:layout_constraintBottom_toTopOf="@id/bonus_received"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="1,23 EUR in AppCoins Credits were deposited in your account."
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/bonus_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ic_guest_wallet_bonus, bonus_received"
+        />
+
+    <ImageView
+        android:id="@+id/ic_guest_wallet_bonus"
+        android:layout_width="32dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_guest_wallet_bonus"
+        app:layout_constraintBottom_toBottomOf="@id/bonus_received"
+        app:layout_constraintEnd_toStartOf="@id/bonus_received"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bonus_received"
+        />
+
+    <TextView
+        android:id="@+id/bonus_received"
+        style="@style/TopUpTextStyle.SuccessTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:paddingHorizontal="8dp"
+        android:text="@string/topup_completed_2_with_bonus"
+        android:textColor="@color/styleguide_light_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ic_guest_wallet_bonus"
+        app:layout_constraintTop_toBottomOf="@id/value"
+        tools:text="Bonus received 2.20€"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/button"
@@ -55,12 +131,13 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="24dp"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="80dp"
+      android:layout_marginBottom="28dp"
       app:buttonText="@string/button_ok"
       app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
-      app:layout_constraintTop_toBottomOf="@id/value"
+      app:layout_constraintTop_toBottomOf="@id/text_container"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
