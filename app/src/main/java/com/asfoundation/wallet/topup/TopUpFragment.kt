@@ -493,7 +493,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun hideBonus() {
-    binding.bonusLayout.root.visibility = View.INVISIBLE
+    binding.bonusLayout.root.visibility = View.GONE
+    binding.headerTopUpDivider.visibility = View.GONE
   }
 
   override fun hideBonusAndSkeletons() {
@@ -502,6 +503,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun removeBonus() {
+    binding.headerTopUpDivider.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.GONE
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
   }
@@ -512,6 +514,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showBonus() {
+    binding.headerTopUpDivider.visibility = View.VISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.GONE
     binding.bonusLayout.root.visibility = View.VISIBLE
   }
@@ -586,6 +589,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   }
 
   override fun showBonusSkeletons() {
+    binding.headerTopUpDivider.visibility = View.VISIBLE
     binding.bonusLayout.root.visibility = View.INVISIBLE
     binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
   }
