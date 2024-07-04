@@ -306,7 +306,7 @@ public class InAppPurchaseInteractor {
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
             appcPaymentMethod.getDisabledReason(), true, false, false,
-            appcPaymentMethod.getPrice()));
+            appcPaymentMethod.getPrice(), appcPaymentMethod.getMessage()));
     return paymentMethods;
   }
 
@@ -489,24 +489,47 @@ public class InAppPurchaseInteractor {
   private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
       List<PaymentMethodEntity> availablePaymentMethods, String currency) {
     for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
-      if (paymentMethod.getId()
-          .equals(availablePaymentMethod.getId())) {
+      if (paymentMethod.getId().equals(availablePaymentMethod.getId())) {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
-        return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false, isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency),
-            new FiatValue(paymentMethod.getPrice()
-                .getValue(), paymentMethod.getPrice()
-                .getCurrency(), ""));
+        return new PaymentMethod(
+            paymentMethod.getId(),
+            paymentMethod.getLabel(),
+            paymentMethod.getIconUrl(),
+            paymentMethod.getAsync(),
+            paymentMethodFee,
+            true,
+            null,
+            false,
+            isToShowPaypalLogout(paymentMethod),
+            hasExtraFees(paymentMethod, currency),
+            new FiatValue(
+                paymentMethod.getPrice().getValue(),
+                paymentMethod.getPrice()
+                .getCurrency(),
+                ""
+            ),
+            paymentMethod.getMessage());
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
-    return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
-        isToShowPaypalLogout(paymentMethod), hasExtraFees(paymentMethod, currency), new FiatValue(
-        paymentMethod.getPrice()
-            .getValue(), paymentMethod.getPrice()
-        .getCurrency(), ""));
+    return new PaymentMethod(
+        paymentMethod.getId(),
+        paymentMethod.getLabel(),
+        paymentMethod.getIconUrl(),
+        paymentMethod.getAsync(),
+        paymentMethodFee,
+        false,
+        null,
+        false,
+        isToShowPaypalLogout(paymentMethod),
+        hasExtraFees(paymentMethod, currency),
+        new FiatValue(
+            paymentMethod.getPrice().getValue(),
+            paymentMethod.getPrice()
+            .getCurrency(),
+            ""
+        ),
+        paymentMethod.getMessage());
   }
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {

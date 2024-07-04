@@ -59,13 +59,12 @@
 
   <TextView
       android:id="@+id/payment_method_description"
-      style="@style/TopUpTextStyle"
+      style="@style/PaymentMethodsStyle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="17dp"
       android:ellipsize="end"
       android:gravity="start"
-      android:textColor="@color/styleguide_payments_main_text"
       app:layout_constraintBottom_toTopOf="@id/payment_method_reason"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
@@ -75,13 +74,12 @@
 
   <TextView
       android:id="@+id/payment_method_reason"
-      style="@style/TopUpTextStyle"
+      style="@style/PaymentMethodsStyle.Description"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="17dp"
       android:ellipsize="end"
       android:gravity="start"
-      android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
       android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/payment_method_fee"
@@ -112,11 +110,11 @@
 
   <TextView
       android:id="@+id/payment_method_fee"
+      style="@style/PaymentMethodsStyle.Description"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="start"
       android:text="@string/purchase_fees_and_taxes_known_disclaimer_body"
-      android:textColor="@color/styleguide_dark_grey"
       android:textSize="11sp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"

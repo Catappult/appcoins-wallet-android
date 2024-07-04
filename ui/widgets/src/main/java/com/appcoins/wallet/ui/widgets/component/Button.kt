@@ -16,6 +16,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +34,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.R
 import com.appcoins.wallet.ui.widgets.component.ButtonType.DEFAULT
 import com.appcoins.wallet.ui.widgets.component.ButtonType.LARGE
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun ButtonWithIcon(
@@ -43,9 +48,20 @@ fun ButtonWithIcon(
   iconSize: Dp = 12.dp,
   buttonType: ButtonType = DEFAULT
 ) {
+  val isButtonEnabled = remember { mutableStateOf(true) }
+  val scope = rememberCoroutineScope()
   val modifier = if (buttonType == LARGE) Modifier.fillMaxWidth() else Modifier
   Button(
-    onClick = onClick,
+    onClick = {
+      if (isButtonEnabled.value) {
+        isButtonEnabled.value = false
+        scope.launch {
+          delay(2000)
+          isButtonEnabled.value = true
+        }
+        onClick.invoke()
+      }
+    },
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
     elevation = null,
@@ -81,14 +97,27 @@ fun ButtonWithText(
   textStyle: TextStyle = MaterialTheme.typography.bodyMedium,
   enabled: Boolean = true
 ) {
+  val isButtonEnabled = remember { mutableStateOf(true) }
+  val scope = rememberCoroutineScope()
   val buttonModifier = if (buttonType == LARGE) modifier
     .fillMaxWidth()
     .height(48.dp) else modifier
   Button(
-    onClick = { if (enabled) onClick.invoke() },
+    onClick = {
+      if (enabled) {
+        if (isButtonEnabled.value) {
+          isButtonEnabled.value = false
+          scope.launch {
+            delay(2000)
+            isButtonEnabled.value = true
+          }
+          onClick.invoke()
+        }
+      }
+    },
     modifier = buttonModifier.defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
-    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_dark_grey),
+    colors = ButtonDefaults.buttonColors(containerColor = if (enabled) backgroundColor else WalletColors.styleguide_medium_grey),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
     Text(text = label, style = textStyle, color = labelColor, fontWeight = FontWeight.Bold)

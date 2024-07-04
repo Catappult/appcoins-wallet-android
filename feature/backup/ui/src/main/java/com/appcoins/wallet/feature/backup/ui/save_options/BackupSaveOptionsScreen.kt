@@ -1,11 +1,15 @@
 package com.appcoins.wallet.feature.backup.ui.save_options
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -13,13 +17,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -44,7 +52,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.appcoins.wallet.ui.widgets.component.WalletTextFieldCustom
 
-lateinit var passwordInput: String
+lateinit var emailInput: String
 
 @Composable
 fun BackupSaveOptionsRoute(
@@ -58,9 +66,10 @@ fun BackupSaveOptionsRoute(
   ) { padding ->
     BackupSaveOptionsScreen(
       scaffoldPadding = padding, viewModel.showLoading.value, onSaveOnDevice = onSaveOnDevice
-    ) {
+    ) { isEmailCommunicationSelected ->
       viewModel.showLoading()
-      viewModel.sendBackupToEmail(passwordInput)
+      viewModel.sendBackupToEmail(emailInput)
+      if (isEmailCommunicationSelected) viewModel.postUserEmailCommunication(emailInput)
     }
   }
 }
@@ -70,11 +79,10 @@ fun BackupSaveOptionsScreen(
   scaffoldPadding: PaddingValues,
   showLoading: Boolean,
   onSaveOnDevice: () -> Unit,
-  onSendEmailClick: () -> Unit,
+  onSendEmailClick: (isEmailCommunicationSelected: Boolean) -> Unit,
 ) {
   Column(
-    modifier =
-    Modifier
+    modifier = Modifier
       .fillMaxSize(1f)
       .padding(scaffoldPadding)
       .verticalScroll(
@@ -173,75 +181,117 @@ fun LoadingCard() {
 
 @Composable
 fun SaveOnDeviceOptions(
-  onSendEmailClick: () -> Unit,
+  onSendEmailClick: (isEmailCommunicationSelected: Boolean) -> Unit,
   onSaveOnDevice: () -> Unit,
 ) {
   var defaultEmail by rememberSaveable { mutableStateOf("") }
   var validEmail by rememberSaveable { mutableStateOf(false) }
+  val checkedCommunicationState = remember { mutableStateOf(false) }
 
-  Column(Modifier.fillMaxWidth()) {
-    Column(
-      Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp, top = 24.dp),
-      horizontalAlignment = Alignment.Start
-    ) {
-      Text(
-        text = stringResource(id = R.string.backup_ready_save_on_email),
-        Modifier.padding(bottom = 8.dp),
-        style = WalletTypography.medium.sp14,
-        color = WalletColors.styleguide_light_grey
-      )
-      WalletTextFieldCustom(
-        value = defaultEmail,
-        onValueChange = {
-          defaultEmail = it
-          passwordInput = defaultEmail
-        },
-        hintText = R.string.email_here_field,
-      )
-      if (defaultEmail.isNotEmpty() &&
-        android.util.Patterns.EMAIL_ADDRESS.matcher(defaultEmail).matches()
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    verticalArrangement = Arrangement.SpaceBetween,
+  ) {
+    Column {
+      Column(
+        Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp, top = 24.dp),
+        horizontalAlignment = Alignment.Start
       ) {
-        validEmail = true
+        Text(
+          text = stringResource(id = R.string.backup_ready_save_on_email),
+          Modifier.padding(bottom = 8.dp),
+          style = WalletTypography.medium.sp14,
+          color = WalletColors.styleguide_light_grey
+        )
+        WalletTextFieldCustom(
+          value = defaultEmail,
+          onValueChange = {
+            defaultEmail = it
+            emailInput = defaultEmail
+          },
+          hintText = R.string.email_here_field,
+        )
+        if (defaultEmail.isNotEmpty() &&
+          android.util.Patterns.EMAIL_ADDRESS.matcher(defaultEmail).matches()
+        ) {
+          validEmail = true
+        }
+
+        CheckboxCommunicationEmail(
+          checked = checkedCommunicationState.value,
+          onCheckedChange = { checkedCommunicationState.value = it }
+        )
+
       }
-      ButtonWithText(
-        label = stringResource(id = R.string.backup_ready_email_button),
-        onClick = { if (validEmail) onSendEmailClick() },
-        backgroundColor =
-        if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
-        labelColor = WalletColors.styleguide_light_grey,
-        buttonType = ButtonType.LARGE,
-      )
     }
-    Row(
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)
-    ) {
-      Divider(
-        modifier = Modifier
-          .weight(1f)
-          .height(1.dp), color = styleguide_dark_grey
-      )
-      Text(
-        text = stringResource(R.string.common_or),
-        color = styleguide_dark_grey,
-        style = WalletTypography.regular.sp12,
-        modifier = Modifier.padding(horizontal = 8.dp)
-      )
-      Divider(
-        modifier = Modifier
-          .weight(1f)
-          .height(1.dp), color = styleguide_dark_grey
-      )
+
+    Column {
+      Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 8.dp)) {
+        ButtonWithText(
+          label = stringResource(id = R.string.backup_ready_email_button),
+          onClick = { if (validEmail) onSendEmailClick(checkedCommunicationState.value) },
+          backgroundColor =
+          if (validEmail) WalletColors.styleguide_pink else styleguide_dark_grey,
+          labelColor = WalletColors.styleguide_light_grey,
+          buttonType = ButtonType.LARGE,
+        )
+      }
+
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 1.25.dp, bottom = 8.75.dp)
+      ) {
+        Divider(
+          modifier = Modifier
+            .weight(1f)
+            .height(1.dp), color = styleguide_dark_grey
+        )
+        Text(
+          text = stringResource(R.string.common_or),
+          color = styleguide_dark_grey,
+          style = WalletTypography.regular.sp12,
+          modifier = Modifier.padding(horizontal = 8.dp)
+        )
+        Divider(
+          modifier = Modifier
+            .weight(1f)
+            .height(1.dp), color = styleguide_dark_grey
+        )
+      }
+      Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)) {
+        ButtonWithText(
+          label = stringResource(id = R.string.backup_ready_device_button),
+          onClick = { onSaveOnDevice() },
+          labelColor = WalletColors.styleguide_white,
+          buttonType = ButtonType.LARGE,
+          outlineColor = WalletColors.styleguide_light_grey
+        )
+      }
     }
-    Column(modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 27.dp)) {
-      ButtonWithText(
-        label = stringResource(id = R.string.backup_ready_device_button),
-        onClick = { onSaveOnDevice() },
-        labelColor = WalletColors.styleguide_white,
-        buttonType = ButtonType.LARGE,
-        outlineColor = WalletColors.styleguide_light_grey
+  }
+}
+
+@Composable
+fun CheckboxCommunicationEmail(checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+  Row(
+    verticalAlignment = Alignment.Top,
+    modifier = Modifier.padding(bottom = 8.dp)
+  ) {
+    Checkbox(
+      checked = checked,
+      onCheckedChange = onCheckedChange,
+      colors = CheckboxDefaults.colors(
+        checkedColor = WalletColors.styleguide_pink,
+        uncheckedColor = WalletColors.styleguide_dark_grey,
+        checkmarkColor = WalletColors.styleguide_white,
       )
-    }
+    )
+    Text(
+      text = stringResource(id = R.string.mail_list_card_body),
+      style = WalletTypography.medium.sp12,
+      modifier = Modifier
+        .padding(start = 0.dp, top = 12.dp)
+    )
   }
 }
 

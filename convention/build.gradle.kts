@@ -1,10 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins { `kotlin-dsl` }
 
 group = "com.appcoins.wallet.convention"
 
-tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString() }
 
 dependencies {
   implementation(libs.gradlePlugin.android)
