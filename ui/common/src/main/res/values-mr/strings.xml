@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">ह्या पेमेंट पद्धतीत आपण प्रक्रिया शुल्क आणि वॅटही भराल.</string>
   <string name="purchase_fee_included_body">शुल्क समावेशीत</string>
   <string name="purchase_error_one_wallet_generic">आपल्या वॉलेट वन पेमेंटमध्ये काही समस्या आलीय. कृपया पुन्हा प्रयत्न करा वा वेगळी पेमेंट पद्धत वापरा.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">फक्त टॉप-अपसाठीच उपलब्ध.</string>
   <string name="purchase_payment_method_minimum_amount">%s वरील खरेदीसाठीच.</string>
   <string name="purchase_payment_method_not_availble_generic">ह्या खरेदीसाठी उपलब्ध नाही.</string>

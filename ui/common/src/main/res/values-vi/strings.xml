@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Với phương thức thanh toán này, bạn sẽ phải trả phí xử lý và VAT.</string>
   <string name="purchase_fee_included_body">đã bao gồm phí</string>
   <string name="purchase_error_one_wallet_generic">Đã xảy ra sự cố với khoản thanh toán Wallet One của bạn. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Chỉ khả dụng để nạp tiền.</string>
   <string name="purchase_payment_method_minimum_amount">Chỉ dành cho các giao dịch mua trên %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Không khả dụng trong giao dịch mua này.</string>

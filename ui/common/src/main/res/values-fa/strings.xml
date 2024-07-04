@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">با این روش پرداخت، هزینه‌های پردازش و VAT را نیز پرداخت می‌کنید.</string>
   <string name="purchase_fee_included_body">شامل هزینه‌ها</string>
   <string name="purchase_error_one_wallet_generic">مشکلی با پرداخت Wallet One شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">تنها برای شارژها موجود است.</string>
   <string name="purchase_payment_method_minimum_amount">تنها برای خریدهای روی %s.</string>
   <string name="purchase_payment_method_not_availble_generic">در این خرید موجود نیست.</string>

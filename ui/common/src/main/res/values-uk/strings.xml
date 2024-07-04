@@ -682,6 +682,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При цьому способі оплати ви сплачуєте комісію за обробку та ПДВ.</string>
   <string name="purchase_fee_included_body">комісія включена</string>
   <string name="purchase_error_one_wallet_generic">З вашим платежем через Wallet One виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Доступно тільки для поповнення.</string>
   <string name="purchase_payment_method_minimum_amount">Тільки для покупок понад %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Недоступно для цієї покупки.</string>

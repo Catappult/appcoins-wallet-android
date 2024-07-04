@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Avec ce mode de paiement, vous payez des frais de traitement et de la TVA.</string>
   <string name="purchase_fee_included_body">frais inclus</string>
   <string name="purchase_error_one_wallet_generic">Il y a eu un problème avec votre paiement Wallet One. Veuillez réessayer ou utiliser une autre méthode de paiement.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Uniquement disponible pour les recharges.</string>
   <string name="purchase_payment_method_minimum_amount">Uniquement pour les achats supérieurs à %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Non disponible pour cet achat.</string>

@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Met deze betaalmethode betaal je verwerkingskosten en btw.</string>
   <string name="purchase_fee_included_body">inclusief kosten</string>
   <string name="purchase_error_one_wallet_generic">Er is een probleem opgetreden met je Wallet One-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Alleen beschikbaar voor opwaarderingen.</string>
   <string name="purchase_payment_method_minimum_amount">Alleen voor aankopen van meer dan %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Niet beschikbaar voor deze aankoop.</string>

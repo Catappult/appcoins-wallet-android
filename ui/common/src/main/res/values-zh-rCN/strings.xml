@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">若您使用这种付款方式，则您需要支付一笔手续费和增值税。</string>
   <string name="purchase_fee_included_body">已包含相关费用</string>
   <string name="purchase_error_one_wallet_generic">您的 Wallet One 在支付时出现了问题。请重试或使用其他付款方式。</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">仅适用于充值。</string>
   <string name="purchase_payment_method_minimum_amount">仅适用于%s以上的购买。</string>
   <string name="purchase_payment_method_not_availble_generic">无法适用于此次购买。</string>

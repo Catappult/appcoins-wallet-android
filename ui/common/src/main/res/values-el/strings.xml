@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Με αυτήν τη μέθοδο πληρωμής θα πληρώσετε ένα τέλος επεξεργασίας συν ΦΠΑ.</string>
   <string name="purchase_fee_included_body">περιλαμβάνονται χρεώσεις</string>
   <string name="purchase_error_one_wallet_generic">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω Wallet One. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Διαθέσιμο μόνο για φόρτιση.</string>
   <string name="purchase_payment_method_minimum_amount">Μόνο για αγορές άνω των %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Μη διαθέσιμο σ\' αυτήν την αγορά.</string>

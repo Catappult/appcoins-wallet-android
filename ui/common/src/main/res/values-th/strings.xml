@@ -680,6 +680,7 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">รวมค่าธรรมเนียม</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">สำหรับใช้ได้สำหรับการเติมเงินเท่านั้น</string>
   <string name="purchase_payment_method_minimum_amount">สำหรับการซื้อที่สูงกว่า %s เท่านั้น</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
