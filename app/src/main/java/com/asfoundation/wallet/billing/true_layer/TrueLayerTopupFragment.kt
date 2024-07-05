@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTrueLayerTopupBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -25,6 +27,9 @@ import com.truelayer.payments.ui.TrueLayerUI
 import com.truelayer.payments.ui.screens.processor.ProcessorActivityContract
 import com.truelayer.payments.ui.screens.processor.ProcessorContext
 import com.truelayer.payments.ui.screens.processor.ProcessorResult
+import com.truelayer.payments.ui.theme.DarkColorDefaults
+import com.truelayer.payments.ui.theme.LightColorDefaults
+import com.truelayer.payments.ui.theme.TrueLayerTheme
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -222,7 +227,7 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
   private fun launchTrueLayerSDK(paymentId: String, resourceToken: String) {
     TrueLayerUI.init(context = views.root.context) {
       // optionally choose which environment you want to use: PRODUCTION or SANDBOX
-      environment = Environment.SANDBOX
+      environment = if (BuildConfig.DEBUG) Environment.SANDBOX else Environment.PRODUCTION
       // Make your own custom http configuration, stating custom timeout and http request logging level
       httpConnection = HttpConnectionConfiguration(
         timeoutMs = 15000,
@@ -245,8 +250,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     processorResult = registerForActivityResult(contract) {
       when (it) {
         is ProcessorResult.Failure -> {
-          // TODO parse the "reason", differentiate between user cancel and error
-
           when (it.reason) {
             ProcessorResult.FailureReason.UserAborted,
             ProcessorResult.FailureReason.UserAbortedFailedToNotifyBackend,
