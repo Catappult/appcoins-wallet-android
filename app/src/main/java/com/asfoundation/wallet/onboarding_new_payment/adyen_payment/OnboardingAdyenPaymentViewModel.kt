@@ -107,7 +107,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           sku = args.transactionBuilder.skuId,
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
-          referrerUrl = args.transactionBuilder.referrerUrl
+          referrerUrl = if (args.transactionBuilder.type == "INAPP") null else args.transactionBuilder.referrerUrl
         )
       }
       .doOnSuccess { paymentModel ->
@@ -195,7 +195,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           sku = args.transactionBuilder.skuId,
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
-          referrerUrl = args.transactionBuilder.referrerUrl
+          referrerUrl = if (args.transactionBuilder.type == "INAPP") null else args.transactionBuilder.referrerUrl
         )
       }
       .doOnSuccess { paymentModel ->
