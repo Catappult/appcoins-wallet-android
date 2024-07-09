@@ -687,6 +687,10 @@
   <string name="purchase_error_no_method_available_body">現時点では、お住まいの地域でこの購入を完了するための支払い方法はありません。ご期待ください！</string>
   <string name="purchase_legal_disclaimer">お支払いを完了することにより、お支払いと同時にコンテンツが提供されることに同意し、承諾したものとみなされます。</string>
   <string name="purchase_bonus_in_appc_disclaimer">ボーナスはAppCoinsクレジットで支払われます。</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
