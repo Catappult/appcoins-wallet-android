@@ -155,12 +155,14 @@ class TrueLayerTopupViewModel @Inject constructor(
 
   fun createBundle(
     priceAmount: String, priceCurrency: String,
-    fiatCurrencySymbol: String, bonus: String
+    fiatCurrencySymbol: String, bonus: String, pendingFinalConfirmation: Boolean
   ): Bundle {
-    return billingMessagesMapper.topUpBundle(
+    val bundle = billingMessagesMapper.topUpBundle(
       priceAmount, priceCurrency, bonus,
       fiatCurrencySymbol
     )
+    bundle.putBoolean(BillingMessagesMapper.PENDING_FINAL_CONFIRMATION, pendingFinalConfirmation)
+    return bundle
   }
 
   fun sendErrorEvent(message: String) {

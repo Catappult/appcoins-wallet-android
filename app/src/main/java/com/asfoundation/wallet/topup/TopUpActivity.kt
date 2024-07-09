@@ -83,6 +83,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
     private const val FIRST_IMPRESSION = "first_impression"
+    private const val PENDING_FINAL_CONFIRMATION = "pending_final_confirmation"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -263,9 +264,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     supportFragmentManager.beginTransaction().replace(
       R.id.fragment_container, TopUpSuccessFragment.newInstance(
           data.getString(TOP_UP_AMOUNT, ""),
-        data.getString(TOP_UP_CURRENCY, ""),
-        data.getString(BONUS, ""),
-          data.getString(TOP_UP_CURRENCY_SYMBOL, "")
+          data.getString(TOP_UP_CURRENCY, ""),
+          data.getString(BONUS, ""),
+          data.getString(TOP_UP_CURRENCY_SYMBOL, ""),
+          data.getBoolean(PENDING_FINAL_CONFIRMATION, false),
       ), TopUpSuccessFragment::class.java.simpleName
     ).commit()
     unlockRotation()

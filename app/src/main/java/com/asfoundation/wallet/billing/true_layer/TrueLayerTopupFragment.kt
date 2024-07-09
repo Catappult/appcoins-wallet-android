@@ -166,8 +166,8 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
 //      }
 //  }
 
-  private fun handleSuccess() {
-    val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus)
+  private fun handleSuccess(pendingFinalConfirmation: Boolean = true) {
+    val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus, pendingFinalConfirmation)
     navigator.popView(bundle)
   }
 
@@ -280,9 +280,12 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
             ProcessorResult.PaymentStep.Successful,
             ProcessorResult.PaymentStep.Authorized,
             ProcessorResult.PaymentStep.Settled,
-            ProcessorResult.PaymentStep.Redirect,
             -> {
-              handleSuccess() // TODO create a success screen with explanation of topup delay
+              handleSuccess()
+            }
+
+            ProcessorResult.PaymentStep.Redirect -> {
+              handleSuccess()  // TODO check if needs a new screen
             }
 
             ProcessorResult.PaymentStep.Wait -> {}

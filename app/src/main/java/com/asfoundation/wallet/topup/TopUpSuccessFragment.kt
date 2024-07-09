@@ -29,7 +29,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     @JvmStatic
     fun newInstance(
       amount: String, currency: String, bonus: String,
-      currencySymbol: String
+      currencySymbol: String, pendingFinalConfirmation: Boolean,
     ): TopUpSuccessFragment {
       return TopUpSuccessFragment().apply {
         arguments = Bundle().apply {
@@ -37,6 +37,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
           putString(CURRENCY, currency)
           putString(CURRENCY_SYMBOL, currencySymbol)
           putString(BONUS, bonus)
+          putBoolean(PENDING_FINAL_CONFIRMATION, pendingFinalConfirmation)
         }
       }
     }
@@ -45,6 +46,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     private const val CURRENCY = "currency"
     private const val CURRENCY_SYMBOL = "currency_symbol"
     private const val BONUS = "bonus"
+    private const val PENDING_FINAL_CONFIRMATION = "pending_final_confirmation"
   }
 
   @Inject
@@ -84,6 +86,14 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     }
   }
 
+  private val pendingFinalConfirmation: Boolean by lazy {
+    if (requireArguments().containsKey(PENDING_FINAL_CONFIRMATION)) {
+      requireArguments().getBoolean(PENDING_FINAL_CONFIRMATION)
+    } else {
+      false
+    }
+  }
+
   private val binding by viewBinding(FragmentTopUpSuccessBinding::bind)
 
   override fun onAttach(context: Context) {
@@ -117,14 +127,24 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (bonus.isNotEmpty() && bonus != "0") {
-      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_bonus_success_animation)
-      setAnimationText()
-      formatBonusSuccessMessage()
-    } else {
-      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
-      formatSuccessMessage()
+    when {
+      pendingFinalConfirmation -> {
+        binding.topUpSuccessAnimation.visibility = View.GONE
+        binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
+        binding.value.text = resources.getString(R.string.activity_iab_approving_message)  //TODO
+        formatBonusSuccessMessage()  // TODO
+      }
+      bonus.isNotEmpty() && bonus != "0" -> {
+        binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_bonus_success_animation)
+        setAnimationText()
+        formatBonusSuccessMessage()
+      }
+      else -> {
+        binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
+        formatSuccessMessage()
+      }
     }
+
     binding.topUpSuccessAnimation.playAnimation()
   }
 

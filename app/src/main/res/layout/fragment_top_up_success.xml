@@ -22,6 +22,21 @@
       app:lottie_rawRes="@raw/top_up_success_animation"
       />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/top_up_pending_success_animation"
+      android:layout_width="128dp"
+      android:layout_height="256dp"
+      android:layout_margin="@dimen/big_margin"
+      app:layout_constraintBottom_toTopOf="@+id/value"
+      app:layout_constraintDimensionRatio="H, 6:5"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/success_animation"
+      android:visibility="gone"
+      />
+
   <TextView
       android:id="@+id/value"
       style="@style/TopUpTextStyle.SuccessTitle"
