@@ -687,6 +687,11 @@
   <string name="purchase_error_no_method_available_body">Προς το παρόν δεν υπάρχουν διαθέσιμες μέθοδοι πληρωμής για να ολοκληρώσετε αυτή την αγορά στην περιοχή σας. Μείνετε συντονισμένοι!</string>
   <string name="purchase_legal_disclaimer">Προχωρώντας με την πληρωμή, συμφωνείτε και δίνετε τη συγκατάθεσή σας για να παραλάβετε το περιεχόμενο κατά την πληρωμή, και ως εκ τούτου χάνετε το δικαίωμα υπαναχώρησής σας.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Το bonus είναι σε AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
