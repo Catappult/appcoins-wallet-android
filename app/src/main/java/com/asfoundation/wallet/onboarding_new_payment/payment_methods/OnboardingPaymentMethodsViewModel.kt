@@ -8,7 +8,9 @@ import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCachedShowRefundDisclaimerUseCase
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
+import com.asfoundation.wallet.onboarding.use_cases.SetResponseCodeWebSocketUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_USER_CANCEL
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOtherPaymentMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod
@@ -34,6 +36,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val getOtherPaymentMethodsUseCase: GetOtherPaymentMethodsUseCase, //temporary, to remove later and use getFirstPaymentMethodsUseCase only
   private val cachedTransactionRepository: CachedTransactionRepository,
   private val events: OnboardingPaymentEvents,
+  private val setResponseCodeWebSocketUseCase: SetResponseCodeWebSocketUseCase,
   savedStateHandle: SavedStateHandle,
   private val getCachedShowRefundDisclaimerUseCase: GetCachedShowRefundDisclaimerUseCase
 ) :
@@ -99,5 +102,9 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   fun handleBackToGameClick() {
     events.sendPaymentMethodEvent(args.transactionBuilder, null, "back_to_the_game")
     sendSideEffect { OnboardingPaymentMethodsSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
+  }
+
+  fun setDefaultResponseCodeWebSocket() {
+    setResponseCodeWebSocketUseCase(SDK_STATUS_USER_CANCEL)
   }
 }

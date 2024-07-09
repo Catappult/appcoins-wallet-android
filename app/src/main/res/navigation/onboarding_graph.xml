@@ -52,7 +52,9 @@
 
     <action
         android:id="@+id/action_navigate_to_first_payment_fragment"
-        app:destination="@id/onboarding_payment_fragment" />
+        app:destination="@id/onboarding_payment_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true"/>
   </fragment>
 
   <fragment

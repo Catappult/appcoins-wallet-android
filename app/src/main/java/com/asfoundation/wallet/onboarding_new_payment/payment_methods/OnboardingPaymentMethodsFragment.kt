@@ -61,6 +61,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     args = OnboardingPaymentMethodsFragmentArgs.fromBundle(requireArguments())
     handlePaymentMethodList()
     setStringWithLinks()
+    viewModel.setDefaultResponseCodeWebSocket()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
