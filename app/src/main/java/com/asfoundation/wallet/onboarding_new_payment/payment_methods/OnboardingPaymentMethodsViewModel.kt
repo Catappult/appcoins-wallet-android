@@ -65,6 +65,11 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
             currency = args.currency
           )
         }
+        if (args.transactionBuilder.type != cachedTransaction.type) {
+          args.transactionBuilder.type = cachedTransaction.type
+          args.transactionBuilder.origin = cachedTransaction.origin
+          args.transactionBuilder.wspPort = cachedTransaction.wsPort
+        }
         getFirstPaymentMethodsUseCase(diffCachedTransaction)
           // to only use getFirstPaymentMethodsUseCase and remove the doOnSuccess after all methods are ready
           .doOnSuccess { availablePaymentMethods ->

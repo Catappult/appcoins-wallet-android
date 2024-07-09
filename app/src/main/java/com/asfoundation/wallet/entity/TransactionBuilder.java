@@ -51,6 +51,7 @@ public class TransactionBuilder implements Parcelable {
   //Subs
   @Nullable private String subscriptionPeriod;
   @Nullable private String trialPeriod;
+  @Nullable private String wspPort;
 
   public TransactionBuilder(TransactionBuilder transactionBuilder) {
     this.contractAddress = transactionBuilder.contractAddress;
@@ -79,6 +80,7 @@ public class TransactionBuilder implements Parcelable {
     this.productToken = transactionBuilder.productToken;
     this.subscriptionPeriod = transactionBuilder.subscriptionPeriod;
     this.trialPeriod = transactionBuilder.trialPeriod;
+    this.wspPort = transactionBuilder.wspPort;
   }
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
@@ -118,6 +120,7 @@ public class TransactionBuilder implements Parcelable {
     productToken = in.readString();
     subscriptionPeriod = in.readString();
     trialPeriod = in.readString();
+    wspPort = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -313,6 +316,18 @@ public class TransactionBuilder implements Parcelable {
     return origin;
   }
 
+  public void setOrigin(String origin) {
+    this.origin = origin;
+  }
+
+  public String getWspPort() {
+    return wspPort;
+  }
+
+  public void setWspPort(String wspPort) {
+    this.wspPort = wspPort;
+  }
+
   public String getDomain() {
     return domain;
   }
@@ -461,6 +476,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(productToken);
     dest.writeString(subscriptionPeriod);
     dest.writeString(trialPeriod);
+    dest.writeString(wspPort);
   }
 
   public byte[] approveData() {

@@ -239,7 +239,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun initOuterNavController() {
-    outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
+    outerNavController = Navigation.findNavController(requireActivity(), R.id.main_host_container)
   }
 
   companion object {
