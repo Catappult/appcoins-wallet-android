@@ -687,6 +687,10 @@
   <string name="purchase_error_no_method_available_body">현재 귀하의 지역에서는 이 구매를 완료하는 데 사용할 수 있는 결제 방법이 없습니다. 계속 지켜봐 주시기 바랍니다!</string>
   <string name="purchase_legal_disclaimer">결제를 진행하면 결제 시 콘텐츠 제공에 동의하는 것으로 간주되며 이에 따라 철회 권리가 상실됩니다.</string>
   <string name="purchase_bonus_in_appc_disclaimer">보너스는 AppCoins 크레딧에 있습니다.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>

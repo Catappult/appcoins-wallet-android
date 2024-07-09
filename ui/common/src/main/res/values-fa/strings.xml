@@ -687,6 +687,11 @@
   <string name="purchase_error_no_method_available_body">هیچ روش پرداختی در حال حاضر برای تکمیل این خرید در منطقه شما موجود نیست. در تماس بمانید!</string>
   <string name="purchase_legal_disclaimer">با پردازش این پرداخت، موافقت و اجازه خود را با محتوا در قبال پرداخت اعلام می‌کنید و در نتیجه حق خود را برای برداشت از حساب از دست می‌دهید.</string>
   <string name="purchase_bonus_in_appc_disclaimer">پاداش در AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>

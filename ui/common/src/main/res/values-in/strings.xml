@@ -687,6 +687,10 @@
   <string name="purchase_error_no_method_available_body">Saat ini, tidak tersedia metode pembayaran di wilayah Anda untuk menyelesaikan pembelian ini. Pantau terus!</string>
   <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus berupa Kredit AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
