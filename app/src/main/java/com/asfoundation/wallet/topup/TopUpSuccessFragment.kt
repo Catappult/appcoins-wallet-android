@@ -121,21 +121,22 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
+    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
     when {
       pendingFinalConfirmation -> {
         binding.topUpSuccessAnimation.visibility = View.GONE
         binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
-        binding.value.text = resources.getString(R.string.activity_iab_approving_message)  //TODO
+        formatPendingSuccessMessage()
         bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }  // TODO
       }
       else -> {
-        val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
         bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }
         formatSuccessMessage()
         binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
+        binding.topUpSuccessAnimation.playAnimation()
       }
     }
-    binding.topUpSuccessAnimation.playAnimation()
+
   }
 
   override fun clean() {
@@ -163,6 +164,15 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val initialString = getFormattedTopUpValue()
     val secondString = String.format(resources.getString(R.string.topup_completed_2_without_bonus))
     binding.value.text = "$initialString\n$secondString"
+  }
+
+  private fun formatPendingSuccessMessage() {
+    val initialString = formatter.formatCurrency(amount!!, WalletCurrency.FIAT) + " " + currency
+    val completedString = String.format(
+      resources.getString(R.string.purchase_bank_transfer_success_disclaimer),
+      initialString
+    )
+    binding.value.text = completedString
   }
 
   private fun getFormattedTopUpValue(): String {

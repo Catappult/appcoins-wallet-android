@@ -33,6 +33,8 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_autoPlay="true"
       app:lottie_rawRes="@raw/success_animation"
       android:visibility="gone"
       />
