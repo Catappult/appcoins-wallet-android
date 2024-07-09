@@ -14,7 +14,7 @@
       android:layout_height="0dp"
       android:layout_margin="@dimen/big_margin"
       app:layout_constraintBottom_toTopOf="@+id/value"
-      app:layout_constraintDimensionRatio="H, 6:5"
+      app:layout_constraintDimensionRatio="H,1000:592"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -42,15 +42,48 @@
       style="@style/TopUpTextStyle.SuccessTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/big_margin"
-      android:gravity="center_horizontal"
+      android:paddingHorizontal="@dimen/big_margin"
       android:text="@string/topup_completed_2_with_bonus"
       android:textColor="@color/styleguide_light_grey"
-      app:layout_constraintBottom_toTopOf="@id/button"
+      app:layout_constraintBottom_toTopOf="@id/bonus_received"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
-      tools:text="1,23 EUR in AppCoins Credits were deposited in your account... Along with a bonus!"
+      tools:text="1,23 EUR in AppCoins Credits were deposited in your account."
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/bonus_views"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:constraint_referenced_ids="ic_guest_wallet_bonus, bonus_received"
+      />
+
+  <ImageView
+      android:id="@+id/ic_guest_wallet_bonus"
+      android:layout_width="32dp"
+      android:layout_height="22dp"
+      android:src="@drawable/ic_guest_wallet_bonus"
+      app:layout_constraintBottom_toBottomOf="@id/bonus_received"
+      app:layout_constraintEnd_toStartOf="@id/bonus_received"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/bonus_received"
+      />
+
+  <TextView
+      android:id="@+id/bonus_received"
+      style="@style/TopUpTextStyle.SuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="@dimen/small_margin"
+      android:layout_marginTop="18dp"
+      android:text="@string/topup_completed_2_with_bonus"
+      android:textColor="@color/styleguide_light_grey"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/ic_guest_wallet_bonus"
+      app:layout_constraintTop_toBottomOf="@id/value"
+      tools:text="Bonus received 2.20€"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -60,10 +93,10 @@
       android:layout_alignParentBottom="true"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="32dp"
-      android:layout_marginBottom="80dp"
+      android:layout_marginBottom="28dp"
       app:buttonText="@string/button_ok"
       app:buttonType="filled"
-      app:layout_constraintTop_toBottomOf="@id/value"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
