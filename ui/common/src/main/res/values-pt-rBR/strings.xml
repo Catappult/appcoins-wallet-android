@@ -680,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Com este método de pagamento, você pagará uma taxa de processamento e os impostos.</string>
   <string name="purchase_fee_included_body">taxas inclusas</string>
   <string name="purchase_error_one_wallet_generic">Houve um problema com o seu pagamento no Wallet One. Por favor, tente novamente ou utilize um método de pagamento diferente.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Disponível apenas para recargas.</string>
   <string name="purchase_payment_method_minimum_amount">Apenas para compras acima de %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Indisponível nesta compra.</string>
   <string name="purchase_error_no_method_available_body">No momento, não há métodos de pagamento disponíveis para concluir esta compra em sua região. Fique ligado!</string>
   <string name="purchase_legal_disclaimer">Ao prosseguir com o pagamento, você concorda e está ciente em receber o conteúdo após o pagamento e, portanto, perderá o seu direito de reverter a transação.</string>
   <string name="purchase_bonus_in_appc_disclaimer">O bônus é em Créditos AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Endereço de cobrança</string>
   <string name="purchase_address_address_field">Endereço</string>

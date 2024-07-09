@@ -680,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Με αυτήν τη μέθοδο πληρωμής θα πληρώσετε ένα τέλος επεξεργασίας συν ΦΠΑ.</string>
   <string name="purchase_fee_included_body">περιλαμβάνονται χρεώσεις</string>
   <string name="purchase_error_one_wallet_generic">Υπήρξε ένα πρόβλημα με την πληρωμή σας μέσω Wallet One. Παρακαλούμε δοκιμάστε ξανά, ή χρησιμοποιήστε μία διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Διαθέσιμο μόνο για φόρτιση.</string>
   <string name="purchase_payment_method_minimum_amount">Μόνο για αγορές άνω των %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Μη διαθέσιμο σ\' αυτήν την αγορά.</string>
   <string name="purchase_error_no_method_available_body">Προς το παρόν δεν υπάρχουν διαθέσιμες μέθοδοι πληρωμής για να ολοκληρώσετε αυτή την αγορά στην περιοχή σας. Μείνετε συντονισμένοι!</string>
   <string name="purchase_legal_disclaimer">Προχωρώντας με την πληρωμή, συμφωνείτε και δίνετε τη συγκατάθεσή σας για να παραλάβετε το περιεχόμενο κατά την πληρωμή, και ως εκ τούτου χάνετε το δικαίωμα υπαναχώρησής σας.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Το bonus είναι σε AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>

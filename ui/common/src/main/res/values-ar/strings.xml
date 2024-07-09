@@ -681,12 +681,22 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">مع وسيلة الدفع هذه ستدفع عمولة تشغيل وضريبة.</string>
   <string name="purchase_fee_included_body">شامل العمولة</string>
   <string name="purchase_error_one_wallet_generic">حدثت مشكلة في الدفع مع محفظتك Wallet One. يرجى إعادة المحاولة أو استخدام وسيلة دفع أخرى.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">متوفرة فقط لإضافة رصيد.</string>
   <string name="purchase_payment_method_minimum_amount">فقط للمشتريات فوق %s.</string>
   <string name="purchase_payment_method_not_availble_generic">غير متوفرة في عملية الشراء الحالية.</string>
   <string name="purchase_error_no_method_available_body">حتى اللحظة، لا تتوفر وسائل دفع لإتمام عملية الشراء الحالية في منطقتك. تابع لتعرف التحديثات في هذا الأمر!</string>
   <string name="purchase_legal_disclaimer">بمتابعة استخدام وسيلة الدفع هذه، أنت توافق وتُدرك أنه سيتم تزويدك بالمحتوى مقابل الدفع، وبهذا تفقد حقك في الانسحاب.</string>
   <string name="purchase_bonus_in_appc_disclaimer">المكافأة عبارة عن AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="zero">It may take up to %s days.</item>
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="two">It may take up to %s days.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="many">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>

@@ -682,12 +682,20 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">При цьому способі оплати ви сплачуєте комісію за обробку та ПДВ.</string>
   <string name="purchase_fee_included_body">комісія включена</string>
   <string name="purchase_error_one_wallet_generic">З вашим платежем через Wallet One виникла проблема. Спробуйте ще раз або скористайтеся іншим способом оплати.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Доступно тільки для поповнення.</string>
   <string name="purchase_payment_method_minimum_amount">Тільки для покупок понад %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Недоступно для цієї покупки.</string>
   <string name="purchase_error_no_method_available_body">Зараз у вашому регіоні немає доступних методів оплати для завершення цієї покупки. Стежте за новинами!</string>
   <string name="purchase_legal_disclaimer">Продовжуючи оплату, ви погоджуєтесь на отримання контенту після оплати та, таким чином, втрачаєте право на відкликання.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Бонус надається в AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="many">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>

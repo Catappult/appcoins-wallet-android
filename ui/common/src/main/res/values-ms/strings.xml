@@ -680,12 +680,17 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan kaedah bayaran ini, anda akan bayar caj pemprosesan dan VAT.</string>
   <string name="purchase_fee_included_body">termasuk yuran</string>
   <string name="purchase_error_one_wallet_generic">Ada masalah dengan pembayaran Wallet One anda. Sila cuba lagi atau guna kaedah bayaran yang lain.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk tambah nilai.</string>
   <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian melebihi %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Tidak tersedia untuk pembelian ini.</string>
   <string name="purchase_error_no_method_available_body">Pada masa ini, belum ada kaedah bayaran yang tersedia untuk lengkapkan pembelian ini di rantau anda. Terus ikuti perkembangan!</string>
   <string name="purchase_legal_disclaimer">Dengan teruskan bayaran, anda bersetuju dan mengizinkan supaya kandungan diberikan setelah pembayaran dibuat dan setelah itu, hilang hak untuk tarik diri.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus dalam Kredit AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>

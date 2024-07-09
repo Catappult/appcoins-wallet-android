@@ -680,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Met deze betaalmethode betaal je verwerkingskosten en btw.</string>
   <string name="purchase_fee_included_body">inclusief kosten</string>
   <string name="purchase_error_one_wallet_generic">Er is een probleem opgetreden met je Wallet One-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Alleen beschikbaar voor opwaarderingen.</string>
   <string name="purchase_payment_method_minimum_amount">Alleen voor aankopen van meer dan %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Niet beschikbaar voor deze aankoop.</string>
   <string name="purchase_error_no_method_available_body">Op dit moment zijn er in jouw regio geen betaalmethoden beschikbaar om deze aankoop te voltooien. Blijf ons volgen voor updates!</string>
   <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, ga je ermee akkoord dat de content na betaling aan je wordt geleverd en je daarmee je herroepingsrecht verliest.</string>
   <string name="purchase_bonus_in_appc_disclaimer">De bonus is in AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>

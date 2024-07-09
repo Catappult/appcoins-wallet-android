@@ -680,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">با این روش پرداخت، هزینه‌های پردازش و VAT را نیز پرداخت می‌کنید.</string>
   <string name="purchase_fee_included_body">شامل هزینه‌ها</string>
   <string name="purchase_error_one_wallet_generic">مشکلی با پرداخت Wallet One شما وجود دارد. لطفا مجددا امتحان کنید یا یک روش دیگر پرداخت را استفاده کنید.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">تنها برای شارژها موجود است.</string>
   <string name="purchase_payment_method_minimum_amount">تنها برای خریدهای روی %s.</string>
   <string name="purchase_payment_method_not_availble_generic">در این خرید موجود نیست.</string>
   <string name="purchase_error_no_method_available_body">هیچ روش پرداختی در حال حاضر برای تکمیل این خرید در منطقه شما موجود نیست. در تماس بمانید!</string>
   <string name="purchase_legal_disclaimer">با پردازش این پرداخت، موافقت و اجازه خود را با محتوا در قبال پرداخت اعلام می‌کنید و در نتیجه حق خود را برای برداشت از حساب از دست می‌دهید.</string>
   <string name="purchase_bonus_in_appc_disclaimer">پاداش در AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
