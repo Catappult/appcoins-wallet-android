@@ -1,6 +1,5 @@
 package cm.aptoide.skills
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -216,15 +215,7 @@ class SkillsFragment : Fragment(), PaymentView {
               .observeOn(AndroidSchedulers.mainThread())
               .doOnSuccess {
                 when (it) {
-                  is FailedReferral.GenericError -> {
-                    views.onboardingLayout.referralDisplay.referralCode.setTextColor(
-                      Color.RED
-                    )
-                    views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-                    views.onboardingLayout.referralDisplay.errorMessage.text =
-                      getString(R.string.refer_a_friend_error_unavailable_body)
-                    views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
-                  }
+                  is FailedReferral.GenericError -> showReferralError()
 
                   is FailedReferral.NotEligibleError -> {
                     views.onboardingLayout.referralDisplay.referralCode.setTextColor(
@@ -251,11 +242,9 @@ class SkillsFragment : Fragment(), PaymentView {
                     createAndPayTicket(eSkillsPaymentData, true)
                     analytics.sendOnboardingSuccessEvent(eSkillsPaymentData, referralCode)
                   }
-
                 }
-              }.subscribe()
+              }.subscribe({}, {showReferralError()})
           )
-
         } else {
           views.onboardingLayout.root.visibility = View.GONE
           createAndPayTicket(eSkillsPaymentData, true)
@@ -264,6 +253,17 @@ class SkillsFragment : Fragment(), PaymentView {
       }
     }
   }
+
+  private fun showReferralError() {
+    views.onboardingLayout.referralDisplay.referralCode.setTextColor(
+      Color.RED
+    )
+    views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+    views.onboardingLayout.referralDisplay.errorMessage.text =
+      getString(R.string.refer_a_friend_error_unavailable_body)
+    views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+  }
+
 
   private fun setupSandboxTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
     if (RootUtil.isDeviceRooted()) {
@@ -298,36 +298,35 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun handleVerifications() {
     disposable.add(Single.zip(
-        viewModel.getCreditsBalance(),
-        viewModel.getFiatToAppcAmount(ESKILLS_PAYMENT_DATA.price!!,
-            ESKILLS_PAYMENT_DATA.currency!!),
-        viewModel.getVerification(),
-        viewModel.isDeviceRooted(),
-        viewModel.getTopUpListStatus()
+      viewModel.getCreditsBalance(),
+      viewModel.getFiatToAppcAmount(
+        ESKILLS_PAYMENT_DATA.price!!,
+        ESKILLS_PAYMENT_DATA.currency!!
+      ),
+      viewModel.getVerification(),
+      viewModel.isDeviceRooted(),
+      viewModel.getTopUpListStatus()
     ) { balance, appcAmount, verification, isDeviceRooted, topUpStatus ->
       Tuple5(balance, appcAmount, verification, isDeviceRooted, topUpStatus)
     }
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess {
-          if (it.component1() < it.component2().amount) {
-            handleNoFundsWarning()
-          } else if (it.component3() == EskillsVerification.VERIFIED) {
-            handleContinueToTicketCreation()
-          } else if (it.component4()) {
-            handleRootError()
-          } else {
-            when (it.component5()!!) {
-              Status.AVAILABLE -> handleContinueToTicketCreation()
-              Status.NO_TOPUP -> handleNoTopUp()
-              Status.PAYMENT_METHOD_NOT_SUPPORTED -> handlePaymentMethodNotSupported()
-            }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSuccess {
+        if (it.component1() < it.component2().amount) {                 // funds check
+          handleNoFundsWarning()
+        } else if (it.component3() == EskillsVerification.VERIFIED) {   // is verified check
+          handleContinueToTicketCreation()
+        } else if (it.component4()) {                                   // root check
+          handleRootError()
+        } else {
+          when (it.component5()!!) {                                    // top up check
+            Status.AVAILABLE -> handleContinueToTicketCreation()
+            Status.NO_TOPUP -> handleNoTopUp()
+            Status.PAYMENT_METHOD_NOT_SUPPORTED -> handlePaymentMethodNotSupported()
           }
-          views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
         }
-        .subscribe(
-            { },
-            { showError(SkillsViewModel.RESULT_ERROR) }
-        )
+        views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+      }
+      .subscribe({}, {showError(SkillsViewModel.RESULT_ERROR)})
     )
   }
 
@@ -401,14 +400,14 @@ class SkillsFragment : Fragment(), PaymentView {
         details.fiatPrice.text = "${it.amount} ${it.currency}"
         details.fiatPriceSkeleton.visibility = View.GONE
         details.fiatPrice.visibility = View.VISIBLE
-      }.subscribe(),
+      }.subscribe({},{showError(SkillsViewModel.RESULT_ERROR)}),
       viewModel.getFormattedAppcAmount(
         eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!
       ).observeOn(AndroidSchedulers.mainThread()).map {
         details.appcPrice.text = "$it APPC"
         details.appcPriceSkeleton.visibility = View.GONE
         details.appcPrice.visibility = View.VISIBLE
-      }.subscribe()
+      }.subscribe ({},{showError(SkillsViewModel.RESULT_ERROR)})
     )
   }
 
@@ -595,6 +594,7 @@ class SkillsFragment : Fragment(), PaymentView {
     views.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
   }
 
+  @Deprecated("Deprecated in Java")
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == SkillsViewModel.AUTHENTICATION_REQUEST_CODE) {
       handleAuthenticationResult(resultCode)
