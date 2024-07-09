@@ -687,6 +687,11 @@
   <string name="purchase_error_no_method_available_body">ह्या क्षणीतरी, आपल्या भागात ही खरेदी पूर्ण करण्यासाठी कोणतीही पेमेंट पद्धत उपलब्ध नाही. येत रहा!</string>
   <string name="purchase_legal_disclaimer">पेमेंट करण्याने आपण पैसे भरल्यानंतर सामग्री मिळविण्यास आपली मान्यता आणि सहमती देत आहात आणि त्याद्वारे आपला मागे घेण्याचा हक्क गमावीत आहात.</string>
   <string name="purchase_bonus_in_appc_disclaimer">बोनस हा अॅपकॉइन्स क्रेडीटसच्या रुपात आहे.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
