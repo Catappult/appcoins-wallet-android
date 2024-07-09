@@ -687,6 +687,10 @@
   <string name="purchase_error_no_method_available_body">目前，在您所在的地区没有付款方式可以完成此购买。请继续关注我们的更新！</string>
   <string name="purchase_legal_disclaimer">如果您继续付款，即表示您同意且无任何异议在付款后继续获得所提供的内容，并因此失去您的撤回权。</string>
   <string name="purchase_bonus_in_appc_disclaimer">奖励：AppCoins 积分形式。</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
