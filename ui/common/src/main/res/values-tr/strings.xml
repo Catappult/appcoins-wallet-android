@@ -687,6 +687,11 @@
   <string name="purchase_error_no_method_available_body">Bu satın alma işlemini tamamlamak için bölgende herhangi bir ödeme yöntemi mevcut değil. Takipte kal!</string>
   <string name="purchase_legal_disclaimer">Ödeme işlemine devam ederek, ödeme sonrası içeriğin sağlanmasını kabul etmiş ve onaylamış olursun ve cayma hakkını kaybedersin.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus, AppCoins Kredisi cinsindendir.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
