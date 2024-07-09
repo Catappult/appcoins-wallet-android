@@ -687,6 +687,11 @@
   <string name="purchase_error_no_method_available_body">De momento não existem métodos de pagamento disponíveis para concluir esta compra na tua região. Fica atento!</string>
   <string name="purchase_legal_disclaimer">Ao efetuares o pagamento, aceitas e consentes que te sejam fornecidos os conteúdos mediante pagamento, perdendo assim o teu direito de rescisão.</string>
   <string name="purchase_bonus_in_appc_disclaimer">O bónus é em AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
