@@ -687,6 +687,10 @@
   <string name="purchase_error_no_method_available_body">Hiện tại, không có phương thức thanh toán nào khả dụng để hoàn tất giao dịch mua này tại khu vực của bạn. Hãy theo dõi thêm!</string>
   <string name="purchase_legal_disclaimer">Bằng cách tiếp tục thanh toán, bạn đồng ý và đồng thuận được cung cấp nội dung khi thanh toán và do đó mất quyền rút tiền.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Phần thưởng được tính bằng AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
