@@ -40,7 +40,8 @@ fun WelcomeEmailCard(
   email: MutableState<String>,
   onSendClick: () -> Unit,
   onCloseClick: () -> Unit,
-  isError: Boolean = false
+  isError: Boolean = false,
+  errorText: String,
 ) {
   Column(
     modifier = Modifier
@@ -67,7 +68,7 @@ fun WelcomeEmailCard(
     Column(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(end = 16.dp, bottom = 16.dp, start = 16.dp, top = 0.dp)
+        .padding(end = 16.dp, bottom = 8.dp, start = 16.dp, top = 0.dp)
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Animation(modifier = Modifier.size(30.dp), animationRes = R.raw.bonus_gift_animation)
@@ -123,15 +124,15 @@ fun WelcomeEmailCard(
             enabled = true,
             modifier = Modifier
               .align(Alignment.CenterEnd)
-              .padding(end = 4.dp)
+              .padding(end = 6.dp)
           )
         }
       }
       Text(
-        text = if (isError) stringResource(R.string.error_general) else "",
+        text = if (isError) errorText else "",
         color = WalletColors.styleguide_red,
         fontSize = 11.sp,
-        modifier = Modifier.padding(start = 24.dp)
+        modifier = Modifier.padding(start = 16.dp)
       )
     }
   }
@@ -141,12 +142,12 @@ fun WelcomeEmailCard(
 @Composable
 fun PreviewHomeEmailComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, false)
+  WelcomeEmailCard(email, {}, {}, false, stringResource(R.string.error_general))
 }
 
 @Preview
 @Composable
 fun PreviewHomeEmailErrorComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, true)
+  WelcomeEmailCard(email, {}, {}, true, stringResource(R.string.error_general))
 }

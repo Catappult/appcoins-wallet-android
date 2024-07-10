@@ -299,7 +299,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             viewModel.saveHideWalletEmailCardPreferencesData(true)
             hideUserEmailCard.value = true
           },
-          isEmailError.value
+          isEmailError.value,
+          if(isEmailError.value) stringResource(id = viewModel.emailErrorText.value) else ""
         )
       } else {
         ConfirmEmailCard(email = email) {
