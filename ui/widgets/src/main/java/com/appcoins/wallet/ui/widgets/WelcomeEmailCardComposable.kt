@@ -48,7 +48,7 @@ fun WelcomeEmailCard(
       .fillMaxWidth()
       .padding(horizontal = 16.dp)
       .padding(bottom = 8.dp, top = 16.dp)
-      .background(WalletColors.styleguide_blue_secondary, shape = RoundedCornerShape(8.dp))
+      .background(WalletColors.styleguide_blue_secondary, shape = RoundedCornerShape(16.dp))
   ) {
     Column(
       modifier = Modifier
