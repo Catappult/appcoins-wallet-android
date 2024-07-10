@@ -11,7 +11,7 @@ class AddTrueLayerPaymentMessageUseCase @Inject constructor(
   @ApplicationContext val context: Context,
 ) {
 
-  val MAX_DAYS_FOR_PROCESSING = 3
+  val MAX_DAYS_FOR_PROCESSING = 2
   operator fun invoke(paymentMethods: List<PaymentMethod>): List<PaymentMethod> {
     return paymentMethods.map { method ->
       if (method.id == PaymentType.TRUE_LAYER.subTypes[0])
