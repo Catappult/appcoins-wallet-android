@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -95,7 +96,7 @@ fun WelcomeEmailCard(
           .height(52.dp)
       ) {
         Box(
-          modifier = Modifier
+          modifier = Modifier.fillMaxWidth()
             .background(color = WalletColors.styleguide_blue, shape = RoundedCornerShape(24.dp))
             .border(
               border = if (isError) BorderStroke(
@@ -106,7 +107,7 @@ fun WelcomeEmailCard(
             )
         ) {
           WalletTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.widthIn(max = 210.dp),
             email.value,
             stringResource(R.string.email_here_field),
             backgroundColor = WalletColors.styleguide_blue,
