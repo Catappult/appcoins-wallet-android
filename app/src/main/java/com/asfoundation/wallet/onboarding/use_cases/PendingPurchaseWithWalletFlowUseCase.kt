@@ -17,31 +17,29 @@ class PendingPurchaseWithWalletFlowUseCaseImpl @Inject constructor(
 ) : PendingPurchaseWithWalletFlowUseCase {
 
   override operator fun invoke(): StartMode.PendingPurchaseWithWalletFlow? {
-    return cachedBackup.getCachedBackup()
-      .flatMap { backupKey ->
-        if (backupKey.isNotEmpty()) {
-          cachedTransaction.getCachedTransaction()
-            .map { transaction ->
-              StartMode.PendingPurchaseWithWalletFlow(
-                integrationFlow = "sdk",
-                sku = transaction.sku,
-                packageName = transaction.packageName!!,
-                callbackUrl = transaction.callbackUrl,
-                currency = transaction.currency,
-                orderReference = transaction.orderReference,
-                value = transaction.value,
-                signature = transaction.signature,
-                origin = transaction.origin,
-                type = transaction.type,
-                oemId = transaction.oemId,
-                wsPort = transaction.wsPort,
-                backup = backupKey
-              )
-            }
-        } else {
-          null
-        }
-      }.blockingGet()
+    val cachedBackupKey = cachedBackup.getCachedBackup().blockingGet()
+    var startModeResult: StartMode.PendingPurchaseWithWalletFlow? = null
+    if (cachedBackupKey != null) {
+      val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
+      if (cachedTransaction != null) {
+        startModeResult = StartMode.PendingPurchaseWithWalletFlow(
+          integrationFlow = "sdk",
+          sku = cachedTransaction.sku,
+          packageName = cachedTransaction.packageName!!,
+          callbackUrl = cachedTransaction.callbackUrl,
+          currency = cachedTransaction.currency,
+          orderReference = cachedTransaction.orderReference,
+          value = cachedTransaction.value,
+          signature = cachedTransaction.signature,
+          origin = cachedTransaction.origin,
+          type = cachedTransaction.type,
+          oemId = cachedTransaction.oemId,
+          wsPort = cachedTransaction.wsPort,
+          backup = cachedBackupKey
+        )
+      }
+    }
+    return startModeResult
   }
 }
 
