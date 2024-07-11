@@ -55,6 +55,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, NavBarSideEffect> {
 
+  companion object {
+    const val EXTRA_GIFT_CARD = "giftCard"
+  }
+
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment
   private lateinit var mainHostFragment: NavHostFragment
@@ -90,6 +94,14 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     adjustBottomNavigationViewOnKeyboardVisibility()
     setBottomNavListener()
     views.composeView.setContent { BottomNavigationHome() }
+    arguments?.getString(EXTRA_GIFT_CARD)?.let {
+      handleGiftCard(it)
+    }
+  }
+
+  fun handleGiftCard(giftCard: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, giftCard)
   }
 
   @Composable
@@ -167,8 +179,8 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   private fun navigateToDestination(destinations: Destinations) {
     when (destinations) {
-      Destinations.HOME -> navigator.navigateToHome()
-      Destinations.REWARDS -> navigator.navigateToRewards()
+      Destinations.HOME -> navigator.navigateToHome(navHostFragment.navController)
+      Destinations.REWARDS -> navigator.navigateToRewards(navHostFragment.navController)
     }
   }
 

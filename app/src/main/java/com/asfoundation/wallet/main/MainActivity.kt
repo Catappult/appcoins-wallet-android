@@ -3,7 +3,6 @@ package com.asfoundation.wallet.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -14,7 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
+import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.main.nav_bar.NavBarFragment
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(),
 
   private fun handleSplashScreenResult() {
     RxBus.listen(SplashFinishEvent().javaClass).subscribe {
-      viewModel.handleInitialNavigation()
+      handleInitialNavigation(intent = intent, fromSplashScreen = true)
     }
   }
 
@@ -77,11 +78,38 @@ class MainActivity : AppCompatActivity(),
     authenticationResultLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
-          viewModel.handleInitialNavigation(authComplete = true)
+          handleInitialNavigation(authComplete = true, intent = intent)
         } else {
           finish()
         }
       }
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    handleInitialNavigation(intent = intent)
+  }
+
+  private fun handleInitialNavigation(authComplete: Boolean = false, intent: Intent? = null, fromSplashScreen: Boolean = false) {
+    val action = intent?.action
+    val launchedFromHistory = intent?.flags?.and(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0
+
+    if (action == Intent.ACTION_VIEW && launchedFromHistory) {
+      val host = intent.data?.host
+      when (host) {
+        BuildConfig.GIFT_CARD_HOST ->
+          viewModel.handleInitialNavigation(
+            authComplete = authComplete,
+            giftCard = intent.data?.getQueryParameter(DEEPLINK_GIFT_CARD_QUERY_PARAM),
+            fromSplashScreen = fromSplashScreen
+          )
+
+        else ->
+          viewModel.handleInitialNavigation(authComplete = authComplete)
+      }
+    } else {
+      viewModel.handleInitialNavigation(authComplete = authComplete)
+    }
   }
 
   override fun onStateChanged(state: MainActivityState) = Unit
@@ -110,7 +138,33 @@ class MainActivity : AppCompatActivity(),
       MainActivitySideEffect.NavigateToPayPalVerification -> navigator.navigateToPayPalVerificationFragment(
         navController
       )
+
+      is MainActivitySideEffect.NavigateToGiftCard -> {
+        if (navController.currentDestination?.id == R.id.nav_bar_fragment) {
+          setGiftCardToCurrentFragment(sideEffect.giftCard)
+        } else {
+          if (sideEffect.fromSplashScreen) {
+            navigator.navigateToGiftCardFromSplashScreen(
+              navController = navController,
+              giftCard = sideEffect.giftCard
+            )
+          } else {
+            navigator.navigateToGiftCard(
+              navController = navController,
+              giftCard = sideEffect.giftCard
+            )
+          }
+        }
+      }
     }
+  }
+
+  private fun setGiftCardToCurrentFragment(giftCard: String) {
+    (supportFragmentManager.findFragmentById(R.id.main_host_container)
+      ?.childFragmentManager
+      ?.fragments
+      ?.last() as? NavBarFragment
+    )?.handleGiftCard(giftCard)
   }
 
   override fun onDestroy() {
@@ -126,6 +180,8 @@ class MainActivity : AppCompatActivity(),
 
 
   companion object {
+    private const val DEEPLINK_GIFT_CARD_QUERY_PARAM = "giftcard"
+
     fun newIntent(
       context: Context,
       supportNotificationClicked: Boolean,

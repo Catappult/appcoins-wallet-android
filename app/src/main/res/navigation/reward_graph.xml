@@ -5,6 +5,12 @@
     android:id="@+id/reward_graph"
     app:startDestination="@id/reward_fragment">
 
+  <argument
+    android:name="giftCard"
+    android:defaultValue="@null"
+    app:nullable="true"
+    app:argType="string"/>
+
   <fragment
       android:id="@+id/reward_fragment"
       android:name="com.asfoundation.wallet.wallet_reward.RewardFragment">
@@ -13,7 +19,13 @@
         app:destination="@id/promo_code_fragment" />
     <action
         android:id="@+id/action_navigate_gift_card"
-        app:destination="@id/gift_card_fragment" />
+        app:destination="@id/gift_card_fragment" >
+      <argument
+        android:name="giftCard"
+        android:defaultValue="@null"
+        app:argType="string"
+        app:nullable="true"/>
+    </action>
     <action
         android:id="@+id/action_navigate_eskills_withdraw"
         app:destination="@id/eskills_withdraw_fragment" />

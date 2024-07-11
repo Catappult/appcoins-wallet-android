@@ -82,6 +82,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, RewardSideEffect> {
 
+  companion object {
+    const val EXTRA_GIFT_CARD = "giftCard"
+  }
+
   @Inject
   lateinit var navigator: RewardNavigator
 
@@ -112,6 +116,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     viewModel.updateNotificationBadge()
+    arguments?.getString(EXTRA_GIFT_CARD)?.let {
+      navigator.showGiftCardFragment(it)
+    }
   }
 
   override fun onResume() {

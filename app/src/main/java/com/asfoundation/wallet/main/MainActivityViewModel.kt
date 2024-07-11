@@ -24,6 +24,7 @@ sealed class MainActivitySideEffect : SideEffect {
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
   object NavigateToPayPalVerification : MainActivitySideEffect()
+  data class NavigateToGiftCard(val giftCard: String, val fromSplashScreen: Boolean) : MainActivitySideEffect()
   data class NavigateToOnboardingRecoverGuestWallet(val backup: String, val flow: String) :
     MainActivitySideEffect()
 }
@@ -50,7 +51,7 @@ class MainActivityViewModel @Inject constructor(
     handleSavedStateParameters()
   }
 
-  fun handleInitialNavigation(authComplete: Boolean = false) {
+  fun handleInitialNavigation(authComplete: Boolean = false, giftCard: String? = null, fromSplashScreen: Boolean = false) {
     getAutoUpdateModelUseCase()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
@@ -84,6 +85,9 @@ class MainActivityViewModel @Inject constructor(
               }
               .scopedSubscribe()
           }
+
+          giftCard != null ->
+            sendSideEffect { MainActivitySideEffect.NavigateToGiftCard(giftCard, fromSplashScreen) }
 
           else ->
             sendSideEffect { MainActivitySideEffect.NavigateToNavigationBar }

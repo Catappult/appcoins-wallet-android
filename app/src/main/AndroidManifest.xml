@@ -86,10 +86,19 @@
         android:name="com.asfoundation.wallet.main.MainActivity"
         android:exported="true"
         android:theme="@style/SplashTheme"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustResize"
+        android:launchMode="singleTask">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- Accepts URIs that begin with "example://gizmos” -->
+        <data android:scheme="appcoins"
+            android:host="${giftCardHost}" />
       </intent-filter>
     </activity>
     <activity
