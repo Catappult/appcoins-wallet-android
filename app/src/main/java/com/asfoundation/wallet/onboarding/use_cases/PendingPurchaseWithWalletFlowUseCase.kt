@@ -25,7 +25,7 @@ class PendingPurchaseWithWalletFlowUseCaseImpl @Inject constructor(
         startModeResult = StartMode.PendingPurchaseWithWalletFlow(
           integrationFlow = "sdk",
           sku = cachedTransaction.sku,
-          packageName = cachedTransaction.packageName!!,
+          packageName = cachedTransaction.packageName?: "",
           callbackUrl = cachedTransaction.callbackUrl,
           currency = cachedTransaction.currency,
           orderReference = cachedTransaction.orderReference,

@@ -13,6 +13,6 @@ data class CachedTransactionResponse(
   val signature: String,
   val origin: String,
   val type: String,
-  @SerializedName("oem_id") val oemId: String,
-  @SerializedName("ws_port") val wsPort: String
+  @SerializedName("oem_id") val oemId: String?,
+  @SerializedName("ws_port") val wsPort: String?
 )

@@ -286,14 +286,16 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun createWebSocketSdk() {
-    val request =
-      Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
-    val listener = SdkPaymentWebSocketListener(
-      args.paymentModel.purchaseUid,
-      args.paymentModel.uid,
-      viewModel.getResponseCodeWebSocket()
-    )
-    clientWebSocket.newWebSocket(request, listener)
+    if (args.transactionBuilder.type == "INAPP") {
+      val request =
+        Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+      val listener = SdkPaymentWebSocketListener(
+        args.paymentModel.purchaseUid,
+        args.paymentModel.uid,
+        viewModel.getResponseCodeWebSocket()
+      )
+      clientWebSocket.newWebSocket(request, listener)
+    }
   }
 
   companion object {

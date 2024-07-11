@@ -34,8 +34,10 @@ class CachedTransactionRepository @Inject constructor(
     }
   }
 
-  private fun setWsPort(wsPort: String) {
-    onboardingPaymentSdkPreferencesDataSource.setWsPort(wsPort)
+  private fun setWsPort(wsPort: String?) {
+    if (wsPort != null) {
+      onboardingPaymentSdkPreferencesDataSource.setWsPort(wsPort)
+    }
   }
 
   fun getWsPort() : String? {
