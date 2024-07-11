@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -95,7 +96,9 @@ fun WelcomeEmailCard(
           .padding(bottom = 2.dp)
           .height(52.dp)
       ) {
-        Box(
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(4.dp),
+          verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier.fillMaxWidth()
             .background(color = WalletColors.styleguide_blue, shape = RoundedCornerShape(24.dp))
             .border(
@@ -107,7 +110,7 @@ fun WelcomeEmailCard(
             )
         ) {
           WalletTextField(
-            modifier = Modifier.widthIn(max = 210.dp),
+            modifier = Modifier.weight(1f),
             email.value,
             stringResource(R.string.email_here_field),
             backgroundColor = WalletColors.styleguide_blue,
@@ -124,7 +127,6 @@ fun WelcomeEmailCard(
             buttonType = ButtonType.DEFAULT,
             enabled = true,
             modifier = Modifier
-              .align(Alignment.CenterEnd)
               .padding(end = 6.dp)
           )
         }
