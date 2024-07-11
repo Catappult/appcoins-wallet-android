@@ -30,8 +30,6 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     navigate(navController, RewardFragmentDirections.actionNavigateGiftCard(giftCard))
   }
 
-  fun showOfferWallScreen() = ChallengeRewardManager.onNavigate()
-
   fun navigateToWithdrawScreen() {
     navigate(navController, RewardFragmentDirections.actionNavigateEskillsWithdraw())
   }

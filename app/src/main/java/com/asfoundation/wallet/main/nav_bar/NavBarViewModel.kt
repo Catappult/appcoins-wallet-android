@@ -26,7 +26,7 @@ sealed class NavBarSideEffect : SideEffect {
 
   object ShowAskNotificationPermission : NavBarSideEffect()
 
-  data class ShowOnboardingRecoverGuestWallet(val backup: String) : NavBarSideEffect()
+  object ShowOnboardingRecoverGuestWallet : NavBarSideEffect()
 }
 
 data class NavBarState(
@@ -70,18 +70,18 @@ constructor(
           if (startMode.type == PAYMENT_TYPE_OSP) {
             sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
           } else if (startMode.type == PAYMENT_TYPE_SDK) {
-            sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup!!) }
+            sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet }
           }
         }
 
-        is StartMode.GPInstall -> sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
-        is StartMode.RestoreGuestWalletFlow -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet(startMode.backup) }
-        }
+        is StartMode.GPInstall ->
+          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
 
-        StartMode.Regular, StartMode.Subsequent -> {
+        is StartMode.RestoreGuestWalletFlow ->
+          sendSideEffect { NavBarSideEffect.ShowOnboardingRecoverGuestWallet }
+
+        StartMode.Regular, StartMode.Subsequent ->
           sendSideEffect { NavBarSideEffect.ShowAskNotificationPermission }
-        }
       }
     }
   }

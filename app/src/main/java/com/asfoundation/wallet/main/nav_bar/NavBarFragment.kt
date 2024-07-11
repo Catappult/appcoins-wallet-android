@@ -203,7 +203,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
       NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
       is NavBarSideEffect.ShowOnboardingRecoverGuestWallet ->
-        showOnboardingRecoverGuestWallet(sideEffect.backup)
+        showOnboardingRecoverGuestWallet()
 
       NavBarSideEffect.ShowAskNotificationPermission -> askNotificationsPermission()
     }
@@ -241,9 +241,9 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
   }
 
-  private fun showOnboardingRecoverGuestWallet(backup: String) {
+  private fun showOnboardingRecoverGuestWallet() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController, backup)
+    navigator.showOnboardingRecoverGuestWallet(mainHostFragment.navController)
   }
 
   private fun adjustBottomNavigationViewOnKeyboardVisibility() {
