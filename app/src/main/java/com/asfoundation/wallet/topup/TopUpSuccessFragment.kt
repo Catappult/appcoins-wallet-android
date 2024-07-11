@@ -153,9 +153,12 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     return RxView.clicks(binding.button)
   }
 
-  private fun setBonusText() {
+  private fun setBonusText(isPendingSuccess : Boolean) {
     val formattedBonus = "$currencySymbol${formatter.formatCurrency(bonus, WalletCurrency.FIAT)}"
-    val bonusText = getString(R.string.purchase_success_bonus_received_title, formattedBonus)
+    val bonusText = if (isPendingSuccess)
+      getString(R.string.purchase_success_bonus_received_title, formattedBonus)
+    else
+      getString(R.string.purchase_bank_transfer_success_bonus, formattedBonus)
     binding.bonusReceived.text = bonusText
     binding.bonusViews.visibility = View.VISIBLE
   }

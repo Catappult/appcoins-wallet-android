@@ -35,7 +35,7 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
       app:lottie_autoPlay="true"
-      app:lottie_rawRes="@raw/success_animation"
+      app:lottie_rawRes="@raw/wait_trasaction"
       android:visibility="gone"
       />
 
