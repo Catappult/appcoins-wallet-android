@@ -127,10 +127,14 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
         binding.topUpSuccessAnimation.visibility = View.GONE
         binding.topUpPendingSuccessAnimation.visibility = View.VISIBLE
         formatPendingSuccessMessage()
-        bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }  // TODO
+        bonusAvailable?.let {
+          setBonusText(isPendingSuccess = true)
+        } ?: run { binding.bonusViews.visibility = View.GONE }
       }
       else -> {
-        bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }
+        bonusAvailable?.let {
+          setBonusText(isPendingSuccess = false)
+        } ?: run { binding.bonusViews.visibility = View.GONE }
         formatSuccessMessage()
         binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
         binding.topUpSuccessAnimation.playAnimation()
@@ -156,9 +160,9 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   private fun setBonusText(isPendingSuccess : Boolean) {
     val formattedBonus = "$currencySymbol${formatter.formatCurrency(bonus, WalletCurrency.FIAT)}"
     val bonusText = if (isPendingSuccess)
-      getString(R.string.purchase_success_bonus_received_title, formattedBonus)
-    else
       getString(R.string.purchase_bank_transfer_success_bonus, formattedBonus)
+    else
+      getString(R.string.purchase_success_bonus_received_title, formattedBonus)
     binding.bonusReceived.text = bonusText
     binding.bonusViews.visibility = View.VISIBLE
   }
