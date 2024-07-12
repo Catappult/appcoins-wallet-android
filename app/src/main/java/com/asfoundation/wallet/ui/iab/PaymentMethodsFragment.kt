@@ -9,7 +9,6 @@ import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Pair
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -376,9 +375,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       PaymentMethodId.PAYPAL_V2.id -> {
         binding.layoutPreSelected.paymentMoreLogout.visibility = View.VISIBLE
         binding.layoutPreSelected.paymentMoreLogout.setOnClickListener {
-          val wrapper: Context =
-            ContextThemeWrapper(context?.applicationContext, R.style.CustomLogoutPopUpStyle)
-          val popup = PopupMenu(wrapper, it)
+          val popup = PopupMenu(context?.applicationContext, it)
           popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
           popup.setOnMenuItemClickListener { menuItem: MenuItem ->
             binding.layoutPreSelected.paymentMoreLogout.visibility = View.GONE
