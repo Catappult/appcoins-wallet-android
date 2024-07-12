@@ -39,6 +39,7 @@
           android:layout_marginTop="16dp"
           android:background="@drawable/rectangle_blue_secondary_radius_16dp"
           android:visibility="visible"
+          android:animateLayoutChanges="true"
           app:layout_constraintEnd_toStartOf="@id/mid_guideline"
           app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintStart_toStartOf="parent"
