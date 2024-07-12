@@ -1242,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Promo code</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
@@ -1255,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
   <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>

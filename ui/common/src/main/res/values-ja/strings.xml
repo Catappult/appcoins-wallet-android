@@ -1232,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">プロモーションコード</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
   <string name="vip_program_referral_page_body">このプロモコードをあなたのコミュニティやお友達にシェアして、みんなでプレーしながら獲得しましょう。アプリ内課金をするごとに、<b>あなたとお友達の両方に、他のアクティブなプロモーションに加えて、%1$s%%ボーナス</b>が付与されます。<b>有効期限は %2$s</b> です！</string>
-  <string name="vip_program_referral_page_body_2">このコードを使用すると、あなたとあなたのお友達は、すべての購入で%s%のボーナスを得ることができます！</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_only_app_title">次でのご購入に限ります</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
@@ -1245,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP紹介コードが利用可能です！</string>
   <string name="vip_program_referral_notification_body">あなたのコードをコミュニティで共有し、遊びながら収入を得ることができます！</string>
   <string name="vip_program_title_vip_offer">VIPオファー</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
   <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>

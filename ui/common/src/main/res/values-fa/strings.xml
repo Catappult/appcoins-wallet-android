@@ -1242,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">کد پرومو</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
   <string name="vip_program_referral_page_body">این کد پرومو را با دوستان خود به اشتراک بگذارید تا در حین بازی درآمد داشته باشند. برای همه خرید داخل اپلیکیشنی آنها می‌توانید هردوی <b>شما و دوستان شما %1$s%% پاداش دریافت کنید</b> علاوه بر آن پیشنهادات تخفیفی دیگر. <b> معتبر تا %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">برای همه خریدها با استفاده از این کد شما و دوستان شما %s%% بونوس دریافت می‌کنید!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">این کد را با دوستان خود به شاتراک بگذارید</string>
   <string name="vip_program_referral_page_only_app_title">تنها برای خریدها در</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s دریافت از %3$s برنامه همکاری</string>
@@ -1255,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">کد معرفی VIP موجود است!</string>
   <string name="vip_program_referral_notification_body">کد خود را با دوستان خود به اشتراک بگذارید تا همگی درحال بازی درآمد داشته باشید!</string>
   <string name="vip_program_title_vip_offer">پیشنهاد وی‌آی‌پی</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">به AppCoins Wallet خوش آمدید</string>
   <string name="intro_welcome_body">کیف پول خود را شارژ کنید تا بتوانید در هر اپلیکیشن و بازی سازگار با AppCoins خرید کنید.</string>

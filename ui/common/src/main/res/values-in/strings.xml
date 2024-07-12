@@ -1232,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">Kode promo</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
   <string name="vip_program_referral_page_body">Bagikan kode promo ini dengan komunitas dan teman Anda agar semua orang bisa memperoleh penghasilan saat bermain. Untuk setiap pembelian dalam aplikasi yang mereka lakukan, <b>Anda dan teman Anda akan menerima bonus sebesar %1$s%%</b>, di samping promosi aktif lainnya, selama sebulan penuh. <b>Berlaku sampai %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Anda dan teman Anda mendapatkan bonus %s%% di semua pembelian saat menggunakan kode ini!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
@@ -1245,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
   <string name="vip_program_title_vip_offer">Penawaran VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>

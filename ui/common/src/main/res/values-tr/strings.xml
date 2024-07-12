@@ -1242,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak <b>hem sen hem de arkadaşların %1$s%%</b> bonus kazanırsınız. <b>%2$s tarihine kadar geçerli</b>!</string>
-  <string name="vip_program_referral_page_body_2">Bu kodu kullanırken, sen ve arkadaşların her satın alma işleminde %s%% bonus kazanırsınız!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_only_app_title">Yalnızca şunlardaki satın alımlar için:</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
@@ -1255,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">VIP Tavsiye Kodu Mevcut!</string>
   <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
   <string name="vip_program_title_vip_offer">VIP Teklif</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
   <string name="intro_welcome_body">Cüzdanını doldur veya AppCoins uyumlu herhangi bir uygulama veya oyunda bir satın alma işlemi yap.</string>

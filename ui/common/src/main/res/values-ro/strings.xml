@@ -1252,7 +1252,7 @@
   <string name="vip_program_promo_code_tag">Cod promo</string>
   <string name="vip_program_referral_page_title">Program de referință VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Distribuie acest cod prietenilor tăi</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s câștigați din %3$s referințe</string>
@@ -1265,6 +1265,7 @@
   <string name="vip_program_referral_notification_title">Cod de recomandare VIP disponibil!</string>
   <string name="vip_program_referral_notification_body">Distribuie codul tău în comunitatea ta și toată lumea va câștiga în timp ce se joacă!</string>
   <string name="vip_program_title_vip_offer">Ofertă VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
   <string name="intro_welcome_body">Alimentează-ți portofelul sau fă o achiziție în orice aplicație sau joc compatibil cu AppCoins.</string>
