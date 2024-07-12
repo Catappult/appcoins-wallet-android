@@ -1232,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 얻을 수 있도록 하세요. 앱 내에서 구매할 때마다 <b>귀하와 귀하의 친구들은 다른 프로모션 외에도 %1$s% 보너스를 받게 됩니다.</b> <b> %2$s까지 유효합니다!</b></string>
-  <string name="vip_program_referral_page_body_2">이 코드를 사용하면 귀하와 귀하의 친구가 모든 구매에 대해 %s%% 보너스를 받습니다!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_only_app_title">다음에서 구매하는 경우에만 해당</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
@@ -1245,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP 소개 코드 사용 가능!</string>
   <string name="vip_program_referral_notification_body">커뮤니티와 코드를 공유하여 게임을 하면서 돈을 벌 수 있습니다!</string>
   <string name="vip_program_title_vip_offer">VIP 제안</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">AppCoins과 호환되는 앱이나 게임에서 지갑을 충전하거나 구매하세요.</string>
