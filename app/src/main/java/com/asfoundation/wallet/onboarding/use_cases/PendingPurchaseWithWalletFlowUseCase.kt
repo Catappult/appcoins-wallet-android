@@ -21,7 +21,7 @@ class PendingPurchaseWithWalletFlowUseCaseImpl @Inject constructor(
     var startModeResult: StartMode.PendingPurchaseWithWalletFlow? = null
     if (cachedBackupKey != null) {
       val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
-      if (cachedTransaction != null) {
+      if (cachedTransaction?.wsPort != null) {
         startModeResult = StartMode.PendingPurchaseWithWalletFlow(
           integrationFlow = "sdk",
           sku = cachedTransaction.sku,
