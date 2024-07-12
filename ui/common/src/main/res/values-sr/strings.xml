@@ -1252,7 +1252,7 @@
   <string name="vip_program_promo_code_tag">Promo kod</string>
   <string name="vip_program_referral_page_title">VIP program za preporuku</string>
   <string name="vip_program_referral_page_body">Podelite ovaj promo kod sa svojom zajednicom ili prijateljima kako bi svi mogli da zarade dok se igraju. Za svaku kupovinu u aplikaciji koju obave, i <b>vi i vaši prijatelji ćete dobiti %1$s%% bonusa</b> povrh ostalih aktivnih promocija. <b>Važi do %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Vi i vaši prijatelji ćete dobiti %s%% bonusa za svaku kupovinu uz ovaj kod!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Podelite ovaj promo kod sa svojim prijateljima</string>
   <string name="vip_program_referral_page_only_app_title">Samo za kupovine u</string>
   <string name="vip_program_referral_page_earned_body">Osvojeno %1$s%2$s zahvaljujući %3$s preporuka</string>
@@ -1265,6 +1265,7 @@
   <string name="vip_program_referral_notification_title">Dostupan je VIP kod za preporuku!</string>
   <string name="vip_program_referral_notification_body">Podelite kod sa svojom zajednicom da biste mogli da zarađujete dok se igrate!</string>
   <string name="vip_program_title_vip_offer">VIP ponuda</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
   <string name="intro_welcome_body">Dopunite svoj novčanik ili obavite kupovinu u bilo kojoj aplikaciji ili igri kompatibilnim sa AppCoins.</string>
