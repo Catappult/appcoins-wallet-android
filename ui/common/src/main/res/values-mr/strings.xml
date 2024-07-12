@@ -1263,7 +1263,7 @@
   <string name="vip_program_promo_code_tag">प्रोमो कोड</string>
   <string name="vip_program_referral_page_title">व्हीआयपी संदर्भ कार्यक्रम</string>
   <string name="vip_program_referral_page_body">सर्वानी खेळतानाच पैसे कमावण्यासाठी हा प्रोमो कोड आपल्या समुदायात आणि मित्रांसह सामायिक करा. सर्वांनीच अॅपमधील खरेदी करताना, इतर अॅक्टिव्ह प्रमोशनच्या व्यतिरिक्त दोघांनाही म्हणजेच <b>आपण आणि आपल्या मित्रांनाही %1$s%% बोनस</b> मिळेल. <b>%2$sपर्यंत वैध</b>!</string>
-  <string name="vip_program_referral_page_body_2">हा कोड वापरल्याने आपण आणि आपल्या मित्रांना सर्व खरेदीवर %s%% बोनस मिळेल!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">हा कोड आपल्या मित्रांसह सामायिक करा</string>
   <string name="vip_program_referral_page_only_app_title">फक्त वरील खरेदीवर</string>
   <string name="vip_program_referral_page_earned_body">%3$s संदर्भातुन %1$s%2$s कमावले</string>
@@ -1276,6 +1276,7 @@
   <string name="vip_program_referral_notification_title">व्हीआयपी संदर्भ कोड उपलब्ध!</string>
   <string name="vip_program_referral_notification_body">आपला कोड आपल्या समुदायात सामायिक करा म्हणजे खेळताना आपण कमवाल!</string>
   <string name="vip_program_title_vip_offer">व्हीआयपी ऑफर</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
   <string name="intro_welcome_body">वॉलेटमध्ये भर घाला किंवा अॅप वा खेळाशी सुसंगत कोणत्याही अॅपकॉईन्सची खरेदी करा.</string>
