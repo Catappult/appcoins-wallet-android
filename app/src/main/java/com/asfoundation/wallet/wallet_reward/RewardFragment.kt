@@ -84,6 +84,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   companion object {
     const val EXTRA_GIFT_CARD = "giftCard"
+    const val EXTRA_PROMO_CODE = "promoCode"
   }
 
   @Inject
@@ -118,6 +119,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
     viewModel.updateNotificationBadge()
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       navigator.showGiftCardFragment(it)
+    }
+    arguments?.getString(EXTRA_PROMO_CODE)?.let {
+      navigator.showPromoCodeFragment(it)
     }
   }
 

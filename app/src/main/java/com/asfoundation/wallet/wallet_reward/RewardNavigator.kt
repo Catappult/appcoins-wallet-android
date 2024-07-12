@@ -22,8 +22,8 @@ constructor(private val fragment: Fragment, private val navController: NavContro
     mainNavController.navigate(resId = R.id.action_navigate_to_settings, args = bundle)
   }
 
-  fun showPromoCodeFragment() {
-    navigate(navController, RewardFragmentDirections.actionNavigatePromoCode())
+  fun showPromoCodeFragment(promoCode: String? = null) {
+    navigate(navController, RewardFragmentDirections.actionNavigatePromoCode(promoCode))
   }
 
   fun showGiftCardFragment(giftCard: String? = null) {

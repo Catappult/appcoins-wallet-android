@@ -21,12 +21,23 @@ class NavBarFragmentNavigator @Inject constructor() : Navigator {
     )
   }
 
-  fun navigateToRewards(navController: NavController, giftCard: String? = null) {
+  fun navigateToRewards(navController: NavController, giftCard: String? = null, promoCode: String? = null) {
     navController.navigate(
       resId = R.id.reward_graph,
-      args = giftCard?.let { Bundle().apply { putString(RewardFragment.EXTRA_GIFT_CARD, giftCard) } },
+      args = getBundle(giftCard, promoCode),
       navOptions = NavOptions.Builder().apply { setPopUpTo(R.id.reward_fragment, true) }.build()
     )
+  }
+
+  private fun getBundle(giftCard: String?, promoCode: String?): Bundle? {
+    if (giftCard == null && promoCode == null) return null
+
+    return Bundle().apply {
+      when {
+        giftCard != null -> putString(RewardFragment.EXTRA_GIFT_CARD, giftCard)
+        else -> putString(RewardFragment.EXTRA_PROMO_CODE, promoCode)
+      }
+    }
   }
 
   fun showOnboardingGPInstallScreen(navController: NavController) {

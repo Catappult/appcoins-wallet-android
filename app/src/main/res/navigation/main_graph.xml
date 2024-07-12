@@ -19,6 +19,11 @@
           android:defaultValue="@null"
           app:argType="string"
           app:nullable="true" />
+      <argument
+          android:name="promoCode"
+          android:defaultValue="@null"
+          app:argType="string"
+          app:nullable="true" />
     </action>
     <action
         android:id="@+id/action_navigate_to_onboarding_graph"

@@ -57,6 +57,7 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
 
   companion object {
     const val EXTRA_GIFT_CARD = "giftCard"
+    const val EXTRA_PROMO_CODE = "promoCode"
   }
 
   private lateinit var navHostFragment: NavHostFragment
@@ -97,11 +98,19 @@ class NavBarFragment : BasePageViewFragment(), SingleStateFragment<NavBarState, 
     arguments?.getString(EXTRA_GIFT_CARD)?.let {
       handleGiftCard(it)
     }
+    arguments?.getString(EXTRA_PROMO_CODE)?.let {
+      handlePromoCode(it)
+    }
   }
 
   fun handleGiftCard(giftCard: String) {
     viewModel.clickedItem.value = 1
     navigator.navigateToRewards(navHostFragment.navController, giftCard)
+  }
+
+  fun handlePromoCode(promoCode: String) {
+    viewModel.clickedItem.value = 1
+    navigator.navigateToRewards(navHostFragment.navController, promoCode = promoCode)
   }
 
   @Composable

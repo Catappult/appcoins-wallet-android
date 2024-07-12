@@ -107,6 +107,13 @@ class MainActivity : AppCompatActivity(),
             fromSplashScreen = fromSplashScreen
           )
 
+        BuildConfig.PROMO_CODE_HOST ->
+          viewModel.handleInitialNavigation(
+            authComplete = authComplete,
+            promoCode = intent.data?.getQueryParameter(DEEPLINK_PROMO_CODE_QUERY_PARAM),
+            fromSplashScreen = fromSplashScreen
+          )
+
         else ->
           viewModel.handleInitialNavigation(authComplete = authComplete)
       }
@@ -159,6 +166,22 @@ class MainActivity : AppCompatActivity(),
           }
         }
       }
+
+      is MainActivitySideEffect.NavigateToPromoCode -> if (navController.currentDestination?.id == R.id.nav_bar_fragment) {
+        setPromoCodeToCurrentFragment(sideEffect.promoCode)
+      } else {
+        if (sideEffect.fromSplashScreen) {
+          navigator.navigateToPromoCodeFromSplashScreen(
+            navController = navController,
+            promoCode = sideEffect.promoCode
+          )
+        } else {
+          navigator.navigateToPromoCode(
+            navController = navController,
+            promoCode = sideEffect.promoCode
+          )
+        }
+      }
     }
   }
 
@@ -168,6 +191,14 @@ class MainActivity : AppCompatActivity(),
       ?.fragments
       ?.last() as? NavBarFragment
     )?.handleGiftCard(giftCard)
+  }
+
+  private fun setPromoCodeToCurrentFragment(promoCode: String) {
+    (supportFragmentManager.findFragmentById(R.id.main_host_container)
+      ?.childFragmentManager
+      ?.fragments
+      ?.last() as? NavBarFragment
+    )?.handlePromoCode(promoCode)
   }
 
   override fun onDestroy() {
@@ -185,6 +216,7 @@ class MainActivity : AppCompatActivity(),
 
   companion object {
     private const val DEEPLINK_GIFT_CARD_QUERY_PARAM = "giftcard"
+    private const val DEEPLINK_PROMO_CODE_QUERY_PARAM = "promocode"
 
     fun newIntent(
       context: Context,
