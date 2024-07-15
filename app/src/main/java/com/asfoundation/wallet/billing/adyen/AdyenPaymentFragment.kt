@@ -799,7 +799,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       if (isPortraitMode(requireContext())) {
         getString(R.string.purchase_total_header, amount, currencyCode)
       } else {
-        getString(R.string.gas_price_value, amount, currency)
+        getString(R.string.gas_price_value, amount, currencyCode)
       }
     if (!isPortraitMode(requireContext())) {
       bindingCreditCardLayout?.paymentMethodsHeader?.fiatTotalPriceLabel?.visibility = VISIBLE
