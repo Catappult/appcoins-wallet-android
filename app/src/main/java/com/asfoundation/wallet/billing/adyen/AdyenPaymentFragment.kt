@@ -1032,6 +1032,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   override fun onDestroyView() {
     iabView.enableBack()
+    viewModel.cancelPaypalLaunch = true
 //    presenter.stop()
     super.onDestroyView()
   }
@@ -1043,10 +1044,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     super.onDestroy()
   }
 
-  fun restartFragment() {
+  fun restartFragment(paymentType: PaymentType = PaymentType.CARD) {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container, newInstance(
-        PaymentType.CARD,
+        paymentType,
         origin,
         transactionBuilder,
         amount,
