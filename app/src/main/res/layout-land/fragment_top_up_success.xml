@@ -36,15 +36,15 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/top_up_success_animation"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintHorizontal_weight="3"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
         app:layout_constraintBottom_toTopOf="@id/text_container"
-        app:layout_constraintDimensionRatio="H,125:74"
         app:layout_constraintEnd_toStartOf="@id/right_animation_space"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@id/left_animation_space"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1"
+        android:translationY="-56dp"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_rawRes="@raw/top_up_success_animation"
         />
@@ -57,6 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_up_success_animation"
+        android:translationY="-80dp"
         >
 
       <TextView
@@ -80,7 +81,7 @@
           style="@style/TopUpTextStyle.SuccessTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="18dp"
+          android:layout_marginTop="8dp"
           android:fontFamily="@font/roboto_medium"
           android:paddingHorizontal="@dimen/big_margin"
           android:text="@string/topup_completed_2_with_bonus"
@@ -117,7 +118,7 @@
           style="@style/TopUpTextStyle.SuccessTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
+          android:layout_marginTop="12dp"
           android:fontFamily="@font/roboto_regular"
           android:paddingHorizontal="8dp"
           android:text="@string/topup_completed_2_with_bonus"
@@ -137,7 +138,6 @@
         android:layout_height="@dimen/large_button_height"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="22dp"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="36dp"
         app:buttonText="@string/button_ok"
@@ -146,6 +146,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_container"
+        android:translationY="-40dp"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
