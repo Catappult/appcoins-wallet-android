@@ -1,10 +1,12 @@
 package com.appcoins.wallet.core.network.backend.model
 
+import androidx.annotation.Keep
 import com.fasterxml.jackson.annotation.JsonProperty
 
 const val POSITIVE_SIGN = "+"
 const val NEGATIVE_SIGN = "-"
 
+@Keep
 data class TransactionResponse(
   @JsonProperty("txid") val txId: String,
   @JsonProperty("status") val status: StatusResponse,
