@@ -4,9 +4,9 @@
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:maxHeight="300dp"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_content_payments"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
 
   <com.airbnb.lottie.LottieAnimationView
