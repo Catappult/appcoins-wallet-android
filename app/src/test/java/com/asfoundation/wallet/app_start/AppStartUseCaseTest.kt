@@ -3,7 +3,6 @@ package com.asfoundation.wallet.app_start
 import app.cash.turbine.testIn
 import com.asfoundation.wallet.gherkin.coScenario
 import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseFlowUseCase
-import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseWithWalletFlowUseCase
 import com.asfoundation.wallet.onboarding.use_cases.RestoreGuestWalletUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -37,7 +36,6 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.PendingPurchaseWithWalletFlowUseCase,
       data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
@@ -66,7 +64,6 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.PendingPurchaseWithWalletFlowUseCase,
       data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
@@ -97,7 +94,6 @@ internal class AppStartUseCaseTest {
       data.givenData.repository,
       data.givenData.GPInstallUseCase,
       data.givenData.PendingPurchaseFlowUseCase,
-      data.givenData.PendingPurchaseWithWalletFlowUseCase,
       data.givenData.RestoreGuestWalletUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
@@ -146,7 +142,8 @@ internal class AppStartUseCaseTest {
       "ds",
       "21",
       "8362",
-      ""
+      "",
+       ""
     )
 
     @JvmStatic
@@ -275,7 +272,6 @@ internal class AppStartUseCaseTest {
     val repository: AppStartRepositoryMock = AppStartRepositoryMock(),
     val GPInstallUseCase: GPInstallUseCase = GPInstallUseCaseMock(),
     val PendingPurchaseFlowUseCase: PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(),
-    val PendingPurchaseWithWalletFlowUseCase: PendingPurchaseWithWalletFlowUseCase = PendingPurchaseWithWalletFlowUseCaseMock(),
     val RestoreGuestWalletUseCase: RestoreGuestWalletUseCase = RestoreGuestWalletUseCaseMock(),
   )
 
@@ -334,13 +330,6 @@ class PendingPurchaseFlowUseCaseMock(
   }
 }
 
-class PendingPurchaseWithWalletFlowUseCaseMock(
-  private val pendingPurchaseWithWallet: StartMode.PendingPurchaseWithWalletFlow? = null
-) : PendingPurchaseWithWalletFlowUseCase {
-  override operator fun invoke(): StartMode.PendingPurchaseWithWalletFlow? {
-    return pendingPurchaseWithWallet
-  }
-}
 
 class RestoreGuestWalletUseCaseMock(
   private val restoreGuestWallet: StartMode.RestoreGuestWalletFlow? = null
