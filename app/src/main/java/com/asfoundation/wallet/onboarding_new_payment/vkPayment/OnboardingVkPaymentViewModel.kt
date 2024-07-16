@@ -77,7 +77,7 @@ class OnboardingVkPaymentViewModel @Inject constructor(
       sku = args.transactionBuilder.skuId,
       callbackUrl = args.transactionBuilder.callbackUrl,
       transactionType = args.transactionBuilder.type,
-      referrerUrl =  if (args.transactionBuilder.type == "INAPP") null else args.transactionBuilder.referrerUrl,
+      referrerUrl =  args.transactionBuilder.referrerUrl,
       packageName = args.transactionBuilder.domain,
       email = email,
       phone = phone

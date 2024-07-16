@@ -18,6 +18,8 @@ import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.main.use_cases.DeleteCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.GetBonusGuestWalletUseCase
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_OSP
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository.Companion.PAYMENT_TYPE_SDK
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
@@ -80,8 +82,14 @@ class OnboardingViewModel @Inject constructor(
   private fun handleLaunchMode(appStartUseCase: AppStartUseCase) {
     viewModelScope.launch {
       when (appStartUseCase.startModes.first()) {
-        is StartMode.PendingPurchaseFlow -> sendSideEffect {
-          OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
+        is StartMode.PendingPurchaseFlow -> {
+          if ((appStartUseCase.startModes.first() as StartMode.PendingPurchaseFlow).type == PAYMENT_TYPE_OSP) {
+            sendSideEffect {
+              OnboardingSideEffect.NavigateToWalletCreationAnimation(isPayment = true)
+            }
+          } else if ((appStartUseCase.startModes.first() as StartMode.PendingPurchaseFlow).type == PAYMENT_TYPE_SDK) {
+            sendSideEffect { OnboardingSideEffect.ShowLoadingRecover }
+          }
         }
 
         is StartMode.GPInstall -> sendSideEffect {
@@ -122,6 +130,7 @@ class OnboardingViewModel @Inject constructor(
       )
     ).flatMap { setDefaultWallet(it) }.doOnSuccess { handleRecoverResult(it, verificationFlow) }
       .doOnError {
+        handleRecoverResult(FailedEntryRecover.GenericError(), verificationFlow)
         walletsEventSender.sendWalletCompleteRestoreEvent(
           WalletsAnalytics.STATUS_FAIL, it.message
         )

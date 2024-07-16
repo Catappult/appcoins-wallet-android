@@ -51,19 +51,26 @@ class CachedTransactionRepository @Inject constructor(
   fun getResponseCodeToPaymentWebSocket() : Int {
     return onboardingPaymentSdkPreferencesDataSource.getResponseCodeWebSocket()
   }
+
+  companion object {
+    const val PAYMENT_TYPE_SDK = "INAPP"
+    const val PAYMENT_TYPE_OSP = "INAPP_UNMANAGED"
+  }
+
 }
 
 data class CachedTransaction(
-  val referrerUrl: String?,
+  var referrerUrl: String?,
   val sku: String?,
   val packageName: String?,
-  val callbackUrl: String?,
-  val currency: String?,
+  var callbackUrl: String?,
+  var currency: String?,
   val orderReference: String?,
-  val value: Double,
+  var value: Double,
   val signature: String?,
   val origin: String?,
   val type: String?,
-  val oemId: String?,
-  val wsPort: String?
+  var oemId: String?,
+  var wsPort: String?
 )
+

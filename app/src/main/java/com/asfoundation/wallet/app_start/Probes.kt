@@ -16,13 +16,6 @@ class AppStartProbe @Inject constructor(
         INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to "",
         SKU to startMode.sku,
-      )
-
-      is StartMode.PendingPurchaseWithWalletFlow -> mapOf(
-        PACKAGE_NAME to startMode.packageName,
-        INTEGRATION_FLOW to startMode.integrationFlow,
-        SOURCE to "",
-        SKU to startMode.sku,
         BACKUP to startMode.backup
       )
 
