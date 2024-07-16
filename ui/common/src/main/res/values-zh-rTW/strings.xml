@@ -818,7 +818,7 @@
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_confirmation_save_email">Your backup is on your email</string>
   <!--Wallets Management-->
   <string name="wallets_title">錢包</string>
   <string name="wallets_total_balance_title">帳戶總餘額 %s</string>
@@ -1129,12 +1129,12 @@
   <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
   <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
+  <string name="e_skills_withdraw_email">PayPal email address</string>
   <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_email_hint">Your email address here</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Invalid email</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
