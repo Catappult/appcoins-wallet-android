@@ -101,7 +101,7 @@ class OnboardingFragment : BasePageViewFragment(),
       viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
+      viewModel.handleLaunchWalletClick()
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
@@ -213,6 +213,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showGuestBonus(bonus: FiatValue) {
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol,
       bonus.symbol,
@@ -226,6 +227,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun showValuesScreen() {
     views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingWalletIcon?.visibility = View.VISIBLE
     views.onboardingValuePropositions.root.visibility = View.VISIBLE
     views.onboardingButtons.root.visibility = View.VISIBLE
@@ -233,6 +235,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun hideContent() {
+    views.onboardingContent.visibility = View.GONE
     views.onboardingWalletIcon?.visibility = View.GONE
     views.onboardingValuePropositions.root.visibility = View.GONE
     views.onboardingButtons.root.visibility = View.GONE

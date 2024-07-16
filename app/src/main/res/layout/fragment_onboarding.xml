@@ -248,7 +248,7 @@
       android:layout_marginBottom="16dp"
       android:backgroundTint="@color/styleguide_blue_secondary"
       android:minHeight="200dp"
-      android:visibility="invisible"
+      android:visibility="gone"
       app:cardCornerRadius="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
