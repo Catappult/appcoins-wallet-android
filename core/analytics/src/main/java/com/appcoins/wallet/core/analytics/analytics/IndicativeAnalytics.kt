@@ -53,7 +53,8 @@ class IndicativeAnalytics @Inject constructor(
     isEmulator: Boolean,
     ghOemId: String,
     promoCode: String,
-    flavor: String
+    flavor: String,
+    theme: String
   ) {
 
     val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -79,6 +80,7 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.GAMES_HUB_OEMID, ghOemId)
     superProperties.put(AnalyticsLabels.PROMO_CODE, promoCode)
     superProperties.put(AnalyticsLabels.FLAVOR, flavor)
+    superProperties.put(AnalyticsLabels.THEME, theme)
 
     if (userId.isNotEmpty()) this.usrId = userId
 

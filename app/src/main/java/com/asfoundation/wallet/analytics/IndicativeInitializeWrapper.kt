@@ -7,5 +7,5 @@ data class IndicativeInitializeWrapper(
   val installerPackage: String, val level: Int,
   val hasGms: Boolean, val walletAddress: String,
   val promoCode: PromoCode, val deviceInfo: DeviceInformation,
-  val ghOemId: String
+  val ghOemId: String, val theme: String
 )
