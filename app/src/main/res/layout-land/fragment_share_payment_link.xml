@@ -90,7 +90,7 @@
       android:layout_marginEnd="12dp"
       android:layout_marginBottom="@dimen/big_margin"
       app:buttonColor="@color/styleguide_dark_grey"
-      app:buttonText="@string/close"
+      app:buttonText="@string/back_button"
       app:buttonType="text"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/share_btn"

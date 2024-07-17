@@ -35,6 +35,7 @@ import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.EmailPreferencesDataSource
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
+import com.appcoins.wallet.ui.widgets.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -154,6 +155,7 @@ constructor(
   val activePromotions = mutableStateListOf<CardPromotionItem>()
   val hasSavedEmail = mutableStateOf(hasWalletEmailPreferencesData())
   val isEmailError = mutableStateOf(false)
+  val emailErrorText = mutableStateOf(0)
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -241,15 +243,15 @@ constructor(
     postUserEmailUseCase(email).doOnComplete {
       emailAnalytics.walletAppEmailSubmitted(SUCCESS_EMAIL_ANALYTICS)
       hasSavedEmail.value = true
-    }.doOnError {
-      isEmailError.value = true
-      emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
-      it.printStackTrace()
-    }
-      .scopedSubscribe { e ->
+    }.scopedSubscribe { e ->
         e.printStackTrace()
         emailAnalytics.walletAppEmailSubmitted(ERROR_EMAIL_ANALYTICS)
         isEmailError.value = true
+        emailErrorText.value = if (e.message.equals("HTTP 422 ")) {
+          R.string.e_skills_withdraw_invalid_email_error_message
+        } else {
+          R.string.error_general
+        }
       }
   }
 

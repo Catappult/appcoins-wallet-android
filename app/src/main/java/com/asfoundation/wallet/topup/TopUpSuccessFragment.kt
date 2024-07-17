@@ -1,17 +1,11 @@
 package com.asfoundation.wallet.topup
 
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.airbnb.lottie.FontAssetDelegate
-import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
@@ -117,14 +111,10 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (bonus.isNotEmpty() && bonus != "0") {
-      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_bonus_success_animation)
-      setAnimationText()
-      formatBonusSuccessMessage()
-    } else {
-      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
-      formatSuccessMessage()
-    }
+    val bonusAvailable = bonus.takeIf { it.isNotEmpty() && it != "0" }
+    bonusAvailable?.let { setBonusText() } ?: run { binding.bonusViews.visibility = View.GONE }
+    formatSuccessMessage()
+    binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
     binding.topUpSuccessAnimation.playAnimation()
   }
 
@@ -142,38 +132,17 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     return RxView.clicks(binding.button)
   }
 
-  private fun setAnimationText() {
-    val formattedBonus = formatter.formatCurrency(bonus, WalletCurrency.FIAT)
-    val textDelegate = TextDelegate(binding.topUpSuccessAnimation)
-    textDelegate.setText("bonus_value", "$currencySymbol$formattedBonus")
-    textDelegate.setText(
-      "bonus_received",
-      resources.getString(R.string.gamification_purchase_completed_bonus_received)
-    )
-    binding.topUpSuccessAnimation.setTextDelegate(textDelegate)
-    binding.topUpSuccessAnimation.setFontAssetDelegate(object : FontAssetDelegate() {
-      override fun fetchFont(fontFamily: String?): Typeface {
-        return Typeface.create("sans-serif-medium", Typeface.BOLD)
-      }
-    })
-  }
-
-  private fun formatBonusSuccessMessage() {
-    val formattedInitialString = getFormattedTopUpValue()
-    val topUpString =
-      formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
-    setSpannableString(topUpString, formattedInitialString.length)
-
+  private fun setBonusText() {
+    val formattedBonus = "$currencySymbol${formatter.formatCurrency(bonus, WalletCurrency.FIAT)}"
+    val bonusText = getString(R.string.purchase_success_bonus_received_title, formattedBonus)
+    binding.bonusReceived.text = bonusText
+    binding.bonusViews.visibility = View.VISIBLE
   }
 
   private fun formatSuccessMessage() {
-    val formattedInitialString = getFormattedTopUpValue()
-    val secondStringFormat =
-      String.format(
-        resources.getString(R.string.askafriend_notification_received_body),
-        formattedInitialString, "\n"
-      )
-    setSpannableString(secondStringFormat, formattedInitialString.length)
+    val initialString = getFormattedTopUpValue()
+    val secondString = String.format(resources.getString(R.string.topup_completed_2_without_bonus))
+    binding.value.text = "$initialString\n$secondString"
   }
 
   private fun getFormattedTopUpValue(): String {
@@ -182,10 +151,4 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
   }
 
-  private fun setSpannableString(secondStringFormat: String, firstStringLength: Int) {
-    val boldStyle = StyleSpan(Typeface.BOLD)
-    val sb = SpannableString(secondStringFormat)
-    sb.setSpan(boldStyle, 0, firstStringLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    binding.value.text = sb
-  }
 }

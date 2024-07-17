@@ -22,6 +22,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.OnBackPressedListener
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment : BasePageViewFragment() {
+class PayPalIABFragment : BasePageViewFragment(), OnBackPressedListener {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator
@@ -113,7 +114,7 @@ class PayPalIABFragment : BasePageViewFragment() {
         }
 
         PayPalIABViewModel.State.TokenCanceled -> {
-          close()
+          iabView.showPaymentMethodsView()
         }
 
         is PayPalIABViewModel.State.WebViewAuthentication -> {
@@ -305,6 +306,10 @@ class PayPalIABFragment : BasePageViewFragment() {
       }
     }
 
+  }
+
+  override fun onBackPressed() {
+    iabView.showPaymentMethodsView()
   }
 
 }

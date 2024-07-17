@@ -8,6 +8,8 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.main.use_cases.GetCachedGuestWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.onboarding.use_cases.GetResponseCodeWebSocketUseCase
+import com.asfoundation.wallet.onboarding.use_cases.GetWsPortUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
@@ -37,8 +39,12 @@ class MainActivityViewModel @Inject constructor(
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
   private val getCachedGuestWalletUseCase: GetCachedGuestWalletUseCase,
   private val savedStateHandle: SavedStateHandle,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  private val getWsPortUseCase: GetWsPortUseCase,
+  private val getResponseCodeWebSocketUseCase: GetResponseCodeWebSocketUseCase
 ) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
+
+  var isOnboardingPaymentFlow = false
 
   init {
     handleSavedStateParameters()
@@ -62,12 +68,14 @@ class MainActivityViewModel @Inject constructor(
               .subscribeOn(rxSchedulers.io)
               .observeOn(rxSchedulers.main)
               .doOnSuccess { backup ->
-                if (backup != null && backup.backupPrivateKey.isNotEmpty())
+                if (backup != null && backup.backupPrivateKey.isNotEmpty()) {
                   sendSideEffect {
                     MainActivitySideEffect.NavigateToOnboardingRecoverGuestWallet(
                       backup.backupPrivateKey, backup.flow
                     )
                   }
+                  isOnboardingPaymentFlow = true
+                }
                 else
                   sendSideEffect { MainActivitySideEffect.NavigateToOnboarding }
               }
@@ -82,6 +90,14 @@ class MainActivityViewModel @Inject constructor(
         }
       }
       .scopedSubscribe()
+  }
+
+  fun getWsPort() : String? {
+    return getWsPortUseCase()
+  }
+
+  fun getResponseCodeWebSocket() : Int {
+    return getResponseCodeWebSocketUseCase()
   }
 
   private fun handleSavedStateParameters() {

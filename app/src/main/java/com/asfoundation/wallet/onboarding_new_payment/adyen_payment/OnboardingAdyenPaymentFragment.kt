@@ -59,7 +59,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   private lateinit var adyenCardWrapper: AdyenCardWrapper
 
   private lateinit var webViewLauncher: ActivityResultLauncher<Intent>
-  private lateinit var outerNavController: NavController
 
   @Inject
   lateinit var navigator: OnboardingAdyenPaymentNavigator
@@ -77,7 +76,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingAdyenPaymentFragmentArgs.fromBundle(requireArguments())
-    initOuterNavController()
     setupUi()
     clickListeners()
     createResultLauncher()
@@ -137,7 +135,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingAdyenPaymentSideEffect) {
     when (sideEffect) {
       is OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult -> navigator.navigateToPaymentResult(
-        outerNavController,
         sideEffect.paymentModel,
         args.transactionBuilder,
         args.paymentType,
@@ -199,10 +196,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = false
       }
     }
-  }
-
-  private fun initOuterNavController() {
-    outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
   }
 
   fun shouldStoreCard(): Boolean {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -40,14 +42,15 @@ fun WelcomeEmailCard(
   email: MutableState<String>,
   onSendClick: () -> Unit,
   onCloseClick: () -> Unit,
-  isError: Boolean = false
+  isError: Boolean = false,
+  errorText: String,
 ) {
   Column(
     modifier = Modifier
       .fillMaxWidth()
       .padding(horizontal = 16.dp)
       .padding(bottom = 8.dp, top = 16.dp)
-      .background(WalletColors.styleguide_blue_secondary, shape = RoundedCornerShape(8.dp))
+      .background(WalletColors.styleguide_blue_secondary, shape = RoundedCornerShape(16.dp))
   ) {
     Column(
       modifier = Modifier
@@ -67,7 +70,7 @@ fun WelcomeEmailCard(
     Column(
       modifier = Modifier
         .fillMaxWidth()
-        .padding(end = 16.dp, bottom = 16.dp, start = 16.dp, top = 0.dp)
+        .padding(end = 16.dp, bottom = 8.dp, start = 16.dp, top = 0.dp)
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Animation(modifier = Modifier.size(30.dp), animationRes = R.raw.bonus_gift_animation)
@@ -93,8 +96,10 @@ fun WelcomeEmailCard(
           .padding(bottom = 2.dp)
           .height(52.dp)
       ) {
-        Box(
-          modifier = Modifier
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(4.dp),
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier.fillMaxWidth()
             .background(color = WalletColors.styleguide_blue, shape = RoundedCornerShape(24.dp))
             .border(
               border = if (isError) BorderStroke(
@@ -105,7 +110,7 @@ fun WelcomeEmailCard(
             )
         ) {
           WalletTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.weight(1f),
             email.value,
             stringResource(R.string.email_here_field),
             backgroundColor = WalletColors.styleguide_blue,
@@ -122,16 +127,15 @@ fun WelcomeEmailCard(
             buttonType = ButtonType.DEFAULT,
             enabled = true,
             modifier = Modifier
-              .align(Alignment.CenterEnd)
-              .padding(end = 4.dp)
+              .padding(end = 6.dp)
           )
         }
       }
       Text(
-        text = if (isError) stringResource(R.string.error_general) else "",
+        text = if (isError) errorText else "",
         color = WalletColors.styleguide_red,
         fontSize = 11.sp,
-        modifier = Modifier.padding(start = 24.dp)
+        modifier = Modifier.padding(start = 16.dp)
       )
     }
   }
@@ -141,12 +145,12 @@ fun WelcomeEmailCard(
 @Composable
 fun PreviewHomeEmailComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, false)
+  WelcomeEmailCard(email, {}, {}, false, stringResource(R.string.error_general))
 }
 
 @Preview
 @Composable
 fun PreviewHomeEmailErrorComposable() {
   val email = remember { mutableStateOf("") }
-  WelcomeEmailCard(email, {}, {}, true)
+  WelcomeEmailCard(email, {}, {}, true, stringResource(R.string.error_general))
 }

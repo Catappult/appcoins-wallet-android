@@ -98,10 +98,10 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingButtons.onboardingNextButton.setOnClickListener { viewModel.handleLaunchWalletClick() }
     views.onboardingButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
     views.onboardingRecoverGuestButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
+      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
     }
     views.onboardingGuestLaunchButton.setOnClickListener {
-      viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup)
+      viewModel.handleLaunchWalletClick()
     }
     views.onboardingGuestVerifyButton.setOnClickListener {
       viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
@@ -121,16 +121,22 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleRecoverGuestWallet() {
     if (args.backup.isNotBlank()) {
-      when {
-        args.flow.isBlank() -> {
+      when (args.flow) {
+        OnboardingFlow.VERIFY_CREDIT_CARD.name, OnboardingFlow.VERIFY_PAYPAL.name -> {
+          showVerifyGuestWallet()
+        }
+
+        OnboardingFlow.ONBOARDING_PAYMENT.name -> {
+          viewModel.handleRecoverAndVerifyGuestWalletClick(args.backup, args.flow)
+        }
+
+        else -> {
           viewModel.getGuestWalletBonus(args.backup)
           showRecoverGuestWallet()
         }
-
-        args.flow.isNotBlank() -> {
-          showVerifyGuestWallet()
-        }
       }
+    } else {
+      showDefaultOnboardingLayout()
     }
   }
 
@@ -151,6 +157,7 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.ShowLoadingRecover -> showRecoveringGuestWalletLoading()
       is OnboardingSideEffect.UpdateGuestBonus -> showGuestBonus(sideEffect.bonus)
       is OnboardingSideEffect.NavigateToVerify -> navigator.navigateToVerify(sideEffect.flow)
+      OnboardingSideEffect.NavigateToOnboardingPayment -> navigator.navigateToOnboardingPayment()
     }
   }
 
@@ -161,6 +168,8 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showRecoverGuestWallet() {
+    views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingAction.visibility = View.INVISIBLE
     views.onboardingRecoverGuestWallet.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
@@ -174,7 +183,14 @@ class OnboardingFragment : BasePageViewFragment(),
     views.loadingAnimation.visibility = View.INVISIBLE
   }
 
+  private fun showDefaultOnboardingLayout() {
+    views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
+    views.onboardingAction.visibility = View.VISIBLE
+  }
+
   private fun showVerifyGuestWallet() {
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingRecoverGuestWallet.visibility = View.INVISIBLE
     views.onboardingVerifyGuestWallet.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.INVISIBLE
@@ -197,6 +213,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showGuestBonus(bonus: FiatValue) {
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingRecoverText2.text = getString(
       R.string.monetary_amount_with_symbol,
       bonus.symbol,
@@ -209,6 +226,8 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun showValuesScreen() {
+    views.loading.visibility = View.GONE
+    views.onboardingContent.visibility = View.VISIBLE
     views.onboardingWalletIcon?.visibility = View.VISIBLE
     views.onboardingValuePropositions.root.visibility = View.VISIBLE
     views.onboardingButtons.root.visibility = View.VISIBLE
@@ -216,6 +235,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun hideContent() {
+    views.onboardingContent.visibility = View.GONE
     views.onboardingWalletIcon?.visibility = View.GONE
     views.onboardingValuePropositions.root.visibility = View.GONE
     views.onboardingButtons.root.visibility = View.GONE
