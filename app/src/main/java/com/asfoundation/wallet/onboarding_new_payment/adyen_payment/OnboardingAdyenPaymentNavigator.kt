@@ -35,7 +35,6 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
    */
 
   fun navigateToPaymentResult(
-    navController: NavController,
     paymentModel: PaymentModel,
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType,

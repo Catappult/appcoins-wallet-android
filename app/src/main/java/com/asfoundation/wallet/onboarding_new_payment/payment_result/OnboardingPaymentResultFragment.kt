@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,9 +21,17 @@ import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_FATAL_ERROR
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_INVALID_ARGUMENTS
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_ITEM_ALREADY_OWNED
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_NETWORK_DOWN
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_USER_CANCEL
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
@@ -35,6 +44,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
   lateinit var args: OnboardingPaymentResultFragmentArgs
   private lateinit var outerNavController: NavController
+  private val clientWebSocket = OkHttpClient()
 
 
   @Inject
@@ -67,11 +77,18 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    // Shut down the dispatcher when it's no longer needed
+    clientWebSocket.dispatcher.executorService.shutdown()
+  }
+
   private fun clickListeners() {
     //try again and back needs to be separated later
     views.genericErrorButton.setOnClickListener {
       sharedViewModel.viewVisibility.value = View.VISIBLE
       navigator.navigateBackToPaymentMethods()
+      viewModel.setResponseCodeWebSocket(SDK_STATUS_USER_CANCEL)
     }
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(args.forecastBonus.level)
@@ -85,6 +102,17 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.onboardingSuccessButtons.exploreWalletButton.setOnClickListener {
       viewModel.handleExploreWalletClick()
     }
+    requireActivity().onBackPressedDispatcher.addCallback(
+      viewLifecycleOwner,
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          if (viewModel.getResponseCodeWebSocket() != SDK_STATUS_SUCCESS) {
+            createWebSocketSdk()
+          }
+          isEnabled = false
+          requireActivity().onBackPressed()
+        }
+      })
   }
 
   override fun onStateChanged(state: OnboardingPaymentResultState) = Unit
@@ -119,44 +147,54 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     when {
       error?.isNetworkError == true -> {
         showNoNetworkError()
+        viewModel.setResponseCodeWebSocket(SDK_STATUS_NETWORK_DOWN)
       }
 
       error?.errorInfo != null -> {
         when {
           error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_CARD -> {
             showSpecificError(R.string.purchase_error_invalid_credit_card)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION -> {
             showSpecificError(R.string.purchase_error_card_security_validation)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.OUTDATED_CARD -> {
             showSpecificError(R.string.purchase_card_error_re_insert)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.ALREADY_PROCESSED -> {
             showSpecificError(R.string.purchase_error_card_already_in_progress)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_ITEM_ALREADY_OWNED)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_ERROR -> {
             showSpecificError(R.string.purchase_error_payment_rejected)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_COUNTRY_CODE -> {
             showSpecificError(R.string.unknown_error)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
             showSpecificError(R.string.purchase_error_payment_rejected)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED -> {
             showSpecificError(R.string.purchase_card_error_general_1)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.errorType == ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> {
             showSpecificError(R.string.purchase_card_error_no_funds)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_INVALID_ARGUMENTS)
           }
 
           error.errorInfo?.httpCode != null -> {
@@ -170,6 +208,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
           else -> {
             showSpecificError(R.string.unknown_error)
+            viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
           }
         }
       }
@@ -187,10 +226,12 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       }
 
       refusalCode != null -> {
+        viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
         showSpecificError(adyenErrorCodeMapper.map(refusalCode))
       }
 
       else -> {
+        viewModel.setResponseCodeWebSocket(SDK_STATUS_FATAL_ERROR)
         showSpecificError(R.string.unknown_error)
       }
     }
@@ -219,6 +260,8 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.onboardingGenericSuccessLayout.onboardingActivityTransactionCompleted.visibility =
       View.VISIBLE
     views.onboardingSuccessButtons.root.visibility = View.VISIBLE
+    viewModel.setResponseCodeWebSocket(SDK_STATUS_SUCCESS)
+    createWebSocketSdk()
   }
 
   private fun handleBonusAnimation() {
@@ -239,7 +282,20 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun initOuterNavController() {
-    outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
+    outerNavController = Navigation.findNavController(requireActivity(), R.id.main_host_container)
+  }
+
+  private fun createWebSocketSdk() {
+    if (args.transactionBuilder.type == "INAPP") {
+      val request =
+        Request.Builder().url("ws://localhost:".plus(args.transactionBuilder.wspPort)).build()
+      val listener = SdkPaymentWebSocketListener(
+        args.paymentModel.purchaseUid,
+        args.paymentModel.uid,
+        viewModel.getResponseCodeWebSocket()
+      )
+      clientWebSocket.newWebSocket(request, listener)
+    }
   }
 
   companion object {

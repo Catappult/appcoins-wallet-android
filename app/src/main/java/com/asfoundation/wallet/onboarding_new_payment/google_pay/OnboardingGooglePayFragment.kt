@@ -101,6 +101,9 @@ class OnboardingGooglePayFragment : BasePageViewFragment() {
   }
 
   private fun startPayment() {
+    if (args.transactionBuilder.type == "INAPP") {
+      args.transactionBuilder.referrerUrl = null
+    }
     viewModel.startPayment(
       amount = BigDecimal(args.amount),
       currency = args.currency,
