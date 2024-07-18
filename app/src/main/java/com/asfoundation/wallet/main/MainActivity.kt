@@ -25,6 +25,7 @@ import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperti
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 /**
@@ -44,6 +45,8 @@ class MainActivity : AppCompatActivity(),
   private val viewModel: MainActivityViewModel by viewModels()
 
   private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
+
+  private var disposable: Disposable? = null
 
   /**
   To avoid having to set the theme back to the main app one, we should use the new splash screen api.
@@ -69,7 +72,7 @@ class MainActivity : AppCompatActivity(),
   }
 
   private fun handleSplashScreenResult() {
-    RxBus.listen(SplashFinishEvent().javaClass).subscribe {
+    disposable = RxBus.listen(SplashFinishEvent().javaClass).subscribe {
       handleInitialNavigation(intent = intent, fromSplashScreen = true)
     }
   }
@@ -175,6 +178,7 @@ class MainActivity : AppCompatActivity(),
       val listener = SdkPaymentWebSocketListener("", "", responseCode)
       OkHttpClient().newWebSocket(request, listener)
     }
+    disposable?.dispose()
     super.onDestroy()
   }
 
