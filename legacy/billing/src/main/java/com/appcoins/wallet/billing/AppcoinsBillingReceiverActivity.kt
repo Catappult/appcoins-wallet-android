@@ -34,6 +34,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     private const val DEVELOPER_PAYLOAD = "DEVELOPER_PAYLOAD"
     private const val PURCHASE_TOKEN = "PURCHASE_TOKEN"
     private const val RESULT_VALUE = "RESULT_VALUE"
+    private const val OEMID = "OEMID"
+    private const val GUEST_WALLET_ID = "GUEST_WALLET_ID"
     private const val SUPPORTED_API_VERSION = 3
   }
 
@@ -97,6 +99,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     val sku = args.getString(BILLING_SKU)
     val developerPayload = args.getString(DEVELOPER_PAYLOAD)
     val purchaseToken = args.getString(PURCHASE_TOKEN)
+    val oemId = args.getString(OEMID)
+    val guestWalletId = args.getString(GUEST_WALLET_ID)
 
     return when (methodId) {
       0 -> isBillingSupported(apiVersion, packageName, billingType)

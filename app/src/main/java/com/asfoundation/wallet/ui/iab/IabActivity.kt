@@ -776,6 +776,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val APP_PACKAGE = "app_package"
     const val TRANSACTION_EXTRA = "transaction_extra"
     const val PRODUCT_NAME = "product_name"
+    const val OEMID = "OEMID"
+    const val GUEST_WALLET_ID = "GUEST_WALLET_ID"
     const val TRANSACTION_DATA = "transaction_data"
     const val TRANSACTION_HASH = "transaction_hash"
     const val TRANSACTION_AMOUNT = "transaction_amount"

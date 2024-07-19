@@ -10,6 +10,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.GUEST_WALLET_ID
+import com.asfoundation.wallet.ui.iab.IabActivity.Companion.OEMID
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -53,6 +55,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     if (savedInstanceState == null) analytics.startTimingForSdkTotalEvent()
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
+    val oemId = intent.extras?.getString(OEMID, "")
+    val guestWalletId = intent.extras?.getString(GUEST_WALLET_ID, "")
     presenter =
       Erc681ReceiverPresenter(
         this,
