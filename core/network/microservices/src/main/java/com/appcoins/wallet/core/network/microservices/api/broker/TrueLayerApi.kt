@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface TrueLayerApi {
 
-  @POST("8.20240601/gateways/truelayer/transactions")
+  @POST("8.20240627/gateways/truelayer/transactions")
   fun createTransaction(
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
