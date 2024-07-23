@@ -2,6 +2,7 @@ package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -42,6 +43,11 @@ class WalletTextFieldView : FrameLayout {
     setHint(hint)
     val textFieldColor = typedArray.getColor(R.styleable.WalletTextFieldView_textFieldColor, color)
     setColor(textFieldColor)
+    val regex = typedArray.getString(R.styleable.WalletTextFieldView_digitsRegex)
+    regex?.let {
+      val filter = InputFilter { source, start, end, _, _, _ -> source?.subSequence(start, end)?.replace(Regex(it), "") }
+      views.textInputEditText.filters += filter
+    }
     typedArray.recycle()
   }
 
@@ -73,6 +79,21 @@ class WalletTextFieldView : FrameLayout {
 
   private fun applyType() {
     when (type) {
+      Type.ALL_CAPS -> {
+        views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS)
+        views.textInputEditText.isAllCaps = true
+        views.textInputEditText.filters += InputFilter.AllCaps()
+        views.textInputLayout.boxBackgroundColor =
+          ContextCompat.getColor(this.context, R.color.styleguide_blue)
+        views.textInputLayout.boxStrokeColor =
+          ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeWidth = 0
+        views.textInputLayout.endIconMode = END_ICON_NONE
+        views.textInputLayout.editText?.setTextColor(resources.getColor(R.color.styleguide_white))
+        views.textInputLayout.editText?.setHintTextColor(
+          resources.getColor(R.color.styleguide_dark_grey)
+        )
+      }
       Type.FILLED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
@@ -144,6 +165,7 @@ class WalletTextFieldView : FrameLayout {
     OUTLINED,
     PASSWORD,
     READ_ONLY,
-    NUMBER
+    NUMBER,
+    ALL_CAPS
   }
 }
