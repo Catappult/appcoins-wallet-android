@@ -85,7 +85,8 @@ class AdyenPaymentRepository @Inject constructor(
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
     walletSignature: String,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?,
   ): Single<PaymentModel> {
     val shopperInteraction = if (!hasCvc && supportedShopperInteractions.contains("ContAuth")) {
       "ContAuth"
@@ -113,6 +114,7 @@ class AdyenPaymentRepository @Inject constructor(
                 entityPromoCode = entityPromoCode,
                 user = userWallet,
                 referrerUrl = referrerUrl,
+                guestWalletId = guestWalletId,
                 token = it
               )
             }
@@ -153,7 +155,8 @@ class AdyenPaymentRepository @Inject constructor(
               entityDomain = entityDomain,
               entityPromoCode = entityPromoCode,
               user = userWallet,
-              referrerUrl = referrerUrl
+              referrerUrl = referrerUrl,
+              guestWalletId = guestWalletId,
             )
           )
             .map { adyenResponseMapper.map(it) }

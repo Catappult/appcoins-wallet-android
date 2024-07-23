@@ -37,7 +37,8 @@ class CreateGooglePayTransactionTopupUseCase @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           referrerUrl = null,
-          returnUrl = returnUrl
+          returnUrl = returnUrl,
+          guestWalletId = null,
         )
       }
   }

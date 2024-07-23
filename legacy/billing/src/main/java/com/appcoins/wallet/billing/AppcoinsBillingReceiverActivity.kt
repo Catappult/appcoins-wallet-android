@@ -106,7 +106,15 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
       0 -> isBillingSupported(apiVersion, packageName, billingType)
       1 -> getSkuDetails(apiVersion, packageName, billingType, args.getBundle("SKUS_BUNDLE"))
       2 -> getPurchases(apiVersion, packageName, billingType)
-      3 -> getBuyIntent(apiVersion, packageName, sku, billingType, developerPayload)
+      3 -> getBuyIntent(
+        apiVersion,
+        packageName,
+        sku,
+        billingType,
+        developerPayload,
+        oemId,
+        guestWalletId
+      )
       4 -> consumePurchase(apiVersion, packageName, purchaseToken, billingType)
       else -> {
         Log.w(TAG, "Unknown method id for: $methodId")
@@ -156,7 +164,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     packageName: String,
     sku: String?,
     billingType: String?,
-    developerPayload: String?
+    developerPayload: String?,
+    oemid: String?,
+    guestWalletId: String?
   ): Parcelable {
 
     if (validateGetBuyIntentArgs(apiVersion, billingType, sku)) {
@@ -208,7 +218,9 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
             BigDecimal(product.transactionPrice.appcoinsAmount),
             product.title,
             product.subscriptionPeriod,
-            product.trialPeriod
+            product.trialPeriod,
+            oemid,
+            guestWalletId
           )
         } catch (exception: Exception) {
           if (skuDetails.isEmpty()) {

@@ -426,7 +426,7 @@ public class TransactionBuilder implements Parcelable {
 
   public String getReferrerUrl() {
     return referrerUrl;
-  }
+  }  //
 
   public void setReferrerUrl(String referrerUrl) {
     this.referrerUrl = referrerUrl;

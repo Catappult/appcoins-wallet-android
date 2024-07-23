@@ -44,6 +44,7 @@ class GooglePayWebRepository @Inject constructor(
     userWallet: String?,
     referrerUrl: String?,
     returnUrl: String,
+    guestWalletId: String?
   ): Single<GooglePayWebTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io).flatMap { ewt ->
       adyenSessionbApi.createSessionTransaction(
@@ -66,7 +67,8 @@ class GooglePayWebRepository @Inject constructor(
           entityDomain = entityDomain,
           entityPromoCode = entityPromoCode,
           user = userWallet,
-          referrerUrl = referrerUrl
+          referrerUrl = referrerUrl,
+          guestWalletId = guestWalletId
         )
       ).map { response: AdyenSessionResponse ->
         with(response) {
