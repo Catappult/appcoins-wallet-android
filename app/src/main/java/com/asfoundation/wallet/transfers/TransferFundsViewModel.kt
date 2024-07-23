@@ -76,7 +76,7 @@ constructor(
         if (shouldBlock) {
           Completable.fromAction { _uiState.value = UiState.NavigateToWalletBlocked }
         } else {
-          makeTransaction(data, packageName)
+          makeTransaction(data, packageName, null)
             .doOnSuccess { status ->
               handleTransferResult(data.currency, status, data.walletAddress, data.amount)
             }
@@ -137,10 +137,17 @@ constructor(
 
   private fun makeTransaction(
     data: TransferData,
-    packageName: String
+    packageName: String,
+    guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return when (data.currency) {
-      Currency.APPC_C -> handleCreditsTransfer(data.walletAddress, data.amount, packageName)
+      Currency.APPC_C -> handleCreditsTransfer(
+        data.walletAddress,
+        data.amount,
+        packageName,
+        guestWalletId,
+      )
+
       Currency.ETH -> transferInteractor.validateEthTransferData(data.walletAddress, data.amount)
       Currency.APPC -> transferInteractor.validateAppcTransferData(data.walletAddress, data.amount)
     }
@@ -149,11 +156,12 @@ constructor(
   private fun handleCreditsTransfer(
     walletAddress: String,
     amount: BigDecimal,
-    packageName: String
+    packageName: String,
+    guestWalletId: String?
   ): Single<AppcoinsRewardsRepository.Status> {
     return Single.zip(
       Single.timer(1, TimeUnit.SECONDS),
-      transferInteractor.transferCredits(walletAddress, amount, packageName)
+      transferInteractor.transferCredits(walletAddress, amount, packageName, guestWalletId)
     ) { _: Long,
         status: AppcoinsRewardsRepository.Status ->
       status

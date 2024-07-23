@@ -54,7 +54,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
       authorizationProof.developerPayload,
       authorizationProof.callback,
       authorizationProof.orderReference,
-      authorizationProof.referrerUrl
+      authorizationProof.referrerUrl,
+      authorizationProof.guestWalletId,
     )
       .doOnSuccess { transaction -> transactionFromApprove[authorizationProof.id] = transaction }
 
@@ -92,7 +93,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     developerPayload: String?,
     callback: String?,
     orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<Transaction> =
     walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
@@ -111,7 +113,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           developerPayload,
           callback,
           orderReference,
-          referrerUrl
+          referrerUrl,
+          guestWalletId
         )
       }
     }
@@ -215,7 +218,8 @@ data class AuthorizationProof(
   val developerPayload: String?,
   val callback: String?,
   val orderReference: String?,
-  val referrerUrl: String?
+  val referrerUrl: String?,
+  val guestWalletId: String?
 )
 
 data class PaymentProof(

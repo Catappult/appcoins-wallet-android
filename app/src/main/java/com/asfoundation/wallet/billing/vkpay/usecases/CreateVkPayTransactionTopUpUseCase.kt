@@ -35,6 +35,7 @@ class CreateVkPayTransactionTopUpUseCase @Inject constructor(
           entityPromoCode = null,
           userWallet = null,
           referrerUrl = null,
+          guestWalletId = null,
           method = METHOD_VK_PAY,
           email = email,
           phone = phone

@@ -321,6 +321,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     const val ASYNC = "async"
     const val REFERRER_URL = "referrer_url"
     const val GAMIFICATION_LEVEL = "gamification_level"
+    const val GUEST_WALLET_ID = "guest_wallet_id"
     private const val ANIMATION_STEP_ONE_START_FRAME = 0
     private const val ANIMATION_STEP_TWO_START_FRAME = 80
     private const val MID_ANIMATION_FRAME_INCREMENT = 40
@@ -335,7 +336,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
       type: String, amount: BigDecimal, callbackUrl: String?, orderReference: String?,
       payload: String?, origin: String?, paymentMethodIconUrl: String,
       paymentMethodLabel: String, async: Boolean, referralUrl: String?,
-      gamificationLevel: Int
+      gamificationLevel: Int, guestWalletId: String?
     ): LocalPaymentFragment {
       return LocalPaymentFragment()
         .apply {
@@ -358,6 +359,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
             putBoolean(ASYNC, async)
             putString(REFERRER_URL, referralUrl)
             putInt(GAMIFICATION_LEVEL, gamificationLevel)
+            putString(GUEST_WALLET_ID, guestWalletId)
           }
         }
     }

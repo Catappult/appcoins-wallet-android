@@ -31,7 +31,8 @@ class SandboxRepository @Inject constructor(
     callbackUrl: String?, transactionType: String, developerWallet: String?,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
     userWallet: String?,
-    referrerUrl: String?
+    referrerUrl: String?,
+    guestWalletId: String?
   ): Single<SandboxTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -52,7 +53,8 @@ class SandboxRepository @Inject constructor(
             entityDomain = entityDomain,
             entityPromoCode = entityPromoCode,
             user = userWallet,
-            referrerUrl = referrerUrl
+            referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId
           )
         )
           .map { response: SandboxResponse ->

@@ -54,7 +54,7 @@ interface BillingRepository {
     entityOemId: String?, entityDomainId: String?,
     origin: String, type: String, developerPayload: String?,
     callback: String?, orderReference: String?,
-    referrerUrl: String?
+    referrerUrl: String?, guestWalletId: String?,
   ): Single<Transaction>
 
   fun registerPaymentProof(

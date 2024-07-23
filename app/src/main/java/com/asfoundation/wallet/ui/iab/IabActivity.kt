@@ -512,7 +512,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     paymentMethodLabel: String,
     async: Boolean,
     referralUrl: String?,
-    gamificationLevel: Int
+    gamificationLevel: Int,
+    guestWalletId: String?
   ) {
     supportFragmentManager.beginTransaction()
       .replace(
@@ -535,7 +536,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
           paymentMethodLabel,
           async,
           referralUrl,
-          gamificationLevel
+          gamificationLevel,
+          guestWalletId
         )
       )
       .commit()

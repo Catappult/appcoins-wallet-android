@@ -33,7 +33,8 @@ class CreatePaypalTransactionTopupUseCase @Inject constructor(
           entityDomain = null,
           entityPromoCode = null,
           userWallet = null,
-          referrerUrl = null
+          referrerUrl = null,
+          guestWalletId = null,
         )
       }
   }
