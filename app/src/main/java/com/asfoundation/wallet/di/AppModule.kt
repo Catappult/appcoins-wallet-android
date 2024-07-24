@@ -22,6 +22,8 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.feature.promocode.data.wallet.WalletAddress
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
 import com.aptoide.apk.injector.extractor.data.ExtractorV2
@@ -33,6 +35,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
+import com.asfoundation.wallet.promo_code.bottom_sheet.WalletsAddressProvider
 import com.asfoundation.wallet.repository.Web3jProvider
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.AppInfoProvider
@@ -270,4 +273,9 @@ internal class AppModule {
   fun providesNetworkMonitorManager(@ApplicationContext context: Context): NetworkMonitor {
     return InternetManagerNetworkMonitor(context)
   }
+
+  @Singleton
+  @Provides
+  fun provideWalletAddress(walletRepository: WalletRepositoryType): WalletAddress =
+    WalletsAddressProvider(walletRepository)
 }
