@@ -34,6 +34,13 @@ class PartnerAddressService @Inject constructor(
 
   override fun getAttribution(packageName: String): Single<AttributionEntity> {
     return getAttributionClientCache(packageName)
+      .map { attribution ->
+        if (oemIdPreferencesDataSource.getOemIdFromSdk().isBlank()) {
+          attribution
+        } else {
+          AttributionEntity(oemIdPreferencesDataSource.getOemIdFromSdk(), attribution.domain)
+        }
+      }
       .doOnSuccess {
         Log.d("oemid", "oemid: ${it?.oemId ?: ""}")
         oemIdPreferencesDataSource.setCurrentOemId(it.oemId ?: "")
@@ -137,9 +144,12 @@ class PartnerAddressService @Inject constructor(
       }
   }
 
+  fun setOemIdFromSdk(oemId: String?) {
+    oemIdPreferencesDataSource.setOemIdFromSdk(oemId)
+  }
 
-  fun isGameFromGamesHub(): Boolean {
-    return oemIdPreferencesDataSource.getIsGameFromGameshub()
+  fun getOemIdFromSdk(): String {
+    return oemIdPreferencesDataSource.getOemIdFromSdk()
   }
 
   companion object {
