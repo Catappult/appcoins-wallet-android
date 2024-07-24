@@ -22,19 +22,19 @@ class PromoCodeRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-          response.code,
-          response.bonus,
+          code = response.code,
+          bonus = response.bonus,
           validity = ValidityState.ACTIVE.value,
-          response.app.appName
+          appName = response.app.appName
         )
         promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
       }
       .map {
         PromoCode(
-          it.code,
-          it.bonus,
+          code = it.code,
+          bonus = it.bonus,
           validity = ValidityState.ACTIVE,
-          it.app.appName
+          appName = it.app.appName
         )
       }
       .onErrorReturn {
@@ -47,12 +47,13 @@ class PromoCodeRepository @Inject constructor(
     val validity = when (errorCode) {
       409 -> {
         promoCodeLocalDataSource.savePromoCode(
-          PromoCodeBonusResponse(
-            promoCodeString,
-            null,
-            PromoCodeBonusResponse.App(null, null, null)
+          promoCodeBonus = PromoCodeBonusResponse(
+            code = promoCodeString,
+            bonus = null,
+            app = PromoCodeBonusResponse.App(null, null, null),
+            ownerWallet = null
           ),
-          ValidityState.EXPIRED
+          validity = ValidityState.EXPIRED
         ).subscribe()
         ValidityState.EXPIRED
       }
@@ -61,10 +62,10 @@ class PromoCodeRepository @Inject constructor(
       else -> ValidityState.ERROR
     }
     return PromoCode(
-      promoCodeString,
-      null,
+      code = promoCodeString,
+      bonus = null,
       validity = validity,
-      null
+      appName = null
     )
   }
 
