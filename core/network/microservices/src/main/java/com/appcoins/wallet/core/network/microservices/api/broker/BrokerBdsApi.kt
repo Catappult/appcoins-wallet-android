@@ -119,7 +119,7 @@ interface BrokerBdsApi {
     @Field("callback_url") callback: String?,
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
-    @Field("guest_id") guestWalletId: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
@@ -163,7 +163,7 @@ interface BrokerBdsApi {
     @Field("callback_url") callback: String?,
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
-    @Field("guest_id") guestWalletId: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Header("authorization") authorization: String,
   ): Single<Transaction>
@@ -182,7 +182,7 @@ interface BrokerBdsApi {
     @Field("checkout_url") checkoutUrl: String?,
     @Field("entity.oemid") entityOemId: String?,
     @Field("reference") orderReference: String?,
-    @Field("guest_id") guestWalletId: String?,
+    @Field("entity.guest_id") guestWalletId: String?,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String?,
     @Header("authorization") authorization: String,

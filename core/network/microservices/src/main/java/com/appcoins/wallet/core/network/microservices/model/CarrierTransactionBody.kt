@@ -20,5 +20,5 @@ data class CarrierTransactionBody(
   @SerializedName("referrer_url") val referrerUrl: String?,
   @SerializedName("metadata") val developerPayload: String?,
   @SerializedName("callback_url") val callbackUrl: String?,
-  @SerializedName("guest_id") val guestWalletId: String?,
+  @SerializedName("entity.guest_id") val guestWalletId: String?,
 )
