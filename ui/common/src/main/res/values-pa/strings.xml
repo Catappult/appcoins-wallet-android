@@ -41,6 +41,7 @@
   <string name="title_delete_account">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਇਸ ਬਟੂਏ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="twitter">X</string>
   <string name="telegram">ਟੈਲੀਗਰਾਮ ਸਮੂਹ</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">ਕਮਿਊਨਿਟੀ</string>
   <string name="title_opensource">ਓਪਨ ਸੋਰਸ ਡਿਵੈਲਪਮੈਂਟ</string>
@@ -679,12 +680,19 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">With this payment method you\'ll pay a processing fee and VAT.</string>
   <string name="purchase_fee_included_body">fees included</string>
   <string name="purchase_error_one_wallet_generic">There was a problem with your Wallet One payment. Please try again or use a different payment method.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Only available for top-ups.</string>
   <string name="purchase_payment_method_minimum_amount">Only for purchases above %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Not available on this purchase.</string>
   <string name="purchase_error_no_method_available_body">At the moment, there are no payment methods available to complete this purchase in your region. Stay tuned!</string>
   <string name="purchase_legal_disclaimer">By proceeding with the payment, you agree and consent to be supplied with the content upon payment and thereby lose your right of withdrawal.</string>
   <string name="purchase_bonus_in_appc_disclaimer">The bonus is in AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
@@ -811,7 +819,7 @@
   <string name="backup_popup_gamification_body">ਆਪਣੇ ਬੋਨਸ ਪੱਧਰ ਨੂੰ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰੱਖੋ।</string>
   <string name="backup_error_body">We couldn\'t create your backup file. Try again later.</string>
   <string name="backup_confirmation_save_device">Your backup is on your device</string>
-  <string name="backup_confirmation_save_email">Your backup is on your e-mail</string>
+  <string name="backup_confirmation_save_email">Your backup is on your email</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -1234,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="vip_program_referral_page_title">ਵੀਆਈਪੀ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">ਇਸ ਕੋਡ ਨੂੰ ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%3$s ਰੈਫਰਲ ਤੋਂ %1$s%2$s ਕਮਾਈ ਕੀਤੀ ਗਈ</string>
@@ -1247,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">ਵੀਆਈਪੀ ਰੈਫਰਲ ਕੋਡ ਉਪਲਬਧ ਹੈ!</string>
   <string name="vip_program_referral_notification_body">ਆਪਣਾ ਕੋਡ ਆਪਣੇ ਭਾਈਚਾਰੇ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਤਾਂ ਜੋ ਤੁਸੀਂ ਸਾਰੇ ਖੇਡਦੇ ਹੋਏ ਕਮਾਈ ਕਰੋ!</string>
   <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ</string>
   <string name="intro_welcome_body">ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਰੀਚਾਰਜ ਕਰੋ ਜਾਂ ਕਿਸੇ ਵੀ ਐਪ ਸਿੱਕਿਆਂ ਨਾਲ ਅਨੁਕੂਲ ਐਪ ਜਾਂ ਗੇਮ ਵਿੱਚ ਖਰੀਦਦਾਰੀ ਕਰੋ।</string>

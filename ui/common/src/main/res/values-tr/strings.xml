@@ -41,6 +41,7 @@
   <string name="title_delete_account">Bu cüzdanı kaldırmak istediğinizden emin misiniz?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram Grubu</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
   <string name="title_opensource">Açık Kaynaklı Geliştirme</string>
@@ -679,12 +680,19 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bu ödeme yöntemiyle işlme ücreti ve KDV ödersin.</string>
   <string name="purchase_fee_included_body">ücretler dahil</string>
   <string name="purchase_error_one_wallet_generic">Wallet One ödemenle ilgili bir sorun meydana geldi. Lütfen tekrar dene veya farklı bir ödeme yöntemi kullan.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Yalnızca yüklemelerde kullanılabilir.</string>
   <string name="purchase_payment_method_minimum_amount">Yalnızca %s altındaki satın alma işlemleri için.</string>
   <string name="purchase_payment_method_not_availble_generic">Bu satın alma işleminde kullanılamaz.</string>
   <string name="purchase_error_no_method_available_body">Bu satın alma işlemini tamamlamak için bölgende herhangi bir ödeme yöntemi mevcut değil. Takipte kal!</string>
   <string name="purchase_legal_disclaimer">Ödeme işlemine devam ederek, ödeme sonrası içeriğin sağlanmasını kabul etmiş ve onaylamış olursun ve cayma hakkını kaybedersin.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus, AppCoins Kredisi cinsindendir.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -1234,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak <b>hem sen hem de arkadaşların %1$s%%</b> bonus kazanırsınız. <b>%2$s tarihine kadar geçerli</b>!</string>
-  <string name="vip_program_referral_page_body_2">Bu kodu kullanırken, sen ve arkadaşların her satın alma işleminde %s%% bonus kazanırsınız!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_only_app_title">Yalnızca şunlardaki satın alımlar için:</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
@@ -1247,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">VIP Tavsiye Kodu Mevcut!</string>
   <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
   <string name="vip_program_title_vip_offer">VIP Teklif</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
   <string name="intro_welcome_body">Cüzdanını doldur veya AppCoins uyumlu herhangi bir uygulama veya oyunda bir satın alma işlemi yap.</string>

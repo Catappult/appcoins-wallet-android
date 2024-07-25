@@ -41,6 +41,7 @@
   <string name="title_delete_account">Bạn có chắc chắn muốn xóa ví này?</string>
   <string name="twitter">X</string>
   <string name="telegram">Nhóm Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Cộng đồng</string>
   <string name="title_opensource">Phát triển nguồn mở</string>
@@ -679,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Với phương thức thanh toán này, bạn sẽ phải trả phí xử lý và VAT.</string>
   <string name="purchase_fee_included_body">đã bao gồm phí</string>
   <string name="purchase_error_one_wallet_generic">Đã xảy ra sự cố với khoản thanh toán Wallet One của bạn. Vui lòng thử lại hoặc sử dụng phương thức thanh toán khác.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Chỉ khả dụng để nạp tiền.</string>
   <string name="purchase_payment_method_minimum_amount">Chỉ dành cho các giao dịch mua trên %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Không khả dụng trong giao dịch mua này.</string>
   <string name="purchase_error_no_method_available_body">Hiện tại, không có phương thức thanh toán nào khả dụng để hoàn tất giao dịch mua này tại khu vực của bạn. Hãy theo dõi thêm!</string>
   <string name="purchase_legal_disclaimer">Bằng cách tiếp tục thanh toán, bạn đồng ý và đồng thuận được cung cấp nội dung khi thanh toán và do đó mất quyền rút tiền.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Phần thưởng được tính bằng AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -1225,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
   <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này với cộng đồng và bạn bè của bạn để mọi người cùng kiếm tiền khi chơi. Đối với mỗi lần mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn bè của bạn sẽ nhận được %1$s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khác. <b>Có hiệu lực đến %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Bạn và bạn bè của mình sẽ nhận được %s%% tiền thưởng trong tất cả các giao dịch mua khi sử dụng mã này!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_only_app_title">Chỉ dành cho mua hàng trên</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
@@ -1238,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
   <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
   <string name="vip_program_title_vip_offer">Ưu đãi VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
   <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>

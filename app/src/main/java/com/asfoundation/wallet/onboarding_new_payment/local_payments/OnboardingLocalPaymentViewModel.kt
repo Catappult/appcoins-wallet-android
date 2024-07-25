@@ -111,6 +111,9 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
   }
 
   private fun getPaymentLink() {
+    if (args.transactionBuilder.type == "INAPP") {
+      args.transactionBuilder.referrerUrl = null
+    }
     getPaymentLinkUseCase(
       data = args.transactionBuilder,
       currency = args.currency,

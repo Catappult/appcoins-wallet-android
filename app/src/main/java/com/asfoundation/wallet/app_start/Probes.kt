@@ -16,6 +16,7 @@ class AppStartProbe @Inject constructor(
         INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to "",
         SKU to startMode.sku,
+        BACKUP to startMode.backup
       )
 
       is StartMode.GPInstall -> mapOf(

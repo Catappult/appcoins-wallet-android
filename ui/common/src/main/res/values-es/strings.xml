@@ -41,6 +41,7 @@
   <string name="title_delete_account">¿Estás seguro de que quieres eliminar esta wallet?</string>
   <string name="twitter">X</string>
   <string name="telegram">Grupo de Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Redes Sociales</string>
   <string name="title_opensource">Desarrollo de código abierto</string>
@@ -493,7 +494,7 @@
   <string name="do_it_later_button">Más tarde</string>
   <string name="connection_error_title">Sin conexión a internet</string>
   <string name="connection_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
-  <string name="common_or">or</string>
+  <string name="common_or">o</string>
   <string name="share_via">Compartir a través de:</string>
   <string name="password">Contraseña</string>
   <string name="repeat_password">Repite la contraseña</string>
@@ -589,9 +590,9 @@
   <string name="verified_tag">Verificada</string>
   <string name="unferified_tag">Wallet sin verificar</string>
   <string name="verification_wallets_verify_button">Verificar</string>
-  <string name="verification_verified_paypal_body">Verified with PayPal.</string>
-  <string name="verification_verified_credit_debit_card_body">Verified with credit/debit card.</string>
-  <string name="verification_verified_credit_debit_card_paypal_body">Verified with credit/debit card and PayPal.</string>
+  <string name="verification_verified_paypal_body">Verificado con PayPal.</string>
+  <string name="verification_verified_credit_debit_card_body">Verificado con tarjeta de crédito/débito.</string>
+  <string name="verification_verified_credit_debit_card_paypal_body">Verificado con tarjeta de crédito/débito y PayPal.</string>
   <!--PayPal Verification-->
   <string name="paypal_verification_home_one_step_card_title">¡Solo falta un paso!</string>
   <string name="paypal_verification_home_one_step_card_body">Introduce el código que hemos enviado a tu e-mail para verificar tu cuenta de PayPal.</string>
@@ -679,12 +680,19 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Este método de pago cobra una tasa de procesamiento e IVA.</string>
   <string name="purchase_fee_included_body">tasas incluidas</string>
   <string name="purchase_error_one_wallet_generic">Hubo un problema con el pago de Wallet One. Prueba de nuevo o usa un método de pago diferente.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Solo disponible para recargas.</string>
   <string name="purchase_payment_method_minimum_amount">Solo para compras superiores a %s.</string>
   <string name="purchase_payment_method_not_availble_generic">No disponible en esta compra.</string>
   <string name="purchase_error_no_method_available_body">En estos momentos no hay métodos de pago disponibles en tu región. ¡Mantente informado!</string>
   <string name="purchase_legal_disclaimer">Al completar el pago, aceptas y consientes que se te proporcione el contenido por el que pagas y por lo tanto renuncias a tu derecho de rescisión.</string>
   <string name="purchase_bonus_in_appc_disclaimer">El bonus se ofrece en AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -1234,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Código Promocional</string>
   <string name="vip_program_referral_page_title">Programa de Recomendación VIP</string>
   <string name="vip_program_referral_page_body">Comparte este código con tu comunidad y amigos para que todos ganen al jugar. Por cada compra que hagan, <b>tanto tú como tus amigos recibiréis un bonus del %1$s%%</b> además de las otras promociones. <b>Válido hasta el %2$s</b></string>
-  <string name="vip_program_referral_page_body_2">¡Tú y tus amigos recibiréis un %s%% de bonus en todas las compras al usar este código!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Comparte este código con tus amigos</string>
   <string name="vip_program_referral_page_only_app_title">Solo para compras en</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s ganado de %3$s recomendaciones</string>
@@ -1247,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">¡Código de Recomendación VIP disponible!</string>
   <string name="vip_program_referral_notification_body">¡Comparte tu código con tu comunidad para que todos ganéis al jugar!</string>
   <string name="vip_program_title_vip_offer">Oferta VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bienvenid@ a la AppCoins Wallet</string>
   <string name="intro_welcome_body">Recarga la wallet o haz una compra en cualquier app o juego compatible con AppCoins.</string>

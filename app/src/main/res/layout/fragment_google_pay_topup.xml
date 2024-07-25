@@ -8,6 +8,7 @@
     android:layout_gravity="center"
     android:background="@color/styleguide_blue"
     android:minHeight="248dp"
+    android:theme="@style/AdyenMaterialAppTheme"
     >
 
   <include
@@ -42,7 +43,7 @@
 
   <include
       android:id="@+id/google_pay_error_layout"
-      layout="@layout/support_error_layout"
+      layout="@layout/support_error_layout_dark"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:visibility="gone"

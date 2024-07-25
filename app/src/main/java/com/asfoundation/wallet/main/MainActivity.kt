@@ -3,6 +3,7 @@ package com.asfoundation.wallet.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -15,10 +16,14 @@ import com.appcoins.wallet.core.utils.android_common.NetworkMonitor
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener
+import com.asfoundation.wallet.onboarding_new_payment.payment_result.SdkPaymentWebSocketListener.Companion.SDK_STATUS_SUCCESS
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.verification.ui.paypal.VerificationPayPalProperties.PAYPAL_VERIFICATION_REQUIRED
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import javax.inject.Inject
 
 /**
@@ -107,6 +112,18 @@ class MainActivity : AppCompatActivity(),
       )
     }
   }
+
+  override fun onDestroy() {
+    val responseCode = viewModel.getResponseCodeWebSocket()
+    if (viewModel.isOnboardingPaymentFlow && responseCode != SDK_STATUS_SUCCESS) {
+      val request =
+        Request.Builder().url("ws://localhost:".plus(viewModel.getWsPort())).build()
+      val listener = SdkPaymentWebSocketListener("", "", responseCode)
+      OkHttpClient().newWebSocket(request, listener)
+    }
+    super.onDestroy()
+  }
+
 
   companion object {
     fun newIntent(

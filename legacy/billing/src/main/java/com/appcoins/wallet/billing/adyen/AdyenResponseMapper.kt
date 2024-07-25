@@ -105,7 +105,7 @@ open class AdyenResponseMapper @Inject constructor(
     return PaymentModel(
       adyenResponse?.resultCode, adyenResponse?.refusalReason,
       adyenResponse?.refusalReasonCode?.toInt(), action, redirectUrl, action?.paymentData,
-      response.uid, null, response.hash, response.orderReference, fraudResultsId,
+      response.uid, response.metadata?.purchaseUid, response.hash, response.orderReference, fraudResultsId,
       map(response.status), response.metadata?.errorMessage, response.metadata?.errorCode
     )
   }

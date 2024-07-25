@@ -83,6 +83,7 @@ class AdyenTopUpPresenter(
   private var retrievedCurrency = currency
   private var action3ds: String? = null
   private var storedCardID: String? = null
+  private var initialLoading: Boolean = false
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -146,12 +147,18 @@ class AdyenTopUpPresenter(
     disposables.add(view.getTryAgainClicks()
       .throttleFirst(50, TimeUnit.MILLISECONDS)
       .observeOn(viewScheduler)
-      .doOnNext {
-        if (paymentType == PaymentType.CARD.name && storedCardID == "") hideSpecificError()
-        else navigator.navigateBack()
-      }
       .subscribeOn(viewScheduler)
-      .subscribe({}, { it.printStackTrace() })
+      .subscribe(
+        {
+          // code commented to fix an issue of the top up button not working on trying to buy without network. the top up button click chain gets disposed for some reason
+          /*
+          if (paymentType == PaymentType.CARD.name && storedCardID == "" && initialLoading)
+            hideSpecificError()
+          else*/
+            navigator.navigateBack()
+        },
+        { it.printStackTrace() }
+      )
     )
   }
 
@@ -167,6 +174,11 @@ class AdyenTopUpPresenter(
           { }
         )
     )
+  }
+
+  private fun hideSpecificError() {
+    currentError = 0
+    view.hideErrorViews()
   }
 
   private fun loadPaymentMethodInfo(fromError: Boolean = false) {
@@ -206,6 +218,7 @@ class AdyenTopUpPresenter(
               } ?: Exception("PaymentMethodInfo")
             )
           } else {
+            initialLoading = true
             val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
             if (!view.hasStoredCardBuy() || cardPaymentDataSource.isMandatoryCvc()) view.showValues(
               priceAmount,
@@ -520,20 +533,20 @@ class AdyenTopUpPresenter(
                 R.string.purchase_error_try_other_amount_or_method
               }
 
-            paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
-            amountRuleBroken -> R.string.purchase_error_try_other_amount
-            else -> error
+              paymentMethodRuleBroken -> R.string.purchase_error_try_other_method
+              amountRuleBroken -> R.string.purchase_error_try_other_amount
+              else -> error
+            }
+            handleSpecificError(
+              fraudError,
+              Exception("FraudFlow paymentMethod=$paymentMethodRuleBroken amount=$amountRuleBroken")
+            )
+          } else {
+            logger.log(TAG, Exception("FraudFlow unverified"))
+            view.showVerificationError()
           }
-          handleSpecificError(
-            fraudError,
-            Exception("FraudFlow paymentMethod=$paymentMethodRuleBroken amount=$amountRuleBroken")
-          )
-        } else {
-          logger.log(TAG, Exception("FraudFlow unverified"))
-          view.showVerificationError()
         }
-      }
-      .subscribe({}, { handleSpecificError(error, it) })
+        .subscribe({}, { handleSpecificError(error, it) })
     )
   }
 
@@ -652,11 +665,6 @@ class AdyenTopUpPresenter(
       .doOnNext { view.showVerification(paymentType) }
       .subscribe({}, { it.printStackTrace() })
     )
-  }
-
-  private fun hideSpecificError() {
-    currentError = 0
-    view.hideErrorViews()
   }
 
   private fun handleAdyenAction(paymentModel: PaymentModel) {

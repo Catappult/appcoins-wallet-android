@@ -799,7 +799,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
       if (isPortraitMode(requireContext())) {
         getString(R.string.purchase_total_header, amount, currencyCode)
       } else {
-        getString(R.string.gas_price_value, amount, currency)
+        getString(R.string.gas_price_value, amount, currencyCode)
       }
     if (!isPortraitMode(requireContext())) {
       bindingCreditCardLayout?.paymentMethodsHeader?.fiatTotalPriceLabel?.visibility = VISIBLE
@@ -1032,6 +1032,7 @@ class AdyenPaymentFragment : BasePageViewFragment() {
 
   override fun onDestroyView() {
     iabView.enableBack()
+    viewModel.cancelPaypalLaunch = true
 //    presenter.stop()
     super.onDestroyView()
   }
@@ -1043,10 +1044,10 @@ class AdyenPaymentFragment : BasePageViewFragment() {
     super.onDestroy()
   }
 
-  fun restartFragment() {
+  fun restartFragment(paymentType: PaymentType = PaymentType.CARD) {
     this.fragmentManager?.beginTransaction()?.replace(
       R.id.fragment_container, newInstance(
-        PaymentType.CARD,
+        paymentType,
         origin,
         transactionBuilder,
         amount,

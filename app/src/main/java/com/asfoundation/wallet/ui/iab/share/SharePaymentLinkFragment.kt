@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSharePaymentLinkBinding
 import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.OnBackPressedListener
 import com.jakewharton.rxbinding2.view.RxView
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +24,8 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SharePaymentLinkFragment : BasePageViewFragment(),
-  SharePaymentLinkFragmentView {
+class SharePaymentLinkFragment : BasePageViewFragment(), SharePaymentLinkFragmentView,
+  OnBackPressedListener {
 
   @Inject
   lateinit var interactor: ShareLinkInteractor
@@ -246,5 +247,13 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
   override fun close() {
     iabView?.close(Bundle())
+  }
+
+  override fun back() {
+    iabView?.showPaymentMethodsView()
+  }
+
+  override fun onBackPressed() {
+    iabView?.showPaymentMethodsView()
   }
 }

@@ -41,6 +41,7 @@
   <string name="title_delete_account">이 지갑을 제거하시겠습니까?</string>
   <string name="twitter">X</string>
   <string name="telegram">텔레그램 그룹</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">커뮤니티</string>
   <string name="title_opensource">오픈 소스 개발</string>
@@ -679,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">이 결제 방법을 사용하면 처리 수수료와 VAT를 지불하게 됩니다.</string>
   <string name="purchase_fee_included_body">수수료 포함</string>
   <string name="purchase_error_one_wallet_generic">Wallet One 결제에 문제가 발생했습니다. 다시 시도하거나 다른 결제 수단을 사용해 보세요.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">충전에만 사용 가능합니다.</string>
   <string name="purchase_payment_method_minimum_amount">위 %s 구매에만 해당.</string>
   <string name="purchase_payment_method_not_availble_generic">이 구매에서 사용 불가</string>
   <string name="purchase_error_no_method_available_body">현재 귀하의 지역에서는 이 구매를 완료하는 데 사용할 수 있는 결제 방법이 없습니다. 계속 지켜봐 주시기 바랍니다!</string>
   <string name="purchase_legal_disclaimer">결제를 진행하면 결제 시 콘텐츠 제공에 동의하는 것으로 간주되며 이에 따라 철회 권리가 상실됩니다.</string>
   <string name="purchase_bonus_in_appc_disclaimer">보너스는 AppCoins 크레딧에 있습니다.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -1225,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">프로모션 코드</string>
   <string name="vip_program_referral_page_title">VIP 소개 프로그램</string>
   <string name="vip_program_referral_page_body">이 프로모션 코드를 커뮤니티 및 친구들과 공유하여 모든 사람이 게임을 하면서 얻을 수 있도록 하세요. 앱 내에서 구매할 때마다 <b>귀하와 귀하의 친구들은 다른 프로모션 외에도 %1$s% 보너스를 받게 됩니다.</b> <b> %2$s까지 유효합니다!</b></string>
-  <string name="vip_program_referral_page_body_2">이 코드를 사용하면 귀하와 귀하의 친구가 모든 구매에 대해 %s%% 보너스를 받습니다!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">친구에게 이 코드를 공유하기</string>
   <string name="vip_program_referral_page_only_app_title">다음에서 구매하는 경우에만 해당</string>
   <string name="vip_program_referral_page_earned_body">%3$s 소개에서 %1$s%2$s 획득</string>
@@ -1238,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP 소개 코드 사용 가능!</string>
   <string name="vip_program_referral_notification_body">커뮤니티와 코드를 공유하여 게임을 하면서 돈을 벌 수 있습니다!</string>
   <string name="vip_program_title_vip_offer">VIP 제안</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">AppCoins과 호환되는 앱이나 게임에서 지갑을 충전하거나 구매하세요.</string>

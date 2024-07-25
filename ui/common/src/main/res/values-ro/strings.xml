@@ -41,6 +41,7 @@
   <string name="title_delete_account">Ești sigur că vrei să elimini acest portofel?</string>
   <string name="twitter">X</string>
   <string name="telegram">Grup Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunitate</string>
   <string name="title_opensource">Dezvoltare Open Source</string>
@@ -679,12 +680,20 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Cu această metodă de plată vei plăti o taxă de procesare și TVA.</string>
   <string name="purchase_fee_included_body">taxe incluse</string>
   <string name="purchase_error_one_wallet_generic">Am întâmpinat o problemă cu plata ta Wallet One. Încearcă din nou sau folosește o metodă de plată diferită.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Disponibilă doar pentru alimentări.</string>
   <string name="purchase_payment_method_minimum_amount">Disponibilă doar pentru achizițiile peste %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Nedisponibilă pentru această achiziție.</string>
   <string name="purchase_error_no_method_available_body">Momentan, nu există metode de plată disponibile pentru a finaliza această achiziție în regiunea ta. Fii pe fază!</string>
   <string name="purchase_legal_disclaimer">Continuând cu efectuarea acestei plăți, ești de acord să ți se furnizeze conținutul în urma plății și, prin urmare, îți pierzi dreptul de retragere.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonusul este în AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -1243,7 +1252,7 @@
   <string name="vip_program_promo_code_tag">Cod promo</string>
   <string name="vip_program_referral_page_title">Program de referință VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %1$s%% bonus</b> on top of other active promotions. <b>Valid until %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">You and your friends get %s%% bonus in all purchases when using this code!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Distribuie acest cod prietenilor tăi</string>
   <string name="vip_program_referral_page_only_app_title">Only for purchases on</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s câștigați din %3$s referințe</string>
@@ -1256,6 +1265,7 @@
   <string name="vip_program_referral_notification_title">Cod de recomandare VIP disponibil!</string>
   <string name="vip_program_referral_notification_body">Distribuie codul tău în comunitatea ta și toată lumea va câștiga în timp ce se joacă!</string>
   <string name="vip_program_title_vip_offer">Ofertă VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
   <string name="intro_welcome_body">Alimentează-ți portofelul sau fă o achiziție în orice aplicație sau joc compatibil cu AppCoins.</string>

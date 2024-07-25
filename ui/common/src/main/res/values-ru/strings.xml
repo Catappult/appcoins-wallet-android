@@ -41,6 +41,7 @@
   <string name="title_delete_account">Вы уверены, что хотите удалить этот кошелек?</string>
   <string name="twitter">X</string>
   <string name="telegram">Группа Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Сообщество</string>
   <string name="title_opensource">Разработка с открытым исходным кодом</string>
@@ -679,12 +680,21 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Используя этот способ оплаты, вы платите комиссию за обработку и НДС.</string>
   <string name="purchase_fee_included_body">сборы включены</string>
   <string name="purchase_error_one_wallet_generic">Возникла проблема с вашим платежом через Wallet One. Пожалуйста, попробуйте еще раз или используйте другой способ оплаты.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Доступно только для пополнения счета.</string>
   <string name="purchase_payment_method_minimum_amount">Только для покупок больше %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Недоступно для этой покупки.</string>
   <string name="purchase_error_no_method_available_body">На данный момент в вашем регионе нет доступных способов оплаты для совершения этой покупки. Следите за обновлениями!</string>
   <string name="purchase_legal_disclaimer">Продолжая оплату, вы соглашаетесь и соглашаетесь на предоставление контента после оплаты и тем самым теряете право на отказ.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Бонус вы получаете в кредитах AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="few">It may take up to %s days.</item>
+    <item quantity="many">It may take up to %s days.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -1252,7 +1262,7 @@
   <string name="vip_program_promo_code_tag">Промо-код</string>
   <string name="vip_program_referral_page_title">Реферальная программа VIP</string>
   <string name="vip_program_referral_page_body">Поделитесь этим промо-кодом со своим сообществом и друзьями, чтобы каждый мог зарабатывать, играя. За каждую совершенную ими покупку в приложении <b>вы и ваши друзья будете получать бонус %1$s%%</b> в дополнение к другим активным акциям. <b>Действует до %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">При использовании этого кода вы и ваши друзья получаете бонус %s%% за все покупки!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Поделитесь этим кодом с друзьями</string>
   <string name="vip_program_referral_page_only_app_title">Только для покупок в</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s заработано от %3$s рефералов</string>
@@ -1265,6 +1275,7 @@
   <string name="vip_program_referral_notification_title">Доступен реферальный VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поделитесь своим кодом со своим сообществом, чтобы вы все зарабатывали, играя!</string>
   <string name="vip_program_title_vip_offer">VIP-предложение</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом приложении или игре, совместимом с AppCoins.</string>

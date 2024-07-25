@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -194,7 +195,7 @@ fun SaveOnDeviceOptions(
   ) {
     Column {
       Column(
-        Modifier.padding(start = 24.dp, bottom = 12.dp, end = 24.dp, top = 24.dp),
+        Modifier.padding(start = 24.dp, bottom = 2.dp, end = 24.dp, top = 24.dp),
         horizontalAlignment = Alignment.Start
       ) {
         Text(
@@ -217,12 +218,13 @@ fun SaveOnDeviceOptions(
           validEmail = true
         }
 
-        CheckboxCommunicationEmail(
-          checked = checkedCommunicationState.value,
-          onCheckedChange = { checkedCommunicationState.value = it }
-        )
-
       }
+      CheckboxCommunicationEmail(
+        checked = checkedCommunicationState.value,
+        startPadding = 12.dp,
+        endPadding = 24.dp,
+        onCheckedChange = { checkedCommunicationState.value = it }
+      )
     }
 
     Column {
@@ -272,10 +274,15 @@ fun SaveOnDeviceOptions(
 }
 
 @Composable
-fun CheckboxCommunicationEmail(checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+fun CheckboxCommunicationEmail(
+  checked: Boolean,
+  startPadding: Dp,
+  endPadding: Dp,
+  onCheckedChange: (Boolean) -> Unit
+) {
   Row(
     verticalAlignment = Alignment.Top,
-    modifier = Modifier.padding(bottom = 8.dp)
+    modifier = Modifier.padding(bottom = 16.dp, start = startPadding, end = endPadding)
   ) {
     Checkbox(
       checked = checked,
@@ -289,8 +296,9 @@ fun CheckboxCommunicationEmail(checked: Boolean, onCheckedChange: (Boolean) -> U
     Text(
       text = stringResource(id = R.string.mail_list_card_body),
       style = WalletTypography.medium.sp12,
+      color = WalletColors.styleguide_dark_grey,
       modifier = Modifier
-        .padding(start = 0.dp, top = 12.dp)
+        .padding(start = 0.dp, top = 8.dp)
     )
   }
 }
@@ -298,5 +306,5 @@ fun CheckboxCommunicationEmail(checked: Boolean, onCheckedChange: (Boolean) -> U
 @Preview
 @Composable
 fun BackupSaveOptionsScreenPreview() {
-  BackupSaveOptionsScreen(PaddingValues(0.dp), true, {}) {}
+  BackupSaveOptionsScreen(PaddingValues(0.dp), false, {}) {}
 }

@@ -41,6 +41,7 @@
   <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram-groep</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Gemeenschap</string>
   <string name="title_opensource">Open source-ontwikkeling</string>
@@ -679,12 +680,19 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Met deze betaalmethode betaal je verwerkingskosten en btw.</string>
   <string name="purchase_fee_included_body">inclusief kosten</string>
   <string name="purchase_error_one_wallet_generic">Er is een probleem opgetreden met je Wallet One-betaling. Probeer het opnieuw of gebruik een andere betaalmethode.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Alleen beschikbaar voor opwaarderingen.</string>
   <string name="purchase_payment_method_minimum_amount">Alleen voor aankopen van meer dan %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Niet beschikbaar voor deze aankoop.</string>
   <string name="purchase_error_no_method_available_body">Op dit moment zijn er in jouw regio geen betaalmethoden beschikbaar om deze aankoop te voltooien. Blijf ons volgen voor updates!</string>
   <string name="purchase_legal_disclaimer">Door de betaling uit te voeren, ga je ermee akkoord dat de content na betaling aan je wordt geleverd en je daarmee je herroepingsrecht verliest.</string>
   <string name="purchase_bonus_in_appc_disclaimer">De bonus is in AppCoins Credits.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -1234,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Actiecode</string>
   <string name="vip_program_referral_page_title">VIP-verwijzingsprogramma</string>
   <string name="vip_program_referral_page_body">Deel deze actiecode met je community en vrienden zodat iedereen geld kan verdienen tijdens het spelen. Voor elke in-app aankoop die ze doen, <b>ontvangen jij en je vrienden %1$s%% bonus</b> bovenop andere lopende acties. <b>Geldig tot %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Jij en je vrienden krijgen %s%% bonus bij alle aankopen als je deze code gebruikt!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Deel deze code met je vrienden</string>
   <string name="vip_program_referral_page_only_app_title">Alleen voor aankopen in</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s verdiend met %3$s verwijzingen</string>
@@ -1247,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">VIP-verwijzingscode beschikbaar!</string>
   <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen AppCoins kan verdienen!</string>
   <string name="vip_program_title_vip_offer">VIP-aanbieding</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
   <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die AppCoins ondersteunt.</string>

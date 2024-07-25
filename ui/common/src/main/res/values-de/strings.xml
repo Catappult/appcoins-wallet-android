@@ -41,6 +41,7 @@
   <string name="title_delete_account">Bist du sicher, dass du diese Wallet entfernen willst?</string>
   <string name="twitter">X</string>
   <string name="telegram">Telegram Gruppe</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Open-Source-Entwicklung</string>
@@ -679,12 +680,19 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Bei dieser Zahlungsmethode zahlst du eine Bearbeitungsgebühr und die Mehrwertsteuer.</string>
   <string name="purchase_fee_included_body">inklusive Gebühren</string>
   <string name="purchase_error_one_wallet_generic">Es gab ein Problem mit deiner Wallet One-Zahlung. Bitte versuche es erneut oder verwende eine andere Zahlungsmethode.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Nur verfügbar für Aufladungen.</string>
   <string name="purchase_payment_method_minimum_amount">Nur für Käufe über %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Für diesen Kauf nicht verfügbar.</string>
   <string name="purchase_error_no_method_available_body">Im Moment gibt es in deiner Region noch keine Zahlungsmöglichkeiten, um diesen Kauf abzuschließen. Bleib dran!</string>
   <string name="purchase_legal_disclaimer">Wenn du mit der Zahlung fortfährst, erklärst du dich damit einverstanden, dass dir der Inhalt nach der Zahlung geliefert wird und du dein Widerrufsrecht verlierst.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Der Bonus wird in AppCoins Credits ausgezahlt.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="one">It may take up to %s day.</item>
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -1234,7 +1242,7 @@
   <string name="vip_program_promo_code_tag">Promotion-Code</string>
   <string name="vip_program_referral_page_title">VIP-Empfehlungsprogramm</string>
   <string name="vip_program_referral_page_body">Teile diesen Promo-Code mit deiner Community und deinen Freunden, damit jeder beim Spielen Geld verdienen kann. Für jeden In-App-Kauf, den sie tätigen, erhalten sowohl <b>du als auch deine Freunde %1$s%% Bonus</b> zusätzlich zu anderen aktiven Aktionen. <b>Gültig bis %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Du und deine Freunde erhalten %s%% Bonus auf alle Käufe, wenn ihr diesen Code benutzt!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Teile diesen Code mit deinen Freunden</string>
   <string name="vip_program_referral_page_only_app_title">Nur für Käufe bei</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s erhalten für %3$s Empfehlungen</string>
@@ -1247,6 +1255,7 @@
   <string name="vip_program_referral_notification_title">VIP-Empfehlungscode verfügbar!</string>
   <string name="vip_program_referral_notification_body">Teile deinen Code mit deiner Community, damit ihr alle beim Spielen verdient!</string>
   <string name="vip_program_title_vip_offer">VIP-Angebot</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Herzlich willkommen bei der AppCoins Wallet</string>
   <string name="intro_welcome_body">Lade deine Wallet auf oder tätige einen Kauf in einer AppCoins-kompatiblen Anwendung oder einem Spiel.</string>

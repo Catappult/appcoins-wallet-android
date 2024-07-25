@@ -41,6 +41,7 @@
   <string name="title_delete_account">本当にこのウォレットを削除しますか？</string>
   <string name="twitter">X</string>
   <string name="telegram">テレグラムグループ</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">コミュニティ</string>
   <string name="title_opensource">ソース開発を開く</string>
@@ -679,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">この支払い方法では、手数料と付加価値税を支払うことになります。</string>
   <string name="purchase_fee_included_body">手数料込み</string>
   <string name="purchase_error_one_wallet_generic">Wallet Oneのお支払いに問題が発生しました。もう一度お試しいただくか、別のお支払い方法をご利用ください。</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">トップアップにのみ利用可能。</string>
   <string name="purchase_payment_method_minimum_amount">%s以上の購入に限ります。</string>
   <string name="purchase_payment_method_not_availble_generic">今回の購入ではご利用いただけません。</string>
   <string name="purchase_error_no_method_available_body">現時点では、お住まいの地域でこの購入を完了するための支払い方法はありません。ご期待ください！</string>
   <string name="purchase_legal_disclaimer">お支払いを完了することにより、お支払いと同時にコンテンツが提供されることに同意し、承諾したものとみなされます。</string>
   <string name="purchase_bonus_in_appc_disclaimer">ボーナスはAppCoinsクレジットで支払われます。</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -1225,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">プロモーションコード</string>
   <string name="vip_program_referral_page_title">VIP紹介プログラム</string>
   <string name="vip_program_referral_page_body">このプロモコードをあなたのコミュニティやお友達にシェアして、みんなでプレーしながら獲得しましょう。アプリ内課金をするごとに、<b>あなたとお友達の両方に、他のアクティブなプロモーションに加えて、%1$s%%ボーナス</b>が付与されます。<b>有効期限は %2$s</b> です！</string>
-  <string name="vip_program_referral_page_body_2">このコードを使用すると、あなたとあなたのお友達は、すべての購入で%s%のボーナスを得ることができます！</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">このコードを友達にシェア</string>
   <string name="vip_program_referral_page_only_app_title">次でのご購入に限ります</string>
   <string name="vip_program_referral_page_earned_body">%3$sの紹介から%1$s%2$s を得ました</string>
@@ -1238,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">VIP紹介コードが利用可能です！</string>
   <string name="vip_program_referral_notification_body">あなたのコードをコミュニティで共有し、遊びながら収入を得ることができます！</string>
   <string name="vip_program_title_vip_offer">VIPオファー</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
   <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>

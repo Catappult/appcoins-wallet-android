@@ -41,6 +41,7 @@
   <string name="title_delete_account">Anda yakin ingin menghapus dompet ini?</string>
   <string name="twitter">X</string>
   <string name="telegram">Grup Telegram</string>
+  <string name="discord">Discord</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komunitas</string>
   <string name="title_opensource">Pengembangan Open Source</string>
@@ -679,12 +680,18 @@
   <string name="purchase_fee_supported_currency_unknown_disclaimer">Dengan metode pembayaran ini, Anda akan membayar biaya pemrosesan dan PPN.</string>
   <string name="purchase_fee_included_body">sudah termasuk biaya</string>
   <string name="purchase_error_one_wallet_generic">Terjadi masalah dengan pembayaran Wallet One Anda. Silakan coba lagi atau gunakan metode pembayaran lain.</string>
+  <string name="purchase_error_open_banking_wallet_generic">There was a problem with your payment. Please try again or use a different payment method.</string>
   <string name="purchase_payment_method_top_ups_only">Hanya tersedia untuk isi ulang.</string>
   <string name="purchase_payment_method_minimum_amount">Hanya untuk pembelian di atas %s.</string>
   <string name="purchase_payment_method_not_availble_generic">Tidak tersedia pada pembelian ini.</string>
   <string name="purchase_error_no_method_available_body">Saat ini, tidak tersedia metode pembayaran di wilayah Anda untuk menyelesaikan pembelian ini. Pantau terus!</string>
   <string name="purchase_legal_disclaimer">Dengan melanjutkan pembayaran, Anda menyetujui untuk diberikan konten setelah pembayaran, sehingga Anda kehilangan hak penarikan.</string>
   <string name="purchase_bonus_in_appc_disclaimer">Bonus berupa Kredit AppCoins.</string>
+  <plurals name="purchase_bank_transfer_time_disclaimer">
+    <item quantity="other">It may take up to %s days.</item>
+  </plurals>
+  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -1225,7 +1232,7 @@
   <string name="vip_program_promo_code_tag">Kode promo</string>
   <string name="vip_program_referral_page_title">Program Referral VIP</string>
   <string name="vip_program_referral_page_body">Bagikan kode promo ini dengan komunitas dan teman Anda agar semua orang bisa memperoleh penghasilan saat bermain. Untuk setiap pembelian dalam aplikasi yang mereka lakukan, <b>Anda dan teman Anda akan menerima bonus sebesar %1$s%%</b>, di samping promosi aktif lainnya, selama sebulan penuh. <b>Berlaku sampai %2$s</b>!</string>
-  <string name="vip_program_referral_page_body_2">Anda dan teman Anda mendapatkan bonus %s%% di semua pembelian saat menggunakan kode ini!</string>
+  <string name="vip_program_referral_page_body_2">Share this code with your friends and both of you will get a %s%% bonus in all purchases they make.</string>
   <string name="vip_program_referral_page_share_title">Bagikan kode ini dengan teman Anda</string>
   <string name="vip_program_referral_page_only_app_title">Hanya untuk pembelian di</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh dari %3$s referral</string>
@@ -1238,6 +1245,7 @@
   <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
   <string name="vip_program_title_vip_offer">Penawaran VIP</string>
+  <string name="vip_program_code_error_body">You cannot use your own VIP code. Share it with your friends!</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>
