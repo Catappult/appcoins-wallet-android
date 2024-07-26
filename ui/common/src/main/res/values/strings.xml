@@ -742,7 +742,7 @@
     <item quantity="one">It may take up to %s day.</item>
     <item quantity="other">It may take up to %s days.</item>
   </plurals>
-  <string name="purchase_bank_transfer_success_disclaimer">%s in AppCoins Credits will be deposited in your account.</string>
+  <string name="purchase_bank_transfer_success_disclaimer">Your bank is processing your transaction. If all the information is correct, %1$s in AppCoins Credits will be deposited in your account along with a %2$s bonus in AppCoins Credits.</string>
   <string name="purchase_bank_transfer_success_bonus"> You\'ll receive a bonus of %s in AppCoins Credits.</string>
 
 
