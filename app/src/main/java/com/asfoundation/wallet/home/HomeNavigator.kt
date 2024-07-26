@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet.home
+package com.asfoundation.wallet.home
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -17,7 +17,7 @@ import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
-import com.asfoundation.wallet.wallet.home.bottom_sheet.HomeManageWalletBottomSheetFragment
+import com.asfoundation.wallet.home.bottom_sheet.HomeManageWalletBottomSheetFragment
 import javax.inject.Inject
 
 class HomeNavigator

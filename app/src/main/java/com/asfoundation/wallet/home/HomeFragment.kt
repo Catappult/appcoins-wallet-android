@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet.home
+package com.asfoundation.wallet.home
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -74,8 +74,8 @@ import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
-import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
-import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.asfoundation.wallet.home.HomeViewModel.UiState
+import com.asfoundation.wallet.home.HomeViewModel.UiState.Success
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
