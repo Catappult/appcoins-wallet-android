@@ -129,43 +129,6 @@ class TrueLayerTopupFragment() : BasePageViewFragment() {
     }
   }
 
-//  private fun startWebViewAuthorization(htmlData: String) {   //TODO remove
-//    val intent = WebViewActivity.newIntentFromData(requireActivity(), htmlData)
-//    resultAuthLauncher.launch(intent)
-//  }
-
-//  private fun registerWebViewResult() {    //TODO remove
-//    resultAuthLauncher =
-//      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//        when {
-//          result.data?.dataString?.contains(TrueLayerReturnSchemas.SUCCESS.schema) == true -> {
-//            Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-//            viewModel.waitForSuccess(
-//              viewModel.uid,
-//              amount,
-//              false
-//            )
-//          }
-//
-//          result.data?.dataString?.contains(TrueLayerReturnSchemas.ERROR.schema) == true -> {
-//            Log.d(this.tag, "startWebViewAuthorization ERROR: ${result.data ?: ""}")
-//            viewModel._state
-//              .postValue(
-//                TrueLayerTopupViewModel.State.Error(
-//                  R.string.purchase_error_one_wallet_generic
-//                )
-//              )
-//          }
-//
-//          result.resultCode == Activity.RESULT_CANCELED -> {
-//            Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
-//            close()
-//          }
-//
-//        }
-//      }
-//  }
-
   private fun handleSuccess(pendingFinalConfirmation: Boolean = true) {
     val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus, pendingFinalConfirmation)
     navigator.popView(bundle)
