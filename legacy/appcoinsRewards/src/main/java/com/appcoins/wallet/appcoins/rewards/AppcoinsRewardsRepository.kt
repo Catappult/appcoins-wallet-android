@@ -9,13 +9,13 @@ interface AppcoinsRewardsRepository {
     walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
     sku: String?, type: String, entityOemId: String?,
     entityDomain: String?, packageName: String, payload: String?, callback: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?
+    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
   ): Single<Transaction>
 
   fun sendCredits(
     toAddress: String, walletAddress: String, signature: String, amount: BigDecimal,
     origin: String,
-    type: String, packageName: String
+    type: String, packageName: String, guestWalletId: String?
   ): Single<Pair<Status, Transaction>>
 
   enum class Status {

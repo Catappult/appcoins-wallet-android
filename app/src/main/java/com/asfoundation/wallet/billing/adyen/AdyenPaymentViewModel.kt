@@ -494,7 +494,8 @@ class AdyenPaymentViewModel @Inject constructor(
         sku = paymentData.transactionBuilder.skuId,
         callbackUrl = paymentData.transactionBuilder.callbackUrl,
         transactionType = paymentData.transactionBuilder.type,
-        referrerUrl = paymentData.transactionBuilder.referrerUrl
+        referrerUrl = paymentData.transactionBuilder.referrerUrl,
+        guestWalletId = paymentData.transactionBuilder.guestWalletId,
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -582,6 +583,7 @@ class AdyenPaymentViewModel @Inject constructor(
             callbackUrl = paymentData.transactionBuilder.callbackUrl,
             transactionType = paymentData.transactionBuilder.type,
             referrerUrl = paymentData.transactionBuilder.referrerUrl,
+            guestWalletId = paymentData.transactionBuilder.guestWalletId,
           )
         }
       }

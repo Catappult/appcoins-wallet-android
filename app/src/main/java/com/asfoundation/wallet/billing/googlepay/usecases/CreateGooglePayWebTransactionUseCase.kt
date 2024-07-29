@@ -50,6 +50,7 @@ class CreateGooglePayWebTransactionUseCase @Inject constructor(
             userWallet = address,
             referrerUrl = transactionBuilder.referrerUrl,
             returnUrl = returnUrl,
+            guestWalletId = transactionBuilder.guestWalletId,
           )
         }
       }

@@ -12,11 +12,12 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
     toAddress: String, walletAddress: String, signature: String,
     amount: BigDecimal,
     origin: String, type: String,
-    packageName: String
+    packageName: String,
+    guestWalletId: String?
   ): Single<Pair<AppcoinsRewardsRepository.Status, Transaction>> {
     return remoteRepository.sendCredits(
       toAddress, walletAddress, signature, amount, origin, type,
-      packageName
+      packageName, guestWalletId
     )
       .map { Pair(AppcoinsRewardsRepository.Status.SUCCESS, it) }
       .onErrorReturn { Pair(map(it), Transaction.notFound()) }
@@ -26,13 +27,13 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
     walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
     sku: String?, type: String, entityOemId: String?,
     entityDomain: String?, packageName: String, payload: String?, callback: String?,
-    orderReference: String?, referrerUrl: String?, productToken: String?
+    orderReference: String?, referrerUrl: String?, productToken: String?, guestWalletId: String?
   )
       : Single<Transaction> {
     return remoteRepository.pay(
       walletAddress, signature, amount, origin, sku,
       type, entityOemId, entityDomain, packageName, payload, callback,
-      orderReference, referrerUrl, productToken
+      orderReference, referrerUrl, productToken, guestWalletId
     )
   }
 

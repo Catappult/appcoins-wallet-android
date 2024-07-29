@@ -10,5 +10,5 @@ data class LocalPaymentData(
   val orderReference: String?, val payload: String?, val origin: String?,
   val paymentMethodIconUrl: String?, val label: String?,
   val async: Boolean, val referrerUrl: String?,
-  val gamificationLevel: Int
+  val gamificationLevel: Int, val guestWalletId: String?,
 )

@@ -23,7 +23,8 @@ class VkPayRepository @Inject constructor(
     origin: String?, packageName: String?, metadata: String?, sku: String?,
     callbackUrl: String?, transactionType: String,
     entityOemId: String?, entityDomain: String?, entityPromoCode: String?,
-    userWallet: String?, referrerUrl: String?, method: String?, email: String, phone: String
+    userWallet: String?, referrerUrl: String?, guestWalletId: String?,
+    method: String?, email: String, phone: String
   ): Single<VkPayTransaction> {
     return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
       .flatMap { ewt ->
@@ -44,6 +45,7 @@ class VkPayRepository @Inject constructor(
             entityPromoCode = entityPromoCode,
             user = userWallet,
             referrerUrl = referrerUrl,
+            guestWalletId = guestWalletId,
             method = method,
             email = email.ifBlank { null },
             phone = phone.ifBlank { null }
